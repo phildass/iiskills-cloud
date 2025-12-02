@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
+<<<<<<< HEAD
 @tailwind utilities;
+=======
+@tailwind utilities;
+
+body {
+  font-family: 'Inter', Arial, sans-serif;
+  background: #F8F9FA;
+  color: #24272a;
+}
+>>>>>>> be03ef6dd2fd53272582227afc86125b1216bfcb
