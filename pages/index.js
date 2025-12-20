@@ -2,43 +2,234 @@ import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import Link from 'next/link'
 import Image from 'next/image'
+import Head from 'next/head'
 
 export default function Home() {
   return (
     <>
+      <Head>
+        <title>iiskills.cloud - Indian Institute of Professional Skills Development</title>
+        <meta name="description" content="Education for All, Online and Affordable. Professional skills development at just ₹99 + GST per course. Part of Viksit Bharat initiative." />
+      </Head>
       <Navbar />
-      <main className="max-w-5xl mx-auto px-4 py-12">
-        <div className="flex flex-col md:flex-row items-center">
-          <div className="flex-1 mb-10 md:mb-0 md:mr-10">
-            <h1 className="text-4xl font-bold text-primary mb-4">
-              Indian Institute of Professional Skills Development
-            </h1>
-            <p className="mb-6 text-lg">
-              Elevate your skills. Explore professional applications and enterprise solutions.
+      <main>
+        {/* Hero Section */}
+        <section className="bg-gradient-to-r from-primary to-accent text-white py-16">
+          <div className="max-w-6xl mx-auto px-4">
+            <div className="flex flex-col md:flex-row items-center">
+              <div className="flex-1 mb-8 md:mb-0 md:mr-10 text-center md:text-left">
+                <h1 className="text-5xl font-bold mb-4">iiskills.cloud</h1>
+                <h2 className="text-3xl font-semibold mb-6">
+                  Indian Institute of Professional Skills Development
+                </h2>
+                <p className="text-xl mb-8">
+                  Education for All, Online and Affordable
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                  <Link href="/courses" className="inline-block bg-white text-primary px-8 py-4 rounded-lg font-bold shadow-lg hover:bg-gray-100 transition text-center">
+                    Explore Courses
+                  </Link>
+                  <Link href="/certification" className="inline-block bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-bold hover:bg-white hover:text-primary transition text-center">
+                    Learn About Certification
+                  </Link>
+                </div>
+              </div>
+              <div className="flex-1 text-center">
+                <Image src="/images/iiskills-logo.png" alt="iiskills Logo" width={200} height={200} className="mx-auto" />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Core Purpose & Vision Section */}
+        <section className="py-16 bg-white">
+          <div className="max-w-6xl mx-auto px-4">
+            <h2 className="text-4xl font-bold text-primary text-center mb-12">Our Vision for Viksit Bharat</h2>
+            <div className="grid md:grid-cols-2 gap-8">
+              <div className="bg-neutral p-8 rounded-lg shadow">
+                <h3 className="text-2xl font-bold text-accent mb-4">🇮🇳 Building a Developed India</h3>
+                <p className="text-charcoal leading-relaxed">
+                  We are committed to the vision of <strong>Viksit Bharat</strong> (Developed India) by empowering every Indian citizen with the skills needed for personal and professional growth. Our mission is to bridge the skill gap and create opportunities for all.
+                </p>
+              </div>
+              
+              <div className="bg-neutral p-8 rounded-lg shadow">
+                <h3 className="text-2xl font-bold text-accent mb-4">🎯 Skill Enhancement Mission</h3>
+                <p className="text-charcoal leading-relaxed">
+                  We believe in democratizing education and making quality skill development accessible to everyone. Every course is designed to provide <strong>immediately applicable professional and personal skills</strong> that transform careers and lives.
+                </p>
+              </div>
+
+              <div className="bg-neutral p-8 rounded-lg shadow">
+                <h3 className="text-2xl font-bold text-accent mb-4">🌟 Opportunity for All</h3>
+                <p className="text-charcoal leading-relaxed">
+                  Every Indian deserves the opportunity to upgrade their abilities and unlock their potential. We provide pathways to success regardless of background, location, or economic status.
+                </p>
+              </div>
+
+              <div className="bg-neutral p-8 rounded-lg shadow">
+                <h3 className="text-2xl font-bold text-accent mb-4">💪 Empowerment Through Learning</h3>
+                <p className="text-charcoal leading-relaxed">
+                  Knowledge is power. By equipping individuals with modern skills and competencies, we enable them to compete globally, contribute to India's development, and achieve their dreams.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Key Value Proposition Section */}
+        <section className="py-16 bg-gradient-to-r from-blue-50 to-purple-50">
+          <div className="max-w-6xl mx-auto px-4">
+            <h2 className="text-4xl font-bold text-primary text-center mb-4">Why Choose iiskills.cloud?</h2>
+            <p className="text-xl text-center text-charcoal mb-12">Quality education that's accessible to everyone</p>
+            
+            <div className="grid md:grid-cols-3 gap-8 mb-12">
+              {/* Affordability */}
+              <div className="bg-white p-8 rounded-lg shadow-lg text-center">
+                <div className="text-5xl mb-4">💰</div>
+                <h3 className="text-2xl font-bold text-primary mb-4">Unbeatable Affordability</h3>
+                <div className="mb-4">
+                  <div className="text-4xl font-bold text-accent">₹99</div>
+                  <div className="text-gray-600">+ 18% GST</div>
+                  <div className="text-3xl font-bold text-primary mt-2">= ₹117</div>
+                  <div className="text-sm text-gray-600 mt-2">Per Course</div>
+                </div>
+                <p className="text-charcoal">
+                  Premium quality courses at a price anyone in India can afford. No hidden fees, no subscriptions.
+                </p>
+              </div>
+
+              {/* Accessibility */}
+              <div className="bg-white p-8 rounded-lg shadow-lg text-center">
+                <div className="text-5xl mb-4">🌐</div>
+                <h3 className="text-2xl font-bold text-primary mb-4">Truly Accessible</h3>
+                <ul className="text-left space-y-3 text-charcoal">
+                  <li className="flex items-start">
+                    <span className="text-accent mr-2">✓</span>
+                    <span><strong>100% Online:</strong> Learn from anywhere, anytime</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-accent mr-2">✓</span>
+                    <span><strong>Basic English:</strong> Simple language, easy to understand</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-accent mr-2">✓</span>
+                    <span><strong>Local Languages:</strong> Use browser translation for your language</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-accent mr-2">✓</span>
+                    <span><strong>Mobile Friendly:</strong> Learn on any device</span>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Practical Skills */}
+              <div className="bg-white p-8 rounded-lg shadow-lg text-center">
+                <div className="text-5xl mb-4">🚀</div>
+                <h3 className="text-2xl font-bold text-primary mb-4">Immediately Applicable</h3>
+                <p className="text-charcoal mb-4">
+                  Every course focuses on <strong>practical, real-world skills</strong> you can use right away:
+                </p>
+                <ul className="text-left space-y-2 text-charcoal">
+                  <li>• Professional communication</li>
+                  <li>• Digital marketing & tech skills</li>
+                  <li>• Leadership & management</li>
+                  <li>• Personal development</li>
+                  <li>• Career advancement tools</li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Pricing Transparency */}
+            <div className="bg-white p-8 rounded-lg shadow-lg max-w-2xl mx-auto">
+              <h3 className="text-2xl font-bold text-center text-accent mb-6">Transparent Pricing</h3>
+              <div className="space-y-3">
+                <div className="flex justify-between items-center border-b pb-2">
+                  <span className="text-lg">Course Price</span>
+                  <span className="text-xl font-bold text-primary">₹99</span>
+                </div>
+                <div className="flex justify-between items-center border-b pb-2">
+                  <span className="text-lg">GST (18%)</span>
+                  <span className="text-xl font-bold text-primary">₹18</span>
+                </div>
+                <div className="flex justify-between items-center pt-2">
+                  <span className="text-2xl font-bold">Total Amount</span>
+                  <span className="text-3xl font-bold text-accent">₹117</span>
+                </div>
+              </div>
+              <p className="text-center text-gray-600 mt-4 italic">
+                Same affordable price for every course. Education for all Indians.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Featured Courses Preview */}
+        <section className="py-16 bg-white">
+          <div className="max-w-6xl mx-auto px-4">
+            <h2 className="text-4xl font-bold text-primary text-center mb-4">Featured Courses</h2>
+            <p className="text-xl text-center text-charcoal mb-12">Start your learning journey today</p>
+            
+            <div className="grid md:grid-cols-3 gap-8 mb-8">
+              <div className="bg-white rounded-lg shadow-lg p-6 border-t-4 border-primary">
+                <h3 className="font-bold text-xl mb-3 text-primary">Professional Communication Skills</h3>
+                <p className="text-charcoal mb-4">Master clear, confident communication in professional settings.</p>
+                <div className="text-sm text-gray-600 mb-4">
+                  <span>⏱️ 4 weeks</span> • <span className="text-accent font-semibold">Beginner</span>
+                </div>
+                <div className="text-2xl font-bold text-accent mb-4">₹117</div>
+                <Link href="/courses" className="block text-center bg-primary text-white py-2 rounded font-medium hover:bg-blue-700 transition">
+                  View Details
+                </Link>
+              </div>
+
+              <div className="bg-white rounded-lg shadow-lg p-6 border-t-4 border-accent">
+                <h3 className="font-bold text-xl mb-3 text-primary">Digital Marketing Fundamentals</h3>
+                <p className="text-charcoal mb-4">Learn SEO, social media, content marketing, and analytics.</p>
+                <div className="text-sm text-gray-600 mb-4">
+                  <span>⏱️ 6 weeks</span> • <span className="text-accent font-semibold">Beginner</span>
+                </div>
+                <div className="text-2xl font-bold text-accent mb-4">₹117</div>
+                <Link href="/courses" className="block text-center bg-accent text-white py-2 rounded font-medium hover:bg-purple-600 transition">
+                  View Details
+                </Link>
+              </div>
+
+              <div className="bg-white rounded-lg shadow-lg p-6 border-t-4 border-primary">
+                <h3 className="font-bold text-xl mb-3 text-primary">Leadership Development</h3>
+                <p className="text-charcoal mb-4">Build essential leadership qualities to inspire and lead teams.</p>
+                <div className="text-sm text-gray-600 mb-4">
+                  <span>⏱️ 8 weeks</span> • <span className="text-accent font-semibold">Intermediate</span>
+                </div>
+                <div className="text-2xl font-bold text-accent mb-4">₹117</div>
+                <Link href="/courses" className="block text-center bg-primary text-white py-2 rounded font-medium hover:bg-blue-700 transition">
+                  View Details
+                </Link>
+              </div>
+            </div>
+
+            <div className="text-center">
+              <Link href="/courses" className="inline-block bg-accent text-white px-10 py-4 rounded-lg font-bold text-lg hover:bg-purple-600 transition shadow-lg">
+                Browse All 20 Courses →
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* Call to Action */}
+        <section className="py-16 bg-gradient-to-r from-primary to-accent text-white">
+          <div className="max-w-4xl mx-auto px-4 text-center">
+            <h2 className="text-4xl font-bold mb-6">Ready to Transform Your Future?</h2>
+            <p className="text-2xl mb-8">
+              Join thousands of learners building skills for tomorrow
             </p>
-            <Link href="/apps" className="inline-block bg-accent text-white px-7 py-3 rounded font-bold shadow hover:bg-primary transition">
-              Explore Apps
-            </Link>
-          </div>
-          <div className="flex-1 text-center">
-            <Image src="/images/iiskills-logo.png" alt="Logo" width={175} height={175} />
-          </div>
-        </div>
-        <section className="mt-16">
-          <h2 className="text-2xl font-bold text-accent mb-6">Featured Apps</h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            {/* Replace with real apps */}
-            <div className="bg-white rounded-lg shadow p-6">
-              <h3 className="font-semibold text-lg mb-2 text-primary">SkillTracker</h3>
-              <p>Track, assess, and certify professional skills for individuals and teams.</p>
-            </div>
-            <div className="bg-white rounded-lg shadow p-6">
-              <h3 className="font-semibold text-lg mb-2 text-primary">Learning Hub</h3>
-              <p>Access courses, webinars, and resources for career advancement.</p>
-            </div>
-            <div className="bg-white rounded-lg shadow p-6">
-              <h3 className="font-semibold text-lg mb-2 text-primary">JobConnect</h3>
-              <p>Bridge the gap between skill development and job opportunities.</p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link href="/courses" className="inline-block bg-white text-primary px-10 py-4 rounded-lg font-bold text-lg hover:bg-gray-100 transition">
+                Get Started Now
+              </Link>
+              <Link href="/about" className="inline-block bg-transparent border-2 border-white text-white px-10 py-4 rounded-lg font-bold text-lg hover:bg-white hover:text-primary transition">
+                Learn More About Us
+              </Link>
             </div>
           </div>
         </section>
