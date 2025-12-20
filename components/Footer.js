@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 
 export default function Footer() {
   return (
@@ -35,13 +36,22 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="border-t border-gray-300 pt-6 text-center text-sm">
-          <p className="text-gray-600 mb-2">
+        {/* Bottom Bar with AI Cloud Logo */}
+        <div className="border-t border-gray-300 pt-6 text-center">
+          <div className="flex justify-center items-center mb-3">
+            <Image 
+              src="/images/ai-cloud-logo.png" 
+              alt="AI Cloud Enterprises" 
+              width={80} 
+              height={80}
+              className="opacity-90"
+            />
+          </div>
+          <p className="text-gray-600 text-sm mb-2">
             © {new Date().getFullYear()} AI Cloud Enterprises | Indian Institute of Professional Skills Development
           </p>
-          <p className="text-gray-600">
-            Project by <a href="https://aienter.in" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-semibold">AI Cloud Enterprises (AIEnter.in)</a>
+          <p className="text-gray-600 text-sm">
+            Project by <a href="https://aienter.in" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-semibold">AI Cloud Enterprises (AIEnter. in)</a>
           </p>
         </div>
       </div>
