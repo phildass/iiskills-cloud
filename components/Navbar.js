@@ -9,31 +9,26 @@ export default function Navbar() {
     <nav className="bg-white text-gray-800 px-6 py-3 shadow-md sticky top-0 z-50">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         {/* Logo and Brand */}
-        {/* Logo and Brand */}
-<Link href="/" className="flex items-center hover:opacity-90 transition gap-2">
-  {/* AI Cloud Enterprises Logo */}
-  <div className="relative w-12 h-12 flex-shrink-0">
-    <Image 
-      src="/images/ai-cloud-logo.png" 
-      alt="AI Cloud Enterprises Logo" 
-      fill
-      className="object-contain"
-    />
-  </div>
-  {/* iiskills Logo */}
-  <div className="relative w-10 h-10 flex-shrink-0">
-    <Image 
-      src="/images/iiskills-logo.png" 
-      alt="IISKILLS Logo" 
-      fill
-      className="object-contain"
-    />
-  </div>
-  <span className="font-bold text-xl text-gray-800">iiskills. cloud</span>
-</Link>
-            className="mr-2"
-          />
-          <span className="font-bold text-xl">iiskills. cloud</span>
+        <Link href="/" className="flex items-center hover:opacity-90 transition gap-2">
+          {/* AI Cloud Enterprises Logo */}
+          <div className="relative w-12 h-12 flex-shrink-0">
+            <Image 
+              src="/images/ai-cloud-logo.png" 
+              alt="AI Cloud Enterprises Logo" 
+              fill
+              className="object-contain"
+            />
+          </div>
+          {/* iiskills Logo */}
+          <div className="relative w-10 h-10 flex-shrink-0">
+            <Image 
+              src="/images/iiskills-logo.png" 
+              alt="IISKILLS Logo" 
+              fill
+              className="object-contain"
+            />
+          </div>
+          <span className="font-bold text-xl text-gray-800">iiskills. cloud</span>
         </Link>
 
         {/* Desktop Navigation */}
@@ -52,7 +47,7 @@ export default function Navbar() {
 
         {/* Mobile Menu Button */}
         <button 
-          className="md:hidden text-gray-800 focus:outline-none"
+          className="md: hidden text-gray-800 focus:outline-none"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
