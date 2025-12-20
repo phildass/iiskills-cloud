@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-import '../styles/globals.css'
-export default function App({ Component, pageProps }) {
-  return <Component {...pageProps} />
-=======
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import AppCard from '../components/AppCard'
@@ -39,5 +34,4 @@ export default function Apps() {
       <Footer />
     </>
   )
->>>>>>> be03ef6dd2fd53272582227afc86125b1216bfcb
 }
