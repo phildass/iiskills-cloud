@@ -35,13 +35,16 @@ export default function Navbar() {
         <div className="hidden md:flex space-x-6 font-medium items-center">
           <Link href="/" className="hover:text-primary transition">Home</Link>
           <Link href="/courses" className="hover:text-primary transition">Courses</Link>
-          <Link href="/certification" className="hover:text-primary transition">Certification</Link>
-          <Link href="/about" className="hover:text-primary transition">About</Link>
-          <Link href="/testimonials" className="hover:text-primary transition">Testimonials</Link>
-          <Link href="/blogs" className="hover:text-primary transition">Blog</Link>
-          <Link href="/contact" className="hover:text-primary transition">Contact</Link>
-          <Link href="/admin/login" className="bg-primary text-white px-4 py-2 rounded font-bold hover:bg-blue-700 transition">
-            Admin
+          {/* Desktop Navigation */}
+<div className="hidden md:flex space-x-6 font-medium items-center">
+  <Link href="/" className="hover:text-primary transition">Home</Link>
+  <Link href="/courses" className="hover:text-primary transition">Courses</Link>
+  <Link href="/certification" className="hover:text-primary transition">Certification</Link>
+  <Link href="/about" className="hover:text-primary transition">About</Link>
+  <Link href="/testimonials" className="hover:text-primary transition">Testimonials</Link>
+  <Link href="/blogs" className="hover:text-primary transition">Blog</Link>
+  <Link href="/contact" className="hover:text-primary transition">Contact</Link>
+</div>
           </Link>
         </div>
 
