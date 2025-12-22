@@ -168,41 +168,50 @@ export default function Home() {
         <section className="py-16 bg-white">
           <div className="max-w-6xl mx-auto px-4">
             <h2 className="text-4xl font-bold text-primary text-center mb-4">Featured Courses</h2>
-            <p className="text-xl text-center text-charcoal mb-12">Start your learning journey today</p>
+            <p className="text-xl text-center text-charcoal mb-12">Start your learning journey today - Many FREE courses available!</p>
             
             <div className="grid md:grid-cols-3 gap-8 mb-8">
               <div className="bg-white rounded-lg shadow-lg p-6 border-t-4 border-primary">
-                <h3 className="font-bold text-xl mb-3 text-primary">Professional Communication Skills</h3>
-                <p className="text-charcoal mb-4">Master clear, confident communication in professional settings.</p>
+                <h3 className="font-bold text-xl mb-3 text-primary">Learn AI</h3>
+                <p className="text-charcoal mb-4">Discover Artificial Intelligence fundamentals and practical applications.</p>
                 <div className="text-sm text-gray-600 mb-4">
-                  <span>⏱️ 4 weeks</span> • <span className="text-accent font-semibold">Beginner</span>
+                  <span>⏱️ 10 weeks</span> • <span className="text-accent font-semibold">Beginner</span>
                 </div>
-                <div className="text-2xl font-bold text-accent mb-4">₹117</div>
+                <div className="bg-green-50 border border-green-200 rounded p-2 mb-4">
+                  <p className="text-xs text-green-800 font-semibold">🎁 Free Sample Module</p>
+                </div>
                 <Link href="/courses" className="block text-center bg-primary text-white py-2 rounded font-medium hover:bg-blue-700 transition">
                   View Details
+                </Link>
+              </div>
+
+              <div className="bg-white rounded-lg shadow-lg p-6 border-t-4 border-green-500">
+                <div className="bg-green-500 text-white px-3 py-1 rounded-full text-xs font-bold inline-block mb-2">
+                  FREE COURSE
+                </div>
+                <h3 className="font-bold text-xl mb-3 text-primary">Learn To Earn</h3>
+                <p className="text-charcoal mb-4">Learn earning opportunities, freelancing, and creating income streams.</p>
+                <div className="text-sm text-gray-600 mb-4">
+                  <span>⏱️ 10 weeks</span> • <span className="text-accent font-semibold">Beginner</span>
+                </div>
+                <div className="bg-green-50 border border-green-200 rounded p-2 mb-4">
+                  <p className="text-xs text-green-800 font-semibold">🎁 Free Sample Module</p>
+                </div>
+                <Link href="/courses" className="block text-center bg-green-500 text-white py-2 rounded font-medium hover:bg-green-600 transition">
+                  Start Free Course
                 </Link>
               </div>
 
               <div className="bg-white rounded-lg shadow-lg p-6 border-t-4 border-accent">
-                <h3 className="font-bold text-xl mb-3 text-primary">Digital Marketing Fundamentals</h3>
-                <p className="text-charcoal mb-4">Learn SEO, social media, content marketing, and analytics.</p>
+                <h3 className="font-bold text-xl mb-3 text-primary">Learn Leadership</h3>
+                <p className="text-charcoal mb-4">Develop leadership qualities and team management skills.</p>
                 <div className="text-sm text-gray-600 mb-4">
-                  <span>⏱️ 6 weeks</span> • <span className="text-accent font-semibold">Beginner</span>
+                  <span>⏱️ 10 weeks</span> • <span className="text-accent font-semibold">Intermediate</span>
                 </div>
-                <div className="text-2xl font-bold text-accent mb-4">₹117</div>
+                <div className="bg-green-50 border border-green-200 rounded p-2 mb-4">
+                  <p className="text-xs text-green-800 font-semibold">🎁 Free Sample Module</p>
+                </div>
                 <Link href="/courses" className="block text-center bg-accent text-white py-2 rounded font-medium hover:bg-purple-600 transition">
-                  View Details
-                </Link>
-              </div>
-
-              <div className="bg-white rounded-lg shadow-lg p-6 border-t-4 border-primary">
-                <h3 className="font-bold text-xl mb-3 text-primary">Leadership Development</h3>
-                <p className="text-charcoal mb-4">Build essential leadership qualities to inspire and lead teams.</p>
-                <div className="text-sm text-gray-600 mb-4">
-                  <span>⏱️ 8 weeks</span> • <span className="text-accent font-semibold">Intermediate</span>
-                </div>
-                <div className="text-2xl font-bold text-accent mb-4">₹117</div>
-                <Link href="/courses" className="block text-center bg-primary text-white py-2 rounded font-medium hover:bg-blue-700 transition">
                   View Details
                 </Link>
               </div>
@@ -210,7 +219,7 @@ export default function Home() {
 
             <div className="text-center">
               <Link href="/courses" className="inline-block bg-accent text-white px-10 py-4 rounded-lg font-bold text-lg hover:bg-purple-600 transition shadow-lg">
-                Browse All 20 Courses →
+                Browse All 22 Courses →
               </Link>
             </div>
           </div>
