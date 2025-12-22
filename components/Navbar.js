@@ -34,8 +34,11 @@ export default function Navbar() {
         {/* Desktop Navigation */}
         <div className="hidden md:flex space-x-6 font-medium items-center">
           <Link href="/" className="hover:text-primary transition">Home</Link>
-          <Link href="/courses" className="hover: text-primary transition">Courses</Link>
+          <Link href="/courses" className="hover:text-primary transition">Courses</Link>
           <Link href="/certification" className="hover:text-primary transition">Certification</Link>
+          <Link href="http://ailearn.in/payments" target="_blank" rel="noopener noreferrer" className="bg-accent text-white px-4 py-2 rounded hover:bg-purple-600 transition font-bold">
+            Payments
+          </Link>
           <Link href="/about" className="hover:text-primary transition">About</Link>
           <Link href="/testimonials" className="hover:text-primary transition">Testimonials</Link>
           <Link href="/blogs" className="hover:text-primary transition">Blog</Link>
@@ -63,10 +66,13 @@ export default function Navbar() {
           <Link href="/" className="block hover:text-primary transition">Home</Link>
           <Link href="/courses" className="block hover:text-primary transition">Courses</Link>
           <Link href="/certification" className="block hover:text-primary transition">Certification</Link>
+          <Link href="http://ailearn.in/payments" target="_blank" rel="noopener noreferrer" className="block bg-accent text-white px-4 py-2 rounded hover:bg-purple-600 transition font-bold">
+            Payments
+          </Link>
           <Link href="/about" className="block hover:text-primary transition">About</Link>
           <Link href="/testimonials" className="block hover:text-primary transition">Testimonials</Link>
           <Link href="/blogs" className="block hover:text-primary transition">Blog</Link>
-          <Link href="/contact" className="block hover: text-primary transition">Contact</Link>
+          <Link href="/contact" className="block hover:text-primary transition">Contact</Link>
         </div>
       )}
     </nav>

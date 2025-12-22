@@ -1,8 +1,14 @@
 import Head from 'next/head'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
+import { useState } from 'react'
 
 export default function Certification() {
+  const [userName, setUserName] = useState('Your Name')
+  const [courseName, setCourseName] = useState('Course Name')
+  const [certificateNo, setCertificateNo] = useState('IIPS-2024-XXXX')
+  const [completionDate, setCompletionDate] = useState(new Date().toLocaleDateString('en-IN', { year: 'numeric', month: 'long', day: 'numeric' }))
+
   return (
     <>
       <Head>
@@ -11,11 +17,106 @@ export default function Certification() {
       </Head>
       <Navbar />
       
-      <main className="max-w-4xl mx-auto px-4 py-12">
+      <main className="max-w-7xl mx-auto px-4 py-12">
         <h1 className="text-4xl font-bold text-primary mb-6 text-center">Certification Information</h1>
         <p className="text-xl text-center text-charcoal mb-12">
           Earn recognized certifications that validate your skills
         </p>
+
+        {/* Certificate Template Section */}
+        <div className="mb-12">
+          <h2 className="text-3xl font-bold text-primary mb-6 text-center">Certificate Preview</h2>
+          
+          {/* Certificate */}
+          <div className="max-w-4xl mx-auto bg-white border-8 border-double border-primary p-8 md:p-12 rounded-lg shadow-2xl">
+            {/* Header with Logo */}
+            <div className="text-center mb-8">
+              <div className="flex justify-center mb-4">
+                <img src="/images/iiskills-logo.png" alt="iiskills Logo" className="h-20 w-20 object-contain" />
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold text-primary mb-2">Certificate of Completion</h2>
+              <p className="text-lg text-accent font-semibold">Indian Institute of Professional Skills Development</p>
+              <div className="mt-2 h-1 w-32 bg-accent mx-auto"></div>
+            </div>
+
+            {/* Certificate Body */}
+            <div className="text-center space-y-6 mb-8">
+              <p className="text-xl text-charcoal">This certificate is awarded to</p>
+              
+              <div className="my-6">
+                <p className="text-3xl md:text-4xl font-bold text-primary border-b-2 border-gray-300 pb-2 inline-block px-8">
+                  {userName}
+                </p>
+              </div>
+
+              <p className="text-lg text-charcoal">For having successfully completed the</p>
+
+              <div className="my-6">
+                <p className="text-2xl md:text-3xl font-bold text-accent">
+                  {courseName}
+                </p>
+              </div>
+
+              <p className="text-base text-charcoal italic">
+                Demonstrating dedication to professional development and mastery of essential skills
+              </p>
+            </div>
+
+            {/* Certificate Footer */}
+            <div className="grid md:grid-cols-2 gap-8 mt-12 pt-8 border-t border-gray-300">
+              <div className="text-center">
+                <p className="text-sm text-gray-600 mb-2">Certificate No.</p>
+                <p className="font-bold text-primary">{certificateNo}</p>
+              </div>
+              
+              <div className="text-center">
+                <p className="text-sm text-gray-600 mb-2">Date of Completion</p>
+                <p className="font-bold text-primary">{completionDate}</p>
+              </div>
+            </div>
+
+            {/* Signature */}
+            <div className="mt-12 text-center">
+              <div className="inline-block">
+                <div className="border-t-2 border-gray-400 pt-2 px-8">
+                  <p className="font-bold text-lg text-charcoal">Pradhyot Kumar</p>
+                  <p className="text-sm text-gray-600">Director</p>
+                  <p className="text-sm text-gray-600">Indian Institute of Professional Skills Development</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Interactive Controls */}
+          <div className="max-w-2xl mx-auto mt-8 bg-blue-50 p-6 rounded-lg">
+            <h3 className="text-xl font-bold text-primary mb-4 text-center">Preview Your Certificate</h3>
+            <p className="text-sm text-gray-600 mb-4 text-center">Enter your details below to see how your certificate will look</p>
+            
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-semibold text-charcoal mb-2">Your Name</label>
+                <input
+                  type="text"
+                  value={userName}
+                  onChange={(e) => setUserName(e.target.value)}
+                  className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary"
+                  placeholder="Enter your name"
+                />
+              </div>
+              
+              <div>
+                <label className="block text-sm font-semibold text-charcoal mb-2">Course Name</label>
+                <input
+                  type="text"
+                  value={courseName}
+                  onChange={(e) => setCourseName(e.target.value)}
+                  className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary"
+                  placeholder="Enter course name"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
 
         {/* Certification Requirements */}
         <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
@@ -127,40 +228,6 @@ export default function Certification() {
           <p className="text-yellow-900 font-semibold">
             While AI tools can be helpful for editing and refinement, the core creative work should come from you. This is how you truly develop as a writer or content creator.
           </p>
-        </div>
-
-        {/* Certificate Sample */}
-        <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
-          <h2 className="text-2xl font-bold text-accent mb-4">🏆 Your Digital Certificate</h2>
-          <p className="text-charcoal mb-4">
-            Upon successful completion, you'll receive a digital certificate that includes:
-          </p>
-          <ul className="space-y-2 mb-6">
-            <li className="flex items-start">
-              <span className="text-accent mr-2">•</span>
-              <span>Your name and achievement date</span>
-            </li>
-            <li className="flex items-start">
-              <span className="text-accent mr-2">•</span>
-              <span>Course name and skill area</span>
-            </li>
-            <li className="flex items-start">
-              <span className="text-accent mr-2">•</span>
-              <span>Unique certificate ID for verification</span>
-            </li>
-            <li className="flex items-start">
-              <span className="text-accent mr-2">•</span>
-              <span>Official iiskills.cloud seal</span>
-            </li>
-            <li className="flex items-start">
-              <span className="text-accent mr-2">•</span>
-              <span>Shareable on LinkedIn and other platforms</span>
-            </li>
-          </ul>
-          
-          <div className="bg-neutral p-6 rounded text-center">
-            <p className="text-gray-600 italic">Certificate preview coming soon</p>
-          </div>
         </div>
 
         {/* CTA */}
