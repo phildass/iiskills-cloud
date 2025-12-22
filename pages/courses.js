@@ -12,7 +12,8 @@ const coursesData = [
     duration: "4 weeks",
     level: "Beginner",
     price: 99,
-    gst: 18
+    gst: 18,
+    comingSoon: true
   },
   {
     id: 2,
@@ -22,7 +23,8 @@ const coursesData = [
     duration: "6 weeks",
     level: "Beginner",
     price: 99,
-    gst: 18
+    gst: 18,
+    comingSoon: true
   },
   {
     id: 3,
@@ -32,7 +34,8 @@ const coursesData = [
     duration: "5 weeks",
     level: "Intermediate",
     price: 99,
-    gst: 18
+    gst: 18,
+    comingSoon: true
   },
   {
     id: 4,
@@ -42,7 +45,8 @@ const coursesData = [
     duration: "4 weeks",
     level: "Beginner",
     price: 99,
-    gst: 18
+    gst: 18,
+    comingSoon: true
   },
   {
     id: 5,
@@ -52,7 +56,8 @@ const coursesData = [
     duration: "6 weeks",
     level: "Beginner",
     price: 99,
-    gst: 18
+    gst: 18,
+    comingSoon: true
   },
   {
     id: 6,
@@ -62,7 +67,8 @@ const coursesData = [
     duration: "8 weeks",
     level: "Beginner",
     price: 99,
-    gst: 18
+    gst: 18,
+    comingSoon: true
   },
   {
     id: 7,
@@ -72,7 +78,8 @@ const coursesData = [
     duration: "6 weeks",
     level: "Intermediate",
     price: 99,
-    gst: 18
+    gst: 18,
+    comingSoon: true
   },
   {
     id: 8,
@@ -82,7 +89,8 @@ const coursesData = [
     duration: "8 weeks",
     level: "Intermediate",
     price: 99,
-    gst: 18
+    gst: 18,
+    comingSoon: true
   },
   {
     id: 9,
@@ -92,7 +100,8 @@ const coursesData = [
     duration: "3 weeks",
     level: "Beginner",
     price: 99,
-    gst: 18
+    gst: 18,
+    comingSoon: true
   },
   {
     id: 10,
@@ -102,7 +111,8 @@ const coursesData = [
     duration: "6 weeks",
     level: "Beginner",
     price: 99,
-    gst: 18
+    gst: 18,
+    comingSoon: true
   },
   {
     id: 11,
@@ -112,7 +122,8 @@ const coursesData = [
     duration: "5 weeks",
     level: "Beginner",
     price: 99,
-    gst: 18
+    gst: 18,
+    comingSoon: true
   },
   {
     id: 12,
@@ -122,7 +133,8 @@ const coursesData = [
     duration: "6 weeks",
     level: "Beginner",
     price: 99,
-    gst: 18
+    gst: 18,
+    comingSoon: true
   },
   {
     id: 13,
@@ -132,7 +144,8 @@ const coursesData = [
     duration: "4 weeks",
     level: "Beginner",
     price: 99,
-    gst: 18
+    gst: 18,
+    comingSoon: true
   },
   {
     id: 14,
@@ -142,7 +155,8 @@ const coursesData = [
     duration: "4 weeks",
     level: "Beginner",
     price: 99,
-    gst: 18
+    gst: 18,
+    comingSoon: true
   },
   {
     id: 15,
@@ -152,7 +166,8 @@ const coursesData = [
     duration: "4 weeks",
     level: "Beginner",
     price: 99,
-    gst: 18
+    gst: 18,
+    comingSoon: true
   },
   {
     id: 16,
@@ -162,7 +177,8 @@ const coursesData = [
     duration: "6 weeks",
     level: "Beginner",
     price: 99,
-    gst: 18
+    gst: 18,
+    comingSoon: true
   },
   {
     id: 17,
@@ -172,7 +188,8 @@ const coursesData = [
     duration: "5 weeks",
     level: "Intermediate",
     price: 99,
-    gst: 18
+    gst: 18,
+    comingSoon: true
   },
   {
     id: 18,
@@ -182,7 +199,8 @@ const coursesData = [
     duration: "4 weeks",
     level: "Intermediate",
     price: 99,
-    gst: 18
+    gst: 18,
+    comingSoon: true
   },
   {
     id: 19,
@@ -192,7 +210,8 @@ const coursesData = [
     duration: "5 weeks",
     level: "Intermediate",
     price: 99,
-    gst: 18
+    gst: 18,
+    comingSoon: true
   },
   {
     id: 20,
@@ -202,7 +221,147 @@ const coursesData = [
     duration: "4 weeks",
     level: "Beginner",
     price: 99,
-    gst: 18
+    gst: 18,
+    comingSoon: true
+  },
+  // Learn Series Courses
+  {
+    id: 21,
+    name: "Learn Python Programming",
+    category: "Learn Series",
+    description: "Master Python from basics to advanced concepts. Build real-world projects and develop programming expertise.",
+    duration: "10 weeks",
+    level: "Beginner",
+    price: 99,
+    gst: 18,
+    comingSoon: true,
+    modules: [
+      { id: 1, title: "Introduction to Python", isFree: true },
+      { id: 2, title: "Variables and Data Types", isFree: false },
+      { id: 3, title: "Control Flow and Loops", isFree: false },
+      { id: 4, title: "Functions and Modules", isFree: false },
+      { id: 5, title: "Data Structures", isFree: false },
+      { id: 6, title: "Object-Oriented Programming", isFree: false },
+      { id: 7, title: "File Handling", isFree: false },
+      { id: 8, title: "Error Handling and Debugging", isFree: false },
+      { id: 9, title: "Libraries and Frameworks", isFree: false },
+      { id: 10, title: "Final Project", isFree: false }
+    ]
+  },
+  {
+    id: 22,
+    name: "Learn JavaScript",
+    category: "Learn Series",
+    description: "Become proficient in JavaScript, the language of the web. Learn modern ES6+ features and best practices.",
+    duration: "10 weeks",
+    level: "Beginner",
+    price: 99,
+    gst: 18,
+    comingSoon: true,
+    modules: [
+      { id: 1, title: "JavaScript Fundamentals", isFree: true },
+      { id: 2, title: "DOM Manipulation", isFree: false },
+      { id: 3, title: "Events and Event Handlers", isFree: false },
+      { id: 4, title: "Arrays and Objects", isFree: false },
+      { id: 5, title: "Functions and Scope", isFree: false },
+      { id: 6, title: "Asynchronous JavaScript", isFree: false },
+      { id: 7, title: "ES6+ Features", isFree: false },
+      { id: 8, title: "Working with APIs", isFree: false },
+      { id: 9, title: "Modern JavaScript Tools", isFree: false },
+      { id: 10, title: "Building a Web Application", isFree: false }
+    ]
+  },
+  {
+    id: 23,
+    name: "Learn Data Science",
+    category: "Learn Series",
+    description: "Explore data science fundamentals, analytics, visualization, and machine learning basics to make data-driven decisions.",
+    duration: "10 weeks",
+    level: "Intermediate",
+    price: 99,
+    gst: 18,
+    comingSoon: true,
+    modules: [
+      { id: 1, title: "Introduction to Data Science", isFree: true },
+      { id: 2, title: "Statistics for Data Science", isFree: false },
+      { id: 3, title: "Data Collection and Cleaning", isFree: false },
+      { id: 4, title: "Exploratory Data Analysis", isFree: false },
+      { id: 5, title: "Data Visualization", isFree: false },
+      { id: 6, title: "Introduction to Machine Learning", isFree: false },
+      { id: 7, title: "Regression and Classification", isFree: false },
+      { id: 8, title: "Clustering and Dimensionality Reduction", isFree: false },
+      { id: 9, title: "Model Evaluation and Optimization", isFree: false },
+      { id: 10, title: "Capstone Project", isFree: false }
+    ]
+  },
+  {
+    id: 24,
+    name: "Learn Web Development",
+    category: "Learn Series",
+    description: "Build modern, responsive websites from scratch. Learn HTML, CSS, JavaScript, and popular frameworks.",
+    duration: "10 weeks",
+    level: "Beginner",
+    price: 99,
+    gst: 18,
+    comingSoon: true,
+    modules: [
+      { id: 1, title: "HTML Fundamentals", isFree: true },
+      { id: 2, title: "CSS Styling and Layouts", isFree: false },
+      { id: 3, title: "Responsive Design", isFree: false },
+      { id: 4, title: "JavaScript Basics", isFree: false },
+      { id: 5, title: "Frontend Frameworks", isFree: false },
+      { id: 6, title: "Backend Basics", isFree: false },
+      { id: 7, title: "Databases and APIs", isFree: false },
+      { id: 8, title: "Version Control with Git", isFree: false },
+      { id: 9, title: "Deployment and Hosting", isFree: false },
+      { id: 10, title: "Portfolio Website Project", isFree: false }
+    ]
+  },
+  {
+    id: 25,
+    name: "Learn Digital Illustration",
+    category: "Learn Series",
+    description: "Master digital art and illustration techniques. Create stunning artwork using industry-standard tools.",
+    duration: "10 weeks",
+    level: "Beginner",
+    price: 99,
+    gst: 18,
+    comingSoon: true,
+    modules: [
+      { id: 1, title: "Introduction to Digital Art", isFree: true },
+      { id: 2, title: "Drawing Fundamentals", isFree: false },
+      { id: 3, title: "Color Theory and Application", isFree: false },
+      { id: 4, title: "Character Design", isFree: false },
+      { id: 5, title: "Digital Painting Techniques", isFree: false },
+      { id: 6, title: "Composition and Perspective", isFree: false },
+      { id: 7, title: "Lighting and Shading", isFree: false },
+      { id: 8, title: "Creating Environments", isFree: false },
+      { id: 9, title: "Professional Workflow", isFree: false },
+      { id: 10, title: "Final Portfolio Piece", isFree: false }
+    ]
+  },
+  {
+    id: 26,
+    name: "Learn SQL and Databases",
+    category: "Learn Series",
+    description: "Master database fundamentals and SQL queries. Learn to design, manage, and query databases effectively.",
+    duration: "10 weeks",
+    level: "Beginner",
+    price: 99,
+    gst: 18,
+    comingSoon: true,
+    modules: [
+      { id: 1, title: "Database Fundamentals", isFree: true },
+      { id: 2, title: "SQL Basics and Queries", isFree: false },
+      { id: 3, title: "Filtering and Sorting Data", isFree: false },
+      { id: 4, title: "Joins and Relationships", isFree: false },
+      { id: 5, title: "Aggregate Functions", isFree: false },
+      { id: 6, title: "Database Design", isFree: false },
+      { id: 7, title: "Advanced Queries", isFree: false },
+      { id: 8, title: "Database Administration", isFree: false },
+      { id: 9, title: "Performance Optimization", isFree: false },
+      { id: 10, title: "Real-World Database Project", isFree: false }
+    ]
   }
 ]
 
@@ -211,7 +370,7 @@ export default function Courses() {
   const [selectedCategory, setSelectedCategory] = useState('All')
   const [selectedLevel, setSelectedLevel] = useState('All')
 
-  const categories = ['All', 'Professional Skills', 'Technical Skills', 'Personal Development']
+  const categories = ['All', 'Professional Skills', 'Technical Skills', 'Personal Development', 'Learn Series']
   const levels = ['All', 'Beginner', 'Intermediate']
 
   const filteredCourses = coursesData.filter(course => {
@@ -239,7 +398,6 @@ export default function Courses() {
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-primary mb-4">Our Courses</h1>
           <p className="text-xl text-charcoal mb-2">Professional Skills Development for Everyone</p>
-          <p className="text-lg text-accent font-semibold">₹99 + 18% GST = ₹117 per course</p>
         </div>
 
         {/* Filters */}
@@ -287,7 +445,14 @@ export default function Courses() {
         {/* Course Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
           {filteredCourses.map(course => (
-            <div key={course.id} className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition">
+            <div key={course.id} className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition relative">
+              {/* Coming Soon Badge */}
+              {course.comingSoon && (
+                <div className="absolute top-4 right-4 bg-accent text-white px-3 py-1 rounded-full text-sm font-bold z-10">
+                  Coming Soon
+                </div>
+              )}
+              
               <div className="bg-gradient-to-r from-primary to-accent p-4">
                 <span className="text-white text-sm font-semibold">{course.category}</span>
               </div>
@@ -301,22 +466,14 @@ export default function Courses() {
                   <span className="font-semibold text-accent">{course.level}</span>
                 </div>
                 
-                <div className="border-t pt-4 mb-4">
-                  <div className="text-sm text-gray-600">
-                    <div className="flex justify-between mb-1">
-                      <span>Base Price:</span>
-                      <span>₹{course.price}</span>
-                    </div>
-                    <div className="flex justify-between mb-1">
-                      <span>GST ({course.gst}%):</span>
-                      <span>₹{(course.price * course.gst / 100).toFixed(2)}</span>
-                    </div>
-                    <div className="flex justify-between font-bold text-primary text-lg">
-                      <span>Total:</span>
-                      <span>₹{calculateTotal(course.price, course.gst).toFixed(0)}</span>
-                    </div>
+                {/* Free sample module indicator for Learn Series */}
+                {course.modules && (
+                  <div className="bg-green-50 border border-green-200 rounded p-3 mb-4">
+                    <p className="text-sm text-green-800 font-semibold">
+                      🎁 Free Sample: {course.modules.find(m => m.isFree)?.title}
+                    </p>
                   </div>
-                </div>
+                )}
                 
                 <button className="w-full bg-accent text-white py-3 rounded font-bold hover:bg-purple-600 transition">
                   Enroll Now
