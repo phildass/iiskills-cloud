@@ -28,9 +28,10 @@ export default function handler(req, res) {
     }
 
     // Check if user passed (score >= 50)
-    if (score < 50) {
+    if (typeof score !== 'number' || score < 50) {
       return res.status(400).json({ 
-        error: 'Certificate can only be generated for passing scores (>= 50%)' 
+        error: 'Certificate can only be generated for passing scores (>= 50%)',
+        details: 'Score must be a number and at least 50'
       })
     }
 

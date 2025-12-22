@@ -7,8 +7,9 @@ export default function VerifyCertificate() {
   const router = useRouter()
   const { certificateNo } = router.query
 
-  // In production, this would query a database for the certificate
-  // For now, we'll show a verification interface
+  // IMPORTANT: This is a placeholder verification system
+  // In production, replace this with actual database lookup
+  // See INTEGRATION_EXAMPLES.md for production implementation
   const mockCertificateData = certificateNo ? {
     certificateNo: certificateNo,
     userName: "Rahul Sharma",

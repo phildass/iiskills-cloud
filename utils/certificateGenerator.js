@@ -8,7 +8,7 @@ import html2canvas from 'html2canvas'
  * @param {string} options.fileName - Name of the PDF file (without extension)
  * @param {string} options.userName - User's name for the filename
  * @param {string} options.courseName - Course name for the filename
- * @returns {Promise<Blob>} - Promise that resolves to the PDF blob
+ * @returns {Promise<jsPDF>} - Promise that resolves to the jsPDF document
  */
 export async function generateCertificatePDF(element, options = {}) {
   const {
@@ -22,8 +22,19 @@ export async function generateCertificatePDF(element, options = {}) {
     const originalDisplay = element.style.display
     element.style.display = 'block'
 
-    // Wait a bit for any images or fonts to load
-    await new Promise(resolve => setTimeout(resolve, 500))
+    // Wait for images to load
+    const images = element.querySelectorAll('img')
+    await Promise.all(
+      Array.from(images).map(img => {
+        if (img.complete) return Promise.resolve()
+        return new Promise(resolve => {
+          img.onload = resolve
+          img.onerror = resolve // Continue even if image fails to load
+          // Timeout after 3 seconds
+          setTimeout(resolve, 3000)
+        })
+      })
+    )
 
     // Generate canvas from HTML element with high quality
     const canvas = await html2canvas(element, {

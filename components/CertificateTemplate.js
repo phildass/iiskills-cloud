@@ -7,7 +7,8 @@ export default function CertificateTemplate({
   completionDate = new Date().toLocaleDateString('en-IN', { year: 'numeric', month: 'long', day: 'numeric' }),
   score = null,
   issueDate = new Date().toLocaleDateString('en-IN', { year: 'numeric', month: 'long', day: 'numeric' }),
-  qrCodeData = null
+  qrCodeData = null,
+  logoPath = "/images/iiskills-logo.png"
 }) {
   const [qrCodeSrc, setQrCodeSrc] = useState(null)
 
@@ -86,9 +87,13 @@ export default function CertificateTemplate({
         <div className="text-center mb-6">
           <div className="flex justify-center mb-3">
             <img 
-              src="/images/iiskills-logo.png" 
+              src={logoPath} 
               alt="iiskills Logo" 
               style={{ height: '80px', width: '80px', objectFit: 'contain' }}
+              onError={(e) => {
+                // Fallback if image fails to load
+                e.target.style.display = 'none'
+              }}
             />
           </div>
           <h1 

@@ -168,7 +168,7 @@ export default function MyCertificates() {
                 <div 
                   ref={certificateRef}
                   className="transform scale-75 origin-top-left"
-                  style={{ width: '1408px' }} // 1056 / 0.75
+                  style={{ width: `${1056 / 0.75}px` }} // Certificate width divided by scale
                 >
                   <CertificateTemplate
                     userName={selectedCertificate.userName}
