@@ -9,13 +9,16 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "html2canvas": "^1.4.1",
+    "jspdf": "^3.0.4",
     "next": "latest",
+    "qrcode": "^1.5.4",
     "react": "latest",
     "react-dom": "latest"
   },
   "devDependencies": {
-    "tailwindcss": "latest",
+    "autoprefixer": "^10.4.14",
     "postcss": "latest",
-    "autoprefixer": "^10.4.14"
+    "tailwindcss": "latest"
   }
 }

@@ -231,17 +231,25 @@ export default function Certification() {
         </div>
 
         {/* CTA */}
-        <div className="text-center bg-gradient-to-r from-accent to-primary text-white rounded-lg p-8">
+        <div className="text-center bg-gradient-to-r from-accent to-primary text-white rounded-lg p-8 mb-8">
           <h2 className="text-2xl font-bold mb-4">Ready to Get Certified?</h2>
           <p className="text-lg mb-6">
             Browse our courses and start your learning journey today!
           </p>
-          <a 
-            href="/courses" 
-            className="inline-block bg-white text-primary px-8 py-3 rounded-lg font-bold hover:bg-gray-100 transition"
-          >
-            Explore Courses
-          </a>
+          <div className="flex justify-center gap-4 flex-wrap">
+            <a 
+              href="/courses" 
+              className="inline-block bg-white text-primary px-8 py-3 rounded-lg font-bold hover:bg-gray-100 transition"
+            >
+              Explore Courses
+            </a>
+            <a 
+              href="/my-certificates" 
+              className="inline-block bg-transparent border-2 border-white text-white px-8 py-3 rounded-lg font-bold hover:bg-white hover:text-primary transition"
+            >
+              View My Certificates
+            </a>
+          </div>
         </div>
       </main>
       
