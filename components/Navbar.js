@@ -43,11 +43,15 @@ export default function Navbar() {
           <Link href="/testimonials" className="hover:text-primary transition">Testimonials</Link>
           <Link href="/blogs" className="hover:text-primary transition">Blog</Link>
           <Link href="/contact" className="hover:text-primary transition">Contact</Link>
+          <Link href="/login" className="hover:text-primary transition">Sign In</Link>
+          <Link href="/register" className="bg-primary text-white px-4 py-2 rounded hover:bg-blue-700 transition font-bold">
+            Register
+          </Link>
         </div>
 
         {/* Mobile Menu Button */}
         <button 
-          className="md: hidden text-gray-800 focus:outline-none"
+          className="md:hidden text-gray-800 focus:outline-none"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -73,6 +77,10 @@ export default function Navbar() {
           <Link href="/testimonials" className="block hover:text-primary transition">Testimonials</Link>
           <Link href="/blogs" className="block hover:text-primary transition">Blog</Link>
           <Link href="/contact" className="block hover:text-primary transition">Contact</Link>
+          <Link href="/login" className="block hover:text-primary transition">Sign In</Link>
+          <Link href="/register" className="block bg-primary text-white px-4 py-2 rounded hover:bg-blue-700 transition font-bold">
+            Register
+          </Link>
         </div>
       )}
     </nav>
