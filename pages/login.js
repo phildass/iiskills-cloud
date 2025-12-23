@@ -4,12 +4,27 @@ import Head from 'next/head'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import Link from 'next/link'
+// Import Supabase client and authentication helper
+import { signInWithEmail } from '../lib/supabaseClient'
 
+/**
+ * Login Page Component
+ * 
+ * This page provides email/password authentication using Supabase Auth.
+ * Features:
+ * - Email and password sign-in via Supabase
+ * - Loading state during authentication
+ * - Error handling with user-friendly messages
+ * - Success message after registration
+ * - Automatic redirect to homepage after successful login
+ */
 export default function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
+  // Track loading state during Supabase authentication
+  const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
 
   // Pre-fill email if coming from registration
@@ -20,42 +35,64 @@ export default function Login() {
       setSuccess('Registration successful! Please sign in with your credentials.')
       sessionStorage.removeItem('prefilledEmail')
       
-      // Focus on password field
+      // Focus on password field for better UX
       setTimeout(() => {
         document.getElementById('password')?.focus()
       }, 100)
     }
   }, [])
 
-  const handleSubmit = (e) => {
+  /**
+   * Handle login form submission
+   * 
+   * This function:
+   * 1. Prevents default form submission
+   * 2. Clears previous errors/success messages
+   * 3. Calls Supabase signInWithPassword API
+   * 4. Handles success by redirecting to homepage
+   * 5. Handles errors by displaying user-friendly messages
+   */
+  const handleSubmit = async (e) => {
     e.preventDefault()
     setError('')
     setSuccess('')
+    setIsLoading(true)
     
-    // Get users from localStorage
-    // NOTE: This is a MOCK implementation for demonstration only
-    // In a real application, use secure backend authentication with hashed passwords
     try {
-      const users = JSON.parse(localStorage.getItem('users') || '[]')
-      // WARNING: Plain text password comparison - for demo only!
-      const user = users.find(u => u.email === email && u.password === password)
+      // Call Supabase authentication with email and password
+      // This will create a session that persists in localStorage automatically
+      const { user, error: signInError } = await signInWithEmail(email, password)
+      
+      if (signInError) {
+        // Handle authentication errors with user-friendly messages
+        if (signInError.includes('Invalid login credentials')) {
+          setError('Invalid email or password. Please try again.')
+        } else if (signInError.includes('Email not confirmed')) {
+          setError('Please confirm your email address before signing in.')
+        } else {
+          setError(signInError)
+        }
+        setIsLoading(false)
+        return
+      }
       
       if (user) {
-        // Store user session
-        sessionStorage.setItem('currentUser', JSON.stringify({
-          id: user.id,
-          email: user.email,
-          firstName: user.firstName,
-          lastName: user.lastName
-        }))
+        // Authentication successful!
+        // Supabase automatically stores the session, so we just need to redirect
+        setSuccess('Login successful! Redirecting...')
         
-        // Redirect to homepage or dashboard
-        router.push('/')
-      } else {
-        setError('Invalid email or password. Please try again.')
+        // Check if there's a redirect URL from protected route
+        const redirectUrl = router.query.redirect || '/'
+        
+        // Redirect after a brief delay to show success message
+        setTimeout(() => {
+          router.push(redirectUrl)
+        }, 1000)
       }
     } catch (error) {
-      setError('An error occurred during login. Please try again.')
+      console.error('Login error:', error)
+      setError('An unexpected error occurred. Please try again.')
+      setIsLoading(false)
     }
   }
 
@@ -116,9 +153,10 @@ export default function Login() {
             
             <button
               type="submit"
-              className="w-full bg-primary text-white py-3 rounded font-bold hover:bg-blue-700 transition"
+              disabled={isLoading}
+              className="w-full bg-primary text-white py-3 rounded font-bold hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Sign In
+              {isLoading ? 'Signing In...' : 'Sign In'}
             </button>
           </form>
           
