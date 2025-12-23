@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
 import Navbar from '../components/Navbar'
@@ -9,14 +9,51 @@ export default function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
+  const [success, setSuccess] = useState('')
   const router = useRouter()
+
+  // Pre-fill email if coming from registration
+  useEffect(() => {
+    const prefilledEmail = sessionStorage.getItem('prefilledEmail')
+    if (prefilledEmail) {
+      setEmail(prefilledEmail)
+      setSuccess('Registration successful! Please sign in with your credentials.')
+      sessionStorage.removeItem('prefilledEmail')
+      
+      // Focus on password field
+      setTimeout(() => {
+        document.getElementById('password')?.focus()
+      }, 100)
+    }
+  }, [])
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    setError('')
+    setSuccess('')
     
-    // TODO: Implement actual authentication
-    // For now, this is a placeholder
-    setError('Authentication not yet implemented. Please check back soon.')
+    // Get users from localStorage
+    try {
+      const users = JSON.parse(localStorage.getItem('users') || '[]')
+      const user = users.find(u => u.email === email && u.password === password)
+      
+      if (user) {
+        // Store user session
+        sessionStorage.setItem('currentUser', JSON.stringify({
+          id: user.id,
+          email: user.email,
+          firstName: user.firstName,
+          lastName: user.lastName
+        }))
+        
+        // Redirect to homepage or dashboard
+        router.push('/')
+      } else {
+        setError('Invalid email or password. Please try again.')
+      }
+    } catch (error) {
+      setError('An error occurred during login. Please try again.')
+    }
   }
 
   return (
@@ -34,6 +71,12 @@ export default function Login() {
           {error && (
             <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
               {error}
+            </div>
+          )}
+          
+          {success && (
+            <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+              {success}
             </div>
           )}
           
