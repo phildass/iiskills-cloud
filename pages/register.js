@@ -134,10 +134,13 @@ export default function Register() {
     setSuccess('')
 
     try {
+      // Use environment variable for site URL to prevent host header injection
+      const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
+      
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `${window.location.origin}/dashboard`,
+          redirectTo: `${siteUrl}/dashboard`,
           queryParams: {
             access_type: 'offline',
             prompt: 'consent',
@@ -265,7 +268,7 @@ export default function Register() {
             <button
               type="button"
               onClick={handleGoogleSignIn}
-              disabled={isGoogleLoading || isLoading}
+              disabled={isGoogleLoading}
               className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition duration-200 flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <svg className="w-6 h-6" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
