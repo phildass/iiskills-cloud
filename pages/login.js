@@ -33,8 +33,11 @@ export default function Login() {
     setSuccess('')
     
     // Get users from localStorage
+    // NOTE: This is a MOCK implementation for demonstration only
+    // In a real application, use secure backend authentication with hashed passwords
     try {
       const users = JSON.parse(localStorage.getItem('users') || '[]')
+      // WARNING: Plain text password comparison - for demo only!
       const user = users.find(u => u.email === email && u.password === password)
       
       if (user) {

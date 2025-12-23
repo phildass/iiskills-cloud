@@ -128,10 +128,13 @@ export default function Register() {
       }
 
       // Add new user
+      // NOTE: This is a MOCK implementation for demonstration only
+      // In a real application, passwords MUST be hashed (e.g., bcrypt) before storage
+      // and authentication should use a secure backend API
       const newUser = {
         id: Date.now(),
         ...formData,
-        password: formData.password, // In real app, this should be hashed
+        password: formData.password, // WARNING: Plain text password - for demo only!
         registeredAt: new Date().toISOString()
       }
       delete newUser.confirmPassword // Don't store confirm password
@@ -249,7 +252,10 @@ export default function Register() {
                     name="dateOfBirth"
                     value={formData.dateOfBirth}
                     onChange={handleChange}
-                    max={new Date().toISOString().split('T')[0]}
+                    max={(() => {
+                      const today = new Date()
+                      return today.toISOString().split('T')[0]
+                    })()}
                     className={`w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-primary ${errors.dateOfBirth ? 'border-red-500' : 'border-gray-300'}`}
                   />
                   {errors.dateOfBirth && <p className="text-red-500 text-sm mt-1">{errors.dateOfBirth}</p>}
