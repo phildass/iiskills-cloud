@@ -1,9 +1,52 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/router'
+// Import Supabase helpers for authentication state and logout
+import { getCurrentUser, signOutUser } from '../lib/supabaseClient'
 
+/**
+ * Navigation Bar Component
+ * 
+ * This component:
+ * - Displays the main navigation menu
+ * - Shows different options based on authentication state
+ * - Provides logout functionality
+ * - Responsive design with mobile menu
+ */
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  // Track current user authentication state
+  const [user, setUser] = useState(null)
+  const [isLoading, setIsLoading] = useState(true)
+  const router = useRouter()
+
+  // Check authentication status when component mounts
+  useEffect(() => {
+    checkUser()
+  }, [])
+
+  /**
+   * Check if a user is currently logged in
+   * This runs on component mount to determine what to show in the navbar
+   */
+  const checkUser = async () => {
+    const currentUser = await getCurrentUser()
+    setUser(currentUser)
+    setIsLoading(false)
+  }
+
+  /**
+   * Handle user logout
+   * Signs out the user from Supabase and redirects to login page
+   */
+  const handleLogout = async () => {
+    const { success } = await signOutUser()
+    if (success) {
+      setUser(null)
+      router.push('/login')
+    }
+  }
 
   return (
     <nav className="bg-white text-gray-800 px-6 py-3 shadow-md sticky top-0 z-50">
@@ -43,10 +86,34 @@ export default function Navbar() {
           <Link href="/testimonials" className="hover:text-primary transition">Testimonials</Link>
           <Link href="/blogs" className="hover:text-primary transition">Blog</Link>
           <Link href="/contact" className="hover:text-primary transition">Contact</Link>
-          <Link href="/login" className="hover:text-primary transition">Sign In</Link>
-          <Link href="/register" className="bg-primary text-white px-4 py-2 rounded hover:bg-blue-700 transition font-bold">
-            Register
-          </Link>
+          
+          {/* Show Sign In/Register or User Info based on authentication */}
+          {!isLoading && (
+            <>
+              {user ? (
+                // User is logged in - show email and logout button
+                <>
+                  <span className="text-sm text-gray-600">
+                    {user.email}
+                  </span>
+                  <button
+                    onClick={handleLogout}
+                    className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition font-bold"
+                  >
+                    Logout
+                  </button>
+                </>
+              ) : (
+                // User is not logged in - show sign in and register
+                <>
+                  <Link href="/login" className="hover:text-primary transition">Sign In</Link>
+                  <Link href="/register" className="bg-primary text-white px-4 py-2 rounded hover:bg-blue-700 transition font-bold">
+                    Register
+                  </Link>
+                </>
+              )}
+            </>
+          )}
         </div>
 
         {/* Mobile Menu Button */}
@@ -77,10 +144,34 @@ export default function Navbar() {
           <Link href="/testimonials" className="block hover:text-primary transition">Testimonials</Link>
           <Link href="/blogs" className="block hover:text-primary transition">Blog</Link>
           <Link href="/contact" className="block hover:text-primary transition">Contact</Link>
-          <Link href="/login" className="block hover:text-primary transition">Sign In</Link>
-          <Link href="/register" className="block bg-primary text-white px-4 py-2 rounded hover:bg-blue-700 transition font-bold">
-            Register
-          </Link>
+          
+          {/* Show Sign In/Register or User Info based on authentication */}
+          {!isLoading && (
+            <>
+              {user ? (
+                // User is logged in - show email and logout button
+                <>
+                  <div className="text-sm text-gray-600 px-4 py-2">
+                    {user.email}
+                  </div>
+                  <button
+                    onClick={handleLogout}
+                    className="block w-full text-left bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition font-bold"
+                  >
+                    Logout
+                  </button>
+                </>
+              ) : (
+                // User is not logged in - show sign in and register
+                <>
+                  <Link href="/login" className="block hover:text-primary transition">Sign In</Link>
+                  <Link href="/register" className="block bg-primary text-white px-4 py-2 rounded hover:bg-blue-700 transition font-bold">
+                    Register
+                  </Link>
+                </>
+              )}
+            </>
+          )}
         </div>
       )}
     </nav>

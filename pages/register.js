@@ -5,7 +5,15 @@ import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import Link from 'next/link'
 import { genderOptions, educationLevels, countries, indianStates } from '../utils/data'
+// Import Supabase client for user registration
+import { supabase } from '../lib/supabaseClient'
 
+/**
+ * Registration Page Component with Supabase Auth
+ * 
+ * This page allows new users to create an account using Supabase authentication.
+ * User profile information is stored in Supabase user metadata.
+ */
 export default function Register() {
   const [formData, setFormData] = useState({
     firstName: '',
@@ -25,6 +33,8 @@ export default function Register() {
   const [errors, setErrors] = useState({})
   const [success, setSuccess] = useState('')
   const [availableDistricts, setAvailableDistricts] = useState([])
+  // Loading state for Supabase registration
+  const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
 
   // Update available districts when state changes
@@ -109,7 +119,16 @@ export default function Register() {
     return Object.keys(newErrors).length === 0
   }
 
-  const handleSubmit = (e) => {
+  /**
+   * Handle form submission with Supabase Auth
+   * 
+   * Steps:
+   * 1. Validate form data
+   * 2. Register user with Supabase Auth (email + password)
+   * 3. Store profile data in user metadata
+   * 4. Show success message and redirect to login
+   */
+  const handleSubmit = async (e) => {
     e.preventDefault()
     setSuccess('')
     
@@ -117,43 +136,59 @@ export default function Register() {
       return
     }
 
-    // Save to localStorage (mock backend)
+    setIsLoading(true)
+
     try {
-      const users = JSON.parse(localStorage.getItem('users') || '[]')
-      
-      // Check if email already exists
-      if (users.some(user => user.email === formData.email)) {
-        setErrors({ email: 'This email is already registered' })
+      // Register new user with Supabase Auth
+      // This creates an account and sends a confirmation email
+      const { data: authData, error: signUpError } = await supabase.auth.signUp({
+        email: formData.email,
+        password: formData.password,
+        options: {
+          // Store user profile data in metadata
+          // This data will be accessible through the user object
+          data: {
+            first_name: formData.firstName,
+            last_name: formData.lastName,
+            full_name: `${formData.firstName} ${formData.lastName}`,
+            gender: formData.gender,
+            date_of_birth: formData.dateOfBirth,
+            education: formData.education,
+            location: formData.location,
+            state: formData.state,
+            district: formData.district,
+            country: formData.country,
+            specify_country: formData.specifyCountry
+          }
+        }
+      })
+
+      if (signUpError) {
+        // Handle Supabase registration errors
+        if (signUpError.message.includes('already registered')) {
+          setErrors({ email: 'This email is already registered' })
+        } else {
+          setErrors({ submit: signUpError.message })
+        }
+        setIsLoading(false)
         return
       }
 
-      // Add new user
-      // NOTE: This is a MOCK implementation for demonstration only
-      // In a real application, passwords MUST be hashed (e.g., bcrypt) before storage
-      // and authentication should use a secure backend API
-      const newUser = {
-        id: Date.now(),
-        ...formData,
-        password: formData.password, // WARNING: Plain text password - for demo only!
-        registeredAt: new Date().toISOString()
-      }
-      delete newUser.confirmPassword // Don't store confirm password
-
-      users.push(newUser)
-      localStorage.setItem('users', JSON.stringify(users))
-
-      // Set success message
-      setSuccess('Registration successful! Redirecting to login...')
+      // Registration successful!
+      setSuccess('Registration successful! Please check your email to confirm your account.')
+      setIsLoading(false)
 
       // Store email for prefilling on login page
       sessionStorage.setItem('prefilledEmail', formData.email)
 
-      // Redirect to login after 2 seconds
+      // Redirect to login after 3 seconds
       setTimeout(() => {
         router.push('/login')
-      }, 2000)
+      }, 3000)
     } catch (error) {
-      setErrors({ submit: 'An error occurred during registration. Please try again.' })
+      console.error('Registration error:', error)
+      setErrors({ submit: 'An unexpected error occurred. Please try again.' })
+      setIsLoading(false)
     }
   }
 
