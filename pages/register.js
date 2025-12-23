@@ -135,14 +135,17 @@ export default function Register() {
 
     try {
       // Use environment variable for site URL to prevent host header injection
-      const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
+      // Falls back to localhost for development if not configured
+      const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000'
       
-      const { data, error } = await supabase.auth.signInWithOAuth({
+      const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
           redirectTo: `${siteUrl}/dashboard`,
           queryParams: {
+            // Request offline access to get refresh token for long-term sessions
             access_type: 'offline',
+            // Always show consent screen to ensure user approves permissions
             prompt: 'consent',
           }
         }
