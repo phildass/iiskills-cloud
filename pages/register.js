@@ -301,3 +301,205 @@ export default function Register() {
 
             {/* Education and Location Section */}
             <div>
+              <h2 className="text-xl font-semibold text-charcoal mb-4">Education & Location</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {/* Education */}
+                <div>
+                  <label className="block text-charcoal font-semibold mb-2" htmlFor="education">
+                    Education Level <span className="text-red-500">*</span>
+                  </label>
+                  <select
+                    id="education"
+                    name="education"
+                    value={formData.education}
+                    onChange={handleChange}
+                    className={`w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-primary ${errors.education ? 'border-red-500' : 'border-gray-300'}`}
+                  >
+                    <option value="">Select education level</option>
+                    {educationLevels.map(option => (
+                      <option key={option.value} value={option.value}>{option.label}</option>
+                    ))}
+                  </select>
+                  {errors.education && <p className="text-red-500 text-sm mt-1">{errors.education}</p>}
+                </div>
+
+                {/* Location */}
+                <div>
+                  <label className="block text-charcoal font-semibold mb-2" htmlFor="location">
+                    Location <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="location"
+                    name="location"
+                    value={formData.location}
+                    onChange={handleChange}
+                    className={`w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-primary ${errors.location ? 'border-red-500' : 'border-gray-300'}`}
+                    placeholder="Enter your location"
+                  />
+                  {errors.location && <p className="text-red-500 text-sm mt-1">{errors.location}</p>}
+                </div>
+
+                {/* Country */}
+                <div>
+                  <label className="block text-charcoal font-semibold mb-2" htmlFor="country">
+                    Country <span className="text-red-500">*</span>
+                  </label>
+                  <select
+                    id="country"
+                    name="country"
+                    value={formData.country}
+                    onChange={handleChange}
+                    className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary"
+                  >
+                    {countries.map(option => (
+                      <option key={option.value} value={option.value}>{option.label}</option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* State (only for India) */}
+                {formData.country === 'india' && (
+                  <div>
+                    <label className="block text-charcoal font-semibold mb-2" htmlFor="state">
+                      State <span className="text-red-500">*</span>
+                    </label>
+                    <select
+                      id="state"
+                      name="state"
+                      value={formData.state}
+                      onChange={handleChange}
+                      className={`w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-primary ${errors.state ? 'border-red-500' : 'border-gray-300'}`}
+                    >
+                      <option value="">Select state</option>
+                      {indianStates.map(state => (
+                        <option key={state.value} value={state.value}>{state.name}</option>
+                      ))}
+                    </select>
+                    {errors.state && <p className="text-red-500 text-sm mt-1">{errors.state}</p>}
+                  </div>
+                )}
+
+                {/* District (only for India and when state is selected) */}
+                {formData.country === 'india' && formData.state && (
+                  <div>
+                    <label className="block text-charcoal font-semibold mb-2" htmlFor="district">
+                      District <span className="text-red-500">*</span>
+                    </label>
+                    <select
+                      id="district"
+                      name="district"
+                      value={formData.district}
+                      onChange={handleChange}
+                      className={`w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-primary ${errors.district ? 'border-red-500' : 'border-gray-300'}`}
+                    >
+                      <option value="">Select district</option>
+                      {availableDistricts.map(district => (
+                        <option key={district} value={district}>{district}</option>
+                      ))}
+                    </select>
+                    {errors.district && <p className="text-red-500 text-sm mt-1">{errors.district}</p>}
+                  </div>
+                )}
+
+                {/* Specify Country (only for others) */}
+                {formData.country === 'others' && (
+                  <div>
+                    <label className="block text-charcoal font-semibold mb-2" htmlFor="specifyCountry">
+                      Specify Country <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      id="specifyCountry"
+                      name="specifyCountry"
+                      value={formData.specifyCountry}
+                      onChange={handleChange}
+                      className={`w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-primary ${errors.specifyCountry ? 'border-red-500' : 'border-gray-300'}`}
+                      placeholder="Enter your country name"
+                    />
+                    {errors.specifyCountry && <p className="text-red-500 text-sm mt-1">{errors.specifyCountry}</p>}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Account Credentials Section */}
+            <div>
+              <h2 className="text-xl font-semibold text-charcoal mb-4">Account Credentials</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {/* Email */}
+                <div className="md:col-span-2">
+                  <label className="block text-charcoal font-semibold mb-2" htmlFor="email">
+                    Email Address <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    className={`w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-primary ${errors.email ? 'border-red-500' : 'border-gray-300'}`}
+                    placeholder="Enter your email address"
+                  />
+                  {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
+                </div>
+
+                {/* Password */}
+                <div>
+                  <label className="block text-charcoal font-semibold mb-2" htmlFor="password">
+                    Password <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    className={`w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-primary ${errors.password ? 'border-red-500' : 'border-gray-300'}`}
+                    placeholder="Enter password (min. 8 characters)"
+                  />
+                  {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password}</p>}
+                </div>
+
+                {/* Confirm Password */}
+                <div>
+                  <label className="block text-charcoal font-semibold mb-2" htmlFor="confirmPassword">
+                    Confirm Password <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="password"
+                    id="confirmPassword"
+                    name="confirmPassword"
+                    value={formData.confirmPassword}
+                    onChange={handleChange}
+                    className={`w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-primary ${errors.confirmPassword ? 'border-red-500' : 'border-gray-300'}`}
+                    placeholder="Re-enter your password"
+                  />
+                  {errors.confirmPassword && <p className="text-red-500 text-sm mt-1">{errors.confirmPassword}</p>}
+                </div>
+              </div>
+            </div>
+
+            {/* Submit Button */}
+            <div className="flex flex-col items-center">
+              <button
+                type="submit"
+                disabled={isLoading}
+                className="w-full md:w-auto bg-primary text-white font-bold py-3 px-8 rounded hover:bg-primary-dark transition disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {isLoading ? 'Creating Account...' : 'Create Account'}
+              </button>
+              <p className="mt-4 text-charcoal">
+                Already have an account?{' '}
+                <Link href="/login" className="text-primary hover:underline font-semibold">
+                  Sign in here
+                </Link>
+              </p>
+            </div>
+          </form>
+        </div>
+      </div>
+      <Footer />
+    </>
+  )
+}
