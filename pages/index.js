@@ -114,6 +114,7 @@ export default function Home() {
                     width={600} 
                     height={800} 
                     className="w-full h-auto object-cover"
+                    priority
                   />
                 </div>
               </div>
