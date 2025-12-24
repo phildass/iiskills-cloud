@@ -25,6 +25,8 @@ export default function Footer() {
               <li><Link href="/certification" className="text-gray-600 hover:text-primary">Certification</Link></li>
               <li><Link href="/about" className="text-gray-600 hover:text-primary">About Us</Link></li>
               <li><Link href="/contact" className="text-gray-600 hover:text-primary">Contact</Link></li>
+              <li><Link href="/privacy" className="text-gray-600 hover:text-primary">Privacy Policy</Link></li>
+              <li><Link href="/terms" className="text-gray-600 hover:text-primary">Terms and Conditions</Link></li>
             </ul>
           </div>
 
