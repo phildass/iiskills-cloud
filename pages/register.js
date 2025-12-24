@@ -282,6 +282,14 @@ export default function Register() {
               </svg>
               {isGoogleLoading ? 'Connecting to Google...' : 'Sign up with Google'}
             </button>
+            
+            {/* Notice box below Google sign-in button */}
+            <div className="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+              <p className="text-sm text-gray-700">
+                If you are here only to browse and take the free courses this sign in is acceptable but if you wish to take any of the paid courses you are advised to register yourself here.
+              </p>
+            </div>
+            
             <div className="relative my-6">
               <div className="absolute inset-0 flex items-center">
                 <div className="w-full border-t border-gray-300"></div>
