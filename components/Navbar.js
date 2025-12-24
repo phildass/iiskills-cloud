@@ -71,7 +71,7 @@ export default function Navbar() {
               className="object-contain"
             />
           </div>
-          <span className="font-bold text-xl text-gray-800">iiskills. cloud</span>
+          <span className="font-bold text-xl text-gray-800">iiskills.cloud</span>
         </Link>
 
         {/* Desktop Navigation */}
