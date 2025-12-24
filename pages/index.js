@@ -14,10 +14,10 @@ export default function Home() {
       <Navbar />
       <main>
         {/* Hero Section */}
-        <section className="bg-gradient-to-r from-primary to-accent text-white py-16">
+        <section className="relative bg-gradient-to-r from-primary to-accent text-white py-16 overflow-hidden">
           <div className="max-w-6xl mx-auto px-4">
-            <div className="flex flex-col md:flex-row items-center">
-              <div className="flex-1 mb-8 md:mb-0 md:mr-10 text-center md:text-left">
+            <div className="flex flex-col md:flex-row items-center gap-8">
+              <div className="flex-1 text-center md:text-left z-10">
                 <h1 className="text-5xl font-bold mb-4">iiskills.cloud</h1>
                 <h2 className="text-3xl font-semibold mb-6">
                   Indian Institute of Professional Skills Development
@@ -34,8 +34,17 @@ export default function Home() {
                   </Link>
                 </div>
               </div>
-              <div className="flex-1 text-center">
-                <Image src="/images/iiskills-logo.png" alt="iiskills Logo" width={200} height={200} className="mx-auto" />
+              <div className="flex-1 relative z-10">
+                <div className="relative rounded-lg overflow-hidden shadow-2xl">
+                  <Image 
+                    src="/images/iiskills-image1.jpg" 
+                    alt="Students learning together on iiskills.cloud platform" 
+                    width={800} 
+                    height={600} 
+                    className="w-full h-auto object-cover"
+                    priority
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -44,7 +53,21 @@ export default function Home() {
         {/* Core Purpose & Vision Section */}
         <section className="py-16 bg-white">
           <div className="max-w-6xl mx-auto px-4">
-            <h2 className="text-4xl font-bold text-primary text-center mb-12">Our Vision for Viksit Bharat</h2>
+            <h2 className="text-4xl font-bold text-primary text-center mb-8">Our Vision for Viksit Bharat</h2>
+            
+            {/* Featured Student Image */}
+            <div className="flex justify-center mb-12">
+              <div className="relative w-full max-w-md rounded-lg overflow-hidden shadow-xl">
+                <Image 
+                  src="/images/iiskills-image2.jpg" 
+                  alt="Empowered student ready to learn and succeed" 
+                  width={600} 
+                  height={800} 
+                  className="w-full h-auto object-cover"
+                />
+              </div>
+            </div>
+
             <div className="grid md:grid-cols-2 gap-8">
               <div className="bg-neutral p-8 rounded-lg shadow">
                 <h3 className="text-2xl font-bold text-accent mb-4">🇮🇳 Building a Developed India</h3>
@@ -80,10 +103,23 @@ export default function Home() {
         {/* Key Value Proposition Section */}
         <section className="py-16 bg-gradient-to-r from-blue-50 to-purple-50">
           <div className="max-w-6xl mx-auto px-4">
-            <h2 className="text-4xl font-bold text-primary text-center mb-4">Why Choose iiskills.cloud?</h2>
-            <p className="text-xl text-center text-charcoal mb-12">Quality education that's accessible to everyone</p>
-            
-            <div className="grid md:grid-cols-3 gap-8 mb-12">
+            <div className="flex flex-col md:flex-row items-center gap-8 mb-12">
+              <div className="flex-1">
+                <h2 className="text-4xl font-bold text-primary mb-4">Why Choose iiskills.cloud?</h2>
+                <p className="text-xl text-charcoal mb-6">Quality education that's accessible to everyone</p>
+                <div className="relative rounded-lg overflow-hidden shadow-xl">
+                  <Image 
+                    src="/images/iiskills-image3.jpg" 
+                    alt="Confident learner ready to transform their future" 
+                    width={600} 
+                    height={800} 
+                    className="w-full h-auto object-cover"
+                    priority
+                  />
+                </div>
+              </div>
+              <div className="flex-1">
+                <div className="space-y-6">
               {/* Affordability */}
               <div className="bg-white p-8 rounded-lg shadow-lg text-center">
                 <div className="text-5xl mb-4">💰</div>
@@ -137,6 +173,8 @@ export default function Home() {
                   <li>• Personal development</li>
                   <li>• Career advancement tools</li>
                 </ul>
+              </div>
+                </div>
               </div>
             </div>
 
@@ -227,18 +265,33 @@ export default function Home() {
 
         {/* Call to Action */}
         <section className="py-16 bg-gradient-to-r from-primary to-accent text-white">
-          <div className="max-w-4xl mx-auto px-4 text-center">
-            <h2 className="text-4xl font-bold mb-6">Ready to Transform Your Future?</h2>
-            <p className="text-2xl mb-8">
-              Join thousands of learners building skills for tomorrow
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/courses" className="inline-block bg-white text-primary px-10 py-4 rounded-lg font-bold text-lg hover:bg-gray-100 transition">
-                Get Started Now
-              </Link>
-              <Link href="/about" className="inline-block bg-transparent border-2 border-white text-white px-10 py-4 rounded-lg font-bold text-lg hover:bg-white hover:text-primary transition">
-                Learn More About Us
-              </Link>
+          <div className="max-w-6xl mx-auto px-4">
+            <div className="flex flex-col md:flex-row items-center gap-8">
+              <div className="flex-1 text-center md:text-left">
+                <h2 className="text-4xl font-bold mb-6">Ready to Transform Your Future?</h2>
+                <p className="text-2xl mb-8">
+                  Join thousands of learners building skills for tomorrow
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                  <Link href="/courses" className="inline-block bg-white text-primary px-10 py-4 rounded-lg font-bold text-lg hover:bg-gray-100 transition">
+                    Get Started Now
+                  </Link>
+                  <Link href="/about" className="inline-block bg-transparent border-2 border-white text-white px-10 py-4 rounded-lg font-bold text-lg hover:bg-white hover:text-primary transition">
+                    Learn More About Us
+                  </Link>
+                </div>
+              </div>
+              <div className="flex-1">
+                <div className="relative rounded-lg overflow-hidden shadow-2xl">
+                  <Image 
+                    src="/images/iiskills-image4.jpg" 
+                    alt="Diverse community of learners achieving success together" 
+                    width={800} 
+                    height={600} 
+                    className="w-full h-auto object-cover"
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </section>
