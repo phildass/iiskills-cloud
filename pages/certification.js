@@ -1,13 +1,12 @@
 import Head from 'next/head'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
-import { useState } from 'react'
 
 export default function Certification() {
-  const [userName, setUserName] = useState('Your Name')
-  const [courseName, setCourseName] = useState('Course Name')
-  const [certificateNo, setCertificateNo] = useState('IIPS-2024-XXXX')
-  const [completionDate, setCompletionDate] = useState(new Date().toLocaleDateString('en-IN', { year: 'numeric', month: 'long', day: 'numeric' }))
+  const userName = 'Your Name'
+  const courseName = 'Course Name'
+  const certificateNo = 'IIPS-2024-XXXX'
+  const completionDate = new Date().toLocaleDateString('en-IN', { year: 'numeric', month: 'long', day: 'numeric' })
 
   return (
     <>
@@ -87,35 +86,7 @@ export default function Certification() {
             </div>
           </div>
 
-          {/* Interactive Controls */}
-          <div className="max-w-2xl mx-auto mt-8 bg-blue-50 p-6 rounded-lg">
-            <h3 className="text-xl font-bold text-primary mb-4 text-center">Preview Your Certificate</h3>
-            <p className="text-sm text-gray-600 mb-4 text-center">Enter your details below to see how your certificate will look</p>
-            
-            <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-semibold text-charcoal mb-2">Your Name</label>
-                <input
-                  type="text"
-                  value={userName}
-                  onChange={(e) => setUserName(e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary"
-                  placeholder="Enter your name"
-                />
-              </div>
-              
-              <div>
-                <label className="block text-sm font-semibold text-charcoal mb-2">Course Name</label>
-                <input
-                  type="text"
-                  value={courseName}
-                  onChange={(e) => setCourseName(e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary"
-                  placeholder="Enter course name"
-                />
-              </div>
-            </div>
-          </div>
+
         </div>
 
         {/* Certification Requirements */}

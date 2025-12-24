@@ -83,8 +83,6 @@ export default function Navbar() {
             Payments
           </Link>
           <Link href="/about" className="hover:text-primary transition">About</Link>
-          <Link href="/testimonials" className="hover:text-primary transition">Testimonials</Link>
-          <Link href="/blogs" className="hover:text-primary transition">Blog</Link>
           <Link href="/contact" className="hover:text-primary transition">Contact</Link>
           
           {/* Show Sign In/Register or User Info based on authentication */}
@@ -141,8 +139,6 @@ export default function Navbar() {
             Payments
           </Link>
           <Link href="/about" className="block hover:text-primary transition">About</Link>
-          <Link href="/testimonials" className="block hover:text-primary transition">Testimonials</Link>
-          <Link href="/blogs" className="block hover:text-primary transition">Blog</Link>
           <Link href="/contact" className="block hover:text-primary transition">Contact</Link>
           
           {/* Show Sign In/Register or User Info based on authentication */}
