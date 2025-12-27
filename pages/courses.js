@@ -1278,7 +1278,32 @@ export default function Courses() {
   const [selectedCategory, setSelectedCategory] = useState('All')
   const [selectedLevel, setSelectedLevel] = useState('All')
 
-  const categories = ['All', 'Communication & Soft Skills', 'Creative Design (UI/UX)', 'Lifestyle & Hobbies', 'Coding for Kids', 'JEE/NEET Coaching', 'UPSC/Government Exams', 'Data Science & AI/ML', 'Full Stack/Software Development', 'Digital Marketing', 'Cybersecurity', 'Financial Technologies (FinTech)', 'Technology', 'Communication', 'Language', 'Personal Development', 'Finance', 'Professional Skills', 'Business', 'Career Development', 'Creative Arts', 'Education']
+  const categories = [
+    'All',
+    // New Categories
+    'Communication & Soft Skills',
+    'Creative Design (UI/UX)',
+    'Lifestyle & Hobbies',
+    'Coding for Kids',
+    'JEE/NEET Coaching',
+    'UPSC/Government Exams',
+    'Data Science & AI/ML',
+    'Full Stack/Software Development',
+    'Digital Marketing',
+    'Cybersecurity',
+    'Financial Technologies (FinTech)',
+    // Existing Categories
+    'Technology',
+    'Communication',
+    'Language',
+    'Personal Development',
+    'Finance',
+    'Professional Skills',
+    'Business',
+    'Career Development',
+    'Creative Arts',
+    'Education'
+  ]
   const levels = ['All', 'Beginner', 'Intermediate', 'Advanced']
 
   const filteredCourses = coursesData.filter(course => {
