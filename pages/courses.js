@@ -203,28 +203,6 @@ const coursesData = [
     ]
   },
   {
-    id: 10,
-    name: "Learn To Earn - Free",
-    category: "Career Development",
-    description: "FREE course on earning opportunities, side hustles, freelancing, and creating multiple income streams for financial independence.",
-    duration: "10 weeks",
-    level: "Beginner",
-    comingSoon: true,
-    isFree: true,
-    modules: [
-      { id: 1, title: "Introduction to Earning Opportunities", isFree: true },
-      { id: 2, title: "Freelancing Basics", isFree: false },
-      { id: 3, title: "Online Business Models", isFree: false },
-      { id: 4, title: "Passive Income Streams", isFree: false },
-      { id: 5, title: "Building Your Personal Brand", isFree: false },
-      { id: 6, title: "Digital Skills for Earning", isFree: false },
-      { id: 7, title: "Marketing Your Services", isFree: false },
-      { id: 8, title: "Time Management for Side Hustles", isFree: false },
-      { id: 9, title: "Scaling Your Income", isFree: false },
-      { id: 10, title: "Creating Financial Freedom", isFree: false }
-    ]
-  },
-  {
     id: 11,
     name: "Learn Stock Broking",
     category: "Finance",
@@ -356,28 +334,6 @@ const coursesData = [
       { id: 8, title: "Health and Wellness", isFree: false },
       { id: 9, title: "Life Balance", isFree: false },
       { id: 10, title: "Your Better Future", isFree: false }
-    ]
-  },
-  {
-    id: 17,
-    name: "Learn Leadership",
-    category: "Professional Skills",
-    description: "Develop leadership qualities, team management skills, vision setting, and the ability to inspire and guide others to success.",
-    duration: "10 weeks",
-    level: "Intermediate",
-    comingSoon: true,
-    isFree: false,
-    modules: [
-      { id: 1, title: "Leadership Fundamentals", isFree: true },
-      { id: 2, title: "Leadership Styles", isFree: false },
-      { id: 3, title: "Vision and Strategy", isFree: false },
-      { id: 4, title: "Team Building and Motivation", isFree: false },
-      { id: 5, title: "Decision Making", isFree: false },
-      { id: 6, title: "Communication for Leaders", isFree: false },
-      { id: 7, title: "Conflict Management", isFree: false },
-      { id: 8, title: "Change Leadership", isFree: false },
-      { id: 9, title: "Ethical Leadership", isFree: false },
-      { id: 10, title: "Developing Future Leaders", isFree: false }
     ]
   },
   {
