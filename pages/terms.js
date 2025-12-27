@@ -160,7 +160,7 @@ export default function Terms() {
           <section>
             <h2 className="text-2xl font-bold text-accent mb-3">13. Governing Law and Dispute Resolution</h2>
             <p className="text-charcoal leading-relaxed">
-              These Terms are governed by and construed in accordance with the laws of India. Any disputes arising out of or relating to these Terms or your use of our services shall be subject to the exclusive jurisdiction of the courts located in New Delhi, India. You agree to submit to the personal jurisdiction of such courts.
+              These Terms are governed by and construed in accordance with the laws of India. Any disputes arising out of or relating to these Terms or your use of our services shall be subject to the exclusive jurisdiction of the courts located in Bengaluru, India. You agree to submit to the personal jurisdiction of such courts.
             </p>
           </section>
 
