@@ -160,7 +160,7 @@ export default function Terms() {
           <section>
             <h2 className="text-2xl font-bold text-accent mb-3">13. Governing Law and Dispute Resolution</h2>
             <p className="text-charcoal leading-relaxed">
-              These Terms are governed by and construed in accordance with the laws of India. Any disputes arising out of or relating to these Terms or your use of our services shall be subject to the exclusive jurisdiction of the courts located in New Delhi, India. You agree to submit to the personal jurisdiction of such courts.
+              These Terms are governed by and construed in accordance with the laws of India. Any disputes arising out of or relating to these Terms or your use of our services shall be subject to the exclusive jurisdiction of the courts located in Bengaluru, India. You agree to submit to the personal jurisdiction of such courts.
             </p>
           </section>
 
@@ -194,7 +194,7 @@ export default function Terms() {
               <p className="text-charcoal"><strong>Indian Institute of Professional Skills Development (IISKILLS)</strong></p>
               <p className="text-charcoal">Email: <a href="mailto:info@iiskills.cloud" className="text-primary hover:underline">info@iiskills.cloud</a></p>
               <p className="text-charcoal">Website: <a href="https://iiskills.cloud" className="text-primary hover:underline">https://iiskills.cloud</a></p>
-              <p className="text-charcoal">Location: New Delhi, India</p>
+              <p className="text-charcoal">Location: Indiranagar, Bengaluru</p>
             </div>
           </section>
 

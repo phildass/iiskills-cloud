@@ -19,7 +19,7 @@ export default function Contact() {
         <div>
           <h2 className="text-lg font-bold mb-2">Company Info</h2>
           <p>Email: info@iiskills.cloud</p>
-          <p>Address: New Delhi, India</p>
+          <p>Address: Indiranagar, Bengaluru</p>
         </div>
       </main>
       <Footer />

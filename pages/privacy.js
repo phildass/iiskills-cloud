@@ -138,7 +138,7 @@ export default function Privacy() {
               <p className="text-charcoal"><strong>Indian Institute of Professional Skills Development (IISKILLS)</strong></p>
               <p className="text-charcoal">Email: <a href="mailto:info@iiskills.cloud" className="text-primary hover:underline">info@iiskills.cloud</a></p>
               <p className="text-charcoal">Website: <a href="https://iiskills.cloud" className="text-primary hover:underline">https://iiskills.cloud</a></p>
-              <p className="text-charcoal">Location: New Delhi, India</p>
+              <p className="text-charcoal">Location: Indiranagar, Bengaluru</p>
             </div>
           </section>
 

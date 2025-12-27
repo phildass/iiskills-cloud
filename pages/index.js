@@ -178,27 +178,7 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Pricing Transparency */}
-            <div className="bg-white p-8 rounded-lg shadow-lg max-w-2xl mx-auto">
-              <h3 className="text-2xl font-bold text-center text-accent mb-6">Transparent Pricing</h3>
-              <div className="space-y-3">
-                <div className="flex justify-between items-center border-b pb-2">
-                  <span className="text-lg">Course Price</span>
-                  <span className="text-xl font-bold text-primary">₹99</span>
-                </div>
-                <div className="flex justify-between items-center border-b pb-2">
-                  <span className="text-lg">GST (18%)</span>
-                  <span className="text-xl font-bold text-primary">₹18</span>
-                </div>
-                <div className="flex justify-between items-center pt-2">
-                  <span className="text-2xl font-bold">Total Amount</span>
-                  <span className="text-3xl font-bold text-accent">₹117</span>
-                </div>
-              </div>
-              <p className="text-center text-gray-600 mt-4 italic">
-                Same affordable price for every course. Education for all Indians.
-              </p>
-            </div>
+
           </div>
         </section>
 
@@ -257,7 +237,7 @@ export default function Home() {
 
             <div className="text-center">
               <Link href="/courses" className="inline-block bg-accent text-white px-10 py-4 rounded-lg font-bold text-lg hover:bg-purple-600 transition shadow-lg">
-                Browse All 22 Courses →
+                Browse All 50+ Courses →
               </Link>
             </div>
           </div>

@@ -77,7 +77,7 @@ export default function About() {
           <h2 className="text-2xl font-bold mb-4">📞 Contact Information</h2>
           <div className="space-y-2 mb-6">
             <p className="text-lg">Email: <a href="mailto:info@iiskills.cloud" className="underline hover:text-gray-200">info@iiskills.cloud</a></p>
-            <p className="text-lg">Location: New Delhi, India</p>
+            <p className="text-lg">Location: Indiranagar, Bengaluru</p>
           </div>
           <a href="/contact" className="inline-block bg-white text-primary px-8 py-3 rounded-lg font-bold hover:bg-gray-100 transition">
             Contact Us
