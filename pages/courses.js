@@ -489,6 +489,787 @@ const coursesData = [
       { id: 9, title: "Visual Aids and Props", isFree: false },
       { id: 10, title: "Professional Presentations", isFree: false }
     ]
+  },
+  // Communication & Soft Skills - Additional Courses
+  {
+    id: 23,
+    name: "Personality Development",
+    category: "Communication & Soft Skills",
+    description: "Transform your personal and professional presence through comprehensive personality development. Enhance confidence, emotional intelligence, and interpersonal skills to make positive impressions and build lasting relationships.",
+    duration: "10 weeks",
+    level: "Beginner",
+    comingSoon: true,
+    isFree: false,
+    modules: [
+      { id: 1, title: "Self-Awareness and Discovery", isFree: true },
+      { id: 2, title: "Building Confidence", isFree: false },
+      { id: 3, title: "Emotional Intelligence", isFree: false },
+      { id: 4, title: "Communication Skills", isFree: false },
+      { id: 5, title: "Grooming and Appearance", isFree: false },
+      { id: 6, title: "Time Management", isFree: false },
+      { id: 7, title: "Positive Thinking", isFree: false },
+      { id: 8, title: "Stress Management", isFree: false },
+      { id: 9, title: "Relationship Building", isFree: false },
+      { id: 10, title: "Professional Etiquette", isFree: false }
+    ]
+  },
+  {
+    id: 24,
+    name: "Interview Skills",
+    category: "Communication & Soft Skills",
+    description: "Master the art of interviews with proven strategies for success. Learn to present yourself confidently, answer challenging questions effectively, and make compelling impressions that secure job offers.",
+    duration: "10 weeks",
+    level: "Beginner",
+    comingSoon: true,
+    isFree: false,
+    modules: [
+      { id: 1, title: "Interview Preparation", isFree: true },
+      { id: 2, title: "Resume Building", isFree: false },
+      { id: 3, title: "Common Interview Questions", isFree: false },
+      { id: 4, title: "Behavioral Interviews (STAR Method)", isFree: false },
+      { id: 5, title: "Mock Interviews", isFree: false },
+      { id: 6, title: "Salary Negotiation", isFree: false },
+      { id: 7, title: "Body Language in Interviews", isFree: false },
+      { id: 8, title: "Follow-up Strategies", isFree: false },
+      { id: 9, title: "Virtual Interview Techniques", isFree: false },
+      { id: 10, title: "Assessment Center Preparation", isFree: false }
+    ]
+  },
+  // Creative Design (UI/UX)
+  {
+    id: 25,
+    name: "Figma/Adobe XD",
+    category: "Creative Design (UI/UX)",
+    description: "Master modern design tools Figma and Adobe XD for professional UI/UX work. Create stunning interfaces, prototypes, and design systems with industry-standard software used by top companies worldwide.",
+    duration: "10 weeks",
+    level: "Beginner",
+    comingSoon: true,
+    isFree: false,
+    modules: [
+      { id: 1, title: "Figma Fundamentals", isFree: true },
+      { id: 2, title: "Adobe XD Basics", isFree: false },
+      { id: 3, title: "Interface Design Principles", isFree: false },
+      { id: 4, title: "Component Libraries", isFree: false },
+      { id: 5, title: "Prototyping and Interactions", isFree: false },
+      { id: 6, title: "Design Systems", isFree: false },
+      { id: 7, title: "Collaboration Features", isFree: false },
+      { id: 8, title: "Responsive Design", isFree: false },
+      { id: 9, title: "Design Handoff", isFree: false },
+      { id: 10, title: "Best Practices and Workflows", isFree: false }
+    ]
+  },
+  {
+    id: 26,
+    name: "UI Design",
+    category: "Creative Design (UI/UX)",
+    description: "Create visually stunning and functional user interfaces. Master color theory, typography, layout principles, and modern design trends to craft beautiful digital experiences that users love.",
+    duration: "10 weeks",
+    level: "Beginner",
+    comingSoon: true,
+    isFree: false,
+    modules: [
+      { id: 1, title: "UI Design Principles", isFree: true },
+      { id: 2, title: "Color Theory and Psychology", isFree: false },
+      { id: 3, title: "Typography Fundamentals", isFree: false },
+      { id: 4, title: "Layout and Grid Systems", isFree: false },
+      { id: 5, title: "Visual Hierarchy", isFree: false },
+      { id: 6, title: "Icon Design", isFree: false },
+      { id: 7, title: "Mobile UI Design", isFree: false },
+      { id: 8, title: "Web UI Design", isFree: false },
+      { id: 9, title: "Design Trends", isFree: false },
+      { id: 10, title: "Design Portfolio Building", isFree: false }
+    ]
+  },
+  {
+    id: 27,
+    name: "UX Research",
+    category: "Creative Design (UI/UX)",
+    description: "Discover user experience research methodologies to create user-centered designs. Learn to conduct interviews, usability tests, and data analysis to inform design decisions and improve product experiences.",
+    duration: "10 weeks",
+    level: "Intermediate",
+    comingSoon: true,
+    isFree: false,
+    modules: [
+      { id: 1, title: "UX Research Fundamentals", isFree: true },
+      { id: 2, title: "User Interviews", isFree: false },
+      { id: 3, title: "Surveys and Questionnaires", isFree: false },
+      { id: 4, title: "Usability Testing", isFree: false },
+      { id: 5, title: "Card Sorting and Tree Testing", isFree: false },
+      { id: 6, title: "Persona Development", isFree: false },
+      { id: 7, title: "Journey Mapping", isFree: false },
+      { id: 8, title: "Analytics and Metrics", isFree: false },
+      { id: 9, title: "A/B Testing", isFree: false },
+      { id: 10, title: "Research Synthesis and Presentation", isFree: false }
+    ]
+  },
+  {
+    id: 28,
+    name: "Graphic Design",
+    category: "Creative Design (UI/UX)",
+    description: "Develop professional graphic design skills for print and digital media. Learn essential design principles, Adobe Creative Suite tools, and creative techniques to bring visual ideas to life.",
+    duration: "10 weeks",
+    level: "Beginner",
+    comingSoon: true,
+    isFree: false,
+    modules: [
+      { id: 1, title: "Design Fundamentals", isFree: true },
+      { id: 2, title: "Adobe Photoshop", isFree: false },
+      { id: 3, title: "Adobe Illustrator", isFree: false },
+      { id: 4, title: "Adobe InDesign", isFree: false },
+      { id: 5, title: "Logo Design", isFree: false },
+      { id: 6, title: "Branding and Identity", isFree: false },
+      { id: 7, title: "Print Design", isFree: false },
+      { id: 8, title: "Digital Graphics", isFree: false },
+      { id: 9, title: "Image Editing", isFree: false },
+      { id: 10, title: "Portfolio Development", isFree: false }
+    ]
+  },
+  // Lifestyle & Hobbies
+  {
+    id: 29,
+    name: "Yoga and Wellness",
+    category: "Lifestyle & Hobbies",
+    description: "Discover holistic wellness through yoga practice and lifestyle techniques. Learn asanas, breathing exercises, meditation, and wellness principles for physical health, mental clarity, and spiritual balance.",
+    duration: "10 weeks",
+    level: "Beginner",
+    comingSoon: true,
+    isFree: false,
+    modules: [
+      { id: 1, title: "Yoga Fundamentals", isFree: true },
+      { id: 2, title: "Basic Asanas (Postures)", isFree: false },
+      { id: 3, title: "Pranayama (Breathing Techniques)", isFree: false },
+      { id: 4, title: "Meditation and Mindfulness", isFree: false },
+      { id: 5, title: "Yoga Philosophy", isFree: false },
+      { id: 6, title: "Flexibility and Strength Building", isFree: false },
+      { id: 7, title: "Stress Reduction", isFree: false },
+      { id: 8, title: "Nutrition for Wellness", isFree: false },
+      { id: 9, title: "Daily Wellness Routines", isFree: false },
+      { id: 10, title: "Advanced Yoga Practices", isFree: false }
+    ]
+  },
+  {
+    id: 30,
+    name: "Indian Cuisine Cooking",
+    category: "Lifestyle & Hobbies",
+    description: "Master authentic Indian cooking techniques and regional specialties. Learn traditional recipes, spice blending, and cooking methods to create delicious Indian dishes for family and professional culinary pursuits.",
+    duration: "10 weeks",
+    level: "Beginner",
+    comingSoon: true,
+    isFree: false,
+    modules: [
+      { id: 1, title: "Indian Cooking Fundamentals", isFree: true },
+      { id: 2, title: "Spice Knowledge and Blending", isFree: false },
+      { id: 3, title: "North Indian Cuisine", isFree: false },
+      { id: 4, title: "South Indian Cuisine", isFree: false },
+      { id: 5, title: "Regional Specialties", isFree: false },
+      { id: 6, title: "Bread Making (Roti, Naan, Paratha)", isFree: false },
+      { id: 7, title: "Rice Dishes and Biryanis", isFree: false },
+      { id: 8, title: "Curries and Gravies", isFree: false },
+      { id: 9, title: "Snacks and Appetizers", isFree: false },
+      { id: 10, title: "Traditional Sweets and Desserts", isFree: false }
+    ]
+  },
+  {
+    id: 31,
+    name: "Music (Instrument or Vocal Training)",
+    category: "Lifestyle & Hobbies",
+    description: "Develop musical skills through structured instrument or vocal training. Learn music theory, technique, practice methods, and performance skills to express yourself through music and achieve your musical goals.",
+    duration: "10 weeks",
+    level: "Beginner",
+    comingSoon: true,
+    isFree: false,
+    modules: [
+      { id: 1, title: "Music Theory Basics", isFree: true },
+      { id: 2, title: "Reading Music Notation", isFree: false },
+      { id: 3, title: "Rhythm and Timing", isFree: false },
+      { id: 4, title: "Instrument Techniques", isFree: false },
+      { id: 5, title: "Vocal Training and Techniques", isFree: false },
+      { id: 6, title: "Scales and Exercises", isFree: false },
+      { id: 7, title: "Song Learning and Practice", isFree: false },
+      { id: 8, title: "Music Composition Basics", isFree: false },
+      { id: 9, title: "Performance Skills", isFree: false },
+      { id: 10, title: "Recording Basics", isFree: false }
+    ]
+  },
+  // Coding for Kids
+  {
+    id: 32,
+    name: "Coding Basics (Scratch, Python)",
+    category: "Coding for Kids",
+    description: "Introduce children to programming fundamentals through fun, interactive learning. Use visual programming with Scratch and text-based coding with Python to build computational thinking and problem-solving skills.",
+    duration: "10 weeks",
+    level: "Beginner",
+    comingSoon: true,
+    isFree: false,
+    modules: [
+      { id: 1, title: "Introduction to Programming Concepts", isFree: true },
+      { id: 2, title: "Scratch Visual Programming", isFree: false },
+      { id: 3, title: "Creating Games and Animations", isFree: false },
+      { id: 4, title: "Python Fundamentals", isFree: false },
+      { id: 5, title: "Variables and Data Types", isFree: false },
+      { id: 6, title: "Loops and Conditionals", isFree: false },
+      { id: 7, title: "Functions and Logic", isFree: false },
+      { id: 8, title: "Simple Projects and Games", isFree: false },
+      { id: 9, title: "Problem-Solving Skills", isFree: false },
+      { id: 10, title: "Creative Coding", isFree: false }
+    ]
+  },
+  {
+    id: 33,
+    name: "Vedic Mathematics",
+    category: "Coding for Kids",
+    description: "Learn ancient Indian mathematical techniques for fast mental calculations. Master Vedic sutras and methods to solve complex arithmetic problems quickly, boosting computational speed and accuracy for academic success.",
+    duration: "10 weeks",
+    level: "Beginner",
+    comingSoon: true,
+    isFree: false,
+    modules: [
+      { id: 1, title: "Introduction to Vedic Mathematics", isFree: true },
+      { id: 2, title: "Basic Sutras and Principles", isFree: false },
+      { id: 3, title: "Multiplication Techniques", isFree: false },
+      { id: 4, title: "Division Methods", isFree: false },
+      { id: 5, title: "Squaring and Square Roots", isFree: false },
+      { id: 6, title: "Mental Calculation Strategies", isFree: false },
+      { id: 7, title: "Algebra Applications", isFree: false },
+      { id: 8, title: "Geometry Applications", isFree: false },
+      { id: 9, title: "Problem-Solving Speed", isFree: false },
+      { id: 10, title: "Competition Preparation", isFree: false }
+    ]
+  },
+  {
+    id: 34,
+    name: "Abacus Training",
+    category: "Coding for Kids",
+    description: "Develop exceptional mental math abilities through abacus training. Master the ancient counting tool to perform rapid calculations, enhance concentration, memory, and build strong mathematical foundations for young learners.",
+    duration: "10 weeks",
+    level: "Beginner",
+    comingSoon: true,
+    isFree: false,
+    modules: [
+      { id: 1, title: "Abacus Fundamentals", isFree: true },
+      { id: 2, title: "Bead Manipulation Techniques", isFree: false },
+      { id: 3, title: "Addition and Subtraction", isFree: false },
+      { id: 4, title: "Multiplication on Abacus", isFree: false },
+      { id: 5, title: "Division on Abacus", isFree: false },
+      { id: 6, title: "Mental Abacus (Anzan)", isFree: false },
+      { id: 7, title: "Concentration Development", isFree: false },
+      { id: 8, title: "Memory Enhancement", isFree: false },
+      { id: 9, title: "Speed Calculation", isFree: false },
+      { id: 10, title: "Competition Training", isFree: false }
+    ]
+  },
+  {
+    id: 35,
+    name: "Phonics",
+    category: "Coding for Kids",
+    description: "Build strong reading and pronunciation foundations through systematic phonics instruction. Learn letter sounds, blending techniques, and decoding strategies to develop confident reading skills for early learners.",
+    duration: "10 weeks",
+    level: "Beginner",
+    comingSoon: true,
+    isFree: false,
+    modules: [
+      { id: 1, title: "Letter Sound Recognition", isFree: true },
+      { id: 2, title: "Phonemic Awareness", isFree: false },
+      { id: 3, title: "Blending Sounds", isFree: false },
+      { id: 4, title: "Digraphs and Blends", isFree: false },
+      { id: 5, title: "Vowel Patterns", isFree: false },
+      { id: 6, title: "Word Families", isFree: false },
+      { id: 7, title: "Sight Words", isFree: false },
+      { id: 8, title: "Reading Fluency", isFree: false },
+      { id: 9, title: "Spelling Foundations", isFree: false },
+      { id: 10, title: "Reading Comprehension Basics", isFree: false }
+    ]
+  },
+  // JEE/NEET Coaching
+  {
+    id: 36,
+    name: "JEE/NEET Physics",
+    category: "JEE/NEET Coaching",
+    description: "Comprehensive Physics coaching for JEE and NEET aspirants. Master mechanics, thermodynamics, electromagnetism, optics, and modern physics with focused problem-solving, concept clarity, and exam strategies.",
+    duration: "10 weeks",
+    level: "Advanced",
+    comingSoon: true,
+    isFree: false,
+    modules: [
+      { id: 1, title: "Mechanics and Motion", isFree: true },
+      { id: 2, title: "Thermodynamics", isFree: false },
+      { id: 3, title: "Electromagnetism", isFree: false },
+      { id: 4, title: "Optics and Waves", isFree: false },
+      { id: 5, title: "Modern Physics", isFree: false },
+      { id: 6, title: "Problem-Solving Techniques", isFree: false },
+      { id: 7, title: "Concept Visualization", isFree: false },
+      { id: 8, title: "Formula Mastery", isFree: false },
+      { id: 9, title: "Previous Year Questions", isFree: false },
+      { id: 10, title: "Time Management in Exams", isFree: false }
+    ]
+  },
+  {
+    id: 37,
+    name: "JEE/NEET Chemistry",
+    category: "JEE/NEET Coaching",
+    description: "Complete Chemistry preparation for competitive exams. Cover physical, organic, and inorganic chemistry with emphasis on reactions, mechanisms, periodic properties, and numerical problem-solving for JEE/NEET success.",
+    duration: "10 weeks",
+    level: "Advanced",
+    comingSoon: true,
+    isFree: false,
+    modules: [
+      { id: 1, title: "Physical Chemistry", isFree: true },
+      { id: 2, title: "Organic Chemistry", isFree: false },
+      { id: 3, title: "Inorganic Chemistry", isFree: false },
+      { id: 4, title: "Chemical Reactions and Mechanisms", isFree: false },
+      { id: 5, title: "Periodic Properties", isFree: false },
+      { id: 6, title: "Organic Conversions", isFree: false },
+      { id: 7, title: "Numerical Problems", isFree: false },
+      { id: 8, title: "Laboratory Techniques", isFree: false },
+      { id: 9, title: "Previous Year Analysis", isFree: false },
+      { id: 10, title: "Quick Revision Techniques", isFree: false }
+    ]
+  },
+  {
+    id: 38,
+    name: "JEE Mathematics / NEET Biology",
+    category: "JEE/NEET Coaching",
+    description: "Specialized coaching in Mathematics for JEE or Biology for NEET. Master advanced concepts, problem-solving strategies, and develop speed and accuracy required for competitive exam success.",
+    duration: "10 weeks",
+    level: "Advanced",
+    comingSoon: true,
+    isFree: false,
+    modules: [
+      { id: 1, title: "Advanced Concepts", isFree: true },
+      { id: 2, title: "Calculus/Physiology (JEE/NEET)", isFree: false },
+      { id: 3, title: "Algebra/Genetics (JEE/NEET)", isFree: false },
+      { id: 4, title: "Coordinate Geometry/Ecology (JEE/NEET)", isFree: false },
+      { id: 5, title: "Trigonometry/Biotechnology (JEE/NEET)", isFree: false },
+      { id: 6, title: "Problem-Solving Strategies", isFree: false },
+      { id: 7, title: "Conceptual Clarity", isFree: false },
+      { id: 8, title: "Previous Year Questions", isFree: false },
+      { id: 9, title: "Mock Test Analysis", isFree: false },
+      { id: 10, title: "Exam Strategy and Time Management", isFree: false }
+    ]
+  },
+  {
+    id: 39,
+    name: "Mock Exams and Doubt-Clearing Sessions",
+    category: "JEE/NEET Coaching",
+    description: "Comprehensive test practice and personalized doubt resolution for JEE/NEET aspirants. Regular mock tests simulate real exam conditions, while dedicated doubt-clearing sessions ensure complete concept mastery.",
+    duration: "10 weeks",
+    level: "Advanced",
+    comingSoon: true,
+    isFree: false,
+    modules: [
+      { id: 1, title: "Full-Length Mock Tests", isFree: true },
+      { id: 2, title: "Subject-Wise Tests", isFree: false },
+      { id: 3, title: "Performance Analysis", isFree: false },
+      { id: 4, title: "Individual Doubt Clearing", isFree: false },
+      { id: 5, title: "Concept Reinforcement", isFree: false },
+      { id: 6, title: "Weak Area Identification", isFree: false },
+      { id: 7, title: "Strategy Development", isFree: false },
+      { id: 8, title: "Time Management Practice", isFree: false },
+      { id: 9, title: "Error Analysis", isFree: false },
+      { id: 10, title: "Revision Planning", isFree: false }
+    ]
+  },
+  // UPSC/Government Exams
+  {
+    id: 40,
+    name: "UPSC Preparation",
+    category: "UPSC/Government Exams",
+    description: "Comprehensive UPSC Civil Services Exam preparation covering Prelims and Mains. Master General Studies, Current Affairs, Optional subjects, Essay writing, and Interview skills for India's most prestigious examination.",
+    duration: "10 weeks",
+    level: "Advanced",
+    comingSoon: true,
+    isFree: false,
+    modules: [
+      { id: 1, title: "General Studies (Paper I-IV)", isFree: true },
+      { id: 2, title: "Current Affairs and News Analysis", isFree: false },
+      { id: 3, title: "Optional Subject Preparation", isFree: false },
+      { id: 4, title: "Essay Writing Techniques", isFree: false },
+      { id: 5, title: "Answer Writing Skills", isFree: false },
+      { id: 6, title: "Previous Year Question Analysis", isFree: false },
+      { id: 7, title: "Study Planning and Time Management", isFree: false },
+      { id: 8, title: "Revision Strategies", isFree: false },
+      { id: 9, title: "Interview/Personality Test Preparation", isFree: false },
+      { id: 10, title: "Ethics and Integrity", isFree: false }
+    ]
+  },
+  {
+    id: 41,
+    name: "IBPS/SBI Exam Preparation",
+    category: "UPSC/Government Exams",
+    description: "Targeted preparation for banking sector exams including IBPS PO, Clerk, and SBI positions. Cover quantitative aptitude, reasoning, English, general awareness, and banking knowledge for successful career in banking.",
+    duration: "10 weeks",
+    level: "Intermediate",
+    comingSoon: true,
+    isFree: false,
+    modules: [
+      { id: 1, title: "Quantitative Aptitude", isFree: true },
+      { id: 2, title: "Reasoning Ability", isFree: false },
+      { id: 3, title: "English Language", isFree: false },
+      { id: 4, title: "General Awareness", isFree: false },
+      { id: 5, title: "Banking and Financial Awareness", isFree: false },
+      { id: 6, title: "Computer Knowledge", isFree: false },
+      { id: 7, title: "Data Interpretation", isFree: false },
+      { id: 8, title: "Mock Tests and Practice", isFree: false },
+      { id: 9, title: "Speed and Accuracy Development", isFree: false },
+      { id: 10, title: "Interview Preparation", isFree: false }
+    ]
+  },
+  {
+    id: 42,
+    name: "Railways Exam Preparation",
+    category: "UPSC/Government Exams",
+    description: "Complete preparation for Railway Recruitment Board exams including RRB NTPC, Group D, and technical positions. Master reasoning, mathematics, general awareness, and technical subjects for railway careers.",
+    duration: "10 weeks",
+    level: "Intermediate",
+    comingSoon: true,
+    isFree: false,
+    modules: [
+      { id: 1, title: "Mathematics and Arithmetic", isFree: true },
+      { id: 2, title: "General Intelligence and Reasoning", isFree: false },
+      { id: 3, title: "General Awareness", isFree: false },
+      { id: 4, title: "General Science", isFree: false },
+      { id: 5, title: "Technical Subjects (for Technical Posts)", isFree: false },
+      { id: 6, title: "Previous Year Questions", isFree: false },
+      { id: 7, title: "Mock Tests", isFree: false },
+      { id: 8, title: "Speed Enhancement", isFree: false },
+      { id: 9, title: "Exam Strategy", isFree: false },
+      { id: 10, title: "Physical Efficiency Test Preparation", isFree: false }
+    ]
+  },
+  // Data Science & AI/ML
+  {
+    id: 43,
+    name: "Python for Data Science",
+    category: "Data Science & AI/ML",
+    description: "Master Python programming for data science applications. Learn essential libraries, data manipulation, analysis techniques, and visualization tools to process and extract insights from complex datasets.",
+    duration: "10 weeks",
+    level: "Beginner",
+    comingSoon: true,
+    isFree: false,
+    modules: [
+      { id: 1, title: "Python Programming Fundamentals", isFree: true },
+      { id: 2, title: "NumPy for Numerical Computing", isFree: false },
+      { id: 3, title: "Pandas for Data Manipulation", isFree: false },
+      { id: 4, title: "Data Cleaning and Preprocessing", isFree: false },
+      { id: 5, title: "Exploratory Data Analysis", isFree: false },
+      { id: 6, title: "Statistical Analysis with Python", isFree: false },
+      { id: 7, title: "Data Visualization with Matplotlib/Seaborn", isFree: false },
+      { id: 8, title: "Working with APIs and Web Scraping", isFree: false },
+      { id: 9, title: "SQL Integration", isFree: false },
+      { id: 10, title: "Real-World Data Projects", isFree: false }
+    ]
+  },
+  {
+    id: 44,
+    name: "Machine Learning",
+    category: "Data Science & AI/ML",
+    description: "Discover machine learning algorithms and techniques to build intelligent systems. Learn supervised and unsupervised learning, model evaluation, and practical ML implementation for real-world problem-solving.",
+    duration: "10 weeks",
+    level: "Intermediate",
+    comingSoon: true,
+    isFree: false,
+    modules: [
+      { id: 1, title: "Machine Learning Fundamentals", isFree: true },
+      { id: 2, title: "Supervised Learning Algorithms", isFree: false },
+      { id: 3, title: "Unsupervised Learning Techniques", isFree: false },
+      { id: 4, title: "Feature Engineering", isFree: false },
+      { id: 5, title: "Model Selection and Evaluation", isFree: false },
+      { id: 6, title: "Classification and Regression", isFree: false },
+      { id: 7, title: "Clustering and Dimensionality Reduction", isFree: false },
+      { id: 8, title: "Cross-Validation Techniques", isFree: false },
+      { id: 9, title: "Scikit-learn Library", isFree: false },
+      { id: 10, title: "ML Project Development", isFree: false }
+    ]
+  },
+  {
+    id: 45,
+    name: "Deep Learning",
+    category: "Data Science & AI/ML",
+    description: "Master deep learning and neural networks for advanced AI applications. Learn to build and train deep neural networks, CNNs, RNNs, and work with cutting-edge frameworks like TensorFlow and PyTorch.",
+    duration: "10 weeks",
+    level: "Advanced",
+    comingSoon: true,
+    isFree: false,
+    modules: [
+      { id: 1, title: "Neural Network Fundamentals", isFree: true },
+      { id: 2, title: "Deep Learning Architectures", isFree: false },
+      { id: 3, title: "Convolutional Neural Networks (CNNs)", isFree: false },
+      { id: 4, title: "Recurrent Neural Networks (RNNs)", isFree: false },
+      { id: 5, title: "TensorFlow and Keras", isFree: false },
+      { id: 6, title: "PyTorch Basics", isFree: false },
+      { id: 7, title: "Transfer Learning", isFree: false },
+      { id: 8, title: "Image Classification", isFree: false },
+      { id: 9, title: "Natural Language Processing", isFree: false },
+      { id: 10, title: "Model Optimization and Deployment", isFree: false }
+    ]
+  },
+  {
+    id: 46,
+    name: "Data Visualization (Tableau, Power BI)",
+    category: "Data Science & AI/ML",
+    description: "Create compelling visual stories from data using industry-leading tools. Master Tableau and Power BI to design interactive dashboards, reports, and visualizations that drive business insights and decisions.",
+    duration: "10 weeks",
+    level: "Intermediate",
+    comingSoon: true,
+    isFree: false,
+    modules: [
+      { id: 1, title: "Data Visualization Principles", isFree: true },
+      { id: 2, title: "Tableau Desktop Fundamentals", isFree: false },
+      { id: 3, title: "Power BI Basics", isFree: false },
+      { id: 4, title: "Creating Interactive Dashboards", isFree: false },
+      { id: 5, title: "Chart Types and Best Practices", isFree: false },
+      { id: 6, title: "Data Connections and Blending", isFree: false },
+      { id: 7, title: "Calculated Fields and Parameters", isFree: false },
+      { id: 8, title: "Advanced Analytics in Tableau/Power BI", isFree: false },
+      { id: 9, title: "Sharing and Publishing Reports", isFree: false },
+      { id: 10, title: "Business Intelligence Storytelling", isFree: false }
+    ]
+  },
+  // Full Stack/Software Development
+  {
+    id: 47,
+    name: "MERN Stack Development",
+    category: "Full Stack/Software Development",
+    description: "Build modern full-stack web applications with MongoDB, Express.js, React, and Node.js. Master the complete JavaScript stack to create scalable, responsive web applications from frontend to backend.",
+    duration: "10 weeks",
+    level: "Intermediate",
+    comingSoon: true,
+    isFree: false,
+    modules: [
+      { id: 1, title: "JavaScript ES6+ Fundamentals", isFree: true },
+      { id: 2, title: "MongoDB Database Design", isFree: false },
+      { id: 3, title: "Express.js Backend Development", isFree: false },
+      { id: 4, title: "React Frontend Development", isFree: false },
+      { id: 5, title: "RESTful API Design", isFree: false },
+      { id: 6, title: "State Management (Redux)", isFree: false },
+      { id: 7, title: "Authentication and Authorization", isFree: false },
+      { id: 8, title: "Deployment and DevOps", isFree: false },
+      { id: 9, title: "Testing and Debugging", isFree: false },
+      { id: 10, title: "Full-Stack Project Development", isFree: false }
+    ]
+  },
+  {
+    id: 48,
+    name: "Java Development",
+    category: "Full Stack/Software Development",
+    description: "Master Java programming for enterprise applications and Android development. Learn object-oriented programming, Java frameworks, design patterns, and build robust, scalable applications.",
+    duration: "10 weeks",
+    level: "Intermediate",
+    comingSoon: true,
+    isFree: false,
+    modules: [
+      { id: 1, title: "Java Fundamentals", isFree: true },
+      { id: 2, title: "Object-Oriented Programming", isFree: false },
+      { id: 3, title: "Collections and Generics", isFree: false },
+      { id: 4, title: "Exception Handling", isFree: false },
+      { id: 5, title: "Multithreading and Concurrency", isFree: false },
+      { id: 6, title: "JDBC and Database Connectivity", isFree: false },
+      { id: 7, title: "Spring Framework Basics", isFree: false },
+      { id: 8, title: "REST API Development", isFree: false },
+      { id: 9, title: "Design Patterns", isFree: false },
+      { id: 10, title: "Enterprise Application Development", isFree: false }
+    ]
+  },
+  {
+    id: 49,
+    name: "Cloud Platforms (AWS, Azure, Google Cloud)",
+    category: "Full Stack/Software Development",
+    description: "Master cloud computing with leading platforms AWS, Azure, and Google Cloud. Learn cloud architecture, deployment, scaling, and management to build and maintain cloud-native applications.",
+    duration: "10 weeks",
+    level: "Intermediate",
+    comingSoon: true,
+    isFree: false,
+    modules: [
+      { id: 1, title: "Cloud Computing Fundamentals", isFree: true },
+      { id: 2, title: "AWS Services (EC2, S3, Lambda, RDS)", isFree: false },
+      { id: 3, title: "Azure Services and Solutions", isFree: false },
+      { id: 4, title: "Google Cloud Platform Basics", isFree: false },
+      { id: 5, title: "Cloud Architecture Patterns", isFree: false },
+      { id: 6, title: "Serverless Computing", isFree: false },
+      { id: 7, title: "Container Services (Docker, Kubernetes)", isFree: false },
+      { id: 8, title: "CI/CD on Cloud", isFree: false },
+      { id: 9, title: "Cloud Security and Compliance", isFree: false },
+      { id: 10, title: "Cost Optimization Strategies", isFree: false }
+    ]
+  },
+  // Digital Marketing
+  {
+    id: 50,
+    name: "SEO (Search Engine Optimization)",
+    category: "Digital Marketing",
+    description: "Master search engine optimization to improve website rankings and organic traffic. Learn on-page, off-page, technical SEO, keyword research, and analytics to dominate search results.",
+    duration: "10 weeks",
+    level: "Beginner",
+    comingSoon: true,
+    isFree: false,
+    modules: [
+      { id: 1, title: "SEO Fundamentals", isFree: true },
+      { id: 2, title: "Keyword Research and Analysis", isFree: false },
+      { id: 3, title: "On-Page Optimization", isFree: false },
+      { id: 4, title: "Off-Page SEO and Link Building", isFree: false },
+      { id: 5, title: "Technical SEO", isFree: false },
+      { id: 6, title: "Local SEO", isFree: false },
+      { id: 7, title: "SEO Tools (Google Analytics, Search Console)", isFree: false },
+      { id: 8, title: "Content Optimization", isFree: false },
+      { id: 9, title: "Algorithm Updates and Trends", isFree: false },
+      { id: 10, title: "SEO Reporting and Analytics", isFree: false }
+    ]
+  },
+  {
+    id: 51,
+    name: "Social Media Marketing",
+    category: "Digital Marketing",
+    description: "Build powerful social media strategies across platforms. Master content creation, community management, paid social advertising, and analytics to grow brand presence and engagement on social networks.",
+    duration: "10 weeks",
+    level: "Beginner",
+    comingSoon: true,
+    isFree: false,
+    modules: [
+      { id: 1, title: "Social Media Strategy", isFree: true },
+      { id: 2, title: "Platform-Specific Marketing (Facebook, Instagram, LinkedIn, Twitter)", isFree: false },
+      { id: 3, title: "Content Creation and Curation", isFree: false },
+      { id: 4, title: "Community Management", isFree: false },
+      { id: 5, title: "Social Media Advertising", isFree: false },
+      { id: 6, title: "Influencer Marketing", isFree: false },
+      { id: 7, title: "Social Media Analytics", isFree: false },
+      { id: 8, title: "Engagement Tactics", isFree: false },
+      { id: 9, title: "Crisis Management", isFree: false },
+      { id: 10, title: "Social Commerce", isFree: false }
+    ]
+  },
+  {
+    id: 52,
+    name: "Email Marketing",
+    category: "Digital Marketing",
+    description: "Master email marketing to nurture leads and drive sales. Learn list building, campaign creation, automation, personalization, and analytics to create effective email marketing strategies.",
+    duration: "10 weeks",
+    level: "Beginner",
+    comingSoon: true,
+    isFree: false,
+    modules: [
+      { id: 1, title: "Email Marketing Fundamentals", isFree: true },
+      { id: 2, title: "List Building and Segmentation", isFree: false },
+      { id: 3, title: "Email Design and Copywriting", isFree: false },
+      { id: 4, title: "Marketing Automation", isFree: false },
+      { id: 5, title: "Drip Campaigns", isFree: false },
+      { id: 6, title: "A/B Testing", isFree: false },
+      { id: 7, title: "Email Analytics and Metrics", isFree: false },
+      { id: 8, title: "Deliverability Optimization", isFree: false },
+      { id: 9, title: "Compliance (GDPR, CAN-SPAM)", isFree: false },
+      { id: 10, title: "Email Tools (MailChimp, Constant Contact)", isFree: false }
+    ]
+  },
+  // Cybersecurity
+  {
+    id: 53,
+    name: "Ethical Hacking (CEH)",
+    category: "Cybersecurity",
+    description: "Learn ethical hacking and penetration testing techniques to identify and fix security vulnerabilities. Prepare for Certified Ethical Hacker certification while mastering offensive security skills.",
+    duration: "10 weeks",
+    level: "Intermediate",
+    comingSoon: true,
+    isFree: false,
+    modules: [
+      { id: 1, title: "Ethical Hacking Fundamentals", isFree: true },
+      { id: 2, title: "Footprinting and Reconnaissance", isFree: false },
+      { id: 3, title: "Scanning Networks", isFree: false },
+      { id: 4, title: "Enumeration Techniques", isFree: false },
+      { id: 5, title: "System Hacking", isFree: false },
+      { id: 6, title: "Malware Threats", isFree: false },
+      { id: 7, title: "Social Engineering", isFree: false },
+      { id: 8, title: "Web Application Hacking", isFree: false },
+      { id: 9, title: "Wireless Network Security", isFree: false },
+      { id: 10, title: "CEH Exam Preparation", isFree: false }
+    ]
+  },
+  {
+    id: 54,
+    name: "Network Security",
+    category: "Cybersecurity",
+    description: "Secure network infrastructure from cyber threats. Learn firewall configuration, intrusion detection, VPNs, network protocols, and security best practices to protect organizational networks.",
+    duration: "10 weeks",
+    level: "Intermediate",
+    comingSoon: true,
+    isFree: false,
+    modules: [
+      { id: 1, title: "Network Security Fundamentals", isFree: true },
+      { id: 2, title: "Firewall Configuration and Management", isFree: false },
+      { id: 3, title: "Intrusion Detection and Prevention Systems", isFree: false },
+      { id: 4, title: "VPN Technologies", isFree: false },
+      { id: 5, title: "Network Protocols Security", isFree: false },
+      { id: 6, title: "Wireless Security", isFree: false },
+      { id: 7, title: "Network Monitoring", isFree: false },
+      { id: 8, title: "Security Architecture Design", isFree: false },
+      { id: 9, title: "Incident Response", isFree: false },
+      { id: 10, title: "Security Compliance", isFree: false }
+    ]
+  },
+  // FinTech
+  {
+    id: 55,
+    name: "Financial Modelling",
+    category: "Financial Technologies (FinTech)",
+    description: "Build sophisticated financial models for valuation, forecasting, and decision-making. Master Excel, financial analysis techniques, and modeling best practices used in investment banking and corporate finance.",
+    duration: "10 weeks",
+    level: "Intermediate",
+    comingSoon: true,
+    isFree: false,
+    modules: [
+      { id: 1, title: "Financial Modeling Fundamentals", isFree: true },
+      { id: 2, title: "Excel Advanced Functions", isFree: false },
+      { id: 3, title: "Three-Statement Modeling", isFree: false },
+      { id: 4, title: "Discounted Cash Flow (DCF) Analysis", isFree: false },
+      { id: 5, title: "Valuation Techniques", isFree: false },
+      { id: 6, title: "Scenario and Sensitivity Analysis", isFree: false },
+      { id: 7, title: "LBO and M&A Modeling", isFree: false },
+      { id: 8, title: "Financial Statement Analysis", isFree: false },
+      { id: 9, title: "Forecasting Techniques", isFree: false },
+      { id: 10, title: "Best Practice and Standards", isFree: false }
+    ]
+  },
+  {
+    id: 56,
+    name: "Blockchain Technology",
+    category: "Financial Technologies (FinTech)",
+    description: "Understand blockchain technology and its applications in finance and beyond. Learn distributed ledger systems, smart contracts, consensus mechanisms, and blockchain development fundamentals.",
+    duration: "10 weeks",
+    level: "Intermediate",
+    comingSoon: true,
+    isFree: false,
+    modules: [
+      { id: 1, title: "Blockchain Fundamentals", isFree: true },
+      { id: 2, title: "Distributed Ledger Technology", isFree: false },
+      { id: 3, title: "Cryptographic Principles", isFree: false },
+      { id: 4, title: "Smart Contracts", isFree: false },
+      { id: 5, title: "Ethereum Platform", isFree: false },
+      { id: 6, title: "Solidity Programming Basics", isFree: false },
+      { id: 7, title: "Consensus Mechanisms", isFree: false },
+      { id: 8, title: "Blockchain Use Cases", isFree: false },
+      { id: 9, title: "Blockchain Security", isFree: false },
+      { id: 10, title: "DeFi Concepts", isFree: false }
+    ]
+  },
+  {
+    id: 57,
+    name: "Cryptocurrency and Digital Assets",
+    category: "Financial Technologies (FinTech)",
+    description: "Explore cryptocurrency markets, trading, and investment strategies. Learn about Bitcoin, altcoins, wallet security, trading platforms, and the future of digital currencies in the financial ecosystem.",
+    duration: "10 weeks",
+    level: "Beginner",
+    comingSoon: true,
+    isFree: false,
+    modules: [
+      { id: 1, title: "Cryptocurrency Fundamentals", isFree: true },
+      { id: 2, title: "Bitcoin and Major Altcoins", isFree: false },
+      { id: 3, title: "Cryptocurrency Trading", isFree: false },
+      { id: 4, title: "Wallet Security and Management", isFree: false },
+      { id: 5, title: "Exchange Platforms", isFree: false },
+      { id: 6, title: "Technical Analysis for Crypto", isFree: false },
+      { id: 7, title: "ICOs and Token Economics", isFree: false },
+      { id: 8, title: "DeFi and Yield Farming", isFree: false },
+      { id: 9, title: "Regulatory Landscape", isFree: false },
+      { id: 10, title: "Investment Strategies", isFree: false }
+    ]
   }
 ]
 
@@ -497,8 +1278,33 @@ export default function Courses() {
   const [selectedCategory, setSelectedCategory] = useState('All')
   const [selectedLevel, setSelectedLevel] = useState('All')
 
-  const categories = ['All', 'Technology', 'Communication', 'Language', 'Personal Development', 'Finance', 'Professional Skills', 'Business', 'Career Development', 'Creative Arts', 'Education']
-  const levels = ['All', 'Beginner', 'Intermediate']
+  const categories = [
+    'All',
+    // New Categories
+    'Communication & Soft Skills',
+    'Creative Design (UI/UX)',
+    'Lifestyle & Hobbies',
+    'Coding for Kids',
+    'JEE/NEET Coaching',
+    'UPSC/Government Exams',
+    'Data Science & AI/ML',
+    'Full Stack/Software Development',
+    'Digital Marketing',
+    'Cybersecurity',
+    'Financial Technologies (FinTech)',
+    // Existing Categories
+    'Technology',
+    'Communication',
+    'Language',
+    'Personal Development',
+    'Finance',
+    'Professional Skills',
+    'Business',
+    'Career Development',
+    'Creative Arts',
+    'Education'
+  ]
+  const levels = ['All', 'Beginner', 'Intermediate', 'Advanced']
 
   const filteredCourses = coursesData.filter(course => {
     const matchesSearch = course.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
@@ -513,7 +1319,7 @@ export default function Courses() {
     <>
       <Head>
         <title>Courses - iiskills.cloud</title>
-        <meta name="description" content="Explore 22 professional and personal development courses including AI, Marketing, Finance, and more. Many free courses available!" />
+        <meta name="description" content="Explore 57+ professional and personal development courses including Communication Skills, UI/UX Design, Data Science, Full Stack Development, Digital Marketing, Cybersecurity, FinTech, and more. Many free courses available!" />
       </Head>
       <Navbar />
       
@@ -521,7 +1327,7 @@ export default function Courses() {
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-primary mb-4">Our Courses</h1>
           <p className="text-xl text-charcoal mb-2">Professional Skills Development for Everyone</p>
-          <p className="text-lg text-gray-600">22 courses across multiple domains - Many FREE courses available!</p>
+          <p className="text-lg text-gray-600">57+ courses across 11+ domains - Many FREE courses available!</p>
         </div>
 
         {/* Filters */}
