@@ -207,8 +207,8 @@ export default function Home() {
                 <div className="bg-green-500 text-white px-3 py-1 rounded-full text-xs font-bold inline-block mb-2">
                   FREE COURSE
                 </div>
-                <h3 className="font-bold text-xl mb-3 text-primary">Learn To Earn</h3>
-                <p className="text-charcoal mb-4">Learn earning opportunities, freelancing, and creating income streams.</p>
+                <h3 className="font-bold text-xl mb-3 text-primary">Learn Aptitude</h3>
+                <p className="text-charcoal mb-4">Develop logical reasoning, quantitative aptitude, and analytical skills for competitive exams.</p>
                 <div className="text-sm text-gray-600 mb-4">
                   <span>⏱️ 10 weeks</span> • <span className="text-accent font-semibold">Beginner</span>
                 </div>
@@ -221,10 +221,10 @@ export default function Home() {
               </div>
 
               <div className="bg-white rounded-lg shadow-lg p-6 border-t-4 border-accent">
-                <h3 className="font-bold text-xl mb-3 text-primary">Learn Leadership</h3>
-                <p className="text-charcoal mb-4">Develop leadership qualities and team management skills.</p>
+                <h3 className="font-bold text-xl mb-3 text-primary">Learn PR</h3>
+                <p className="text-charcoal mb-4">Master Public Relations strategies, media management, and brand building.</p>
                 <div className="text-sm text-gray-600 mb-4">
-                  <span>⏱️ 10 weeks</span> • <span className="text-accent font-semibold">Intermediate</span>
+                  <span>⏱️ 10 weeks</span> • <span className="text-accent font-semibold">Beginner</span>
                 </div>
                 <div className="bg-green-50 border border-green-200 rounded p-2 mb-4">
                   <p className="text-xs text-green-800 font-semibold">🎁 Free Sample Module</p>

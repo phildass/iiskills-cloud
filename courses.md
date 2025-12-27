@@ -1053,8 +1053,8 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 
 ---
 
-### Learn To Earn (FREE)
-**Description:** FREE course on earning opportunities, side hustles, freelancing, and creating multiple income streams for financial independence.
+### Learn Aptitude (FREE)
+**Description:** FREE course to develop logical reasoning, quantitative aptitude, and analytical skills for competitive exams and career growth.
 
 **Duration:** 10 weeks | **Level:** Beginner | **FREE**
 
@@ -1074,13 +1074,6 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 
 ---
 
-### Learn Aptitude (FREE)
-**Description:** FREE course to develop logical reasoning, quantitative aptitude, and analytical skills for competitive exams and career growth.
-
-**Duration:** 10 weeks | **Level:** Beginner | **FREE**
-
----
-
 ### Learn Winning – From the book
 **Description:** Based on proven success principles, learn winning strategies, mindset development, and achievement techniques. Features audio download.
 
@@ -1095,10 +1088,10 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 
 ---
 
-### Learn Leadership
-**Description:** Develop leadership qualities, team management skills, vision setting, and the ability to inspire and guide others to success.
+### Learn PR (Public Relations)
+**Description:** Master Public Relations strategies, media management, brand building, and effective communication for organizations and individuals.
 
-**Duration:** 10 weeks | **Level:** Intermediate
+**Duration:** 10 weeks | **Level:** Beginner
 
 ---
 
