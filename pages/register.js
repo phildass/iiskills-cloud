@@ -228,8 +228,8 @@ export default function Register() {
       setSuccess('Registration successful! Please check your email to confirm your account.')
       setIsLoading(false)
 
-      // Store email for prefilling on login page
-      sessionStorage.setItem('prefilledEmail', formData.email)
+      // Set flag for success message on login page (without pre-filling email for security)
+      sessionStorage.setItem('registrationSuccess', 'true')
 
       // Redirect to login after 3 seconds
       setTimeout(() => {

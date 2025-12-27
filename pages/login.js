@@ -27,18 +27,12 @@ export default function Login() {
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
 
-  // Pre-fill email if coming from registration
+  // Show success message if coming from registration, but don't pre-fill email for security
   useEffect(() => {
-    const prefilledEmail = sessionStorage.getItem('prefilledEmail')
-    if (prefilledEmail) {
-      setEmail(prefilledEmail)
+    const registrationSuccess = sessionStorage.getItem('registrationSuccess')
+    if (registrationSuccess) {
       setSuccess('Registration successful! Please sign in with your credentials.')
-      sessionStorage.removeItem('prefilledEmail')
-      
-      // Focus on password field for better UX
-      setTimeout(() => {
-        document.getElementById('password')?.focus()
-      }, 100)
+      sessionStorage.removeItem('registrationSuccess')
     }
   }, [])
 
