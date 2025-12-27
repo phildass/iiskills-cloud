@@ -24,7 +24,6 @@ export default function Footer() {
               <li><Link href="/courses" className="text-gray-600 hover:text-primary">Courses</Link></li>
               <li><Link href="/certification" className="text-gray-600 hover:text-primary">Certification</Link></li>
               <li><Link href="/about" className="text-gray-600 hover:text-primary">About Us</Link></li>
-              <li><Link href="/contact" className="text-gray-600 hover:text-primary">Contact</Link></li>
               <li><Link href="/privacy" className="text-gray-600 hover:text-primary">Privacy Policy</Link></li>
               <li><Link href="/terms" className="text-gray-600 hover:text-primary">Terms and Conditions</Link></li>
             </ul>
@@ -34,7 +33,7 @@ export default function Footer() {
           <div>
             <h3 className="font-bold text-lg text-primary mb-3">Contact</h3>
             <p className="text-sm text-gray-600 mb-2">Email: info@iiskills.cloud</p>
-            <p className="text-sm text-gray-600">Location: New Delhi, India</p>
+            <p className="text-sm text-gray-600">Location: Indiranagar, Bengaluru</p>
           </div>
         </div>
 
