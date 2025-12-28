@@ -13,12 +13,11 @@
     "@supabase/supabase-js": "^2.89.0",
     "@tailwindcss/postcss": "^4.1.18",
     "next": "^16.1.1",
-    "react": "latest",
-    "react-dom": "latest"
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "tailwindcss": "^4.1.18"
   },
   "devDependencies": {
-    "autoprefixer": "^10.4.14",
-    "postcss": "latest",
-    "tailwindcss": "^4.1.18"
+    "postcss": "latest"
   }
 }

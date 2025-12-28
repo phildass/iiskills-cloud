@@ -6,7 +6,8 @@
   --color-neutral: #F8F9FA;
   --color-charcoal: #24272a;
   
-  --font-sans: 'Inter', 'Arial', sans-serif;
+  /* Font stack with system fallbacks for better loading performance */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Arial', sans-serif;
 }
 
 * {
@@ -24,6 +25,8 @@ body {
 body {
   color: var(--color-charcoal);
   background: #ffffff;
+  /* Use system fonts by default for instant text rendering */
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Arial', sans-serif;
 }
 
 a {
