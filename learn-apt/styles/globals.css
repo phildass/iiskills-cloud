@@ -1,6 +1,13 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #0052CC;
+  --color-accent: #C77DDB;
+  --color-neutral: #F8F9FA;
+  --color-charcoal: #24272a;
+  
+  --font-sans: 'Inter', 'Arial', sans-serif;
+}
 
 * {
   box-sizing: border-box;
@@ -15,7 +22,7 @@ body {
 }
 
 body {
-  color: #24272a;
+  color: var(--color-charcoal);
   background: #ffffff;
 }
 
