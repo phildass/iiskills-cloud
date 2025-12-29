@@ -101,6 +101,7 @@ export default function Navbar() {
             Payments
           </Link>
           <Link href="/about" className="hover:text-primary transition">About</Link>
+          <Link href="/contact" className="hover:text-primary transition">Contact</Link>
           
           {/* Show Admin link if user is admin */}
           {isAdmin && (
@@ -167,6 +168,7 @@ export default function Navbar() {
             Payments
           </Link>
           <Link href="/about" className="block hover:text-primary transition">About</Link>
+          <Link href="/contact" className="block hover:text-primary transition">Contact</Link>
           
           {/* Show Admin link if user is admin */}
           {isAdmin && (
