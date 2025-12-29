@@ -39,7 +39,12 @@ export default function Navbar() {
 
   /**
    * Check if user is an admin
-   * (You can customize this logic based on your user metadata)
+   * 
+   * NOTE: This is a basic client-side check using localStorage.
+   * For production use, this should be replaced with proper server-side
+   * authentication verification (e.g., checking user role in database).
+   * The current implementation is retained for backward compatibility
+   * with the existing admin authentication system.
    */
   const isAdmin = () => {
     // Check localStorage for admin auth (existing admin system)

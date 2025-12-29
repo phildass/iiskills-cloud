@@ -398,7 +398,16 @@ npm run start
 
 ## Security Considerations
 
-1. **Admin Authentication**: Currently uses localStorage. Consider upgrading to JWT tokens or session-based auth for production
+1. **Admin Authentication**: 
+   - Currently uses localStorage for backward compatibility with existing system
+   - **IMPORTANT**: This is not secure for production use as localStorage can be manipulated
+   - **Recommended for Production**: Implement proper server-side authentication:
+     - Add admin role/flag to user records in Supabase
+     - Use Supabase Row Level Security (RLS) policies
+     - Verify admin status on server-side API calls
+     - Consider using JWT tokens with admin claims
+   - The ProtectedRoute component already uses localStorage - maintain consistency
+   - For production, upgrade both systems simultaneously
 
 2. **Cookie Security**: 
    - Cookies are marked `secure` in production (HTTPS only)
@@ -408,6 +417,8 @@ npm run start
 3. **HTTPS Required**: Subdomain authentication requires HTTPS in production
 
 4. **Admin Password**: Change default admin password (`phil123`) in production
+
+5. **Environment Variables**: Never commit `.env.local` to version control
 
 ## Migration Guide
 

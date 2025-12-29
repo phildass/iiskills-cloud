@@ -24,7 +24,14 @@ export function getMainDomain() {
     return hostname
   }
   
+  // For known domain, use configured value
+  if (process.env.NEXT_PUBLIC_MAIN_DOMAIN) {
+    return process.env.NEXT_PUBLIC_MAIN_DOMAIN
+  }
+  
   // Extract base domain (e.g., admin.iiskills.cloud -> iiskills.cloud)
+  // Note: This is a simple implementation. For complex TLDs (e.g., .co.uk),
+  // consider using a public suffix list library
   const parts = hostname.split('.')
   if (parts.length >= 2) {
     return parts.slice(-2).join('.')
