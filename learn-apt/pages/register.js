@@ -2,8 +2,6 @@ import { useState } from 'react'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
 import Link from 'next/link'
-import SharedNavbar from '../../components/shared/SharedNavbar'
-import Footer from '../components/Footer'
 import { supabase } from '../lib/supabaseClient'
 
 /**
@@ -128,12 +126,6 @@ export default function Register() {
         <title>Sign In - Learn-Apt</title>
         <meta name="description" content="Create your account for Learn-Apt assessment" />
       </Head>
-      
-      <SharedNavbar 
-        appName="Learn-Apt"
-        homeUrl="/"
-        showAuthButtons={false}
-      />
       
       <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 py-12 px-4">
         <div className="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-lg">
@@ -318,7 +310,6 @@ export default function Register() {
         </div>
       </div>
       
-      <Footer />
     </>
   )
 }

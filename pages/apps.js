@@ -1,5 +1,3 @@
-import Navbar from '../components/Navbar'
-import Footer from '../components/Footer'
 import AppCard from '../components/AppCard'
 
 export default function Apps() {
@@ -22,7 +20,6 @@ export default function Apps() {
   ]
   return (
     <>
-      <Navbar />
       <main className="max-w-4xl mx-auto px-4 py-12">
         <h1 className="text-2xl font-bold text-accent mb-8">Our Apps</h1>
         <div className="grid md:grid-cols-2 gap-6">
@@ -31,7 +28,6 @@ export default function Apps() {
           ))}
         </div>
       </main>
-      <Footer />
     </>
   )
 }

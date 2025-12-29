@@ -1,5 +1,3 @@
-import Navbar from '../components/Navbar'
-import Footer from '../components/Footer'
 import Head from 'next/head'
 
 export default function About() {
@@ -9,7 +7,6 @@ export default function About() {
         <title>About Us - iiskills.cloud</title>
         <meta name="description" content="Learn about iiskills.cloud and AI Cloud Enterprises' mission to democratize education in India" />
       </Head>
-      <Navbar />
       <main className="max-w-5xl mx-auto px-4 py-12">
         <h1 className="text-4xl font-bold text-primary mb-6 text-center">About Us</h1>
         
@@ -84,7 +81,6 @@ export default function About() {
           </a>
         </div>
       </main>
-      <Footer />
     </>
   )
 }

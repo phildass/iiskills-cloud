@@ -1,6 +1,4 @@
 import Head from 'next/head'
-import Navbar from '../components/Navbar'
-import Footer from '../components/Footer'
 
 export default function Certification() {
   const userName = 'Your Name'
@@ -14,7 +12,6 @@ export default function Certification() {
         <title>Certification - iiskills.cloud</title>
         <meta name="description" content="Learn about our certification process and requirements at iiskills.cloud" />
       </Head>
-      <Navbar />
       
       <main className="max-w-7xl mx-auto px-4 py-12">
         <h1 className="text-4xl font-bold text-primary mb-6 text-center">Certification Information</h1>
@@ -224,7 +221,6 @@ export default function Certification() {
         </div>
       </main>
       
-      <Footer />
     </>
   )
 }

@@ -1,7 +1,5 @@
 import { useState, useRef } from 'react'
 import Head from 'next/head'
-import Navbar from '../components/Navbar'
-import Footer from '../components/Footer'
 import CertificateTemplate from '../components/CertificateTemplate'
 import { generateCertificatePDF, downloadPDF, generateCertificateData } from '../utils/certificateGenerator'
 
@@ -78,7 +76,6 @@ export default function MyCertificates() {
         <title>My Certificates - iiskills.cloud</title>
         <meta name="description" content="View and download your earned certificates from iiskills.cloud" />
       </Head>
-      <Navbar />
       
       <main className="max-w-7xl mx-auto px-4 py-12">
         <h1 className="text-4xl font-bold text-primary mb-6 text-center">My Certificates</h1>
@@ -213,7 +210,6 @@ export default function MyCertificates() {
         </div>
       </main>
       
-      <Footer />
     </>
   )
 }

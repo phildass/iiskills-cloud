@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
-import Navbar from '../components/Navbar'
-import Footer from '../components/Footer'
 import Link from 'next/link'
 // Import Supabase client and authentication helper
 import { signInWithEmail } from '../lib/supabaseClient'
@@ -96,7 +94,6 @@ export default function Login() {
         <title>Sign In - iiskills.cloud</title>
         <meta name="description" content="Sign in to your iiskills.cloud account" />
       </Head>
-      <Navbar />
       <div className="min-h-screen flex items-center justify-center bg-neutral py-12 px-4">
         <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
           <h1 className="text-3xl font-bold text-primary mb-6 text-center">Sign In</h1>
@@ -166,7 +163,6 @@ export default function Login() {
           </p>
         </div>
       </div>
-      <Footer />
     </>
   )
 }

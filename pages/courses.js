@@ -1,7 +1,5 @@
 import { useState } from 'react'
 import Head from 'next/head'
-import Navbar from '../components/Navbar'
-import Footer from '../components/Footer'
 
 const coursesData = [
   {
@@ -1277,7 +1275,6 @@ export default function Courses() {
         <title>Courses - iiskills.cloud</title>
         <meta name="description" content="Explore 57+ professional and personal development courses including Communication Skills, UI/UX Design, Data Science, Full Stack Development, Digital Marketing, Cybersecurity, FinTech, and more. Many free courses available!" />
       </Head>
-      <Navbar />
       
       <main className="max-w-7xl mx-auto px-4 py-12">
         <div className="text-center mb-12">
@@ -1399,8 +1396,6 @@ export default function Courses() {
           </p>
         </div>
       </main>
-      
-      <Footer />
     </>
   )
 }

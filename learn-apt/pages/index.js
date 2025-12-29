@@ -1,9 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
-import SharedNavbar from '../components/shared/SharedNavbar'
-import Footer from '../components/Footer'
-import { getCurrentUser, signOutUser } from '../lib/supabaseClient'
+import { getCurrentUser } from '../lib/supabaseClient'
 
 /**
  * Learn Your Aptitude - Landing Page
@@ -17,27 +15,7 @@ import { getCurrentUser, signOutUser } from '../lib/supabaseClient'
  * - LOG IN links to login page
  */
 export default function Home() {
-  const [user, setUser] = useState(null)
-  const [isLoading, setIsLoading] = useState(true)
   const router = useRouter()
-
-  useEffect(() => {
-    checkUser()
-  }, [])
-
-  const checkUser = async () => {
-    const currentUser = await getCurrentUser()
-    setUser(currentUser)
-    setIsLoading(false)
-  }
-
-  const handleLogout = async () => {
-    const { success } = await signOutUser()
-    if (success) {
-      setUser(null)
-      router.push('/')
-    }
-  }
 
   const handleEnter = async () => {
     // Verify auth session
@@ -58,14 +36,6 @@ export default function Home() {
         <title>Learn-Apt - Comprehensive Skills Assessment & AI Career Guidance</title>
         <meta name="description" content="Learn-Apt - Test every aspect of your skills, talents, and weak spots. Get AI-powered career and self-improvement guidance based on comprehensive assessment." />
       </Head>
-      
-      <SharedNavbar 
-        user={user}
-        onLogout={handleLogout}
-        appName="Learn-Apt"
-        homeUrl="/"
-        showAuthButtons={false}
-      />
       
       <main className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
         {/* Hero Section */}
@@ -297,7 +267,6 @@ export default function Home() {
         </section>
       </main>
       
-      <Footer />
     </>
   )
 }
