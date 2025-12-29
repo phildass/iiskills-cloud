@@ -32,13 +32,10 @@ export default function AdminSignIn() {
       const user = await getCurrentUser()
       
       if (!user) {
-        // Not logged in - redirect to login page
+        // Not logged in - redirect to login page immediately
         setError('Please log in to access the admin panel.')
         setIsLoading(false)
-        // Redirect to login after a brief delay
-        setTimeout(() => {
-          router.push('/login?redirect=/admin')
-        }, 2000)
+        router.push('/login?redirect=/admin')
         return
       }
 
