@@ -1256,20 +1256,13 @@ export default function Courses() {
     'Career Development',
     'Creative Arts',
     'Education',
-    // Free Course Filter
     'Free Course'
   ]
   const levels = ['All', 'Beginner', 'Intermediate', 'Advanced']
 
   const filteredCourses = coursesData.filter(course => {
-    let matchesCategory = false
-    if (selectedCategory === 'All') {
-      matchesCategory = true
-    } else if (selectedCategory === 'Free Course') {
-      matchesCategory = course.isFree
-    } else {
-      matchesCategory = course.category === selectedCategory
-    }
+    const matchesCategory = selectedCategory === 'All' || 
+                           (selectedCategory === 'Free Course' ? course.isFree : course.category === selectedCategory)
     const matchesLevel = selectedLevel === 'All' || course.level === selectedLevel
     
     return matchesCategory && matchesLevel
