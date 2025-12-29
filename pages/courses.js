@@ -1228,7 +1228,6 @@ const coursesData = [
 ]
 
 export default function Courses() {
-  const [searchTerm, setSearchTerm] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('All')
   const [selectedLevel, setSelectedLevel] = useState('All')
 
@@ -1256,17 +1255,17 @@ export default function Courses() {
     'Business',
     'Career Development',
     'Creative Arts',
-    'Education'
+    'Education',
+    'Free Course'
   ]
   const levels = ['All', 'Beginner', 'Intermediate', 'Advanced']
 
   const filteredCourses = coursesData.filter(course => {
-    const matchesSearch = course.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
-                         course.description.toLowerCase().includes(searchTerm.toLowerCase())
-    const matchesCategory = selectedCategory === 'All' || course.category === selectedCategory
+    const matchesCategory = selectedCategory === 'All' || 
+                           (selectedCategory === 'Free Course' ? course.isFree : course.category === selectedCategory)
     const matchesLevel = selectedLevel === 'All' || course.level === selectedLevel
     
-    return matchesSearch && matchesCategory && matchesLevel
+    return matchesCategory && matchesLevel
   })
 
   return (
@@ -1285,18 +1284,7 @@ export default function Courses() {
 
         {/* Filters */}
         <div className="bg-white rounded-lg shadow p-6 mb-8">
-          <div className="grid md:grid-cols-3 gap-4">
-            <div>
-              <label className="block text-sm font-semibold text-charcoal mb-2">Search Courses</label>
-              <input
-                type="text"
-                placeholder="Search by name or description..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary"
-              />
-            </div>
-            
+          <div className="grid md:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-semibold text-charcoal mb-2">Category</label>
               <select
