@@ -1,15 +1,17 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@theme {
+/* Theme colors as CSS variables */
+:root {
   --color-primary: #0052CC;
   --color-accent: #C77DDB;
   --color-neutral: #F8F9FA;
   --color-charcoal: #24272a;
-  
-  /* Font stack with system fallbacks for better loading performance */
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Arial', sans-serif;
 }
 
+/* Global resets */
 * {
   box-sizing: border-box;
   padding: 0;
@@ -25,10 +27,10 @@ body {
 body {
   color: var(--color-charcoal);
   background: #ffffff;
-  /* Use system fonts by default for instant text rendering */
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+  font-family: var(--font-sans);
 }
 
+/* Example: remove link underline and inherit color */
 a {
   color: inherit;
   text-decoration: none;
