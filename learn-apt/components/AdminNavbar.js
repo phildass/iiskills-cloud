@@ -32,7 +32,7 @@ export default function AdminNavbar() {
             <span className="text-2xl">🔐</span>
             <div>
               <h1 className="text-lg font-bold">Admin Panel</h1>
-              <p className="text-xs opacity-90">Learn Your Aptitude</p>
+              <p className="text-xs opacity-90">Learn-Apt</p>
             </div>
           </div>
 

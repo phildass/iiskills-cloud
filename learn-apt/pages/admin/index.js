@@ -48,8 +48,8 @@ export default function AdminSignIn() {
   return (
     <>
       <Head>
-        <title>Admin Sign In - Learn Your Aptitude</title>
-        <meta name="description" content="Admin sign in for Learn Your Aptitude" />
+        <title>Admin Sign In - Learn-Apt</title>
+        <meta name="description" content="Admin sign in for Learn-Apt" />
         <meta name="robots" content="noindex, nofollow" />
       </Head>
 
@@ -58,7 +58,7 @@ export default function AdminSignIn() {
           {/* Logo/Title */}
           <div className="text-center mb-8">
             <h1 className="text-4xl font-bold text-primary mb-2">🔐 Admin Access</h1>
-            <p className="text-gray-600">Learn Your Aptitude - Admin Panel</p>
+            <p className="text-gray-600">Learn-Apt - Admin Panel</p>
           </div>
 
           {/* Sign-In Form */}
