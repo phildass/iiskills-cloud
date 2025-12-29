@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router'
+import { useState, useEffect } from 'react'
 import Head from 'next/head'
 import { getCurrentUser } from '../lib/supabaseClient'
 
@@ -15,6 +16,18 @@ import { getCurrentUser } from '../lib/supabaseClient'
  */
 export default function Home() {
   const router = useRouter()
+  const [user, setUser] = useState(null)
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    checkUser()
+  }, [])
+
+  const checkUser = async () => {
+    const currentUser = await getCurrentUser()
+    setUser(currentUser)
+    setIsLoading(false)
+  }
 
   const handleEnter = async () => {
     // Verify auth session
@@ -35,25 +48,6 @@ export default function Home() {
         <title>Learn-Apt - Comprehensive Skills Assessment & AI Career Guidance</title>
         <meta name="description" content="Learn-Apt - Test every aspect of your skills, talents, and weak spots. Get AI-powered career and self-improvement guidance based on comprehensive assessment." />
       </Head>
-     
-      <SharedNavbar 
-        user={user}
-        onLogout={handleLogout}
-        appName="Learn Your Aptitude"
-        homeUrl="https://iiskills.cloud"
-        showAuthButtons={true}
-        customLinks={[
-          { href: 'https://iiskills.cloud', label: 'Home', className: 'hover:text-primary transition' },
-          { href: 'https://iiskills.cloud/courses', label: 'Courses', className: 'hover:text-primary transition' },
-          { href: 'https://iiskills.cloud/certification', label: 'Certification', className: 'hover:text-primary transition' },
-          { href: 'https://www.aienter.in/payments', label: 'Payments', className: 'bg-accent text-white px-4 py-2 rounded hover:bg-purple-600 transition font-bold', mobileClassName: 'block bg-accent text-white px-4 py-2 rounded hover:bg-purple-600 transition font-bold', target: '_blank', rel: 'noopener noreferrer' },
-          { href: 'https://iiskills.cloud/about', label: 'About', className: 'hover:text-primary transition' },
-          { href: 'https://iiskills.cloud/contact', label: 'Contact', className: 'hover:text-primary transition' }
-        ]}
-        appName="Learn-Apt"
-        homeUrl="/"
-        showAuthButtons={false}
-      />
       
       <main className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
         {/* Hero Section */}

@@ -35,6 +35,14 @@ export default function App({ Component, pageProps }) {
         appName="Learn-Apt"
         homeUrl="/"
         showAuthButtons={true}
+        customLinks={[
+          { href: 'https://iiskills.cloud', label: 'Home', className: 'hover:text-primary transition' },
+          { href: 'https://iiskills.cloud/courses', label: 'Courses', className: 'hover:text-primary transition' },
+          { href: 'https://iiskills.cloud/certification', label: 'Certification', className: 'hover:text-primary transition' },
+          { href: 'https://www.aienter.in/payments', label: 'Payments', className: 'bg-accent text-white px-4 py-2 rounded hover:bg-purple-600 transition font-bold', mobileClassName: 'block bg-accent text-white px-4 py-2 rounded hover:bg-purple-600 transition font-bold', target: '_blank', rel: 'noopener noreferrer' },
+          { href: 'https://iiskills.cloud/about', label: 'About', className: 'hover:text-primary transition' },
+          { href: 'https://iiskills.cloud/terms', label: 'Terms & Conditions', className: 'hover:text-primary transition' }
+        ]}
       />
       <Component {...pageProps} />
       <Footer />
