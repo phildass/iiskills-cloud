@@ -103,6 +103,14 @@ export default function AdminSignIn() {
                 <span className="text-xs text-blue-600">You can change this password after signing in.</span>
               </p>
             </div>
+
+            {/* Development Warning */}
+            <div className="mt-4 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+              <p className="text-xs text-yellow-800">
+                ⚠️ <strong>Development Mode:</strong> This is a demo authentication system for development purposes. 
+                For production use, implement proper backend authentication with environment variables and secure password storage.
+              </p>
+            </div>
           </div>
 
           {/* Back to Home */}

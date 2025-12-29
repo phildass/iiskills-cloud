@@ -79,10 +79,12 @@ The application includes an admin panel for managing the platform:
 5. Click "Update Password"
 
 **Security Notes:**
+- ⚠️ **Development/Demo Mode:** This admin system uses a simple password stored in localStorage for demonstration purposes
 - The admin password is stored in your browser's localStorage
 - If you clear browser data, the password will reset to the default (`phil123`)
-- For production use, consider implementing backend authentication
+- **For production use:** Implement proper backend authentication with environment variables, secure password hashing, and database storage
 - The admin session persists until you sign out or clear browser data
+- **Important:** Change the default password immediately after first use and never commit sensitive passwords to version control
 
 ## Getting Started
 
