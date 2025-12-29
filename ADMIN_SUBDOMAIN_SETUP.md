@@ -416,7 +416,7 @@ npm run start
 
 3. **HTTPS Required**: Subdomain authentication requires HTTPS in production
 
-4. **Admin Password**: Change default admin password (`phil123`) in production
+4. **Admin Password**: Change the default admin password in production for security
 
 5. **Environment Variables**: Never commit `.env.local` to version control
 

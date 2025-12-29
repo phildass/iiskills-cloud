@@ -51,6 +51,9 @@ export default function AdminLogin() {
                 placeholder="Enter admin password"
                 required
               />
+              <p className="text-xs text-gray-500 mt-2">
+                You can change this password after signing in.
+              </p>
             </div>
             
             <button
