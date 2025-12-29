@@ -20,7 +20,7 @@ export default function Footer() {
               <Link href="/" className="block text-gray-300 hover:text-white transition">Home</Link>
               <Link href="https://iiskills.cloud" className="block text-gray-300 hover:text-white transition">Main Site</Link>
               <Link href="https://iiskills.cloud/about" className="block text-gray-300 hover:text-white transition">About</Link>
-              <Link href="https://iiskills.cloud/terms" className="block text-gray-300 hover:text-white transition">Terms &amp; Conditions</Link>
+              <Link href="https://iiskills.cloud/terms" className="block text-gray-300 hover:text-white transition">Terms & Conditions</Link>
             </div>
           </div>
           
