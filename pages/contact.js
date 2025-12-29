@@ -1,10 +1,7 @@
-import Navbar from '../components/Navbar'
-import Footer from '../components/Footer'
 
 export default function Contact() {
   return (
     <>
-      <Navbar />
       <main className="max-w-xl mx-auto px-4 py-12">
         <h1 className="text-2xl font-bold text-accent mb-6">Contact Us</h1>
         <form className="bg-white rounded shadow p-6 mb-8">
@@ -22,7 +19,6 @@ export default function Contact() {
           <p>Address: Indiranagar, Bengaluru</p>
         </div>
       </main>
-      <Footer />
     </>
   )
 }

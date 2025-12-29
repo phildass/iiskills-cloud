@@ -2,8 +2,6 @@ import { useState } from 'react'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
 import Link from 'next/link'
-import SharedNavbar from '../../components/shared/SharedNavbar'
-import Footer from '../components/Footer'
 import { supabase } from '../lib/supabaseClient'
 
 /**
@@ -16,6 +14,8 @@ export default function Register() {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
+    age: '',
+    qualification: '',
     email: '',
     password: '',
     confirmPassword: ''
@@ -41,6 +41,14 @@ export default function Register() {
 
     if (!formData.firstName.trim()) newErrors.firstName = 'First name is required'
     if (!formData.lastName.trim()) newErrors.lastName = 'Last name is required'
+    
+    if (!formData.age) {
+      newErrors.age = 'Age is required'
+    } else if (isNaN(formData.age) || formData.age < 10 || formData.age > 100) {
+      newErrors.age = 'Please enter a valid age between 10 and 100'
+    }
+    
+    if (!formData.qualification.trim()) newErrors.qualification = 'Qualification is required'
 
     if (!formData.email.trim()) {
       newErrors.email = 'Email is required'
@@ -82,7 +90,9 @@ export default function Register() {
           data: {
             first_name: formData.firstName,
             last_name: formData.lastName,
-            full_name: `${formData.firstName} ${formData.lastName}`
+            full_name: `${formData.firstName} ${formData.lastName}`,
+            age: parseInt(formData.age),
+            qualification: formData.qualification
           }
         }
       })
@@ -113,20 +123,14 @@ export default function Register() {
   return (
     <>
       <Head>
-        <title>Sign In - Learn Your Aptitude</title>
-        <meta name="description" content="Create your account for Learn Your Aptitude" />
+        <title>Sign In - Learn-Apt</title>
+        <meta name="description" content="Create your account for Learn-Apt assessment" />
       </Head>
-      
-      <SharedNavbar 
-        appName="Learn Your Aptitude"
-        homeUrl="/"
-        showAuthButtons={false}
-      />
       
       <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 py-12 px-4">
         <div className="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-lg">
           <h1 className="text-3xl font-bold text-primary mb-2 text-center">Create Your Account</h1>
-          <p className="text-center text-charcoal mb-6">Join Learn Your Aptitude</p>
+          <p className="text-center text-charcoal mb-6">Join Learn-Apt to discover your potential</p>
           
           {errors.submit && (
             <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
@@ -182,6 +186,47 @@ export default function Register() {
                     placeholder="Enter your last name"
                   />
                   {errors.lastName && <p className="text-red-500 text-sm mt-1">{errors.lastName}</p>}
+                </div>
+                
+                <div>
+                  <label className="block text-charcoal font-semibold mb-2" htmlFor="age">
+                    Age <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="number"
+                    id="age"
+                    name="age"
+                    value={formData.age}
+                    onChange={handleChange}
+                    min="10"
+                    max="100"
+                    className={`w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-primary ${errors.age ? 'border-red-500' : 'border-gray-300'}`}
+                    placeholder="Enter your age"
+                  />
+                  {errors.age && <p className="text-red-500 text-sm mt-1">{errors.age}</p>}
+                </div>
+                
+                <div>
+                  <label className="block text-charcoal font-semibold mb-2" htmlFor="qualification">
+                    Qualification <span className="text-red-500">*</span>
+                  </label>
+                  <select
+                    id="qualification"
+                    name="qualification"
+                    value={formData.qualification}
+                    onChange={handleChange}
+                    className={`w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-primary ${errors.qualification ? 'border-red-500' : 'border-gray-300'}`}
+                  >
+                    <option value="">Select qualification</option>
+                    <option value="High School">High School</option>
+                    <option value="Undergraduate">Undergraduate</option>
+                    <option value="Graduate">Graduate</option>
+                    <option value="Post Graduate">Post Graduate</option>
+                    <option value="PhD">PhD</option>
+                    <option value="Professional Certification">Professional Certification</option>
+                    <option value="Other">Other</option>
+                  </select>
+                  {errors.qualification && <p className="text-red-500 text-sm mt-1">{errors.qualification}</p>}
                 </div>
               </div>
             </div>
@@ -265,7 +310,6 @@ export default function Register() {
         </div>
       </div>
       
-      <Footer />
     </>
   )
 }

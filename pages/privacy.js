@@ -1,5 +1,3 @@
-import Navbar from '../components/Navbar'
-import Footer from '../components/Footer'
 import Head from 'next/head'
 
 export default function Privacy() {
@@ -9,7 +7,6 @@ export default function Privacy() {
         <title>Privacy Policy - iiskills.cloud</title>
         <meta name="description" content="Privacy Policy for iiskills.cloud and Indian Institute of Professional Skills Development" />
       </Head>
-      <Navbar />
       <main className="max-w-4xl mx-auto px-4 py-12">
         <h1 className="text-4xl font-bold text-primary mb-4 text-center">Privacy Policy</h1>
         <p className="text-center text-gray-600 mb-8">Last Updated: 24 December 2025</p>
@@ -149,7 +146,6 @@ export default function Privacy() {
           </section>
         </div>
       </main>
-      <Footer />
     </>
   )
 }

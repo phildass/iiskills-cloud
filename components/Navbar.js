@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 // Import Supabase helpers for authentication state and logout
 import { getCurrentUser, signOutUser } from '../lib/supabaseClient'
+import { getAdminUrl } from '../utils/urlHelper'
 
 /**
  * Navigation Bar Component
@@ -19,11 +20,13 @@ export default function Navbar() {
   // Track current user authentication state
   const [user, setUser] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
+  const [isAdmin, setIsAdmin] = useState(false)
   const router = useRouter()
 
   // Check authentication status when component mounts
   useEffect(() => {
     checkUser()
+    checkAdminStatus()
   }, [])
 
   /**
@@ -34,6 +37,21 @@ export default function Navbar() {
     const currentUser = await getCurrentUser()
     setUser(currentUser)
     setIsLoading(false)
+  }
+
+  /**
+   * Check if user is an admin
+   * 
+   * NOTE: This is a basic client-side check using localStorage.
+   * For production use, this should be replaced with proper server-side
+   * authentication verification (e.g., checking user role in database).
+   * The current implementation is retained for backward compatibility
+   * with the existing admin authentication system.
+   */
+  const checkAdminStatus = () => {
+    // Check localStorage for admin auth (existing admin system)
+    const adminAuth = localStorage.getItem('adminAuth')
+    setIsAdmin(adminAuth === 'true')
   }
 
   /**
@@ -83,6 +101,18 @@ export default function Navbar() {
             Payments
           </Link>
           <Link href="/about" className="hover:text-primary transition">About</Link>
+          <Link href="/terms" className="hover:text-primary transition">Terms & Conditions</Link>
+          
+          {/* Show Admin link if user is admin */}
+          {isAdmin && (
+            <a
+              href={getAdminUrl()}
+              className="bg-yellow-600 text-white px-4 py-2 rounded hover:bg-yellow-700 transition font-bold"
+              title="Admin Dashboard"
+            >
+              Admin
+            </a>
+          )}
           
           {/* Show Sign In/Register or User Info based on authentication */}
           {!isLoading && (
@@ -138,6 +168,17 @@ export default function Navbar() {
             Payments
           </Link>
           <Link href="/about" className="block hover:text-primary transition">About</Link>
+          <Link href="/terms" className="block hover:text-primary transition">Terms & Conditions</Link>
+          
+          {/* Show Admin link if user is admin */}
+          {isAdmin && (
+            <a
+              href={getAdminUrl()}
+              className="block bg-yellow-600 text-white px-4 py-2 rounded hover:bg-yellow-700 transition font-bold"
+            >
+              Admin Dashboard
+            </a>
+          )}
           
           {/* Show Sign In/Register or User Info based on authentication */}
           {!isLoading && (

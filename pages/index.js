@@ -1,5 +1,3 @@
-import Navbar from '../components/Navbar'
-import Footer from '../components/Footer'
 import Link from 'next/link'
 import Image from 'next/image'
 import Head from 'next/head'
@@ -11,7 +9,6 @@ export default function Home() {
         <title>iiskills.cloud - Indian Institute of Professional Skills Development</title>
         <meta name="description" content="Education for All, Online and Affordable. Professional skills development at just ₹99 + GST per course. Part of Viksit Bharat initiative." />
       </Head>
-      <Navbar />
       <main>
         {/* Hero Section */}
         <section className="relative bg-gradient-to-r from-primary to-accent text-white py-16 overflow-hidden">
@@ -276,7 +273,6 @@ export default function Home() {
           </div>
         </section>
       </main>
-      <Footer />
     </>
   )
 }

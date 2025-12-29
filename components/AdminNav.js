@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { getMainSiteUrl, isOnSubdomain } from '../utils/urlHelper'
 
 export default function AdminNav() {
   const router = useRouter()
@@ -9,6 +10,10 @@ export default function AdminNav() {
     localStorage.removeItem('adminLoginTime')
     router.push('/admin/login')
   }
+
+  // Determine the main site URL
+  const mainSiteUrl = getMainSiteUrl()
+  const onAdminSubdomain = isOnSubdomain('admin')
 
   return (
     <div className="bg-yellow-100 border-b-4 border-yellow-500 py-2 px-6">
@@ -33,12 +38,22 @@ export default function AdminNav() {
             </Link>
           </nav>
         </div>
-        <button
-          onClick={handleLogout}
-          className="bg-yellow-800 text-white px-4 py-1 rounded text-sm font-medium hover:bg-yellow-900 transition"
-        >
-          Logout
-        </button>
+        <div className="flex items-center space-x-3">
+          {/* Link back to main site */}
+          <a
+            href={mainSiteUrl}
+            className="text-yellow-900 hover:text-yellow-700 font-medium text-sm"
+            title="Go to main site"
+          >
+            ← Main Site
+          </a>
+          <button
+            onClick={handleLogout}
+            className="bg-yellow-800 text-white px-4 py-1 rounded text-sm font-medium hover:bg-yellow-900 transition"
+          >
+            Logout
+          </button>
+        </div>
       </div>
     </div>
   )

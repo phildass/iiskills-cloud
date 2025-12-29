@@ -1,31 +1,65 @@
-# Learn Your Aptitude - Standalone Next.js Application
+# Learn-Apt - Comprehensive Skills Assessment & AI Career Guidance
 
-This is a standalone Next.js application for the **Learn Your Aptitude** feature of iiskills.cloud. It is designed to be deployed as a separate service on the subdomain `learn-apt.iiskills.cloud`.
+This is a standalone Next.js application for the **Learn-Apt** assessment platform of iiskills.cloud. It is designed to be deployed as a separate service on the subdomain `learn-apt.iiskills.cloud`.
 
 ## Overview
 
-Learn Your Aptitude is an aptitude learning platform that helps users develop:
-- Quantitative aptitude skills
-- Logical reasoning abilities
-- Data interpretation techniques
-- Verbal reasoning skills
-- Pattern recognition
-- Speed mathematics
+Learn-Apt is a comprehensive assessment tool that uses AI to analyze your strengths, identify areas for improvement, and provide personalized career and self-development guidance. The platform evaluates multiple dimensions of your abilities and generates actionable insights to help you achieve your full potential.
+
+### Key Features
+
+- **Two Assessment Modes:**
+  - **Short Test:** 5 minutes, 5 modules × 5 questions (25 total questions)
+  - **Elaborate Test:** 20 minutes, 20 modules × 5 questions (100 total questions)
+  
+- **Comprehensive Assessment Areas:**
+  - Education Background & Academic Performance
+  - Skills & Talents
+  - Family Environment & Support
+  - Social Network & Peer Influence
+  - Personal Interests & Hobbies
+  - Role Models & Influencers
+  - Career Aspirations & Goals
+  - Learning Style & Problem Solving
+  - And more...
+
+- **AI-Powered Analysis:**
+  - Personalized ~700-word career guidance report
+  - Detailed strengths analysis
+  - Areas for development
+  - Learning recommendations
+  - Actionable next steps
+  
+- **Downloadable Reports:**
+  - Branded PDF reports (feature in development)
+  - Comprehensive results with dual branding (iiskills & AI Cloud Enterprises)
+  - Privacy policy and disclaimer included
 
 ## Project Structure
 
 ```
 learn-apt/
 ├── components/          # React components
-│   └── Footer.js       # Footer component
+│   ├── AdminNavbar.js  # Admin navigation component
+│   ├── Footer.js       # Footer component
+│   └── shared/         # Shared components (in parent directory)
+├── contexts/           # React contexts
+│   └── AdminContext.js # Admin authentication context
 ├── lib/                # Utility libraries
+│   ├── adminAuth.js    # Admin authentication utilities
 │   └── supabaseClient.js  # Supabase auth client with cross-subdomain support
 ├── pages/              # Next.js pages
+│   ├── admin/          # Admin pages
+│   │   ├── index.js    # Admin sign-in page
+│   │   ├── dashboard.js # Admin dashboard
+│   │   └── change-password.js # Change admin password
 │   ├── _app.js         # App wrapper
-│   ├── index.js        # Landing page with ENTER/SIGN IN/LOG IN buttons
+│   ├── index.js        # Landing page with assessment mode selection
 │   ├── login.js        # Login page
-│   ├── register.js     # Registration page
-│   └── learn.js        # Main learning page (protected)
+│   ├── register.js     # Registration page (collects name, age, qualification)
+│   ├── learn.js        # Test mode selection page (protected)
+│   ├── test.js         # Assessment test page
+│   └── results.js      # Results and AI-generated report page
 ├── public/             # Static assets
 │   └── images/         # Images and logos
 ├── styles/             # CSS styles
@@ -33,10 +67,46 @@ learn-apt/
 ├── .env.local.example  # Environment variables template
 ├── .gitignore          # Git ignore file
 ├── package.json        # Dependencies and scripts
-├── postcss.config.js   # PostCSS configuration
-├── tailwind.config.js  # Tailwind CSS configuration
+├── postcss.config.js   # PostCSS configuration with Tailwind v4
 └── README.md           # This file
 ```
+
+## Admin Access
+
+### Admin Sign-In
+
+The application includes an admin panel for managing the platform:
+
+**Admin Panel URL:** `/admin`
+
+**Features:**
+- Dashboard with overview of the application
+- Password change functionality
+- Quick navigation to all app sections
+- Persistent session using localStorage
+
+**How to Access Admin:**
+
+1. Navigate to `/admin` in your browser
+2. Enter the admin password
+3. Click "Sign In"
+4. You'll be redirected to the admin dashboard
+
+**Changing Admin Password:**
+
+1. After signing in, go to "Change Password" from the admin navigation
+2. Enter your current password
+3. Enter your new password (minimum 6 characters)
+4. Confirm your new password
+5. Click "Update Password"
+
+**Security Notes:**
+- ⚠️ **Development/Demo Mode:** This admin system uses a simple password stored in localStorage for demonstration purposes
+- The admin password is stored in your browser's localStorage
+- If you clear browser data, the password will reset to the default
+- **For production use:** Implement proper backend authentication with environment variables, secure password hashing, and database storage
+- The admin session persists until you sign out or clear browser data
+- **Important:** Change the default password immediately after first use and never commit sensitive passwords to version control
 
 ## Getting Started
 
@@ -257,20 +327,32 @@ npm run dev
 
 ### Current Features
 
-✅ Landing page with ENTER, SIGN IN, LOG IN buttons  
+✅ Comprehensive landing page introducing the assessment tool  
+✅ User registration collecting name, age, and qualification  
 ✅ User authentication (login/register)  
 ✅ Cross-subdomain session sharing  
+✅ Two test modes: Short (5 min) and Elaborate (20 min)  
+✅ Interactive assessment with 5-100 questions across multiple modules  
+✅ Navigable test interface (click answers to proceed)  
+✅ Module coverage: Education, Skills, Family, Friends, Influencers, etc.  
+✅ AI-generated ~700-word personalized career/aptitude report  
+✅ Results page with comprehensive analysis  
+✅ Disclaimer and privacy policy notice  
+✅ Branded results with dual logos (iiskills & AI Cloud Enterprises)  
 ✅ Protected routes  
-✅ Shared branding with main app  
+✅ Admin authentication system  
+✅ Admin dashboard with navigation  
+✅ Password change functionality  
+✅ Persistent admin sessions (localStorage)  
 ✅ Responsive design  
 
 ### Upcoming Features
 
-🚧 Learning modules content  
-🚧 Quiz system  
-🚧 Progress tracking  
-🚧 Certificate generation  
-🚧 Admin dashboard  
+🚧 PDF generation with branding (jsPDF/react-pdf implementation)  
+🚧 Backend database integration for storing test results  
+🚧 Progress history and analytics  
+🚧 Advanced AI integration for more personalized reports  
+🚧 Certificate generation for completed assessments  
 
 ## Scripts
 
