@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 // Import Supabase helpers for authentication state and logout
 import { getCurrentUser, signOutUser } from '../lib/supabaseClient'
+import { getAdminUrl } from '../utils/urlHelper'
 
 /**
  * Navigation Bar Component
@@ -34,6 +35,16 @@ export default function Navbar() {
     const currentUser = await getCurrentUser()
     setUser(currentUser)
     setIsLoading(false)
+  }
+
+  /**
+   * Check if user is an admin
+   * (You can customize this logic based on your user metadata)
+   */
+  const isAdmin = () => {
+    // Check localStorage for admin auth (existing admin system)
+    const adminAuth = typeof window !== 'undefined' ? localStorage.getItem('adminAuth') : null
+    return adminAuth === 'true'
   }
 
   /**
@@ -83,6 +94,17 @@ export default function Navbar() {
             Payments
           </Link>
           <Link href="/about" className="hover:text-primary transition">About</Link>
+          
+          {/* Show Admin link if user is admin */}
+          {isAdmin() && (
+            <a
+              href={getAdminUrl()}
+              className="bg-yellow-600 text-white px-4 py-2 rounded hover:bg-yellow-700 transition font-bold"
+              title="Admin Dashboard"
+            >
+              Admin
+            </a>
+          )}
           
           {/* Show Sign In/Register or User Info based on authentication */}
           {!isLoading && (
@@ -138,6 +160,16 @@ export default function Navbar() {
             Payments
           </Link>
           <Link href="/about" className="block hover:text-primary transition">About</Link>
+          
+          {/* Show Admin link if user is admin */}
+          {isAdmin() && (
+            <a
+              href={getAdminUrl()}
+              className="block bg-yellow-600 text-white px-4 py-2 rounded hover:bg-yellow-700 transition font-bold"
+            >
+              Admin Dashboard
+            </a>
+          )}
           
           {/* Show Sign In/Register or User Info based on authentication */}
           {!isLoading && (
