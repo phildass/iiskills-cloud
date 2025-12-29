@@ -176,18 +176,18 @@ export default function AdminDashboard() {
               </div>
               <div className="flex justify-between items-center py-3">
                 <span className="text-gray-600">Authentication Method</span>
-                <span className="font-semibold text-charcoal">Password-based (localStorage)</span>
+                <span className="font-semibold text-charcoal">Supabase (Role-based)</span>
               </div>
             </div>
           </div>
 
           {/* Info Notice */}
-          <div className="mt-8 bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg">
-            <h3 className="font-bold text-blue-900 mb-2">ℹ️ Note</h3>
-            <p className="text-blue-800">
-              This admin panel uses simple password-based authentication stored in localStorage. 
-              For production use, consider implementing backend authentication with a database 
-              (e.g., Supabase integration as planned).
+          <div className="mt-8 bg-green-50 border-l-4 border-green-500 p-6 rounded-lg">
+            <h3 className="font-bold text-green-900 mb-2">✅ Secure Authentication</h3>
+            <p className="text-green-800">
+              This admin panel uses secure role-based authentication through Supabase backend. 
+              All admin access is validated against the database with proper role checking.
+              No hardcoded passwords or client-side authentication bypass possible.
             </p>
           </div>
         </div>

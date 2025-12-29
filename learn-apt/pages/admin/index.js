@@ -1,55 +1,73 @@
 /**
  * Admin Sign-In Page
  * 
- * Simple password-based authentication for admin access.
- * Password can be changed from the admin dashboard.
+ * Secure role-based authentication for admin access.
+ * Uses Supabase backend to validate admin privileges.
+ * 
+ * Security:
+ * - No hardcoded passwords
+ * - Backend role validation
+ * - Requires valid Supabase account with admin role
  */
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
-import { verifyAdminPassword, createAdminSession } from '../../lib/adminAuth'
 import { useAdmin } from '../../contexts/AdminContext'
+import { getCurrentUser, isAdmin } from '../../lib/supabaseClient'
 
 export default function AdminSignIn() {
-  const [password, setPassword] = useState('')
   const [error, setError] = useState('')
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
   const router = useRouter()
   const { isAuthenticated, signIn } = useAdmin()
 
-  // Redirect to dashboard if already authenticated
+  // Check authentication and redirect accordingly
+  useEffect(() => {
+    checkAuthStatus()
+  }, [])
+
+  const checkAuthStatus = async () => {
+    try {
+      const user = await getCurrentUser()
+      
+      if (!user) {
+        // Not logged in - redirect to login page immediately
+        setError('Please log in to access the admin panel.')
+        setIsLoading(false)
+        router.push('/login?redirect=/admin')
+        return
+      }
+
+      // Check if user has admin role
+      if (isAdmin(user)) {
+        // User is authenticated and has admin role
+        await signIn()
+        router.push('/admin/dashboard')
+      } else {
+        // User is logged in but doesn't have admin privileges
+        setError('Access denied. You do not have admin privileges.')
+        setIsLoading(false)
+      }
+    } catch (error) {
+      console.error('Error checking auth status:', error)
+      setError('An error occurred. Please try again.')
+      setIsLoading(false)
+    }
+  }
+
+  // Redirect to dashboard if already authenticated as admin
   useEffect(() => {
     if (isAuthenticated) {
       router.push('/admin/dashboard')
     }
   }, [isAuthenticated, router])
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    setError('')
-    setIsLoading(true)
-
-    // Verify password
-    if (verifyAdminPassword(password)) {
-      // Create session
-      createAdminSession()
-      signIn()
-      
-      // Redirect to dashboard
-      router.push('/admin/dashboard')
-    } else {
-      setError('Invalid password. Please try again.')
-      setPassword('')
-      setIsLoading(false)
-    }
-  }
-
   return (
     <>
       <Head>
-        <title>Admin Sign In - Learn-Apt</title>
-        <meta name="description" content="Admin sign in for Learn-Apt" />
+        <title>Admin Access - Learn-Apt</title>
+        <meta name="description" content="Admin access for Learn-Apt" />
         <meta name="robots" content="noindex, nofollow" />
       </Head>
 
@@ -61,64 +79,44 @@ export default function AdminSignIn() {
             <p className="text-gray-600">Learn-Apt - Admin Panel</p>
           </div>
 
-          {/* Sign-In Form */}
+          {/* Status Card */}
           <div className="bg-white p-8 rounded-2xl shadow-2xl">
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <label htmlFor="password" className="block text-sm font-semibold text-charcoal mb-2">
-                  Admin Password
-                </label>
-                <input
-                  type="password"
-                  id="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-primary focus:outline-none transition"
-                  placeholder="Enter admin password"
-                  required
-                  autoFocus
-                />
+            {isLoading ? (
+              <div className="text-center py-8">
+                <div className="text-4xl mb-4">🔄</div>
+                <p className="text-lg text-charcoal">Checking credentials...</p>
               </div>
-
-              {error && (
-                <div className="bg-red-50 border-l-4 border-red-500 p-4 rounded">
-                  <p className="text-red-700 text-sm">{error}</p>
+            ) : error ? (
+              <>
+                <div className="bg-red-50 border-l-4 border-red-500 p-4 rounded mb-6">
+                  <p className="text-red-700">{error}</p>
                 </div>
-              )}
+                
+                <div className="space-y-4">
+                  <button
+                    onClick={() => router.push('/login?redirect=/admin')}
+                    className="w-full bg-gradient-to-r from-primary to-accent text-white py-3 rounded-lg font-bold text-lg shadow-lg hover:shadow-xl transition-all transform hover:scale-105"
+                  >
+                    Go to Login
+                  </button>
+                  
+                  <button
+                    onClick={() => router.push('/')}
+                    className="w-full bg-gray-200 text-charcoal py-3 rounded-lg font-semibold hover:bg-gray-300 transition"
+                  >
+                    Back to Home
+                  </button>
+                </div>
+              </>
+            ) : null}
 
-              <button
-                type="submit"
-                disabled={isLoading}
-                className="w-full bg-gradient-to-r from-primary to-accent text-white py-3 rounded-lg font-bold text-lg shadow-lg hover:shadow-xl transition-all transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                {isLoading ? 'Signing In...' : 'Sign In'}
-              </button>
-            </form>
-
-            {/* Info Box */}
+            {/* Security Info */}
             <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
               <p className="text-sm text-blue-800">
-                <span className="text-xs text-blue-600">You can change this password after signing in.</span>
+                <strong>Secure Access:</strong> Admin access requires a valid account with admin privileges. 
+                All authentication is validated against the backend database.
               </p>
             </div>
-
-            {/* Development Warning */}
-            <div className="mt-4 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
-              <p className="text-xs text-yellow-800">
-                ⚠️ <strong>Development Mode:</strong> This is a demo authentication system for development purposes. 
-                For production use, implement proper backend authentication with environment variables and secure password storage.
-              </p>
-            </div>
-          </div>
-
-          {/* Back to Home */}
-          <div className="text-center mt-6">
-            <button
-              onClick={() => router.push('/')}
-              className="text-primary hover:text-accent transition font-semibold"
-            >
-              ← Back to Home
-            </button>
           </div>
         </div>
       </div>

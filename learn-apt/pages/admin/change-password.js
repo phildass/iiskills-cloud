@@ -1,82 +1,38 @@
 /**
- * Change Admin Password Page
+ * Admin Account Settings Page
  * 
- * Allows admin to change the password used for admin authentication.
+ * Information page for managing admin account settings.
  * Protected route - requires admin authentication.
+ * 
+ * Security:
+ * - Password changes are handled through Supabase authentication
+ * - No client-side password storage or management
  */
 
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
 import AdminNavbar from '../../components/AdminNavbar'
 import { useAdmin } from '../../contexts/AdminContext'
-import { verifyAdminPassword, setAdminPassword } from '../../lib/adminAuth'
+import { getAdminUser } from '../../lib/adminAuth'
 
 export default function ChangePassword() {
   const router = useRouter()
   const { isAuthenticated, isLoading } = useAdmin()
-  const [currentPassword, setCurrentPassword] = useState('')
-  const [newPassword, setNewPassword] = useState('')
-  const [confirmPassword, setConfirmPassword] = useState('')
-  const [error, setError] = useState('')
-  const [success, setSuccess] = useState('')
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [adminUser, setAdminUser] = useState(null)
 
   // Redirect to sign-in if not authenticated
   useEffect(() => {
     if (!isLoading && !isAuthenticated) {
       router.push('/admin')
+    } else if (isAuthenticated) {
+      loadAdminUser()
     }
   }, [isAuthenticated, isLoading, router])
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    setError('')
-    setSuccess('')
-    setIsSubmitting(true)
-
-    // Validate current password
-    if (!verifyAdminPassword(currentPassword)) {
-      setError('Current password is incorrect')
-      setIsSubmitting(false)
-      return
-    }
-
-    // Validate new password
-    if (newPassword.length < 6) {
-      setError('New password must be at least 6 characters long')
-      setIsSubmitting(false)
-      return
-    }
-
-    // Validate password confirmation
-    if (newPassword !== confirmPassword) {
-      setError('New password and confirmation do not match')
-      setIsSubmitting(false)
-      return
-    }
-
-    // Don't allow same password
-    if (currentPassword === newPassword) {
-      setError('New password must be different from current password')
-      setIsSubmitting(false)
-      return
-    }
-
-    // Update password
-    setAdminPassword(newPassword)
-    setSuccess('Password updated successfully!')
-    
-    // Clear form
-    setCurrentPassword('')
-    setNewPassword('')
-    setConfirmPassword('')
-    setIsSubmitting(false)
-
-    // Show success message for 3 seconds then redirect to dashboard
-    setTimeout(() => {
-      router.push('/admin/dashboard')
-    }, 2000)
+  const loadAdminUser = async () => {
+    const user = await getAdminUser()
+    setAdminUser(user)
   }
 
   // Show loading while checking auth
@@ -99,136 +55,94 @@ export default function ChangePassword() {
   return (
     <>
       <Head>
-        <title>Change Password - Admin - Learn-Apt</title>
-        <meta name="description" content="Change admin password" />
+        <title>Account Settings - Learn-Apt Admin</title>
+        <meta name="description" content="Admin account settings" />
         <meta name="robots" content="noindex, nofollow" />
       </Head>
 
       <AdminNavbar />
 
-      <main className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 py-12 px-4">
-        <div className="max-w-2xl mx-auto">
-          {/* Header */}
-          <div className="bg-white p-8 rounded-2xl shadow-lg mb-8">
-            <h1 className="text-4xl font-bold text-primary mb-4">
-              🔑 Change Password
-            </h1>
-            <p className="text-xl text-charcoal">
-              Update your admin password to keep your account secure.
-            </p>
-          </div>
-
-          {/* Change Password Form */}
+      <main className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 py-8 px-4">
+        <div className="max-w-3xl mx-auto">
           <div className="bg-white p-8 rounded-2xl shadow-lg">
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <label htmlFor="currentPassword" className="block text-sm font-semibold text-charcoal mb-2">
-                  Current Password
-                </label>
-                <input
-                  type="password"
-                  id="currentPassword"
-                  value={currentPassword}
-                  onChange={(e) => setCurrentPassword(e.target.value)}
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-primary focus:outline-none transition"
-                  placeholder="Enter current password"
-                  required
-                />
+            <h1 className="text-3xl font-bold text-primary mb-6">Account Settings</h1>
+            
+            {/* Account Info */}
+            <div className="mb-8">
+              <h2 className="text-xl font-semibold text-charcoal mb-4">Your Admin Account</h2>
+              <div className="bg-blue-50 border-l-4 border-primary p-4 rounded">
+                <p className="text-gray-700 mb-2">
+                  <strong>Email:</strong> {adminUser?.email || 'Loading...'}
+                </p>
+                <p className="text-gray-700">
+                  <strong>Role:</strong> Administrator
+                </p>
+              </div>
+            </div>
+
+            {/* Password Management */}
+            <div className="mb-8">
+              <h2 className="text-xl font-semibold text-charcoal mb-4">Password Management</h2>
+              <div className="bg-green-50 border-l-4 border-green-500 p-4 rounded mb-4">
+                <p className="text-gray-700 mb-3">
+                  Your password is securely managed through Supabase authentication. 
+                  To change your password, use the Supabase password reset feature.
+                </p>
+                <p className="text-sm text-gray-600">
+                  We'll send a password reset link to your email address: <strong>{adminUser?.email}</strong>
+                </p>
+              </div>
+              
+              <div className="space-y-3">
+                <p className="text-gray-700 font-semibold">How to change your password:</p>
+                <ol className="list-decimal list-inside space-y-2 text-gray-700">
+                  <li>Click the "Request Password Reset" button below</li>
+                  <li>Check your email for a password reset link</li>
+                  <li>Click the link and enter your new password</li>
+                  <li>Log in again with your new password</li>
+                </ol>
               </div>
 
-              <div>
-                <label htmlFor="newPassword" className="block text-sm font-semibold text-charcoal mb-2">
-                  New Password
-                </label>
-                <input
-                  type="password"
-                  id="newPassword"
-                  value={newPassword}
-                  onChange={(e) => setNewPassword(e.target.value)}
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-primary focus:outline-none transition"
-                  placeholder="Enter new password (min. 6 characters)"
-                  required
-                  minLength={6}
-                />
-                <p className="text-xs text-gray-500 mt-1">Minimum 6 characters</p>
-              </div>
+              <button
+                onClick={() => router.push('/login')}
+                className="mt-6 w-full bg-gradient-to-r from-primary to-accent text-white py-3 px-6 rounded-lg font-bold shadow-lg hover:shadow-xl transition-all transform hover:scale-105"
+              >
+                Go to Login Page for Password Reset
+              </button>
+            </div>
 
-              <div>
-                <label htmlFor="confirmPassword" className="block text-sm font-semibold text-charcoal mb-2">
-                  Confirm New Password
-                </label>
-                <input
-                  type="password"
-                  id="confirmPassword"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-primary focus:outline-none transition"
-                  placeholder="Re-enter new password"
-                  required
-                />
-              </div>
+            {/* Security Information */}
+            <div className="bg-yellow-50 border-l-4 border-yellow-500 p-4 rounded">
+              <h3 className="font-bold text-yellow-900 mb-2">🔒 Security Best Practices</h3>
+              <ul className="space-y-2 text-yellow-800 text-sm">
+                <li className="flex items-start">
+                  <span className="mr-2">✓</span>
+                  <span>Use a strong, unique password with at least 8 characters</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="mr-2">✓</span>
+                  <span>Never share your admin credentials</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="mr-2">✓</span>
+                  <span>Change your password regularly</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="mr-2">✓</span>
+                  <span>Log out when you're done with admin tasks</span>
+                </li>
+              </ul>
+            </div>
 
-              {error && (
-                <div className="bg-red-50 border-l-4 border-red-500 p-4 rounded">
-                  <p className="text-red-700">{error}</p>
-                </div>
-              )}
-
-              {success && (
-                <div className="bg-green-50 border-l-4 border-green-500 p-4 rounded">
-                  <p className="text-green-700">{success}</p>
-                </div>
-              )}
-
-              <div className="flex space-x-4">
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="flex-1 bg-gradient-to-r from-primary to-accent text-white py-3 rounded-lg font-bold shadow-lg hover:shadow-xl transition-all transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {isSubmitting ? 'Updating...' : 'Update Password'}
-                </button>
-                <button
-                  type="button"
-                  onClick={() => router.push('/admin/dashboard')}
-                  className="flex-1 bg-gray-200 text-charcoal py-3 rounded-lg font-bold hover:bg-gray-300 transition"
-                >
-                  Cancel
-                </button>
-              </div>
-            </form>
-          </div>
-
-          {/* Security Tips */}
-          <div className="mt-8 bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg">
-            <h3 className="font-bold text-blue-900 mb-3">🔒 Security Tips</h3>
-            <ul className="space-y-2 text-blue-800">
-              <li className="flex items-start">
-                <span className="mr-2">•</span>
-                <span>Use a strong password with a mix of letters, numbers, and symbols</span>
-              </li>
-              <li className="flex items-start">
-                <span className="mr-2">•</span>
-                <span>Don't use easily guessable passwords like "password" or "123456"</span>
-              </li>
-              <li className="flex items-start">
-                <span className="mr-2">•</span>
-                <span>Change your password regularly</span>
-              </li>
-              <li className="flex items-start">
-                <span className="mr-2">•</span>
-                <span>Don't share your admin password with anyone</span>
-              </li>
-            </ul>
-          </div>
-
-          {/* Info Notice */}
-          <div className="mt-4 bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-lg">
-            <h3 className="font-bold text-yellow-900 mb-2">⚠️ Important</h3>
-            <p className="text-yellow-800">
-              Your password is stored in your browser's localStorage. If you clear your browser data 
-              or use a different browser, you'll need to use the default password again.
-            </p>
+            {/* Back to Dashboard */}
+            <div className="mt-8 text-center">
+              <button
+                onClick={() => router.push('/admin/dashboard')}
+                className="text-primary hover:text-accent transition font-semibold"
+              >
+                ← Back to Dashboard
+              </button>
+            </div>
           </div>
         </div>
       </main>

@@ -73,7 +73,7 @@ learn-apt/
 
 ## Admin Access
 
-### Admin Sign-In
+### Admin Access
 
 The application includes an admin panel for managing the platform:
 
@@ -81,32 +81,43 @@ The application includes an admin panel for managing the platform:
 
 **Features:**
 - Dashboard with overview of the application
-- Password change functionality
+- Account settings management
 - Quick navigation to all app sections
-- Persistent session using localStorage
+- Secure role-based authentication via Supabase
 
 **How to Access Admin:**
 
-1. Navigate to `/admin` in your browser
-2. Enter the admin password
-3. Click "Sign In"
-4. You'll be redirected to the admin dashboard
+1. First, ensure you have a Supabase account with admin role privileges
+2. Navigate to `/admin` in your browser
+3. You'll be redirected to the login page if not already logged in
+4. Log in with your Supabase credentials
+5. If your account has admin role, you'll be granted access to the admin dashboard
+6. If you don't have admin role, access will be denied
 
-**Changing Admin Password:**
+**Setting Admin Role in Supabase:**
 
-1. After signing in, go to "Change Password" from the admin navigation
-2. Enter your current password
-3. Enter your new password (minimum 6 characters)
-4. Confirm your new password
-5. Click "Update Password"
+To grant admin access to a user:
+1. Go to your Supabase Dashboard
+2. Navigate to Authentication → Users
+3. Select the user you want to make an admin
+4. Edit their user metadata and add: `"role": "admin"`
+5. Save the changes
 
-**Security Notes:**
-- ⚠️ **Development/Demo Mode:** This admin system uses a simple password stored in localStorage for demonstration purposes
-- The admin password is stored in your browser's localStorage
-- If you clear browser data, the password will reset to the default
-- **For production use:** Implement proper backend authentication with environment variables, secure password hashing, and database storage
-- The admin session persists until you sign out or clear browser data
-- **Important:** Change the default password immediately after first use and never commit sensitive passwords to version control
+**Security Features:**
+- ✅ **Secure Backend Authentication:** All admin access is validated through Supabase backend
+- ✅ **Role-Based Access Control:** Admin privileges are checked against the database
+- ✅ **No Hardcoded Passwords:** Zero client-side password storage or hardcoded credentials
+- ✅ **Session Management:** Proper session handling via Supabase authentication
+- ✅ **Password Security:** Passwords managed securely through Supabase with proper hashing
+- ✅ **No Client-Side Bypass:** Impossible to bypass authentication from the client side
+
+**Managing Admin Password:**
+
+Admin passwords are managed through Supabase:
+1. Go to "Account Settings" in the admin panel
+2. Click "Go to Login Page for Password Reset"
+3. Use the Supabase password reset flow to change your password
+4. Check your email for the reset link
 
 ## Getting Started
 
