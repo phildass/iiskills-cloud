@@ -34,7 +34,7 @@ export default function App({ Component, pageProps }) {
         onLogout={handleLogout}
         appName="Learn-Apt"
         homeUrl="/"
-        showAuthButtons={false}
+        showAuthButtons={true}
       />
       <Component {...pageProps} />
       <Footer />
