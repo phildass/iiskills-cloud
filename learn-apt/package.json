@@ -2,7 +2,7 @@
   "name": "learn-apt",
   "version": "1.0.0",
   "private": true,
-  "description": "Learn Your Aptitude - Standalone Next.js application for aptitude learning",
+  "description": "Learn-Apt - Comprehensive skills assessment tool with AI-powered career guidance",
   "scripts": {
     "dev": "next dev -p 3001",
     "build": "next build",
