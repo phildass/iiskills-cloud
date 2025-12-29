@@ -99,7 +99,7 @@ export default function ChangePassword() {
   return (
     <>
       <Head>
-        <title>Change Password - Admin - Learn Your Aptitude</title>
+        <title>Change Password - Admin - Learn-Apt</title>
         <meta name="description" content="Change admin password" />
         <meta name="robots" content="noindex, nofollow" />
       </Head>
