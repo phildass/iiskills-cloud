@@ -63,24 +63,6 @@ export default function Learn() {
         <meta name="description" content="Choose your assessment mode" />
       </Head>
       
-      <SharedNavbar 
-        user={user}
-        onLogout={handleLogout}
-        appName="Learn Your Aptitude"
-        homeUrl="https://iiskills.cloud"
-        appName="Learn-Apt"
-        homeUrl="/"
-        showAuthButtons={true}
-        customLinks={[
-          { href: 'https://iiskills.cloud', label: 'Home', className: 'hover:text-primary transition' },
-          { href: 'https://iiskills.cloud/courses', label: 'Courses', className: 'hover:text-primary transition' },
-          { href: 'https://iiskills.cloud/certification', label: 'Certification', className: 'hover:text-primary transition' },
-          { href: 'https://www.aienter.in/payments', label: 'Payments', className: 'bg-accent text-white px-4 py-2 rounded hover:bg-purple-600 transition font-bold', mobileClassName: 'block bg-accent text-white px-4 py-2 rounded hover:bg-purple-600 transition font-bold', target: '_blank', rel: 'noopener noreferrer' },
-          { href: 'https://iiskills.cloud/about', label: 'About', className: 'hover:text-primary transition' },
-          { href: 'https://iiskills.cloud/contact', label: 'Contact', className: 'hover:text-primary transition' }
-        ]}
-      />
-      
       <main className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 py-12 px-4">
         <div className="max-w-6xl mx-auto">
           {/* Welcome Section */}
