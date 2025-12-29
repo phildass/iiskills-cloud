@@ -1,7 +1,5 @@
 import { useState, useEffect } from 'react'
 import Head from 'next/head'
-import Navbar from '../components/Navbar'
-import Footer from '../components/Footer'
 import UserProtectedRoute from '../components/UserProtectedRoute'
 import { getCurrentUser } from '../lib/supabaseClient'
 
@@ -43,7 +41,6 @@ export default function Dashboard() {
         <title>Dashboard - iiskills.cloud</title>
         <meta name="description" content="Your personal dashboard" />
       </Head>
-      <Navbar />
       
       <div className="min-h-screen bg-neutral py-12 px-4">
         <div className="max-w-4xl mx-auto">
@@ -124,7 +121,6 @@ export default function Dashboard() {
         </div>
       </div>
       
-      <Footer />
     </UserProtectedRoute>
   )
 }

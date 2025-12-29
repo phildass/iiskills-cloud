@@ -2,8 +2,6 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
 import Link from 'next/link'
-import SharedNavbar from '../../components/shared/SharedNavbar'
-import Footer from '../components/Footer'
 import { signInWithEmail, getCurrentUser } from '../lib/supabaseClient'
 
 /**
@@ -78,6 +76,7 @@ export default function Login() {
         <meta name="description" content="Log in to Learn-Apt" />
       </Head>
       
+
       <SharedNavbar 
         user={null}
         appName="Learn Your Aptitude"
@@ -172,7 +171,6 @@ export default function Login() {
         </div>
       </div>
       
-      <Footer />
     </>
   )
 }

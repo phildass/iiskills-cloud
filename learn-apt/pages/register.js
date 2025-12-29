@@ -2,8 +2,6 @@ import { useState } from 'react'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
 import Link from 'next/link'
-import SharedNavbar from '../../components/shared/SharedNavbar'
-import Footer from '../components/Footer'
 import { supabase } from '../lib/supabaseClient'
 
 /**
@@ -129,6 +127,7 @@ export default function Register() {
         <meta name="description" content="Create your account for Learn-Apt assessment" />
       </Head>
       
+
       <SharedNavbar 
         user={null}
         appName="Learn Your Aptitude"
@@ -329,7 +328,6 @@ export default function Register() {
         </div>
       </div>
       
-      <Footer />
     </>
   )
 }

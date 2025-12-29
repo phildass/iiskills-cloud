@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
-import SharedNavbar from '../../components/shared/SharedNavbar'
-import Footer from '../components/Footer'
 import { getCurrentUser, signOutUser, getUserProfile } from '../lib/supabaseClient'
 
 /**
@@ -242,7 +240,6 @@ export default function Learn() {
         </div>
       </main>
       
-      <Footer />
     </>
   )
 }

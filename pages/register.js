@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
-import Navbar from '../components/Navbar'
-import Footer from '../components/Footer'
 import Link from 'next/link'
 import { genderOptions, educationLevels, countries, indianStates } from '../utils/data'
 // Import Supabase client for user registration
@@ -248,7 +246,6 @@ export default function Register() {
         <title>Register - iiskills.cloud</title>
         <meta name="description" content="Create your iiskills.cloud account - Indian Institute of Professional Skills Development" />
       </Head>
-      <Navbar />
       <div className="min-h-screen bg-neutral py-12 px-4">
         <div className="max-w-3xl mx-auto bg-white p-8 rounded-lg shadow-lg">
           <h1 className="text-3xl font-bold text-primary mb-2 text-center">Create Your Account</h1>
@@ -583,7 +580,6 @@ export default function Register() {
           </form>
         </div>
       </div>
-      <Footer />
     </>
   )
 }
