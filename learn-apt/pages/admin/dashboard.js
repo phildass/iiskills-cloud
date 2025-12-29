@@ -42,8 +42,8 @@ export default function AdminDashboard() {
   return (
     <>
       <Head>
-        <title>Admin Dashboard - Learn Your Aptitude</title>
-        <meta name="description" content="Admin dashboard for Learn Your Aptitude" />
+        <title>Admin Dashboard - Learn-Apt</title>
+        <meta name="description" content="Admin dashboard for Learn-Apt" />
         <meta name="robots" content="noindex, nofollow" />
       </Head>
 
@@ -160,7 +160,7 @@ export default function AdminDashboard() {
             <div className="space-y-4">
               <div className="flex justify-between items-center py-3 border-b border-gray-200">
                 <span className="text-gray-600">Application Name</span>
-                <span className="font-semibold text-charcoal">Learn Your Aptitude</span>
+                <span className="font-semibold text-charcoal">Learn-Apt</span>
               </div>
               <div className="flex justify-between items-center py-3 border-b border-gray-200">
                 <span className="text-gray-600">Version</span>
