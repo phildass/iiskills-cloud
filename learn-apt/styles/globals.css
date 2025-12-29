@@ -1,0 +1,35 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #0052CC;
+  --color-accent: #C77DDB;
+  --color-neutral: #F8F9FA;
+  --color-charcoal: #24272a;
+  
+  /* Font stack with system fallbacks for better loading performance */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+body {
+  color: var(--color-charcoal);
+  background: #ffffff;
+  /* Use system fonts by default for instant text rendering */
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}

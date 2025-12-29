@@ -1,0 +1,23 @@
+{
+  "name": "learn-apt",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Learn Your Aptitude - Standalone Next.js application for aptitude learning",
+  "scripts": {
+    "dev": "next dev -p 3001",
+    "build": "next build",
+    "start": "next start -p 3001",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.89.0",
+    "@tailwindcss/postcss": "^4.1.18",
+    "next": "^16.1.1",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "tailwindcss": "^4.1.18"
+  },
+  "devDependencies": {
+    "postcss": "latest"
+  }
+}
