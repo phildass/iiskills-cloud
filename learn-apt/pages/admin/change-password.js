@@ -227,7 +227,7 @@ export default function ChangePassword() {
             <h3 className="font-bold text-yellow-900 mb-2">⚠️ Important</h3>
             <p className="text-yellow-800">
               Your password is stored in your browser's localStorage. If you clear your browser data 
-              or use a different browser, you'll need to use the default password (phil123) again.
+              or use a different browser, you'll need to use the default password again.
             </p>
           </div>
         </div>

@@ -54,9 +54,6 @@ The application includes an admin panel for managing the platform:
 
 **Admin Panel URL:** `/admin`
 
-**Default Credentials:**
-- Password: `phil123`
-
 **Features:**
 - Dashboard with overview of the application
 - Password change functionality
@@ -66,7 +63,7 @@ The application includes an admin panel for managing the platform:
 **How to Access Admin:**
 
 1. Navigate to `/admin` in your browser
-2. Enter the admin password (`phil123` by default)
+2. Enter the admin password
 3. Click "Sign In"
 4. You'll be redirected to the admin dashboard
 
@@ -81,7 +78,7 @@ The application includes an admin panel for managing the platform:
 **Security Notes:**
 - ⚠️ **Development/Demo Mode:** This admin system uses a simple password stored in localStorage for demonstration purposes
 - The admin password is stored in your browser's localStorage
-- If you clear browser data, the password will reset to the default (`phil123`)
+- If you clear browser data, the password will reset to the default
 - **For production use:** Implement proper backend authentication with environment variables, secure password hashing, and database storage
 - The admin session persists until you sign out or clear browser data
 - **Important:** Change the default password immediately after first use and never commit sensitive passwords to version control

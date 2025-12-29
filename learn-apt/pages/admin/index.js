@@ -2,7 +2,6 @@
  * Admin Sign-In Page
  * 
  * Simple password-based authentication for admin access.
- * Default password: phil123
  * Password can be changed from the admin dashboard.
  */
 
@@ -99,7 +98,6 @@ export default function AdminSignIn() {
             {/* Info Box */}
             <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
               <p className="text-sm text-blue-800">
-                <strong>Default Password:</strong> phil123<br />
                 <span className="text-xs text-blue-600">You can change this password after signing in.</span>
               </p>
             </div>
