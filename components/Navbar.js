@@ -20,11 +20,13 @@ export default function Navbar() {
   // Track current user authentication state
   const [user, setUser] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
+  const [isAdmin, setIsAdmin] = useState(false)
   const router = useRouter()
 
   // Check authentication status when component mounts
   useEffect(() => {
     checkUser()
+    checkAdminStatus()
   }, [])
 
   /**
@@ -46,10 +48,10 @@ export default function Navbar() {
    * The current implementation is retained for backward compatibility
    * with the existing admin authentication system.
    */
-  const isAdmin = () => {
+  const checkAdminStatus = () => {
     // Check localStorage for admin auth (existing admin system)
-    const adminAuth = typeof window !== 'undefined' ? localStorage.getItem('adminAuth') : null
-    return adminAuth === 'true'
+    const adminAuth = localStorage.getItem('adminAuth')
+    setIsAdmin(adminAuth === 'true')
   }
 
   /**
@@ -101,7 +103,7 @@ export default function Navbar() {
           <Link href="/about" className="hover:text-primary transition">About</Link>
           
           {/* Show Admin link if user is admin */}
-          {isAdmin() && (
+          {isAdmin && (
             <a
               href={getAdminUrl()}
               className="bg-yellow-600 text-white px-4 py-2 rounded hover:bg-yellow-700 transition font-bold"
@@ -167,7 +169,7 @@ export default function Navbar() {
           <Link href="/about" className="block hover:text-primary transition">About</Link>
           
           {/* Show Admin link if user is admin */}
-          {isAdmin() && (
+          {isAdmin && (
             <a
               href={getAdminUrl()}
               className="block bg-yellow-600 text-white px-4 py-2 rounded hover:bg-yellow-700 transition font-bold"
