@@ -151,47 +151,6 @@ export default function Home() {
           </div>
         </section>
         
-        {/* Features Section */}
-        <section className="py-16 px-4 bg-white">
-          <div className="max-w-6xl mx-auto">
-            <h2 className="text-4xl font-bold text-center text-primary mb-12">
-              What You'll Learn
-            </h2>
-            
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              <div className="p-6 border-2 border-gray-200 rounded-lg hover:border-primary transition">
-                <h3 className="font-bold text-xl mb-3 text-primary">Number Systems</h3>
-                <p className="text-gray-600">Understanding integers, fractions, decimals, and percentages</p>
-              </div>
-              
-              <div className="p-6 border-2 border-gray-200 rounded-lg hover:border-primary transition">
-                <h3 className="font-bold text-xl mb-3 text-primary">Algebra</h3>
-                <p className="text-gray-600">Linear equations, quadratic equations, and algebraic expressions</p>
-              </div>
-              
-              <div className="p-6 border-2 border-gray-200 rounded-lg hover:border-primary transition">
-                <h3 className="font-bold text-xl mb-3 text-primary">Geometry</h3>
-                <p className="text-gray-600">Shapes, angles, areas, and spatial reasoning</p>
-              </div>
-              
-              <div className="p-6 border-2 border-gray-200 rounded-lg hover:border-primary transition">
-                <h3 className="font-bold text-xl mb-3 text-primary">Pattern Recognition</h3>
-                <p className="text-gray-600">Identifying sequences, series, and logical patterns</p>
-              </div>
-              
-              <div className="p-6 border-2 border-gray-200 rounded-lg hover:border-primary transition">
-                <h3 className="font-bold text-xl mb-3 text-primary">Verbal Reasoning</h3>
-                <p className="text-gray-600">Analogies, classifications, and coding-decoding</p>
-              </div>
-              
-              <div className="p-6 border-2 border-gray-200 rounded-lg hover:border-primary transition">
-                <h3 className="font-bold text-xl mb-3 text-primary">Problem Solving</h3>
-                <p className="text-gray-600">Time and work, speed and distance, profit and loss</p>
-              </div>
-            </div>
-          </div>
-        </section>
-        
         {/* Call to Action */}
         <section className="py-16 px-4 bg-gradient-to-r from-primary to-accent text-white">
           <div className="max-w-4xl mx-auto text-center">

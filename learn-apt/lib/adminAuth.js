@@ -4,7 +4,6 @@
  * Simple password-based admin authentication using localStorage for persistence.
  * No backend integration required at this stage.
  * 
- * Default password: phil123
  * Password can be changed from the admin panel.
  */
 
