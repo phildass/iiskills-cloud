@@ -17,10 +17,18 @@ Learn Your Aptitude is an aptitude learning platform that helps users develop:
 ```
 learn-apt/
 ├── components/          # React components
+│   ├── AdminNavbar.js  # Admin navigation component
 │   └── Footer.js       # Footer component
+├── contexts/           # React contexts
+│   └── AdminContext.js # Admin authentication context
 ├── lib/                # Utility libraries
+│   ├── adminAuth.js    # Admin authentication utilities
 │   └── supabaseClient.js  # Supabase auth client with cross-subdomain support
 ├── pages/              # Next.js pages
+│   ├── admin/          # Admin pages
+│   │   ├── index.js    # Admin sign-in page
+│   │   ├── dashboard.js # Admin dashboard
+│   │   └── change-password.js # Change admin password
 │   ├── _app.js         # App wrapper
 │   ├── index.js        # Landing page with ENTER/SIGN IN/LOG IN buttons
 │   ├── login.js        # Login page
@@ -37,6 +45,44 @@ learn-apt/
 ├── tailwind.config.js  # Tailwind CSS configuration
 └── README.md           # This file
 ```
+
+## Admin Access
+
+### Admin Sign-In
+
+The application includes an admin panel for managing the platform:
+
+**Admin Panel URL:** `/admin`
+
+**Default Credentials:**
+- Password: `phil123`
+
+**Features:**
+- Dashboard with overview of the application
+- Password change functionality
+- Quick navigation to all app sections
+- Persistent session using localStorage
+
+**How to Access Admin:**
+
+1. Navigate to `/admin` in your browser
+2. Enter the admin password (`phil123` by default)
+3. Click "Sign In"
+4. You'll be redirected to the admin dashboard
+
+**Changing Admin Password:**
+
+1. After signing in, go to "Change Password" from the admin navigation
+2. Enter your current password
+3. Enter your new password (minimum 6 characters)
+4. Confirm your new password
+5. Click "Update Password"
+
+**Security Notes:**
+- The admin password is stored in your browser's localStorage
+- If you clear browser data, the password will reset to the default (`phil123`)
+- For production use, consider implementing backend authentication
+- The admin session persists until you sign out or clear browser data
 
 ## Getting Started
 
@@ -263,6 +309,10 @@ npm run dev
 ✅ Protected routes  
 ✅ Shared branding with main app  
 ✅ Responsive design  
+✅ **Admin authentication system**  
+✅ **Admin dashboard with navigation**  
+✅ **Password change functionality**  
+✅ **Persistent admin sessions (localStorage)**  
 
 ### Upcoming Features
 
@@ -270,7 +320,7 @@ npm run dev
 🚧 Quiz system  
 🚧 Progress tracking  
 🚧 Certificate generation  
-🚧 Admin dashboard  
+🚧 Backend database integration (Supabase)  
 
 ## Scripts
 
