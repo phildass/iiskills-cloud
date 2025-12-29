@@ -10,10 +10,10 @@ module.exports = {
         accent: "#C77DDB",       // Logo purple
         neutral: "#F8F9FA",
         charcoal: "#24272a"
-      }
-    },
-    fontFamily: {
-      sans: ['Inter', 'Arial', 'sans-serif'],
+      },
+      fontFamily: {
+        sans: ['Inter', 'Arial', 'sans-serif'],
+      },
     },
   },
   plugins: [],
