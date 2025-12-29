@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
 import SharedNavbar from '../../components/shared/SharedNavbar'
-import Footer from '../components/Footer'
+import Footer from '../../components/Footer'
 import { getCurrentUser, signOutUser, getUserProfile } from '../lib/supabaseClient'
 
 // Sample questions for different modules
@@ -121,10 +121,11 @@ export default function Test() {
   const [currentModuleIdx, setCurrentModuleIdx] = useState(0)
   const [currentQuestionIdx, setCurrentQuestionIdx] = useState(0)
   const [answers, setAnswers] = useState({})
-  const [startTime] = useState(Date.now())
+  const [startTime, setStartTime] = useState(null)
 
   useEffect(() => {
     checkAuth()
+    setStartTime(Date.now())
   }, [])
 
   useEffect(() => {
@@ -171,7 +172,7 @@ export default function Test() {
   }
 
   const submitTest = () => {
-    const timeSpent = Math.round((Date.now() - startTime) / 1000)
+    const timeSpent = startTime ? Math.round((Date.now() - startTime) / 1000) : 0
     router.push({
       pathname: '/results',
       query: {

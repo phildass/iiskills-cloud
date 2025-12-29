@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
 import SharedNavbar from '../../components/shared/SharedNavbar'
-import Footer from '../components/Footer'
+import Footer from '../../components/Footer'
 import { getCurrentUser, signOutUser, getUserProfile } from '../lib/supabaseClient'
 
 /**
@@ -85,6 +85,7 @@ export default function Results() {
   const [isLoading, setIsLoading] = useState(true)
   const [report, setReport] = useState(null)
   const [showDisclaimer, setShowDisclaimer] = useState(false)
+  const [showPdfMessage, setShowPdfMessage] = useState(false)
 
   useEffect(() => {
     checkAuth()
@@ -121,8 +122,9 @@ export default function Results() {
 
   const downloadPDF = () => {
     // In production, this would generate an actual PDF
-    // For now, we'll create a simple text-based download
-    alert('PDF download functionality will be implemented with a PDF generation library like jsPDF or react-pdf in production.')
+    // For now, we'll show a friendly message
+    setShowPdfMessage(true)
+    setTimeout(() => setShowPdfMessage(false), 5000)
   }
 
   const retakeTest = () => {
@@ -278,6 +280,16 @@ export default function Results() {
 
           {/* Actions */}
           <div className="bg-white p-6 rounded-b-2xl shadow-lg border-t-2 border-gray-100">
+            {showPdfMessage && (
+              <div className="mb-4 bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded">
+                <p className="font-semibold">📄 PDF Download Feature Coming Soon!</p>
+                <p className="text-sm mt-1">
+                  PDF generation with branding will be implemented using a PDF library like jsPDF or react-pdf in production. 
+                  For now, you can print this page or save it as PDF using your browser's print function.
+                </p>
+              </div>
+            )}
+            
             <div className="flex flex-col md:flex-row gap-4 justify-center">
               <button
                 onClick={downloadPDF}
