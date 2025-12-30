@@ -201,7 +201,7 @@ export default function Home() {
               </div>
 
               <div className="bg-white rounded-lg shadow-lg p-6 border-t-4 border-green-500 relative">
-                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-green-500 text-white px-6 py-3 rounded-full text-2xl font-bold z-20 shadow-2xl blink-animation">
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-green-500 bg-opacity-90 backdrop-blur-sm text-white px-6 py-3 rounded-full text-2xl font-bold z-20 shadow-2xl blink-animation">
                   FREE
                 </div>
                 <h3 className="font-bold text-xl mb-3 text-primary">Learn Aptitude</h3>

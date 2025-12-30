@@ -14,10 +14,13 @@ body {
     opacity: 1;
   }
   50% {
-    opacity: 0.4;
+    opacity: 0.6;
   }
 }
 
-.blink-animation {
-  animation: blink 2s ease-in-out infinite;
+/* Only apply animation if user hasn't requested reduced motion */
+@media (prefers-reduced-motion: no-preference) {
+  .blink-animation {
+    animation: blink 2s ease-in-out infinite;
+  }
 }
