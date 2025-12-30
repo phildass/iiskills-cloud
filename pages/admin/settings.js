@@ -3,8 +3,10 @@ import ProtectedRoute from '../../components/ProtectedRoute'
 import AdminNav from '../../components/AdminNav'
 import Navbar from '../../components/Navbar'
 import Footer from '../../components/Footer'
+import { getCurrentPricing, formatPrice } from '../../utils/pricing'
 
 export default function AdminSettings() {
+  const pricing = getCurrentPricing()
   return (
     <ProtectedRoute>
       <Head>
@@ -41,22 +43,57 @@ export default function AdminSettings() {
 
           <div className="bg-white rounded-lg shadow p-6">
             <h2 className="text-xl font-bold text-accent mb-4">Pricing Settings</h2>
-            <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-charcoal mb-2">Course Base Price (₹)</label>
-                <input 
-                  type="number" 
-                  defaultValue="99"
-                  className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary"
-                />
+            
+            {/* Current Pricing Display */}
+            <div className="bg-blue-50 border border-blue-200 rounded p-4 mb-4">
+              <h3 className="font-semibold text-blue-900 mb-2">Current Active Pricing</h3>
+              <div className="grid grid-cols-2 gap-4 text-sm">
+                <div>
+                  <span className="text-blue-700">Base Price:</span>
+                  <span className="ml-2 font-bold">{formatPrice(pricing.basePrice)}</span>
+                </div>
+                <div>
+                  <span className="text-blue-700">GST ({(pricing.gstRate * 100).toFixed(0)}%):</span>
+                  <span className="ml-2 font-bold">{formatPrice(pricing.gstAmount)}</span>
+                </div>
+                <div>
+                  <span className="text-blue-700">Total Price:</span>
+                  <span className="ml-2 font-bold text-lg">{formatPrice(pricing.totalPrice)}</span>
+                </div>
+                <div>
+                  <span className="text-blue-700">Status:</span>
+                  <span className="ml-2 font-bold">{pricing.isIntroductory ? 'Introductory' : 'Regular'}</span>
+                </div>
               </div>
-              <div>
-                <label className="block text-sm font-medium text-charcoal mb-2">GST Rate (%)</label>
-                <input 
-                  type="number" 
-                  defaultValue="18"
-                  className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary"
-                />
+              {pricing.isIntroductory && (
+                <div className="mt-3 pt-3 border-t border-blue-300">
+                  <p className="text-blue-800 text-sm">
+                    <strong>⏰ Introductory offer ends:</strong> {pricing.introEndDate.toLocaleDateString('en-IN', { year: 'numeric', month: 'long', day: 'numeric' })}
+                  </p>
+                  <p className="text-blue-700 text-xs mt-1">
+                    Regular pricing (₹352.82) will apply from February 1, 2026
+                  </p>
+                </div>
+              )}
+            </div>
+            
+            {/* Pricing Schedule Information */}
+            <div className="space-y-4">
+              <div className="bg-gray-50 rounded p-4">
+                <h3 className="font-semibold text-gray-900 mb-3">Automated Pricing Schedule</h3>
+                <div className="space-y-2 text-sm">
+                  <div className="flex justify-between py-2 border-b border-gray-200">
+                    <span className="text-gray-700">Introductory Period (Until Jan 31, 2026):</span>
+                    <span className="font-bold">₹116.82</span>
+                  </div>
+                  <div className="flex justify-between py-2">
+                    <span className="text-gray-700">Regular Pricing (From Feb 1, 2026):</span>
+                    <span className="font-bold">₹352.82</span>
+                  </div>
+                </div>
+                <p className="text-xs text-gray-600 mt-3">
+                  Note: Pricing is managed automatically based on date. Courses purchased during the introductory period maintain their purchase price.
+                </p>
               </div>
             </div>
           </div>

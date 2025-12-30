@@ -1,13 +1,16 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import Head from 'next/head'
+import { getPricingDisplay, getIntroOfferNotice } from '../utils/pricing'
 
 export default function Home() {
+  const pricing = getPricingDisplay()
+  const introNotice = getIntroOfferNotice()
   return (
     <>
       <Head>
         <title>iiskills.cloud - Indian Institute of Professional Skills Development</title>
-        <meta name="description" content="Education for All, Online and Affordable. Professional skills development at just ₹99 + GST per course. Part of Viksit Bharat initiative." />
+        <meta name="description" content={`Education for All, Online and Affordable. Professional skills development at just ${pricing.totalPrice} per course. Part of Viksit Bharat initiative.`} />
       </Head>
       <main>
         {/* Hero Section */}
@@ -100,6 +103,12 @@ export default function Home() {
         {/* Key Value Proposition Section */}
         <section className="py-16 bg-gradient-to-r from-blue-50 to-purple-50">
           <div className="max-w-6xl mx-auto px-4">
+            {/* Introductory Offer Banner */}
+            {introNotice && (
+              <div className="bg-gradient-to-r from-green-500 to-green-600 text-white rounded-lg shadow-lg p-6 mb-8 text-center">
+                <p className="text-xl font-bold">{introNotice}</p>
+              </div>
+            )}
             <div className="flex flex-col md:flex-row items-center gap-8 mb-12">
               <div className="flex-1">
                 <h2 className="text-4xl font-bold text-primary mb-4">Why Choose iiskills.cloud?</h2>
@@ -122,10 +131,20 @@ export default function Home() {
                 <div className="text-5xl mb-4">💰</div>
                 <h3 className="text-2xl font-bold text-primary mb-4">Unbeatable Affordability</h3>
                 <div className="mb-4">
-                  <div className="text-4xl font-bold text-accent">₹99</div>
-                  <div className="text-gray-600">+ 18% GST</div>
-                  <div className="text-3xl font-bold text-primary mt-2">= ₹117</div>
+                  <div className="text-4xl font-bold text-accent">{pricing.basePrice}</div>
+                  <div className="text-gray-600">+ {pricing.gstRate} GST ({pricing.gstAmount})</div>
+                  <div className="text-3xl font-bold text-primary mt-2">= {pricing.totalPrice}</div>
                   <div className="text-sm text-gray-600 mt-2">Per Course</div>
+                  {pricing.isIntroductory && (
+                    <div className="mt-3 bg-green-50 border border-green-200 rounded p-3">
+                      <p className="text-sm text-green-800 font-semibold">
+                        🎉 Introductory Offer!
+                      </p>
+                      <p className="text-xs text-green-700 mt-1">
+                        Price increases to ₹352.82 from Feb 1, 2026
+                      </p>
+                    </div>
+                  )}
                 </div>
                 <p className="text-charcoal">
                   Premium quality courses at a price anyone in India can afford. No hidden fees, no subscriptions.
