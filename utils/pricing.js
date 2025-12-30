@@ -3,7 +3,7 @@
  * 
  * Pricing structure:
  * - Introductory price: Rs 99 + GST (17.82) = 116.82 (until January 31, 2026)
- * - Regular price: Rs 299 + GST (53.82) = 342.82 (from February 1, 2026 onwards)
+ * - Regular price: Rs 299 + GST (53.82) = 352.82 (from February 1, 2026 onwards)
  */
 
 // Introductory pricing (until January 31, 2026)
