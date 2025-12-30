@@ -336,6 +336,28 @@ const coursesData = [
     ]
   },
   {
+    id: 17,
+    name: "Learn JEE",
+    category: "Education",
+    description: "Master the essential concepts of Physics, Chemistry, and Mathematics for JEE preparation. This course covers foundational and advanced topics, designed for aspirants aiming for top ranks in engineering entrance exams.",
+    duration: "10 weeks",
+    level: "Beginner",
+    comingSoon: true,
+    isFree: false,
+    modules: [
+      { id: 1, title: "Introduction to JEE Physics", isFree: true, summary: "Explore strategies for tackling Physics problems, understand the JEE syllabus structure, and discover the importance of conceptual learning." },
+      { id: 2, title: "Mechanics Fundamentals", isFree: false },
+      { id: 3, title: "Thermodynamics Essentials", isFree: false },
+      { id: 4, title: "Chemistry for JEE", isFree: false },
+      { id: 5, title: "Organic Chemistry Basics", isFree: false },
+      { id: 6, title: "Mathematics - Algebra", isFree: false },
+      { id: 7, title: "Calculus for JEE", isFree: false },
+      { id: 8, title: "Problem-Solving Techniques", isFree: false },
+      { id: 9, title: "Mock Tests and Practice", isFree: false },
+      { id: 10, title: "Exam Strategy and Time Management", isFree: false }
+    ]
+  },
+  {
     id: 18,
     name: "Learn Maths – Free",
     category: "Education",
@@ -1225,6 +1247,28 @@ const coursesData = [
       { id: 9, title: "Regulatory Landscape", isFree: false },
       { id: 10, title: "Investment Strategies", isFree: false }
     ]
+  },
+  {
+    id: 58,
+    name: "Learn NEET",
+    category: "Education",
+    description: "Build a strong foundation in Biology, Chemistry, and Physics tailored for NEET aspirants. This beginner course provides a high-level overview and the strategies necessary for success in medical entrance exams.",
+    duration: "10 weeks",
+    level: "Beginner",
+    comingSoon: true,
+    isFree: false,
+    modules: [
+      { id: 1, title: "Introduction to NEET Biology", isFree: true, summary: "Learn about the importance of concept clarity and effective study planning for Biology, with tips for maximizing NEET scores." },
+      { id: 2, title: "Cell Biology and Genetics", isFree: false },
+      { id: 3, title: "Human Physiology", isFree: false },
+      { id: 4, title: "Plant Biology", isFree: false },
+      { id: 5, title: "Chemistry for NEET", isFree: false },
+      { id: 6, title: "Organic Chemistry Essentials", isFree: false },
+      { id: 7, title: "Physics for Medical Entrance", isFree: false },
+      { id: 8, title: "Problem-Solving Strategies", isFree: false },
+      { id: 9, title: "Mock Tests and Analysis", isFree: false },
+      { id: 10, title: "Exam Preparation and Strategy", isFree: false }
+    ]
   }
 ]
 
@@ -1275,7 +1319,7 @@ export default function Courses() {
     <>
       <Head>
         <title>Courses - iiskills.cloud</title>
-        <meta name="description" content="Explore 57+ professional and personal development courses including Communication Skills, UI/UX Design, Data Science, Full Stack Development, Digital Marketing, Cybersecurity, FinTech, and more. Many free courses available!" />
+        <meta name="description" content="Explore 58+ professional and personal development courses including Communication Skills, UI/UX Design, Data Science, Full Stack Development, Digital Marketing, Cybersecurity, FinTech, and more. Many free courses available!" />
       </Head>
       
       <main className="max-w-7xl mx-auto px-4 py-12">
@@ -1286,6 +1330,7 @@ export default function Courses() {
           <div className="mt-4 text-lg font-semibold text-accent">
             Paid courses: {pricing.totalPrice} per course{pricing.isIntroductory ? ' (Introductory Offer)' : ''}
           </div>
+          <p className="text-lg text-gray-600">58+ courses across 11+ domains - Many FREE courses available!</p>
         </div>
 
         {/* Introductory Offer Banner */}
@@ -1328,7 +1373,9 @@ export default function Courses() {
 
         {/* Course Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-          {filteredCourses.map(course => (
+          {filteredCourses.map(course => {
+            const freeModule = course.modules?.find(m => m.isFree)
+            return (
             <div key={course.id} className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition relative">
               {/* Coming Soon Badge */}
               {course.comingSoon && (
@@ -1372,11 +1419,16 @@ export default function Courses() {
                 )}
                 
                 {/* Free sample module indicator */}
-                {course.modules && (
+                {freeModule && (
                   <div className="bg-green-50 border border-green-200 rounded p-3 mb-4">
-                    <p className="text-sm text-green-800 font-semibold">
-                      🎁 Free Sample: {course.modules.find(m => m.isFree)?.title}
+                    <p className="text-sm text-green-800 font-semibold mb-1">
+                      🎁 Free Sample: {freeModule.title}
                     </p>
+                    {freeModule.summary && (
+                      <p className="text-xs text-green-700 mt-1">
+                        {freeModule.summary}
+                      </p>
+                    )}
                   </div>
                 )}
                 
@@ -1394,7 +1446,7 @@ export default function Courses() {
                 </button>
               </div>
             </div>
-          ))}
+          )})}
         </div>
 
         {filteredCourses.length === 0 && (
