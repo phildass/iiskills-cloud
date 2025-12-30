@@ -1,6 +1,8 @@
 import Head from 'next/head'
+import { getPricingDisplay } from '../utils/pricing'
 
 export default function About() {
+  const pricing = getPricingDisplay()
   return (
     <>
       <Head>
@@ -26,7 +28,7 @@ export default function About() {
               To empower every Indian with professional skills and technology-led learning platforms that enable career growth and personal development.
             </p>
             <p className="leading-relaxed">
-              We believe in democratizing education by making it affordable (₹99 + GST per course), accessible online, and focused on immediately applicable skills.
+              We believe in democratizing education by making it affordable ({pricing.totalPrice} per course{pricing.isIntroductory ? ', introductory offer until ' + pricing.introEndDate : ''}), accessible online, and focused on immediately applicable skills.
             </p>
           </div>
           

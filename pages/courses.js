@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import Head from 'next/head'
+import { getPricingDisplay, getIntroOfferNotice } from '../utils/pricing'
 
 const coursesData = [
   {
@@ -1230,6 +1231,8 @@ const coursesData = [
 export default function Courses() {
   const [selectedCategory, setSelectedCategory] = useState('All')
   const [selectedLevel, setSelectedLevel] = useState('All')
+  const pricing = getPricingDisplay()
+  const introNotice = getIntroOfferNotice()
 
   const categories = [
     'All',
@@ -1280,7 +1283,17 @@ export default function Courses() {
           <h1 className="text-4xl font-bold text-primary mb-4">Our Courses</h1>
           <p className="text-xl text-charcoal mb-2">Professional Skills Development for Everyone</p>
           <p className="text-lg text-gray-600">57+ courses across 11+ domains - Many FREE courses available!</p>
+          <div className="mt-4 text-lg font-semibold text-accent">
+            Paid courses: {pricing.totalPrice} per course{pricing.isIntroductory ? ' (Introductory Offer)' : ''}
+          </div>
         </div>
+
+        {/* Introductory Offer Banner */}
+        {introNotice && (
+          <div className="bg-gradient-to-r from-green-500 to-green-600 text-white rounded-lg shadow-lg p-6 mb-8 text-center">
+            <p className="text-lg font-bold">{introNotice}</p>
+          </div>
+        )}
 
         {/* Filters */}
         <div className="bg-white rounded-lg shadow p-6 mb-8">
@@ -1343,6 +1356,20 @@ export default function Courses() {
                   <span>⏱️ {course.duration}</span>
                   <span className="font-semibold text-accent">{course.level}</span>
                 </div>
+                
+                {/* Pricing Information */}
+                {!course.isFree && (
+                  <div className="bg-blue-50 border border-blue-200 rounded p-3 mb-4">
+                    <p className="text-sm text-blue-800 font-semibold">
+                      💳 Price: {pricing.totalPrice}
+                    </p>
+                    {pricing.isIntroductory && (
+                      <p className="text-xs text-blue-700 mt-1">
+                        Introductory offer until {pricing.introEndDate}
+                      </p>
+                    )}
+                  </div>
+                )}
                 
                 {/* Free sample module indicator */}
                 {course.modules && (

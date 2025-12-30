@@ -1,6 +1,9 @@
 import Head from 'next/head'
+import { getPricingDisplay, getIntroOfferNotice } from '../utils/pricing'
 
 export default function Terms() {
+  const pricing = getPricingDisplay()
+  const introNotice = getIntroOfferNotice()
   return (
     <>
       <Head>
@@ -53,8 +56,19 @@ export default function Terms() {
             <h2 className="text-2xl font-bold text-accent mb-3">4. Course Enrollment and Payment</h2>
             
             <h3 className="text-xl font-semibold text-primary mt-4 mb-2">4.1 Pricing and Fees</h3>
+            <p className="text-charcoal leading-relaxed mb-3">
+              Our courses are currently priced at {pricing.totalPrice} per course ({pricing.basePrice} + {pricing.gstRate} GST). All fees are in Indian Rupees (INR) and must be paid in full at the time of enrollment.
+            </p>
+            {pricing.isIntroductory && (
+              <div className="bg-green-50 border-l-4 border-green-500 p-4 mb-3 rounded">
+                <p className="text-green-800 font-semibold mb-2">Introductory Pricing</p>
+                <p className="text-green-700 text-sm">
+                  The current price of {pricing.totalPrice} per course is an introductory offer valid until {pricing.introEndDate}. From February 1, 2026, the regular price will be ₹352.82 per course (₹299 + ₹53.82 GST).
+                </p>
+              </div>
+            )}
             <p className="text-charcoal leading-relaxed">
-              Our courses are priced at ₹99 + GST per course, unless otherwise stated. All fees are in Indian Rupees (INR) and must be paid in full at the time of enrollment. We reserve the right to change pricing at any time, but price changes will not affect courses already purchased.
+              We reserve the right to change pricing at any time, but price changes will not affect courses already purchased.
             </p>
 
             <h3 className="text-xl font-semibold text-primary mt-4 mb-2">4.2 Payment Processing</h3>
