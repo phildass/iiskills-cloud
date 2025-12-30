@@ -1359,7 +1359,9 @@ export default function Courses() {
 
         {/* Course Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-          {filteredCourses.map(course => (
+          {filteredCourses.map(course => {
+            const freeModule = course.modules?.find(m => m.isFree)
+            return (
             <div key={course.id} className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition relative">
               {/* Coming Soon Badge */}
               {course.comingSoon && (
@@ -1389,14 +1391,14 @@ export default function Courses() {
                 </div>
                 
                 {/* Free sample module indicator */}
-                {course.modules && (
+                {freeModule && (
                   <div className="bg-green-50 border border-green-200 rounded p-3 mb-4">
                     <p className="text-sm text-green-800 font-semibold mb-1">
-                      🎁 Free Sample: {course.modules.find(m => m.isFree)?.title}
+                      🎁 Free Sample: {freeModule.title}
                     </p>
-                    {course.modules.find(m => m.isFree)?.summary && (
+                    {freeModule.summary && (
                       <p className="text-xs text-green-700 mt-1">
-                        {course.modules.find(m => m.isFree)?.summary}
+                        {freeModule.summary}
                       </p>
                     )}
                   </div>
@@ -1416,7 +1418,7 @@ export default function Courses() {
                 </button>
               </div>
             </div>
-          ))}
+          )})}
         </div>
 
         {filteredCourses.length === 0 && (
