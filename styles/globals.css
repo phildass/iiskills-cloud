@@ -7,3 +7,20 @@ body {
   background: #F8F9FA;
   color: #24272a;
 }
+
+/* Blinking animation for FREE label */
+@keyframes blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+/* Only apply animation if user hasn't requested reduced motion */
+@media (prefers-reduced-motion: no-preference) {
+  .blink-animation {
+    animation: blink 2s ease-in-out infinite;
+  }
+}
