@@ -1095,6 +1095,48 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 
 ---
 
+### Learn JEE
+**Description:** Master the essential concepts of Physics, Chemistry, and Mathematics for JEE preparation. This course covers foundational and advanced topics, designed for aspirants aiming for top ranks in engineering entrance exams.
+
+**Topics/Skills:**
+- Introduction to JEE Physics (Free Sample Module)
+- Mechanics Fundamentals
+- Thermodynamics Essentials
+- Chemistry for JEE
+- Organic Chemistry Basics
+- Mathematics - Algebra
+- Calculus for JEE
+- Problem-Solving Techniques
+- Mock Tests and Practice
+- Exam Strategy and Time Management
+
+**Sample Module:** Introduction to JEE Physics - Explore strategies for tackling Physics problems, understand the JEE syllabus structure, and discover the importance of conceptual learning.
+
+**Duration:** 10 weeks | **Level:** Beginner
+
+---
+
+### Learn NEET
+**Description:** Build a strong foundation in Biology, Chemistry, and Physics tailored for NEET aspirants. This beginner course provides a high-level overview and the strategies necessary for success in medical entrance exams.
+
+**Topics/Skills:**
+- Introduction to NEET Biology (Free Sample Module)
+- Cell Biology and Genetics
+- Human Physiology
+- Plant Biology
+- Chemistry for NEET
+- Organic Chemistry Essentials
+- Physics for Medical Entrance
+- Problem-Solving Strategies
+- Mock Tests and Analysis
+- Exam Preparation and Strategy
+
+**Sample Module:** Introduction to NEET Biology - Learn about the importance of concept clarity and effective study planning for Biology, with tips for maximizing NEET scores.
+
+**Duration:** 10 weeks | **Level:** Beginner
+
+---
+
 ### Learn Maths (FREE)
 **Description:** FREE comprehensive mathematics course covering fundamental to advanced concepts for academic and practical applications.
 
@@ -1123,9 +1165,9 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 
 ---
 
-**Total Courses: 67**
+**Total Courses: 58**
 - Free Courses: 10
-- Paid Courses: 57
+- Paid Courses: 48
 - Categories: 11
 
 *Last Updated: December 2025*
