@@ -10,7 +10,7 @@ export default function LearnModules() {
       description: 'Develop logical reasoning, quantitative aptitude, and analytical skills for competitive exams.',
       subdomain: 'learn-apt.iiskills.cloud',
       localPort: '3001',
-      color: 'blue-600',
+      colorClass: 'bg-gradient-to-r from-blue-600 to-primary',
       icon: '🧮',
       status: 'Available',
       features: ['Quantitative Aptitude', 'Logical Reasoning', 'Data Interpretation', 'Pattern Recognition']
@@ -21,7 +21,7 @@ export default function LearnModules() {
       description: 'Master mathematical concepts, problem-solving techniques, and advance your quantitative skills.',
       subdomain: 'learn-math.iiskills.cloud',
       localPort: '3002',
-      color: 'indigo-600',
+      colorClass: 'bg-gradient-to-r from-indigo-600 to-primary',
       icon: '📐',
       status: 'Available',
       features: ['Algebra', 'Geometry', 'Calculus', 'Statistics']
@@ -32,7 +32,7 @@ export default function LearnModules() {
       description: 'Develop a winning mindset, success strategies, and achieve your personal and professional goals.',
       subdomain: 'learn-winning.iiskills.cloud',
       localPort: '3003',
-      color: 'green-600',
+      colorClass: 'bg-gradient-to-r from-green-600 to-primary',
       icon: '🏆',
       status: 'Available',
       features: ['Goal Setting', 'Success Mindset', 'Performance Optimization', 'Personal Growth']
@@ -43,7 +43,7 @@ export default function LearnModules() {
       description: 'Master data analysis, visualization, machine learning, and turn data into insights.',
       subdomain: 'learn-data-science.iiskills.cloud',
       localPort: '3004',
-      color: 'purple-600',
+      colorClass: 'bg-gradient-to-r from-purple-600 to-primary',
       icon: '📊',
       status: 'Available',
       features: ['Data Analysis', 'Machine Learning', 'Visualization', 'Python/R']
@@ -54,7 +54,7 @@ export default function LearnModules() {
       description: 'Build essential management skills, strategic thinking, and lead teams effectively.',
       subdomain: 'learn-management.iiskills.cloud',
       localPort: '3005',
-      color: 'orange-600',
+      colorClass: 'bg-gradient-to-r from-orange-600 to-primary',
       icon: '📈',
       status: 'Available',
       features: ['Strategic Planning', 'Team Leadership', 'Project Management', 'Decision Making']
@@ -65,7 +65,7 @@ export default function LearnModules() {
       description: 'Develop leadership capabilities, influence, and inspire others to achieve excellence.',
       subdomain: 'learn-leadership.iiskills.cloud',
       localPort: '3006',
-      color: 'red-600',
+      colorClass: 'bg-gradient-to-r from-red-600 to-primary',
       icon: '👔',
       status: 'Available',
       features: ['Influencing Skills', 'Team Building', 'Communication', 'Vision Setting']
@@ -76,7 +76,7 @@ export default function LearnModules() {
       description: 'Explore Artificial Intelligence fundamentals, applications, and prepare for the AI-driven future.',
       subdomain: 'learn-ai.iiskills.cloud',
       localPort: '3007',
-      color: 'cyan-600',
+      colorClass: 'bg-gradient-to-r from-cyan-600 to-primary',
       icon: '🤖',
       status: 'Available',
       features: ['AI Fundamentals', 'Neural Networks', 'AI Applications', 'Ethics & Governance']
@@ -87,7 +87,7 @@ export default function LearnModules() {
       description: 'Master Public Relations, communication strategies, and build powerful brand narratives.',
       subdomain: 'learn-pr.iiskills.cloud',
       localPort: '3008',
-      color: 'pink-600',
+      colorClass: 'bg-gradient-to-r from-pink-600 to-primary',
       icon: '📣',
       status: 'Available',
       features: ['Media Relations', 'Brand Building', 'Crisis Management', 'Content Strategy']
@@ -132,7 +132,7 @@ export default function LearnModules() {
                   key={module.name}
                   className="bg-white rounded-lg shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden border-t-4 border-transparent hover:border-primary group"
                 >
-                  <div className={`bg-gradient-to-r from-${module.color} to-primary p-6 text-white`}>
+                  <div className={`${module.colorClass} p-6 text-white`}>
                     <div className="text-6xl mb-4 text-center">{module.icon}</div>
                     <h3 className="text-2xl font-bold text-center mb-2">{module.title}</h3>
                   </div>
@@ -173,7 +173,7 @@ export default function LearnModules() {
                           href={`http://localhost:${module.localPort}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className={`flex-1 text-center bg-gradient-to-r from-${module.color} to-primary text-white px-4 py-3 rounded-lg font-bold hover:opacity-90 transition`}
+                          className={`flex-1 text-center ${module.colorClass} text-white px-4 py-3 rounded-lg font-bold hover:opacity-90 transition`}
                         >
                           Access Module →
                         </a>
