@@ -8,7 +8,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto">
         <div className="grid md:grid-cols-3 gap-8 mb-6">
           <div>
-            <h3 className="font-bold text-lg mb-4">Learn Your Aptitude</h3>
+            <h3 className="font-bold text-lg mb-4">Learn Chemistry</h3>
             <p className="text-gray-300 text-sm">
               Part of the Indian Institute of Professional Skills Development initiative
             </p>
