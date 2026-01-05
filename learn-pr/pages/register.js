@@ -123,14 +123,14 @@ export default function Register() {
   return (
     <>
       <Head>
-        <title>Sign In - Learn-Apt</title>
-        <meta name="description" content="Create your account for Learn-Apt assessment" />
+        <title>Register - Learn PR</title>
+        <meta name="description" content="Create your account for Learn PR" />
       </Head>
       
       <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 py-12 px-4">
         <div className="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-lg">
           <h1 className="text-3xl font-bold text-primary mb-2 text-center">Create Your Account</h1>
-          <p className="text-center text-charcoal mb-6">Join Learn-Apt to discover your potential</p>
+          <p className="text-center text-charcoal mb-6">Join Learn PR to discover your potential</p>
           
           {errors.submit && (
             <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">

@@ -163,12 +163,14 @@ export default function Register() {
     <>
       <Head>
         <title>Register - Learn Winning</title>
+        <meta name="description" content="Create your account for Learn Winning" />
         <meta name="description" content="Create your account for Learn Winning - Develop a winning mindset" />
       </Head>
       
       <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-blue-50 py-12 px-4">
         <div className="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-lg">
           <h1 className="text-3xl font-bold text-primary mb-2 text-center">Create Your Account</h1>
+          <p className="text-center text-charcoal mb-6">Join Learn Winning to discover your potential</p>
           <p className="text-center text-charcoal mb-6">Join Learn Winning to start your journey</p>
           
           {errors.submit && (

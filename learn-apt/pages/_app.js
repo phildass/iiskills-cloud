@@ -2,7 +2,7 @@ import '../styles/globals.css'
 import { AdminProvider } from '../contexts/AdminContext'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
-import SharedNavbar from '../components/shared/SharedNavbar'
+import SharedNavbar from '../../components/shared/SharedNavbar'
 import Footer from '../components/Footer'
 import { getCurrentUser, signOutUser } from '../lib/supabaseClient'
 
