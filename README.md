@@ -8,7 +8,14 @@ Inspired by iiskills.in and customized for the Indian Institute of Professional 
 This repository contains multiple Next.js applications:
 
 - **Main App** (`/`) - The primary iiskills.cloud website
-- **Learn-Apt** (`/learn-apt/`) - Standalone app for "Learn Your Aptitude" feature
+- **Learn-Apt** (`/learn-apt/`) - Aptitude assessment with AI-powered career guidance
+- **Learn-Math** (`/learn-math/`) - Mathematics learning module
+- **Learn-Winning** (`/learn-winning/`) - Success strategies and winning mindset
+- **Learn-Data-Science** (`/learn-data-science/`) - Data science fundamentals
+- **Learn-Management** (`/learn-management/`) - Management and business skills
+- **Learn-Leadership** (`/learn-leadership/`) - Leadership development
+- **Learn-AI** (`/learn-ai/`) - Artificial Intelligence fundamentals
+- **Learn-PR** (`/learn-pr/`) - Public Relations and communication
 
 Each app can be deployed independently on different subdomains while sharing authentication.
 
@@ -37,18 +44,27 @@ npm run build
 npm start
 ```
 
-### Learn-Apt App
+### Learning Modules
 
-See [learn-apt/README.md](learn-apt/README.md) for detailed instructions.
+All learning modules follow the same structure. See individual README files for details:
 
-Quick start:
+- [learn-apt/README.md](learn-apt/README.md) - Port 3001
+- [learn-math/README.md](learn-math/README.md) - Port 3002
+- [learn-winning/README.md](learn-winning/README.md) - Port 3003
+- [learn-data-science/README.md](learn-data-science/README.md) - Port 3004
+- [learn-management/README.md](learn-management/README.md) - Port 3005
+- [learn-leadership/README.md](learn-leadership/README.md) - Port 3006
+- [learn-ai/README.md](learn-ai/README.md) - Port 3007
+- [learn-pr/README.md](learn-pr/README.md) - Port 3008
+
+Quick start for any module:
 ```bash
-cd learn-apt
+cd learn-{module-name}
 npm install
 npm run dev
 ```
 
-Available at `http://localhost:3001`
+**Learning Modules Overview:** Visit `/learn-modules` on the main app to see all available modules.
 
 ## Deployment
 
@@ -150,6 +166,14 @@ Admin users can access the admin dashboard at `/admin/login` using any of the th
 
 **Note:** Admin login pages are not shown in public navigation for security reasons. Only authenticated admin users can see admin dashboard links.
 
+### Key Features
+
+- **Single Sign-On (SSO)** - Login once, access all subdomains
+- **Role-Based Access** - Admin access controlled by Supabase user metadata
+- **Secure Admin Access** - Admin section accessible only via direct URL (`/admin`), not exposed in navigation
+- **Consistent Navigation** - SharedNavbar component used across all apps
+- **No Hardcoded Credentials** - All authentication validated against Supabase backend
+
 ### Setup Supabase
 
 To enable authentication features:
@@ -161,15 +185,19 @@ To enable authentication features:
 5. Create `.env.local` in each app directory with your credentials
 6. Configure cookie domain to `.iiskills.cloud` for cross-subdomain auth
 
-See [SUPABASE_AUTH_SETUP.md](SUPABASE_AUTH_SETUP.md) for detailed instructions.
+See [SUPABASE_AUTH_SETUP.md](SUPABASE_AUTH_SETUP.md) for detailed setup instructions.
+
+See [NAVIGATION_AUTH_GUIDE.md](NAVIGATION_AUTH_GUIDE.md) for complete navigation and authentication documentation.
 
 ## Documentation
 
+- [NAVIGATION_AUTH_GUIDE.md](NAVIGATION_AUTH_GUIDE.md) - **Navigation and authentication flow guide**
 - [DEPLOYMENT.md](DEPLOYMENT.md) - Comprehensive deployment guide
 - [SUPABASE_AUTH_SETUP.md](SUPABASE_AUTH_SETUP.md) - Authentication setup
-- [learn-apt/README.md](learn-apt/README.md) - Learn-Apt app documentation
+- [MODULE_MIGRATION_SUMMARY.md](MODULE_MIGRATION_SUMMARY.md) - Learning modules migration details
 - [TESTING_GUIDE.md](TESTING_GUIDE.md) - Testing documentation
 - [IMPLEMENTATION_SUMMARY.md](IMPLEMENTATION_SUMMARY.md) - Implementation details
+- Individual module READMEs in each `learn-*` directory
 
 ## Questions/Support
 
