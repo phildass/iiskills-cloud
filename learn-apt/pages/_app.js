@@ -3,6 +3,7 @@ import { AdminProvider } from '../contexts/AdminContext'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import SharedNavbar from '../../components/shared/SharedNavbar'
+import SubdomainNavbar from '../../components/shared/SubdomainNavbar'
 import Footer from '../components/Footer'
 import { getCurrentUser, signOutUser } from '../lib/supabaseClient'
 
@@ -27,6 +28,30 @@ export default function App({ Component, pageProps }) {
     }
   }
 
+  // Define subdomain-specific navigation sections
+  const subdomainSections = [
+    {
+      label: 'Home',
+      href: '/',
+      description: 'Welcome to Learn-Apt'
+    },
+    {
+      label: 'Start Test',
+      href: '/learn',
+      description: 'Choose your assessment mode (Short or Elaborate)'
+    },
+    {
+      label: 'Login',
+      href: '/login',
+      description: 'Access your account'
+    },
+    {
+      label: 'Register',
+      href: '/register',
+      description: 'Create a new account'
+    }
+  ]
+
   return (
     <AdminProvider>
       <SharedNavbar 
@@ -43,6 +68,10 @@ export default function App({ Component, pageProps }) {
           { href: 'https://iiskills.cloud/about', label: 'About', className: 'hover:text-primary transition' },
           { href: 'https://iiskills.cloud/terms', label: 'Terms & Conditions', className: 'hover:text-primary transition' }
         ]}
+      />
+      <SubdomainNavbar
+        subdomainName="Learn-Apt"
+        sections={subdomainSections}
       />
       <Component {...pageProps} />
       <Footer />

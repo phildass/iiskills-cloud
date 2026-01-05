@@ -2,14 +2,15 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
 import { getCurrentUser, signOutUser, getUserProfile } from '../lib/supabaseClient'
+import PaidUserProtectedRoute from '../../components/PaidUserProtectedRoute'
 
 /**
  * Test Selection Page
  * 
  * Users select between Short (5 min) and Elaborate (20 min) test modes
- * Protected Route: Redirects to login if user is not authenticated
+ * Protected Route: Requires authentication and payment
  */
-export default function Learn() {
+function LearnContent() {
   const [user, setUser] = useState(null)
   const [userProfile, setUserProfile] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
@@ -22,14 +23,10 @@ export default function Learn() {
   const checkAuth = async () => {
     const currentUser = await getCurrentUser()
     
-    if (!currentUser) {
-      // User is not authenticated, redirect to login
-      router.push('/login?redirect=/learn')
-      return
+    if (currentUser) {
+      setUser(currentUser)
+      setUserProfile(getUserProfile(currentUser))
     }
-    
-    setUser(currentUser)
-    setUserProfile(getUserProfile(currentUser))
     setIsLoading(false)
   }
 
@@ -223,5 +220,13 @@ export default function Learn() {
       </main>
       
     </>
+  )
+}
+
+export default function Learn() {
+  return (
+    <PaidUserProtectedRoute>
+      <LearnContent />
+    </PaidUserProtectedRoute>
   )
 }
