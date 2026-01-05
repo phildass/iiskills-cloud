@@ -16,6 +16,7 @@ This repository contains multiple Next.js applications:
 - **Learn-Leadership** (`/learn-leadership/`) - Leadership development
 - **Learn-AI** (`/learn-ai/`) - Artificial Intelligence fundamentals
 - **Learn-PR** (`/learn-pr/`) - Public Relations and communication
+- **Learn-JEE** (`/learn-jee/`) - JEE preparation (Physics, Chemistry, Mathematics)
 
 Each app can be deployed independently on different subdomains while sharing authentication.
 
@@ -56,6 +57,7 @@ All learning modules follow the same structure. See individual README files for 
 - [learn-leadership/README.md](learn-leadership/README.md) - Port 3006
 - [learn-ai/README.md](learn-ai/README.md) - Port 3007
 - [learn-pr/README.md](learn-pr/README.md) - Port 3008
+- [learn-jee/README.md](learn-jee/README.md) - Port 3009
 
 Quick start for any module:
 ```bash
