@@ -118,6 +118,54 @@ These can be imported by any app in the monorepo.
 
 All apps use shared Supabase authentication with cross-subdomain session support.
 
+### Multiple Sign-In Options
+
+iiskills.cloud supports three convenient ways to sign in:
+
+1. **Magic Link (Recommended)** - Passwordless email authentication
+   - Enter your email address
+   - Receive a secure sign-in link via email
+   - Click the link to sign in automatically
+   - No password required!
+
+2. **Google OAuth** - Sign in with your Google account
+   - One-click authentication
+   - Uses your existing Google account
+   - Fast and secure
+
+3. **Email & Password** - Traditional authentication
+   - Available as a fallback option
+   - Use if you prefer password-based login
+
+### Forgot Your Password?
+
+Don't worry! You have two easy options:
+
+1. **Use Magic Link** - Simply click "Use magic link instead" on the login page and enter your email. You'll receive a sign-in link that works without a password.
+
+2. **Use Google Sign-In** - If you previously signed up with Google, just click "Continue with Google" to sign in.
+
+### For Email-Only Users
+
+If you prefer to sign in without using passwords:
+
+1. Always choose the **Magic Link** option on the login page
+2. Enter your email address
+3. Check your email inbox for the secure sign-in link
+4. Click the link to access your account instantly
+
+The magic link is valid for a limited time and can only be used once for security.
+
+### Admin Access
+
+Admin users can access the admin dashboard at `/admin/login` using any of the three sign-in methods. Admin access requires:
+
+- A valid user account with admin privileges
+- Admin role assigned in the Supabase user metadata
+- Access is validated on every request for security
+
+**Note:** Admin login pages are not shown in public navigation for security reasons. Only authenticated admin users can see admin dashboard links.
+
 ### Key Features
 
 - **Single Sign-On (SSO)** - Login once, access all subdomains
@@ -128,10 +176,14 @@ All apps use shared Supabase authentication with cross-subdomain session support
 
 ### Setup Supabase
 
+To enable authentication features:
+
 1. Create a Supabase project at https://supabase.com
 2. Get your project URL and anon key from project settings
-3. Create `.env.local` in each app directory
-4. Configure cookie domain to `.iiskills.cloud` for cross-subdomain auth
+3. Configure Google OAuth provider in Supabase dashboard (Authentication > Providers)
+4. Enable email authentication and magic links in Supabase settings
+5. Create `.env.local` in each app directory with your credentials
+6. Configure cookie domain to `.iiskills.cloud` for cross-subdomain auth
 
 See [SUPABASE_AUTH_SETUP.md](SUPABASE_AUTH_SETUP.md) for detailed setup instructions.
 

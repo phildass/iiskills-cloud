@@ -1,5 +1,9 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
+
+// Import Supabase helpers for authentication state and logout
+import { getCurrentUser, signOutUser, isAdmin as checkIsAdmin } from '../lib/supabaseClient'
+import { getAdminUrl } from '../utils/urlHelper'
 import SharedNavbar from './shared/SharedNavbar'
 import { getCurrentUser, signOutUser } from '../lib/supabaseClient'
 
@@ -25,11 +29,20 @@ export default function Navbar() {
   }, [])
 
   /**
+   * Check if a user is currently logged in and their admin status
+   * This runs on component mount to determine what to show in the navbar
    * Check if a user is currently logged in
    */
   const checkUser = async () => {
     const currentUser = await getCurrentUser()
     setUser(currentUser)
+    
+    // Check if user has admin role via Supabase metadata
+    if (currentUser) {
+      setIsAdmin(checkIsAdmin(currentUser))
+    }
+    
+    setIsLoading(false)
   }
 
   /**
