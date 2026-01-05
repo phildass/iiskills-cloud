@@ -173,6 +173,24 @@ module.exports = {
       out_file: './logs/learn-pr-out.log',
       log_file: './logs/learn-pr-combined.log',
       time: true
+    },
+    {
+      name: 'iiskills-learn-geography',
+      cwd: __dirname + '/learn-geography',
+      script: 'npm',
+      args: 'start',
+      env: {
+        PORT: 3009,
+        NODE_ENV: 'production'
+      },
+      instances: 1,
+      autorestart: true,
+      watch: false,
+      max_memory_restart: '1G',
+      error_file: './logs/learn-geography-error.log',
+      out_file: './logs/learn-geography-out.log',
+      log_file: './logs/learn-geography-combined.log',
+      time: true
     }
   ]
 }

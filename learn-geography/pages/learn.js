@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
 import { getCurrentUser, signOutUser, getUserProfile } from '../lib/supabaseClient'
-import UserProtectedRoute from '../../components/UserProtectedRoute'
+import UserProtectedRoute from '../components/UserProtectedRoute'
 
 /**
  * Learning Content Page for Learn-Geography
