@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import Head from 'next/head'
 import Link from 'next/link'
 import { getCurrentUser, getUserProfile } from '../lib/supabaseClient'
-import { getPricingDisplay } from '../../utils/pricing'
+import { getPricingDisplay } from '../utils/pricing'
 
 /**
  * JEE Course Data Structure

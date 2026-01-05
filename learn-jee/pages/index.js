@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { getCurrentUser } from '../lib/supabaseClient'
-import { getPricingDisplay, getIntroOfferNotice } from '../../utils/pricing'
+import { getPricingDisplay, getIntroOfferNotice } from '../utils/pricing'
 
 export default function Home() {
   const [user, setUser] = useState(null)
