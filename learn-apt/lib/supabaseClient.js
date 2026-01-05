@@ -186,6 +186,15 @@ export async function signInWithGoogle() {
 /**
  * Helper function to check if user has admin role
  * 
+ * ⚠️ IMPORTANT: This is for CLIENT-SIDE UI DISPLAY ONLY
+ * Server-side verification is required for actual access control.
+ * This function should only be used to show/hide UI elements.
+ * 
+ * In production, implement server-side admin verification:
+ * - API routes should verify admin role from auth token
+ * - Protected pages should validate on server before rendering
+ * - Database queries should use Row Level Security (RLS)
+ * 
  * Admin roles are synced from the main app via Supabase user metadata
  * 
  * @param {Object} user - User object from Supabase
