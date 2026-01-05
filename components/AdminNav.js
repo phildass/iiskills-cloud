@@ -1,14 +1,22 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { getMainSiteUrl, isOnSubdomain } from '../utils/urlHelper'
+import { signOutUser } from '../lib/supabaseClient'
 
+/**
+ * Admin Navigation Bar
+ * 
+ * Navigation bar for admin pages with Supabase authentication.
+ * Shows admin section links and logout functionality.
+ */
 export default function AdminNav() {
   const router = useRouter()
 
-  const handleLogout = () => {
-    localStorage.removeItem('adminAuth')
-    localStorage.removeItem('adminLoginTime')
-    router.push('/admin/login')
+  const handleLogout = async () => {
+    const { success } = await signOutUser()
+    if (success) {
+      router.push('/')
+    }
   }
 
   // Determine the main site URL
