@@ -13,12 +13,16 @@ import { createClient } from '@supabase/supabase-js'
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
+// For build-time, use placeholder values (will be replaced with actual env vars in production)
+const effectiveUrl = supabaseUrl || "https://placeholder.supabase.co"
+const effectiveKey = supabaseAnonKey || "placeholder_key"
+
 if (!supabaseUrl || !supabaseAnonKey) {
-  throw new Error('Missing Supabase environment variables. Please check your .env.local file.')
+  console.warn('Warning: Supabase environment variables not set. Using placeholder values for build.')
 }
 
 // Create Supabase client with cookie options for cross-subdomain support
-export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+export const supabase = createClient(effectiveUrl, effectiveKey, {
   auth: {
     autoRefreshToken: true,
     persistSession: true,

@@ -118,6 +118,8 @@ export default function Learn() {
         return 'bg-gray-500'
     }
   }
+
+  const getSubjectIcon = (subject) => {
     switch (subject) {
       case 'physics':
         return '⚛️'
