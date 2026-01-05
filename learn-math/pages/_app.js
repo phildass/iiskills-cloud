@@ -1,8 +1,10 @@
 import '../styles/globals.css'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
+
 import SharedNavbar from '../../components/shared/SharedNavbar'
 import SubdomainNavbar from '../../components/shared/SubdomainNavbar'
+import SharedNavbar from '../components/shared/SharedNavbar'
 import Footer from '../components/Footer'
 import { getCurrentUser, signOutUser } from '../lib/supabaseClient'
 
