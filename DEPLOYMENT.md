@@ -5,8 +5,15 @@ This guide explains how to deploy the iiskills.cloud platform with multiple stan
 ## Architecture Overview
 
 ```
-iiskills.cloud (main app)           - Port 3000
-learn-apt.iiskills.cloud            - Port 3001
+iiskills.cloud (main app)              - Port 3000
+learn-apt.iiskills.cloud               - Port 3001
+learn-math.iiskills.cloud              - Port 3002
+learn-winning.iiskills.cloud           - Port 3003
+learn-data-science.iiskills.cloud      - Port 3004
+learn-management.iiskills.cloud        - Port 3005
+learn-leadership.iiskills.cloud        - Port 3006
+learn-ai.iiskills.cloud                - Port 3007
+learn-pr.iiskills.cloud                - Port 3008
 ```
 
 All apps share the same Supabase authentication backend for cross-subdomain single sign-on.
@@ -32,7 +39,7 @@ All apps share the same Supabase authentication backend for cross-subdomain sing
 
 ### 2. Environment Variables
 
-Both apps should use the **same Supabase credentials**:
+All apps should use the **same Supabase credentials**:
 
 **Main app (.env.local):**
 ```env
@@ -41,13 +48,15 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
 NEXT_PUBLIC_SITE_URL=https://iiskills.cloud
 ```
 
-**Learn-apt app (learn-apt/.env.local):**
+**All learning modules (learn-*/. env.local):**
 ```env
 NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
-NEXT_PUBLIC_SITE_URL=https://learn-apt.iiskills.cloud
+NEXT_PUBLIC_SITE_URL=https://learn-{module}.iiskills.cloud
 NEXT_PUBLIC_COOKIE_DOMAIN=.iiskills.cloud
 ```
+
+Replace `{module}` with: apt, math, winning, data-science, management, leadership, ai, or pr
 
 ## Deployment Options
 
@@ -61,21 +70,32 @@ vercel --prod
 
 Configure domain: `iiskills.cloud`
 
-#### Learn-Apt App
+#### Learning Modules (Repeat for each module)
+
+For each module (apt, math, winning, data-science, management, leadership, ai, pr):
 ```bash
-cd /path/to/iiskills-cloud/learn-apt
+cd /path/to/iiskills-cloud/learn-{module}
 vercel --prod
 ```
 
-Configure domain: `learn-apt.iiskills.cloud`
+Configure domain for each:
+- `learn-apt.iiskills.cloud`
+- `learn-math.iiskills.cloud`
+- `learn-winning.iiskills.cloud`
+- `learn-data-science.iiskills.cloud`
+- `learn-management.iiskills.cloud`
+- `learn-leadership.iiskills.cloud`
+- `learn-ai.iiskills.cloud`
+- `learn-pr.iiskills.cloud`
 
 **Vercel Environment Variables:**
 - Add all environment variables in the Vercel dashboard for each project
-- Ensure both projects use the same Supabase credentials
+- Ensure all projects use the same Supabase credentials
+- Set appropriate `NEXT_PUBLIC_SITE_URL` for each subdomain
 
 ### Option 2: VPS with Nginx and PM2
 
-#### 1. Build Both Apps
+#### 1. Build All Apps
 
 ```bash
 # Main app
@@ -83,10 +103,30 @@ cd /path/to/iiskills-cloud
 npm install
 npm run build
 
-# Learn-apt app
+# All learning modules
 cd /path/to/iiskills-cloud/learn-apt
-npm install
-npm run build
+npm install && npm run build
+
+cd /path/to/iiskills-cloud/learn-math
+npm install && npm run build
+
+cd /path/to/iiskills-cloud/learn-winning
+npm install && npm run build
+
+cd /path/to/iiskills-cloud/learn-data-science
+npm install && npm run build
+
+cd /path/to/iiskills-cloud/learn-management
+npm install && npm run build
+
+cd /path/to/iiskills-cloud/learn-leadership
+npm install && npm run build
+
+cd /path/to/iiskills-cloud/learn-ai
+npm install && npm run build
+
+cd /path/to/iiskills-cloud/learn-pr
+npm install && npm run build
 ```
 
 #### 2. Set Up PM2
@@ -96,40 +136,26 @@ Install PM2 globally:
 npm install -g pm2
 ```
 
-Create PM2 ecosystem file (`ecosystem.config.js`):
-```javascript
-module.exports = {
-  apps: [
-    {
-      name: 'iiskills-main',
-      cwd: '/path/to/iiskills-cloud',
-      script: 'npm',
-      args: 'start',
-      env: {
-        PORT: 3000,
-        NODE_ENV: 'production'
-      }
-    },
-    {
-      name: 'iiskills-learn-apt',
-      cwd: '/path/to/iiskills-cloud/learn-apt',
-      script: 'npm',
-      args: 'start',
-      env: {
-        PORT: 3001,
-        NODE_ENV: 'production'
-      }
-    }
-  ]
-}
-```
+The repository includes a complete PM2 ecosystem file (`ecosystem.config.js`) with all 8 modules configured.
 
-Start the apps:
+Start all apps:
 ```bash
+cd /path/to/iiskills-cloud
 pm2 start ecosystem.config.js
 pm2 save
 pm2 startup
 ```
+
+This will start:
+- iiskills-main (port 3000)
+- iiskills-learn-apt (port 3001)
+- iiskills-learn-math (port 3002)
+- iiskills-learn-winning (port 3003)
+- iiskills-learn-data-science (port 3004)
+- iiskills-learn-management (port 3005)
+- iiskills-learn-leadership (port 3006)
+- iiskills-learn-ai (port 3007)
+- iiskills-learn-pr (port 3008)
 
 #### 3. Configure Nginx
 
@@ -164,13 +190,14 @@ server {
 }
 ```
 
-Create Nginx config for learn-apt (`/etc/nginx/sites-available/iiskills-learn-apt`):
+Create Nginx config for all learning modules. You can create individual files or a single file with multiple server blocks:
+
+**Option A: Single file** (`/etc/nginx/sites-available/iiskills-learning-modules`):
 ```nginx
+# Learn-Apt
 server {
     listen 80;
     server_name learn-apt.iiskills.cloud;
-    
-    # Redirect to HTTPS
     return 301 https://$server_name$request_uri;
 }
 
@@ -193,12 +220,48 @@ server {
         proxy_cache_bypass $http_upgrade;
     }
 }
+
+# Learn-Math (port 3002)
+server {
+    listen 80;
+    server_name learn-math.iiskills.cloud;
+    return 301 https://$server_name$request_uri;
+}
+
+server {
+    listen 443 ssl http2;
+    server_name learn-math.iiskills.cloud;
+    
+    ssl_certificate /etc/letsencrypt/live/learn-math.iiskills.cloud/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/learn-math.iiskills.cloud/privkey.pem;
+    
+    location / {
+        proxy_pass http://localhost:3002;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
+
+# Repeat for other modules (learn-winning:3003, learn-data-science:3004, 
+# learn-management:3005, learn-leadership:3006, learn-ai:3007, learn-pr:3008)
+# Following the same pattern as above
 ```
+
+**Note:** Repeat the server block pattern for all remaining modules, changing:
+- `server_name` to the appropriate subdomain
+- `proxy_pass` to the appropriate port
+- SSL certificate paths to match the subdomain
 
 Enable the sites:
 ```bash
 sudo ln -s /etc/nginx/sites-available/iiskills-main /etc/nginx/sites-enabled/
-sudo ln -s /etc/nginx/sites-available/iiskills-learn-apt /etc/nginx/sites-enabled/
+sudo ln -s /etc/nginx/sites-available/iiskills-learning-modules /etc/nginx/sites-enabled/
 sudo nginx -t
 sudo systemctl reload nginx
 ```
@@ -211,8 +274,19 @@ sudo apt install certbot python3-certbot-nginx
 # Get certificate for main domain
 sudo certbot --nginx -d iiskills.cloud -d www.iiskills.cloud
 
-# Get certificate for learn-apt subdomain
+# Get certificates for all learning module subdomains
 sudo certbot --nginx -d learn-apt.iiskills.cloud
+sudo certbot --nginx -d learn-math.iiskills.cloud
+sudo certbot --nginx -d learn-winning.iiskills.cloud
+sudo certbot --nginx -d learn-data-science.iiskills.cloud
+sudo certbot --nginx -d learn-management.iiskills.cloud
+sudo certbot --nginx -d learn-leadership.iiskills.cloud
+sudo certbot --nginx -d learn-ai.iiskills.cloud
+sudo certbot --nginx -d learn-pr.iiskills.cloud
+
+# Or get all certificates at once with a wildcard (requires DNS challenge):
+sudo certbot certonly --manual --preferred-challenges dns \
+  -d *.iiskills.cloud -d iiskills.cloud
 ```
 
 ### Option 3: Docker
