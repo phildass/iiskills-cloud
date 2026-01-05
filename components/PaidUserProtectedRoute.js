@@ -3,6 +3,14 @@ import { useRouter } from 'next/router'
 import { getCurrentUser, checkUserPaymentStatus } from '../lib/supabaseClient'
 import Link from 'next/link'
 
+// Configuration for access denied message
+const ACCESS_DENIED_CONFIG = {
+  title: 'Access Restricted',
+  message: 'Only registered and paid users can access this page. Please log in if you are already registered. Or make payment here. This will lead you to our parent organisation AI Cloud Enterprises (aienter.in).',
+  paymentUrl: 'https://www.aienter.in/payments',
+  paymentButtonText: 'Make Payment (AI Cloud Enterprises)'
+}
+
 /**
  * PaidUserProtectedRoute Component
  * 
@@ -76,13 +84,13 @@ export default function PaidUserProtectedRoute({ children }) {
           <div className="text-center mb-6">
             <div className="text-6xl mb-4">🔒</div>
             <h1 className="text-3xl font-bold text-primary mb-4">
-              Access Restricted
+              {ACCESS_DENIED_CONFIG.title}
             </h1>
           </div>
           
           <div className="bg-yellow-50 border-2 border-yellow-300 rounded-lg p-6 mb-6">
             <p className="text-lg text-gray-800 leading-relaxed">
-              Only registered and paid users can access this page. Please log in if you are already registered. Or make payment here. This will lead you to our parent organisation AI Cloud Enterprises (aienter.in).
+              {ACCESS_DENIED_CONFIG.message}
             </p>
           </div>
 
@@ -108,12 +116,12 @@ export default function PaidUserProtectedRoute({ children }) {
             )}
             
             <a
-              href="https://www.aienter.in/payments"
+              href={ACCESS_DENIED_CONFIG.paymentUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="block w-full bg-accent text-white px-6 py-4 rounded-lg font-bold text-lg shadow-lg hover:bg-purple-700 transition text-center"
             >
-              Make Payment (AI Cloud Enterprises)
+              {ACCESS_DENIED_CONFIG.paymentButtonText}
             </a>
 
             {user && (
