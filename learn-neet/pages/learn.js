@@ -80,7 +80,44 @@ export default function Learn() {
     }
   }
 
-  const getSubjectIcon = (subject) => {
+  const getModuleHeaderClass = (subject) => {
+    switch (subject) {
+      case 'physics':
+        return 'bg-gradient-to-r from-blue-600 to-blue-700'
+      case 'chemistry':
+        return 'bg-gradient-to-r from-purple-600 to-purple-700'
+      case 'biology':
+        return 'bg-gradient-to-r from-green-600 to-green-700'
+      default:
+        return 'bg-gradient-to-r from-gray-600 to-gray-700'
+    }
+  }
+
+  const getTopicBorderClass = (subject) => {
+    switch (subject) {
+      case 'physics':
+        return 'border-blue-300 hover:border-blue-500 hover:bg-blue-50'
+      case 'chemistry':
+        return 'border-purple-300 hover:border-purple-500 hover:bg-purple-50'
+      case 'biology':
+        return 'border-green-300 hover:border-green-500 hover:bg-green-50'
+      default:
+        return 'border-gray-300 hover:border-gray-500 hover:bg-gray-50'
+    }
+  }
+
+  const getUnlockedBadgeClass = (subject) => {
+    switch (subject) {
+      case 'physics':
+        return 'bg-blue-500'
+      case 'chemistry':
+        return 'bg-purple-500'
+      case 'biology':
+        return 'bg-green-500'
+      default:
+        return 'bg-gray-500'
+    }
+  }
     switch (subject) {
       case 'physics':
         return '⚛️'
@@ -245,7 +282,7 @@ export default function Learn() {
 
             {syllabus.map((module) => (
               <div key={module.id} className="bg-white rounded-2xl shadow-lg overflow-hidden">
-                <div className={`bg-gradient-to-r from-${color}-600 to-${color}-700 text-white p-6`}>
+                <div className={`${getModuleHeaderClass(selectedSubject)} text-white p-6`}>
                   <div className="flex items-center justify-between">
                     <div>
                       <h4 className="text-2xl font-bold mb-2">
@@ -270,7 +307,7 @@ export default function Learn() {
                         onClick={() => handleTopicClick(module.id, topic.id)}
                         className={`w-full text-left p-4 rounded-lg border-2 transition ${
                           hasActiveSubscription
-                            ? `border-${color}-300 hover:border-${color}-500 hover:bg-${color}-50 cursor-pointer`
+                            ? `${getTopicBorderClass(selectedSubject)} cursor-pointer`
                             : 'border-gray-300 bg-gray-50 cursor-not-allowed opacity-75'
                         }`}
                         disabled={!hasActiveSubscription}
@@ -290,7 +327,7 @@ export default function Learn() {
                             </div>
                           </div>
                           {hasActiveSubscription && (
-                            <span className={`bg-${color}-500 text-white px-3 py-1 rounded-full text-sm font-bold`}>
+                            <span className={`${getUnlockedBadgeClass(selectedSubject)} text-white px-3 py-1 rounded-full text-sm font-bold`}>
                               UNLOCKED
                             </span>
                           )}
