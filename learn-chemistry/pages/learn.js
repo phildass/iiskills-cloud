@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
 import { getCurrentUser, signOutUser, getUserProfile, isAdmin } from '../lib/supabaseClient'
-import UserProtectedRoute from '../../components/UserProtectedRoute'
+import UserProtectedRoute from '../components/UserProtectedRoute'
 
 // Chemistry curriculum structure: 3 levels, 7-10 modules per level, 5 lessons per module
 const CHEMISTRY_CURRICULUM = {

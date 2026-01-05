@@ -10,6 +10,7 @@ This repository contains multiple Next.js applications:
 - **Main App** (`/`) - The primary iiskills.cloud website
 - **Learn-Apt** (`/learn-apt/`) - Aptitude assessment with AI-powered career guidance
 - **Learn-Math** (`/learn-math/`) - Mathematics learning module
+- **Learn-Chemistry** (`/learn-chemistry/`) - Chemistry mastery with AI-driven curriculum
 - **Learn-Winning** (`/learn-winning/`) - Success strategies and winning mindset
 - **Learn-Data-Science** (`/learn-data-science/`) - Data science fundamentals
 - **Learn-Management** (`/learn-management/`) - Management and business skills
@@ -50,6 +51,7 @@ All learning modules follow the same structure. See individual README files for 
 
 - [learn-apt/README.md](learn-apt/README.md) - Port 3001
 - [learn-math/README.md](learn-math/README.md) - Port 3002
+- [learn-chemistry/README.md](learn-chemistry/README.md) - Port 3009
 - [learn-winning/README.md](learn-winning/README.md) - Port 3003
 - [learn-data-science/README.md](learn-data-science/README.md) - Port 3004
 - [learn-management/README.md](learn-management/README.md) - Port 3005
