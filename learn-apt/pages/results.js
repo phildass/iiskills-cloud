@@ -77,7 +77,7 @@ Your cognitive abilities and learning style suggest you would benefit from a mix
   }
 }
 
-export default function ResultsContent() {
+function ResultsContent() {
   const router = useRouter()
   const { mode, answers: answersStr, timeSpent, totalQuestions } = router.query
   const [user, setUser] = useState(null)

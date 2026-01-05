@@ -111,7 +111,7 @@ const getOptionsForModule = (module, qIdx) => {
   return specificOptions[module]?.[qIdx] || genericOptions[qIdx % 4]
 }
 
-export default function TestContent() {
+function TestContent() {
   const router = useRouter()
   const { mode } = router.query
   const [user, setUser] = useState(null)
