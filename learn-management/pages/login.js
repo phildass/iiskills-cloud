@@ -72,14 +72,14 @@ export default function Login() {
   return (
     <>
       <Head>
-        <title>Log In - Learn-Apt</title>
-        <meta name="description" content="Log in to Learn-Apt" />
+        <title>Log In - Learn Management</title>
+        <meta name="description" content="Log in to Learn Management" />
       </Head>
       
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-purple-50 py-12 px-4">
         <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
           <h1 className="text-3xl font-bold text-primary mb-6 text-center">Log In</h1>
-          <p className="text-center text-charcoal mb-6">Welcome back to Learn-Apt</p>
+          <p className="text-center text-charcoal mb-6">Welcome back to Learn Management</p>
           
           {error && (
             <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
