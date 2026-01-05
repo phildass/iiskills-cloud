@@ -173,6 +173,24 @@ module.exports = {
       out_file: './logs/learn-pr-out.log',
       log_file: './logs/learn-pr-combined.log',
       time: true
+    },
+    {
+      name: 'iiskills-learn-physics',
+      cwd: __dirname + '/learn-physics',
+      script: 'npm',
+      args: 'start',
+      env: {
+        PORT: 3009,
+        NODE_ENV: 'production'
+      },
+      instances: 1,
+      autorestart: true,
+      watch: false,
+      max_memory_restart: '1G',
+      error_file: './logs/learn-physics-error.log',
+      out_file: './logs/learn-physics-out.log',
+      log_file: './logs/learn-physics-combined.log',
+      time: true
     }
   ]
 }
