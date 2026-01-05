@@ -141,7 +141,7 @@ export default function Test() {
     )
   }
 
-  if (testCompleted && score > 0) {
+  if (testCompleted) {
     return (
       <>
         <Head>
@@ -171,7 +171,7 @@ export default function Test() {
               <div className="text-left mb-8 p-6 bg-blue-50 rounded-lg">
                 <h3 className="text-xl font-bold text-primary mb-4">Performance Summary</h3>
                 <p className="text-gray-700 mb-2">
-                  You answered {Object.values(answers).filter((ans, idx) => ans === sampleQuestions[idx].correctAnswer).length} out of {sampleQuestions.length} questions correctly.
+                  You answered {sampleQuestions.filter((question) => answers[question.id] === question.correctAnswer).length} out of {sampleQuestions.length} questions correctly.
                 </p>
                 {score >= 80 && (
                   <p className="text-green-700 font-semibold">Excellent work! You have mastered this module.</p>
