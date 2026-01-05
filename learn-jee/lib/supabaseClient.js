@@ -148,3 +148,13 @@ export function getUserProfile(user) {
     ...user.user_metadata
   }
 }
+
+/**
+ * Helper function to get the site URL
+ * 
+ * @returns {string} Site URL for OAuth redirects
+ */
+export function getSiteUrl() {
+  return process.env.NEXT_PUBLIC_SITE_URL || 
+         (typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3009')
+}

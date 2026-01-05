@@ -162,9 +162,8 @@ export default function Register() {
   return (
     <>
       <Head>
-        <title>Register - Learn Winning</title>
-        <meta name="description" content="Create your account for Learn Winning" />
-        <meta name="description" content="Create your account for Learn Winning - Develop a winning mindset" />
+        <title>Register - Learn JEE</title>
+        <meta name="description" content="Create your account for Learn JEE" />
       </Head>
       
       <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 py-12 px-4">
