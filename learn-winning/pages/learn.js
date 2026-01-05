@@ -161,19 +161,22 @@ export default function Learn() {
   const handleLessonClick = (chapterId, lessonId, isFree) => {
     // Allow access to Chapter 1, Lesson 1
     if (chapterId === 1 && lessonId === 1) {
-      // In a real app, navigate to lesson content
+      // TODO: Navigate to lesson content page or render lesson content
+      // For now, using alert as placeholder
       alert('Lesson content would be displayed here. This is the FREE preview lesson!')
       return
     }
     
     // Check if user has purchased
     if (!hasPurchased && !isFree) {
-      // Show paywall
+      // TODO: Show proper paywall modal instead of alert
+      // For now, using alert as placeholder
       alert('This lesson requires purchasing the full course. Price: ₹99 + GST ₹17.82 (Total: ₹116.82)')
       return
     }
     
     // User has access
+    // TODO: Navigate to lesson content page or render lesson content
     alert(`Lesson ${chapterId}.${lessonId} content would be displayed here.`)
   }
 

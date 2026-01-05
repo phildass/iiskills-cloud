@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
 import Link from 'next/link'
-import { signInWithEmail, getCurrentUser, supabase } from '../lib/supabaseClient'
+import { signInWithEmail, getCurrentUser, supabase, getSiteUrl } from '../lib/supabaseClient'
 
 /**
  * Login Page for Learn-Apt
@@ -81,8 +81,7 @@ export default function Login() {
     setSuccess('')
 
     try {
-      const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 
-                     (typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3003')
+      const siteUrl = getSiteUrl()
       
       const { error: signInError } = await supabase.auth.signInWithOAuth({
         provider: 'google',
@@ -126,8 +125,7 @@ export default function Login() {
     setSuccess('')
 
     try {
-      const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 
-                     (typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3003')
+      const siteUrl = getSiteUrl()
       
       const { error: magicLinkError } = await supabase.auth.signInWithOtp({
         email,
