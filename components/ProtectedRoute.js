@@ -28,7 +28,9 @@ export default function ProtectedRoute({ children, requireAdmin = true }) {
       
       if (!user) {
         // Not logged in - redirect to login with return URL
-        router.push(`/login?redirect=${encodeURIComponent(router.asPath)}`)
+        // Only allow relative paths for security (prevent open redirect)
+        const returnUrl = router.asPath.startsWith('/') ? router.asPath : '/'
+        router.push(`/login?redirect=${encodeURIComponent(returnUrl)}`)
         setIsLoading(false)
         return
       }
