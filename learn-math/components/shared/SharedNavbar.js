@@ -45,6 +45,7 @@ export default function SharedNavbar({
                 src="/images/ai-cloud-logo.png" 
                 alt="AI Cloud Enterprises Logo" 
                 fill
+                sizes="48px"
                 className="object-contain"
               />
             </div>
@@ -60,6 +61,7 @@ export default function SharedNavbar({
                 src="/images/iiskills-logo.png" 
                 alt="IISKILLS Logo" 
                 fill
+                sizes="40px"
                 className="object-contain"
               />
             </div>
