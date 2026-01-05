@@ -209,6 +209,26 @@ export default function Learn() {
 
   const currentSubject = courseData[activeSubject]
 
+  // Helper function to get subject-specific classes
+  const getSubjectClasses = (subjectId, isActive = false) => {
+    const classMap = {
+      physics: {
+        active: 'bg-blue-500 text-white border-b-4 border-blue-700',
+        header: 'bg-gradient-to-r from-blue-500 to-blue-600',
+      },
+      chemistry: {
+        active: 'bg-green-500 text-white border-b-4 border-green-700',
+        header: 'bg-gradient-to-r from-green-500 to-green-600',
+      },
+      mathematics: {
+        active: 'bg-purple-500 text-white border-b-4 border-purple-700',
+        header: 'bg-gradient-to-r from-purple-500 to-purple-600',
+      },
+    }
+    
+    return classMap[subjectId] || classMap.physics
+  }
+
   return (
     <>
       <Head>
@@ -263,20 +283,23 @@ export default function Learn() {
           {/* Subject Tabs */}
           <div className="bg-white rounded-lg shadow-lg mb-8 overflow-hidden">
             <div className="flex border-b border-gray-200">
-              {Object.values(courseData).map((subject) => (
-                <button
-                  key={subject.id}
-                  onClick={() => setActiveSubject(subject.id)}
-                  className={`flex-1 py-4 px-6 text-center font-semibold transition ${
-                    activeSubject === subject.id
-                      ? `bg-${subject.color}-500 text-white border-b-4 border-${subject.color}-700`
-                      : 'bg-gray-50 text-gray-700 hover:bg-gray-100'
-                  }`}
-                >
-                  <span className="text-2xl block mb-1">{subject.icon}</span>
-                  {subject.title}
-                </button>
-              ))}
+              {Object.values(courseData).map((subject) => {
+                const classes = getSubjectClasses(subject.id)
+                return (
+                  <button
+                    key={subject.id}
+                    onClick={() => setActiveSubject(subject.id)}
+                    className={`flex-1 py-4 px-6 text-center font-semibold transition ${
+                      activeSubject === subject.id
+                        ? classes.active
+                        : 'bg-gray-50 text-gray-700 hover:bg-gray-100'
+                    }`}
+                  >
+                    <span className="text-2xl block mb-1">{subject.icon}</span>
+                    {subject.title}
+                  </button>
+                )
+              })}
             </div>
             
             {/* Subject Content */}
@@ -284,21 +307,23 @@ export default function Learn() {
               <h2 className="text-3xl font-bold text-primary mb-6">{currentSubject.title}</h2>
               
               <div className="space-y-6">
-                {currentSubject.chapters.map((chapter) => (
-                  <div key={chapter.id} className="bg-gray-50 rounded-lg overflow-hidden border border-gray-200">
-                    <div className={`bg-gradient-to-r from-${currentSubject.color}-500 to-${currentSubject.color}-600 text-white p-4`}>
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <h3 className="text-xl font-bold mb-1">
-                            Chapter {chapter.id}: {chapter.title}
-                          </h3>
-                          <p className="text-sm opacity-90">{chapter.description}</p>
+                {currentSubject.chapters.map((chapter) => {
+                  const subjectClasses = getSubjectClasses(activeSubject)
+                  return (
+                    <div key={chapter.id} className="bg-gray-50 rounded-lg overflow-hidden border border-gray-200">
+                      <div className={`${subjectClasses.header} text-white p-4`}>
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <h3 className="text-xl font-bold mb-1">
+                              Chapter {chapter.id}: {chapter.title}
+                            </h3>
+                            <p className="text-sm opacity-90">{chapter.description}</p>
+                          </div>
+                          {!hasPurchased && !(activeSubject === 'physics' && chapter.id === 1) && (
+                            <div className="text-3xl">🔒</div>
+                          )}
                         </div>
-                        {!hasPurchased && !(activeSubject === 'physics' && chapter.id === 1) && (
-                          <div className="text-3xl">🔒</div>
-                        )}
                       </div>
-                    </div>
                     
                     <div className="p-4">
                       <div className="space-y-3">
@@ -350,7 +375,7 @@ export default function Learn() {
                       </div>
                     </div>
                   </div>
-                ))}
+                )})}
               </div>
             </div>
           </div>
