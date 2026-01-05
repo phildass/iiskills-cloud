@@ -1,15 +1,58 @@
 import Head from 'next/head'
 import Link from 'next/link'
-import ProtectedRoute from '../../components/ProtectedRoute'
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
+import { getCurrentUser, isAdmin } from '../../lib/supabaseClient'
 import AdminNav from '../../components/AdminNav'
 import Navbar from '../../components/Navbar'
 import Footer from '../../components/Footer'
 
 export default function AdminDashboard() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
+  const router = useRouter()
+
+  useEffect(() => {
+    checkAdminAuth()
+  }, [])
+
+  const checkAdminAuth = async () => {
+    const user = await getCurrentUser()
+    
+    if (!user) {
+      // Not logged in at all, redirect to admin login
+      router.push('/admin/login')
+      return
+    }
+
+    if (!isAdmin(user)) {
+      // Logged in but not admin, redirect to regular login with error
+      router.push('/login?error=admin_access_denied')
+      return
+    }
+
+    // User is authenticated and has admin role
+    setIsAuthenticated(true)
+    setIsLoading(false)
+  }
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-neutral">
+        <div className="text-lg">Loading...</div>
+      </div>
+    )
+  }
+
+  if (!isAuthenticated) {
+    return null
+  }
+
   return (
-    <ProtectedRoute>
+    <>
       <Head>
         <title>Admin Dashboard - iiskills.cloud</title>
+        <meta name="robots" content="noindex, nofollow" />
       </Head>
       <AdminNav />
       <Navbar />
@@ -76,6 +119,6 @@ export default function AdminDashboard() {
       </main>
       
       <Footer />
-    </ProtectedRoute>
+    </>
   )
 }

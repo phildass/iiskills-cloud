@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 // Import Supabase helpers for authentication state and logout
-import { getCurrentUser, signOutUser } from '../lib/supabaseClient'
+import { getCurrentUser, signOutUser, isAdmin as checkIsAdmin } from '../lib/supabaseClient'
 import { getAdminUrl } from '../utils/urlHelper'
 
 /**
@@ -26,32 +26,22 @@ export default function Navbar() {
   // Check authentication status when component mounts
   useEffect(() => {
     checkUser()
-    checkAdminStatus()
   }, [])
 
   /**
-   * Check if a user is currently logged in
+   * Check if a user is currently logged in and their admin status
    * This runs on component mount to determine what to show in the navbar
    */
   const checkUser = async () => {
     const currentUser = await getCurrentUser()
     setUser(currentUser)
+    
+    // Check if user has admin role via Supabase metadata
+    if (currentUser) {
+      setIsAdmin(checkIsAdmin(currentUser))
+    }
+    
     setIsLoading(false)
-  }
-
-  /**
-   * Check if user is an admin
-   * 
-   * NOTE: This is a basic client-side check using localStorage.
-   * For production use, this should be replaced with proper server-side
-   * authentication verification (e.g., checking user role in database).
-   * The current implementation is retained for backward compatibility
-   * with the existing admin authentication system.
-   */
-  const checkAdminStatus = () => {
-    // Check localStorage for admin auth (existing admin system)
-    const adminAuth = localStorage.getItem('adminAuth')
-    setIsAdmin(adminAuth === 'true')
   }
 
   /**
