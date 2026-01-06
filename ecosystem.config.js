@@ -175,8 +175,20 @@ module.exports = {
       time: true
     },
     {
+
       name: 'iiskills-learn-geography',
       cwd: __dirname + '/learn-geography',
+
+
+      name: 'iiskills-learn-jee',
+      cwd: __dirname + '/learn-jee',
+
+      name: 'iiskills-learn-neet',
+      cwd: __dirname + '/learn-neet',
+      name: 'iiskills-learn-physics',
+      cwd: __dirname + '/learn-physics',
+
+
       script: 'npm',
       args: 'start',
       env: {
@@ -190,6 +202,20 @@ module.exports = {
       error_file: './logs/learn-geography-error.log',
       out_file: './logs/learn-geography-out.log',
       log_file: './logs/learn-geography-combined.log',
+
+
+      error_file: './logs/learn-jee-error.log',
+      out_file: './logs/learn-jee-out.log',
+      log_file: './logs/learn-jee-combined.log',
+
+
+      error_file: './logs/learn-neet-error.log',
+      out_file: './logs/learn-neet-out.log',
+      log_file: './logs/learn-neet-combined.log',
+      error_file: './logs/learn-physics-error.log',
+      out_file: './logs/learn-physics-out.log',
+      log_file: './logs/learn-physics-combined.log',
+
       time: true
     }
   ]
