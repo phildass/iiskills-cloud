@@ -20,6 +20,7 @@ const AVAILABLE_SUBDOMAINS = [
   'learn-chemistry',
   'learn-data-science',
   'learn-geography',
+  'learn-govt-jobs',
   'learn-jee',
   'learn-leadership',
   'learn-management',
@@ -47,7 +48,8 @@ const PORT_MAP = {
   'learn-chemistry': '3010',
   'learn-physics': '3011',
   'learn-geography': '3012',
-  'learn-neet': '3013'
+  'learn-neet': '3013',
+  'learn-govt-jobs': '3014'
 }
 
 /**
@@ -69,6 +71,8 @@ export function normalizeCourseNameToSubdomain(courseName) {
     .replace(/aptitude/g, 'apt') // Special case: aptitude -> apt
     .replace(/mathematics/g, 'math') // Special case: mathematics -> math  
     .replace(/maths/g, 'math') // Special case: maths -> math
+    .replace(/government-jobs/g, 'govt-jobs') // Special case: government jobs -> govt jobs
+    .replace(/government/g, 'govt') // Special case: government -> govt
     .trim()
 }
 
