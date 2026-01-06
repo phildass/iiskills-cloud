@@ -10,7 +10,8 @@ export default function Home() {
   const router = useRouter()
   const pricing = getPricingDisplay()
   const introNotice = getIntroOfferNotice()
-
+  
+  // Check if user just authenticated via magic link and is an admin
   // Check if user just logged in (from OAuth or magic link) and is admin
   useEffect(() => {
     const checkAdminRedirect = async () => {
