@@ -4,6 +4,8 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { signInWithEmail, getCurrentUser, supabase, getSiteUrl } from '../lib/supabaseClient'
 
+
+
 /**
  * Login Page for Learn-Apt
  * 

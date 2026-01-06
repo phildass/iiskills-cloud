@@ -342,7 +342,7 @@ const coursesData = [
     description: "Master the essential concepts of Physics, Chemistry, and Mathematics for JEE preparation. This course covers foundational and advanced topics, designed for aspirants aiming for top ranks in engineering entrance exams.",
     duration: "10 weeks",
     level: "Beginner",
-    comingSoon: true,
+    comingSoon: false,
     isFree: false,
     modules: [
       { id: 1, title: "Introduction to JEE Physics", isFree: true, summary: "Explore strategies for tackling Physics problems, understand the JEE syllabus structure, and discover the importance of conceptual learning." },
