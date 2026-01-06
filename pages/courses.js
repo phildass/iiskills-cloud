@@ -1279,6 +1279,9 @@ export default function Courses() {
   const [selectedLevel, setSelectedLevel] = useState('All')
   const pricing = getPricingDisplay()
   const introNotice = getIntroOfferNotice()
+  
+  // Detect if we're in development mode (client-side safe)
+  const isDevelopment = typeof window !== 'undefined' && window.location.hostname === 'localhost'
 
   const categories = [
     'All',
@@ -1378,7 +1381,7 @@ export default function Courses() {
           {filteredCourses.map(course => {
             const freeModule = course.modules?.find(m => m.isFree)
             // Get subdomain link if it exists (uses localhost in dev, production URL in prod)
-            const subdomainLink = getCourseSubdomainLink(course.name, process.env.NODE_ENV === 'development')
+            const subdomainLink = getCourseSubdomainLink(course.name, isDevelopment)
             const hasSubdomain = courseHasSubdomain(course.name)
             
             return (

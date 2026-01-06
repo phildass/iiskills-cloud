@@ -4,8 +4,8 @@ import Image from 'next/image'
 import { getAllSubdomains } from '../utils/courseSubdomainMapperClient'
 
 export default function LearnModules() {
-  // Automatically get all available subdomains
-  const isDevelopment = process.env.NODE_ENV === 'development'
+  // Detect if we're in development mode (client-side safe)
+  const isDevelopment = typeof window !== 'undefined' && window.location.hostname === 'localhost'
   const allSubdomains = getAllSubdomains(isDevelopment)
   
   // Metadata for each module (icons, descriptions, features)

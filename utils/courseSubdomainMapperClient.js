@@ -67,7 +67,8 @@ export function normalizeCourseNameToSubdomain(courseName) {
     .replace(/\//g, '-') // Replace slashes with hyphens
     .replace(/,/g, '') // Remove commas
     .replace(/aptitude/g, 'apt') // Special case: aptitude -> apt
-    .replace(/mathematics/g, 'math') // Special case: mathematics -> math
+    .replace(/mathematics/g, 'math') // Special case: mathematics -> math  
+    .replace(/maths/g, 'math') // Special case: maths -> math
     .trim()
 }
 
