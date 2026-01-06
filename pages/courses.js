@@ -1369,7 +1369,6 @@ const coursesData = [
 
 export default function Courses() {
   const [selectedCategory, setSelectedCategory] = useState('All')
-  const [selectedLevel, setSelectedLevel] = useState('All')
   const pricing = getPricingDisplay()
   const introNotice = getIntroOfferNotice()
   
@@ -1403,14 +1402,12 @@ export default function Courses() {
     'Education',
     'Free Course'
   ]
-  const levels = ['All', 'Beginner', 'Intermediate', 'Advanced']
 
   const filteredCourses = coursesData.filter(course => {
     const matchesCategory = selectedCategory === 'All' || 
                            (selectedCategory === 'Free Course' ? course.isFree : course.category === selectedCategory)
-    const matchesLevel = selectedLevel === 'All' || course.level === selectedLevel
     
-    return matchesCategory && matchesLevel
+    return matchesCategory
   })
 
   // Split courses into available and coming soon, removing duplicates
@@ -1470,19 +1467,6 @@ export default function Courses() {
               >
                 {categories.map(cat => (
                   <option key={cat} value={cat}>{cat}</option>
-                ))}
-              </select>
-            </div>
-            
-            <div>
-              <label className="block text-sm font-semibold text-charcoal mb-2">Level</label>
-              <select
-                value={selectedLevel}
-                onChange={(e) => setSelectedLevel(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary"
-              >
-                {levels.map(level => (
-                  <option key={level} value={level}>{level}</option>
                 ))}
               </select>
             </div>
@@ -1568,7 +1552,6 @@ export default function Courses() {
                 
                 <div className="flex justify-between text-sm text-gray-600 mb-4">
                   <span>⏱️ {course.duration}</span>
-                  <span className="font-semibold text-accent">{course.level}</span>
                 </div>
                 
                 {/* Subdomain Link Indicator */}
@@ -1584,7 +1567,7 @@ export default function Courses() {
                 )}
                 
                 {/* Pricing Information */}
-                {!course.isFree && (
+                {!course.comingSoon && !course.isFree && (
                   <div className="bg-blue-50 border border-blue-200 rounded p-3 mb-4">
                     <p className="text-sm text-blue-800 font-semibold">
                       💳 Price: {pricing.totalPrice}
