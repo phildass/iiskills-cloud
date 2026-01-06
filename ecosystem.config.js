@@ -175,6 +175,8 @@ module.exports = {
       time: true
     },
     {
+      name: 'iiskills-learn-neet',
+      cwd: __dirname + '/learn-neet',
       name: 'iiskills-learn-physics',
       cwd: __dirname + '/learn-physics',
       script: 'npm',
@@ -187,6 +189,10 @@ module.exports = {
       autorestart: true,
       watch: false,
       max_memory_restart: '1G',
+
+      error_file: './logs/learn-neet-error.log',
+      out_file: './logs/learn-neet-out.log',
+      log_file: './logs/learn-neet-combined.log',
       error_file: './logs/learn-physics-error.log',
       out_file: './logs/learn-physics-out.log',
       log_file: './logs/learn-physics-combined.log',
