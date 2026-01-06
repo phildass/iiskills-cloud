@@ -1529,7 +1529,6 @@ export default function Courses() {
                       
                       <div className="flex justify-between text-sm text-gray-600 mb-4">
                         <span>⏱️ {course.duration}</span>
-                        <span className="font-semibold text-accent">{course.level}</span>
                       </div>
                       
                       {/* Pricing Information */}
