@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import UniversalLogin from '../../components/shared/UniversalLogin'
+import UniversalLogin from '../components/UniversalLogin'
 
 /**
  * Login Page for Learn Government Jobs

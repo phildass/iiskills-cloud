@@ -116,6 +116,59 @@ export async function signInWithEmail(email, password) {
 }
 
 /**
+ * Helper function to send magic link for passwordless authentication
+ * 
+ * @param {string} email - User's email address
+ * @param {string} redirectUrl - URL to redirect after sign in
+ * @returns {Promise<Object>} Object with success status and optional error
+ */
+export async function sendMagicLink(email, redirectUrl) {
+  try {
+    const { error } = await supabase.auth.signInWithOtp({
+      email,
+      options: {
+        emailRedirectTo: redirectUrl
+      }
+    })
+    
+    if (error) {
+      return { success: false, error: error.message }
+    }
+    
+    return { success: true, error: null }
+  } catch (error) {
+    console.error('Error in sendMagicLink:', error)
+    return { success: false, error: error.message }
+  }
+}
+
+/**
+ * Helper function to sign in with Google OAuth
+ * 
+ * @param {string} redirectUrl - URL to redirect after sign in
+ * @returns {Promise<Object>} Object with success status and optional error
+ */
+export async function signInWithGoogle(redirectUrl) {
+  try {
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: redirectUrl
+      }
+    })
+    
+    if (error) {
+      return { success: false, error: error.message }
+    }
+    
+    return { success: true, error: null }
+  } catch (error) {
+    console.error('Error in signInWithGoogle:', error)
+    return { success: false, error: error.message }
+  }
+}
+
+/**
  * Helper function to check if user has admin role
  * 
  * Admin roles are synced from the main app via Supabase user metadata
