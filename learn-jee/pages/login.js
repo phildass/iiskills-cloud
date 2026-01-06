@@ -4,6 +4,14 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { signInWithEmail, getCurrentUser, supabase, getSiteUrl } from '../lib/supabaseClient'
 
+
+
+/**
+ * Login Page for Learn-Apt
+ * 
+ * Provides email/password authentication using shared Supabase Auth.
+ * Session is shared across all *.iiskills.cloud subdomains.
+ */
 export default function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -16,12 +24,14 @@ export default function Login() {
   const router = useRouter()
 
   useEffect(() => {
+    // Check if already logged in
     checkExistingSession()
   }, [])
 
   const checkExistingSession = async () => {
     const user = await getCurrentUser()
     if (user) {
+      // Already logged in, redirect to learn page
       router.push('/learn')
     }
   }
@@ -50,6 +60,7 @@ export default function Login() {
       if (user) {
         setSuccess('Login successful! Redirecting...')
         
+        // Redirect to learn page or specified redirect URL
         const redirectUrl = router.query.redirect || '/learn'
         
         setTimeout(() => {
@@ -63,6 +74,9 @@ export default function Login() {
     }
   }
 
+  /**
+   * Handle Google OAuth sign-in
+   */
   const handleGoogleSignIn = async () => {
     setIsGoogleLoading(true)
     setError('')
@@ -94,6 +108,9 @@ export default function Login() {
     }
   }
 
+  /**
+   * Handle Magic Link sign-in
+   */
   const handleMagicLinkSignIn = async () => {
     if (!email.trim()) {
       setError('Please enter your email address')
@@ -202,6 +219,7 @@ export default function Login() {
           </div>
           
           {!showMagicLink ? (
+            // Password Login Form
             <form onSubmit={handleSubmit}>
               <div className="mb-4">
                 <label className="block text-charcoal font-semibold mb-2" htmlFor="email">
@@ -242,6 +260,7 @@ export default function Login() {
               </button>
             </form>
           ) : (
+            // Magic Link Form
             <div>
               <div className="mb-4">
                 <label className="block text-charcoal font-semibold mb-2" htmlFor="magic-email">
@@ -286,6 +305,7 @@ export default function Login() {
           <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded">
             <p className="text-sm text-gray-700">
               <strong>Note:</strong> You can use the same account across all iiskills.cloud services.
+              If you have an account on the main site, you can log in here with the same credentials.
             </p>
           </div>
         </div>

@@ -4,6 +4,13 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { supabase, getSiteUrl } from '../lib/supabaseClient'
 
+/**
+ * Registration Page for Learn-Apt
+ * 
+ * Simplified registration that creates accounts in the shared Supabase project.
+ * Registered users can access all iiskills.cloud services.
+ */
+
 export default function Register() {
   const [formData, setFormData] = useState({
     firstName: '',
@@ -67,6 +74,9 @@ export default function Register() {
     return Object.keys(newErrors).length === 0
   }
 
+  /**
+   * Handle Google OAuth sign-in
+   */
   const handleGoogleSignIn = async () => {
     setIsGoogleLoading(true)
     setErrors({})
@@ -154,13 +164,19 @@ export default function Register() {
     <>
       <Head>
         <title>Register - Learn JEE</title>
+
         <meta name="description" content="Create your account for Learn JEE - Master JEE preparation" />
+        <meta name="description" content="Create your account for Learn JEE" />
+
       </Head>
       
       <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 py-12 px-4">
         <div className="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-lg">
           <h1 className="text-3xl font-bold text-primary mb-2 text-center">Create Your Account</h1>
           <p className="text-center text-charcoal mb-6">Join Learn JEE to start your JEE preparation journey</p>
+
+          <p className="text-center text-charcoal mb-6">Join Learn JEE to start your journey</p>
+
           
           {errors.submit && (
             <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
@@ -204,7 +220,11 @@ export default function Register() {
           <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded">
             <p className="text-sm text-gray-700">
               <strong>Note:</strong> This account will work across all iiskills.cloud services. 
+
               Get free access to the first lesson immediately upon registration!
+
+              Get free access to Chapter 1, Lesson 1 immediately upon registration!
+
             </p>
           </div>
           
@@ -275,12 +295,21 @@ export default function Register() {
                     className={`w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-primary ${errors.qualification ? 'border-red-500' : 'border-gray-300'}`}
                   >
                     <option value="">Select qualification</option>
+
                     <option value="Class 10">Class 10</option>
                     <option value="Class 11">Class 11</option>
                     <option value="Class 12">Class 12</option>
                     <option value="Undergraduate">Undergraduate</option>
                     <option value="Graduate">Graduate</option>
                     <option value="Dropper">Dropper (JEE Preparation)</option>
+
+                    <option value="High School">High School</option>
+                    <option value="Undergraduate">Undergraduate</option>
+                    <option value="Graduate">Graduate</option>
+                    <option value="Post Graduate">Post Graduate</option>
+                    <option value="PhD">PhD</option>
+                    <option value="Professional Certification">Professional Certification</option>
+
                     <option value="Other">Other</option>
                   </select>
                   {errors.qualification && <p className="text-red-500 text-sm mt-1">{errors.qualification}</p>}

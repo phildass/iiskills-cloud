@@ -10,13 +10,24 @@ This repository contains multiple Next.js applications:
 - **Main App** (`/`) - The primary iiskills.cloud website
 - **Learn-Apt** (`/learn-apt/`) - Aptitude assessment with AI-powered career guidance
 - **Learn-Math** (`/learn-math/`) - Mathematics learning module
+- **Learn-Chemistry** (`/learn-chemistry/`) - Chemistry mastery with AI-driven curriculum
 - **Learn-Winning** (`/learn-winning/`) - Success strategies and winning mindset
 - **Learn-Data-Science** (`/learn-data-science/`) - Data science fundamentals
 - **Learn-Management** (`/learn-management/`) - Management and business skills
 - **Learn-Leadership** (`/learn-leadership/`) - Leadership development
 - **Learn-AI** (`/learn-ai/`) - Artificial Intelligence fundamentals
 - **Learn-PR** (`/learn-pr/`) - Public Relations and communication
+
 - **Learn-JEE** (`/learn-jee/`) - JEE preparation with Physics, Chemistry, and Mathematics
+
+- **Learn-Geography** (`/learn-geography/`) - Geography and world exploration (FREE)
+
+- **Learn-JEE** (`/learn-jee/`) - JEE preparation (Physics, Chemistry, Mathematics)
+
+- **Learn-NEET** (`/learn-neet/`) - Comprehensive NEET preparation (2-year paid subscription)
+- **Learn-Physics** (`/learn-physics/`) - Physics mastery with AI-driven lessons
+
+
 
 Each app can be deployed independently on different subdomains while sharing authentication.
 
@@ -51,6 +62,7 @@ All learning modules follow the same structure. See individual README files for 
 
 - [learn-apt/README.md](learn-apt/README.md) - Port 3001
 - [learn-math/README.md](learn-math/README.md) - Port 3002
+- [learn-chemistry/README.md](learn-chemistry/README.md) - Port 3009
 - [learn-winning/README.md](learn-winning/README.md) - Port 3003
 - [learn-data-science/README.md](learn-data-science/README.md) - Port 3004
 - [learn-management/README.md](learn-management/README.md) - Port 3005
@@ -58,6 +70,14 @@ All learning modules follow the same structure. See individual README files for 
 - [learn-ai/README.md](learn-ai/README.md) - Port 3007
 - [learn-pr/README.md](learn-pr/README.md) - Port 3008
 - [learn-jee/README.md](learn-jee/README.md) - Port 3009
+
+- [learn-geography/README.md](learn-geography/README.md) - Port 3009 (FREE)
+
+- [learn-jee/README.md](learn-jee/README.md) - Port 3009
+
+- [learn-neet/README.md](learn-neet/README.md) - Port 3009
+- [learn-physics/README.md](learn-physics/README.md) - Port 3009
+
 
 Quick start for any module:
 ```bash

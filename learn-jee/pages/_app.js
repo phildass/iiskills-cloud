@@ -1,5 +1,6 @@
 import '../styles/globals.css'
 import Head from 'next/head'
+
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
@@ -27,12 +28,18 @@ function MyApp({ Component, pageProps }) {
     router.push('/')
   }
 
+
+import Footer from '../components/Footer'
+
+export default function App({ Component, pageProps }) {
+
   return (
     <>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+
 
       {/* Navigation */}
       <nav className="bg-white shadow-lg sticky top-0 z-50">
@@ -77,9 +84,14 @@ function MyApp({ Component, pageProps }) {
 
       <Component {...pageProps} user={user} />
       
+
+      <Component {...pageProps} />
+
       <Footer />
     </>
   )
 }
 
+
 export default MyApp
+
