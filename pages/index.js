@@ -3,31 +3,13 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 import Image from 'next/image'
 import Head from 'next/head'
-import { useEffect } from 'react'
-import { useRouter } from 'next/router'
 import { getCurrentUser, isAdmin } from '../lib/supabaseClient'
 import { getPricingDisplay, getIntroOfferNotice } from '../utils/pricing'
-import { getCurrentUser, isAdmin } from '../lib/supabaseClient'
 
 export default function Home() {
   const router = useRouter()
-  
-  // Check if user just authenticated via magic link and is an admin
-  useEffect(() => {
-    const checkAdminRedirect = async () => {
-      const user = await getCurrentUser()
-      if (user && isAdmin(user)) {
-        // Admin user detected on homepage - redirect to admin dashboard
-        router.push('/admin')
-      }
-    }
-    
-    checkAdminRedirect()
-  }, [router])
-
   const pricing = getPricingDisplay()
   const introNotice = getIntroOfferNotice()
-  const router = useRouter()
 
   // Check if user just logged in (from OAuth or magic link) and is admin
   useEffect(() => {
