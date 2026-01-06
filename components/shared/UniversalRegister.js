@@ -458,7 +458,7 @@ export default function UniversalRegister({
                     >
                       <option value="">Select State</option>
                       {indianStates.map(state => (
-                        <option key={state.value} value={state.value}>{state.label}</option>
+                        <option key={state.value} value={state.value}>{state.name}</option>
                       ))}
                     </select>
                     {errors.state && <p className="mt-1 text-sm text-red-600">{errors.state}</p>}
