@@ -14,8 +14,9 @@ export default function Home() {
   // Check if user just logged in (from OAuth or magic link) and is admin
   useEffect(() => {
     const checkAdminRedirect = async () => {
-      // Only check if there's a hash (from OAuth callback) or if returning from email
-      if (typeof window !== 'undefined' && (window.location.hash || document.referrer.includes('supabase'))) {
+      // Only check if there's an auth hash fragment (from OAuth/magic link callback)
+      // The hash will contain access_token or other auth parameters
+      if (typeof window !== 'undefined' && window.location.hash.includes('access_token')) {
         const user = await getCurrentUser()
         if (user && isAdmin(user)) {
           // Redirect admin users to admin dashboard
@@ -25,7 +26,9 @@ export default function Home() {
     }
     
     checkAdminRedirect()
-  }, [router])
+    // Only run once on mount - dependencies intentionally omitted to avoid re-runs
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <>
