@@ -19,7 +19,7 @@ export default function SubdomainNavbar({
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
 
   return (
-    <nav className="bg-gradient-to-r from-primary to-accent text-white px-6 py-2 shadow-md sticky top-[76px] z-40">
+    <nav className="bg-gradient-to-r from-primary to-accent text-white px-6 py-2 shadow-md sticky top-0 z-40">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         {/* Subdomain Name and Dropdown */}
         <div className="relative">

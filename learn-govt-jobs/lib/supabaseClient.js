@@ -24,8 +24,14 @@ import { createClient } from '@supabase/supabase-js'
 
 // Supabase project URL and public anonymous key
 // These should match the main iiskills.cloud app for cross-app authentication
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "https://octgncmruhsbrxpxrkzl.supabase.co"
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "sb_publishable_xWzMTqb9OhPNr1Hbf51qQQ_D8FXzc0x"
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+
+if (!supabaseUrl || !supabaseAnonKey) {
+  throw new Error(
+    'Missing Supabase environment variables. Please ensure NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY are set in .env.local'
+  )
+}
 
 // Create Supabase client with cookie options for cross-subdomain support
 export const supabase = createClient(supabaseUrl, supabaseAnonKey, {

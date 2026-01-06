@@ -501,17 +501,17 @@ export default function UniversalRegister({
                   {/* District */}
                   <div>
                     <label htmlFor="district" className="block text-sm font-medium text-gray-700">
-                      District *
+                      District {availableDistricts.length === 0 ? '(Optional - select state first)' : '*'}
                     </label>
                     <select
                       id="district"
                       name="district"
                       value={formData.district}
                       onChange={handleChange}
-                      disabled={!formData.state}
+                      disabled={!formData.state || availableDistricts.length === 0}
                       className={`mt-1 block w-full px-3 py-2 border ${errors.district ? 'border-red-500' : 'border-gray-300'} rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-100 disabled:cursor-not-allowed`}
                     >
-                      <option value="">Select District</option>
+                      <option value="">{availableDistricts.length === 0 ? 'No districts available' : 'Select District'}</option>
                       {availableDistricts.map(district => (
                         <option key={district} value={district}>{district}</option>
                       ))}
