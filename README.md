@@ -3,6 +3,16 @@
 Professional, scalable business site built with Next.js + Tailwind CSS  
 Inspired by iiskills.in and customized for the Indian Institute of Professional Skills Development.
 
+## 🌟 New to iiskills.cloud?
+
+**See our [ONBOARDING.md](ONBOARDING.md) guide to get started!**
+
+Learn how to:
+- Create your account once and access all apps
+- Use universal login across the entire platform
+- Choose from multiple sign-in methods
+- Navigate between different learning modules seamlessly
+
 ## Project Structure
 
 This repository contains multiple Next.js applications:
@@ -138,11 +148,24 @@ These can be imported by any app in the monorepo.
 
 ## Authentication
 
-All apps use shared Supabase authentication with cross-subdomain session support.
+### 🌟 Universal Authentication System
+
+**Register ONCE on ANY app → Access ALL apps automatically!**
+
+iiskills.cloud uses a **unified authentication system** where:
+- ✅ Create an account on **any** iiskills.cloud app (main site, Learn-Apt, Learn-JEE, Learn-NEET, etc.)
+- ✅ Automatically get access to **all** other apps and subdomains
+- ✅ Use the **same login** credentials everywhere
+- ✅ Your session works across **all** `*.iiskills.cloud` domains
+
+**Example:**
+1. Register on `learn-apt.iiskills.cloud`
+2. Immediately login on `iiskills.cloud`, `learn-jee.iiskills.cloud`, or any other app
+3. No need to register again!
 
 ### Multiple Sign-In Options
 
-iiskills.cloud supports three convenient ways to sign in:
+All apps support three convenient authentication methods:
 
 1. **Magic Link (Recommended)** - Passwordless email authentication
    - Enter your email address
@@ -158,6 +181,8 @@ iiskills.cloud supports three convenient ways to sign in:
 3. **Email & Password** - Traditional authentication
    - Available as a fallback option
    - Use if you prefer password-based login
+
+**All authentication methods work across every app in the iiskills.cloud ecosystem!**
 
 ### Forgot Your Password?
 
@@ -213,6 +238,11 @@ See [NAVIGATION_AUTH_GUIDE.md](NAVIGATION_AUTH_GUIDE.md) for complete navigation
 
 ## Documentation
 
+### For Users
+- [ONBOARDING.md](ONBOARDING.md) - **Getting started guide for new users**
+
+### For Developers
+- [AUTHENTICATION_ARCHITECTURE.md](AUTHENTICATION_ARCHITECTURE.md) - **Complete guide to universal authentication system**
 - [NAVIGATION_AUTH_GUIDE.md](NAVIGATION_AUTH_GUIDE.md) - **Navigation and authentication flow guide**
 - [DEPLOYMENT.md](DEPLOYMENT.md) - Comprehensive deployment guide
 - [SUPABASE_AUTH_SETUP.md](SUPABASE_AUTH_SETUP.md) - Authentication setup
