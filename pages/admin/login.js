@@ -2,7 +2,35 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
-import { getCurrentUser, sendMagicLink, signInWithGoogle, signInWithEmail, isAdmin } from '../../lib/supabaseClient'
+import { getCurrentUser, signInWithGoogle, signInWithEmail, isAdmin, supabase } from '../../lib/supabaseClient'
+
+/**
+ * Send magic link specifically for admin login
+ * Redirects to /admin instead of homepage
+ */
+async function sendAdminMagicLink(email) {
+  try {
+    const redirectUrl = typeof window !== 'undefined' 
+      ? `${window.location.origin}/admin`
+      : (process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000') + '/admin'
+    
+    const { data, error } = await supabase.auth.signInWithOtp({
+      email,
+      options: {
+        emailRedirectTo: redirectUrl,
+      }
+    })
+    
+    if (error) {
+      return { success: false, error: error.message }
+    }
+    
+    return { success: true, error: null }
+  } catch (error) {
+    console.error('Error in sendAdminMagicLink:', error)
+    return { success: false, error: error.message }
+  }
+}
 
 /**
  * Admin Login Redirect Page
@@ -46,7 +74,7 @@ export default function AdminLogin() {
     try {
       if (useMagicLink) {
         // Send magic link to user's email
-        const { success: magicLinkSuccess, error: magicLinkError } = await sendMagicLink(email)
+        const { success: magicLinkSuccess, error: magicLinkError } = await sendAdminMagicLink(email)
         
         if (magicLinkError) {
           setError(magicLinkError)
