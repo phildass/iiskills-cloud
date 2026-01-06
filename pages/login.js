@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import Head from 'next/head'
 import Link from 'next/link'
 // Import Supabase client and authentication helper
-import { signInWithEmail, sendMagicLink, signInWithGoogle } from '../lib/supabaseClient'
+import { signInWithEmail, sendMagicLink, signInWithGoogle, isAdmin } from '../lib/supabaseClient'
 
 /**
  * Login Page Component
@@ -92,8 +92,9 @@ export default function Login() {
           // Supabase automatically stores the session, so we just need to redirect
           setSuccess('Login successful! Redirecting...')
           
-          // Check if there's a redirect URL from protected route
-          const redirectUrl = router.query.redirect || '/'
+          // Check if user is admin and redirect to admin dashboard
+          // Otherwise use redirect URL from protected route or default to homepage
+          const redirectUrl = router.query.redirect || (isAdmin(user) ? '/admin' : '/')
           
           // Redirect after a brief delay to show success message
           setTimeout(() => {
