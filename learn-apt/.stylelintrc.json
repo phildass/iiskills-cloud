@@ -1,0 +1,9 @@
+{
+  "extends": [],
+  "rules": {
+    "at-rule-no-unknown": [true, {
+      "ignoreAtRules": ["tailwind", "apply", "variants", "responsive", "screen", "layer", "import", "theme"]
+    }],
+    "no-descending-specificity": null
+  }
+}

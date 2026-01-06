@@ -1431,7 +1431,8 @@ export default function Courses() {
   })
 
   return (
-    <>
+  <>
+
       <Head>
         <title>Courses - iiskills.cloud</title>
         <meta name="description" content="Explore 58+ professional and personal development courses including Communication Skills, UI/UX Design, Data Science, Full Stack Development, Digital Marketing, Cybersecurity, FinTech, and more. Many free courses available!" />
@@ -1678,6 +1679,6 @@ export default function Courses() {
           </p>
         </div>
       </main>
-
+</>
   )
 }

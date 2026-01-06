@@ -1,0 +1,60 @@
+name: Restore Branch
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch_name:
+        description: 'Branch name to restore'
+        required: true
+        default: 'copilot/check-module-question-distribution'
+      commit_sha:
+        description: 'Commit SHA to restore branch at'
+        required: true
+        default: 'e8c240fecd30051b0244efc09e060ebf76ac97e9'
+
+jobs:
+  restore-branch:
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: write  # Required to push branches to the repository
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+      
+      - name: Fetch all refs
+        run: |
+          echo "Fetching all refs from origin..."
+          git fetch origin
+      
+      - name: Create and push branch
+        run: |
+          BRANCH_NAME="${{ inputs.branch_name }}"
+          COMMIT_SHA="${{ inputs.commit_sha }}"
+          
+          echo "Creating branch $BRANCH_NAME at commit $COMMIT_SHA..."
+          git branch "$BRANCH_NAME" "$COMMIT_SHA" 2>/dev/null || echo "Branch already exists"
+          
+          echo "Pushing branch to remote..."
+          git push origin "$BRANCH_NAME":"$BRANCH_NAME"
+          
+          echo "✓ Branch $BRANCH_NAME has been restored"
+      
+      - name: Summary
+        run: |
+          echo "### Branch Restored Successfully! :rocket:" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- **Branch**: \`${{ inputs.branch_name }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "- **Commit SHA**: \`${{ inputs.commit_sha }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "- **Remote**: origin" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "The branch is now available for collaborators and deploy agents." >> $GITHUB_STEP_SUMMARY

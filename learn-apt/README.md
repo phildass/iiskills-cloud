@@ -1,413 +1,220 @@
-# Learn-Apt - Comprehensive Skills Assessment & AI Career Guidance
+# learn-apt
 
-This is a standalone Next.js application for the **Learn-Apt** assessment platform of iiskills.cloud. It is designed to be deployed as a separate service on the subdomain `learn-apt.iiskills.cloud`.
+**Learn Your Aptitude** - A comprehensive aptitude testing platform that helps users discover their learning preferences, problem-solving styles, and motivation drivers.
 
-## Overview
+## Features
 
-Learn-Apt is a comprehensive assessment tool that uses AI to analyze your strengths, identify areas for improvement, and provide personalized career and self-development guidance. The platform evaluates multiple dimensions of your abilities and generates actionable insights to help you achieve your full potential.
-
-### Key Features
-
-- **Two Assessment Modes:**
-  - **Short Test:** 5 minutes, 5 modules × 5 questions (25 total questions)
-  - **Elaborate Test:** 20 minutes, 20 modules × 5 questions (100 total questions)
+- **Elaborate Test**: Comprehensive assessment with **20 modules and 200 questions total** (10 questions per module)
   
-- **Comprehensive Assessment Areas:**
-  - Education Background & Academic Performance
-  - Skills & Talents
-  - Family Environment & Support
-  - Social Network & Peer Influence
-  - Personal Interests & Hobbies
-  - Role Models & Influencers
-  - Career Aspirations & Goals
-  - Learning Style & Problem Solving
-  - And more...
-
-- **AI-Powered Analysis:**
-  - Personalized ~700-word career guidance report
-  - Detailed strengths analysis
-  - Areas for development
-  - Learning recommendations
-  - Actionable next steps
+  **Learning & Cognitive Assessment:**
+  - Learning Styles Assessment
+  - Cognitive Patterns
+  - Problem-Solving Approach
+  - Motivation & Drive
+  - Learning Environment Preferences
   
-- **Downloadable Reports:**
-  - Branded PDF reports (feature in development)
-  - Comprehensive results with dual branding (iiskills & AI Cloud Enterprises)
-  - Privacy policy and disclaimer included
+  **Aptitude & Reasoning:**
+  - Numerical & Data Reasoning (with 5 options including "I don't know")
+  - Quantitative Aptitude (with 5 options including "I don't know")
+  - Abstract & Logical Reasoning (with 5 options including "I don't know")
+  - Spatial & Visual Reasoning (with 5 options including "I don't know")
+  - Verbal Reasoning & Comprehension
+  
+  **Professional Skills:**
+  - Critical Thinking
+  - Time Management & Organization
+  - Communication Preferences
+  - Decision Making
+  - Attention to Detail
+  
+  **Personal Effectiveness:**
+  - Data Interpretation
+  - Stress Management & Resilience
+  - Creativity & Innovation
+  - Memory & Retention
+  - Collaborative Learning Styles
+  
+- **Brief Test**: Quick assessment with five key modules:
+  - Learning Preferences
+  - Problem-Solving Style
+  - Motivation Drivers
+  - Numerical & Data Reasoning (with 5 options including "I don't know")
+  - Abstract & Logical Reasoning (with 5 options including "I don't know")
 
-## Project Structure
+**Note**: Mathematical, quantitative, logical, spatial, and mechanical reasoning questions include a fifth option "E) I don't know" to allow test-takers to skip questions they're uncertain about. All currency references use ₹ (Rupee) or Rs instead of $ for localization.
+- **Brief Test**: Quick assessment with four key modules:
+  - Learning Preferences
+  - Problem-Solving Style
+  - Motivation Drivers
+  - Numerical Reasoning
+- **Indian Context**: All monetary examples use Indian Rupee (₹) for relevance to Indian users
+- **Comprehensive Assessment**: Includes both personality and quantitative aptitude questions
 
-```
-learn-apt/
-├── components/          # React components
-│   ├── AdminNavbar.js  # Admin navigation component
-│   ├── Footer.js       # Footer component
-│   └── shared/         # Shared components (in parent directory)
-├── contexts/           # React contexts
-│   └── AdminContext.js # Admin authentication context
-├── lib/                # Utility libraries
-│   ├── adminAuth.js    # Admin authentication utilities
-│   └── supabaseClient.js  # Supabase auth client with cross-subdomain support
-├── pages/              # Next.js pages
-│   ├── admin/          # Admin pages
-│   │   ├── index.js    # Admin sign-in page
-│   │   ├── dashboard.js # Admin dashboard
-│   │   └── change-password.js # Change admin password
-│   ├── _app.js         # App wrapper
-│   ├── index.js        # Landing page with assessment mode selection
-│   ├── login.js        # Login page
-│   ├── register.js     # Registration page (collects name, age, qualification)
-│   ├── learn.js        # Test mode selection page (protected)
-│   ├── test.js         # Assessment test page
-│   └── results.js      # Results and AI-generated report page
-├── public/             # Static assets
-│   └── images/         # Images and logos
-├── styles/             # CSS styles
-│   └── globals.css     # Global styles with Tailwind
-├── .env.local.example  # Environment variables template
-├── .gitignore          # Git ignore file
-├── package.json        # Dependencies and scripts
-├── postcss.config.js   # PostCSS configuration with Tailwind v4
-└── README.md           # This file
-```
+## Tech Stack
 
-## Admin Access
-
-### Admin Access
-
-The application includes an admin panel for managing the platform:
-
-**Admin Panel URL:** `/admin`
-
-**Features:**
-- Dashboard with overview of the application
-- Account settings management
-- Quick navigation to all app sections
-- Secure role-based authentication via Supabase
-
-**How to Access Admin:**
-
-1. First, ensure you have a Supabase account with admin role privileges
-2. Navigate to `/admin` in your browser
-3. You'll be redirected to the login page if not already logged in
-4. Log in with your Supabase credentials
-5. If your account has admin role, you'll be granted access to the admin dashboard
-6. If you don't have admin role, access will be denied
-
-**Setting Admin Role in Supabase:**
-
-To grant admin access to a user:
-1. Go to your Supabase Dashboard
-2. Navigate to Authentication → Users
-3. Select the user you want to make an admin
-4. Edit their user metadata and add: `"role": "admin"`
-5. Save the changes
-
-**Security Features:**
-- ✅ **Secure Backend Authentication:** All admin access is validated through Supabase backend
-- ✅ **Role-Based Access Control:** Admin privileges are checked against the database
-- ✅ **No Hardcoded Passwords:** Zero client-side password storage or hardcoded credentials
-- ✅ **Session Management:** Proper session handling via Supabase authentication
-- ✅ **Password Security:** Passwords managed securely through Supabase with proper hashing
-- ✅ **No Client-Side Bypass:** Impossible to bypass authentication from the client side
-
-**Managing Admin Password:**
-
-Admin passwords are managed through Supabase:
-1. Go to "Account Settings" in the admin panel
-2. Click "Go to Login Page for Password Reset"
-3. Use the Supabase password reset flow to change your password
-4. Check your email for the reset link
+- [Next.js](https://nextjs.org/) - React framework for production
+- [TypeScript](https://www.typescriptlang.org/) - Type-safe JavaScript
+- [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
+- [Lucide React](https://lucide.dev/) - Beautiful icons
 
 ## Getting Started
 
 ### Prerequisites
 
-- Node.js 16.x or higher
+- Node.js 18.x or later
 - npm or yarn
-- A Supabase account (shared with main iiskills.cloud app)
 
 ### Installation
 
-1. **Navigate to the learn-apt directory:**
-   ```bash
-   cd learn-apt
-   ```
-
-2. **Install dependencies:**
-   ```bash
-   npm install
-   ```
-
-3. **Configure environment variables:**
-   ```bash
-   cp .env.local.example .env.local
-   ```
-   
-   Edit `.env.local` and add your Supabase credentials:
-   ```env
-   NEXT_PUBLIC_SUPABASE_URL=your-supabase-project-url
-   NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
-   NEXT_PUBLIC_SITE_URL=http://localhost:3001
-   ```
-   
-   **Important:** Use the **same Supabase project** as the main iiskills.cloud app for cross-app authentication.
-
-4. **Run the development server:**
-   ```bash
-   npm run dev
-   ```
-   
-   The app will be available at `http://localhost:3001`
-
-### Building for Production
-
+1. Clone the repository:
 ```bash
-npm run build
-npm start
+git clone https://github.com/phildass/learn-apt.git
+cd learn-apt
 ```
 
-## Authentication & Cross-Subdomain Sessions
+2. Install dependencies:
+```bash
+npm install
+```
 
-### Shared Authentication
+3. Run the development server:
+```bash
+npm run dev
+```
 
-This app uses the **same Supabase project** as the main iiskills.cloud application, enabling:
-- Single sign-on across all `*.iiskills.cloud` subdomains
-- Shared user database and profiles
-- Synchronized roles and permissions
-
-### Session Cookie Configuration
-
-For cross-subdomain authentication to work in production:
-
-1. **Configure Supabase:**
-   - Go to your Supabase project dashboard
-   - Navigate to Authentication > Settings
-   - Set the cookie domain to: `.iiskills.cloud`
-   - This allows sessions to be shared across all subdomains
-
-2. **Session Storage:**
-   - Sessions are stored in localStorage with the key `iiskills-auth-token`
-   - This ensures consistency across all iiskills apps
-
-### User Roles & Permissions
-
-User roles are synced via Supabase user metadata:
-- `user.user_metadata.role` - User role (admin, user, etc.)
-- `user.user_metadata.first_name` - User's first name
-- `user.user_metadata.last_name` - User's last name
-- Additional profile data from registration
+4. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## Deployment
 
-### Deployment Options
+**For complete deployment instructions, see [DEPLOYMENT.md](./DEPLOYMENT.md)**
 
-1. **Vercel (Recommended for Next.js):**
+### Quick Deploy to Subdomain (learn-apt.iiskills.cloud)
+
+This application is configured to run on the exclusive subdomain `learn-apt.iiskills.cloud`. Follow these steps for deployment:
+
+#### Option 1: Deploy to Vercel (Recommended)
+
+1. **One-Click Deploy**
+
+   [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/phildass/learn-apt)
+
+2. **Or Deploy via Vercel CLI**
+
    ```bash
    # Install Vercel CLI
    npm i -g vercel
    
-   # Deploy
-   vercel
+   # Login to Vercel
+   vercel login
+   
+   # Deploy to production
+   vercel --prod
    ```
-   
-   Configure environment variables in Vercel dashboard.
 
-2. **VPS with Nginx:**
-   
-   Build the application:
+3. **Configure Custom Subdomain**
+
+   After deployment:
+   - Go to your Vercel project settings
+   - Navigate to "Domains"
+   - Add `learn-apt.iiskills.cloud`
+   - Update your DNS records as instructed by Vercel
+
+#### Option 2: Deploy to Your Own Server
+
+1. **Build the application**
+
    ```bash
+   npm install
    npm run build
    ```
-   
-   Set up Nginx reverse proxy:
+
+2. **Start the production server**
+
+   ```bash
+   npm start
+   ```
+
+   Or use PM2 for process management:
+
+   ```bash
+   npm install -g pm2
+   pm2 start ecosystem.config.js
+   ```
+
+3. **Configure Nginx (if applicable)**
+
+   Example Nginx configuration for the subdomain:
+
    ```nginx
    server {
        listen 80;
        server_name learn-apt.iiskills.cloud;
-       
+
        location / {
-           proxy_pass http://localhost:3001;
+           proxy_pass http://localhost:3000;
+           proxy_http_version 1.1;
+           proxy_set_header Upgrade $http_upgrade;
+           proxy_set_header Connection 'upgrade';
            proxy_set_header Host $host;
-           proxy_set_header X-Real-IP $remote_addr;
-           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-           proxy_set_header X-Forwarded-Proto $scheme;
+           proxy_cache_bypass $http_upgrade;
        }
    }
    ```
-   
-   Run with PM2:
+
+4. **Enable HTTPS with Let's Encrypt**
+
    ```bash
-   pm2 start npm --name "learn-apt" -- start
-   pm2 save
-   pm2 startup
+   sudo certbot --nginx -d learn-apt.iiskills.cloud
    ```
 
-3. **Docker:**
-   
-   Create `Dockerfile`:
-   ```dockerfile
-   FROM node:18-alpine
-   WORKDIR /app
-   COPY package*.json ./
-   RUN npm install
-   COPY . .
-   RUN npm run build
-   EXPOSE 3001
-   CMD ["npm", "start"]
-   ```
-   
-   Build and run:
+### Environment Variables
+
+The application requires Supabase configuration for authentication:
+
+1. **Create `.env.local` file**:
    ```bash
-   docker build -t learn-apt .
-   docker run -p 3001:3001 learn-apt
+   cp .env.example .env.local
    ```
 
-### Environment Variables for Production
+2. **Configure Supabase credentials**:
+   - Get credentials from the main iiskills-cloud Supabase project
+   - Update `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+   - See [SUPABASE_INTEGRATION.md](./SUPABASE_INTEGRATION.md) for detailed setup instructions
 
-```env
-NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your-production-anon-key
-NEXT_PUBLIC_SITE_URL=https://learn-apt.iiskills.cloud
-NEXT_PUBLIC_COOKIE_DOMAIN=.iiskills.cloud
-```
+3. **Important**: Use the **SAME** Supabase project as the main iiskills-cloud repository to enable cross-subdomain authentication.
 
-## Shared Components
+## Available Scripts
 
-### SharedNavbar Component
-
-The `SharedNavbar` component is located in `/components/shared/SharedNavbar.js` at the root of the repository. This component is shared between the main app and learn-apt app.
-
-**Usage in learn-apt:**
-```javascript
-import SharedNavbar from '../../components/shared/SharedNavbar'
-
-<SharedNavbar 
-  user={user}
-  onLogout={handleLogout}
-  appName="Learn Your Aptitude"
-  homeUrl="/"
-  showAuthButtons={true}
-  customLinks={[
-    { href: '/about', label: 'About' },
-    { href: '/contact', label: 'Contact' }
-  ]}
-/>
-```
-
-### Syncing Shared Components
-
-When the SharedNavbar or other shared components are updated in the main repo:
-
-1. The component is already in a shared location (`/components/shared/`)
-2. Both apps reference the same file
-3. No manual sync required - just ensure the path is correct
-
-## Development Workflow
-
-### Running Both Apps Simultaneously
-
-Main app runs on port 3000, learn-apt on port 3001:
-
-```bash
-# Terminal 1 - Main app
-cd /path/to/iiskills-cloud
-npm run dev
-
-# Terminal 2 - Learn-apt app
-cd /path/to/iiskills-cloud/learn-apt
-npm run dev
-```
-
-### Testing Cross-Subdomain Auth Locally
-
-1. **Edit hosts file** to simulate subdomains:
-   ```bash
-   # /etc/hosts (Linux/Mac) or C:\Windows\System32\drivers\etc\hosts (Windows)
-   127.0.0.1  local.iiskills.cloud
-   127.0.0.1  learn-apt.local.iiskills.cloud
-   ```
-
-2. **Access the apps:**
-   - Main app: `http://local.iiskills.cloud:3000`
-   - Learn-apt: `http://learn-apt.local.iiskills.cloud:3001`
-
-3. **Note:** Cookie sharing won't work on localhost without the hosts file setup.
-
-## Features
-
-### Current Features
-
-✅ Comprehensive landing page introducing the assessment tool  
-✅ User registration collecting name, age, and qualification  
-✅ User authentication (login/register)  
-✅ Cross-subdomain session sharing  
-✅ Two test modes: Short (5 min) and Elaborate (20 min)  
-✅ Interactive assessment with 5-100 questions across multiple modules  
-✅ Navigable test interface (click answers to proceed)  
-✅ Module coverage: Education, Skills, Family, Friends, Influencers, etc.  
-✅ AI-generated ~700-word personalized career/aptitude report  
-✅ Results page with comprehensive analysis  
-✅ Disclaimer and privacy policy notice  
-✅ Branded results with dual logos (iiskills & AI Cloud Enterprises)  
-✅ Protected routes  
-✅ Admin authentication system  
-✅ Admin dashboard with navigation  
-✅ Password change functionality  
-✅ Persistent admin sessions (localStorage)  
-✅ Responsive design  
-
-### Upcoming Features
-
-🚧 PDF generation with branding (jsPDF/react-pdf implementation)  
-🚧 Backend database integration for storing test results  
-🚧 Progress history and analytics  
-🚧 Advanced AI integration for more personalized reports  
-🚧 Certificate generation for completed assessments  
-
-## Scripts
-
-- `npm run dev` - Start development server on port 3001
+- `npm run dev` - Start development server
 - `npm run build` - Build for production
-- `npm start` - Start production server
+- `npm run start` - Start production server
 - `npm run lint` - Run ESLint
 
-## Tech Stack
+## Project Structure
 
-- **Framework:** Next.js 16.1.1
-- **React:** Latest
-- **Styling:** Tailwind CSS
-- **Authentication:** Supabase Auth
-- **Deployment:** Vercel / VPS / Docker
-
-## Troubleshooting
-
-### Sessions not shared between apps
-
-1. Verify both apps use the same Supabase project
-2. Check that cookie domain is set to `.iiskills.cloud` in Supabase settings
-3. Ensure `NEXT_PUBLIC_COOKIE_DOMAIN` is set correctly in production
-4. Clear browser cookies and try again
-
-### Images not loading
-
-1. Ensure images are copied to `/learn-apt/public/images/`
-2. Verify image paths in components use `/images/...` (not `../public/images/...`)
-3. Check file permissions
-
-### Build errors
-
-1. Clear `.next` folder: `rm -rf .next`
-2. Clear node_modules: `rm -rf node_modules && npm install`
-3. Check Node.js version: `node -v` (should be 16.x or higher)
-
-## Support
-
-For issues or questions:
-- Email: info@iiskills.cloud
-- Main site: https://iiskills.cloud
+```
+src/
+├── app/
+│   ├── brief-test/     # Brief test flow
+│   ├── elaborate-test/ # Elaborate test flow
+│   ├── results/        # Test results display
+│   ├── globals.css     # Global styles
+│   ├── layout.tsx      # Root layout
+│   └── page.tsx        # Landing page
+├── components/         # Reusable components
+└── lib/               # Utility functions
+```
 
 ## License
 
-This project is part of iiskills.cloud - Indian Institute of Professional Skills Development.
-© 2024 AI Cloud Enterprises. All rights reserved.
+This project is open source and available for educational purposes.
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## Support
+
+For deployment assistance, see [DEPLOYMENT.md](./DEPLOYMENT.md).
+
+For issues or questions, please open an issue on GitHub.

@@ -1,0 +1,61 @@
+name: ChatGPT GitHub Actions Bot & Next.js Deployment
+
+on:
+  push:
+    branches:
+      - main
+      - init-migration
+  workflow_dispatch:
+
+jobs:
+  chatgpt-generate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Change this 'uses:' line if you choose a different ChatGPT bot/action from Marketplace.
+      - name: ChatGPT Action - Generate/update code
+        uses: intelligenceinbox/chatgpt-github-actions-bot@v1
+        with:
+          prompt: "Generate a README for my project..."
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Restore npm cache
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-npm-
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Next.js app
+        run: npm run build
+
+      # Uncomment and set secrets for automatic Vercel deploy!
+      # - name: Deploy to Vercel
+      #   run: npx vercel --prod --token=${{ secrets.VERCEL_TOKEN }}
+
+      # - name: Artifact the .next build output (optional)
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: nextjs-build
+      #     path: .next
