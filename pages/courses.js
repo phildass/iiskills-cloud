@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import Head from 'next/head'
+import Link from 'next/link'
 import { getPricingDisplay, getIntroOfferNotice } from '../utils/pricing'
+import { getCourseSubdomainLink, courseHasSubdomain } from '../utils/courseSubdomainMapperClient'
 
 const coursesData = [
   {
@@ -1375,6 +1377,10 @@ export default function Courses() {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
           {filteredCourses.map(course => {
             const freeModule = course.modules?.find(m => m.isFree)
+            // Get subdomain link if it exists (uses localhost in dev, production URL in prod)
+            const subdomainLink = getCourseSubdomainLink(course.name, process.env.NODE_ENV === 'development')
+            const hasSubdomain = courseHasSubdomain(course.name)
+            
             return (
             <div key={course.id} className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition relative">
               {/* Coming Soon Badge */}
@@ -1403,6 +1409,18 @@ export default function Courses() {
                   <span>⏱️ {course.duration}</span>
                   <span className="font-semibold text-accent">{course.level}</span>
                 </div>
+                
+                {/* Subdomain Link Indicator */}
+                {hasSubdomain && (
+                  <div className="bg-green-50 border border-green-200 rounded p-3 mb-4">
+                    <p className="text-sm text-green-800 font-semibold flex items-center">
+                      ✓ Course App Available
+                    </p>
+                    <p className="text-xs text-green-700 mt-1">
+                      Click "Access Course" to start learning
+                    </p>
+                  </div>
+                )}
                 
                 {/* Pricing Information */}
                 {!course.isFree && (
@@ -1441,9 +1459,21 @@ export default function Courses() {
                   </div>
                 )}
                 
-                <button className="w-full bg-accent text-white py-3 rounded font-bold hover:bg-purple-600 transition">
-                  {course.isFree ? 'Start Free Course' : 'Enroll Now'}
-                </button>
+                {/* Course Action Button - Links to subdomain if available */}
+                {hasSubdomain && subdomainLink ? (
+                  <a 
+                    href={subdomainLink.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block w-full bg-primary text-white py-3 rounded font-bold hover:bg-blue-600 transition text-center"
+                  >
+                    Access Course →
+                  </a>
+                ) : (
+                  <button className="w-full bg-accent text-white py-3 rounded font-bold hover:bg-purple-600 transition">
+                    {course.isFree ? 'Start Free Course' : 'Enroll Now'}
+                  </button>
+                )}
               </div>
             </div>
           )})}

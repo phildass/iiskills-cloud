@@ -1,98 +1,127 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import Image from 'next/image'
+import { getAllSubdomains } from '../utils/courseSubdomainMapperClient'
 
 export default function LearnModules() {
-  const modules = [
-    {
-      name: 'learn-apt',
+  // Automatically get all available subdomains
+  const isDevelopment = process.env.NODE_ENV === 'development'
+  const allSubdomains = getAllSubdomains(isDevelopment)
+  
+  // Metadata for each module (icons, descriptions, features)
+  const moduleMetadata = {
+    'learn-apt': {
       title: 'Learn Aptitude',
       description: 'Develop logical reasoning, quantitative aptitude, and analytical skills for competitive exams.',
-      subdomain: 'learn-apt.iiskills.cloud',
-      localPort: '3001',
       colorClass: 'bg-gradient-to-r from-blue-600 to-primary',
       icon: '🧮',
-      status: 'Available',
       features: ['Quantitative Aptitude', 'Logical Reasoning', 'Data Interpretation', 'Pattern Recognition']
     },
-    {
-      name: 'learn-math',
+    'learn-math': {
       title: 'Learn Mathematics',
       description: 'Master mathematical concepts, problem-solving techniques, and advance your quantitative skills.',
-      subdomain: 'learn-math.iiskills.cloud',
-      localPort: '3002',
       colorClass: 'bg-gradient-to-r from-indigo-600 to-primary',
       icon: '📐',
-      status: 'Available',
       features: ['Algebra', 'Geometry', 'Calculus', 'Statistics']
     },
-    {
-      name: 'learn-winning',
+    'learn-winning': {
       title: 'Learn Winning',
       description: 'Develop a winning mindset, success strategies, and achieve your personal and professional goals.',
-      subdomain: 'learn-winning.iiskills.cloud',
-      localPort: '3003',
       colorClass: 'bg-gradient-to-r from-green-600 to-primary',
       icon: '🏆',
-      status: 'Available',
       features: ['Goal Setting', 'Success Mindset', 'Performance Optimization', 'Personal Growth']
     },
-    {
-      name: 'learn-data-science',
+    'learn-data-science': {
       title: 'Learn Data Science',
       description: 'Master data analysis, visualization, machine learning, and turn data into insights.',
-      subdomain: 'learn-data-science.iiskills.cloud',
-      localPort: '3004',
       colorClass: 'bg-gradient-to-r from-purple-600 to-primary',
       icon: '📊',
-      status: 'Available',
       features: ['Data Analysis', 'Machine Learning', 'Visualization', 'Python/R']
     },
-    {
-      name: 'learn-management',
+    'learn-management': {
       title: 'Learn Management',
       description: 'Build essential management skills, strategic thinking, and lead teams effectively.',
-      subdomain: 'learn-management.iiskills.cloud',
-      localPort: '3005',
       colorClass: 'bg-gradient-to-r from-orange-600 to-primary',
       icon: '📈',
-      status: 'Available',
       features: ['Strategic Planning', 'Team Leadership', 'Project Management', 'Decision Making']
     },
-    {
-      name: 'learn-leadership',
+    'learn-leadership': {
       title: 'Learn Leadership',
       description: 'Develop leadership capabilities, influence, and inspire others to achieve excellence.',
-      subdomain: 'learn-leadership.iiskills.cloud',
-      localPort: '3006',
       colorClass: 'bg-gradient-to-r from-red-600 to-primary',
       icon: '👔',
-      status: 'Available',
       features: ['Influencing Skills', 'Team Building', 'Communication', 'Vision Setting']
     },
-    {
-      name: 'learn-ai',
+    'learn-ai': {
       title: 'Learn AI',
       description: 'Explore Artificial Intelligence fundamentals, applications, and prepare for the AI-driven future.',
-      subdomain: 'learn-ai.iiskills.cloud',
-      localPort: '3007',
       colorClass: 'bg-gradient-to-r from-cyan-600 to-primary',
       icon: '🤖',
-      status: 'Available',
       features: ['AI Fundamentals', 'Neural Networks', 'AI Applications', 'Ethics & Governance']
     },
-    {
-      name: 'learn-pr',
+    'learn-pr': {
       title: 'Learn PR',
       description: 'Master Public Relations, communication strategies, and build powerful brand narratives.',
-      subdomain: 'learn-pr.iiskills.cloud',
-      localPort: '3008',
       colorClass: 'bg-gradient-to-r from-pink-600 to-primary',
       icon: '📣',
-      status: 'Available',
       features: ['Media Relations', 'Brand Building', 'Crisis Management', 'Content Strategy']
+    },
+    'learn-jee': {
+      title: 'Learn JEE',
+      description: 'Comprehensive JEE preparation with Physics, Chemistry, and Mathematics for engineering entrance exams.',
+      colorClass: 'bg-gradient-to-r from-yellow-600 to-primary',
+      icon: '🎓',
+      features: ['Physics', 'Chemistry', 'Mathematics', 'Problem-Solving']
+    },
+    'learn-neet': {
+      title: 'Learn NEET',
+      description: 'Complete NEET preparation with Biology, Chemistry, and Physics for medical entrance exams.',
+      colorClass: 'bg-gradient-to-r from-teal-600 to-primary',
+      icon: '🏥',
+      features: ['Biology', 'Chemistry', 'Physics', 'Medical Concepts']
+    },
+    'learn-physics': {
+      title: 'Learn Physics',
+      description: 'Master physics concepts from mechanics to modern physics with practical applications.',
+      colorClass: 'bg-gradient-to-r from-blue-700 to-primary',
+      icon: '⚛️',
+      features: ['Mechanics', 'Thermodynamics', 'Electromagnetism', 'Modern Physics']
+    },
+    'learn-chemistry': {
+      title: 'Learn Chemistry',
+      description: 'Explore chemistry from atomic structure to organic reactions and real-world applications.',
+      colorClass: 'bg-gradient-to-r from-green-700 to-primary',
+      icon: '🧪',
+      features: ['Organic Chemistry', 'Inorganic Chemistry', 'Physical Chemistry', 'Lab Techniques']
+    },
+    'learn-geography': {
+      title: 'Learn Geography',
+      description: 'Discover world geography, physical features, climate patterns, and global relationships.',
+      colorClass: 'bg-gradient-to-r from-emerald-600 to-primary',
+      icon: '🌍',
+      features: ['Physical Geography', 'Human Geography', 'Climate', 'World Regions']
     }
-  ]
+  }
+  
+  // Combine subdomain data with metadata
+  const modules = allSubdomains.map(subdomain => {
+    const metadata = moduleMetadata[subdomain.subdomain] || {
+      title: subdomain.subdomain.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' '),
+      description: `Learning module for ${subdomain.subdomain}`,
+      colorClass: 'bg-gradient-to-r from-gray-600 to-primary',
+      icon: '📚',
+      features: ['Course Content', 'Interactive Learning', 'Assessments', 'Certificates']
+    }
+    
+    return {
+      name: subdomain.subdomain,
+      subdomain: subdomain.productionUrl.replace('https://', ''),
+      localPort: subdomain.localPort,
+      url: subdomain.url,
+      status: 'Available',
+      ...metadata
+    }
+  })
 
   return (
     <>
@@ -157,7 +186,7 @@ export default function LearnModules() {
                     <div className="border-t pt-4 mt-4">
                       <div className="mb-3">
                         <p className="text-xs text-gray-600 mb-1">Production Subdomain:</p>
-                        <code className="text-xs bg-gray-100 px-2 py-1 rounded block">
+                        <code className="text-xs bg-gray-100 px-2 py-1 rounded block break-all">
                           {module.subdomain}
                         </code>
                       </div>
@@ -170,7 +199,7 @@ export default function LearnModules() {
                       
                       <div className="flex gap-2">
                         <a 
-                          href={`http://localhost:${module.localPort}`}
+                          href={module.url}
                           target="_blank"
                           rel="noopener noreferrer"
                           className={`flex-1 text-center ${module.colorClass} text-white px-4 py-3 rounded-lg font-bold hover:opacity-90 transition`}
