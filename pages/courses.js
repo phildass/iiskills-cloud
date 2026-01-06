@@ -1450,7 +1450,7 @@ export default function Courses() {
 
         {/* Introductory Offer Banner */}
         {introNotice && (
-          <div className="bg-gradient-to-r from-green-500 to-green-600 text-white rounded-lg shadow-lg p-6 mb-8 text-center">
+          <div className="bg-gradient-to-r from-indigo-400 to-purple-400 text-white rounded-lg shadow-lg p-6 mb-8 text-center">
             <p className="text-lg font-bold">{introNotice}</p>
           </div>
         )}
@@ -1479,13 +1479,13 @@ export default function Courses() {
           <h3 className="text-lg font-bold text-primary mb-4">Course Availability Legend</h3>
           <div className="flex flex-wrap gap-6">
             <div className="flex items-center gap-2">
-              <span className="bg-green-500 text-white px-4 py-2 rounded-full text-sm font-bold shadow-md">
+              <span className="bg-pastel-blue text-white px-4 py-2 rounded-full text-sm font-bold shadow-md">
                 Currently Available
               </span>
               <span className="text-gray-700">- Ready to enroll and start learning</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="bg-orange-500 text-white px-4 py-2 rounded-full text-sm font-bold shadow-md">
+              <span className="bg-pastel-lavender text-white px-4 py-2 rounded-full text-sm font-bold shadow-md">
                 Coming Soon
               </span>
               <span className="text-gray-700">- In development, will be available soon</span>
@@ -1497,7 +1497,7 @@ export default function Courses() {
         {availableCourses.length > 0 && (
           <div className="mb-12">
             <h2 className="text-3xl font-bold text-primary mb-6 flex items-center gap-3">
-              <span className="bg-green-500 text-white px-4 py-2 rounded-full text-base font-bold shadow-md">
+              <span className="bg-pastel-blue text-white px-4 py-2 rounded-full text-base font-bold shadow-md">
                 Currently Available
               </span>
               <span>({availableCourses.length} {availableCourses.length === 1 ? 'course' : 'courses'})</span>
@@ -1506,20 +1506,20 @@ export default function Courses() {
               {availableCourses.map(course => {
                 const freeModule = course.modules?.find(m => m.isFree)
                 return (
-                  <div key={course.id} className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition relative border-2 border-green-200">
+                  <div key={course.id} className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition relative border-2 border-pastel-blue-light">
                     {/* Available Badge */}
-                    <div className="absolute top-4 right-4 bg-green-500 text-white px-3 py-1 rounded-full text-sm font-bold z-10 shadow-lg">
+                    <div className="absolute top-4 right-4 bg-pastel-blue text-white px-3 py-1 rounded-full text-sm font-bold z-10 shadow-lg">
                       Available Now
                     </div>
                     
                     {/* Free Badge */}
                     {course.isFree && (
-                      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-green-600 bg-opacity-90 backdrop-blur-sm text-white px-6 py-3 rounded-full text-2xl font-bold z-20 shadow-2xl blink-animation">
+                      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pastel-blue bg-opacity-90 backdrop-blur-sm text-white px-6 py-3 rounded-full text-2xl font-bold z-20 shadow-2xl blink-animation">
                         FREE
                       </div>
                     )}
                     
-                    <div className="bg-gradient-to-r from-green-500 to-green-600 p-4">
+                    <div className="bg-gradient-to-r from-pastel-blue-light to-pastel-blue p-4">
                       <span className="text-white text-sm font-semibold">{course.category}</span>
                     </div>
                     
@@ -1548,12 +1548,12 @@ export default function Courses() {
                       
                       {/* Free sample module indicator */}
                       {freeModule && (
-                        <div className="bg-green-50 border border-green-200 rounded p-3 mb-4">
-                          <p className="text-sm text-green-800 font-semibold mb-1">
+                        <div className="bg-cyan-50 border border-cyan-200 rounded p-3 mb-4">
+                          <p className="text-sm text-cyan-800 font-semibold mb-1">
                             🎁 Free Sample: {freeModule.title}
                           </p>
                           {freeModule.summary && (
-                            <p className="text-xs text-green-700 mt-1">
+                            <p className="text-xs text-cyan-700 mt-1">
                               {freeModule.summary}
                             </p>
                           )}
@@ -1569,7 +1569,7 @@ export default function Courses() {
                         </div>
                       )}
                       
-                      <button className="w-full bg-green-600 text-white py-3 rounded font-bold hover:bg-green-700 transition">
+                      <button className="w-full bg-pastel-blue text-white py-3 rounded font-bold hover:bg-pastel-blue-light transition">
                         {course.isFree ? 'Start Free Course' : 'Enroll Now'}
                       </button>
                     </div>
@@ -1584,7 +1584,7 @@ export default function Courses() {
         {comingSoonCourses.length > 0 && (
           <div className="mb-12">
             <h2 className="text-3xl font-bold text-primary mb-6 flex items-center gap-3">
-              <span className="bg-orange-500 text-white px-4 py-2 rounded-full text-base font-bold shadow-md">
+              <span className="bg-pastel-lavender text-white px-4 py-2 rounded-full text-base font-bold shadow-md">
                 Coming Soon
               </span>
               <span>({comingSoonCourses.length} {comingSoonCourses.length === 1 ? 'course' : 'courses'})</span>
@@ -1593,20 +1593,20 @@ export default function Courses() {
               {comingSoonCourses.map(course => {
                 const freeModule = course.modules?.find(m => m.isFree)
                 return (
-                   <div key={course.id} className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition relative opacity-90 border-2 border-orange-200">
+                   <div key={course.id} className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition relative opacity-90 border-2 border-pastel-lavender-light">
                     {/* Coming Soon Badge */}
-                    <div className="absolute top-4 right-4 bg-orange-500 text-white px-3 py-1 rounded-full text-sm font-bold z-10 shadow-lg">
+                    <div className="absolute top-4 right-4 bg-pastel-lavender text-white px-3 py-1 rounded-full text-sm font-bold z-10 shadow-lg">
                       Coming Soon
                     </div>
                     
                     {/* Free Badge */}
                     {course.isFree && (
-                      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-green-600 bg-opacity-90 backdrop-blur-sm text-white px-6 py-3 rounded-full text-2xl font-bold z-20 shadow-2xl blink-animation">
+                      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pastel-blue bg-opacity-90 backdrop-blur-sm text-white px-6 py-3 rounded-full text-2xl font-bold z-20 shadow-2xl blink-animation">
                         FREE
                       </div>
                     )}
                     
-                    <div className="bg-gradient-to-r from-primary to-accent p-4">
+                    <div className="bg-gradient-to-r from-pastel-lavender-light to-pastel-lavender p-4">
                       <span className="text-white text-sm font-semibold">{course.category}</span>
                     </div>
                     
@@ -1616,27 +1616,26 @@ export default function Courses() {
                       
                       <div className="flex justify-between text-sm text-gray-600 mb-4">
                         <span>⏱️ {course.duration}</span>
-                        <span className="font-semibold text-accent">{course.level}</span>
                       </div>
                       
                       {/* Coming Soon - No Pricing Display */}
-                      <div className="bg-orange-50 border border-orange-200 rounded p-3 mb-4">
-                        <p className="text-sm text-orange-800 font-semibold">
+                      <div className="bg-purple-50 border border-pastel-lavender-light rounded p-3 mb-4">
+                        <p className="text-sm text-purple-800 font-semibold">
                           🔔 This course is currently in development
                         </p>
-                        <p className="text-xs text-orange-700 mt-1">
+                        <p className="text-xs text-purple-700 mt-1">
                           Get notified when it launches!
                         </p>
                       </div>
                       
                       {/* Free sample module indicator */}
                       {freeModule && (
-                        <div className="bg-green-50 border border-green-200 rounded p-3 mb-4">
-                          <p className="text-sm text-green-800 font-semibold mb-1">
+                        <div className="bg-cyan-50 border border-cyan-200 rounded p-3 mb-4">
+                          <p className="text-sm text-cyan-800 font-semibold mb-1">
                             🎁 Free Sample: {freeModule.title}
                           </p>
                           {freeModule.summary && (
-                            <p className="text-xs text-green-700 mt-1">
+                            <p className="text-xs text-cyan-700 mt-1">
                               {freeModule.summary}
                             </p>
                           )}
@@ -1652,7 +1651,7 @@ export default function Courses() {
                         </div>
                       )}
                       
-                      <button className="w-full bg-orange-500 text-white py-3 rounded font-bold hover:bg-orange-600 transition">
+                      <button className="w-full bg-pastel-lavender text-white py-3 rounded font-bold hover:bg-pastel-lavender-light transition">
                         🔔 Notify When Available
                       </button>
                     </div>
