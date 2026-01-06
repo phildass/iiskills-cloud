@@ -209,7 +209,7 @@ export default function Home() {
                 <h3 className="font-bold text-xl mb-3 text-primary">Learn AI</h3>
                 <p className="text-charcoal mb-4">Discover Artificial Intelligence fundamentals and practical applications.</p>
                 <div className="text-sm text-gray-600 mb-4">
-                  <span>⏱️ 10 weeks</span> • <span className="text-accent font-semibold">Beginner</span>
+                  <span>⏱️ 10 weeks</span>
                 </div>
                 <div className="bg-green-50 border border-green-200 rounded p-2 mb-4">
                   <p className="text-xs text-green-800 font-semibold">🎁 Free Sample Module</p>
@@ -226,7 +226,7 @@ export default function Home() {
                 <h3 className="font-bold text-xl mb-3 text-primary">Learn Aptitude</h3>
                 <p className="text-charcoal mb-4">Develop logical reasoning, quantitative aptitude, and analytical skills for competitive exams.</p>
                 <div className="text-sm text-gray-600 mb-4">
-                  <span>⏱️ 10 weeks</span> • <span className="text-accent font-semibold">Beginner</span>
+                  <span>⏱️ 10 weeks</span>
                 </div>
                 <div className="bg-green-50 border border-green-200 rounded p-2 mb-4">
                   <p className="text-xs text-green-800 font-semibold">🎁 Free Sample Module</p>
@@ -240,7 +240,7 @@ export default function Home() {
                 <h3 className="font-bold text-xl mb-3 text-primary">Learn PR</h3>
                 <p className="text-charcoal mb-4">Master Public Relations strategies, media management, and brand building.</p>
                 <div className="text-sm text-gray-600 mb-4">
-                  <span>⏱️ 10 weeks</span> • <span className="text-accent font-semibold">Beginner</span>
+                  <span>⏱️ 10 weeks</span>
                 </div>
                 <div className="bg-green-50 border border-green-200 rounded p-2 mb-4">
                   <p className="text-xs text-green-800 font-semibold">🎁 Free Sample Module</p>
