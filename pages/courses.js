@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import Head from 'next/head'
+import Link from 'next/link'
 import { getPricingDisplay, getIntroOfferNotice } from '../utils/pricing'
+import { getCourseSubdomainLink, courseHasSubdomain } from '../utils/courseSubdomainMapperClient'
 
 // List of available subdomain courses (13 total)
 // To add a new available course, simply add its subdomain name to this array
@@ -1370,6 +1372,9 @@ export default function Courses() {
   const [selectedLevel, setSelectedLevel] = useState('All')
   const pricing = getPricingDisplay()
   const introNotice = getIntroOfferNotice()
+  
+  // Detect if we're in development mode (client-side safe)
+  const isDevelopment = typeof window !== 'undefined' && window.location.hostname === 'localhost'
 
   const categories = [
     'All',
@@ -1484,6 +1489,7 @@ export default function Courses() {
           </div>
         </div>
 
+
         {/* Legend */}
         <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg shadow p-6 mb-8 border-2 border-blue-200">
           <h3 className="text-lg font-bold text-primary mb-4">Course Availability Legend</h3>
@@ -1527,6 +1533,67 @@ export default function Courses() {
                       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-green-600 bg-opacity-90 backdrop-blur-sm text-white px-6 py-3 rounded-full text-2xl font-bold z-20 shadow-2xl blink-animation">
                         FREE
                       </div>
+
+        {/* Course Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+          {filteredCourses.map(course => {
+            const freeModule = course.modules?.find(m => m.isFree)
+            // Get subdomain link if it exists (uses localhost in dev, production URL in prod)
+            const subdomainLink = getCourseSubdomainLink(course.name, isDevelopment)
+            const hasSubdomain = courseHasSubdomain(course.name)
+            
+            return (
+            <div key={course.id} className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition relative">
+              {/* Coming Soon Badge */}
+              {course.comingSoon && (
+                <div className="absolute top-4 right-4 bg-accent text-white px-3 py-1 rounded-full text-sm font-bold z-10">
+                  Coming Soon
+                </div>
+              )}
+              
+              {/* Free Badge */}
+              {course.isFree && (
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-green-500 bg-opacity-90 backdrop-blur-sm text-white px-6 py-3 rounded-full text-2xl font-bold z-20 shadow-2xl blink-animation">
+                  FREE
+                </div>
+              )}
+              
+              <div className="bg-gradient-to-r from-primary to-accent p-4">
+                <span className="text-white text-sm font-semibold">{course.category}</span>
+              </div>
+              
+              <div className="p-6">
+                <h3 className="text-xl font-bold text-primary mb-2">{course.name}</h3>
+                <p className="text-charcoal mb-4 text-sm">{course.description}</p>
+                
+                <div className="flex justify-between text-sm text-gray-600 mb-4">
+                  <span>⏱️ {course.duration}</span>
+                  <span className="font-semibold text-accent">{course.level}</span>
+                </div>
+                
+                {/* Subdomain Link Indicator */}
+                {hasSubdomain && (
+                  <div className="bg-green-50 border border-green-200 rounded p-3 mb-4">
+                    <p className="text-sm text-green-800 font-semibold flex items-center">
+                      ✓ Course App Available
+                    </p>
+                    <p className="text-xs text-green-700 mt-1">
+                      Click "Access Course" to start learning
+                    </p>
+                  </div>
+                )}
+                
+                {/* Pricing Information */}
+                {!course.isFree && (
+                  <div className="bg-blue-50 border border-blue-200 rounded p-3 mb-4">
+                    <p className="text-sm text-blue-800 font-semibold">
+                      💳 Price: {pricing.totalPrice}
+                    </p>
+                    {pricing.isIntroductory && (
+                      <p className="text-xs text-blue-700 mt-1">
+                        Introductory offer until {pricing.introEndDate}
+                      </p>
+
                     )}
                     
                     <div className="bg-gradient-to-r from-green-500 to-green-600 p-4">
@@ -1671,8 +1738,38 @@ export default function Courses() {
                       </button>
                     </div>
                   </div>
+
                 )
               })}
+
+                )}
+                
+                {/* Audio Download Feature */}
+                {course.hasAudioDownload && (
+                  <div className="bg-blue-50 border border-blue-200 rounded p-3 mb-4">
+                    <p className="text-sm text-blue-800 font-semibold flex items-center">
+                      🎧 Includes Audio Download
+                    </p>
+                  </div>
+                )}
+                
+                {/* Course Action Button - Links to subdomain if available */}
+                {hasSubdomain && subdomainLink ? (
+                  <a 
+                    href={subdomainLink.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block w-full bg-primary text-white py-3 rounded font-bold hover:bg-blue-600 transition text-center"
+                  >
+                    Access Course →
+                  </a>
+                ) : (
+                  <button className="w-full bg-accent text-white py-3 rounded font-bold hover:bg-purple-600 transition">
+                    {course.isFree ? 'Start Free Course' : 'Enroll Now'}
+                  </button>
+                )}
+              </div>
+
             </div>
           </div>
         )}
