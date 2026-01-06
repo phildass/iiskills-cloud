@@ -17,8 +17,12 @@ This repository contains multiple Next.js applications:
 - **Learn-Leadership** (`/learn-leadership/`) - Leadership development
 - **Learn-AI** (`/learn-ai/`) - Artificial Intelligence fundamentals
 - **Learn-PR** (`/learn-pr/`) - Public Relations and communication
+
+- **Learn-JEE** (`/learn-jee/`) - JEE preparation (Physics, Chemistry, Mathematics)
+
 - **Learn-NEET** (`/learn-neet/`) - Comprehensive NEET preparation (2-year paid subscription)
 - **Learn-Physics** (`/learn-physics/`) - Physics mastery with AI-driven lessons
+
 
 Each app can be deployed independently on different subdomains while sharing authentication.
 
@@ -60,6 +64,7 @@ All learning modules follow the same structure. See individual README files for 
 - [learn-leadership/README.md](learn-leadership/README.md) - Port 3006
 - [learn-ai/README.md](learn-ai/README.md) - Port 3007
 - [learn-pr/README.md](learn-pr/README.md) - Port 3008
+- [learn-jee/README.md](learn-jee/README.md) - Port 3009
 
 - [learn-neet/README.md](learn-neet/README.md) - Port 3009
 - [learn-physics/README.md](learn-physics/README.md) - Port 3009
