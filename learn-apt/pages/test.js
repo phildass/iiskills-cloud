@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import Head from 'next/head'
 import Footer from '../../components/Footer'
 import { getCurrentUser, signOutUser, getUserProfile } from '../lib/supabaseClient'
+import PaidUserProtectedRoute from '../../components/PaidUserProtectedRoute'
 
 // Sample questions for different modules
 const generateQuestions = (mode) => {
@@ -110,7 +111,7 @@ const getOptionsForModule = (module, qIdx) => {
   return specificOptions[module]?.[qIdx] || genericOptions[qIdx % 4]
 }
 
-export default function Test() {
+function TestContent() {
   const router = useRouter()
   const { mode } = router.query
   const [user, setUser] = useState(null)
@@ -136,13 +137,10 @@ export default function Test() {
   const checkAuth = async () => {
     const currentUser = await getCurrentUser()
     
-    if (!currentUser) {
-      router.push('/login?redirect=/learn')
-      return
+    if (currentUser) {
+      setUser(currentUser)
+      setUserProfile(getUserProfile(currentUser))
     }
-    
-    setUser(currentUser)
-    setUserProfile(getUserProfile(currentUser))
     setIsLoading(false)
   }
 
@@ -358,5 +356,13 @@ export default function Test() {
       </main>
       
     </>
+  )
+}
+
+export default function Test() {
+  return (
+    <PaidUserProtectedRoute>
+      <TestContent />
+    </PaidUserProtectedRoute>
   )
 }

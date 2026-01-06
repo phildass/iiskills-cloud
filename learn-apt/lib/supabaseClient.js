@@ -116,7 +116,84 @@ export async function signInWithEmail(email, password) {
 }
 
 /**
+ * Helper function to send a magic link (passwordless sign-in email)
+ * 
+ * @param {string} email - User's email address
+ * @returns {Promise<Object>} Object with success status or error
+ * 
+ * Example usage:
+ * const { success, error } = await sendMagicLink(email)
+ * if (success) {
+ *   console.log('Magic link sent! Check your email.')
+ * }
+ */
+export async function sendMagicLink(email) {
+  try {
+    const redirectUrl = typeof window !== 'undefined' 
+      ? `${window.location.origin}/learn` 
+      : process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3001'
+    
+    const { data, error } = await supabase.auth.signInWithOtp({
+      email,
+      options: {
+        emailRedirectTo: redirectUrl,
+      }
+    })
+    
+    if (error) {
+      return { success: false, error: error.message }
+    }
+    
+    return { success: true, error: null }
+  } catch (error) {
+    console.error('Error in sendMagicLink:', error)
+    return { success: false, error: error.message }
+  }
+}
+
+/**
+ * Helper function to sign in with Google OAuth
+ * 
+ * @returns {Promise<Object>} Object with success status or error
+ * 
+ * Example usage:
+ * const { success, error } = await signInWithGoogle()
+ */
+export async function signInWithGoogle() {
+  try {
+    const redirectUrl = typeof window !== 'undefined' 
+      ? `${window.location.origin}/learn` 
+      : process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3001'
+    
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: redirectUrl,
+      }
+    })
+    
+    if (error) {
+      return { success: false, error: error.message }
+    }
+    
+    return { success: true, error: null }
+  } catch (error) {
+    console.error('Error in signInWithGoogle:', error)
+    return { success: false, error: error.message }
+  }
+}
+
+/**
  * Helper function to check if user has admin role
+ * 
+ * ⚠️ IMPORTANT: This is for CLIENT-SIDE UI DISPLAY ONLY
+ * Server-side verification is required for actual access control.
+ * This function should only be used to show/hide UI elements.
+ * 
+ * In production, implement server-side admin verification:
+ * - API routes should verify admin role from auth token
+ * - Protected pages should validate on server before rendering
+ * - Database queries should use Row Level Security (RLS)
  * 
  * Admin roles are synced from the main app via Supabase user metadata
  * 

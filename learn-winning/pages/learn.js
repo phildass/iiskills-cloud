@@ -1,18 +1,137 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
-import { getCurrentUser, signOutUser, getUserProfile } from '../lib/supabaseClient'
+import Link from 'next/link'
+import { getCurrentUser, getUserProfile } from '../lib/supabaseClient'
 
 /**
- * Test Selection Page
+ * Course Data Structure - 10 Chapters
+ * Only Chapter 1, Lesson 1 is free
+ */
+const courseData = [
+  {
+    id: 1,
+    title: "Introduction to Winning Mindset",
+    description: "Understanding the foundation of success",
+    lessons: [
+      { id: 1, title: "What is a Winning Mindset?", duration: "15 min", free: true },
+      { id: 2, title: "The Power of Positive Thinking", duration: "20 min", free: false },
+      { id: 3, title: "Setting Your Success Goals", duration: "25 min", free: false }
+    ],
+    free: false // Only first lesson is free
+  },
+  {
+    id: 2,
+    title: "Building Self-Confidence",
+    description: "Develop unshakeable confidence",
+    lessons: [
+      { id: 1, title: "Understanding Self-Worth", duration: "18 min", free: false },
+      { id: 2, title: "Overcoming Self-Doubt", duration: "22 min", free: false },
+      { id: 3, title: "Confidence Building Exercises", duration: "20 min", free: false }
+    ],
+    free: false
+  },
+  {
+    id: 3,
+    title: "Goal Setting Mastery",
+    description: "Learn to set and achieve ambitious goals",
+    lessons: [
+      { id: 1, title: "SMART Goal Framework", duration: "20 min", free: false },
+      { id: 2, title: "Breaking Down Big Goals", duration: "25 min", free: false },
+      { id: 3, title: "Tracking Your Progress", duration: "15 min", free: false }
+    ],
+    free: false
+  },
+  {
+    id: 4,
+    title: "Developing Resilience",
+    description: "Bounce back from setbacks stronger",
+    lessons: [
+      { id: 1, title: "Understanding Resilience", duration: "18 min", free: false },
+      { id: 2, title: "Learning from Failure", duration: "22 min", free: false },
+      { id: 3, title: "Building Mental Toughness", duration: "20 min", free: false }
+    ],
+    free: false
+  },
+  {
+    id: 5,
+    title: "Time Management for Success",
+    description: "Master your time to maximize productivity",
+    lessons: [
+      { id: 1, title: "Priority Management", duration: "20 min", free: false },
+      { id: 2, title: "Eliminating Time Wasters", duration: "18 min", free: false },
+      { id: 3, title: "Creating Effective Routines", duration: "22 min", free: false }
+    ],
+    free: false
+  },
+  {
+    id: 6,
+    title: "Communication Excellence",
+    description: "Communicate with impact and influence",
+    lessons: [
+      { id: 1, title: "Effective Speaking Skills", duration: "25 min", free: false },
+      { id: 2, title: "Active Listening", duration: "20 min", free: false },
+      { id: 3, title: "Persuasion Techniques", duration: "23 min", free: false }
+    ],
+    free: false
+  },
+  {
+    id: 7,
+    title: "Leadership Fundamentals",
+    description: "Lead yourself and others to victory",
+    lessons: [
+      { id: 1, title: "What Makes a Great Leader", duration: "22 min", free: false },
+      { id: 2, title: "Inspiring and Motivating Others", duration: "25 min", free: false },
+      { id: 3, title: "Decision Making Skills", duration: "20 min", free: false }
+    ],
+    free: false
+  },
+  {
+    id: 8,
+    title: "Financial Success Strategies",
+    description: "Build wealth and financial freedom",
+    lessons: [
+      { id: 1, title: "Money Mindset Transformation", duration: "20 min", free: false },
+      { id: 2, title: "Building Multiple Income Streams", duration: "25 min", free: false },
+      { id: 3, title: "Smart Investing Basics", duration: "22 min", free: false }
+    ],
+    free: false
+  },
+  {
+    id: 9,
+    title: "Health and Energy Optimization",
+    description: "Peak performance through wellness",
+    lessons: [
+      { id: 1, title: "Energy Management Strategies", duration: "18 min", free: false },
+      { id: 2, title: "Nutrition for Success", duration: "20 min", free: false },
+      { id: 3, title: "Exercise and Mental Clarity", duration: "22 min", free: false }
+    ],
+    free: false
+  },
+  {
+    id: 10,
+    title: "Sustaining Your Success",
+    description: "Maintain and grow your achievements",
+    lessons: [
+      { id: 1, title: "Creating Lasting Habits", duration: "20 min", free: false },
+      { id: 2, title: "Continuous Improvement", duration: "22 min", free: false },
+      { id: 3, title: "Your Success Action Plan", duration: "25 min", free: false }
+    ],
+    free: false
+  }
+]
+
+/**
+ * Course Learning Page
  * 
- * Users select between Short (5 min) and Elaborate (20 min) test modes
- * Protected Route: Redirects to login if user is not authenticated
+ * Protected Route: Requires authentication
+ * Paywall: Only Chapter 1, Lesson 1 is free
  */
 export default function Learn() {
   const [user, setUser] = useState(null)
   const [userProfile, setUserProfile] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
+  const [hasPurchased, setHasPurchased] = useState(false)
   const router = useRouter()
 
   useEffect(() => {
@@ -30,19 +149,35 @@ export default function Learn() {
     
     setUser(currentUser)
     setUserProfile(getUserProfile(currentUser))
+    
+    // Check if user has purchased the course
+    // For now, we'll check user metadata
+    const purchased = currentUser.user_metadata?.purchased_winning_course === true
+    setHasPurchased(purchased)
+    
     setIsLoading(false)
   }
 
-  const handleLogout = async () => {
-    const { success } = await signOutUser()
-    if (success) {
-      setUser(null)
-      router.push('/')
+  const handleLessonClick = (chapterId, lessonId, isFree) => {
+    // Allow access to Chapter 1, Lesson 1
+    if (chapterId === 1 && lessonId === 1) {
+      // TODO: Navigate to lesson content page or render lesson content
+      // For now, using alert as placeholder
+      alert('Lesson content would be displayed here. This is the FREE preview lesson!')
+      return
     }
-  }
-
-  const startTest = (mode) => {
-    router.push(`/test?mode=${mode}`)
+    
+    // Check if user has purchased
+    if (!hasPurchased && !isFree) {
+      // TODO: Show proper paywall modal instead of alert
+      // For now, using alert as placeholder
+      alert('This lesson requires purchasing the full course. Price: ₹99 + GST ₹17.82 (Total: ₹116.82)')
+      return
+    }
+    
+    // User has access
+    // TODO: Navigate to lesson content page or render lesson content
+    alert(`Lesson ${chapterId}.${lessonId} content would be displayed here.`)
   }
 
   if (isLoading) {
@@ -59,169 +194,139 @@ export default function Learn() {
   return (
     <>
       <Head>
-        <title>Select Assessment - Learn-Apt</title>
-        <meta name="description" content="Choose your assessment mode" />
+        <title>Learn Winning - Course Content</title>
+        <meta name="description" content="Access your Learn Winning course" />
       </Head>
       
-      <main className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 py-12 px-4">
+      <main className="min-h-screen bg-gradient-to-br from-green-50 via-white to-blue-50 py-12 px-4">
         <div className="max-w-6xl mx-auto">
           {/* Welcome Section */}
           <div className="bg-white p-8 rounded-lg shadow-lg mb-8">
             <h1 className="text-4xl font-bold text-primary mb-4">
-              Welcome, {userProfile?.firstName || 'Learner'}! 🎓
+              Welcome to Learn Winning, {userProfile?.firstName || userProfile?.first_name || 'Learner'}! 🏆
             </h1>
             <p className="text-xl text-charcoal mb-4">
-              Ready to discover your strengths and unlock your potential?
+              Master the art of success with our comprehensive 10-chapter course
             </p>
-            <div className="bg-blue-50 border-l-4 border-primary p-4 rounded">
-              <p className="text-gray-700">
-                <strong>Account:</strong> {user.email}
-              </p>
-              {userProfile?.age && (
-                <p className="text-gray-700">
-                  <strong>Age:</strong> {userProfile.age} | <strong>Qualification:</strong> {userProfile.qualification || 'Not specified'}
+            
+            {!hasPurchased && (
+              <div className="bg-accent text-white p-6 rounded-lg mt-4">
+                <h3 className="text-2xl font-bold mb-2">🎁 Free Preview Available</h3>
+                <p className="mb-3">
+                  You have free access to Chapter 1, Lesson 1. Experience our teaching style before purchasing!
                 </p>
-              )}
-            </div>
+                <div className="bg-white text-primary p-4 rounded inline-block">
+                  <div className="text-lg font-semibold">Full Course Access</div>
+                  <div className="text-3xl font-bold">₹99 <span className="text-base font-normal">+ GST ₹17.82</span></div>
+                  <div className="text-sm mt-1">Total: ₹116.82 • Lifetime Access</div>
+                </div>
+                <div className="mt-4">
+                  <Link href="https://www.aienter.in/payments" target="_blank" rel="noopener noreferrer" className="inline-block bg-white text-accent px-8 py-3 rounded-lg font-bold hover:bg-gray-100 transition">
+                    Purchase Full Course →
+                  </Link>
+                </div>
+              </div>
+            )}
+            
+            {hasPurchased && (
+              <div className="bg-green-100 border-2 border-green-500 p-4 rounded-lg mt-4">
+                <p className="text-green-800 font-semibold">
+                  ✓ You have full access to all course content!
+                </p>
+              </div>
+            )}
           </div>
           
-          {/* Test Selection */}
-          <div className="bg-white p-8 rounded-lg shadow-lg mb-8">
-            <h2 className="text-3xl font-bold text-primary mb-6 text-center">Choose Your Assessment Mode</h2>
-            
-            <div className="grid md:grid-cols-2 gap-8">
-              {/* Short Test */}
-              <div className="bg-gradient-to-br from-blue-50 to-white p-8 rounded-2xl shadow-lg border-2 border-blue-200 hover:border-primary transition">
-                <div className="text-center mb-6">
-                  <div className="text-6xl mb-4">⚡</div>
-                  <h3 className="text-3xl font-bold text-primary mb-2">Short Test</h3>
-                  <div className="text-2xl font-bold text-accent mb-4">5 Minutes</div>
+          {/* Course Chapters */}
+          <div className="space-y-6">
+            {courseData.map((chapter) => (
+              <div key={chapter.id} className="bg-white rounded-lg shadow-lg overflow-hidden">
+                <div className="bg-gradient-to-r from-primary to-green-600 text-white p-6">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h2 className="text-2xl font-bold mb-2">
+                        Chapter {chapter.id}: {chapter.title}
+                      </h2>
+                      <p className="text-blue-100">{chapter.description}</p>
+                    </div>
+                    {!hasPurchased && chapter.id > 1 && (
+                      <div className="text-4xl">🔒</div>
+                    )}
+                  </div>
                 </div>
                 
-                <ul className="space-y-3 mb-8 text-gray-700">
-                  <li className="flex items-start">
-                    <span className="text-green-600 mr-2 font-bold">✓</span>
-                    <span>5 modules with 5 questions each (25 total)</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-green-600 mr-2 font-bold">✓</span>
-                    <span>Objective multiple-choice format</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-green-600 mr-2 font-bold">✓</span>
-                    <span>AI-generated from reliable sources</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-green-600 mr-2 font-bold">✓</span>
-                    <span>Quick insights into your strengths</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-green-600 mr-2 font-bold">✓</span>
-                    <span>Concise AI-generated report</span>
-                  </li>
-                </ul>
-                
-                <button
-                  onClick={() => startTest('short')}
-                  className="w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white py-4 rounded-lg font-bold text-lg shadow-lg hover:shadow-xl transition-all transform hover:scale-105"
-                >
-                  Start Short Test
-                </button>
-              </div>
-              
-              {/* Elaborate Test */}
-              <div className="bg-gradient-to-br from-purple-50 to-white p-8 rounded-2xl shadow-lg border-2 border-purple-200 hover:border-accent transition">
-                <div className="text-center mb-6">
-                  <div className="text-6xl mb-4">🎯</div>
-                  <h3 className="text-3xl font-bold text-accent mb-2">Elaborate Test</h3>
-                  <div className="text-2xl font-bold text-primary mb-4">20 Minutes</div>
+                <div className="p-6">
+                  <div className="space-y-3">
+                    {chapter.lessons.map((lesson) => {
+                      const isAccessible = (chapter.id === 1 && lesson.id === 1) || hasPurchased
+                      const isFreeLesson = chapter.id === 1 && lesson.id === 1
+                      
+                      return (
+                        <button
+                          key={lesson.id}
+                          onClick={() => handleLessonClick(chapter.id, lesson.id, isFreeLesson)}
+                          className={`w-full text-left p-4 rounded-lg border-2 transition ${
+                            isAccessible
+                              ? 'border-green-300 hover:border-green-500 hover:bg-green-50 cursor-pointer'
+                              : 'border-gray-300 bg-gray-50 cursor-not-allowed opacity-75'
+                          }`}
+                        >
+                          <div className="flex items-center justify-between">
+                            <div className="flex-1">
+                              <div className="flex items-center gap-3">
+                                <span className="text-2xl">
+                                  {isAccessible ? '▶️' : '🔒'}
+                                </span>
+                                <div>
+                                  <h3 className="font-semibold text-lg text-charcoal">
+                                    Lesson {lesson.id}: {lesson.title}
+                                  </h3>
+                                  <p className="text-sm text-gray-600">Duration: {lesson.duration}</p>
+                                </div>
+                              </div>
+                            </div>
+                            {isFreeLesson && (
+                              <span className="bg-green-500 text-white px-3 py-1 rounded-full text-sm font-bold">
+                                FREE
+                              </span>
+                            )}
+                            {!isAccessible && !isFreeLesson && (
+                              <span className="bg-gray-400 text-white px-3 py-1 rounded-full text-sm font-bold">
+                                LOCKED
+                              </span>
+                            )}
+                          </div>
+                        </button>
+                      )
+                    })}
+                  </div>
                 </div>
-                
-                <ul className="space-y-3 mb-8 text-gray-700">
-                  <li className="flex items-start">
-                    <span className="text-green-600 mr-2 font-bold">✓</span>
-                    <span>20 modules with 5 questions each (100 total)</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-green-600 mr-2 font-bold">✓</span>
-                    <span>Comprehensive assessment</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-green-600 mr-2 font-bold">✓</span>
-                    <span>Navigable by clicking answers</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-green-600 mr-2 font-bold">✓</span>
-                    <span>In-depth career guidance</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-green-600 mr-2 font-bold">✓</span>
-                    <span>Detailed ~700-word AI report</span>
-                  </li>
-                </ul>
-                
-                <button
-                  onClick={() => startTest('elaborate')}
-                  className="w-full bg-gradient-to-r from-purple-500 to-accent text-white py-4 rounded-lg font-bold text-lg shadow-lg hover:shadow-xl transition-all transform hover:scale-105"
-                >
-                  Start Elaborate Test
-                </button>
               </div>
-            </div>
+            ))}
           </div>
           
-          {/* What We Assess */}
-          <div className="bg-white p-8 rounded-lg shadow-lg">
-            <h2 className="text-3xl font-bold text-primary mb-6">What We Assess</h2>
-            <p className="text-gray-700 mb-6">
-              Our comprehensive assessment evaluates multiple dimensions of your abilities and experiences:
-            </p>
-            
-            <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-4">
-              <div className="bg-blue-50 p-4 rounded-lg">
-                <div className="text-2xl mb-2">🎓</div>
-                <h4 className="font-bold text-primary">Education</h4>
+          {/* Purchase CTA at bottom */}
+          {!hasPurchased && (
+            <div className="mt-8 bg-gradient-to-r from-accent to-purple-700 text-white p-8 rounded-lg shadow-lg text-center">
+              <h2 className="text-3xl font-bold mb-4">Ready to Unlock All Chapters?</h2>
+              <p className="text-xl mb-6">
+                Get lifetime access to all 10 chapters with 30 comprehensive lessons
+              </p>
+              <div className="bg-white text-primary p-6 rounded-lg inline-block mb-6">
+                <div className="text-xl font-semibold mb-2">Book + Course Bundle</div>
+                <div className="text-5xl font-bold mb-2">₹99</div>
+                <div className="text-lg mb-2">+ GST ₹17.82</div>
+                <div className="text-2xl font-bold border-t-2 border-gray-300 pt-2">Total: ₹116.82</div>
               </div>
-              
-              <div className="bg-purple-50 p-4 rounded-lg">
-                <div className="text-2xl mb-2">💪</div>
-                <h4 className="font-bold text-primary">Talents & Skills</h4>
-              </div>
-              
-              <div className="bg-green-50 p-4 rounded-lg">
-                <div className="text-2xl mb-2">👨‍👩‍👧‍👦</div>
-                <h4 className="font-bold text-primary">Family</h4>
-              </div>
-              
-              <div className="bg-yellow-50 p-4 rounded-lg">
-                <div className="text-2xl mb-2">👥</div>
-                <h4 className="font-bold text-primary">Friends</h4>
-              </div>
-              
-              <div className="bg-pink-50 p-4 rounded-lg">
-                <div className="text-2xl mb-2">🌟</div>
-                <h4 className="font-bold text-primary">Influencers</h4>
-              </div>
-              
-              <div className="bg-indigo-50 p-4 rounded-lg">
-                <div className="text-2xl mb-2">🎯</div>
-                <h4 className="font-bold text-primary">Interests</h4>
-              </div>
-              
-              <div className="bg-red-50 p-4 rounded-lg">
-                <div className="text-2xl mb-2">🧠</div>
-                <h4 className="font-bold text-primary">Cognitive Abilities</h4>
-              </div>
-              
-              <div className="bg-orange-50 p-4 rounded-lg">
-                <div className="text-2xl mb-2">💼</div>
-                <h4 className="font-bold text-primary">Career Goals</h4>
+              <div>
+                <Link href="https://www.aienter.in/payments" target="_blank" rel="noopener noreferrer" className="inline-block bg-white text-accent px-12 py-4 rounded-lg font-bold text-xl hover:bg-gray-100 transition shadow-lg">
+                  Purchase Now →
+                </Link>
               </div>
             </div>
-          </div>
+          )}
         </div>
       </main>
-      
     </>
   )
 }

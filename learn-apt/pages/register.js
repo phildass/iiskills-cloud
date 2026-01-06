@@ -123,8 +123,8 @@ export default function Register() {
   return (
     <>
       <Head>
-        <title>Sign In - Learn-Apt</title>
-        <meta name="description" content="Create your account for Learn-Apt assessment" />
+        <title>Register - Learn-Apt</title>
+        <meta name="description" content="Create your account for Learn-Apt" />
       </Head>
       
       <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 py-12 px-4">

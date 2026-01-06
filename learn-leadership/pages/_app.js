@@ -2,6 +2,7 @@ import '../styles/globals.css'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import SharedNavbar from '../../components/shared/SharedNavbar'
+import SubdomainNavbar from '../../components/shared/SubdomainNavbar'
 import Footer from '../components/Footer'
 import { getCurrentUser, signOutUser } from '../lib/supabaseClient'
 
@@ -26,6 +27,30 @@ export default function App({ Component, pageProps }) {
     }
   }
 
+  // Define subdomain-specific navigation sections
+  const subdomainSections = [
+    {
+      label: 'Home',
+      href: '/',
+      description: 'Welcome to Learn Leadership'
+    },
+    {
+      label: 'Learning Content',
+      href: '/learn',
+      description: 'Access Leadership development materials'
+    },
+    {
+      label: 'Login',
+      href: '/login',
+      description: 'Access your account'
+    },
+    {
+      label: 'Register',
+      href: '/register',
+      description: 'Create a new account'
+    }
+  ]
+
   return (
     <>
       <SharedNavbar 
@@ -42,6 +67,10 @@ export default function App({ Component, pageProps }) {
           { href: 'https://iiskills.cloud/about', label: 'About', className: 'hover:text-primary transition' },
           { href: 'https://iiskills.cloud/terms', label: 'Terms & Conditions', className: 'hover:text-primary transition' }
         ]}
+      />
+      <SubdomainNavbar
+        subdomainName="Learn Leadership"
+        sections={subdomainSections}
       />
       <Component {...pageProps} />
       <Footer />

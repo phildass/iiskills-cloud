@@ -14,6 +14,7 @@ learn-management.iiskills.cloud        - Port 3005
 learn-leadership.iiskills.cloud        - Port 3006
 learn-ai.iiskills.cloud                - Port 3007
 learn-pr.iiskills.cloud                - Port 3008
+learn-geography.iiskills.cloud         - Port 3009
 ```
 
 All apps share the same Supabase authentication backend for cross-subdomain single sign-on.
@@ -87,6 +88,7 @@ Configure domain for each:
 - `learn-leadership.iiskills.cloud`
 - `learn-ai.iiskills.cloud`
 - `learn-pr.iiskills.cloud`
+- `learn-geography.iiskills.cloud`
 
 **Vercel Environment Variables:**
 - Add all environment variables in the Vercel dashboard for each project
@@ -127,6 +129,9 @@ npm install && npm run build
 
 cd /path/to/iiskills-cloud/learn-pr
 npm install && npm run build
+
+cd /path/to/iiskills-cloud/learn-geography
+npm install && npm run build
 ```
 
 #### 2. Set Up PM2
@@ -156,6 +161,7 @@ This will start:
 - iiskills-learn-leadership (port 3006)
 - iiskills-learn-ai (port 3007)
 - iiskills-learn-pr (port 3008)
+- iiskills-learn-geography (port 3009)
 
 #### 3. Configure Nginx
 
@@ -249,7 +255,7 @@ server {
 }
 
 # Repeat for other modules (learn-winning:3003, learn-data-science:3004, 
-# learn-management:3005, learn-leadership:3006, learn-ai:3007, learn-pr:3008)
+# learn-management:3005, learn-leadership:3006, learn-ai:3007, learn-pr:3008, learn-geography:3009)
 # Following the same pattern as above
 ```
 
@@ -283,6 +289,7 @@ sudo certbot --nginx -d learn-management.iiskills.cloud
 sudo certbot --nginx -d learn-leadership.iiskills.cloud
 sudo certbot --nginx -d learn-ai.iiskills.cloud
 sudo certbot --nginx -d learn-pr.iiskills.cloud
+sudo certbot --nginx -d learn-geography.iiskills.cloud
 
 # Or get all certificates at once with a wildcard (requires DNS challenge):
 sudo certbot certonly --manual --preferred-challenges dns \

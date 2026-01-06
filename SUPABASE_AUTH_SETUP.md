@@ -14,10 +14,13 @@ This guide explains how to set up and use Supabase authentication in the iiskill
 
 The application now uses Supabase for secure authentication, replacing the previous localStorage mock implementation. Key features include:
 
-- **Email/Password Authentication**: Secure sign-up and sign-in
+- **Magic Link (Passwordless) Authentication**: Send secure sign-in links via email - no password needed
+- **Google OAuth**: One-click sign-in with Google accounts
+- **Email/Password Authentication**: Traditional secure sign-up and sign-in (fallback option)
 - **Email Confirmation**: Users receive a confirmation email upon registration
-- **Session Management**: Automatic session persistence
+- **Session Management**: Automatic session persistence across subdomains
 - **Protected Routes**: Components to restrict access to authenticated users only
+- **Admin Role-Based Access**: Secure admin dashboard access with role verification
 - **Logout Functionality**: Users can sign out from any page
 - **User State in Navbar**: Shows logged-in user's email and logout button
 
@@ -64,6 +67,7 @@ The application now uses Supabase for secure authentication, replacing the previ
 
    **Email Settings:**
    - Enable "Confirm email"
+   - Enable "Email OTP" for magic link authentication
    - Disable "Secure email change" (optional, for easier testing)
    
    **Site URL:**
@@ -72,11 +76,42 @@ The application now uses Supabase for secure authentication, replacing the previ
    
    **Redirect URLs:** Add these allowed redirect URLs:
    - `http://localhost:3000/**`
+   - `http://localhost:3001/**` (for learn-apt)
    - `https://iiskills.cloud/**`
+   - `https://learn-apt.iiskills.cloud/**`
 
-3. Customize email templates (optional):
+3. **Enable Google OAuth Provider:**
+   - Go to **Authentication** → **Providers**
+   - Find "Google" and enable it
+   - Add your Google OAuth credentials:
+     - Go to [Google Cloud Console](https://console.cloud.google.com/)
+     - Create a new project or use existing
+     - Enable Google+ API
+     - Create OAuth 2.0 credentials
+     - Add authorized redirect URIs from Supabase (shown in provider settings)
+     - Copy Client ID and Client Secret to Supabase
+   
+4. Customize email templates (optional):
    - Go to **Authentication** → **Email Templates**
    - Customize "Confirm signup" email
+   - Customize "Magic Link" email for better branding
+
+### Step 4a: Configure Admin Roles
+
+To enable admin access, you need to set the admin role in user metadata:
+
+1. Go to **Authentication** → **Users** in Supabase dashboard
+2. Find the user you want to make an admin
+3. Click on the user to edit
+4. In the "User Metadata" or "App Metadata" section, add:
+   ```json
+   {
+     "role": "admin"
+   }
+   ```
+5. Save the changes
+
+Now that user can access admin pages across all apps.
 
 ### Step 5: Optional - Create Profiles Table
 
@@ -160,21 +195,52 @@ Users can register at `/register`:
 - Click the link in the email to confirm
 - Sign in at `/login`
 
-### 2. User Login
+### 2. User Login - Multiple Options
 
-Users can log in at `/login`:
+Users have three ways to log in at `/login`:
+
+**Option A: Magic Link (Recommended)**
+- Click "Use magic link instead" if not already selected
+- Enter email address
+- Click "Send Me a Sign-In Link"
+- Check email for secure sign-in link
+- Click the link to sign in automatically
+- No password needed!
+
+**Option B: Google OAuth**
+- Click "Continue with Google" button
+- Sign in with your Google account
+- Automatically redirected after authentication
+
+**Option C: Email & Password**
+- Click "Use password instead" if magic link is selected
 - Enter email and password
-- Click "Sign In"
+- Click "Sign In with Password"
 - Redirected to homepage (or to the page they were trying to access)
 
-### 3. Logout
+### 3. Admin Login
+
+Admin users can access `/admin/login` with any of the three methods:
+- Magic link, Google OAuth, or password
+- Must have admin role in Supabase user metadata
+- After authentication, role is verified on backend
+- Only users with admin role can access admin dashboard
+
+### 4. Forgot Password?
+
+Users who forgot their password can:
+- Use the Magic Link option to sign in without a password
+- Or use Google OAuth if they signed up with Google
+- No password reset needed for magic link users!
+
+### 5. Logout
 
 Users can logout from any page:
 - The Navbar shows the user's email when logged in
 - Click the "Logout" button
 - Redirected to `/login`
 
-### 4. Protecting a Page
+### 6. Protecting a Page
 
 To make a page require authentication:
 
@@ -194,7 +260,7 @@ export default function MyProtectedPage() {
 
 Example: See `pages/dashboard.js`
 
-### 5. Getting Current User in a Component
+### 7. Getting Current User in a Component
 
 ```javascript
 import { useState, useEffect } from 'react'
@@ -224,7 +290,36 @@ export default function MyComponent() {
 }
 ```
 
-### 6. Manual Login (in custom component)
+### 8. Manual Login with Magic Link (in custom component)
+
+```javascript
+import { sendMagicLink } from '../lib/supabaseClient'
+
+const handleMagicLinkLogin = async () => {
+  const { success, error } = await sendMagicLink(email)
+  if (error) {
+    console.error('Failed to send magic link:', error)
+  } else {
+    console.log('Magic link sent! Check your email.')
+  }
+}
+```
+
+### 9. Manual Login with Google OAuth (in custom component)
+
+```javascript
+import { signInWithGoogle } from '../lib/supabaseClient'
+
+const handleGoogleLogin = async () => {
+  const { success, error } = await signInWithGoogle()
+  if (error) {
+    console.error('Google login failed:', error)
+  }
+  // OAuth will redirect automatically on success
+}
+```
+
+### 10. Manual Login with Password (in custom component)
 
 ```javascript
 import { signInWithEmail } from '../lib/supabaseClient'
@@ -239,7 +334,22 @@ const handleLogin = async () => {
 }
 ```
 
-### 7. Manual Logout (in custom component)
+### 11. Check Admin Role (in custom component)
+
+```javascript
+import { getCurrentUser, isAdmin } from '../lib/supabaseClient'
+
+const checkAdminAccess = async () => {
+  const user = await getCurrentUser()
+  if (user && isAdmin(user)) {
+    console.log('User has admin access')
+  } else {
+    console.log('User does not have admin access')
+  }
+}
+```
+
+### 12. Manual Logout (in custom component)
 
 ```javascript
 import { signOutUser } from '../lib/supabaseClient'

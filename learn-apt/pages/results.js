@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import Head from 'next/head'
 import Footer from '../../components/Footer'
 import { getCurrentUser, signOutUser, getUserProfile } from '../lib/supabaseClient'
+import PaidUserProtectedRoute from '../../components/PaidUserProtectedRoute'
 
 /**
  * Results Page
@@ -76,7 +77,7 @@ Your cognitive abilities and learning style suggest you would benefit from a mix
   }
 }
 
-export default function Results() {
+function ResultsContent() {
   const router = useRouter()
   const { mode, answers: answersStr, timeSpent, totalQuestions } = router.query
   const [user, setUser] = useState(null)
@@ -101,13 +102,10 @@ export default function Results() {
   const checkAuth = async () => {
     const currentUser = await getCurrentUser()
     
-    if (!currentUser) {
-      router.push('/login')
-      return
+    if (currentUser) {
+      setUser(currentUser)
+      setUserProfile(getUserProfile(currentUser))
     }
-    
-    setUser(currentUser)
-    setUserProfile(getUserProfile(currentUser))
     setIsLoading(false)
   }
 
@@ -383,5 +381,13 @@ export default function Results() {
       </main>
       
     </>
+  )
+}
+
+export default function Results() {
+  return (
+    <PaidUserProtectedRoute>
+      <ResultsContent />
+    </PaidUserProtectedRoute>
   )
 }
