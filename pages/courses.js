@@ -1593,7 +1593,7 @@ export default function Courses() {
               {comingSoonCourses.map(course => {
                 const freeModule = course.modules?.find(m => m.isFree)
                 return (
-                  <div key={course.id} className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition relative opacity-90 border-2 border-orange-200">
+                   <div key={course.id} className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition relative opacity-90 border-2 border-orange-200">
                     {/* Coming Soon Badge */}
                     <div className="absolute top-4 right-4 bg-orange-500 text-white px-3 py-1 rounded-full text-sm font-bold z-10 shadow-lg">
                       Coming Soon
@@ -1619,19 +1619,15 @@ export default function Courses() {
                         <span className="font-semibold text-accent">{course.level}</span>
                       </div>
                       
-                      {/* Pricing Information */}
-                      {!course.isFree && (
-                        <div className="bg-blue-50 border border-blue-200 rounded p-3 mb-4">
-                          <p className="text-sm text-blue-800 font-semibold">
-                            💳 Price: {pricing.totalPrice}
-                          </p>
-                          {pricing.isIntroductory && (
-                            <p className="text-xs text-blue-700 mt-1">
-                              Introductory offer until {pricing.introEndDate}
-                            </p>
-                          )}
-                        </div>
-                      )}
+                      {/* Coming Soon - No Pricing Display */}
+                      <div className="bg-orange-50 border border-orange-200 rounded p-3 mb-4">
+                        <p className="text-sm text-orange-800 font-semibold">
+                          🔔 This course is currently in development
+                        </p>
+                        <p className="text-xs text-orange-700 mt-1">
+                          Get notified when it launches!
+                        </p>
+                      </div>
                       
                       {/* Free sample module indicator */}
                       {freeModule && (
@@ -1656,8 +1652,8 @@ export default function Courses() {
                         </div>
                       )}
                       
-                      <button className="w-full bg-accent text-white py-3 rounded font-bold hover:bg-purple-600 transition">
-                        {course.isFree ? 'Notify Me' : 'Notify When Available'}
+                      <button className="w-full bg-orange-500 text-white py-3 rounded font-bold hover:bg-orange-600 transition">
+                        🔔 Notify When Available
                       </button>
                     </div>
                   </div>
