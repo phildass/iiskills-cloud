@@ -1650,7 +1650,7 @@ export default function Courses() {
                       {/* Audio Download Feature */}
                       {course.hasAudioDownload && (
                         <div className="bg-blue-50 border border-blue-200 rounded p-3 mb-4">
-                          <p className="text-sm text-blue-808 font-semibold flex items-center">
+                          <p className="text-sm text-blue-800 font-semibold flex items-center">
                             🎧 Includes Audio Download
                           </p>
                         </div>
