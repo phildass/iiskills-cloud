@@ -36,8 +36,9 @@ This repository contains multiple Next.js applications:
 
 - **Learn-NEET** (`/learn-neet/`) - Comprehensive NEET preparation (2-year paid subscription)
 - **Learn-Physics** (`/learn-physics/`) - Physics mastery with AI-driven lessons
+- **Learn-IAS** (`/learn-ias/`) - UPSC Civil Services preparation with AI-powered content (₹116.82/year)
 
-
+- **Learn-Government-Jobs** (`/learn-govt-jobs/`) - Government job exam preparation
 
 Each app can be deployed independently on different subdomains while sharing authentication.
 
@@ -87,7 +88,8 @@ All learning modules follow the same structure. See individual README files for 
 
 - [learn-neet/README.md](learn-neet/README.md) - Port 3009
 - [learn-physics/README.md](learn-physics/README.md) - Port 3009
-
+- [learn-ias/README.md](learn-ias/README.md) - Port 3015
+- [learn-govt-jobs/README.md](learn-govt-jobs/README.md) - Port 3014
 
 Quick start for any module:
 ```bash
