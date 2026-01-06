@@ -2,6 +2,16 @@
 
 This guide explains how to set up and use Supabase authentication in the iiskills.cloud Next.js application.
 
+## 🌟 Universal Authentication
+
+**Important:** All iiskills.cloud apps (main site + all subdomains) use the **SAME** Supabase project. This enables:
+- ✅ **Single registration** - Register on any app, access all apps
+- ✅ **Universal login** - Login credentials work everywhere
+- ✅ **Cross-subdomain sessions** - Login once, stay logged in across all apps
+- ✅ **Centralized user management** - All users in one database
+
+For a complete understanding of the authentication architecture, see [AUTHENTICATION_ARCHITECTURE.md](AUTHENTICATION_ARCHITECTURE.md).
+
 ## Table of Contents
 1. [Overview](#overview)
 2. [Setup Instructions](#setup-instructions)

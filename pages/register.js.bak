@@ -1,16 +1,12 @@
-import { useState, useEffect } from 'react'
-import { useRouter } from 'next/router'
 import Head from 'next/head'
-import Link from 'next/link'
-import { genderOptions, educationLevels, countries, indianStates } from '../utils/data'
-// Import Supabase client for user registration
-import { supabase } from '../lib/supabaseClient'
+import UniversalRegister from '../components/shared/UniversalRegister'
 
 /**
- * Registration Page Component with Supabase Auth
+ * Registration Page for Main App
  * 
- * This page allows new users to create an account using Supabase authentication.
- * User profile information is stored in Supabase user metadata.
+ * This page uses the UniversalRegister component to provide
+ * a standardized registration experience. Users registered here
+ * can access all iiskills.cloud apps and subdomains.
  */
 export default function Register() {
   const [formData, setFormData] = useState({
