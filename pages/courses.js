@@ -2,6 +2,55 @@ import { useState } from 'react'
 import Head from 'next/head'
 import { getPricingDisplay, getIntroOfferNotice } from '../utils/pricing'
 
+// List of available subdomain courses (13 total)
+// To add a new available course, simply add its subdomain name to this array
+const AVAILABLE_SUBDOMAINS = [
+  'learn-ai',
+  'learn-apt',
+  'learn-chemistry',
+  'learn-data-science',
+  'learn-geography',
+  'learn-jee',
+  'learn-leadership',
+  'learn-management',
+  'learn-math',
+  'learn-neet',
+  'learn-physics',
+  'learn-pr',
+  'learn-winning'
+]
+
+// Mapping for courses with names that don't directly match subdomain
+const COURSE_NAME_TO_SUBDOMAIN = {
+  'aptitude': 'apt',      // "Learn Aptitude" -> learn-apt
+  'maths': 'math',        // "Learn Maths" -> learn-math
+  'mathematics': 'math'   // "Learn Mathematics" -> learn-math
+}
+
+// Helper function to check if a course is available based on its name
+function isCourseAvailable(courseName) {
+  // Convert course name to subdomain format (e.g., "Learn AI" -> "learn-ai")
+  // Remove suffixes like "– Free", "– From the book", etc.
+  const cleanName = courseName
+    .replace(/\s*[–-]\s*(Free|From the book)$/i, '') // Remove suffix
+    .trim()
+  
+  let subdomain = cleanName
+    .toLowerCase()
+    .replace(/\s+/g, '-')
+    .replace(/–/g, '-') // Replace en-dash with hyphen
+    .replace(/[^\w-]/g, '') // Remove special characters except hyphens
+    .replace(/^learn-/, '') // Remove 'learn-' prefix if exists
+  
+  // Apply special mappings
+  if (COURSE_NAME_TO_SUBDOMAIN[subdomain]) {
+    subdomain = COURSE_NAME_TO_SUBDOMAIN[subdomain]
+  }
+  
+  const fullSubdomain = `learn-${subdomain}`
+  return AVAILABLE_SUBDOMAINS.includes(fullSubdomain)
+}
+
 const coursesData = [
   {
     id: 1,
@@ -49,6 +98,50 @@ const coursesData = [
   },
   {
     id: 3,
+    name: "Learn Data Science",
+    category: "Data Science & AI/ML",
+    description: "Master data analysis, statistics, machine learning, and data visualization to extract insights from data and drive informed business decisions.",
+    duration: "10 weeks",
+    level: "Beginner",
+    comingSoon: false,
+    isFree: false,
+    modules: [
+      { id: 1, title: "Introduction to Data Science", isFree: true },
+      { id: 2, title: "Python for Data Analysis", isFree: false },
+      { id: 3, title: "Statistics Fundamentals", isFree: false },
+      { id: 4, title: "Data Cleaning and Preparation", isFree: false },
+      { id: 5, title: "Exploratory Data Analysis", isFree: false },
+      { id: 6, title: "Data Visualization", isFree: false },
+      { id: 7, title: "Machine Learning Basics", isFree: false },
+      { id: 8, title: "Predictive Modeling", isFree: false },
+      { id: 9, title: "Big Data Concepts", isFree: false },
+      { id: 10, title: "Data Science Projects", isFree: false }
+    ]
+  },
+  {
+    id: 4,
+    name: "Learn Leadership",
+    category: "Professional Skills",
+    description: "Develop essential leadership skills including vision setting, team motivation, strategic thinking, and inspiring others to achieve excellence.",
+    duration: "10 weeks",
+    level: "Intermediate",
+    comingSoon: false,
+    isFree: false,
+    modules: [
+      { id: 1, title: "Leadership Fundamentals", isFree: true },
+      { id: 2, title: "Vision and Strategy", isFree: false },
+      { id: 3, title: "Team Motivation", isFree: false },
+      { id: 4, title: "Communication for Leaders", isFree: false },
+      { id: 5, title: "Decision Making", isFree: false },
+      { id: 6, title: "Conflict Resolution", isFree: false },
+      { id: 7, title: "Change Leadership", isFree: false },
+      { id: 8, title: "Building High-Performance Teams", isFree: false },
+      { id: 9, title: "Emotional Intelligence in Leadership", isFree: false },
+      { id: 10, title: "Leading with Impact", isFree: false }
+    ]
+  },
+  {
+    id: 5,
     name: "Learn English",
     category: "Language",
     description: "Improve your English language skills for professional and personal success. Focus on grammar, vocabulary, communication, and fluency.",
@@ -1315,6 +1408,26 @@ export default function Courses() {
     return matchesCategory && matchesLevel
   })
 
+  // Split courses into available and coming soon, removing duplicates
+  const seenCourseIds = new Set()
+  const availableCourses = []
+  const comingSoonCourses = []
+  
+  filteredCourses.forEach(course => {
+    // Skip duplicates
+    if (seenCourseIds.has(course.id)) {
+      return
+    }
+    seenCourseIds.add(course.id)
+    
+    // Check if course is available based on subdomain
+    if (isCourseAvailable(course.name)) {
+      availableCourses.push(course)
+    } else {
+      comingSoonCourses.push(course)
+    }
+  })
+
   return (
     <>
       <Head>
@@ -1371,85 +1484,200 @@ export default function Courses() {
           </div>
         </div>
 
-        {/* Course Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-          {filteredCourses.map(course => {
-            const freeModule = course.modules?.find(m => m.isFree)
-            return (
-            <div key={course.id} className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition relative">
-              {/* Coming Soon Badge */}
-              {course.comingSoon && (
-                <div className="absolute top-4 right-4 bg-accent text-white px-3 py-1 rounded-full text-sm font-bold z-10">
-                  Coming Soon
-                </div>
-              )}
-              
-              {/* Free Badge */}
-              {course.isFree && (
-                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-green-500 bg-opacity-90 backdrop-blur-sm text-white px-6 py-3 rounded-full text-2xl font-bold z-20 shadow-2xl blink-animation">
-                  FREE
-                </div>
-              )}
-              
-              <div className="bg-gradient-to-r from-primary to-accent p-4">
-                <span className="text-white text-sm font-semibold">{course.category}</span>
-              </div>
-              
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-primary mb-2">{course.name}</h3>
-                <p className="text-charcoal mb-4 text-sm">{course.description}</p>
-                
-                <div className="flex justify-between text-sm text-gray-600 mb-4">
-                  <span>⏱️ {course.duration}</span>
-                  <span className="font-semibold text-accent">{course.level}</span>
-                </div>
-                
-                {/* Pricing Information */}
-                {!course.isFree && (
-                  <div className="bg-blue-50 border border-blue-200 rounded p-3 mb-4">
-                    <p className="text-sm text-blue-800 font-semibold">
-                      💳 Price: {pricing.totalPrice}
-                    </p>
-                    {pricing.isIntroductory && (
-                      <p className="text-xs text-blue-700 mt-1">
-                        Introductory offer until {pricing.introEndDate}
-                      </p>
-                    )}
-                  </div>
-                )}
-                
-                {/* Free sample module indicator */}
-                {freeModule && (
-                  <div className="bg-green-50 border border-green-200 rounded p-3 mb-4">
-                    <p className="text-sm text-green-800 font-semibold mb-1">
-                      🎁 Free Sample: {freeModule.title}
-                    </p>
-                    {freeModule.summary && (
-                      <p className="text-xs text-green-700 mt-1">
-                        {freeModule.summary}
-                      </p>
-                    )}
-                  </div>
-                )}
-                
-                {/* Audio Download Feature */}
-                {course.hasAudioDownload && (
-                  <div className="bg-blue-50 border border-blue-200 rounded p-3 mb-4">
-                    <p className="text-sm text-blue-800 font-semibold flex items-center">
-                      🎧 Includes Audio Download
-                    </p>
-                  </div>
-                )}
-                
-                <button className="w-full bg-accent text-white py-3 rounded font-bold hover:bg-purple-600 transition">
-                  {course.isFree ? 'Start Free Course' : 'Enroll Now'}
-                </button>
-              </div>
+        {/* Legend */}
+        <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg shadow p-6 mb-8 border-2 border-blue-200">
+          <h3 className="text-lg font-bold text-primary mb-4">Course Availability Legend</h3>
+          <div className="flex flex-wrap gap-6">
+            <div className="flex items-center gap-2">
+              <span className="bg-green-500 text-white px-4 py-2 rounded-full text-sm font-bold shadow-md">
+                Currently Available
+              </span>
+              <span className="text-gray-700">- Ready to enroll and start learning</span>
             </div>
-          )})}
+            <div className="flex items-center gap-2">
+              <span className="bg-orange-500 text-white px-4 py-2 rounded-full text-sm font-bold shadow-md">
+                Coming Soon
+              </span>
+              <span className="text-gray-700">- In development, will be available soon</span>
+            </div>
+          </div>
         </div>
 
-        {filteredCourses.length === 0 && (
+        {/* Available Courses Section */}
+        {availableCourses.length > 0 && (
+          <div className="mb-12">
+            <h2 className="text-3xl font-bold text-primary mb-6 flex items-center gap-3">
+              <span className="bg-green-500 text-white px-4 py-2 rounded-full text-base font-bold shadow-md">
+                Currently Available
+              </span>
+              <span>({availableCourses.length} {availableCourses.length === 1 ? 'course' : 'courses'})</span>
+            </h2>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {availableCourses.map(course => {
+                const freeModule = course.modules?.find(m => m.isFree)
+                return (
+                  <div key={course.id} className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition relative border-2 border-green-200">
+                    {/* Available Badge */}
+                    <div className="absolute top-4 right-4 bg-green-500 text-white px-3 py-1 rounded-full text-sm font-bold z-10 shadow-lg">
+                      Available Now
+                    </div>
+                    
+                    {/* Free Badge */}
+                    {course.isFree && (
+                      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-green-600 bg-opacity-90 backdrop-blur-sm text-white px-6 py-3 rounded-full text-2xl font-bold z-20 shadow-2xl blink-animation">
+                        FREE
+                      </div>
+                    )}
+                    
+                    <div className="bg-gradient-to-r from-green-500 to-green-600 p-4">
+                      <span className="text-white text-sm font-semibold">{course.category}</span>
+                    </div>
+                    
+                    <div className="p-6">
+                      <h3 className="text-xl font-bold text-primary mb-2">{course.name}</h3>
+                      <p className="text-charcoal mb-4 text-sm">{course.description}</p>
+                      
+                      <div className="flex justify-between text-sm text-gray-600 mb-4">
+                        <span>⏱️ {course.duration}</span>
+                        <span className="font-semibold text-accent">{course.level}</span>
+                      </div>
+                      
+                      {/* Pricing Information */}
+                      {!course.isFree && (
+                        <div className="bg-blue-50 border border-blue-200 rounded p-3 mb-4">
+                          <p className="text-sm text-blue-800 font-semibold">
+                            💳 Price: {pricing.totalPrice}
+                          </p>
+                          {pricing.isIntroductory && (
+                            <p className="text-xs text-blue-700 mt-1">
+                              Introductory offer until {pricing.introEndDate}
+                            </p>
+                          )}
+                        </div>
+                      )}
+                      
+                      {/* Free sample module indicator */}
+                      {freeModule && (
+                        <div className="bg-green-50 border border-green-200 rounded p-3 mb-4">
+                          <p className="text-sm text-green-800 font-semibold mb-1">
+                            🎁 Free Sample: {freeModule.title}
+                          </p>
+                          {freeModule.summary && (
+                            <p className="text-xs text-green-700 mt-1">
+                              {freeModule.summary}
+                            </p>
+                          )}
+                        </div>
+                      )}
+                      
+                      {/* Audio Download Feature */}
+                      {course.hasAudioDownload && (
+                        <div className="bg-blue-50 border border-blue-200 rounded p-3 mb-4">
+                          <p className="text-sm text-blue-800 font-semibold flex items-center">
+                            🎧 Includes Audio Download
+                          </p>
+                        </div>
+                      )}
+                      
+                      <button className="w-full bg-green-600 text-white py-3 rounded font-bold hover:bg-green-700 transition">
+                        {course.isFree ? 'Start Free Course' : 'Enroll Now'}
+                      </button>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+        )}
+
+        {/* Coming Soon Courses Section */}
+        {comingSoonCourses.length > 0 && (
+          <div className="mb-12">
+            <h2 className="text-3xl font-bold text-primary mb-6 flex items-center gap-3">
+              <span className="bg-orange-500 text-white px-4 py-2 rounded-full text-base font-bold shadow-md">
+                Coming Soon
+              </span>
+              <span>({comingSoonCourses.length} {comingSoonCourses.length === 1 ? 'course' : 'courses'})</span>
+            </h2>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {comingSoonCourses.map(course => {
+                const freeModule = course.modules?.find(m => m.isFree)
+                return (
+                  <div key={course.id} className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition relative opacity-90 border-2 border-orange-200">
+                    {/* Coming Soon Badge */}
+                    <div className="absolute top-4 right-4 bg-orange-500 text-white px-3 py-1 rounded-full text-sm font-bold z-10 shadow-lg">
+                      Coming Soon
+                    </div>
+                    
+                    {/* Free Badge */}
+                    {course.isFree && (
+                      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-green-600 bg-opacity-90 backdrop-blur-sm text-white px-6 py-3 rounded-full text-2xl font-bold z-20 shadow-2xl blink-animation">
+                        FREE
+                      </div>
+                    )}
+                    
+                    <div className="bg-gradient-to-r from-primary to-accent p-4">
+                      <span className="text-white text-sm font-semibold">{course.category}</span>
+                    </div>
+                    
+                    <div className="p-6">
+                      <h3 className="text-xl font-bold text-primary mb-2">{course.name}</h3>
+                      <p className="text-charcoal mb-4 text-sm">{course.description}</p>
+                      
+                      <div className="flex justify-between text-sm text-gray-600 mb-4">
+                        <span>⏱️ {course.duration}</span>
+                        <span className="font-semibold text-accent">{course.level}</span>
+                      </div>
+                      
+                      {/* Pricing Information */}
+                      {!course.isFree && (
+                        <div className="bg-blue-50 border border-blue-200 rounded p-3 mb-4">
+                          <p className="text-sm text-blue-800 font-semibold">
+                            💳 Price: {pricing.totalPrice}
+                          </p>
+                          {pricing.isIntroductory && (
+                            <p className="text-xs text-blue-700 mt-1">
+                              Introductory offer until {pricing.introEndDate}
+                            </p>
+                          )}
+                        </div>
+                      )}
+                      
+                      {/* Free sample module indicator */}
+                      {freeModule && (
+                        <div className="bg-green-50 border border-green-200 rounded p-3 mb-4">
+                          <p className="text-sm text-green-800 font-semibold mb-1">
+                            🎁 Free Sample: {freeModule.title}
+                          </p>
+                          {freeModule.summary && (
+                            <p className="text-xs text-green-700 mt-1">
+                              {freeModule.summary}
+                            </p>
+                          )}
+                        </div>
+                      )}
+                      
+                      {/* Audio Download Feature */}
+                      {course.hasAudioDownload && (
+                        <div className="bg-blue-50 border border-blue-200 rounded p-3 mb-4">
+                          <p className="text-sm text-blue-808 font-semibold flex items-center">
+                            🎧 Includes Audio Download
+                          </p>
+                        </div>
+                      )}
+                      
+                      <button className="w-full bg-accent text-white py-3 rounded font-bold hover:bg-purple-600 transition">
+                        {course.isFree ? 'Notify Me' : 'Notify When Available'}
+                      </button>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+        )}
+
+        {availableCourses.length === 0 && comingSoonCourses.length === 0 && (
           <div className="text-center py-12">
             <p className="text-xl text-gray-600">No courses found matching your filters.</p>
           </div>
