@@ -3,6 +3,16 @@
 Professional, scalable business site built with Next.js + Tailwind CSS  
 Inspired by iiskills.in and customized for the Indian Institute of Professional Skills Development.
 
+## 🌟 New to iiskills.cloud?
+
+**See our [ONBOARDING.md](ONBOARDING.md) guide to get started!**
+
+Learn how to:
+- Create your account once and access all apps
+- Use universal login across the entire platform
+- Choose from multiple sign-in methods
+- Navigate between different learning modules seamlessly
+
 ## Project Structure
 
 This repository contains multiple Next.js applications:
@@ -228,6 +238,10 @@ See [NAVIGATION_AUTH_GUIDE.md](NAVIGATION_AUTH_GUIDE.md) for complete navigation
 
 ## Documentation
 
+### For Users
+- [ONBOARDING.md](ONBOARDING.md) - **Getting started guide for new users**
+
+### For Developers
 - [AUTHENTICATION_ARCHITECTURE.md](AUTHENTICATION_ARCHITECTURE.md) - **Complete guide to universal authentication system**
 - [NAVIGATION_AUTH_GUIDE.md](NAVIGATION_AUTH_GUIDE.md) - **Navigation and authentication flow guide**
 - [DEPLOYMENT.md](DEPLOYMENT.md) - Comprehensive deployment guide
