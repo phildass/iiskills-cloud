@@ -26,6 +26,22 @@ The iiskills-cloud repository contains 17 independent Next.js applications that 
 
 ## Prerequisites
 
+### 0. Validate Configuration (Optional but Recommended)
+
+Before starting deployment, validate the ecosystem configuration:
+
+```bash
+node validate-ecosystem.js
+```
+
+This will check for:
+- Configuration structure validity
+- Required fields in each app config
+- Directory and package.json existence
+- Duplicate app names
+- Port conflicts
+- Cross-platform path compatibility
+
 ### 1. Node.js and npm
 
 Ensure Node.js (v18 or higher recommended) and npm are installed:
