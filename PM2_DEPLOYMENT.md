@@ -1,0 +1,454 @@
+# PM2 Deployment Guide for iiskills-cloud
+
+This guide provides comprehensive instructions for deploying all iiskills.cloud applications using PM2 process manager.
+
+## Table of Contents
+
+- [Overview](#overview)
+- [Prerequisites](#prerequisites)
+- [Port Assignments](#port-assignments)
+- [Installation](#installation)
+- [Deployment](#deployment)
+- [Management Commands](#management-commands)
+- [Troubleshooting](#troubleshooting)
+- [Per-App Configuration Notes](#per-app-configuration-notes)
+
+## Overview
+
+The iiskills-cloud repository contains 17 independent Next.js applications that can be managed collectively using PM2. The `ecosystem.config.js` file in the root directory provides a complete configuration for all applications.
+
+### Application Architecture
+
+- **Main App**: Core iiskills.cloud website
+- **15 Learn Modules**: Specialized learning applications (Math, AI, JEE, NEET, etc.)
+- All apps share authentication but run independently
+- Each app runs on a unique port for multi-instance deployment
+
+## Prerequisites
+
+### 1. Node.js and npm
+
+Ensure Node.js (v18 or higher recommended) and npm are installed:
+
+```bash
+node --version
+npm --version
+```
+
+### 2. PM2 Installation
+
+Install PM2 globally:
+
+```bash
+npm install -g pm2
+```
+
+Verify installation:
+
+```bash
+pm2 --version
+```
+
+### 3. Repository Setup
+
+Clone and navigate to the repository:
+
+```bash
+git clone https://github.com/phildass/iiskills-cloud.git
+cd iiskills-cloud
+```
+
+### 4. Dependencies Installation
+
+Install dependencies for the main app and all submodules:
+
+```bash
+# Install root dependencies
+npm install
+
+# Install dependencies for all learn modules
+for dir in learn-*/; do
+  echo "Installing dependencies in $dir"
+  (cd "$dir" && npm install)
+done
+```
+
+On Windows (PowerShell):
+
+```powershell
+# Install root dependencies
+npm install
+
+# Install dependencies for all learn modules
+Get-ChildItem -Directory -Filter "learn-*" | ForEach-Object {
+  Write-Host "Installing dependencies in $($_.Name)"
+  Push-Location $_.FullName
+  npm install
+  Pop-Location
+}
+```
+
+### 5. Build All Applications
+
+Build production bundles for all apps:
+
+```bash
+# Build root app
+npm run build
+
+# Build all learn modules
+for dir in learn-*/; do
+  echo "Building $dir"
+  (cd "$dir" && npm run build)
+done
+```
+
+On Windows (PowerShell):
+
+```powershell
+# Build root app
+npm run build
+
+# Build all learn modules
+Get-ChildItem -Directory -Filter "learn-*" | ForEach-Object {
+  Write-Host "Building $($_.Name)"
+  Push-Location $_.FullName
+  npm run build
+  Pop-Location
+}
+```
+
+### 6. Environment Variables
+
+Ensure all required environment variables are configured. Copy `.env.local.example` to `.env.local` in the root and each subdirectory that requires environment configuration:
+
+```bash
+cp .env.local.example .env.local
+```
+
+Edit `.env.local` files with your actual configuration values (Supabase keys, API endpoints, etc.).
+
+## Port Assignments
+
+The following ports are assigned to each application:
+
+| Application | Port | Module Name |
+|------------|------|-------------|
+| iiskills-main | 3000 | Main website |
+| learn-apt | 3001 | Aptitude assessment |
+| learn-math | 3002 | Mathematics |
+| learn-winning | 3003 | Success strategies |
+| learn-data-science | 3004 | Data science |
+| learn-management | 3005 | Management skills |
+| learn-leadership | 3006 | Leadership |
+| learn-ai | 3007 | Artificial Intelligence |
+| learn-pr | 3008 | Public Relations |
+| learn-jee | 3010 | JEE preparation |
+| learn-chemistry | 3011 | Chemistry |
+| learn-geography | 3012 | Geography |
+| learn-neet | 3013 | NEET preparation |
+| learn-govt-jobs | 3014 | Government jobs |
+| learn-ias | 3015 | UPSC Civil Services |
+| learn-physics | 3016 | Physics |
+
+**Note**: Ports 3010-3013 and 3016 were reassigned to resolve conflicts found in the original package.json configurations where multiple apps were set to port 3009.
+
+## Installation
+
+### Create Logs Directory
+
+PM2 will write logs to the `logs/` directory. Create it if it doesn't exist:
+
+```bash
+mkdir -p logs
+```
+
+On Windows:
+
+```powershell
+New-Item -ItemType Directory -Force -Path logs
+```
+
+## Deployment
+
+### Start All Applications
+
+To start all 17 applications:
+
+```bash
+pm2 start ecosystem.config.js
+```
+
+### Start Specific Application
+
+To start only one application:
+
+```bash
+pm2 start ecosystem.config.js --only iiskills-main
+pm2 start ecosystem.config.js --only iiskills-learn-math
+# etc.
+```
+
+### Save Process List
+
+Save the current PM2 process list to automatically restart on system reboot:
+
+```bash
+pm2 save
+```
+
+### Enable Startup on Boot
+
+Configure PM2 to start automatically when the system boots:
+
+```bash
+pm2 startup
+```
+
+Follow the instructions provided by the command output. On Linux/macOS, this typically requires running a command with `sudo`.
+
+On Windows, use the `pm2-windows-startup` package:
+
+```bash
+npm install -g pm2-windows-startup
+pm2-startup install
+```
+
+## Management Commands
+
+### View Process Status
+
+```bash
+pm2 list
+```
+
+### View Logs
+
+```bash
+# All apps
+pm2 logs
+
+# Specific app
+pm2 logs iiskills-main
+pm2 logs iiskills-learn-math
+
+# Last 100 lines
+pm2 logs --lines 100
+
+# Error logs only
+pm2 logs --err
+```
+
+### Monitor Processes
+
+Real-time monitoring dashboard:
+
+```bash
+pm2 monit
+```
+
+### Restart Applications
+
+```bash
+# Restart all
+pm2 restart all
+
+# Restart specific app
+pm2 restart iiskills-main
+```
+
+### Stop Applications
+
+```bash
+# Stop all
+pm2 stop all
+
+# Stop specific app
+pm2 stop iiskills-main
+```
+
+### Delete Applications from PM2
+
+```bash
+# Delete all
+pm2 delete all
+
+# Delete specific app
+pm2 delete iiskills-main
+```
+
+### Reload (Zero-downtime Restart)
+
+```bash
+pm2 reload all
+```
+
+### Show Detailed Info
+
+```bash
+pm2 show iiskills-main
+```
+
+## Troubleshooting
+
+### Port Already in Use
+
+If you see "EADDRINUSE" errors, another process is using the port. Find and stop the conflicting process:
+
+**Linux/macOS:**
+```bash
+lsof -i :3000  # Replace 3000 with the conflicting port
+kill -9 <PID>
+```
+
+**Windows:**
+```powershell
+netstat -ano | findstr :3000
+taskkill /PID <PID> /F
+```
+
+### Build Errors
+
+Ensure all apps are built before starting PM2:
+
+```bash
+# Rebuild specific app
+cd learn-math
+npm run build
+cd ..
+
+# Then restart in PM2
+pm2 restart iiskills-learn-math
+```
+
+### Environment Variables Not Loading
+
+Verify `.env.local` files exist and are correctly formatted. PM2 doesn't automatically load `.env.local` files - you may need to use `dotenv` or specify env vars in `ecosystem.config.js`.
+
+### Memory Issues
+
+If apps are restarting due to memory limits, adjust `max_memory_restart` in `ecosystem.config.js`:
+
+```javascript
+max_memory_restart: '2G'  // Increase from 1G to 2G
+```
+
+### Log Files Growing Too Large
+
+PM2 can rotate logs automatically. Install the log rotation module:
+
+```bash
+pm2 install pm2-logrotate
+pm2 set pm2-logrotate:max_size 10M
+pm2 set pm2-logrotate:retain 10
+```
+
+### Cross-Platform Path Issues
+
+The `ecosystem.config.js` uses `path.join(__dirname, ...)` for cross-platform compatibility. If you manually edit paths, ensure they work on both Windows and Unix systems.
+
+## Per-App Configuration Notes
+
+### Apps with Port in package.json
+
+The following apps have port specifications in their `package.json` `start` scripts:
+- learn-math (3002)
+- learn-winning (3003)
+- learn-data-science (3004)
+- learn-management (3005)
+- learn-leadership (3006)
+- learn-ai (3007)
+- learn-pr (3008)
+- learn-govt-jobs (3014)
+- learn-ias (3015)
+
+For these apps, PM2 does not override the port via environment variable unless needed.
+
+### Apps with Overridden Ports
+
+The following apps originally had conflicting port assignments (all set to 3009) and have been reassigned:
+- learn-jee: 3009 → 3010
+- learn-chemistry: 3009 → 3011
+- learn-geography: 3009 → 3012
+- learn-neet: 3009 → 3013
+- learn-physics: 3009 → 3016
+
+These apps have their `PORT` environment variable set in `ecosystem.config.js` to override the package.json setting.
+
+### learn-apt Special Note
+
+The `learn-apt` module does not specify a port in its `start` script, so PM2 sets `PORT=3001` via environment variable.
+
+### Updating Port Assignments
+
+If you need to change port assignments:
+
+1. Edit `ecosystem.config.js` and update the `PORT` in the `env` section
+2. For apps with ports in package.json, also update the `package.json` start script
+3. Rebuild the affected app: `npm run build`
+4. Restart in PM2: `pm2 restart <app-name>`
+
+## Advanced Configuration
+
+### Cluster Mode
+
+To run apps in cluster mode (multiple instances):
+
+Edit `ecosystem.config.js`:
+
+```javascript
+instances: 'max',  // Use all CPU cores
+exec_mode: 'cluster'
+```
+
+Note: Cluster mode requires stateless applications or proper session management.
+
+### Custom Log Rotation
+
+Configure custom log paths or formats in `ecosystem.config.js`:
+
+```javascript
+error_file: '/var/log/iiskills/main-error.log',
+out_file: '/var/log/iiskills/main-out.log',
+log_date_format: 'YYYY-MM-DD HH:mm:ss Z'
+```
+
+### Health Checks
+
+PM2 can monitor app health and restart if unresponsive:
+
+```bash
+pm2 install pm2-auto-pull
+```
+
+### Performance Monitoring
+
+Use PM2 Plus for advanced monitoring (requires account):
+
+```bash
+pm2 link <secret> <public>
+```
+
+## Production Deployment Checklist
+
+- [ ] All dependencies installed (`npm install` in root and all subdirectories)
+- [ ] All apps built (`npm run build` in root and all subdirectories)
+- [ ] Environment variables configured (`.env.local` files)
+- [ ] Logs directory created
+- [ ] PM2 started with `pm2 start ecosystem.config.js`
+- [ ] Process list saved with `pm2 save`
+- [ ] Startup script configured with `pm2 startup`
+- [ ] All apps running: `pm2 list` shows all apps online
+- [ ] Logs are being written: Check `logs/` directory
+- [ ] All ports accessible: Test each app URL
+- [ ] Log rotation configured (optional but recommended)
+- [ ] Monitoring enabled (optional)
+
+## Support
+
+For issues specific to iiskills-cloud applications, refer to:
+- [README.md](README.md)
+- [DEPLOYMENT.md](DEPLOYMENT.md)
+- [QUICK_START.md](QUICK_START.md)
+
+For PM2-specific issues, consult the [PM2 documentation](https://pm2.keymetrics.io/docs/).
