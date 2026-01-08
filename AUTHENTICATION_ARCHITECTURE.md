@@ -4,6 +4,40 @@
 
 iiskills.cloud implements a **universal authentication system** where users register **once** and gain access to **all** applications and subdomains. This document explains the architecture, implementation, and benefits of this approach.
 
+## Current Implementation Status
+
+**All apps and subdomains now use standardized Supabase authentication:**
+
+### Main Domain (`iiskills.cloud`)
+- ✅ Uses `UniversalLogin` and `UniversalRegister` components
+- ✅ Admin login (`/admin/login`) uses `UniversalLogin` with automatic role detection
+- ✅ Configured for cross-subdomain authentication
+
+### Subdomain Apps - Pages Router (Next.js 12)
+All of the following apps use the shared `UniversalLogin` and `UniversalRegister` components:
+- ✅ learn-ai
+- ✅ learn-chemistry
+- ✅ learn-data-science
+- ✅ learn-geography
+- ✅ learn-govt-jobs
+- ✅ learn-ias
+- ✅ learn-jee
+- ✅ learn-leadership
+- ✅ learn-management
+- ✅ learn-math
+- ✅ learn-neet
+- ✅ learn-physics
+- ✅ learn-pr
+- ✅ learn-winning
+
+### Subdomain Apps - App Router (Next.js 13+)
+- ✅ learn-apt: Uses modern `@supabase/ssr` package with custom `AuthContext` wrapper
+  - Still connects to the same Supabase project
+  - Configured for cross-subdomain authentication via environment variables
+  - Provides backward compatibility with legacy authentication during transition
+
+**Result:** 100% of iiskills.cloud apps now use standardized Supabase authentication with universal access.
+
 ## Key Principle: Single Registration, Universal Access
 
 **Register on ANY app → Access ALL apps**
@@ -267,11 +301,13 @@ Users can enhance their profile:
 
 When adding a new app to the iiskills.cloud ecosystem:
 
-- [ ] Use same Supabase project credentials
-- [ ] Import `UniversalRegister` and `UniversalLogin` components
-- [ ] Configure cookie domain to `.iiskills.cloud`
-- [ ] Set up environment variables
-- [ ] Test cross-subdomain authentication
+- [x] Use same Supabase project credentials
+- [x] Import `UniversalRegister` and `UniversalLogin` components
+- [x] Configure cookie domain to `.iiskills.cloud`
+- [x] Set up environment variables
+- [x] Test cross-subdomain authentication
+
+**Note:** For Next.js App Router (13+) apps like learn-apt, you may use the modern `@supabase/ssr` package with a custom AuthContext wrapper, but ensure it uses the same Supabase project and cookie domain configuration.
 
 ### Environment Variables Required
 
@@ -283,6 +319,17 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
 NEXT_PUBLIC_MAIN_DOMAIN=iiskills.cloud
 NEXT_PUBLIC_COOKIE_DOMAIN=.iiskills.cloud
 ```
+
+### Admin Authentication
+
+Admin access is controlled through user metadata, not separate credentials:
+
+- Admins use the same login pages as regular users (e.g., `/login` or `/admin/login`)
+- The `UniversalLogin` component automatically detects admin users via the `isAdmin()` function
+- Admin users are redirected to `/admin` after successful authentication
+- Non-admin users attempting to access admin routes are denied via the ProtectedRoute component
+
+**There are no separate admin credentials** - admin status is determined by the `is_admin` flag in the user's Supabase metadata.
 
 ## Testing Universal Authentication
 

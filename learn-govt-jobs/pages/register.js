@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import UniversalRegister from '../components/UniversalRegister'
+import UniversalRegister from '../../components/shared/UniversalRegister'
 
 /**
  * Registration Page for Learn Government Jobs
