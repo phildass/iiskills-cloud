@@ -47,6 +47,17 @@ export default function Home() {
                 <div className="text-sm text-gray-500 mt-2">Physics • Chemistry • Biology</div>
               </div>
               
+              {!user && (
+                <div className="bg-white/90 backdrop-blur-sm border-2 border-orange-300 rounded-lg p-4 mb-6 max-w-2xl mx-auto">
+                  <p className="text-lg font-semibold text-gray-800">
+                    📝 Registration Required
+                  </p>
+                  <p className="text-sm mt-2 text-gray-700">
+                    Create a free account to access all learning content. Register once, access all iiskills.cloud apps!
+                  </p>
+                </div>
+              )}
+              
               <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
                 {user ? (
                   <Link href="/learn" className="inline-block bg-white text-primary px-12 py-5 rounded-lg font-bold text-xl hover:bg-gray-100 transition shadow-lg">
@@ -55,10 +66,10 @@ export default function Home() {
                 ) : (
                   <>
                     <Link href="/register" className="inline-block bg-accent text-white px-12 py-5 rounded-lg font-bold text-xl hover:bg-orange-600 transition shadow-lg">
-                      Start Learning Now
+                      Register Free Account
                     </Link>
                     <Link href="/login" className="inline-block bg-transparent border-2 border-white text-white px-12 py-5 rounded-lg font-bold text-xl hover:bg-white hover:text-primary transition">
-                      Sign In
+                      Already Have Account? Sign In
                     </Link>
                   </>
                 )}

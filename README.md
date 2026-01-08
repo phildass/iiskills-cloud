@@ -150,20 +150,31 @@ These can be imported by any app in the monorepo.
 
 ## Authentication
 
-### 🌟 Universal Authentication System
+### 🌟 Registration-First Universal Authentication System
 
-**Register ONCE on ANY app → Access ALL apps automatically!**
+**Important: Registration Required Before Access**
 
-iiskills.cloud uses a **unified authentication system** where:
-- ✅ Create an account on **any** iiskills.cloud app (main site, Learn-Apt, Learn-JEE, Learn-NEET, etc.)
-- ✅ Automatically get access to **all** other apps and subdomains
-- ✅ Use the **same login** credentials everywhere
-- ✅ Your session works across **all** `*.iiskills.cloud` domains
+iiskills.cloud uses a **registration-first workflow** with a **unified authentication system**:
+
+- 📝 **Registration Required:** You must create an account before accessing any learning content
+- ✅ **Register ONCE:** Create an account on **any** iiskills.cloud app (main site, Learn-Apt, Learn-JEE, Learn-NEET, etc.)
+- ✅ **Universal Access:** Automatically get access to **all** other apps and subdomains
+- ✅ **Same Credentials:** Use the **same login** credentials everywhere
+- ✅ **Shared Session:** Your session works across **all** `*.iiskills.cloud` domains
+
+**Registration-First Workflow:**
+1. Visit any iiskills.cloud app landing page
+2. Click "Register Free Account" to create your account
+3. Complete the registration form (simplified on subdomains, full on main site)
+4. Confirm your email address
+5. Sign in and access all learning content across all apps
 
 **Example:**
-1. Register on `learn-apt.iiskills.cloud`
-2. Immediately login on `iiskills.cloud`, `learn-jee.iiskills.cloud`, or any other app
-3. No need to register again!
+1. Try to access `learn-apt.iiskills.cloud/learn`
+2. Automatically redirected to `/register` (registration required)
+3. Complete registration once
+4. Now access `iiskills.cloud`, `learn-jee.iiskills.cloud`, or any other app with the same credentials
+5. No need to register again!
 
 ### Multiple Sign-In Options
 

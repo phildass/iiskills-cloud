@@ -33,6 +33,17 @@ export default function Home() {
               Comprehensive preparation for government examinations - Build strong fundamentals to excel across multiple competitive exams
             </p>
             
+            {!user && (
+              <div className="bg-white/10 backdrop-blur-sm border-2 border-white/30 rounded-lg p-4 mb-8 max-w-2xl mx-auto">
+                <p className="text-lg font-semibold">
+                  📝 Registration Required
+                </p>
+                <p className="text-sm mt-2">
+                  Create a free account to access all learning content. Register once, access all iiskills.cloud apps!
+                </p>
+              </div>
+            )}
+            
             <div className="flex flex-col sm:flex-row gap-4 justify-center mt-12">
               {user ? (
                 <Link href="/learn" className="inline-block bg-white text-blue-600 px-10 py-4 rounded-lg font-bold text-lg hover:bg-gray-100 transition shadow-lg">
@@ -41,10 +52,10 @@ export default function Home() {
               ) : (
                 <>
                   <Link href="/register" className="inline-block bg-white text-blue-600 px-10 py-4 rounded-lg font-bold text-lg hover:bg-gray-100 transition shadow-lg">
-                    Get Started
+                    Register Free Account
                   </Link>
                   <Link href="/login" className="inline-block bg-transparent border-2 border-white text-white px-10 py-4 rounded-lg font-bold text-lg hover:bg-white hover:text-blue-600 transition">
-                    Sign In
+                    Already Have Account? Sign In
                   </Link>
                 </>
               )}
