@@ -49,7 +49,7 @@ export default function Home() {
                   </Link>
                 </>
               )}
-<InstallApp appName="Learn Physics" />
+              <InstallApp appName="Learn Physics" />
 </div>
           </div>
         </section>
