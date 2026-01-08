@@ -11,9 +11,6 @@
  * - Accessible with appropriate alt text
  * - Horizontally aligned and visually balanced layout
  * 
- * Note: This component is also available in components/shared/UniversalHeader.js for 
- * easy import from subdomains (learn-management, learn-neet, etc.)
- * 
  * Usage in main domain:
  * ```jsx
  * import UniversalHeader from '../components/UniversalHeader'
@@ -29,9 +26,19 @@
  * }
  * ```
  * 
- * Usage in subdomains:
+ * Usage in subdomains (learn-management, learn-neet, etc.):
  * ```jsx
  * import UniversalHeader from '../../components/shared/UniversalHeader'
+ * 
+ * export default function App({ Component, pageProps }) {
+ *   return (
+ *     <>
+ *       <UniversalHeader />
+ *       {/* Your subdomain-specific navbar or content */}
+ *       <Component {...pageProps} />
+ *     </>
+ *   )
+ * }
  * ```
  * 
  * Example - Including in _app.js for site-wide usage:
