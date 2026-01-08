@@ -2,6 +2,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { getCurrentUser } from '../lib/supabaseClient'
+import InstallApp from '../components/shared/InstallApp'
 
 import { getPricingDisplay, getIntroOfferNotice } from '../utils/pricing'
 
@@ -116,6 +117,7 @@ export default function Home() {
                       </Link>
                     </>
                   )}
+                  <InstallApp appName="Learn JEE" />
                 </div>
               </div>
             </div>

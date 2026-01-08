@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { getCurrentUser } from '../lib/supabaseClient'
 import { getAllPhases, getOptionalSubjects } from '../lib/iasSyllabus'
 import Footer from '../components/Footer'
+import InstallApp from '../components/shared/InstallApp'
 
 export default function Home() {
   const [user, setUser] = useState(null)
@@ -67,7 +68,8 @@ export default function Home() {
                       </Link>
                     </>
                   )}
-                </div>
+              <InstallApp appName="Learn IAS" />
+</div>
               </div>
             </div>
           </div>

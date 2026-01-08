@@ -2,6 +2,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { getCurrentUser } from '../lib/supabaseClient'
+import InstallApp from '../components/shared/InstallApp'
 
 export default function Home() {
   const [user, setUser] = useState(null)
@@ -62,6 +63,7 @@ export default function Home() {
                     </Link>
                   </>
                 )}
+                <InstallApp appName="Learn NEET" />
               </div>
             </div>
           </div>
