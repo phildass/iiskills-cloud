@@ -61,21 +61,24 @@ const PORT_MAP = {
  *   "Learn JEE" -> "learn-jee"
  *   "Learn Maths (FREE)" -> "learn-math"
  *   "Learn Aptitude (FREE)" -> "learn-apt"
+ *   "Learn AI (Artificial Intelligence)" -> "learn-ai"
  */
 export function normalizeCourseNameToSubdomain(courseName) {
   return courseName
     .toLowerCase()
     .replace(/\s*\(free\)\s*$/gi, '') // Remove " (FREE)" suffix
+    .replace(/\s*\([^)]*\)\s*/g, ' ') // Remove content in parentheses
     .replace(/\s*–\s*.*$/g, '') // Remove " – Free" or " – From the book" suffixes
     .replace(/\s+/g, '-') // Replace spaces with hyphens
-    .replace(/[()]/g, '') // Remove parentheses
-    .replace(/\//g, '-') // Replace slashes with hyphens
     .replace(/,/g, '') // Remove commas
+    .replace(/\//g, '-') // Replace slashes with hyphens
     .replace(/aptitude/g, 'apt') // Special case: aptitude -> apt
     .replace(/mathematics/g, 'math') // Special case: mathematics -> math  
     .replace(/maths/g, 'math') // Special case: maths -> math
     .replace(/government-jobs/g, 'govt-jobs') // Special case: government jobs -> govt jobs
     .replace(/government/g, 'govt') // Special case: government -> govt
+    .replace(/-+/g, '-') // Replace multiple hyphens with single hyphen
+    .replace(/^-|-$/g, '') // Remove leading/trailing hyphens
     .trim()
 }
 
