@@ -25,10 +25,10 @@ const path = require('path')
 function normalizeCourseNameToSubdomain(courseName) {
   return courseName
     .toLowerCase()
-    .replace(/\s*\(free\)\s*$/gi, '') // Remove " (FREE)" suffix
-    .replace(/\s*\([^)]*\)\s*/g, ' ') // Remove content in parentheses
+    .replace(/\s*\([^)]*\)\s*/g, ' ') // Remove all content in parentheses (handles both (FREE) and descriptions)
     .replace(/\s*–\s*.*$/g, '') // Remove " – Free" or " – From the book" suffixes
     .replace(/\s+/g, '-') // Replace spaces with hyphens
+    .replace(/-+/g, '-') // Replace multiple consecutive hyphens with single hyphen
     .replace(/,/g, '') // Remove commas
     .replace(/\//g, '-') // Replace slashes with hyphens
     .replace(/aptitude/g, 'apt') // Special case: aptitude -> apt
@@ -36,7 +36,6 @@ function normalizeCourseNameToSubdomain(courseName) {
     .replace(/maths/g, 'math') // Special case: maths -> math
     .replace(/government-jobs/g, 'govt-jobs') // Special case: government jobs -> govt jobs
     .replace(/government/g, 'govt') // Special case: government -> govt
-    .replace(/-+/g, '-') // Replace multiple hyphens with single hyphen
     .replace(/^-|-$/g, '') // Remove leading/trailing hyphens
     .trim()
 }
