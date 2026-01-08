@@ -4,7 +4,8 @@ import { Suspense, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { Brain, AlertCircle, X, LogIn, User } from "lucide-react";
-import { useAuth } from "@/contexts/AuthContext"; // <-- Make sure this exists!
+import { useAuth } from "@/contexts/AuthContext";
+import InstallApp from "@/lib/InstallApp";
 
 function UnauthorizedBanner() {
   const searchParams = useSearchParams();
@@ -123,6 +124,7 @@ export default function Home() {
             >
               Take Elaborate Test
             </Link>
+            <InstallApp appName="Learnapt" />
           </div>
         </section>
 

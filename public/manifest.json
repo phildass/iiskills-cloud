@@ -1,0 +1,27 @@
+{
+  "name": "iiskills.cloud - Indian Institute of Professional Skills Development",
+  "short_name": "iiskills.cloud",
+  "description": "Education for All, Online and Affordable. Professional skills development platform.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2563eb",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/images/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/images/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["education", "learning", "skills"],
+  "scope": "/",
+  "prefer_related_applications": false
+}
