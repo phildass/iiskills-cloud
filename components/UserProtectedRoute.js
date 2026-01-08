@@ -47,15 +47,15 @@ export default function UserProtectedRoute({ children }) {
         // User is authenticated - allow access
         setIsAuthenticated(true)
       } else {
-        // No user session found - redirect to login
-        // Store the current path so we can redirect back after login
+        // No user session found - redirect to register (registration-first workflow)
+        // Store the current path so we can redirect back after registration/login
         const currentPath = router.asPath
-        router.push(`/login?redirect=${encodeURIComponent(currentPath)}`)
+        router.push(`/register?redirect=${encodeURIComponent(currentPath)}`)
       }
     } catch (error) {
       console.error('Error checking authentication:', error)
-      // On error, redirect to login for safety
-      router.push('/login')
+      // On error, redirect to register for safety (registration-first workflow)
+      router.push('/register')
     } finally {
       setIsLoading(false)
     }

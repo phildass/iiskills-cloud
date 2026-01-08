@@ -53,6 +53,18 @@ export default function Home() {
                   <div className="text-sm mt-1 opacity-90">Total: ₹116.82</div>
                 </div>
                 
+                
+                {!user && (
+                  <div className="bg-white/90 backdrop-blur-sm border-2 border-accent rounded-lg p-4 mb-6 max-w-2xl mx-auto">
+                    <p className="text-lg font-semibold text-gray-800">
+                      📝 Registration Required
+                    </p>
+                    <p className="text-sm mt-2 text-gray-700">
+                      Create a free account to access all learning content. Register once, access all iiskills.cloud apps!
+                    </p>
+                  </div>
+                )}
+                
                 <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
                   {user ? (
                     <Link href="/learn" className="inline-block bg-white text-primary px-10 py-4 rounded-lg font-bold text-lg hover:bg-gray-100 transition shadow-lg">
@@ -61,10 +73,10 @@ export default function Home() {
                   ) : (
                     <>
                       <Link href="/register" className="inline-block bg-white text-primary px-10 py-4 rounded-lg font-bold text-lg hover:bg-gray-100 transition shadow-lg">
-                        Get Started Free
+                        Register Free Account
                       </Link>
                       <Link href="/login" className="inline-block bg-transparent border-2 border-white text-white px-10 py-4 rounded-lg font-bold text-lg hover:bg-white hover:text-primary transition">
-                        Sign In
+                        Already Have Account? Sign In
                       </Link>
                     </>
                   )}
