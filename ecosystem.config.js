@@ -76,7 +76,7 @@ module.exports = {
       script: 'npm',
       args: 'start',
       env: {
-        NODE_ENV: 'production'
+        NODE_ENV: 'production',
         // PORT 3002 is specified in package.json start script
       },
       instances: 1,
@@ -96,7 +96,7 @@ module.exports = {
       script: 'npm',
       args: 'start',
       env: {
-        NODE_ENV: 'production'
+        NODE_ENV: 'production',
         // PORT 3003 is specified in package.json start script
       },
       instances: 1,
@@ -116,7 +116,7 @@ module.exports = {
       script: 'npm',
       args: 'start',
       env: {
-        NODE_ENV: 'production'
+        NODE_ENV: 'production',
         // PORT 3004 is specified in package.json start script
       },
       instances: 1,
@@ -136,7 +136,7 @@ module.exports = {
       script: 'npm',
       args: 'start',
       env: {
-        NODE_ENV: 'production'
+        NODE_ENV: 'production',
         // PORT 3005 is specified in package.json start script
       },
       instances: 1,
@@ -156,7 +156,7 @@ module.exports = {
       script: 'npm',
       args: 'start',
       env: {
-        NODE_ENV: 'production'
+        NODE_ENV: 'production',
         // PORT 3006 is specified in package.json start script
       },
       instances: 1,
@@ -176,7 +176,7 @@ module.exports = {
       script: 'npm',
       args: 'start',
       env: {
-        NODE_ENV: 'production'
+        NODE_ENV: 'production',
         // PORT 3007 is specified in package.json start script
       },
       instances: 1,
@@ -196,7 +196,7 @@ module.exports = {
       script: 'npm',
       args: 'start',
       env: {
-        NODE_ENV: 'production'
+        NODE_ENV: 'production',
         // PORT 3008 is specified in package.json start script
       },
       instances: 1,
@@ -316,7 +316,7 @@ module.exports = {
       script: 'npm',
       args: 'start',
       env: {
-        NODE_ENV: 'production'
+        NODE_ENV: 'production',
         // PORT 3014 is specified in package.json start script
       },
       instances: 1,
@@ -336,7 +336,7 @@ module.exports = {
       script: 'npm',
       args: 'start',
       env: {
-        NODE_ENV: 'production'
+        NODE_ENV: 'production',
         // PORT 3015 is specified in package.json start script
       },
       instances: 1,
