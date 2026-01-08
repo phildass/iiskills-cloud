@@ -68,7 +68,7 @@ export default function Home() {
                       </Link>
                     </>
                   )}
-<InstallApp appName="Learn IAS" />
+                  <InstallApp appName="Learn IAS" />
 </div>
               </div>
             </div>

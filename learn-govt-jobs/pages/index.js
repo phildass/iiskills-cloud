@@ -49,7 +49,7 @@ export default function Home() {
                   </Link>
                 </>
               )}
-<InstallApp appName="Learn Government Jobs" />
+                  <InstallApp appName="Learn Government Jobs" />
 </div>
           </div>
         </section>

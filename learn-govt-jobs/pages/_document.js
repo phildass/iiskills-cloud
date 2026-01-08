@@ -9,6 +9,7 @@ export default function Document() {
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content="Learn Government Jobs" />
         <link rel="apple-touch-icon" href="/images/icon-192x192.svg" />
       </Head>
       <body>

@@ -49,7 +49,7 @@ export default function Home() {
                   </Link>
                 </>
               )}
-<InstallApp appName="Learn Data Science" />
+                  <InstallApp appName="Learn Data Science" />
 </div>
           </div>
         </section>

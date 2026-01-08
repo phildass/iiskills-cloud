@@ -68,7 +68,7 @@ export default function Home() {
                       </Link>
                     </>
                   )}
-<InstallApp appName="Learn Winning" />
+                  <InstallApp appName="Learn Winning" />
 </div>
               </div>
             </div>
