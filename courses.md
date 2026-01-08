@@ -1186,9 +1186,9 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 
 ---
 
-**Total Courses: 61**
+**Total Courses: 74**
 - Free Courses: 5
-- Paid Courses: 56
+- Paid Courses: 69
 - Categories: 11
 
 *Last Updated: January 2026*
