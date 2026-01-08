@@ -98,19 +98,23 @@ export default function PaidUserProtectedRoute({ children }) {
             {!user && (
               <>
                 <div className="text-center text-gray-700 mb-4">
-                  <p className="font-medium">Already have an account?</p>
+                  <p className="font-medium text-lg">New to iiskills.cloud?</p>
+                  <p className="text-sm text-gray-600 mt-2">Create an account to get started</p>
+                </div>
+                <Link
+                  href={`/register?redirect=${encodeURIComponent(router.asPath)}`}
+                  className="block w-full bg-primary text-white px-6 py-4 rounded-lg font-bold text-lg shadow-lg hover:bg-blue-700 transition text-center"
+                >
+                  Register New Account
+                </Link>
+                <div className="text-center text-gray-600 my-2">
+                  <span className="text-sm">Already have an account?</span>
                 </div>
                 <Link
                   href={`/login?redirect=${encodeURIComponent(router.asPath)}`}
-                  className="block w-full bg-primary text-white px-6 py-4 rounded-lg font-bold text-lg shadow-lg hover:bg-blue-700 transition text-center"
-                >
-                  Log In
-                </Link>
-                <Link
-                  href="/register"
                   className="block w-full bg-charcoal text-white px-6 py-4 rounded-lg font-bold text-lg shadow-lg hover:bg-gray-700 transition text-center"
                 >
-                  Register New Account
+                  Log In
                 </Link>
               </>
             )}

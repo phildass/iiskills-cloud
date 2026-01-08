@@ -58,6 +58,9 @@ export default function UniversalRegister({
   const [isLoading, setIsLoading] = useState(false)
   const [isGoogleLoading, setIsGoogleLoading] = useState(false)
   const router = useRouter()
+  
+  // Check if redirected from protected content
+  const redirectPath = router.query.redirect
 
   // Update available districts when state changes
   useEffect(() => {
@@ -261,6 +264,14 @@ export default function UniversalRegister({
           <p className="mt-2 text-center text-sm text-gray-600">
             Register once, access all {appName} apps and services
           </p>
+          {redirectPath && (
+            <div className="mt-4 bg-blue-50 border-l-4 border-blue-400 p-4 rounded">
+              <p className="text-sm text-blue-800">
+                <strong>📝 Registration Required:</strong> Please create an account to access this content.
+                You only need to register once to access all iiskills.cloud apps.
+              </p>
+            </div>
+          )}
         </div>
 
         {success && (

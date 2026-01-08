@@ -22,20 +22,36 @@ When you create an account on **ANY** iiskills.cloud app or subdomain, you autom
 
 ## Quick Start Guide
 
-### Step 1: Create Your Account
+### Step 1: Create Your Account (Required First Step)
+
+**Important:** You must register before accessing any learning content on iiskills.cloud.
 
 You can register on **any** iiskills.cloud app. Choose the app you want to start with:
 
 1. **Main Site** - [iiskills.cloud/register](https://iiskills.cloud/register)
    - Full registration with comprehensive profile
    - Best for users wanting complete account setup
+   - Required fields: First Name, Last Name, Gender, Date of Birth, Education Level, Location, State, District, Email, Password
 
 2. **Any Learning Module** - Example: [learn-apt.iiskills.cloud/register](https://learn-apt.iiskills.cloud/register)
    - Quick simplified registration
    - Perfect if you want to start learning immediately
+   - Required fields: First Name, Last Name, Email, Password
+   - Optional fields: Age, Qualification
    - You can complete your profile later on the main site
 
 **Choose ONE and register there. That's all you need!**
+
+### Registration-First Workflow
+
+When you try to access any learning content without being logged in:
+1. You will be automatically redirected to the registration page
+2. Create your account using the registration form
+3. Confirm your email address
+4. Sign in with your credentials
+5. Access all learning content across all apps
+
+**Note:** Registration is required before you can access any protected content. Once registered, you can immediately access all iiskills.cloud apps and learning modules.
 
 ### Step 2: Confirm Your Email
 
