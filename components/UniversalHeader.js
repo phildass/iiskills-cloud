@@ -20,7 +20,7 @@
  *   return (
  *     <>
  *       <UniversalHeader />
- *       {/* Rest of your page content *\/}
+ *       {/* Rest of your page content */}
  *     </>
  *   )
  * }
