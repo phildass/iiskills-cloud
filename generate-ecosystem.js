@@ -110,6 +110,9 @@ function isNextJsApp(pkg) {
  * Extract port from start script or return null
  */
 function extractPortFromScript(script) {
+  if (!script || typeof script !== 'string') {
+    return null;
+  }
   const match = script.match(/-p\s+(\d+)|--port\s+(\d+)/);
   return match ? parseInt(match[1] || match[2]) : null;
 }
@@ -381,8 +384,10 @@ function generateDocumentation(portAssignments) {
     lines.push('These apps had port conflicts and were reassigned to different ports:');
     lines.push('');
     for (const assignment of bySource['reassigned']) {
+      const originalPort = extractPortFromScript(assignment.entry.startScript);
+      const portDisplay = originalPort !== null ? `Port ${originalPort}` : 'unspecified';
       lines.push(`- **${assignment.app.displayName}**: Port ${assignment.port} (reassigned to resolve conflict)`);
-      lines.push(`  - Original: Port ${extractPortFromScript(assignment.entry.startScript)}`);
+      lines.push(`  - Original: ${portDisplay}`);
       lines.push(`  - Start script: \`${assignment.entry.startScript}\``);
     }
     lines.push('');
