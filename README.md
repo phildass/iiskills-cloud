@@ -102,7 +102,23 @@ npm run dev
 
 **Recommended:** Use PM2 process manager to run all applications in production. See [PM2_DEPLOYMENT.md](PM2_DEPLOYMENT.md) for comprehensive instructions.
 
-Quick start:
+#### Automatic Entry Point Detection
+
+The `ecosystem.config.js` file is **automatically generated** by scanning the repository for Next.js applications and detecting their entry points. This ensures reliable startup on any fresh clone without manual configuration.
+
+To regenerate the PM2 configuration:
+```bash
+npm run generate-pm2-config
+```
+
+To validate the configuration:
+```bash
+npm run validate-pm2-config
+```
+
+See [PM2_AUTO_DETECTION.md](PM2_AUTO_DETECTION.md) for details about the auto-detection system.
+
+#### Quick start:
 ```bash
 # Install dependencies and build all apps
 npm install && npm run build
@@ -114,7 +130,11 @@ pm2 save
 pm2 startup
 ```
 
-The `ecosystem.config.js` automatically configures all 16 applications with proper port assignments and cross-platform compatibility.
+The `ecosystem.config.js` automatically configures all 16 applications with:
+- Proper port assignments (auto-detected from package.json)
+- Cross-platform compatibility
+- Automatic conflict resolution
+- Complete logging configuration
 
 ### Other Deployment Options
 
