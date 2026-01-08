@@ -18,16 +18,23 @@ const path = require('path')
  * Examples:
  *   "Learn AI" -> "learn-ai"
  *   "Learn JEE" -> "learn-jee"
- *   "Learn Maths – Free" -> "learn-math"
+ *   "Learn Maths (FREE)" -> "learn-math"
+ *   "Learn Aptitude (FREE)" -> "learn-apt"
  */
 function normalizeCourseNameToSubdomain(courseName) {
   return courseName
     .toLowerCase()
+    .replace(/\s*\(free\)\s*$/gi, '') // Remove " (FREE)" suffix
     .replace(/\s*–\s*.*$/g, '') // Remove " – Free" or " – From the book" suffixes
     .replace(/\s+/g, '-') // Replace spaces with hyphens
     .replace(/[()]/g, '') // Remove parentheses
     .replace(/\//g, '-') // Replace slashes with hyphens
     .replace(/,/g, '') // Remove commas
+    .replace(/aptitude/g, 'apt') // Special case: aptitude -> apt
+    .replace(/mathematics/g, 'math') // Special case: mathematics -> math
+    .replace(/maths/g, 'math') // Special case: maths -> math
+    .replace(/government-jobs/g, 'govt-jobs') // Special case: government jobs -> govt jobs
+    .replace(/government/g, 'govt') // Special case: government -> govt
     .trim()
 }
 
@@ -77,7 +84,9 @@ function createCourseToSubdomainMap() {
     'learn-chemistry': '3010',
     'learn-physics': '3011',
     'learn-geography': '3012',
-    'learn-neet': '3013'
+    'learn-neet': '3013',
+    'learn-govt-jobs': '3014',
+    'learn-ias': '3015'
   }
   
   subdomains.forEach(subdomain => {

@@ -1088,13 +1088,6 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 
 ---
 
-### Learn PR (Public Relations)
-**Description:** Master Public Relations strategies, media management, brand building, and effective communication for organizations and individuals.
-
-**Duration:** 10 weeks | **Level:** Beginner
-
----
-
 ### Learn JEE
 **Description:** Master the essential concepts of Physics, Chemistry, and Mathematics for JEE preparation. This course covers foundational and advanced topics, designed for aspirants aiming for top ranks in engineering entrance exams.
 
@@ -1165,9 +1158,37 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 
 ---
 
-**Total Courses: 58**
+### Learn IAS
+**Description:** Comprehensive UPSC Civil Services preparation with AI-powered content, covering Prelims, Mains, current affairs, and interview skills.
+
+**Duration:** 10 weeks | **Level:** Advanced
+
+---
+
+### Learn Govt Jobs
+**Description:** Comprehensive preparation for government examinations including IBPS, SBI, Railways, SSC, and other competitive exams.
+
+**Duration:** 10 weeks | **Level:** Intermediate
+
+---
+
+### Learn Data Science
+**Description:** Master data science fundamentals and applications including Python programming, data analysis, machine learning, and visualization.
+
+**Duration:** 10 weeks | **Level:** Intermediate
+
+---
+
+### Learn Leadership
+**Description:** Develop leadership capabilities, influence, and strategic thinking to lead teams and organizations effectively.
+
+**Duration:** 10 weeks | **Level:** Intermediate
+
+---
+
+**Total Courses: 61**
 - Free Courses: 5
-- Paid Courses: 53
+- Paid Courses: 56
 - Categories: 11
 
-*Last Updated: December 2025*
+*Last Updated: January 2026*

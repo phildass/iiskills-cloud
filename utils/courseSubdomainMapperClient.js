@@ -21,6 +21,7 @@ const AVAILABLE_SUBDOMAINS = [
   'learn-data-science',
   'learn-geography',
   'learn-govt-jobs',
+  'learn-ias',
   'learn-jee',
   'learn-leadership',
   'learn-management',
@@ -49,7 +50,8 @@ const PORT_MAP = {
   'learn-physics': '3011',
   'learn-geography': '3012',
   'learn-neet': '3013',
-  'learn-govt-jobs': '3014'
+  'learn-govt-jobs': '3014',
+  'learn-ias': '3015'
 }
 
 /**
@@ -57,12 +59,13 @@ const PORT_MAP = {
  * Examples:
  *   "Learn AI" -> "learn-ai"
  *   "Learn JEE" -> "learn-jee"
- *   "Learn Maths – Free" -> "learn-math"
- *   "Learn Aptitude – Free" -> "learn-apt"
+ *   "Learn Maths (FREE)" -> "learn-math"
+ *   "Learn Aptitude (FREE)" -> "learn-apt"
  */
 export function normalizeCourseNameToSubdomain(courseName) {
   return courseName
     .toLowerCase()
+    .replace(/\s*\(free\)\s*$/gi, '') // Remove " (FREE)" suffix
     .replace(/\s*–\s*.*$/g, '') // Remove " – Free" or " – From the book" suffixes
     .replace(/\s+/g, '-') // Replace spaces with hyphens
     .replace(/[()]/g, '') // Remove parentheses
