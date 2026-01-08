@@ -69,27 +69,23 @@ npm start
 
 ### Learning Modules
 
-All learning modules follow the same structure. See individual README files for details:
+All learning modules follow the same structure. Port assignments (as configured in ecosystem.config.js):
 
 - [learn-apt/README.md](learn-apt/README.md) - Port 3001
 - [learn-math/README.md](learn-math/README.md) - Port 3002
-- [learn-chemistry/README.md](learn-chemistry/README.md) - Port 3009
 - [learn-winning/README.md](learn-winning/README.md) - Port 3003
 - [learn-data-science/README.md](learn-data-science/README.md) - Port 3004
 - [learn-management/README.md](learn-management/README.md) - Port 3005
 - [learn-leadership/README.md](learn-leadership/README.md) - Port 3006
 - [learn-ai/README.md](learn-ai/README.md) - Port 3007
 - [learn-pr/README.md](learn-pr/README.md) - Port 3008
-- [learn-jee/README.md](learn-jee/README.md) - Port 3009
-
-- [learn-geography/README.md](learn-geography/README.md) - Port 3009 (FREE)
-
-- [learn-jee/README.md](learn-jee/README.md) - Port 3009
-
-- [learn-neet/README.md](learn-neet/README.md) - Port 3009
-- [learn-physics/README.md](learn-physics/README.md) - Port 3009
-- [learn-ias/README.md](learn-ias/README.md) - Port 3015
+- [learn-jee/README.md](learn-jee/README.md) - Port 3010
+- [learn-chemistry/README.md](learn-chemistry/README.md) - Port 3011
+- [learn-geography/README.md](learn-geography/README.md) - Port 3012 (FREE)
+- [learn-neet/README.md](learn-neet/README.md) - Port 3013
 - [learn-govt-jobs/README.md](learn-govt-jobs/README.md) - Port 3014
+- [learn-ias/README.md](learn-ias/README.md) - Port 3015
+- [learn-physics/README.md](learn-physics/README.md) - Port 3016
 
 Quick start for any module:
 ```bash
@@ -101,6 +97,26 @@ npm run dev
 **Learning Modules Overview:** Visit `/learn-modules` on the main app to see all available modules.
 
 ## Deployment
+
+### Production Deployment with PM2
+
+**Recommended:** Use PM2 process manager to run all applications in production. See [PM2_DEPLOYMENT.md](PM2_DEPLOYMENT.md) for comprehensive instructions.
+
+Quick start:
+```bash
+# Install dependencies and build all apps
+npm install && npm run build
+for dir in learn-*/; do (cd "$dir" && npm install && npm run build); done
+
+# Start all apps with PM2
+pm2 start ecosystem.config.js
+pm2 save
+pm2 startup
+```
+
+The `ecosystem.config.js` automatically configures all 16 applications with proper port assignments and cross-platform compatibility.
+
+### Other Deployment Options
 
 See [DEPLOYMENT.md](DEPLOYMENT.md) for comprehensive deployment instructions including:
 - Vercel deployment
@@ -131,7 +147,7 @@ server {
 }
 ```
 
-It is recommended to run your site as a service (pm2, forever, etc) for reliability.
+It is recommended to run your site as a service using **PM2** for reliability and easy management. See [PM2_DEPLOYMENT.md](PM2_DEPLOYMENT.md) for complete instructions.
 
 ## Shared Components
 
