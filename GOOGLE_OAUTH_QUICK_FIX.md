@@ -10,6 +10,12 @@ cd /path/to/iiskills-cloud
 ./google-oauth-check.sh
 ```
 
+**Note**: If you get a "permission denied" error, run:
+```bash
+chmod +x google-oauth-check.sh
+./google-oauth-check.sh
+```
+
 This will tell you what's missing. Fix any errors shown.
 
 ---
