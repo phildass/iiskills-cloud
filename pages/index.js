@@ -5,7 +5,6 @@ import Image from 'next/image'
 import Head from 'next/head'
 import { getCurrentUser, isAdmin } from '../lib/supabaseClient'
 import { getPricingDisplay, getIntroOfferNotice } from '../utils/pricing'
-import InstallApp from '../components/shared/InstallApp'
 
 export default function Home() {
   const router = useRouter()
@@ -58,7 +57,6 @@ export default function Home() {
                   <Link href="/certification" className="inline-block bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-bold hover:bg-white hover:text-primary transition text-center">
                     Learn About Certification
                   </Link>
-                  <InstallApp appName="iiskills.cloud" />
                 </div>
               </div>
               <div className="flex-1 relative z-10">

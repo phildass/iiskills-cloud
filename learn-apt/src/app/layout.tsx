@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { AuthProvider } from "@/contexts/AuthContext";
+import AuthenticationChecker from "@/lib/AuthenticationChecker";
 
 export const metadata: Metadata = {
   title: "Learnapt - Learn Your Aptitude",
@@ -33,6 +34,7 @@ export default function RootLayout({
       </head>
       <body className="antialiased font-sans">
         <AuthProvider>
+          <AuthenticationChecker />
           {children}
         </AuthProvider>
       </body>

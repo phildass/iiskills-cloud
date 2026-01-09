@@ -215,9 +215,12 @@ export default function UniversalRegister({
           sessionStorage.setItem('registrationSuccess', 'true')
         }
         
-        // Redirect to login after a delay
+        // Redirect to login after a delay, using query redirect param if present
+        const finalRedirect = redirectPath 
+          ? `/login?redirect=${encodeURIComponent(redirectPath)}` 
+          : redirectAfterRegister
         setTimeout(() => {
-          router.push(redirectAfterRegister)
+          router.push(finalRedirect)
         }, 2000)
       }
     } catch (error) {
@@ -231,8 +234,10 @@ export default function UniversalRegister({
   const handleGoogleSignUp = async () => {
     setIsGoogleLoading(true)
     try {
+      // Use redirect query param if present, otherwise use redirectAfterRegister prop
+      const finalRedirect = redirectPath || redirectAfterRegister
       const redirectUrl = typeof window !== 'undefined' 
-        ? `${window.location.origin}${redirectAfterRegister}` 
+        ? `${window.location.origin}${finalRedirect}` 
         : undefined
 
       const { error } = await supabase.auth.signInWithOAuth({
