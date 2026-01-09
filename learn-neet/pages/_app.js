@@ -81,14 +81,6 @@ export default function App({ Component, pageProps }) {
       />
       <Component {...pageProps} />
       <Footer />
-import AuthenticationChecker from '../../components/shared/AuthenticationChecker'
-
-function MyApp({ Component, pageProps }) {
-  return (
-    <>
-      <AuthenticationChecker />
-      <Component {...pageProps} />
     </>
   )
 }
-
