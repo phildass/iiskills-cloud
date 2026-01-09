@@ -94,25 +94,11 @@ export default function Dashboard() {
                     <p className="text-sm text-gray-600">View and manage your enrolled courses</p>
                   </a>
                   <a
-                    href="/my-certificates"
-                    className="block p-4 border border-gray-200 rounded-lg hover:shadow-md transition"
-                  >
-                    <h3 className="font-bold text-primary mb-2">🎓 My Certificates</h3>
-                    <p className="text-sm text-gray-600">View and download your certificates</p>
-                  </a>
-                  <a
                     href="/certification"
                     className="block p-4 border border-gray-200 rounded-lg hover:shadow-md transition"
                   >
                     <h3 className="font-bold text-primary mb-2">✅ Get Certified</h3>
                     <p className="text-sm text-gray-600">Browse available certifications</p>
-                  </a>
-                  <a
-                    href="/contact"
-                    className="block p-4 border border-gray-200 rounded-lg hover:shadow-md transition"
-                  >
-                    <h3 className="font-bold text-primary mb-2">💬 Support</h3>
-                    <p className="text-sm text-gray-600">Get help or contact us</p>
                   </a>
                 </div>
               </div>
