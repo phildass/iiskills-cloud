@@ -23,9 +23,12 @@ export default function AdminLogin() {
   useEffect(() => {
     const checkExistingAuth = async () => {
       const user = await getCurrentUser()
-      if (user && isAdmin(user)) {
-        // User is already authenticated as admin, redirect to dashboard
-        router.push('/admin')
+      if (user) {
+        const hasAdminAccess = await isAdmin(user)
+        if (hasAdminAccess) {
+          // User is already authenticated as admin, redirect to dashboard
+          router.push('/admin')
+        }
       }
     }
     checkExistingAuth()

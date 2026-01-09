@@ -20,9 +20,12 @@ export default function Home() {
       // The hash will contain access_token or other auth parameters
       if (typeof window !== 'undefined' && window.location.hash.includes('access_token')) {
         const user = await getCurrentUser()
-        if (user && isAdmin(user)) {
-          // Redirect admin users to admin dashboard
-          router.push('/admin')
+        if (user) {
+          const hasAdminAccess = await isAdmin(user)
+          if (hasAdminAccess) {
+            // Redirect admin users to admin dashboard
+            router.push('/admin')
+          }
         }
       }
     }
