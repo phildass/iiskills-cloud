@@ -2,6 +2,9 @@
 
 This document provides a quick overview of the Supabase authentication integration.
 
+> **⚠️ Environment Setup for Monorepo:**  
+> This project has multiple Next.js apps in a monorepo structure. For detailed environment configuration instructions, see **[ENV_SETUP_GUIDE.md](./ENV_SETUP_GUIDE.md)**.
+
 ## What Was Implemented
 
 ✅ **Complete Supabase Authentication System** with:

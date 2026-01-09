@@ -28,7 +28,43 @@ const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
 if (!supabaseUrl || !supabaseAnonKey) {
-  console.warn('Missing Supabase environment variables. Please set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY in .env.local')
+  const errorMessage = `
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+⚠️  SUPABASE CONFIGURATION ERROR - learn-management module
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Missing required Supabase environment variables!
+
+Required variables:
+  ${!supabaseUrl ? '❌' : '✅'} NEXT_PUBLIC_SUPABASE_URL
+  ${!supabaseAnonKey ? '❌' : '✅'} NEXT_PUBLIC_SUPABASE_ANON_KEY
+
+To fix this:
+
+1. Create a .env.local file in this module:
+   ${process.cwd()}/.env.local
+
+2. Add your Supabase credentials (same as main app):
+   NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key-here
+
+3. Get credentials from: https://supabase.com
+   - Use the SAME Supabase project as main app
+   - Go to Settings → API
+   - Copy Project URL and anon/public key
+
+4. Restart the development server:
+   npm run dev
+
+⚠️  IMPORTANT: All modules must use the same Supabase credentials
+   for cross-subdomain authentication to work!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+`
+  console.error(errorMessage)
+  
+  // Throw error to prevent app from starting with invalid configuration
+  throw new Error('Missing Supabase environment variables. Please configure NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY in .env.local')
 }
 
 // Create Supabase client with cookie options for cross-subdomain support

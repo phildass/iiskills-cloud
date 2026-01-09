@@ -44,6 +44,27 @@ Each app can be deployed independently on different subdomains while sharing aut
 
 ## Getting Started
 
+### Quick Environment Setup
+
+**⚠️ Important:** This is a monorepo with multiple Next.js apps. All apps need environment configuration.
+
+**Option 1: Automated Setup (Recommended)**
+
+```bash
+# Run the setup script to configure all apps at once
+./setup-env.sh
+```
+
+The script will:
+- Prompt you for your Supabase credentials
+- Configure the main app
+- Configure all learning modules automatically
+- Ensure all apps use the same credentials
+
+**Option 2: Manual Setup**
+
+See **[ENV_SETUP_GUIDE.md](./ENV_SETUP_GUIDE.md)** for detailed manual setup instructions.
+
 ### Main App
 
 #### 1. Install dependencies
