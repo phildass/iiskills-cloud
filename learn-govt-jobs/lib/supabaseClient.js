@@ -27,24 +27,28 @@ import { createClient } from '@supabase/supabase-js'
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
-if (!supabaseUrl || !supabaseAnonKey) {
+// Check for missing or placeholder values
+const hasPlaceholderUrl = !supabaseUrl || supabaseUrl === 'your-project-url-here' || supabaseUrl.includes('your-project')
+const hasPlaceholderKey = !supabaseAnonKey || supabaseAnonKey === 'your-anon-key-here' || supabaseAnonKey.includes('your-anon-key')
+
+if (!supabaseUrl || !supabaseAnonKey || hasPlaceholderUrl || hasPlaceholderKey) {
   const errorMessage = `
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ⚠️  SUPABASE CONFIGURATION ERROR - learn-govt-jobs module
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-Missing required Supabase environment variables!
+Missing or invalid Supabase environment variables!
 
 Required variables:
-  ${!supabaseUrl ? '❌' : '✅'} NEXT_PUBLIC_SUPABASE_URL
-  ${!supabaseAnonKey ? '❌' : '✅'} NEXT_PUBLIC_SUPABASE_ANON_KEY
+  ${!supabaseUrl || hasPlaceholderUrl ? '❌' : '✅'} NEXT_PUBLIC_SUPABASE_URL${hasPlaceholderUrl ? ' (contains placeholder value)' : ''}
+  ${!supabaseAnonKey || hasPlaceholderKey ? '❌' : '✅'} NEXT_PUBLIC_SUPABASE_ANON_KEY${hasPlaceholderKey ? ' (contains placeholder value)' : ''}
 
 To fix this:
 
-1. Create a .env.local file in this module:
+1. Verify .env.local exists in this module:
    ${process.cwd()}/.env.local
 
-2. Add your Supabase credentials (same as main app):
+2. Update with your actual Supabase credentials (same as main app):
    NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
    NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key-here
 
@@ -53,18 +57,26 @@ To fix this:
    - Go to Settings → API
    - Copy Project URL and anon/public key
 
-4. Restart the development server:
+4. Quick setup: Run the automated script from repo root:
+   cd .. && ./setup-env.sh
+
+5. Restart the development server:
    npm run dev
 
 ⚠️  IMPORTANT: All modules must use the same Supabase credentials
    for cross-subdomain authentication to work!
+
+For more information, see ENV_SETUP_GUIDE.md in the repo root.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 `
   console.error(errorMessage)
   
   // Throw error to prevent app from starting with invalid configuration
-  throw new Error('Missing Supabase environment variables. Please configure NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY in .env.local')
+  throw new Error('Missing or invalid Supabase environment variables. Please configure NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY in .env.local with actual values (not placeholders)')
 }
 
 // Create Supabase client with cookie options for cross-subdomain support
