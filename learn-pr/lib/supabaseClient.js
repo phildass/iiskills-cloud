@@ -27,17 +27,21 @@ import { createClient } from '@supabase/supabase-js'
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
+// Validation constants
+const PLACEHOLDER_URL_PATTERNS = ['your-project', 'xyz', 'xyzcompany', 'abc123']
+const MIN_ANON_KEY_LENGTH = 20 // Supabase anon keys are typically much longer
+
 // Check for missing or placeholder values
 // Placeholders are exact matches or obviously invalid values
 const hasPlaceholderUrl = !supabaseUrl || 
   supabaseUrl === 'your-project-url-here' || 
   supabaseUrl === 'https://your-project.supabase.co' ||
-  supabaseUrl.match(/^https?:\/\/(your-project|xyz|xyzcompany|abc123).*\.supabase\.co$/i)
+  supabaseUrl.match(new RegExp(`^https?://(${PLACEHOLDER_URL_PATTERNS.join('|')}).*\\.supabase\\.co$`, 'i'))
 
 const hasPlaceholderKey = !supabaseAnonKey || 
   supabaseAnonKey === 'your-anon-key-here' ||
   supabaseAnonKey.startsWith('eyJhbGciOi...') ||
-  supabaseAnonKey.length < 20
+  supabaseAnonKey.length < MIN_ANON_KEY_LENGTH
 
 if (!supabaseUrl || !supabaseAnonKey || hasPlaceholderUrl || hasPlaceholderKey) {
   const errorMessage = `

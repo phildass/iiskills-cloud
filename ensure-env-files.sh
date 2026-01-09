@@ -30,6 +30,8 @@ check_env_vars() {
   fi
   
   # Check if required variables exist and are not empty placeholders
+  # NOTE: These patterns should align with validation in lib/supabaseClient.js
+  # See PLACEHOLDER_URL_PATTERNS and MIN_ANON_KEY_LENGTH constants in JS files
   local url_value=$(grep -E "^NEXT_PUBLIC_SUPABASE_URL=" "$file" | cut -d'=' -f2- || true)
   local key_value=$(grep -E "^NEXT_PUBLIC_SUPABASE_ANON_KEY=" "$file" | cut -d'=' -f2- || true)
   
@@ -43,9 +45,11 @@ check_env_vars() {
     has_placeholder=1
   fi
   
+  # Check key length (min 20 chars) and placeholder patterns
   if [ -z "$key_value" ] || \
      [ "$key_value" = "your-anon-key-here" ] || \
-     echo "$key_value" | grep -qE "^eyJhbGciOi\.\.\."; then
+     echo "$key_value" | grep -qE "^eyJhbGciOi\.\.\." || \
+     [ "${#key_value}" -lt 20 ]; then
     has_placeholder=1
   fi
   
