@@ -46,7 +46,16 @@ Each app can be deployed independently on different subdomains while sharing aut
 
 ### Quick Environment Setup
 
-**⚠️ Important:** This is a monorepo with multiple Next.js apps. All apps need environment configuration.
+**⚠️ CRITICAL:** This repository includes pre-configured `.env.local` files with placeholder values in the root and all learning modules. **You MUST update these with your actual Supabase credentials before running any app**, or you will encounter runtime errors.
+
+**Required Actions:**
+1. Get your Supabase credentials from [supabase.com](https://supabase.com) (Project Settings → API)
+2. Update the placeholder values in all `.env.local` files:
+   - Replace `your-project-url-here` with your actual `NEXT_PUBLIC_SUPABASE_URL`
+   - Replace `your-anon-key-here` with your actual `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+3. Ensure both variables have non-empty, valid values in every `.env.local` file
+
+**Verification:** Run `./ensure-env-files.sh` to check if all environment files are properly configured.
 
 **Option 1: Automated Setup (Recommended)**
 

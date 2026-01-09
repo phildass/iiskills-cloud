@@ -10,6 +10,37 @@ The iiskills-cloud project is a **monorepo** containing:
 
 **All apps share the same Supabase credentials** for cross-subdomain authentication.
 
+## ⚠️ Important: Pre-configured .env.local Files
+
+**NEW:** This repository now includes `.env.local` files in the root directory and all learning modules with placeholder values. These files are pre-configured with template values that **MUST be updated** with your actual Supabase credentials before the apps will work.
+
+**What you need to do:**
+
+1. **Get your Supabase credentials** (see Step 1 below)
+2. **Update the placeholder values** in all `.env.local` files with your real credentials
+3. The required variables are:
+   - `NEXT_PUBLIC_SUPABASE_URL` - Replace `your-project-url-here` with your actual Supabase project URL
+   - `NEXT_PUBLIC_SUPABASE_ANON_KEY` - Replace `your-anon-key-here` with your actual Supabase anon key
+
+**Why this matters:** The apps will fail to start with runtime errors if the placeholder values are not replaced with valid Supabase credentials. Each app validates these environment variables on startup.
+
+**Quick Update Method:** Use the automated setup script (recommended):
+```bash
+./setup-env.sh
+```
+This will prompt for your credentials and update all `.env.local` files automatically.
+
+**Verify Configuration:** After setup, you can verify all environment files are correctly configured:
+```bash
+./ensure-env-files.sh
+```
+This script will:
+- Check if `.env.local` files exist in all required locations
+- Verify that required environment variables are present
+- Detect placeholder values that need to be replaced
+- Create missing `.env.local` files from templates
+- Provide clear feedback on what needs to be fixed
+
 ## Quick Start
 
 ### Step 1: Get Supabase Credentials
@@ -169,20 +200,36 @@ The leading dot in `NEXT_PUBLIC_COOKIE_DOMAIN=.iiskills.cloud` enables session s
 
 ## Troubleshooting
 
+### Checking Environment Configuration
+
+**Use the verification script to diagnose issues:**
+```bash
+./ensure-env-files.sh
+```
+
+This script will automatically:
+- Detect missing `.env.local` files and create them from templates
+- Identify files with placeholder values that need updating
+- Provide clear instructions on how to fix configuration issues
+
 ### "supabaseUrl is required" Error
 
-**Cause:** Environment variables are not configured.
+**Cause:** Environment variables are not configured or contain placeholder values.
 
-**Solution:** Follow Steps 1-3 above to create `.env.local` files with your Supabase credentials.
+**Solution:** 
+1. Run `./ensure-env-files.sh` to check configuration status
+2. If files have placeholder values, run `./setup-env.sh` to update them
+3. Or manually edit each `.env.local` file with your Supabase credentials
 
 ### App Starts But Can't Login
 
 **Cause:** Different Supabase credentials across apps, or missing `.env.local` in some modules.
 
 **Solution:** 
-1. Verify all `.env.local` files have the SAME Supabase credentials
-2. Restart all development servers after updating `.env.local`
-3. Clear your browser cache/cookies
+1. Run `./ensure-env-files.sh` to verify all modules are configured
+2. Verify all `.env.local` files have the SAME Supabase credentials
+3. Restart all development servers after updating `.env.local`
+4. Clear your browser cache/cookies
 
 ### "Module Not Found" Errors
 
