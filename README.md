@@ -281,6 +281,8 @@ To enable authentication features:
 5. Create `.env.local` in each app directory with your credentials
 6. Configure cookie domain to `.iiskills.cloud` for cross-subdomain auth
 
+**🔧 If Google sign-in doesn't work**: See [GOOGLE_OAUTH_QUICK_FIX.md](GOOGLE_OAUTH_QUICK_FIX.md) for a 5-minute fix guide, or run `./google-oauth-check.sh` to diagnose issues.
+
 See [SUPABASE_AUTH_SETUP.md](SUPABASE_AUTH_SETUP.md) for detailed setup instructions.
 
 **Important:** See [SUPABASE_CONFIGURATION.md](SUPABASE_CONFIGURATION.md) for the complete guide on configuring Supabase environment variables across all subdomains.
@@ -295,13 +297,22 @@ See [NAVIGATION_AUTH_GUIDE.md](NAVIGATION_AUTH_GUIDE.md) for complete navigation
 ### For Developers
 - [SUPABASE_CONFIGURATION.md](SUPABASE_CONFIGURATION.md) - **Complete Supabase configuration guide (MUST READ)**
 - [AUTHENTICATION_ARCHITECTURE.md](AUTHENTICATION_ARCHITECTURE.md) - **Complete guide to universal authentication system**
+- [SUPABASE_AUTH_SETUP.md](SUPABASE_AUTH_SETUP.md) - Authentication setup and troubleshooting
+- [GOOGLE_OAUTH_QUICK_FIX.md](GOOGLE_OAUTH_QUICK_FIX.md) - **⚡ 5-minute guide to fix Google sign-in issues**
+- [GOOGLE_OAUTH_TROUBLESHOOTING.md](GOOGLE_OAUTH_TROUBLESHOOTING.md) - **Comprehensive Google sign-in troubleshooting**
+- [CALLBACK_URLS_REFERENCE.md](CALLBACK_URLS_REFERENCE.md) - Complete list of callback URLs for all domains/subdomains
 - [NAVIGATION_AUTH_GUIDE.md](NAVIGATION_AUTH_GUIDE.md) - **Navigation and authentication flow guide**
 - [DEPLOYMENT.md](DEPLOYMENT.md) - Comprehensive deployment guide
-- [SUPABASE_AUTH_SETUP.md](SUPABASE_AUTH_SETUP.md) - Authentication setup
 - [MODULE_MIGRATION_SUMMARY.md](MODULE_MIGRATION_SUMMARY.md) - Learning modules migration details
 - [TESTING_GUIDE.md](TESTING_GUIDE.md) - Testing documentation
 - [IMPLEMENTATION_SUMMARY.md](IMPLEMENTATION_SUMMARY.md) - Implementation details
 - Individual module READMEs in each `learn-*` directory
+
+### 🔧 Troubleshooting Tools
+
+- **Google OAuth Quick Fix**: See [GOOGLE_OAUTH_QUICK_FIX.md](GOOGLE_OAUTH_QUICK_FIX.md) (5-minute guide)
+- **Google OAuth Verification Script**: Run `./google-oauth-check.sh` to verify Google sign-in configuration
+- **Comprehensive Troubleshooting**: See [GOOGLE_OAUTH_TROUBLESHOOTING.md](GOOGLE_OAUTH_TROUBLESHOOTING.md) for detailed debugging
 
 ## Questions/Support
 
