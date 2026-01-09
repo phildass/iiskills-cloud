@@ -295,13 +295,20 @@ See [NAVIGATION_AUTH_GUIDE.md](NAVIGATION_AUTH_GUIDE.md) for complete navigation
 ### For Developers
 - [SUPABASE_CONFIGURATION.md](SUPABASE_CONFIGURATION.md) - **Complete Supabase configuration guide (MUST READ)**
 - [AUTHENTICATION_ARCHITECTURE.md](AUTHENTICATION_ARCHITECTURE.md) - **Complete guide to universal authentication system**
+- [SUPABASE_AUTH_SETUP.md](SUPABASE_AUTH_SETUP.md) - Authentication setup and troubleshooting
+- [GOOGLE_OAUTH_TROUBLESHOOTING.md](GOOGLE_OAUTH_TROUBLESHOOTING.md) - **Google sign-in setup and troubleshooting (if Google OAuth fails)**
+- [CALLBACK_URLS_REFERENCE.md](CALLBACK_URLS_REFERENCE.md) - Complete list of callback URLs for all domains/subdomains
 - [NAVIGATION_AUTH_GUIDE.md](NAVIGATION_AUTH_GUIDE.md) - **Navigation and authentication flow guide**
 - [DEPLOYMENT.md](DEPLOYMENT.md) - Comprehensive deployment guide
-- [SUPABASE_AUTH_SETUP.md](SUPABASE_AUTH_SETUP.md) - Authentication setup
 - [MODULE_MIGRATION_SUMMARY.md](MODULE_MIGRATION_SUMMARY.md) - Learning modules migration details
 - [TESTING_GUIDE.md](TESTING_GUIDE.md) - Testing documentation
 - [IMPLEMENTATION_SUMMARY.md](IMPLEMENTATION_SUMMARY.md) - Implementation details
 - Individual module READMEs in each `learn-*` directory
+
+### 🔧 Troubleshooting Tools
+
+- **Google OAuth Verification Script**: Run `./google-oauth-check.sh` to verify Google sign-in configuration
+- See [GOOGLE_OAUTH_TROUBLESHOOTING.md](GOOGLE_OAUTH_TROUBLESHOOTING.md) for detailed Google OAuth debugging
 
 ## Questions/Support
 

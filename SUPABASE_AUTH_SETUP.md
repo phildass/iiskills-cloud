@@ -97,9 +97,14 @@ The application now uses Supabase for secure authentication, replacing the previ
      - Go to [Google Cloud Console](https://console.cloud.google.com/)
      - Create a new project or use existing
      - Enable Google+ API
-     - Create OAuth 2.0 credentials
-     - Add authorized redirect URIs from Supabase (shown in provider settings)
+     - Create OAuth 2.0 credentials (Web application)
+     - **CRITICAL**: Add the Supabase callback URL to Authorized redirect URIs:
+       - Format: `https://YOUR-PROJECT-ID.supabase.co/auth/v1/callback`
+       - Copy this EXACT URL from Supabase provider settings
+       - This is the #1 cause of Google OAuth failures!
+     - Add all app origins to Authorized JavaScript origins (see GOOGLE_OAUTH_TROUBLESHOOTING.md for complete list)
      - Copy Client ID and Client Secret to Supabase
+   - **Important**: See [GOOGLE_OAUTH_TROUBLESHOOTING.md](GOOGLE_OAUTH_TROUBLESHOOTING.md) for detailed setup and troubleshooting
    
 4. Customize email templates (optional):
    - Go to **Authentication** → **Email Templates**
@@ -448,6 +453,43 @@ During development, you have two options:
 - Check browser console for errors
 - Verify `UserProtectedRoute` is wrapping the entire page content
 - Make sure Supabase client is properly initialized
+
+### Google OAuth Issues
+
+⚠️ **For comprehensive Google OAuth troubleshooting, see [GOOGLE_OAUTH_TROUBLESHOOTING.md](GOOGLE_OAUTH_TROUBLESHOOTING.md)**
+
+Common Google OAuth errors:
+
+#### "redirect_uri_mismatch"
+- **Cause**: Callback URL mismatch between Supabase and Google Cloud Console
+- **Fix**: Ensure `https://YOUR-PROJECT.supabase.co/auth/v1/callback` is added to Google Cloud Console → Authorized redirect URIs
+- Run `./google-oauth-check.sh` to verify configuration
+
+#### "Failed to sign in with Google"
+- **Cause**: Google provider not enabled or credentials incorrect
+- **Fix**: 
+  - Verify Google is enabled in Supabase → Authentication → Providers
+  - Check Client ID and Secret are correct
+  - Ensure Google+ API is enabled in Google Cloud Console
+
+#### Google button doesn't appear
+- **Cause**: Component configuration or missing function
+- **Fix**: 
+  - Verify `showGoogleAuth={true}` in UniversalLogin component
+  - Check `signInWithGoogle` is exported from lib/supabaseClient.js
+  - Review browser console for JavaScript errors
+
+#### Session not persisting across subdomains after Google login
+- **Cause**: Cookie domain misconfiguration
+- **Fix**: 
+  - Set `NEXT_PUBLIC_COOKIE_DOMAIN=.iiskills.cloud` for production
+  - Verify all apps use same Supabase project
+  - Check `getCookieDomain()` in utils/urlHelper.js
+
+**Quick Check**: Run the verification script:
+```bash
+./google-oauth-check.sh
+```
 
 ## Security Best Practices
 
