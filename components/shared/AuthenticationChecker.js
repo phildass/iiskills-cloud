@@ -37,7 +37,7 @@ export default function AuthenticationChecker() {
 
       // Don't check on login/register pages to avoid redirect loops
       const currentPath = router.pathname
-      if (currentPath === '/login' || currentPath === '/register') {
+      if (currentPath === '/login' || currentPath === '/register' || currentPath.startsWith('/admin')) {
         return
       }
 

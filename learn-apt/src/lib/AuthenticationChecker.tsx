@@ -37,7 +37,8 @@ export default function AuthenticationChecker() {
       // Mark that we've checked auth in this session
       sessionStorage.setItem('hasCheckedAuth', 'true');
 
-      // Don't check on admin pages to avoid redirect loops
+      // Don't check on admin page to avoid redirect loops
+      // Note: learn-apt uses /admin for authentication instead of separate login/register pages
       const currentPath = window.location.pathname;
       if (currentPath.startsWith('/admin')) {
         return;
@@ -45,7 +46,7 @@ export default function AuthenticationChecker() {
 
       // Check if user is authenticated
       if (!user) {
-        // User is not authenticated, redirect to admin login (which handles registration)
+        // User is not authenticated, redirect to admin page (which handles login/registration)
         // Pass the current path as a query parameter to redirect back after authentication
         const redirectUrl = `/admin?redirect=${encodeURIComponent(currentPath)}`;
         router.push(redirectUrl);
