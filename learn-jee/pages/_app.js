@@ -4,7 +4,6 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 import { supabase, getCurrentUser, signOut } from '../lib/supabaseClient'
-import { getCurrentUser, signOut } from '../lib/supabaseClient'
 import AuthenticationChecker from '../../components/shared/AuthenticationChecker'
 import Footer from '../components/Footer'
 
