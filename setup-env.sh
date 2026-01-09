@@ -85,7 +85,7 @@ for dir in learn-*/; do
     sed -i.bak "s|NEXT_PUBLIC_SUPABASE_ANON_KEY=.*|NEXT_PUBLIC_SUPABASE_ANON_KEY=$SUPABASE_ANON_KEY|" "$dir/.env.local"
     rm "$dir/.env.local.bak"
     
-    echo "✅ Updated $dir.env.local"
+    echo "✅ Updated $dir/.env.local"
     MODULE_COUNT=$((MODULE_COUNT + 1))
   fi
 done
