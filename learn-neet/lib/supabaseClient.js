@@ -98,11 +98,6 @@ export async function signInWithEmail(email, password) {
 
 /**
  * Helper function to check if user has admin role
- * @param {Object} user - User object from Supabase
- * @returns {boolean} True if user is admin
- */
-/**
- * Helper function to check if user has admin role
  * 
  * Uses the public.profiles table to validate admin status.
  * This is the centralized approach for admin validation across all apps.

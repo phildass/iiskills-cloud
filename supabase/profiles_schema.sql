@@ -41,7 +41,13 @@ CREATE POLICY "Users can view own profile"
 CREATE POLICY "Users can update own profile" 
   ON public.profiles FOR UPDATE 
   USING (auth.uid() = id)
-  WITH CHECK (auth.uid() = id);
+  WITH CHECK (
+    auth.uid() = id 
+    AND (
+      -- Ensure is_admin field is not being changed
+      (SELECT is_admin FROM public.profiles WHERE id = auth.uid()) = NEW.is_admin
+    )
+  );
 
 -- Users can insert their own profile on signup
 CREATE POLICY "Users can insert own profile"
