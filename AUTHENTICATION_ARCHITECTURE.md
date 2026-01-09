@@ -322,14 +322,24 @@ NEXT_PUBLIC_COOKIE_DOMAIN=.iiskills.cloud
 
 ### Admin Authentication
 
-Admin access is controlled through user metadata, not separate credentials:
+Admin access is controlled through the **public.profiles** table, not separate credentials:
 
 - Admins use the same login pages as regular users (e.g., `/login` or `/admin/login`)
-- The `UniversalLogin` component automatically detects admin users via the `isAdmin()` function
+- The `isAdmin()` function automatically checks the `profiles.is_admin` field from the database
 - Admin users are redirected to `/admin` after successful authentication
 - Non-admin users attempting to access admin routes are denied via the ProtectedRoute component
 
-**There are no separate admin credentials** - admin status is determined by the `is_admin` flag in the user's Supabase metadata.
+**There are no separate admin credentials** - admin status is determined by the `is_admin` flag in the public.profiles table.
+
+**Setting up admin users:**
+```sql
+-- Make a user an admin in Supabase SQL Editor
+UPDATE public.profiles 
+SET is_admin = true 
+WHERE id = (SELECT id FROM auth.users WHERE email = 'admin@example.com');
+```
+
+For complete documentation on admin validation, see [PROFILES_TABLE_ADMIN.md](PROFILES_TABLE_ADMIN.md).
 
 ## Testing Universal Authentication
 

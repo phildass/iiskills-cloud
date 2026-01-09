@@ -113,20 +113,35 @@ The application now uses Supabase for secure authentication, replacing the previ
 
 ### Step 4a: Configure Admin Roles
 
-To enable admin access, you need to set the admin role in user metadata:
+Admin access is now managed through the **public.profiles** table instead of user metadata.
 
-1. Go to **Authentication** → **Users** in Supabase dashboard
-2. Find the user you want to make an admin
-3. Click on the user to edit
-4. In the "User Metadata" or "App Metadata" section, add:
-   ```json
-   {
-     "role": "admin"
-   }
-   ```
-5. Save the changes
+#### Set Up the Profiles Table
 
-Now that user can access admin pages across all apps.
+1. Go to **SQL Editor** in Supabase dashboard
+2. Copy and paste the contents of `/supabase/profiles_schema.sql`
+3. Click **Run** to create the table, policies, and triggers
+
+#### Make a User Admin
+
+1. Go to **SQL Editor** in Supabase dashboard
+2. Run this query (replace with actual admin email):
+
+```sql
+UPDATE public.profiles 
+SET is_admin = true 
+WHERE id = (SELECT id FROM auth.users WHERE email = 'admin@example.com');
+```
+
+3. Verify the admin user:
+
+```sql
+SELECT u.email, p.is_admin, p.created_at
+FROM auth.users u
+JOIN public.profiles p ON u.id = p.id
+WHERE p.is_admin = true;
+```
+
+**Important**: Admin status is now stored in `public.profiles.is_admin`, NOT in user metadata. See [PROFILES_TABLE_ADMIN.md](PROFILES_TABLE_ADMIN.md) for complete documentation.
 
 ### Step 5: Optional - Create Profiles Table
 
@@ -356,13 +371,18 @@ import { getCurrentUser, isAdmin } from '../lib/supabaseClient'
 
 const checkAdminAccess = async () => {
   const user = await getCurrentUser()
-  if (user && isAdmin(user)) {
-    console.log('User has admin access')
-  } else {
-    console.log('User does not have admin access')
+  if (user) {
+    const hasAdminAccess = await isAdmin(user)
+    if (hasAdminAccess) {
+      console.log('User has admin access')
+    } else {
+      console.log('User does not have admin access')
+    }
   }
 }
 ```
+
+**Note**: The `isAdmin()` function is now async and queries the `public.profiles` table. See [PROFILES_TABLE_ADMIN.md](PROFILES_TABLE_ADMIN.md) for details.
 
 ### 12. Manual Logout (in custom component)
 
