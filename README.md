@@ -179,7 +179,7 @@ These can be imported by any app in the monorepo.
 
 ## Customization
 
-- Logo: Replace `/public/images/iiskills-logo.png` with your own logo file.
+- Logos: Replace `/public/images/iiskills-logo.png` and `/public/images/ai-cloud-logo.png` with your own logo files. These are used universally across all domains and subdomains.
 - Colors: Edit `tailwind.config.js` to tune palette.
 - Content: Edit pages as needed (Home, Apps, About, Contact, etc).
 - Add new apps to `apps.js` or create new Next.js API routes/apps as needed.
