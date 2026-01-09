@@ -122,16 +122,33 @@ export async function signInWithEmail(email, password) {
 /**
  * Helper function to check if user has admin role
  * 
- * Admin roles are synced from the main app via Supabase user metadata
+ * Uses the public.profiles table to validate admin status.
+ * This is the centralized approach for admin validation across all apps.
  * 
  * @param {Object} user - User object from Supabase
- * @returns {boolean} True if user is admin
+ * @returns {Promise<boolean>} True if user is admin
  */
-export function isAdmin(user) {
+export async function isAdmin(user) {
   if (!user) return false
-  // Check user metadata for admin role
-  // This should be set in the main app's user management
-  return user.user_metadata?.role === 'admin' || user.app_metadata?.role === 'admin'
+  
+  try {
+    // Query the public.profiles table for admin status
+    const { data, error } = await supabase
+      .from('profiles')
+      .select('is_admin')
+      .eq('id', user.id)
+      .single()
+    
+    if (error) {
+      console.error('Error checking admin status:', error.message)
+      return false
+    }
+    
+    return data?.is_admin === true
+  } catch (error) {
+    console.error('Error in isAdmin:', error)
+    return false
+  }
 }
 
 /**

@@ -56,7 +56,7 @@ export default function Memberships() {
     }
     
     setUser(currentUser)
-    const hasAdminAccess = isAdmin(currentUser)
+    const hasAdminAccess = await isAdmin(currentUser)
     setAdminAccess(hasAdminAccess)
     
     if (!hasAdminAccess) {

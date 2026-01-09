@@ -39,14 +39,17 @@ export default function AdminSignIn() {
     try {
       const user = await getCurrentUser()
       
-      if (user && isAdmin(user)) {
-        // User is authenticated and has admin role
-        await signIn()
-        router.push('/admin/dashboard')
-      } else if (user) {
-        // User is logged in but doesn't have admin privileges
-        setError('Access denied. You do not have admin privileges.')
-        setIsLoading(false)
+      if (user) {
+        const hasAdminAccess = await isAdmin(user)
+        if (hasAdminAccess) {
+          // User is authenticated and has admin role
+          await signIn()
+          router.push('/admin/dashboard')
+        } else {
+          // User is logged in but doesn't have admin privileges
+          setError('Access denied. You do not have admin privileges.')
+          setIsLoading(false)
+        }
       } else {
         // Not logged in - show login form
         setIsLoading(false)
@@ -98,7 +101,8 @@ export default function AdminSignIn() {
         
         if (user) {
           // Check if user has admin role
-          if (isAdmin(user)) {
+          const hasAdminAccess = await isAdmin(user)
+          if (hasAdminAccess) {
             await signIn()
             setSuccess('Login successful! Redirecting to admin dashboard...')
             

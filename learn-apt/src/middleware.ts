@@ -44,12 +44,27 @@ export async function middleware(request: NextRequest) {
       }
       
       // Check if user has admin role - CRITICAL SECURITY CHECK
-      // Only users with user_metadata.is_admin === true can access admin routes
-      const isAdmin = user.user_metadata?.is_admin === true;
-      
-      if (!isAdmin) {
-        // User is authenticated but not an admin
-        // Redirect to home page with unauthorized message
+      // Query profiles table for admin status instead of user_metadata
+      try {
+        const { data: profileData, error: profileError } = await supabase
+          .from('profiles')
+          .select('is_admin')
+          .eq('id', user.id)
+          .single();
+        
+        const isAdmin = profileError ? false : (profileData?.is_admin === true);
+        
+        if (!isAdmin) {
+          // User is authenticated but not an admin
+          // Redirect to home page with unauthorized message
+          const url = request.nextUrl.clone();
+          url.pathname = "/";
+          url.searchParams.set("error", "unauthorized");
+          return NextResponse.redirect(url);
+        }
+      } catch (error) {
+        console.error('Error checking admin status:', error);
+        // On error, deny access
         const url = request.nextUrl.clone();
         url.pathname = "/";
         url.searchParams.set("error", "unauthorized");

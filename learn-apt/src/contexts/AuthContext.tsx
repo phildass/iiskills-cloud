@@ -245,11 +245,39 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  // Helper: Admin detection - checks user_metadata.is_admin
+  // Helper: Admin detection - checks profiles.is_admin from database
   // For fallback auth (when useSupabase is false), authenticated users are admin
-  const isAdmin = useSupabase 
-    ? (user ? (user.user_metadata?.is_admin === true) : false)
-    : isAuthenticated; // Fallback: all authenticated users are admin
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  // Fetch admin status from profiles table when user changes
+  useEffect(() => {
+    const checkAdminStatus = async () => {
+      if (useSupabase && user && supabase) {
+        try {
+          const { data, error } = await supabase
+            .from('profiles')
+            .select('is_admin')
+            .eq('id', user.id)
+            .single();
+          
+          if (error) {
+            console.error('Error checking admin status:', error.message);
+            setIsAdmin(false);
+          } else {
+            setIsAdmin(data?.is_admin === true);
+          }
+        } catch (error) {
+          console.error('Error in checkAdminStatus:', error);
+          setIsAdmin(false);
+        }
+      } else {
+        // Fallback: all authenticated users are admin when Supabase is not configured
+        setIsAdmin(isAuthenticated);
+      }
+    };
+
+    checkAdminStatus();
+  }, [user, isAuthenticated, useSupabase, supabase]);
 
   const value: AuthContextType = {
     user,
