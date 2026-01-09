@@ -1,6 +1,7 @@
 import '../styles/globals.css'
 import { useEffect, useState } from 'react'
 import { supabase, getCurrentUser } from '../lib/supabaseClient'
+import AuthenticationChecker from '../../components/shared/AuthenticationChecker'
 
 /**
  * Main App Component for Learn Government Jobs
@@ -32,7 +33,12 @@ function MyApp({ Component, pageProps }) {
     setLoading(false)
   }
 
-  return <Component {...pageProps} user={user} loading={loading} />
+  return (
+    <>
+      <AuthenticationChecker />
+      <Component {...pageProps} user={user} loading={loading} />
+    </>
+  )
 }
 
 export default MyApp

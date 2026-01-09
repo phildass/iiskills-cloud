@@ -2,6 +2,7 @@ import '../styles/globals.css'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { supabase, getCurrentUser } from '../lib/supabaseClient'
+import AuthenticationChecker from '../../components/shared/AuthenticationChecker'
 import Link from 'next/link'
 
 export default function App({ Component, pageProps }) {
@@ -40,7 +41,9 @@ export default function App({ Component, pageProps }) {
   }
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <>
+      <AuthenticationChecker />
+      <div className="flex flex-col min-h-screen">
       {/* Navigation */}
       <nav className="bg-white shadow-md">
         <div className="max-w-7xl mx-auto px-4 py-4">
@@ -88,5 +91,6 @@ export default function App({ Component, pageProps }) {
         <Component {...pageProps} user={user} loading={loading} />
       </main>
     </div>
+    </>
   )
 }
