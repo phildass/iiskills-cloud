@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import SharedNavbar from '../../components/shared/SharedNavbar'
 import SubdomainNavbar from '../../components/shared/SubdomainNavbar'
+import AuthenticationChecker from '../../components/shared/AuthenticationChecker'
 import Footer from '../components/Footer'
 import { supabase, getCurrentUser, signOutUser } from '../lib/supabaseClient'
 
@@ -60,6 +61,7 @@ export default function App({ Component, pageProps }) {
 
   return (
     <>
+      <AuthenticationChecker />
       <SharedNavbar 
         user={user}
         onLogout={handleLogout}
