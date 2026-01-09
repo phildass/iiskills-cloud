@@ -99,8 +99,9 @@ export default function UniversalLogin({
           // Authentication successful!
           setSuccess('Login successful! Redirecting...')
           
-          // Use redirect URL from query param or default
-          const redirectUrl = router.query.redirect || (isAdmin(user) ? '/admin' : redirectAfterLogin)
+          // Use redirect URL from query param or default redirect path
+          // No automatic admin redirect - respect the intended destination
+          const redirectUrl = router.query.redirect || redirectAfterLogin
           
           // Redirect after a brief delay to show success message
           setTimeout(() => {

@@ -3,6 +3,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
+import { supabase, getCurrentUser, signOut } from '../lib/supabaseClient'
 import { getCurrentUser, signOut } from '../lib/supabaseClient'
 import AuthenticationChecker from '../../components/shared/AuthenticationChecker'
 import Footer from '../components/Footer'
@@ -14,6 +15,13 @@ export default function App({ Component, pageProps }) {
 
   useEffect(() => {
     checkUser()
+
+    // Listen for auth state changes to update navbar when user logs in/out
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null)
+    })
+
+    return () => subscription.unsubscribe()
   }, [])
 
   const checkUser = async () => {

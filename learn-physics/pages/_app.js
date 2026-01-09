@@ -5,7 +5,7 @@ import SharedNavbar from '../../components/shared/SharedNavbar'
 import SubdomainNavbar from '../../components/shared/SubdomainNavbar'
 import AuthenticationChecker from '../../components/shared/AuthenticationChecker'
 import Footer from '../components/Footer'
-import { getCurrentUser, signOutUser } from '../lib/supabaseClient'
+import { supabase, getCurrentUser, signOutUser } from '../lib/supabaseClient'
 
 export default function App({ Component, pageProps }) {
   const [user, setUser] = useState(null)
@@ -13,6 +13,13 @@ export default function App({ Component, pageProps }) {
 
   useEffect(() => {
     checkUser()
+
+    // Listen for auth state changes to update navbar when user logs in/out
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null)
+    })
+
+    return () => subscription.unsubscribe()
   }, [])
 
   const checkUser = async () => {
