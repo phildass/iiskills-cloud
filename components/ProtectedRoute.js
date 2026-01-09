@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import { getCurrentUser } from '../lib/supabaseClient'
+import { getCurrentUser, isAdmin } from '../lib/supabaseClient'
 
 /**
  * Protected Route Component for Admin Pages
  * 
  * This component ensures only authenticated users with admin role can access admin pages.
- * Uses Supabase backend authentication instead of localStorage.
+ * Uses Supabase backend authentication and checks admin status from public.profiles table.
  * 
  * Security:
  * - Backend validation via Supabase
- * - Role-based access control
+ * - Role-based access control via profiles.is_admin
  * - Automatic redirect to login if not authenticated
  */
 export default function ProtectedRoute({ children, requireAdmin = true }) {
@@ -36,10 +36,10 @@ export default function ProtectedRoute({ children, requireAdmin = true }) {
       }
 
       if (requireAdmin) {
-        // Check if user has admin role in metadata
-        const isAdmin = user.user_metadata?.role === 'admin' || user.app_metadata?.role === 'admin'
+        // Check if user has admin role in profiles table
+        const hasAdminAccess = await isAdmin(user)
         
-        if (!isAdmin) {
+        if (!hasAdminAccess) {
           // User is logged in but not an admin
           router.push('/?error=access_denied')
           setIsLoading(false)

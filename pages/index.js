@@ -10,6 +10,28 @@ export default function Home() {
   const pricing = getPricingDisplay()
   const introNotice = getIntroOfferNotice()
   
+  // Check if user just authenticated via magic link and is an admin
+  // Check if user just logged in (from OAuth or magic link) and is admin
+  useEffect(() => {
+    const checkAdminRedirect = async () => {
+      // Only check if there's an auth hash fragment (from OAuth/magic link callback)
+      // The hash will contain access_token or other auth parameters
+      if (typeof window !== 'undefined' && window.location.hash.includes('access_token')) {
+        const user = await getCurrentUser()
+        if (user) {
+          const hasAdminAccess = await isAdmin(user)
+          if (hasAdminAccess) {
+            // Redirect admin users to admin dashboard
+            router.push('/admin')
+          }
+        }
+      }
+    }
+    
+    checkAdminRedirect()
+    // Only run once on mount - dependencies intentionally omitted to avoid re-runs
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
   // No automatic redirects - users should land on the page they requested
   // Authentication state is handled by the auth system
 

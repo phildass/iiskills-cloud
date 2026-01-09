@@ -23,7 +23,7 @@ export default function AdminIndex() {
     }
     
     setUser(currentUser)
-    const hasAdminAccess = isAdmin(currentUser)
+    const hasAdminAccess = await isAdmin(currentUser)
     setAdminAccess(hasAdminAccess)
     
     if (!hasAdminAccess) {

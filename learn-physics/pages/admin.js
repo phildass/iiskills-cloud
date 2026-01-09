@@ -30,7 +30,8 @@ export default function Admin() {
     }
     
     // Check if user has admin access
-    if (!isAdmin(currentUser)) {
+    const hasAdminAccess = await isAdmin(currentUser)
+    if (!hasAdminAccess) {
       setHasAccess(false)
       setIsLoading(false)
       return

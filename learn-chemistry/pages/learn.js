@@ -332,6 +332,7 @@ function LearnContent() {
   const [selectedLevel, setSelectedLevel] = useState(0)
   const [selectedModule, setSelectedModule] = useState(null)
   const [showAdminPanel, setShowAdminPanel] = useState(false)
+  const [userIsAdmin, setUserIsAdmin] = useState(false)
   const router = useRouter()
 
   useEffect(() => {
@@ -344,6 +345,9 @@ function LearnContent() {
     if (currentUser) {
       setUser(currentUser)
       setUserProfile(getUserProfile(currentUser))
+      // Check if user is admin
+      const hasAdminAccess = await isAdmin(currentUser)
+      setUserIsAdmin(hasAdminAccess)
     }
     setIsLoading(false)
   }
@@ -407,7 +411,7 @@ function LearnContent() {
                 </div>
               </div>
               
-              {isAdmin(user) && (
+              {userIsAdmin && (
                 <button
                   onClick={() => setShowAdminPanel(!showAdminPanel)}
                   className="bg-accent text-white px-6 py-3 rounded-lg font-bold hover:bg-purple-700 transition"
@@ -419,7 +423,7 @@ function LearnContent() {
           </div>
 
           {/* Admin Panel */}
-          {showAdminPanel && isAdmin(user) && (
+          {showAdminPanel && userIsAdmin && (
             <div className="bg-yellow-50 border-2 border-yellow-400 p-6 rounded-lg shadow-lg mb-8">
               <h2 className="text-2xl font-bold text-charcoal mb-4">🛠️ Admin Panel</h2>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">

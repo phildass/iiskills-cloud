@@ -25,7 +25,8 @@ export default function AdminDashboard() {
       return
     }
 
-    if (!isAdmin(user)) {
+    const hasAdminAccess = await isAdmin(user)
+    if (!hasAdminAccess) {
       // Logged in but not admin, redirect to regular login with error
       router.push('/login?error=admin_access_denied')
       return
