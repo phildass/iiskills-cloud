@@ -28,8 +28,16 @@ const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
 // Check for missing or placeholder values
-const hasPlaceholderUrl = !supabaseUrl || supabaseUrl === 'your-project-url-here' || supabaseUrl.includes('your-project')
-const hasPlaceholderKey = !supabaseAnonKey || supabaseAnonKey === 'your-anon-key-here' || supabaseAnonKey.includes('your-anon-key')
+// Placeholders are exact matches or obviously invalid values
+const hasPlaceholderUrl = !supabaseUrl || 
+  supabaseUrl === 'your-project-url-here' || 
+  supabaseUrl === 'https://your-project.supabase.co' ||
+  supabaseUrl.match(/^https?:\/\/(your-project|xyz|xyzcompany|abc123).*\.supabase\.co$/i)
+
+const hasPlaceholderKey = !supabaseAnonKey || 
+  supabaseAnonKey === 'your-anon-key-here' ||
+  supabaseAnonKey.startsWith('eyJhbGciOi...') ||
+  supabaseAnonKey.length < 20
 
 if (!supabaseUrl || !supabaseAnonKey || hasPlaceholderUrl || hasPlaceholderKey) {
   const errorMessage = `

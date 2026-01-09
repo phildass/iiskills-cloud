@@ -30,10 +30,26 @@ check_env_vars() {
   fi
   
   # Check if required variables exist and are not empty placeholders
-  local has_url=$(grep -E "^NEXT_PUBLIC_SUPABASE_URL=.+" "$file" | grep -v "your-project-url-here" || true)
-  local has_key=$(grep -E "^NEXT_PUBLIC_SUPABASE_ANON_KEY=.+" "$file" | grep -v "your-anon-key-here" || true)
+  local url_value=$(grep -E "^NEXT_PUBLIC_SUPABASE_URL=" "$file" | cut -d'=' -f2- || true)
+  local key_value=$(grep -E "^NEXT_PUBLIC_SUPABASE_ANON_KEY=" "$file" | cut -d'=' -f2- || true)
   
-  if [ -z "$has_url" ] || [ -z "$has_key" ]; then
+  # Check for known placeholder patterns
+  local has_placeholder=0
+  
+  if [ -z "$url_value" ] || \
+     [ "$url_value" = "your-project-url-here" ] || \
+     [ "$url_value" = "https://your-project.supabase.co" ] || \
+     echo "$url_value" | grep -qiE "(your-project|xyz|xyzcompany|abc123).*\.supabase\.co"; then
+    has_placeholder=1
+  fi
+  
+  if [ -z "$key_value" ] || \
+     [ "$key_value" = "your-anon-key-here" ] || \
+     echo "$key_value" | grep -qE "^eyJhbGciOi\.\.\."; then
+    has_placeholder=1
+  fi
+  
+  if [ $has_placeholder -eq 1 ]; then
     echo "⚠️  INCOMPLETE: $location (has placeholder values)"
     return 2
   fi
@@ -49,9 +65,9 @@ create_env_file() {
   
   if [ -f "$source_template" ]; then
     cp "$source_template" "$target_dir/.env.local"
-    echo "   Created $target_dir/.env.local from template"
+    echo "   Created $target_dir/.env.local from template $source_template"
   else
-    echo "   ⚠️  No template found for $target_dir"
+    echo "   ⚠️  No template found at $source_template for $target_dir"
     return 1
   fi
 }
