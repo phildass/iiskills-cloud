@@ -451,24 +451,6 @@ export default function Learn() {
                 </div>
                 <div className="mt-4">
                   <Link href="https://www.aienter.in/payments" target="_blank" rel="noopener noreferrer" className="inline-block bg-white text-primary px-8 py-3 rounded-lg font-bold hover:bg-gray-100 transition">
-
-              Master Physics, Chemistry, and Mathematics with our comprehensive 10-chapter course
-            </p>
-            
-            {!hasPurchased && (
-              <div className="bg-accent text-white p-6 rounded-lg mt-4">
-                <h3 className="text-2xl font-bold mb-2">🎁 Free Preview Available</h3>
-                <p className="mb-3">
-                  You have free access to Chapter 1, Lesson 1. Experience our teaching style before purchasing!
-                </p>
-                <div className="bg-white text-primary p-4 rounded inline-block">
-                  <div className="text-lg font-semibold">Full Course Access</div>
-                  <div className="text-3xl font-bold">₹499 <span className="text-base font-normal">+ GST ₹89.82</span></div>
-                  <div className="text-sm mt-1">Total: ₹588.82 • Lifetime Access</div>
-                </div>
-                <div className="mt-4">
-                  <Link href="https://www.aienter.in/payments" target="_blank" rel="noopener noreferrer" className="inline-block bg-white text-accent px-8 py-3 rounded-lg font-bold hover:bg-gray-100 transition">
-
                     Purchase Full Course →
                   </Link>
                 </div>
@@ -658,7 +640,6 @@ export default function Learn() {
           {/* Purchase CTA at bottom */}
           {!hasPurchased && (
             <div className="mt-8 bg-gradient-to-r from-blue-600 to-purple-700 text-white p-8 rounded-lg shadow-lg text-center">
-
               <h2 className="text-3xl font-bold mb-4">Ready to Master JEE?</h2>
               <p className="text-xl mb-6">
                 Get lifetime access to comprehensive Physics, Chemistry, and Mathematics content
@@ -674,26 +655,13 @@ export default function Learn() {
               </div>
               <div>
                 <Link href="https://www.aienter.in/payments" target="_blank" rel="noopener noreferrer" className="inline-block bg-white text-primary px-12 py-4 rounded-lg font-bold text-xl hover:bg-gray-100 transition shadow-lg">
-
-              <h2 className="text-3xl font-bold mb-4">Ready to Unlock All Chapters?</h2>
-              <p className="text-xl mb-6">
-                Get lifetime access to all 10 chapters covering Physics, Chemistry, and Mathematics
-              </p>
-              <div className="bg-white text-primary p-6 rounded-lg inline-block mb-6">
-                <div className="text-xl font-semibold mb-2">Full JEE Course Bundle</div>
-                <div className="text-5xl font-bold mb-2">₹499</div>
-                <div className="text-lg mb-2">+ GST ₹89.82</div>
-                <div className="text-2xl font-bold border-t-2 border-gray-300 pt-2">Total: ₹588.82</div>
-              </div>
-              <div>
-                <Link href="https://www.aienter.in/payments" target="_blank" rel="noopener noreferrer" className="inline-block bg-white text-accent px-12 py-4 rounded-lg font-bold text-xl hover:bg-gray-100 transition shadow-lg">
-
                   Purchase Now →
                 </Link>
               </div>
             </div>
           )}
         </div>
+      </div>
       </main>
     </>
   )

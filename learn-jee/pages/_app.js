@@ -3,7 +3,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
-import { supabase, getCurrentUser, signOut } from '../lib/supabaseClient'
+import { supabase, getCurrentUser, signOutUser } from '../lib/supabaseClient'
 import AuthenticationChecker from '../../components/shared/AuthenticationChecker'
 import Footer from '../components/Footer'
 
@@ -30,7 +30,7 @@ export default function App({ Component, pageProps }) {
   }
 
   const handleSignOut = async () => {
-    await signOut()
+    await signOutUser()
     setUser(null)
     router.push('/')
   }
