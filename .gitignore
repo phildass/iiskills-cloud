@@ -8,7 +8,8 @@ yarn-debug.log*
 yarn-error.log*
 logs/
 *.log
-learn-neet/package-lock.json
+# Ignore all subproject package-lock.json files to prevent workspace root inference warnings
+learn-*/package-lock.json
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
