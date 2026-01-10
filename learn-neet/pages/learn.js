@@ -16,27 +16,27 @@ export default function Learn() {
   const router = useRouter()
 
   useEffect(() => {
-    checkAuth()
-  }, [])
-
-  const checkAuth = async () => {
-    const currentUser = await getCurrentUser()
-    
-    if (!currentUser) {
-      router.push('/login?redirect=/learn')
-      return
+    const checkAuth = async () => {
+      const currentUser = await getCurrentUser()
+      
+      if (!currentUser) {
+        router.push('/login?redirect=/learn')
+        return
+      }
+      
+      setUser(currentUser)
+      const profile = getUserProfile(currentUser)
+      setUserProfile(profile)
+      
+      // Check subscription status
+      const hasSubscription = checkActiveSubscription(currentUser)
+      setHasActiveSubscription(hasSubscription)
+      
+      setIsLoading(false)
     }
-    
-    setUser(currentUser)
-    const profile = getUserProfile(currentUser)
-    setUserProfile(profile)
-    
-    // Check subscription status
-    const hasSubscription = checkActiveSubscription(currentUser)
-    setHasActiveSubscription(hasSubscription)
-    
-    setIsLoading(false)
-  }
+
+    checkAuth()
+  }, [router])
 
   const handleSignOut = async () => {
     await signOutUser()

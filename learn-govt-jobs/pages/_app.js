@@ -17,6 +17,12 @@ function MyApp({ Component, pageProps }) {
 
   useEffect(() => {
     // Check for existing session on mount
+    async function checkUser() {
+      const currentUser = await getCurrentUser()
+      setUser(currentUser)
+      setLoading(false)
+    }
+
     checkUser()
 
     // Listen for auth state changes
@@ -26,12 +32,6 @@ function MyApp({ Component, pageProps }) {
 
     return () => subscription.unsubscribe()
   }, [])
-
-  async function checkUser() {
-    const currentUser = await getCurrentUser()
-    setUser(currentUser)
-    setLoading(false)
-  }
 
   return (
     <>

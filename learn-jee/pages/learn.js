@@ -312,34 +312,32 @@ export default function Learn() {
   const router = useRouter()
   const pricing = getPricingDisplay()
 
-  const router = useRouter()
-
   useEffect(() => {
-    checkAuth()
-  }, [])
+    const checkAuth = async () => {
+      const currentUser = await getCurrentUser()
+      
+      if (!currentUser) {
+        // User is not authenticated, redirect to login
+        router.push('/login?redirect=/learn')
+        return
+      }
+      
+      setUser(currentUser)
+      setUserProfile(getUserProfile(currentUser))
+      
 
-  const checkAuth = async () => {
-    const currentUser = await getCurrentUser()
-    
-    if (!currentUser) {
-      // User is not authenticated, redirect to login
-      router.push('/login?redirect=/learn')
-      return
+      // Check if user has purchased the JEE course
+
+      // Check if user has purchased the course
+      // For now, we'll check user metadata
+      const purchased = currentUser.user_metadata?.purchased_jee_course === true
+      setHasPurchased(purchased)
+      
+      setIsLoading(false)
     }
-    
-    setUser(currentUser)
-    setUserProfile(getUserProfile(currentUser))
-    
 
-    // Check if user has purchased the JEE course
-
-    // Check if user has purchased the course
-    // For now, we'll check user metadata
-    const purchased = currentUser.user_metadata?.purchased_jee_course === true
-    setHasPurchased(purchased)
-    
-    setIsLoading(false)
-  }
+    checkAuth()
+  }, [router])
 
 
   const handleLessonClick = (subject, chapterId, lessonId, isFree) => {

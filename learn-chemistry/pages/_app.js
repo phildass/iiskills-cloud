@@ -5,6 +5,7 @@ import { useRouter } from 'next/router'
 import SharedNavbar from '../../components/shared/SharedNavbar'
 import SubdomainNavbar from '../../components/shared/SubdomainNavbar'
 import AuthenticationChecker from '../../components/shared/AuthenticationChecker'
+import ErrorBoundary from '../../components/ErrorBoundary'
 import Footer from '../components/Footer'
 import { supabase, getCurrentUser, signOutUser } from '../lib/supabaseClient'
 
@@ -13,6 +14,11 @@ export default function App({ Component, pageProps }) {
   const router = useRouter()
 
   useEffect(() => {
+    const checkUser = async () => {
+      const currentUser = await getCurrentUser()
+      setUser(currentUser)
+    }
+
     checkUser()
 
     // Listen for auth state changes to update navbar when user logs in/out
@@ -22,11 +28,6 @@ export default function App({ Component, pageProps }) {
 
     return () => subscription.unsubscribe()
   }, [])
-
-  const checkUser = async () => {
-    const currentUser = await getCurrentUser()
-    setUser(currentUser)
-  }
 
   const handleLogout = async () => {
     const { success } = await signOutUser()
@@ -61,7 +62,7 @@ export default function App({ Component, pageProps }) {
   ]
 
   return (
-    <>
+    <ErrorBoundary>
       <AuthenticationChecker />
       <SharedNavbar 
         user={user}
@@ -84,6 +85,6 @@ export default function App({ Component, pageProps }) {
       />
       <Component {...pageProps} />
       <Footer />
-    </>
+    </ErrorBoundary>
   )
 }
