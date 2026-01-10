@@ -21,7 +21,6 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Interview Communication
 - Fluency Development
 
-**Duration:** 10 weeks | **Level:** Beginner
 
 ---
 
@@ -40,7 +39,6 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Professional Presentations
 - Impromptu Speaking
 
-**Duration:** 10 weeks | **Level:** Beginner
 
 ---
 
@@ -59,7 +57,6 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Relationship Building
 - Professional Etiquette
 
-**Duration:** 10 weeks | **Level:** Beginner
 
 ---
 
@@ -78,7 +75,6 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Virtual Interview Techniques
 - Assessment Center Preparation
 
-**Duration:** 10 weeks | **Level:** Beginner
 
 ---
 
@@ -99,7 +95,6 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Design Handoff
 - Best Practices and Workflows
 
-**Duration:** 10 weeks | **Level:** Beginner
 
 ---
 
@@ -118,7 +113,6 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - A/B Testing
 - Research Synthesis and Presentation
 
-**Duration:** 10 weeks | **Level:** Intermediate
 
 ---
 
@@ -137,7 +131,6 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Design Trends
 - Design Portfolio Building
 
-**Duration:** 10 weeks | **Level:** Beginner
 
 ---
 
@@ -156,7 +149,6 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Image Editing
 - Portfolio Development
 
-**Duration:** 10 weeks | **Level:** Beginner
 
 ---
 
@@ -177,7 +169,6 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Daily Wellness Routines
 - Advanced Yoga Practices
 
-**Duration:** 10 weeks | **Level:** Beginner
 
 ---
 
@@ -196,7 +187,6 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Snacks and Appetizers
 - Traditional Sweets and Desserts
 
-**Duration:** 10 weeks | **Level:** Beginner
 
 ---
 
@@ -215,7 +205,6 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Photo Editing (Lightroom, Photoshop)
 - Building Your Portfolio
 
-**Duration:** 10 weeks | **Level:** Beginner
 
 ---
 
@@ -234,7 +223,6 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Performance Skills
 - Recording Basics
 
-**Duration:** 10 weeks | **Level:** Beginner
 
 ---
 
@@ -255,7 +243,6 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Problem-Solving Skills
 - Creative Coding
 
-**Duration:** 10 weeks | **Level:** Beginner
 
 ---
 
@@ -274,7 +261,6 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Problem-Solving Speed
 - Competition Preparation
 
-**Duration:** 10 weeks | **Level:** Beginner
 
 ---
 
@@ -293,7 +279,6 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Speed Calculation
 - Competition Training
 
-**Duration:** 10 weeks | **Level:** Beginner
 
 ---
 
@@ -312,7 +297,6 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Spelling Foundations
 - Reading Comprehension Basics
 
-**Duration:** 10 weeks | **Level:** Beginner
 
 ---
 
@@ -333,7 +317,6 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Previous Year Questions
 - Time Management in Exams
 
-**Duration:** 10 weeks | **Level:** Advanced
 
 ---
 
@@ -352,7 +335,6 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Previous Year Analysis
 - Quick Revision Techniques
 
-**Duration:** 10 weeks | **Level:** Advanced
 
 ---
 
@@ -371,7 +353,6 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Mock Test Analysis
 - Exam Strategy and Time Management
 
-**Duration:** 10 weeks | **Level:** Advanced
 
 ---
 
@@ -390,7 +371,6 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Error Analysis
 - Revision Planning
 
-**Duration:** 10 weeks | **Level:** Advanced
 
 ---
 
@@ -411,7 +391,6 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Interview/Personality Test Preparation
 - Ethics and Integrity
 
-**Duration:** 10 weeks | **Level:** Advanced
 
 ---
 
@@ -430,7 +409,6 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Speed and Accuracy Development
 - Interview Preparation
 
-**Duration:** 10 weeks | **Level:** Intermediate
 
 ---
 
@@ -449,7 +427,6 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Exam Strategy
 - Physical Efficiency Test Preparation
 
-**Duration:** 10 weeks | **Level:** Intermediate
 
 ---
 
@@ -468,7 +445,6 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - History and Culture
 - Exam Strategies and Time Management
 
-**Duration:** 10 weeks | **Level:** Intermediate
 
 ---
 
@@ -489,7 +465,6 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - SQL Integration
 - Real-World Data Projects
 
-**Duration:** 10 weeks | **Level:** Beginner
 
 ---
 
@@ -508,7 +483,6 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - R Markdown for Reporting
 - Statistical Modeling
 
-**Duration:** 10 weeks | **Level:** Intermediate
 
 ---
 
@@ -527,7 +501,6 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Scikit-learn Library
 - ML Project Development
 
-**Duration:** 10 weeks | **Level:** Intermediate
 
 ---
 
@@ -546,7 +519,6 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Natural Language Processing
 - Model Optimization and Deployment
 
-**Duration:** 10 weeks | **Level:** Advanced
 
 ---
 
@@ -565,7 +537,6 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Sharing and Publishing Reports
 - Business Intelligence Storytelling
 
-**Duration:** 10 weeks | **Level:** Intermediate
 
 ---
 
@@ -584,7 +555,6 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Performance Optimization
 - Real-World Big Data Projects
 
-**Duration:** 10 weeks | **Level:** Advanced
 
 ---
 
@@ -605,7 +575,6 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Testing and Debugging
 - Full-Stack Project Development
 
-**Duration:** 10 weeks | **Level:** Intermediate
 
 ---
 
@@ -624,7 +593,6 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Testing with Jasmine/Karma
 - Deployment Strategies
 
-**Duration:** 10 weeks | **Level:** Intermediate
 
 ---
 
@@ -643,7 +611,6 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Design Patterns
 - Enterprise Application Development
 
-**Duration:** 10 weeks | **Level:** Intermediate
 
 ---
 
@@ -662,7 +629,6 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Package Management and Virtual Environments
 - Software Deployment
 
-**Duration:** 10 weeks | **Level:** Intermediate
 
 ---
 
@@ -681,7 +647,6 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Cloud Security and Compliance
 - Cost Optimization Strategies
 
-**Duration:** 10 weeks | **Level:** Intermediate
 
 ---
 
@@ -702,7 +667,6 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Algorithm Updates and Trends
 - SEO Reporting and Analytics
 
-**Duration:** 10 weeks | **Level:** Beginner
 
 ---
 
@@ -721,7 +685,6 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Performance Tracking
 - Budget Management and ROI
 
-**Duration:** 10 weeks | **Level:** Beginner
 
 ---
 
@@ -740,7 +703,6 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Crisis Management
 - Social Commerce
 
-**Duration:** 10 weeks | **Level:** Beginner
 
 ---
 
@@ -759,7 +721,6 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Performance Metrics
 - Content ROI Measurement
 
-**Duration:** 10 weeks | **Level:** Beginner
 
 ---
 
@@ -778,7 +739,6 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Compliance (GDPR, CAN-SPAM)
 - Email Tools (MailChimp, Constant Contact)
 
-**Duration:** 10 weeks | **Level:** Beginner
 
 ---
 
@@ -797,7 +757,6 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Tag Management (Google Tag Manager)
 - Data-Driven Decision Making
 
-**Duration:** 10 weeks | **Level:** Intermediate
 
 ---
 
@@ -818,7 +777,6 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Wireless Network Security
 - CEH Exam Preparation
 
-**Duration:** 10 weeks | **Level:** Intermediate
 
 ---
 
@@ -837,7 +795,6 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Incident Response
 - Security Compliance
 
-**Duration:** 10 weeks | **Level:** Intermediate
 
 ---
 
@@ -856,7 +813,6 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Testing Tools (Metasploit, Burp Suite, Nmap)
 - Professional Ethics and Legal Issues
 
-**Duration:** 10 weeks | **Level:** Advanced
 
 ---
 
@@ -875,7 +831,6 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Security Governance
 - Continuous Monitoring
 
-**Duration:** 10 weeks | **Level:** Intermediate
 
 ---
 
@@ -894,7 +849,6 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Business Continuity Planning
 - Security Metrics and Reporting
 
-**Duration:** 10 weeks | **Level:** Advanced
 
 ---
 
@@ -915,7 +869,6 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Forecasting Techniques
 - Best Practice and Standards
 
-**Duration:** 10 weeks | **Level:** Intermediate
 
 ---
 
@@ -934,7 +887,6 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Performance Metrics
 - Live Trading Implementation
 
-**Duration:** 10 weeks | **Level:** Advanced
 
 ---
 
@@ -953,7 +905,6 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Emergency Fund Building
 - Financial Goal Setting
 
-**Duration:** 10 weeks | **Level:** Beginner
 
 ---
 
@@ -972,7 +923,6 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Blockchain Security
 - DeFi Concepts
 
-**Duration:** 10 weeks | **Level:** Intermediate
 
 ---
 
@@ -991,7 +941,6 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Regulatory Landscape
 - Investment Strategies
 
-**Duration:** 10 weeks | **Level:** Beginner
 
 ---
 
@@ -1000,91 +949,78 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 ### Learn AI (Artificial Intelligence)
 **Description:** Discover the fundamentals of Artificial Intelligence, machine learning concepts, and practical AI applications for modern business and innovation.
 
-**Duration:** 10 weeks | **Level:** Beginner
 
 ---
 
 ### Learn PR (Public Relations)
 **Description:** Master Public Relations strategies, media management, brand building, and effective communication for organizations and individuals.
 
-**Duration:** 10 weeks | **Level:** Beginner
 
 ---
 
 ### Learn Etiquette
 **Description:** Develop professional etiquette, social skills, and business manners to make lasting positive impressions in any setting.
 
-**Duration:** 10 weeks | **Level:** Beginner
 
 ---
 
 ### Learn Investments
 **Description:** Understand investment fundamentals, portfolio management, risk assessment, and wealth building strategies for financial growth.
 
-**Duration:** 10 weeks | **Level:** Intermediate
 
 ---
 
 ### Learn Journalism
 **Description:** Explore journalism fundamentals, news writing, reporting, ethics, and media storytelling for digital and traditional platforms.
 
-**Duration:** 10 weeks | **Level:** Beginner
 
 ---
 
 ### Learn Management
 **Description:** Build essential management skills including team leadership, project planning, decision-making, and organizational effectiveness.
 
-**Duration:** 10 weeks | **Level:** Intermediate
 
 ---
 
 ### Learn Marketing
 **Description:** Master marketing principles, consumer behavior, branding strategies, and campaign development for business success.
 
-**Duration:** 10 weeks | **Level:** Beginner
 
 ---
 
 ### Learn Sales
 **Description:** Develop sales techniques, customer relationship skills, negotiation tactics, and strategies to close deals effectively.
 
-**Duration:** 10 weeks | **Level:** Beginner
 
 ---
 
 ### Learn Aptitude (FREE)
 **Description:** FREE course to develop logical reasoning, quantitative aptitude, and analytical skills for competitive exams and career growth.
 
-**Duration:** 10 weeks | **Level:** Beginner | **FREE**
 
 ---
 
 ### Learn Stock Broking
 **Description:** Understand stock market operations, trading strategies, broker responsibilities, and investment analysis for the securities industry.
 
-**Duration:** 10 weeks | **Level:** Intermediate
 
 ---
 
 ### Learn To Be a Beautician
 **Description:** Gain skills in beauty treatments, skincare, makeup artistry, and salon management to build a successful beautician career.
 
-**Duration:** 10 weeks | **Level:** Beginner
 
 ---
 
 ### Learn Winning – From the book
 **Description:** Based on proven success principles, learn winning strategies, mindset development, and achievement techniques. Features audio download.
 
-**Duration:** 10 weeks | **Level:** Beginner
 
 ---
 
 ### Learn Becoming the Better You – From the book
 **Description:** Transform yourself with personal growth strategies, self-improvement techniques, and life enhancement principles. Features audio download.
 
-**Duration:** 10 weeks | **Level:** Beginner
 
 ---
 
@@ -1105,7 +1041,6 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 
 **Sample Module:** Introduction to JEE Physics - Explore strategies for tackling Physics problems, understand the JEE syllabus structure, and discover the importance of conceptual learning.
 
-**Duration:** 10 weeks | **Level:** Beginner
 
 ---
 
@@ -1126,63 +1061,52 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 
 **Sample Module:** Introduction to NEET Biology - Learn about the importance of concept clarity and effective study planning for Biology, with tips for maximizing NEET scores.
 
-**Duration:** 10 weeks | **Level:** Beginner
 
 ---
 
 ### Learn Maths (FREE)
 **Description:** FREE comprehensive mathematics course covering fundamental to advanced concepts for academic and practical applications.
 
-**Duration:** 10 weeks | **Level:** Beginner | **FREE**
 
 ---
 
 ### Learn Geography (FREE)
 **Description:** FREE exploration of world geography, physical features, climate patterns, cultures, and global relationships.
 
-**Duration:** 10 weeks | **Level:** Beginner | **FREE**
 
 ---
 
 ### Learn Physics (FREE)
 **Description:** FREE physics course covering mechanics, energy, waves, electricity, and modern physics concepts with practical applications.
 
-**Duration:** 10 weeks | **Level:** Beginner | **FREE**
 
 ---
 
 ### Learn Chemistry (FREE)
 **Description:** FREE chemistry course exploring matter, chemical reactions, organic and inorganic chemistry, and real-world applications.
 
-**Duration:** 10 weeks | **Level:** Beginner | **FREE**
 
 ---
 
 ### Learn IAS
-**Description:** Comprehensive UPSC Civil Services preparation with AI-powered content, covering Prelims, Mains, current affairs, and interview skills.
-
-**Duration:** 10 weeks | **Level:** Advanced
+**Description:** Comprehensive UPSC Civil Services preparation with cutting-edge AI-powered content and expert guidance. Master General Studies, Current Affairs, Optional subjects, Essay writing, Answer writing skills, and Interview preparation. Strategic approach for Prelims, Mains, and Personality Test to crack India's most prestigious examination.
 
 ---
 
-### Learn Govt Jobs
-**Description:** Comprehensive preparation for government examinations including IBPS, SBI, Railways, SSC, and other competitive exams.
-
-**Duration:** 10 weeks | **Level:** Intermediate
+### Learn Govt. Jobs
+**Description:** Your complete gateway to government job success! Master IBPS, SBI, Railways, SSC, and other competitive exams with expert strategies, comprehensive study materials, mock tests, and personalized guidance. Boost your quantitative aptitude, reasoning, general awareness, and interview skills to secure your dream government position.
 
 ---
 
 ### Learn Data Science
 **Description:** Master data science fundamentals and applications including Python programming, data analysis, machine learning, and visualization.
 
-**Duration:** 10 weeks | **Level:** Intermediate
 
 ---
 
 ### Learn Leadership
 **Description:** Develop leadership capabilities, influence, and strategic thinking to lead teams and organizations effectively.
 
-**Duration:** 10 weeks | **Level:** Intermediate
 
 ---
 

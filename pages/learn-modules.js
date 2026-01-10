@@ -100,6 +100,20 @@ export default function LearnModules() {
       colorClass: 'bg-gradient-to-r from-emerald-600 to-primary',
       icon: '🌍',
       features: ['Physical Geography', 'Human Geography', 'Climate', 'World Regions']
+    },
+    'learn-govt-jobs': {
+      title: 'Learn Govt. Jobs',
+      description: 'Master government exam preparation with expert guidance for IBPS, SBI, Railways, SSC and more.',
+      colorClass: 'bg-gradient-to-r from-amber-600 to-primary',
+      icon: '🏛️',
+      features: ['Quantitative Aptitude', 'Reasoning', 'General Awareness', 'Mock Tests']
+    },
+    'learn-ias': {
+      title: 'Learn IAS',
+      description: 'Comprehensive UPSC Civil Services preparation with cutting-edge AI content and strategic guidance.',
+      colorClass: 'bg-gradient-to-r from-rose-600 to-primary',
+      icon: '🎯',
+      features: ['General Studies', 'Current Affairs', 'Essay Writing', 'Interview Prep']
     }
   }
   

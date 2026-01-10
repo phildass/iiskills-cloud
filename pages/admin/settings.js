@@ -71,7 +71,7 @@ export default function AdminSettings() {
                     <strong>⏰ Introductory offer ends:</strong> {pricing.introEndDate.toLocaleDateString('en-IN', { year: 'numeric', month: 'long', day: 'numeric' })}
                   </p>
                   <p className="text-blue-700 text-xs mt-1">
-                    Regular pricing (₹352.82) will apply from February 1, 2026
+                    New fees will be effective from Feb 29, 2026 midnight. Regular pricing (₹352.82) will apply.
                   </p>
                 </div>
               )}
@@ -83,11 +83,11 @@ export default function AdminSettings() {
                 <h3 className="font-semibold text-gray-900 mb-3">Automated Pricing Schedule</h3>
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between py-2 border-b border-gray-200">
-                    <span className="text-gray-700">Introductory Period (Until Jan 31, 2026):</span>
+                    <span className="text-gray-700">Introductory Period (Until Feb 28, 2026):</span>
                     <span className="font-bold">₹116.82</span>
                   </div>
                   <div className="flex justify-between py-2">
-                    <span className="text-gray-700">Regular Pricing (From Feb 1, 2026):</span>
+                    <span className="text-gray-700">Regular Pricing (From Feb 29, 2026 midnight):</span>
                     <span className="font-bold">₹352.82</span>
                   </div>
                 </div>
