@@ -2137,8 +2137,8 @@ export default function ElaborateTestPage() {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
 
   const currentModule = modules[currentModuleIndex];
-  const currentQuestion = currentModule?.questions[currentQuestionIndex];
-  const totalQuestions = modules.reduce((acc, m) => acc + m.questions.length, 0);
+  const currentQuestion = currentModule?.questions?.[currentQuestionIndex];
+  const totalQuestions = modules.reduce((acc, m) => acc + (m?.questions?.length || 0), 0);
 
   const answeredCount = useMemo(() => Object.keys(answers).length, [answers]);
   const progress = useMemo(
@@ -2150,16 +2150,17 @@ export default function ElaborateTestPage() {
     currentModuleIndex === 0 && currentQuestionIndex === 0;
   const isLastQuestion =
     currentModuleIndex === modules.length - 1 &&
-    currentQuestionIndex === currentModule?.questions.length - 1;
+    currentQuestionIndex === (currentModule?.questions?.length || 0) - 1;
 
   const handleNext = useCallback(() => {
+    if (!currentModule?.questions) return;
     if (currentQuestionIndex < currentModule.questions.length - 1) {
       setCurrentQuestionIndex((prev) => prev + 1);
     } else if (currentModuleIndex < modules.length - 1) {
       setCurrentModuleIndex((prev) => prev + 1);
       setCurrentQuestionIndex(0);
     }
-  }, [currentQuestionIndex, currentModuleIndex, currentModule.questions.length]);
+  }, [currentQuestionIndex, currentModuleIndex, currentModule]);
 
   const handlePrevious = useCallback(() => {
     if (currentQuestionIndex > 0) {
@@ -2167,7 +2168,7 @@ export default function ElaborateTestPage() {
     } else if (currentModuleIndex > 0) {
       setCurrentModuleIndex((prev) => prev - 1);
       const prevModule = modules[currentModuleIndex - 1];
-      setCurrentQuestionIndex(prevModule.questions.length - 1);
+      setCurrentQuestionIndex((prevModule?.questions?.length || 1) - 1);
     }
   }, [currentQuestionIndex, currentModuleIndex]);
 
@@ -2215,6 +2216,7 @@ export default function ElaborateTestPage() {
 
   const handleSelectAnswer = useCallback(
     (value: string) => {
+      if (!currentQuestion?.id || !currentModule?.questions) return;
       setAnswers((prev) => ({
         ...prev,
         [currentQuestion.id]: value,
@@ -2223,7 +2225,7 @@ export default function ElaborateTestPage() {
       // Check if this is the last question
       const isLastQuestionNow =
         currentModuleIndex === modules.length - 1 &&
-        currentQuestionIndex === currentModule.questions.length - 1;
+        currentQuestionIndex === (currentModule.questions?.length || 0) - 1;
 
       if (isLastQuestionNow) {
         // Auto-submit after answering the last question
@@ -2234,7 +2236,7 @@ export default function ElaborateTestPage() {
       }
 
       setTimeout(() => {
-        if (currentQuestionIndex < currentModule.questions.length - 1) {
+        if (currentQuestionIndex < (currentModule.questions?.length || 0) - 1) {
           setCurrentQuestionIndex((prev) => prev + 1);
         } else if (currentModuleIndex < modules.length - 1) {
           setCurrentModuleIndex((prev) => prev + 1);
@@ -2242,7 +2244,7 @@ export default function ElaborateTestPage() {
         }
       }, 300);
     },
-    [currentQuestion.id, currentQuestionIndex, currentModuleIndex, currentModule.questions.length, handleSubmit]
+    [currentQuestion, currentQuestionIndex, currentModuleIndex, currentModule, handleSubmit]
   );
 
   const handleRetake = useCallback(() => {
@@ -2299,29 +2301,32 @@ export default function ElaborateTestPage() {
                 />
               </div>
             </div>
-            <div className="bg-white dark:bg-slate-800 rounded-xl p-6 shadow-lg mb-6">
-              <div className="flex items-center gap-2 mb-2">
-                <span className="text-xs font-medium px-2 py-1 bg-purple-100 dark:bg-purple-900/50 text-purple-700 dark:text-purple-300 rounded">
-                  Module {currentModuleIndex + 1} of {modules.length}
-                </span>
+            {currentModule && (
+              <div className="bg-white dark:bg-slate-800 rounded-xl p-6 shadow-lg mb-6">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-xs font-medium px-2 py-1 bg-purple-100 dark:bg-purple-900/50 text-purple-700 dark:text-purple-300 rounded">
+                    Module {currentModuleIndex + 1} of {modules.length}
+                  </span>
+                </div>
+                <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-1">
+                  {currentModule.title}
+                </h2>
+                <p className="text-sm text-slate-600 dark:text-slate-400">
+                  {currentModule.description}
+                </p>
               </div>
-              <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-1">
-                {currentModule.title}
-              </h2>
-              <p className="text-sm text-slate-600 dark:text-slate-400">
-                {currentModule.description}
-              </p>
-            </div>
-            <div className="bg-white dark:bg-slate-800 rounded-xl p-6 shadow-lg mb-6">
+            )}
+            {currentQuestion && currentModule && (
+              <div className="bg-white dark:bg-slate-800 rounded-xl p-6 shadow-lg mb-6">
               <p className="text-sm text-slate-500 dark:text-slate-400 mb-3">
                 Question {currentQuestionIndex + 1} of{" "}
-                {currentModule.questions.length}
+                {currentModule.questions?.length || 0}
               </p>
               <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-6">
                 {currentQuestion.text}
               </h3>
               <div className="space-y-3">
-                {currentQuestion.options.map((option) => (
+                {currentQuestion.options?.map((option) => (
                   <button
                     key={option.value}
                     onClick={() => handleSelectAnswer(option.value)}
@@ -2354,9 +2359,10 @@ export default function ElaborateTestPage() {
                       </span>
                     </div>
                   </button>
-                ))}
+                  )) || null}
               </div>
             </div>
+            )}
             <div className="flex justify-between">
               <button
                 onClick={handlePrevious}
