@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
-import { signInWithEmail, sendMagicLink, signInWithGoogle, isAdmin } from '../../lib/supabaseClient'
+import { signInWithEmail, sendMagicLink, signInWithGoogle } from '../../lib/supabaseClient'
 
 /**
  * Universal Login Component
@@ -99,9 +99,6 @@ export default function UniversalLogin({
           // Authentication successful!
           setSuccess('Login successful! Redirecting...')
           
-          // Check if user is admin to determine redirect
-          const hasAdminAccess = await isAdmin(user)
-          const redirectUrl = router.query.redirect || (hasAdminAccess ? '/admin' : redirectAfterLogin)
           // Use redirect URL from query param or default redirect path
           // No automatic admin redirect - respect the intended destination
           const redirectUrl = router.query.redirect || redirectAfterLogin
