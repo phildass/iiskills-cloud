@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 import SharedNavbar from '../../components/shared/SharedNavbar'
 import SubdomainNavbar from '../../components/shared/SubdomainNavbar'
 import AuthenticationChecker from '../../components/shared/AuthenticationChecker'
+import ErrorBoundary from '../../components/ErrorBoundary'
 import Footer from '../components/Footer'
 import { supabase, getCurrentUser, signOutUser } from '../lib/supabaseClient'
 
@@ -60,7 +61,7 @@ export default function App({ Component, pageProps }) {
   ]
 
   return (
-    <>
+    <ErrorBoundary>
       <AuthenticationChecker />
       <SharedNavbar 
         user={user}
@@ -83,6 +84,6 @@ export default function App({ Component, pageProps }) {
       />
       <Component {...pageProps} />
       <Footer />
-    </>
+    </ErrorBoundary>
   )
 }
