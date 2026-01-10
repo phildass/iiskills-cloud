@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { getPricingDisplay, getIntroOfferNotice } from '../utils/pricing'
 import { getCourseSubdomainLink, courseHasSubdomain } from '../utils/courseSubdomainMapperClient'
 
-// List of available subdomain courses (13 total)
+// List of available subdomain courses (15 total)
 // To add a new available course, simply add its subdomain name to this array
 const AVAILABLE_SUBDOMAINS = [
   'learn-ai',
@@ -12,6 +12,8 @@ const AVAILABLE_SUBDOMAINS = [
   'learn-chemistry',
   'learn-data-science',
   'learn-geography',
+  'learn-govt-jobs',
+  'learn-ias',
   'learn-jee',
   'learn-leadership',
   'learn-management',
@@ -1364,6 +1366,50 @@ const coursesData = [
       { id: 9, title: "Mock Tests and Analysis", isFree: false },
       { id: 10, title: "Exam Preparation and Strategy", isFree: false }
     ]
+  },
+  {
+    id: 59,
+    name: "Learn Govt. Jobs",
+    category: "UPSC/Government Exams",
+    description: "Comprehensive preparation for government examinations including IBPS, SBI, Railways, SSC, and other competitive exams with strategic guidance and practice materials.",
+    duration: "10 weeks",
+    level: "Intermediate",
+    comingSoon: false,
+    isFree: false,
+    modules: [
+      { id: 1, title: "Introduction to Government Exams", isFree: true },
+      { id: 2, title: "Quantitative Aptitude for Govt Exams", isFree: false },
+      { id: 3, title: "Logical Reasoning", isFree: false },
+      { id: 4, title: "English Language Skills", isFree: false },
+      { id: 5, title: "General Knowledge & Current Affairs", isFree: false },
+      { id: 6, title: "Banking & SSC Preparation", isFree: false },
+      { id: 7, title: "Railway Exam Strategies", isFree: false },
+      { id: 8, title: "Mock Tests & Practice Papers", isFree: false },
+      { id: 9, title: "Time Management Techniques", isFree: false },
+      { id: 10, title: "Interview & Personality Development", isFree: false }
+    ]
+  },
+  {
+    id: 60,
+    name: "Learn IAS",
+    category: "UPSC/Government Exams",
+    description: "Comprehensive UPSC Civil Services preparation with AI-powered content, covering Prelims, Mains, current affairs, optional subjects, and interview skills for India's most prestigious examination.",
+    duration: "10 weeks",
+    level: "Advanced",
+    comingSoon: false,
+    isFree: false,
+    modules: [
+      { id: 1, title: "Introduction to UPSC CSE", isFree: true },
+      { id: 2, title: "General Studies Paper I - IV", isFree: false },
+      { id: 3, title: "Current Affairs & News Analysis", isFree: false },
+      { id: 4, title: "Optional Subject Strategy", isFree: false },
+      { id: 5, title: "Essay Writing Mastery", isFree: false },
+      { id: 6, title: "Answer Writing Skills", isFree: false },
+      { id: 7, title: "Ethics & Integrity", isFree: false },
+      { id: 8, title: "Prelims Test Series", isFree: false },
+      { id: 9, title: "Mains Answer Practice", isFree: false },
+      { id: 10, title: "Interview/Personality Test Prep", isFree: false }
+    ]
   }
 ]
 
@@ -1528,10 +1574,6 @@ export default function Courses() {
                       <h3 className="text-xl font-bold text-primary mb-2">{course.name}</h3>
                       <p className="text-charcoal mb-4 text-sm">{course.description}</p>
                       
-                      <div className="flex justify-between text-sm text-gray-600 mb-4">
-                        <span>⏱️ {course.duration}</span>
-                      </div>
-                      
                       {/* Pricing Information */}
                       {!course.isFree && (
                         <div className="bg-blue-50 border border-blue-200 rounded p-3 mb-4">
@@ -1613,10 +1655,6 @@ export default function Courses() {
                     <div className="p-6">
                       <h3 className="text-xl font-bold text-primary mb-2">{course.name}</h3>
                       <p className="text-charcoal mb-4 text-sm">{course.description}</p>
-                      
-                      <div className="flex justify-between text-sm text-gray-600 mb-4">
-                        <span>⏱️ {course.duration}</span>
-                      </div>
                       
                       {/* Coming Soon - No Pricing Display */}
                       <div className="bg-purple-50 border border-pastel-lavender-light rounded p-3 mb-4">

@@ -2,18 +2,18 @@
  * Centralized pricing logic for iiskills.cloud
  * 
  * Pricing structure:
- * - Introductory price: Rs 99 + GST (17.82) = 116.82 (until January 31, 2026)
- * - Regular price: Rs 299 + GST (53.82) = 352.82 (from February 1, 2026 onwards)
+ * - Introductory price: Rs 99 + GST (17.82) = 116.82 (until February 28, 2026)
+ * - Regular price: Rs 299 + GST (53.82) = 352.82 (from February 29, 2026 midnight onwards)
  */
 
-// Introductory pricing (until January 31, 2026)
+// Introductory pricing (until February 28, 2026)
 const INTRO_BASE_PRICE = 99;
 const INTRO_GST_RATE = 0.18; // 18%
 const INTRO_GST_AMOUNT = 17.82; // Pre-calculated for accuracy
 const INTRO_TOTAL_PRICE = 116.82;
-const INTRO_END_DATE = new Date('2026-01-31T23:59:59');
+const INTRO_END_DATE = new Date('2026-02-28T23:59:59');
 
-// Regular pricing (from February 1, 2026)
+// Regular pricing (from February 29, 2026 midnight)
 const REGULAR_BASE_PRICE = 299;
 const REGULAR_GST_AMOUNT = 53.82; // Pre-calculated for accuracy
 const REGULAR_TOTAL_PRICE = 352.82;
@@ -81,13 +81,7 @@ export function getIntroOfferNotice() {
     return null;
   }
   
-  const endDate = pricing.introEndDate.toLocaleDateString('en-IN', { 
-    year: 'numeric', 
-    month: 'long', 
-    day: 'numeric' 
-  });
-  
-  return `🎉 Introductory Offer! Get courses at ₹${INTRO_TOTAL_PRICE.toFixed(2)} per course until ${endDate}. Regular price: ₹${REGULAR_TOTAL_PRICE.toFixed(2)} from February 1, 2026.`;
+  return `🎉 Introductory fee valid till Feb 28, 2026. New fees will be effective from Feb 29, 2026 midnight. Enroll now at ₹${INTRO_TOTAL_PRICE.toFixed(2)}!`;
 }
 
 export default {
