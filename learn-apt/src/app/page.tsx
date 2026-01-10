@@ -3,8 +3,7 @@
 import { Suspense, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { Brain, AlertCircle, X, LogIn, User } from "lucide-react";
-import { useAuth } from "@/contexts/AuthContext";
+import { AlertCircle, X } from "lucide-react";
 import InstallApp from "@/lib/InstallApp";
 
 function UnauthorizedBanner() {
@@ -39,68 +38,12 @@ function UnauthorizedBanner() {
   );
 }
 
-function Navbar() {
-  const { user, isAdmin } = useAuth();
-
-  return (
-    <header className="border-b border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          <div className="flex items-center gap-2">
-            <Brain className="h-8 w-8 text-blue-600" />
-            <span className="text-xl font-bold text-slate-900 dark:text-white">Learnapt</span>
-          </div>
-          <nav className="flex items-center gap-4">
-            <Link
-              href="/tests"
-              className="text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white transition-colors"
-            >
-              Tests
-            </Link>
-            <Link
-              href="/about"
-              className="text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white transition-colors"
-            >
-              About
-            </Link>
-            {isAdmin && (
-              <Link
-                href="/admin"
-                className="ml-4 px-3 py-1 border rounded text-sm text-slate-700 bg-slate-100 dark:bg-slate-800 dark:text-white hover:bg-blue-100 dark:hover:bg-blue-900 border-blue-200 dark:border-blue-800"
-              >
-                Admin Panel
-              </Link>
-            )}
-            <div className="ml-6 flex items-center gap-2">
-              {user ? (
-                <div className="flex items-center gap-2 px-2 py-1">
-                  <User className="inline h-5 w-5" />
-                  <span className="font-medium">{user.email}</span>
-                </div>
-              ) : (
-                <Link
-                  href="/admin"
-                  className="flex items-center gap-2 px-3 py-1 text-blue-600 hover:text-blue-800 border border-blue-200 rounded"
-                >
-                  <LogIn className="h-4 w-4" />
-                  Sign in
-                </Link>
-              )}
-            </div>
-          </nav>
-        </div>
-      </div>
-    </header>
-  );
-}
-
 export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
       <Suspense fallback={null}>
         <UnauthorizedBanner />
       </Suspense>
-      <Navbar />
 
       <main className="max-w-5xl mx-auto px-4 pt-12">
         {/* Hero Section */}
@@ -124,7 +67,7 @@ export default function Home() {
             >
               Take Elaborate Test
             </Link>
-            <InstallApp appName="Learnapt" />
+            <InstallApp appName="Learn Aptitude" />
           </div>
         </section>
 
