@@ -1,12 +1,19 @@
 {
-  "name": "iiskills-cloud",
+  "name": "iiskills-cloud-monorepo",
   "version": "1.0.0",
   "private": true,
+  "packageManager": "npm@10.2.4",
+  "workspaces": [
+    "apps/*",
+    "packages/*",
+    "learn-*"
+  ],
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "start": "turbo run start",
+    "lint": "turbo run lint",
+    "dev:main": "cd apps/main && npm run dev",
     "generate-pm2-config": "node generate-ecosystem.js",
     "validate-pm2-config": "node validate-ecosystem.js",
     "test-pm2-config": "node test-ecosystem.js"
@@ -23,6 +30,7 @@
   "devDependencies": {
     "autoprefixer": "^10.4.14",
     "postcss": "latest",
-    "tailwindcss": "latest"
+    "tailwindcss": "latest",
+    "turbo": "^2.7.3"
   }
 }

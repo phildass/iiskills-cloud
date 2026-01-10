@@ -3,6 +3,25 @@
 Professional, scalable business site built with Next.js + Tailwind CSS  
 Inspired by iiskills.in and customized for the Indian Institute of Professional Skills Development.
 
+## 🆕 New Features
+
+### Newsletter Subscription System
+📧 **Subscribe to stay updated!** All apps now include a unified newsletter subscription system:
+- Newsletter signup available on every domain and subdomain
+- Modal popup on initial visit (configurable intervals)
+- Dedicated `/newsletter` page on all apps
+- Google reCAPTCHA v3 integration for security
+- Supabase backend for email storage
+
+### AI Assistant
+🤖 **Get instant help!** A floating AI chatbot assistant is available everywhere:
+- Site-aware responses based on current subdomain
+- Accessible from any page
+- Helpful guidance for courses, registration, and navigation
+- Unobtrusive design with expandable chat window
+
+📚 **Learn more:** See [NEWSLETTER_AI_ASSISTANT_README.md](NEWSLETTER_AI_ASSISTANT_README.md) for complete documentation.
+
 ## 🌟 New to iiskills.cloud?
 
 **See our [ONBOARDING.md](ONBOARDING.md) guide to get started!**
@@ -325,6 +344,8 @@ See [NAVIGATION_AUTH_GUIDE.md](NAVIGATION_AUTH_GUIDE.md) for complete navigation
 - [ONBOARDING.md](ONBOARDING.md) - **Getting started guide for new users**
 
 ### For Developers
+- [NEWSLETTER_AI_ASSISTANT_README.md](NEWSLETTER_AI_ASSISTANT_README.md) - **Complete guide to Newsletter and AI Assistant system**
+- [LEARN_APPS_INTEGRATION_GUIDE.md](LEARN_APPS_INTEGRATION_GUIDE.md) - **Guide for integrating features into learn-* apps**
 - [SUPABASE_CONFIGURATION.md](SUPABASE_CONFIGURATION.md) - **Complete Supabase configuration guide (MUST READ)**
 - [AUTHENTICATION_ARCHITECTURE.md](AUTHENTICATION_ARCHITECTURE.md) - **Complete guide to universal authentication system**
 - [SUPABASE_AUTH_SETUP.md](SUPABASE_AUTH_SETUP.md) - Authentication setup and troubleshooting
