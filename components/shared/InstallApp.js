@@ -53,10 +53,7 @@ export default function InstallApp({ appName = 'iiskills.cloud' }) {
     setDeferredPrompt(null)
     
     if (outcome === 'accepted') {
-      console.log('User accepted the install prompt')
       setShowButton(false)
-    } else {
-      console.log('User dismissed the install prompt')
     }
   }
 
