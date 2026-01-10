@@ -1,8 +1,25 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
 import { getPricingDisplay, getIntroOfferNotice } from '../utils/pricing'
 import { getCourseSubdomainLink, courseHasSubdomain } from '../utils/courseSubdomainMapperClient'
+import { getCurrentUser, isAdmin } from '../lib/supabaseClient'
+
+// List of courses hidden from public view (visible only to admins)
+const HIDDEN_COURSE_NAMES = [
+  'Learn To Be a Beautician',
+  'Learn Photography',
+  'Phonics',
+  'JEE/NEET Physics',
+  'JEE/NEET Chemistry',
+  'JEE Mathematics / NEET Biology',
+  'Mock Exams and Doubt-Clearing Sessions',
+  'UPSC Preparation',
+  'Python for Data Science',
+  'Machine Learning',
+  'Deep Learning',
+  'Data Visualization (Tableau, Power BI)'
+]
 
 // List of available subdomain courses (15 total)
 // To add a new available course, simply add its subdomain name to this array
@@ -53,6 +70,11 @@ function isCourseAvailable(courseName) {
   
   const fullSubdomain = `learn-${subdomain}`
   return AVAILABLE_SUBDOMAINS.includes(fullSubdomain)
+}
+
+// Helper function to check if a course should be hidden from public view
+function isCourseHidden(courseName) {
+  return HIDDEN_COURSE_NAMES.includes(courseName)
 }
 
 const coursesData = [
@@ -1415,8 +1437,28 @@ const coursesData = [
 
 export default function Courses() {
   const [selectedCategory, setSelectedCategory] = useState('All')
+  const [isAdminUser, setIsAdminUser] = useState(false)
+  const [isCheckingAdmin, setIsCheckingAdmin] = useState(true)
   const pricing = getPricingDisplay()
   const introNotice = getIntroOfferNotice()
+  
+  // Check if user is admin
+  useEffect(() => {
+    async function checkAdmin() {
+      try {
+        const user = await getCurrentUser()
+        if (user) {
+          const adminStatus = await isAdmin(user)
+          setIsAdminUser(adminStatus)
+        }
+      } catch (error) {
+        console.error('Error checking admin status:', error)
+      } finally {
+        setIsCheckingAdmin(false)
+      }
+    }
+    checkAdmin()
+  }, [])
   
   // Detect if we're in development mode (client-side safe)
   const isDevelopment = typeof window !== 'undefined' && window.location.hostname === 'localhost'
@@ -1453,13 +1495,17 @@ export default function Courses() {
     const matchesCategory = selectedCategory === 'All' || 
                            (selectedCategory === 'Free Course' ? course.isFree : course.category === selectedCategory)
     
-    return matchesCategory
+    // Hide courses from non-admin users
+    const isVisible = isAdminUser || !isCourseHidden(course.name)
+    
+    return matchesCategory && isVisible
   })
 
-  // Split courses into available and coming soon, removing duplicates
+  // Split courses into available, coming soon, and hidden (for admins), removing duplicates
   const seenCourseIds = new Set()
   const availableCourses = []
   const comingSoonCourses = []
+  const hiddenCourses = []
   
   filteredCourses.forEach(course => {
     // Skip duplicates
@@ -1467,6 +1513,12 @@ export default function Courses() {
       return
     }
     seenCourseIds.add(course.id)
+    
+    // Separate hidden courses (only for admin users)
+    if (isAdminUser && isCourseHidden(course.name)) {
+      hiddenCourses.push(course)
+      return
+    }
     
     // Check if course is available based on subdomain
     if (isCourseAvailable(course.name)) {
@@ -1701,7 +1753,90 @@ export default function Courses() {
           </div>
         )}
 
-        {availableCourses.length === 0 && comingSoonCourses.length === 0 && (
+        {/* Hidden Courses Section (Admin Only) */}
+        {isAdminUser && hiddenCourses.length > 0 && (
+          <div className="mb-12">
+            <h2 className="text-3xl font-bold text-red-600 mb-6 flex items-center gap-3">
+              <span className="bg-red-600 text-white px-4 py-2 rounded-full text-base font-bold shadow-md">
+                Hidden
+              </span>
+              <span>({hiddenCourses.length} {hiddenCourses.length === 1 ? 'course' : 'courses'} - Admin Only)</span>
+            </h2>
+            <div className="bg-yellow-50 border-l-4 border-yellow-500 p-4 mb-6">
+              <p className="text-sm text-yellow-800">
+                <strong>⚠️ Admin Notice:</strong> These courses are hidden from public view. Only admin users can see them on this page.
+              </p>
+            </div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {hiddenCourses.map(course => {
+                const freeModule = course.modules?.find(m => m.isFree)
+                return (
+                  <div key={course.id} className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition relative opacity-90 border-2 border-red-400">
+                    {/* Hidden Badge */}
+                    <div className="absolute top-4 right-4 bg-red-600 text-white px-3 py-1 rounded-full text-sm font-bold z-10 shadow-lg">
+                      Hidden
+                    </div>
+                    
+                    {/* Free Badge */}
+                    {course.isFree && (
+                      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pastel-blue bg-opacity-90 backdrop-blur-sm text-white px-6 py-3 rounded-full text-2xl font-bold z-20 shadow-2xl blink-animation">
+                        FREE
+                      </div>
+                    )}
+                    
+                    <div className="bg-gradient-to-r from-red-400 to-red-600 p-4">
+                      <span className="text-white text-sm font-semibold">{course.category}</span>
+                    </div>
+                    
+                    <div className="p-6">
+                      <h3 className="text-xl font-bold text-primary mb-2">{course.name}</h3>
+                      <p className="text-charcoal mb-4 text-sm">{course.description}</p>
+                      
+                      {/* Hidden Status Notice */}
+                      <div className="bg-red-50 border border-red-300 rounded p-3 mb-4">
+                        <p className="text-sm text-red-800 font-semibold">
+                          🚫 Hidden from public view
+                        </p>
+                        <p className="text-xs text-red-700 mt-1">
+                          Not visible to regular users
+                        </p>
+                      </div>
+                      
+                      {/* Free sample module indicator - only show for paid courses */}
+                      {freeModule && !course.isFree && (
+                        <div className="bg-cyan-50 border border-cyan-200 rounded p-3 mb-4">
+                          <p className="text-sm text-cyan-800 font-semibold mb-1">
+                            🎁 Free Sample: {freeModule.title}
+                          </p>
+                          {freeModule.summary && (
+                            <p className="text-xs text-cyan-700 mt-1">
+                              {freeModule.summary}
+                            </p>
+                          )}
+                        </div>
+                      )}
+                      
+                      {/* Audio Download Feature */}
+                      {course.hasAudioDownload && (
+                        <div className="bg-blue-50 border border-blue-200 rounded p-3 mb-4">
+                          <p className="text-sm text-blue-800 font-semibold flex items-center">
+                            🎧 Includes Audio Download
+                          </p>
+                        </div>
+                      )}
+                      
+                      <button className="w-full bg-gray-400 text-white py-3 rounded font-bold cursor-not-allowed" disabled>
+                        Hidden - Not Available to Public
+                      </button>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+        )}
+
+        {availableCourses.length === 0 && comingSoonCourses.length === 0 && (!isAdminUser || hiddenCourses.length === 0) && (
           <div className="text-center py-12">
             <p className="text-xl text-gray-600">No courses found matching your filters.</p>
           </div>
