@@ -89,20 +89,19 @@ For more information, see ENV_SETUP_GUIDE.md in the repo root.
 
 // Create Supabase client with cookie options for cross-subdomain support
 export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
-      auth: {
-        // Enable auto-refresh of tokens
-        autoRefreshToken: true,
-        // Persist session in localStorage
-        persistSession: true,
-        // Detect session from URL (for OAuth redirects)
-        detectSessionInUrl: true,
-        // Cookie options for cross-subdomain authentication
-        flowType: 'pkce',
-        // Storage key - use a shared key for consistency
-        storageKey: 'iiskills-auth-token'
-      }
-    })
-  : null
+  auth: {
+    // Enable auto-refresh of tokens
+    autoRefreshToken: true,
+    // Persist session in localStorage
+    persistSession: true,
+    // Detect session from URL (for OAuth redirects)
+    detectSessionInUrl: true,
+    // Cookie options for cross-subdomain authentication
+    flowType: 'pkce',
+    // Storage key - use a shared key for consistency
+    storageKey: 'iiskills-auth-token'
+  }
+})
 
 /**
  * Helper function to get the currently logged-in user
