@@ -63,7 +63,7 @@ export default function Terms() {
               <div className="bg-green-50 border-l-4 border-green-500 p-4 mb-3 rounded">
                 <p className="text-green-800 font-semibold mb-2">Introductory Pricing</p>
                 <p className="text-green-700 text-sm">
-                  The current price of {pricing.totalPrice} per course is an introductory offer valid until {pricing.introEndDate}. From February 1, 2026, the regular price will be ₹352.82 per course (₹299 + ₹53.82 GST).
+                  Introductory fee valid till Feb 28, 2026. New fees will be effective from Feb 29, 2026 midnight. Current price: {pricing.totalPrice} per course. Regular price from Feb 29, 2026 midnight: ₹352.82 per course (₹299 + ₹53.82 GST).
                 </p>
               </div>
             )}

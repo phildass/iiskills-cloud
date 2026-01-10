@@ -170,7 +170,7 @@ export default function Home() {
                         🎉 Introductory Offer!
                       </p>
                       <p className="text-xs text-green-700 mt-1">
-                        Price increases to ₹352.82 from Feb 1, 2026
+                        Valid till Feb 28, 2026. New fees effective from Feb 29, 2026 midnight (₹352.82)
                       </p>
                     </div>
                   )}
