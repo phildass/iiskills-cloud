@@ -1588,8 +1588,8 @@ export default function Courses() {
                         </div>
                       )}
                       
-                      {/* Free sample module indicator */}
-                      {freeModule && (
+                      {/* Free sample module indicator - only show for paid courses */}
+                      {freeModule && !course.isFree && (
                         <div className="bg-cyan-50 border border-cyan-200 rounded p-3 mb-4">
                           <p className="text-sm text-cyan-800 font-semibold mb-1">
                             🎁 Free Sample: {freeModule.title}
@@ -1666,8 +1666,8 @@ export default function Courses() {
                         </p>
                       </div>
                       
-                      {/* Free sample module indicator */}
-                      {freeModule && (
+                      {/* Free sample module indicator - only show for paid courses */}
+                      {freeModule && !course.isFree && (
                         <div className="bg-cyan-50 border border-cyan-200 rounded p-3 mb-4">
                           <p className="text-sm text-cyan-800 font-semibold mb-1">
                             🎁 Free Sample: {freeModule.title}
