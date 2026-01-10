@@ -130,7 +130,7 @@ export default function Learn() {
                 </p>
                 <div className="bg-blue-50 border-l-4 border-blue-600 p-4 rounded">
                   <p className="text-gray-700">
-                    <strong>Account:</strong> {user.email}
+                    <strong>Account:</strong> {user?.email || "Unknown"}
                   </p>
                   {userProfile?.age && (
                     <p className="text-gray-700">

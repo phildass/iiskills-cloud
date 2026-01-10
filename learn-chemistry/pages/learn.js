@@ -403,7 +403,7 @@ function LearnContent() {
                 </p>
                 <div className="bg-blue-50 border-l-4 border-primary p-4 rounded">
                   <p className="text-gray-700">
-                    <strong>Account:</strong> {user.email}
+                    <strong>Account:</strong> {user?.email || "Unknown"}
                   </p>
                   <p className="text-gray-700 mt-1">
                     <strong>FREE ACCESS</strong> - Complete all levels at your own pace!
