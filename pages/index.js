@@ -257,9 +257,6 @@ export default function Home() {
                 <div className="text-sm text-gray-600 mb-4">
                   <span>⏱️ 10 weeks</span>
                 </div>
-                <div className="bg-green-50 border border-green-200 rounded p-2 mb-4">
-                  <p className="text-xs text-green-800 font-semibold">🎁 Free Sample Module</p>
-                </div>
                 <Link href="/courses" className="block text-center bg-green-500 text-white py-2 rounded font-medium hover:bg-green-600 transition">
                   Start Free Course
                 </Link>
