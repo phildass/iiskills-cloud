@@ -51,6 +51,7 @@ interface AuthContextType {
   login: (email: string, password: string) => Promise<{ success: boolean; error?: string }>;
   logout: () => Promise<void>;
   register: (email: string, password: string) => Promise<{ success: boolean; error?: string }>;
+  signInWithGoogle: () => Promise<{ success: boolean; error?: string }>;
   useSupabase: boolean;
   userEmail?: string | null;
 }
@@ -218,6 +219,38 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
+  // Google OAuth sign-in function
+  const signInWithGoogle = async () => {
+    if (!useSupabase || !supabase) {
+      return { success: false, error: "Google sign-in is not available. Supabase is not configured." };
+    }
+
+    try {
+      // Get the redirect URL - use current origin plus /admin as the destination
+      const redirectUrl = typeof window !== 'undefined' 
+        ? `${window.location.origin}/admin` 
+        : undefined;
+
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: redirectUrl,
+        }
+      });
+
+      if (error) {
+        return { success: false, error: error.message };
+      }
+
+      // If successful, the user will be redirected to Google OAuth flow
+      // When they return, the auth state listener will update the session
+      return { success: true };
+    } catch (error) {
+      console.error('Google sign-in error:', error);
+      return { success: false, error: 'Failed to initiate Google sign-in. Please try again.' };
+    }
+  };
+
   // Logout function
   const logout = async () => {
     setIsLoading(true);
@@ -287,6 +320,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     login,
     logout,
     register,
+    signInWithGoogle,
     useSupabase,
     userEmail,
   };
