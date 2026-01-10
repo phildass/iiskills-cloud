@@ -12,6 +12,12 @@ export default function App({ Component, pageProps }) {
 
   useEffect(() => {
     // Check active session
+    const checkUser = async () => {
+      const currentUser = await getCurrentUser()
+      setUser(currentUser)
+      setLoading(false)
+    }
+
     checkUser()
 
     // Listen for auth changes
@@ -26,12 +32,6 @@ export default function App({ Component, pageProps }) {
       authListener?.subscription?.unsubscribe()
     }
   }, [])
-
-  const checkUser = async () => {
-    const currentUser = await getCurrentUser()
-    setUser(currentUser)
-    setLoading(false)
-  }
 
   const handleSignOut = async () => {
     if (supabase) {

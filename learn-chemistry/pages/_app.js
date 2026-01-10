@@ -13,6 +13,11 @@ export default function App({ Component, pageProps }) {
   const router = useRouter()
 
   useEffect(() => {
+    const checkUser = async () => {
+      const currentUser = await getCurrentUser()
+      setUser(currentUser)
+    }
+
     checkUser()
 
     // Listen for auth state changes to update navbar when user logs in/out
@@ -22,11 +27,6 @@ export default function App({ Component, pageProps }) {
 
     return () => subscription.unsubscribe()
   }, [])
-
-  const checkUser = async () => {
-    const currentUser = await getCurrentUser()
-    setUser(currentUser)
-  }
 
   const handleLogout = async () => {
     const { success } = await signOutUser()

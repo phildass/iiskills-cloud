@@ -135,28 +135,28 @@ export default function Learn() {
   const router = useRouter()
 
   useEffect(() => {
-    checkAuth()
-  }, [])
-
-  const checkAuth = async () => {
-    const currentUser = await getCurrentUser()
-    
-    if (!currentUser) {
-      // User is not authenticated, redirect to login
-      router.push('/login?redirect=/learn')
-      return
+    const checkAuth = async () => {
+      const currentUser = await getCurrentUser()
+      
+      if (!currentUser) {
+        // User is not authenticated, redirect to login
+        router.push('/login?redirect=/learn')
+        return
+      }
+      
+      setUser(currentUser)
+      setUserProfile(getUserProfile(currentUser))
+      
+      // Check if user has purchased the course
+      // For now, we'll check user metadata
+      const purchased = currentUser.user_metadata?.purchased_winning_course === true
+      setHasPurchased(purchased)
+      
+      setIsLoading(false)
     }
-    
-    setUser(currentUser)
-    setUserProfile(getUserProfile(currentUser))
-    
-    // Check if user has purchased the course
-    // For now, we'll check user metadata
-    const purchased = currentUser.user_metadata?.purchased_winning_course === true
-    setHasPurchased(purchased)
-    
-    setIsLoading(false)
-  }
+
+    checkAuth()
+  }, [router])
 
   const handleLessonClick = (chapterId, lessonId, isFree) => {
     // Allow access to Chapter 1, Lesson 1

@@ -22,30 +22,30 @@ export default function Learn() {
   const router = useRouter()
 
   useEffect(() => {
-    checkAuth()
-  }, [])
+    const checkAuth = async () => {
+      const currentUser = await getCurrentUser()
+      
+      if (!currentUser) {
+        router.push('/login')
+        return
+      }
+      
+      setUser(currentUser)
+      setUserProfile(getUserProfile(currentUser))
+      
+      // Load user progress from localStorage (in production, this would be from Supabase)
+      const savedProgress = localStorage.getItem('physics-progress')
+      if (savedProgress) {
+        const progress = JSON.parse(savedProgress)
+        setCompletedLessons(progress.completedLessons || [])
+        setCompletedTests(progress.completedTests || [])
+      }
+      
+      setIsLoading(false)
+    }
 
-  const checkAuth = async () => {
-    const currentUser = await getCurrentUser()
-    
-    if (!currentUser) {
-      router.push('/login')
-      return
-    }
-    
-    setUser(currentUser)
-    setUserProfile(getUserProfile(currentUser))
-    
-    // Load user progress from localStorage (in production, this would be from Supabase)
-    const savedProgress = localStorage.getItem('physics-progress')
-    if (savedProgress) {
-      const progress = JSON.parse(savedProgress)
-      setCompletedLessons(progress.completedLessons || [])
-      setCompletedTests(progress.completedTests || [])
-    }
-    
-    setIsLoading(false)
-  }
+    checkAuth()
+  }, [router])
 
   const handleLevelSelect = (levelId) => {
     setSelectedLevel(levelId === selectedLevel ? null : levelId)

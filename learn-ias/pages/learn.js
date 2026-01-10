@@ -13,22 +13,22 @@ export default function Learn() {
   const [selectedPhase, setSelectedPhase] = useState('foundation')
 
   useEffect(() => {
-    checkAuth()
-  }, [])
-
-  const checkAuth = async () => {
-    const currentUser = await getCurrentUser()
-    
-    if (!currentUser) {
-      // Redirect to login if not authenticated
-      router.push('/login')
-      return
+    const checkAuth = async () => {
+      const currentUser = await getCurrentUser()
+      
+      if (!currentUser) {
+        // Redirect to login if not authenticated
+        router.push('/login')
+        return
+      }
+      
+      setUser(currentUser)
+      setProfile(getUserProfile(currentUser))
+      setLoading(false)
     }
-    
-    setUser(currentUser)
-    setProfile(getUserProfile(currentUser))
-    setLoading(false)
-  }
+
+    checkAuth()
+  }, [router])
 
   if (loading) {
     return (
