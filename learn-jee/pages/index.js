@@ -84,9 +84,6 @@ export default function Home() {
                 </>
               )}
 
-        <meta name="description" content="Master Physics, Chemistry, and Mathematics for JEE preparation. Comprehensive course designed for engineering entrance exam success." />
-      </Head>
-      
       <main className="min-h-screen">
         {/* Hero Section with Cover Image */}
         <section className="relative">
