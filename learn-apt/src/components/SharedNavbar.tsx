@@ -98,7 +98,7 @@ export default function SharedNavbar({
             </Link>
           ))}
           
-          {/* Show Sign In/Register or User Info based on authentication */}
+          {/* Show Sign In or User Info based on authentication */}
           {showAuthButtons && (
             <>
               {user ? (
@@ -115,13 +115,8 @@ export default function SharedNavbar({
                   </button>
                 </>
               ) : (
-                // User is not logged in - show sign in and register
-                <>
-                  <Link href="/admin" className="hover:text-primary transition">Sign In</Link>
-                  <Link href="/admin" className="bg-primary text-white px-4 py-2 rounded hover:bg-blue-700 transition font-bold">
-                    Register
-                  </Link>
-                </>
+                // User is not logged in - show sign in only (Register is in customLinks)
+                <Link href="/admin" className="hover:text-primary transition">Sign In</Link>
               )}
             </>
           )}
@@ -157,7 +152,7 @@ export default function SharedNavbar({
             </Link>
           ))}
           
-          {/* Show Sign In/Register or User Info based on authentication */}
+          {/* Show Sign In or User Info based on authentication */}
           {showAuthButtons && (
             <>
               {user ? (
@@ -174,13 +169,8 @@ export default function SharedNavbar({
                   </button>
                 </>
               ) : (
-                // User is not logged in - show sign in and register
-                <>
-                  <Link href="/admin" className="block hover:text-primary transition">Sign In</Link>
-                  <Link href="/admin" className="block bg-primary text-white px-4 py-2 rounded hover:bg-blue-700 transition font-bold">
-                    Register
-                  </Link>
-                </>
+                // User is not logged in - show sign in only (Register is in customLinks)
+                <Link href="/admin" className="block hover:text-primary transition">Sign In</Link>
               )}
             </>
           )}

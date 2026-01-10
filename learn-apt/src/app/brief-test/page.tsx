@@ -335,6 +335,8 @@ export default function BriefTestPage() {
   }, [currentQuestionIndex, currentModuleIndex, currentModule.questions.length]);
 
   const handleSelectAnswer = useCallback((value: string) => {
+    if (!currentQuestion?.id) return;
+    
     setAnswers((prev) => ({
       ...prev,
       [currentQuestion.id]: value,
@@ -398,7 +400,7 @@ export default function BriefTestPage() {
         setCurrentQuestionIndex(0);
       }
     }, 300);
-  }, [currentQuestion.id, currentQuestionIndex, currentModuleIndex, currentModule.questions.length, answers, router]);
+  }, [currentQuestion?.id, currentQuestionIndex, currentModuleIndex, currentModule.questions.length, answers, router]);
 
   const handlePrevious = useCallback(() => {
     if (currentQuestionIndex > 0) {
@@ -470,49 +472,51 @@ export default function BriefTestPage() {
             </div>
 
             {/* Question Card */}
-            <div className="bg-white dark:bg-slate-800 rounded-xl p-6 shadow-lg mb-6">
-              <p className="text-sm text-slate-500 dark:text-slate-400 mb-3">
-                Question {currentQuestionIndex + 1} of {currentModule.questions.length}
-              </p>
-              <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-6">
-                {currentQuestion.text}
-              </h3>
-              
-              <div className="space-y-3">
-                {currentQuestion.options.map((option) => (
-                  <button
-                    key={option.value}
-                    onClick={() => handleSelectAnswer(option.value)}
-                    className={`w-full text-left p-4 rounded-lg border-2 transition-all ${
-                      currentAnswer === option.value
-                        ? "border-blue-600 bg-blue-50 dark:bg-blue-900/20"
-                        : "border-slate-200 dark:border-slate-600 hover:border-slate-300 dark:hover:border-slate-500"
-                    }`}
-                  >
-                    <div className="flex items-center gap-3">
-                      <div
-                        className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
-                          currentAnswer === option.value
-                            ? "border-blue-600 bg-blue-600"
-                            : "border-slate-300 dark:border-slate-500"
-                        }`}
-                      >
-                        {currentAnswer === option.value && (
-                          <Check className="h-3 w-3 text-white" />
-                        )}
-                      </div>
-                      <span className={`${
+            {currentQuestion ? (
+              <div className="bg-white dark:bg-slate-800 rounded-xl p-6 shadow-lg mb-6">
+                <p className="text-sm text-slate-500 dark:text-slate-400 mb-3">
+                  Question {currentQuestionIndex + 1} of {currentModule.questions.length}
+                </p>
+                <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-6">
+                  {currentQuestion.text}
+                </h3>
+                
+                <div className="space-y-3">
+                  {currentQuestion.options.map((option) => (
+                    <button
+                      key={option.value}
+                      onClick={() => handleSelectAnswer(option.value)}
+                      className={`w-full text-left p-4 rounded-lg border-2 transition-all ${
                         currentAnswer === option.value
-                          ? "text-blue-900 dark:text-blue-100"
-                          : "text-slate-700 dark:text-slate-300"
-                      }`}>
-                        {option.label}
-                      </span>
-                    </div>
-                  </button>
-                ))}
+                          ? "border-blue-600 bg-blue-50 dark:bg-blue-900/20"
+                          : "border-slate-200 dark:border-slate-600 hover:border-slate-300 dark:hover:border-slate-500"
+                      }`}
+                    >
+                      <div className="flex items-center gap-3">
+                        <div
+                          className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                            currentAnswer === option.value
+                              ? "border-blue-600 bg-blue-600"
+                              : "border-slate-300 dark:border-slate-500"
+                          }`}
+                        >
+                          {currentAnswer === option.value && (
+                            <Check className="h-3 w-3 text-white" />
+                          )}
+                        </div>
+                        <span className={`${
+                          currentAnswer === option.value
+                            ? "text-blue-900 dark:text-blue-100"
+                            : "text-slate-700 dark:text-slate-300"
+                        }`}>
+                          {option.label}
+                        </span>
+                      </div>
+                    </button>
+                  ))}
+                </div>
               </div>
-            </div>
+            ) : null}
 
             {/* Navigation */}
             <div className="flex justify-between">
