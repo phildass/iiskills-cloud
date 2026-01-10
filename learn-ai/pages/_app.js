@@ -6,11 +6,15 @@ import SubdomainNavbar from '../../components/shared/SubdomainNavbar'
 import AuthenticationChecker from '../../components/shared/AuthenticationChecker'
 import ErrorBoundary from '../../components/ErrorBoundary'
 import Footer from '../components/Footer'
+import AIAssistant from '../components/shared/AIAssistant'
+import NewsletterSignup from '../components/shared/NewsletterSignup'
 import { supabase, getCurrentUser, signOutUser } from '../lib/supabaseClient'
+import { useNewsletterPopup } from '../utils/useNewsletterPopup'
 
 export default function App({ Component, pageProps }) {
   const [user, setUser] = useState(null)
   const router = useRouter()
+  const { showPopup, closePopup } = useNewsletterPopup(7) // Show every 7 days
 
   useEffect(() => {
     const checkUser = async () => {
@@ -73,6 +77,7 @@ export default function App({ Component, pageProps }) {
           { href: 'https://iiskills.cloud', label: 'Home', className: 'hover:text-primary transition' },
           { href: 'https://iiskills.cloud/courses', label: 'Courses', className: 'hover:text-primary transition' },
           { href: 'https://iiskills.cloud/certification', label: 'Certification', className: 'hover:text-primary transition' },
+          { href: '/newsletter', label: '📧 Newsletter', className: 'hover:text-primary transition' },
           { href: 'https://www.aienter.in/payments', label: 'Payments', className: 'bg-accent text-white px-4 py-2 rounded hover:bg-purple-600 transition font-bold', mobileClassName: 'block bg-accent text-white px-4 py-2 rounded hover:bg-purple-600 transition font-bold', target: '_blank', rel: 'noopener noreferrer' },
           { href: 'https://iiskills.cloud/about', label: 'About', className: 'hover:text-primary transition' },
           { href: 'https://iiskills.cloud/terms', label: 'Terms & Conditions', className: 'hover:text-primary transition' }
@@ -84,6 +89,18 @@ export default function App({ Component, pageProps }) {
       />
       <Component {...pageProps} />
       <Footer />
+      
+      {/* AI Assistant - always visible */}
+      <AIAssistant />
+      
+      {/* Newsletter Popup - shows based on timing */}
+      {showPopup && (
+        <NewsletterSignup 
+          mode="modal"
+          onClose={() => closePopup(false)}
+          onSuccess={() => closePopup(true)}
+        />
+      )}
     </ErrorBoundary>
   )
 }
