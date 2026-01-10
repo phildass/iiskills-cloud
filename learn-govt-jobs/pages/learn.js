@@ -17,21 +17,21 @@ export default function Learn() {
   const router = useRouter()
 
   useEffect(() => {
-    checkAuth()
-  }, [])
+    const checkAuth = async () => {
+      const currentUser = await getCurrentUser()
+      
+      if (!currentUser) {
+        router.push('/login')
+        return
+      }
 
-  const checkAuth = async () => {
-    const currentUser = await getCurrentUser()
-    
-    if (!currentUser) {
-      router.push('/login')
-      return
+      setUser(currentUser)
+      setUserProfile(getUserProfile(currentUser))
+      setIsLoading(false)
     }
 
-    setUser(currentUser)
-    setUserProfile(getUserProfile(currentUser))
-    setIsLoading(false)
-  }
+    checkAuth()
+  }, [router])
 
   const handleLogout = async () => {
     const { success } = await signOutUser()

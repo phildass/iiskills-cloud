@@ -16,14 +16,14 @@ export default function Home() {
 
 
   useEffect(() => {
+    const checkUser = async () => {
+      const currentUser = await getCurrentUser()
+      setUser(currentUser)
+      setLoading(false)
+    }
+
     checkUser()
   }, [])
-
-  const checkUser = async () => {
-    const currentUser = await getCurrentUser()
-    setUser(currentUser)
-    setLoading(false)
-  }
 
   return (
     <>

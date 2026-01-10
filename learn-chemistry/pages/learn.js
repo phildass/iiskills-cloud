@@ -336,21 +336,21 @@ function LearnContent() {
   const router = useRouter()
 
   useEffect(() => {
+    const checkAuth = async () => {
+      const currentUser = await getCurrentUser()
+      
+      if (currentUser) {
+        setUser(currentUser)
+        setUserProfile(getUserProfile(currentUser))
+        // Check if user is admin
+        const hasAdminAccess = await isAdmin(currentUser)
+        setUserIsAdmin(hasAdminAccess)
+      }
+      setIsLoading(false)
+    }
+
     checkAuth()
   }, [])
-
-  const checkAuth = async () => {
-    const currentUser = await getCurrentUser()
-    
-    if (currentUser) {
-      setUser(currentUser)
-      setUserProfile(getUserProfile(currentUser))
-      // Check if user is admin
-      const hasAdminAccess = await isAdmin(currentUser)
-      setUserIsAdmin(hasAdminAccess)
-    }
-    setIsLoading(false)
-  }
 
   const handleLogout = async () => {
     const { success } = await signOutUser()

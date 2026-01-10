@@ -41,29 +41,29 @@ export default function PaidUserProtectedRoute({ children }) {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
+    /**
+     * Check if user is authenticated and has paid
+     */
+    const checkAccess = async () => {
+      try {
+        // Get current user from Supabase session
+        const currentUser = await getCurrentUser()
+        setUser(currentUser)
+        
+        if (currentUser) {
+          // User is authenticated - check payment status
+          const paymentStatus = await checkUserPaymentStatus(currentUser)
+          setHasPaid(paymentStatus)
+        }
+      } catch (error) {
+        console.error('Error checking access:', error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
     checkAccess()
   }, [router])
-
-  /**
-   * Check if user is authenticated and has paid
-   */
-  const checkAccess = async () => {
-    try {
-      // Get current user from Supabase session
-      const currentUser = await getCurrentUser()
-      setUser(currentUser)
-      
-      if (currentUser) {
-        // User is authenticated - check payment status
-        const paymentStatus = await checkUserPaymentStatus(currentUser)
-        setHasPaid(paymentStatus)
-      }
-    } catch (error) {
-      console.error('Error checking access:', error)
-    } finally {
-      setIsLoading(false)
-    }
-  }
 
   // Show loading state while checking access
   if (isLoading) {

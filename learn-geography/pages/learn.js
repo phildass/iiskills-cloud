@@ -17,18 +17,18 @@ function LearnContent() {
   const router = useRouter()
 
   useEffect(() => {
+    const checkAuth = async () => {
+      const currentUser = await getCurrentUser()
+      
+      if (currentUser) {
+        setUser(currentUser)
+        setUserProfile(getUserProfile(currentUser))
+      }
+      setIsLoading(false)
+    }
+
     checkAuth()
   }, [])
-
-  const checkAuth = async () => {
-    const currentUser = await getCurrentUser()
-    
-    if (currentUser) {
-      setUser(currentUser)
-      setUserProfile(getUserProfile(currentUser))
-    }
-    setIsLoading(false)
-  }
 
   const handleLogout = async () => {
     const { success } = await signOutUser()

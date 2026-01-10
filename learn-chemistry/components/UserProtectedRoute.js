@@ -31,35 +31,35 @@ export default function UserProtectedRoute({ children }) {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
+    /**
+     * Check if user is authenticated
+     * Uses Supabase session to verify authentication
+     */
+    const checkAuth = async () => {
+      try {
+        // Get current user from Supabase session
+        const user = await getCurrentUser()
+        
+        if (user) {
+          // User is authenticated - allow access
+          setIsAuthenticated(true)
+        } else {
+          // No user session found - redirect to login
+          // Store the current path so we can redirect back after login
+          const currentPath = router.asPath
+          router.push(`/login?redirect=${encodeURIComponent(currentPath)}`)
+        }
+      } catch (error) {
+        console.error('Error checking authentication:', error)
+        // On error, redirect to login for safety
+        router.push('/login')
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
     checkAuth()
   }, [router])
-
-  /**
-   * Check if user is authenticated
-   * Uses Supabase session to verify authentication
-   */
-  const checkAuth = async () => {
-    try {
-      // Get current user from Supabase session
-      const user = await getCurrentUser()
-      
-      if (user) {
-        // User is authenticated - allow access
-        setIsAuthenticated(true)
-      } else {
-        // No user session found - redirect to login
-        // Store the current path so we can redirect back after login
-        const currentPath = router.asPath
-        router.push(`/login?redirect=${encodeURIComponent(currentPath)}`)
-      }
-    } catch (error) {
-      console.error('Error checking authentication:', error)
-      // On error, redirect to login for safety
-      router.push('/login')
-    } finally {
-      setIsLoading(false)
-    }
-  }
 
   // Show loading state while checking authentication
   if (isLoading) {
