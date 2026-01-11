@@ -145,6 +145,71 @@ npm run dev
 
 **Learning Modules Overview:** Visit `/learn-modules` on the main app to see all available modules.
 
+## Code Style and Formatting
+
+This project uses **ESLint** and **Prettier** to ensure consistent code style across all contributors.
+
+### Setup for Contributors
+
+#### 1. Install VS Code Extensions (Recommended)
+
+For the best development experience, install these VS Code extensions:
+- **ESLint** (`dbaeumer.vscode-eslint`)
+- **Prettier - Code formatter** (`esbenp.prettier-vscode`)
+
+The workspace is pre-configured to:
+- Auto-format on save
+- Auto-fix ESLint issues on save
+- Use Prettier as the default formatter
+
+#### 2. Manual Formatting and Linting
+
+You can run these commands from the repository root:
+
+```bash
+# Check code formatting
+npm run format:check
+
+# Auto-format all files
+npm run format
+
+# Check for linting errors
+npm run lint:check
+
+# Auto-fix linting errors
+npm run lint:fix
+
+# Run the standard Turbo lint command
+npm run lint
+```
+
+### Configuration Files
+
+- **`eslint.config.mjs`** - ESLint configuration extending best practices
+- **`.prettierrc`** - Prettier formatting rules
+- **`.prettierignore`** - Files to exclude from formatting
+- **`.vscode/settings.json`** - VS Code editor settings
+- **`.vscode/extensions.json`** - Recommended VS Code extensions
+
+### Code Style Rules
+
+The project follows these key conventions:
+- **Semicolons:** Required at the end of statements
+- **Quotes:** Double quotes for strings (single quotes allowed to avoid escaping)
+- **Indentation:** 2 spaces
+- **Line width:** 100 characters maximum
+- **Trailing commas:** ES5 style (in objects, arrays, etc.)
+- **Arrow functions:** Always use parentheses around parameters
+
+### Before Committing
+
+Always run linting and formatting before committing:
+```bash
+npm run format && npm run lint:fix
+```
+
+This ensures your code follows the project's style guidelines and reduces merge conflicts.
+
 ## Deployment
 
 ### Production Deployment with PM2
