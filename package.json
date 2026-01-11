@@ -2,7 +2,7 @@
   "name": "iiskills-cloud-monorepo",
   "version": "1.0.0",
   "private": true,
-  "packageManager": "yarn@npm:10.2.4",
+  "packageManager": "yarn@10.2.4",
   "workspaces": [
     "apps/*",
     "packages/*",
