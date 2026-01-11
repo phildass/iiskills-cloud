@@ -12,7 +12,7 @@
     "dev": "turbo run dev",
     "build": "turbo run build",
     "start": "turbo run start",
-    "lint": "eslint .",
+    "lint": "turbo run lint",
     "lint:check": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
