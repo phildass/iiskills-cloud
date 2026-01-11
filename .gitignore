@@ -47,7 +47,7 @@ yarn-error.log*
 .vercel
 
 # IDEs
-.vscode/
+# Note: .vscode/ settings are included for team consistency
 .idea/
 
 # Backup files
