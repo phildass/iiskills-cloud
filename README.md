@@ -185,9 +185,8 @@ npm run lint
 
 ### Configuration Files
 
-- **`.eslintrc.json`** - ESLint configuration extending Next.js best practices
+- **`eslint.config.mjs`** - ESLint configuration extending best practices
 - **`.prettierrc`** - Prettier formatting rules
-- **`.eslintignore`** - Files to exclude from linting
 - **`.prettierignore`** - Files to exclude from formatting
 - **`.vscode/settings.json`** - VS Code editor settings
 - **`.vscode/extensions.json`** - Recommended VS Code extensions

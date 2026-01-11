@@ -1,6 +1,8 @@
 import js from "@eslint/js";
 import prettierConfig from "eslint-config-prettier";
 import prettier from "eslint-plugin-prettier";
+import react from "eslint-plugin-react";
+import reactHooks from "eslint-plugin-react-hooks";
 
 export default [
   {
@@ -20,6 +22,8 @@ export default [
     files: ["**/*.{js,jsx,mjs,cjs}"],
     plugins: {
       prettier,
+      react,
+      "react-hooks": reactHooks,
     },
     languageOptions: {
       ecmaVersion: 2021,
