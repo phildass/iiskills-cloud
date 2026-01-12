@@ -18,14 +18,17 @@ All code changes have been implemented, tested for compilation, and documented. 
 ### What Was Changed
 
 #### 1. Authentication System Overhaul
+
 **Before**: Hardcoded password (`phil123`) stored client-side
 **After**: Supabase email/password authentication with JWT sessions
 
 #### 2. User Management
+
 **Before**: No user database, single admin password
 **After**: Full user management via Supabase with admin role support
 
 #### 3. Security
+
 **Before**: Client-side only authentication, insecure
 **After**: Server-validated authentication, JWT tokens, secure sessions
 
@@ -54,7 +57,7 @@ NEXT_PUBLIC_ADMIN_EMAILS=admin@iiskills.cloud,phil@iiskills.cloud
 
 ### Where to Get Credentials
 
-1. **Supabase URL and Anon Key**: 
+1. **Supabase URL and Anon Key**:
    - Contact the main iiskills-cloud repository administrator
    - OR check the `.env.local` file in the iiskills-cloud repository
    - OR get from Supabase dashboard (Settings → API)
@@ -66,6 +69,7 @@ NEXT_PUBLIC_ADMIN_EMAILS=admin@iiskills.cloud,phil@iiskills.cloud
 ### Pre-Deployment Testing (Local)
 
 1. **Setup Environment**:
+
    ```bash
    cd /path/to/learn-apt
    cp .env.example .env.local
@@ -114,14 +118,17 @@ NEXT_PUBLIC_ADMIN_EMAILS=admin@iiskills.cloud,phil@iiskills.cloud
 **Note**: The current implementation does NOT include a registration UI in learn-apt. Users should:
 
 ### Option 1: Register via Main Site (Recommended)
+
 - Users register through the main iiskills.cloud website
 - Once registered, they can login to learn-apt using the same credentials
 
 ### Option 2: Manual User Creation
+
 - Admin creates users manually in Supabase dashboard
 - Provides credentials to users
 
 ### Option 3: Add Registration UI (Future Enhancement)
+
 - Could add a `/register` page to learn-apt
 - Would use the `signUpWithEmail()` function already implemented in `supabaseClient.ts`
 
@@ -130,14 +137,17 @@ NEXT_PUBLIC_ADMIN_EMAILS=admin@iiskills.cloud,phil@iiskills.cloud
 To grant admin access to a user:
 
 ### Method 1: Update User Metadata in Supabase
+
 ```sql
-UPDATE auth.users 
+UPDATE auth.users
 SET raw_user_meta_data = raw_user_meta_data || '{"role": "admin"}'::jsonb
 WHERE email = 'admin@example.com';
 ```
 
 ### Method 2: Add to Admin Emails List
+
 Add the email to `NEXT_PUBLIC_ADMIN_EMAILS` environment variable:
+
 ```env
 NEXT_PUBLIC_ADMIN_EMAILS=admin@iiskills.cloud,phil@iiskills.cloud,newadmin@example.com
 ```
@@ -160,6 +170,7 @@ NEXT_PUBLIC_ADMIN_EMAILS=admin@iiskills.cloud,phil@iiskills.cloud,newadmin@examp
 #### Option 1: Vercel (Recommended)
 
 1. **Configure Environment Variables** in Vercel dashboard:
+
    ```
    NEXT_PUBLIC_SUPABASE_URL=https://octgncmruhsbrxpxrkzl.supabase.co
    NEXT_PUBLIC_SUPABASE_ANON_KEY=<from-main-repo>
@@ -169,6 +180,7 @@ NEXT_PUBLIC_ADMIN_EMAILS=admin@iiskills.cloud,phil@iiskills.cloud,newadmin@examp
    ```
 
 2. **Deploy**:
+
    ```bash
    vercel --prod
    ```
@@ -182,6 +194,7 @@ NEXT_PUBLIC_ADMIN_EMAILS=admin@iiskills.cloud,phil@iiskills.cloud,newadmin@examp
 1. **Create `.env.local`** on server with production values
 
 2. **Build and Start**:
+
    ```bash
    npm install
    npm run build
@@ -210,6 +223,7 @@ NEXT_PUBLIC_ADMIN_EMAILS=admin@iiskills.cloud,phil@iiskills.cloud,newadmin@examp
 **Symptom**: Error in browser console or login fails
 
 **Solution**:
+
 1. Check `.env.local` exists and has correct values
 2. Verify environment variables in deployment platform
 3. Restart server after changing environment variables
@@ -220,6 +234,7 @@ NEXT_PUBLIC_ADMIN_EMAILS=admin@iiskills.cloud,phil@iiskills.cloud,newadmin@examp
 **Symptom**: Valid credentials rejected
 
 **Solution**:
+
 1. Verify user exists in Supabase dashboard (Authentication → Users)
 2. Check if email confirmation is required
 3. Verify password is correct
@@ -230,6 +245,7 @@ NEXT_PUBLIC_ADMIN_EMAILS=admin@iiskills.cloud,phil@iiskills.cloud,newadmin@examp
 **Symptom**: Logged out after page reload
 
 **Solution**:
+
 1. Check browser localStorage (should contain Supabase session)
 2. Verify HTTPS is used in production
 3. Check cookie settings in browser
@@ -240,6 +256,7 @@ NEXT_PUBLIC_ADMIN_EMAILS=admin@iiskills.cloud,phil@iiskills.cloud,newadmin@examp
 **Symptom**: User logged in but can't access admin panel
 
 **Solution**:
+
 1. Check user metadata in Supabase dashboard
 2. Verify `NEXT_PUBLIC_ADMIN_EMAILS` includes user's email
 3. Update user metadata or environment variable
@@ -257,23 +274,27 @@ NEXT_PUBLIC_ADMIN_EMAILS=admin@iiskills.cloud,phil@iiskills.cloud,newadmin@examp
 ### Security Features Implemented
 
 ✅ **Authentication**:
+
 - Email/password via Supabase
 - JWT-based sessions
 - Automatic token refresh
 - Secure session storage
 
 ✅ **Data Protection**:
+
 - No hardcoded credentials in source code
 - Environment variables for sensitive data
 - `.env.local` excluded from git
 - Placeholder credentials for build time
 
 ✅ **Access Control**:
+
 - Admin role verification
 - Session validation
 - Secure logout
 
 ✅ **Production Security**:
+
 - HTTPS enforcement
 - Secure cookie settings
 - CSRF protection (via Supabase)
@@ -314,7 +335,7 @@ NEXT_PUBLIC_ADMIN_EMAILS=admin@iiskills.cloud,phil@iiskills.cloud,newadmin@examp
 
 ### Immediate Actions (Required)
 
-1. **Get Supabase Credentials**: 
+1. **Get Supabase Credentials**:
    - Contact main repository administrator
    - Get NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY
 
@@ -366,7 +387,7 @@ NEXT_PUBLIC_ADMIN_EMAILS=admin@iiskills.cloud,phil@iiskills.cloud,newadmin@examp
 
 ### Available Documentation
 
-1. **SUPABASE_INTEGRATION.md**: 
+1. **SUPABASE_INTEGRATION.md**:
    - Comprehensive setup guide
    - Step-by-step instructions
    - Troubleshooting section
@@ -402,7 +423,7 @@ NEXT_PUBLIC_ADMIN_EMAILS=admin@iiskills.cloud,phil@iiskills.cloud,newadmin@examp
 ### Next Steps
 
 1. ✅ **Code Implementation**: COMPLETE
-2. ✅ **Documentation**: COMPLETE  
+2. ✅ **Documentation**: COMPLETE
 3. ✅ **Security Review**: COMPLETE
 4. ⏳ **Manual Testing**: PENDING (requires Supabase credentials)
 5. ⏳ **Deployment**: PENDING (after testing)

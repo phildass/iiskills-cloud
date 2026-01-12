@@ -56,6 +56,6 @@ See `RESTORE_BRANCH_INSTRUCTIONS.md` for detailed documentation and troubleshoot
 ## Files in This PR
 
 - `.github/workflows/restore-branch.yml` - Automated workflow
-- `restore-branch.sh` - Manual restoration script  
+- `restore-branch.sh` - Manual restoration script
 - `RESTORE_BRANCH_INSTRUCTIONS.md` - Comprehensive documentation
 - `QUICK_START.md` - This guide

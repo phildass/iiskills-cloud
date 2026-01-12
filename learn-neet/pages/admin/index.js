@@ -1,44 +1,44 @@
-import { useState, useEffect } from 'react'
-import { useRouter } from 'next/router'
-import Head from 'next/head'
-import Link from 'next/link'
-import { getCurrentUser, isAdmin, signOutUser } from '../../lib/supabaseClient'
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import Head from "next/head";
+import Link from "next/link";
+import { getCurrentUser, isAdmin, signOutUser } from "../../lib/supabaseClient";
 
 export default function AdminIndex() {
-  const [user, setUser] = useState(null)
-  const [isLoading, setIsLoading] = useState(true)
-  const [adminAccess, setAdminAccess] = useState(false)
-  const router = useRouter()
+  const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [adminAccess, setAdminAccess] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
-    checkAuth()
-  }, [])
+    checkAuth();
+  }, []);
 
   const checkAuth = async () => {
-    const currentUser = await getCurrentUser()
-    
+    const currentUser = await getCurrentUser();
+
     if (!currentUser) {
-      router.push('/login?redirect=/admin')
-      return
+      router.push("/login?redirect=/admin");
+      return;
     }
-    
-    setUser(currentUser)
-    const hasAdminAccess = await isAdmin(currentUser)
-    setAdminAccess(hasAdminAccess)
-    
+
+    setUser(currentUser);
+    const hasAdminAccess = await isAdmin(currentUser);
+    setAdminAccess(hasAdminAccess);
+
     if (!hasAdminAccess) {
-      alert('Admin access required')
-      router.push('/learn')
-      return
+      alert("Admin access required");
+      router.push("/learn");
+      return;
     }
-    
-    setIsLoading(false)
-  }
+
+    setIsLoading(false);
+  };
 
   const handleSignOut = async () => {
-    await signOutUser()
-    router.push('/')
-  }
+    await signOutUser();
+    router.push("/");
+  };
 
   if (isLoading) {
     return (
@@ -48,7 +48,7 @@ export default function AdminIndex() {
           <p className="text-xl text-charcoal">Loading...</p>
         </div>
       </div>
-    )
+    );
   }
 
   return (
@@ -69,7 +69,10 @@ export default function AdminIndex() {
                 <p className="text-sm text-gray-600">Learn NEET Management</p>
               </div>
               <div className="flex items-center gap-4">
-                <Link href="/learn" className="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm font-medium transition">
+                <Link
+                  href="/learn"
+                  className="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm font-medium transition"
+                >
                   User View
                 </Link>
                 <button
@@ -86,11 +89,10 @@ export default function AdminIndex() {
         <div className="max-w-7xl mx-auto px-4 py-8">
           {/* Welcome Section */}
           <div className="bg-white p-8 rounded-2xl shadow-lg mb-8">
-            <h2 className="text-2xl font-bold text-primary mb-4">
-              Welcome, Admin! 👋
-            </h2>
+            <h2 className="text-2xl font-bold text-primary mb-4">Welcome, Admin! 👋</h2>
             <p className="text-gray-700">
-              Manage Learn NEET subscriptions, users, and view analytics from this central dashboard.
+              Manage Learn NEET subscriptions, users, and view analytics from this central
+              dashboard.
             </p>
           </div>
 
@@ -151,7 +153,9 @@ export default function AdminIndex() {
               >
                 <div className="text-3xl mb-2">👥</div>
                 <h4 className="font-bold text-lg mb-2 text-primary">Membership Management</h4>
-                <p className="text-gray-600 text-sm">View and manage user subscriptions and access</p>
+                <p className="text-gray-600 text-sm">
+                  View and manage user subscriptions and access
+                </p>
               </Link>
 
               <Link
@@ -160,7 +164,9 @@ export default function AdminIndex() {
               >
                 <div className="text-3xl mb-2">📊</div>
                 <h4 className="font-bold text-lg mb-2 text-primary">Analytics Dashboard</h4>
-                <p className="text-gray-600 text-sm">View usage statistics and performance metrics</p>
+                <p className="text-gray-600 text-sm">
+                  View usage statistics and performance metrics
+                </p>
               </Link>
 
               <Link
@@ -226,12 +232,12 @@ export default function AdminIndex() {
           <div className="mt-8 bg-green-50 border-l-4 border-green-500 p-6 rounded-lg">
             <h4 className="font-bold text-green-900 mb-2">✅ Secure Authentication</h4>
             <p className="text-green-800">
-              This admin panel uses secure role-based authentication through Supabase backend. 
-              All admin access is validated against the database with proper role checking.
+              This admin panel uses secure role-based authentication through Supabase backend. All
+              admin access is validated against the database with proper role checking.
             </p>
           </div>
         </div>
       </main>
     </>
-  )
+  );
 }

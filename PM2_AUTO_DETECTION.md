@@ -11,6 +11,7 @@ The `generate-ecosystem.js` script automatically detects all Next.js application
 ### 1. Application Discovery
 
 The script scans the repository to find all Next.js applications:
+
 - Checks the root directory
 - Scans all subdirectories
 - Identifies Next.js apps by checking for `package.json` with Next.js dependencies
@@ -18,6 +19,7 @@ The script scans the repository to find all Next.js applications:
 ### 2. Entry Point Detection
 
 For each detected application, the script:
+
 - Reads the `package.json` file
 - Extracts the `start` script (e.g., `next start -p 3002`)
 - Detects any port specifications in the start script
@@ -26,6 +28,7 @@ For each detected application, the script:
 ### 3. Port Assignment
 
 The script intelligently assigns ports:
+
 - **From package.json**: Uses ports explicitly defined in start scripts
 - **Auto-assigned**: Assigns the next available port if not specified
 - **Conflict resolution**: Automatically reassigns ports when conflicts are detected
@@ -33,6 +36,7 @@ The script intelligently assigns ports:
 ### 4. Configuration Generation
 
 The script generates:
+
 - `ecosystem.config.js`: Complete PM2 configuration for all apps
 - `PM2_ENTRY_POINTS.md`: Documentation of all detected entry points
 
@@ -85,6 +89,7 @@ node validate-ecosystem.js
 ## When to Regenerate
 
 Regenerate the configuration when:
+
 - Adding new Next.js applications to the repository
 - Removing existing applications
 - Changing port assignments in package.json files
@@ -96,6 +101,7 @@ Regenerate the configuration when:
 ### ecosystem.config.js
 
 The main PM2 configuration file with:
+
 - Complete app definitions
 - Port assignments (explicit or auto-assigned)
 - Log file paths
@@ -107,6 +113,7 @@ The main PM2 configuration file with:
 ### PM2_ENTRY_POINTS.md
 
 Documentation file containing:
+
 - Table of all detected applications
 - Port assignments with sources (package.json, auto-assigned, or reassigned)
 - Detailed breakdown by assignment type
@@ -119,12 +126,13 @@ For Next.js applications, the script uses the following strategy:
 
 1. **Script**: `npm` (the npm executable)
 2. **Args**: `start` (runs the package.json start script)
-3. **Port**: 
+3. **Port**:
    - If specified in package.json: Uses that port (no ENV override)
    - If not specified: Assigns PORT via environment variable
    - If conflict: Reassigns and overrides via environment variable
 
 This approach ensures that:
+
 - Each app uses its own configured build process
 - Port assignments are clear and conflict-free
 - The configuration works on a fresh clone without manual intervention
@@ -140,8 +148,9 @@ When multiple apps specify the same port in their package.json files:
 4. The PORT environment variable is set to override the package.json port
 
 Example:
+
 ```
-Original: 
+Original:
 - learn-jee: 3009
 - learn-chemistry: 3009
 - learn-physics: 3009
@@ -156,7 +165,8 @@ After resolution:
 
 The auto-detection system integrates with the deployment workflow:
 
-1. **Fresh Clone**: 
+1. **Fresh Clone**:
+
    ```bash
    git clone https://github.com/phildass/iiskills-cloud.git
    cd iiskills-cloud
@@ -166,6 +176,7 @@ The auto-detection system integrates with the deployment workflow:
    ```
 
 2. **After Adding New Apps**:
+
    ```bash
    npm run generate-pm2-config  # Regenerate
    npm run validate-pm2-config  # Validate
@@ -182,6 +193,7 @@ The auto-detection system integrates with the deployment workflow:
 ### Script Not Finding Apps
 
 If apps aren't being detected:
+
 - Ensure `package.json` exists in each app directory
 - Verify `next` is in dependencies
 - Check that `start` script exists in package.json
@@ -189,6 +201,7 @@ If apps aren't being detected:
 ### Port Conflicts
 
 If you see port conflict warnings:
+
 - Review `PM2_ENTRY_POINTS.md` for reassignments
 - Update package.json files to use unique ports if preferred
 - Regenerate configuration after changes
@@ -196,6 +209,7 @@ If you see port conflict warnings:
 ### Configuration Not Working
 
 If PM2 fails to start apps:
+
 1. Validate the configuration: `npm run validate-pm2-config`
 2. Check app directories exist
 3. Ensure dependencies are installed: `npm install` in each directory
@@ -207,12 +221,14 @@ If PM2 fails to start apps:
 ### Modifying Detection Logic
 
 The `generate-ecosystem.js` script can be modified to:
+
 - Add custom detection rules
 - Change port assignment strategy
 - Modify configuration templates
 - Add additional validation checks
 
 After modifications, test with:
+
 ```bash
 node generate-ecosystem.js --dry-run
 ```
@@ -222,7 +238,7 @@ node generate-ecosystem.js --dry-run
 To use a specific port range, modify the `assignPorts` function in `generate-ecosystem.js`:
 
 ```javascript
-let nextAvailablePort = 4000;  // Start from 4000 instead of 3000
+let nextAvailablePort = 4000; // Start from 4000 instead of 3000
 ```
 
 ### Excluding Directories
@@ -230,7 +246,7 @@ let nextAvailablePort = 4000;  // Start from 4000 instead of 3000
 To exclude specific directories from detection, modify the `detectApps` function:
 
 ```javascript
-if (!entry.isDirectory() || 
+if (!entry.isDirectory() ||
     entry.name.startsWith('.') ||
     entry.name === 'node_modules' ||
     entry.name === 'my-excluded-dir') {
@@ -257,6 +273,7 @@ if (!entry.isDirectory() ||
 ## Support
 
 For issues with auto-detection:
+
 1. Check this documentation
 2. Review the script output for warnings
 3. Validate the generated configuration

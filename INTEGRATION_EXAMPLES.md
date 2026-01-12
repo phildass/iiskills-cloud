@@ -6,13 +6,13 @@ This document provides code examples for integrating the certificate generation 
 
 ```javascript
 // pages/courses/[courseId]/test-results.js
-import { useState, useEffect } from 'react'
-import { useRouter } from 'next/router'
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 
 export default function TestResults() {
-  const router = useRouter()
-  const [testData, setTestData] = useState(null)
-  const [certificateGenerated, setCertificateGenerated] = useState(false)
+  const router = useRouter();
+  const [testData, setTestData] = useState(null);
+  const [certificateGenerated, setCertificateGenerated] = useState(false);
 
   // After user completes a test
   const handleTestCompletion = async (score, userId, courseId, userName, courseName) => {
@@ -20,50 +20,50 @@ export default function TestResults() {
     if (score >= 50) {
       try {
         // Call API to generate certificate data
-        const response = await fetch('/api/generate-certificate', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+        const response = await fetch("/api/generate-certificate", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             userId,
             courseId,
             userName,
             courseName,
-            score
-          })
-        })
+            score,
+          }),
+        });
 
-        const result = await response.json()
-        
+        const result = await response.json();
+
         if (result.success) {
-          setCertificateGenerated(true)
-          
+          setCertificateGenerated(true);
+
           // Save certificate to database
-          await saveCertificateToDatabase(result.data)
-          
+          await saveCertificateToDatabase(result.data);
+
           // Send email notification
-          await sendCertificateEmail(userName, result.data.certificateNo)
-          
+          await sendCertificateEmail(userName, result.data.certificateNo);
+
           // Show success message
-          alert(`Congratulations! Your certificate ${result.data.certificateNo} has been generated.`)
+          alert(
+            `Congratulations! Your certificate ${result.data.certificateNo} has been generated.`
+          );
         }
       } catch (error) {
-        console.error('Error generating certificate:', error)
+        console.error("Error generating certificate:", error);
       }
     }
-  }
+  };
 
   return (
     <div>
       {/* Show test results */}
       {certificateGenerated && (
         <div className="bg-green-50 border border-green-200 p-6 rounded-lg mt-6">
-          <h3 className="text-xl font-bold text-green-800 mb-2">
-            🎉 Congratulations! You Passed!
-          </h3>
+          <h3 className="text-xl font-bold text-green-800 mb-2">🎉 Congratulations! You Passed!</h3>
           <p className="text-green-700 mb-4">
             Your certificate has been generated and is ready to download.
           </p>
-          <a 
+          <a
             href="/my-certificates"
             className="bg-green-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-green-700 transition"
           >
@@ -72,7 +72,7 @@ export default function TestResults() {
         </div>
       )}
     </div>
-  )
+  );
 }
 ```
 
@@ -80,62 +80,57 @@ export default function TestResults() {
 
 ```javascript
 // pages/dashboard.js
-import { useState, useEffect } from 'react'
-import Link from 'next/link'
+import { useState, useEffect } from "react";
+import Link from "next/link";
 
 export default function UserDashboard() {
-  const [certificates, setCertificates] = useState([])
-  const [loading, setLoading] = useState(true)
+  const [certificates, setCertificates] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    loadUserCertificates()
-  }, [])
+    loadUserCertificates();
+  }, []);
 
   const loadUserCertificates = async () => {
     try {
       // Fetch user's certificates from database
-      const response = await fetch('/api/user/certificates')
-      const data = await response.json()
-      setCertificates(data.certificates)
+      const response = await fetch("/api/user/certificates");
+      const data = await response.json();
+      setCertificates(data.certificates);
     } catch (error) {
-      console.error('Error loading certificates:', error)
+      console.error("Error loading certificates:", error);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-12">
       <h1 className="text-3xl font-bold mb-6">My Dashboard</h1>
-      
+
       {/* Certificates Section */}
       <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-2xl font-bold">My Certificates</h2>
-          <Link 
-            href="/my-certificates"
-            className="text-primary hover:underline"
-          >
+          <Link href="/my-certificates" className="text-primary hover:underline">
             View All →
           </Link>
         </div>
-        
+
         {loading ? (
           <p>Loading certificates...</p>
         ) : certificates.length > 0 ? (
           <div className="grid md:grid-cols-2 gap-4">
-            {certificates.slice(0, 4).map(cert => (
-              <div 
-                key={cert.id} 
+            {certificates.slice(0, 4).map((cert) => (
+              <div
+                key={cert.id}
                 className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition"
               >
                 <h3 className="font-bold text-lg mb-1">{cert.courseName}</h3>
                 <p className="text-sm text-gray-600">
                   Score: {cert.score}% | {cert.completionDate}
                 </p>
-                <p className="text-xs text-gray-500 mt-1">
-                  Certificate No: {cert.certificateNo}
-                </p>
+                <p className="text-xs text-gray-500 mt-1">Certificate No: {cert.certificateNo}</p>
               </div>
             ))}
           </div>
@@ -146,7 +141,7 @@ export default function UserDashboard() {
         )}
       </div>
     </div>
-  )
+  );
 }
 ```
 
@@ -156,8 +151,8 @@ export default function UserDashboard() {
 // utils/emailNotifications.js
 
 export async function sendCertificateEmail(userName, userEmail, certificateData) {
-  const { certificateNo, courseName, score } = certificateData
-  
+  const { certificateNo, courseName, score } = certificateData;
+
   const emailTemplate = `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
       <h1 style="color: #1e40af;">Congratulations, ${userName}! 🎉</h1>
@@ -190,22 +185,22 @@ export async function sendCertificateEmail(userName, userEmail, certificateData)
         iiskills.cloud | Education for All, Online and Affordable
       </p>
     </div>
-  `
-  
+  `;
+
   // Send email using your email service (SendGrid, AWS SES, etc.)
   // This is a placeholder - implement based on your email service
   try {
     await yourEmailService.send({
       to: userEmail,
-      from: 'noreply@iiskills.cloud',
+      from: "noreply@iiskills.cloud",
       subject: `🎓 Certificate Ready - ${courseName}`,
-      html: emailTemplate
-    })
-    
-    return { success: true }
+      html: emailTemplate,
+    });
+
+    return { success: true };
   } catch (error) {
-    console.error('Error sending email:', error)
-    return { success: false, error: error.message }
+    console.error("Error sending email:", error);
+    return { success: false, error: error.message };
   }
 }
 ```
@@ -229,7 +224,7 @@ CREATE TABLE certificates (
   is_valid BOOLEAN DEFAULT TRUE,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  
+
   FOREIGN KEY (user_id) REFERENCES users(id),
   FOREIGN KEY (course_id) REFERENCES courses(id)
 );
@@ -246,16 +241,16 @@ CREATE INDEX idx_certificates_course_id ON certificates(course_id);
 // pages/api/user/certificates.js
 
 export default async function handler(req, res) {
-  if (req.method !== 'GET') {
-    return res.status(405).json({ error: 'Method not allowed' })
+  if (req.method !== "GET") {
+    return res.status(405).json({ error: "Method not allowed" });
   }
 
   try {
     // Get user ID from session/token
-    const userId = req.session?.user?.id || req.query.userId
-    
+    const userId = req.session?.user?.id || req.query.userId;
+
     if (!userId) {
-      return res.status(401).json({ error: 'Unauthorized' })
+      return res.status(401).json({ error: "Unauthorized" });
     }
 
     // Query database for user's certificates
@@ -273,18 +268,18 @@ export default async function handler(req, res) {
       AND is_valid = true
       ORDER BY issue_date DESC`,
       [userId]
-    )
+    );
 
     return res.status(200).json({
       success: true,
-      certificates: certificates.rows
-    })
+      certificates: certificates.rows,
+    });
   } catch (error) {
-    console.error('Error fetching certificates:', error)
-    return res.status(500).json({ 
-      error: 'Failed to fetch certificates',
-      message: error.message 
-    })
+    console.error("Error fetching certificates:", error);
+    return res.status(500).json({
+      error: "Failed to fetch certificates",
+      message: error.message,
+    });
   }
 }
 ```
@@ -295,15 +290,15 @@ export default async function handler(req, res) {
 // pages/api/verify-certificate.js
 
 export default async function handler(req, res) {
-  if (req.method !== 'GET') {
-    return res.status(405).json({ error: 'Method not allowed' })
+  if (req.method !== "GET") {
+    return res.status(405).json({ error: "Method not allowed" });
   }
 
   try {
-    const { certificateNo } = req.query
-    
+    const { certificateNo } = req.query;
+
     if (!certificateNo) {
-      return res.status(400).json({ error: 'Certificate number is required' })
+      return res.status(400).json({ error: "Certificate number is required" });
     }
 
     // Query database for certificate
@@ -318,16 +313,16 @@ export default async function handler(req, res) {
       WHERE c.certificate_no = $1
       AND c.is_valid = true`,
       [certificateNo]
-    )
+    );
 
     if (result.rows.length === 0) {
-      return res.status(404).json({ 
+      return res.status(404).json({
         success: false,
-        error: 'Certificate not found or invalid'
-      })
+        error: "Certificate not found or invalid",
+      });
     }
 
-    const certificate = result.rows[0]
+    const certificate = result.rows[0];
 
     return res.status(200).json({
       success: true,
@@ -338,15 +333,15 @@ export default async function handler(req, res) {
         courseName: certificate.course_name,
         score: certificate.score,
         completionDate: certificate.completion_date,
-        issueDate: certificate.issue_date
-      }
-    })
+        issueDate: certificate.issue_date,
+      },
+    });
   } catch (error) {
-    console.error('Error verifying certificate:', error)
-    return res.status(500).json({ 
-      error: 'Failed to verify certificate',
-      message: error.message 
-    })
+    console.error("Error verifying certificate:", error);
+    return res.status(500).json({
+      error: "Failed to verify certificate",
+      message: error.message,
+    });
   }
 }
 ```
@@ -355,7 +350,7 @@ export default async function handler(req, res) {
 
 ```javascript
 // components/CustomCertificatePreview.js
-import CertificateTemplate from './CertificateTemplate'
+import CertificateTemplate from "./CertificateTemplate";
 
 export default function CustomCertificatePreview({ userData, courseData }) {
   return (
@@ -364,31 +359,31 @@ export default function CustomCertificatePreview({ userData, courseData }) {
         userName={userData.fullName}
         courseName={courseData.title}
         certificateNo={generateCertificateNumber(userData.id, courseData.id)}
-        completionDate={new Date().toLocaleDateString('en-IN', { 
-          year: 'numeric', 
-          month: 'long', 
-          day: 'numeric' 
+        completionDate={new Date().toLocaleDateString("en-IN", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
         })}
         score={userData.finalScore}
-        issueDate={new Date().toLocaleDateString('en-IN', { 
-          year: 'numeric', 
-          month: 'long', 
-          day: 'numeric' 
+        issueDate={new Date().toLocaleDateString("en-IN", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
         })}
         qrCodeData={`https://iiskills.cloud/verify/${generateCertificateNumber(userData.id, courseData.id)}`}
       />
     </div>
-  )
+  );
 }
 
 function generateCertificateNumber(userId, courseId) {
-  const now = new Date()
-  const year = now.getFullYear()
-  const month = String(now.getMonth() + 1).padStart(2, '0')
-  const userPart = String(userId).padStart(4, '0')
-  const coursePart = String(courseId).padStart(3, '0')
-  
-  return `IIPS-${year}${month}-${coursePart}${userPart}`
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const userPart = String(userId).padStart(4, "0");
+  const coursePart = String(courseId).padStart(3, "0");
+
+  return `IIPS-${year}${month}-${coursePart}${userPart}`;
 }
 ```
 
@@ -398,50 +393,50 @@ function generateCertificateNumber(userId, courseId) {
 // utils/batchCertificateGenerator.js
 
 export async function generateCertificatesForCourse(courseId, passingUsers) {
-  const results = []
-  
+  const results = [];
+
   for (const user of passingUsers) {
     try {
-      const response = await fetch('/api/generate-certificate', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const response = await fetch("/api/generate-certificate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           userId: user.id,
           courseId: courseId,
           userName: user.name,
           courseName: user.courseName,
-          score: user.score
-        })
-      })
-      
-      const result = await response.json()
-      
+          score: user.score,
+        }),
+      });
+
+      const result = await response.json();
+
       if (result.success) {
         results.push({
           userId: user.id,
           success: true,
-          certificateNo: result.data.certificateNo
-        })
-        
+          certificateNo: result.data.certificateNo,
+        });
+
         // Send email
-        await sendCertificateEmail(user.name, user.email, result.data)
+        await sendCertificateEmail(user.name, user.email, result.data);
       } else {
         results.push({
           userId: user.id,
           success: false,
-          error: result.error
-        })
+          error: result.error,
+        });
       }
     } catch (error) {
       results.push({
         userId: user.id,
         success: false,
-        error: error.message
-      })
+        error: error.message,
+      });
     }
   }
-  
-  return results
+
+  return results;
 }
 
 // Usage:

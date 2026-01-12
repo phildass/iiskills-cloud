@@ -16,7 +16,7 @@
 
 Your repository is already configured correctly:
 
-1. **.gitignore includes `.env`** 
+1. **.gitignore includes `.env`**
    - This automatically excludes `.env`, `.env.local`, `.env.production`, etc.
    - Git will never track these files
 
@@ -30,11 +30,13 @@ Your repository is already configured correctly:
 ### On Your Development Machine
 
 1. **Create .env.local locally** (DO NOT push this):
+
    ```bash
    cp .env.local.example .env.local
    ```
 
 2. **Add your real credentials** to `.env.local`:
+
    ```env
    NEXT_PUBLIC_SUPABASE_URL=https://xyzcompany.supabase.co
    NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
@@ -49,6 +51,7 @@ Your repository is already configured correctly:
 ### For Team Members or Deployment
 
 1. **They copy .env.local.example**:
+
    ```bash
    cp .env.local.example .env.local
    ```
@@ -76,12 +79,13 @@ If you accidentally pushed `.env.local` or exposed your credentials:
    - Update your local `.env.local` with new keys
 
 2. **Remove the file from git history**:
+
    ```bash
    # Remove from current commit (if just committed)
    git rm --cached .env.local
    git commit --amend -m "Remove accidentally committed credentials"
    git push --force
-   
+
    # If pushed several commits ago, you need to rewrite history
    # (More complex - contact your team lead)
    ```
@@ -94,6 +98,7 @@ If you accidentally pushed `.env.local` or exposed your credentials:
    ```
 
 ### Important Note
+
 Even after removing from git, the credentials may be visible in git history. Always rotate/reset the keys when in doubt.
 
 ## Current .gitignore Content
@@ -132,13 +137,13 @@ When deploying to Vercel, Netlify, or other platforms:
 
 ## Quick Reference
 
-| File | Push to Git? | Purpose |
-|------|--------------|---------|
-| `.env.local` | ❌ NO | Your actual credentials (local dev) |
-| `.env.local.example` | ✅ YES | Template for others |
-| `.env.production` | ❌ NO | Production credentials |
-| `.gitignore` | ✅ YES | Tells git what to ignore |
-| Code files | ✅ YES | Your application code |
+| File                 | Push to Git? | Purpose                             |
+| -------------------- | ------------ | ----------------------------------- |
+| `.env.local`         | ❌ NO        | Your actual credentials (local dev) |
+| `.env.local.example` | ✅ YES       | Template for others                 |
+| `.env.production`    | ❌ NO        | Production credentials              |
+| `.gitignore`         | ✅ YES       | Tells git what to ignore            |
+| Code files           | ✅ YES       | Your application code               |
 
 ---
 

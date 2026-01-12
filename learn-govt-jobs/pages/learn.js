@@ -1,45 +1,45 @@
-import { useState, useEffect } from 'react'
-import { useRouter } from 'next/router'
-import Head from 'next/head'
-import { getCurrentUser, signOutUser, getUserProfile } from '../lib/supabaseClient'
-import SubdomainNavbar from '../components/SubdomainNavbar'
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import Head from "next/head";
+import { getCurrentUser, signOutUser, getUserProfile } from "../lib/supabaseClient";
+import SubdomainNavbar from "../components/SubdomainNavbar";
 
 /**
  * Learn Government Jobs - Main Learning Page
- * 
+ *
  * Provides comprehensive preparation for various government examinations
  * Protected Route: Redirects to login if user is not authenticated
  */
 export default function Learn() {
-  const [user, setUser] = useState(null)
-  const [userProfile, setUserProfile] = useState(null)
-  const [isLoading, setIsLoading] = useState(true)
-  const router = useRouter()
+  const [user, setUser] = useState(null);
+  const [userProfile, setUserProfile] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const router = useRouter();
 
   useEffect(() => {
     const checkAuth = async () => {
-      const currentUser = await getCurrentUser()
-      
+      const currentUser = await getCurrentUser();
+
       if (!currentUser) {
-        router.push('/login')
-        return
+        router.push("/login");
+        return;
       }
 
-      setUser(currentUser)
-      setUserProfile(getUserProfile(currentUser))
-      setIsLoading(false)
-    }
+      setUser(currentUser);
+      setUserProfile(getUserProfile(currentUser));
+      setIsLoading(false);
+    };
 
-    checkAuth()
-  }, [router])
+    checkAuth();
+  }, [router]);
 
   const handleLogout = async () => {
-    const { success } = await signOutUser()
+    const { success } = await signOutUser();
     if (success) {
-      setUser(null)
-      router.push('/')
+      setUser(null);
+      router.push("/");
     }
-  }
+  };
 
   if (isLoading) {
     return (
@@ -49,60 +49,60 @@ export default function Learn() {
           <p className="text-xl text-gray-700">Loading...</p>
         </div>
       </div>
-    )
+    );
   }
 
   const sections = [
     {
-      label: 'Home',
-      href: '/',
-      description: 'Return to main page'
+      label: "Home",
+      href: "/",
+      description: "Return to main page",
     },
     {
-      label: 'Dashboard',
-      href: '/learn',
-      description: 'Learning dashboard'
-    }
-  ]
+      label: "Dashboard",
+      href: "/learn",
+      description: "Learning dashboard",
+    },
+  ];
 
   const examCategories = [
     {
-      title: 'UPSC Civil Services',
-      icon: '🏛️',
-      description: 'Comprehensive preparation for UPSC Prelims and Mains',
-      topics: ['General Studies', 'Current Affairs', 'Essay Writing', 'Interview Prep']
+      title: "UPSC Civil Services",
+      icon: "🏛️",
+      description: "Comprehensive preparation for UPSC Prelims and Mains",
+      topics: ["General Studies", "Current Affairs", "Essay Writing", "Interview Prep"],
     },
     {
-      title: 'Banking Exams',
-      icon: '🏦',
-      description: 'IBPS PO, Clerk, SBI and other banking sector exams',
-      topics: ['Quantitative Aptitude', 'Reasoning', 'English', 'Banking Awareness']
+      title: "Banking Exams",
+      icon: "🏦",
+      description: "IBPS PO, Clerk, SBI and other banking sector exams",
+      topics: ["Quantitative Aptitude", "Reasoning", "English", "Banking Awareness"],
     },
     {
-      title: 'Railway Exams',
-      icon: '🚆',
-      description: 'RRB NTPC, Group D and technical positions',
-      topics: ['Mathematics', 'General Intelligence', 'General Awareness', 'Technical Subjects']
+      title: "Railway Exams",
+      icon: "🚆",
+      description: "RRB NTPC, Group D and technical positions",
+      topics: ["Mathematics", "General Intelligence", "General Awareness", "Technical Subjects"],
     },
     {
-      title: 'SSC Exams',
-      icon: '📋',
-      description: 'Staff Selection Commission - CGL, CHSL, MTS and more',
-      topics: ['Reasoning', 'Quantitative Aptitude', 'English', 'General Knowledge']
+      title: "SSC Exams",
+      icon: "📋",
+      description: "Staff Selection Commission - CGL, CHSL, MTS and more",
+      topics: ["Reasoning", "Quantitative Aptitude", "English", "General Knowledge"],
     },
     {
-      title: 'State PSC',
-      icon: '🗺️',
-      description: 'State Public Service Commission examinations',
-      topics: ['State Affairs', 'General Studies', 'Regional Knowledge', 'Current Events']
+      title: "State PSC",
+      icon: "🗺️",
+      description: "State Public Service Commission examinations",
+      topics: ["State Affairs", "General Studies", "Regional Knowledge", "Current Events"],
     },
     {
-      title: 'Defense Exams',
-      icon: '🎖️',
-      description: 'NDA, CDS, AFCAT and other defense services',
-      topics: ['Mathematics', 'English', 'General Knowledge', 'Physical Fitness']
-    }
-  ]
+      title: "Defense Exams",
+      icon: "🎖️",
+      description: "NDA, CDS, AFCAT and other defense services",
+      topics: ["Mathematics", "English", "General Knowledge", "Physical Fitness"],
+    },
+  ];
 
   return (
     <>
@@ -111,11 +111,8 @@ export default function Learn() {
         <meta name="description" content="Comprehensive preparation for government examinations" />
       </Head>
 
-      <SubdomainNavbar 
-        subdomainName="Learn Government Jobs"
-        sections={sections}
-      />
-      
+      <SubdomainNavbar subdomainName="Learn Government Jobs" sections={sections} />
+
       <main className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50 py-12 px-4">
         <div className="max-w-7xl mx-auto">
           {/* Welcome Section */}
@@ -123,7 +120,7 @@ export default function Learn() {
             <div className="flex justify-between items-start">
               <div>
                 <h1 className="text-4xl font-bold text-blue-600 mb-4">
-                  Welcome, {userProfile?.firstName || 'Learner'}! 🎓
+                  Welcome, {userProfile?.firstName || "Learner"}! 🎓
                 </h1>
                 <p className="text-xl text-gray-700 mb-4">
                   Start your journey towards a successful government career
@@ -134,7 +131,8 @@ export default function Learn() {
                   </p>
                   {userProfile?.age && (
                     <p className="text-gray-700">
-                      <strong>Age:</strong> {userProfile.age} | <strong>Qualification:</strong> {userProfile.qualification || 'Not specified'}
+                      <strong>Age:</strong> {userProfile.age} | <strong>Qualification:</strong>{" "}
+                      {userProfile.qualification || "Not specified"}
                     </p>
                   )}
                 </div>
@@ -147,13 +145,13 @@ export default function Learn() {
               </button>
             </div>
           </div>
-          
+
           {/* Introduction */}
           <div className="bg-gradient-to-r from-blue-600 to-green-600 text-white p-8 rounded-lg shadow-lg mb-8">
             <h2 className="text-3xl font-bold mb-4">Government Exam Preparation Platform</h2>
             <p className="text-lg mb-4">
-              Build strong fundamentals in reasoning, quantitative aptitude, general knowledge, and English 
-              to excel across multiple competitive government examinations.
+              Build strong fundamentals in reasoning, quantitative aptitude, general knowledge, and
+              English to excel across multiple competitive government examinations.
             </p>
             <div className="grid md:grid-cols-4 gap-4 mt-6">
               <div className="bg-white/10 p-4 rounded-lg text-center">
@@ -180,7 +178,7 @@ export default function Learn() {
             <h2 className="text-3xl font-bold text-blue-600 mb-6">Exam Categories</h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {examCategories.map((category, index) => (
-                <div 
+                <div
                   key={index}
                   className="bg-gradient-to-br from-blue-50 to-white p-6 rounded-xl shadow-md border-2 border-blue-100 hover:border-blue-600 transition-all hover:shadow-xl"
                 >
@@ -217,7 +215,7 @@ export default function Learn() {
                   <li>• Important formulas and shortcuts</li>
                 </ul>
               </div>
-              
+
               <div className="bg-gradient-to-br from-green-50 to-white p-6 rounded-lg border-2 border-green-200">
                 <div className="text-3xl mb-3">🎯</div>
                 <h3 className="text-xl font-bold text-green-600 mb-3">Mock Tests</h3>
@@ -228,7 +226,7 @@ export default function Learn() {
                   <li>• Detailed performance analysis</li>
                 </ul>
               </div>
-              
+
               <div className="bg-gradient-to-br from-orange-50 to-white p-6 rounded-lg border-2 border-orange-200">
                 <div className="text-3xl mb-3">📰</div>
                 <h3 className="text-xl font-bold text-orange-600 mb-3">Current Affairs</h3>
@@ -239,7 +237,7 @@ export default function Learn() {
                   <li>• Government schemes and policies</li>
                 </ul>
               </div>
-              
+
               <div className="bg-gradient-to-br from-blue-50 to-white p-6 rounded-lg border-2 border-blue-200">
                 <div className="text-3xl mb-3">💡</div>
                 <h3 className="text-xl font-bold text-blue-600 mb-3">Exam Tips</h3>
@@ -255,5 +253,5 @@ export default function Learn() {
         </div>
       </main>
     </>
-  )
+  );
 }

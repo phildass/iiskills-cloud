@@ -14,17 +14,20 @@ Comprehensive JEE preparation module with AI-generated lessons covering Physics,
 ## Course Structure
 
 ### Physics
+
 - Mechanics and Motion
 - Thermodynamics
 - Electromagnetism
 - Modern Physics
 
 ### Chemistry
+
 - Physical Chemistry
 - Organic Chemistry
 - Inorganic Chemistry
 
 ### Mathematics
+
 - Algebra
 - Calculus
 - Coordinate Geometry
@@ -136,21 +139,25 @@ learn-jee/
 ## Course Content
 
 ### Physics (Chapters 1-3)
+
 - JEE Physics Fundamentals
 - Mechanics and Dynamics
 - Thermodynamics Essentials
 
 ### Chemistry (Chapters 4-6)
+
 - Physical Chemistry Foundations
 - Organic Chemistry Basics
 - Inorganic Chemistry
 
 ### Mathematics (Chapters 7-9)
+
 - Calculus for JEE
 - Algebra Mastery
 - Coordinate Geometry
 
 ### Problem-Solving (Chapter 10)
+
 - JEE-specific strategies and techniques
 
 ## Getting Started
@@ -232,20 +239,22 @@ This app uses shared Supabase authentication with all other iiskills.cloud apps:
 
 ## Environment Variables
 
-| Variable | Description | Example |
-|----------|-------------|---------|
-| `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL | `https://xxx.supabase.co` |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase anon key | `eyJ...` |
-| `NEXT_PUBLIC_SITE_URL` | App URL | `https://learn-jee.iiskills.cloud` |
-| `NEXT_PUBLIC_COOKIE_DOMAIN` | Cookie domain for auth | `.iiskills.cloud` |
+| Variable                        | Description            | Example                            |
+| ------------------------------- | ---------------------- | ---------------------------------- |
+| `NEXT_PUBLIC_SUPABASE_URL`      | Supabase project URL   | `https://xxx.supabase.co`          |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase anon key      | `eyJ...`                           |
+| `NEXT_PUBLIC_SITE_URL`          | App URL                | `https://learn-jee.iiskills.cloud` |
+| `NEXT_PUBLIC_COOKIE_DOMAIN`     | Cookie domain for auth | `.iiskills.cloud`                  |
 
 ## Access Control
 
 ### Free Access
+
 - Chapter 1, Lesson 1 is freely accessible to all authenticated users
 - Landing page and course overview are public
 
 ### Paid Access
+
 - Full course requires purchase
 - Payment handled through external payment portal (aienter.in/payments)
 - Purchase status stored in Supabase user metadata (`purchased_jee_course`)
@@ -269,7 +278,6 @@ This app uses shared Supabase authentication with all other iiskills.cloud apps:
 - **Contact:** info@iiskills.cloud
 - **Main Site:** https://iiskills.cloud
 - **Issues:** Report via GitHub issues
-
 
 ## License
 

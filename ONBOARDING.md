@@ -45,6 +45,7 @@ You can register on **any** iiskills.cloud app. Choose the app you want to start
 ### Registration-First Workflow
 
 When you try to access any learning content without being logged in:
+
 1. You will be automatically redirected to the registration page
 2. Create your account using the registration form
 3. Confirm your email address
@@ -56,6 +57,7 @@ When you try to access any learning content without being logged in:
 ### Step 2: Confirm Your Email
 
 After registration:
+
 1. Check your email inbox
 2. Click the confirmation link
 3. Your account is now active!
@@ -67,11 +69,13 @@ Now you can sign in to **any** iiskills.cloud app using the same credentials:
 **Three Sign-In Methods:**
 
 #### 🔐 Option 1: Email & Password
+
 - Use on any app's login page
 - Enter the email and password you registered with
 - Click "Sign In"
 
 #### ✨ Option 2: Magic Link (Recommended)
+
 - Click "Use magic link instead" on any login page
 - Enter your email address
 - Check your email for a secure sign-in link
@@ -79,6 +83,7 @@ Now you can sign in to **any** iiskills.cloud app using the same credentials:
 - **No password needed!**
 
 #### 🚀 Option 3: Google Sign-In
+
 - Click "Continue with Google" on any login page
 - Sign in with your Google account
 - Works if you registered with Google or linked your Google account
@@ -88,6 +93,7 @@ Now you can sign in to **any** iiskills.cloud app using the same credentials:
 Once logged in on one app, you're automatically logged in everywhere!
 
 **Try it:**
+
 1. Login on `iiskills.cloud`
 2. Visit `learn-apt.iiskills.cloud` in a new tab
 3. You'll already be logged in there too!
@@ -108,6 +114,7 @@ All iiskills.cloud apps connect to the **same user database**. This means:
 Depending on where you register, you'll see different forms:
 
 **Main Site Registration:**
+
 - First Name, Last Name
 - Gender, Date of Birth
 - Education Level
@@ -115,6 +122,7 @@ Depending on where you register, you'll see different forms:
 - Email, Password
 
 **Subdomain Registration:**
+
 - First Name, Last Name
 - Age (optional)
 - Qualification (optional)
@@ -125,6 +133,7 @@ Depending on where you register, you'll see different forms:
 ### Your Session
 
 When you login:
+
 - Your session lasts for 1 week (configurable)
 - It automatically refreshes while you're active
 - It works across all `*.iiskills.cloud` domains
@@ -133,20 +142,26 @@ When you login:
 ## Common Questions
 
 ### Q: I registered on Learn-Apt. Can I access Learn-JEE?
+
 **A:** Yes! Your account works on all iiskills.cloud apps automatically.
 
 ### Q: I forgot my password. What should I do?
+
 **A:** You have two easy options:
+
 1. Use the **Magic Link** option on the login page - no password needed!
 2. Use **Google Sign-In** if you signed up with Google
 
 ### Q: Can I have different accounts for different apps?
+
 **A:** You can, but you don't need to! One account gives you access to everything. Having multiple accounts means managing multiple logins unnecessarily.
 
 ### Q: I registered on the main site. Why does Learn-NEET ask me to login?
+
 **A:** Make sure you're using the same email you registered with. If you are and still can't login, please contact support at info@iiskills.cloud.
 
 ### Q: Do I need to register again if you add a new app?
+
 **A:** No! Any new apps added to the iiskills.cloud ecosystem will automatically work with your existing account.
 
 ## Privacy & Security
@@ -176,14 +191,17 @@ When you login:
 ### Troubleshooting
 
 **Problem: Can't login on a subdomain**
+
 - Solution: Make sure you're using the exact same email you registered with
 - Check if email is confirmed (check spam folder for confirmation email)
 
 **Problem: Session not persisting**
+
 - Solution: Clear browser cookies and try again
 - Make sure cookies are enabled in your browser
 
 **Problem: Didn't receive confirmation email**
+
 - Solution: Check spam/junk folder
 - Wait a few minutes and try again
 - Contact support if still not received

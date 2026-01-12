@@ -11,6 +11,7 @@
 ### 1. Universal Admin Login Pages
 
 Created `/admin` pages for all subdomain apps that didn't have them:
+
 - ✅ learn-ai/pages/admin.js
 - ✅ learn-chemistry/pages/admin.js
 - ✅ learn-data-science/pages/admin.js
@@ -25,6 +26,7 @@ Created `/admin` pages for all subdomain apps that didn't have them:
 - ✅ learn-winning/pages/admin.js
 
 Already had admin pages:
+
 - ✅ learn-apt/pages/admin/index.js
 - ✅ learn-neet/pages/admin/index.js
 - ✅ learn-physics/pages/admin.js
@@ -36,18 +38,21 @@ Already had admin pages:
 **File**: `components/shared/UniversalLogin.js`
 
 **Before**:
+
 ```javascript
-const redirectUrl = router.query.redirect || (isAdmin(user) ? '/admin' : redirectAfterLogin)
+const redirectUrl = router.query.redirect || (isAdmin(user) ? "/admin" : redirectAfterLogin);
 ```
 
 **After**:
+
 ```javascript
 // Use redirect URL from query param or default redirect path
 // No automatic admin redirect - respect the intended destination
-const redirectUrl = router.query.redirect || redirectAfterLogin
+const redirectUrl = router.query.redirect || redirectAfterLogin;
 ```
 
-**Impact**: 
+**Impact**:
+
 - Users are no longer automatically redirected to `/admin` after login, even if they have admin privileges
 - All users (including admins) are redirected to the intended destination (home page, learning dashboard, etc.)
 - Google OAuth and magic link redirects now work correctly and respect the subdomain/app they signed in from
@@ -57,10 +62,12 @@ const redirectUrl = router.query.redirect || redirectAfterLogin
 **File**: `pages/index.js`
 
 **Removed**:
+
 - Automatic redirect logic that checked for admin users after OAuth/magic link callback
 - Admin users are no longer redirected away from the main homepage
 
 **Impact**:
+
 - Main homepage now behaves consistently for all users
 - No unexpected redirects after authentication
 
@@ -69,28 +76,33 @@ const redirectUrl = router.query.redirect || redirectAfterLogin
 **Files Updated**: All `learn-*/pages/_app.js` files
 
 **Changes**:
+
 1. Added `supabase` import from `lib/supabaseClient`
 2. Added auth state change listener in `useEffect`:
 
 ```javascript
 useEffect(() => {
-  checkUser()
+  checkUser();
 
   // Listen for auth state changes to update navbar when user logs in/out
-  const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-    setUser(session?.user ?? null)
-  })
+  const {
+    data: { subscription },
+  } = supabase.auth.onAuthStateChange((_event, session) => {
+    setUser(session?.user ?? null);
+  });
 
-  return () => subscription.unsubscribe()
-}, [])
+  return () => subscription.unsubscribe();
+}, []);
 ```
 
 **Impact**:
+
 - User email now appears in the navbar immediately after login (including Google OAuth and magic link)
 - Navbar updates in real-time when users log in or out
 - Works consistently across all subdomain apps
 
 **Apps Updated**:
+
 - ✅ learn-ai
 - ✅ learn-apt
 - ✅ learn-chemistry
@@ -106,6 +118,7 @@ useEffect(() => {
 - ✅ learn-winning
 
 Already had auth state listeners:
+
 - ✅ learn-govt-jobs
 - ✅ learn-ias
 
@@ -189,10 +202,12 @@ Already had auth state listeners:
 ## Files Modified
 
 ### Core Components
+
 - `components/shared/UniversalLogin.js` - Fixed redirect logic
 - `pages/index.js` - Removed admin redirect
 
 ### New Admin Pages (12 files)
+
 - `learn-ai/pages/admin.js`
 - `learn-chemistry/pages/admin.js`
 - `learn-data-science/pages/admin.js`
@@ -207,6 +222,7 @@ Already had auth state listeners:
 - `learn-winning/pages/admin.js`
 
 ### Auth State Listeners (13 files)
+
 - `learn-ai/pages/_app.js`
 - `learn-apt/pages/_app.js`
 - `learn-chemistry/pages/_app.js`
