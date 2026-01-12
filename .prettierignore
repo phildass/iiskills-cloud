@@ -1,0 +1,11 @@
+node_modules
+.next
+*.log
+build
+coverage
+out
+public
+logs
+.env*
+.DS_Store
+logs/

@@ -1,5 +1,6 @@
 "use client";
-import React, { useState, useEffect, useCallback } from "react";
+import * as React from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { Loader2, Check, ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -154,7 +155,7 @@ const BriefTestPage: React.FC = () => {
         ) : (
           <>
             <div className="mb-8">
-              <div className="flex justify-between text-sm text-slate-600 dark:text-slate-400 mb-2">
+              <div className="flex justify-between text-sm text-slate-600 dark:text-slate-400 mb-2">  
                 <span>
                   {answeredCount} of {totalQuestions} questions answered
                 </span>
@@ -255,7 +256,7 @@ const BriefTestPage: React.FC = () => {
                     ? "bg-slate-300 dark:bg-slate-600 text-slate-500 dark:text-slate-400 cursor-not-allowed"
                     : "bg-blue-600 hover:bg-blue-700 text-white"
                 }`}
-              >
+              >   
                 Next
                 <ChevronRight className="h-5 w-5" />
               </button>
@@ -263,7 +264,7 @@ const BriefTestPage: React.FC = () => {
           </>
         )}
       </main>
-    </div>
+    </div>   
   );
 };
 
