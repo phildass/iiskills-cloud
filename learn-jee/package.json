@@ -2,11 +2,7 @@
   "name": "learn-jee",
   "version": "1.0.0",
   "private": true,
-
-  "description": "Learn JEE - Comprehensive JEE preparation with AI-generated lessons and quizzes",
-
   "description": "Learn JEE - Master Physics, Chemistry, and Mathematics for JEE preparation",
-
   "scripts": {
     "dev": "next dev -p 3009",
     "build": "next build",
