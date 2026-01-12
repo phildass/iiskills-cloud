@@ -1,8 +1,8 @@
-import Head from 'next/head'
-import ProtectedRoute from '../../components/ProtectedRoute'
-import AdminNav from '../../components/AdminNav'
-import Navbar from '../../components/Navbar'
-import Footer from '../../components/Footer'
+import Head from "next/head";
+import ProtectedRoute from "../../components/ProtectedRoute";
+import AdminNav from "../../components/AdminNav";
+import Navbar from "../../components/Navbar";
+import Footer from "../../components/Footer";
 
 export default function AdminUsers() {
   return (
@@ -12,7 +12,7 @@ export default function AdminUsers() {
       </Head>
       <AdminNav />
       <Navbar />
-      
+
       <main className="max-w-7xl mx-auto px-4 py-12">
         <h1 className="text-3xl font-bold text-primary mb-8">User Management</h1>
 
@@ -27,15 +27,25 @@ export default function AdminUsers() {
               </div>
             </div>
           </div>
-          
+
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Courses</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Certified</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Name
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Email
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Courses
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Certified
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Actions
+                </th>
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
@@ -48,8 +58,8 @@ export default function AdminUsers() {
           </table>
         </div>
       </main>
-      
+
       <Footer />
     </ProtectedRoute>
-  )
+  );
 }

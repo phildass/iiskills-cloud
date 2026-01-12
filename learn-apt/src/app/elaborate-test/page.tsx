@@ -129,7 +129,7 @@ const modules: Module[] = [
       },
     ],
   },
-    {
+  {
     id: "cognitive-patterns",
     title: "Cognitive Patterns",
     description: "Explore how you think, process information, and approach mental challenges.",
@@ -237,7 +237,7 @@ const modules: Module[] = [
     ],
   },
   // Continue with the next modules from your gist
-    {
+  {
     id: "problem-solving-deep",
     title: "Problem-Solving Approach",
     description: "Detailed analysis of your strategies for tackling challenges.",
@@ -360,7 +360,7 @@ const modules: Module[] = [
         ],
       },
       // ...continue pasting next for all modules/questions, keeping the object/array structure the same...
-            {
+      {
         id: "mc2",
         text: "I set goals that are:",
         options: [
@@ -453,7 +453,7 @@ const modules: Module[] = [
     ],
   },
   // ------------ continue with further modules (environment-preferences, numerical-data-reasoning, etc.) ------------
-    {
+  {
     id: "environment-preferences",
     title: "Learning Environment Preferences",
     description: "Identify the conditions that help you learn most effectively.",
@@ -561,7 +561,7 @@ const modules: Module[] = [
     ],
   },
   // -------- continue: numerical-data-reasoning, etc. --------
-    {
+  {
     id: "numerical-data-reasoning",
     title: "Numerical & Data Reasoning",
     description: "Comprehensive evaluation of numerical aptitude and data interpretation skills.",
@@ -682,7 +682,8 @@ const modules: Module[] = [
   {
     id: "quantitative-aptitude",
     title: "Quantitative Aptitude",
-    description: "Evaluate your numerical reasoning and problem-solving abilities with practical examples.",
+    description:
+      "Evaluate your numerical reasoning and problem-solving abilities with practical examples.",
     questions: [
       {
         id: "qa1",
@@ -1259,10 +1260,11 @@ const modules: Module[] = [
     ],
   },
   // -------- next modules! --------
-        {
+  {
     id: "critical-thinking",
     title: "Critical Thinking",
-    description: "Evaluate your ability to analyze arguments, identify assumptions, and draw logical conclusions.",
+    description:
+      "Evaluate your ability to analyze arguments, identify assumptions, and draw logical conclusions.",
     questions: [
       {
         id: "ct1",
@@ -1366,8 +1368,8 @@ const modules: Module[] = [
       },
     ],
   },
-// --------- continue with time-management, communication-preferences, and more! ---------
-        {
+  // --------- continue with time-management, communication-preferences, and more! ---------
+  {
     id: "time-management",
     title: "Time Management",
     description: "Assess your approach to prioritizing, planning, and balancing your workload.",
@@ -1582,7 +1584,7 @@ const modules: Module[] = [
     ],
   },
   // ----------- continue to stress-resilience, creativity-innovation, etc. -----------
-        {
+  {
     id: "stress-resilience",
     title: "Stress & Resilience",
     description: "How you deal with setbacks, challenges, and maintain performance under pressure.",
@@ -2020,8 +2022,8 @@ const modules: Module[] = [
       },
     ],
   },
-// --------- continue to personal-values, learning-goals, etc. ---------
-        {
+  // --------- continue to personal-values, learning-goals, etc. ---------
+  {
     id: "personal-values",
     title: "Personal Values",
     description: "Identify the beliefs and principles driving your decisions and actions.",
@@ -2256,8 +2258,7 @@ export default function ElaborateTestPage() {
     [answeredCount, totalQuestions]
   );
 
-  const isFirstQuestion =
-    currentModuleIndex === 0 && currentQuestionIndex === 0;
+  const isFirstQuestion = currentModuleIndex === 0 && currentQuestionIndex === 0;
   const isLastQuestion =
     currentModuleIndex === modules.length - 1 &&
     currentQuestionIndex === (currentModule?.questions?.length || 0) - 1;
@@ -2311,10 +2312,7 @@ export default function ElaborateTestPage() {
         id: `elaborate-${Date.now()}`,
         ...resultsData,
       });
-      localStorage.setItem(
-        "learnapt-assessment-history",
-        JSON.stringify(history.slice(0, 100))
-      );
+      localStorage.setItem("learnapt-assessment-history", JSON.stringify(history.slice(0, 100)));
     } catch (e) {
       console.error("Failed to save assessment history:", e);
     }
@@ -2374,13 +2372,9 @@ export default function ElaborateTestPage() {
           <div className="flex justify-between items-center h-16">
             <Link href="/" className="flex items-center gap-2">
               <Brain className="h-8 w-8 text-purple-600" />
-              <span className="text-xl font-bold text-slate-900 dark:text-white">
-                Learnapt
-              </span>
+              <span className="text-xl font-bold text-slate-900 dark:text-white">Learnapt</span>
             </Link>
-            <span className="text-sm text-slate-500 dark:text-slate-400">
-              Elaborate Test
-            </span>
+            <span className="text-sm text-slate-500 dark:text-slate-400">Elaborate Test</span>
           </div>
         </div>
       </header>
@@ -2428,50 +2422,49 @@ export default function ElaborateTestPage() {
             )}
             {currentQuestion && currentModule && (
               <div className="bg-white dark:bg-slate-800 rounded-xl p-6 shadow-lg mb-6">
-              <p className="text-sm text-slate-500 dark:text-slate-400 mb-3">
-                Question {currentQuestionIndex + 1} of{" "}
-                {currentModule.questions?.length || 0}
-              </p>
-              <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-6">
-                {currentQuestion.text}
-              </h3>
-              <div className="space-y-3">
-                {currentQuestion.options?.map((option) => (
-                  <button
-                    key={option.value}
-                    onClick={() => handleSelectAnswer(option.value)}
-                    className={`w-full text-left p-4 rounded-lg border-2 transition-all ${
-                      currentAnswer === option.value
-                        ? "border-purple-600 bg-purple-50 dark:bg-purple-900/20"
-                        : "border-slate-200 dark:border-slate-600 hover:border-slate-300 dark:hover:border-slate-500"
-                    }`}
-                  >
-                    <div className="flex items-center gap-3">
-                      <div
-                        className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
-                          currentAnswer === option.value
-                            ? "border-purple-600 bg-purple-600"
-                            : "border-slate-300 dark:border-slate-500"
-                        }`}
-                      >
-                        {currentAnswer === option.value && (
-                          <Check className="h-3 w-3 text-white" />
-                        )}
+                <p className="text-sm text-slate-500 dark:text-slate-400 mb-3">
+                  Question {currentQuestionIndex + 1} of {currentModule.questions?.length || 0}
+                </p>
+                <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-6">
+                  {currentQuestion.text}
+                </h3>
+                <div className="space-y-3">
+                  {currentQuestion.options?.map((option) => (
+                    <button
+                      key={option.value}
+                      onClick={() => handleSelectAnswer(option.value)}
+                      className={`w-full text-left p-4 rounded-lg border-2 transition-all ${
+                        currentAnswer === option.value
+                          ? "border-purple-600 bg-purple-50 dark:bg-purple-900/20"
+                          : "border-slate-200 dark:border-slate-600 hover:border-slate-300 dark:hover:border-slate-500"
+                      }`}
+                    >
+                      <div className="flex items-center gap-3">
+                        <div
+                          className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                            currentAnswer === option.value
+                              ? "border-purple-600 bg-purple-600"
+                              : "border-slate-300 dark:border-slate-500"
+                          }`}
+                        >
+                          {currentAnswer === option.value && (
+                            <Check className="h-3 w-3 text-white" />
+                          )}
+                        </div>
+                        <span
+                          className={`${
+                            currentAnswer === option.value
+                              ? "text-purple-900 dark:text-purple-100"
+                              : "text-slate-700 dark:text-slate-300"
+                          }`}
+                        >
+                          {option.label}
+                        </span>
                       </div>
-                      <span
-                        className={`${
-                          currentAnswer === option.value
-                            ? "text-purple-900 dark:text-purple-100"
-                            : "text-slate-700 dark:text-slate-300"
-                        }`}
-                      >
-                        {option.label}
-                      </span>
-                    </div>
-                  </button>
+                    </button>
                   )) || null}
+                </div>
               </div>
-            </div>
             )}
             <div className="flex justify-between">
               <button

@@ -120,6 +120,7 @@ const RAW_RUNTIME_STATE =
           ["eslint-plugin-prettier", "virtual:c020c40bc7ed0ebeeb1f0c8d3c67516c08d0c12e2b5190fdb666b68ead67d2d1624dca852fe0cbf6eca1be60d6329436712aa60f0cb495863860b3392518e9a8#npm:5.5.4"],\
           ["eslint-plugin-react", "virtual:c020c40bc7ed0ebeeb1f0c8d3c67516c08d0c12e2b5190fdb666b68ead67d2d1624dca852fe0cbf6eca1be60d6329436712aa60f0cb495863860b3392518e9a8#npm:7.37.5"],\
           ["eslint-plugin-react-hooks", "virtual:c020c40bc7ed0ebeeb1f0c8d3c67516c08d0c12e2b5190fdb666b68ead67d2d1624dca852fe0cbf6eca1be60d6329436712aa60f0cb495863860b3392518e9a8#npm:7.0.1"],\
+          ["globals", "npm:17.0.0"],\
           ["html2canvas", "npm:1.4.1"],\
           ["iiskills-cloud-monorepo", "workspace:."],\
           ["jspdf", "npm:3.0.4"],\
@@ -3995,6 +3996,13 @@ const RAW_RUNTIME_STATE =
           ["globals", "npm:16.4.0"]\
         ],\
         "linkType": "HARD"\
+      }],\
+      ["npm:17.0.0", {\
+        "packageLocation": "../../../.yarn/berry/cache/globals-npm-17.0.0-cd88395af3-10c0.zip/node_modules/globals/",\
+        "packageDependencies": [\
+          ["globals", "npm:17.0.0"]\
+        ],\
+        "linkType": "HARD"\
       }]\
     ]],\
     ["globalthis", [\
@@ -4205,6 +4213,7 @@ const RAW_RUNTIME_STATE =
           ["eslint-plugin-prettier", "virtual:c020c40bc7ed0ebeeb1f0c8d3c67516c08d0c12e2b5190fdb666b68ead67d2d1624dca852fe0cbf6eca1be60d6329436712aa60f0cb495863860b3392518e9a8#npm:5.5.4"],\
           ["eslint-plugin-react", "virtual:c020c40bc7ed0ebeeb1f0c8d3c67516c08d0c12e2b5190fdb666b68ead67d2d1624dca852fe0cbf6eca1be60d6329436712aa60f0cb495863860b3392518e9a8#npm:7.37.5"],\
           ["eslint-plugin-react-hooks", "virtual:c020c40bc7ed0ebeeb1f0c8d3c67516c08d0c12e2b5190fdb666b68ead67d2d1624dca852fe0cbf6eca1be60d6329436712aa60f0cb495863860b3392518e9a8#npm:7.0.1"],\
+          ["globals", "npm:17.0.0"],\
           ["html2canvas", "npm:1.4.1"],\
           ["iiskills-cloud-monorepo", "workspace:."],\
           ["jspdf", "npm:3.0.4"],\

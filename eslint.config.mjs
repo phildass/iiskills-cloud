@@ -3,6 +3,9 @@ import prettierConfig from "eslint-config-prettier";
 import prettier from "eslint-plugin-prettier";
 import react from "eslint-plugin-react";
 import reactHooks from "eslint-plugin-react-hooks";
+import tseslint from "@typescript-eslint/eslint-plugin";
+import tsparser from "@typescript-eslint/parser";
+import globals from "globals";
 
 export default [
   {
@@ -14,6 +17,8 @@ export default [
       "**/out/",
       "**/.turbo/",
       "**/dist/",
+      "**/.pnp.cjs",
+      "**/.pnp.loader.mjs",
     ],
   },
   js.configs.recommended,
@@ -34,22 +39,10 @@ export default [
         },
       },
       globals: {
+        ...globals.browser,
+        ...globals.node,
         React: "readonly",
         JSX: "readonly",
-        console: "readonly",
-        process: "readonly",
-        module: "readonly",
-        require: "readonly",
-        __dirname: "readonly",
-        __filename: "readonly",
-        exports: "readonly",
-        window: "readonly",
-        document: "readonly",
-        navigator: "readonly",
-        fetch: "readonly",
-        Headers: "readonly",
-        Request: "readonly",
-        Response: "readonly",
       },
     },
     settings: {
@@ -63,6 +56,50 @@ export default [
       "no-unused-vars": "warn",
       "react/prop-types": "off",
       "react/react-in-jsx-scope": "off",
+      "react-hooks/rules-of-hooks": "error",
+      "react-hooks/exhaustive-deps": "warn",
+      "prettier/prettier": "error",
+    },
+  },
+  {
+    files: ["**/*.{ts,tsx}"],
+    plugins: {
+      "@typescript-eslint": tseslint,
+      prettier,
+      react,
+      "react-hooks": reactHooks,
+    },
+    languageOptions: {
+      parser: tsparser,
+      ecmaVersion: 2021,
+      sourceType: "module",
+      parserOptions: {
+        ecmaFeatures: {
+          jsx: true,
+        },
+      },
+      globals: {
+        ...globals.browser,
+        ...globals.node,
+        React: "readonly",
+        JSX: "readonly",
+      },
+    },
+    settings: {
+      react: {
+        version: "detect",
+      },
+    },
+    rules: {
+      semi: ["error", "always"],
+      quotes: ["error", "double", { avoidEscape: true }],
+      "no-unused-vars": "off",
+      "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
+      "@typescript-eslint/no-explicit-any": "warn",
+      "react/prop-types": "off",
+      "react/react-in-jsx-scope": "off",
+      "react-hooks/rules-of-hooks": "error",
+      "react-hooks/exhaustive-deps": "warn",
       "prettier/prettier": "error",
     },
   },

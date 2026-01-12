@@ -1,29 +1,31 @@
 /**
  * Supabase Client Configuration for Learn-NEET
- * 
+ *
  * This file initializes the Supabase client with cross-subdomain session support.
  * The session cookie is configured to work across *.iiskills.cloud subdomains,
  * allowing seamless authentication between the main app and learn-neet app.
  */
 
-import { createClient } from '@supabase/supabase-js'
+import { createClient } from "@supabase/supabase-js";
 
 // Supabase project URL and public anonymous key
 // These should match the main iiskills.cloud app for cross-app authentication
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
 // Check for missing or placeholder values
 // Placeholders are exact matches or obviously invalid values
-const hasPlaceholderUrl = !supabaseUrl || 
-  supabaseUrl === 'your-project-url-here' || 
-  supabaseUrl === 'https://your-project.supabase.co' ||
-  supabaseUrl.match(/^https?:\/\/(your-project|xyz|xyzcompany|abc123).*\.supabase\.co$/i)
+const hasPlaceholderUrl =
+  !supabaseUrl ||
+  supabaseUrl === "your-project-url-here" ||
+  supabaseUrl === "https://your-project.supabase.co" ||
+  supabaseUrl.match(/^https?:\/\/(your-project|xyz|xyzcompany|abc123).*\.supabase\.co$/i);
 
-const hasPlaceholderKey = !supabaseAnonKey || 
-  supabaseAnonKey === 'your-anon-key-here' ||
-  supabaseAnonKey.startsWith('eyJhbGciOi...') ||
-  supabaseAnonKey.length < 20
+const hasPlaceholderKey =
+  !supabaseAnonKey ||
+  supabaseAnonKey === "your-anon-key-here" ||
+  supabaseAnonKey.startsWith("eyJhbGciOi...") ||
+  supabaseAnonKey.length < 20;
 
 if (!supabaseUrl || !supabaseAnonKey || hasPlaceholderUrl || hasPlaceholderKey) {
   const errorMessage = `
@@ -34,8 +36,8 @@ if (!supabaseUrl || !supabaseAnonKey || hasPlaceholderUrl || hasPlaceholderKey) 
 Missing or invalid Supabase environment variables!
 
 Required variables:
-  ${!supabaseUrl || hasPlaceholderUrl ? '❌' : '✅'} NEXT_PUBLIC_SUPABASE_URL${hasPlaceholderUrl ? ' (contains placeholder value)' : ''}
-  ${!supabaseAnonKey || hasPlaceholderKey ? '❌' : '✅'} NEXT_PUBLIC_SUPABASE_ANON_KEY${hasPlaceholderKey ? ' (contains placeholder value)' : ''}
+  ${!supabaseUrl || hasPlaceholderUrl ? "❌" : "✅"} NEXT_PUBLIC_SUPABASE_URL${hasPlaceholderUrl ? " (contains placeholder value)" : ""}
+  ${!supabaseAnonKey || hasPlaceholderKey ? "❌" : "✅"} NEXT_PUBLIC_SUPABASE_ANON_KEY${hasPlaceholderKey ? " (contains placeholder value)" : ""}
 
 To fix this:
 
@@ -66,11 +68,13 @@ For more information, see ENV_SETUP_GUIDE.md in the repo root.
 
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-`
-  console.error(errorMessage)
-  
+`;
+  console.error(errorMessage);
+
   // Throw error to prevent app from starting with invalid configuration
-  throw new Error('Missing or invalid Supabase environment variables. Please configure NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY in .env.local with actual values (not placeholders)')
+  throw new Error(
+    "Missing or invalid Supabase environment variables. Please configure NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY in .env.local with actual values (not placeholders)"
+  );
 }
 
 // Create Supabase client with cookie options for cross-subdomain support
@@ -79,10 +83,10 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
     autoRefreshToken: true,
     persistSession: true,
     detectSessionInUrl: true,
-    flowType: 'pkce',
-    storageKey: 'iiskills-auth-token'
-  }
-})
+    flowType: "pkce",
+    storageKey: "iiskills-auth-token",
+  },
+});
 
 /**
  * Helper function to get the currently logged-in user
@@ -90,17 +94,20 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
  */
 export async function getCurrentUser() {
   try {
-    const { data: { session }, error } = await supabase.auth.getSession()
-    
+    const {
+      data: { session },
+      error,
+    } = await supabase.auth.getSession();
+
     if (error) {
-      console.error('Error getting session:', error.message)
-      return null
+      console.error("Error getting session:", error.message);
+      return null;
     }
-    
-    return session?.user || null
+
+    return session?.user || null;
   } catch (error) {
-    console.error('Error in getCurrentUser:', error)
-    return null
+    console.error("Error in getCurrentUser:", error);
+    return null;
   }
 }
 
@@ -110,17 +117,17 @@ export async function getCurrentUser() {
  */
 export async function signOutUser() {
   try {
-    const { error } = await supabase.auth.signOut()
-    
+    const { error } = await supabase.auth.signOut();
+
     if (error) {
-      console.error('Error signing out:', error.message)
-      return { success: false, error: error.message }
+      console.error("Error signing out:", error.message);
+      return { success: false, error: error.message };
     }
-    
-    return { success: true }
+
+    return { success: true };
   } catch (error) {
-    console.error('Error in signOutUser:', error)
-    return { success: false, error: error.message }
+    console.error("Error in signOutUser:", error);
+    return { success: false, error: error.message };
   }
 }
 
@@ -135,48 +142,48 @@ export async function signInWithEmail(email, password) {
     const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password,
-    })
-    
+    });
+
     if (error) {
-      return { user: null, error: error.message }
+      return { user: null, error: error.message };
     }
-    
-    return { user: data.user, session: data.session, error: null }
+
+    return { user: data.user, session: data.session, error: null };
   } catch (error) {
-    console.error('Error in signInWithEmail:', error)
-    return { user: null, error: error.message }
+    console.error("Error in signInWithEmail:", error);
+    return { user: null, error: error.message };
   }
 }
 
 /**
  * Helper function to check if user has admin role
- * 
+ *
  * Uses the public.profiles table to validate admin status.
  * This is the centralized approach for admin validation across all apps.
- * 
+ *
  * @param {Object} user - User object from Supabase
  * @returns {Promise<boolean>} True if user is admin
  */
 export async function isAdmin(user) {
-  if (!user) return false
-  
+  if (!user) return false;
+
   try {
     // Query the public.profiles table for admin status
     const { data, error } = await supabase
-      .from('profiles')
-      .select('is_admin')
-      .eq('id', user.id)
-      .single()
-    
+      .from("profiles")
+      .select("is_admin")
+      .eq("id", user.id)
+      .single();
+
     if (error) {
-      console.error('Error checking admin status:', error.message)
-      return false
+      console.error("Error checking admin status:", error.message);
+      return false;
     }
-    
-    return data?.is_admin === true
+
+    return data?.is_admin === true;
   } catch (error) {
-    console.error('Error in isAdmin:', error)
-    return false
+    console.error("Error in isAdmin:", error);
+    return false;
   }
 }
 
@@ -186,18 +193,18 @@ export async function isAdmin(user) {
  * @returns {Object} User profile data from metadata
  */
 export function getUserProfile(user) {
-  if (!user) return null
-  
+  if (!user) return null;
+
   return {
     email: user.email,
-    firstName: user.user_metadata?.first_name || '',
-    lastName: user.user_metadata?.last_name || '',
+    firstName: user.user_metadata?.first_name || "",
+    lastName: user.user_metadata?.last_name || "",
     fullName: user.user_metadata?.full_name || user.email,
-    role: user.user_metadata?.role || user.app_metadata?.role || 'user',
+    role: user.user_metadata?.role || user.app_metadata?.role || "user",
     neetSubscriptionEnd: user.user_metadata?.neet_subscription_end || null,
     hasActiveSubscription: checkActiveSubscription(user),
-    ...user.user_metadata
-  }
+    ...user.user_metadata,
+  };
 }
 
 /**
@@ -206,15 +213,15 @@ export function getUserProfile(user) {
  * @returns {boolean} True if subscription is active
  */
 export function checkActiveSubscription(user) {
-  if (!user) return false
-  
-  const subscriptionEnd = user.user_metadata?.neet_subscription_end
-  if (!subscriptionEnd) return false
-  
-  const endDate = new Date(subscriptionEnd)
-  const now = new Date()
-  
-  return endDate > now
+  if (!user) return false;
+
+  const subscriptionEnd = user.user_metadata?.neet_subscription_end;
+  if (!subscriptionEnd) return false;
+
+  const endDate = new Date(subscriptionEnd);
+  const now = new Date();
+
+  return endDate > now;
 }
 
 /**
@@ -222,6 +229,8 @@ export function checkActiveSubscription(user) {
  * @returns {string} The site URL
  */
 export function getSiteUrl() {
-  return process.env.NEXT_PUBLIC_SITE_URL || 
-         (typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3009')
+  return (
+    process.env.NEXT_PUBLIC_SITE_URL ||
+    (typeof window !== "undefined" ? window.location.origin : "http://localhost:3009")
+  );
 }
