@@ -347,6 +347,7 @@ __metadata:
   dependencies:
     "@supabase/supabase-js": "npm:^2.89.0"
     autoprefixer: "npm:^10.4.14"
+    eslint: "npm:^9.39.2"
     html2canvas: "npm:^1.4.1"
     jspdf: "npm:^3.0.4"
     next: "npm:^16.1.1"
@@ -3716,6 +3717,7 @@ __metadata:
   dependencies:
     "@supabase/supabase-js": "npm:^2.89.0"
     autoprefixer: "npm:^10.4.14"
+    eslint: "npm:^9.39.2"
     next: "npm:^16.1.1"
     postcss: "npm:^8.4.31"
     react: "npm:^19.2.3"
@@ -3751,6 +3753,7 @@ __metadata:
   dependencies:
     "@supabase/supabase-js": "npm:^2.89.0"
     autoprefixer: "npm:^10.4.14"
+    eslint: "npm:^9.39.2"
     next: "npm:^16.1.1"
     postcss: "npm:^8.4.31"
     react: "npm:^19.2.3"
@@ -3765,6 +3768,7 @@ __metadata:
   dependencies:
     "@supabase/supabase-js": "npm:^2.89.0"
     autoprefixer: "npm:^10.4.14"
+    eslint: "npm:^9.39.2"
     next: "npm:^16.1.1"
     postcss: "npm:^8.4.31"
     react: "npm:^19.2.3"
@@ -3795,6 +3799,7 @@ __metadata:
   dependencies:
     "@supabase/supabase-js": "npm:^2.89.0"
     autoprefixer: "npm:^10.4.14"
+    eslint: "npm:^9.39.2"
     next: "npm:^16.1.1"
     postcss: "npm:^8.4.31"
     react: "npm:^19.2.3"
@@ -3809,6 +3814,7 @@ __metadata:
   dependencies:
     "@supabase/supabase-js": "npm:^2.89.0"
     autoprefixer: "npm:^10.4.14"
+    eslint: "npm:^9.39.2"
     next: "npm:^16.1.1"
     postcss: "npm:^8.4.31"
     react: "npm:^19.2.3"
@@ -3823,6 +3829,7 @@ __metadata:
   dependencies:
     "@supabase/supabase-js": "npm:^2.89.0"
     autoprefixer: "npm:^10.4.14"
+    eslint: "npm:^9.39.2"
     next: "npm:^16.1.1"
     postcss: "npm:^8.4.31"
     react: "npm:^19.2.3"
@@ -3837,6 +3844,7 @@ __metadata:
   dependencies:
     "@supabase/supabase-js": "npm:^2.89.0"
     autoprefixer: "npm:^10.4.14"
+    eslint: "npm:^9.39.2"
     next: "npm:^16.1.1"
     postcss: "npm:^8.4.31"
     react: "npm:^19.2.3"
@@ -3851,6 +3859,7 @@ __metadata:
   dependencies:
     "@supabase/supabase-js": "npm:^2.89.0"
     autoprefixer: "npm:^10.4.14"
+    eslint: "npm:^9.39.2"
     next: "npm:^16.1.1"
     postcss: "npm:^8.4.31"
     react: "npm:^19.2.3"
@@ -3865,6 +3874,7 @@ __metadata:
   dependencies:
     "@supabase/supabase-js": "npm:^2.89.0"
     autoprefixer: "npm:^10.4.14"
+    eslint: "npm:^9.39.2"
     next: "npm:^16.1.1"
     postcss: "npm:^8.4.31"
     react: "npm:^19.2.3"
@@ -3879,6 +3889,7 @@ __metadata:
   dependencies:
     "@supabase/supabase-js": "npm:^2.89.0"
     autoprefixer: "npm:^10.4.14"
+    eslint: "npm:^9.39.2"
     next: "npm:^16.1.1"
     postcss: "npm:^8.4.31"
     react: "npm:^19.2.3"
@@ -3893,6 +3904,7 @@ __metadata:
   dependencies:
     "@supabase/supabase-js": "npm:^2.89.0"
     autoprefixer: "npm:^10.4.14"
+    eslint: "npm:^9.39.2"
     next: "npm:^16.1.1"
     postcss: "npm:^8.4.31"
     react: "npm:^19.2.3"
@@ -3907,6 +3919,7 @@ __metadata:
   dependencies:
     "@supabase/supabase-js": "npm:^2.89.0"
     autoprefixer: "npm:^10.4.14"
+    eslint: "npm:^9.39.2"
     next: "npm:^16.1.1"
     postcss: "npm:^8.4.31"
     react: "npm:^19.2.3"
@@ -3921,6 +3934,7 @@ __metadata:
   dependencies:
     "@supabase/supabase-js": "npm:^2.89.0"
     autoprefixer: "npm:^10.4.14"
+    eslint: "npm:^9.39.2"
     next: "npm:^16.1.1"
     postcss: "npm:^8.4.31"
     react: "npm:^19.2.3"
