@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-node_modules/
+ modules/
 .next/
 .env
 .env.local
@@ -55,8 +54,7 @@ yarn-error.log*
 *.bak
 *.backup
 *.old
-=======
-node_modules/
+ node_modules/
 .next/
 .env
 .env.local
@@ -112,4 +110,3 @@ yarn-error.log*
 *.bak
 *.backup
 *.old
->>>>>>> aee9bd898795cb2e179f59629f86d991aee1f7a4
