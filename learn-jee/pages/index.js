@@ -83,55 +83,13 @@ export default function Home() {
                   </Link>
                 </>
               )}
-
-      <main className="min-h-screen">
-        {/* Hero Section with Cover Image */}
-        <section className="relative">
-          {/* Cover Image - using a gradient background for now */}
-          <div className="relative w-full h-[500px] md:h-[600px] bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-700">
-            {/* Overlay for better text readability */}
-            <div className="absolute inset-0 bg-black bg-opacity-30"></div>
+            </div>
             
-            {/* Hero Content Over Image */}
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="max-w-6xl mx-auto px-4 text-center text-white">
-                <h1 className="text-5xl md:text-6xl font-bold mb-6 drop-shadow-lg">Learn JEE</h1>
-                <p className="text-2xl md:text-3xl mb-4 max-w-3xl mx-auto drop-shadow-lg">
-                  Master Physics, Chemistry, and Mathematics for JEE preparation
-                </p>
-                <p className="text-xl mb-6 max-w-2xl mx-auto drop-shadow-lg">
-                  Comprehensive course designed for engineering entrance exam success
-                </p>
-                
-                {/* Pricing Badge */}
-                <div className="inline-block bg-accent text-white px-8 py-4 rounded-lg mb-8 shadow-2xl">
-                  <div className="text-xl font-semibold mb-1">Full Course Access</div>
-                  <div className="text-4xl font-bold">₹499 <span className="text-lg font-normal">+ GST ₹89.82</span></div>
-                  <div className="text-sm mt-1 opacity-90">Total: ₹588.82</div>
-                </div>
-                
-                <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
-                  {user ? (
-                    <Link href="/learn" className="inline-block bg-white text-primary px-10 py-4 rounded-lg font-bold text-lg hover:bg-gray-100 transition shadow-lg">
-                      Continue Learning →
-                    </Link>
-                  ) : (
-                    <>
-                      <Link href="/register" className="inline-block bg-white text-primary px-10 py-4 rounded-lg font-bold text-lg hover:bg-gray-100 transition shadow-lg">
-                        Get Started Free
-                      </Link>
-                      <Link href="/login" className="inline-block bg-transparent border-2 border-white text-white px-10 py-4 rounded-lg font-bold text-lg hover:bg-white hover:text-primary transition">
-                        Sign In
-                      </Link>
-                    </>
-                  )}
-                  <InstallApp appName="Learn JEE" />
-                </div>
-              </div>
+            <div className="mt-8">
+              <InstallApp appName="Learn JEE" />
             </div>
           </div>
         </section>
-
 
         {/* Introductory Offer Banner */}
         {introNotice && (
@@ -191,6 +149,10 @@ export default function Home() {
                   <li>• Trigonometry</li>
                   <li>• Problem Solving</li>
                 </ul>
+              </div>
+            </div>
+          </div>
+        </section>
 
         {/* Course Preview Section */}
         <section className="py-16 bg-white">
@@ -270,6 +232,10 @@ export default function Home() {
                 <div className="text-5xl mb-4">⏱️</div>
                 <h3 className="text-xl font-bold mb-2">Exam Strategies</h3>
                 <p className="text-gray-600">Learn time management and problem-solving techniques</p>
+              </div>
+            </div>
+          </div>
+        </section>
 
         {/* Subject Coverage */}
         <section className="py-16 bg-gradient-to-br from-blue-50 to-purple-50">
