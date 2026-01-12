@@ -3,6 +3,7 @@ import prettierConfig from "eslint-config-prettier";
 import prettier from "eslint-plugin-prettier";
 import react from "eslint-plugin-react";
 import reactHooks from "eslint-plugin-react-hooks";
+import security from "eslint-plugin-security";
 
 export default [
   {
@@ -17,6 +18,7 @@ export default [
     ],
   },
   js.configs.recommended,
+  security.configs.recommended,
   prettierConfig,
   {
     files: ["**/*.{js,jsx,mjs,cjs}"],
@@ -24,6 +26,7 @@ export default [
       prettier,
       react,
       "react-hooks": reactHooks,
+      security,
     },
     languageOptions: {
       ecmaVersion: 2021,
@@ -64,6 +67,9 @@ export default [
       "react/prop-types": "off",
       "react/react-in-jsx-scope": "off",
       "prettier/prettier": "error",
+      // Security rules
+      "security/detect-object-injection": "warn",
+      "security/detect-non-literal-regexp": "warn",
     },
   },
 ];

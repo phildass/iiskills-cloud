@@ -7,7 +7,9 @@
     "dev": "next dev -p 3009",
     "build": "next build",
     "start": "next start -p 3009",
-    "lint": "next lint"
+    "lint": "next lint",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.89.0",
