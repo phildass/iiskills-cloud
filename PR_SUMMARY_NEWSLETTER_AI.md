@@ -11,6 +11,7 @@ This PR successfully implements a **unified newsletter subscription and AI assis
 ### 1. 📧 Newsletter Subscription System
 
 **Modal Popup:**
+
 - Appears 3 seconds after first visit
 - Configurable intervals (default: 7 days)
 - LocalStorage persistence
@@ -18,6 +19,7 @@ This PR successfully implements a **unified newsletter subscription and AI assis
 - Close button with backdrop
 
 **Newsletter Page (/newsletter):**
+
 - Hero section with call-to-action
 - Benefits grid (3 columns)
 - Embedded signup form
@@ -26,6 +28,7 @@ This PR successfully implements a **unified newsletter subscription and AI assis
 - Fully responsive design
 
 **Form Features:**
+
 - Email validation
 - Google reCAPTCHA v3 (invisible)
 - Duplicate detection
@@ -36,6 +39,7 @@ This PR successfully implements a **unified newsletter subscription and AI assis
 ### 2. 🤖 AI Assistant Chatbot
 
 **UI Components:**
+
 - Floating chat button (bottom-right)
 - Expandable chat window
 - Message bubbles (user/assistant)
@@ -43,6 +47,7 @@ This PR successfully implements a **unified newsletter subscription and AI assis
 - Smooth animations
 
 **Smart Features:**
+
 - Site-aware context detection
 - Domain-specific welcome messages
 - Context-aware responses
@@ -52,6 +57,7 @@ This PR successfully implements a **unified newsletter subscription and AI assis
 ### 3. 🏗️ Monorepo Structure
 
 **Directory Layout:**
+
 ```
 iiskills-cloud/
 ├── apps/
@@ -76,7 +82,7 @@ iiskills-cloud/
 ## ✅ Apps Status
 
 - ✅ **main, learn-ai, learn-math** - Fully integrated
-- ⏳ **13 other learn-* apps** - Components ready (needs _app.js update)
+- ⏳ **13 other learn-\* apps** - Components ready (needs \_app.js update)
 
 ---
 

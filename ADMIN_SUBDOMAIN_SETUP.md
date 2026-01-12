@@ -6,7 +6,7 @@ This guide explains how the admin section of iiskills.cloud works with both main
 
 The admin section is designed to work in two modes:
 
-1. **Main Domain Route**: `https://iiskills.cloud/admin` 
+1. **Main Domain Route**: `https://iiskills.cloud/admin`
    - Standard route-based access
    - Works immediately without additional DNS configuration
    - Ideal for development and simple deployments
@@ -49,6 +49,7 @@ async rewrites() {
 ```
 
 This means:
+
 - `admin.iiskills.cloud/` → internally routes to `/admin`
 - `admin.iiskills.cloud/users` → internally routes to `/admin/users`
 - All admin pages and APIs work identically on both routes
@@ -61,15 +62,16 @@ The Supabase client is configured with cookie domain settings:
 export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
   auth: {
     cookieOptions: {
-      domain: '.iiskills.cloud',  // Note the leading dot
+      domain: ".iiskills.cloud", // Note the leading dot
       secure: true,
-      sameSite: 'lax',
-    }
-  }
-})
+      sameSite: "lax",
+    },
+  },
+});
 ```
 
 **Important**: The leading dot (`.iiskills.cloud`) makes cookies available to:
+
 - `iiskills.cloud`
 - `admin.iiskills.cloud`
 - `learn-apt.iiskills.cloud`
@@ -87,17 +89,20 @@ The `utils/urlHelper.js` provides functions to generate correct URLs:
 - `isOnSubdomain()` - Checks if currently on a specific subdomain
 
 These utilities adapt to the environment:
+
 - **Development (localhost)**: Uses relative paths (`/admin`)
 - **Production**: Uses absolute URLs with subdomains
 
 ### 4. Navigation Components
 
 **AdminNav** (shown in admin section):
+
 - Displays admin navigation links
 - Shows "← Main Site" link to return to main domain
 - Logout button
 
 **Navbar** (shown on main site):
+
 - Shows "Admin" button for authenticated admin users
 - Links to admin subdomain (or `/admin` route on localhost)
 
@@ -173,9 +178,11 @@ NEXT_PUBLIC_COOKIE_DOMAIN=.iiskills.cloud
    - Apply to Production, Preview, and Development
 
 3. **Deploy**:
+
    ```bash
    git push origin main
    ```
+
    Vercel auto-deploys on push
 
 4. **Verify**:
@@ -191,6 +198,7 @@ NEXT_PUBLIC_COOKIE_DOMAIN=.iiskills.cloud
    - Add subdomain `admin.iiskills.cloud`
 
 2. **Build Settings**:
+
    ```
    Build command: npm run build
    Publish directory: .next
@@ -201,6 +209,7 @@ NEXT_PUBLIC_COOKIE_DOMAIN=.iiskills.cloud
    - Add all variables from `.env.local`
 
 4. **Deploy**:
+
    ```bash
    git push origin main
    ```
@@ -218,21 +227,23 @@ NEXT_PUBLIC_COOKIE_DOMAIN=.iiskills.cloud
 ### Custom Server / VPS Deployment
 
 1. **Install Dependencies**:
+
    ```bash
    npm install
    npm run build
    ```
 
 2. **Configure Nginx**:
+
    ```nginx
    # Main domain
    server {
        listen 443 ssl http2;
        server_name iiskills.cloud;
-       
+
        ssl_certificate /etc/letsencrypt/live/iiskills.cloud/fullchain.pem;
        ssl_certificate_key /etc/letsencrypt/live/iiskills.cloud/privkey.pem;
-       
+
        location / {
            proxy_pass http://localhost:3000;
            proxy_http_version 1.1;
@@ -245,15 +256,15 @@ NEXT_PUBLIC_COOKIE_DOMAIN=.iiskills.cloud
            proxy_cache_bypass $http_upgrade;
        }
    }
-   
+
    # Admin subdomain
    server {
        listen 443 ssl http2;
        server_name admin.iiskills.cloud;
-       
+
        ssl_certificate /etc/letsencrypt/live/iiskills.cloud/fullchain.pem;
        ssl_certificate_key /etc/letsencrypt/live/iiskills.cloud/privkey.pem;
-       
+
        location / {
            proxy_pass http://localhost:3000;
            proxy_http_version 1.1;
@@ -269,6 +280,7 @@ NEXT_PUBLIC_COOKIE_DOMAIN=.iiskills.cloud
    ```
 
 3. **Setup SSL with Let's Encrypt**:
+
    ```bash
    sudo certbot --nginx -d iiskills.cloud -d admin.iiskills.cloud
    ```
@@ -301,6 +313,7 @@ CMD ["npm", "start"]
 ```
 
 Build and run:
+
 ```bash
 docker build -t iiskills-cloud .
 docker run -p 3000:3000 --env-file .env.local iiskills-cloud
@@ -311,18 +324,21 @@ docker run -p 3000:3000 --env-file .env.local iiskills-cloud
 ### Local Development Testing
 
 1. **Test main route**:
+
    ```
    http://localhost:3000/admin
    ```
 
 2. **Test subdomain locally** (requires hosts file modification):
-   
+
    Edit `/etc/hosts` (Linux/Mac) or `C:\Windows\System32\drivers\etc\hosts` (Windows):
+
    ```
    127.0.0.1 admin.localhost
    ```
-   
+
    Then visit:
+
    ```
    http://admin.localhost:3000
    ```
@@ -347,11 +363,13 @@ docker run -p 3000:3000 --env-file .env.local iiskills-cloud
 ### Issue: Subdomain doesn't work
 
 **Possible causes**:
+
 1. DNS not configured correctly
 2. DNS not propagated yet
 3. SSL certificate doesn't include subdomain
 
 **Solutions**:
+
 - Check DNS with `dig admin.iiskills.cloud`
 - Wait for DNS propagation (up to 48 hours)
 - Ensure SSL certificate includes both `iiskills.cloud` and `*.iiskills.cloud`
@@ -360,11 +378,13 @@ docker run -p 3000:3000 --env-file .env.local iiskills-cloud
 ### Issue: Not logged in on subdomain
 
 **Possible causes**:
+
 1. Cookie domain not set correctly
 2. Different protocol (http vs https)
 3. Browser blocking third-party cookies
 
 **Solutions**:
+
 - Check `NEXT_PUBLIC_COOKIE_DOMAIN=.iiskills.cloud` in environment
 - Ensure both domains use HTTPS
 - Test in different browser
@@ -373,10 +393,12 @@ docker run -p 3000:3000 --env-file .env.local iiskills-cloud
 ### Issue: Admin link doesn't appear
 
 **Possible causes**:
+
 1. Not logged in as admin
 2. localStorage not set
 
 **Solutions**:
+
 - Login via `/admin/login` first
 - Check `localStorage.getItem('adminAuth')` in browser console
 - Verify admin password is correct
@@ -384,11 +406,13 @@ docker run -p 3000:3000 --env-file .env.local iiskills-cloud
 ### Issue: Rewrites not working
 
 **Possible causes**:
+
 1. `next.config.js` not loaded
 2. Build cache issue
 3. Environment not recognizing hostname
 
 **Solutions**:
+
 ```bash
 # Clear Next.js cache and rebuild
 rm -rf .next
@@ -398,7 +422,7 @@ npm run start
 
 ## Security Considerations
 
-1. **Admin Authentication**: 
+1. **Admin Authentication**:
    - Currently uses localStorage for backward compatibility with existing system
    - **IMPORTANT**: This is not secure for production use as localStorage can be manipulated
    - **Recommended for Production**: Implement proper server-side authentication:
@@ -409,7 +433,7 @@ npm run start
    - The ProtectedRoute component already uses localStorage - maintain consistency
    - For production, upgrade both systems simultaneously
 
-2. **Cookie Security**: 
+2. **Cookie Security**:
    - Cookies are marked `secure` in production (HTTPS only)
    - `sameSite: 'lax'` prevents CSRF attacks
    - Cookie domain limited to `.iiskills.cloud`
@@ -447,13 +471,15 @@ If you need to disable subdomain routing:
 To use a different subdomain (e.g., `dashboard.iiskills.cloud`):
 
 1. Update `next.config.js`:
+
    ```javascript
-   has: [{ type: 'host', value: 'dashboard.iiskills.cloud' }]
+   has: [{ type: "host", value: "dashboard.iiskills.cloud" }];
    ```
 
 2. Update `utils/urlHelper.js` in `getAdminUrl()`:
+
    ```javascript
-   return `${protocol}//dashboard.${mainDomain}${portSuffix}${path}`
+   return `${protocol}//dashboard.${mainDomain}${portSuffix}${path}`;
    ```
 
 3. Update DNS records for `dashboard` subdomain
@@ -486,6 +512,7 @@ async rewrites() {
 ## Support
 
 For issues or questions:
+
 - Check troubleshooting section above
 - Review Next.js rewrites documentation
 - Check Vercel/Netlify domain documentation

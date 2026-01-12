@@ -1,12 +1,16 @@
-import { useState, useRef } from 'react'
-import Head from 'next/head'
-import CertificateTemplate from '../components/CertificateTemplate'
-import { generateCertificatePDF, downloadPDF, generateCertificateData } from '../utils/certificateGenerator'
+import { useState, useRef } from "react";
+import Head from "next/head";
+import CertificateTemplate from "../components/CertificateTemplate";
+import {
+  generateCertificatePDF,
+  downloadPDF,
+  generateCertificateData,
+} from "../utils/certificateGenerator";
 
 export default function MyCertificates() {
-  const [isGenerating, setIsGenerating] = useState(false)
-  const [error, setError] = useState(null)
-  const certificateRef = useRef(null)
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [error, setError] = useState(null);
+  const certificateRef = useRef(null);
 
   // Sample user data - In production, this would come from your user authentication system
   const [userCertificates] = useState([
@@ -17,13 +21,13 @@ export default function MyCertificates() {
       courseId: 1,
       courseName: "Professional Communication Skills",
       score: 85,
-      completionDate: new Date('2024-12-15').toLocaleDateString('en-IN', { 
-        year: 'numeric', 
-        month: 'long', 
-        day: 'numeric' 
+      completionDate: new Date("2024-12-15").toLocaleDateString("en-IN", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
       }),
       certificateNo: "IIPS-202412-0011001",
-      status: "passed"
+      status: "passed",
     },
     {
       id: 2,
@@ -32,51 +36,54 @@ export default function MyCertificates() {
       courseId: 5,
       courseName: "Project Management Basics",
       score: 92,
-      completionDate: new Date('2024-12-10').toLocaleDateString('en-IN', { 
-        year: 'numeric', 
-        month: 'long', 
-        day: 'numeric' 
+      completionDate: new Date("2024-12-10").toLocaleDateString("en-IN", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
       }),
       certificateNo: "IIPS-202412-0051001",
-      status: "passed"
-    }
-  ])
+      status: "passed",
+    },
+  ]);
 
-  const [selectedCertificate, setSelectedCertificate] = useState(userCertificates[0])
+  const [selectedCertificate, setSelectedCertificate] = useState(userCertificates[0]);
 
   const handleGeneratePDF = async () => {
-    setIsGenerating(true)
-    setError(null)
+    setIsGenerating(true);
+    setError(null);
 
     try {
-      const element = certificateRef.current
+      const element = certificateRef.current;
       if (!element) {
-        throw new Error('Certificate template not found')
+        throw new Error("Certificate template not found");
       }
 
       const pdf = await generateCertificatePDF(element, {
         userName: selectedCertificate.userName,
         courseName: selectedCertificate.courseName,
-      })
+      });
 
       // Download the PDF
-      const fileName = `certificate_${selectedCertificate.userName}_${selectedCertificate.courseName}`
-      downloadPDF(pdf, fileName)
+      const fileName = `certificate_${selectedCertificate.userName}_${selectedCertificate.courseName}`;
+      downloadPDF(pdf, fileName);
     } catch (err) {
-      console.error('Error generating PDF:', err)
-      setError('Failed to generate certificate. Please try again.')
+      console.error("Error generating PDF:", err);
+      setError("Failed to generate certificate. Please try again.");
     } finally {
-      setIsGenerating(false)
+      setIsGenerating(false);
     }
-  }
+  };
 
   return (
     <>
       <Head>
         <title>My Certificates - iiskills.cloud</title>
-        <meta name="description" content="View and download your earned certificates from iiskills.cloud" />
+        <meta
+          name="description"
+          content="View and download your earned certificates from iiskills.cloud"
+        />
       </Head>
-      
+
       <main className="max-w-7xl mx-auto px-4 py-12">
         <h1 className="text-4xl font-bold text-primary mb-6 text-center">My Certificates</h1>
         <p className="text-xl text-center text-charcoal mb-12">
@@ -88,12 +95,12 @@ export default function MyCertificates() {
           <h2 className="text-2xl font-bold text-primary mb-4">Earned Certificates</h2>
           <div className="space-y-4">
             {userCertificates.map((cert) => (
-              <div 
+              <div
                 key={cert.id}
                 className={`border rounded-lg p-4 cursor-pointer transition ${
-                  selectedCertificate.id === cert.id 
-                    ? 'border-primary bg-blue-50' 
-                    : 'border-gray-300 hover:border-primary'
+                  selectedCertificate.id === cert.id
+                    ? "border-primary bg-blue-50"
+                    : "border-gray-300 hover:border-primary"
                 }`}
                 onClick={() => setSelectedCertificate(cert)}
               >
@@ -103,7 +110,9 @@ export default function MyCertificates() {
                     <p className="text-sm text-gray-600">
                       Completed: {cert.completionDate} | Score: {cert.score}%
                     </p>
-                    <p className="text-xs text-gray-500 mt-1">Certificate No: {cert.certificateNo}</p>
+                    <p className="text-xs text-gray-500 mt-1">
+                      Certificate No: {cert.certificateNo}
+                    </p>
                   </div>
                   <div className="flex items-center space-x-2">
                     <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">
@@ -137,16 +146,37 @@ export default function MyCertificates() {
               >
                 {isGenerating ? (
                   <>
-                    <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    <svg
+                      className="animate-spin h-5 w-5 text-white"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      ></circle>
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                      ></path>
                     </svg>
                     <span>Generating...</span>
                   </>
                 ) : (
                   <>
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+                      />
                     </svg>
                     <span>Download PDF</span>
                   </>
@@ -162,7 +192,7 @@ export default function MyCertificates() {
 
             <div className="overflow-x-auto">
               <div className="inline-block min-w-full">
-                <div 
+                <div
                   ref={certificateRef}
                   className="transform scale-75 origin-top-left"
                   style={{ width: `${1056 / 0.75}px` }} // Certificate width divided by scale
@@ -188,28 +218,38 @@ export default function MyCertificates() {
           <ul className="space-y-3">
             <li className="flex items-start">
               <span className="mr-2">✓</span>
-              <span><strong>Download:</strong> Click the "Download PDF" button to save your certificate</span>
+              <span>
+                <strong>Download:</strong> Click the "Download PDF" button to save your certificate
+              </span>
             </li>
             <li className="flex items-start">
               <span className="mr-2">✓</span>
-              <span><strong>Print:</strong> Print the PDF for physical display or submission</span>
+              <span>
+                <strong>Print:</strong> Print the PDF for physical display or submission
+              </span>
             </li>
             <li className="flex items-start">
               <span className="mr-2">✓</span>
-              <span><strong>Share:</strong> Share your achievement on LinkedIn, social media, or with employers</span>
+              <span>
+                <strong>Share:</strong> Share your achievement on LinkedIn, social media, or with
+                employers
+              </span>
             </li>
             <li className="flex items-start">
               <span className="mr-2">✓</span>
-              <span><strong>Verify:</strong> Use the QR code on the certificate for instant verification</span>
+              <span>
+                <strong>Verify:</strong> Use the QR code on the certificate for instant verification
+              </span>
             </li>
             <li className="flex items-start">
               <span className="mr-2">✓</span>
-              <span><strong>Portfolio:</strong> Add to your professional portfolio or resume</span>
+              <span>
+                <strong>Portfolio:</strong> Add to your professional portfolio or resume
+              </span>
             </li>
           </ul>
         </div>
       </main>
-      
     </>
-  )
+  );
 }

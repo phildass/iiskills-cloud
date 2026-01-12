@@ -5,6 +5,7 @@ This guide explains how to set up and use Supabase authentication in the iiskill
 ## 🌟 Universal Authentication
 
 **Important:** All iiskills.cloud apps (main site + all subdomains) use the **SAME** Supabase project. This enables:
+
 - ✅ **Single registration** - Register on any app, access all apps
 - ✅ **Universal login** - Login credentials work everywhere
 - ✅ **Cross-subdomain sessions** - Login once, stay logged in across all apps
@@ -13,6 +14,7 @@ This guide explains how to set up and use Supabase authentication in the iiskill
 For a complete understanding of the authentication architecture, see [AUTHENTICATION_ARCHITECTURE.md](AUTHENTICATION_ARCHITECTURE.md).
 
 ## Table of Contents
+
 1. [Overview](#overview)
 2. [Setup Instructions](#setup-instructions)
 3. [File Structure](#file-structure)
@@ -58,11 +60,13 @@ The application now uses Supabase for secure authentication, replacing the previ
 ### Step 3: Configure Environment Variables
 
 1. In your project root, create a `.env.local` file:
+
    ```bash
    cp .env.local.example .env.local
    ```
 
 2. Edit `.env.local` and add your Supabase credentials:
+
    ```env
    NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
    NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key-here
@@ -79,11 +83,11 @@ The application now uses Supabase for secure authentication, replacing the previ
    - Enable "Confirm email"
    - Enable "Email OTP" for magic link authentication
    - Disable "Secure email change" (optional, for easier testing)
-   
+
    **Site URL:**
    - Development: `http://localhost:3000`
    - Production: `https://iiskills.cloud`
-   
+
    **Redirect URLs:** Add these allowed redirect URLs:
    - `http://localhost:3000/**`
    - `http://localhost:3001/**` (for learn-apt)
@@ -105,7 +109,6 @@ The application now uses Supabase for secure authentication, replacing the previ
      - Add all app origins to Authorized JavaScript origins (see GOOGLE_OAUTH_TROUBLESHOOTING.md for complete list)
      - Copy Client ID and Client Secret to Supabase
    - **Important**: See [GOOGLE_OAUTH_TROUBLESHOOTING.md](GOOGLE_OAUTH_TROUBLESHOOTING.md) for detailed setup and troubleshooting
-   
 4. Customize email templates (optional):
    - Go to **Authentication** → **Email Templates**
    - Customize "Confirm signup" email
@@ -127,8 +130,8 @@ Admin access is now managed through the **public.profiles** table instead of use
 2. Run this query (replace with actual admin email):
 
 ```sql
-UPDATE public.profiles 
-SET is_admin = true 
+UPDATE public.profiles
+SET is_admin = true
 WHERE id = (SELECT id FROM auth.users WHERE email = 'admin@example.com');
 ```
 
@@ -149,6 +152,7 @@ If you want to store additional user profile data in a database table (recommend
 
 1. Go to **Table Editor** in Supabase
 2. Create a new table called `profiles`:
+
    ```sql
    create table profiles (
      id uuid references auth.users on delete cascade primary key,
@@ -165,22 +169,22 @@ If you want to store additional user profile data in a database table (recommend
      created_at timestamp with time zone default timezone('utc'::text, now()) not null,
      updated_at timestamp with time zone default timezone('utc'::text, now()) not null
    );
-   
+
    -- Set up Row Level Security (RLS)
    alter table profiles enable row level security;
-   
+
    -- Users can view their own profile
-   create policy "Users can view own profile" 
-     on profiles for select 
+   create policy "Users can view own profile"
+     on profiles for select
      using (auth.uid() = id);
-   
+
    -- Users can update their own profile
-   create policy "Users can update own profile" 
-     on profiles for update 
+   create policy "Users can update own profile"
+     on profiles for update
      using (auth.uid() = id);
-   
+
    -- Enable automatic profile creation on signup
-   create function public.handle_new_user() 
+   create function public.handle_new_user()
    returns trigger as $$
    begin
      insert into public.profiles (id)
@@ -188,7 +192,7 @@ If you want to store additional user profile data in a database table (recommend
      return new;
    end;
    $$ language plpgsql security definer;
-   
+
    create trigger on_auth_user_created
      after insert on auth.users
      for each row execute procedure public.handle_new_user();
@@ -219,6 +223,7 @@ iiskills-cloud/
 ### 1. User Registration
 
 Users can register at `/register`:
+
 - Fill in the registration form
 - Submit the form
 - Receive a confirmation email
@@ -230,6 +235,7 @@ Users can register at `/register`:
 Users have three ways to log in at `/login`:
 
 **Option A: Magic Link (Recommended)**
+
 - Click "Use magic link instead" if not already selected
 - Enter email address
 - Click "Send Me a Sign-In Link"
@@ -238,11 +244,13 @@ Users have three ways to log in at `/login`:
 - No password needed!
 
 **Option B: Google OAuth**
+
 - Click "Continue with Google" button
 - Sign in with your Google account
 - Automatically redirected after authentication
 
 **Option C: Email & Password**
+
 - Click "Use password instead" if magic link is selected
 - Enter email and password
 - Click "Sign In with Password"
@@ -251,6 +259,7 @@ Users have three ways to log in at `/login`:
 ### 3. Admin Login
 
 Admin users can access `/admin/login` with any of the three methods:
+
 - Magic link, Google OAuth, or password
 - Must have admin role in Supabase user metadata
 - After authentication, role is verified on backend
@@ -259,6 +268,7 @@ Admin users can access `/admin/login` with any of the three methods:
 ### 4. Forgot Password?
 
 Users who forgot their password can:
+
 - Use the Magic Link option to sign in without a password
 - Or use Google OAuth if they signed up with Google
 - No password reset needed for magic link users!
@@ -266,6 +276,7 @@ Users who forgot their password can:
 ### 5. Logout
 
 Users can logout from any page:
+
 - The Navbar shows the user's email when logged in
 - Click the "Logout" button
 - Redirected to `/login`
@@ -275,16 +286,14 @@ Users can logout from any page:
 To make a page require authentication:
 
 ```javascript
-import UserProtectedRoute from '../components/UserProtectedRoute'
+import UserProtectedRoute from "../components/UserProtectedRoute";
 
 export default function MyProtectedPage() {
   return (
     <UserProtectedRoute>
-      <div>
-        This content is only visible to authenticated users
-      </div>
+      <div>This content is only visible to authenticated users</div>
     </UserProtectedRoute>
-  )
+  );
 }
 ```
 
@@ -293,93 +302,85 @@ Example: See `pages/dashboard.js`
 ### 7. Getting Current User in a Component
 
 ```javascript
-import { useState, useEffect } from 'react'
-import { getCurrentUser } from '../lib/supabaseClient'
+import { useState, useEffect } from "react";
+import { getCurrentUser } from "../lib/supabaseClient";
 
 export default function MyComponent() {
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
-    loadUser()
-  }, [])
+    loadUser();
+  }, []);
 
   const loadUser = async () => {
-    const currentUser = await getCurrentUser()
-    setUser(currentUser)
-  }
+    const currentUser = await getCurrentUser();
+    setUser(currentUser);
+  };
 
-  return (
-    <div>
-      {user ? (
-        <p>Logged in as: {user.email}</p>
-      ) : (
-        <p>Not logged in</p>
-      )}
-    </div>
-  )
+  return <div>{user ? <p>Logged in as: {user.email}</p> : <p>Not logged in</p>}</div>;
 }
 ```
 
 ### 8. Manual Login with Magic Link (in custom component)
 
 ```javascript
-import { sendMagicLink } from '../lib/supabaseClient'
+import { sendMagicLink } from "../lib/supabaseClient";
 
 const handleMagicLinkLogin = async () => {
-  const { success, error } = await sendMagicLink(email)
+  const { success, error } = await sendMagicLink(email);
   if (error) {
-    console.error('Failed to send magic link:', error)
+    console.error("Failed to send magic link:", error);
   } else {
-    console.log('Magic link sent! Check your email.')
+    console.log("Magic link sent! Check your email.");
   }
-}
+};
 ```
 
 ### 9. Manual Login with Google OAuth (in custom component)
 
 ```javascript
-import { signInWithGoogle } from '../lib/supabaseClient'
+import { signInWithGoogle } from "../lib/supabaseClient";
 
 const handleGoogleLogin = async () => {
-  const { success, error } = await signInWithGoogle()
+  const { success, error } = await signInWithGoogle();
   if (error) {
-    console.error('Google login failed:', error)
+    console.error("Google login failed:", error);
   }
   // OAuth will redirect automatically on success
-}
+};
 ```
 
 ### 10. Manual Login with Password (in custom component)
 
 ```javascript
-import { signInWithEmail } from '../lib/supabaseClient'
+import { signInWithEmail } from "../lib/supabaseClient";
 
 const handleLogin = async () => {
-  const { user, error } = await signInWithEmail(email, password)
+  const { user, error } = await signInWithEmail(email, password);
   if (error) {
-    console.error('Login failed:', error)
+    console.error("Login failed:", error);
   } else {
-    console.log('Logged in:', user.email)
+    console.log("Logged in:", user.email);
   }
-}
+};
 ```
 
 ### 11. Check Admin Role (in custom component)
 
 ```javascript
-import { getCurrentUser, isAdmin } from '../lib/supabaseClient'
+import { getCurrentUser, isAdmin } from "../lib/supabaseClient";
 
 const checkAdminAccess = async () => {
-  const user = await getCurrentUser()
+  const user = await getCurrentUser();
   if (user) {
-    const hasAdminAccess = await isAdmin(user)
+    const hasAdminAccess = await isAdmin(user);
     if (hasAdminAccess) {
-      console.log('User has admin access')
+      console.log("User has admin access");
     } else {
-      console.log('User does not have admin access')
+      console.log("User does not have admin access");
     }
   }
-}
+};
 ```
 
 **Note**: The `isAdmin()` function is now async and queries the `public.profiles` table. See [PROFILES_TABLE_ADMIN.md](PROFILES_TABLE_ADMIN.md) for details.
@@ -387,14 +388,14 @@ const checkAdminAccess = async () => {
 ### 12. Manual Logout (in custom component)
 
 ```javascript
-import { signOutUser } from '../lib/supabaseClient'
+import { signOutUser } from "../lib/supabaseClient";
 
 const handleLogout = async () => {
-  const { success, error } = await signOutUser()
+  const { success, error } = await signOutUser();
   if (success) {
-    router.push('/login')
+    router.push("/login");
   }
-}
+};
 ```
 
 ## Testing
@@ -402,6 +403,7 @@ const handleLogout = async () => {
 ### Local Testing
 
 1. Start the development server:
+
    ```bash
    npm run dev
    ```
@@ -430,12 +432,14 @@ const handleLogout = async () => {
 During development, you have two options:
 
 **Option 1: Check email in Supabase dashboard**
+
 - Go to **Authentication** → **Users** in Supabase dashboard
 - Find the new user
 - Click to view details
 - See the confirmation email content
 
 **Option 2: Disable email confirmation temporarily**
+
 - Go to **Authentication** → **Settings**
 - Under "Email Settings", disable "Confirm email"
 - Users can log in immediately after registration
@@ -444,32 +448,38 @@ During development, you have two options:
 ## Troubleshooting
 
 ### "Invalid API key" error
+
 - Check that your `.env.local` file exists and has the correct values
 - Restart your development server after creating/updating `.env.local`
 - Verify the API key starts with `eyJ` and is not truncated
 
 ### "Invalid login credentials" error
+
 - For new users: Check if email is confirmed
 - Go to Supabase dashboard → Authentication → Users
 - If "Confirmed" column shows "No", resend confirmation email or manually confirm
 
 ### Email confirmation not received
+
 - Check spam folder
 - Check Supabase dashboard → Authentication → Users to see if user was created
 - Check Supabase dashboard → Authentication → Settings → Email provider is configured
 - For testing, you can manually confirm users in the dashboard
 
 ### Session not persisting
+
 - Clear browser localStorage and cookies
 - Check browser console for errors
 - Verify Supabase URL and key are correct
 
 ### "Already registered" error even though user doesn't exist
+
 - User might exist but not be confirmed
 - Check Supabase dashboard → Authentication → Users
 - Delete the unconfirmed user and try again
 
 ### Protected route not redirecting
+
 - Check browser console for errors
 - Verify `UserProtectedRoute` is wrapping the entire page content
 - Make sure Supabase client is properly initialized
@@ -481,32 +491,37 @@ During development, you have two options:
 Common Google OAuth errors:
 
 #### "redirect_uri_mismatch"
+
 - **Cause**: Callback URL mismatch between Supabase and Google Cloud Console
 - **Fix**: Ensure `https://YOUR-PROJECT.supabase.co/auth/v1/callback` is added to Google Cloud Console → Authorized redirect URIs
 - Run `./google-oauth-check.sh` to verify configuration
 
 #### "Failed to sign in with Google"
+
 - **Cause**: Google provider not enabled or credentials incorrect
-- **Fix**: 
+- **Fix**:
   - Verify Google is enabled in Supabase → Authentication → Providers
   - Check Client ID and Secret are correct
   - Ensure Google+ API is enabled in Google Cloud Console
 
 #### Google button doesn't appear
+
 - **Cause**: Component configuration or missing function
-- **Fix**: 
+- **Fix**:
   - Verify `showGoogleAuth={true}` in UniversalLogin component
   - Check `signInWithGoogle` is exported from lib/supabaseClient.js
   - Review browser console for JavaScript errors
 
 #### Session not persisting across subdomains after Google login
+
 - **Cause**: Cookie domain misconfiguration
-- **Fix**: 
+- **Fix**:
   - Set `NEXT_PUBLIC_COOKIE_DOMAIN=.iiskills.cloud` for production
   - Verify all apps use same Supabase project
   - Check `getCookieDomain()` in utils/urlHelper.js
 
 **Quick Check**: Run the verification script:
+
 ```bash
 ./google-oauth-check.sh
 ```
@@ -530,6 +545,7 @@ Common Google OAuth errors:
 ## Support
 
 If you encounter issues:
+
 1. Check the troubleshooting section above
 2. Review Supabase documentation
 3. Check browser console for error messages

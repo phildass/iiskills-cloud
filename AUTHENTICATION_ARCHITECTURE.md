@@ -9,12 +9,15 @@ iiskills.cloud implements a **universal authentication system** where users regi
 **All apps and subdomains now use standardized Supabase authentication:**
 
 ### Main Domain (`iiskills.cloud`)
+
 - ✅ Uses `UniversalLogin` and `UniversalRegister` components
 - ✅ Admin login (`/admin/login`) uses `UniversalLogin` with automatic role detection
 - ✅ Configured for cross-subdomain authentication
 
 ### Subdomain Apps - Pages Router (Next.js 12)
+
 All of the following apps use the shared `UniversalLogin` and `UniversalRegister` components:
+
 - ✅ learn-ai
 - ✅ learn-chemistry
 - ✅ learn-data-science
@@ -31,6 +34,7 @@ All of the following apps use the shared `UniversalLogin` and `UniversalRegister
 - ✅ learn-winning
 
 ### Subdomain Apps - App Router (Next.js 13+)
+
 - ✅ learn-apt: Uses modern `@supabase/ssr` package with custom `AuthContext` wrapper
   - Still connects to the same Supabase project
   - Configured for cross-subdomain authentication via environment variables
@@ -43,6 +47,7 @@ All of the following apps use the shared `UniversalLogin` and `UniversalRegister
 **Register on ANY app → Access ALL apps**
 
 When a user creates an account on any iiskills.cloud app (main site, Learn-Apt, Learn-JEE, Learn-NEET, etc.), they automatically get access to:
+
 - Main iiskills.cloud website
 - All 13+ learning module subdomains
 - Future apps and services
@@ -53,11 +58,13 @@ When a user creates an account on any iiskills.cloud app (main site, Learn-Apt, 
 ### 1. Centralized User Pool (Supabase)
 
 All applications connect to the **same Supabase project**, ensuring:
+
 - **Single source of truth** for user accounts
 - **Unified user profiles** with consistent metadata
 - **Cross-app authentication** without separate registrations
 
 #### Configuration
+
 ```javascript
 // All apps use these same credentials
 NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
@@ -78,6 +85,7 @@ cookieOptions: {
 ```
 
 **What this means:**
+
 - Login on `iiskills.cloud` → Automatically logged in on `learn-apt.iiskills.cloud`
 - Login on `learn-jee.iiskills.cloud` → Automatically logged in on main site
 - Logout on any app → Logged out everywhere
@@ -85,9 +93,11 @@ cookieOptions: {
 ### 3. Standardized Authentication Components
 
 #### UniversalRegister Component
+
 Location: `/components/shared/UniversalRegister.js`
 
 **Features:**
+
 - Two modes: Full registration (main app) or Simplified (subdomain apps)
 - Email/password registration
 - Google OAuth registration
@@ -95,24 +105,27 @@ Location: `/components/shared/UniversalRegister.js`
 - Configurable field requirements
 
 **Usage:**
+
 ```javascript
 // Full registration (main app)
-<UniversalRegister 
+<UniversalRegister
   simplified={false}
   appName="iiskills.cloud"
 />
 
 // Simplified registration (subdomain apps)
-<UniversalRegister 
+<UniversalRegister
   simplified={true}
   appName="Learn-Apt"
 />
 ```
 
 #### UniversalLogin Component
+
 Location: `/components/shared/UniversalLogin.js`
 
 **Features:**
+
 - Email/password authentication
 - Magic link (passwordless) authentication
 - Google OAuth authentication
@@ -120,8 +133,9 @@ Location: `/components/shared/UniversalLogin.js`
 - Automatic session creation
 
 **Usage:**
+
 ```javascript
-<UniversalLogin 
+<UniversalLogin
   redirectAfterLogin="/dashboard"
   appName="iiskills.cloud"
   showMagicLink={true}
@@ -144,12 +158,12 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
     persistSession: true,
     detectSessionInUrl: true,
     cookieOptions: {
-      domain: getCookieDomain(),  // Returns '.iiskills.cloud'
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
-    }
-  }
-})
+      domain: getCookieDomain(), // Returns '.iiskills.cloud'
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+    },
+  },
+});
 ```
 
 ## User Registration Flow
@@ -197,21 +211,24 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
 All apps support three authentication methods:
 
 #### 1. Email/Password
+
 ```javascript
 // Traditional authentication
-const { user, error } = await signInWithEmail(email, password)
+const { user, error } = await signInWithEmail(email, password);
 ```
 
 #### 2. Magic Link (Passwordless)
+
 ```javascript
 // Send secure sign-in link via email
-const { success, error } = await sendMagicLink(email, redirectUrl)
+const { success, error } = await sendMagicLink(email, redirectUrl);
 ```
 
 #### 3. Google OAuth
+
 ```javascript
 // One-click sign-in with Google account
-const { success, error } = await signInWithGoogle(redirectUrl)
+const { success, error } = await signInWithGoogle(redirectUrl);
 ```
 
 ## Session Token Validity
@@ -226,6 +243,7 @@ const { success, error } = await signInWithGoogle(redirectUrl)
 ✅ Valid for mobile apps (when configured)
 
 **Session duration:**
+
 - Default: 1 week
 - Configurable in Supabase dashboard
 - Auto-refresh enabled
@@ -242,7 +260,7 @@ All user accounts store metadata in consistent format:
   first_name: "John",
   last_name: "Doe",
   full_name: "John Doe",
-  
+
   // From full registration (main app)
   gender: "male",
   date_of_birth: "1995-05-15",
@@ -251,7 +269,7 @@ All user accounts store metadata in consistent format:
   state: "maharashtra",
   district: "Mumbai",
   country: "india",
-  
+
   // From simplified registration (subdomain apps)
   age: 28,
   qualification: "B.Tech Computer Science"
@@ -261,6 +279,7 @@ All user accounts store metadata in consistent format:
 ### Profile Completion
 
 Users can enhance their profile:
+
 1. Register with simplified form on subdomain
 2. Later visit main app
 3. Complete additional profile fields
@@ -269,12 +288,14 @@ Users can enhance their profile:
 ## Benefits of This Architecture
 
 ### 1. User Convenience
+
 - ✅ Register once, access everything
 - ✅ No need to remember which app they registered on
 - ✅ Single set of credentials
 - ✅ Seamless cross-app navigation
 
 ### 2. Business Benefits
+
 - ✅ Unified user database
 - ✅ Better user analytics across all apps
 - ✅ Easier user management
@@ -282,6 +303,7 @@ Users can enhance their profile:
 - ✅ Higher conversion rates
 
 ### 3. Technical Benefits
+
 - ✅ Single authentication codebase
 - ✅ Shared components reduce duplication
 - ✅ Easier to maintain and update
@@ -289,6 +311,7 @@ Users can enhance their profile:
 - ✅ Simplified testing
 
 ### 4. Security
+
 - ✅ Centralized security updates
 - ✅ No hardcoded credentials
 - ✅ Server-side validation
@@ -332,10 +355,11 @@ Admin access is controlled through the **public.profiles** table, not separate c
 **There are no separate admin credentials** - admin status is determined by the `is_admin` flag in the public.profiles table.
 
 **Setting up admin users:**
+
 ```sql
 -- Make a user an admin in Supabase SQL Editor
-UPDATE public.profiles 
-SET is_admin = true 
+UPDATE public.profiles
+SET is_admin = true
 WHERE id = (SELECT id FROM auth.users WHERE email = 'admin@example.com');
 ```
 
@@ -374,11 +398,13 @@ For complete documentation on admin validation, see [PROFILES_TABLE_ADMIN.md](PR
 ### Issue: User can't login on subdomain after registering on main app
 
 **Possible causes:**
+
 - Different Supabase projects configured
 - Cookie domain not set to `.iiskills.cloud`
 - Email not confirmed
 
 **Solution:**
+
 1. Verify all apps use same `NEXT_PUBLIC_SUPABASE_URL`
 2. Check cookie domain in Supabase client config
 3. Confirm email in Supabase dashboard
@@ -386,11 +412,13 @@ For complete documentation on admin validation, see [PROFILES_TABLE_ADMIN.md](PR
 ### Issue: Session not persisting across subdomains
 
 **Possible causes:**
+
 - Cookie domain misconfigured
 - HTTPS not enabled in production
 - Browser blocking third-party cookies
 
 **Solution:**
+
 1. Ensure cookie domain is `.iiskills.cloud` (with leading dot)
 2. Enable HTTPS in production
 3. Check browser cookie settings
@@ -398,10 +426,12 @@ For complete documentation on admin validation, see [PROFILES_TABLE_ADMIN.md](PR
 ### Issue: User data inconsistent between apps
 
 **Possible causes:**
+
 - Apps reading from different metadata fields
 - Caching issues
 
 **Solution:**
+
 1. Standardize metadata field names across apps
 2. Use `getUserProfile()` helper function consistently
 3. Clear localStorage and retry

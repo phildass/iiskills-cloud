@@ -20,46 +20,46 @@ The `ecosystem.config.js` file has been configured to override ports for these a
 
 ### Original Port Assignments (from package.json)
 
-| Application | Port in package.json |
-|------------|---------------------|
-| learn-jee | 3009 (CONFLICT) |
-| learn-chemistry | 3009 (CONFLICT) |
-| learn-geography | 3009 (CONFLICT) |
-| learn-neet | 3009 (CONFLICT) |
-| learn-physics | 3009 (CONFLICT) |
+| Application     | Port in package.json |
+| --------------- | -------------------- |
+| learn-jee       | 3009 (CONFLICT)      |
+| learn-chemistry | 3009 (CONFLICT)      |
+| learn-geography | 3009 (CONFLICT)      |
+| learn-neet      | 3009 (CONFLICT)      |
+| learn-physics   | 3009 (CONFLICT)      |
 
 ### New Port Assignments (from ecosystem.config.js)
 
-| Application | New Port | Status |
-|------------|----------|--------|
-| learn-jee | 3010 | ✓ Reassigned |
-| learn-chemistry | 3011 | ✓ Reassigned |
-| learn-geography | 3012 | ✓ Reassigned |
-| learn-neet | 3013 | ✓ Reassigned |
-| learn-physics | 3016 | ✓ Reassigned |
+| Application     | New Port | Status       |
+| --------------- | -------- | ------------ |
+| learn-jee       | 3010     | ✓ Reassigned |
+| learn-chemistry | 3011     | ✓ Reassigned |
+| learn-geography | 3012     | ✓ Reassigned |
+| learn-neet      | 3013     | ✓ Reassigned |
+| learn-physics   | 3016     | ✓ Reassigned |
 
 ## Complete Port Map
 
 Here is the complete port assignment for all applications:
 
-| Port | Application | Notes |
-|------|-------------|-------|
-| 3000 | iiskills-main | Main website |
-| 3001 | learn-apt | Override (no port in package.json) |
-| 3002 | learn-math | From package.json |
-| 3003 | learn-winning | From package.json |
-| 3004 | learn-data-science | From package.json |
-| 3005 | learn-management | From package.json |
-| 3006 | learn-leadership | From package.json |
-| 3007 | learn-ai | From package.json |
-| 3008 | learn-pr | From package.json |
-| 3010 | learn-jee | Override (was 3009) |
-| 3011 | learn-chemistry | Override (was 3009) |
-| 3012 | learn-geography | Override (was 3009) |
-| 3013 | learn-neet | Override (was 3009) |
-| 3014 | learn-govt-jobs | From package.json |
-| 3015 | learn-ias | From package.json |
-| 3016 | learn-physics | Override (was 3009) |
+| Port | Application        | Notes                              |
+| ---- | ------------------ | ---------------------------------- |
+| 3000 | iiskills-main      | Main website                       |
+| 3001 | learn-apt          | Override (no port in package.json) |
+| 3002 | learn-math         | From package.json                  |
+| 3003 | learn-winning      | From package.json                  |
+| 3004 | learn-data-science | From package.json                  |
+| 3005 | learn-management   | From package.json                  |
+| 3006 | learn-leadership   | From package.json                  |
+| 3007 | learn-ai           | From package.json                  |
+| 3008 | learn-pr           | From package.json                  |
+| 3010 | learn-jee          | Override (was 3009)                |
+| 3011 | learn-chemistry    | Override (was 3009)                |
+| 3012 | learn-geography    | Override (was 3009)                |
+| 3013 | learn-neet         | Override (was 3009)                |
+| 3014 | learn-govt-jobs    | From package.json                  |
+| 3015 | learn-ias          | From package.json                  |
+| 3016 | learn-physics      | Override (was 3009)                |
 
 ## How It Works
 

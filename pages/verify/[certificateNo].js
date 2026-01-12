@@ -1,36 +1,43 @@
-import { useRouter } from 'next/router'
-import Head from 'next/head'
-import Navbar from '../../components/Navbar'
-import Footer from '../../components/Footer'
+import { useRouter } from "next/router";
+import Head from "next/head";
+import Navbar from "../../components/Navbar";
+import Footer from "../../components/Footer";
 
 export default function VerifyCertificate() {
-  const router = useRouter()
-  const { certificateNo } = router.query
+  const router = useRouter();
+  const { certificateNo } = router.query;
 
   // IMPORTANT: This is a placeholder verification system
   // In production, replace this with actual database lookup
   // See INTEGRATION_EXAMPLES.md for production implementation
-  const mockCertificateData = certificateNo ? {
-    certificateNo: certificateNo,
-    userName: "Rahul Sharma",
-    courseName: "Professional Communication Skills",
-    completionDate: "15 December, 2024",
-    score: 85,
-    isValid: true,
-    issueDate: "15 December, 2024"
-  } : null
+  const mockCertificateData = certificateNo
+    ? {
+        certificateNo: certificateNo,
+        userName: "Rahul Sharma",
+        courseName: "Professional Communication Skills",
+        completionDate: "15 December, 2024",
+        score: 85,
+        isValid: true,
+        issueDate: "15 December, 2024",
+      }
+    : null;
 
   return (
     <>
       <Head>
         <title>Verify Certificate - iiskills.cloud</title>
-        <meta name="description" content="Verify the authenticity of an iiskills.cloud certificate" />
+        <meta
+          name="description"
+          content="Verify the authenticity of an iiskills.cloud certificate"
+        />
       </Head>
       <Navbar />
-      
+
       <main className="max-w-4xl mx-auto px-4 py-12">
-        <h1 className="text-4xl font-bold text-primary mb-6 text-center">Certificate Verification</h1>
-        
+        <h1 className="text-4xl font-bold text-primary mb-6 text-center">
+          Certificate Verification
+        </h1>
+
         {!certificateNo ? (
           <div className="bg-white rounded-lg shadow-lg p-8">
             <p className="text-center text-gray-600 mb-6">
@@ -42,10 +49,10 @@ export default function VerifyCertificate() {
                 placeholder="Enter certificate number (e.g., IIPS-202412-0011001)"
                 className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary mb-4"
                 onKeyPress={(e) => {
-                  if (e.key === 'Enter') {
-                    const value = e.target.value.trim()
+                  if (e.key === "Enter") {
+                    const value = e.target.value.trim();
                     if (value) {
-                      router.push(`/verify/${value}`)
+                      router.push(`/verify/${value}`);
                     }
                   }
                 }}
@@ -59,8 +66,18 @@ export default function VerifyCertificate() {
           <div className="bg-white rounded-lg shadow-lg p-8">
             <div className="text-center mb-8">
               <div className="inline-flex items-center justify-center w-20 h-20 bg-green-100 rounded-full mb-4">
-                <svg className="w-12 h-12 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                <svg
+                  className="w-12 h-12 text-green-600"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M5 13l4 4L19 7"
+                  />
                 </svg>
               </div>
               <h2 className="text-3xl font-bold text-green-600 mb-2">Certificate Verified ✓</h2>
@@ -72,7 +89,9 @@ export default function VerifyCertificate() {
               <div className="space-y-4">
                 <div className="flex justify-between border-b pb-3">
                   <span className="font-semibold text-gray-700">Certificate Number:</span>
-                  <span className="text-primary font-bold">{mockCertificateData.certificateNo}</span>
+                  <span className="text-primary font-bold">
+                    {mockCertificateData.certificateNo}
+                  </span>
                 </div>
                 <div className="flex justify-between border-b pb-3">
                   <span className="font-semibold text-gray-700">Recipient:</span>
@@ -99,8 +118,9 @@ export default function VerifyCertificate() {
 
             <div className="mt-8 bg-blue-50 border border-blue-200 rounded-lg p-4">
               <p className="text-sm text-blue-800">
-                <strong>Note:</strong> This certificate has been verified as authentic and was issued by the 
-                Indian Institute of Professional Skills Development (IIPSD) through iiskills.cloud.
+                <strong>Note:</strong> This certificate has been verified as authentic and was
+                issued by the Indian Institute of Professional Skills Development (IIPSD) through
+                iiskills.cloud.
               </p>
             </div>
           </div>
@@ -108,8 +128,18 @@ export default function VerifyCertificate() {
           <div className="bg-white rounded-lg shadow-lg p-8">
             <div className="text-center mb-8">
               <div className="inline-flex items-center justify-center w-20 h-20 bg-red-100 rounded-full mb-4">
-                <svg className="w-12 h-12 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                <svg
+                  className="w-12 h-12 text-red-600"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
                 </svg>
               </div>
               <h2 className="text-3xl font-bold text-red-600 mb-2">Certificate Not Found</h2>
@@ -117,8 +147,11 @@ export default function VerifyCertificate() {
                 We could not verify the certificate with number: <strong>{certificateNo}</strong>
               </p>
               <p className="text-sm text-gray-500">
-                Please check the certificate number and try again. If you believe this is an error, 
-                please contact us at <a href="mailto:info@iiskills.cloud" className="text-primary hover:underline">info@iiskills.cloud</a>
+                Please check the certificate number and try again. If you believe this is an error,
+                please contact us at{" "}
+                <a href="mailto:info@iiskills.cloud" className="text-primary hover:underline">
+                  info@iiskills.cloud
+                </a>
               </p>
             </div>
           </div>
@@ -147,8 +180,8 @@ export default function VerifyCertificate() {
           </ul>
         </div>
       </main>
-      
+
       <Footer />
     </>
-  )
+  );
 }

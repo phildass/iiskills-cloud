@@ -317,30 +317,20 @@ export default function Home() {
         {/* CTA Section */}
         <section className="py-16 bg-gradient-to-r from-blue-600 to-purple-700 text-white">
           <div className="max-w-4xl mx-auto px-4 text-center">
-
-            <h2 className="text-4xl font-bold mb-4">Ready to Start Your JEE Preparation?</h2>
-            <p className="text-xl mb-6">
-              Join thousands of JEE aspirants preparing with AI-powered learning
-
             <h2 className="text-4xl font-bold mb-4">Ready to Begin Your JEE Journey?</h2>
             <p className="text-xl mb-6">
               Join thousands of students preparing for JEE with iiskills.cloud
-
             </p>
-            
+
             {/* Pricing Display */}
             <div className="bg-white text-primary rounded-lg p-6 mb-6 inline-block">
               <div className="text-2xl font-bold mb-2">Complete Course Access</div>
-
-              <div className="text-5xl font-bold text-accent mb-2">{pricing.basePrice}</div>
-              <div className="text-lg mb-1">+ GST {pricing.gstAmount}</div>
-              <div className="text-xl font-semibold border-t-2 border-gray-300 pt-2">Total: {pricing.totalPrice}</div>
-              <p className="text-sm text-gray-600 mt-2">One-time payment • Lifetime access • Free first lesson</p>
               <div className="text-5xl font-bold text-accent mb-2">₹499</div>
               <div className="text-lg mb-1">+ GST ₹89.82</div>
-              <div className="text-xl font-semibold border-t-2 border-gray-300 pt-2">Total: ₹588.82</div>
+              <div className="text-xl font-semibold border-t-2 border-gray-300 pt-2">
+                Total: ₹588.82
+              </div>
               <p className="text-sm text-gray-600 mt-2">One-time payment • Lifetime access</p>
-
             </div>
             
             {!user && (

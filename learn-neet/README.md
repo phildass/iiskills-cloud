@@ -49,6 +49,7 @@ learn-neet/
 ## NEET Syllabus Coverage
 
 ### Physics (12 Modules)
+
 1. Physical World and Measurement
 2. Kinematics
 3. Laws of Motion
@@ -63,6 +64,7 @@ learn-neet/
 12. Modern Physics
 
 ### Chemistry (12 Modules)
+
 1. Basic Concepts of Chemistry
 2. Structure of Atom
 3. Chemical Bonding
@@ -77,6 +79,7 @@ learn-neet/
 12. Chemistry in Everyday Life
 
 ### Biology (10 Modules)
+
 1. Diversity in Living World
 2. Structural Organization
 3. Plant Physiology
@@ -161,6 +164,7 @@ npm start
 ## Admin Panel Features
 
 ### Membership Management
+
 - View all registered users
 - Filter by subscription status (active, pending, expired)
 - Activate pending subscriptions
@@ -168,6 +172,7 @@ npm start
 - Revoke access when needed
 
 ### Analytics Dashboard
+
 - Total users and active subscriptions
 - Subject-wise engagement metrics
 - Module completion rates
@@ -182,7 +187,7 @@ The app uses Supabase authentication with the following features:
 - **Email/Password**: Traditional authentication
 - **Magic Link**: Passwordless email authentication
 - **Google OAuth**: One-click Google sign-in
-- **Cross-Subdomain Sessions**: Shared authentication across *.iiskills.cloud
+- **Cross-Subdomain Sessions**: Shared authentication across \*.iiskills.cloud
 - **Role-Based Access**: Admin role for management features
 
 ## Deployment
@@ -216,12 +221,12 @@ This app uses shared Supabase authentication with all other iiskills.cloud apps:
 
 ## Environment Variables
 
-| Variable | Description | Example |
-|----------|-------------|---------|
-| `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL | `https://xxx.supabase.co` |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase anon key | `eyJ...` |
-| `NEXT_PUBLIC_SITE_URL` | App URL | `https://learn-neet.iiskills.cloud` |
-| `NEXT_PUBLIC_COOKIE_DOMAIN` | Cookie domain for auth | `.iiskills.cloud` |
+| Variable                        | Description            | Example                             |
+| ------------------------------- | ---------------------- | ----------------------------------- |
+| `NEXT_PUBLIC_SUPABASE_URL`      | Supabase project URL   | `https://xxx.supabase.co`           |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase anon key      | `eyJ...`                            |
+| `NEXT_PUBLIC_SITE_URL`          | App URL                | `https://learn-neet.iiskills.cloud` |
+| `NEXT_PUBLIC_COOKIE_DOMAIN`     | Cookie domain for auth | `.iiskills.cloud`                   |
 
 ## Technology Stack
 

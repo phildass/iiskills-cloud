@@ -26,6 +26,7 @@ A GitHub Actions workflow has been created to automate the branch restoration pr
 8. The branch will be restored to the remote repository
 
 **Advantages:**
+
 - No local setup required
 - Uses GitHub's built-in authentication
 - Provides a clear success/failure status
@@ -36,6 +37,7 @@ A GitHub Actions workflow has been created to automate the branch restoration pr
 A bash script is provided for local execution.
 
 **Prerequisites:**
+
 - Git repository cloned locally
 - Push permissions to the repository
 - Authenticated git client (via SSH keys or HTTPS token)
@@ -84,10 +86,13 @@ Or check the branches list on GitHub at: `https://github.com/<OWNER>/<REPO>/bran
 ## Troubleshooting
 
 **Issue:** "Authentication failed" error
+
 - **Solution:** Ensure you have push permissions and are properly authenticated
 
 **Issue:** "Branch already exists" warning
+
 - **Solution:** This is expected if the branch was already created locally. The script will continue to push it.
 
 **Issue:** GitHub Actions workflow not visible
+
 - **Solution:** The workflow file must be merged to the default branch first. Push this PR and then run the workflow from the Actions tab.

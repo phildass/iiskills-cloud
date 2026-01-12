@@ -1,33 +1,33 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  
+
   async rewrites() {
     return [
       // Rewrite admin subdomain to /admin routes
       {
-        source: '/:path*',
+        source: "/:path*",
         has: [
           {
-            type: 'host',
-            value: 'admin.iiskills.cloud',
+            type: "host",
+            value: "admin.iiskills.cloud",
           },
         ],
-        destination: '/admin/:path*',
+        destination: "/admin/:path*",
       },
       // Rewrite admin subdomain root to /admin
       {
-        source: '/',
+        source: "/",
         has: [
           {
-            type: 'host',
-            value: 'admin.iiskills.cloud',
+            type: "host",
+            value: "admin.iiskills.cloud",
           },
         ],
-        destination: '/admin',
+        destination: "/admin",
       },
-    ]
+    ];
   },
-}
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

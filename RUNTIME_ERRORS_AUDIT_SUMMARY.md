@@ -1,42 +1,51 @@
 # Runtime Errors and Stability Improvements - Audit Summary
 
 ## Overview
+
 This document summarizes the comprehensive audit and fixes applied to all subdomain folders in the iiskills-cloud repository to eliminate runtime errors and improve stability.
 
 ## Date
+
 January 10, 2026
 
 ## Issues Identified and Fixed
 
 ### 1. React Hook Dependency Warnings ✓ FIXED
+
 **Problem**: All subdomain pages had `useEffect` hooks with missing dependency arrays, causing React to warn about missing dependencies and potentially leading to stale closures.
 
-**Impact**: 
+**Impact**:
+
 - React development warnings
 - Potential memory leaks
 - Stale closure issues
 - Unnecessary re-renders
 
 **Solution Applied**:
+
 - Moved callback functions (`checkAuth`, `checkUser`, `checkAccess`) inside `useEffect` hooks
 - Added proper dependency arrays (`[]` for mount-only effects, `[router]` for router-dependent effects)
 - Fixed 47 files across all subdomains
 
 **Files Modified**:
+
 - 3 ProtectedRoute components (`components/UserProtectedRoute.js`, `components/PaidUserProtectedRoute.js`, `learn-chemistry/components/UserProtectedRoute.js`, `learn-geography/components/UserProtectedRoute.js`)
-- 14 index.js pages (all learn-* subdomain home pages)
-- 15 learn.js pages (all learn-* subdomain learning pages)
-- 14 _app.js files (all learn-* subdomain app files)
+- 14 index.js pages (all learn-\* subdomain home pages)
+- 15 learn.js pages (all learn-\* subdomain learning pages)
+- 14 \_app.js files (all learn-\* subdomain app files)
 
 ### 2. Missing Error Boundaries ✓ FIXED
+
 **Problem**: No error boundary components to catch and handle runtime JavaScript errors gracefully.
 
 **Impact**:
+
 - Entire app crashes on uncaught errors
 - Poor user experience with blank screens
 - No error recovery mechanism
 
 **Solution Applied**:
+
 - Created reusable `ErrorBoundary` component with:
   - Error catching and logging
   - User-friendly fallback UI
@@ -47,6 +56,7 @@ January 10, 2026
 - Added to sample subdomains (learn-ai, learn-chemistry)
 
 **ErrorBoundary Features**:
+
 - Catches JavaScript errors in child component tree
 - Logs errors to console (development)
 - Displays friendly error message to users
@@ -56,6 +66,7 @@ January 10, 2026
 - Ready for integration with error reporting services
 
 ### 3. Code Quality Issues Fixed
+
 **Problem**: Duplicate router declaration in learn-jee/pages/learn.js
 
 **Solution**: Removed duplicate `const router = useRouter()` declaration
@@ -85,54 +96,61 @@ All 15 subdomain folders have been audited and fixed:
 ### Total Files Modified: 47
 
 #### By Type:
+
 - **Components**: 4 files (3 ProtectedRoute + 1 ErrorBoundary)
 - **Page Components**: 43 files
   - index.js: 14 files
   - learn.js: 15 files
-  - _app.js: 14 files
+  - \_app.js: 14 files
 
 #### By Subdomain:
-Each subdomain (learn-*) had 2-3 files modified:
+
+Each subdomain (learn-\*) had 2-3 files modified:
+
 - index.js (home page)
 - learn.js (learning page, if exists)
-- _app.js (app wrapper)
+- \_app.js (app wrapper)
 
 Plus root components folder for shared components.
 
 ## Code Patterns Fixed
 
 ### Before (Problematic Pattern):
+
 ```javascript
 export default function MyPage() {
   useEffect(() => {
-    checkAuth()
-  }, [])
+    checkAuth();
+  }, []);
 
   const checkAuth = async () => {
     // Authentication logic
-  }
+  };
 }
 ```
 
 **Issues**:
+
 - `checkAuth` defined outside `useEffect` but used inside
 - React warns about missing dependency
 - Potential stale closure if component re-renders
 
 ### After (Fixed Pattern):
+
 ```javascript
 export default function MyPage() {
   useEffect(() => {
     const checkAuth = async () => {
       // Authentication logic
-    }
+    };
 
-    checkAuth()
-  }, [])  // Or [router] if using router.push
+    checkAuth();
+  }, []); // Or [router] if using router.push
 }
 ```
 
 **Benefits**:
+
 - No React warnings
 - No stale closures
 - Clear dependency tracking
@@ -141,6 +159,7 @@ export default function MyPage() {
 ## Testing Recommendations
 
 ### Manual Testing:
+
 1. Navigate to each subdomain home page (/)
 2. Navigate to /learn page on each subdomain
 3. Test authentication flows
@@ -148,6 +167,7 @@ export default function MyPage() {
 5. Test error boundary by throwing intentional errors
 
 ### Automated Testing (Future):
+
 1. Add integration tests for authentication flows
 2. Add tests for error boundary functionality
 3. Monitor for React warnings in CI/CD
@@ -155,11 +175,13 @@ export default function MyPage() {
 ## Future Improvements
 
 ### Short Term:
-- [ ] Add ErrorBoundary to remaining subdomain _app.js files
+
+- [ ] Add ErrorBoundary to remaining subdomain \_app.js files
 - [ ] Add error tracking service integration (e.g., Sentry)
 - [ ] Add loading state timeouts with error fallbacks
 
 ### Long Term:
+
 - [ ] Add more granular error boundaries around critical sections
 - [ ] Implement retry logic for failed API calls
 - [ ] Add performance monitoring
@@ -168,12 +190,14 @@ export default function MyPage() {
 ## Performance Impact
 
 **Positive Impacts**:
+
 - Reduced unnecessary re-renders from fixed dependencies
 - Better memory management (no stale closures)
 - Faster development with no console warnings
 - Improved user experience with error boundaries
 
 **No Negative Impacts**:
+
 - Changes are minimal and surgical
 - No business logic modified
 - No additional dependencies added
@@ -182,6 +206,7 @@ export default function MyPage() {
 ## Maintenance Notes
 
 ### For Future Developers:
+
 1. Always define async functions inside `useEffect` when they're only used there
 2. Include router in dependency array if using `router.push()` or `router.query`
 3. Keep ErrorBoundary at app-level for global coverage
@@ -189,6 +214,7 @@ export default function MyPage() {
 5. Never leave `useEffect` dependency arrays empty if the effect uses external variables
 
 ### Code Review Checklist:
+
 - [ ] All `useEffect` hooks have proper dependency arrays
 - [ ] No functions defined outside `useEffect` that are only used inside it
 - [ ] Router included in dependencies when used in effect

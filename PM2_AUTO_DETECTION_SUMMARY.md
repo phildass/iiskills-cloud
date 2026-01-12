@@ -9,6 +9,7 @@ Successfully implemented an automatic entry point detection system for PM2 confi
 **Original Problem**: The ecosystem.config.js required manual configuration and users needed to know the correct entry files for each app. Port conflicts existed and there was no automated way to detect and resolve them.
 
 **Solution**: Created an automated system that:
+
 1. Scans the repository for all Next.js applications
 2. Detects entry points from package.json
 3. Automatically assigns ports
@@ -79,30 +80,31 @@ Total: 16 Next.js applications
 
 ### Port Assignments
 
-| App | Port | Source |
-|-----|------|--------|
-| iiskills-main | 3000 | auto-assigned |
-| iiskills-learn-apt | 3001 | auto-assigned |
-| iiskills-learn-math | 3002 | package.json |
-| iiskills-learn-winning | 3003 | package.json |
-| iiskills-learn-data-science | 3004 | package.json |
-| iiskills-learn-management | 3005 | package.json |
-| iiskills-learn-leadership | 3006 | package.json |
-| iiskills-learn-ai | 3007 | package.json |
-| iiskills-learn-pr | 3008 | package.json |
-| iiskills-learn-chemistry | 3009 | package.json |
-| iiskills-learn-geography | 3010 | reassigned (from 3009) |
-| iiskills-learn-jee | 3011 | reassigned (from 3009) |
-| iiskills-learn-neet | 3012 | reassigned (from 3009) |
-| iiskills-learn-physics | 3013 | reassigned (from 3009) |
-| iiskills-learn-govt-jobs | 3014 | package.json |
-| iiskills-learn-ias | 3015 | package.json |
+| App                         | Port | Source                 |
+| --------------------------- | ---- | ---------------------- |
+| iiskills-main               | 3000 | auto-assigned          |
+| iiskills-learn-apt          | 3001 | auto-assigned          |
+| iiskills-learn-math         | 3002 | package.json           |
+| iiskills-learn-winning      | 3003 | package.json           |
+| iiskills-learn-data-science | 3004 | package.json           |
+| iiskills-learn-management   | 3005 | package.json           |
+| iiskills-learn-leadership   | 3006 | package.json           |
+| iiskills-learn-ai           | 3007 | package.json           |
+| iiskills-learn-pr           | 3008 | package.json           |
+| iiskills-learn-chemistry    | 3009 | package.json           |
+| iiskills-learn-geography    | 3010 | reassigned (from 3009) |
+| iiskills-learn-jee          | 3011 | reassigned (from 3009) |
+| iiskills-learn-neet         | 3012 | reassigned (from 3009) |
+| iiskills-learn-physics      | 3013 | reassigned (from 3009) |
+| iiskills-learn-govt-jobs    | 3014 | package.json           |
+| iiskills-learn-ias          | 3015 | package.json           |
 
 ### Port Conflict Resolution
 
 **Original Problem**: 5 apps (chemistry, geography, jee, neet, physics) all used port 3009
 
-**Solution**: 
+**Solution**:
+
 - chemistry kept 3009 (first in alphabetical order)
 - geography reassigned to 3010
 - jee reassigned to 3011
@@ -112,11 +114,13 @@ Total: 16 Next.js applications
 ## Entry Point Strategy
 
 All apps use the same reliable strategy:
+
 - **Script**: `npm` (the npm executable)
 - **Args**: `start` (runs package.json start script)
 - **Port**: From package.json, auto-assigned, or reassigned to resolve conflicts
 
 This works because:
+
 1. All apps are Next.js applications
 2. Each has a `start` script in package.json (e.g., `next start -p 3002`)
 3. Using `npm start` respects each app's own configuration
@@ -125,6 +129,7 @@ This works because:
 ## Testing Results
 
 All tests passing:
+
 - ✅ Configuration loads successfully
 - ✅ All 16 app directories exist
 - ✅ All package.json files are valid
@@ -196,6 +201,7 @@ pm2 reload all
 ## Future Enhancements
 
 Potential improvements:
+
 1. Support for non-Next.js applications
 2. Automatic health check configuration
 3. Integration with CI/CD pipelines
@@ -206,6 +212,7 @@ Potential improvements:
 ## Conclusion
 
 The PM2 auto-detection system successfully solves the original problem:
+
 - ✅ Automatically detects entry files by inspecting each subproject
 - ✅ Identifies correct start files from package.json
 - ✅ Updates ecosystem.config.js with proper entry points

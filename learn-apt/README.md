@@ -5,35 +5,35 @@
 ## Features
 
 - **Elaborate Test**: Comprehensive assessment with **20 modules and 200 questions total** (10 questions per module)
-  
+
   **Learning & Cognitive Assessment:**
   - Learning Styles Assessment
   - Cognitive Patterns
   - Problem-Solving Approach
   - Motivation & Drive
   - Learning Environment Preferences
-  
+
   **Aptitude & Reasoning:**
   - Numerical & Data Reasoning (with 5 options including "I don't know")
   - Quantitative Aptitude (with 5 options including "I don't know")
   - Abstract & Logical Reasoning (with 5 options including "I don't know")
   - Spatial & Visual Reasoning (with 5 options including "I don't know")
   - Verbal Reasoning & Comprehension
-  
+
   **Professional Skills:**
   - Critical Thinking
   - Time Management & Organization
   - Communication Preferences
   - Decision Making
   - Attention to Detail
-  
+
   **Personal Effectiveness:**
   - Data Interpretation
   - Stress Management & Resilience
   - Creativity & Innovation
   - Memory & Retention
   - Collaborative Learning Styles
-  
+
 - **Brief Test**: Quick assessment with five key modules:
   - Learning Preferences
   - Problem-Solving Style
@@ -42,6 +42,7 @@
   - Abstract & Logical Reasoning (with 5 options including "I don't know")
 
 **Note**: Mathematical, quantitative, logical, spatial, and mechanical reasoning questions include a fifth option "E) I don't know" to allow test-takers to skip questions they're uncertain about. All currency references use ₹ (Rupee) or Rs instead of $ for localization.
+
 - **Brief Test**: Quick assessment with four key modules:
   - Learning Preferences
   - Problem-Solving Style
@@ -67,17 +68,20 @@
 ### Installation
 
 1. Clone the repository:
+
 ```bash
 git clone https://github.com/phildass/learn-apt.git
 cd learn-apt
 ```
 
 2. Install dependencies:
+
 ```bash
 npm install
 ```
 
 3. Run the development server:
+
 ```bash
 npm run dev
 ```
@@ -103,10 +107,10 @@ This application is configured to run on the exclusive subdomain `learn-apt.iisk
    ```bash
    # Install Vercel CLI
    npm i -g vercel
-   
+
    # Login to Vercel
    vercel login
-   
+
    # Deploy to production
    vercel --prod
    ```
@@ -172,6 +176,7 @@ This application is configured to run on the exclusive subdomain `learn-apt.iisk
 The application requires Supabase configuration for authentication:
 
 1. **Create `.env.local` file**:
+
    ```bash
    cp .env.example .env.local
    ```

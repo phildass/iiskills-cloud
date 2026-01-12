@@ -23,7 +23,7 @@ The monorepo uses npm workspaces to manage dependencies across all packages:
 
 - **apps/main**: The primary iiskills.cloud website
 - **packages/shared-ui**: Shared UI components (Newsletter, AI Assistant, etc.)
-- **learn-***: 15 learning module applications (learn-ai, learn-math, etc.)
+- **learn-\***: 15 learning module applications (learn-ai, learn-math, etc.)
 
 ## 📦 Shared UI Package (@iiskills/shared-ui)
 
@@ -36,11 +36,13 @@ Located in `/packages/shared-ui`, this package provides reusable components used
 A newsletter subscription component with two modes:
 
 **Props:**
+
 - `mode`: 'modal' | 'embedded' (default: 'embedded')
 - `onClose`: Callback when modal is closed
 - `onSuccess`: Callback when subscription succeeds
 
 **Features:**
+
 - Modal popup mode for initial visits
 - Embedded mode for dedicated newsletter page
 - Google reCAPTCHA v3 integration
@@ -50,6 +52,7 @@ A newsletter subscription component with two modes:
 - Responsive design
 
 **Usage:**
+
 ```jsx
 import { NewsletterSignup } from '@iiskills/shared-ui'
 
@@ -57,8 +60,8 @@ import { NewsletterSignup } from '@iiskills/shared-ui'
 <NewsletterSignup mode="embedded" />
 
 // Modal mode (for popup)
-<NewsletterSignup 
-  mode="modal" 
+<NewsletterSignup
+  mode="modal"
   onClose={() => setShowModal(false)}
   onSuccess={() => console.log('Subscribed!')}
 />
@@ -69,6 +72,7 @@ import { NewsletterSignup } from '@iiskills/shared-ui'
 A floating chatbot assistant with site-aware context.
 
 **Features:**
+
 - Floating button in bottom-right corner
 - Expandable chat window
 - Site-aware responses based on subdomain
@@ -77,15 +81,17 @@ A floating chatbot assistant with site-aware context.
 - Accessible everywhere
 
 **Usage:**
+
 ```jsx
-import { AIAssistant } from '@iiskills/shared-ui'
+import { AIAssistant } from "@iiskills/shared-ui";
 
 // Add to your _app.js or layout
-<AIAssistant />
+<AIAssistant />;
 ```
 
 **Site-Aware Context:**
 The AI Assistant automatically detects the current subdomain and provides relevant context:
+
 - learn-ai → "artificial intelligence and machine learning"
 - learn-math → "mathematics education"
 - learn-jee → "JEE exam preparation"
@@ -96,10 +102,11 @@ The AI Assistant automatically detects the current subdomain and provides releva
 A navigation link component for the newsletter.
 
 **Usage:**
-```jsx
-import { NewsletterNavLink } from '@iiskills/shared-ui'
 
-<NewsletterNavLink className="hover:text-primary" />
+```jsx
+import { NewsletterNavLink } from "@iiskills/shared-ui";
+
+<NewsletterNavLink className="hover:text-primary" />;
 ```
 
 ### Utilities
@@ -109,36 +116,40 @@ import { NewsletterNavLink } from '@iiskills/shared-ui'
 Manages newsletter popup display timing and persistence.
 
 **Parameters:**
+
 - `intervalDays`: Days between popup displays (default: 7)
 
 **Returns:**
+
 - `showPopup`: Boolean indicating if popup should show
 - `closePopup(subscribed)`: Function to close popup and save state
 
 **Features:**
+
 - Shows popup on first visit after 3-second delay
 - Remembers last display time in localStorage
 - Respects interval settings
 - Never shows again if user subscribes
 
 **Usage:**
+
 ```jsx
-import { useNewsletterPopup, NewsletterSignup } from '@iiskills/shared-ui'
+import { useNewsletterPopup, NewsletterSignup } from "@iiskills/shared-ui";
 
 function MyApp() {
-  const { showPopup, closePopup } = useNewsletterPopup(7) // Show every 7 days
-  
+  const { showPopup, closePopup } = useNewsletterPopup(7); // Show every 7 days
+
   return (
     <>
       {showPopup && (
-        <NewsletterSignup 
+        <NewsletterSignup
           mode="modal"
           onClose={() => closePopup(false)}
           onSuccess={() => closePopup(true)}
         />
       )}
     </>
-  )
+  );
 }
 ```
 
@@ -149,6 +160,7 @@ function MyApp() {
 **Endpoint:** `POST /api/newsletter/subscribe`
 
 **Request Body:**
+
 ```json
 {
   "email": "user@example.com",
@@ -157,6 +169,7 @@ function MyApp() {
 ```
 
 **Response (Success):**
+
 ```json
 {
   "message": "Successfully subscribed!",
@@ -165,6 +178,7 @@ function MyApp() {
 ```
 
 **Response (Already Subscribed):**
+
 ```json
 {
   "message": "You are already subscribed!",
@@ -173,6 +187,7 @@ function MyApp() {
 ```
 
 **Features:**
+
 - reCAPTCHA v3 verification
 - Duplicate email detection
 - Stores in Supabase `newsletter_subscribers` table
@@ -260,43 +275,46 @@ CREATE POLICY "Allow public reads" ON newsletter_subscribers
 ### Adding to Existing Apps
 
 1. **Install dependencies:**
+
 ```bash
 npm install  # At root level (installs all workspaces)
 ```
 
-2. **Import and use in _app.js:**
+2. **Import and use in \_app.js:**
+
 ```jsx
-import { AIAssistant, NewsletterSignup, useNewsletterPopup } from '@iiskills/shared-ui'
+import { AIAssistant, NewsletterSignup, useNewsletterPopup } from "@iiskills/shared-ui";
 
 function MyApp({ Component, pageProps }) {
-  const { showPopup, closePopup } = useNewsletterPopup(7)
-  
+  const { showPopup, closePopup } = useNewsletterPopup(7);
+
   return (
     <>
       <Component {...pageProps} />
-      
+
       {/* AI Assistant - always visible */}
       <AIAssistant />
-      
+
       {/* Newsletter Popup - shows based on timing */}
       {showPopup && (
-        <NewsletterSignup 
+        <NewsletterSignup
           mode="modal"
           onClose={() => closePopup(false)}
           onSuccess={() => closePopup(true)}
         />
       )}
     </>
-  )
+  );
 }
 ```
 
 3. **Add Newsletter link to navigation:**
+
 ```jsx
-import { NewsletterNavLink } from '@iiskills/shared-ui'
+import { NewsletterNavLink } from "@iiskills/shared-ui";
 
 // In your navbar component
-<NewsletterNavLink className="hover:text-primary transition" />
+<NewsletterNavLink className="hover:text-primary transition" />;
 ```
 
 ### Main App Integration
@@ -308,11 +326,13 @@ The main app (`apps/main`) serves as the reference implementation with all featu
 All components use Tailwind CSS with a shared configuration in `/packages/shared-ui/tailwind.config.js`.
 
 **Color Palette:**
+
 - `primary`: #0052CC (iiskills blue)
 - `accent`: #C77DDB (purple)
 - `neutral`: #F8F9FA (light gray)
 
 **Animations:**
+
 - `animate-slide-up`: Modal entrance animation
 - `animate-fade-in`: Overlay fade-in
 - `animate-bounce`: Loading indicators
@@ -320,6 +340,7 @@ All components use Tailwind CSS with a shared configuration in `/packages/shared
 ## 📱 Responsive Design
 
 All components are fully responsive:
+
 - Mobile: Stack layout, full-width forms
 - Tablet: Adaptive grid layouts
 - Desktop: Multi-column layouts, fixed chat position
@@ -337,6 +358,7 @@ All components are fully responsive:
 To test the newsletter functionality:
 
 1. Start the development server:
+
 ```bash
 npm run dev
 ```
@@ -347,6 +369,7 @@ npm run dev
 5. Verify email in Supabase dashboard
 
 To test the AI Assistant:
+
 1. Look for the floating chat icon in bottom-right
 2. Click to open chat window
 3. Send a test message
@@ -355,10 +378,12 @@ To test the AI Assistant:
 ## 🔄 Cross-Subdomain Consistency
 
 All features work identically on:
+
 - Main domain: `iiskills.cloud`
 - All subdomains: `learn-ai.iiskills.cloud`, `learn-math.iiskills.cloud`, etc.
 
 The shared-ui package ensures:
+
 - ✅ Consistent styling
 - ✅ Same functionality
 - ✅ Unified user experience
@@ -369,6 +394,7 @@ The shared-ui package ensures:
 ### Working on Shared Components
 
 1. Navigate to shared-ui package:
+
 ```bash
 cd packages/shared-ui
 ```
@@ -401,7 +427,8 @@ cd apps/main && npm run build
 
 ### reCAPTCHA not loading
 
-**Solution:** 
+**Solution:**
+
 1. Check `NEXT_PUBLIC_RECAPTCHA_SITE_KEY` is set
 2. Verify domain is added in reCAPTCHA admin console
 3. Check browser console for errors
@@ -409,6 +436,7 @@ cd apps/main && npm run build
 ### Newsletter submissions not saving
 
 **Solution:**
+
 1. Verify Supabase credentials are correct
 2. Check `newsletter_subscribers` table exists
 3. Review API logs for errors
@@ -417,7 +445,8 @@ cd apps/main && npm run build
 ### AI Assistant not appearing
 
 **Solution:**
-1. Ensure `<AIAssistant />` is included in _app.js
+
+1. Ensure `<AIAssistant />` is included in \_app.js
 2. Check for z-index conflicts with other elements
 3. Verify component is imported correctly
 
@@ -441,6 +470,7 @@ When adding new features to the shared-ui package:
 ## 📞 Support
 
 For questions or issues with the newsletter or AI assistant system:
+
 - Check this documentation first
 - Review the example implementation in `apps/main`
 - Contact: info@iiskills.cloud

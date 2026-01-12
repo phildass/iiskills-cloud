@@ -1,11 +1,13 @@
 # Admin User Setup Guide
 
 ## Overview
+
 This guide explains how to grant and revoke admin access for users in the Learnapt application.
 
 ## Admin Access Requirements
 
 Admin access is controlled by the `is_admin` flag in user metadata:
+
 - Users with `user_metadata.is_admin === true` have full admin access
 - All other users are denied access to admin routes
 - Both server-side (middleware) and client-side checks enforce this
@@ -20,7 +22,7 @@ Admin access is controlled by the `is_admin` flag in user metadata:
 
 ```sql
 -- Grant admin access to a specific user by email
-UPDATE auth.users 
+UPDATE auth.users
 SET raw_user_meta_data = raw_user_meta_data || '{"is_admin": true}'::jsonb
 WHERE email = 'user@example.com';
 ```
@@ -30,33 +32,30 @@ WHERE email = 'user@example.com';
 ```sql
 -- Check user's metadata
 SELECT email, raw_user_meta_data->'is_admin' as is_admin
-FROM auth.users 
+FROM auth.users
 WHERE email = 'user@example.com';
 ```
 
 ### Option 2: Using Supabase JavaScript Client
 
 ```javascript
-import { createClient } from '@supabase/supabase-js'
+import { createClient } from "@supabase/supabase-js";
 
-const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY)
+const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
 
 // Note: This requires the service role key (server-side only)
 async function grantAdminAccess(userId) {
-  const { data, error } = await supabase.auth.admin.updateUserById(
-    userId,
-    { 
-      user_metadata: { is_admin: true }
-    }
-  )
-  
+  const { data, error } = await supabase.auth.admin.updateUserById(userId, {
+    user_metadata: { is_admin: true },
+  });
+
   if (error) {
-    console.error('Error granting admin access:', error)
-    return false
+    console.error("Error granting admin access:", error);
+    return false;
   }
-  
-  console.log('Admin access granted to:', data.user.email)
-  return true
+
+  console.log("Admin access granted to:", data.user.email);
+  return true;
 }
 ```
 
@@ -66,14 +65,14 @@ When creating a new user, you can set the metadata directly:
 
 ```javascript
 const { data, error } = await supabase.auth.signUp({
-  email: 'admin@example.com',
-  password: 'secure-password',
+  email: "admin@example.com",
+  password: "secure-password",
   options: {
     data: {
-      is_admin: true
-    }
-  }
-})
+      is_admin: true,
+    },
+  },
+});
 ```
 
 ## Revoking Admin Access
@@ -82,7 +81,7 @@ const { data, error } = await supabase.auth.signUp({
 
 ```sql
 -- Remove admin access from a user
-UPDATE auth.users 
+UPDATE auth.users
 SET raw_user_meta_data = raw_user_meta_data - 'is_admin'
 WHERE email = 'user@example.com';
 ```
@@ -91,7 +90,7 @@ Or explicitly set it to false:
 
 ```sql
 -- Set is_admin to false
-UPDATE auth.users 
+UPDATE auth.users
 SET raw_user_meta_data = raw_user_meta_data || '{"is_admin": false}'::jsonb
 WHERE email = 'user@example.com';
 ```
@@ -102,7 +101,7 @@ WHERE email = 'user@example.com';
 
 ```sql
 -- Grant admin access to multiple users
-UPDATE auth.users 
+UPDATE auth.users
 SET raw_user_meta_data = raw_user_meta_data || '{"is_admin": true}'::jsonb
 WHERE email IN (
   'admin1@example.com',
@@ -115,12 +114,12 @@ WHERE email IN (
 
 ```sql
 -- Find all users with admin access
-SELECT 
+SELECT
   id,
   email,
   created_at,
   raw_user_meta_data->'is_admin' as is_admin
-FROM auth.users 
+FROM auth.users
 WHERE raw_user_meta_data->>'is_admin' = 'true'
 ORDER BY created_at DESC;
 ```
@@ -130,9 +129,10 @@ ORDER BY created_at DESC;
 After granting or revoking admin access:
 
 1. **Check Database:**
+
    ```sql
-   SELECT email, raw_user_meta_data 
-   FROM auth.users 
+   SELECT email, raw_user_meta_data
+   FROM auth.users
    WHERE email = 'user@example.com';
    ```
 
@@ -174,9 +174,11 @@ After granting or revoking admin access:
 ### User Can't Access Admin Despite Having is_admin Flag
 
 1. **Check the flag value:**
+
    ```sql
    SELECT raw_user_meta_data FROM auth.users WHERE email = 'user@example.com';
    ```
+
    Make sure `is_admin` is exactly `true` (boolean), not `"true"` (string)
 
 2. **Clear browser cache and cookies:**
@@ -190,6 +192,7 @@ After granting or revoking admin access:
 ### User Still Has Admin Access After Revocation
 
 1. **Verify the database change:**
+
    ```sql
    SELECT raw_user_meta_data FROM auth.users WHERE email = 'user@example.com';
    ```
@@ -197,6 +200,7 @@ After granting or revoking admin access:
 2. **Force user to log out:**
    - The user needs to log out and back in for changes to take effect
    - Or revoke their session tokens:
+
    ```sql
    -- Force sign out by updating session (use with caution)
    DELETE FROM auth.sessions WHERE user_id = 'user-id-here';
@@ -208,11 +212,13 @@ After granting or revoking admin access:
 ## Environment-Specific Notes
 
 ### Development
+
 - Use test admin accounts
 - Can use simpler passwords for testing
 - OK to have multiple admin accounts for testing
 
 ### Production
+
 - Limit admin accounts to essential personnel only
 - Use strong passwords and MFA
 - Regularly audit admin access
@@ -221,6 +227,7 @@ After granting or revoking admin access:
 ## Support
 
 If you encounter issues with admin access control:
+
 1. Check Supabase dashboard for user metadata
 2. Check application logs for errors
 3. Verify middleware is running correctly

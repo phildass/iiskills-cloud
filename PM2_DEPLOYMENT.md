@@ -62,7 +62,6 @@ Before starting deployment, you can:
    ```bash
    npm run generate-pm2-config
    ```
-   
 2. **Validate the ecosystem configuration**:
    ```bash
    npm run validate-pm2-config
@@ -71,6 +70,7 @@ Before starting deployment, you can:
    ```
 
 The validation will check for:
+
 - Configuration structure validity
 - Required fields in each app config
 - Directory and package.json existence
@@ -186,24 +186,24 @@ Edit `.env.local` files with your actual configuration values (Supabase keys, AP
 
 The following ports are assigned to each application:
 
-| Application | Port | Module Name |
-|------------|------|-------------|
-| iiskills-main | 3000 | Main website |
-| learn-apt | 3001 | Aptitude assessment |
-| learn-math | 3002 | Mathematics |
-| learn-winning | 3003 | Success strategies |
-| learn-data-science | 3004 | Data science |
-| learn-management | 3005 | Management skills |
-| learn-leadership | 3006 | Leadership |
-| learn-ai | 3007 | Artificial Intelligence |
-| learn-pr | 3008 | Public Relations |
-| learn-jee | 3010 | JEE preparation |
-| learn-chemistry | 3011 | Chemistry |
-| learn-geography | 3012 | Geography |
-| learn-neet | 3013 | NEET preparation |
-| learn-govt-jobs | 3014 | Government jobs |
-| learn-ias | 3015 | UPSC Civil Services |
-| learn-physics | 3016 | Physics |
+| Application        | Port | Module Name             |
+| ------------------ | ---- | ----------------------- |
+| iiskills-main      | 3000 | Main website            |
+| learn-apt          | 3001 | Aptitude assessment     |
+| learn-math         | 3002 | Mathematics             |
+| learn-winning      | 3003 | Success strategies      |
+| learn-data-science | 3004 | Data science            |
+| learn-management   | 3005 | Management skills       |
+| learn-leadership   | 3006 | Leadership              |
+| learn-ai           | 3007 | Artificial Intelligence |
+| learn-pr           | 3008 | Public Relations        |
+| learn-jee          | 3010 | JEE preparation         |
+| learn-chemistry    | 3011 | Chemistry               |
+| learn-geography    | 3012 | Geography               |
+| learn-neet         | 3013 | NEET preparation        |
+| learn-govt-jobs    | 3014 | Government jobs         |
+| learn-ias          | 3015 | UPSC Civil Services     |
+| learn-physics      | 3016 | Physics                 |
 
 **Note**: Ports 3010-3013 and 3016 were reassigned to resolve conflicts found in the original package.json configurations where multiple apps were set to port 3009.
 
@@ -350,12 +350,14 @@ pm2 show iiskills-main
 If you see "EADDRINUSE" errors, another process is using the port. Find and stop the conflicting process:
 
 **Linux/macOS:**
+
 ```bash
 lsof -i :3000  # Replace 3000 with the conflicting port
 kill -9 <PID>
 ```
 
 **Windows:**
+
 ```powershell
 netstat -ano | findstr :3000
 taskkill /PID <PID> /F
@@ -384,7 +386,7 @@ Verify `.env.local` files exist and are correctly formatted. PM2 doesn't automat
 If apps are restarting due to memory limits, adjust `max_memory_restart` in `ecosystem.config.js`:
 
 ```javascript
-max_memory_restart: '2G'  // Increase from 1G to 2G
+max_memory_restart: "2G"; // Increase from 1G to 2G
 ```
 
 ### Log Files Growing Too Large
@@ -406,6 +408,7 @@ The `ecosystem.config.js` uses `path.join(__dirname, ...)` for cross-platform co
 ### Apps with Port in package.json
 
 The following apps have port specifications in their `package.json` `start` scripts:
+
 - learn-math (3002)
 - learn-winning (3003)
 - learn-data-science (3004)
@@ -421,6 +424,7 @@ For these apps, PM2 does not override the port via environment variable unless n
 ### Apps with Overridden Ports
 
 The following apps originally had conflicting port assignments (all set to 3009) and have been reassigned:
+
 - learn-jee: 3009 → 3010
 - learn-chemistry: 3009 → 3011
 - learn-geography: 3009 → 3012
@@ -501,6 +505,7 @@ pm2 link <secret> <public>
 ## Support
 
 For issues specific to iiskills-cloud applications, refer to:
+
 - [README.md](README.md)
 - [DEPLOYMENT.md](DEPLOYMENT.md)
 - [QUICK_START.md](QUICK_START.md)

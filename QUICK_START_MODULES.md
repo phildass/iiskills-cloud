@@ -6,16 +6,16 @@ All 7 legacy learning modules have been successfully migrated into the main iisk
 
 ## Migrated Modules
 
-| Module | Port | Subdomain | Description |
-|--------|------|-----------|-------------|
-| learn-apt | 3001 | learn-apt.iiskills.cloud | Aptitude assessment with AI guidance |
-| learn-math | 3002 | learn-math.iiskills.cloud | Mathematics fundamentals |
-| learn-winning | 3003 | learn-winning.iiskills.cloud | Success strategies |
-| learn-data-science | 3004 | learn-data-science.iiskills.cloud | Data science fundamentals |
-| learn-management | 3005 | learn-management.iiskills.cloud | Management skills |
-| learn-leadership | 3006 | learn-leadership.iiskills.cloud | Leadership development |
-| learn-ai | 3007 | learn-ai.iiskills.cloud | AI fundamentals |
-| learn-pr | 3008 | learn-pr.iiskills.cloud | Public Relations |
+| Module             | Port | Subdomain                         | Description                          |
+| ------------------ | ---- | --------------------------------- | ------------------------------------ |
+| learn-apt          | 3001 | learn-apt.iiskills.cloud          | Aptitude assessment with AI guidance |
+| learn-math         | 3002 | learn-math.iiskills.cloud         | Mathematics fundamentals             |
+| learn-winning      | 3003 | learn-winning.iiskills.cloud      | Success strategies                   |
+| learn-data-science | 3004 | learn-data-science.iiskills.cloud | Data science fundamentals            |
+| learn-management   | 3005 | learn-management.iiskills.cloud   | Management skills                    |
+| learn-leadership   | 3006 | learn-leadership.iiskills.cloud   | Leadership development               |
+| learn-ai           | 3007 | learn-ai.iiskills.cloud           | AI fundamentals                      |
+| learn-pr           | 3008 | learn-pr.iiskills.cloud           | Public Relations                     |
 
 ## Quick Start - Development
 
@@ -125,10 +125,10 @@ server {
 server {
     listen 443 ssl http2;
     server_name learn-math.iiskills.cloud;
-    
+
     ssl_certificate /etc/letsencrypt/live/learn-math.iiskills.cloud/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/learn-math.iiskills.cloud/privkey.pem;
-    
+
     location / {
         proxy_pass http://localhost:3002;
         proxy_http_version 1.1;
@@ -186,6 +186,7 @@ All modules share authentication via Supabase. To enable:
 ### In Environment Variables:
 
 All modules should have:
+
 ```env
 NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
@@ -209,6 +210,7 @@ pm2 delete all              # Delete all processes
 ### Log Locations
 
 Logs are stored in `/logs` directory:
+
 - `main-error.log` - Main app errors
 - `learn-math-error.log` - Learn-Math module errors
 - etc...

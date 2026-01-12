@@ -3,25 +3,24 @@
 @tailwind utilities;
 
 :root {
-  --primary-color: #FF6B35;
+  --primary-color: #ff6b35;
   --secondary-color: #138808;
   --accent-color: #000080;
-  --charcoal: #2D3748;
-  --neutral: #F7FAFC;
+  --charcoal: #2d3748;
+  --neutral: #f7fafc;
 }
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
+    "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
 /* Custom utility classes */

@@ -73,6 +73,7 @@ Deploy on your own infrastructure with full control.
 #### Step 1: Prepare the Server
 
 Ensure your server meets the following requirements:
+
 - Ubuntu 20.04+ or similar Linux distribution
 - Node.js 18.x or later installed
 - Nginx or Apache web server (for reverse proxy)
@@ -137,7 +138,7 @@ server {
     # SSL Configuration (will be auto-configured by Certbot)
     ssl_certificate /etc/letsencrypt/live/learn-apt.iiskills.cloud/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/learn-apt.iiskills.cloud/privkey.pem;
-    
+
     # Modern SSL configuration
     ssl_protocols TLSv1.2 TLSv1.3;
     ssl_ciphers HIGH:!aNULL:!MD5;
@@ -267,9 +268,9 @@ nslookup learn-apt.iiskills.cloud
 The application does not require environment variables for basic operation. However, you may optionally configure:
 
 1. **Port Configuration** (Self-hosted only)
-   
+
    Create a `.env.local` file in the project root:
-   
+
    ```env
    PORT=3000
    NODE_ENV=production
@@ -278,7 +279,7 @@ The application does not require environment variables for basic operation. Howe
 2. **Authentication** (if admin features are enabled)
 
    If you've enabled authentication features, configure:
-   
+
    ```env
    NEXTAUTH_URL=https://learn-apt.iiskills.cloud
    NEXTAUTH_SECRET=your-secret-key-here
@@ -286,7 +287,7 @@ The application does not require environment variables for basic operation. Howe
    ```
 
    Generate a secure `NEXTAUTH_SECRET`:
-   
+
    ```bash
    openssl rand -base64 32
    ```
@@ -309,15 +310,19 @@ Before going live, ensure:
 After deployment, verify the following:
 
 1. **Application Accessibility**
+
    ```bash
    curl -I https://learn-apt.iiskills.cloud
    ```
+
    Expected: HTTP 200 OK response
 
 2. **SSL Certificate**
+
    ```bash
    openssl s_client -connect learn-apt.iiskills.cloud:443 -servername learn-apt.iiskills.cloud
    ```
+
    Verify certificate is valid and matches the domain
 
 3. **Application Functionality**
@@ -341,6 +346,7 @@ After deployment, verify the following:
 **Cause**: Application is not running or Nginx cannot connect to it.
 
 **Solution**:
+
 ```bash
 # Check if application is running
 pm2 status
@@ -357,6 +363,7 @@ pm2 logs learn-apt
 **Cause**: DNS changes haven't propagated or are misconfigured.
 
 **Solution**:
+
 ```bash
 # Clear local DNS cache
 sudo systemd-resolve --flush-caches
@@ -373,6 +380,7 @@ nslookup learn-apt.iiskills.cloud
 **Cause**: Certificate not properly installed or expired.
 
 **Solution**:
+
 ```bash
 # Renew certificate
 sudo certbot renew
@@ -389,6 +397,7 @@ sudo certbot renew --force-renewal
 **Cause**: Missing dependencies or Node version mismatch.
 
 **Solution**:
+
 ```bash
 # Clear node_modules and reinstall
 rm -rf node_modules package-lock.json
@@ -406,6 +415,7 @@ npm run build
 **Cause**: Port 3000 is occupied by another process.
 
 **Solution**:
+
 ```bash
 # Find process using port 3000
 sudo lsof -i :3000
@@ -422,10 +432,11 @@ echo "PORT=3001" >> .env.local
 If you encounter issues not covered here:
 
 1. Check application logs:
+
    ```bash
    # For PM2
    pm2 logs learn-apt
-   
+
    # For Nginx
    sudo tail -f /var/log/nginx/error.log
    ```
