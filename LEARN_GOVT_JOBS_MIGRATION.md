@@ -162,6 +162,7 @@ The `lib/supabaseClient.js` file includes:
    - [ ] Test logout functionality
 
 8. **Test Build**
+
    ```bash
    npm run build
    ```

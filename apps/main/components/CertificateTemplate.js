@@ -1,12 +1,20 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "react";
 
 export default function CertificateTemplate({
   userName = "John Doe",
   courseName = "Professional Skills Development",
   certificateNo = "IIPS-2024-0001",
-  completionDate = new Date().toLocaleDateString("en-IN", { year: "numeric", month: "long", day: "numeric" }),
+  completionDate = new Date().toLocaleDateString("en-IN", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  }),
   score = null,
-  issueDate = new Date().toLocaleDateString("en-IN", { year: "numeric", month: "long", day: "numeric" }),
+  issueDate = new Date().toLocaleDateString("en-IN", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  }),
   qrCodeData = null,
   logoPath = "/images/iiskills-logo.png",
 }) {
@@ -14,7 +22,7 @@ export default function CertificateTemplate({
 
   useEffect(() => {
     if (qrCodeData && typeof window !== "undefined") {
-      import("qrcode").then(QRCode => {
+      import("qrcode").then((QRCode) => {
         QRCode.default
           .toDataURL(qrCodeData, { width: 120, margin: 1 })
           .then((url) => setQrCodeSrc(url))
@@ -32,7 +40,7 @@ export default function CertificateTemplate({
         height: "816px",
         padding: "48px",
         position: "relative",
-        fontFamily: "Georgia, serif"
+        fontFamily: "Georgia, serif",
       }}
     >
       {/* Outer Border */}
@@ -43,7 +51,7 @@ export default function CertificateTemplate({
           borderStyle: "double",
           borderWidth: "8px",
           padding: "32px",
-          position: "relative"
+          position: "relative",
         }}
       >
         {/* Decorative Corners */}
@@ -101,7 +109,7 @@ export default function CertificateTemplate({
               style={{ height: "80px", width: "80px", objectFit: "contain" }}
               onError={(e) => {
                 // Fallback if image fails to load
-                e.target.style.display = "none"
+                e.target.style.display = "none";
               }}
             />
           </div>
@@ -111,7 +119,7 @@ export default function CertificateTemplate({
               fontSize: "42px",
               color: "#1e40af",
               letterSpacing: "1px",
-              fontFamily: "Georgia, serif"
+              fontFamily: "Georgia, serif",
             }}
           >
             Certificate of Achievement
@@ -121,7 +129,7 @@ export default function CertificateTemplate({
             style={{
               fontSize: "18px",
               color: "#7c3aed",
-              letterSpacing: "0.5px"
+              letterSpacing: "0.5px",
             }}
           >
             Indian Institute of Professional Skills Development
@@ -153,7 +161,7 @@ export default function CertificateTemplate({
                 color: "#1e40af",
                 borderBottom: "3px solid #d1d5db",
                 fontFamily: "Georgia, serif",
-                minWidth: "400px"
+                minWidth: "400px",
               }}
             >
               {userName}
@@ -170,7 +178,7 @@ export default function CertificateTemplate({
               style={{
                 fontSize: "32px",
                 color: "#7c3aed",
-                fontFamily: "Georgia, serif"
+                fontFamily: "Georgia, serif",
               }}
             >
               {courseName}
@@ -186,10 +194,10 @@ export default function CertificateTemplate({
           <p
             className="italic mt-5"
             style={{
-              fontSize: "15px", 
+              fontSize: "15px",
               color: "#6b7280",
               maxWidth: "700px",
-              margin: "24px auto 0"
+              margin: "24px auto 0",
             }}
           >
             Demonstrating dedication to professional development and mastery of essential skills
@@ -204,14 +212,21 @@ export default function CertificateTemplate({
             style={{ borderTop: "2px solid #e5e7eb", paddingTop: "20px" }}
           >
             <div className="text-left" style={{ flex: 1 }}>
-              <p style={{ fontSize: "13px", color: "#6b7280", marginBottom: "4px" }}>Certificate No.</p>
-              <p className="font-bold" style={{ fontSize: "15px", color: "#1e40af" }}>{certificateNo}</p>
+              <p style={{ fontSize: "13px", color: "#6b7280", marginBottom: "4px" }}>
+                Certificate No.
+              </p>
+              <p className="font-bold" style={{ fontSize: "15px", color: "#1e40af" }}>
+                {certificateNo}
               </p>
             </div>
 
             <div className="text-center" style={{ flex: 1 }}>
-              <p style={{ fontSize: "13px", color: "#6b7280", marginBottom: "4px" }}>Date of Completion</p>
-              <p className="font-bold" style={{ fontSize: "15px", color: "#1e40af" }}>{completionDate}</p>
+              <p style={{ fontSize: "13px", color: "#6b7280", marginBottom: "4px" }}>
+                Date of Completion
+              </p>
+              <p className="font-bold" style={{ fontSize: "15px", color: "#1e40af" }}>
+                {completionDate}
+              </p>
             </div>
 
             {qrCodeSrc && (
@@ -220,15 +235,17 @@ export default function CertificateTemplate({
                   src={qrCodeSrc}
                   alt="Verification QR Code"
                   style={{
-                    width: "80px", 
+                    width: "80px",
                     height: "80px",
                     marginLeft: "auto",
                     border: "2px solid #e5e7eb",
                     padding: "4px",
-                    background: "white"
+                    background: "white",
                   }}
                 />
-                <p style={{ fontSize: "11px", color: "#9ca3af", marginTop: "4px" }}>Verify Certificate</p>
+                <p style={{ fontSize: "11px", color: "#9ca3af", marginTop: "4px" }}>
+                  Verify Certificate
+                </p>
               </div>
             )}
           </div>
@@ -241,7 +258,7 @@ export default function CertificateTemplate({
                 style={{
                   borderTop: "2px solid #374151",
                   width: "200px",
-                  paddingTop: "8px"
+                  paddingTop: "8px",
                 }}
               >
                 <p
@@ -261,7 +278,7 @@ export default function CertificateTemplate({
                 style={{
                   borderTop: "2px solid #374151",
                   width: "200px",
-                  paddingTop: "8px"
+                  paddingTop: "8px",
                 }}
               >
                 <p
@@ -278,9 +295,7 @@ export default function CertificateTemplate({
 
           {/* Issue Date */}
           <div className="text-center mt-4">
-            <p style={{ fontSize: "11px", color: "#9ca3af" }}>
-              Issued on {issueDate}
-            </p>
+            <p style={{ fontSize: "11px", color: "#9ca3af" }}>Issued on {issueDate}</p>
           </div>
         </div>
       </div>
