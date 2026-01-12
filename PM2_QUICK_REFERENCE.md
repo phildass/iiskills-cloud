@@ -80,24 +80,24 @@ pm2 startup
 
 ## Port Assignments
 
-| App | Port |
-|-----|------|
-| Main | 3000 |
-| Learn-Apt | 3001 |
-| Learn-Math | 3002 |
-| Learn-Winning | 3003 |
+| App                | Port |
+| ------------------ | ---- |
+| Main               | 3000 |
+| Learn-Apt          | 3001 |
+| Learn-Math         | 3002 |
+| Learn-Winning      | 3003 |
 | Learn-Data-Science | 3004 |
-| Learn-Management | 3005 |
-| Learn-Leadership | 3006 |
-| Learn-AI | 3007 |
-| Learn-PR | 3008 |
-| Learn-Chemistry | 3009 |
-| Learn-Geography | 3010 |
-| Learn-JEE | 3011 |
-| Learn-NEET | 3012 |
-| Learn-Physics | 3013 |
-| Learn-Govt-Jobs | 3014 |
-| Learn-IAS | 3015 |
+| Learn-Management   | 3005 |
+| Learn-Leadership   | 3006 |
+| Learn-AI           | 3007 |
+| Learn-PR           | 3008 |
+| Learn-Chemistry    | 3009 |
+| Learn-Geography    | 3010 |
+| Learn-JEE          | 3011 |
+| Learn-NEET         | 3012 |
+| Learn-Physics      | 3013 |
+| Learn-Govt-Jobs    | 3014 |
+| Learn-IAS          | 3015 |
 
 ## Documentation
 
@@ -109,11 +109,13 @@ pm2 startup
 ## Troubleshooting
 
 **Configuration not working?**
+
 ```bash
 npm run test-pm2-config
 ```
 
 **Need to update after adding apps?**
+
 ```bash
 npm run generate-pm2-config
 npm run test-pm2-config
@@ -121,12 +123,14 @@ pm2 reload all
 ```
 
 **Port conflicts?**
+
 - Check `PM2_ENTRY_POINTS.md` for assignments
 - Regenerate: `npm run generate-pm2-config`
 
 ## Support
 
 For issues:
+
 1. Run `npm run test-pm2-config` to diagnose
 2. Check documentation in `PM2_AUTO_DETECTION.md`
 3. Review `PM2_ENTRY_POINTS.md` for current state

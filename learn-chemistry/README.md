@@ -123,26 +123,29 @@ This app uses shared Supabase authentication with all other iiskills.cloud apps:
 
 ## Environment Variables
 
-| Variable | Description | Example |
-|----------|-------------|---------|
-| `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL | `https://xxx.supabase.co` |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase anon key | `eyJ...` |
-| `NEXT_PUBLIC_SITE_URL` | App URL | `https://learn-chemistry.iiskills.cloud` |
-| `NEXT_PUBLIC_COOKIE_DOMAIN` | Cookie domain for auth | `.iiskills.cloud` |
+| Variable                        | Description            | Example                                  |
+| ------------------------------- | ---------------------- | ---------------------------------------- |
+| `NEXT_PUBLIC_SUPABASE_URL`      | Supabase project URL   | `https://xxx.supabase.co`                |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase anon key      | `eyJ...`                                 |
+| `NEXT_PUBLIC_SITE_URL`          | App URL                | `https://learn-chemistry.iiskills.cloud` |
+| `NEXT_PUBLIC_COOKIE_DOMAIN`     | Cookie domain for auth | `.iiskills.cloud`                        |
 
 ## Features
 
 ### Landing Page
+
 - Module overview and benefits
 - Call-to-action for registration/login
 - Feature showcase
 
 ### Authentication
+
 - Login and registration pages
 - Shared sessions across all iiskills.cloud subdomains
 - Protected routes for authenticated users
 
 ### Learning Page
+
 - AI-driven chemistry curriculum with 3 levels
 - 7-10 modules per level, 5 lessons per module
 - Test per module for assessment

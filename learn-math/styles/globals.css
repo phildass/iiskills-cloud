@@ -4,11 +4,12 @@
 
 /* Theme colors as CSS variables */
 :root {
-  --color-primary: #0052CC;
-  --color-accent: #C77DDB;
-  --color-neutral: #F8F9FA;
+  --color-primary: #0052cc;
+  --color-accent: #c77ddb;
+  --color-neutral: #f8f9fa;
   --color-charcoal: #24272a;
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+  --font-sans:
+    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Arial", sans-serif;
 }
 
 /* Global resets */

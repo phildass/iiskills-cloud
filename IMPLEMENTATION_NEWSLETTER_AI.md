@@ -28,7 +28,7 @@ This implementation adds a unified newsletter subscription and AI assistant syst
    - Turborepo configuration
    - Shared UI components in `/packages/shared-ui`
    - Main app in `/apps/main`
-   - All learn-* apps remain in root for backward compatibility
+   - All learn-\* apps remain in root for backward compatibility
    - npm workspaces for dependency management
 
 ## 📁 Files Created/Modified
@@ -36,6 +36,7 @@ This implementation adds a unified newsletter subscription and AI assistant syst
 ### New Files
 
 **Shared Components:**
+
 - `/packages/shared-ui/components/NewsletterSignup.js`
 - `/packages/shared-ui/components/AIAssistant.js`
 - `/packages/shared-ui/components/NewsletterNavLink.js`
@@ -45,6 +46,7 @@ This implementation adds a unified newsletter subscription and AI assistant syst
 - `/packages/shared-ui/index.js`
 
 **Copied to Root & All Apps:**
+
 - `/components/shared/NewsletterSignup.js`
 - `/components/shared/AIAssistant.js`
 - `/components/shared/NewsletterNavLink.js`
@@ -52,24 +54,29 @@ This implementation adds a unified newsletter subscription and AI assistant syst
 - (Same files in each `learn-*/` directory)
 
 **API Routes:**
+
 - `/pages/api/newsletter/subscribe.js`
 - `/apps/main/pages/api/newsletter/subscribe.js`
 - `/learn-*/pages/api/newsletter/subscribe.js` (all 15 apps)
 
 **Pages:**
+
 - `/pages/newsletter.js`
 - `/apps/main/pages/newsletter.js`
 - `/learn-*/pages/newsletter.js` (all 15 apps)
 
 **Database:**
+
 - `/supabase/migrations/newsletter_subscribers.sql`
 
 **Documentation:**
+
 - `/NEWSLETTER_AI_ASSISTANT_README.md` - Complete feature documentation
 - `/LEARN_APPS_INTEGRATION_GUIDE.md` - Integration guide for remaining apps
 - `/apps/main/.env.local.example` - Updated with reCAPTCHA keys
 
 **Configuration:**
+
 - `/turbo.json` - Turborepo configuration
 - `/package.json` - Updated with workspaces and scripts
 - `/apps/main/package.json` - Main app package configuration
@@ -78,6 +85,7 @@ This implementation adds a unified newsletter subscription and AI assistant syst
 ### Modified Files
 
 **Integrated Apps:**
+
 - `/pages/_app.js` - Added AI Assistant and Newsletter popup
 - `/components/Navbar.js` - Added Newsletter link
 - `/learn-ai/pages/_app.js` - Full integration (reference implementation)
@@ -104,6 +112,7 @@ This implementation adds a unified newsletter subscription and AI assistant syst
 ### For Developers
 
 1. **Environment Setup:**
+
    ```bash
    # Add to .env.local
    NEXT_PUBLIC_RECAPTCHA_SITE_KEY=your-site-key
@@ -111,6 +120,7 @@ This implementation adds a unified newsletter subscription and AI assistant syst
    ```
 
 2. **Database Setup:**
+
    ```bash
    # Run in Supabase SQL Editor
    cat supabase/migrations/newsletter_subscribers.sql
@@ -136,21 +146,21 @@ This implementation adds a unified newsletter subscription and AI assistant syst
 - ✅ Main app (iiskills.cloud)
 - ✅ learn-ai
 - ✅ learn-math
-- ⏳ learn-apt (components copied, needs _app.js integration)
-- ⏳ learn-chemistry (components copied, needs _app.js integration)
-- ⏳ learn-data-science (components copied, needs _app.js integration)
-- ⏳ learn-geography (components copied, needs _app.js integration)
-- ⏳ learn-govt-jobs (components copied, needs _app.js integration)
-- ⏳ learn-ias (components copied, needs _app.js integration)
-- ⏳ learn-jee (components copied, needs _app.js integration)
-- ⏳ learn-leadership (components copied, needs _app.js integration)
-- ⏳ learn-management (components copied, needs _app.js integration)
-- ⏳ learn-neet (components copied, needs _app.js integration)
-- ⏳ learn-physics (components copied, needs _app.js integration)
-- ⏳ learn-pr (components copied, needs _app.js integration)
-- ⏳ learn-winning (components copied, needs _app.js integration)
+- ⏳ learn-apt (components copied, needs \_app.js integration)
+- ⏳ learn-chemistry (components copied, needs \_app.js integration)
+- ⏳ learn-data-science (components copied, needs \_app.js integration)
+- ⏳ learn-geography (components copied, needs \_app.js integration)
+- ⏳ learn-govt-jobs (components copied, needs \_app.js integration)
+- ⏳ learn-ias (components copied, needs \_app.js integration)
+- ⏳ learn-jee (components copied, needs \_app.js integration)
+- ⏳ learn-leadership (components copied, needs \_app.js integration)
+- ⏳ learn-management (components copied, needs \_app.js integration)
+- ⏳ learn-neet (components copied, needs \_app.js integration)
+- ⏳ learn-physics (components copied, needs \_app.js integration)
+- ⏳ learn-pr (components copied, needs \_app.js integration)
+- ⏳ learn-winning (components copied, needs \_app.js integration)
 
-**Note:** All learn-* apps have the necessary components, API routes, and pages copied. They just need the _app.js file updated following the integration guide.
+**Note:** All learn-\* apps have the necessary components, API routes, and pages copied. They just need the \_app.js file updated following the integration guide.
 
 ## 🔧 Required Setup Steps
 
@@ -169,6 +179,7 @@ This implementation adds a unified newsletter subscription and AI assistant syst
 ### 2. Supabase Database
 
 Run the SQL migration in Supabase:
+
 ```sql
 -- Copy content from supabase/migrations/newsletter_subscribers.sql
 -- Paste in Supabase SQL Editor
@@ -176,6 +187,7 @@ Run the SQL migration in Supabase:
 ```
 
 This creates:
+
 - `newsletter_subscribers` table
 - Indexes for performance
 - Row Level Security policies
@@ -183,7 +195,7 @@ This creates:
 
 ### 3. Integration (Remaining Apps)
 
-Follow `LEARN_APPS_INTEGRATION_GUIDE.md` to integrate features into the remaining 13 learn-* apps.
+Follow `LEARN_APPS_INTEGRATION_GUIDE.md` to integrate features into the remaining 13 learn-\* apps.
 
 ## 📊 Technical Details
 
@@ -249,10 +261,12 @@ Client: Display message & update localStorage
 ## 📱 Cross-Subdomain Consistency
 
 All features work identically across:
+
 - Main: `iiskills.cloud`
 - Subdomains: `learn-ai.iiskills.cloud`, `learn-math.iiskills.cloud`, etc.
 
 Shared components ensure:
+
 - ✅ Consistent styling
 - ✅ Same functionality
 - ✅ Unified user experience
@@ -266,13 +280,14 @@ Shared components ensure:
 
 3. **Newsletter Email Sending:** Backend captures emails but doesn't send confirmation emails. Future: Add email service integration (SendGrid, AWS SES, etc.).
 
-4. **Remaining Apps:** 13 learn-* apps need _app.js integration (guide provided).
+4. **Remaining Apps:** 13 learn-\* apps need \_app.js integration (guide provided).
 
 5. **Testing:** Manual testing required after environment setup (reCAPTCHA keys, Supabase migration).
 
 ## 📞 Support
 
 For questions or issues:
+
 - Review: `NEWSLETTER_AI_ASSISTANT_README.md`
 - Integration: `LEARN_APPS_INTEGRATION_GUIDE.md`
 - Contact: info@iiskills.cloud

@@ -7,6 +7,7 @@ This document describes the implementation of a registration-first workflow acro
 ## Problem Statement
 
 Update the onboarding process for all subdomains/folders in the phildass/iiskills-cloud repository as follows:
+
 1. The 'Install App' button must allow anyone to download the app
 2. On first open, the user is required to register using a registration form matching the current iiskills.cloud form
 3. Users may proceed to the app only after registration is completed
@@ -17,6 +18,7 @@ Update the onboarding process for all subdomains/folders in the phildass/iiskill
 ### Architecture
 
 The solution leverages existing infrastructure:
+
 - **UniversalRegister** component: Shared registration form used across all apps
 - **UniversalLogin** component: Shared login form used across all apps
 - **UserProtectedRoute**: Guards protected pages and redirects unauthenticated users
@@ -30,6 +32,7 @@ The solution leverages existing infrastructure:
 Created two new pages in the main app:
 
 **`/pages/register.js`**
+
 - Uses UniversalRegister component with `simplified={false}`
 - Shows full registration form with all fields:
   - First Name, Last Name
@@ -41,6 +44,7 @@ Created two new pages in the main app:
 - Supports Google OAuth
 
 **`/pages/login.js`**
+
 - Uses UniversalLogin component
 - Supports three authentication methods:
   - Magic Link (passwordless)
@@ -52,11 +56,13 @@ Created two new pages in the main app:
 #### 2. Protected Route Updates
 
 **UserProtectedRoute (`components/UserProtectedRoute.js`)**
+
 - Changed redirect from `/login` to `/register`
 - Implements registration-first approach
 - Stores redirect path for post-registration navigation
 
 **PaidUserProtectedRoute (`components/PaidUserProtectedRoute.js`)**
+
 - Reordered buttons to prioritize registration
 - "Register New Account" button appears first
 - "Log In" button appears second with clear label
@@ -65,6 +71,7 @@ Created two new pages in the main app:
 #### 3. Universal Register Enhancement
 
 **UniversalRegister (`components/shared/UniversalRegister.js`)**
+
 - Added detection of redirect query parameter
 - Shows blue notice box when user is redirected from protected content
 - Notice text: "📝 Registration Required: Please create an account to access this content. You only need to register once to access all iiskills.cloud apps."
@@ -74,15 +81,18 @@ Created two new pages in the main app:
 Updated all 14 subdomain landing pages with consistent messaging:
 
 **Visual Enhancement:**
+
 - Added "📝 Registration Required" notice box
 - Styled with semi-transparent white background and border
 - Appears only for non-authenticated users
 
 **Button Updates:**
+
 - Changed "Get Started" → "Register Free Account"
 - Changed "Sign In" → "Already Have Account? Sign In"
 
 **Apps Updated:**
+
 1. learn-ai
 2. learn-chemistry
 3. learn-math
@@ -101,12 +111,14 @@ Updated all 14 subdomain landing pages with consistent messaging:
 #### 5. Documentation Updates
 
 **ONBOARDING.md**
+
 - Added "Registration-First Workflow" section
 - Detailed step-by-step registration process
 - Explained required vs optional fields
 - Clarified that registration is required before accessing content
 
 **README.md**
+
 - Updated "Authentication" section title to "Registration-First Universal Authentication System"
 - Added "Important: Registration Required Before Access" notice
 - Documented complete registration-first workflow
@@ -179,29 +191,33 @@ Updated all 14 subdomain landing pages with consistent messaging:
 ## Registration Forms
 
 ### Main Site (iiskills.cloud)
-Full registration form with required fields:
-- First Name *
-- Last Name *
-- Gender *
-- Date of Birth *
-- Education Level *
-- Location/City *
-- Country * (India/Others)
-- State * (if India)
-- District * (if India)
-- Email Address *
-- Password *
-- Confirm Password *
 
-### Subdomains (learn-*.iiskills.cloud)
+Full registration form with required fields:
+
+- First Name \*
+- Last Name \*
+- Gender \*
+- Date of Birth \*
+- Education Level \*
+- Location/City \*
+- Country \* (India/Others)
+- State \* (if India)
+- District \* (if India)
+- Email Address \*
+- Password \*
+- Confirm Password \*
+
+### Subdomains (learn-\*.iiskills.cloud)
+
 Simplified registration form with required fields:
-- First Name *
-- Last Name *
+
+- First Name \*
+- Last Name \*
 - Age (optional)
 - Qualification (optional)
-- Email Address *
-- Password *
-- Confirm Password *
+- Email Address \*
+- Password \*
+- Confirm Password \*
 
 **Note:** Both forms create the same account in Supabase. Users can complete their profile later on the main site.
 

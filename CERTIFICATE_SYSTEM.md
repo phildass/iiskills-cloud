@@ -7,6 +7,7 @@ This professional certificate generation system provides a complete solution for
 ## Features
 
 ✅ **Professional Certificate Design**
+
 - Elegant double border with decorative corners
 - Organization logo and branding
 - Professional typography using Georgia serif font
@@ -17,17 +18,20 @@ This professional certificate generation system provides a complete solution for
 - Optional verification seal/badge
 
 ✅ **PDF Generation**
+
 - Client-side PDF generation using jsPDF and html2canvas
 - High-quality output (2x scale for sharp rendering)
 - Landscape format optimized for certificates
 - Automatic filename generation based on user and course name
 
 ✅ **Certificate Verification**
+
 - QR code on each certificate for instant verification
 - Dedicated verification page at `/verify/[certificateNo]`
 - Display of certificate details for verified certificates
 
 ✅ **User Experience**
+
 - Certificate preview before download
 - Multiple certificates per user supported
 - Easy download with single click
@@ -73,53 +77,53 @@ iiskills-cloud/
 #### Generating a Certificate
 
 ```javascript
-import CertificateTemplate from '../components/CertificateTemplate'
-import { generateCertificatePDF, downloadPDF } from '../utils/certificateGenerator'
+import CertificateTemplate from "../components/CertificateTemplate";
+import { generateCertificatePDF, downloadPDF } from "../utils/certificateGenerator";
 
 // In your component
 const handleGenerateCertificate = async () => {
-  const element = certificateRef.current
-  
+  const element = certificateRef.current;
+
   const pdf = await generateCertificatePDF(element, {
     userName: "John Doe",
-    courseName: "Digital Marketing"
-  })
-  
-  downloadPDF(pdf, "certificate_john_doe_digital_marketing")
-}
+    courseName: "Digital Marketing",
+  });
+
+  downloadPDF(pdf, "certificate_john_doe_digital_marketing");
+};
 ```
 
 #### Using the API Endpoint
 
 ```javascript
 // POST /api/generate-certificate
-const response = await fetch('/api/generate-certificate', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
+const response = await fetch("/api/generate-certificate", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
   body: JSON.stringify({
     userId: 1001,
     courseId: 5,
     userName: "John Doe",
     courseName: "Digital Marketing",
-    score: 85
-  })
-})
+    score: 85,
+  }),
+});
 
-const { data } = await response.json()
-console.log(data.certificateNo) // IIPS-202412-0051001
+const { data } = await response.json();
+console.log(data.certificateNo); // IIPS-202412-0051001
 ```
 
 #### Certificate Template Props
 
 ```javascript
 <CertificateTemplate
-  userName="John Doe"                    // Required
-  courseName="Digital Marketing"         // Required
-  certificateNo="IIPS-202412-0051001"   // Required
-  completionDate="22 December, 2024"    // Required
-  score={85}                            // Optional
-  issueDate="22 December, 2024"         // Optional
-  qrCodeData="https://..."              // Optional
+  userName="John Doe" // Required
+  courseName="Digital Marketing" // Required
+  certificateNo="IIPS-202412-0051001" // Required
+  completionDate="22 December, 2024" // Required
+  score={85} // Optional
+  issueDate="22 December, 2024" // Optional
+  qrCodeData="https://..." // Optional
 />
 ```
 
@@ -130,10 +134,11 @@ console.log(data.certificateNo) // IIPS-202412-0051001
 When a user completes a course with a passing score:
 
 1. **Automatic Certificate Generation**
+
    ```javascript
    // After test submission, if score >= 50%
    if (userScore >= 50) {
-     const certificateData = generateCertificateData(userData, courseData)
+     const certificateData = generateCertificateData(userData, courseData);
      // Save to database
      // Trigger notification
    }
@@ -165,6 +170,7 @@ Format: `IIPS-YYYYMM-CCCUUUU`
 - `UUUU`: User ID (padded to 4 digits)
 
 Example: `IIPS-202412-0051001`
+
 - Issued in December 2024
 - Course ID: 5
 - User ID: 1001
@@ -177,10 +183,10 @@ Edit the certificate template in `components/CertificateTemplate.js`:
 
 ```javascript
 // Primary color (blue)
-borderColor: '#1e40af'  // Change to your brand color
+borderColor: "#1e40af"; // Change to your brand color
 
 // Secondary color (purple)
-color: '#7c3aed'        // Change to your accent color
+color: "#7c3aed"; // Change to your accent color
 ```
 
 ### Changing Signatures
@@ -198,14 +204,14 @@ Update the signature section in the template:
 Add new props to the CertificateTemplate component and display them:
 
 ```javascript
-export default function CertificateTemplate({ 
+export default function CertificateTemplate({
   userName,
   courseName,
   // ... existing props
-  instructorName,  // New field
+  instructorName, // New field
 }) {
   // Display in template
-  <p>Instructor: {instructorName}</p>
+  <p>Instructor: {instructorName}</p>;
 }
 ```
 
@@ -222,12 +228,14 @@ export default function CertificateTemplate({
 ## Future Enhancements
 
 ### Phase 1 (Current)
+
 - ✅ Certificate template design
 - ✅ PDF generation (client-side)
 - ✅ Download functionality
 - ✅ Verification page with QR code
 
 ### Phase 2 (Recommended)
+
 - [ ] Database integration for certificate storage
 - [ ] Server-side PDF generation with Puppeteer
 - [ ] Cloud storage for generated PDFs (AWS S3, Cloudinary, etc.)
@@ -235,6 +243,7 @@ export default function CertificateTemplate({
 - [ ] Admin dashboard for certificate management
 
 ### Phase 3 (Advanced)
+
 - [ ] Batch certificate generation
 - [ ] Certificate templates (multiple designs)
 - [ ] Digital signatures
@@ -262,15 +271,18 @@ export default function CertificateTemplate({
 ### PDF Generation Issues
 
 **Problem**: PDF is blank or incomplete
+
 - **Solution**: Ensure images are loaded before generating PDF
 - Check that the certificate template has proper dimensions
 - Verify html2canvas options (scale, useCORS)
 
 **Problem**: Poor PDF quality
+
 - **Solution**: Increase the `scale` option in `html2canvas`
 - Use higher resolution images for logo
 
 **Problem**: QR code not displaying
+
 - **Solution**: Check that qrcode package is installed
 - Verify QR code data is valid URL
 - Check browser console for errors
@@ -278,6 +290,7 @@ export default function CertificateTemplate({
 ### Verification Issues
 
 **Problem**: Verification page shows "Not Found"
+
 - **Solution**: Check certificate number format
 - Verify dynamic routing is working (`[certificateNo].js`)
 - In production, ensure database query is correct
@@ -293,6 +306,7 @@ export default function CertificateTemplate({
 ## Support
 
 For questions or issues:
+
 - Email: info@iiskills.cloud
 - Documentation: This file
 - Repository: Check for updates and bug fixes

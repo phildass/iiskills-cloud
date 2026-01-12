@@ -33,26 +33,28 @@ The learn-apt application now uses Supabase for authentication, **sharing the sa
 ### Step 2: Configure Environment Variables
 
 1. Create a `.env.local` file in the project root:
+
    ```bash
    cp .env.example .env.local
    ```
 
 2. Update `.env.local` with the Supabase credentials:
+
    ```env
    # Supabase Configuration (REQUIRED)
    NEXT_PUBLIC_SUPABASE_URL=https://octgncmruhsbrxpxrkzl.supabase.co
    NEXT_PUBLIC_SUPABASE_ANON_KEY=your-actual-anon-key-here
-   
+
    # Site URL
    # Development
    NEXT_PUBLIC_SITE_URL=http://localhost:3000
    # Production
    # NEXT_PUBLIC_SITE_URL=https://learn-apt.iiskills.cloud
-   
+
    # Cross-subdomain authentication
    NEXT_PUBLIC_MAIN_DOMAIN=iiskills.cloud
    NEXT_PUBLIC_COOKIE_DOMAIN=.iiskills.cloud
-   
+
    # Optional: Admin emails (comma-separated)
    # NEXT_PUBLIC_ADMIN_EMAILS=admin@iiskills.cloud,phil@iiskills.cloud
    ```
@@ -87,6 +89,7 @@ src/
 #### 1. Supabase Client (`src/lib/supabaseClient.ts`)
 
 Provides:
+
 - `supabase`: Configured Supabase client instance
 - `getCurrentUser()`: Get the currently authenticated user
 - `signInWithEmail(email, password)`: Sign in with credentials
@@ -97,6 +100,7 @@ Provides:
 #### 2. Auth Context (`src/contexts/AuthContext.tsx`)
 
 Provides React context for authentication state:
+
 - `user`: Current user object (or null)
 - `isAuthenticated`: Boolean indicating if user is logged in
 - `isAdmin`: Boolean indicating if user has admin role
@@ -135,13 +139,15 @@ Updated to use email/password authentication instead of a hardcoded password.
 ### Admin Role Detection
 
 Admins are identified by:
+
 1. **User metadata**: `user.user_metadata.role === 'admin'`
 2. **Admin email list**: Email is in `NEXT_PUBLIC_ADMIN_EMAILS` environment variable
 
 To grant admin access:
+
 - **Option 1**: Update user metadata in Supabase dashboard:
   ```sql
-  UPDATE auth.users 
+  UPDATE auth.users
   SET raw_user_meta_data = raw_user_meta_data || '{"role": "admin"}'::jsonb
   WHERE email = 'admin@example.com';
   ```
@@ -150,35 +156,35 @@ To grant admin access:
 ### Programmatic Usage
 
 ```typescript
-import { useAuth } from '@/contexts/AuthContext'
+import { useAuth } from "@/contexts/AuthContext";
 
 function MyComponent() {
-  const { user, isAuthenticated, isAdmin, login, logout } = useAuth()
-  
+  const { user, isAuthenticated, isAdmin, login, logout } = useAuth();
+
   // Check if user is logged in
   if (isAuthenticated) {
-    console.log('User:', user.email)
+    console.log("User:", user.email);
   }
-  
+
   // Check if user is admin
   if (isAdmin) {
-    console.log('User has admin privileges')
+    console.log("User has admin privileges");
   }
-  
+
   // Login
   const handleLogin = async () => {
-    const result = await login(email, password)
+    const result = await login(email, password);
     if (result.success) {
-      console.log('Login successful')
+      console.log("Login successful");
     } else {
-      console.error('Login failed:', result.error)
+      console.error("Login failed:", result.error);
     }
-  }
-  
+  };
+
   // Logout
   const handleLogout = async () => {
-    await logout()
-  }
+    await logout();
+  };
 }
 ```
 
@@ -187,6 +193,7 @@ function MyComponent() {
 ### Local Development Testing
 
 1. Start the development server:
+
    ```bash
    npm run dev
    ```
@@ -209,6 +216,7 @@ function MyComponent() {
 1. Deploy to production (Vercel or self-hosted)
 
 2. Update `.env.local` or environment variables with production values:
+
    ```env
    NEXT_PUBLIC_SITE_URL=https://learn-apt.iiskills.cloud
    NEXT_PUBLIC_COOKIE_DOMAIN=.iiskills.cloud
@@ -229,6 +237,7 @@ If you have multiple subdomains (e.g., `iiskills.cloud`, `learn-apt.iiskills.clo
 3. Verify session is maintained
 
 **Note**: This requires:
+
 - All subdomains use the same Supabase project
 - `NEXT_PUBLIC_COOKIE_DOMAIN=.iiskills.cloud` is set correctly
 - All apps are on HTTPS in production
@@ -288,6 +297,7 @@ USING (
 **Cause**: Incorrect or missing Supabase credentials
 
 **Solution**:
+
 1. Verify `.env.local` exists and has correct values
 2. Check that values match the main iiskills-cloud project
 3. Restart development server after changing `.env.local`
@@ -297,6 +307,7 @@ USING (
 **Cause**: User doesn't exist or password is incorrect
 
 **Solution**:
+
 1. Verify user exists in Supabase dashboard (Authentication → Users)
 2. Check if email is confirmed (if email confirmation is enabled)
 3. Try resetting password through Supabase
@@ -307,6 +318,7 @@ USING (
 **Cause**: localStorage issues or cookie configuration problems
 
 **Solution**:
+
 1. Clear browser localStorage and cookies
 2. Check browser console for errors
 3. Verify `NEXT_PUBLIC_COOKIE_DOMAIN` is set correctly (`.iiskills.cloud` with leading dot)
@@ -317,11 +329,12 @@ USING (
 **Cause**: User not configured as admin
 
 **Solution**:
+
 1. Verify user metadata in Supabase dashboard
 2. Check `NEXT_PUBLIC_ADMIN_EMAILS` environment variable
 3. Update user metadata:
    ```sql
-   UPDATE auth.users 
+   UPDATE auth.users
    SET raw_user_meta_data = raw_user_meta_data || '{"role": "admin"}'::jsonb
    WHERE email = 'your-email@example.com';
    ```
@@ -331,6 +344,7 @@ USING (
 **Cause**: Cookie domain misconfigured or HTTPS not used
 
 **Solution**:
+
 1. Verify `NEXT_PUBLIC_COOKIE_DOMAIN=.iiskills.cloud` (note the leading dot)
 2. Ensure all subdomains use HTTPS in production
 3. Check that all apps use the same Supabase project
@@ -374,30 +388,33 @@ No data migration is required as the previous auth system didn't store user data
 ### Main Repository
 
 For the shared Supabase project configuration, refer to:
+
 - Main repository: [phildass/iiskills-cloud](https://github.com/phildass/iiskills-cloud)
 - Supabase setup guide: `SUPABASE_AUTH_SETUP.md` in main repository
 
 ### Contact
 
 For issues or questions:
+
 - Check this guide and the main repository documentation
 - Review Supabase dashboard for user and configuration issues
 - Contact: info@iiskills.cloud
 
 ## Appendix: Environment Variables Reference
 
-| Variable | Required | Description | Example |
-|----------|----------|-------------|---------|
-| `NEXT_PUBLIC_SUPABASE_URL` | Yes | Supabase project URL | `https://octgncmruhsbrxpxrkzl.supabase.co` |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Yes | Supabase anon/public key | `eyJhbGci...` |
-| `NEXT_PUBLIC_SITE_URL` | Yes | Application URL | `http://localhost:3000` (dev)<br/>`https://learn-apt.iiskills.cloud` (prod) |
-| `NEXT_PUBLIC_MAIN_DOMAIN` | No | Main domain for cookies | `iiskills.cloud` |
-| `NEXT_PUBLIC_COOKIE_DOMAIN` | No | Cookie domain for cross-subdomain auth | `.iiskills.cloud` |
-| `NEXT_PUBLIC_ADMIN_EMAILS` | No | Comma-separated admin emails | `admin@iiskills.cloud,phil@iiskills.cloud` |
+| Variable                        | Required | Description                            | Example                                                                     |
+| ------------------------------- | -------- | -------------------------------------- | --------------------------------------------------------------------------- |
+| `NEXT_PUBLIC_SUPABASE_URL`      | Yes      | Supabase project URL                   | `https://octgncmruhsbrxpxrkzl.supabase.co`                                  |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Yes      | Supabase anon/public key               | `eyJhbGci...`                                                               |
+| `NEXT_PUBLIC_SITE_URL`          | Yes      | Application URL                        | `http://localhost:3000` (dev)<br/>`https://learn-apt.iiskills.cloud` (prod) |
+| `NEXT_PUBLIC_MAIN_DOMAIN`       | No       | Main domain for cookies                | `iiskills.cloud`                                                            |
+| `NEXT_PUBLIC_COOKIE_DOMAIN`     | No       | Cookie domain for cross-subdomain auth | `.iiskills.cloud`                                                           |
+| `NEXT_PUBLIC_ADMIN_EMAILS`      | No       | Comma-separated admin emails           | `admin@iiskills.cloud,phil@iiskills.cloud`                                  |
 
 ## Summary
 
 ✅ **Supabase integration complete**
+
 - Uses the same Supabase project as iiskills-cloud
 - Email/password authentication implemented
 - Admin role detection configured
@@ -406,12 +423,14 @@ For issues or questions:
 - Documentation provided
 
 🔐 **Security**:
+
 - Environment variables properly configured
 - .env.local excluded from git
 - Secure cookie settings for production
 - Admin access controlled
 
 📚 **Documentation**:
+
 - Setup instructions provided
 - Usage examples included
 - Troubleshooting guide available

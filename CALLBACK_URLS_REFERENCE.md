@@ -19,11 +19,13 @@ https://YOUR-PROJECT-ID.supabase.co/auth/v1/callback
 **Important**: Replace `YOUR-PROJECT-ID` with your actual Supabase project ID.
 
 **How to find your Supabase project ID**:
+
 1. Go to Supabase Dashboard → Settings → API
 2. Look at your Project URL: `https://[PROJECT-ID].supabase.co`
 3. The `[PROJECT-ID]` is what you need
 
 **Example**: If your Supabase URL is `https://abcxyz123.supabase.co`, use:
+
 ```
 https://abcxyz123.supabase.co/auth/v1/callback
 ```
@@ -35,6 +37,7 @@ https://abcxyz123.supabase.co/auth/v1/callback
 Add ALL of these to **Google Cloud Console → Credentials → OAuth 2.0 Client → Authorized JavaScript origins**:
 
 #### Development (localhost)
+
 ```
 http://localhost:3000
 http://localhost:3001
@@ -44,11 +47,13 @@ http://localhost:3015
 ```
 
 #### Production - Main Domain
+
 ```
 https://iiskills.cloud
 ```
 
 #### Production - All Learning Subdomains
+
 ```
 https://learn-ai.iiskills.cloud
 https://learn-apt.iiskills.cloud
@@ -76,6 +81,7 @@ https://learn-winning.iiskills.cloud
 Add ALL of these to **Supabase Dashboard → Authentication → URL Configuration → Redirect URLs**:
 
 #### Development (localhost)
+
 ```
 http://localhost:3000/**
 http://localhost:3001/**
@@ -85,11 +91,13 @@ http://localhost:3015/**
 ```
 
 #### Production - Main Domain
+
 ```
 https://iiskills.cloud/**
 ```
 
 #### Production - All Learning Subdomains
+
 ```
 https://learn-ai.iiskills.cloud/**
 https://learn-apt.iiskills.cloud/**
@@ -116,15 +124,15 @@ https://learn-winning.iiskills.cloud/**
 
 Each subdomain uses a specific port for local development:
 
-| App/Subdomain | Port | Local URL |
-|---------------|------|-----------|
-| Main site | 3000 | http://localhost:3000 |
-| learn-apt | 3001 | http://localhost:3001 |
-| learn-winning | 3003 | http://localhost:3003 |
-| learn-neet | 3009 | http://localhost:3009 |
-| learn-jee | 3009 | http://localhost:3009 |
+| App/Subdomain   | Port | Local URL             |
+| --------------- | ---- | --------------------- |
+| Main site       | 3000 | http://localhost:3000 |
+| learn-apt       | 3001 | http://localhost:3001 |
+| learn-winning   | 3003 | http://localhost:3003 |
+| learn-neet      | 3009 | http://localhost:3009 |
+| learn-jee       | 3009 | http://localhost:3009 |
 | learn-govt-jobs | 3014 | http://localhost:3014 |
-| learn-ias | 3015 | http://localhost:3015 |
+| learn-ias       | 3015 | http://localhost:3015 |
 
 **Note**: Adjust the localhost ports in the JavaScript origins based on which apps you're actively developing.
 
@@ -135,6 +143,7 @@ Each subdomain uses a specific port for local development:
 Use this checklist after configuration:
 
 ### Google Cloud Console
+
 - [ ] OAuth 2.0 Client ID created (Web application type)
 - [ ] Supabase callback URL added to Authorized redirect URIs
 - [ ] All localhost origins added to Authorized JavaScript origins
@@ -143,6 +152,7 @@ Use this checklist after configuration:
 - [ ] Client ID and Secret copied
 
 ### Supabase Dashboard
+
 - [ ] Google provider enabled (Authentication → Providers → Google)
 - [ ] Client ID pasted from Google Cloud Console
 - [ ] Client Secret pasted from Google Cloud Console
@@ -151,6 +161,7 @@ Use this checklist after configuration:
 - [ ] Site URL configured (http://localhost:3000 for dev, https://iiskills.cloud for prod)
 
 ### Environment Configuration
+
 - [ ] `.env.local` exists in root directory
 - [ ] `NEXT_PUBLIC_SUPABASE_URL` set correctly
 - [ ] `NEXT_PUBLIC_SUPABASE_ANON_KEY` set correctly
@@ -158,6 +169,7 @@ Use this checklist after configuration:
 - [ ] Each subdomain has its own `.env.local` with same Supabase credentials
 
 ### Code Verification
+
 - [ ] Run `./google-oauth-check.sh` to verify code configuration
 - [ ] `signInWithGoogle` function exists in lib/supabaseClient.js
 - [ ] `UniversalLogin` component imports and uses `signInWithGoogle`
@@ -168,7 +180,9 @@ Use this checklist after configuration:
 ## 🧪 Testing Procedure
 
 ### Local Testing
+
 1. Start development server:
+
    ```bash
    npm run dev
    ```
@@ -189,6 +203,7 @@ Use this checklist after configuration:
    - User should still be logged in
 
 ### Production Testing
+
 1. Deploy all environment variables to production
 
 2. Visit `https://iiskills.cloud/login`
@@ -214,26 +229,32 @@ Use this checklist after configuration:
 ## ❌ Common Mistakes
 
 ### 1. Missing `/auth/v1/callback` in redirect URI
+
 ❌ Wrong: `https://abcxyz123.supabase.co`
 ✅ Correct: `https://abcxyz123.supabase.co/auth/v1/callback`
 
 ### 2. Using http:// for production Supabase callback
+
 ❌ Wrong: `http://abcxyz123.supabase.co/auth/v1/callback`
 ✅ Correct: `https://abcxyz123.supabase.co/auth/v1/callback`
 
 ### 3. Forgetting wildcard in Supabase redirect URLs
+
 ❌ Wrong: `https://iiskills.cloud`
 ✅ Correct: `https://iiskills.cloud/**`
 
 ### 4. Different Supabase projects for different apps
+
 ❌ Wrong: Main app uses project A, learn-neet uses project B
 ✅ Correct: All apps use the same Supabase project
 
 ### 5. Missing domains in JavaScript origins
+
 ❌ Wrong: Only adding main domain
 ✅ Correct: Adding ALL subdomains where Google OAuth will be used
 
 ### 6. Not setting cookie domain for production
+
 ❌ Wrong: `NEXT_PUBLIC_COOKIE_DOMAIN=` (empty in production)
 ✅ Correct: `NEXT_PUBLIC_COOKIE_DOMAIN=.iiskills.cloud` (with leading dot)
 
@@ -263,6 +284,7 @@ When adding a new subdomain to iiskills.cloud:
 If Google OAuth still doesn't work after configuring all URLs:
 
 1. Run verification script:
+
    ```bash
    ./google-oauth-check.sh
    ```
@@ -285,18 +307,22 @@ If Google OAuth still doesn't work after configuring all URLs:
 ## 📝 Summary
 
 **For Google Cloud Console**:
+
 - 1 Supabase callback URL in Authorized redirect URIs
 - 21 JavaScript origins (5 localhost + 16 production)
 
 **For Supabase Dashboard**:
+
 - 21 redirect URLs (5 localhost + 16 production, all with `/**` suffix)
 - Google provider enabled with Client ID and Secret
 
 **For Environment Variables**:
+
 - Same Supabase URL and anon key across all apps
 - Cookie domain set to `.iiskills.cloud` for production
 
 **Verification**:
+
 - Run `./google-oauth-check.sh` to verify code
 - Test on localhost first, then production
 - Verify session persists across subdomains
@@ -305,7 +331,8 @@ If Google OAuth still doesn't work after configuring all URLs:
 
 **Document Version**: 1.0  
 **Maintained by**: iiskills.cloud Development Team  
-**Related Documents**: 
+**Related Documents**:
+
 - [GOOGLE_OAUTH_TROUBLESHOOTING.md](GOOGLE_OAUTH_TROUBLESHOOTING.md)
 - [SUPABASE_AUTH_SETUP.md](SUPABASE_AUTH_SETUP.md)
 - [AUTHENTICATION_ARCHITECTURE.md](AUTHENTICATION_ARCHITECTURE.md)

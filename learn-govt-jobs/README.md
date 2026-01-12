@@ -27,7 +27,7 @@ Learn Government Jobs is a subdomain application of iiskills.cloud, providing st
 
 ### Prerequisites
 
-- Node.js 18+ 
+- Node.js 18+
 - npm or yarn
 
 ### Installation
@@ -102,13 +102,17 @@ learn-govt-jobs/
 ## Deployment
 
 ### Production URL
+
 `https://learn-govt-jobs.iiskills.cloud`
 
 ### DNS Configuration
+
 Point `learn-govt-jobs.iiskills.cloud` to your hosting service.
 
 ### Environment
+
 Set production environment variables:
+
 - `NEXT_PUBLIC_SITE_URL=https://learn-govt-jobs.iiskills.cloud`
 - `NEXT_PUBLIC_COOKIE_DOMAIN=.iiskills.cloud`
 

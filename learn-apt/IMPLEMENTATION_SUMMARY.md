@@ -62,13 +62,13 @@ The subdomain registry (`/src/config/subdomains.ts`) includes:
 
 ```typescript
 interface SubdomainConfig {
-  id: string;              // Unique identifier
-  name: string;            // Display name
-  url: string;             // Full subdomain URL
-  description: string;     // Purpose description
-  icon: string;            // Lucide icon name
+  id: string; // Unique identifier
+  name: string; // Display name
+  url: string; // Full subdomain URL
+  description: string; // Purpose description
+  icon: string; // Lucide icon name
   status: "active" | "development" | "maintenance";
-  adminPath: string;       // Admin area path
+  adminPath: string; // Admin area path
   category: "learning" | "admin" | "content" | "analytics";
 }
 ```
@@ -121,6 +121,7 @@ The Subdomains tab is now available in the main admin panel at `/admin`:
 ![Admin Subdomains Tab](https://github.com/user-attachments/assets/b31fb558-a7a6-42f2-917a-7df6c66e0ef1)
 
 Features shown:
+
 - Clear overview of the central admin dashboard
 - Description of functionality
 - Prominent "Open Central Admin Dashboard" button
@@ -134,6 +135,7 @@ The full central admin dashboard is available at `/admin/subdomains`:
 ![Central Admin Dashboard](https://github.com/user-attachments/assets/27949e0d-6598-4236-8c62-11f77096de9f)
 
 Features shown:
+
 - Statistics cards with counts
 - Category filter buttons
 - Subdomain cards with all information

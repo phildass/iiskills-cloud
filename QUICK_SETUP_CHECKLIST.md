@@ -36,6 +36,7 @@ Follow this checklist to get the Newsletter and AI Assistant system working.
 Update `.env.local` in the following locations:
 
 #### Root Directory
+
 ```bash
 cd /home/runner/work/iiskills-cloud/iiskills-cloud
 cp .env.local.example .env.local
@@ -43,6 +44,7 @@ nano .env.local  # or use your preferred editor
 ```
 
 Add these values:
+
 ```bash
 # Existing Supabase credentials
 NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
@@ -53,9 +55,10 @@ NEXT_PUBLIC_RECAPTCHA_SITE_KEY=your-recaptcha-site-key
 RECAPTCHA_SECRET_KEY=your-recaptcha-secret-key
 ```
 
-#### Each learn-* Directory (15 apps)
+#### Each learn-\* Directory (15 apps)
 
 You can use this script to copy:
+
 ```bash
 for dir in learn-*/; do
   cp .env.local "$dir/.env.local"
@@ -64,6 +67,7 @@ done
 ```
 
 Or manually update each:
+
 - learn-ai/.env.local
 - learn-apt/.env.local
 - learn-chemistry/.env.local
@@ -81,7 +85,7 @@ Or manually update each:
 - learn-winning/.env.local
 
 - [ ] Root .env.local updated
-- [ ] All learn-* .env.local files updated
+- [ ] All learn-\* .env.local files updated
 
 ## Step 2: Database Setup (2 minutes)
 
@@ -98,6 +102,7 @@ Or manually update each:
 9. You should see success messages
 
 Expected output:
+
 ```
 NOTICE:  Newsletter subscribers table created successfully!
 NOTICE:  You can now start collecting newsletter subscriptions.
@@ -122,7 +127,8 @@ NOTICE:  You can now start collecting newsletter subscriptions.
 
 ## Step 3: Integrate Remaining Apps (Optional, ~5 min per app)
 
-The following apps have components but need _app.js integration:
+The following apps have components but need \_app.js integration:
+
 - learn-apt, learn-chemistry, learn-data-science, learn-geography
 - learn-govt-jobs, learn-ias, learn-jee, learn-leadership
 - learn-management, learn-neet, learn-physics, learn-pr, learn-winning
@@ -217,30 +223,36 @@ npm run dev
 Test on multiple apps to ensure consistency:
 
 ### Main App
+
 ```bash
 npm run dev
 # Visit http://localhost:3000
 ```
+
 - [ ] Newsletter popup works
 - [ ] AI Assistant works
 - [ ] Newsletter page works
 
 ### Learn-AI
+
 ```bash
 cd learn-ai
 npm run dev
 # Visit http://localhost:3007
 ```
+
 - [ ] Newsletter popup works
 - [ ] AI Assistant works (mentions "artificial intelligence")
 - [ ] Newsletter page works
 
 ### Learn-Math
+
 ```bash
 cd learn-math
 npm run dev
 # Visit http://localhost:3002
 ```
+
 - [ ] Newsletter popup works
 - [ ] AI Assistant works (mentions "mathematics")
 - [ ] Newsletter page works
@@ -248,22 +260,26 @@ npm run dev
 ## Troubleshooting
 
 ### Newsletter popup not showing
+
 - Clear localStorage and refresh
 - Check browser console for errors
-- Verify useNewsletterPopup hook is imported in _app.js
+- Verify useNewsletterPopup hook is imported in \_app.js
 
 ### Form submission fails
+
 - Check reCAPTCHA keys in .env.local
 - Verify Supabase credentials
 - Check browser console and Network tab
 - Run SQL migration if not done
 
 ### AI Assistant not visible
+
 - Check z-index conflicts
-- Verify component is imported in _app.js
+- Verify component is imported in \_app.js
 - Check browser console for errors
 
 ### Database errors
+
 - Verify SQL migration was run
 - Check Supabase project status
 - Verify RLS policies are active
@@ -271,6 +287,7 @@ npm run dev
 ## Complete! 🎉
 
 All features should now be working. For more details, see:
+
 - `NEWSLETTER_AI_ASSISTANT_README.md` - Full documentation
 - `LEARN_APPS_INTEGRATION_GUIDE.md` - Integration guide
 - `IMPLEMENTATION_NEWSLETTER_AI.md` - Implementation summary

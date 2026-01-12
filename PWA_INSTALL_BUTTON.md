@@ -25,10 +25,12 @@ All landing pages across the iiskills.cloud platform now include an "Install App
 ### PWA Manifest Files
 
 Created `manifest.json` for all 16 applications:
+
 - Main app: `/public/manifest.json`
 - 15 learning modules: `/learn-*/public/manifest.json`
 
 Each manifest includes:
+
 - App name and short name
 - Description
 - Start URL
@@ -41,6 +43,7 @@ Each manifest includes:
 ### PWA Meta Tags
 
 Created `_document.js` files for all Pages Router apps to include:
+
 - Manifest link reference
 - Theme color meta tag
 - Mobile web app capabilities
@@ -50,6 +53,7 @@ Created `_document.js` files for all Pages Router apps to include:
 ### App Icons
 
 Created SVG placeholder icons for all apps:
+
 - 192x192 pixel icon
 - 512x512 pixel icon
 - Blue background with "iiskills" text
@@ -58,9 +62,11 @@ Created SVG placeholder icons for all apps:
 ## Applications Updated
 
 ### Main Application
+
 - ✅ iiskills.cloud (Pages Router)
 
 ### Learning Modules
+
 1. ✅ learn-apt (App Router - TypeScript)
 2. ✅ learn-jee (Pages Router)
 3. ✅ learn-neet (Pages Router)
@@ -102,29 +108,30 @@ Created SVG placeholder icons for all apps:
 
 ```javascript
 // 1. Browser detects installability
-window.addEventListener('beforeinstallprompt', (e) => {
-  e.preventDefault()
-  setDeferredPrompt(e)
-  setShowButton(true)
-})
+window.addEventListener("beforeinstallprompt", (e) => {
+  e.preventDefault();
+  setDeferredPrompt(e);
+  setShowButton(true);
+});
 
 // 2. User clicks Install App button
 const handleInstallClick = async () => {
-  deferredPrompt.prompt()
-  const { outcome } = await deferredPrompt.userChoice
+  deferredPrompt.prompt();
+  const { outcome } = await deferredPrompt.userChoice;
   // Handle outcome
-}
+};
 
 // 3. Installation complete
-window.addEventListener('appinstalled', () => {
-  setIsInstalled(true)
-  setShowButton(false)
-})
+window.addEventListener("appinstalled", () => {
+  setIsInstalled(true);
+  setShowButton(false);
+});
 ```
 
 ## Browser Support
 
 The Install App button works on:
+
 - ✅ Chrome (Desktop & Mobile)
 - ✅ Edge (Desktop & Mobile)
 - ✅ Samsung Internet
@@ -135,6 +142,7 @@ The Install App button works on:
 ## Button Styling
 
 The Install App button features:
+
 - Green background (`bg-green-600`)
 - White text
 - Download icon (arrow down to tray)
@@ -186,6 +194,7 @@ Replace the SVG placeholders with custom PNG/SVG icons:
 ### Customizing Theme Color
 
 Update the theme color in:
+
 1. `manifest.json`: `"theme_color": "#2563eb"`
 2. `pages/_document.js`: `<meta name="theme-color" content="#2563eb" />`
 
@@ -194,6 +203,7 @@ Update the theme color in:
 ### Local Testing
 
 1. Start the development server:
+
    ```bash
    npm run dev
    ```
@@ -228,6 +238,7 @@ PWA installation works best in production (HTTPS required):
 ### Install Button Not Showing
 
 **Possible causes:**
+
 1. Browser doesn't support PWA installation
 2. App already installed
 3. Not served over HTTPS
@@ -235,6 +246,7 @@ PWA installation works best in production (HTTPS required):
 5. Missing service worker (optional but recommended)
 
 **Solutions:**
+
 - Test in Chrome/Edge
 - Clear browser data and reinstall
 - Ensure HTTPS in production
@@ -244,6 +256,7 @@ PWA installation works best in production (HTTPS required):
 ### Manifest Not Loading
 
 **Check:**
+
 1. File exists at `/public/manifest.json`
 2. `_document.js` includes `<link rel="manifest" href="/manifest.json" />`
 3. No JSON syntax errors in manifest
@@ -252,6 +265,7 @@ PWA installation works best in production (HTTPS required):
 ### Icons Not Displaying
 
 **Check:**
+
 1. Icon files exist at specified paths
 2. File names match manifest references
 3. Icon sizes are correct (192x192, 512x512)
@@ -262,6 +276,7 @@ PWA installation works best in production (HTTPS required):
 ### Service Worker
 
 Add service worker for:
+
 - Offline functionality
 - Background sync
 - Push notifications
@@ -270,6 +285,7 @@ Add service worker for:
 ### Enhanced Icons
 
 Create custom branded icons for each module:
+
 - Module-specific colors
 - Module-specific logos
 - Maskable icons support
@@ -278,18 +294,20 @@ Create custom branded icons for each module:
 ### Installation Analytics
 
 Track installation events:
+
 ```javascript
-window.addEventListener('appinstalled', () => {
+window.addEventListener("appinstalled", () => {
   // Send analytics event
-  gtag('event', 'app_installed', {
-    app_name: 'Learn JEE'
-  })
-})
+  gtag("event", "app_installed", {
+    app_name: "Learn JEE",
+  });
+});
 ```
 
 ### Prompt Timing
 
 Optimize when to show install prompt:
+
 - After user engagement (scroll, time on site)
 - After completing an action
 - Custom trigger instead of automatic display
@@ -304,6 +322,7 @@ Optimize when to show install prompt:
 ## Compliance with Standards
 
 This implementation follows:
+
 - ✅ [W3C Web App Manifest](https://www.w3.org/TR/appmanifest/)
 - ✅ [PWA Best Practices](https://web.dev/progressive-web-apps/)
 - ✅ [Chrome Install Criteria](https://web.dev/install-criteria/)
@@ -312,6 +331,7 @@ This implementation follows:
 ## Documentation Files
 
 Related documentation:
+
 - `ONBOARDING.md` - User onboarding guide
 - `AUTHENTICATION_ARCHITECTURE.md` - Auth system overview
 - `README.md` - Project overview
@@ -320,6 +340,7 @@ Related documentation:
 ## Support
 
 For issues or questions:
+
 - **Email**: info@iiskills.cloud
 - **GitHub Issues**: Submit bug reports or feature requests
 

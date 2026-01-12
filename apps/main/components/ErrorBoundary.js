@@ -1,17 +1,17 @@
-import React from 'react'
-import Link from 'next/link'
+import React from "react";
+import Link from "next/link";
 
 /**
  * ErrorBoundary Component
- * 
+ *
  * Catches JavaScript errors anywhere in the child component tree,
  * logs those errors, and displays a fallback UI instead of crashing.
- * 
+ *
  * Usage:
  * <ErrorBoundary>
  *   <YourComponent />
  * </ErrorBoundary>
- * 
+ *
  * Features:
  * - Catches and logs runtime errors
  * - Displays user-friendly error message
@@ -21,41 +21,42 @@ import Link from 'next/link'
  */
 class ErrorBoundary extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       hasError: false,
       error: null,
-      errorInfo: null
-    }
+      errorInfo: null,
+    };
+    this.resetError = this.resetError.bind(this);
   }
 
   static getDerivedStateFromError(error) {
     // Update state so the next render will show the fallback UI
-    return { hasError: true }
+    return { hasError: true };
   }
 
   componentDidCatch(error, errorInfo) {
     // Log error details to console in development
-    if (process.env.NODE_ENV === 'development') {
-      console.error('ErrorBoundary caught an error:', error, errorInfo)
+    if (process.env.NODE_ENV === "development") {
+      console.error("ErrorBoundary caught an error:", error, errorInfo);
     }
-    
+
     // Store error details in state
     this.setState({
       error,
-      errorInfo
-    })
+      errorInfo,
+    });
 
     // In production, you would send this to an error reporting service
     // Example: logErrorToService(error, errorInfo)
   }
 
-  resetError = () => {
+  resetError() {
     this.setState({
       hasError: false,
       error: null,
-      errorInfo: null
-    })
+      errorInfo: null,
+    });
   }
 
   render() {
@@ -65,20 +66,21 @@ class ErrorBoundary extends React.Component {
           <div className="max-w-2xl w-full bg-white rounded-2xl shadow-2xl p-8 border-2 border-red-200">
             <div className="text-center mb-6">
               <div className="text-6xl mb-4">⚠️</div>
-              <h1 className="text-3xl font-bold text-red-600 mb-4">
-                Oops! Something went wrong
-              </h1>
+              <h1 className="text-3xl font-bold text-red-600 mb-4">Oops! Something went wrong</h1>
             </div>
-            
+
             <div className="bg-red-50 border-2 border-red-300 rounded-lg p-6 mb-6">
               <p className="text-lg text-gray-800 leading-relaxed mb-4">
-                We're sorry, but something unexpected happened. Our team has been notified and we're working to fix it.
+                We're sorry, but something unexpected happened. Our team has been notified and we're
+                working to fix it.
               </p>
-              
-              {process.env.NODE_ENV === 'development' && this.state.error && (
+
+              {process.env.NODE_ENV === "development" && this.state.error && (
                 <div className="mt-4 p-4 bg-white rounded border border-red-200 overflow-auto">
                   <p className="font-bold text-red-700 mb-2">Error Details (Development Only):</p>
-                  <p className="text-sm text-gray-700 font-mono mb-2">{this.state.error.toString()}</p>
+                  <p className="text-sm text-gray-700 font-mono mb-2">
+                    {this.state.error.toString()}
+                  </p>
                   {this.state.errorInfo && (
                     <details className="mt-2">
                       <summary className="cursor-pointer text-sm text-gray-600 hover:text-gray-800">
@@ -100,7 +102,7 @@ class ErrorBoundary extends React.Component {
               >
                 Try Again
               </button>
-              
+
               <Link
                 href="/"
                 className="block w-full bg-charcoal text-white px-6 py-4 rounded-lg font-bold text-lg shadow-lg hover:bg-gray-700 transition text-center"
@@ -111,7 +113,7 @@ class ErrorBoundary extends React.Component {
 
             <div className="mt-6 pt-6 border-t border-gray-200 text-center">
               <p className="text-gray-600 text-sm">
-                If this problem persists, please{' '}
+                If this problem persists, please{" "}
                 <a href="mailto:support@iiskills.cloud" className="text-primary hover:underline">
                   contact support
                 </a>
@@ -119,11 +121,11 @@ class ErrorBoundary extends React.Component {
             </div>
           </div>
         </div>
-      )
+      );
     }
 
-    return this.props.children
+    return this.props.children;
   }
 }
 
-export default ErrorBoundary
+export default ErrorBoundary;

@@ -36,6 +36,7 @@ learn-govt-jobs/
 ### Key Features Implemented
 
 #### 1. **Universal Authentication Integration**
+
 - ✅ Uses the same Supabase project as the main iiskills.cloud app
 - ✅ Supports email/password authentication
 - ✅ Supports magic link (passwordless) authentication
@@ -44,7 +45,9 @@ learn-govt-jobs/
 - ✅ Cross-subdomain SSO enabled
 
 #### 2. **Government Jobs Content**
+
 The learning dashboard (`/learn`) includes comprehensive sections for:
+
 - UPSC Civil Services (IAS, IPS, IFS)
 - Banking Exams (IBPS PO/Clerk, SBI, RBI)
 - Railway Exams (RRB NTPC, Group D)
@@ -53,6 +56,7 @@ The learning dashboard (`/learn`) includes comprehensive sections for:
 - Defense Services (NDA, CDS, AFCAT)
 
 #### 3. **Study Resources**
+
 - Study materials and comprehensive notes
 - Mock tests and practice questions
 - Current affairs updates
@@ -60,6 +64,7 @@ The learning dashboard (`/learn`) includes comprehensive sections for:
 - Performance tracking
 
 #### 4. **Development Configuration**
+
 - **Port**: 3014 (as specified in package.json)
 - **Development URL**: http://localhost:3014
 - **Production URL**: https://learn-govt-jobs.iiskills.cloud
@@ -69,7 +74,9 @@ The learning dashboard (`/learn`) includes comprehensive sections for:
 ### 1. Updated Files in Main Repository
 
 #### `utils/courseSubdomainMapperClient.js`
+
 Added learn-govt-jobs to:
+
 - `AVAILABLE_SUBDOMAINS` array
 - `PORT_MAP` object (port 3014)
 - `normalizeCourseNameToSubdomain()` function to handle "government" → "govt" conversion
@@ -77,10 +84,12 @@ Added learn-govt-jobs to:
 ### 2. Shared Authentication Components
 
 The subdomain uses local copies of:
+
 - `UniversalLogin.js` - Universal login component
 - `UniversalRegister.js` - Universal registration component
 
 These components are configured to work with the shared Supabase user pool, ensuring users can:
+
 - Register on any subdomain and access all others
 - Login on any subdomain with the same credentials
 - Maintain session across all subdomains
@@ -88,6 +97,7 @@ These components are configured to work with the shared Supabase user pool, ensu
 ### 3. Supabase Client Configuration
 
 The `lib/supabaseClient.js` file includes:
+
 - Shared Supabase project connection
 - Session persistence and auto-refresh
 - Cross-subdomain cookie support
@@ -105,21 +115,25 @@ The `lib/supabaseClient.js` file includes:
 ### Local Development Testing
 
 1. **Install Dependencies**
+
    ```bash
    cd learn-govt-jobs
    npm install
    ```
 
 2. **Set up Environment Variables**
+
    ```bash
    cp .env.local.example .env.local
    # Edit .env.local with your Supabase credentials
    ```
 
 3. **Start Development Server**
+
    ```bash
    npm run dev
    ```
+
    Access at: http://localhost:3014
 
 4. **Test Registration Flow**
@@ -151,6 +165,7 @@ The `lib/supabaseClient.js` file includes:
    ```bash
    npm run build
    ```
+
    - [ ] Verify build completes successfully
    - [ ] No TypeScript or compilation errors
 
@@ -186,6 +201,7 @@ The `lib/supabaseClient.js` file includes:
 ### Deployment Steps
 
 1. **Build the application**
+
    ```bash
    npm run build
    ```
@@ -205,6 +221,7 @@ The `lib/supabaseClient.js` file includes:
 ### What Works Out of the Box
 
 ✅ **Authentication & Authorization**
+
 - Universal login across all subdomains
 - Shared user pool in Supabase
 - Cross-subdomain session management
@@ -212,17 +229,20 @@ The `lib/supabaseClient.js` file includes:
 - Role-based access control
 
 ✅ **Registration Flow**
+
 - Simplified registration (name, age, qualification)
 - Full registration support (when user updates profile on main app)
 - Email verification
 - Google OAuth registration
 
 ✅ **Session Management**
+
 - Auto-refresh tokens
 - Persistent sessions
 - Logout from all apps simultaneously
 
 ✅ **Navigation**
+
 - SubdomainNavbar for consistent UI
 - Links back to main iiskills.cloud app
 - Proper routing between pages
@@ -230,6 +250,7 @@ The `lib/supabaseClient.js` file includes:
 ### Integration with Other Features
 
 The subdomain is ready to integrate with:
+
 - Certificate generation system (when user completes courses)
 - Course progress tracking
 - User profile management
@@ -241,22 +262,26 @@ The subdomain is ready to integrate with:
 ### Implemented Security Measures
 
 ✅ **Environment Variables**
+
 - Sensitive credentials in `.env.local` (not committed to git)
 - `.gitignore` properly configured
 
 ✅ **Authentication Security**
+
 - Server-side session validation via Supabase
 - HTTPS in production
 - Secure cookie settings
 - PKCE flow for OAuth
 
 ✅ **Input Validation**
+
 - Form validation in registration/login
 - Error handling for API calls
 
 ### Recommended Additional Security
 
 Future enhancements could include:
+
 - Rate limiting on login/registration endpoints
 - CSRF protection
 - Content Security Policy headers
@@ -300,18 +325,21 @@ utils/courseSubdomainMapperClient.js
 ## Verification Steps Completed
 
 ✅ **Build Verification**
+
 - Ran `npm install` successfully
 - Ran `npm run build` successfully
 - No compilation errors
 - All pages generated successfully
 
 ✅ **Code Structure**
+
 - Follows same pattern as existing subdomains
 - Uses shared authentication components
 - Proper component organization
 - Consistent naming conventions
 
 ✅ **Documentation**
+
 - README.md created
 - .env.local.example documented
 - Code comments added
@@ -322,22 +350,26 @@ utils/courseSubdomainMapperClient.js
 ### Local Testing
 
 1. Navigate to learn-govt-jobs directory:
+
    ```bash
    cd learn-govt-jobs
    ```
 
 2. Install dependencies (already done):
+
    ```bash
    npm install
    ```
 
 3. Configure environment:
+
    ```bash
    cp .env.local.example .env.local
    # Add your Supabase credentials (same as main app)
    ```
 
 4. Start development server:
+
    ```bash
    npm run dev
    ```
@@ -362,6 +394,7 @@ utils/courseSubdomainMapperClient.js
 ## Success Criteria
 
 All implemented ✅:
+
 - [x] Subdomain created with correct structure
 - [x] Authentication integrated with shared user pool
 - [x] Login/Register pages working
