@@ -21,10 +21,14 @@ export default function App({ Component, pageProps }) {
     checkUser();
 
     // Listen for auth changes
-    const { data: authListener } = supabase?.auth.onAuthStateChange(async (event, session) => {
-      setUser(session?.user || null);
-      setLoading(false);
-    });
+    let authListener = null;
+    if (supabase) {
+      const { data } = supabase.auth.onAuthStateChange(async (event, session) => {
+        setUser(session?.user || null);
+        setLoading(false);
+      });
+      authListener = data;
+    }
 
     return () => {
       authListener?.subscription?.unsubscribe();

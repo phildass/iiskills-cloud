@@ -258,9 +258,9 @@ This document provides a comprehensive test plan to verify that the admin access
 
 ## Sign-off
 
-**Tester Name:** **********\_**********
+**Tester Name:** ****\*\*****\_****\*\*****
 
-**Date:** **********\_**********
+**Date:** ****\*\*****\_****\*\*****
 
 **Overall Result:** ✅ All Tests Passed / ⚠️ Some Issues Found / ❌ Critical Failures
 

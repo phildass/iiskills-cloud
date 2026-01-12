@@ -1,23 +1,23 @@
 /**
  * UniversalHeader Component
- * 
+ *
  * A reusable header component that displays both iiskills and AI Cloud Enterprise branding.
  * This component serves as a universal branding feature across all subdomains.
- * 
+ *
  * Features:
  * - Displays iiskills logo with "Indian Institute of Professional Skills Development" legend
  * - Displays AI Cloud logo with "AI Cloud Enterprises" legend
  * - Responsive design using CSS flexbox
  * - Accessible with appropriate alt text
  * - Horizontally aligned and visually balanced layout
- * 
- * Note: This component is also available in components/shared/UniversalHeader.js for 
+ *
+ * Note: This component is also available in components/shared/UniversalHeader.js for
  * easy import from subdomains (learn-management, learn-neet, etc.)
- * 
+ *
  * Usage in main domain:
  * ```jsx
  * import UniversalHeader from '../components/UniversalHeader'
- * 
+ *
  * // In your page or layout component:
  * export default function MyPage() {
  *   return (
@@ -28,18 +28,18 @@
  *   )
  * }
  * ```
- * 
+ *
  * Usage in subdomains:
  * ```jsx
  * import UniversalHeader from '../../components/shared/UniversalHeader'
  * ```
- * 
+ *
  * Example - Including in _app.js for site-wide usage:
  * ```jsx
  * import UniversalHeader from '../components/UniversalHeader'
  * import Navbar from '../components/Navbar'
  * import Footer from '../components/Footer'
- * 
+ *
  * export default function App({ Component, pageProps }) {
  *   return (
  *     <>
@@ -53,7 +53,7 @@
  * ```
  */
 
-import Image from 'next/image'
+import Image from "next/image";
 
 export default function UniversalHeader() {
   return (
@@ -99,5 +99,5 @@ export default function UniversalHeader() {
         </div>
       </div>
     </header>
-  )
+  );
 }
