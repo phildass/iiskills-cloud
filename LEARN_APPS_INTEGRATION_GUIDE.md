@@ -1,6 +1,6 @@
-# Integration Guide for Learn-* Apps
+# Integration Guide for Learn-\* Apps
 
-This guide explains how to add the Newsletter and AI Assistant features to any learn-* app that hasn't been updated yet.
+This guide explains how to add the Newsletter and AI Assistant features to any learn-\* app that hasn't been updated yet.
 
 ## Apps Already Updated
 
@@ -9,22 +9,22 @@ This guide explains how to add the Newsletter and AI Assistant features to any l
 
 ## Steps to Update Remaining Apps
 
-For each learn-* app (learn-apt, learn-chemistry, learn-data-science, etc.), follow these steps:
+For each learn-\* app (learn-apt, learn-chemistry, learn-data-science, etc.), follow these steps:
 
 ### 1. Update `pages/_app.js`
 
 Add the following imports at the top of the file (after existing imports):
 
 ```javascript
-import AIAssistant from '../components/shared/AIAssistant'
-import NewsletterSignup from '../components/shared/NewsletterSignup'
-import { useNewsletterPopup } from '../utils/useNewsletterPopup'
+import AIAssistant from "../components/shared/AIAssistant";
+import NewsletterSignup from "../components/shared/NewsletterSignup";
+import { useNewsletterPopup } from "../utils/useNewsletterPopup";
 ```
 
 Add the newsletter popup hook inside the component (after `const router = useRouter()`):
 
 ```javascript
-const { showPopup, closePopup } = useNewsletterPopup(7) // Show every 7 days
+const { showPopup, closePopup } = useNewsletterPopup(7); // Show every 7 days
 ```
 
 Add the Newsletter link to the `customLinks` array (after the Certification link):
@@ -36,22 +36,28 @@ Add the Newsletter link to the `customLinks` array (after the Certification link
 Add the AI Assistant and Newsletter popup components before the closing tag (usually `</>` or `</ErrorBoundary>`):
 
 ```javascript
-{/* AI Assistant - always visible */}
-<AIAssistant />
+{
+  /* AI Assistant - always visible */
+}
+<AIAssistant />;
 
-{/* Newsletter Popup - shows based on timing */}
-{showPopup && (
-  <NewsletterSignup 
-    mode="modal"
-    onClose={() => closePopup(false)}
-    onSuccess={() => closePopup(true)}
-  />
-)}
+{
+  /* Newsletter Popup - shows based on timing */
+}
+{
+  showPopup && (
+    <NewsletterSignup
+      mode="modal"
+      onClose={() => closePopup(false)}
+      onSuccess={() => closePopup(true)}
+    />
+  );
+}
 ```
 
 ### 2. Verify Files Exist
 
-Make sure these files exist in the learn-* app directory:
+Make sure these files exist in the learn-\* app directory:
 
 - `components/shared/AIAssistant.js` ✓ (already copied)
 - `components/shared/NewsletterSignup.js` ✓ (already copied)
@@ -59,7 +65,7 @@ Make sure these files exist in the learn-* app directory:
 - `pages/newsletter.js` ✓ (already copied)
 - `pages/api/newsletter/subscribe.js` ✓ (already copied)
 
-All files have been pre-copied to all learn-* directories.
+All files have been pre-copied to all learn-\* directories.
 
 ### 3. Test the Integration
 
@@ -88,86 +94,117 @@ After updating, test the following:
    - Check browser console for any errors
    - Verify Supabase database receives the email (if configured)
 
-## Example: Complete _app.js Structure
+## Example: Complete \_app.js Structure
 
-Here's the complete structure your _app.js should follow:
+Here's the complete structure your \_app.js should follow:
 
 ```javascript
-import '../styles/globals.css'
-import { useState, useEffect } from 'react'
-import { useRouter } from 'next/router'
+import "../styles/globals.css";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 
-import SharedNavbar from '../../components/shared/SharedNavbar'
-import SubdomainNavbar from '../../components/shared/SubdomainNavbar'
-import AuthenticationChecker from '../../components/shared/AuthenticationChecker'
-import Footer from '../components/Footer'
-import AIAssistant from '../components/shared/AIAssistant'
-import NewsletterSignup from '../components/shared/NewsletterSignup'
-import { supabase, getCurrentUser, signOutUser } from '../lib/supabaseClient'
-import { useNewsletterPopup } from '../utils/useNewsletterPopup'
+import SharedNavbar from "../../components/shared/SharedNavbar";
+import SubdomainNavbar from "../../components/shared/SubdomainNavbar";
+import AuthenticationChecker from "../../components/shared/AuthenticationChecker";
+import Footer from "../components/Footer";
+import AIAssistant from "../components/shared/AIAssistant";
+import NewsletterSignup from "../components/shared/NewsletterSignup";
+import { supabase, getCurrentUser, signOutUser } from "../lib/supabaseClient";
+import { useNewsletterPopup } from "../utils/useNewsletterPopup";
 
 export default function App({ Component, pageProps }) {
-  const [user, setUser] = useState(null)
-  const router = useRouter()
-  const { showPopup, closePopup } = useNewsletterPopup(7)
+  const [user, setUser] = useState(null);
+  const router = useRouter();
+  const { showPopup, closePopup } = useNewsletterPopup(7);
 
   // ... existing useEffect and handleLogout functions ...
 
   return (
     <>
       <AuthenticationChecker />
-      <SharedNavbar 
+      <SharedNavbar
         user={user}
         onLogout={handleLogout}
         appName="Learn [YourApp]"
         homeUrl="/"
         showAuthButtons={true}
         customLinks={[
-          { href: 'https://iiskills.cloud', label: 'Home', className: 'hover:text-primary transition' },
-          { href: 'https://iiskills.cloud/courses', label: 'Courses', className: 'hover:text-primary transition' },
-          { href: 'https://iiskills.cloud/certification', label: 'Certification', className: 'hover:text-primary transition' },
-          { href: '/newsletter', label: '📧 Newsletter', className: 'hover:text-primary transition' },
-          { href: 'https://www.aienter.in/payments', label: 'Payments', className: 'bg-accent text-white px-4 py-2 rounded hover:bg-purple-600 transition font-bold', target: '_blank', rel: 'noopener noreferrer' },
-          { href: 'https://iiskills.cloud/about', label: 'About', className: 'hover:text-primary transition' },
-          { href: 'https://iiskills.cloud/terms', label: 'Terms & Conditions', className: 'hover:text-primary transition' }
+          {
+            href: "https://iiskills.cloud",
+            label: "Home",
+            className: "hover:text-primary transition",
+          },
+          {
+            href: "https://iiskills.cloud/courses",
+            label: "Courses",
+            className: "hover:text-primary transition",
+          },
+          {
+            href: "https://iiskills.cloud/certification",
+            label: "Certification",
+            className: "hover:text-primary transition",
+          },
+          {
+            href: "/newsletter",
+            label: "📧 Newsletter",
+            className: "hover:text-primary transition",
+          },
+          {
+            href: "https://www.aienter.in/payments",
+            label: "Payments",
+            className:
+              "bg-accent text-white px-4 py-2 rounded hover:bg-purple-600 transition font-bold",
+            target: "_blank",
+            rel: "noopener noreferrer",
+          },
+          {
+            href: "https://iiskills.cloud/about",
+            label: "About",
+            className: "hover:text-primary transition",
+          },
+          {
+            href: "https://iiskills.cloud/terms",
+            label: "Terms & Conditions",
+            className: "hover:text-primary transition",
+          },
         ]}
       />
-      <SubdomainNavbar
-        subdomainName="Learn [YourApp]"
-        sections={subdomainSections}
-      />
+      <SubdomainNavbar subdomainName="Learn [YourApp]" sections={subdomainSections} />
       <Component {...pageProps} />
       <Footer />
-      
+
       {/* AI Assistant - always visible */}
       <AIAssistant />
-      
+
       {/* Newsletter Popup - shows based on timing */}
       {showPopup && (
-        <NewsletterSignup 
+        <NewsletterSignup
           mode="modal"
           onClose={() => closePopup(false)}
           onSuccess={() => closePopup(true)}
         />
       )}
     </>
-  )
+  );
 }
 ```
 
 ## Troubleshooting
 
 ### AI Assistant not appearing
+
 - Check browser console for errors
 - Verify AIAssistant.js exists in components/shared/
 - Check for z-index conflicts
 
 ### Newsletter popup not showing
+
 - Clear localStorage: `localStorage.removeItem('iiskills_newsletter_popup')`
 - Check browser console for errors
 - Verify useNewsletterPopup.js exists in utils/
 
 ### Newsletter submission failing
+
 - Verify reCAPTCHA keys are set in .env.local
 - Check Supabase credentials
 - Run the SQL migration to create newsletter_subscribers table
@@ -193,6 +230,7 @@ After updating an app, verify:
 ## Support
 
 For questions or issues:
+
 - Review NEWSLETTER_AI_ASSISTANT_README.md
 - Check the reference implementations in learn-ai and learn-math
 - Contact: info@iiskills.cloud

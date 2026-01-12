@@ -110,14 +110,7 @@ const BriefTestPage: React.FC = () => {
         }
       }, 300);
     },
-    [
-      currentQuestion,
-      currentQuestionIndex,
-      currentModuleIndex,
-      currentModule,
-      answers,
-      router,
-    ]
+    [currentQuestion, currentQuestionIndex, currentModuleIndex, currentModule, answers, router]
   );
 
   const handlePrevious = useCallback(() => {
@@ -155,7 +148,7 @@ const BriefTestPage: React.FC = () => {
         ) : (
           <>
             <div className="mb-8">
-              <div className="flex justify-between text-sm text-slate-600 dark:text-slate-400 mb-2">  
+              <div className="flex justify-between text-sm text-slate-600 dark:text-slate-400 mb-2">
                 <span>
                   {answeredCount} of {totalQuestions} questions answered
                 </span>
@@ -188,8 +181,7 @@ const BriefTestPage: React.FC = () => {
             {currentQuestion && currentModule && (
               <div className="bg-white dark:bg-slate-800 rounded-xl p-6 shadow-lg mb-6">
                 <p className="text-sm text-slate-500 dark:text-slate-400 mb-3">
-                  Question {currentQuestionIndex + 1} of{" "}
-                  {currentModule.questions?.length || 0}
+                  Question {currentQuestionIndex + 1} of {currentModule.questions?.length || 0}
                 </p>
                 <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-6">
                   {currentQuestion.text}
@@ -256,7 +248,7 @@ const BriefTestPage: React.FC = () => {
                     ? "bg-slate-300 dark:bg-slate-600 text-slate-500 dark:text-slate-400 cursor-not-allowed"
                     : "bg-blue-600 hover:bg-blue-700 text-white"
                 }`}
-              >   
+              >
                 Next
                 <ChevronRight className="h-5 w-5" />
               </button>
@@ -264,7 +256,7 @@ const BriefTestPage: React.FC = () => {
           </>
         )}
       </main>
-    </div>   
+    </div>
   );
 };
 

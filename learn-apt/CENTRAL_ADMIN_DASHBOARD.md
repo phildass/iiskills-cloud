@@ -5,6 +5,7 @@ The Central Admin Dashboard provides a unified interface for managing all subdom
 ## Overview
 
 The central admin dashboard allows administrators to:
+
 - View all subdomains across iiskills.cloud
 - Access each subdomain's admin area with a single click
 - Filter subdomains by category and status
@@ -47,6 +48,7 @@ Located at `/admin/subdomains`, the central dashboard displays:
 ### Admin Panel Integration
 
 The main admin panel at `/admin` includes a "Subdomains" tab that:
+
 - Provides an overview of the central admin dashboard
 - Links to the full subdomain management page
 - Displays key features and subdomain categories

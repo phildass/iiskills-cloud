@@ -92,7 +92,8 @@ export default function SelectCategoriesPage() {
             Choose Your Aptitude Areas
           </h1>
           <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-            Select the categories you&apos;d like to be assessed on. You can choose one or more areas to customize your test experience.
+            Select the categories you&apos;d like to be assessed on. You can choose one or more
+            areas to customize your test experience.
           </p>
         </div>
 
@@ -116,14 +117,22 @@ export default function SelectCategoriesPage() {
                   </div>
                 )}
                 <div className="text-4xl mb-4">{category.icon}</div>
-                <h3 className={`text-lg font-semibold mb-2 ${
-                  isSelected ? "text-blue-900 dark:text-blue-100" : "text-slate-900 dark:text-white"
-                }`}>
+                <h3
+                  className={`text-lg font-semibold mb-2 ${
+                    isSelected
+                      ? "text-blue-900 dark:text-blue-100"
+                      : "text-slate-900 dark:text-white"
+                  }`}
+                >
                   {category.title}
                 </h3>
-                <p className={`text-sm ${
-                  isSelected ? "text-blue-700 dark:text-blue-300" : "text-slate-600 dark:text-slate-400"
-                }`}>
+                <p
+                  className={`text-sm ${
+                    isSelected
+                      ? "text-blue-700 dark:text-blue-300"
+                      : "text-slate-600 dark:text-slate-400"
+                  }`}
+                >
                   {category.description}
                 </p>
               </button>
@@ -164,8 +173,8 @@ export default function SelectCategoriesPage() {
         {/* Info Box */}
         <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-6">
           <p className="text-sm text-blue-800 dark:text-blue-200">
-            <strong>Note:</strong> Your selected categories will help us tailor the assessment to your needs. 
-            You can modify your selection at any time by returning to this page.
+            <strong>Note:</strong> Your selected categories will help us tailor the assessment to
+            your needs. You can modify your selection at any time by returning to this page.
           </p>
         </div>
       </main>

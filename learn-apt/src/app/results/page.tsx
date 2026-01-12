@@ -38,7 +38,7 @@ function analyzeResults(data: ResultsData): {
 } {
   const answers = data.answers;
   const answerValues = Object.values(answers);
-  
+
   // Count answer patterns
   const patterns: Record<string, number> = {};
   answerValues.forEach((value) => {
@@ -57,9 +57,12 @@ function analyzeResults(data: ResultsData): {
   // Learning style insights
   const learningPatterns = ["visual", "auditory", "kinesthetic", "reading"];
   const dominantLearning = sortedPatterns.find((p) => learningPatterns.includes(p[0]));
-  
+
   if (dominantLearning) {
-    const learningInsights: Record<string, { title: string; desc: string; strength: string; rec: string }> = {
+    const learningInsights: Record<
+      string,
+      { title: string; desc: string; strength: string; rec: string }
+    > = {
       visual: {
         title: "Visual Learner",
         desc: "You learn best through images, diagrams, and visual representations. You likely think in pictures and benefit from color-coded notes and mind maps.",
@@ -100,11 +103,21 @@ function analyzeResults(data: ResultsData): {
   }
 
   // Problem-solving insights
-  const problemPatterns = ["analytical", "intuitive", "creative", "methodical", "sequential", "global"];
+  const problemPatterns = [
+    "analytical",
+    "intuitive",
+    "creative",
+    "methodical",
+    "sequential",
+    "global",
+  ];
   const dominantProblem = sortedPatterns.find((p) => problemPatterns.includes(p[0]));
-  
+
   if (dominantProblem) {
-    const problemInsights: Record<string, { title: string; desc: string; strength: string; rec: string }> = {
+    const problemInsights: Record<
+      string,
+      { title: string; desc: string; strength: string; rec: string }
+    > = {
       analytical: {
         title: "Analytical Problem Solver",
         desc: "You approach challenges by breaking them into smaller parts and analyzing each component systematically.",
@@ -157,11 +170,22 @@ function analyzeResults(data: ResultsData): {
   }
 
   // Motivation insights
-  const motivationPatterns = ["achievement", "recognition", "growth", "impact", "autonomy", "mastery", "purpose"];
+  const motivationPatterns = [
+    "achievement",
+    "recognition",
+    "growth",
+    "impact",
+    "autonomy",
+    "mastery",
+    "purpose",
+  ];
   const dominantMotivation = sortedPatterns.find((p) => motivationPatterns.includes(p[0]));
-  
+
   if (dominantMotivation) {
-    const motivationInsights: Record<string, { title: string; desc: string; strength: string; rec: string }> = {
+    const motivationInsights: Record<
+      string,
+      { title: string; desc: string; strength: string; rec: string }
+    > = {
       achievement: {
         title: "Achievement-Driven",
         desc: "You're motivated by setting and reaching challenging goals. Success and accomplishment fuel your drive.",
@@ -223,23 +247,30 @@ function analyzeResults(data: ResultsData): {
   if (insights.length === 0) {
     insights.push({
       title: "Balanced Learner",
-      description: "Your responses show a balanced approach to learning, problem-solving, and motivation. You can adapt to different situations effectively.",
+      description:
+        "Your responses show a balanced approach to learning, problem-solving, and motivation. You can adapt to different situations effectively.",
       icon: Award,
       color: "green",
     });
     strengths.push("Adaptable learning style that adjusts to different contexts");
-    recommendations.push("Experiment with different learning methods to find what works best for each situation");
+    recommendations.push(
+      "Experiment with different learning methods to find what works best for each situation"
+    );
   }
 
-  const summary = data.testType === "brief"
-    ? "Based on your Brief Test responses, we've identified key patterns in how you learn, solve problems, and stay motivated. These insights can help you optimize your learning journey."
-    : "Your comprehensive Elaborate Test results reveal detailed patterns across multiple dimensions of learning and cognition. Use these insights to create a personalized learning strategy.";
+  const summary =
+    data.testType === "brief"
+      ? "Based on your Brief Test responses, we've identified key patterns in how you learn, solve problems, and stay motivated. These insights can help you optimize your learning journey."
+      : "Your comprehensive Elaborate Test results reveal detailed patterns across multiple dimensions of learning and cognition. Use these insights to create a personalized learning strategy.";
 
   return {
     insights,
     summary,
     strengths: strengths.length > 0 ? strengths : ["Adaptable and flexible approach to challenges"],
-    recommendations: recommendations.length > 0 ? recommendations : ["Continue exploring different learning strategies to find your optimal approach"],
+    recommendations:
+      recommendations.length > 0
+        ? recommendations
+        : ["Continue exploring different learning strategies to find your optimal approach"],
   };
 }
 
@@ -257,7 +288,7 @@ export default function ResultsPage() {
   useEffect(() => {
     // Retrieve results from sessionStorage
     const stored = sessionStorage.getItem("learnapt-results");
-    
+
     if (stored) {
       try {
         const parsed = JSON.parse(stored) as ResultsData;
@@ -329,7 +360,7 @@ export default function ResultsPage() {
               No Results Found
             </h1>
             <p className="text-slate-600 dark:text-slate-400 mb-8">
-              It looks like you haven&apos;t completed a test yet, or your session has expired. 
+              It looks like you haven&apos;t completed a test yet, or your session has expired.
               Please take a test to see your results.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -399,14 +430,18 @@ export default function ResultsPage() {
               <Brain className={`h-8 w-8 ${getAccentClasses("text")}`} />
               <span className="text-xl font-bold text-slate-900 dark:text-white">Learnapt</span>
             </Link>
-            <span className="text-sm text-slate-500 dark:text-slate-400">{testTypeLabel} Results</span>
+            <span className="text-sm text-slate-500 dark:text-slate-400">
+              {testTypeLabel} Results
+            </span>
           </div>
         </div>
       </header>
 
       <main className="max-w-4xl mx-auto px-4 py-8 sm:py-12">
         {/* Success Banner */}
-        <div className={`${getAccentClasses("bg-light")} border ${getAccentClasses("border-light")} dark:${getAccentClasses("border")} rounded-xl p-6 mb-8`}>
+        <div
+          className={`${getAccentClasses("bg-light")} border ${getAccentClasses("border-light")} dark:${getAccentClasses("border")} rounded-xl p-6 mb-8`}
+        >
           <div className="flex items-center gap-4">
             <div className={`p-3 ${getAccentClasses("bg")} rounded-full`}>
               <Award className="h-8 w-8 text-white" />
@@ -436,11 +471,10 @@ export default function ResultsPage() {
             {analysis.insights.map((insight, index) => {
               const colorClasses = getInsightColorClasses(insight.color);
               return (
-                <div
-                  key={index}
-                  className="bg-white dark:bg-slate-800 rounded-xl p-6 shadow-lg"
-                >
-                  <div className={`w-12 h-12 ${colorClasses.bg} rounded-full flex items-center justify-center mb-4`}>
+                <div key={index} className="bg-white dark:bg-slate-800 rounded-xl p-6 shadow-lg">
+                  <div
+                    className={`w-12 h-12 ${colorClasses.bg} rounded-full flex items-center justify-center mb-4`}
+                  >
                     <insight.icon className={`h-6 w-6 ${colorClasses.text}`} />
                   </div>
                   <h3 className="font-semibold text-slate-900 dark:text-white mb-2">
@@ -476,8 +510,14 @@ export default function ResultsPage() {
           <ul className="space-y-3">
             {analysis.recommendations.map((rec, index) => (
               <li key={index} className="flex items-start gap-3">
-                <div className={`w-6 h-6 ${isBriefTest ? "bg-blue-100 dark:bg-blue-900/50" : "bg-purple-100 dark:bg-purple-900/50"} rounded-full flex items-center justify-center flex-shrink-0 mt-0.5`}>
-                  <span className={`${isBriefTest ? "text-blue-600" : "text-purple-600"} text-sm font-bold`}>{index + 1}</span>
+                <div
+                  className={`w-6 h-6 ${isBriefTest ? "bg-blue-100 dark:bg-blue-900/50" : "bg-purple-100 dark:bg-purple-900/50"} rounded-full flex items-center justify-center flex-shrink-0 mt-0.5`}
+                >
+                  <span
+                    className={`${isBriefTest ? "text-blue-600" : "text-purple-600"} text-sm font-bold`}
+                  >
+                    {index + 1}
+                  </span>
                 </div>
                 <span className="text-slate-700 dark:text-slate-300">{rec}</span>
               </li>
@@ -487,14 +527,19 @@ export default function ResultsPage() {
 
         {/* Module Breakdown */}
         <div className="bg-white dark:bg-slate-800 rounded-xl p-6 shadow-lg mb-8">
-          <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-4">Module Breakdown</h2>
+          <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-4">
+            Module Breakdown
+          </h2>
           <div className="space-y-4">
             {resultsData.modules.map((module) => {
               const answeredQuestions = module.answers.filter((a) => a.answer !== null).length;
               const totalQuestions = module.answers.length;
-              
+
               return (
-                <div key={module.id} className="border border-slate-200 dark:border-slate-700 rounded-lg p-4">
+                <div
+                  key={module.id}
+                  className="border border-slate-200 dark:border-slate-700 rounded-lg p-4"
+                >
                   <div className="flex items-center justify-between mb-2">
                     <h3 className="font-semibold text-slate-900 dark:text-white">{module.title}</h3>
                     <span className="text-sm text-slate-500 dark:text-slate-400">

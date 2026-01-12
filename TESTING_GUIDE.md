@@ -17,11 +17,13 @@ The application will be available at `http://localhost:3000`
 Navigate to: `http://localhost:3000/my-certificates`
 
 **Expected Result:**
+
 - You should see a list of sample certificates
 - Certificate preview is displayed
 - "Download PDF" button is available
 
 **Test the Download:**
+
 1. Click the "Download PDF" button
 2. A PDF file should download to your downloads folder
 3. Open the PDF and verify:
@@ -40,6 +42,7 @@ Navigate to: `http://localhost:3000/my-certificates`
 Navigate to: `http://localhost:3000/verify/IIPS-202412-0011001`
 
 **Expected Result:**
+
 - Green verification checkmark appears
 - "Certificate Verified ✓" message is displayed
 - Certificate details are shown:
@@ -54,6 +57,7 @@ Navigate to: `http://localhost:3000/verify/IIPS-202412-0011001`
 Navigate to: `http://localhost:3000/verify/INVALID-CERT-NUMBER`
 
 **Expected Result:**
+
 - Shows form to enter certificate number
 - Can enter a certificate number and press Enter to verify
 
@@ -74,6 +78,7 @@ curl -X POST http://localhost:3000/api/generate-certificate \
 ```
 
 **Expected Response:**
+
 ```json
 {
   "success": true,
@@ -94,11 +99,13 @@ curl -X POST http://localhost:3000/api/generate-certificate \
 ### 5. Test Different Certificates
 
 On the my-certificates page, you can:
+
 1. Click on different certificates in the list
 2. Preview each certificate
 3. Download each one separately
 
 **Sample Certificates Available:**
+
 - Professional Communication Skills (Score: 85%)
 - Project Management Basics (Score: 92%)
 
@@ -129,6 +136,7 @@ When viewing the certificate, verify:
 ### 7. QR Code Testing
 
 To test the QR code:
+
 1. Download a certificate as PDF
 2. Open the PDF on your computer
 3. Use your smartphone to scan the QR code
@@ -138,6 +146,7 @@ To test the QR code:
 ### 8. Browser Compatibility
 
 Test in multiple browsers:
+
 - [ ] Chrome/Chromium
 - [ ] Firefox
 - [ ] Safari
@@ -146,6 +155,7 @@ Test in multiple browsers:
 ### 9. Responsive Design Test
 
 Test the certificate preview on different screen sizes:
+
 - [ ] Desktop (1920x1080)
 - [ ] Laptop (1366x768)
 - [ ] Tablet (768x1024)
@@ -156,6 +166,7 @@ Note: The certificate itself maintains its fixed dimensions for PDF generation, 
 ### 10. PDF Quality Check
 
 After downloading a PDF:
+
 - [ ] Open in Adobe Acrobat Reader
 - [ ] Zoom to 200% - text should remain sharp
 - [ ] Check that all elements are visible
@@ -165,15 +176,19 @@ After downloading a PDF:
 ## Common Issues and Solutions
 
 ### Issue: PDF is blank
+
 **Solution:** Wait a moment before clicking download again. Images need time to load.
 
 ### Issue: QR code not showing
+
 **Solution:** Check browser console for errors. Ensure `qrcode` package is installed.
 
 ### Issue: Low quality PDF
+
 **Solution:** The `scale` parameter in html2canvas is set to 2. Increase it for higher quality.
 
 ### Issue: Certificate not centered in preview
+
 **Solution:** The preview uses transform scale. Adjust the wrapper div width.
 
 ## Integration Testing
@@ -189,6 +204,7 @@ For production integration:
 ## Performance Testing
 
 Test with:
+
 - Multiple certificate downloads in succession
 - Large number of certificates in the list
 - Slow network conditions
@@ -197,6 +213,7 @@ Test with:
 ## Security Testing
 
 Verify:
+
 - API endpoint validates all inputs
 - Certificate numbers are unique
 - Cannot generate certificate with score < 50%
@@ -216,6 +233,7 @@ The system is working correctly if:
 ## Next Steps
 
 After successful testing:
+
 1. Review the CERTIFICATE_SYSTEM.md documentation
 2. Plan database integration
 3. Connect to user authentication system

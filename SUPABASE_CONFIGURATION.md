@@ -4,11 +4,12 @@ This guide explains how to properly configure Supabase authentication across all
 
 ## Overview
 
-The iiskills-cloud monorepo uses a **unified Supabase authentication system** that works across all subdomains. This means users can log in once and access all learn-* subdomains without re-authenticating.
+The iiskills-cloud monorepo uses a **unified Supabase authentication system** that works across all subdomains. This means users can log in once and access all learn-\* subdomains without re-authenticating.
 
 ## Security Status ✅
 
 As of the latest audit (January 2026):
+
 - ✅ **No hardcoded credentials** in source code
 - ✅ **Consistent environment variable usage** across all 15+ subdomains
 - ✅ **Proper .gitignore configuration** to prevent credential leaks
@@ -18,7 +19,8 @@ As of the latest audit (January 2026):
 
 ### Cross-Subdomain Authentication
 
-All subdomains (main site and all learn-* apps) share:
+All subdomains (main site and all learn-\* apps) share:
+
 - **Same Supabase project** (same URL and anon key)
 - **Same authentication state** via shared localStorage key: `iiskills-auth-token`
 - **Same cookie domain** in production: `.iiskills.cloud` (note the leading dot)
@@ -26,6 +28,7 @@ All subdomains (main site and all learn-* apps) share:
 ### Subdomains
 
 The following subdomains are configured:
+
 1. Main site: `iiskills.cloud`
 2. learn-ai: `learn-ai.iiskills.cloud`
 3. learn-apt: `learn-apt.iiskills.cloud`
@@ -45,7 +48,7 @@ The following subdomains are configured:
 
 ## Required Environment Variables
 
-Each application (root and all learn-* directories) requires these environment variables:
+Each application (root and all learn-\* directories) requires these environment variables:
 
 ```env
 # Supabase Project URL (SAME for all subdomains)
@@ -84,7 +87,7 @@ NEXT_PUBLIC_COOKIE_DOMAIN=
 
 ### Step 2: Set Up Each Subdomain
 
-For each learn-* directory you're working with:
+For each learn-\* directory you're working with:
 
 ```bash
 # Example for learn-govt-jobs
@@ -107,6 +110,7 @@ NEXT_PUBLIC_COOKIE_DOMAIN=
 ### Development Ports
 
 Each subdomain uses a different port for local development:
+
 - Root: `3000`
 - learn-winning: `3003`
 - learn-neet: `3009`
@@ -180,15 +184,17 @@ Add all your production URLs to the allowed redirect list:
 All `lib/supabaseClient.js` files follow this pattern:
 
 ```javascript
-import { createClient } from '@supabase/supabase-js'
+import { createClient } from "@supabase/supabase-js";
 
 // Get credentials from environment variables
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
 // Warn if not configured (doesn't break builds)
 if (!supabaseUrl || !supabaseAnonKey) {
-  console.warn('Missing Supabase environment variables. Please set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY in .env.local')
+  console.warn(
+    "Missing Supabase environment variables. Please set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY in .env.local"
+  );
 }
 
 // Create client with cross-subdomain support
@@ -197,15 +203,16 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
     autoRefreshToken: true,
     persistSession: true,
     detectSessionInUrl: true,
-    flowType: 'pkce',
-    storageKey: 'iiskills-auth-token'  // Shared across subdomains
-  }
-})
+    flowType: "pkce",
+    storageKey: "iiskills-auth-token", // Shared across subdomains
+  },
+});
 ```
 
 ### Helper Functions
 
 All supabaseClient files export these helper functions:
+
 - `getCurrentUser()`: Get the current authenticated user
 - `signOutUser()`: Sign out the current user
 - `signInWithEmail(email, password)`: Sign in with email/password
@@ -218,11 +225,13 @@ All supabaseClient files export these helper functions:
 ### Local Testing
 
 1. Start the main app:
+
    ```bash
    npm run dev
    ```
 
 2. Start a subdomain:
+
    ```bash
    cd learn-govt-jobs
    npm run dev
@@ -234,7 +243,7 @@ All supabaseClient files export these helper functions:
 
 1. Deploy to production
 2. Navigate to main site and log in
-3. Navigate to any learn-* subdomain
+3. Navigate to any learn-\* subdomain
 4. Verify you're automatically logged in (session shared)
 5. Test sign-out works across all subdomains
 
@@ -250,7 +259,8 @@ All supabaseClient files export these helper functions:
 
 **Cause**: Different Supabase projects used, or cookie domain not set
 
-**Fix**: 
+**Fix**:
+
 1. Verify all `.env.local` files use the SAME Supabase URL and key
 2. In production, ensure `NEXT_PUBLIC_COOKIE_DOMAIN=.iiskills.cloud`
 3. In Supabase dashboard, set cookie domain to `.iiskills.cloud`
@@ -273,6 +283,7 @@ All supabaseClient files export these helper functions:
 ## Recent Audit (January 2026)
 
 A comprehensive audit was performed to:
+
 - ✅ Remove all hardcoded Supabase URLs and keys
 - ✅ Standardize environment variable validation
 - ✅ Fix corrupted configuration files
@@ -284,6 +295,7 @@ A comprehensive audit was performed to:
 ## Support
 
 For issues or questions:
+
 1. Check this documentation
 2. Review `SECURITY_CREDENTIALS.md` for security guidelines
 3. Check `SUPABASE_AUTH_SETUP.md` for authentication details

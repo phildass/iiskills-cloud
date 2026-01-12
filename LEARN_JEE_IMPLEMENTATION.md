@@ -17,6 +17,7 @@ Learn JEE is a paid educational platform designed specifically for JEE (Joint En
 ## Key Features
 
 ### 1. Mandatory Authentication
+
 - Users must register/login to access course content
 - Shared Supabase authentication across all iiskills.cloud subdomains
 - Multiple sign-in options:
@@ -25,6 +26,7 @@ Learn JEE is a paid educational platform designed specifically for JEE (Joint En
   - Magic Link (passwordless)
 
 ### 2. Free Preview System
+
 - **Free Access**: Chapter 1, Lesson 1
 - **Paid Access**: Chapters 1-10 (all remaining lessons)
 - Clear visual indicators for locked vs. accessible content
@@ -34,6 +36,7 @@ Learn JEE is a paid educational platform designed specifically for JEE (Joint En
 #### 10 Comprehensive Chapters:
 
 **Physics (Chapters 1-3)**
+
 1. JEE Physics Fundamentals
    - Introduction to JEE Physics (FREE)
    - Kinematics and Motion
@@ -49,11 +52,11 @@ Learn JEE is a paid educational platform designed specifically for JEE (Joint En
    - First Law of Thermodynamics
    - Heat Engines and Carnot Cycle
 
-**Chemistry (Chapters 4-6)**
-4. Physical Chemistry Foundations
-   - Atomic Structure
-   - Chemical Bonding
-   - States of Matter
+**Chemistry (Chapters 4-6)** 4. Physical Chemistry Foundations
+
+- Atomic Structure
+- Chemical Bonding
+- States of Matter
 
 5. Organic Chemistry Basics
    - Hydrocarbons
@@ -65,11 +68,11 @@ Learn JEE is a paid educational platform designed specifically for JEE (Joint En
    - Chemical Reactions
    - Coordination Compounds
 
-**Mathematics (Chapters 7-9)**
-7. Calculus for JEE
-   - Limits and Continuity
-   - Differentiation
-   - Integration Basics
+**Mathematics (Chapters 7-9)** 7. Calculus for JEE
+
+- Limits and Continuity
+- Differentiation
+- Integration Basics
 
 8. Algebra Mastery
    - Quadratic Equations
@@ -81,24 +84,23 @@ Learn JEE is a paid educational platform designed specifically for JEE (Joint En
    - Circles
    - Parabola and Ellipse
 
-**Problem-Solving (Chapter 10)**
-10. Problem-Solving Strategies
-    - Time Management in Exams
-    - Advanced Problem Solving
-    - Mock Test Strategies
+**Problem-Solving (Chapter 10)** 10. Problem-Solving Strategies - Time Management in Exams - Advanced Problem Solving - Mock Test Strategies
 
 ### 4. AI-Generated Content
+
 - Structure supports AI-generated lessons and quizzes
 - Scaffolded for future content generation
 - Interactive learning experience ready for implementation
 
 ### 5. Payment Integration
+
 - External payment portal: https://www.aienter.in/payments
 - Purchase status tracked in Supabase user metadata
 - Field: `purchased_jee_course` (boolean)
 - One-time payment, lifetime access model
 
 ### 6. Standardized Design
+
 - Consistent UI/UX with other iiskills.cloud modules
 - Tailwind CSS for responsive design
 - Color-coded by subject:
@@ -110,6 +112,7 @@ Learn JEE is a paid educational platform designed specifically for JEE (Joint En
 ## Technical Implementation
 
 ### File Structure
+
 ```
 learn-jee/
 ├── components/
@@ -138,12 +141,14 @@ learn-jee/
 ### Key Files
 
 #### 1. pages/index.js
+
 - Landing page with pricing display
 - Course preview and feature showcase
 - Subject coverage (Physics, Chemistry, Math)
 - Call-to-action buttons for registration/login
 
 #### 2. pages/learn.js
+
 - Protected route (requires authentication)
 - 10 chapters with 3 lessons each
 - Free preview: Chapter 1, Lesson 1
@@ -152,12 +157,14 @@ learn-jee/
 - Subject-specific color gradients
 
 #### 3. pages/login.js
+
 - Multiple authentication methods
 - Password-based login
 - Magic link option
 - Google OAuth integration
 
 #### 4. pages/register.js
+
 - Comprehensive registration form
 - Personal information collection
 - Educational background
@@ -165,6 +172,7 @@ learn-jee/
 - Google OAuth option
 
 #### 5. lib/supabaseClient.js
+
 - Supabase client initialization
 - Cross-subdomain authentication
 - Helper functions:
@@ -178,6 +186,7 @@ learn-jee/
 ### Environment Variables
 
 Required in `.env.local`:
+
 ```env
 NEXT_PUBLIC_SUPABASE_URL=your-supabase-url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
@@ -188,6 +197,7 @@ NEXT_PUBLIC_COOKIE_DOMAIN=                  # Empty for localhost, .iiskills.clo
 ### Deployment Configuration
 
 #### PM2 (ecosystem.config.js)
+
 ```javascript
 {
   name: 'iiskills-learn-jee',
@@ -202,6 +212,7 @@ NEXT_PUBLIC_COOKIE_DOMAIN=                  # Empty for localhost, .iiskills.clo
 ```
 
 #### Nginx Configuration
+
 ```nginx
 server {
     listen 80;
@@ -220,16 +231,19 @@ server {
 ## Access Control Logic
 
 ### Free Access
+
 - Landing page (/)
 - Login page (/login)
 - Register page (/register)
 - Chapter 1, Lesson 1 (for authenticated users)
 
 ### Paid Access (requires `purchased_jee_course: true`)
+
 - All lessons except Chapter 1, Lesson 1
 - Checked via user metadata in Supabase
 
 ### Authentication Check Flow
+
 ```javascript
 1. User accesses /learn
 2. System checks for authenticated session
@@ -250,20 +264,25 @@ server {
 ## Testing
 
 ### Build Verification
+
 ```bash
 cd learn-jee
 npm install
 npm run build
 ```
+
 ✅ Build successful - all pages compiled without errors
 
 ### Development Server
+
 ```bash
 npm run dev
 ```
+
 ✅ Server runs on http://localhost:3009
 
 ### Page Access Tests
+
 ✅ Landing page (/) - renders correctly
 ✅ Login page (/login) - JEE branding applied
 ✅ Register page (/register) - JEE branding applied
@@ -272,12 +291,15 @@ npm run dev
 ## Security
 
 ### Code Review
+
 ✅ No issues found
 
 ### CodeQL Security Scan
+
 ✅ No vulnerabilities detected
 
 ### Security Features
+
 - No hardcoded credentials
 - Environment variables for sensitive data
 - Cross-subdomain session support
@@ -311,21 +333,27 @@ npm run dev
 ## Maintenance Notes
 
 ### Updating Course Content
+
 Course data is defined in `/learn-jee/pages/learn.js` in the `courseData` array. Modify this array to:
+
 - Add/remove chapters
 - Update lesson titles/durations
 - Change subject classifications
 
 ### Managing Purchase Status
+
 Purchase status is stored in Supabase user metadata:
+
 ```javascript
-user.user_metadata.purchased_jee_course = true
+user.user_metadata.purchased_jee_course = true;
 ```
 
 Update via Supabase dashboard or API after payment verification.
 
 ### Pricing Updates
+
 Update pricing in three locations:
+
 1. `/learn-jee/pages/index.js` - Landing page
 2. `/learn-jee/pages/learn.js` - Learning page
 3. `/learn-jee/README.md` - Documentation

@@ -14,11 +14,13 @@ This document describes the changes made to the navigation bar and user access l
 ### 1. New Components Created
 
 #### SubdomainNavbar Component
+
 **File**: `/components/shared/SubdomainNavbar.js`
 
 A new navigation component that provides a secondary navigation bar for subdomains with dropdown functionality.
 
 **Features**:
+
 - Displays below the main SharedNavbar
 - Dropdown menu with subdomain-specific navigation links
 - No logos (to avoid duplication with main navbar)
@@ -26,30 +28,33 @@ A new navigation component that provides a secondary navigation bar for subdomai
 - Accessible with proper ARIA attributes
 
 **Usage**:
+
 ```javascript
 <SubdomainNavbar
   subdomainName="Learn-Apt"
   sections={[
     {
-      label: 'Home',
-      href: '/',
-      description: 'Welcome to Learn-Apt'
+      label: "Home",
+      href: "/",
+      description: "Welcome to Learn-Apt",
     },
     {
-      label: 'Start Test',
-      href: '/learn',
-      description: 'Choose your assessment mode'
-    }
+      label: "Start Test",
+      href: "/learn",
+      description: "Choose your assessment mode",
+    },
   ]}
 />
 ```
 
 #### PaidUserProtectedRoute Component
+
 **File**: `/components/PaidUserProtectedRoute.js`
 
 A new protection component that wraps pages requiring both authentication AND payment/registration.
 
 **Features**:
+
 - Checks user authentication via Supabase
 - Checks payment status via user metadata
 - Shows user-friendly access denied message when not paid
@@ -57,16 +62,18 @@ A new protection component that wraps pages requiring both authentication AND pa
 - Payment link directs to https://www.aienter.in/payments as required
 
 **Message Displayed**:
+
 > "Only registered and paid users can access this page. Please log in if you are already registered. Or make payment here. This will lead you to our parent organisation AI Cloud Enterprises (aienter.in)."
 
 **Usage**:
+
 ```javascript
 export default function RestrictedPage() {
   return (
     <PaidUserProtectedRoute>
       <YourPageContent />
     </PaidUserProtectedRoute>
-  )
+  );
 }
 ```
 
@@ -77,7 +84,9 @@ export default function RestrictedPage() {
 Added new functions to support payment status checking:
 
 #### `checkUserPaymentStatus(user)`
+
 Checks if a user has paid/registered status by:
+
 - Checking `user_metadata.payment_status` or `app_metadata.payment_status`
 - Granting automatic access to admin users
 - Returns `true` if user has paid, `false` otherwise
@@ -85,6 +94,7 @@ Checks if a user has paid/registered status by:
 **Note**: Currently uses metadata. In production, this should query a payments table.
 
 #### `getUserProfile(user)`
+
 Extended to include payment status information in the returned user profile.
 
 ### 3. Updated Subdomain Applications
@@ -101,36 +111,35 @@ All subdomain `_app.js` files have been updated to include the SubdomainNavbar:
 - `/learn-winning/pages/_app.js`
 
 **Changes**:
+
 1. Import SubdomainNavbar component
 2. Define subdomain-specific navigation sections
 3. Add SubdomainNavbar below SharedNavbar in render
 
 **Example Structure**:
+
 ```javascript
 const subdomainSections = [
   {
-    label: 'Home',
-    href: '/',
-    description: 'Welcome to Learn AI'
+    label: "Home",
+    href: "/",
+    description: "Welcome to Learn AI",
   },
   {
-    label: 'Learning Content',
-    href: '/learn',
-    description: 'Access AI learning materials'
+    label: "Learning Content",
+    href: "/learn",
+    description: "Access AI learning materials",
   },
   // ... more sections
-]
+];
 
 return (
   <>
     <SharedNavbar {...props} />
-    <SubdomainNavbar
-      subdomainName="Learn AI"
-      sections={subdomainSections}
-    />
+    <SubdomainNavbar subdomainName="Learn AI" sections={subdomainSections} />
     <Component {...pageProps} />
   </>
-)
+);
 ```
 
 ### 4. Protected Pages Updated
@@ -138,6 +147,7 @@ return (
 The following pages have been wrapped with PaidUserProtectedRoute:
 
 **Learn Pages** (requires payment):
+
 - `/learn-ai/pages/learn.js`
 - `/learn-apt/pages/learn.js`
 - `/learn-data-science/pages/learn.js`
@@ -147,10 +157,12 @@ The following pages have been wrapped with PaidUserProtectedRoute:
 - `/learn-pr/pages/learn.js`
 
 **Learn-Apt Additional Pages**:
+
 - `/learn-apt/pages/test.js` - Assessment test page
 - `/learn-apt/pages/results.js` - Test results page
 
 **Pattern Used**:
+
 ```javascript
 // Original function renamed to ContentComponent
 function LearnContent() {
@@ -163,17 +175,19 @@ export default function Learn() {
     <PaidUserProtectedRoute>
       <LearnContent />
     </PaidUserProtectedRoute>
-  )
+  );
 }
 ```
 
 ### 5. Navigation Bar Structure
 
 #### Main Domain (iiskills.cloud)
+
 - SharedNavbar with full navigation (Home, Courses, Certification, Payments, About, Terms)
 - No SubdomainNavbar (main domain doesn't need subdomain-specific navigation)
 
-#### All Subdomains (learn-*.iiskills.cloud)
+#### All Subdomains (learn-\*.iiskills.cloud)
+
 **Two-tier navigation**:
 
 1. **Top Bar** (SharedNavbar):
@@ -192,6 +206,7 @@ export default function Learn() {
 ## User Experience
 
 ### Non-Authenticated User Accessing Restricted Page
+
 1. User navigates to `/learn` on any subdomain
 2. PaidUserProtectedRoute checks authentication
 3. User sees access denied screen with:
@@ -203,6 +218,7 @@ export default function Learn() {
    - "Back to Home" link
 
 ### Authenticated But Non-Paid User
+
 1. User navigates to `/learn` on any subdomain
 2. PaidUserProtectedRoute checks payment status
 3. User sees same access denied screen with:
@@ -211,6 +227,7 @@ export default function Learn() {
    - "Make Payment" button
 
 ### Paid User
+
 1. User navigates to `/learn` on any subdomain
 2. PaidUserProtectedRoute verifies authentication and payment
 3. User sees the protected content immediately
@@ -222,6 +239,7 @@ export default function Learn() {
 Payment status is currently stored in Supabase user metadata. To grant a user access:
 
 **Option 1: Supabase Dashboard**
+
 1. Go to Supabase project → Authentication → Users
 2. Select the user
 3. Edit user metadata
@@ -229,6 +247,7 @@ Payment status is currently stored in Supabase user metadata. To grant a user ac
 5. Save changes
 
 **Option 2: SQL**
+
 ```sql
 UPDATE auth.users
 SET raw_user_meta_data = raw_user_meta_data || '{"payment_status": "paid"}'::jsonb
@@ -241,6 +260,7 @@ In production, payment status should be tracked in a dedicated `payments` table 
 ## Accessibility Features
 
 All components include:
+
 - Proper ARIA labels (`aria-expanded`, `aria-haspopup`)
 - Keyboard navigation support
 - Screen reader compatible structure
@@ -250,11 +270,13 @@ All components include:
 ## Responsive Design
 
 ### Desktop (>768px)
+
 - Full navigation bars with all links visible
 - Dropdown menus for subdomain navigation
 - Side-by-side layout for buttons
 
 ### Mobile (<768px)
+
 - Hamburger menu for main navigation
 - Touch-friendly dropdown for subdomain navigation
 - Stacked button layout
@@ -263,10 +285,12 @@ All components include:
 ## Files Modified Summary
 
 ### New Files
+
 - `/components/shared/SubdomainNavbar.js`
 - `/components/PaidUserProtectedRoute.js`
 
 ### Modified Files
+
 - `/lib/supabaseClient.js` - Added payment checking functions
 - `/components/Navbar.js` - Fixed duplicate imports
 - `/pages/admin/login.js` - Fixed syntax errors
@@ -278,6 +302,7 @@ All components include:
 ## Testing
 
 All changes have been verified to build successfully:
+
 - Main domain build: ✅ Success
 - learn-ai subdomain build: ✅ Success
 - learn-apt subdomain build: ✅ Success
@@ -302,6 +327,7 @@ All changes have been verified to build successfully:
 ## Support and Documentation
 
 For questions or issues related to these changes:
+
 - See `NAVIGATION_AUTH_GUIDE.md` for authentication flow
 - See `SUPABASE_AUTH_SETUP.md` for Supabase configuration
 - Contact development team for payment integration questions

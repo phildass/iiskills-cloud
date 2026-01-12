@@ -1,22 +1,19 @@
-import { useState } from 'react'
-import Link from 'next/link'
+import { useState } from "react";
+import Link from "next/link";
 
 /**
  * Subdomain Navigation Bar Component
- * 
+ *
  * This component provides a secondary navigation bar for subdomains
  * with a dropdown menu for subdomain-specific pages/sections.
  * Should be placed below the main SharedNavbar.
- * 
+ *
  * Props:
  * - subdomainName: Name of the subdomain (e.g., 'Learn-Apt', 'Learn AI')
  * - sections: Array of section objects with { label, href, description }
  */
-export default function SubdomainNavbar({ 
-  subdomainName = 'Module',
-  sections = []
-}) {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+export default function SubdomainNavbar({ subdomainName = "Module", sections = [] }) {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   return (
     <nav className="bg-gradient-to-r from-primary to-accent text-white px-6 py-2 shadow-md sticky top-[76px] z-40">
@@ -30,13 +27,18 @@ export default function SubdomainNavbar({
             aria-haspopup="true"
           >
             <span className="text-lg">{subdomainName} Navigation</span>
-            <svg 
-              className={`w-5 h-5 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} 
-              fill="none" 
-              stroke="currentColor" 
+            <svg
+              className={`w-5 h-5 transition-transform ${isDropdownOpen ? "rotate-180" : ""}`}
+              fill="none"
+              stroke="currentColor"
               viewBox="0 0 24 24"
             >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M19 9l-7 7-7-7"
+              />
             </svg>
           </button>
 
@@ -53,13 +55,9 @@ export default function SubdomainNavbar({
                   className="block px-4 py-3 hover:bg-gray-50 transition-colors border-b border-gray-100 last:border-b-0"
                   onClick={() => setIsDropdownOpen(false)}
                 >
-                  <div className="text-gray-800 font-medium text-sm">
-                    {section.label}
-                  </div>
+                  <div className="text-gray-800 font-medium text-sm">{section.label}</div>
                   {section.description && (
-                    <div className="text-gray-600 text-xs mt-1">
-                      {section.description}
-                    </div>
+                    <div className="text-gray-600 text-xs mt-1">{section.description}</div>
                   )}
                 </Link>
               ))}
@@ -69,7 +67,7 @@ export default function SubdomainNavbar({
 
         {/* Helper Text */}
         <div className="hidden md:block text-sm opacity-90">
-          {sections.length > 0 ? `${sections.length} sections available` : 'Module navigation'}
+          {sections.length > 0 ? `${sections.length} sections available` : "Module navigation"}
         </div>
       </div>
 
@@ -82,5 +80,5 @@ export default function SubdomainNavbar({
         />
       )}
     </nav>
-  )
+  );
 }

@@ -5,12 +5,14 @@
 ## 🚀 Quick Fix Steps (5 minutes)
 
 ### Step 1: Run the Verification Script
+
 ```bash
 cd /path/to/iiskills-cloud
 ./google-oauth-check.sh
 ```
 
 **Note**: If you get a "permission denied" error, run:
+
 ```bash
 chmod +x google-oauth-check.sh
 ./google-oauth-check.sh
@@ -44,12 +46,14 @@ This will tell you what's missing. Fix any errors shown.
 2. Add these redirect URLs (one per line):
 
 **For Development**:
+
 ```
 http://localhost:3000/**
 http://localhost:3009/**
 ```
 
 **For Production** (add ALL domains where users will log in):
+
 ```
 https://iiskills.cloud/**
 https://learn-neet.iiskills.cloud/**
@@ -91,6 +95,7 @@ NEXT_PUBLIC_COOKIE_DOMAIN=
 ### Step 6: Test Google Sign-In
 
 1. Start dev server:
+
    ```bash
    npm run dev
    ```

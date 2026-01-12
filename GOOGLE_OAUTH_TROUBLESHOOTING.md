@@ -8,6 +8,7 @@
 ## 🔍 Problem Overview
 
 Google sign-in may fail across certain or all domains/subdomains due to:
+
 - Missing or incorrect callback URLs in Supabase and Google Cloud Console
 - Incorrect OAuth provider configuration
 - Environment variable issues
@@ -91,8 +92,8 @@ You need to get credentials from Google Cloud Console first (see Step 2), then a
 4. Back to creating OAuth client ID:
    - Application type: **Web application**
    - Name: `iiskills.cloud OAuth`
-   
 5. **Add Authorized JavaScript origins** (domains that can initiate OAuth):
+
    ```
    http://localhost:3000
    http://localhost:3001
@@ -121,7 +122,7 @@ You need to get credentials from Google Cloud Console first (see Step 2), then a
    - Add the Supabase callback URL you copied earlier
    - Format: `https://YOUR-PROJECT.supabase.co/auth/v1/callback`
    - Example: `https://abcdefghijk.supabase.co/auth/v1/callback`
-   
+
    ⚠️ **This is the most common source of errors!** Make sure:
    - The URL matches EXACTLY what Supabase shows
    - It ends with `/auth/v1/callback`
@@ -144,6 +145,7 @@ Supabase needs to know which URLs are allowed after OAuth authentication.
 2. In the **Redirect URLs** section, add the following (one per line):
 
 **For Development (localhost):**
+
 ```
 http://localhost:3000/**
 http://localhost:3001/**
@@ -153,6 +155,7 @@ http://localhost:3015/**
 ```
 
 **For Production (all subdomains):**
+
 ```
 https://iiskills.cloud/**
 https://learn-ai.iiskills.cloud/**
@@ -198,6 +201,7 @@ NEXT_PUBLIC_COOKIE_DOMAIN=
 ```
 
 ⚠️ **For production**, set:
+
 ```env
 NEXT_PUBLIC_COOKIE_DOMAIN=.iiskills.cloud
 ```
@@ -221,6 +225,7 @@ NEXT_PUBLIC_COOKIE_DOMAIN=
 **Critical**: All apps must use the **SAME** `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` for universal authentication.
 
 Run this to check:
+
 ```bash
 grep -r "NEXT_PUBLIC_SUPABASE_URL" .env.local learn-*/.env.local 2>/dev/null
 ```
@@ -238,25 +243,27 @@ The `lib/supabaseClient.js` file should have:
 ```javascript
 export async function signInWithGoogle(redirectTo = null) {
   try {
-    const redirectUrl = redirectTo || (typeof window !== 'undefined' 
-      ? `${window.location.origin}/` 
-      : process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000')
-    
+    const redirectUrl =
+      redirectTo ||
+      (typeof window !== "undefined"
+        ? `${window.location.origin}/`
+        : process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000");
+
     const { data, error } = await supabase.auth.signInWithOAuth({
-      provider: 'google',
+      provider: "google",
       options: {
         redirectTo: redirectUrl,
-      }
-    })
-    
+      },
+    });
+
     if (error) {
-      return { success: false, error: error.message }
+      return { success: false, error: error.message };
     }
-    
-    return { success: true, error: null }
+
+    return { success: true, error: null };
   } catch (error) {
-    console.error('Error in signInWithGoogle:', error)
-    return { success: false, error: error.message }
+    console.error("Error in signInWithGoogle:", error);
+    return { success: false, error: error.message };
   }
 }
 ```
@@ -268,37 +275,40 @@ Check `lib/supabaseClient.js` has proper cookie domain setup:
 ```javascript
 export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
   auth: {
-    storage: typeof window !== 'undefined' ? window.localStorage : undefined,
+    storage: typeof window !== "undefined" ? window.localStorage : undefined,
     autoRefreshToken: true,
     persistSession: true,
     detectSessionInUrl: true,
     cookieOptions: {
       domain: getCookieDomain(),
-      secure: typeof window !== 'undefined' ? window.location.protocol === 'https:' : process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
-    }
-  }
-})
+      secure:
+        typeof window !== "undefined"
+          ? window.location.protocol === "https:"
+          : process.env.NODE_ENV === "production",
+      sameSite: "lax",
+    },
+  },
+});
 ```
 
 And `utils/urlHelper.js` should have:
 
 ```javascript
 export function getCookieDomain() {
-  if (typeof window === 'undefined') {
-    return process.env.NEXT_PUBLIC_COOKIE_DOMAIN || '.iiskills.cloud'
+  if (typeof window === "undefined") {
+    return process.env.NEXT_PUBLIC_COOKIE_DOMAIN || ".iiskills.cloud";
   }
-  
-  const hostname = window.location.hostname
-  
+
+  const hostname = window.location.hostname;
+
   // On localhost, don't set domain (allows cookies to work)
-  if (hostname === 'localhost' || hostname === '127.0.0.1') {
-    return undefined
+  if (hostname === "localhost" || hostname === "127.0.0.1") {
+    return undefined;
   }
-  
+
   // Use dot prefix for subdomain wildcard
-  const mainDomain = getMainDomain()
-  return `.${mainDomain}`
+  const mainDomain = getMainDomain();
+  return `.${mainDomain}`;
 }
 ```
 
@@ -309,6 +319,7 @@ export function getCookieDomain() {
 ### 6.1 Local Testing
 
 1. Start the main app:
+
    ```bash
    cd /home/runner/work/iiskills-cloud/iiskills-cloud
    npm install
@@ -339,6 +350,7 @@ export function getCookieDomain() {
 **Cause**: The redirect URI used doesn't match what's configured in Google Cloud Console.
 
 **Fix**:
+
 1. Check browser console for the actual redirect URI being used
 2. Go to Google Cloud Console → Credentials → Your OAuth Client
 3. Add the EXACT redirect URI shown in the error to **Authorized redirect URIs**
@@ -349,6 +361,7 @@ export function getCookieDomain() {
 **Cause**: Email not confirmed in Supabase, or Google account email doesn't match.
 
 **Fix**:
+
 1. Go to Supabase Dashboard → Authentication → Users
 2. Find the user account
 3. Manually confirm the email if needed
@@ -359,6 +372,7 @@ export function getCookieDomain() {
 **Cause**: Google provider not enabled in Supabase or incorrect credentials.
 
 **Fix**:
+
 1. Verify Google provider is enabled in Supabase
 2. Check Client ID and Client Secret are correct
 3. Ensure Google+ API is enabled in Google Cloud Console
@@ -368,6 +382,7 @@ export function getCookieDomain() {
 **Cause**: Cookie domain not configured correctly.
 
 **Fix**:
+
 1. Set `NEXT_PUBLIC_COOKIE_DOMAIN=.iiskills.cloud` in production
 2. Verify `getCookieDomain()` function returns `.iiskills.cloud`
 3. Ensure all apps use same Supabase project
@@ -378,6 +393,7 @@ export function getCookieDomain() {
 **Cause**: Component not configured to show Google OAuth, or error in code.
 
 **Fix**:
+
 1. Check `UniversalLogin` component has `showGoogleAuth={true}`
 2. Verify `signInWithGoogle` function is imported
 3. Check browser console for JavaScript errors
@@ -387,6 +403,7 @@ export function getCookieDomain() {
 **Cause**: OAuth consent screen not properly configured.
 
 **Fix**:
+
 1. Go to Google Cloud Console → APIs & Services → OAuth consent screen
 2. Complete all required fields
 3. Add your email as a test user if app is in testing mode
@@ -413,7 +430,7 @@ if [ -f .env.local ]; then
   else
     echo "❌ NEXT_PUBLIC_SUPABASE_URL missing"
   fi
-  
+
   if grep -q "NEXT_PUBLIC_SUPABASE_ANON_KEY" .env.local; then
     echo "✅ NEXT_PUBLIC_SUPABASE_ANON_KEY found"
   else
@@ -431,7 +448,7 @@ if [ -f lib/supabaseClient.js ]; then
   else
     echo "❌ signInWithGoogle function missing"
   fi
-  
+
   if grep -q "cookieOptions" lib/supabaseClient.js; then
     echo "✅ cookieOptions configuration found"
   else
@@ -471,12 +488,15 @@ Run with: `chmod +x google-oauth-check.sh && ./google-oauth-check.sh`
 For easy copy-paste into Google Cloud Console and Supabase:
 
 ### Supabase Callback URL (for Google Cloud Console)
+
 ```
 https://YOUR-PROJECT-ID.supabase.co/auth/v1/callback
 ```
+
 Replace `YOUR-PROJECT-ID` with your actual Supabase project ID.
 
 ### All Domain Origins (for Google Cloud Console - JavaScript origins)
+
 ```
 http://localhost:3000
 http://localhost:3001
@@ -502,6 +522,7 @@ https://learn-winning.iiskills.cloud
 ```
 
 ### All Redirect URLs (for Supabase URL Configuration)
+
 ```
 http://localhost:3000/**
 http://localhost:3001/**
@@ -540,6 +561,7 @@ To restore working Google sign-in:
 6. ✅ **Test on all domains/subdomains** to ensure universal access
 
 The most common issue is **mismatched redirect URIs**. Always ensure:
+
 - Supabase callback URL is in Google Cloud Console Authorized redirect URIs
 - All app URLs are in Supabase Redirect URLs
 - All app URLs are in Google Cloud Console JavaScript origins
@@ -549,6 +571,7 @@ The most common issue is **mismatched redirect URIs**. Always ensure:
 ## 📞 Support
 
 If issues persist after following this guide:
+
 1. Check Supabase logs: Dashboard → Logs
 2. Check browser console for detailed error messages
 3. Verify Google Cloud Console OAuth consent screen is published

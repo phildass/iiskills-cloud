@@ -7,9 +7,11 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 ## Communication & Soft Skills
 
 ### Spoken English (Fluency & Grammar)
+
 **Description:** Master English fluency with comprehensive grammar, pronunciation, and conversational skills training. Build confidence in professional and social communication through structured practice and real-world scenarios.
 
 **Topics/Skills:**
+
 - Grammar Fundamentals
 - Pronunciation and Accent
 - Vocabulary Building
@@ -21,13 +23,14 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Interview Communication
 - Fluency Development
 
-
 ---
 
 ### Public Speaking
+
 **Description:** Overcome stage fright and master public speaking skills. Learn to deliver confident, persuasive presentations that captivate audiences and leave lasting impressions in any professional or personal setting.
 
 **Topics/Skills:**
+
 - Overcoming Fear and Anxiety
 - Voice Modulation and Diction
 - Body Language and Gestures
@@ -39,13 +42,14 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Professional Presentations
 - Impromptu Speaking
 
-
 ---
 
 ### Personality Development
+
 **Description:** Transform your personal and professional presence through comprehensive personality development. Enhance confidence, emotional intelligence, and interpersonal skills to make positive impressions and build lasting relationships.
 
 **Topics/Skills:**
+
 - Self-Awareness and Discovery
 - Confidence Building
 - Emotional Intelligence
@@ -57,13 +61,14 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Relationship Building
 - Professional Etiquette
 
-
 ---
 
 ### Interview Skills
+
 **Description:** Master the art of interviews with proven strategies for success. Learn to present yourself confidently, answer challenging questions effectively, and make compelling impressions that secure job offers.
 
 **Topics/Skills:**
+
 - Interview Preparation
 - Resume Building
 - Common Interview Questions
@@ -75,15 +80,16 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Virtual Interview Techniques
 - Assessment Center Preparation
 
-
 ---
 
 ## Creative Design (UI/UX)
 
 ### Figma/Adobe XD
+
 **Description:** Master modern design tools Figma and Adobe XD for professional UI/UX work. Create stunning interfaces, prototypes, and design systems with industry-standard software used by top companies worldwide.
 
 **Topics/Skills:**
+
 - Figma Fundamentals
 - Adobe XD Basics
 - Interface Design Principles
@@ -95,13 +101,14 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Design Handoff
 - Best Practices and Workflows
 
-
 ---
 
 ### UX Research
+
 **Description:** Discover user experience research methodologies to create user-centered designs. Learn to conduct interviews, usability tests, and data analysis to inform design decisions and improve product experiences.
 
 **Topics/Skills:**
+
 - UX Research Fundamentals
 - User Interviews
 - Surveys and Questionnaires
@@ -113,13 +120,14 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - A/B Testing
 - Research Synthesis and Presentation
 
-
 ---
 
 ### UI Design
+
 **Description:** Create visually stunning and functional user interfaces. Master color theory, typography, layout principles, and modern design trends to craft beautiful digital experiences that users love.
 
 **Topics/Skills:**
+
 - UI Design Principles
 - Color Theory and Psychology
 - Typography Fundamentals
@@ -131,13 +139,14 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Design Trends
 - Design Portfolio Building
 
-
 ---
 
 ### Graphic Design
+
 **Description:** Develop professional graphic design skills for print and digital media. Learn essential design principles, Adobe Creative Suite tools, and creative techniques to bring visual ideas to life.
 
 **Topics/Skills:**
+
 - Design Fundamentals
 - Adobe Photoshop
 - Adobe Illustrator
@@ -149,15 +158,16 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Image Editing
 - Portfolio Development
 
-
 ---
 
 ## Lifestyle & Hobbies
 
 ### Yoga and Wellness
+
 **Description:** Discover holistic wellness through yoga practice and lifestyle techniques. Learn asanas, breathing exercises, meditation, and wellness principles for physical health, mental clarity, and spiritual balance.
 
 **Topics/Skills:**
+
 - Yoga Fundamentals
 - Basic Asanas (Postures)
 - Pranayama (Breathing Techniques)
@@ -169,13 +179,14 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Daily Wellness Routines
 - Advanced Yoga Practices
 
-
 ---
 
 ### Indian Cuisine Cooking
+
 **Description:** Master authentic Indian cooking techniques and regional specialties. Learn traditional recipes, spice blending, and cooking methods to create delicious Indian dishes for family and professional culinary pursuits.
 
 **Topics/Skills:**
+
 - Indian Cooking Fundamentals
 - Spice Knowledge and Blending
 - North Indian Cuisine
@@ -187,13 +198,14 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Snacks and Appetizers
 - Traditional Sweets and Desserts
 
-
 ---
 
 ### Photography/Videography
+
 **Description:** Capture stunning images and videos with professional techniques. Master camera operation, composition, lighting, editing, and storytelling to create compelling visual content for personal or commercial projects.
 
 **Topics/Skills:**
+
 - Camera Fundamentals
 - Composition Techniques
 - Understanding Light
@@ -205,13 +217,14 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Photo Editing (Lightroom, Photoshop)
 - Building Your Portfolio
 
-
 ---
 
 ### Music (Instrument or Vocal Training)
+
 **Description:** Develop musical skills through structured instrument or vocal training. Learn music theory, technique, practice methods, and performance skills to express yourself through music and achieve your musical goals.
 
 **Topics/Skills:**
+
 - Music Theory Basics
 - Reading Music Notation
 - Rhythm and Timing
@@ -223,15 +236,16 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Performance Skills
 - Recording Basics
 
-
 ---
 
 ## Coding for Kids
 
 ### Coding Basics (Scratch, Python)
+
 **Description:** Introduce children to programming fundamentals through fun, interactive learning. Use visual programming with Scratch and text-based coding with Python to build computational thinking and problem-solving skills.
 
 **Topics/Skills:**
+
 - Introduction to Programming Concepts
 - Scratch Visual Programming
 - Creating Games and Animations
@@ -243,13 +257,14 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Problem-Solving Skills
 - Creative Coding
 
-
 ---
 
 ### Vedic Mathematics
+
 **Description:** Learn ancient Indian mathematical techniques for fast mental calculations. Master Vedic sutras and methods to solve complex arithmetic problems quickly, boosting computational speed and accuracy for academic success.
 
 **Topics/Skills:**
+
 - Introduction to Vedic Mathematics
 - Basic Sutras and Principles
 - Multiplication Techniques
@@ -261,13 +276,14 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Problem-Solving Speed
 - Competition Preparation
 
-
 ---
 
 ### Abacus Training
+
 **Description:** Develop exceptional mental math abilities through abacus training. Master the ancient counting tool to perform rapid calculations, enhance concentration, memory, and build strong mathematical foundations for young learners.
 
 **Topics/Skills:**
+
 - Abacus Fundamentals
 - Bead Manipulation Techniques
 - Addition and Subtraction
@@ -279,13 +295,14 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Speed Calculation
 - Competition Training
 
-
 ---
 
 ### Phonics
+
 **Description:** Build strong reading and pronunciation foundations through systematic phonics instruction. Learn letter sounds, blending techniques, and decoding strategies to develop confident reading skills for early learners.
 
 **Topics/Skills:**
+
 - Letter Sound Recognition
 - Phonemic Awareness
 - Blending Sounds
@@ -297,15 +314,16 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Spelling Foundations
 - Reading Comprehension Basics
 
-
 ---
 
 ## JEE/NEET Coaching
 
 ### JEE/NEET Physics
+
 **Description:** Comprehensive Physics coaching for JEE and NEET aspirants. Master mechanics, thermodynamics, electromagnetism, optics, and modern physics with focused problem-solving, concept clarity, and exam strategies.
 
 **Topics/Skills:**
+
 - Mechanics and Motion
 - Thermodynamics
 - Electromagnetism
@@ -317,13 +335,14 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Previous Year Questions
 - Time Management in Exams
 
-
 ---
 
 ### JEE/NEET Chemistry
+
 **Description:** Complete Chemistry preparation for competitive exams. Cover physical, organic, and inorganic chemistry with emphasis on reactions, mechanisms, periodic properties, and numerical problem-solving for JEE/NEET success.
 
 **Topics/Skills:**
+
 - Physical Chemistry
 - Organic Chemistry
 - Inorganic Chemistry
@@ -335,13 +354,14 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Previous Year Analysis
 - Quick Revision Techniques
 
-
 ---
 
 ### JEE Mathematics / NEET Biology
+
 **Description:** Specialized coaching in Mathematics for JEE or Biology for NEET. Master advanced concepts, problem-solving strategies, and develop speed and accuracy required for competitive exam success.
 
 **Topics/Skills:**
+
 - Advanced Mathematics/Biology Concepts
 - Calculus/Physiology (JEE/NEET)
 - Algebra/Genetics (JEE/NEET)
@@ -353,13 +373,14 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Mock Test Analysis
 - Exam Strategy and Time Management
 
-
 ---
 
 ### Mock Exams and Doubt-Clearing Sessions
+
 **Description:** Comprehensive test practice and personalized doubt resolution for JEE/NEET aspirants. Regular mock tests simulate real exam conditions, while dedicated doubt-clearing sessions ensure complete concept mastery.
 
 **Topics/Skills:**
+
 - Full-Length Mock Tests
 - Subject-Wise Tests
 - Performance Analysis
@@ -371,15 +392,16 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Error Analysis
 - Revision Planning
 
-
 ---
 
 ## UPSC/Government Exams
 
 ### UPSC Preparation
+
 **Description:** Comprehensive UPSC Civil Services Exam preparation covering Prelims and Mains. Master General Studies, Current Affairs, Optional subjects, Essay writing, and Interview skills for India's most prestigious examination.
 
 **Topics/Skills:**
+
 - General Studies (Paper I-IV)
 - Current Affairs and News Analysis
 - Optional Subject Preparation
@@ -391,13 +413,14 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Interview/Personality Test Preparation
 - Ethics and Integrity
 
-
 ---
 
 ### IBPS/SBI Exam Preparation
+
 **Description:** Targeted preparation for banking sector exams including IBPS PO, Clerk, and SBI positions. Cover quantitative aptitude, reasoning, English, general awareness, and banking knowledge for successful career in banking.
 
 **Topics/Skills:**
+
 - Quantitative Aptitude
 - Reasoning Ability
 - English Language
@@ -409,13 +432,14 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Speed and Accuracy Development
 - Interview Preparation
 
-
 ---
 
 ### Railways Exam Preparation
+
 **Description:** Complete preparation for Railway Recruitment Board exams including RRB NTPC, Group D, and technical positions. Master reasoning, mathematics, general awareness, and technical subjects for railway careers.
 
 **Topics/Skills:**
+
 - Mathematics and Arithmetic
 - General Intelligence and Reasoning
 - General Awareness
@@ -427,13 +451,14 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Exam Strategy
 - Physical Efficiency Test Preparation
 
-
 ---
 
 ### Government Exam General Preparation
+
 **Description:** Broad-based preparation for various government examinations. Build strong fundamentals in reasoning, quantitative aptitude, general knowledge, and English to excel across multiple competitive exams.
 
 **Topics/Skills:**
+
 - Quantitative Aptitude Fundamentals
 - Logical and Analytical Reasoning
 - Verbal and Written English
@@ -445,15 +470,16 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - History and Culture
 - Exam Strategies and Time Management
 
-
 ---
 
 ## Data Science & AI/ML
 
 ### Python for Data Science
+
 **Description:** Master Python programming for data science applications. Learn essential libraries, data manipulation, analysis techniques, and visualization tools to process and extract insights from complex datasets.
 
 **Topics/Skills:**
+
 - Python Programming Fundamentals
 - NumPy for Numerical Computing
 - Pandas for Data Manipulation
@@ -465,13 +491,14 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - SQL Integration
 - Real-World Data Projects
 
-
 ---
 
 ### R Programming and Statistics
+
 **Description:** Learn R programming for statistical analysis and data science. Master data manipulation, statistical modeling, and visualization techniques using R's powerful ecosystem for research and analytics.
 
 **Topics/Skills:**
+
 - R Programming Basics
 - Data Structures in R
 - Data Manipulation with dplyr
@@ -483,13 +510,14 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - R Markdown for Reporting
 - Statistical Modeling
 
-
 ---
 
 ### Machine Learning
+
 **Description:** Discover machine learning algorithms and techniques to build intelligent systems. Learn supervised and unsupervised learning, model evaluation, and practical ML implementation for real-world problem-solving.
 
 **Topics/Skills:**
+
 - Machine Learning Fundamentals
 - Supervised Learning Algorithms
 - Unsupervised Learning Techniques
@@ -501,13 +529,14 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Scikit-learn Library
 - ML Project Development
 
-
 ---
 
 ### Deep Learning
+
 **Description:** Master deep learning and neural networks for advanced AI applications. Learn to build and train deep neural networks, CNNs, RNNs, and work with cutting-edge frameworks like TensorFlow and PyTorch.
 
 **Topics/Skills:**
+
 - Neural Network Fundamentals
 - Deep Learning Architectures
 - Convolutional Neural Networks (CNNs)
@@ -519,13 +548,14 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Natural Language Processing
 - Model Optimization and Deployment
 
-
 ---
 
 ### Data Visualization (Tableau, Power BI)
+
 **Description:** Create compelling visual stories from data using industry-leading tools. Master Tableau and Power BI to design interactive dashboards, reports, and visualizations that drive business insights and decisions.
 
 **Topics/Skills:**
+
 - Data Visualization Principles
 - Tableau Desktop Fundamentals
 - Power BI Basics
@@ -537,13 +567,14 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Sharing and Publishing Reports
 - Business Intelligence Storytelling
 
-
 ---
 
 ### Big Data Tools (Hadoop, Spark)
+
 **Description:** Understand big data processing with Hadoop and Apache Spark. Learn distributed computing, data processing at scale, and big data analytics to handle massive datasets in modern data engineering roles.
 
 **Topics/Skills:**
+
 - Big Data Fundamentals
 - Hadoop Architecture and Ecosystem
 - HDFS and MapReduce
@@ -555,15 +586,16 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Performance Optimization
 - Real-World Big Data Projects
 
-
 ---
 
 ## Full Stack/Software Development
 
 ### MERN Stack Development
+
 **Description:** Build modern full-stack web applications with MongoDB, Express.js, React, and Node.js. Master the complete JavaScript stack to create scalable, responsive web applications from frontend to backend.
 
 **Topics/Skills:**
+
 - JavaScript ES6+ Fundamentals
 - MongoDB Database Design
 - Express.js Backend Development
@@ -575,13 +607,14 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Testing and Debugging
 - Full-Stack Project Development
 
-
 ---
 
 ### MEAN Stack Development
+
 **Description:** Create enterprise-level web applications using MongoDB, Express.js, Angular, and Node.js. Learn the complete MEAN stack to build robust, maintainable applications with TypeScript and Angular framework.
 
 **Topics/Skills:**
+
 - TypeScript Fundamentals
 - Angular Framework
 - Component-Based Architecture
@@ -593,13 +626,14 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Testing with Jasmine/Karma
 - Deployment Strategies
 
-
 ---
 
 ### Java Development
+
 **Description:** Master Java programming for enterprise applications and Android development. Learn object-oriented programming, Java frameworks, design patterns, and build robust, scalable applications.
 
 **Topics/Skills:**
+
 - Java Fundamentals
 - Object-Oriented Programming
 - Collections and Generics
@@ -611,13 +645,14 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Design Patterns
 - Enterprise Application Development
 
-
 ---
 
 ### Python Software Development
+
 **Description:** Develop professional software applications with Python. Learn advanced Python concepts, frameworks like Django and Flask, testing, and software engineering best practices for production-ready code.
 
 **Topics/Skills:**
+
 - Advanced Python Programming
 - Django Web Framework
 - Flask Microframework
@@ -629,13 +664,14 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Package Management and Virtual Environments
 - Software Deployment
 
-
 ---
 
 ### Cloud Platforms (AWS, Azure, Google Cloud)
+
 **Description:** Master cloud computing with leading platforms AWS, Azure, and Google Cloud. Learn cloud architecture, deployment, scaling, and management to build and maintain cloud-native applications.
 
 **Topics/Skills:**
+
 - Cloud Computing Fundamentals
 - AWS Services (EC2, S3, Lambda, RDS)
 - Azure Services and Solutions
@@ -647,15 +683,16 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Cloud Security and Compliance
 - Cost Optimization Strategies
 
-
 ---
 
 ## Digital Marketing
 
 ### SEO (Search Engine Optimization)
+
 **Description:** Master search engine optimization to improve website rankings and organic traffic. Learn on-page, off-page, technical SEO, keyword research, and analytics to dominate search results.
 
 **Topics/Skills:**
+
 - SEO Fundamentals
 - Keyword Research and Analysis
 - On-Page Optimization
@@ -667,13 +704,14 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Algorithm Updates and Trends
 - SEO Reporting and Analytics
 
-
 ---
 
 ### SEM and Google Ads
+
 **Description:** Master paid search marketing with Google Ads and search engine marketing strategies. Learn campaign creation, bid management, ad copywriting, and ROI optimization for effective paid advertising.
 
 **Topics/Skills:**
+
 - SEM Fundamentals
 - Google Ads Platform
 - Campaign Structure and Setup
@@ -685,13 +723,14 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Performance Tracking
 - Budget Management and ROI
 
-
 ---
 
 ### Social Media Marketing
+
 **Description:** Build powerful social media strategies across platforms. Master content creation, community management, paid social advertising, and analytics to grow brand presence and engagement on social networks.
 
 **Topics/Skills:**
+
 - Social Media Strategy
 - Platform-Specific Marketing (Facebook, Instagram, LinkedIn, Twitter)
 - Content Creation and Curation
@@ -703,13 +742,14 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Crisis Management
 - Social Commerce
 
-
 ---
 
 ### Content Marketing
+
 **Description:** Create compelling content that drives engagement and conversions. Learn content strategy, creation, distribution, and measurement to build brand authority and attract target audiences.
 
 **Topics/Skills:**
+
 - Content Marketing Strategy
 - Content Creation and Writing
 - Blogging Best Practices
@@ -721,13 +761,14 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Performance Metrics
 - Content ROI Measurement
 
-
 ---
 
 ### Email Marketing
+
 **Description:** Master email marketing to nurture leads and drive sales. Learn list building, campaign creation, automation, personalization, and analytics to create effective email marketing strategies.
 
 **Topics/Skills:**
+
 - Email Marketing Fundamentals
 - List Building and Segmentation
 - Email Design and Copywriting
@@ -739,13 +780,14 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Compliance (GDPR, CAN-SPAM)
 - Email Tools (MailChimp, Constant Contact)
 
-
 ---
 
 ### Digital Marketing Analytics
+
 **Description:** Measure and optimize digital marketing performance with analytics. Master Google Analytics, conversion tracking, data analysis, and reporting to make data-driven marketing decisions.
 
 **Topics/Skills:**
+
 - Google Analytics Setup and Configuration
 - Web Analytics Fundamentals
 - Conversion Tracking
@@ -757,15 +799,16 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Tag Management (Google Tag Manager)
 - Data-Driven Decision Making
 
-
 ---
 
 ## Cybersecurity
 
 ### Ethical Hacking (CEH)
+
 **Description:** Learn ethical hacking and penetration testing techniques to identify and fix security vulnerabilities. Prepare for Certified Ethical Hacker certification while mastering offensive security skills.
 
 **Topics/Skills:**
+
 - Ethical Hacking Fundamentals
 - Footprinting and Reconnaissance
 - Scanning Networks
@@ -777,13 +820,14 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Wireless Network Security
 - CEH Exam Preparation
 
-
 ---
 
 ### Network Security
+
 **Description:** Secure network infrastructure from cyber threats. Learn firewall configuration, intrusion detection, VPNs, network protocols, and security best practices to protect organizational networks.
 
 **Topics/Skills:**
+
 - Network Security Fundamentals
 - Firewall Configuration and Management
 - Intrusion Detection and Prevention Systems
@@ -795,13 +839,14 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Incident Response
 - Security Compliance
 
-
 ---
 
 ### Penetration Testing
+
 **Description:** Master advanced penetration testing methodologies and tools. Learn to conduct professional security assessments, identify vulnerabilities, exploit systems ethically, and provide comprehensive security reports.
 
 **Topics/Skills:**
+
 - Penetration Testing Methodology
 - Information Gathering
 - Vulnerability Assessment
@@ -813,13 +858,14 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Testing Tools (Metasploit, Burp Suite, Nmap)
 - Professional Ethics and Legal Issues
 
-
 ---
 
 ### Risk Assessment and Management
+
 **Description:** Identify, analyze, and mitigate cybersecurity risks in organizations. Learn risk assessment frameworks, threat modeling, security controls, and compliance requirements for effective risk management.
 
 **Topics/Skills:**
+
 - Risk Management Fundamentals
 - Threat Identification and Analysis
 - Vulnerability Assessment
@@ -831,13 +877,14 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Security Governance
 - Continuous Monitoring
 
-
 ---
 
 ### Information Security Management
+
 **Description:** Develop and implement comprehensive information security programs. Learn security governance, policy development, incident management, and ISO 27001 standards for organizational security leadership.
 
 **Topics/Skills:**
+
 - Information Security Principles
 - Security Governance
 - Policy and Procedure Development
@@ -849,15 +896,16 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Business Continuity Planning
 - Security Metrics and Reporting
 
-
 ---
 
 ## Financial Technologies (FinTech)
 
 ### Financial Modelling
+
 **Description:** Build sophisticated financial models for valuation, forecasting, and decision-making. Master Excel, financial analysis techniques, and modeling best practices used in investment banking and corporate finance.
 
 **Topics/Skills:**
+
 - Financial Modeling Fundamentals
 - Excel Advanced Functions
 - Three-Statement Modeling
@@ -869,13 +917,14 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Forecasting Techniques
 - Best Practice and Standards
 
-
 ---
 
 ### Algorithmic Trading
+
 **Description:** Develop automated trading strategies using programming and quantitative analysis. Learn backtesting, strategy development, risk management, and algorithmic execution for systematic trading.
 
 **Topics/Skills:**
+
 - Algorithmic Trading Fundamentals
 - Trading Strategy Development
 - Python for Trading
@@ -887,13 +936,14 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Performance Metrics
 - Live Trading Implementation
 
-
 ---
 
 ### Personal Finance Management
+
 **Description:** Master personal financial planning and wealth management. Learn budgeting, investing, retirement planning, tax optimization, and financial goal setting for long-term financial security and independence.
 
 **Topics/Skills:**
+
 - Financial Planning Basics
 - Budgeting and Expense Management
 - Debt Management
@@ -905,13 +955,14 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Emergency Fund Building
 - Financial Goal Setting
 
-
 ---
 
 ### Blockchain Technology
+
 **Description:** Understand blockchain technology and its applications in finance and beyond. Learn distributed ledger systems, smart contracts, consensus mechanisms, and blockchain development fundamentals.
 
 **Topics/Skills:**
+
 - Blockchain Fundamentals
 - Distributed Ledger Technology
 - Cryptographic Principles
@@ -923,13 +974,14 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Blockchain Security
 - DeFi Concepts
 
-
 ---
 
 ### Cryptocurrency and Digital Assets
+
 **Description:** Explore cryptocurrency markets, trading, and investment strategies. Learn about Bitcoin, altcoins, wallet security, trading platforms, and the future of digital currencies in the financial ecosystem.
 
 **Topics/Skills:**
+
 - Cryptocurrency Fundamentals
 - Bitcoin and Major Altcoins
 - Cryptocurrency Trading
@@ -941,93 +993,94 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 - Regulatory Landscape
 - Investment Strategies
 
-
 ---
 
 ## Existing Courses (Retained)
 
 ### Learn AI (Artificial Intelligence)
-**Description:** Discover the fundamentals of Artificial Intelligence, machine learning concepts, and practical AI applications for modern business and innovation.
 
+**Description:** Discover the fundamentals of Artificial Intelligence, machine learning concepts, and practical AI applications for modern business and innovation.
 
 ---
 
 ### Learn PR (Public Relations)
-**Description:** Master Public Relations strategies, media management, brand building, and effective communication for organizations and individuals.
 
+**Description:** Master Public Relations strategies, media management, brand building, and effective communication for organizations and individuals.
 
 ---
 
 ### Learn Etiquette
-**Description:** Develop professional etiquette, social skills, and business manners to make lasting positive impressions in any setting.
 
+**Description:** Develop professional etiquette, social skills, and business manners to make lasting positive impressions in any setting.
 
 ---
 
 ### Learn Investments
-**Description:** Understand investment fundamentals, portfolio management, risk assessment, and wealth building strategies for financial growth.
 
+**Description:** Understand investment fundamentals, portfolio management, risk assessment, and wealth building strategies for financial growth.
 
 ---
 
 ### Learn Journalism
-**Description:** Explore journalism fundamentals, news writing, reporting, ethics, and media storytelling for digital and traditional platforms.
 
+**Description:** Explore journalism fundamentals, news writing, reporting, ethics, and media storytelling for digital and traditional platforms.
 
 ---
 
 ### Learn Management
-**Description:** Build essential management skills including team leadership, project planning, decision-making, and organizational effectiveness.
 
+**Description:** Build essential management skills including team leadership, project planning, decision-making, and organizational effectiveness.
 
 ---
 
 ### Learn Marketing
-**Description:** Master marketing principles, consumer behavior, branding strategies, and campaign development for business success.
 
+**Description:** Master marketing principles, consumer behavior, branding strategies, and campaign development for business success.
 
 ---
 
 ### Learn Sales
-**Description:** Develop sales techniques, customer relationship skills, negotiation tactics, and strategies to close deals effectively.
 
+**Description:** Develop sales techniques, customer relationship skills, negotiation tactics, and strategies to close deals effectively.
 
 ---
 
 ### Learn Aptitude (FREE)
-**Description:** FREE course to develop logical reasoning, quantitative aptitude, and analytical skills for competitive exams and career growth.
 
+**Description:** FREE course to develop logical reasoning, quantitative aptitude, and analytical skills for competitive exams and career growth.
 
 ---
 
 ### Learn Stock Broking
-**Description:** Understand stock market operations, trading strategies, broker responsibilities, and investment analysis for the securities industry.
 
+**Description:** Understand stock market operations, trading strategies, broker responsibilities, and investment analysis for the securities industry.
 
 ---
 
 ### Learn To Be a Beautician
-**Description:** Gain skills in beauty treatments, skincare, makeup artistry, and salon management to build a successful beautician career.
 
+**Description:** Gain skills in beauty treatments, skincare, makeup artistry, and salon management to build a successful beautician career.
 
 ---
 
 ### Learn Winning – From the book
-**Description:** Based on proven success principles, learn winning strategies, mindset development, and achievement techniques. Features audio download.
 
+**Description:** Based on proven success principles, learn winning strategies, mindset development, and achievement techniques. Features audio download.
 
 ---
 
 ### Learn Becoming the Better You – From the book
-**Description:** Transform yourself with personal growth strategies, self-improvement techniques, and life enhancement principles. Features audio download.
 
+**Description:** Transform yourself with personal growth strategies, self-improvement techniques, and life enhancement principles. Features audio download.
 
 ---
 
 ### Learn JEE
+
 **Description:** Master the essential concepts of Physics, Chemistry, and Mathematics for JEE preparation. This course covers foundational and advanced topics, designed for aspirants aiming for top ranks in engineering entrance exams.
 
 **Topics/Skills:**
+
 - Introduction to JEE Physics (Free Sample Module)
 - Mechanics Fundamentals
 - Thermodynamics Essentials
@@ -1041,13 +1094,14 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 
 **Sample Module:** Introduction to JEE Physics - Explore strategies for tackling Physics problems, understand the JEE syllabus structure, and discover the importance of conceptual learning.
 
-
 ---
 
 ### Learn NEET
+
 **Description:** Build a strong foundation in Biology, Chemistry, and Physics tailored for NEET aspirants. This beginner course provides a high-level overview and the strategies necessary for success in medical entrance exams.
 
 **Topics/Skills:**
+
 - Introduction to NEET Biology (Free Sample Module)
 - Cell Biology and Genetics
 - Human Physiology
@@ -1061,58 +1115,60 @@ Complete list of courses offered on iiskills.cloud platform, organized by catego
 
 **Sample Module:** Introduction to NEET Biology - Learn about the importance of concept clarity and effective study planning for Biology, with tips for maximizing NEET scores.
 
-
 ---
 
 ### Learn Maths (FREE)
-**Description:** FREE comprehensive mathematics course covering fundamental to advanced concepts for academic and practical applications.
 
+**Description:** FREE comprehensive mathematics course covering fundamental to advanced concepts for academic and practical applications.
 
 ---
 
 ### Learn Geography (FREE)
-**Description:** FREE exploration of world geography, physical features, climate patterns, cultures, and global relationships.
 
+**Description:** FREE exploration of world geography, physical features, climate patterns, cultures, and global relationships.
 
 ---
 
 ### Learn Physics (FREE)
-**Description:** FREE physics course covering mechanics, energy, waves, electricity, and modern physics concepts with practical applications.
 
+**Description:** FREE physics course covering mechanics, energy, waves, electricity, and modern physics concepts with practical applications.
 
 ---
 
 ### Learn Chemistry (FREE)
-**Description:** FREE chemistry course exploring matter, chemical reactions, organic and inorganic chemistry, and real-world applications.
 
+**Description:** FREE chemistry course exploring matter, chemical reactions, organic and inorganic chemistry, and real-world applications.
 
 ---
 
 ### Learn IAS
+
 **Description:** Comprehensive UPSC Civil Services preparation with cutting-edge AI-powered content and expert guidance. Master General Studies, Current Affairs, Optional subjects, Essay writing, Answer writing skills, and Interview preparation. Strategic approach for Prelims, Mains, and Personality Test to crack India's most prestigious examination.
 
 ---
 
 ### Learn Govt. Jobs
+
 **Description:** Your complete gateway to government job success! Master IBPS, SBI, Railways, SSC, and other competitive exams with expert strategies, comprehensive study materials, mock tests, and personalized guidance. Boost your quantitative aptitude, reasoning, general awareness, and interview skills to secure your dream government position.
 
 ---
 
 ### Learn Data Science
-**Description:** Master data science fundamentals and applications including Python programming, data analysis, machine learning, and visualization.
 
+**Description:** Master data science fundamentals and applications including Python programming, data analysis, machine learning, and visualization.
 
 ---
 
 ### Learn Leadership
-**Description:** Develop leadership capabilities, influence, and strategic thinking to lead teams and organizations effectively.
 
+**Description:** Develop leadership capabilities, influence, and strategic thinking to lead teams and organizations effectively.
 
 ---
 
 **Total Courses: 74**
+
 - Free Courses: 5
 - Paid Courses: 69
 - Categories: 11
 
-*Last Updated: January 2026*
+_Last Updated: January 2026_

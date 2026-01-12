@@ -52,9 +52,11 @@ learn-ias/
 The Learn IAS platform is organized into four main preparation phases:
 
 ### 1. Foundation Phase (2 months)
+
 **Objective**: Understanding UPSC CSE structure, exam pattern, and building fundamental knowledge
 
-**Modules**: 
+**Modules**:
+
 - Understanding UPSC CSE
 - History - Foundation
 - Geography - Foundation
@@ -64,9 +66,11 @@ The Learn IAS platform is organized into four main preparation phases:
 **Status**: PLACEHOLDER - Module structure defined, content to be implemented
 
 ### 2. Deep Dive Phase (6-8 months)
+
 **Objective**: Comprehensive subject-wise preparation including optional subjects
 
 **Modules**:
+
 - History - Detailed Study
 - Geography - Detailed Study
 - Polity - Detailed Study
@@ -77,9 +81,11 @@ The Learn IAS platform is organized into four main preparation phases:
 **Status**: PLACEHOLDER - Module structure defined, content to be implemented
 
 ### 3. Optional Subjects
+
 **Objective**: Choose one optional subject for comprehensive Mains preparation
 
 **Available Optionals** (13 subjects):
+
 1. Geography (Optional)
 2. History (Optional)
 3. Political Science & International Relations
@@ -99,9 +105,11 @@ The Learn IAS platform is organized into four main preparation phases:
 **Status**: PLACEHOLDER - Subject framework defined, content to be implemented
 
 ### 4. Mains & Ethics Phase (3-4 months)
+
 **Objective**: Answer writing practice, ethics, and essay preparation
 
 **Modules**:
+
 - Essay Writing
 - Ethics, Integrity and Aptitude (GS Paper IV)
 - Answer Writing Practice
@@ -110,9 +118,11 @@ The Learn IAS platform is organized into four main preparation phases:
 **Status**: PLACEHOLDER - Module structure defined, content to be implemented
 
 ### 5. Prelims & Revision Phase (2-3 months)
+
 **Objective**: Intensive revision, test series, and current affairs
 
 **Modules**:
+
 - Prelims Strategy
 - Mock Test Series
 - Current Affairs - Intensive
@@ -125,30 +135,35 @@ The Learn IAS platform is organized into four main preparation phases:
 All AI features are **PLANNED** and will be implemented in future phases:
 
 ### 1. Daily AI-Generated Content
+
 - Personalized daily lessons based on your progress
 - Current affairs updates tailored to UPSC syllabus
 - Topic recommendations based on weak areas
 - **Status**: Planned Feature
 
 ### 2. Adaptive Test Generation
+
 - AI creates tests based on your performance
 - Identifies and focuses on weak areas
 - Progressive difficulty adjustment
 - **Status**: Planned Feature
 
 ### 3. AI Mock Interviews
+
 - Simulated personality test interviews
 - AI analyzes your responses
 - Detailed feedback on communication, knowledge, and DAF
 - **Status**: Planned Feature
 
 ### 4. Answer Evaluation
+
 - AI-powered evaluation of mains answers
 - Detailed feedback on structure, content, and presentation
 - Comparison with model answers
 - **Status**: Planned Feature
 
 ### 5. Personalized Study Plan
+
 - AI creates study plans based on your available time
 - Adjusts plans based on your progress
 - Deadline-aware recommendations
@@ -157,24 +172,28 @@ All AI features are **PLANNED** and will be implemented in future phases:
 ## User Management Features
 
 ### Progress Tracking (Planned)
+
 - Track completion across all phases and modules
 - Visualize learning progress with charts
 - Identify completed and pending topics
 - **Status**: PLACEHOLDER configuration exists
 
 ### Notification System (Planned)
+
 - Daily practice reminders
 - Current affairs notifications
 - Deadline alerts for exam preparation
 - **Status**: PLACEHOLDER configuration exists
 
 ### Mobile & Web Accessibility (Planned)
+
 - Responsive design for all devices
 - Progressive Web App (PWA) support
 - Seamless sync across devices
 - **Status**: Basic responsive design implemented, full PWA planned
 
 ### Offline Content Handling (Planned)
+
 - Download lessons and notes for offline study
 - Offline quiz attempts
 - Auto-sync when online
@@ -183,11 +202,13 @@ All AI features are **PLANNED** and will be implemented in future phases:
 ## Pricing & Payment
 
 ### Subscription Details
+
 - **Fee**: ₹99 + GST ₹17.82 = **₹116.82/year**
 - **Duration**: 1 year from subscription date
 - **Access**: Complete course content, all phases, AI features (when implemented)
 
 ### Payment Configuration (Placeholder)
+
 ```javascript
 payment: {
   fee: '₹116.82',
@@ -207,6 +228,7 @@ payment: {
 ```
 
 ### Payment Integration
+
 Users are directed to `https://www.aienter.in/payments` for course purchase.
 
 **Status**: PLACEHOLDER - Full payment integration and expiry management to be implemented
@@ -292,13 +314,13 @@ This app uses shared Supabase authentication with all other iiskills.cloud apps:
 
 ## Environment Variables
 
-| Variable | Description | Example |
-|----------|-------------|---------|
-| `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL | `https://xxx.supabase.co` |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase anon key | `eyJ...` |
-| `NEXT_PUBLIC_SITE_URL` | App URL | `https://learn-ias.iiskills.cloud` |
-| `NEXT_PUBLIC_COOKIE_DOMAIN` | Cookie domain for auth | `.iiskills.cloud` |
-| `NEXT_PUBLIC_MAIN_SITE_URL` | Main site URL | `https://iiskills.cloud` |
+| Variable                        | Description            | Example                            |
+| ------------------------------- | ---------------------- | ---------------------------------- |
+| `NEXT_PUBLIC_SUPABASE_URL`      | Supabase project URL   | `https://xxx.supabase.co`          |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase anon key      | `eyJ...`                           |
+| `NEXT_PUBLIC_SITE_URL`          | App URL                | `https://learn-ias.iiskills.cloud` |
+| `NEXT_PUBLIC_COOKIE_DOMAIN`     | Cookie domain for auth | `.iiskills.cloud`                  |
+| `NEXT_PUBLIC_MAIN_SITE_URL`     | Main site URL          | `https://iiskills.cloud`           |
 
 ## Authentication
 
@@ -307,7 +329,7 @@ The app uses Supabase authentication with the following features:
 - **Email/Password**: Traditional authentication
 - **Magic Link**: Passwordless email authentication
 - **Google OAuth**: One-click Google sign-in
-- **Cross-Subdomain Sessions**: Shared authentication across *.iiskills.cloud
+- **Cross-Subdomain Sessions**: Shared authentication across \*.iiskills.cloud
 - **Universal Login**: Register once on ANY iiskills app, access ALL apps
 
 ## Technology Stack
@@ -321,6 +343,7 @@ The app uses Supabase authentication with the following features:
 ## Implementation Status
 
 ### ✅ Implemented
+
 - [x] Basic project structure following monorepo conventions
 - [x] Package configuration and dependencies
 - [x] Environment setup (.env.local.example)
@@ -335,6 +358,7 @@ The app uses Supabase authentication with the following features:
 - [x] All 13 optional subjects defined (excluding Indian Literature except English)
 
 ### 🚧 Placeholder/Stub (To Be Implemented)
+
 - [ ] Actual lesson content for all modules
 - [ ] AI features (daily content, test generation, mock interviews, answer evaluation)
 - [ ] Progress tracking implementation
@@ -351,7 +375,8 @@ The app uses Supabase authentication with the following features:
 ## Design Rationale
 
 ### Mirroring Other Subdomains
-This subdomain follows the exact structure and conventions of other learn-* subdomains in the monorepo:
+
+This subdomain follows the exact structure and conventions of other learn-\* subdomains in the monorepo:
 
 1. **Directory Structure**: Matches learn-jee, learn-neet, etc.
 2. **Configuration Files**: Same setup for Next.js, Tailwind, PostCSS
@@ -362,6 +387,7 @@ This subdomain follows the exact structure and conventions of other learn-* subd
 7. **Footer**: Consistent footer design
 
 ### India-Themed Colors
+
 - **Primary (Saffron)**: #FF6B35 - Represents energy and sacrifice
 - **Secondary (Green)**: #138808 - Represents growth and auspiciousness
 - **Accent (Navy Blue)**: #000080 - Represents depth and stability
@@ -383,7 +409,9 @@ This subdomain follows the exact structure and conventions of other learn-* subd
 ## Business Requirements Summary
 
 ### Course Mandate
+
 Complete UPSC Civil Services preparation covering:
+
 - Foundation building
 - Subject-wise deep dive
 - Optional subjects (13 available)
@@ -391,6 +419,7 @@ Complete UPSC Civil Services preparation covering:
 - Prelims & Revision strategies
 
 ### AI Features (Planned)
+
 - Daily AI-generated content
 - Adaptive test generation
 - Mock interview simulation
@@ -398,18 +427,21 @@ Complete UPSC Civil Services preparation covering:
 - Personalized study plans
 
 ### User Management (Planned)
+
 - Progress tracking across all modules
 - Notification system for reminders
 - Mobile and web accessibility
 - Offline content support
 
 ### Payment Model
+
 - Annual subscription: ₹116.82/year
 - Payment via aienter.in
 - Expiry management with grace period (planned)
 
 ### Optional Subjects Policy
-**IMPORTANT**: Only English Literature is included from Indian Literature group. 
+
+**IMPORTANT**: Only English Literature is included from Indian Literature group.
 Other Indian language literature subjects (Hindi, Tamil, Sanskrit, etc.) are NOT included as per business requirements.
 
 ## License

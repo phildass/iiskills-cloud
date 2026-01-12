@@ -43,13 +43,15 @@ All apps share the same Supabase authentication backend for cross-subdomain sing
 All apps should use the **same Supabase credentials**:
 
 **Main app (.env.local):**
+
 ```env
 NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
 NEXT_PUBLIC_SITE_URL=https://iiskills.cloud
 ```
 
-**All learning modules (learn-*/. env.local):**
+**All learning modules (learn-\*/. env.local):**
+
 ```env
 NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
@@ -64,6 +66,7 @@ Replace `{module}` with: apt, math, winning, data-science, management, leadershi
 ### Option 1: Vercel (Recommended for Next.js)
 
 #### Main App
+
 ```bash
 cd /path/to/iiskills-cloud
 vercel --prod
@@ -74,12 +77,14 @@ Configure domain: `iiskills.cloud`
 #### Learning Modules (Repeat for each module)
 
 For each module (apt, math, winning, data-science, management, leadership, ai, pr):
+
 ```bash
 cd /path/to/iiskills-cloud/learn-{module}
 vercel --prod
 ```
 
 Configure domain for each:
+
 - `learn-apt.iiskills.cloud`
 - `learn-math.iiskills.cloud`
 - `learn-winning.iiskills.cloud`
@@ -91,6 +96,7 @@ Configure domain for each:
 - `learn-geography.iiskills.cloud`
 
 **Vercel Environment Variables:**
+
 - Add all environment variables in the Vercel dashboard for each project
 - Ensure all projects use the same Supabase credentials
 - Set appropriate `NEXT_PUBLIC_SITE_URL` for each subdomain
@@ -137,6 +143,7 @@ npm install && npm run build
 #### 2. Set Up PM2
 
 Install PM2 globally:
+
 ```bash
 npm install -g pm2
 ```
@@ -144,6 +151,7 @@ npm install -g pm2
 The repository includes a complete PM2 ecosystem file (`ecosystem.config.js`) with all 8 modules configured.
 
 Start all apps:
+
 ```bash
 cd /path/to/iiskills-cloud
 pm2 start ecosystem.config.js
@@ -152,6 +160,7 @@ pm2 startup
 ```
 
 This will start:
+
 - iiskills-main (port 3000)
 - iiskills-learn-apt (port 3001)
 - iiskills-learn-math (port 3002)
@@ -166,11 +175,12 @@ This will start:
 #### 3. Configure Nginx
 
 Create Nginx config for main app (`/etc/nginx/sites-available/iiskills-main`):
+
 ```nginx
 server {
     listen 80;
     server_name iiskills.cloud www.iiskills.cloud;
-    
+
     # Redirect to HTTPS
     return 301 https://$server_name$request_uri;
 }
@@ -178,10 +188,10 @@ server {
 server {
     listen 443 ssl http2;
     server_name iiskills.cloud www.iiskills.cloud;
-    
+
     ssl_certificate /etc/letsencrypt/live/iiskills.cloud/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/iiskills.cloud/privkey.pem;
-    
+
     location / {
         proxy_pass http://localhost:3000;
         proxy_http_version 1.1;
@@ -199,6 +209,7 @@ server {
 Create Nginx config for all learning modules. You can create individual files or a single file with multiple server blocks:
 
 **Option A: Single file** (`/etc/nginx/sites-available/iiskills-learning-modules`):
+
 ```nginx
 # Learn-Apt
 server {
@@ -210,10 +221,10 @@ server {
 server {
     listen 443 ssl http2;
     server_name learn-apt.iiskills.cloud;
-    
+
     ssl_certificate /etc/letsencrypt/live/learn-apt.iiskills.cloud/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/learn-apt.iiskills.cloud/privkey.pem;
-    
+
     location / {
         proxy_pass http://localhost:3001;
         proxy_http_version 1.1;
@@ -237,10 +248,10 @@ server {
 server {
     listen 443 ssl http2;
     server_name learn-math.iiskills.cloud;
-    
+
     ssl_certificate /etc/letsencrypt/live/learn-math.iiskills.cloud/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/learn-math.iiskills.cloud/privkey.pem;
-    
+
     location / {
         proxy_pass http://localhost:3002;
         proxy_http_version 1.1;
@@ -254,17 +265,19 @@ server {
     }
 }
 
-# Repeat for other modules (learn-winning:3003, learn-data-science:3004, 
+# Repeat for other modules (learn-winning:3003, learn-data-science:3004,
 # learn-management:3005, learn-leadership:3006, learn-ai:3007, learn-pr:3008, learn-geography:3009)
 # Following the same pattern as above
 ```
 
 **Note:** Repeat the server block pattern for all remaining modules, changing:
+
 - `server_name` to the appropriate subdomain
 - `proxy_pass` to the appropriate port
 - SSL certificate paths to match the subdomain
 
 Enable the sites:
+
 ```bash
 sudo ln -s /etc/nginx/sites-available/iiskills-main /etc/nginx/sites-enabled/
 sudo ln -s /etc/nginx/sites-available/iiskills-learning-modules /etc/nginx/sites-enabled/
@@ -299,7 +312,9 @@ sudo certbot certonly --manual --preferred-challenges dns \
 ### Option 3: Docker
 
 #### Main App Dockerfile
+
 Create `Dockerfile` in root:
+
 ```dockerfile
 FROM node:18-alpine
 
@@ -317,7 +332,9 @@ CMD ["npm", "start"]
 ```
 
 #### Learn-Apt Dockerfile
+
 Create `learn-apt/Dockerfile`:
+
 ```dockerfile
 FROM node:18-alpine
 
@@ -335,9 +352,11 @@ CMD ["npm", "start"]
 ```
 
 #### Docker Compose
+
 Create `docker-compose.yml` in root:
+
 ```yaml
-version: '3.8'
+version: "3.8"
 
 services:
   iiskills-main:
@@ -362,6 +381,7 @@ services:
 ```
 
 Run with:
+
 ```bash
 docker-compose up -d
 ```
@@ -370,18 +390,18 @@ docker-compose up -d
 
 Add the following DNS records to your domain:
 
-| Type  | Name      | Value              | TTL  |
-|-------|-----------|-------------------|------|
-| A     | @         | your-server-ip    | 3600 |
-| A     | www       | your-server-ip    | 3600 |
-| A     | learn-apt | your-server-ip    | 3600 |
+| Type | Name      | Value          | TTL  |
+| ---- | --------- | -------------- | ---- |
+| A    | @         | your-server-ip | 3600 |
+| A    | www       | your-server-ip | 3600 |
+| A    | learn-apt | your-server-ip | 3600 |
 
 Or for Vercel:
-| Type  | Name      | Value                    | TTL  |
+| Type | Name | Value | TTL |
 |-------|-----------|--------------------------|------|
-| CNAME | @         | cname.vercel-dns.com     | 3600 |
-| CNAME | www       | cname.vercel-dns.com     | 3600 |
-| CNAME | learn-apt | cname.vercel-dns.com     | 3600 |
+| CNAME | @ | cname.vercel-dns.com | 3600 |
+| CNAME | www | cname.vercel-dns.com | 3600 |
+| CNAME | learn-apt | cname.vercel-dns.com | 3600 |
 
 ## Cross-Subdomain Authentication Testing
 
@@ -462,6 +482,7 @@ pm2 monit
 ### Backups
 
 Regular backups should include:
+
 - Application code (Git handles this)
 - Environment variables (`.env.local` files)
 - Supabase database (automated by Supabase)
@@ -471,5 +492,6 @@ Regular backups should include:
 ## Support
 
 For deployment issues:
+
 - Email: info@iiskills.cloud
 - Check individual app README files for app-specific issues

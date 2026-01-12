@@ -5,6 +5,7 @@ This guide helps you configure environment variables for local development in th
 ## Overview
 
 The iiskills-cloud project is a **monorepo** containing:
+
 - 1 main Next.js app (port 3000)
 - 15+ learning module Next.js apps (ports 3001-3015+)
 
@@ -25,16 +26,21 @@ The iiskills-cloud project is a **monorepo** containing:
 **Why this matters:** The apps will fail to start with runtime errors if the placeholder values are not replaced with valid Supabase credentials. Each app validates these environment variables on startup.
 
 **Quick Update Method:** Use the automated setup script (recommended):
+
 ```bash
 ./setup-env.sh
 ```
+
 This will prompt for your credentials and update all `.env.local` files automatically.
 
 **Verify Configuration:** After setup, you can verify all environment files are correctly configured:
+
 ```bash
 ./ensure-env-files.sh
 ```
+
 This script will:
+
 - Check if `.env.local` files exist in all required locations
 - Verify that required environment variables are present
 - Detect placeholder values that need to be replaced
@@ -143,18 +149,18 @@ This error **prevents the app from starting** until you configure the environmen
 
 ### Required Variables
 
-| Variable | Description | Example |
-|----------|-------------|---------|
-| `NEXT_PUBLIC_SUPABASE_URL` | Your Supabase project URL | `https://xyz123.supabase.co` |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Your Supabase anon/public key | `eyJhbGciOi...` |
+| Variable                        | Description                   | Example                      |
+| ------------------------------- | ----------------------------- | ---------------------------- |
+| `NEXT_PUBLIC_SUPABASE_URL`      | Your Supabase project URL     | `https://xyz123.supabase.co` |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Your Supabase anon/public key | `eyJhbGciOi...`              |
 
 ### Optional Variables
 
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `NEXT_PUBLIC_SITE_URL` | Site URL for OAuth redirects | `http://localhost:3000` |
-| `NEXT_PUBLIC_MAIN_DOMAIN` | Main domain (production only) | `iiskills.cloud` |
-| `NEXT_PUBLIC_COOKIE_DOMAIN` | Cookie domain for cross-subdomain auth | Empty (localhost) |
+| Variable                    | Description                            | Default                 |
+| --------------------------- | -------------------------------------- | ----------------------- |
+| `NEXT_PUBLIC_SITE_URL`      | Site URL for OAuth redirects           | `http://localhost:3000` |
+| `NEXT_PUBLIC_MAIN_DOMAIN`   | Main domain (production only)          | `iiskills.cloud`        |
+| `NEXT_PUBLIC_COOKIE_DOMAIN` | Cookie domain for cross-subdomain auth | Empty (localhost)       |
 
 ## Monorepo Structure
 
@@ -203,11 +209,13 @@ The leading dot in `NEXT_PUBLIC_COOKIE_DOMAIN=.iiskills.cloud` enables session s
 ### Checking Environment Configuration
 
 **Use the verification script to diagnose issues:**
+
 ```bash
 ./ensure-env-files.sh
 ```
 
 This script will automatically:
+
 - Detect missing `.env.local` files and create them from templates
 - Identify files with placeholder values that need updating
 - Provide clear instructions on how to fix configuration issues
@@ -216,7 +224,8 @@ This script will automatically:
 
 **Cause:** Environment variables are not configured or contain placeholder values.
 
-**Solution:** 
+**Solution:**
+
 1. Run `./ensure-env-files.sh` to check configuration status
 2. If files have placeholder values, run `./setup-env.sh` to update them
 3. Or manually edit each `.env.local` file with your Supabase credentials
@@ -225,7 +234,8 @@ This script will automatically:
 
 **Cause:** Different Supabase credentials across apps, or missing `.env.local` in some modules.
 
-**Solution:** 
+**Solution:**
+
 1. Run `./ensure-env-files.sh` to verify all modules are configured
 2. Verify all `.env.local` files have the SAME Supabase credentials
 3. Restart all development servers after updating `.env.local`
@@ -236,6 +246,7 @@ This script will automatically:
 **Cause:** Dependencies not installed.
 
 **Solution:**
+
 ```bash
 # Install dependencies in main app
 npm install
@@ -251,6 +262,7 @@ cd ../learn-math && npm install
 **Cause:** Next.js caches environment variables on startup.
 
 **Solution:** Restart the development server:
+
 ```bash
 # Stop the server (Ctrl+C)
 # Start it again

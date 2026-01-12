@@ -1,10 +1,10 @@
-import Head from 'next/head'
-import { useRef } from 'react'
+import Head from "next/head";
+import { useRef } from "react";
 
 // Import from shared-ui package
 // Note: In the actual implementation, this will be imported from @iiskills/shared-ui
 // For now, we'll create a local version until workspace is set up
-const NewsletterSignup = ({ mode = 'embedded', onClose = null, onSuccess = null }) => {
+const NewsletterSignup = ({ mode = "embedded", onClose = null, onSuccess = null }) => {
   // This is a placeholder - the actual component will come from shared-ui package
   return (
     <div className="text-center p-8">
@@ -12,34 +12,36 @@ const NewsletterSignup = ({ mode = 'embedded', onClose = null, onSuccess = null 
         Newsletter signup component will be loaded from shared-ui package
       </p>
     </div>
-  )
-}
+  );
+};
 
 export default function NewsletterPage() {
-  const formRef = useRef(null)
+  const formRef = useRef(null);
 
   const scrollToForm = () => {
-    formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
-  }
+    formRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+  };
 
   return (
     <>
       <Head>
         <title>Newsletter - iiskills.cloud</title>
-        <meta name="description" content="Subscribe to the iiskills.cloud newsletter for updates, learning resources, and exclusive content." />
+        <meta
+          name="description"
+          content="Subscribe to the iiskills.cloud newsletter for updates, learning resources, and exclusive content."
+        />
       </Head>
 
       <main className="min-h-screen bg-gradient-to-b from-neutral to-white py-12">
         <div className="max-w-4xl mx-auto px-4">
           {/* Hero Section */}
           <div className="text-center mb-12">
-            <h1 className="text-5xl font-bold text-gray-800 mb-4">
-              📧 Stay Connected
-            </h1>
+            <h1 className="text-5xl font-bold text-gray-800 mb-4">📧 Stay Connected</h1>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-8">
-              Get the latest updates, learning resources, career tips, and exclusive content delivered straight to your inbox.
+              Get the latest updates, learning resources, career tips, and exclusive content
+              delivered straight to your inbox.
             </p>
-            
+
             {/* Subscribe Button */}
             <button
               onClick={scrollToForm}
@@ -88,20 +90,44 @@ export default function NewsletterPage() {
             </p>
             <div className="flex flex-wrap justify-center gap-4 text-sm text-gray-600">
               <span className="flex items-center">
-                <svg className="w-4 h-4 mr-1 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                <svg
+                  className="w-4 h-4 mr-1 text-green-500"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clipRule="evenodd"
+                  />
                 </svg>
                 No Spam
               </span>
               <span className="flex items-center">
-                <svg className="w-4 h-4 mr-1 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                <svg
+                  className="w-4 h-4 mr-1 text-green-500"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clipRule="evenodd"
+                  />
                 </svg>
                 Weekly Updates
               </span>
               <span className="flex items-center">
-                <svg className="w-4 h-4 mr-1 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                <svg
+                  className="w-4 h-4 mr-1 text-green-500"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clipRule="evenodd"
+                  />
                 </svg>
                 Easy Unsubscribe
               </span>
@@ -110,5 +136,5 @@ export default function NewsletterPage() {
         </div>
       </main>
     </>
-  )
+  );
 }

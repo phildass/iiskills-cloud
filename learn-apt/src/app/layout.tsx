@@ -6,14 +6,23 @@ import LayoutWrapper from "@/components/LayoutWrapper";
 
 export const metadata: Metadata = {
   title: "Learn Aptitude - iiskills.cloud",
-  description: "Discover your learning preferences, problem-solving styles, and motivation drivers with comprehensive aptitude tests. Part of the Indian Institute of Professional Skills Development.",
-  keywords: ["aptitude test", "learning preferences", "problem solving", "motivation", "iiskills", "professional skills development"],
+  description:
+    "Discover your learning preferences, problem-solving styles, and motivation drivers with comprehensive aptitude tests. Part of the Indian Institute of Professional Skills Development.",
+  keywords: [
+    "aptitude test",
+    "learning preferences",
+    "problem solving",
+    "motivation",
+    "iiskills",
+    "professional skills development",
+  ],
   authors: [{ name: "iiskills.cloud - Indian Institute of Professional Skills Development" }],
   manifest: "/manifest.json",
   themeColor: "#0056D2",
   openGraph: {
     title: "Learn Aptitude - iiskills.cloud",
-    description: "Discover your learning preferences, problem-solving styles, and motivation drivers. Part of the Indian Institute of Professional Skills Development.",
+    description:
+      "Discover your learning preferences, problem-solving styles, and motivation drivers. Part of the Indian Institute of Professional Skills Development.",
     type: "website",
     siteName: "iiskills.cloud",
     images: [
@@ -45,9 +54,7 @@ export default function RootLayout({
       <body className="antialiased font-sans">
         <AuthProvider>
           <AuthenticationChecker />
-          <LayoutWrapper>
-            {children}
-          </LayoutWrapper>
+          <LayoutWrapper>{children}</LayoutWrapper>
         </AuthProvider>
       </body>
     </html>

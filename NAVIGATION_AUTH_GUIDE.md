@@ -3,6 +3,7 @@
 This guide explains the navigation structure and authentication flow across all iiskills.cloud applications (main domain and subdomains).
 
 ## Table of Contents
+
 1. [Navigation Structure](#navigation-structure)
 2. [Authentication Flow](#authentication-flow)
 3. [Admin Access](#admin-access)
@@ -20,6 +21,7 @@ The main domain uses a **shared navigation component** that provides consistent 
 #### Navigation Links
 
 **Public Navigation:**
+
 - **Home** - Main landing page
 - **Courses** - Browse available courses
 - **Certification** - Certificate information
@@ -28,6 +30,7 @@ The main domain uses a **shared navigation component** that provides consistent 
 - **Terms & Conditions** - Legal terms
 
 **Authentication Links:**
+
 - **Sign In** - Login page (shown when not authenticated)
 - **Register** - Registration page (shown when not authenticated)
 - **User Email** - Display current user email (shown when authenticated)
@@ -49,10 +52,12 @@ The learn-apt app uses the **same shared navigation component** with learn-apt s
 #### Navigation Links
 
 **All Main Domain Links** - Same links as main domain for consistency
+
 - Users can navigate to main domain pages from learn-apt
 - External links to courses, certification, etc.
 
 **App-Specific:**
+
 - **App Name:** "Learn-Apt" displayed in navbar
 - **Home URL:** Points to learn-apt home page
 
@@ -100,17 +105,20 @@ Both main domain and learn-apt use **Supabase authentication** with shared sessi
 Protected routes require authentication to access:
 
 **Main Domain Protected Pages:**
+
 - `/dashboard` - User dashboard
 - `/my-certificates` - User certificates
 - `/admin/*` - Admin pages (requires admin role)
 
 **Learn-Apt Protected Pages:**
+
 - `/learn` - Learning content
 - `/test` - Assessment tests
 - `/results` - Test results
 - `/admin/*` - Learn-apt admin pages (requires admin role)
 
 **Protection Implementation:**
+
 - `ProtectedRoute` component wraps protected pages
 - Checks for valid Supabase session
 - Redirects to login if not authenticated
@@ -125,6 +133,7 @@ Protected routes require authentication to access:
 **Admin access is role-based and uses Supabase authentication:**
 
 ✅ **Secure Approach:**
+
 - Admin role stored in Supabase user metadata (`user_metadata.role = 'admin'`)
 - Backend validation of admin status
 - No hardcoded passwords
@@ -132,6 +141,7 @@ Protected routes require authentication to access:
 - Session managed by Supabase
 
 ❌ **Legacy Approach (REMOVED):**
+
 - ~~Hardcoded admin password~~
 - ~~localStorage authentication~~
 - ~~Client-side role check~~
@@ -169,6 +179,7 @@ Protected routes require authentication to access:
 Admin role must be set in Supabase:
 
 **Option 1: Supabase Dashboard**
+
 1. Go to Supabase project → Authentication → Users
 2. Select user
 3. Edit user metadata
@@ -176,6 +187,7 @@ Admin role must be set in Supabase:
 5. Save changes
 
 **Option 2: SQL**
+
 ```sql
 UPDATE auth.users
 SET raw_user_meta_data = raw_user_meta_data || '{"role": "admin"}'::jsonb
@@ -183,14 +195,12 @@ WHERE email = 'admin@example.com';
 ```
 
 **Option 3: API (for automated setup)**
+
 ```javascript
 // In a secure server-side function
-const { data, error } = await supabase.auth.admin.updateUserById(
-  userId,
-  { 
-    user_metadata: { role: 'admin' } 
-  }
-)
+const { data, error } = await supabase.auth.admin.updateUserById(userId, {
+  user_metadata: { role: "admin" },
+});
 ```
 
 ---
@@ -202,6 +212,7 @@ const { data, error } = await supabase.auth.admin.updateUserById(
 Both main domain and learn-apt share the same authentication session:
 
 **Shared Configuration:**
+
 - Same Supabase project URL
 - Same Supabase anon key
 - Same storage key: `iiskills-auth-token`
@@ -232,6 +243,7 @@ Both main domain and learn-apt share the same authentication session:
 ### Technical Implementation
 
 **Main Domain (`/lib/supabaseClient.js`):**
+
 ```javascript
 export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
   auth: {
@@ -242,23 +254,24 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
     cookieOptions: {
       domain: getCookieDomain(), // Returns '.iiskills.cloud' in production
       secure: true, // HTTPS only
-      sameSite: 'lax',
-    }
-  }
-})
+      sameSite: "lax",
+    },
+  },
+});
 ```
 
 **Learn-Apt (`/learn-apt/lib/supabaseClient.js`):**
+
 ```javascript
 export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
   auth: {
     autoRefreshToken: true,
     persistSession: true,
     detectSessionInUrl: true,
-    flowType: 'pkce',
-    storageKey: 'iiskills-auth-token' // Shared storage key
-  }
-})
+    flowType: "pkce",
+    storageKey: "iiskills-auth-token", // Shared storage key
+  },
+});
 ```
 
 ### Supabase Configuration
@@ -290,6 +303,7 @@ Located at: `/components/shared/SharedNavbar.js`
 **Purpose:** Provides consistent navigation across all iiskills applications
 
 **Features:**
+
 - Dual logo display (iiskills + AI Cloud Enterprises)
 - Configurable app name
 - Customizable navigation links
@@ -301,25 +315,25 @@ Located at: `/components/shared/SharedNavbar.js`
 
 ```javascript
 // components/Navbar.js
-import SharedNavbar from './shared/SharedNavbar'
+import SharedNavbar from "./shared/SharedNavbar";
 
 export default function Navbar() {
-  const [user, setUser] = useState(null)
-  
+  const [user, setUser] = useState(null);
+
   return (
-    <SharedNavbar 
+    <SharedNavbar
       user={user}
       onLogout={handleLogout}
       appName="iiskills.cloud"
       homeUrl="/"
       showAuthButtons={true}
       customLinks={[
-        { href: '/', label: 'Home', className: 'hover:text-primary transition' },
-        { href: '/courses', label: 'Courses', className: 'hover:text-primary transition' },
+        { href: "/", label: "Home", className: "hover:text-primary transition" },
+        { href: "/courses", label: "Courses", className: "hover:text-primary transition" },
         // ... more links
       ]}
     />
-  )
+  );
 }
 ```
 
@@ -327,26 +341,26 @@ export default function Navbar() {
 
 ```javascript
 // learn-apt/pages/_app.js
-import SharedNavbar from '../components/shared/SharedNavbar'
+import SharedNavbar from "../components/shared/SharedNavbar";
 
 export default function App({ Component, pageProps }) {
   return (
     <>
-      <SharedNavbar 
+      <SharedNavbar
         user={user}
         onLogout={handleLogout}
         appName="Learn-Apt"
         homeUrl="/"
         showAuthButtons={true}
         customLinks={[
-          { href: 'https://iiskills.cloud', label: 'Home' },
-          { href: 'https://iiskills.cloud/courses', label: 'Courses' },
+          { href: "https://iiskills.cloud", label: "Home" },
+          { href: "https://iiskills.cloud/courses", label: "Courses" },
           // ... more links
         ]}
       />
       <Component {...pageProps} />
     </>
-  )
+  );
 }
 ```
 
@@ -394,21 +408,24 @@ export default function App({ Component, pageProps }) {
 ### "Access Denied" when visiting /admin
 
 **Solution:** Check if your user has admin role in Supabase:
+
 ```sql
-SELECT raw_user_meta_data->>'role' as role 
-FROM auth.users 
+SELECT raw_user_meta_data->>'role' as role
+FROM auth.users
 WHERE email = 'your@email.com';
 ```
 
 ### Not logged in across subdomains
 
 **Possible causes:**
+
 1. Cookie domain not set to `.iiskills.cloud`
 2. Different Supabase projects used
 3. Different storage keys
 4. Cookies blocked by browser
 
 **Solutions:**
+
 - Verify cookie domain in Supabase settings
 - Check `.env.local` has same credentials in both apps
 - Clear browser cookies and try again
@@ -417,20 +434,22 @@ WHERE email = 'your@email.com';
 ### Admin logout doesn't work
 
 **Solution:** AdminNav now uses Supabase logout instead of localStorage. Update AdminNav component:
+
 ```javascript
-import { signOutUser } from '../lib/supabaseClient'
+import { signOutUser } from "../lib/supabaseClient";
 
 const handleLogout = async () => {
-  const { success } = await signOutUser()
+  const { success } = await signOutUser();
   if (success) {
-    router.push('/')
+    router.push("/");
   }
-}
+};
 ```
 
 ### Can't find admin link in navbar
 
 **This is intentional!** Admin access is via direct URL only:
+
 - Main domain: `https://iiskills.cloud/admin`
 - Learn-apt: `https://learn-apt.iiskills.cloud/admin`
 
@@ -439,17 +458,20 @@ const handleLogout = async () => {
 ## Summary
 
 **Navigation:**
+
 - ✅ All apps use SharedNavbar for consistency
 - ✅ Same navigation links across all domains
 - ✅ No admin link in navbar (security by obscurity)
 
 **Authentication:**
+
 - ✅ Single sign-on across all subdomains
 - ✅ Supabase-based role management
 - ✅ Protected routes with proper role checks
 - ✅ No hardcoded credentials
 
 **Admin Access:**
+
 - ✅ Direct URL access only (`/admin`)
 - ✅ Role-based with Supabase metadata
 - ✅ Separate admin navigation when accessed

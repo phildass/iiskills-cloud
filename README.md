@@ -6,7 +6,9 @@ Inspired by iiskills.in and customized for the Indian Institute of Professional 
 ## 🆕 New Features
 
 ### Newsletter Subscription System
+
 📧 **Subscribe to stay updated!** All apps now include a unified newsletter subscription system:
+
 - Newsletter signup available on every domain and subdomain
 - Modal popup on initial visit (configurable intervals)
 - Dedicated `/newsletter` page on all apps
@@ -14,7 +16,9 @@ Inspired by iiskills.in and customized for the Indian Institute of Professional 
 - Supabase backend for email storage
 
 ### AI Assistant
+
 🤖 **Get instant help!** A floating AI chatbot assistant is available everywhere:
+
 - Site-aware responses based on current subdomain
 - Accessible from any page
 - Helpful guidance for courses, registration, and navigation
@@ -27,6 +31,7 @@ Inspired by iiskills.in and customized for the Indian Institute of Professional 
 **See our [ONBOARDING.md](ONBOARDING.md) guide to get started!**
 
 Learn how to:
+
 - Create your account once and access all apps
 - Use universal login across the entire platform
 - Choose from multiple sign-in methods
@@ -68,6 +73,7 @@ Each app can be deployed independently on different subdomains while sharing aut
 **⚠️ CRITICAL:** This repository includes pre-configured `.env.local` files with placeholder values in the root and all learning modules. **You MUST update these with your actual Supabase credentials before running any app**, or you will encounter runtime errors.
 
 **Required Actions:**
+
 1. Get your Supabase credentials from [supabase.com](https://supabase.com) (Project Settings → API)
 2. Update the placeholder values in all `.env.local` files:
    - Replace `your-project-url-here` with your actual `NEXT_PUBLIC_SUPABASE_URL`
@@ -84,6 +90,7 @@ Each app can be deployed independently on different subdomains while sharing aut
 ```
 
 The script will:
+
 - Prompt you for your Supabase credentials
 - Configure the main app
 - Configure all learning modules automatically
@@ -137,6 +144,7 @@ All learning modules follow the same structure. Port assignments (as configured 
 - [learn-physics/README.md](learn-physics/README.md) - Port 3016
 
 Quick start for any module:
+
 ```bash
 cd learn-{module-name}
 npm install
@@ -156,11 +164,13 @@ npm run dev
 The `ecosystem.config.js` file is **automatically generated** by scanning the repository for Next.js applications and detecting their entry points. This ensures reliable startup on any fresh clone without manual configuration.
 
 To regenerate the PM2 configuration:
+
 ```bash
 npm run generate-pm2-config
 ```
 
 To validate the configuration:
+
 ```bash
 npm run validate-pm2-config
 ```
@@ -168,6 +178,7 @@ npm run validate-pm2-config
 See [PM2_AUTO_DETECTION.md](PM2_AUTO_DETECTION.md) for details about the auto-detection system.
 
 #### Quick start:
+
 ```bash
 # Install dependencies and build all apps
 npm install && npm run build
@@ -180,6 +191,7 @@ pm2 startup
 ```
 
 The `ecosystem.config.js` automatically configures all 16 applications with:
+
 - Proper port assignments (auto-detected from package.json)
 - Cross-platform compatibility
 - Automatic conflict resolution
@@ -188,6 +200,7 @@ The `ecosystem.config.js` automatically configures all 16 applications with:
 ### Other Deployment Options
 
 See [DEPLOYMENT.md](DEPLOYMENT.md) for comprehensive deployment instructions including:
+
 - Vercel deployment
 - VPS deployment with Nginx and PM2
 - Docker deployment
@@ -248,6 +261,7 @@ iiskills.cloud uses a **registration-first workflow** with a **unified authentic
 - ✅ **Shared Session:** Your session works across **all** `*.iiskills.cloud` domains
 
 **Registration-First Workflow:**
+
 1. Visit any iiskills.cloud app landing page
 2. Click "Register Free Account" to create your account
 3. Complete the registration form (simplified on subdomains, full on main site)
@@ -255,6 +269,7 @@ iiskills.cloud uses a **registration-first workflow** with a **unified authentic
 5. Sign in and access all learning content across all apps
 
 **Example:**
+
 1. Try to access `learn-apt.iiskills.cloud/learn`
 2. Automatically redirected to `/register` (registration required)
 3. Complete registration once
@@ -341,11 +356,13 @@ See [NAVIGATION_AUTH_GUIDE.md](NAVIGATION_AUTH_GUIDE.md) for complete navigation
 ## Documentation
 
 ### For Users
+
 - [ONBOARDING.md](ONBOARDING.md) - **Getting started guide for new users**
 
 ### For Developers
+
 - [NEWSLETTER_AI_ASSISTANT_README.md](NEWSLETTER_AI_ASSISTANT_README.md) - **Complete guide to Newsletter and AI Assistant system**
-- [LEARN_APPS_INTEGRATION_GUIDE.md](LEARN_APPS_INTEGRATION_GUIDE.md) - **Guide for integrating features into learn-* apps**
+- [LEARN_APPS_INTEGRATION_GUIDE.md](LEARN_APPS_INTEGRATION_GUIDE.md) - **Guide for integrating features into learn-\* apps**
 - [SUPABASE_CONFIGURATION.md](SUPABASE_CONFIGURATION.md) - **Complete Supabase configuration guide (MUST READ)**
 - [AUTHENTICATION_ARCHITECTURE.md](AUTHENTICATION_ARCHITECTURE.md) - **Complete guide to universal authentication system**
 - [SUPABASE_AUTH_SETUP.md](SUPABASE_AUTH_SETUP.md) - Authentication setup and troubleshooting

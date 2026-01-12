@@ -1,10 +1,10 @@
 /**
  * Supabase Client Configuration for Learn-Apt
- * 
+ *
  * This file initializes the Supabase client with cross-subdomain session support.
  * The session cookie is configured to work across *.iiskills.cloud subdomains,
  * allowing seamless authentication between the main app and learn-apt app.
- * 
+ *
  * Setup Instructions:
  * 1. Use the same Supabase project as the main iiskills.cloud app
  * 2. Create a .env.local file with the same credentials:
@@ -13,31 +13,33 @@
  * 3. Configure Supabase session cookie domain in the Supabase dashboard:
  *    - Go to Authentication > Settings
  *    - Set cookie domain to: .iiskills.cloud
- * 
+ *
  * Cross-Subdomain Auth:
  * - Users logged in on iiskills.cloud will automatically be logged in on learn-apt.iiskills.cloud
  * - Sessions are shared across all *.iiskills.cloud subdomains
  * - Role and permission data is synced via Supabase user metadata
  */
 
-import { createClient } from '@supabase/supabase-js'
+import { createClient } from "@supabase/supabase-js";
 
 // Supabase project URL and public anonymous key
 // These should match the main iiskills.cloud app for cross-app authentication
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
 // Check for missing or placeholder values
 // Placeholders are exact matches or obviously invalid values
-const hasPlaceholderUrl = !supabaseUrl || 
-  supabaseUrl === 'your-project-url-here' || 
-  supabaseUrl === 'https://your-project.supabase.co' ||
-  supabaseUrl.match(/^https?:\/\/(your-project|xyz|xyzcompany|abc123).*\.supabase\.co$/i)
+const hasPlaceholderUrl =
+  !supabaseUrl ||
+  supabaseUrl === "your-project-url-here" ||
+  supabaseUrl === "https://your-project.supabase.co" ||
+  supabaseUrl.match(/^https?:\/\/(your-project|xyz|xyzcompany|abc123).*\.supabase\.co$/i);
 
-const hasPlaceholderKey = !supabaseAnonKey || 
-  supabaseAnonKey === 'your-anon-key-here' ||
-  supabaseAnonKey.startsWith('eyJhbGciOi...') ||
-  supabaseAnonKey.length < 20
+const hasPlaceholderKey =
+  !supabaseAnonKey ||
+  supabaseAnonKey === "your-anon-key-here" ||
+  supabaseAnonKey.startsWith("eyJhbGciOi...") ||
+  supabaseAnonKey.length < 20;
 
 if (!supabaseUrl || !supabaseAnonKey || hasPlaceholderUrl || hasPlaceholderKey) {
   const errorMessage = `
@@ -48,8 +50,8 @@ if (!supabaseUrl || !supabaseAnonKey || hasPlaceholderUrl || hasPlaceholderKey) 
 Missing or invalid Supabase environment variables!
 
 Required variables:
-  ${!supabaseUrl || hasPlaceholderUrl ? '❌' : '✅'} NEXT_PUBLIC_SUPABASE_URL${hasPlaceholderUrl ? ' (contains placeholder value)' : ''}
-  ${!supabaseAnonKey || hasPlaceholderKey ? '❌' : '✅'} NEXT_PUBLIC_SUPABASE_ANON_KEY${hasPlaceholderKey ? ' (contains placeholder value)' : ''}
+  ${!supabaseUrl || hasPlaceholderUrl ? "❌" : "✅"} NEXT_PUBLIC_SUPABASE_URL${hasPlaceholderUrl ? " (contains placeholder value)" : ""}
+  ${!supabaseAnonKey || hasPlaceholderKey ? "❌" : "✅"} NEXT_PUBLIC_SUPABASE_ANON_KEY${hasPlaceholderKey ? " (contains placeholder value)" : ""}
 
 To fix this:
 
@@ -80,11 +82,13 @@ For more information, see ENV_SETUP_GUIDE.md in the repo root.
 
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-`
-  console.error(errorMessage)
-  
+`;
+  console.error(errorMessage);
+
   // Throw error to prevent app from starting with invalid configuration
-  throw new Error('Missing or invalid Supabase environment variables. Please configure NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY in .env.local with actual values (not placeholders)')
+  throw new Error(
+    "Missing or invalid Supabase environment variables. Please configure NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY in .env.local with actual values (not placeholders)"
+  );
 }
 
 // Create Supabase client with cookie options for cross-subdomain support
@@ -97,62 +101,65 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
     // Detect session from URL (for OAuth redirects)
     detectSessionInUrl: true,
     // Cookie options for cross-subdomain authentication
-    flowType: 'pkce',
+    flowType: "pkce",
     // Storage key - use a shared key for consistency
-    storageKey: 'iiskills-auth-token'
-  }
-})
+    storageKey: "iiskills-auth-token",
+  },
+});
 
 /**
  * Helper function to get the currently logged-in user
- * 
+ *
  * This checks for an active session that may have been created on any
  * *.iiskills.cloud subdomain (main app, learn-apt, etc.)
- * 
+ *
  * @returns {Promise<Object|null>} User object if authenticated, null otherwise
  */
 export async function getCurrentUser() {
   try {
-    const { data: { session }, error } = await supabase.auth.getSession()
-    
+    const {
+      data: { session },
+      error,
+    } = await supabase.auth.getSession();
+
     if (error) {
-      console.error('Error getting session:', error.message)
-      return null
+      console.error("Error getting session:", error.message);
+      return null;
     }
-    
-    return session?.user || null
+
+    return session?.user || null;
   } catch (error) {
-    console.error('Error in getCurrentUser:', error)
-    return null
+    console.error("Error in getCurrentUser:", error);
+    return null;
   }
 }
 
 /**
  * Helper function to sign out the current user
- * 
+ *
  * This will clear the session across all *.iiskills.cloud subdomains
- * 
+ *
  * @returns {Promise<Object>} Object with success status and optional error
  */
 export async function signOutUser() {
   try {
-    const { error } = await supabase.auth.signOut()
-    
+    const { error } = await supabase.auth.signOut();
+
     if (error) {
-      console.error('Error signing out:', error.message)
-      return { success: false, error: error.message }
+      console.error("Error signing out:", error.message);
+      return { success: false, error: error.message };
     }
-    
-    return { success: true }
+
+    return { success: true };
   } catch (error) {
-    console.error('Error in signOutUser:', error)
-    return { success: false, error: error.message }
+    console.error("Error in signOutUser:", error);
+    return { success: false, error: error.message };
   }
 }
 
 /**
  * Helper function to sign in with email and password
- * 
+ *
  * @param {string} email - User's email address
  * @param {string} password - User's password
  * @returns {Promise<Object>} Object with user data or error
@@ -162,25 +169,25 @@ export async function signInWithEmail(email, password) {
     const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password,
-    })
-    
+    });
+
     if (error) {
-      return { user: null, error: error.message }
+      return { user: null, error: error.message };
     }
-    
-    return { user: data.user, session: data.session, error: null }
+
+    return { user: data.user, session: data.session, error: null };
   } catch (error) {
-    console.error('Error in signInWithEmail:', error)
-    return { user: null, error: error.message }
+    console.error("Error in signInWithEmail:", error);
+    return { user: null, error: error.message };
   }
 }
 
 /**
  * Helper function to send a magic link (passwordless sign-in email)
- * 
+ *
  * @param {string} email - User's email address
  * @returns {Promise<Object>} Object with success status or error
- * 
+ *
  * Example usage:
  * const { success, error } = await sendMagicLink(email)
  * if (success) {
@@ -189,124 +196,126 @@ export async function signInWithEmail(email, password) {
  */
 export async function sendMagicLink(email) {
   try {
-    const redirectUrl = typeof window !== 'undefined' 
-      ? `${window.location.origin}/learn` 
-      : process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3001'
-    
+    const redirectUrl =
+      typeof window !== "undefined"
+        ? `${window.location.origin}/learn`
+        : process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3001";
+
     const { data, error } = await supabase.auth.signInWithOtp({
       email,
       options: {
         emailRedirectTo: redirectUrl,
-      }
-    })
-    
+      },
+    });
+
     if (error) {
-      return { success: false, error: error.message }
+      return { success: false, error: error.message };
     }
-    
-    return { success: true, error: null }
+
+    return { success: true, error: null };
   } catch (error) {
-    console.error('Error in sendMagicLink:', error)
-    return { success: false, error: error.message }
+    console.error("Error in sendMagicLink:", error);
+    return { success: false, error: error.message };
   }
 }
 
 /**
  * Helper function to sign in with Google OAuth
- * 
+ *
  * @returns {Promise<Object>} Object with success status or error
- * 
+ *
  * Example usage:
  * const { success, error } = await signInWithGoogle()
  */
 export async function signInWithGoogle() {
   try {
-    const redirectUrl = typeof window !== 'undefined' 
-      ? `${window.location.origin}/learn` 
-      : process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3001'
-    
+    const redirectUrl =
+      typeof window !== "undefined"
+        ? `${window.location.origin}/learn`
+        : process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3001";
+
     const { data, error } = await supabase.auth.signInWithOAuth({
-      provider: 'google',
+      provider: "google",
       options: {
         redirectTo: redirectUrl,
-      }
-    })
-    
+      },
+    });
+
     if (error) {
-      return { success: false, error: error.message }
+      return { success: false, error: error.message };
     }
-    
-    return { success: true, error: null }
+
+    return { success: true, error: null };
   } catch (error) {
-    console.error('Error in signInWithGoogle:', error)
-    return { success: false, error: error.message }
+    console.error("Error in signInWithGoogle:", error);
+    return { success: false, error: error.message };
   }
 }
 
 /**
  * Helper function to check if user has admin role
- * 
+ *
  * ⚠️ IMPORTANT: This is for CLIENT-SIDE UI DISPLAY ONLY
  * Server-side verification is required for actual access control.
  * This function should only be used to show/hide UI elements.
- * 
+ *
  * In production, implement server-side admin verification:
  * - API routes should verify admin role from auth token
  * - Protected pages should validate on server before rendering
  * - Database queries should use Row Level Security (RLS)
- * 
+ *
  * Admin roles are synced from the main app via Supabase user metadata
- * 
+ *
  * @param {Object} user - User object from Supabase
  * @returns {boolean} True if user is admin
  */
 /**
  * Helper function to check if user has admin role
- * 
+ *
  * Uses the public.profiles table to validate admin status.
  * This is the centralized approach for admin validation across all apps.
- * 
+ *
  * @param {Object} user - User object from Supabase
  * @returns {Promise<boolean>} True if user is admin
  */
 export async function isAdmin(user) {
-  if (!user) return false
-  
+  if (!user) return false;
+
   try {
     // Query the public.profiles table for admin status
     const { data, error } = await supabase
-      .from('profiles')
-      .select('is_admin')
-      .eq('id', user.id)
-      .single()
-    
+      .from("profiles")
+      .select("is_admin")
+      .eq("id", user.id)
+      .single();
+
     if (error) {
-      console.error('Error checking admin status:', error.message)
-      return false
+      console.error("Error checking admin status:", error.message);
+      return false;
     }
-    
-    return data?.is_admin === true
+
+    return data?.is_admin === true;
   } catch (error) {
-    console.error('Error in isAdmin:', error)
-    return false
+    console.error("Error in isAdmin:", error);
+    return false;
   }
 }
 
 /**
  * Helper function to get user's full profile
- * 
+ *
  * @param {Object} user - User object from Supabase
  * @returns {Object} User profile data from metadata
  */
 export function getUserProfile(user) {
-  if (!user) return null
-  
+  if (!user) return null;
+
   return {
     email: user.email,
-    firstName: user.user_metadata?.first_name || '',
-    lastName: user.user_metadata?.last_name || '',
+    firstName: user.user_metadata?.first_name || "",
+    lastName: user.user_metadata?.last_name || "",
     fullName: user.user_metadata?.full_name || user.email,
-    role: user.user_metadata?.role || user.app_metadata?.role || 'user',
-    ...user.user_metadata
-  }
+    role: user.user_metadata?.role || user.app_metadata?.role || "user",
+    ...user.user_metadata,
+  };
 }
