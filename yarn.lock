@@ -348,7 +348,7 @@ __metadata:
     "@supabase/supabase-js": "npm:^2.89.0"
     autoprefixer: "npm:^10.4.14"
     html2canvas: "npm:^1.4.1"
-    jspdf: "npm:^3.0.4"
+    jspdf: "npm:^4.0.0"
     next: "npm:^16.1.1"
     postcss: "npm:latest"
     qrcode: "npm:^1.5.4"
@@ -3225,7 +3225,7 @@ __metadata:
     eslint-plugin-react-hooks: "npm:^7.0.1"
     eslint-plugin-security: "npm:^3.0.1"
     html2canvas: "npm:^1.4.1"
-    jspdf: "npm:^3.0.4"
+    jspdf: "npm:^4.0.0"
     next: "npm:^16.1.1"
     postcss: "npm:latest"
     prettier: "npm:^3.7.4"
@@ -3659,9 +3659,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jspdf@npm:^3.0.4":
-  version: 3.0.4
-  resolution: "jspdf@npm:3.0.4"
+"jspdf@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "jspdf@npm:4.0.0"
   dependencies:
     "@babel/runtime": "npm:^7.28.4"
     canvg: "npm:^3.0.11"
@@ -3679,7 +3679,7 @@ __metadata:
       optional: true
     html2canvas:
       optional: true
-  checksum: 10c0/08e6cdb38319b68725d9b13072aac554b07aa66cbd490b0db6571ba74bbf356a56dac06ee758fe10f9e9640b5f5c209ab44801f34c6eeedab14c0f2bc90439e9
+  checksum: 10c0/042fef72dd71353bbe5ba57c8a7bbadfd62bdcdf33f5a81276fd4c66034cb43fe112b04940d02c7d31402fa645390312a5bc854ea4a179f71257ed6d2dec75e8
   languageName: node
   linkType: hard
 

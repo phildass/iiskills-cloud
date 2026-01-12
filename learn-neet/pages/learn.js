@@ -1,149 +1,165 @@
-import { useState, useEffect } from 'react'
-import { useRouter } from 'next/router'
-import Head from 'next/head'
-import Link from 'next/link'
-import { getCurrentUser, getUserProfile, checkActiveSubscription, signOutUser } from '../lib/supabaseClient'
-import { physicsSyllabus, chemistrySyllabus, biologySyllabus, generateQuizQuestions } from '../lib/neetSyllabus'
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import Head from "next/head";
+import Link from "next/link";
+import {
+  getCurrentUser,
+  getUserProfile,
+  checkActiveSubscription,
+  signOutUser,
+} from "../lib/supabaseClient";
+import {
+  physicsSyllabus,
+  chemistrySyllabus,
+  biologySyllabus,
+  generateQuizQuestions,
+} from "../lib/neetSyllabus";
 
 export default function Learn() {
-  const [user, setUser] = useState(null)
-  const [userProfile, setUserProfile] = useState(null)
-  const [isLoading, setIsLoading] = useState(true)
-  const [hasActiveSubscription, setHasActiveSubscription] = useState(false)
-  const [selectedSubject, setSelectedSubject] = useState('physics') // physics, chemistry, biology
-  const [selectedModule, setSelectedModule] = useState(null)
-  const [selectedTopic, setSelectedTopic] = useState(null)
-  const router = useRouter()
+  const [user, setUser] = useState(null);
+  const [userProfile, setUserProfile] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [hasActiveSubscription, setHasActiveSubscription] = useState(false);
+  const [selectedSubject, setSelectedSubject] = useState("physics"); // physics, chemistry, biology
+  const [selectedModule, setSelectedModule] = useState(null);
+  const [selectedTopic, setSelectedTopic] = useState(null);
+  const router = useRouter();
 
   useEffect(() => {
     const checkAuth = async () => {
-      const currentUser = await getCurrentUser()
-      
-      if (!currentUser) {
-        router.push('/login?redirect=/learn')
-        return
-      }
-      
-      setUser(currentUser)
-      const profile = getUserProfile(currentUser)
-      setUserProfile(profile)
-      
-      // Check subscription status
-      const hasSubscription = checkActiveSubscription(currentUser)
-      setHasActiveSubscription(hasSubscription)
-      
-      setIsLoading(false)
-    }
+      const currentUser = await getCurrentUser();
 
-    checkAuth()
-  }, [router])
+      if (!currentUser) {
+        router.push("/login?redirect=/learn");
+        return;
+      }
+
+      setUser(currentUser);
+      const profile = getUserProfile(currentUser);
+      setUserProfile(profile);
+
+      // Check subscription status
+      const hasSubscription = checkActiveSubscription(currentUser);
+      setHasActiveSubscription(hasSubscription);
+
+      setIsLoading(false);
+    };
+
+    checkAuth();
+  }, [router]);
 
   const handleSignOut = async () => {
-    await signOutUser()
-    router.push('/')
-  }
+    await signOutUser();
+    router.push("/");
+  };
 
   const handleTopicClick = (moduleId, topicId) => {
     if (!hasActiveSubscription) {
-      alert('Your subscription is not active. Please contact admin to activate your 2-year subscription.')
-      return
+      alert(
+        "Your subscription is not active. Please contact admin to activate your 2-year subscription."
+      );
+      return;
     }
 
     // In production, this would navigate to a lesson page or open a modal with content
-    setSelectedModule(moduleId)
-    setSelectedTopic(topicId)
-    
+    setSelectedModule(moduleId);
+    setSelectedTopic(topicId);
+
     // For demo, show alert with quiz generation
-    const quizzes = generateQuizQuestions(selectedSubject, moduleId, topicId)
-    alert(`Opening lesson content for ${selectedSubject} module ${moduleId}, topic ${topicId}\n\nThis would display:\n- Lesson content with AI-generated explanations\n- Diagrams and visual aids\n- Interactive quizzes (${quizzes.length} questions)\n- Practice exercises`)
-  }
+    const quizzes = generateQuizQuestions(selectedSubject, moduleId, topicId);
+    alert(
+      `Opening lesson content for ${selectedSubject} module ${moduleId}, topic ${topicId}\n\nThis would display:\n- Lesson content with AI-generated explanations\n- Diagrams and visual aids\n- Interactive quizzes (${quizzes.length} questions)\n- Practice exercises`
+    );
+  };
 
   const handleModuleTest = (moduleId) => {
     if (!hasActiveSubscription) {
-      alert('Your subscription is not active. Please contact admin to activate your 2-year subscription.')
-      return
+      alert(
+        "Your subscription is not active. Please contact admin to activate your 2-year subscription."
+      );
+      return;
     }
 
-    router.push(`/module-test?subject=${selectedSubject}&module=${moduleId}`)
-  }
+    router.push(`/module-test?subject=${selectedSubject}&module=${moduleId}`);
+  };
 
   const getSyllabusForSubject = () => {
     switch (selectedSubject) {
-      case 'physics':
-        return physicsSyllabus
-      case 'chemistry':
-        return chemistrySyllabus
-      case 'biology':
-        return biologySyllabus
+      case "physics":
+        return physicsSyllabus;
+      case "chemistry":
+        return chemistrySyllabus;
+      case "biology":
+        return biologySyllabus;
       default:
-        return physicsSyllabus
+        return physicsSyllabus;
     }
-  }
+  };
 
   const getModuleHeaderClass = (subject) => {
     switch (subject) {
-      case 'physics':
-        return 'bg-gradient-to-r from-blue-600 to-blue-700'
-      case 'chemistry':
-        return 'bg-gradient-to-r from-purple-600 to-purple-700'
-      case 'biology':
-        return 'bg-gradient-to-r from-green-600 to-green-700'
+      case "physics":
+        return "bg-gradient-to-r from-blue-600 to-blue-700";
+      case "chemistry":
+        return "bg-gradient-to-r from-purple-600 to-purple-700";
+      case "biology":
+        return "bg-gradient-to-r from-green-600 to-green-700";
       default:
-        return 'bg-gradient-to-r from-gray-600 to-gray-700'
+        return "bg-gradient-to-r from-gray-600 to-gray-700";
     }
-  }
+  };
 
   const getTopicBorderClass = (subject) => {
     switch (subject) {
-      case 'physics':
-        return 'border-blue-300 hover:border-blue-500 hover:bg-blue-50'
-      case 'chemistry':
-        return 'border-purple-300 hover:border-purple-500 hover:bg-purple-50'
-      case 'biology':
-        return 'border-green-300 hover:border-green-500 hover:bg-green-50'
+      case "physics":
+        return "border-blue-300 hover:border-blue-500 hover:bg-blue-50";
+      case "chemistry":
+        return "border-purple-300 hover:border-purple-500 hover:bg-purple-50";
+      case "biology":
+        return "border-green-300 hover:border-green-500 hover:bg-green-50";
       default:
-        return 'border-gray-300 hover:border-gray-500 hover:bg-gray-50'
+        return "border-gray-300 hover:border-gray-500 hover:bg-gray-50";
     }
-  }
+  };
 
   const getUnlockedBadgeClass = (subject) => {
     switch (subject) {
-      case 'physics':
-        return 'bg-blue-500'
-      case 'chemistry':
-        return 'bg-purple-500'
-      case 'biology':
-        return 'bg-green-500'
+      case "physics":
+        return "bg-blue-500";
+      case "chemistry":
+        return "bg-purple-500";
+      case "biology":
+        return "bg-green-500";
       default:
-        return 'bg-gray-500'
+        return "bg-gray-500";
     }
-  }
+  };
 
   const getSubjectIcon = (subject) => {
     switch (subject) {
-      case 'physics':
-        return '⚛️'
-      case 'chemistry':
-        return '🧪'
-      case 'biology':
-        return '🧬'
+      case "physics":
+        return "⚛️";
+      case "chemistry":
+        return "🧪";
+      case "biology":
+        return "🧬";
       default:
-        return '📚'
+        return "📚";
     }
-  }
+  };
 
   const getSubjectColor = (subject) => {
     switch (subject) {
-      case 'physics':
-        return 'blue'
-      case 'chemistry':
-        return 'purple'
-      case 'biology':
-        return 'green'
+      case "physics":
+        return "blue";
+      case "chemistry":
+        return "purple";
+      case "biology":
+        return "green";
       default:
-        return 'gray'
+        return "gray";
     }
-  }
+  };
 
   if (isLoading) {
     return (
@@ -153,11 +169,11 @@ export default function Learn() {
           <p className="text-xl text-charcoal">Loading...</p>
         </div>
       </div>
-    )
+    );
   }
 
-  const syllabus = getSyllabusForSubject()
-  const color = getSubjectColor(selectedSubject)
+  const syllabus = getSyllabusForSubject();
+  const color = getSubjectColor(selectedSubject);
 
   return (
     <>
@@ -165,7 +181,7 @@ export default function Learn() {
         <title>Learn NEET - Your Dashboard</title>
         <meta name="description" content="Access your NEET preparation dashboard" />
       </Head>
-      
+
       <main className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
         {/* Header */}
         <div className="bg-white shadow-sm border-b border-gray-200">
@@ -178,7 +194,7 @@ export default function Learn() {
               <div className="flex items-center gap-4">
                 <div className="text-right">
                   <p className="font-semibold text-charcoal">
-                    {userProfile?.firstName || userProfile?.first_name || 'Student'}
+                    {userProfile?.firstName || userProfile?.first_name || "Student"}
                   </p>
                   <p className="text-sm text-gray-600">{user?.email}</p>
                 </div>
@@ -197,12 +213,12 @@ export default function Learn() {
           {/* Welcome Section */}
           <div className="bg-white p-6 rounded-2xl shadow-lg mb-8">
             <h2 className="text-2xl font-bold text-primary mb-2">
-              Welcome, {userProfile?.firstName || userProfile?.first_name || 'Student'}! 🎓
+              Welcome, {userProfile?.firstName || userProfile?.first_name || "Student"}! 🎓
             </h2>
             <p className="text-gray-700 mb-4">
               Your comprehensive NEET preparation platform with Physics, Chemistry, and Biology
             </p>
-            
+
             {hasActiveSubscription ? (
               <div className="bg-green-50 border-2 border-green-500 p-4 rounded-lg">
                 <p className="text-green-800 font-semibold flex items-center gap-2">
@@ -230,11 +246,11 @@ export default function Learn() {
             <h3 className="text-xl font-bold text-primary mb-4">Select Subject</h3>
             <div className="grid md:grid-cols-3 gap-4">
               <button
-                onClick={() => setSelectedSubject('physics')}
+                onClick={() => setSelectedSubject("physics")}
                 className={`p-6 rounded-xl border-2 transition ${
-                  selectedSubject === 'physics'
-                    ? 'border-blue-500 bg-blue-50'
-                    : 'border-gray-200 hover:border-blue-300'
+                  selectedSubject === "physics"
+                    ? "border-blue-500 bg-blue-50"
+                    : "border-gray-200 hover:border-blue-300"
                 }`}
               >
                 <div className="text-4xl mb-2">⚛️</div>
@@ -243,11 +259,11 @@ export default function Learn() {
               </button>
 
               <button
-                onClick={() => setSelectedSubject('chemistry')}
+                onClick={() => setSelectedSubject("chemistry")}
                 className={`p-6 rounded-xl border-2 transition ${
-                  selectedSubject === 'chemistry'
-                    ? 'border-purple-500 bg-purple-50'
-                    : 'border-gray-200 hover:border-purple-300'
+                  selectedSubject === "chemistry"
+                    ? "border-purple-500 bg-purple-50"
+                    : "border-gray-200 hover:border-purple-300"
                 }`}
               >
                 <div className="text-4xl mb-2">🧪</div>
@@ -256,11 +272,11 @@ export default function Learn() {
               </button>
 
               <button
-                onClick={() => setSelectedSubject('biology')}
+                onClick={() => setSelectedSubject("biology")}
                 className={`p-6 rounded-xl border-2 transition ${
-                  selectedSubject === 'biology'
-                    ? 'border-green-500 bg-green-50'
-                    : 'border-gray-200 hover:border-green-300'
+                  selectedSubject === "biology"
+                    ? "border-green-500 bg-green-50"
+                    : "border-gray-200 hover:border-green-300"
                 }`}
               >
                 <div className="text-4xl mb-2">🧬</div>
@@ -275,9 +291,14 @@ export default function Learn() {
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-2xl font-bold text-primary flex items-center gap-2">
                 <span>{getSubjectIcon(selectedSubject)}</span>
-                <span>{selectedSubject.charAt(0).toUpperCase() + selectedSubject.slice(1)} Modules</span>
+                <span>
+                  {selectedSubject.charAt(0).toUpperCase() + selectedSubject.slice(1)} Modules
+                </span>
               </h3>
-              <Link href="/premium-resources" className="px-4 py-2 bg-accent text-white rounded-lg hover:bg-orange-600 transition text-sm font-semibold">
+              <Link
+                href="/premium-resources"
+                className="px-4 py-2 bg-accent text-white rounded-lg hover:bg-orange-600 transition text-sm font-semibold"
+              >
                 Premium Resources →
               </Link>
             </div>
@@ -300,7 +321,7 @@ export default function Learn() {
                     </button>
                   </div>
                 </div>
-                
+
                 <div className="p-6">
                   <div className="space-y-3">
                     {module.topics.map((topic) => (
@@ -310,7 +331,7 @@ export default function Learn() {
                         className={`w-full text-left p-4 rounded-lg border-2 transition ${
                           hasActiveSubscription
                             ? `${getTopicBorderClass(selectedSubject)} cursor-pointer`
-                            : 'border-gray-300 bg-gray-50 cursor-not-allowed opacity-75'
+                            : "border-gray-300 bg-gray-50 cursor-not-allowed opacity-75"
                         }`}
                         disabled={!hasActiveSubscription}
                       >
@@ -318,7 +339,7 @@ export default function Learn() {
                           <div className="flex-1">
                             <div className="flex items-center gap-3">
                               <span className="text-2xl">
-                                {hasActiveSubscription ? '▶️' : '🔒'}
+                                {hasActiveSubscription ? "▶️" : "🔒"}
                               </span>
                               <div>
                                 <h5 className="font-semibold text-lg text-charcoal">
@@ -329,7 +350,9 @@ export default function Learn() {
                             </div>
                           </div>
                           {hasActiveSubscription && (
-                            <span className={`${getUnlockedBadgeClass(selectedSubject)} text-white px-3 py-1 rounded-full text-sm font-bold`}>
+                            <span
+                              className={`${getUnlockedBadgeClass(selectedSubject)} text-white px-3 py-1 rounded-full text-sm font-bold`}
+                            >
                               UNLOCKED
                             </span>
                           )}
@@ -344,16 +367,26 @@ export default function Learn() {
 
           {/* Footer Links */}
           <div className="mt-12 grid md:grid-cols-3 gap-6">
-            <Link href="/premium-resources" className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition">
+            <Link
+              href="/premium-resources"
+              className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition"
+            >
               <div className="text-3xl mb-2">🎁</div>
               <h4 className="font-bold text-lg text-primary mb-2">Premium Resources</h4>
-              <p className="text-sm text-gray-600">Access exclusive study materials and practice papers</p>
+              <p className="text-sm text-gray-600">
+                Access exclusive study materials and practice papers
+              </p>
             </Link>
 
-            <Link href="/admin" className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition">
+            <Link
+              href="/admin"
+              className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition"
+            >
               <div className="text-3xl mb-2">⚙️</div>
               <h4 className="font-bold text-lg text-primary mb-2">Admin Panel</h4>
-              <p className="text-sm text-gray-600">Manage settings and view analytics (Admin only)</p>
+              <p className="text-sm text-gray-600">
+                Manage settings and view analytics (Admin only)
+              </p>
             </Link>
 
             <div className="bg-white p-6 rounded-xl shadow-lg">
@@ -365,5 +398,5 @@ export default function Learn() {
         </div>
       </main>
     </>
-  )
+  );
 }

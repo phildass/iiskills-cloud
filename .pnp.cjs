@@ -123,7 +123,7 @@ const RAW_RUNTIME_STATE =
           ["eslint-plugin-security", "npm:3.0.1"],\
           ["html2canvas", "npm:1.4.1"],\
           ["iiskills-cloud-monorepo", "workspace:."],\
-          ["jspdf", "npm:3.0.4"],\
+          ["jspdf", "npm:4.0.0"],\
           ["next", "virtual:c020c40bc7ed0ebeeb1f0c8d3c67516c08d0c12e2b5190fdb666b68ead67d2d1624dca852fe0cbf6eca1be60d6329436712aa60f0cb495863860b3392518e9a8#npm:16.1.1"],\
           ["postcss", "npm:8.5.6"],\
           ["prettier", "npm:3.7.4"],\
@@ -548,7 +548,7 @@ const RAW_RUNTIME_STATE =
           ["@supabase/supabase-js", "npm:2.90.1"],\
           ["autoprefixer", "virtual:c020c40bc7ed0ebeeb1f0c8d3c67516c08d0c12e2b5190fdb666b68ead67d2d1624dca852fe0cbf6eca1be60d6329436712aa60f0cb495863860b3392518e9a8#npm:10.4.23"],\
           ["html2canvas", "npm:1.4.1"],\
-          ["jspdf", "npm:3.0.4"],\
+          ["jspdf", "npm:4.0.0"],\
           ["next", "virtual:c020c40bc7ed0ebeeb1f0c8d3c67516c08d0c12e2b5190fdb666b68ead67d2d1624dca852fe0cbf6eca1be60d6329436712aa60f0cb495863860b3392518e9a8#npm:16.1.1"],\
           ["postcss", "npm:8.5.6"],\
           ["qrcode", "npm:1.5.4"],\
@@ -4219,7 +4219,7 @@ const RAW_RUNTIME_STATE =
           ["eslint-plugin-security", "npm:3.0.1"],\
           ["html2canvas", "npm:1.4.1"],\
           ["iiskills-cloud-monorepo", "workspace:."],\
-          ["jspdf", "npm:3.0.4"],\
+          ["jspdf", "npm:4.0.0"],\
           ["next", "virtual:c020c40bc7ed0ebeeb1f0c8d3c67516c08d0c12e2b5190fdb666b68ead67d2d1624dca852fe0cbf6eca1be60d6329436712aa60f0cb495863860b3392518e9a8#npm:16.1.1"],\
           ["postcss", "npm:8.5.6"],\
           ["prettier", "npm:3.7.4"],\
@@ -4706,8 +4706,8 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["jspdf", [\
-      ["npm:3.0.4", {\
-        "packageLocation": "../../../.yarn/berry/cache/jspdf-npm-3.0.4-a5775a0cb8-10c0.zip/node_modules/jspdf/",\
+      ["npm:4.0.0", {\
+        "packageLocation": "../../../.yarn/berry/cache/jspdf-npm-4.0.0-65f5330783-10c0.zip/node_modules/jspdf/",\
         "packageDependencies": [\
           ["@babel/runtime", "npm:7.28.4"],\
           ["canvg", "npm:3.0.11"],\
@@ -4716,7 +4716,7 @@ const RAW_RUNTIME_STATE =
           ["fast-png", "npm:6.4.0"],\
           ["fflate", "npm:0.8.2"],\
           ["html2canvas", "npm:1.4.1"],\
-          ["jspdf", "npm:3.0.4"]\
+          ["jspdf", "npm:4.0.0"]\
         ],\
         "linkType": "HARD"\
       }]\

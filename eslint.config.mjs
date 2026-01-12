@@ -53,6 +53,12 @@ export default [
         Headers: "readonly",
         Request: "readonly",
         Response: "readonly",
+        localStorage: "readonly",
+        sessionStorage: "readonly",
+        setTimeout: "readonly",
+        setInterval: "readonly",
+        clearTimeout: "readonly",
+        clearInterval: "readonly",
       },
     },
     settings: {

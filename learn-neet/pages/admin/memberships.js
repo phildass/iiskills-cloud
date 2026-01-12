@@ -1,106 +1,112 @@
-import { useState, useEffect } from 'react'
-import { useRouter } from 'next/router'
-import Head from 'next/head'
-import Link from 'next/link'
-import { getCurrentUser, isAdmin, supabase } from '../../lib/supabaseClient'
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import Head from "next/head";
+import Link from "next/link";
+import { getCurrentUser, isAdmin, supabase } from "../../lib/supabaseClient";
 
 export default function Memberships() {
-  const [user, setUser] = useState(null)
-  const [isLoading, setIsLoading] = useState(true)
-  const [adminAccess, setAdminAccess] = useState(false)
-  const [searchTerm, setSearchTerm] = useState('')
-  const [filterStatus, setFilterStatus] = useState('all') // all, active, pending, expired
-  const router = useRouter()
+  const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [adminAccess, setAdminAccess] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filterStatus, setFilterStatus] = useState("all"); // all, active, pending, expired
+  const router = useRouter();
 
   // Mock data - in production, this would come from Supabase
   const mockUsers = [
     {
       id: 1,
-      name: 'Rahul Sharma',
-      email: 'rahul@example.com',
-      subscription_status: 'active',
-      subscription_end: '2026-06-15',
-      joined: '2024-06-15',
-      progress: 45
+      name: "Rahul Sharma",
+      email: "rahul@example.com",
+      subscription_status: "active",
+      subscription_end: "2026-06-15",
+      joined: "2024-06-15",
+      progress: 45,
     },
     {
       id: 2,
-      name: 'Priya Patel',
-      email: 'priya@example.com',
-      subscription_status: 'active',
-      subscription_end: '2026-08-20',
-      joined: '2024-08-20',
-      progress: 62
+      name: "Priya Patel",
+      email: "priya@example.com",
+      subscription_status: "active",
+      subscription_end: "2026-08-20",
+      joined: "2024-08-20",
+      progress: 62,
     },
     {
       id: 3,
-      name: 'Amit Kumar',
-      email: 'amit@example.com',
-      subscription_status: 'pending_payment',
+      name: "Amit Kumar",
+      email: "amit@example.com",
+      subscription_status: "pending_payment",
       subscription_end: null,
-      joined: '2025-01-02',
-      progress: 0
-    }
-  ]
+      joined: "2025-01-02",
+      progress: 0,
+    },
+  ];
 
   useEffect(() => {
-    checkAuth()
-  }, [])
+    checkAuth();
+  }, []);
 
   const checkAuth = async () => {
-    const currentUser = await getCurrentUser()
-    
+    const currentUser = await getCurrentUser();
+
     if (!currentUser) {
-      router.push('/login?redirect=/admin/memberships')
-      return
+      router.push("/login?redirect=/admin/memberships");
+      return;
     }
-    
-    setUser(currentUser)
-    const hasAdminAccess = await isAdmin(currentUser)
-    setAdminAccess(hasAdminAccess)
-    
+
+    setUser(currentUser);
+    const hasAdminAccess = await isAdmin(currentUser);
+    setAdminAccess(hasAdminAccess);
+
     if (!hasAdminAccess) {
-      alert('Admin access required')
-      router.push('/learn')
-      return
+      alert("Admin access required");
+      router.push("/learn");
+      return;
     }
-    
-    setIsLoading(false)
-  }
+
+    setIsLoading(false);
+  };
 
   const getStatusBadge = (status) => {
     const badges = {
-      active: 'bg-green-100 text-green-800',
-      pending_payment: 'bg-orange-100 text-orange-800',
-      expired: 'bg-red-100 text-red-800'
-    }
-    return badges[status] || 'bg-gray-100 text-gray-800'
-  }
+      active: "bg-green-100 text-green-800",
+      pending_payment: "bg-orange-100 text-orange-800",
+      expired: "bg-red-100 text-red-800",
+    };
+    return badges[status] || "bg-gray-100 text-gray-800";
+  };
 
   const getStatusText = (status) => {
     const texts = {
-      active: 'Active',
-      pending_payment: 'Pending Payment',
-      expired: 'Expired'
-    }
-    return texts[status] || status
-  }
+      active: "Active",
+      pending_payment: "Pending Payment",
+      expired: "Expired",
+    };
+    return texts[status] || status;
+  };
 
   const handleActivateSubscription = (userId) => {
     // In production, this would update the user in Supabase
-    alert(`Activating subscription for user ID: ${userId}\n\nThis would:\n1. Set subscription_status to 'active'\n2. Set subscription_end to 2 years from now\n3. Send confirmation email to user`)
-  }
+    alert(
+      `Activating subscription for user ID: ${userId}\n\nThis would:\n1. Set subscription_status to 'active'\n2. Set subscription_end to 2 years from now\n3. Send confirmation email to user`
+    );
+  };
 
   const handleExtendSubscription = (userId) => {
     // In production, this would update the subscription end date
-    alert(`Extending subscription for user ID: ${userId}\n\nThis would add time to their subscription period.`)
-  }
+    alert(
+      `Extending subscription for user ID: ${userId}\n\nThis would add time to their subscription period.`
+    );
+  };
 
   const handleRevokeAccess = (userId) => {
-    if (confirm('Are you sure you want to revoke access for this user?')) {
-      alert(`Revoking access for user ID: ${userId}\n\nThis would set their subscription status to 'expired'.`)
+    if (confirm("Are you sure you want to revoke access for this user?")) {
+      alert(
+        `Revoking access for user ID: ${userId}\n\nThis would set their subscription status to 'expired'.`
+      );
     }
-  }
+  };
 
   if (isLoading) {
     return (
@@ -110,15 +116,16 @@ export default function Memberships() {
           <p className="text-xl text-charcoal">Loading...</p>
         </div>
       </div>
-    )
+    );
   }
 
-  const filteredUsers = mockUsers.filter(user => {
-    const matchesSearch = user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         user.email.toLowerCase().includes(searchTerm.toLowerCase())
-    const matchesFilter = filterStatus === 'all' || user.subscription_status === filterStatus
-    return matchesSearch && matchesFilter
-  })
+  const filteredUsers = mockUsers.filter((user) => {
+    const matchesSearch =
+      user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      user.email.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesFilter = filterStatus === "all" || user.subscription_status === filterStatus;
+    return matchesSearch && matchesFilter;
+  });
 
   return (
     <>
@@ -137,7 +144,10 @@ export default function Memberships() {
                 <h1 className="text-3xl font-bold text-primary">Membership Management</h1>
                 <p className="text-sm text-gray-600">Manage user subscriptions and access</p>
               </div>
-              <Link href="/admin" className="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm font-medium transition">
+              <Link
+                href="/admin"
+                className="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm font-medium transition"
+              >
                 ← Back to Admin
               </Link>
             </div>
@@ -149,9 +159,7 @@ export default function Memberships() {
           <div className="bg-white p-6 rounded-2xl shadow-lg mb-8">
             <div className="grid md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Search Users
-                </label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Search Users</label>
                 <input
                   type="text"
                   value={searchTerm}
@@ -195,7 +203,7 @@ export default function Memberships() {
                 </thead>
                 <tbody className="divide-y divide-gray-200">
                   {filteredUsers.map((user, index) => (
-                    <tr key={user.id} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
+                    <tr key={user.id} className={index % 2 === 0 ? "bg-white" : "bg-gray-50"}>
                       <td className="px-6 py-4">
                         <div>
                           <div className="font-semibold text-charcoal">{user.name}</div>
@@ -203,12 +211,16 @@ export default function Memberships() {
                         </div>
                       </td>
                       <td className="px-6 py-4">
-                        <span className={`px-3 py-1 rounded-full text-xs font-semibold ${getStatusBadge(user.subscription_status)}`}>
+                        <span
+                          className={`px-3 py-1 rounded-full text-xs font-semibold ${getStatusBadge(user.subscription_status)}`}
+                        >
                           {getStatusText(user.subscription_status)}
                         </span>
                       </td>
                       <td className="px-6 py-4 text-sm text-gray-700">
-                        {user.subscription_end ? new Date(user.subscription_end).toLocaleDateString() : '-'}
+                        {user.subscription_end
+                          ? new Date(user.subscription_end).toLocaleDateString()
+                          : "-"}
                       </td>
                       <td className="px-6 py-4">
                         <div className="flex items-center gap-2">
@@ -226,7 +238,7 @@ export default function Memberships() {
                       </td>
                       <td className="px-6 py-4">
                         <div className="flex gap-2">
-                          {user.subscription_status === 'pending_payment' && (
+                          {user.subscription_status === "pending_payment" && (
                             <button
                               onClick={() => handleActivateSubscription(user.id)}
                               className="px-3 py-1 bg-green-600 text-white rounded text-xs font-semibold hover:bg-green-700 transition"
@@ -234,7 +246,7 @@ export default function Memberships() {
                               Activate
                             </button>
                           )}
-                          {user.subscription_status === 'active' && (
+                          {user.subscription_status === "active" && (
                             <>
                               <button
                                 onClick={() => handleExtendSubscription(user.id)}
@@ -270,12 +282,13 @@ export default function Memberships() {
           <div className="mt-8 bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg">
             <h4 className="font-bold text-blue-900 mb-2">📊 Database Integration Required</h4>
             <p className="text-blue-800">
-              The data shown above is mock data for demonstration. In production, this would be connected to your Supabase database
-              to display real user subscription data, allow activations, extensions, and revocations.
+              The data shown above is mock data for demonstration. In production, this would be
+              connected to your Supabase database to display real user subscription data, allow
+              activations, extensions, and revocations.
             </p>
           </div>
         </div>
       </main>
     </>
-  )
+  );
 }
