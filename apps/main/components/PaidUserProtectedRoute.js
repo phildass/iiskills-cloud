@@ -1,25 +1,26 @@
-import { useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
-import { getCurrentUser, checkUserPaymentStatus } from '../lib/supabaseClient'
-import Link from 'next/link'
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import { getCurrentUser, checkUserPaymentStatus } from "../lib/supabaseClient";
+import Link from "next/link";
 
 // Configuration for access denied message
 const ACCESS_DENIED_CONFIG = {
-  title: 'Access Restricted',
-  message: 'Only registered and paid users can access this page. Please log in if you are already registered. Or make payment here. This will lead you to our parent organisation AI Cloud Enterprises (aienter.in).',
-  paymentUrl: 'https://www.aienter.in/payments',
-  paymentButtonText: 'Make Payment (AI Cloud Enterprises)'
-}
+  title: "Access Restricted",
+  message:
+    "Only registered and paid users can access this page. Please log in if you are already registered. Or make payment here. This will lead you to our parent organisation AI Cloud Enterprises (aienter.in).",
+  paymentUrl: "https://www.aienter.in/payments",
+  paymentButtonText: "Make Payment (AI Cloud Enterprises)",
+};
 
 /**
  * PaidUserProtectedRoute Component
- * 
+ *
  * This component protects pages that require both authentication AND payment/registration.
  * If a user is not logged in or hasn't paid, they will see a message with options to login or pay.
- * 
+ *
  * Usage:
  * import PaidUserProtectedRoute from '../components/PaidUserProtectedRoute'
- * 
+ *
  * export default function MyPaidPage() {
  *   return (
  *     <PaidUserProtectedRoute>
@@ -27,7 +28,7 @@ const ACCESS_DENIED_CONFIG = {
  *     </PaidUserProtectedRoute>
  *   )
  * }
- * 
+ *
  * How it works:
  * 1. Checks if user is authenticated via Supabase
  * 2. If authenticated, checks if user has paid/registered status
@@ -35,10 +36,10 @@ const ACCESS_DENIED_CONFIG = {
  * 4. Only renders children if user is authenticated and has paid
  */
 export default function PaidUserProtectedRoute({ children }) {
-  const router = useRouter()
-  const [user, setUser] = useState(null)
-  const [hasPaid, setHasPaid] = useState(false)
-  const [isLoading, setIsLoading] = useState(true)
+  const router = useRouter();
+  const [user, setUser] = useState(null);
+  const [hasPaid, setHasPaid] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     /**
@@ -47,23 +48,23 @@ export default function PaidUserProtectedRoute({ children }) {
     const checkAccess = async () => {
       try {
         // Get current user from Supabase session
-        const currentUser = await getCurrentUser()
-        setUser(currentUser)
-        
+        const currentUser = await getCurrentUser();
+        setUser(currentUser);
+
         if (currentUser) {
           // User is authenticated - check payment status
-          const paymentStatus = await checkUserPaymentStatus(currentUser)
-          setHasPaid(paymentStatus)
+          const paymentStatus = await checkUserPaymentStatus(currentUser);
+          setHasPaid(paymentStatus);
         }
       } catch (error) {
-        console.error('Error checking access:', error)
+        console.error("Error checking access:", error);
       } finally {
-        setIsLoading(false)
+        setIsLoading(false);
       }
-    }
+    };
 
-    checkAccess()
-  }, [router])
+    checkAccess();
+  }, [router]);
 
   // Show loading state while checking access
   if (isLoading) {
@@ -73,7 +74,7 @@ export default function PaidUserProtectedRoute({ children }) {
           <div className="animate-pulse">Checking access permissions...</div>
         </div>
       </div>
-    )
+    );
   }
 
   // Show access denied message if user is not authenticated or hasn't paid
@@ -83,15 +84,11 @@ export default function PaidUserProtectedRoute({ children }) {
         <div className="max-w-2xl w-full bg-white rounded-2xl shadow-2xl p-8 border-2 border-primary">
           <div className="text-center mb-6">
             <div className="text-6xl mb-4">🔒</div>
-            <h1 className="text-3xl font-bold text-primary mb-4">
-              {ACCESS_DENIED_CONFIG.title}
-            </h1>
+            <h1 className="text-3xl font-bold text-primary mb-4">{ACCESS_DENIED_CONFIG.title}</h1>
           </div>
-          
+
           <div className="bg-yellow-50 border-2 border-yellow-300 rounded-lg p-6 mb-6">
-            <p className="text-lg text-gray-800 leading-relaxed">
-              {ACCESS_DENIED_CONFIG.message}
-            </p>
+            <p className="text-lg text-gray-800 leading-relaxed">{ACCESS_DENIED_CONFIG.message}</p>
           </div>
 
           <div className="space-y-4">
@@ -118,7 +115,7 @@ export default function PaidUserProtectedRoute({ children }) {
                 </Link>
               </>
             )}
-            
+
             <a
               href={ACCESS_DENIED_CONFIG.paymentUrl}
               target="_blank"
@@ -150,9 +147,9 @@ export default function PaidUserProtectedRoute({ children }) {
           </div>
         </div>
       </div>
-    )
+    );
   }
 
   // User is authenticated and has paid - render the protected content
-  return <>{children}</>
+  return <>{children}</>;
 }

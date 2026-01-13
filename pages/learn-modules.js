@@ -1,147 +1,178 @@
-import Head from 'next/head'
-import Link from 'next/link'
-import Image from 'next/image'
-import { getAllSubdomains } from '../utils/courseSubdomainMapperClient'
+import Head from "next/head";
+import Link from "next/link";
+import Image from "next/image";
+import { getAllSubdomains } from "../utils/courseSubdomainMapperClient";
 
 export default function LearnModules() {
   // Detect if we're in development mode (client-side safe)
-  const isDevelopment = typeof window !== 'undefined' && window.location.hostname === 'localhost'
-  const allSubdomains = getAllSubdomains(isDevelopment)
-  
+  const isDevelopment = typeof window !== "undefined" && window.location.hostname === "localhost";
+  const allSubdomains = getAllSubdomains(isDevelopment);
+
   // Metadata for each module (icons, descriptions, features)
   const moduleMetadata = {
-    'learn-apt': {
-      title: 'Learn Aptitude',
-      description: 'Develop logical reasoning, quantitative aptitude, and analytical skills for competitive exams.',
-      colorClass: 'bg-gradient-to-r from-blue-600 to-primary',
-      icon: '🧮',
-      features: ['Quantitative Aptitude', 'Logical Reasoning', 'Data Interpretation', 'Pattern Recognition']
+    "learn-apt": {
+      title: "Learn Aptitude",
+      description:
+        "Develop logical reasoning, quantitative aptitude, and analytical skills for competitive exams.",
+      colorClass: "bg-gradient-to-r from-blue-600 to-primary",
+      icon: "🧮",
+      features: [
+        "Quantitative Aptitude",
+        "Logical Reasoning",
+        "Data Interpretation",
+        "Pattern Recognition",
+      ],
     },
-    'learn-math': {
-      title: 'Learn Mathematics',
-      description: 'Master mathematical concepts, problem-solving techniques, and advance your quantitative skills.',
-      colorClass: 'bg-gradient-to-r from-indigo-600 to-primary',
-      icon: '📐',
-      features: ['Algebra', 'Geometry', 'Calculus', 'Statistics']
+    "learn-math": {
+      title: "Learn Mathematics",
+      description:
+        "Master mathematical concepts, problem-solving techniques, and advance your quantitative skills.",
+      colorClass: "bg-gradient-to-r from-indigo-600 to-primary",
+      icon: "📐",
+      features: ["Algebra", "Geometry", "Calculus", "Statistics"],
     },
-    'learn-winning': {
-      title: 'Learn Winning',
-      description: 'Develop a winning mindset, success strategies, and achieve your personal and professional goals.',
-      colorClass: 'bg-gradient-to-r from-green-600 to-primary',
-      icon: '🏆',
-      features: ['Goal Setting', 'Success Mindset', 'Performance Optimization', 'Personal Growth']
+    "learn-winning": {
+      title: "Learn Winning",
+      description:
+        "Develop a winning mindset, success strategies, and achieve your personal and professional goals.",
+      colorClass: "bg-gradient-to-r from-green-600 to-primary",
+      icon: "🏆",
+      features: ["Goal Setting", "Success Mindset", "Performance Optimization", "Personal Growth"],
     },
-    'learn-data-science': {
-      title: 'Learn Data Science',
-      description: 'Master data analysis, visualization, machine learning, and turn data into insights.',
-      colorClass: 'bg-gradient-to-r from-purple-600 to-primary',
-      icon: '📊',
-      features: ['Data Analysis', 'Machine Learning', 'Visualization', 'Python/R']
+    "learn-data-science": {
+      title: "Learn Data Science",
+      description:
+        "Master data analysis, visualization, machine learning, and turn data into insights.",
+      colorClass: "bg-gradient-to-r from-purple-600 to-primary",
+      icon: "📊",
+      features: ["Data Analysis", "Machine Learning", "Visualization", "Python/R"],
     },
-    'learn-management': {
-      title: 'Learn Management',
-      description: 'Build essential management skills, strategic thinking, and lead teams effectively.',
-      colorClass: 'bg-gradient-to-r from-orange-600 to-primary',
-      icon: '📈',
-      features: ['Strategic Planning', 'Team Leadership', 'Project Management', 'Decision Making']
+    "learn-management": {
+      title: "Learn Management",
+      description:
+        "Build essential management skills, strategic thinking, and lead teams effectively.",
+      colorClass: "bg-gradient-to-r from-orange-600 to-primary",
+      icon: "📈",
+      features: ["Strategic Planning", "Team Leadership", "Project Management", "Decision Making"],
     },
-    'learn-leadership': {
-      title: 'Learn Leadership',
-      description: 'Develop leadership capabilities, influence, and inspire others to achieve excellence.',
-      colorClass: 'bg-gradient-to-r from-red-600 to-primary',
-      icon: '👔',
-      features: ['Influencing Skills', 'Team Building', 'Communication', 'Vision Setting']
+    "learn-leadership": {
+      title: "Learn Leadership",
+      description:
+        "Develop leadership capabilities, influence, and inspire others to achieve excellence.",
+      colorClass: "bg-gradient-to-r from-red-600 to-primary",
+      icon: "👔",
+      features: ["Influencing Skills", "Team Building", "Communication", "Vision Setting"],
     },
-    'learn-ai': {
-      title: 'Learn AI',
-      description: 'Explore Artificial Intelligence fundamentals, applications, and prepare for the AI-driven future.',
-      colorClass: 'bg-gradient-to-r from-cyan-600 to-primary',
-      icon: '🤖',
-      features: ['AI Fundamentals', 'Neural Networks', 'AI Applications', 'Ethics & Governance']
+    "learn-ai": {
+      title: "Learn AI",
+      description:
+        "Explore Artificial Intelligence fundamentals, applications, and prepare for the AI-driven future.",
+      colorClass: "bg-gradient-to-r from-cyan-600 to-primary",
+      icon: "🤖",
+      features: ["AI Fundamentals", "Neural Networks", "AI Applications", "Ethics & Governance"],
     },
-    'learn-pr': {
-      title: 'Learn PR',
-      description: 'Master Public Relations, communication strategies, and build powerful brand narratives.',
-      colorClass: 'bg-gradient-to-r from-pink-600 to-primary',
-      icon: '📣',
-      features: ['Media Relations', 'Brand Building', 'Crisis Management', 'Content Strategy']
+    "learn-pr": {
+      title: "Learn PR",
+      description:
+        "Master Public Relations, communication strategies, and build powerful brand narratives.",
+      colorClass: "bg-gradient-to-r from-pink-600 to-primary",
+      icon: "📣",
+      features: ["Media Relations", "Brand Building", "Crisis Management", "Content Strategy"],
     },
-    'learn-jee': {
-      title: 'Learn JEE',
-      description: 'Comprehensive JEE preparation with Physics, Chemistry, and Mathematics for engineering entrance exams.',
-      colorClass: 'bg-gradient-to-r from-yellow-600 to-primary',
-      icon: '🎓',
-      features: ['Physics', 'Chemistry', 'Mathematics', 'Problem-Solving']
+    "learn-jee": {
+      title: "Learn JEE",
+      description:
+        "Comprehensive JEE preparation with Physics, Chemistry, and Mathematics for engineering entrance exams.",
+      colorClass: "bg-gradient-to-r from-yellow-600 to-primary",
+      icon: "🎓",
+      features: ["Physics", "Chemistry", "Mathematics", "Problem-Solving"],
     },
-    'learn-neet': {
-      title: 'Learn NEET',
-      description: 'Complete NEET preparation with Biology, Chemistry, and Physics for medical entrance exams.',
-      colorClass: 'bg-gradient-to-r from-teal-600 to-primary',
-      icon: '🏥',
-      features: ['Biology', 'Chemistry', 'Physics', 'Medical Concepts']
+    "learn-neet": {
+      title: "Learn NEET",
+      description:
+        "Complete NEET preparation with Biology, Chemistry, and Physics for medical entrance exams.",
+      colorClass: "bg-gradient-to-r from-teal-600 to-primary",
+      icon: "🏥",
+      features: ["Biology", "Chemistry", "Physics", "Medical Concepts"],
     },
-    'learn-physics': {
-      title: 'Learn Physics',
-      description: 'Master physics concepts from mechanics to modern physics with practical applications.',
-      colorClass: 'bg-gradient-to-r from-blue-700 to-primary',
-      icon: '⚛️',
-      features: ['Mechanics', 'Thermodynamics', 'Electromagnetism', 'Modern Physics']
+    "learn-physics": {
+      title: "Learn Physics",
+      description:
+        "Master physics concepts from mechanics to modern physics with practical applications.",
+      colorClass: "bg-gradient-to-r from-blue-700 to-primary",
+      icon: "⚛️",
+      features: ["Mechanics", "Thermodynamics", "Electromagnetism", "Modern Physics"],
     },
-    'learn-chemistry': {
-      title: 'Learn Chemistry',
-      description: 'Explore chemistry from atomic structure to organic reactions and real-world applications.',
-      colorClass: 'bg-gradient-to-r from-green-700 to-primary',
-      icon: '🧪',
-      features: ['Organic Chemistry', 'Inorganic Chemistry', 'Physical Chemistry', 'Lab Techniques']
+    "learn-chemistry": {
+      title: "Learn Chemistry",
+      description:
+        "Explore chemistry from atomic structure to organic reactions and real-world applications.",
+      colorClass: "bg-gradient-to-r from-green-700 to-primary",
+      icon: "🧪",
+      features: [
+        "Organic Chemistry",
+        "Inorganic Chemistry",
+        "Physical Chemistry",
+        "Lab Techniques",
+      ],
     },
-    'learn-geography': {
-      title: 'Learn Geography',
-      description: 'Discover world geography, physical features, climate patterns, and global relationships.',
-      colorClass: 'bg-gradient-to-r from-emerald-600 to-primary',
-      icon: '🌍',
-      features: ['Physical Geography', 'Human Geography', 'Climate', 'World Regions']
+    "learn-geography": {
+      title: "Learn Geography",
+      description:
+        "Discover world geography, physical features, climate patterns, and global relationships.",
+      colorClass: "bg-gradient-to-r from-emerald-600 to-primary",
+      icon: "🌍",
+      features: ["Physical Geography", "Human Geography", "Climate", "World Regions"],
     },
-    'learn-govt-jobs': {
-      title: 'Learn Govt. Jobs',
-      description: 'Master government exam preparation with expert guidance for IBPS, SBI, Railways, SSC and more.',
-      colorClass: 'bg-gradient-to-r from-amber-600 to-primary',
-      icon: '🏛️',
-      features: ['Quantitative Aptitude', 'Reasoning', 'General Awareness', 'Mock Tests']
+    "learn-govt-jobs": {
+      title: "Learn Govt. Jobs",
+      description:
+        "Master government exam preparation with expert guidance for IBPS, SBI, Railways, SSC and more.",
+      colorClass: "bg-gradient-to-r from-amber-600 to-primary",
+      icon: "🏛️",
+      features: ["Quantitative Aptitude", "Reasoning", "General Awareness", "Mock Tests"],
     },
-    'learn-ias': {
-      title: 'Learn IAS',
-      description: 'Comprehensive UPSC Civil Services preparation with cutting-edge AI content and strategic guidance.',
-      colorClass: 'bg-gradient-to-r from-rose-600 to-primary',
-      icon: '🎯',
-      features: ['General Studies', 'Current Affairs', 'Essay Writing', 'Interview Prep']
-    }
-  }
-  
+    "learn-ias": {
+      title: "Learn IAS",
+      description:
+        "Comprehensive UPSC Civil Services preparation with cutting-edge AI content and strategic guidance.",
+      colorClass: "bg-gradient-to-r from-rose-600 to-primary",
+      icon: "🎯",
+      features: ["General Studies", "Current Affairs", "Essay Writing", "Interview Prep"],
+    },
+  };
+
   // Combine subdomain data with metadata
-  const modules = allSubdomains.map(subdomain => {
+  const modules = allSubdomains.map((subdomain) => {
     const metadata = moduleMetadata[subdomain.subdomain] || {
-      title: subdomain.subdomain.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' '),
+      title: subdomain.subdomain
+        .split("-")
+        .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+        .join(" "),
       description: `Learning module for ${subdomain.subdomain}`,
-      colorClass: 'bg-gradient-to-r from-gray-600 to-primary',
-      icon: '📚',
-      features: ['Course Content', 'Interactive Learning', 'Assessments', 'Certificates']
-    }
-    
+      colorClass: "bg-gradient-to-r from-gray-600 to-primary",
+      icon: "📚",
+      features: ["Course Content", "Interactive Learning", "Assessments", "Certificates"],
+    };
+
     return {
       name: subdomain.subdomain,
-      subdomain: subdomain.productionUrl.replace('https://', ''),
+      subdomain: subdomain.productionUrl.replace("https://", ""),
       localPort: subdomain.localPort,
       url: subdomain.url,
-      status: 'Available',
-      ...metadata
-    }
-  })
+      status: "Available",
+      ...metadata,
+    };
+  });
 
   return (
     <>
       <Head>
         <title>Learning Modules - iiskills.cloud</title>
-        <meta name="description" content="Explore all learning modules on iiskills.cloud. Access specialized courses via dedicated subdomains." />
+        <meta
+          name="description"
+          content="Explore all learning modules on iiskills.cloud. Access specialized courses via dedicated subdomains."
+        />
       </Head>
 
       <main className="min-h-screen">
@@ -153,8 +184,8 @@ export default function LearnModules() {
               Access specialized learning experiences through our dedicated module subdomains
             </p>
             <p className="text-lg max-w-2xl mx-auto opacity-90">
-              Each module is a complete learning platform with shared authentication, 
-              allowing you to seamlessly switch between different subjects while maintaining your progress.
+              Each module is a complete learning platform with shared authentication, allowing you
+              to seamlessly switch between different subjects while maintaining your progress.
             </p>
           </div>
         </section>
@@ -171,7 +202,7 @@ export default function LearnModules() {
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {modules.map((module) => (
-                <div 
+                <div
                   key={module.name}
                   className="bg-white rounded-lg shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden border-t-4 border-transparent hover:border-primary group"
                 >
@@ -179,12 +210,10 @@ export default function LearnModules() {
                     <div className="text-6xl mb-4 text-center">{module.icon}</div>
                     <h3 className="text-2xl font-bold text-center mb-2">{module.title}</h3>
                   </div>
-                  
+
                   <div className="p-6">
-                    <p className="text-charcoal mb-4 text-center">
-                      {module.description}
-                    </p>
-                    
+                    <p className="text-charcoal mb-4 text-center">{module.description}</p>
+
                     <div className="mb-4">
                       <h4 className="font-bold text-primary mb-2">Key Topics:</h4>
                       <ul className="space-y-1">
@@ -210,9 +239,9 @@ export default function LearnModules() {
                           localhost:{module.localPort}
                         </code>
                       </div>
-                      
+
                       <div className="flex gap-2">
-                        <a 
+                        <a
                           href={module.url}
                           target="_blank"
                           rel="noopener noreferrer"
@@ -239,7 +268,7 @@ export default function LearnModules() {
         <section className="py-16 bg-white">
           <div className="max-w-6xl mx-auto px-4">
             <h2 className="text-4xl font-bold text-primary text-center mb-12">How It Works</h2>
-            
+
             <div className="grid md:grid-cols-3 gap-8">
               <div className="text-center">
                 <div className="bg-primary text-white rounded-full w-16 h-16 flex items-center justify-center text-2xl font-bold mx-auto mb-4">
@@ -247,7 +276,8 @@ export default function LearnModules() {
                 </div>
                 <h3 className="text-xl font-bold text-primary mb-3">Choose Your Module</h3>
                 <p className="text-charcoal">
-                  Select any learning module that matches your goals and interests from our comprehensive catalog.
+                  Select any learning module that matches your goals and interests from our
+                  comprehensive catalog.
                 </p>
               </div>
 
@@ -257,7 +287,8 @@ export default function LearnModules() {
                 </div>
                 <h3 className="text-xl font-bold text-primary mb-3">Single Sign-On</h3>
                 <p className="text-charcoal">
-                  Register once and access all modules with the same account. Seamless authentication across all subdomains.
+                  Register once and access all modules with the same account. Seamless
+                  authentication across all subdomains.
                 </p>
               </div>
 
@@ -267,7 +298,8 @@ export default function LearnModules() {
                 </div>
                 <h3 className="text-xl font-bold text-primary mb-3">Learn & Grow</h3>
                 <p className="text-charcoal">
-                  Progress through structured content, complete exercises, and earn certificates for each module.
+                  Progress through structured content, complete exercises, and earn certificates for
+                  each module.
                 </p>
               </div>
             </div>
@@ -280,16 +312,14 @@ export default function LearnModules() {
             <h2 className="text-4xl font-bold text-primary text-center mb-12">
               Unified Architecture
             </h2>
-            
+
             <div className="bg-white rounded-lg shadow-lg p-8">
               <div className="grid md:grid-cols-2 gap-8">
                 <div>
-                  <h3 className="text-2xl font-bold text-accent mb-4">
-                    🔐 Shared Authentication
-                  </h3>
+                  <h3 className="text-2xl font-bold text-accent mb-4">🔐 Shared Authentication</h3>
                   <p className="text-charcoal mb-4">
-                    All modules use the same Supabase authentication backend with cross-subdomain session sharing.
-                    Login once and access all learning modules seamlessly.
+                    All modules use the same Supabase authentication backend with cross-subdomain
+                    session sharing. Login once and access all learning modules seamlessly.
                   </p>
                   <ul className="space-y-2 text-charcoal">
                     <li className="flex items-start">
@@ -308,12 +338,10 @@ export default function LearnModules() {
                 </div>
 
                 <div>
-                  <h3 className="text-2xl font-bold text-accent mb-4">
-                    🏗️ Independent Deployment
-                  </h3>
+                  <h3 className="text-2xl font-bold text-accent mb-4">🏗️ Independent Deployment</h3>
                   <p className="text-charcoal mb-4">
-                    Each module is a standalone Next.js application that can be deployed independently 
-                    on its own subdomain with dedicated resources.
+                    Each module is a standalone Next.js application that can be deployed
+                    independently on its own subdomain with dedicated resources.
                   </p>
                   <ul className="space-y-2 text-charcoal">
                     <li className="flex items-start">
@@ -343,10 +371,16 @@ export default function LearnModules() {
               Access world-class learning content at an affordable price
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/register" className="inline-block bg-white text-primary px-10 py-4 rounded-lg font-bold text-lg hover:bg-gray-100 transition shadow-lg">
+              <Link
+                href="/register"
+                className="inline-block bg-white text-primary px-10 py-4 rounded-lg font-bold text-lg hover:bg-gray-100 transition shadow-lg"
+              >
                 Create Free Account
               </Link>
-              <Link href="/courses" className="inline-block bg-transparent border-2 border-white text-white px-10 py-4 rounded-lg font-bold text-lg hover:bg-white hover:text-primary transition">
+              <Link
+                href="/courses"
+                className="inline-block bg-transparent border-2 border-white text-white px-10 py-4 rounded-lg font-bold text-lg hover:bg-white hover:text-primary transition"
+              >
                 Browse Courses
               </Link>
             </div>
@@ -354,5 +388,5 @@ export default function LearnModules() {
         </section>
       </main>
     </>
-  )
+  );
 }

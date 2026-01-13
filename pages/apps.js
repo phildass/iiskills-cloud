@@ -1,23 +1,23 @@
-import AppCard from '../components/AppCard'
+import AppCard from "../components/AppCard";
 
 export default function Apps() {
   const apps = [
     {
       title: "SkillTracker",
       description: "Track, assess, and certify professional skills for individuals and teams.",
-      link: "#"
+      link: "#",
     },
     {
       title: "Learning Hub",
       description: "Courses, webinars, and resources for career advancement.",
-      link: "#"
+      link: "#",
     },
     {
       title: "JobConnect",
       description: "Bridge the gap between skill development and job opportunities.",
-      link: "#"
-    }
-  ]
+      link: "#",
+    },
+  ];
   return (
     <>
       <main className="max-w-4xl mx-auto px-4 py-12">
@@ -29,5 +29,5 @@ export default function Apps() {
         </div>
       </main>
     </>
-  )
+  );
 }

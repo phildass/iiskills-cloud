@@ -1,94 +1,94 @@
-import { useState, useEffect } from 'react'
-import { useRouter } from 'next/router'
-import Head from 'next/head'
-import Link from 'next/link'
-import { getCurrentUser, checkActiveSubscription } from '../lib/supabaseClient'
-import { generateModuleTest } from '../lib/neetSyllabus'
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import Head from "next/head";
+import Link from "next/link";
+import { getCurrentUser, checkActiveSubscription } from "../lib/supabaseClient";
+import { generateModuleTest } from "../lib/neetSyllabus";
 
 export default function ModuleTest() {
-  const [user, setUser] = useState(null)
-  const [isLoading, setIsLoading] = useState(true)
-  const [hasActiveSubscription, setHasActiveSubscription] = useState(false)
-  const [testStarted, setTestStarted] = useState(false)
-  const [currentQuestion, setCurrentQuestion] = useState(0)
-  const [answers, setAnswers] = useState({})
-  const [testCompleted, setTestCompleted] = useState(false)
-  const [score, setScore] = useState(0)
-  const [questions, setQuestions] = useState([])
-  const router = useRouter()
-  const { subject, module } = router.query
+  const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [hasActiveSubscription, setHasActiveSubscription] = useState(false);
+  const [testStarted, setTestStarted] = useState(false);
+  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [answers, setAnswers] = useState({});
+  const [testCompleted, setTestCompleted] = useState(false);
+  const [score, setScore] = useState(0);
+  const [questions, setQuestions] = useState([]);
+  const router = useRouter();
+  const { subject, module } = router.query;
 
   useEffect(() => {
-    checkAuth()
-  }, [])
+    checkAuth();
+  }, []);
 
   useEffect(() => {
     if (subject && module) {
-      const testQuestions = generateModuleTest(subject, parseInt(module))
-      setQuestions(testQuestions)
+      const testQuestions = generateModuleTest(subject, parseInt(module));
+      setQuestions(testQuestions);
     }
-  }, [subject, module])
+  }, [subject, module]);
 
   const checkAuth = async () => {
-    const currentUser = await getCurrentUser()
-    
+    const currentUser = await getCurrentUser();
+
     if (!currentUser) {
-      router.push('/login?redirect=/learn')
-      return
+      router.push("/login?redirect=/learn");
+      return;
     }
-    
-    setUser(currentUser)
-    const hasSubscription = checkActiveSubscription(currentUser)
-    setHasActiveSubscription(hasSubscription)
-    
+
+    setUser(currentUser);
+    const hasSubscription = checkActiveSubscription(currentUser);
+    setHasActiveSubscription(hasSubscription);
+
     if (!hasSubscription) {
-      alert('Subscription required to access module tests')
-      router.push('/learn')
-      return
+      alert("Subscription required to access module tests");
+      router.push("/learn");
+      return;
     }
-    
-    setIsLoading(false)
-  }
+
+    setIsLoading(false);
+  };
 
   const handleStartTest = () => {
-    setTestStarted(true)
-    setCurrentQuestion(0)
-    setAnswers({})
-    setTestCompleted(false)
-  }
+    setTestStarted(true);
+    setCurrentQuestion(0);
+    setAnswers({});
+    setTestCompleted(false);
+  };
 
   const handleAnswerSelect = (questionId, answerIndex) => {
-    setAnswers(prev => ({
+    setAnswers((prev) => ({
       ...prev,
-      [questionId]: answerIndex
-    }))
-  }
+      [questionId]: answerIndex,
+    }));
+  };
 
   const handleNextQuestion = () => {
     if (currentQuestion < questions.length - 1) {
-      setCurrentQuestion(currentQuestion + 1)
+      setCurrentQuestion(currentQuestion + 1);
     }
-  }
+  };
 
   const handlePreviousQuestion = () => {
     if (currentQuestion > 0) {
-      setCurrentQuestion(currentQuestion - 1)
+      setCurrentQuestion(currentQuestion - 1);
     }
-  }
+  };
 
   const handleSubmitTest = () => {
     // Calculate score
-    let correctAnswers = 0
-    questions.forEach(q => {
+    let correctAnswers = 0;
+    questions.forEach((q) => {
       if (answers[q.id] === q.correctAnswer) {
-        correctAnswers++
+        correctAnswers++;
       }
-    })
-    
-    const percentage = (correctAnswers / questions.length) * 100
-    setScore(percentage)
-    setTestCompleted(true)
-  }
+    });
+
+    const percentage = (correctAnswers / questions.length) * 100;
+    setScore(percentage);
+    setTestCompleted(true);
+  };
 
   if (isLoading) {
     return (
@@ -98,7 +98,7 @@ export default function ModuleTest() {
           <p className="text-xl text-charcoal">Loading...</p>
         </div>
       </div>
-    )
+    );
   }
 
   if (!subject || !module || questions.length === 0) {
@@ -112,19 +112,21 @@ export default function ModuleTest() {
           </Link>
         </div>
       </div>
-    )
+    );
   }
 
-  const question = questions[currentQuestion]
-  const subjectCapitalized = subject.charAt(0).toUpperCase() + subject.slice(1)
+  const question = questions[currentQuestion];
+  const subjectCapitalized = subject.charAt(0).toUpperCase() + subject.slice(1);
 
   return (
     <>
       <Head>
-        <title>Module Test - {subjectCapitalized} Module {module}</title>
+        <title>
+          Module Test - {subjectCapitalized} Module {module}
+        </title>
         <meta name="description" content={`Test your knowledge in ${subjectCapitalized}`} />
       </Head>
-      
+
       <main className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 py-8 px-4">
         <div className="max-w-4xl mx-auto">
           {/* Header */}
@@ -136,7 +138,10 @@ export default function ModuleTest() {
                 </h1>
                 <p className="text-gray-600 mt-1">{questions.length} questions</p>
               </div>
-              <Link href="/learn" className="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm font-medium transition">
+              <Link
+                href="/learn"
+                className="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm font-medium transition"
+              >
                 ← Back to Dashboard
               </Link>
             </div>
@@ -147,7 +152,8 @@ export default function ModuleTest() {
               <div className="text-6xl mb-6">📝</div>
               <h2 className="text-2xl font-bold text-primary mb-4">Ready to Start the Test?</h2>
               <p className="text-gray-700 mb-6">
-                This test contains {questions.length} questions. Take your time and answer each question carefully.
+                This test contains {questions.length} questions. Take your time and answer each
+                question carefully.
               </p>
               <ul className="text-left max-w-md mx-auto mb-8 space-y-2">
                 <li className="flex items-start gap-2">
@@ -209,16 +215,18 @@ export default function ModuleTest() {
                       onClick={() => handleAnswerSelect(question.id, index)}
                       className={`w-full text-left p-4 rounded-lg border-2 transition ${
                         answers[question.id] === index
-                          ? 'border-primary bg-blue-50'
-                          : 'border-gray-300 hover:border-primary'
+                          ? "border-primary bg-blue-50"
+                          : "border-gray-300 hover:border-primary"
                       }`}
                     >
                       <div className="flex items-center gap-3">
-                        <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
-                          answers[question.id] === index
-                            ? 'border-primary bg-primary'
-                            : 'border-gray-400'
-                        }`}>
+                        <div
+                          className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
+                            answers[question.id] === index
+                              ? "border-primary bg-primary"
+                              : "border-gray-400"
+                          }`}
+                        >
                           {answers[question.id] === index && (
                             <div className="w-3 h-3 bg-white rounded-full"></div>
                           )}
@@ -263,7 +271,7 @@ export default function ModuleTest() {
             <div className="bg-white p-8 rounded-2xl shadow-lg">
               <div className="text-center mb-8">
                 <div className="text-6xl mb-4">
-                  {score >= 80 ? '🎉' : score >= 60 ? '👍' : '📚'}
+                  {score >= 80 ? "🎉" : score >= 60 ? "👍" : "📚"}
                 </div>
                 <h2 className="text-3xl font-bold text-primary mb-2">Test Completed!</h2>
                 <p className="text-gray-600">Here are your results</p>
@@ -273,7 +281,9 @@ export default function ModuleTest() {
                 <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-6 rounded-xl text-center">
                   <div className="text-5xl font-bold mb-2">{score.toFixed(1)}%</div>
                   <p className="text-lg">
-                    {Object.keys(answers).length === questions.length ? 'All questions answered' : `${Object.keys(answers).length} / ${questions.length} answered`}
+                    {Object.keys(answers).length === questions.length
+                      ? "All questions answered"
+                      : `${Object.keys(answers).length} / ${questions.length} answered`}
                   </p>
                 </div>
 
@@ -296,10 +306,10 @@ export default function ModuleTest() {
               <div className="text-center">
                 <p className="text-gray-700 mb-6">
                   {score >= 80
-                    ? 'Excellent work! You have a strong grasp of this module.'
+                    ? "Excellent work! You have a strong grasp of this module."
                     : score >= 60
-                    ? 'Good job! Review the topics where you missed questions.'
-                    : 'Keep practicing! Review the module content and try again.'}
+                      ? "Good job! Review the topics where you missed questions."
+                      : "Keep practicing! Review the module content and try again."}
                 </p>
 
                 <div className="flex gap-4 justify-center">
@@ -322,5 +332,5 @@ export default function ModuleTest() {
         </div>
       </main>
     </>
-  )
+  );
 }

@@ -1,80 +1,80 @@
-import { useState, useEffect } from 'react'
-import Head from 'next/head'
-import Link from 'next/link'
-import { getPricingDisplay, getIntroOfferNotice } from '../utils/pricing'
-import { getCourseSubdomainLink, courseHasSubdomain } from '../utils/courseSubdomainMapperClient'
-import { getCurrentUser, isAdmin } from '../lib/supabaseClient'
+import { useState, useEffect } from "react";
+import Head from "next/head";
+import Link from "next/link";
+import { getPricingDisplay, getIntroOfferNotice } from "../utils/pricing";
+import { getCourseSubdomainLink, courseHasSubdomain } from "../utils/courseSubdomainMapperClient";
+import { getCurrentUser, isAdmin } from "../lib/supabaseClient";
 
 // List of courses hidden from public view (visible only to admins)
 const HIDDEN_COURSE_NAMES = [
-  'Learn To Be a Beautician',
-  'Learn Photography',
-  'Phonics',
-  'JEE/NEET Physics',
-  'JEE/NEET Chemistry',
-  'JEE Mathematics / NEET Biology',
-  'Mock Exams and Doubt-Clearing Sessions',
-  'UPSC Preparation',
-  'Python for Data Science',
-  'Machine Learning',
-  'Deep Learning',
-  'Data Visualization (Tableau, Power BI)'
-]
+  "Learn To Be a Beautician",
+  "Learn Photography",
+  "Phonics",
+  "JEE/NEET Physics",
+  "JEE/NEET Chemistry",
+  "JEE Mathematics / NEET Biology",
+  "Mock Exams and Doubt-Clearing Sessions",
+  "UPSC Preparation",
+  "Python for Data Science",
+  "Machine Learning",
+  "Deep Learning",
+  "Data Visualization (Tableau, Power BI)",
+];
 
 // List of available subdomain courses (15 total)
 // To add a new available course, simply add its subdomain name to this array
 const AVAILABLE_SUBDOMAINS = [
-  'learn-ai',
-  'learn-apt',
-  'learn-chemistry',
-  'learn-data-science',
-  'learn-geography',
-  'learn-govt-jobs',
-  'learn-ias',
-  'learn-jee',
-  'learn-leadership',
-  'learn-management',
-  'learn-math',
-  'learn-neet',
-  'learn-physics',
-  'learn-pr',
-  'learn-winning'
-]
+  "learn-ai",
+  "learn-apt",
+  "learn-chemistry",
+  "learn-data-science",
+  "learn-geography",
+  "learn-govt-jobs",
+  "learn-ias",
+  "learn-jee",
+  "learn-leadership",
+  "learn-management",
+  "learn-math",
+  "learn-neet",
+  "learn-physics",
+  "learn-pr",
+  "learn-winning",
+];
 
 // Mapping for courses with names that don't directly match subdomain
 const COURSE_NAME_TO_SUBDOMAIN = {
-  'aptitude': 'apt',      // "Learn Aptitude" -> learn-apt
-  'maths': 'math',        // "Learn Maths" -> learn-math
-  'mathematics': 'math'   // "Learn Mathematics" -> learn-math
-}
+  aptitude: "apt", // "Learn Aptitude" -> learn-apt
+  maths: "math", // "Learn Maths" -> learn-math
+  mathematics: "math", // "Learn Mathematics" -> learn-math
+};
 
 // Helper function to check if a course is available based on its name
 function isCourseAvailable(courseName) {
   // Convert course name to subdomain format (e.g., "Learn AI" -> "learn-ai")
   // Remove suffixes like "– Free", "– From the book", etc.
   const cleanName = courseName
-    .replace(/\s*[–-]\s*(Free|From the book)$/i, '') // Remove suffix
-    .trim()
-  
+    .replace(/\s*[–-]\s*(Free|From the book)$/i, "") // Remove suffix
+    .trim();
+
   let subdomain = cleanName
     .toLowerCase()
-    .replace(/\s+/g, '-')
-    .replace(/–/g, '-') // Replace en-dash with hyphen
-    .replace(/[^\w-]/g, '') // Remove special characters except hyphens
-    .replace(/^learn-/, '') // Remove 'learn-' prefix if exists
-  
+    .replace(/\s+/g, "-")
+    .replace(/–/g, "-") // Replace en-dash with hyphen
+    .replace(/[^\w-]/g, "") // Remove special characters except hyphens
+    .replace(/^learn-/, ""); // Remove 'learn-' prefix if exists
+
   // Apply special mappings
   if (COURSE_NAME_TO_SUBDOMAIN[subdomain]) {
-    subdomain = COURSE_NAME_TO_SUBDOMAIN[subdomain]
+    subdomain = COURSE_NAME_TO_SUBDOMAIN[subdomain];
   }
-  
-  const fullSubdomain = `learn-${subdomain}`
-  return AVAILABLE_SUBDOMAINS.includes(fullSubdomain)
+
+  const fullSubdomain = `learn-${subdomain}`;
+  return AVAILABLE_SUBDOMAINS.includes(fullSubdomain);
 }
 
 // Helper function to check if a course should be hidden from public view
 function isCourseHidden(courseName) {
-  return HIDDEN_COURSE_NAMES.includes(courseName)
+  return HIDDEN_COURSE_NAMES.includes(courseName);
 }
 
 const coursesData = [
@@ -82,7 +82,8 @@ const coursesData = [
     id: 1,
     name: "Learn AI",
     category: "Technology",
-    description: "Discover the fundamentals of Artificial Intelligence, machine learning concepts, and practical AI applications for modern business and innovation.",
+    description:
+      "Discover the fundamentals of Artificial Intelligence, machine learning concepts, and practical AI applications for modern business and innovation.",
     duration: "10 weeks",
     level: "Beginner",
     comingSoon: true,
@@ -97,14 +98,15 @@ const coursesData = [
       { id: 7, title: "AI Ethics and Responsibility", isFree: false },
       { id: 8, title: "AI Tools and Platforms", isFree: false },
       { id: 9, title: "Building AI Solutions", isFree: false },
-      { id: 10, title: "Future of AI", isFree: false }
-    ]
+      { id: 10, title: "Future of AI", isFree: false },
+    ],
   },
   {
     id: 2,
     name: "Learn PR",
     category: "Communication",
-    description: "Master Public Relations strategies, media management, brand building, and effective communication for organizations and individuals.",
+    description:
+      "Master Public Relations strategies, media management, brand building, and effective communication for organizations and individuals.",
     duration: "10 weeks",
     level: "Beginner",
     comingSoon: true,
@@ -119,14 +121,15 @@ const coursesData = [
       { id: 7, title: "Event Management", isFree: false },
       { id: 8, title: "Stakeholder Engagement", isFree: false },
       { id: 9, title: "PR Measurement and Analytics", isFree: false },
-      { id: 10, title: "Building PR Campaigns", isFree: false }
-    ]
+      { id: 10, title: "Building PR Campaigns", isFree: false },
+    ],
   },
   {
     id: 3,
     name: "Learn Data Science",
     category: "Data Science & AI/ML",
-    description: "Master data analysis, statistics, machine learning, and data visualization to extract insights from data and drive informed business decisions.",
+    description:
+      "Master data analysis, statistics, machine learning, and data visualization to extract insights from data and drive informed business decisions.",
     duration: "10 weeks",
     level: "Beginner",
     comingSoon: false,
@@ -141,14 +144,15 @@ const coursesData = [
       { id: 7, title: "Machine Learning Basics", isFree: false },
       { id: 8, title: "Predictive Modeling", isFree: false },
       { id: 9, title: "Big Data Concepts", isFree: false },
-      { id: 10, title: "Data Science Projects", isFree: false }
-    ]
+      { id: 10, title: "Data Science Projects", isFree: false },
+    ],
   },
   {
     id: 4,
     name: "Learn Leadership",
     category: "Professional Skills",
-    description: "Develop essential leadership skills including vision setting, team motivation, strategic thinking, and inspiring others to achieve excellence.",
+    description:
+      "Develop essential leadership skills including vision setting, team motivation, strategic thinking, and inspiring others to achieve excellence.",
     duration: "10 weeks",
     level: "Intermediate",
     comingSoon: false,
@@ -163,14 +167,15 @@ const coursesData = [
       { id: 7, title: "Change Leadership", isFree: false },
       { id: 8, title: "Building High-Performance Teams", isFree: false },
       { id: 9, title: "Emotional Intelligence in Leadership", isFree: false },
-      { id: 10, title: "Leading with Impact", isFree: false }
-    ]
+      { id: 10, title: "Leading with Impact", isFree: false },
+    ],
   },
   {
     id: 5,
     name: "Learn English",
     category: "Language",
-    description: "Improve your English language skills for professional and personal success. Focus on grammar, vocabulary, communication, and fluency.",
+    description:
+      "Improve your English language skills for professional and personal success. Focus on grammar, vocabulary, communication, and fluency.",
     duration: "10 weeks",
     level: "Beginner",
     comingSoon: true,
@@ -185,14 +190,15 @@ const coursesData = [
       { id: 7, title: "Reading Comprehension", isFree: false },
       { id: 8, title: "Listening Skills", isFree: false },
       { id: 9, title: "Email and Professional Writing", isFree: false },
-      { id: 10, title: "Conversational English", isFree: false }
-    ]
+      { id: 10, title: "Conversational English", isFree: false },
+    ],
   },
   {
     id: 4,
     name: "Learn Etiquette",
     category: "Personal Development",
-    description: "Develop professional etiquette, social skills, and business manners to make lasting positive impressions in any setting.",
+    description:
+      "Develop professional etiquette, social skills, and business manners to make lasting positive impressions in any setting.",
     duration: "10 weeks",
     level: "Beginner",
     comingSoon: true,
@@ -207,14 +213,15 @@ const coursesData = [
       { id: 7, title: "Social Media Etiquette", isFree: false },
       { id: 8, title: "International Business Etiquette", isFree: false },
       { id: 9, title: "Dress Code and Grooming", isFree: false },
-      { id: 10, title: "Building Professional Relationships", isFree: false }
-    ]
+      { id: 10, title: "Building Professional Relationships", isFree: false },
+    ],
   },
   {
     id: 5,
     name: "Learn Investments",
     category: "Finance",
-    description: "Understand investment fundamentals, portfolio management, risk assessment, and wealth building strategies for financial growth.",
+    description:
+      "Understand investment fundamentals, portfolio management, risk assessment, and wealth building strategies for financial growth.",
     duration: "10 weeks",
     level: "Intermediate",
     comingSoon: true,
@@ -229,14 +236,15 @@ const coursesData = [
       { id: 7, title: "Real Estate Investment", isFree: false },
       { id: 8, title: "Tax-Efficient Investing", isFree: false },
       { id: 9, title: "Retirement Planning", isFree: false },
-      { id: 10, title: "Building Your Investment Strategy", isFree: false }
-    ]
+      { id: 10, title: "Building Your Investment Strategy", isFree: false },
+    ],
   },
   {
     id: 6,
     name: "Learn Journalism",
     category: "Communication",
-    description: "Explore journalism fundamentals, news writing, reporting, ethics, and media storytelling for digital and traditional platforms.",
+    description:
+      "Explore journalism fundamentals, news writing, reporting, ethics, and media storytelling for digital and traditional platforms.",
     duration: "10 weeks",
     level: "Beginner",
     comingSoon: true,
@@ -251,14 +259,15 @@ const coursesData = [
       { id: 7, title: "Multimedia Storytelling", isFree: false },
       { id: 8, title: "Broadcast Journalism", isFree: false },
       { id: 9, title: "Social Media Journalism", isFree: false },
-      { id: 10, title: "Creating Your Portfolio", isFree: false }
-    ]
+      { id: 10, title: "Creating Your Portfolio", isFree: false },
+    ],
   },
   {
     id: 7,
     name: "Learn Management",
     category: "Professional Skills",
-    description: "Build essential management skills including team leadership, project planning, decision-making, and organizational effectiveness.",
+    description:
+      "Build essential management skills including team leadership, project planning, decision-making, and organizational effectiveness.",
     duration: "10 weeks",
     level: "Intermediate",
     comingSoon: true,
@@ -273,14 +282,15 @@ const coursesData = [
       { id: 7, title: "Conflict Resolution", isFree: false },
       { id: 8, title: "Change Management", isFree: false },
       { id: 9, title: "Time and Resource Management", isFree: false },
-      { id: 10, title: "Leadership in Management", isFree: false }
-    ]
+      { id: 10, title: "Leadership in Management", isFree: false },
+    ],
   },
   {
     id: 8,
     name: "Learn Marketing",
     category: "Business",
-    description: "Master marketing principles, consumer behavior, branding strategies, and campaign development for business success.",
+    description:
+      "Master marketing principles, consumer behavior, branding strategies, and campaign development for business success.",
     duration: "10 weeks",
     level: "Beginner",
     comingSoon: true,
@@ -295,14 +305,15 @@ const coursesData = [
       { id: 7, title: "Social Media Marketing", isFree: false },
       { id: 8, title: "Marketing Analytics", isFree: false },
       { id: 9, title: "Campaign Planning", isFree: false },
-      { id: 10, title: "Marketing Strategy Development", isFree: false }
-    ]
+      { id: 10, title: "Marketing Strategy Development", isFree: false },
+    ],
   },
   {
     id: 9,
     name: "Learn Sales",
     category: "Business",
-    description: "Develop sales techniques, customer relationship skills, negotiation tactics, and strategies to close deals effectively.",
+    description:
+      "Develop sales techniques, customer relationship skills, negotiation tactics, and strategies to close deals effectively.",
     duration: "10 weeks",
     level: "Beginner",
     comingSoon: true,
@@ -317,14 +328,15 @@ const coursesData = [
       { id: 7, title: "Relationship Building", isFree: false },
       { id: 8, title: "Sales Negotiation", isFree: false },
       { id: 9, title: "CRM and Sales Tools", isFree: false },
-      { id: 10, title: "Building a Sales Career", isFree: false }
-    ]
+      { id: 10, title: "Building a Sales Career", isFree: false },
+    ],
   },
   {
     id: 11,
     name: "Learn Stock Broking",
     category: "Finance",
-    description: "Understand stock market operations, trading strategies, broker responsibilities, and investment analysis for the securities industry.",
+    description:
+      "Understand stock market operations, trading strategies, broker responsibilities, and investment analysis for the securities industry.",
     duration: "10 weeks",
     level: "Intermediate",
     comingSoon: true,
@@ -339,14 +351,15 @@ const coursesData = [
       { id: 7, title: "Regulatory Framework", isFree: false },
       { id: 8, title: "Client Advisory", isFree: false },
       { id: 9, title: "Portfolio Management", isFree: false },
-      { id: 10, title: "Career in Stock Broking", isFree: false }
-    ]
+      { id: 10, title: "Career in Stock Broking", isFree: false },
+    ],
   },
   {
     id: 12,
     name: "Learn To Be a Beautician",
     category: "Professional Skills",
-    description: "Gain skills in beauty treatments, skincare, makeup artistry, and salon management to build a successful beautician career.",
+    description:
+      "Gain skills in beauty treatments, skincare, makeup artistry, and salon management to build a successful beautician career.",
     duration: "10 weeks",
     level: "Beginner",
     comingSoon: true,
@@ -361,14 +374,15 @@ const coursesData = [
       { id: 7, title: "Bridal Makeup", isFree: false },
       { id: 8, title: "Hygiene and Safety", isFree: false },
       { id: 9, title: "Client Consultation", isFree: false },
-      { id: 10, title: "Starting Your Beauty Business", isFree: false }
-    ]
+      { id: 10, title: "Starting Your Beauty Business", isFree: false },
+    ],
   },
   {
     id: 13,
     name: "Learn Photography",
     category: "Creative Arts",
-    description: "Master photography techniques, camera operation, composition, lighting, and post-processing to capture stunning images.",
+    description:
+      "Master photography techniques, camera operation, composition, lighting, and post-processing to capture stunning images.",
     duration: "10 weeks",
     level: "Beginner",
     comingSoon: true,
@@ -383,14 +397,15 @@ const coursesData = [
       { id: 7, title: "Photo Editing", isFree: false },
       { id: 8, title: "Product Photography", isFree: false },
       { id: 9, title: "Building Your Portfolio", isFree: false },
-      { id: 10, title: "Photography Business", isFree: false }
-    ]
+      { id: 10, title: "Photography Business", isFree: false },
+    ],
   },
   {
     id: 14,
     name: "Learn Aptitude – Free",
     category: "Personal Development",
-    description: "FREE course to develop logical reasoning, quantitative aptitude, and analytical skills for competitive exams and career growth.",
+    description:
+      "FREE course to develop logical reasoning, quantitative aptitude, and analytical skills for competitive exams and career growth.",
     duration: "10 weeks",
     level: "Beginner",
     comingSoon: true,
@@ -405,14 +420,15 @@ const coursesData = [
       { id: 7, title: "Time Management in Tests", isFree: false },
       { id: 8, title: "Pattern Recognition", isFree: false },
       { id: 9, title: "Practice Tests", isFree: false },
-      { id: 10, title: "Exam Strategies", isFree: false }
-    ]
+      { id: 10, title: "Exam Strategies", isFree: false },
+    ],
   },
   {
     id: 15,
     name: "Learn Winning – From the book",
     category: "Personal Development",
-    description: "Based on proven success principles, learn winning strategies, mindset development, and achievement techniques. Features audio download.",
+    description:
+      "Based on proven success principles, learn winning strategies, mindset development, and achievement techniques. Features audio download.",
     duration: "10 weeks",
     level: "Beginner",
     comingSoon: true,
@@ -428,14 +444,15 @@ const coursesData = [
       { id: 7, title: "Strategic Thinking", isFree: false },
       { id: 8, title: "Competitive Excellence", isFree: false },
       { id: 9, title: "Continuous Improvement", isFree: false },
-      { id: 10, title: "Sustaining Success", isFree: false }
-    ]
+      { id: 10, title: "Sustaining Success", isFree: false },
+    ],
   },
   {
     id: 16,
     name: "Learn Becoming the Better You – From the book",
     category: "Personal Development",
-    description: "Transform yourself with personal growth strategies, self-improvement techniques, and life enhancement principles. Features audio download.",
+    description:
+      "Transform yourself with personal growth strategies, self-improvement techniques, and life enhancement principles. Features audio download.",
     duration: "10 weeks",
     level: "Beginner",
     comingSoon: true,
@@ -451,20 +468,27 @@ const coursesData = [
       { id: 7, title: "Relationship Building", isFree: false },
       { id: 8, title: "Health and Wellness", isFree: false },
       { id: 9, title: "Life Balance", isFree: false },
-      { id: 10, title: "Your Better Future", isFree: false }
-    ]
+      { id: 10, title: "Your Better Future", isFree: false },
+    ],
   },
   {
     id: 17,
     name: "Learn JEE",
     category: "Education",
-    description: "Master the essential concepts of Physics, Chemistry, and Mathematics for JEE preparation. This course covers foundational and advanced topics, designed for aspirants aiming for top ranks in engineering entrance exams.",
+    description:
+      "Master the essential concepts of Physics, Chemistry, and Mathematics for JEE preparation. This course covers foundational and advanced topics, designed for aspirants aiming for top ranks in engineering entrance exams.",
     duration: "10 weeks",
     level: "Beginner",
     comingSoon: false,
     isFree: false,
     modules: [
-      { id: 1, title: "Introduction to JEE Physics", isFree: true, summary: "Explore strategies for tackling Physics problems, understand the JEE syllabus structure, and discover the importance of conceptual learning." },
+      {
+        id: 1,
+        title: "Introduction to JEE Physics",
+        isFree: true,
+        summary:
+          "Explore strategies for tackling Physics problems, understand the JEE syllabus structure, and discover the importance of conceptual learning.",
+      },
       { id: 2, title: "Mechanics Fundamentals", isFree: false },
       { id: 3, title: "Thermodynamics Essentials", isFree: false },
       { id: 4, title: "Chemistry for JEE", isFree: false },
@@ -473,14 +497,15 @@ const coursesData = [
       { id: 7, title: "Calculus for JEE", isFree: false },
       { id: 8, title: "Problem-Solving Techniques", isFree: false },
       { id: 9, title: "Mock Tests and Practice", isFree: false },
-      { id: 10, title: "Exam Strategy and Time Management", isFree: false }
-    ]
+      { id: 10, title: "Exam Strategy and Time Management", isFree: false },
+    ],
   },
   {
     id: 18,
     name: "Learn Maths – Free",
     category: "Education",
-    description: "FREE comprehensive mathematics course covering fundamental to advanced concepts for academic and practical applications.",
+    description:
+      "FREE comprehensive mathematics course covering fundamental to advanced concepts for academic and practical applications.",
     duration: "10 weeks",
     level: "Beginner",
     comingSoon: true,
@@ -495,14 +520,15 @@ const coursesData = [
       { id: 7, title: "Mathematical Reasoning", isFree: false },
       { id: 8, title: "Applied Mathematics", isFree: false },
       { id: 9, title: "Problem Solving Techniques", isFree: false },
-      { id: 10, title: "Advanced Concepts", isFree: false }
-    ]
+      { id: 10, title: "Advanced Concepts", isFree: false },
+    ],
   },
   {
     id: 19,
     name: "Learn Geography – Free",
     category: "Education",
-    description: "FREE exploration of world geography, physical features, climate patterns, cultures, and global relationships.",
+    description:
+      "FREE exploration of world geography, physical features, climate patterns, cultures, and global relationships.",
     duration: "10 weeks",
     level: "Beginner",
     comingSoon: true,
@@ -517,14 +543,15 @@ const coursesData = [
       { id: 7, title: "Environmental Geography", isFree: false },
       { id: 8, title: "Economic Geography", isFree: false },
       { id: 9, title: "Cultural Geography", isFree: false },
-      { id: 10, title: "Global Issues", isFree: false }
-    ]
+      { id: 10, title: "Global Issues", isFree: false },
+    ],
   },
   {
     id: 20,
     name: "Learn Physics – Free",
     category: "Education",
-    description: "FREE physics course covering mechanics, energy, waves, electricity, and modern physics concepts with practical applications.",
+    description:
+      "FREE physics course covering mechanics, energy, waves, electricity, and modern physics concepts with practical applications.",
     duration: "10 weeks",
     level: "Beginner",
     comingSoon: true,
@@ -539,14 +566,15 @@ const coursesData = [
       { id: 7, title: "Electricity and Magnetism", isFree: false },
       { id: 8, title: "Modern Physics", isFree: false },
       { id: 9, title: "Quantum Physics Basics", isFree: false },
-      { id: 10, title: "Applied Physics", isFree: false }
-    ]
+      { id: 10, title: "Applied Physics", isFree: false },
+    ],
   },
   {
     id: 21,
     name: "Learn Chemistry – Free",
     category: "Education",
-    description: "FREE chemistry course exploring matter, chemical reactions, organic and inorganic chemistry, and real-world applications.",
+    description:
+      "FREE chemistry course exploring matter, chemical reactions, organic and inorganic chemistry, and real-world applications.",
     duration: "10 weeks",
     level: "Beginner",
     comingSoon: true,
@@ -561,14 +589,15 @@ const coursesData = [
       { id: 7, title: "Acids, Bases, and Salts", isFree: false },
       { id: 8, title: "Electrochemistry", isFree: false },
       { id: 9, title: "Environmental Chemistry", isFree: false },
-      { id: 10, title: "Applied Chemistry", isFree: false }
-    ]
+      { id: 10, title: "Applied Chemistry", isFree: false },
+    ],
   },
   {
     id: 22,
     name: "Learn Public Speaking",
     category: "Communication",
-    description: "Overcome stage fright and master public speaking skills. Learn to deliver confident, persuasive presentations that captivate audiences.",
+    description:
+      "Overcome stage fright and master public speaking skills. Learn to deliver confident, persuasive presentations that captivate audiences.",
     duration: "10 weeks",
     level: "Beginner",
     comingSoon: true,
@@ -583,15 +612,16 @@ const coursesData = [
       { id: 7, title: "Persuasive Speaking", isFree: false },
       { id: 8, title: "Handling Q&A", isFree: false },
       { id: 9, title: "Visual Aids and Props", isFree: false },
-      { id: 10, title: "Professional Presentations", isFree: false }
-    ]
+      { id: 10, title: "Professional Presentations", isFree: false },
+    ],
   },
   // Communication & Soft Skills - Additional Courses
   {
     id: 23,
     name: "Personality Development",
     category: "Communication & Soft Skills",
-    description: "Transform your personal and professional presence through comprehensive personality development. Enhance confidence, emotional intelligence, and interpersonal skills to make positive impressions and build lasting relationships.",
+    description:
+      "Transform your personal and professional presence through comprehensive personality development. Enhance confidence, emotional intelligence, and interpersonal skills to make positive impressions and build lasting relationships.",
     duration: "10 weeks",
     level: "Beginner",
     comingSoon: true,
@@ -606,14 +636,15 @@ const coursesData = [
       { id: 7, title: "Positive Thinking", isFree: false },
       { id: 8, title: "Stress Management", isFree: false },
       { id: 9, title: "Relationship Building", isFree: false },
-      { id: 10, title: "Professional Etiquette", isFree: false }
-    ]
+      { id: 10, title: "Professional Etiquette", isFree: false },
+    ],
   },
   {
     id: 24,
     name: "Interview Skills",
     category: "Communication & Soft Skills",
-    description: "Master the art of interviews with proven strategies for success. Learn to present yourself confidently, answer challenging questions effectively, and make compelling impressions that secure job offers.",
+    description:
+      "Master the art of interviews with proven strategies for success. Learn to present yourself confidently, answer challenging questions effectively, and make compelling impressions that secure job offers.",
     duration: "10 weeks",
     level: "Beginner",
     comingSoon: true,
@@ -628,15 +659,16 @@ const coursesData = [
       { id: 7, title: "Body Language in Interviews", isFree: false },
       { id: 8, title: "Follow-up Strategies", isFree: false },
       { id: 9, title: "Virtual Interview Techniques", isFree: false },
-      { id: 10, title: "Assessment Center Preparation", isFree: false }
-    ]
+      { id: 10, title: "Assessment Center Preparation", isFree: false },
+    ],
   },
   // Creative Design (UI/UX)
   {
     id: 25,
     name: "Figma/Adobe XD",
     category: "Creative Design (UI/UX)",
-    description: "Master modern design tools Figma and Adobe XD for professional UI/UX work. Create stunning interfaces, prototypes, and design systems with industry-standard software used by top companies worldwide.",
+    description:
+      "Master modern design tools Figma and Adobe XD for professional UI/UX work. Create stunning interfaces, prototypes, and design systems with industry-standard software used by top companies worldwide.",
     duration: "10 weeks",
     level: "Beginner",
     comingSoon: true,
@@ -651,14 +683,15 @@ const coursesData = [
       { id: 7, title: "Collaboration Features", isFree: false },
       { id: 8, title: "Responsive Design", isFree: false },
       { id: 9, title: "Design Handoff", isFree: false },
-      { id: 10, title: "Best Practices and Workflows", isFree: false }
-    ]
+      { id: 10, title: "Best Practices and Workflows", isFree: false },
+    ],
   },
   {
     id: 26,
     name: "UI Design",
     category: "Creative Design (UI/UX)",
-    description: "Create visually stunning and functional user interfaces. Master color theory, typography, layout principles, and modern design trends to craft beautiful digital experiences that users love.",
+    description:
+      "Create visually stunning and functional user interfaces. Master color theory, typography, layout principles, and modern design trends to craft beautiful digital experiences that users love.",
     duration: "10 weeks",
     level: "Beginner",
     comingSoon: true,
@@ -673,14 +706,15 @@ const coursesData = [
       { id: 7, title: "Mobile UI Design", isFree: false },
       { id: 8, title: "Web UI Design", isFree: false },
       { id: 9, title: "Design Trends", isFree: false },
-      { id: 10, title: "Design Portfolio Building", isFree: false }
-    ]
+      { id: 10, title: "Design Portfolio Building", isFree: false },
+    ],
   },
   {
     id: 27,
     name: "UX Research",
     category: "Creative Design (UI/UX)",
-    description: "Discover user experience research methodologies to create user-centered designs. Learn to conduct interviews, usability tests, and data analysis to inform design decisions and improve product experiences.",
+    description:
+      "Discover user experience research methodologies to create user-centered designs. Learn to conduct interviews, usability tests, and data analysis to inform design decisions and improve product experiences.",
     duration: "10 weeks",
     level: "Intermediate",
     comingSoon: true,
@@ -695,14 +729,15 @@ const coursesData = [
       { id: 7, title: "Journey Mapping", isFree: false },
       { id: 8, title: "Analytics and Metrics", isFree: false },
       { id: 9, title: "A/B Testing", isFree: false },
-      { id: 10, title: "Research Synthesis and Presentation", isFree: false }
-    ]
+      { id: 10, title: "Research Synthesis and Presentation", isFree: false },
+    ],
   },
   {
     id: 28,
     name: "Graphic Design",
     category: "Creative Design (UI/UX)",
-    description: "Develop professional graphic design skills for print and digital media. Learn essential design principles, Adobe Creative Suite tools, and creative techniques to bring visual ideas to life.",
+    description:
+      "Develop professional graphic design skills for print and digital media. Learn essential design principles, Adobe Creative Suite tools, and creative techniques to bring visual ideas to life.",
     duration: "10 weeks",
     level: "Beginner",
     comingSoon: true,
@@ -717,15 +752,16 @@ const coursesData = [
       { id: 7, title: "Print Design", isFree: false },
       { id: 8, title: "Digital Graphics", isFree: false },
       { id: 9, title: "Image Editing", isFree: false },
-      { id: 10, title: "Portfolio Development", isFree: false }
-    ]
+      { id: 10, title: "Portfolio Development", isFree: false },
+    ],
   },
   // Lifestyle & Hobbies
   {
     id: 29,
     name: "Yoga and Wellness",
     category: "Lifestyle & Hobbies",
-    description: "Discover holistic wellness through yoga practice and lifestyle techniques. Learn asanas, breathing exercises, meditation, and wellness principles for physical health, mental clarity, and spiritual balance.",
+    description:
+      "Discover holistic wellness through yoga practice and lifestyle techniques. Learn asanas, breathing exercises, meditation, and wellness principles for physical health, mental clarity, and spiritual balance.",
     duration: "10 weeks",
     level: "Beginner",
     comingSoon: true,
@@ -740,14 +776,15 @@ const coursesData = [
       { id: 7, title: "Stress Reduction", isFree: false },
       { id: 8, title: "Nutrition for Wellness", isFree: false },
       { id: 9, title: "Daily Wellness Routines", isFree: false },
-      { id: 10, title: "Advanced Yoga Practices", isFree: false }
-    ]
+      { id: 10, title: "Advanced Yoga Practices", isFree: false },
+    ],
   },
   {
     id: 30,
     name: "Indian Cuisine Cooking",
     category: "Lifestyle & Hobbies",
-    description: "Master authentic Indian cooking techniques and regional specialties. Learn traditional recipes, spice blending, and cooking methods to create delicious Indian dishes for family and professional culinary pursuits.",
+    description:
+      "Master authentic Indian cooking techniques and regional specialties. Learn traditional recipes, spice blending, and cooking methods to create delicious Indian dishes for family and professional culinary pursuits.",
     duration: "10 weeks",
     level: "Beginner",
     comingSoon: true,
@@ -762,14 +799,15 @@ const coursesData = [
       { id: 7, title: "Rice Dishes and Biryanis", isFree: false },
       { id: 8, title: "Curries and Gravies", isFree: false },
       { id: 9, title: "Snacks and Appetizers", isFree: false },
-      { id: 10, title: "Traditional Sweets and Desserts", isFree: false }
-    ]
+      { id: 10, title: "Traditional Sweets and Desserts", isFree: false },
+    ],
   },
   {
     id: 31,
     name: "Music (Instrument or Vocal Training)",
     category: "Lifestyle & Hobbies",
-    description: "Develop musical skills through structured instrument or vocal training. Learn music theory, technique, practice methods, and performance skills to express yourself through music and achieve your musical goals.",
+    description:
+      "Develop musical skills through structured instrument or vocal training. Learn music theory, technique, practice methods, and performance skills to express yourself through music and achieve your musical goals.",
     duration: "10 weeks",
     level: "Beginner",
     comingSoon: true,
@@ -784,15 +822,16 @@ const coursesData = [
       { id: 7, title: "Song Learning and Practice", isFree: false },
       { id: 8, title: "Music Composition Basics", isFree: false },
       { id: 9, title: "Performance Skills", isFree: false },
-      { id: 10, title: "Recording Basics", isFree: false }
-    ]
+      { id: 10, title: "Recording Basics", isFree: false },
+    ],
   },
   // Coding for Kids
   {
     id: 32,
     name: "Coding Basics (Scratch, Python)",
     category: "Coding for Kids",
-    description: "Introduce children to programming fundamentals through fun, interactive learning. Use visual programming with Scratch and text-based coding with Python to build computational thinking and problem-solving skills.",
+    description:
+      "Introduce children to programming fundamentals through fun, interactive learning. Use visual programming with Scratch and text-based coding with Python to build computational thinking and problem-solving skills.",
     duration: "10 weeks",
     level: "Beginner",
     comingSoon: true,
@@ -807,14 +846,15 @@ const coursesData = [
       { id: 7, title: "Functions and Logic", isFree: false },
       { id: 8, title: "Simple Projects and Games", isFree: false },
       { id: 9, title: "Problem-Solving Skills", isFree: false },
-      { id: 10, title: "Creative Coding", isFree: false }
-    ]
+      { id: 10, title: "Creative Coding", isFree: false },
+    ],
   },
   {
     id: 33,
     name: "Vedic Mathematics",
     category: "Coding for Kids",
-    description: "Learn ancient Indian mathematical techniques for fast mental calculations. Master Vedic sutras and methods to solve complex arithmetic problems quickly, boosting computational speed and accuracy for academic success.",
+    description:
+      "Learn ancient Indian mathematical techniques for fast mental calculations. Master Vedic sutras and methods to solve complex arithmetic problems quickly, boosting computational speed and accuracy for academic success.",
     duration: "10 weeks",
     level: "Beginner",
     comingSoon: true,
@@ -829,14 +869,15 @@ const coursesData = [
       { id: 7, title: "Algebra Applications", isFree: false },
       { id: 8, title: "Geometry Applications", isFree: false },
       { id: 9, title: "Problem-Solving Speed", isFree: false },
-      { id: 10, title: "Competition Preparation", isFree: false }
-    ]
+      { id: 10, title: "Competition Preparation", isFree: false },
+    ],
   },
   {
     id: 34,
     name: "Abacus Training",
     category: "Coding for Kids",
-    description: "Develop exceptional mental math abilities through abacus training. Master the ancient counting tool to perform rapid calculations, enhance concentration, memory, and build strong mathematical foundations for young learners.",
+    description:
+      "Develop exceptional mental math abilities through abacus training. Master the ancient counting tool to perform rapid calculations, enhance concentration, memory, and build strong mathematical foundations for young learners.",
     duration: "10 weeks",
     level: "Beginner",
     comingSoon: true,
@@ -851,14 +892,15 @@ const coursesData = [
       { id: 7, title: "Concentration Development", isFree: false },
       { id: 8, title: "Memory Enhancement", isFree: false },
       { id: 9, title: "Speed Calculation", isFree: false },
-      { id: 10, title: "Competition Training", isFree: false }
-    ]
+      { id: 10, title: "Competition Training", isFree: false },
+    ],
   },
   {
     id: 35,
     name: "Phonics",
     category: "Coding for Kids",
-    description: "Build strong reading and pronunciation foundations through systematic phonics instruction. Learn letter sounds, blending techniques, and decoding strategies to develop confident reading skills for early learners.",
+    description:
+      "Build strong reading and pronunciation foundations through systematic phonics instruction. Learn letter sounds, blending techniques, and decoding strategies to develop confident reading skills for early learners.",
     duration: "10 weeks",
     level: "Beginner",
     comingSoon: true,
@@ -873,15 +915,16 @@ const coursesData = [
       { id: 7, title: "Sight Words", isFree: false },
       { id: 8, title: "Reading Fluency", isFree: false },
       { id: 9, title: "Spelling Foundations", isFree: false },
-      { id: 10, title: "Reading Comprehension Basics", isFree: false }
-    ]
+      { id: 10, title: "Reading Comprehension Basics", isFree: false },
+    ],
   },
   // JEE/NEET Coaching
   {
     id: 36,
     name: "JEE/NEET Physics",
     category: "JEE/NEET Coaching",
-    description: "Comprehensive Physics coaching for JEE and NEET aspirants. Master mechanics, thermodynamics, electromagnetism, optics, and modern physics with focused problem-solving, concept clarity, and exam strategies.",
+    description:
+      "Comprehensive Physics coaching for JEE and NEET aspirants. Master mechanics, thermodynamics, electromagnetism, optics, and modern physics with focused problem-solving, concept clarity, and exam strategies.",
     duration: "10 weeks",
     level: "Advanced",
     comingSoon: true,
@@ -896,14 +939,15 @@ const coursesData = [
       { id: 7, title: "Concept Visualization", isFree: false },
       { id: 8, title: "Formula Mastery", isFree: false },
       { id: 9, title: "Previous Year Questions", isFree: false },
-      { id: 10, title: "Time Management in Exams", isFree: false }
-    ]
+      { id: 10, title: "Time Management in Exams", isFree: false },
+    ],
   },
   {
     id: 37,
     name: "JEE/NEET Chemistry",
     category: "JEE/NEET Coaching",
-    description: "Complete Chemistry preparation for competitive exams. Cover physical, organic, and inorganic chemistry with emphasis on reactions, mechanisms, periodic properties, and numerical problem-solving for JEE/NEET success.",
+    description:
+      "Complete Chemistry preparation for competitive exams. Cover physical, organic, and inorganic chemistry with emphasis on reactions, mechanisms, periodic properties, and numerical problem-solving for JEE/NEET success.",
     duration: "10 weeks",
     level: "Advanced",
     comingSoon: true,
@@ -918,14 +962,15 @@ const coursesData = [
       { id: 7, title: "Numerical Problems", isFree: false },
       { id: 8, title: "Laboratory Techniques", isFree: false },
       { id: 9, title: "Previous Year Analysis", isFree: false },
-      { id: 10, title: "Quick Revision Techniques", isFree: false }
-    ]
+      { id: 10, title: "Quick Revision Techniques", isFree: false },
+    ],
   },
   {
     id: 38,
     name: "JEE Mathematics / NEET Biology",
     category: "JEE/NEET Coaching",
-    description: "Specialized coaching in Mathematics for JEE or Biology for NEET. Master advanced concepts, problem-solving strategies, and develop speed and accuracy required for competitive exam success.",
+    description:
+      "Specialized coaching in Mathematics for JEE or Biology for NEET. Master advanced concepts, problem-solving strategies, and develop speed and accuracy required for competitive exam success.",
     duration: "10 weeks",
     level: "Advanced",
     comingSoon: true,
@@ -940,14 +985,15 @@ const coursesData = [
       { id: 7, title: "Conceptual Clarity", isFree: false },
       { id: 8, title: "Previous Year Questions", isFree: false },
       { id: 9, title: "Mock Test Analysis", isFree: false },
-      { id: 10, title: "Exam Strategy and Time Management", isFree: false }
-    ]
+      { id: 10, title: "Exam Strategy and Time Management", isFree: false },
+    ],
   },
   {
     id: 39,
     name: "Mock Exams and Doubt-Clearing Sessions",
     category: "JEE/NEET Coaching",
-    description: "Comprehensive test practice and personalized doubt resolution for JEE/NEET aspirants. Regular mock tests simulate real exam conditions, while dedicated doubt-clearing sessions ensure complete concept mastery.",
+    description:
+      "Comprehensive test practice and personalized doubt resolution for JEE/NEET aspirants. Regular mock tests simulate real exam conditions, while dedicated doubt-clearing sessions ensure complete concept mastery.",
     duration: "10 weeks",
     level: "Advanced",
     comingSoon: true,
@@ -962,15 +1008,16 @@ const coursesData = [
       { id: 7, title: "Strategy Development", isFree: false },
       { id: 8, title: "Time Management Practice", isFree: false },
       { id: 9, title: "Error Analysis", isFree: false },
-      { id: 10, title: "Revision Planning", isFree: false }
-    ]
+      { id: 10, title: "Revision Planning", isFree: false },
+    ],
   },
   // UPSC/Government Exams
   {
     id: 40,
     name: "UPSC Preparation",
     category: "UPSC/Government Exams",
-    description: "Comprehensive UPSC Civil Services Exam preparation covering Prelims and Mains. Master General Studies, Current Affairs, Optional subjects, Essay writing, and Interview skills for India's most prestigious examination.",
+    description:
+      "Comprehensive UPSC Civil Services Exam preparation covering Prelims and Mains. Master General Studies, Current Affairs, Optional subjects, Essay writing, and Interview skills for India's most prestigious examination.",
     duration: "10 weeks",
     level: "Advanced",
     comingSoon: true,
@@ -985,14 +1032,15 @@ const coursesData = [
       { id: 7, title: "Study Planning and Time Management", isFree: false },
       { id: 8, title: "Revision Strategies", isFree: false },
       { id: 9, title: "Interview/Personality Test Preparation", isFree: false },
-      { id: 10, title: "Ethics and Integrity", isFree: false }
-    ]
+      { id: 10, title: "Ethics and Integrity", isFree: false },
+    ],
   },
   {
     id: 41,
     name: "IBPS/SBI Exam Preparation",
     category: "UPSC/Government Exams",
-    description: "Targeted preparation for banking sector exams including IBPS PO, Clerk, and SBI positions. Cover quantitative aptitude, reasoning, English, general awareness, and banking knowledge for successful career in banking.",
+    description:
+      "Targeted preparation for banking sector exams including IBPS PO, Clerk, and SBI positions. Cover quantitative aptitude, reasoning, English, general awareness, and banking knowledge for successful career in banking.",
     duration: "10 weeks",
     level: "Intermediate",
     comingSoon: true,
@@ -1007,14 +1055,15 @@ const coursesData = [
       { id: 7, title: "Data Interpretation", isFree: false },
       { id: 8, title: "Mock Tests and Practice", isFree: false },
       { id: 9, title: "Speed and Accuracy Development", isFree: false },
-      { id: 10, title: "Interview Preparation", isFree: false }
-    ]
+      { id: 10, title: "Interview Preparation", isFree: false },
+    ],
   },
   {
     id: 42,
     name: "Railways Exam Preparation",
     category: "UPSC/Government Exams",
-    description: "Complete preparation for Railway Recruitment Board exams including RRB NTPC, Group D, and technical positions. Master reasoning, mathematics, general awareness, and technical subjects for railway careers.",
+    description:
+      "Complete preparation for Railway Recruitment Board exams including RRB NTPC, Group D, and technical positions. Master reasoning, mathematics, general awareness, and technical subjects for railway careers.",
     duration: "10 weeks",
     level: "Intermediate",
     comingSoon: true,
@@ -1029,15 +1078,16 @@ const coursesData = [
       { id: 7, title: "Mock Tests", isFree: false },
       { id: 8, title: "Speed Enhancement", isFree: false },
       { id: 9, title: "Exam Strategy", isFree: false },
-      { id: 10, title: "Physical Efficiency Test Preparation", isFree: false }
-    ]
+      { id: 10, title: "Physical Efficiency Test Preparation", isFree: false },
+    ],
   },
   // Data Science & AI/ML
   {
     id: 43,
     name: "Python for Data Science",
     category: "Data Science & AI/ML",
-    description: "Master Python programming for data science applications. Learn essential libraries, data manipulation, analysis techniques, and visualization tools to process and extract insights from complex datasets.",
+    description:
+      "Master Python programming for data science applications. Learn essential libraries, data manipulation, analysis techniques, and visualization tools to process and extract insights from complex datasets.",
     duration: "10 weeks",
     level: "Beginner",
     comingSoon: true,
@@ -1052,14 +1102,15 @@ const coursesData = [
       { id: 7, title: "Data Visualization with Matplotlib/Seaborn", isFree: false },
       { id: 8, title: "Working with APIs and Web Scraping", isFree: false },
       { id: 9, title: "SQL Integration", isFree: false },
-      { id: 10, title: "Real-World Data Projects", isFree: false }
-    ]
+      { id: 10, title: "Real-World Data Projects", isFree: false },
+    ],
   },
   {
     id: 44,
     name: "Machine Learning",
     category: "Data Science & AI/ML",
-    description: "Discover machine learning algorithms and techniques to build intelligent systems. Learn supervised and unsupervised learning, model evaluation, and practical ML implementation for real-world problem-solving.",
+    description:
+      "Discover machine learning algorithms and techniques to build intelligent systems. Learn supervised and unsupervised learning, model evaluation, and practical ML implementation for real-world problem-solving.",
     duration: "10 weeks",
     level: "Intermediate",
     comingSoon: true,
@@ -1074,14 +1125,15 @@ const coursesData = [
       { id: 7, title: "Clustering and Dimensionality Reduction", isFree: false },
       { id: 8, title: "Cross-Validation Techniques", isFree: false },
       { id: 9, title: "Scikit-learn Library", isFree: false },
-      { id: 10, title: "ML Project Development", isFree: false }
-    ]
+      { id: 10, title: "ML Project Development", isFree: false },
+    ],
   },
   {
     id: 45,
     name: "Deep Learning",
     category: "Data Science & AI/ML",
-    description: "Master deep learning and neural networks for advanced AI applications. Learn to build and train deep neural networks, CNNs, RNNs, and work with cutting-edge frameworks like TensorFlow and PyTorch.",
+    description:
+      "Master deep learning and neural networks for advanced AI applications. Learn to build and train deep neural networks, CNNs, RNNs, and work with cutting-edge frameworks like TensorFlow and PyTorch.",
     duration: "10 weeks",
     level: "Advanced",
     comingSoon: true,
@@ -1096,14 +1148,15 @@ const coursesData = [
       { id: 7, title: "Transfer Learning", isFree: false },
       { id: 8, title: "Image Classification", isFree: false },
       { id: 9, title: "Natural Language Processing", isFree: false },
-      { id: 10, title: "Model Optimization and Deployment", isFree: false }
-    ]
+      { id: 10, title: "Model Optimization and Deployment", isFree: false },
+    ],
   },
   {
     id: 46,
     name: "Data Visualization (Tableau, Power BI)",
     category: "Data Science & AI/ML",
-    description: "Create compelling visual stories from data using industry-leading tools. Master Tableau and Power BI to design interactive dashboards, reports, and visualizations that drive business insights and decisions.",
+    description:
+      "Create compelling visual stories from data using industry-leading tools. Master Tableau and Power BI to design interactive dashboards, reports, and visualizations that drive business insights and decisions.",
     duration: "10 weeks",
     level: "Intermediate",
     comingSoon: true,
@@ -1118,15 +1171,16 @@ const coursesData = [
       { id: 7, title: "Calculated Fields and Parameters", isFree: false },
       { id: 8, title: "Advanced Analytics in Tableau/Power BI", isFree: false },
       { id: 9, title: "Sharing and Publishing Reports", isFree: false },
-      { id: 10, title: "Business Intelligence Storytelling", isFree: false }
-    ]
+      { id: 10, title: "Business Intelligence Storytelling", isFree: false },
+    ],
   },
   // Full Stack/Software Development
   {
     id: 47,
     name: "MERN Stack Development",
     category: "Full Stack/Software Development",
-    description: "Build modern full-stack web applications with MongoDB, Express.js, React, and Node.js. Master the complete JavaScript stack to create scalable, responsive web applications from frontend to backend.",
+    description:
+      "Build modern full-stack web applications with MongoDB, Express.js, React, and Node.js. Master the complete JavaScript stack to create scalable, responsive web applications from frontend to backend.",
     duration: "10 weeks",
     level: "Intermediate",
     comingSoon: true,
@@ -1141,14 +1195,15 @@ const coursesData = [
       { id: 7, title: "Authentication and Authorization", isFree: false },
       { id: 8, title: "Deployment and DevOps", isFree: false },
       { id: 9, title: "Testing and Debugging", isFree: false },
-      { id: 10, title: "Full-Stack Project Development", isFree: false }
-    ]
+      { id: 10, title: "Full-Stack Project Development", isFree: false },
+    ],
   },
   {
     id: 48,
     name: "Java Development",
     category: "Full Stack/Software Development",
-    description: "Master Java programming for enterprise applications and Android development. Learn object-oriented programming, Java frameworks, design patterns, and build robust, scalable applications.",
+    description:
+      "Master Java programming for enterprise applications and Android development. Learn object-oriented programming, Java frameworks, design patterns, and build robust, scalable applications.",
     duration: "10 weeks",
     level: "Intermediate",
     comingSoon: true,
@@ -1163,14 +1218,15 @@ const coursesData = [
       { id: 7, title: "Spring Framework Basics", isFree: false },
       { id: 8, title: "REST API Development", isFree: false },
       { id: 9, title: "Design Patterns", isFree: false },
-      { id: 10, title: "Enterprise Application Development", isFree: false }
-    ]
+      { id: 10, title: "Enterprise Application Development", isFree: false },
+    ],
   },
   {
     id: 49,
     name: "Cloud Platforms (AWS, Azure, Google Cloud)",
     category: "Full Stack/Software Development",
-    description: "Master cloud computing with leading platforms AWS, Azure, and Google Cloud. Learn cloud architecture, deployment, scaling, and management to build and maintain cloud-native applications.",
+    description:
+      "Master cloud computing with leading platforms AWS, Azure, and Google Cloud. Learn cloud architecture, deployment, scaling, and management to build and maintain cloud-native applications.",
     duration: "10 weeks",
     level: "Intermediate",
     comingSoon: true,
@@ -1185,15 +1241,16 @@ const coursesData = [
       { id: 7, title: "Container Services (Docker, Kubernetes)", isFree: false },
       { id: 8, title: "CI/CD on Cloud", isFree: false },
       { id: 9, title: "Cloud Security and Compliance", isFree: false },
-      { id: 10, title: "Cost Optimization Strategies", isFree: false }
-    ]
+      { id: 10, title: "Cost Optimization Strategies", isFree: false },
+    ],
   },
   // Digital Marketing
   {
     id: 50,
     name: "SEO (Search Engine Optimization)",
     category: "Digital Marketing",
-    description: "Master search engine optimization to improve website rankings and organic traffic. Learn on-page, off-page, technical SEO, keyword research, and analytics to dominate search results.",
+    description:
+      "Master search engine optimization to improve website rankings and organic traffic. Learn on-page, off-page, technical SEO, keyword research, and analytics to dominate search results.",
     duration: "10 weeks",
     level: "Beginner",
     comingSoon: true,
@@ -1208,21 +1265,26 @@ const coursesData = [
       { id: 7, title: "SEO Tools (Google Analytics, Search Console)", isFree: false },
       { id: 8, title: "Content Optimization", isFree: false },
       { id: 9, title: "Algorithm Updates and Trends", isFree: false },
-      { id: 10, title: "SEO Reporting and Analytics", isFree: false }
-    ]
+      { id: 10, title: "SEO Reporting and Analytics", isFree: false },
+    ],
   },
   {
     id: 51,
     name: "Social Media Marketing",
     category: "Digital Marketing",
-    description: "Build powerful social media strategies across platforms. Master content creation, community management, paid social advertising, and analytics to grow brand presence and engagement on social networks.",
+    description:
+      "Build powerful social media strategies across platforms. Master content creation, community management, paid social advertising, and analytics to grow brand presence and engagement on social networks.",
     duration: "10 weeks",
     level: "Beginner",
     comingSoon: true,
     isFree: false,
     modules: [
       { id: 1, title: "Social Media Strategy", isFree: true },
-      { id: 2, title: "Platform-Specific Marketing (Facebook, Instagram, LinkedIn, Twitter)", isFree: false },
+      {
+        id: 2,
+        title: "Platform-Specific Marketing (Facebook, Instagram, LinkedIn, Twitter)",
+        isFree: false,
+      },
       { id: 3, title: "Content Creation and Curation", isFree: false },
       { id: 4, title: "Community Management", isFree: false },
       { id: 5, title: "Social Media Advertising", isFree: false },
@@ -1230,14 +1292,15 @@ const coursesData = [
       { id: 7, title: "Social Media Analytics", isFree: false },
       { id: 8, title: "Engagement Tactics", isFree: false },
       { id: 9, title: "Crisis Management", isFree: false },
-      { id: 10, title: "Social Commerce", isFree: false }
-    ]
+      { id: 10, title: "Social Commerce", isFree: false },
+    ],
   },
   {
     id: 52,
     name: "Email Marketing",
     category: "Digital Marketing",
-    description: "Master email marketing to nurture leads and drive sales. Learn list building, campaign creation, automation, personalization, and analytics to create effective email marketing strategies.",
+    description:
+      "Master email marketing to nurture leads and drive sales. Learn list building, campaign creation, automation, personalization, and analytics to create effective email marketing strategies.",
     duration: "10 weeks",
     level: "Beginner",
     comingSoon: true,
@@ -1252,15 +1315,16 @@ const coursesData = [
       { id: 7, title: "Email Analytics and Metrics", isFree: false },
       { id: 8, title: "Deliverability Optimization", isFree: false },
       { id: 9, title: "Compliance (GDPR, CAN-SPAM)", isFree: false },
-      { id: 10, title: "Email Tools (MailChimp, Constant Contact)", isFree: false }
-    ]
+      { id: 10, title: "Email Tools (MailChimp, Constant Contact)", isFree: false },
+    ],
   },
   // Cybersecurity
   {
     id: 53,
     name: "Ethical Hacking (CEH)",
     category: "Cybersecurity",
-    description: "Learn ethical hacking and penetration testing techniques to identify and fix security vulnerabilities. Prepare for Certified Ethical Hacker certification while mastering offensive security skills.",
+    description:
+      "Learn ethical hacking and penetration testing techniques to identify and fix security vulnerabilities. Prepare for Certified Ethical Hacker certification while mastering offensive security skills.",
     duration: "10 weeks",
     level: "Intermediate",
     comingSoon: true,
@@ -1275,14 +1339,15 @@ const coursesData = [
       { id: 7, title: "Social Engineering", isFree: false },
       { id: 8, title: "Web Application Hacking", isFree: false },
       { id: 9, title: "Wireless Network Security", isFree: false },
-      { id: 10, title: "CEH Exam Preparation", isFree: false }
-    ]
+      { id: 10, title: "CEH Exam Preparation", isFree: false },
+    ],
   },
   {
     id: 54,
     name: "Network Security",
     category: "Cybersecurity",
-    description: "Secure network infrastructure from cyber threats. Learn firewall configuration, intrusion detection, VPNs, network protocols, and security best practices to protect organizational networks.",
+    description:
+      "Secure network infrastructure from cyber threats. Learn firewall configuration, intrusion detection, VPNs, network protocols, and security best practices to protect organizational networks.",
     duration: "10 weeks",
     level: "Intermediate",
     comingSoon: true,
@@ -1297,15 +1362,16 @@ const coursesData = [
       { id: 7, title: "Network Monitoring", isFree: false },
       { id: 8, title: "Security Architecture Design", isFree: false },
       { id: 9, title: "Incident Response", isFree: false },
-      { id: 10, title: "Security Compliance", isFree: false }
-    ]
+      { id: 10, title: "Security Compliance", isFree: false },
+    ],
   },
   // FinTech
   {
     id: 55,
     name: "Financial Modelling",
     category: "Financial Technologies (FinTech)",
-    description: "Build sophisticated financial models for valuation, forecasting, and decision-making. Master Excel, financial analysis techniques, and modeling best practices used in investment banking and corporate finance.",
+    description:
+      "Build sophisticated financial models for valuation, forecasting, and decision-making. Master Excel, financial analysis techniques, and modeling best practices used in investment banking and corporate finance.",
     duration: "10 weeks",
     level: "Intermediate",
     comingSoon: true,
@@ -1320,14 +1386,15 @@ const coursesData = [
       { id: 7, title: "LBO and M&A Modeling", isFree: false },
       { id: 8, title: "Financial Statement Analysis", isFree: false },
       { id: 9, title: "Forecasting Techniques", isFree: false },
-      { id: 10, title: "Best Practice and Standards", isFree: false }
-    ]
+      { id: 10, title: "Best Practice and Standards", isFree: false },
+    ],
   },
   {
     id: 56,
     name: "Blockchain Technology",
     category: "Financial Technologies (FinTech)",
-    description: "Understand blockchain technology and its applications in finance and beyond. Learn distributed ledger systems, smart contracts, consensus mechanisms, and blockchain development fundamentals.",
+    description:
+      "Understand blockchain technology and its applications in finance and beyond. Learn distributed ledger systems, smart contracts, consensus mechanisms, and blockchain development fundamentals.",
     duration: "10 weeks",
     level: "Intermediate",
     comingSoon: true,
@@ -1342,14 +1409,15 @@ const coursesData = [
       { id: 7, title: "Consensus Mechanisms", isFree: false },
       { id: 8, title: "Blockchain Use Cases", isFree: false },
       { id: 9, title: "Blockchain Security", isFree: false },
-      { id: 10, title: "DeFi Concepts", isFree: false }
-    ]
+      { id: 10, title: "DeFi Concepts", isFree: false },
+    ],
   },
   {
     id: 57,
     name: "Cryptocurrency and Digital Assets",
     category: "Financial Technologies (FinTech)",
-    description: "Explore cryptocurrency markets, trading, and investment strategies. Learn about Bitcoin, altcoins, wallet security, trading platforms, and the future of digital currencies in the financial ecosystem.",
+    description:
+      "Explore cryptocurrency markets, trading, and investment strategies. Learn about Bitcoin, altcoins, wallet security, trading platforms, and the future of digital currencies in the financial ecosystem.",
     duration: "10 weeks",
     level: "Beginner",
     comingSoon: true,
@@ -1364,20 +1432,27 @@ const coursesData = [
       { id: 7, title: "ICOs and Token Economics", isFree: false },
       { id: 8, title: "DeFi and Yield Farming", isFree: false },
       { id: 9, title: "Regulatory Landscape", isFree: false },
-      { id: 10, title: "Investment Strategies", isFree: false }
-    ]
+      { id: 10, title: "Investment Strategies", isFree: false },
+    ],
   },
   {
     id: 58,
     name: "Learn NEET",
     category: "Education",
-    description: "Build a strong foundation in Biology, Chemistry, and Physics tailored for NEET aspirants. This beginner course provides a high-level overview and the strategies necessary for success in medical entrance exams.",
+    description:
+      "Build a strong foundation in Biology, Chemistry, and Physics tailored for NEET aspirants. This beginner course provides a high-level overview and the strategies necessary for success in medical entrance exams.",
     duration: "10 weeks",
     level: "Beginner",
     comingSoon: true,
     isFree: false,
     modules: [
-      { id: 1, title: "Introduction to NEET Biology", isFree: true, summary: "Learn about the importance of concept clarity and effective study planning for Biology, with tips for maximizing NEET scores." },
+      {
+        id: 1,
+        title: "Introduction to NEET Biology",
+        isFree: true,
+        summary:
+          "Learn about the importance of concept clarity and effective study planning for Biology, with tips for maximizing NEET scores.",
+      },
       { id: 2, title: "Cell Biology and Genetics", isFree: false },
       { id: 3, title: "Human Physiology", isFree: false },
       { id: 4, title: "Plant Biology", isFree: false },
@@ -1386,14 +1461,15 @@ const coursesData = [
       { id: 7, title: "Physics for Medical Entrance", isFree: false },
       { id: 8, title: "Problem-Solving Strategies", isFree: false },
       { id: 9, title: "Mock Tests and Analysis", isFree: false },
-      { id: 10, title: "Exam Preparation and Strategy", isFree: false }
-    ]
+      { id: 10, title: "Exam Preparation and Strategy", isFree: false },
+    ],
   },
   {
     id: 59,
     name: "Learn Govt. Jobs",
     category: "UPSC/Government Exams",
-    description: "Comprehensive preparation for government examinations including IBPS, SBI, Railways, SSC, and other competitive exams with strategic guidance and practice materials.",
+    description:
+      "Comprehensive preparation for government examinations including IBPS, SBI, Railways, SSC, and other competitive exams with strategic guidance and practice materials.",
     duration: "10 weeks",
     level: "Intermediate",
     comingSoon: false,
@@ -1408,14 +1484,15 @@ const coursesData = [
       { id: 7, title: "Railway Exam Strategies", isFree: false },
       { id: 8, title: "Mock Tests & Practice Papers", isFree: false },
       { id: 9, title: "Time Management Techniques", isFree: false },
-      { id: 10, title: "Interview & Personality Development", isFree: false }
-    ]
+      { id: 10, title: "Interview & Personality Development", isFree: false },
+    ],
   },
   {
     id: 60,
     name: "Learn IAS",
     category: "UPSC/Government Exams",
-    description: "Comprehensive UPSC Civil Services preparation with AI-powered content, covering Prelims, Mains, current affairs, optional subjects, and interview skills for India's most prestigious examination.",
+    description:
+      "Comprehensive UPSC Civil Services preparation with AI-powered content, covering Prelims, Mains, current affairs, optional subjects, and interview skills for India's most prestigious examination.",
     duration: "10 weeks",
     level: "Advanced",
     comingSoon: false,
@@ -1430,121 +1507,129 @@ const coursesData = [
       { id: 7, title: "Ethics & Integrity", isFree: false },
       { id: 8, title: "Prelims Test Series", isFree: false },
       { id: 9, title: "Mains Answer Practice", isFree: false },
-      { id: 10, title: "Interview/Personality Test Prep", isFree: false }
-    ]
-  }
-]
+      { id: 10, title: "Interview/Personality Test Prep", isFree: false },
+    ],
+  },
+];
 
 export default function Courses() {
-  const [selectedCategory, setSelectedCategory] = useState('All')
-  const [isAdminUser, setIsAdminUser] = useState(false)
-  const [isCheckingAdmin, setIsCheckingAdmin] = useState(true)
-  const pricing = getPricingDisplay()
-  const introNotice = getIntroOfferNotice()
-  
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [isAdminUser, setIsAdminUser] = useState(false);
+  const [isCheckingAdmin, setIsCheckingAdmin] = useState(true);
+  const pricing = getPricingDisplay();
+  const introNotice = getIntroOfferNotice();
+
   // Check if user is admin
   useEffect(() => {
     async function checkAdmin() {
       try {
-        const user = await getCurrentUser()
+        const user = await getCurrentUser();
         if (user) {
-          const adminStatus = await isAdmin(user)
-          setIsAdminUser(adminStatus)
+          const adminStatus = await isAdmin(user);
+          setIsAdminUser(adminStatus);
         }
       } catch (error) {
-        console.error('Error checking admin status:', error)
+        console.error("Error checking admin status:", error);
       } finally {
-        setIsCheckingAdmin(false)
+        setIsCheckingAdmin(false);
       }
     }
-    checkAdmin()
-  }, [])
-  
+    checkAdmin();
+  }, []);
+
   // Detect if we're in development mode (client-side safe)
-  const isDevelopment = typeof window !== 'undefined' && window.location.hostname === 'localhost'
+  const isDevelopment = typeof window !== "undefined" && window.location.hostname === "localhost";
 
   const categories = [
-    'All',
+    "All",
     // New Categories
-    'Communication & Soft Skills',
-    'Creative Design (UI/UX)',
-    'Lifestyle & Hobbies',
-    'Coding for Kids',
-    'JEE/NEET Coaching',
-    'UPSC/Government Exams',
-    'Data Science & AI/ML',
-    'Full Stack/Software Development',
-    'Digital Marketing',
-    'Cybersecurity',
-    'Financial Technologies (FinTech)',
+    "Communication & Soft Skills",
+    "Creative Design (UI/UX)",
+    "Lifestyle & Hobbies",
+    "Coding for Kids",
+    "JEE/NEET Coaching",
+    "UPSC/Government Exams",
+    "Data Science & AI/ML",
+    "Full Stack/Software Development",
+    "Digital Marketing",
+    "Cybersecurity",
+    "Financial Technologies (FinTech)",
     // Existing Categories
-    'Technology',
-    'Communication',
-    'Language',
-    'Personal Development',
-    'Finance',
-    'Professional Skills',
-    'Business',
-    'Career Development',
-    'Creative Arts',
-    'Education',
-    'Free Course'
-  ]
+    "Technology",
+    "Communication",
+    "Language",
+    "Personal Development",
+    "Finance",
+    "Professional Skills",
+    "Business",
+    "Career Development",
+    "Creative Arts",
+    "Education",
+    "Free Course",
+  ];
 
-  const filteredCourses = coursesData.filter(course => {
-    const matchesCategory = selectedCategory === 'All' || 
-                           (selectedCategory === 'Free Course' ? course.isFree : course.category === selectedCategory)
-    
+  const filteredCourses = coursesData.filter((course) => {
+    const matchesCategory =
+      selectedCategory === "All" ||
+      (selectedCategory === "Free Course" ? course.isFree : course.category === selectedCategory);
+
     // Hide courses from non-admin users
-    const isVisible = isAdminUser || !isCourseHidden(course.name)
-    
-    return matchesCategory && isVisible
-  })
+    const isVisible = isAdminUser || !isCourseHidden(course.name);
+
+    return matchesCategory && isVisible;
+  });
 
   // Split courses into available, coming soon, and hidden (for admins), removing duplicates
-  const seenCourseIds = new Set()
-  const availableCourses = []
-  const comingSoonCourses = []
-  const hiddenCourses = []
-  
-  filteredCourses.forEach(course => {
+  const seenCourseIds = new Set();
+  const availableCourses = [];
+  const comingSoonCourses = [];
+  const hiddenCourses = [];
+
+  filteredCourses.forEach((course) => {
     // Skip duplicates
     if (seenCourseIds.has(course.id)) {
-      return
+      return;
     }
-    seenCourseIds.add(course.id)
-    
+    seenCourseIds.add(course.id);
+
     // Separate hidden courses (only for admin users)
     if (isAdminUser && isCourseHidden(course.name)) {
-      hiddenCourses.push(course)
-      return
+      hiddenCourses.push(course);
+      return;
     }
-    
+
     // Check if course is available based on subdomain
     if (isCourseAvailable(course.name)) {
-      availableCourses.push(course)
+      availableCourses.push(course);
     } else {
-      comingSoonCourses.push(course)
+      comingSoonCourses.push(course);
     }
-  })
+  });
 
   return (
-  <>
-
+    <>
       <Head>
         <title>Courses - iiskills.cloud</title>
-        <meta name="description" content="Explore 58+ professional and personal development courses including Communication Skills, UI/UX Design, Data Science, Full Stack Development, Digital Marketing, Cybersecurity, FinTech, and more. Many free courses available!" />
+        <meta
+          name="description"
+          content="Explore 58+ professional and personal development courses including Communication Skills, UI/UX Design, Data Science, Full Stack Development, Digital Marketing, Cybersecurity, FinTech, and more. Many free courses available!"
+        />
       </Head>
-      
+
       <main className="max-w-7xl mx-auto px-4 py-12">
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-primary mb-4">Our Courses</h1>
           <p className="text-xl text-charcoal mb-2">Professional Skills Development for Everyone</p>
-          <p className="text-lg text-gray-600">57+ courses across 11+ domains - Many FREE courses available!</p>
+          <p className="text-lg text-gray-600">
+            57+ courses across 11+ domains - Many FREE courses available!
+          </p>
           <div className="mt-4 text-lg font-semibold text-accent">
-            Paid courses: {pricing.totalPrice} per course{pricing.isIntroductory ? ' (Introductory Offer)' : ''}
+            Paid courses: {pricing.totalPrice} per course
+            {pricing.isIntroductory ? " (Introductory Offer)" : ""}
           </div>
-          <p className="text-lg text-gray-600">58+ courses across 11+ domains - Many FREE courses available!</p>
+          <p className="text-lg text-gray-600">
+            58+ courses across 11+ domains - Many FREE courses available!
+          </p>
         </div>
 
         {/* Introductory Offer Banner */}
@@ -1564,14 +1649,15 @@ export default function Courses() {
                 onChange={(e) => setSelectedCategory(e.target.value)}
                 className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary"
               >
-                {categories.map(cat => (
-                  <option key={cat} value={cat}>{cat}</option>
+                {categories.map((cat) => (
+                  <option key={cat} value={cat}>
+                    {cat}
+                  </option>
                 ))}
               </select>
             </div>
           </div>
         </div>
-
 
         {/* Legend */}
         <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg shadow p-6 mb-8 border-2 border-blue-200">
@@ -1599,33 +1685,38 @@ export default function Courses() {
               <span className="bg-pastel-blue text-white px-4 py-2 rounded-full text-base font-bold shadow-md">
                 Currently Available
               </span>
-              <span>({availableCourses.length} {availableCourses.length === 1 ? 'course' : 'courses'})</span>
+              <span>
+                ({availableCourses.length} {availableCourses.length === 1 ? "course" : "courses"})
+              </span>
             </h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {availableCourses.map(course => {
-                const freeModule = course.modules?.find(m => m.isFree)
+              {availableCourses.map((course) => {
+                const freeModule = course.modules?.find((m) => m.isFree);
                 return (
-                  <div key={course.id} className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition relative border-2 border-pastel-blue-light">
+                  <div
+                    key={course.id}
+                    className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition relative border-2 border-pastel-blue-light"
+                  >
                     {/* Available Badge */}
                     <div className="absolute top-4 right-4 bg-pastel-blue text-white px-3 py-1 rounded-full text-sm font-bold z-10 shadow-lg">
                       Available Now
                     </div>
-                    
+
                     {/* Free Badge */}
                     {course.isFree && (
                       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pastel-blue bg-opacity-90 backdrop-blur-sm text-white px-6 py-3 rounded-full text-2xl font-bold z-20 shadow-2xl blink-animation">
                         FREE
                       </div>
                     )}
-                    
+
                     <div className="bg-gradient-to-r from-pastel-blue-light to-pastel-blue p-4">
                       <span className="text-white text-sm font-semibold">{course.category}</span>
                     </div>
-                    
+
                     <div className="p-6">
                       <h3 className="text-xl font-bold text-primary mb-2">{course.name}</h3>
                       <p className="text-charcoal mb-4 text-sm">{course.description}</p>
-                      
+
                       {/* Pricing Information */}
                       {!course.isFree && (
                         <div className="bg-blue-50 border border-blue-200 rounded p-3 mb-4">
@@ -1639,7 +1730,7 @@ export default function Courses() {
                           )}
                         </div>
                       )}
-                      
+
                       {/* Free sample module indicator - only show for paid courses */}
                       {freeModule && !course.isFree && (
                         <div className="bg-cyan-50 border border-cyan-200 rounded p-3 mb-4">
@@ -1647,13 +1738,11 @@ export default function Courses() {
                             🎁 Free Sample: {freeModule.title}
                           </p>
                           {freeModule.summary && (
-                            <p className="text-xs text-cyan-700 mt-1">
-                              {freeModule.summary}
-                            </p>
+                            <p className="text-xs text-cyan-700 mt-1">{freeModule.summary}</p>
                           )}
                         </div>
                       )}
-                      
+
                       {/* Audio Download Feature */}
                       {course.hasAudioDownload && (
                         <div className="bg-blue-50 border border-blue-200 rounded p-3 mb-4">
@@ -1662,13 +1751,13 @@ export default function Courses() {
                           </p>
                         </div>
                       )}
-                      
+
                       <button className="w-full bg-pastel-blue text-white py-3 rounded font-bold hover:bg-pastel-blue-light transition">
-                        {course.isFree ? 'Start Free Course' : 'Enroll Now'}
+                        {course.isFree ? "Start Free Course" : "Enroll Now"}
                       </button>
                     </div>
                   </div>
-                )
+                );
               })}
             </div>
           </div>
@@ -1681,33 +1770,38 @@ export default function Courses() {
               <span className="bg-pastel-lavender text-white px-4 py-2 rounded-full text-base font-bold shadow-md">
                 Coming Soon
               </span>
-              <span>({comingSoonCourses.length} {comingSoonCourses.length === 1 ? 'course' : 'courses'})</span>
+              <span>
+                ({comingSoonCourses.length} {comingSoonCourses.length === 1 ? "course" : "courses"})
+              </span>
             </h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {comingSoonCourses.map(course => {
-                const freeModule = course.modules?.find(m => m.isFree)
+              {comingSoonCourses.map((course) => {
+                const freeModule = course.modules?.find((m) => m.isFree);
                 return (
-                   <div key={course.id} className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition relative opacity-90 border-2 border-pastel-lavender-light">
+                  <div
+                    key={course.id}
+                    className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition relative opacity-90 border-2 border-pastel-lavender-light"
+                  >
                     {/* Coming Soon Badge */}
                     <div className="absolute top-4 right-4 bg-pastel-lavender text-white px-3 py-1 rounded-full text-sm font-bold z-10 shadow-lg">
                       Coming Soon
                     </div>
-                    
+
                     {/* Free Badge */}
                     {course.isFree && (
                       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pastel-blue bg-opacity-90 backdrop-blur-sm text-white px-6 py-3 rounded-full text-2xl font-bold z-20 shadow-2xl blink-animation">
                         FREE
                       </div>
                     )}
-                    
+
                     <div className="bg-gradient-to-r from-pastel-lavender-light to-pastel-lavender p-4">
                       <span className="text-white text-sm font-semibold">{course.category}</span>
                     </div>
-                    
+
                     <div className="p-6">
                       <h3 className="text-xl font-bold text-primary mb-2">{course.name}</h3>
                       <p className="text-charcoal mb-4 text-sm">{course.description}</p>
-                      
+
                       {/* Coming Soon - No Pricing Display */}
                       <div className="bg-purple-50 border border-pastel-lavender-light rounded p-3 mb-4">
                         <p className="text-sm text-purple-800 font-semibold">
@@ -1717,7 +1811,7 @@ export default function Courses() {
                           Get notified when it launches!
                         </p>
                       </div>
-                      
+
                       {/* Free sample module indicator - only show for paid courses */}
                       {freeModule && !course.isFree && (
                         <div className="bg-cyan-50 border border-cyan-200 rounded p-3 mb-4">
@@ -1725,13 +1819,11 @@ export default function Courses() {
                             🎁 Free Sample: {freeModule.title}
                           </p>
                           {freeModule.summary && (
-                            <p className="text-xs text-cyan-700 mt-1">
-                              {freeModule.summary}
-                            </p>
+                            <p className="text-xs text-cyan-700 mt-1">{freeModule.summary}</p>
                           )}
                         </div>
                       )}
-                      
+
                       {/* Audio Download Feature */}
                       {course.hasAudioDownload && (
                         <div className="bg-blue-50 border border-blue-200 rounded p-3 mb-4">
@@ -1740,14 +1832,13 @@ export default function Courses() {
                           </p>
                         </div>
                       )}
-                      
+
                       <button className="w-full bg-pastel-lavender text-white py-3 rounded font-bold hover:bg-pastel-lavender-light transition">
                         🔔 Notify When Available
                       </button>
                     </div>
                   </div>
-
-                )
+                );
               })}
             </div>
           </div>
@@ -1760,48 +1851,53 @@ export default function Courses() {
               <span className="bg-red-600 text-white px-4 py-2 rounded-full text-base font-bold shadow-md">
                 Hidden
               </span>
-              <span>({hiddenCourses.length} {hiddenCourses.length === 1 ? 'course' : 'courses'} - Admin Only)</span>
+              <span>
+                ({hiddenCourses.length} {hiddenCourses.length === 1 ? "course" : "courses"} - Admin
+                Only)
+              </span>
             </h2>
             <div className="bg-yellow-50 border-l-4 border-yellow-500 p-4 mb-6">
               <p className="text-sm text-yellow-800">
-                <strong>⚠️ Admin Notice:</strong> These courses are hidden from public view. Only admin users can see them on this page.
+                <strong>⚠️ Admin Notice:</strong> These courses are hidden from public view. Only
+                admin users can see them on this page.
               </p>
             </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {hiddenCourses.map(course => {
-                const freeModule = course.modules?.find(m => m.isFree)
+              {hiddenCourses.map((course) => {
+                const freeModule = course.modules?.find((m) => m.isFree);
                 return (
-                  <div key={course.id} className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition relative opacity-90 border-2 border-red-400">
+                  <div
+                    key={course.id}
+                    className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition relative opacity-90 border-2 border-red-400"
+                  >
                     {/* Hidden Badge */}
                     <div className="absolute top-4 right-4 bg-red-600 text-white px-3 py-1 rounded-full text-sm font-bold z-10 shadow-lg">
                       Hidden
                     </div>
-                    
+
                     {/* Free Badge */}
                     {course.isFree && (
                       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pastel-blue bg-opacity-90 backdrop-blur-sm text-white px-6 py-3 rounded-full text-2xl font-bold z-20 shadow-2xl blink-animation">
                         FREE
                       </div>
                     )}
-                    
+
                     <div className="bg-gradient-to-r from-red-400 to-red-600 p-4">
                       <span className="text-white text-sm font-semibold">{course.category}</span>
                     </div>
-                    
+
                     <div className="p-6">
                       <h3 className="text-xl font-bold text-primary mb-2">{course.name}</h3>
                       <p className="text-charcoal mb-4 text-sm">{course.description}</p>
-                      
+
                       {/* Hidden Status Notice */}
                       <div className="bg-red-50 border border-red-300 rounded p-3 mb-4">
                         <p className="text-sm text-red-800 font-semibold">
                           🚫 Hidden from public view
                         </p>
-                        <p className="text-xs text-red-700 mt-1">
-                          Not visible to regular users
-                        </p>
+                        <p className="text-xs text-red-700 mt-1">Not visible to regular users</p>
                       </div>
-                      
+
                       {/* Free sample module indicator - only show for paid courses */}
                       {freeModule && !course.isFree && (
                         <div className="bg-cyan-50 border border-cyan-200 rounded p-3 mb-4">
@@ -1809,13 +1905,11 @@ export default function Courses() {
                             🎁 Free Sample: {freeModule.title}
                           </p>
                           {freeModule.summary && (
-                            <p className="text-xs text-cyan-700 mt-1">
-                              {freeModule.summary}
-                            </p>
+                            <p className="text-xs text-cyan-700 mt-1">{freeModule.summary}</p>
                           )}
                         </div>
                       )}
-                      
+
                       {/* Audio Download Feature */}
                       {course.hasAudioDownload && (
                         <div className="bg-blue-50 border border-blue-200 rounded p-3 mb-4">
@@ -1824,32 +1918,39 @@ export default function Courses() {
                           </p>
                         </div>
                       )}
-                      
-                      <button className="w-full bg-gray-400 text-white py-3 rounded font-bold cursor-not-allowed" disabled>
+
+                      <button
+                        className="w-full bg-gray-400 text-white py-3 rounded font-bold cursor-not-allowed"
+                        disabled
+                      >
                         Hidden - Not Available to Public
                       </button>
                     </div>
                   </div>
-                )
+                );
               })}
             </div>
           </div>
         )}
 
-        {availableCourses.length === 0 && comingSoonCourses.length === 0 && (!isAdminUser || hiddenCourses.length === 0) && (
-          <div className="text-center py-12">
-            <p className="text-xl text-gray-600">No courses found matching your filters.</p>
-          </div>
-        )}
+        {availableCourses.length === 0 &&
+          comingSoonCourses.length === 0 &&
+          (!isAdminUser || hiddenCourses.length === 0) && (
+            <div className="text-center py-12">
+              <p className="text-xl text-gray-600">No courses found matching your filters.</p>
+            </div>
+          )}
 
         {/* Expansion Note */}
         <div className="bg-blue-50 border-l-4 border-primary p-6 rounded">
           <h2 className="text-xl font-bold text-primary mb-2">🚀 Growing Course Library</h2>
           <p className="text-charcoal">
-            We're continuously expanding our course offerings! New courses are being added regularly to help you develop a wide range of professional and personal skills. Check back often to discover new learning opportunities.
+            We're continuously expanding our course offerings! New courses are being added regularly
+            to help you develop a wide range of professional and personal skills. Check back often
+            to discover new learning opportunities.
           </p>
         </div>
       </main>
-</>
-  )
+    </>
+  );
 }

@@ -1,27 +1,27 @@
-import Link from 'next/link'
-import { useRouter } from 'next/router'
-import { getMainSiteUrl, isOnSubdomain } from '../utils/urlHelper'
-import { signOutUser } from '../lib/supabaseClient'
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { getMainSiteUrl, isOnSubdomain } from "../utils/urlHelper";
+import { signOutUser } from "../lib/supabaseClient";
 
 /**
  * Admin Navigation Bar
- * 
+ *
  * Navigation bar for admin pages with Supabase authentication.
  * Shows admin section links and logout functionality.
  */
 export default function AdminNav() {
-  const router = useRouter()
+  const router = useRouter();
 
   const handleLogout = async () => {
-    const { success } = await signOutUser()
+    const { success } = await signOutUser();
     if (success) {
-      router.push('/')
+      router.push("/");
     }
-  }
+  };
 
   // Determine the main site URL
-  const mainSiteUrl = getMainSiteUrl()
-  const onAdminSubdomain = isOnSubdomain('admin')
+  const mainSiteUrl = getMainSiteUrl();
+  const onAdminSubdomain = isOnSubdomain("admin");
 
   return (
     <div className="bg-yellow-100 border-b-4 border-yellow-500 py-2 px-6">
@@ -32,16 +32,25 @@ export default function AdminNav() {
             <Link href="/admin" className="text-yellow-900 hover:text-yellow-700 font-medium">
               Dashboard
             </Link>
-            <Link href="/admin/courses" className="text-yellow-900 hover:text-yellow-700 font-medium">
+            <Link
+              href="/admin/courses"
+              className="text-yellow-900 hover:text-yellow-700 font-medium"
+            >
               Courses
             </Link>
-            <Link href="/admin/content" className="text-yellow-900 hover:text-yellow-700 font-medium">
+            <Link
+              href="/admin/content"
+              className="text-yellow-900 hover:text-yellow-700 font-medium"
+            >
               Content
             </Link>
             <Link href="/admin/users" className="text-yellow-900 hover:text-yellow-700 font-medium">
               Users
             </Link>
-            <Link href="/admin/settings" className="text-yellow-900 hover:text-yellow-700 font-medium">
+            <Link
+              href="/admin/settings"
+              className="text-yellow-900 hover:text-yellow-700 font-medium"
+            >
               Settings
             </Link>
           </nav>
@@ -64,5 +73,5 @@ export default function AdminNav() {
         </div>
       </div>
     </div>
-  )
+  );
 }

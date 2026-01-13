@@ -14,6 +14,8 @@ export default [
       "**/out/",
       "**/.turbo/",
       "**/dist/",
+      "**/.pnp.cjs",
+      "**/.pnp.loader.mjs",
     ],
   },
   js.configs.recommended,
@@ -26,7 +28,7 @@ export default [
       "react-hooks": reactHooks,
     },
     languageOptions: {
-      ecmaVersion: 2021,
+      ecmaVersion: 2022,
       sourceType: "module",
       parserOptions: {
         ecmaFeatures: {
@@ -50,6 +52,14 @@ export default [
         Headers: "readonly",
         Request: "readonly",
         Response: "readonly",
+        setTimeout: "readonly",
+        setInterval: "readonly",
+        clearTimeout: "readonly",
+        clearInterval: "readonly",
+        localStorage: "readonly",
+        sessionStorage: "readonly",
+        alert: "readonly",
+        confirm: "readonly",
       },
     },
     settings: {

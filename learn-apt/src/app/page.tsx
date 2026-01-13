@@ -22,7 +22,8 @@ function UnauthorizedBanner() {
             <div>
               <p className="text-red-800 dark:text-red-200 font-medium">Access Denied</p>
               <p className="text-red-700 dark:text-red-300 text-sm">
-                You do not have administrator privileges. Admin access requires user_metadata.is_admin to be set to true.
+                You do not have administrator privileges. Admin access requires
+                user_metadata.is_admin to be set to true.
               </p>
             </div>
           </div>
@@ -52,7 +53,8 @@ export default function Home() {
             Discover Your <span className="text-blue-600">Learning Aptitude</span>
           </h1>
           <p className="mb-8 text-lg md:text-xl text-slate-700 dark:text-slate-300">
-            Understand your unique learning preferences, problem-solving styles, and motivation drivers with our comprehensive aptitude assessments.
+            Understand your unique learning preferences, problem-solving styles, and motivation
+            drivers with our comprehensive aptitude assessments.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
@@ -100,7 +102,9 @@ export default function Home() {
               <h3 className="text-2xl font-bold text-purple-700 mb-1">Elaborate Test</h3>
               <p className="text-lg font-semibold text-blue-600 mb-2">20-40 Minutes</p>
               <ul className="list-decimal list-inside text-slate-700 dark:text-slate-300 mb-5 space-y-1">
-                <li><strong>20 modules with 10 questions each (200 total)</strong></li>
+                <li>
+                  <strong>20 modules with 10 questions each (200 total)</strong>
+                </li>
                 <li>Comprehensive assessment</li>
                 <li>Navigable by clicking answers</li>
                 <li>In-depth career guidance and analytics</li>
