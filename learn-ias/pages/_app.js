@@ -18,20 +18,20 @@ export default function App({ Component, pageProps }) {
       setLoading(false)
     }
 
-    checkUser()
+    checkUser();
 
     // Listen for auth changes
-    const { data: authListener } = supabase?.auth.onAuthStateChange(
-      async (event, session) => {
-        setUser(session?.user || null)
-        setLoading(false)
-      }
-    )
+    const authListener = supabase
+      ? supabase.auth.onAuthStateChange(async (event, session) => {
+          setUser(session?.user || null);
+          setLoading(false);
+        })
+      : { data: null };
 
     return () => {
-      authListener?.subscription?.unsubscribe()
-    }
-  }, [])
+      authListener?.data?.subscription?.unsubscribe();
+    };
+  }, []);
 
   const handleSignOut = async () => {
     if (supabase) {
