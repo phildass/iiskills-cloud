@@ -1,47 +1,47 @@
-import { useState, useEffect } from 'react'
-import { useRouter } from 'next/router'
-import Head from 'next/head'
-import { getCurrentUser, getUserProfile, isAdmin } from '../lib/supabaseClient'
-import { physicsCurriculum } from '../data/curriculum'
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import Head from "next/head";
+import { getCurrentUser, getUserProfile, isAdmin } from "../lib/supabaseClient";
+import { physicsCurriculum } from "../data/curriculum";
 
 /**
  * Admin Panel for Learn Physics
- * 
+ *
  * Access controlled by Supabase user role
  * Allows admins to view platform statistics and user progress
  */
 export default function Admin() {
-  const [user, setUser] = useState(null)
-  const [userProfile, setUserProfile] = useState(null)
-  const [isLoading, setIsLoading] = useState(true)
-  const [hasAccess, setHasAccess] = useState(false)
-  const router = useRouter()
+  const [user, setUser] = useState(null);
+  const [userProfile, setUserProfile] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [hasAccess, setHasAccess] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
-    checkAuth()
-  }, [])
+    checkAuth();
+  }, []);
 
   const checkAuth = async () => {
-    const currentUser = await getCurrentUser()
-    
+    const currentUser = await getCurrentUser();
+
     if (!currentUser) {
-      router.push('/login')
-      return
+      router.push("/login");
+      return;
     }
-    
+
     // Check if user has admin access
-    const hasAdminAccess = await isAdmin(currentUser)
+    const hasAdminAccess = await isAdmin(currentUser);
     if (!hasAdminAccess) {
-      setHasAccess(false)
-      setIsLoading(false)
-      return
+      setHasAccess(false);
+      setIsLoading(false);
+      return;
     }
-    
-    setUser(currentUser)
-    setUserProfile(getUserProfile(currentUser))
-    setHasAccess(true)
-    setIsLoading(false)
-  }
+
+    setUser(currentUser);
+    setUserProfile(getUserProfile(currentUser));
+    setHasAccess(true);
+    setIsLoading(false);
+  };
 
   if (isLoading) {
     return (
@@ -51,7 +51,7 @@ export default function Admin() {
           <p className="text-xl text-charcoal">Loading...</p>
         </div>
       </div>
-    )
+    );
   }
 
   if (!hasAccess) {
@@ -60,7 +60,7 @@ export default function Admin() {
         <Head>
           <title>Access Denied - Learn Physics</title>
         </Head>
-        
+
         <main className="min-h-screen bg-gradient-to-br from-red-50 via-white to-orange-50 flex items-center justify-center py-12 px-4">
           <div className="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-lg text-center">
             <div className="text-6xl mb-6">🚫</div>
@@ -69,7 +69,7 @@ export default function Admin() {
               You do not have permission to access the admin panel.
             </p>
             <p className="text-gray-600 mb-8">
-              This area is restricted to administrators only. If you believe you should have access, 
+              This area is restricted to administrators only. If you believe you should have access,
               please contact the system administrator.
             </p>
             <a
@@ -81,15 +81,19 @@ export default function Admin() {
           </div>
         </main>
       </>
-    )
+    );
   }
 
   // Calculate statistics
-  const totalLevels = physicsCurriculum.levels.length
-  const totalModules = physicsCurriculum.levels.reduce((sum, level) => sum + level.modules.length, 0)
-  const totalLessons = physicsCurriculum.levels.reduce((sum, level) => 
-    sum + level.modules.reduce((mSum, module) => mSum + module.lessons.length, 0), 0
-  )
+  const totalLevels = physicsCurriculum.levels.length;
+  const totalModules = physicsCurriculum.levels.reduce(
+    (sum, level) => sum + level.modules.length,
+    0
+  );
+  const totalLessons = physicsCurriculum.levels.reduce(
+    (sum, level) => sum + level.modules.reduce((mSum, module) => mSum + module.lessons.length, 0),
+    0
+  );
 
   return (
     <>
@@ -97,7 +101,7 @@ export default function Admin() {
         <title>Admin Panel - Learn Physics</title>
         <meta name="description" content="Admin panel for Learn Physics platform" />
       </Head>
-      
+
       <main className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 py-12 px-4">
         <div className="max-w-7xl mx-auto">
           {/* Admin Header */}
@@ -106,7 +110,7 @@ export default function Admin() {
               <div>
                 <h1 className="text-4xl font-bold text-primary mb-2">Admin Panel</h1>
                 <p className="text-xl text-charcoal">
-                  Welcome, {userProfile?.firstName || 'Admin'} 👋
+                  Welcome, {userProfile?.firstName || "Admin"} 👋
                 </p>
               </div>
               <div className="text-right">
@@ -117,7 +121,8 @@ export default function Admin() {
             </div>
             <div className="bg-blue-50 border-l-4 border-primary p-4 rounded">
               <p className="text-gray-700">
-                <strong>Role:</strong> {userProfile?.role || 'admin'} | <strong>Email:</strong> {user.email}
+                <strong>Role:</strong> {userProfile?.role || "admin"} | <strong>Email:</strong>{" "}
+                {user.email}
               </p>
             </div>
           </div>
@@ -152,7 +157,7 @@ export default function Admin() {
           {/* Curriculum Overview */}
           <div className="bg-white p-8 rounded-lg shadow-lg mb-8">
             <h2 className="text-3xl font-bold text-primary mb-6">Curriculum Overview</h2>
-            
+
             <div className="space-y-6">
               {physicsCurriculum.levels.map((level, levelIndex) => (
                 <div key={level.id} className="border-l-4 border-primary pl-6">
@@ -160,7 +165,7 @@ export default function Admin() {
                     Level {levelIndex + 1}: {level.name}
                   </h3>
                   <p className="text-gray-600 mb-4">{level.description}</p>
-                  
+
                   <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {level.modules.map((module, moduleIndex) => (
                       <div key={module.id} className="bg-gray-50 p-4 rounded-lg">
@@ -183,37 +188,37 @@ export default function Admin() {
           {/* Platform Information */}
           <div className="bg-white p-8 rounded-lg shadow-lg">
             <h2 className="text-3xl font-bold text-primary mb-6">Platform Information</h2>
-            
+
             <div className="space-y-4">
               <div className="p-4 bg-blue-50 rounded-lg">
                 <h3 className="font-bold text-charcoal mb-2">Authentication System</h3>
                 <p className="text-gray-700">
-                  Supabase-powered authentication with cross-subdomain session support. 
-                  Users registered here can access all iiskills.cloud services.
+                  Supabase-powered authentication with cross-subdomain session support. Users
+                  registered here can access all iiskills.cloud services.
                 </p>
               </div>
 
               <div className="p-4 bg-green-50 rounded-lg">
                 <h3 className="font-bold text-charcoal mb-2">Progress Tracking</h3>
                 <p className="text-gray-700">
-                  User progress is tracked through localStorage (development). In production, 
-                  this would be stored in Supabase database for persistence across devices.
+                  User progress is tracked through localStorage (development). In production, this
+                  would be stored in Supabase database for persistence across devices.
                 </p>
               </div>
 
               <div className="p-4 bg-purple-50 rounded-lg">
                 <h3 className="font-bold text-charcoal mb-2">AI-Generated Content</h3>
                 <p className="text-gray-700">
-                  Lessons, quizzes, and tests are designed to be AI-generated. The current implementation 
-                  uses placeholder content demonstrating the structure and flow.
+                  Lessons, quizzes, and tests are designed to be AI-generated. The current
+                  implementation uses placeholder content demonstrating the structure and flow.
                 </p>
               </div>
 
               <div className="p-4 bg-yellow-50 rounded-lg">
                 <h3 className="font-bold text-charcoal mb-2">Role-Based Access</h3>
                 <p className="text-gray-700">
-                  Admin panel access is controlled via Supabase user metadata. Users with 
-                  'admin' role in user_metadata or app_metadata can access this panel.
+                  Admin panel access is controlled via Supabase user metadata. Users with 'admin'
+                  role in user_metadata or app_metadata can access this panel.
                 </p>
               </div>
             </div>
@@ -221,5 +226,5 @@ export default function Admin() {
         </div>
       </main>
     </>
-  )
+  );
 }

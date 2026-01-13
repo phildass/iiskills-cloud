@@ -1,11 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { 
-  Brain, 
-  Settings, 
-  BarChart3, 
-  FileText, 
+import {
+  Brain,
+  Settings,
+  BarChart3,
+  FileText,
   ExternalLink,
   Globe,
   CheckCircle,
@@ -28,9 +28,21 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
 
 // Map status to icon and color
 const statusConfig = {
-  active: { icon: CheckCircle, color: "text-green-600", bgColor: "bg-green-100 dark:bg-green-900/50" },
-  development: { icon: Wrench, color: "text-amber-600", bgColor: "bg-amber-100 dark:bg-amber-900/50" },
-  maintenance: { icon: AlertCircle, color: "text-red-600", bgColor: "bg-red-100 dark:bg-red-900/50" },
+  active: {
+    icon: CheckCircle,
+    color: "text-green-600",
+    bgColor: "bg-green-100 dark:bg-green-900/50",
+  },
+  development: {
+    icon: Wrench,
+    color: "text-amber-600",
+    bgColor: "bg-amber-100 dark:bg-amber-900/50",
+  },
+  maintenance: {
+    icon: AlertCircle,
+    color: "text-red-600",
+    bgColor: "bg-red-100 dark:bg-red-900/50",
+  },
 };
 
 // Map category to color
@@ -42,21 +54,27 @@ const categoryColors = {
 };
 
 export default function SubdomainsPage() {
-  const [selectedCategory, setSelectedCategory] = useState<SubdomainConfig["category"] | "all">("all");
+  const [selectedCategory, setSelectedCategory] = useState<SubdomainConfig["category"] | "all">(
+    "all"
+  );
 
   // Filter subdomains by selected category
-  const filteredSubdomains = selectedCategory === "all" 
-    ? SUBDOMAINS 
-    : SUBDOMAINS.filter(subdomain => subdomain.category === selectedCategory);
+  const filteredSubdomains =
+    selectedCategory === "all"
+      ? SUBDOMAINS
+      : SUBDOMAINS.filter((subdomain) => subdomain.category === selectedCategory);
 
   // Group subdomains by category for display
-  const subdomainsByCategory = SUBDOMAINS.reduce((acc, subdomain) => {
-    if (!acc[subdomain.category]) {
-      acc[subdomain.category] = [];
-    }
-    acc[subdomain.category].push(subdomain);
-    return acc;
-  }, {} as Record<string, SubdomainConfig[]>);
+  const subdomainsByCategory = SUBDOMAINS.reduce(
+    (acc, subdomain) => {
+      if (!acc[subdomain.category]) {
+        acc[subdomain.category] = [];
+      }
+      acc[subdomain.category].push(subdomain);
+      return acc;
+    },
+    {} as Record<string, SubdomainConfig[]>
+  );
 
   const handleSubdomainClick = (subdomainId: string) => {
     const adminUrl = getAdminUrl(subdomainId);
@@ -73,7 +91,9 @@ export default function SubdomainsPage() {
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center gap-2">
               <Globe className="h-8 w-8 text-blue-600" />
-              <span className="text-xl font-bold text-slate-900 dark:text-white">Central Admin Dashboard</span>
+              <span className="text-xl font-bold text-slate-900 dark:text-white">
+                Central Admin Dashboard
+              </span>
             </div>
             <Link
               href="/admin"
@@ -106,7 +126,9 @@ export default function SubdomainsPage() {
               </div>
               <div>
                 <p className="text-sm text-slate-600 dark:text-slate-400">Total Subdomains</p>
-                <p className="text-2xl font-bold text-slate-900 dark:text-white">{SUBDOMAINS.length}</p>
+                <p className="text-2xl font-bold text-slate-900 dark:text-white">
+                  {SUBDOMAINS.length}
+                </p>
               </div>
             </div>
           </div>
@@ -119,7 +141,7 @@ export default function SubdomainsPage() {
               <div>
                 <p className="text-sm text-slate-600 dark:text-slate-400">Active</p>
                 <p className="text-2xl font-bold text-slate-900 dark:text-white">
-                  {SUBDOMAINS.filter(s => s.status === "active").length}
+                  {SUBDOMAINS.filter((s) => s.status === "active").length}
                 </p>
               </div>
             </div>
@@ -133,7 +155,7 @@ export default function SubdomainsPage() {
               <div>
                 <p className="text-sm text-slate-600 dark:text-slate-400">In Development</p>
                 <p className="text-2xl font-bold text-slate-900 dark:text-white">
-                  {SUBDOMAINS.filter(s => s.status === "development").length}
+                  {SUBDOMAINS.filter((s) => s.status === "development").length}
                 </p>
               </div>
             </div>
@@ -147,7 +169,7 @@ export default function SubdomainsPage() {
               <div>
                 <p className="text-sm text-slate-600 dark:text-slate-400">Maintenance</p>
                 <p className="text-2xl font-bold text-slate-900 dark:text-white">
-                  {SUBDOMAINS.filter(s => s.status === "maintenance").length}
+                  {SUBDOMAINS.filter((s) => s.status === "maintenance").length}
                 </p>
               </div>
             </div>
@@ -201,7 +223,9 @@ export default function SubdomainsPage() {
                     <div className={`p-3 rounded-lg ${statusBgColor}`}>
                       <Icon className={`h-8 w-8 ${statusColor}`} />
                     </div>
-                    <div className={`px-3 py-1 rounded-full text-xs font-medium ${statusBgColor} ${statusColor} flex items-center gap-1`}>
+                    <div
+                      className={`px-3 py-1 rounded-full text-xs font-medium ${statusBgColor} ${statusColor} flex items-center gap-1`}
+                    >
                       <StatusIcon className="h-3 w-3" />
                       {subdomain.status}
                     </div>

@@ -18,7 +18,8 @@ export const SUBDOMAINS: SubdomainConfig[] = [
     id: "learn-apt",
     name: "Learn Apt",
     url: "https://learn-apt.iiskills.cloud",
-    description: "Comprehensive aptitude testing platform for learning preferences and problem-solving styles",
+    description:
+      "Comprehensive aptitude testing platform for learning preferences and problem-solving styles",
     icon: "Brain",
     status: "active",
     adminPath: "/admin",
@@ -28,28 +29,28 @@ export const SUBDOMAINS: SubdomainConfig[] = [
 
 // Get subdomain configuration by ID
 export function getSubdomainById(id: string): SubdomainConfig | undefined {
-  return SUBDOMAINS.find(subdomain => subdomain.id === id);
+  return SUBDOMAINS.find((subdomain) => subdomain.id === id);
 }
 
 // Get subdomain configuration by URL
 export function getSubdomainByUrl(url: string): SubdomainConfig | undefined {
-  return SUBDOMAINS.find(subdomain => subdomain.url === url);
+  return SUBDOMAINS.find((subdomain) => subdomain.url === url);
 }
 
 // Get all subdomains by category
 export function getSubdomainsByCategory(category: SubdomainConfig["category"]): SubdomainConfig[] {
-  return SUBDOMAINS.filter(subdomain => subdomain.category === category);
+  return SUBDOMAINS.filter((subdomain) => subdomain.category === category);
 }
 
 // Get all active subdomains
 export function getActiveSubdomains(): SubdomainConfig[] {
-  return SUBDOMAINS.filter(subdomain => subdomain.status === "active");
+  return SUBDOMAINS.filter((subdomain) => subdomain.status === "active");
 }
 
 // Check if current URL is a known subdomain
 export function getCurrentSubdomain(): SubdomainConfig | undefined {
   if (typeof window === "undefined") return undefined;
-  
+
   const currentUrl = window.location.origin;
   return getSubdomainByUrl(currentUrl);
 }
@@ -58,11 +59,11 @@ export function getCurrentSubdomain(): SubdomainConfig | undefined {
 export function getAdminUrl(subdomainId: string): string | undefined {
   const subdomain = getSubdomainById(subdomainId);
   if (!subdomain) return undefined;
-  
+
   // Security: Validate that the URL is within the allowed iiskills.cloud domain
   try {
     const url = new URL(subdomain.url);
-    if (!url.hostname.endsWith('.iiskills.cloud') && url.hostname !== 'iiskills.cloud') {
+    if (!url.hostname.endsWith(".iiskills.cloud") && url.hostname !== "iiskills.cloud") {
       console.error(`Security: Attempted to navigate to unauthorized domain: ${url.hostname}`);
       return undefined;
     }
@@ -70,6 +71,6 @@ export function getAdminUrl(subdomainId: string): string | undefined {
     console.error(`Invalid URL in subdomain configuration: ${subdomain.url}`, error);
     return undefined;
   }
-  
+
   return `${subdomain.url}${subdomain.adminPath}`;
 }

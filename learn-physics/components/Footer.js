@@ -1,8 +1,8 @@
-import Link from 'next/link'
+import Link from "next/link";
 
 export default function Footer() {
-  const currentYear = new Date().getFullYear()
-  
+  const currentYear = new Date().getFullYear();
+
   return (
     <footer className="bg-charcoal text-white py-8">
       <div className="max-w-6xl mx-auto px-4">
@@ -13,7 +13,7 @@ export default function Footer() {
               Master physics concepts with AI-driven lessons and comprehensive testing.
             </p>
           </div>
-          
+
           <div>
             <h4 className="text-lg font-bold mb-4">Quick Links</h4>
             <ul className="space-y-2">
@@ -28,34 +28,43 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <a href="https://iiskills.cloud" className="text-gray-300 hover:text-white transition">
+                <a
+                  href="https://iiskills.cloud"
+                  className="text-gray-300 hover:text-white transition"
+                >
                   Main Site
                 </a>
               </li>
             </ul>
           </div>
-          
+
           <div>
             <h4 className="text-lg font-bold mb-4">Legal</h4>
             <ul className="space-y-2">
               <li>
-                <a href="https://iiskills.cloud/terms" className="text-gray-300 hover:text-white transition">
+                <a
+                  href="https://iiskills.cloud/terms"
+                  className="text-gray-300 hover:text-white transition"
+                >
                   Terms & Conditions
                 </a>
               </li>
               <li>
-                <a href="https://iiskills.cloud/about" className="text-gray-300 hover:text-white transition">
+                <a
+                  href="https://iiskills.cloud/about"
+                  className="text-gray-300 hover:text-white transition"
+                >
                   About Us
                 </a>
               </li>
             </ul>
           </div>
         </div>
-        
+
         <div className="border-t border-gray-600 pt-6 text-center text-gray-300">
           <p>&copy; {currentYear} iiskills.cloud. All rights reserved.</p>
         </div>
       </div>
     </footer>
-  )
+  );
 }

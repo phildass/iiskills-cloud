@@ -10,19 +10,21 @@ const AUTH_STORAGE_KEY = "learnapt-admin-auth";
 
 // Cookie helpers - only run on client
 function setAuthCookie(value: string) {
-  if (typeof window === 'undefined') return;
+  if (typeof window === "undefined") return;
   const isProduction = process.env.NODE_ENV === "production";
   const cookieOptions = [
     `learnapt-admin-auth=${value}`,
     "path=/",
     "SameSite=Strict",
     isProduction ? "Secure" : "",
-  ].filter(Boolean).join("; ");
+  ]
+    .filter(Boolean)
+    .join("; ");
   document.cookie = cookieOptions;
 }
 
 function clearAuthCookie() {
-  if (typeof window === 'undefined') return;
+  if (typeof window === "undefined") return;
   const isProduction = process.env.NODE_ENV === "production";
   const cookieOptions = [
     "learnapt-admin-auth=",
@@ -30,12 +32,14 @@ function clearAuthCookie() {
     "expires=Thu, 01 Jan 1970 00:00:00 GMT",
     "SameSite=Strict",
     isProduction ? "Secure" : "",
-  ].filter(Boolean).join("; ");
+  ]
+    .filter(Boolean)
+    .join("; ");
   document.cookie = cookieOptions;
 }
 
 function getAuthCookie(): boolean {
-  if (typeof window === 'undefined') return false;
+  if (typeof window === "undefined") return false;
   const cookieAuth = document.cookie
     .split("; ")
     .find((row) => row.startsWith("learnapt-admin-auth="));
@@ -69,7 +73,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   // Detect Supabase configuration on mount
   useEffect(() => {
-    setUseSupabase(!!(supabase && process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY));
+    setUseSupabase(
+      !!(
+        supabase &&
+        process.env.NEXT_PUBLIC_SUPABASE_URL &&
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+      )
+    );
   }, [supabase]);
 
   // Initialize authentication state on mount
@@ -79,7 +89,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       if (useSupabase && supabase) {
         // Supabase session init
         try {
-          const { data: { session } } = await supabase.auth.getSession();
+          const {
+            data: { session },
+          } = await supabase.auth.getSession();
           if (session) {
             setUser(session.user);
             setIsAuthenticated(true);
@@ -98,7 +110,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           clearAuthCookie();
         }
         // Listen for auth changes
-        const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+        const {
+          data: { subscription },
+        } = supabase.auth.onAuthStateChange((_event, session) => {
           if (session) {
             setUser(session.user);
             setIsAuthenticated(true);
@@ -115,7 +129,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         return () => subscription.unsubscribe();
       } else {
         // Legacy cookie fallback (dev/demo only)
-        if (typeof window !== 'undefined') {
+        if (typeof window !== "undefined") {
           try {
             const storedAuth = sessionStorage.getItem(AUTH_STORAGE_KEY);
             const hasCookie = getAuthCookie();
@@ -146,12 +160,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           // Provide user-friendly error messages for common authentication issues
           // Note: String matching is defensive - Supabase should provide consistent error messages
           const errorMsg = error.message.toLowerCase();
-          if (errorMsg.includes('email not confirmed') || 
-              errorMsg.includes('verify') ||
-              errorMsg.includes('confirmation')) {
-            return { 
-              success: false, 
-              error: "Please confirm your email address before logging in. Check your inbox for the confirmation link." 
+          if (
+            errorMsg.includes("email not confirmed") ||
+            errorMsg.includes("verify") ||
+            errorMsg.includes("confirmation")
+          ) {
+            return {
+              success: false,
+              error:
+                "Please confirm your email address before logging in. Check your inbox for the confirmation link.",
             };
           }
           return { success: false, error: error.message };
@@ -173,7 +190,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       // Legacy fallback (dev/demo only)
       if (password === ADMIN_PASSWORD) {
         setIsAuthenticated(true);
-        if (typeof window !== 'undefined') {
+        if (typeof window !== "undefined") {
           sessionStorage.setItem(AUTH_STORAGE_KEY, "true");
         }
         setAuthCookie("true");
@@ -205,9 +222,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             return { success: true };
           }
           // Email needs confirmation - provide clear instructions
-          return { 
-            success: true, 
-            error: "Registration successful! Please check your email inbox for a confirmation link. You must confirm your email before you can log in." 
+          return {
+            success: true,
+            error:
+              "Registration successful! Please check your email inbox for a confirmation link. You must confirm your email before you can log in.",
           };
         }
         return { success: false, error: "Failed to create account" };
@@ -215,27 +233,32 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         return { success: false, error: "An unexpected error occurred" };
       }
     } else {
-      return { success: false, error: "Registration is not available. Use the default password (dev only)." };
+      return {
+        success: false,
+        error: "Registration is not available. Use the default password (dev only).",
+      };
     }
   };
 
   // Google OAuth sign-in function
   const signInWithGoogle = async () => {
     if (!useSupabase || !supabase) {
-      return { success: false, error: "Google sign-in is not available. Supabase is not configured." };
+      return {
+        success: false,
+        error: "Google sign-in is not available. Supabase is not configured.",
+      };
     }
 
     try {
       // Get the redirect URL - use current origin plus /admin as the destination
-      const redirectUrl = typeof window !== 'undefined' 
-        ? `${window.location.origin}/admin` 
-        : undefined;
+      const redirectUrl =
+        typeof window !== "undefined" ? `${window.location.origin}/admin` : undefined;
 
       const { data, error } = await supabase.auth.signInWithOAuth({
-        provider: 'google',
+        provider: "google",
         options: {
           redirectTo: redirectUrl,
-        }
+        },
       });
 
       if (error) {
@@ -246,8 +269,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       // When they return, the auth state listener will update the session
       return { success: true };
     } catch (error) {
-      console.error('Google sign-in error:', error);
-      return { success: false, error: 'Failed to initiate Google sign-in. Please try again.' };
+      console.error("Google sign-in error:", error);
+      return { success: false, error: "Failed to initiate Google sign-in. Please try again." };
     }
   };
 
@@ -268,7 +291,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     } else {
       // Legacy
       setIsAuthenticated(false);
-      if (typeof window !== 'undefined') {
+      if (typeof window !== "undefined") {
         sessionStorage.removeItem(AUTH_STORAGE_KEY);
       }
       clearAuthCookie();
@@ -288,19 +311,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       if (useSupabase && user && supabase) {
         try {
           const { data, error } = await supabase
-            .from('profiles')
-            .select('is_admin')
-            .eq('id', user.id)
+            .from("profiles")
+            .select("is_admin")
+            .eq("id", user.id)
             .single();
-          
+
           if (error) {
-            console.error('Error checking admin status:', error.message);
+            console.error("Error checking admin status:", error.message);
             setIsAdmin(false);
           } else {
             setIsAdmin(data?.is_admin === true);
           }
         } catch (error) {
-          console.error('Error in checkAdminStatus:', error);
+          console.error("Error in checkAdminStatus:", error);
           setIsAdmin(false);
         }
       } else {
@@ -325,11 +348,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     userEmail,
   };
 
-  return (
-    <AuthContext.Provider value={value}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
 // Hook
