@@ -34,21 +34,22 @@ export default function SharedNavbar({
   };
 
   return (
-    <nav className="bg-white text-gray-800 px-6 py-3 shadow-md sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto flex justify-between items-center">
-        {/* Logo and Brand */}
-        <Link href={homeUrl} className="flex items-center hover:opacity-90 transition gap-3">
+    <nav className="bg-white text-gray-800 px-4 py-3 shadow-md sticky top-0 z-50">
+      <div className="max-w-7xl mx-auto flex justify-between items-center gap-4">
+        {/* Logo and Brand - Compact version */}
+        <Link href={homeUrl} className="flex items-center hover:opacity-90 transition gap-2 flex-shrink-0">
           {/* AI Cloud Enterprises Logo */}
           <div className="flex flex-col items-center">
-            <div className="relative w-12 h-12 flex-shrink-0">
+            <div className="relative w-10 h-10 flex-shrink-0">
               <Image
                 src="/images/ai-cloud-logo.png"
                 alt="AI Cloud Enterprises Logo"
                 fill
                 className="object-contain"
+                sizes="40px"
               />
             </div>
-            <span className="text-[8px] text-gray-600 text-center leading-tight mt-0.5">
+            <span className="text-[7px] text-gray-600 text-center leading-tight mt-0.5 hidden sm:block">
               AI Cloud
               <br />
               Enterprises
@@ -57,24 +58,25 @@ export default function SharedNavbar({
 
           {/* iiskills Logo */}
           <div className="flex flex-col items-center">
-            <div className="relative w-10 h-10 flex-shrink-0">
+            <div className="relative w-9 h-9 flex-shrink-0">
               <Image
                 src="/images/iiskills-logo.png"
                 alt="IISKILLS Logo"
                 fill
                 className="object-contain"
+                sizes="36px"
               />
             </div>
-            <span className="text-[7px] text-gray-600 text-center leading-tight mt-0.5 max-w-[60px]">
+            <span className="text-[7px] text-gray-600 text-center leading-tight mt-0.5 max-w-[50px] hidden sm:block">
               Indian Institute of Professional Skills Development
             </span>
           </div>
 
-          <span className="font-bold text-xl text-gray-800 ml-2">{appName}</span>
+          <span className="font-bold text-lg sm:text-xl text-gray-800">{appName}</span>
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex space-x-6 font-medium items-center">
+        <div className="hidden md:flex flex-wrap gap-2 lg:gap-3 xl:gap-4 font-medium items-center justify-end flex-1">
           {customLinks.map((link, index) => (
             <Link
               key={index}
