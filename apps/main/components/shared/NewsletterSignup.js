@@ -100,11 +100,12 @@ export default function NewsletterSignup({
     <div className={mode === "modal" ? "p-6" : "p-8"}>
       <div className="text-center mb-6">
         <h2
+          id="newsletter-popup-title"
           className={`font-bold ${mode === "modal" ? "text-2xl" : "text-3xl"} text-gray-800 mb-3`}
         >
           📧 Subscribe to Our Newsletter
         </h2>
-        <p className="text-gray-600 text-sm md:text-base">
+        <p id="newsletter-popup-description" className="text-gray-600 text-sm md:text-base">
           Get the latest updates, learning resources, and exclusive content delivered to your inbox.
         </p>
       </div>
@@ -197,13 +198,17 @@ export default function NewsletterSignup({
     return (
       <div
         className={`fixed bottom-6 right-6 z-50 max-w-md w-full mx-4 sm:mx-0 ${isClosing ? "animate-slide-out-right" : "animate-slide-in-right"}`}
+        role="dialog"
+        aria-live="polite"
+        aria-labelledby="newsletter-popup-title"
+        aria-describedby="newsletter-popup-description"
       >
         <div className="bg-white rounded-2xl shadow-2xl relative border-2 border-primary">
           {onClose && (
             <button
               onClick={onClose}
               className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition z-10"
-              aria-label="Close"
+              aria-label="Close newsletter popup"
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path

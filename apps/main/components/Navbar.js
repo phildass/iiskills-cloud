@@ -72,7 +72,7 @@ export default function Navbar() {
           className:
             "bg-accent text-white px-3 py-1.5 rounded hover:bg-purple-600 transition font-medium",
           mobileClassName:
-            "block bg-accent text-white px-4 py-2 rounded hover:bg-purple-600 transition font-bold",
+            "block bg-accent text-white px-4 py-2 rounded hover:bg-purple-600 transition font-medium",
           target: "_blank",
           rel: "noopener noreferrer",
         },
