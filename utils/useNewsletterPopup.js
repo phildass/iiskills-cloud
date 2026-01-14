@@ -39,10 +39,15 @@ export function useNewsletterPopup(displayDurationSeconds = 10) {
         // Check localStorage for subscription status
         const storedData = localStorage.getItem(STORAGE_KEY);
         if (storedData) {
-          const { subscribed } = JSON.parse(storedData);
-          // Don't show if user already subscribed
-          if (subscribed) {
-            return;
+          try {
+            const { subscribed } = JSON.parse(storedData);
+            // Don't show if user already subscribed
+            if (subscribed) {
+              return;
+            }
+          } catch (error) {
+            console.error("Error parsing newsletter popup data:", error);
+            // Continue to show popup if parsing fails
           }
         }
 

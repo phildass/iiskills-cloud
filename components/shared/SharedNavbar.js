@@ -74,7 +74,7 @@ export default function SharedNavbar({
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex space-x-4 lg:space-x-6 font-medium items-center flex-wrap">
+        <div className="hidden md:flex space-x-4 lg:space-x-6 font-medium items-center">
           {customLinks.map((link, index) => (
             <Link
               key={index}
