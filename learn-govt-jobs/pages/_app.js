@@ -2,6 +2,9 @@ import "../styles/globals.css";
 import { useEffect, useState } from "react";
 import { supabase, getCurrentUser } from "../lib/supabaseClient";
 import AuthenticationChecker from "../../components/shared/AuthenticationChecker";
+import AIAssistant from "../components/shared/AIAssistant";
+import NewsletterSignup from "../components/shared/NewsletterSignup";
+import { useNewsletterPopup } from "../utils/useNewsletterPopup";
 
 /**
  * Main App Component for Learn Government Jobs
@@ -14,6 +17,7 @@ import AuthenticationChecker from "../../components/shared/AuthenticationChecker
 function MyApp({ Component, pageProps }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const { showPopup, closePopup } = useNewsletterPopup(7); // Show every 7 days
 
   useEffect(() => {
     // Check for existing session on mount
@@ -39,6 +43,18 @@ function MyApp({ Component, pageProps }) {
     <>
       <AuthenticationChecker />
       <Component {...pageProps} user={user} loading={loading} />
+
+      {/* AI Assistant - always visible */}
+      <AIAssistant />
+
+      {/* Newsletter Popup - shows based on timing */}
+      {showPopup && (
+        <NewsletterSignup
+          mode="modal"
+          onClose={() => closePopup(false)}
+          onSuccess={() => closePopup(true)}
+        />
+      )}
     </>
   );
 }

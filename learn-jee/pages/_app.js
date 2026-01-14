@@ -6,11 +6,15 @@ import { useState, useEffect } from "react";
 import { supabase, getCurrentUser, signOutUser } from "../lib/supabaseClient";
 import AuthenticationChecker from "../../components/shared/AuthenticationChecker";
 import Footer from "../components/Footer";
+import AIAssistant from "../components/shared/AIAssistant";
+import NewsletterSignup from "../components/shared/NewsletterSignup";
+import { useNewsletterPopup } from "../utils/useNewsletterPopup";
 
 export default function App({ Component, pageProps }) {
   const router = useRouter();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const { showPopup, closePopup } = useNewsletterPopup(7); // Show every 7 days
 
   useEffect(() => {
     const checkUser = async () => {
@@ -95,6 +99,18 @@ export default function App({ Component, pageProps }) {
       <Component {...pageProps} user={user} />
 
       <Footer />
+
+      {/* AI Assistant - always visible */}
+      <AIAssistant />
+
+      {/* Newsletter Popup - shows based on timing */}
+      {showPopup && (
+        <NewsletterSignup
+          mode="modal"
+          onClose={() => closePopup(false)}
+          onSuccess={() => closePopup(true)}
+        />
+      )}
     </>
   );
 }
