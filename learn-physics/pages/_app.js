@@ -5,11 +5,15 @@ import SharedNavbar from "../../components/shared/SharedNavbar";
 import SubdomainNavbar from "../../components/shared/SubdomainNavbar";
 import AuthenticationChecker from "../../components/shared/AuthenticationChecker";
 import Footer from "../components/Footer";
+import AIAssistant from "../components/shared/AIAssistant";
+import NewsletterSignup from "../components/shared/NewsletterSignup";
 import { supabase, getCurrentUser, signOutUser } from "../lib/supabaseClient";
+import { useNewsletterPopup } from "../utils/useNewsletterPopup";
 
 export default function App({ Component, pageProps }) {
   const [user, setUser] = useState(null);
   const router = useRouter();
+  const { showPopup, closePopup } = useNewsletterPopup(7); // Show every 7 days
 
   useEffect(() => {
     const checkUser = async () => {
@@ -111,6 +115,18 @@ export default function App({ Component, pageProps }) {
       <SubdomainNavbar subdomainName="Learn Physics" sections={subdomainSections} />
       <Component {...pageProps} />
       <Footer />
+
+      {/* AI Assistant - always visible */}
+      <AIAssistant />
+
+      {/* Newsletter Popup - shows based on timing */}
+      {showPopup && (
+        <NewsletterSignup
+          mode="modal"
+          onClose={() => closePopup(false)}
+          onSuccess={() => closePopup(true)}
+        />
+      )}
     </>
   );
 }
