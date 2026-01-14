@@ -14,7 +14,7 @@ import { useNewsletterPopup } from "../utils/useNewsletterPopup";
 export default function App({ Component, pageProps }) {
   const [user, setUser] = useState(null);
   const router = useRouter();
-  const { showPopup, closePopup, isClosing } = useNewsletterPopup(30); // Show every 7 days
+  const { showPopup, closePopup, isClosing } = useNewsletterPopup(30); // Show for 30 seconds on each page load
 
   useEffect(() => {
     const checkUser = async () => {

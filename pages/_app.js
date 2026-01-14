@@ -18,7 +18,7 @@ export default function App({ Component, pageProps }) {
       {/* AI Assistant - always visible */}
       <AIAssistant />
 
-      {/* Newsletter Popup - shows based on timing and auth status */}
+      {/* Newsletter Popup - shows for 30s to unauthenticated users and auth status */}
       {showPopup && (
         <NewsletterSignup
           mode="modal"
