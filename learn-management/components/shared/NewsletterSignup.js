@@ -97,119 +97,140 @@ export default function NewsletterSignup({
   };
 
   const formContent = (
-    <div className={mode === "modal" ? "p-6" : "p-8"}>
-      <div className="text-center mb-6">
-        <h2
-          className={`font-bold ${mode === "modal" ? "text-2xl" : "text-3xl"} text-gray-800 mb-3`}
-        >
-          📧 Subscribe to Our Newsletter
-        </h2>
-        <p className="text-gray-600 text-sm md:text-base">
-          Get the latest updates, learning resources, and exclusive content delivered to your inbox.
-        </p>
+    <div className={mode === "modal" ? "grid md:grid-cols-2 gap-0 max-h-[90vh] overflow-hidden" : "p-8"}>
+      {/* Left Column - Form */}
+      <div className={mode === "modal" ? "p-8 md:p-10 flex flex-col justify-center" : ""}>
+        <div className="mb-8">
+          <h2
+            className={`font-bold ${mode === "modal" ? "text-3xl md:text-4xl" : "text-3xl"} text-gray-900 mb-4 leading-tight`}
+            style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
+          >
+            Stay Inspired
+          </h2>
+          <p className="text-gray-600 text-base leading-relaxed">
+            Subscribe to receive curated learning resources, insights, and exclusive updates directly to your inbox.
+          </p>
+        </div>
+
+        <form onSubmit={handleSubmit} className="space-y-5">
+          <div>
+            <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-3 tracking-wide uppercase" style={{ letterSpacing: '0.05em' }}>
+              Email Address
+            </label>
+            <input
+              type="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="your.email@example.com"
+              required
+              className="w-full px-5 py-4 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all text-base bg-white"
+            />
+          </div>
+
+          {message.text && (
+            <div
+              className={`p-4 rounded-lg text-sm ${
+                message.type === "success"
+                  ? "bg-green-50 text-green-800 border-2 border-green-200"
+                  : "bg-red-50 text-red-800 border-2 border-red-200"
+              }`}
+            >
+              {message.text}
+            </div>
+          )}
+
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="w-full bg-gradient-to-r from-primary to-blue-600 hover:from-blue-600 hover:to-primary text-white font-semibold py-4 px-8 rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+          >
+            {isSubmitting ? "Subscribing..." : "Subscribe Now"}
+          </button>
+
+          <div className="text-xs text-gray-500 space-y-2 leading-relaxed">
+            <p>
+              By subscribing, you agree to our{" "}
+              <a
+                href="/privacy"
+                className="text-primary hover:underline font-medium"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Privacy Policy
+              </a>{" "}
+              and{" "}
+              <a
+                href="/terms"
+                className="text-primary hover:underline font-medium"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Terms of Service
+              </a>
+              .
+            </p>
+            <p className="text-xs text-gray-400">
+              This site is protected by reCAPTCHA and the Google{" "}
+              <a
+                href="https://policies.google.com/privacy"
+                className="text-primary hover:underline"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Privacy Policy
+              </a>{" "}
+              and{" "}
+              <a
+                href="https://policies.google.com/terms"
+                className="text-primary hover:underline"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Terms of Service
+              </a>{" "}
+              apply.
+            </p>
+          </div>
+        </form>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-            Email Address
-          </label>
-          <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="your.email@example.com"
-            required
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition"
-          />
-        </div>
-
-        {message.text && (
-          <div
-            className={`p-3 rounded-lg text-sm ${
-              message.type === "success"
-                ? "bg-green-50 text-green-800 border border-green-200"
-                : "bg-red-50 text-red-800 border border-red-200"
-            }`}
-          >
-            {message.text}
+      {/* Right Column - Logo (Modal only) */}
+      {mode === "modal" && (
+        <div className="hidden md:flex bg-gradient-to-br from-primary/5 to-accent/5 items-center justify-center p-10 relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-accent/10 opacity-50"></div>
+          <div className="relative z-10 text-center">
+            <img 
+              src="/images/iiskills-logo.png" 
+              alt="iiskills.cloud" 
+              className="w-full max-w-xs mx-auto mb-6 drop-shadow-2xl"
+            />
+            <p className="text-gray-600 text-sm italic mt-6" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
+              "Empowering minds, transforming futures"
+            </p>
           </div>
-        )}
-
-        <button
-          type="submit"
-          disabled={isSubmitting}
-          className="w-full bg-primary hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          {isSubmitting ? "Subscribing..." : "Subscribe Now"}
-        </button>
-
-        <div className="text-xs text-gray-500 text-center space-y-1">
-          <p>
-            By subscribing, you agree to our{" "}
-            <a
-              href="/privacy"
-              className="text-primary hover:underline"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Privacy Policy
-            </a>{" "}
-            and{" "}
-            <a
-              href="/terms"
-              className="text-primary hover:underline"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Terms of Service
-            </a>
-            .
-          </p>
-          <p className="text-xs text-gray-400 mt-2">
-            This site is protected by reCAPTCHA and the Google{" "}
-            <a
-              href="https://policies.google.com/privacy"
-              className="text-primary hover:underline"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Privacy Policy
-            </a>{" "}
-            and{" "}
-            <a
-              href="https://policies.google.com/terms"
-              className="text-primary hover:underline"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Terms of Service
-            </a>{" "}
-            apply.
-          </p>
         </div>
-      </form>
+      )}
     </div>
   );
 
   if (mode === "modal") {
     return (
       <div
-        className={`fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4 ${isClosing ? "animate-fade-out" : "animate-fade-in"}`}
+        className={`fixed inset-0 flex items-center justify-center z-50 p-4 pointer-events-none ${isClosing ? "animate-fade-out" : "animate-fade-in"}`}
       >
-        <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full relative animate-slide-up">
+        <div className="bg-white rounded-3xl shadow-2xl max-w-4xl w-full relative animate-slide-up pointer-events-auto" style={{ boxShadow: '0 25px 80px rgba(0, 0, 0, 0.2)' }}>
           {onClose && (
             <button
               onClick={onClose}
-              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition"
+              className="absolute top-5 right-5 text-gray-400 hover:text-gray-700 transition-colors bg-white rounded-full p-2 shadow-md hover:shadow-lg z-10"
               aria-label="Close"
             >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  strokeWidth={2}
+                  strokeWidth={2.5}
                   d="M6 18L18 6M6 6l12 12"
                 />
               </svg>
