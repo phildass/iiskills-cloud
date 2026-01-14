@@ -3,7 +3,6 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import type { User } from "@supabase/supabase-js";
 
 interface CustomLink {
@@ -48,9 +47,9 @@ export default function SharedNavbar({
 
   return (
     <nav className="bg-white text-gray-800 px-6 py-3 shadow-md sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto flex justify-between items-center">
+      <div className="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-y-2">
         {/* Logo and Brand */}
-        <Link href={homeUrl} className="flex items-center hover:opacity-90 transition gap-3">
+        <Link href={homeUrl} className="flex items-center hover:opacity-90 transition gap-3 flex-shrink-0">
           {/* AI Cloud Enterprises Logo */}
           <div className="flex flex-col items-center">
             <div className="relative w-12 h-12 flex-shrink-0">
@@ -87,12 +86,12 @@ export default function SharedNavbar({
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex space-x-6 font-medium items-center">
+        <div className="hidden md:flex md:flex-wrap md:gap-x-4 lg:gap-x-6 md:gap-y-2 font-medium items-center md:justify-end md:flex-1">
           {customLinks.map((link, index) => (
             <Link
               key={index}
               href={link.href}
-              className={link.className || "hover:text-primary transition"}
+              className={link.className || "hover:text-primary transition whitespace-nowrap"}
               target={link.target}
               rel={link.rel}
             >
@@ -106,17 +105,17 @@ export default function SharedNavbar({
               {user ? (
                 // User is logged in - show email and logout button
                 <>
-                  <span className="text-sm text-gray-600">{user.email || "User"}</span>
+                  <span className="text-sm text-gray-600 whitespace-nowrap">{user.email || "User"}</span>
                   <button
                     onClick={handleLogout}
-                    className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition font-bold"
+                    className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition font-bold whitespace-nowrap"
                   >
                     Logout
                   </button>
                 </>
               ) : (
                 // User is not logged in - show sign in only (Register is in customLinks)
-                <Link href="/admin" className="hover:text-primary transition">
+                <Link href="/admin" className="hover:text-primary transition whitespace-nowrap">
                   Sign In
                 </Link>
               )}
