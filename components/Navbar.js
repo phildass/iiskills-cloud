@@ -65,7 +65,6 @@ export default function Navbar() {
           href: "/newsletter",
           label: "Newsletter",
           className: "hover:text-primary transition text-sm",
-          icon: "📧",
         },
         {
           href: "https://www.aienter.in/payments",
