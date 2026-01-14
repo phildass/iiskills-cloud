@@ -1,17 +1,6 @@
-@import "tailwindcss";
-
-@theme {
-  --color-primary: #0052cc;
-  --color-accent: #c77ddb;
-  --color-neutral: #f8f9fa;
-  --color-charcoal: #24272a;
-  --color-pastel-blue-light: #b8d4f1;
-  --color-pastel-blue: #9bc4e9;
-  --color-pastel-lavender-light: #d5c6e8;
-  --color-pastel-lavender: #c2a9d9;
-
-  --font-family-sans: "Inter", Arial, sans-serif;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 /* Global resets */
 * {
@@ -27,9 +16,9 @@ body {
 }
 
 body {
-  font-family: var(--font-family-sans);
-  background: var(--color-neutral);
-  color: var(--color-charcoal);
+  font-family: "Inter", Arial, sans-serif;
+  background: #f8f9fa;
+  color: #24272a;
 }
 
 /* Blinking animation for FREE label */
