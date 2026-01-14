@@ -14,7 +14,7 @@ export default function App({ Component, pageProps }) {
   const router = useRouter();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const { showPopup, closePopup } = useNewsletterPopup(7); // Show every 7 days
+  const { showPopup, closePopup, isClosing } = useNewsletterPopup(30); // Show for 30 seconds on each page load
 
   useEffect(() => {
     const checkUser = async () => {
@@ -109,6 +109,7 @@ export default function App({ Component, pageProps }) {
           mode="modal"
           onClose={() => closePopup(false)}
           onSuccess={() => closePopup(true)}
+          isClosing={isClosing}
         />
       )}
     </>

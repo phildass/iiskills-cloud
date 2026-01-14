@@ -12,8 +12,14 @@ import { useRouter } from "next/router";
  * - mode: 'modal' | 'embedded' (default: 'embedded')
  * - onClose: Callback function when modal is closed (modal mode only)
  * - onSuccess: Callback function when subscription is successful
+ * - isClosing: Boolean flag to trigger fade-out animation (modal mode only)
  */
-export default function NewsletterSignup({ mode = "embedded", onClose = null, onSuccess = null }) {
+export default function NewsletterSignup({
+  mode = "embedded",
+  onClose = null,
+  onSuccess = null,
+  isClosing = false,
+}) {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -189,7 +195,9 @@ export default function NewsletterSignup({ mode = "embedded", onClose = null, on
 
   if (mode === "modal") {
     return (
-      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4 animate-fade-in">
+      <div
+        className={`fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4 ${isClosing ? "animate-fade-out" : "animate-fade-in"}`}
+      >
         <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full relative animate-slide-up">
           {onClose && (
             <button

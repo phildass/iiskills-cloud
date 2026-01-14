@@ -268,7 +268,6 @@
   version "1.0.0"
   resolved "file:apps/main"
   dependencies:
-    "@iiskills/shared-ui" "*"
     "@supabase/supabase-js" "^2.89.0"
     html2canvas "^1.4.1"
     jspdf "^3.0.4"
@@ -2294,8 +2293,8 @@ language-tags@^1.0.9:
     "@supabase/supabase-js" "^2.89.0"
     lucide-react "^0.468.0"
     next "^16.1.1"
-    react "19.2.0"
-    react-dom "19.2.0"
+    react "^19.2.0"
+    react-dom "^19.2.0"
 
 "learn-chemistry@file:/home/runner/work/iiskills-cloud/iiskills-cloud/learn-chemistry":
   version "1.0.0"
