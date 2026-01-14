@@ -37,7 +37,10 @@ export default function SharedNavbar({
     <nav className="bg-white text-gray-800 px-4 py-3 shadow-md sticky top-0 z-50">
       <div className="max-w-7xl mx-auto flex justify-between items-center gap-4">
         {/* Logo and Brand - Compact version */}
-        <Link href={homeUrl} className="flex items-center hover:opacity-90 transition gap-2 flex-shrink-0">
+        <Link
+          href={homeUrl}
+          className="flex items-center hover:opacity-90 transition gap-2 flex-shrink-0"
+        >
           {/* AI Cloud Enterprises Logo */}
           <div className="flex flex-col items-center">
             <div className="relative w-10 h-10 flex-shrink-0">
