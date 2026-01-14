@@ -54,26 +54,29 @@ export default function Navbar() {
       homeUrl="/"
       showAuthButtons={true}
       customLinks={[
-        { href: "/", label: "Home", className: "hover:text-primary transition" },
-        { href: "/courses", label: "Courses", className: "hover:text-primary transition" },
+        { href: "/", label: "Home", className: "hover:text-primary transition text-sm" },
+        { href: "/courses", label: "Courses", className: "hover:text-primary transition text-sm" },
         {
           href: "/certification",
           label: "Certification",
-          className: "hover:text-primary transition",
+          className: "hover:text-primary transition text-sm",
         },
-        { href: "/newsletter", label: "📧 Newsletter", className: "hover:text-primary transition" },
+        {
+          href: "/newsletter",
+          label: "Newsletter",
+          className: "hover:text-primary transition text-sm",
+        },
         {
           href: "https://www.aienter.in/payments",
           label: "Payments",
           className:
-            "bg-accent text-white px-4 py-2 rounded hover:bg-purple-600 transition font-bold",
+            "bg-accent text-white px-3 py-1.5 rounded hover:bg-purple-600 transition font-bold text-sm",
           mobileClassName:
             "block bg-accent text-white px-4 py-2 rounded hover:bg-purple-600 transition font-bold",
           target: "_blank",
           rel: "noopener noreferrer",
         },
-        { href: "/about", label: "About", className: "hover:text-primary transition" },
-        { href: "/terms", label: "Terms & Conditions", className: "hover:text-primary transition" },
+        { href: "/about", label: "About", className: "hover:text-primary transition text-sm" },
       ]}
     />
   );
