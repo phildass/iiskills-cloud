@@ -70,16 +70,17 @@ export default function SharedNavbar({
             </span>
           </div>
 
-          <span className="font-bold text-xl text-gray-800 ml-2">{appName}</span>
+          <span className="font-bold text-xl text-gray-800 ml-2 hidden lg:inline">{appName}</span>
+          <span className="font-bold text-sm text-gray-800 ml-2 lg:hidden">iiskills</span>
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex space-x-6 font-medium items-center">
+        <div className="hidden lg:flex items-center gap-3 xl:gap-4 font-medium flex-wrap">
           {customLinks.map((link, index) => (
             <Link
               key={index}
               href={link.href}
-              className={link.className || "hover:text-primary transition"}
+              className={link.className || "hover:text-primary transition whitespace-nowrap"}
               target={link.target}
               rel={link.rel}
             >
@@ -93,10 +94,10 @@ export default function SharedNavbar({
               {user ? (
                 // User is logged in - show email and logout button
                 <>
-                  <span className="text-sm text-gray-600">{user.email}</span>
+                  <span className="text-sm text-gray-600 truncate max-w-[150px]" title={user.email}>{user.email}</span>
                   <button
                     onClick={handleLogout}
-                    className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition font-bold"
+                    className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition font-bold whitespace-nowrap"
                   >
                     Logout
                   </button>
@@ -104,12 +105,12 @@ export default function SharedNavbar({
               ) : (
                 // User is not logged in - show sign in and register
                 <>
-                  <Link href="/login" className="hover:text-primary transition">
+                  <Link href="/login" className="hover:text-primary transition whitespace-nowrap">
                     Sign In
                   </Link>
                   <Link
                     href="/register"
-                    className="bg-primary text-white px-4 py-2 rounded hover:bg-blue-700 transition font-bold"
+                    className="bg-primary text-white px-4 py-2 rounded hover:bg-blue-700 transition font-bold whitespace-nowrap"
                   >
                     Register
                   </Link>
@@ -121,7 +122,7 @@ export default function SharedNavbar({
 
         {/* Mobile Menu Button */}
         <button
-          className="md:hidden text-gray-800 focus:outline-none"
+          className="lg:hidden text-gray-800 focus:outline-none"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -146,7 +147,7 @@ export default function SharedNavbar({
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="md:hidden mt-4 pb-4 space-y-3">
+        <div className="lg:hidden mt-4 pb-4 space-y-3">
           {customLinks.map((link, index) => (
             <Link
               key={index}

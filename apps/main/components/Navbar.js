@@ -63,21 +63,20 @@ export default function Navbar() {
         },
         {
           href: "/newsletter",
-          label: "📧 Newsletter",
+          label: "Newsletter",
           className: "hover:text-primary transition",
         },
         {
           href: "https://www.aienter.in/payments",
           label: "Payments",
           className:
-            "bg-accent text-white px-4 py-2 rounded hover:bg-purple-600 transition font-bold",
+            "bg-accent text-white px-3 py-1.5 rounded hover:bg-purple-600 transition font-medium",
           mobileClassName:
             "block bg-accent text-white px-4 py-2 rounded hover:bg-purple-600 transition font-bold",
           target: "_blank",
           rel: "noopener noreferrer",
         },
         { href: "/about", label: "About", className: "hover:text-primary transition" },
-        { href: "/terms", label: "Terms & Conditions", className: "hover:text-primary transition" },
       ]}
     />
   );
