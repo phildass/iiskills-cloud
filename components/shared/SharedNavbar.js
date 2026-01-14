@@ -34,13 +34,13 @@ export default function SharedNavbar({
   };
 
   return (
-    <nav className="bg-white text-gray-800 px-6 py-3 shadow-md sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto flex justify-between items-center">
+    <nav className="bg-white text-gray-800 px-4 sm:px-6 py-4 shadow-md sticky top-0 z-50">
+      <div className="max-w-7xl mx-auto flex justify-between items-center gap-4">
         {/* Logo and Brand */}
-        <Link href={homeUrl} className="flex items-center hover:opacity-90 transition gap-3">
+        <Link href={homeUrl} className="flex items-center hover:opacity-90 transition gap-2 sm:gap-4 flex-shrink-0">
           {/* AI Cloud Enterprises Logo */}
           <div className="flex flex-col items-center">
-            <div className="relative w-12 h-12 flex-shrink-0">
+            <div className="relative w-10 h-10 sm:w-12 sm:h-12 flex-shrink-0">
               <Image
                 src="/images/ai-cloud-logo.png"
                 alt="AI Cloud Enterprises Logo"
@@ -48,7 +48,7 @@ export default function SharedNavbar({
                 className="object-contain"
               />
             </div>
-            <span className="text-[8px] text-gray-600 text-center leading-tight mt-0.5">
+            <span className="hidden sm:block text-[8px] text-gray-600 text-center leading-tight mt-0.5">
               AI Cloud
               <br />
               Enterprises
@@ -57,7 +57,7 @@ export default function SharedNavbar({
 
           {/* iiskills Logo */}
           <div className="flex flex-col items-center">
-            <div className="relative w-10 h-10 flex-shrink-0">
+            <div className="relative w-8 h-8 sm:w-10 sm:h-10 flex-shrink-0">
               <Image
                 src="/images/iiskills-logo.png"
                 alt="IISKILLS Logo"
@@ -65,16 +65,16 @@ export default function SharedNavbar({
                 className="object-contain"
               />
             </div>
-            <span className="text-[7px] text-gray-600 text-center leading-tight mt-0.5 max-w-[60px]">
+            <span className="hidden sm:block text-[7px] text-gray-600 text-center leading-tight mt-0.5 max-w-[60px]">
               Indian Institute of Professional Skills Development
             </span>
           </div>
 
-          <span className="font-bold text-xl text-gray-800 ml-2">{appName}</span>
+          <span className="font-bold text-base sm:text-xl text-gray-800">{appName}</span>
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex space-x-6 font-medium items-center">
+        <div className="hidden md:flex space-x-4 lg:space-x-6 font-medium items-center flex-wrap">
           {customLinks.map((link, index) => (
             <Link
               key={index}
@@ -121,10 +121,11 @@ export default function SharedNavbar({
 
         {/* Mobile Menu Button */}
         <button
-          className="md:hidden text-gray-800 focus:outline-none"
+          className="md:hidden text-gray-800 focus:outline-none p-2 hover:bg-gray-100 rounded-lg transition"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
+          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
         >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             {isMenuOpen ? (
               <path
                 strokeLinecap="round"

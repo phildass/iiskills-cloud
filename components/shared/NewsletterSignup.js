@@ -196,13 +196,17 @@ export default function NewsletterSignup({
   if (mode === "modal") {
     return (
       <div
-        className={`fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4 ${isClosing ? "animate-fade-out" : "animate-fade-in"}`}
+        className={`fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-[100] p-4 ${isClosing ? "animate-fade-out" : "animate-fade-in"}`}
+        onClick={onClose}
       >
-        <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full relative animate-slide-up">
+        <div 
+          className="bg-white rounded-2xl shadow-2xl max-w-md w-full relative animate-slide-up"
+          onClick={(e) => e.stopPropagation()}
+        >
           {onClose && (
             <button
               onClick={onClose}
-              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition"
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition z-10 p-1 hover:bg-gray-100 rounded-full"
               aria-label="Close"
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
