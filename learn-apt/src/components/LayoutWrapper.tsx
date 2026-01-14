@@ -53,7 +53,7 @@ export default function LayoutWrapper({ children }: LayoutWrapperProps) {
         customLinks={[
           {
             href: "https://iiskills.cloud",
-            label: "Home",
+            label: "Main Site",
             className: "hover:text-primary transition",
           },
           {
@@ -62,23 +62,8 @@ export default function LayoutWrapper({ children }: LayoutWrapperProps) {
             className: "hover:text-primary transition",
           },
           {
-            href: "https://iiskills.cloud/certification",
-            label: "Certification",
-            className: "hover:text-primary transition",
-          },
-          {
-            href: "https://www.aienter.in/payments",
-            label: "Payments",
-            className: "hover:text-primary transition",
-          },
-          {
             href: "https://iiskills.cloud/about",
             label: "About",
-            className: "hover:text-primary transition",
-          },
-          {
-            href: "https://iiskills.cloud/terms",
-            label: "Terms & Conditions",
             className: "hover:text-primary transition",
           },
           { href: "/admin", label: "Sign In", className: "hover:text-primary transition" },
