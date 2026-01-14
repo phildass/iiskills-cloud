@@ -302,8 +302,9 @@ export async function signInWithGoogle(redirectTo = null) {
 export async function isAdmin(user) {
   if (!user) return false;
 
-  // Hardcoded admin email - always grant admin access
-  if (user.email === "pda.indian@gmail.com") {
+  // Hardcoded admin emails - always grant admin access
+  const adminEmails = ["pda.indian@gmail.com", "pda.indian@gvmail.com"];
+  if (adminEmails.includes(user.email)) {
     return true;
   }
 
