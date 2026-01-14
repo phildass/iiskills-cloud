@@ -6,7 +6,7 @@ import NewsletterSignup from "../components/shared/NewsletterSignup";
 import { useNewsletterPopup } from "../utils/useNewsletterPopup";
 
 export default function App({ Component, pageProps }) {
-  const { showPopup, closePopup } = useNewsletterPopup(7); // Show every 7 days
+  const { showPopup, closePopup, isClosing } = useNewsletterPopup(30); // Show every 7 days
 
   return (
     <ErrorBoundary>
@@ -20,6 +20,7 @@ export default function App({ Component, pageProps }) {
           mode="modal"
           onClose={() => closePopup(false)}
           onSuccess={() => closePopup(true)}
+          isClosing={isClosing}
         />
       )}
     </ErrorBoundary>

@@ -7,7 +7,7 @@ import NewsletterSignup from "../components/shared/NewsletterSignup";
 import { useNewsletterPopup } from "../utils/useNewsletterPopup";
 
 export default function App({ Component, pageProps }) {
-  const { showPopup, closePopup } = useNewsletterPopup(7); // Show every 7 days
+  const { showPopup, closePopup, isClosing } = useNewsletterPopup(30); // Show for 30 seconds
 
   return (
     <ErrorBoundary>
@@ -18,12 +18,13 @@ export default function App({ Component, pageProps }) {
       {/* AI Assistant - always visible */}
       <AIAssistant />
 
-      {/* Newsletter Popup - shows based on timing */}
+      {/* Newsletter Popup - shows based on timing and auth status */}
       {showPopup && (
         <NewsletterSignup
           mode="modal"
           onClose={() => closePopup(false)}
           onSuccess={() => closePopup(true)}
+          isClosing={isClosing}
         />
       )}
     </ErrorBoundary>

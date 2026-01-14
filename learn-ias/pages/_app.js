@@ -12,7 +12,7 @@ export default function App({ Component, pageProps }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
-  const { showPopup, closePopup } = useNewsletterPopup(7); // Show every 7 days
+  const { showPopup, closePopup, isClosing } = useNewsletterPopup(30); // Show every 7 days
 
   useEffect(() => {
     // Check active session
@@ -105,6 +105,7 @@ export default function App({ Component, pageProps }) {
           mode="modal"
           onClose={() => closePopup(false)}
           onSuccess={() => closePopup(true)}
+          isClosing={isClosing}
         />
       )}
     </>

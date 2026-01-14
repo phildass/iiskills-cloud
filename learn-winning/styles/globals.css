@@ -1,14 +1,16 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-/* Theme colors as CSS variables */
-:root {
-  --color-primary: #0052CC;
-  --color-accent: #C77DDB;
-  --color-neutral: #F8F9FA;
+@theme {
+  --color-primary: #0052cc;
+  --color-accent: #c77ddb;
+  --color-neutral: #f8f9fa;
   --color-charcoal: #24272a;
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+  --color-pastel-blue-light: #b8d4f1;
+  --color-pastel-blue: #9bc4e9;
+  --color-pastel-lavender-light: #d5c6e8;
+  --color-pastel-lavender: #c2a9d9;
+
+  --font-family-sans: "Inter", Arial, sans-serif;
 }
 
 /* Global resets */
@@ -25,13 +27,68 @@ body {
 }
 
 body {
+  font-family: var(--font-family-sans);
+  background: var(--color-neutral);
   color: var(--color-charcoal);
-  background: #ffffff;
-  font-family: var(--font-sans);
 }
 
-/* Example: remove link underline and inherit color */
-a {
-  color: inherit;
-  text-decoration: none;
+/* Blinking animation for FREE label */
+@keyframes blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+/* Fade in animation for modals */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Slide up animation for modal content */
+@keyframes slide-up {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Fade out animation for modals */
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+/* Only apply animation if user hasn't requested reduced motion */
+@media (prefers-reduced-motion: no-preference) {
+  .blink-animation {
+    animation: blink 2s ease-in-out infinite;
+  }
+
+  .animate-fade-in {
+    animation: fade-in 0.3s ease-out;
+  }
+
+  .animate-fade-out {
+    animation: fade-out 0.3s ease-out;
+  }
+
+  .animate-slide-up {
+    animation: slide-up 0.3s ease-out;
+  }
 }
