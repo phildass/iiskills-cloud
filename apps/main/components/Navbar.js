@@ -62,6 +62,11 @@ export default function Navbar() {
           className: "hover:text-primary transition",
         },
         {
+          href: "/newsletter",
+          label: "📧 Newsletter",
+          className: "hover:text-primary transition",
+        },
+        {
           href: "https://www.aienter.in/payments",
           label: "Payments",
           className:
