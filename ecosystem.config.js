@@ -40,7 +40,7 @@ module.exports = {
       args: "start",
       env: {
         NODE_ENV: "production",
-        PORT: 3000, // Auto-assigned
+        // PORT 3000 is specified in package.json start script
       },
       instances: 1,
       autorestart: true,
@@ -60,7 +60,7 @@ module.exports = {
       args: "start",
       env: {
         NODE_ENV: "production",
-        // PORT 3007 is specified in package.json start script
+        // PORT 3002 is specified in package.json start script
       },
       instances: 1,
       autorestart: true,
@@ -80,7 +80,7 @@ module.exports = {
       args: "start",
       env: {
         NODE_ENV: "production",
-        PORT: 3001, // Auto-assigned
+        // PORT 3001 is specified in package.json start script
       },
       instances: 1,
       autorestart: true,
@@ -100,7 +100,7 @@ module.exports = {
       args: "start",
       env: {
         NODE_ENV: "production",
-        // PORT 3009 is specified in package.json start script
+        // PORT 3003 is specified in package.json start script
       },
       instances: 1,
       autorestart: true,
@@ -140,7 +140,7 @@ module.exports = {
       args: "start",
       env: {
         NODE_ENV: "production",
-        PORT: 3010, // Reassigned to resolve conflict
+        // PORT 3005 is specified in package.json start script
       },
       instances: 1,
       autorestart: true,
@@ -160,7 +160,7 @@ module.exports = {
       args: "start",
       env: {
         NODE_ENV: "production",
-        // PORT 3014 is specified in package.json start script
+        // PORT 3006 is specified in package.json start script
       },
       instances: 1,
       autorestart: true,
@@ -180,7 +180,7 @@ module.exports = {
       args: "start",
       env: {
         NODE_ENV: "production",
-        // PORT 3015 is specified in package.json start script
+        // PORT 3007 is specified in package.json start script
       },
       instances: 1,
       autorestart: true,
@@ -200,7 +200,7 @@ module.exports = {
       args: "start",
       env: {
         NODE_ENV: "production",
-        PORT: 3011, // Reassigned to resolve conflict
+        // PORT 3008 is specified in package.json start script
       },
       instances: 1,
       autorestart: true,
@@ -220,7 +220,7 @@ module.exports = {
       args: "start",
       env: {
         NODE_ENV: "production",
-        // PORT 3006 is specified in package.json start script
+        // PORT 3009 is specified in package.json start script
       },
       instances: 1,
       autorestart: true,
@@ -240,7 +240,7 @@ module.exports = {
       args: "start",
       env: {
         NODE_ENV: "production",
-        // PORT 3005 is specified in package.json start script
+        // PORT 3010 is specified in package.json start script
       },
       instances: 1,
       autorestart: true,
@@ -260,7 +260,7 @@ module.exports = {
       args: "start",
       env: {
         NODE_ENV: "production",
-        // PORT 3002 is specified in package.json start script
+        // PORT 3011 is specified in package.json start script
       },
       instances: 1,
       autorestart: true,
@@ -280,7 +280,7 @@ module.exports = {
       args: "start",
       env: {
         NODE_ENV: "production",
-        PORT: 3012, // Reassigned to resolve conflict
+        // PORT 3012 is specified in package.json start script
       },
       instances: 1,
       autorestart: true,
@@ -300,7 +300,7 @@ module.exports = {
       args: "start",
       env: {
         NODE_ENV: "production",
-        PORT: 3013, // Reassigned to resolve conflict
+        // PORT 3013 is specified in package.json start script
       },
       instances: 1,
       autorestart: true,
@@ -320,7 +320,7 @@ module.exports = {
       args: "start",
       env: {
         NODE_ENV: "production",
-        // PORT 3008 is specified in package.json start script
+        // PORT 3014 is specified in package.json start script
       },
       instances: 1,
       autorestart: true,
@@ -340,7 +340,7 @@ module.exports = {
       args: "start",
       env: {
         NODE_ENV: "production",
-        // PORT 3003 is specified in package.json start script
+        // PORT 3015 is specified in package.json start script
       },
       instances: 1,
       autorestart: true,

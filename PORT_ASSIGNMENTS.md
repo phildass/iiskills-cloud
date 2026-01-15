@@ -1,6 +1,6 @@
 # Port Assignment Changes
 
-This document describes the port reassignments made to resolve conflicts in the ecosystem.config.js.
+This document describes the port assignments for all applications in the iiskills-cloud monorepo to prevent EADDRINUSE errors when running multiple apps concurrently.
 
 ## Problem
 
@@ -12,31 +12,11 @@ Multiple applications in the repository had conflicting port assignments in thei
 - learn-neet
 - learn-physics
 
-This would have caused conflicts when running multiple apps simultaneously with PM2.
+This caused conflicts when running multiple apps simultaneously with turbo or PM2.
 
 ## Solution
 
-The `ecosystem.config.js` file has been configured to override ports for these applications using environment variables:
-
-### Original Port Assignments (from package.json)
-
-| Application | Port in package.json |
-|------------|---------------------|
-| learn-jee | 3009 (CONFLICT) |
-| learn-chemistry | 3009 (CONFLICT) |
-| learn-geography | 3009 (CONFLICT) |
-| learn-neet | 3009 (CONFLICT) |
-| learn-physics | 3009 (CONFLICT) |
-
-### New Port Assignments (from ecosystem.config.js)
-
-| Application | New Port | Status |
-|------------|----------|--------|
-| learn-jee | 3010 | ✓ Reassigned |
-| learn-chemistry | 3011 | ✓ Reassigned |
-| learn-geography | 3012 | ✓ Reassigned |
-| learn-neet | 3013 | ✓ Reassigned |
-| learn-physics | 3016 | ✓ Reassigned |
+All applications have been assigned unique, sequential ports starting from 3000. The port assignments are now consistent across both `package.json` files and `ecosystem.config.js`.
 
 ## Complete Port Map
 
@@ -45,70 +25,84 @@ Here is the complete port assignment for all applications:
 | Port | Application | Notes |
 |------|-------------|-------|
 | 3000 | iiskills-main | Main website |
-| 3001 | learn-apt | Override (no port in package.json) |
-| 3002 | learn-math | From package.json |
-| 3003 | learn-winning | From package.json |
-| 3004 | learn-data-science | From package.json |
-| 3005 | learn-management | From package.json |
-| 3006 | learn-leadership | From package.json |
-| 3007 | learn-ai | From package.json |
-| 3008 | learn-pr | From package.json |
-| 3010 | learn-jee | Override (was 3009) |
-| 3011 | learn-chemistry | Override (was 3009) |
-| 3012 | learn-geography | Override (was 3009) |
-| 3013 | learn-neet | Override (was 3009) |
-| 3014 | learn-govt-jobs | From package.json |
-| 3015 | learn-ias | From package.json |
-| 3016 | learn-physics | Override (was 3009) |
+| 3001 | learn-apt | Aptitude assessment |
+| 3002 | learn-ai | Artificial Intelligence fundamentals |
+| 3003 | learn-chemistry | Chemistry mastery |
+| 3004 | learn-data-science | Data science fundamentals |
+| 3005 | learn-geography | Geography and world exploration |
+| 3006 | learn-govt-jobs | Government job exam preparation |
+| 3007 | learn-ias | UPSC Civil Services preparation |
+| 3008 | learn-jee | JEE preparation |
+| 3009 | learn-leadership | Leadership development |
+| 3010 | learn-management | Management and business skills |
+| 3011 | learn-math | Mathematics learning |
+| 3012 | learn-neet | NEET preparation |
+| 3013 | learn-physics | Physics mastery |
+| 3014 | learn-pr | Public Relations |
+| 3015 | learn-winning | Success strategies |
 
 ## How It Works
 
-Next.js respects the `PORT` environment variable when starting. The PM2 configuration sets this variable for apps that need overrides:
+Each application has the port hardcoded in its `package.json` file:
 
-```javascript
+```json
 {
-  name: 'iiskills-learn-jee',
-  cwd: path.join(__dirname, 'learn-jee'),
-  script: 'npm',
-  args: 'start',
-  env: {
-    NODE_ENV: 'production',
-    PORT: 3010  // Overrides package.json port 3009
+  "scripts": {
+    "dev": "next dev -p 3001",
+    "start": "next start -p 3001"
   }
 }
 ```
+
+Next.js will use the port specified in the start command. The PM2 configuration (`ecosystem.config.js`) relies on these port specifications from the package.json files.
 
 ## For Developers
 
 ### Running Individual Apps
 
-When running apps individually during development, use the ports specified in their respective `package.json` files:
+When running apps individually during development, they will use the ports specified in their respective `package.json` files:
 
 ```bash
 cd learn-jee
-npm run dev  # Uses port 3009 from package.json
+npm run dev  # Uses port 3008
 ```
+
+### Running All Apps with Turbo
+
+To run all apps concurrently:
+
+```bash
+yarn dev --concurrency=17
+# or
+npm run dev
+```
+
+All apps will start on their assigned ports without conflicts.
 
 ### Running with PM2
 
-When using PM2, the ecosystem.config.js ports take precedence:
+When using PM2, the apps will use the same ports:
 
 ```bash
+pm2 start ecosystem.config.js
+# or start a specific app
 pm2 start ecosystem.config.js --only iiskills-learn-jee
-# App will run on port 3010, not 3009
 ```
 
 ### Updating Ports
 
 If you need to change a port assignment:
 
-1. Edit `ecosystem.config.js` and update the `PORT` in the `env` section
-2. **Optional:** Update the port in `package.json` for consistency
-3. Restart the app: `pm2 restart <app-name>`
+1. Edit the app's `package.json` and update the port in both `dev` and `start` scripts
+2. Update `ecosystem.config.js` comments to reflect the change
+3. Update this documentation
+4. Ensure no port conflicts exist across all applications
+5. Restart the app: `pm2 restart <app-name>` or restart your dev server
 
-### Important Notes
+## Important Notes
 
-- PM2 environment variables take precedence over package.json scripts
-- All port overrides are documented in the ecosystem.config.js comments
-- No manual updates to package.json files were made (minimal change approach)
-- Cross-platform compatible (Windows and Unix-like systems)
+- All ports are unique and sequential from 3000 to 3015
+- Port assignments are consistent across development and production
+- No environment variable overrides are needed
+- All port specifications are in the package.json files for transparency
+

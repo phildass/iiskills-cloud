@@ -4,9 +4,9 @@
   "private": true,
   "description": "Learn IAS - Comprehensive UPSC Civil Services preparation with AI-powered content",
   "scripts": {
-    "dev": "next dev -p 3015",
+    "dev": "next dev -p 3007",
     "build": "next build",
-    "start": "next start -p 3015",
+    "start": "next start -p 3007",
     "lint": "eslint ."
   },
   "dependencies": {
