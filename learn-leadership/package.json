@@ -4,9 +4,9 @@
   "private": true,
   "description": "Learn Leadership - Develop leadership capabilities and influence",
   "scripts": {
-    "dev": "next dev -p 3006",
+    "dev": "next dev -p 3009",
     "build": "next build",
-    "start": "next start -p 3006",
+    "start": "next start -p 3009",
     "lint": "eslint ."
   },
   "dependencies": {

@@ -4,9 +4,9 @@
   "private": true,
   "description": "Learn Geography - Explore world geography, physical features, and cultures",
   "scripts": {
-    "dev": "next dev -p 3009",
+    "dev": "next dev -p 3005",
     "build": "next build",
-    "start": "next start -p 3009",
+    "start": "next start -p 3005",
     "lint": "eslint ."
   },
   "dependencies": {

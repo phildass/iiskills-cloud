@@ -4,9 +4,9 @@
   "private": true,
   "description": "Learn Physics - Master physics concepts with AI-driven lessons and tests",
   "scripts": {
-    "dev": "next dev -p 3009",
+    "dev": "next dev -p 3013",
     "build": "next build",
-    "start": "next start -p 3009",
+    "start": "next start -p 3013",
     "lint": "eslint ."
   },
   "dependencies": {

@@ -4,9 +4,9 @@
   "private": true,
   "description": "Learn Government Jobs - Comprehensive preparation for government examinations",
   "scripts": {
-    "dev": "next dev -p 3014",
+    "dev": "next dev -p 3006",
     "build": "next build",
-    "start": "next start -p 3014",
+    "start": "next start -p 3006",
     "lint": "eslint ."
   },
   "dependencies": {

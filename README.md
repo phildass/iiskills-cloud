@@ -61,6 +61,38 @@ This repository contains multiple Next.js applications:
 
 Each app can be deployed independently on different subdomains while sharing authentication.
 
+## Local Port Map
+
+All applications in this monorepo have been assigned unique, sequential ports to prevent EADDRINUSE errors when running concurrently. See [PORT_ASSIGNMENTS.md](PORT_ASSIGNMENTS.md) for full details.
+
+| Port | Application | Description |
+|------|-------------|-------------|
+| 3000 | **iiskills-main** | Main website |
+| 3001 | **learn-apt** | Aptitude assessment |
+| 3002 | **learn-ai** | Artificial Intelligence fundamentals |
+| 3003 | **learn-chemistry** | Chemistry mastery |
+| 3004 | **learn-data-science** | Data science fundamentals |
+| 3005 | **learn-geography** | Geography and world exploration |
+| 3006 | **learn-govt-jobs** | Government job exam preparation |
+| 3007 | **learn-ias** | UPSC Civil Services preparation |
+| 3008 | **learn-jee** | JEE preparation |
+| 3009 | **learn-leadership** | Leadership development |
+| 3010 | **learn-management** | Management and business skills |
+| 3011 | **learn-math** | Mathematics learning |
+| 3012 | **learn-neet** | NEET preparation |
+| 3013 | **learn-physics** | Physics mastery |
+| 3014 | **learn-pr** | Public Relations |
+| 3015 | **learn-winning** | Success strategies |
+
+**Run all apps concurrently:**
+```bash
+yarn dev --concurrency=17
+# or
+npm run dev
+```
+
+All apps will start on their assigned ports without conflicts.
+
 ## Getting Started
 
 ### Quick Environment Setup
@@ -118,23 +150,23 @@ npm start
 
 ### Learning Modules
 
-All learning modules follow the same structure. Port assignments (as configured in ecosystem.config.js):
+All learning modules follow the same structure. Each has its assigned port (see Local Port Map above):
 
 - [learn-apt/README.md](learn-apt/README.md) - Port 3001
-- [learn-math/README.md](learn-math/README.md) - Port 3002
-- [learn-winning/README.md](learn-winning/README.md) - Port 3003
+- [learn-ai/README.md](learn-ai/README.md) - Port 3002
+- [learn-chemistry/README.md](learn-chemistry/README.md) - Port 3003
 - [learn-data-science/README.md](learn-data-science/README.md) - Port 3004
-- [learn-management/README.md](learn-management/README.md) - Port 3005
-- [learn-leadership/README.md](learn-leadership/README.md) - Port 3006
-- [learn-ai/README.md](learn-ai/README.md) - Port 3007
-- [learn-pr/README.md](learn-pr/README.md) - Port 3008
-- [learn-jee/README.md](learn-jee/README.md) - Port 3010
-- [learn-chemistry/README.md](learn-chemistry/README.md) - Port 3011
-- [learn-geography/README.md](learn-geography/README.md) - Port 3012 (FREE)
-- [learn-neet/README.md](learn-neet/README.md) - Port 3013
-- [learn-govt-jobs/README.md](learn-govt-jobs/README.md) - Port 3014
-- [learn-ias/README.md](learn-ias/README.md) - Port 3015
-- [learn-physics/README.md](learn-physics/README.md) - Port 3016
+- [learn-geography/README.md](learn-geography/README.md) - Port 3005 (FREE)
+- [learn-govt-jobs/README.md](learn-govt-jobs/README.md) - Port 3006
+- [learn-ias/README.md](learn-ias/README.md) - Port 3007
+- [learn-jee/README.md](learn-jee/README.md) - Port 3008
+- [learn-leadership/README.md](learn-leadership/README.md) - Port 3009
+- [learn-management/README.md](learn-management/README.md) - Port 3010
+- [learn-math/README.md](learn-math/README.md) - Port 3011
+- [learn-neet/README.md](learn-neet/README.md) - Port 3012
+- [learn-physics/README.md](learn-physics/README.md) - Port 3013
+- [learn-pr/README.md](learn-pr/README.md) - Port 3014
+- [learn-winning/README.md](learn-winning/README.md) - Port 3015
 
 Quick start for any module:
 ```bash
