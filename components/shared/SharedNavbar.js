@@ -49,7 +49,7 @@ export default function SharedNavbar({
                 alt="AI Cloud Enterprises Logo"
                 fill
                 className="object-contain"
-                sizes="56px"
+                sizes="(max-width: 640px) 48px, 56px"
               />
             </div>
             <span className="text-[8px] sm:text-[9px] text-gray-600 text-center leading-tight mt-1 hidden sm:block">
@@ -67,7 +67,7 @@ export default function SharedNavbar({
                 alt="IISKILLS Logo"
                 fill
                 className="object-contain"
-                sizes="48px"
+                sizes="(max-width: 640px) 44px, 48px"
               />
             </div>
             <span className="text-[8px] sm:text-[9px] text-gray-600 text-center leading-tight mt-1 max-w-[60px] hidden sm:block">
