@@ -1,5 +1,6 @@
+"use client";
+
 import { useState, useEffect, useRef } from "react";
-import { useRouter } from "next/router";
 
 /**
  * AIAssistant Component
@@ -13,13 +14,19 @@ import { useRouter } from "next/router";
  * - Unobtrusive styling
  * - Accessible everywhere
  */
+
+interface Message {
+  role: "user" | "assistant";
+  content: string;
+  timestamp: Date;
+}
+
 export default function AIAssistant() {
-  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const chatEndRef = useRef(null);
+  const chatEndRef = useRef<HTMLDivElement>(null);
   const [domain, setDomain] = useState("");
 
   useEffect(() => {
@@ -47,7 +54,7 @@ export default function AIAssistant() {
     }
   }, [isOpen, domain, messages.length]);
 
-  const getWelcomeMessage = (hostname) => {
+  const getWelcomeMessage = (hostname: string) => {
     const domainName = hostname.includes("iiskills.cloud")
       ? hostname.replace(".iiskills.cloud", "").replace("iiskills.cloud", "main site")
       : "iiskills.cloud";
@@ -55,8 +62,8 @@ export default function AIAssistant() {
     return `👋 Hello! I'm your AI assistant for ${domainName === "main site" ? "iiskills.cloud" : domainName}. How can I help you today?`;
   };
 
-  const getContextForDomain = (hostname) => {
-    const contexts = {
+  const getContextForDomain = (hostname: string) => {
+    const contexts: { [key: string]: string } = {
       "learn-ai": "artificial intelligence and machine learning",
       "learn-math": "mathematics education",
       "learn-physics": "physics concepts and problem-solving",
@@ -82,11 +89,11 @@ export default function AIAssistant() {
     return "professional skills development";
   };
 
-  const handleSendMessage = async (e) => {
+  const handleSendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!inputValue.trim() || isLoading) return;
 
-    const userMessage = {
+    const userMessage: Message = {
       role: "user",
       content: inputValue,
       timestamp: new Date(),
@@ -102,7 +109,7 @@ export default function AIAssistant() {
       const context = getContextForDomain(domain);
       const response = await simulateAIResponse(inputValue, context);
 
-      const assistantMessage = {
+      const assistantMessage: Message = {
         role: "assistant",
         content: response,
         timestamp: new Date(),
@@ -110,7 +117,7 @@ export default function AIAssistant() {
 
       setMessages((prev) => [...prev, assistantMessage]);
     } catch (error) {
-      const errorMessage = {
+      const errorMessage: Message = {
         role: "assistant",
         content: "Sorry, I encountered an error. Please try again.",
         timestamp: new Date(),
@@ -122,7 +129,7 @@ export default function AIAssistant() {
   };
 
   // Simulate AI response (replace with actual AI API call)
-  const simulateAIResponse = async (question, context) => {
+  const simulateAIResponse = async (question: string, context: string) => {
     // Wait a bit to simulate network call
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
@@ -151,6 +158,10 @@ export default function AIAssistant() {
       lowerQuestion.includes("fee")
     ) {
       return `We offer affordable learning at competitive prices. Visit our pricing page or specific course pages for detailed pricing information. Some courses may have special introductory offers!`;
+    }
+
+    if (lowerQuestion.includes("test") || lowerQuestion.includes("aptitude")) {
+      return `Our aptitude tests help you discover your learning preferences, problem-solving styles, and motivation drivers. We offer both brief (5-minute) and elaborate (20-40 minute) assessments. Which would you like to try?`;
     }
 
     return `Thanks for your question about ${context}! I'm here to assist you. Could you provide more details so I can give you the most helpful answer?`;

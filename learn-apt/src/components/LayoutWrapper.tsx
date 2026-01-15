@@ -4,6 +4,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import SharedNavbar from "./SharedNavbar";
 import SubdomainNavbar from "./SubdomainNavbar";
 import Footer from "./Footer";
+import AIAssistant from "./AIAssistant";
 
 interface LayoutWrapperProps {
   children: React.ReactNode;
@@ -80,6 +81,9 @@ export default function LayoutWrapper({ children }: LayoutWrapperProps) {
       <SubdomainNavbar subdomainName="Learn Aptitude" sections={subdomainSections} />
       {children}
       <Footer />
+
+      {/* AI Assistant - always visible */}
+      <AIAssistant />
     </>
   );
 }
