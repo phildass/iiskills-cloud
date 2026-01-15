@@ -46,38 +46,42 @@ export default function Home() {
       </Head>
       <main>
         {/* Hero Section */}
-        <section className="relative bg-gradient-to-r from-primary to-accent text-white py-16 overflow-hidden">
-          <div className="max-w-6xl mx-auto px-4">
-            <div className="flex flex-col md:flex-row items-center gap-8">
-              <div className="flex-1 text-center md:text-left z-10">
-                <h1 className="text-5xl font-bold mb-4">iiskills.cloud</h1>
-                <h2 className="text-3xl font-semibold mb-6">
+        <section className="relative bg-gradient-to-r from-primary to-accent text-white py-20 md:py-24 overflow-hidden">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-col md:flex-row items-center gap-12 md:gap-16">
+              <div className="flex-1 text-center md:text-left z-10 space-y-6">
+                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight">
+                  iiskills.cloud
+                </h1>
+                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold leading-snug">
                   Indian Institute of Professional Skills Development
                 </h2>
-                <p className="text-xl mb-8">Education for All, Online and Affordable</p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                <p className="text-lg sm:text-xl lg:text-2xl leading-relaxed">
+                  Education for All, Online and Affordable
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start pt-4">
                   <Link
                     href="/courses"
-                    className="inline-block bg-white text-primary px-8 py-4 rounded-lg font-bold shadow-lg hover:bg-gray-100 transition text-center"
+                    className="inline-block bg-white text-primary px-8 py-4 rounded-lg font-bold shadow-lg hover:bg-gray-100 hover:shadow-xl transition-all duration-200 text-center text-base sm:text-lg"
                   >
                     Explore Courses
                   </Link>
                   <Link
                     href="/certification"
-                    className="inline-block bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-bold hover:bg-white hover:text-primary transition text-center"
+                    className="inline-block bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-bold hover:bg-white hover:text-primary transition-all duration-200 text-center text-base sm:text-lg"
                   >
                     Learn About Certification
                   </Link>
                 </div>
               </div>
-              <div className="flex-1 relative z-10">
-                <div className="relative rounded-lg overflow-hidden shadow-2xl">
+              <div className="flex-1 relative z-10 w-full">
+                <div className="relative rounded-xl overflow-hidden shadow-2xl aspect-[4/3]">
                   <Image
                     src="/images/iiskills-image1.jpg"
                     alt="Students learning together on iiskills.cloud platform"
-                    width={800}
-                    height={600}
-                    className="w-full h-auto object-cover"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 50vw"
                     priority
                   />
                 </div>
