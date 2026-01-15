@@ -99,9 +99,7 @@ export default function NewsletterSignup({
   const formContent = (
     <div className={mode === "modal" ? "p-5" : "p-8"}>
       <div className="mb-4">
-        <h2
-          className={`font-bold ${mode === "modal" ? "text-lg" : "text-3xl"} text-gray-800 mb-2`}
-        >
+        <h2 className={`font-bold ${mode === "modal" ? "text-lg" : "text-3xl"} text-gray-800 mb-2`}>
           📧 Stay Updated!
         </h2>
         <p className="text-gray-600 text-xs md:text-sm">
@@ -168,7 +166,7 @@ export default function NewsletterSignup({
         <div className="bg-white rounded-2xl shadow-2xl border-2 border-primary relative overflow-hidden">
           {/* Accent bar at top */}
           <div className="h-1 bg-gradient-to-r from-primary to-accent"></div>
-          
+
           {onClose && (
             <button
               onClick={onClose}
