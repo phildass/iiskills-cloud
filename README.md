@@ -156,7 +156,7 @@ All learning modules follow the same structure. Each has its assigned port (see 
 - [learn-ai/README.md](learn-ai/README.md) - Port 3002
 - [learn-chemistry/README.md](learn-chemistry/README.md) - Port 3003
 - [learn-data-science/README.md](learn-data-science/README.md) - Port 3004
-- [learn-geography/README.md](learn-geography/README.md) - Port 3005 (FREE)
+- [learn-geography/README.md](learn-geography/README.md) - Port 3005
 - [learn-govt-jobs/README.md](learn-govt-jobs/README.md) - Port 3006
 - [learn-ias/README.md](learn-ias/README.md) - Port 3007
 - [learn-jee/README.md](learn-jee/README.md) - Port 3008

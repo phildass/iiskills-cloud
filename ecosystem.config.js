@@ -40,7 +40,7 @@ module.exports = {
       args: "start",
       env: {
         NODE_ENV: "production",
-        PORT: 3000, // Auto-assigned
+        // PORT 3000 is specified in package.json start script
       },
       instances: 1,
       autorestart: true,
@@ -80,7 +80,7 @@ module.exports = {
       args: "start",
       env: {
         NODE_ENV: "production",
-        PORT: 3001, // Auto-assigned
+        // PORT 3001 is specified in package.json start script
       },
       instances: 1,
       autorestart: true,
