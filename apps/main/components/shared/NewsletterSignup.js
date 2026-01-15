@@ -99,7 +99,10 @@ export default function NewsletterSignup({
   const formContent = (
     <div className={mode === "modal" ? "p-5" : "p-8"}>
       <div className="mb-4">
-        <h2 className={`font-bold ${mode === "modal" ? "text-lg" : "text-3xl"} text-gray-800 mb-2`}>
+        <h2
+          className={`font-bold ${mode === "modal" ? "text-lg" : "text-3xl"} text-gray-800 mb-2`}
+          aria-label="Stay Updated - Subscribe to Newsletter"
+        >
           📧 Stay Updated!
         </h2>
         <p className="text-gray-600 text-xs md:text-sm">
@@ -109,6 +112,9 @@ export default function NewsletterSignup({
 
       <form onSubmit={handleSubmit} className="space-y-3">
         <div>
+          <label htmlFor="email" className="sr-only">
+            Email Address
+          </label>
           <input
             type="email"
             id="email"
@@ -116,6 +122,7 @@ export default function NewsletterSignup({
             onChange={(e) => setEmail(e.target.value)}
             placeholder="your.email@example.com"
             required
+            aria-label="Email address for newsletter subscription"
             className={`w-full ${mode === "modal" ? "px-3 py-2 text-sm" : "px-4 py-3"} border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition`}
           />
         </div>
