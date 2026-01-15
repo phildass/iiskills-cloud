@@ -64,7 +64,7 @@ export default function AIAssistant() {
       "learn-jee": "JEE exam preparation",
       "learn-neet": "NEET exam preparation",
       "learn-ias": "UPSC Civil Services preparation",
-      "learn-apt": "aptitude and career guidance",
+      "learn-apt": "aptitude testing and career guidance",
       "learn-data-science": "data science and analytics",
       "learn-management": "management and business skills",
       "learn-leadership": "leadership development",
