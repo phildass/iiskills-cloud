@@ -34,25 +34,25 @@ export default function SharedNavbar({
   };
 
   return (
-    <nav className="bg-white text-gray-800 px-4 py-3 shadow-md sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto flex justify-between items-center gap-4">
-        {/* Logo and Brand - Compact version */}
+    <nav className="bg-white text-gray-800 px-4 sm:px-6 py-4 shadow-md sticky top-0 z-50">
+      <div className="max-w-7xl mx-auto flex justify-between items-center gap-6">
+        {/* Logo and Brand - Enhanced version */}
         <Link
           href={homeUrl}
-          className="flex items-center hover:opacity-90 transition gap-2 flex-shrink-0"
+          className="flex items-center hover:opacity-90 transition gap-3 flex-shrink-0"
         >
           {/* AI Cloud Enterprises Logo */}
           <div className="flex flex-col items-center">
-            <div className="relative w-10 h-10 flex-shrink-0">
+            <div className="relative w-12 h-12 sm:w-14 sm:h-14 flex-shrink-0">
               <Image
                 src="/images/ai-cloud-logo.png"
                 alt="AI Cloud Enterprises Logo"
                 fill
                 className="object-contain"
-                sizes="40px"
+                sizes="(max-width: 640px) 48px, 56px"
               />
             </div>
-            <span className="text-[7px] text-gray-600 text-center leading-tight mt-0.5 hidden sm:block">
+            <span className="text-[8px] sm:text-[9px] text-gray-600 text-center leading-tight mt-1 hidden sm:block">
               AI Cloud
               <br />
               Enterprises
@@ -61,30 +61,30 @@ export default function SharedNavbar({
 
           {/* iiskills Logo */}
           <div className="flex flex-col items-center">
-            <div className="relative w-9 h-9 flex-shrink-0">
+            <div className="relative w-11 h-11 sm:w-12 sm:h-12 flex-shrink-0">
               <Image
                 src="/images/iiskills-logo.png"
                 alt="IISKILLS Logo"
                 fill
                 className="object-contain"
-                sizes="36px"
+                sizes="(max-width: 640px) 44px, 48px"
               />
             </div>
-            <span className="text-[7px] text-gray-600 text-center leading-tight mt-0.5 max-w-[50px] hidden sm:block">
+            <span className="text-[8px] sm:text-[9px] text-gray-600 text-center leading-tight mt-1 max-w-[60px] hidden sm:block">
               Indian Institute of Professional Skills Development
             </span>
           </div>
 
-          <span className="font-bold text-lg sm:text-xl text-gray-800">{appName}</span>
+          <span className="font-bold text-xl sm:text-2xl text-gray-800">{appName}</span>
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex flex-wrap gap-2 lg:gap-3 xl:gap-4 font-medium items-center justify-end flex-1">
+        <div className="hidden md:flex flex-wrap gap-4 xl:gap-6 font-medium items-center justify-end flex-1">
           {customLinks.map((link, index) => (
             <Link
               key={index}
               href={link.href}
-              className={link.className || "hover:text-primary transition"}
+              className={link.className || "hover:text-primary transition text-base"}
               target={link.target}
               rel={link.rel}
             >
@@ -98,10 +98,10 @@ export default function SharedNavbar({
               {user ? (
                 // User is logged in - show email and logout button
                 <>
-                  <span className="text-sm text-gray-600">{user.email}</span>
+                  <span className="text-base text-gray-600 whitespace-nowrap">{user.email}</span>
                   <button
                     onClick={handleLogout}
-                    className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition font-bold"
+                    className="bg-red-600 text-white px-5 py-2.5 rounded-lg hover:bg-red-700 transition font-bold text-base whitespace-nowrap shadow-sm"
                   >
                     Logout
                   </button>
@@ -109,12 +109,15 @@ export default function SharedNavbar({
               ) : (
                 // User is not logged in - show sign in and register
                 <>
-                  <Link href="/login" className="hover:text-primary transition">
+                  <Link
+                    href="/login"
+                    className="hover:text-primary transition text-base whitespace-nowrap"
+                  >
                     Sign In
                   </Link>
                   <Link
                     href="/register"
-                    className="bg-primary text-white px-4 py-2 rounded hover:bg-blue-700 transition font-bold"
+                    className="bg-primary text-white px-5 py-2.5 rounded-lg hover:bg-blue-700 transition font-bold text-base whitespace-nowrap shadow-sm"
                   >
                     Register
                   </Link>
@@ -126,10 +129,11 @@ export default function SharedNavbar({
 
         {/* Mobile Menu Button */}
         <button
-          className="md:hidden text-gray-800 focus:outline-none"
+          className="md:hidden text-gray-800 focus:outline-none p-2"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
+          aria-label="Toggle navigation menu"
         >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             {isMenuOpen ? (
               <path
                 strokeLinecap="round"
@@ -151,14 +155,17 @@ export default function SharedNavbar({
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="md:hidden mt-4 pb-4 space-y-3">
+        <div className="md:hidden mt-4 pb-4 space-y-4 border-t border-gray-200 pt-4">
           {customLinks.map((link, index) => (
             <Link
               key={index}
               href={link.href}
-              className={link.mobileClassName || "block hover:text-primary transition"}
+              className={
+                link.mobileClassName || "block hover:text-primary transition text-base py-2"
+              }
               target={link.target}
               rel={link.rel}
+              onClick={() => setIsMenuOpen(false)}
             >
               {link.label}
             </Link>
@@ -170,10 +177,12 @@ export default function SharedNavbar({
               {user ? (
                 // User is logged in - show email and logout button
                 <>
-                  <div className="text-sm text-gray-600 px-4 py-2">{user.email}</div>
+                  <div className="text-base text-gray-600 px-4 py-2 bg-gray-50 rounded">
+                    {user.email}
+                  </div>
                   <button
                     onClick={handleLogout}
-                    className="block w-full text-left bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition font-bold"
+                    className="block w-full text-left bg-red-600 text-white px-4 py-3 rounded-lg hover:bg-red-700 transition font-bold text-base shadow-sm"
                   >
                     Logout
                   </button>
@@ -181,12 +190,17 @@ export default function SharedNavbar({
               ) : (
                 // User is not logged in - show sign in and register
                 <>
-                  <Link href="/login" className="block hover:text-primary transition">
+                  <Link
+                    href="/login"
+                    className="block hover:text-primary transition text-base py-2"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
                     Sign In
                   </Link>
                   <Link
                     href="/register"
-                    className="block bg-primary text-white px-4 py-2 rounded hover:bg-blue-700 transition font-bold"
+                    className="block bg-primary text-white px-4 py-3 rounded-lg hover:bg-blue-700 transition font-bold text-base text-center shadow-sm"
+                    onClick={() => setIsMenuOpen(false)}
                   >
                     Register
                   </Link>
