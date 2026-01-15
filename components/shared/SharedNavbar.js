@@ -79,7 +79,7 @@ export default function SharedNavbar({
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden lg:flex flex-wrap gap-4 xl:gap-6 font-medium items-center justify-end flex-1">
+        <div className="hidden md:flex flex-wrap gap-4 xl:gap-6 font-medium items-center justify-end flex-1">
           {customLinks.map((link, index) => (
             <Link
               key={index}
@@ -109,7 +109,10 @@ export default function SharedNavbar({
               ) : (
                 // User is not logged in - show sign in and register
                 <>
-                  <Link href="/login" className="hover:text-primary transition text-base whitespace-nowrap">
+                  <Link
+                    href="/login"
+                    className="hover:text-primary transition text-base whitespace-nowrap"
+                  >
                     Sign In
                   </Link>
                   <Link
@@ -126,7 +129,7 @@ export default function SharedNavbar({
 
         {/* Mobile Menu Button */}
         <button
-          className="lg:hidden text-gray-800 focus:outline-none p-2"
+          className="md:hidden text-gray-800 focus:outline-none p-2"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           aria-label="Toggle navigation menu"
         >
@@ -152,12 +155,14 @@ export default function SharedNavbar({
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="lg:hidden mt-4 pb-4 space-y-4 border-t border-gray-200 pt-4">
+        <div className="md:hidden mt-4 pb-4 space-y-4 border-t border-gray-200 pt-4">
           {customLinks.map((link, index) => (
             <Link
               key={index}
               href={link.href}
-              className={link.mobileClassName || "block hover:text-primary transition text-base py-2"}
+              className={
+                link.mobileClassName || "block hover:text-primary transition text-base py-2"
+              }
               target={link.target}
               rel={link.rel}
               onClick={() => setIsMenuOpen(false)}
