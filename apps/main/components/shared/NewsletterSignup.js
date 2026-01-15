@@ -122,7 +122,6 @@ export default function NewsletterSignup({
             onChange={(e) => setEmail(e.target.value)}
             placeholder="your.email@example.com"
             required
-            aria-label="Email address for newsletter subscription"
             className={`w-full ${mode === "modal" ? "px-3 py-2 text-sm" : "px-4 py-3"} border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition`}
           />
         </div>

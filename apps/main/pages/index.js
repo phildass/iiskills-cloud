@@ -30,6 +30,7 @@ export default function Home() {
 
     checkAdminRedirect();
     // Only run once on mount - dependencies intentionally omitted to avoid re-runs
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   // No automatic redirects - users should land on the page they requested
   // Authentication state is handled by the auth system
