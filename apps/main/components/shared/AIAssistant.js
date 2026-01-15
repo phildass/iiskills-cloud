@@ -142,7 +142,7 @@ export default function AIAssistant() {
       lowerQuestion.includes("signup") ||
       lowerQuestion.includes("sign up")
     ) {
-      return `To register, click the "Register" button in the navigation menu. Create an account once and access all iiskills.cloud apps with the same credentials!`;
+      return 'To register, click the "Register" button in the navigation menu. Create an account once and access all iiskills.cloud apps with the same credentials!';
     }
 
     if (
@@ -150,7 +150,7 @@ export default function AIAssistant() {
       lowerQuestion.includes("cost") ||
       lowerQuestion.includes("fee")
     ) {
-      return `We offer affordable learning at competitive prices. Visit our pricing page or specific course pages for detailed pricing information. Some courses may have special introductory offers!`;
+      return "We offer affordable learning at competitive prices. Visit our pricing page or specific course pages for detailed pricing information. Some courses may have special introductory offers!";
     }
 
     return `Thanks for your question about ${context}! I'm here to assist you. Could you provide more details so I can give you the most helpful answer?`;
