@@ -18,10 +18,9 @@
     "react-dom": "latest"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.1.18",
     "autoprefixer": "^10.4.14",
     "eslint": "^9.39.2",
     "postcss": "latest",
-    "tailwindcss": "latest"
+    "tailwindcss": "^3.4.1"
   }
 }

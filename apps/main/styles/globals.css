@@ -1,16 +1,19 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@theme {
-  --color-primary: #0052cc;
-  --color-accent: #c77ddb;
-  --color-neutral: #f8f9fa;
-  --color-charcoal: #24272a;
-  --color-pastel-blue-light: #b8d4f1;
-  --color-pastel-blue: #9bc4e9;
-  --color-pastel-lavender-light: #d5c6e8;
-  --color-pastel-lavender: #c2a9d9;
-
-  --font-family-sans: "Inter", Arial, sans-serif;
+@layer base {
+  :root {
+    --color-primary: #0052cc;
+    --color-accent: #c77ddb;
+    --color-neutral: #f8f9fa;
+    --color-charcoal: #24272a;
+    --color-pastel-blue-light: #b8d4f1;
+    --color-pastel-blue: #9bc4e9;
+    --color-pastel-lavender-light: #d5c6e8;
+    --color-pastel-lavender: #c2a9d9;
+    --font-family-sans: "Inter", Arial, sans-serif;
+  }
 }
 
 /* Global resets */
