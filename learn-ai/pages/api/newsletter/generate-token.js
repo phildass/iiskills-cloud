@@ -64,10 +64,9 @@ export default async function handler(req, res) {
  */
 async function fallbackGenerateToken(userId, email, res) {
   try {
-    // Generate random token
-    const token = Buffer.from(
-      Array.from({ length: 32 }, () => Math.floor(Math.random() * 256))
-    ).toString("base64");
+    // Generate cryptographically secure random token
+    const crypto = require("crypto");
+    const token = crypto.randomBytes(32).toString("base64");
 
     const expiresAt = new Date();
     expiresAt.setDate(expiresAt.getDate() + 90); // 90 days expiration

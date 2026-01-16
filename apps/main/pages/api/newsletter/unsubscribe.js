@@ -7,6 +7,9 @@ import { createClient } from "@supabase/supabase-js";
  * No login required - uses secure token-based authentication
  */
 
+// PostgreSQL error codes
+const PG_ERROR_UNDEFINED_FUNCTION = "42883"; // Function does not exist
+
 // Initialize Supabase client
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL || "",
@@ -39,7 +42,7 @@ export default async function handler(req, res) {
       console.error("Supabase RPC error:", error);
       
       // If function doesn't exist, fall back to manual processing
-      if (error.code === "42883" || error.message.includes("does not exist")) {
+      if (error.code === PG_ERROR_UNDEFINED_FUNCTION || error.message.includes("does not exist")) {
         return await fallbackUnsubscribe(token, res);
       }
       

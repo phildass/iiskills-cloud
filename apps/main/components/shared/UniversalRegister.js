@@ -242,10 +242,14 @@ export default function UniversalRegister({
       const redirectUrl =
         typeof window !== "undefined" ? `${window.location.origin}${finalRedirect}` : undefined;
 
+      // Include newsletter subscription preference in OAuth metadata
       const { error } = await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
           redirectTo: redirectUrl,
+          data: {
+            subscribed_to_newsletter: formData.subscribeToNewsletter,
+          },
         },
       });
 

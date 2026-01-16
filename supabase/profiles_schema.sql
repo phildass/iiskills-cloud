@@ -59,7 +59,12 @@ CREATE POLICY "Users can insert own profile"
 -- This automatically creates a profile row when a new user signs up
 CREATE OR REPLACE FUNCTION public.handle_new_user() 
 RETURNS trigger AS $$
+DECLARE
+  v_subscribed boolean;
 BEGIN
+  -- Get subscription preference from metadata, default to true
+  v_subscribed := COALESCE((new.raw_user_meta_data->>'subscribed_to_newsletter')::boolean, true);
+  
   INSERT INTO public.profiles (
     id, 
     is_admin,
@@ -71,13 +76,13 @@ BEGIN
   VALUES (
     new.id, 
     false,
-    COALESCE((new.raw_user_meta_data->>'subscribed_to_newsletter')::boolean, true),
+    v_subscribed,
     new.raw_user_meta_data->>'first_name',
     new.raw_user_meta_data->>'last_name',
     new.raw_user_meta_data->>'full_name'
   )
   ON CONFLICT (id) DO UPDATE SET
-    subscribed_to_newsletter = COALESCE((new.raw_user_meta_data->>'subscribed_to_newsletter')::boolean, true),
+    subscribed_to_newsletter = v_subscribed,
     first_name = COALESCE(EXCLUDED.first_name, public.profiles.first_name),
     last_name = COALESCE(EXCLUDED.last_name, public.profiles.last_name),
     full_name = COALESCE(EXCLUDED.full_name, public.profiles.full_name);
