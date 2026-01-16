@@ -20,7 +20,9 @@
     "dev:main": "cd apps/main && npm run dev",
     "generate-pm2-config": "node generate-ecosystem.js",
     "validate-pm2-config": "node validate-ecosystem.js",
-    "test-pm2-config": "node test-ecosystem.js"
+    "test-pm2-config": "node test-ecosystem.js",
+    "verify-dns": "./verify-dns-records.sh",
+    "test-resend": "node test-resend-auth.js"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.89.0",

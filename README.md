@@ -10,11 +10,13 @@ Inspired by iiskills.in and customized for the Indian Institute of Professional 
 - AI-powered content generation using GPT-4o-mini
 - Millennial/Gen Z-focused tone with emojis and fun copy
 - Automatically triggered when courses are published
-- Sends to all newsletter subscribers via SendGrid/AWS SES
+- Sends to all newsletter subscribers via **Resend** (with domain authentication)
 - Public archive at `/newsletter/archive`
 - Admin management at `/admin/newsletters` and `/admin/courses-manage`
 
 📚 **Complete guide:** See [SKILLING_NEWSLETTER_README.md](SKILLING_NEWSLETTER_README.md)
+
+📧 **Email Setup:** See [RESEND_DOMAIN_SETUP.md](RESEND_DOMAIN_SETUP.md) for domain authentication
 
 ### Newsletter Subscription System
 📧 **Subscribe to stay updated!** All apps now include a unified newsletter subscription system:
