@@ -13,7 +13,7 @@ const INTRO_GST_AMOUNT = 17.82; // Pre-calculated for accuracy
 const INTRO_TOTAL_PRICE = 116.82;
 const INTRO_END_DATE = new Date("2026-02-14T23:59:59");
 
-// Regular pricing (from February 15, 2026 midnight)
+// Regular pricing (from midnight of February 15, 2026 onwards)
 const REGULAR_BASE_PRICE = 299;
 const REGULAR_GST_AMOUNT = 53.82; // Pre-calculated for accuracy
 const REGULAR_TOTAL_PRICE = 352.82;
