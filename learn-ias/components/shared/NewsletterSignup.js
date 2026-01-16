@@ -72,7 +72,7 @@ export default function NewsletterSignup({
 
       setMessage({
         type: "success",
-        text: "Thank you for subscribing! Please check your email to confirm.",
+        text: "🎉 Thank you for subscribing! You'll only receive emails about new courses and important updates—no spam, we promise!",
       });
       setEmail("");
 
@@ -102,11 +102,19 @@ export default function NewsletterSignup({
         <h2
           className={`font-bold ${mode === "modal" ? "text-2xl" : "text-3xl"} text-gray-800 mb-3`}
         >
-          📧 Subscribe to Our Newsletter
+          📧 Subscribe to The Skilling Newsletter
         </h2>
-        <p className="text-gray-600 text-sm md:text-base">
-          Get the latest updates, learning resources, and exclusive content delivered to your inbox.
+        <p className="text-gray-600 text-sm md:text-base mb-2">
+          Stay informed about what matters most to your learning journey.
         </p>
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 text-left">
+          <p className="text-sm text-blue-900 font-medium">
+            ✉️ <strong>Our Promise:</strong>
+          </p>
+          <p className="text-xs text-blue-800 mt-1">
+            The Skilling Newsletter will be sent ONLY when new courses are introduced, or important announcements/changes are made. You will NOT receive unnecessary or frequent emails.
+          </p>
+        </div>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
