@@ -86,12 +86,21 @@ export default function AdminDashboard() {
         <h2 className="text-2xl font-bold text-accent mb-6">Quick Actions</h2>
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
           <Link
-            href="/admin/courses"
+            href="/admin/courses-manage"
             className="bg-primary text-white rounded-lg shadow p-6 hover:bg-blue-700 transition text-center"
           >
             <div className="text-3xl mb-2">📚</div>
             <h3 className="font-bold text-lg">Manage Courses</h3>
-            <p className="text-sm mt-2">Add, edit, or remove courses</p>
+            <p className="text-sm mt-2">Add, edit, publish courses</p>
+          </Link>
+
+          <Link
+            href="/admin/newsletters"
+            className="bg-purple-600 text-white rounded-lg shadow p-6 hover:bg-purple-700 transition text-center"
+          >
+            <div className="text-3xl mb-2">📧</div>
+            <h3 className="font-bold text-lg">Skilling Newsletter</h3>
+            <p className="text-sm mt-2">Manage AI newsletters</p>
           </Link>
 
           <Link
@@ -110,6 +119,15 @@ export default function AdminDashboard() {
             <div className="text-3xl mb-2">👥</div>
             <h3 className="font-bold text-lg">User Management</h3>
             <p className="text-sm mt-2">View enrolled users</p>
+          </Link>
+
+          <Link
+            href="/admin/test-newsletter"
+            className="bg-green-600 text-white rounded-lg shadow p-6 hover:bg-green-700 transition text-center"
+          >
+            <div className="text-3xl mb-2">🧪</div>
+            <h3 className="font-bold text-lg">Test Newsletter</h3>
+            <p className="text-sm mt-2">Preview AI generation</p>
           </Link>
 
           <Link

@@ -5,6 +5,17 @@ Inspired by iiskills.in and customized for the Indian Institute of Professional 
 
 ## 🆕 New Features
 
+### 🚀 Skilling Newsletter - AI-Powered Course Announcements
+**Automatically generated, engaging newsletters for every new course!**
+- AI-powered content generation using GPT-4o-mini
+- Millennial/Gen Z-focused tone with emojis and fun copy
+- Automatically triggered when courses are published
+- Sends to all newsletter subscribers via SendGrid/AWS SES
+- Public archive at `/newsletter/archive`
+- Admin management at `/admin/newsletters` and `/admin/courses-manage`
+
+📚 **Complete guide:** See [SKILLING_NEWSLETTER_README.md](SKILLING_NEWSLETTER_README.md)
+
 ### Newsletter Subscription System
 📧 **Subscribe to stay updated!** All apps now include a unified newsletter subscription system:
 - Newsletter signup available on every domain and subdomain
