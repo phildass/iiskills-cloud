@@ -51,6 +51,7 @@ export default function UniversalRegister({
     email: "",
     password: "",
     confirmPassword: "",
+    subscribeToNewsletter: true, // Default to true (opt-in by default)
   });
   const [errors, setErrors] = useState({});
   const [success, setSuccess] = useState("");
@@ -161,6 +162,7 @@ export default function UniversalRegister({
         first_name: formData.firstName,
         last_name: formData.lastName,
         full_name: `${formData.firstName} ${formData.lastName}`,
+        subscribed_to_newsletter: formData.subscribeToNewsletter,
       };
 
       if (!simplified) {
@@ -240,10 +242,14 @@ export default function UniversalRegister({
       const redirectUrl =
         typeof window !== "undefined" ? `${window.location.origin}${finalRedirect}` : undefined;
 
+      // Include newsletter subscription preference in OAuth metadata
       const { error } = await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
           redirectTo: redirectUrl,
+          data: {
+            subscribed_to_newsletter: formData.subscribeToNewsletter,
+          },
         },
       });
 
@@ -647,6 +653,56 @@ export default function UniversalRegister({
               {errors.confirmPassword && (
                 <p className="mt-1 text-sm text-red-600">{errors.confirmPassword}</p>
               )}
+            </div>
+          </div>
+
+          {/* Newsletter Subscription */}
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+            <div className="mb-3">
+              <p className="text-sm font-semibold text-blue-900 mb-1">
+                📧 Subscribe to The Skilling Newsletter
+              </p>
+              <p className="text-xs text-blue-800">
+                The Skilling Newsletter will be sent ONLY when new courses are introduced, or important announcements/changes are made. You will NOT receive unnecessary or frequent emails.
+              </p>
+            </div>
+            
+            <div className="space-y-2">
+              <label className="flex items-start space-x-3 cursor-pointer">
+                <input
+                  type="radio"
+                  name="subscribeToNewsletter"
+                  checked={formData.subscribeToNewsletter === true}
+                  onChange={() => setFormData((prev) => ({ ...prev, subscribeToNewsletter: true }))}
+                  className="mt-1 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300"
+                />
+                <div className="flex-1">
+                  <span className="text-sm font-medium text-gray-900">
+                    ✅ Yes, sign me up for updates!
+                  </span>
+                  <p className="text-xs text-gray-600">
+                    Get notified about new courses and important changes
+                  </p>
+                </div>
+              </label>
+              
+              <label className="flex items-start space-x-3 cursor-pointer">
+                <input
+                  type="radio"
+                  name="subscribeToNewsletter"
+                  checked={formData.subscribeToNewsletter === false}
+                  onChange={() => setFormData((prev) => ({ ...prev, subscribeToNewsletter: false }))}
+                  className="mt-1 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300"
+                />
+                <div className="flex-1">
+                  <span className="text-sm font-medium text-gray-900">
+                    No thanks, not right now
+                  </span>
+                  <p className="text-xs text-gray-600">
+                    You can subscribe later from your account settings
+                  </p>
+                </div>
+              </label>
             </div>
           </div>
 

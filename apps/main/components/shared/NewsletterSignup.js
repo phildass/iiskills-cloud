@@ -72,7 +72,7 @@ export default function NewsletterSignup({
 
       setMessage({
         type: "success",
-        text: "Thank you for subscribing! Please check your email to confirm.",
+        text: "🎉 Thank you for subscribing! You'll only receive emails about new courses and important updates—no spam, we promise!",
       });
       setEmail("");
 
@@ -97,22 +97,29 @@ export default function NewsletterSignup({
   };
 
   const formContent = (
-    <div className={mode === "modal" ? "p-5" : "p-8"}>
-      <div className="mb-4">
+    <div className={mode === "modal" ? "p-6" : "p-8"}>
+      <div className="text-center mb-6">
         <h2
-          className={`font-bold ${mode === "modal" ? "text-lg" : "text-3xl"} text-gray-800 mb-2`}
-          aria-label="Stay Updated - Subscribe to Newsletter"
+          className={`font-bold ${mode === "modal" ? "text-2xl" : "text-3xl"} text-gray-800 mb-3`}
         >
-          📧 Stay Updated!
+          📧 Subscribe to The Skilling Newsletter
         </h2>
-        <p className="text-gray-600 text-xs md:text-sm">
-          Get the latest updates and exclusive content.
+        <p className="text-gray-600 text-sm md:text-base mb-2">
+          Stay informed about what matters most to your learning journey.
         </p>
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 text-left">
+          <p className="text-sm text-blue-900 font-medium">
+            ✉️ <strong>Our Promise:</strong>
+          </p>
+          <p className="text-xs text-blue-800 mt-1">
+            The Skilling Newsletter will be sent ONLY when new courses are introduced, or important announcements/changes are made. You will NOT receive unnecessary or frequent emails.
+          </p>
+        </div>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-3">
+      <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label htmlFor="email" className="sr-only">
+          <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
             Email Address
           </label>
           <input
@@ -122,13 +129,13 @@ export default function NewsletterSignup({
             onChange={(e) => setEmail(e.target.value)}
             placeholder="your.email@example.com"
             required
-            className={`w-full ${mode === "modal" ? "px-3 py-2 text-sm" : "px-4 py-3"} border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition`}
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition"
           />
         </div>
 
         {message.text && (
           <div
-            className={`p-2 rounded-lg text-xs ${
+            className={`p-3 rounded-lg text-sm ${
               message.type === "success"
                 ? "bg-green-50 text-green-800 border border-green-200"
                 : "bg-red-50 text-red-800 border border-red-200"
@@ -141,13 +148,13 @@ export default function NewsletterSignup({
         <button
           type="submit"
           disabled={isSubmitting}
-          className={`w-full bg-primary hover:bg-blue-700 text-white font-bold ${mode === "modal" ? "py-2 px-4 text-sm" : "py-3 px-6"} rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed`}
+          className="w-full bg-primary hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          {isSubmitting ? "Subscribing..." : "Subscribe"}
+          {isSubmitting ? "Subscribing..." : "Subscribe Now"}
         </button>
 
-        <div className="text-xs text-gray-500 space-y-1">
-          <p className="text-center">
+        <div className="text-xs text-gray-500 text-center space-y-1">
+          <p>
             By subscribing, you agree to our{" "}
             <a
               href="/privacy"
@@ -156,8 +163,38 @@ export default function NewsletterSignup({
               rel="noopener noreferrer"
             >
               Privacy Policy
+            </a>{" "}
+            and{" "}
+            <a
+              href="/terms"
+              className="text-primary hover:underline"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Terms of Service
             </a>
             .
+          </p>
+          <p className="text-xs text-gray-400 mt-2">
+            This site is protected by reCAPTCHA and the Google{" "}
+            <a
+              href="https://policies.google.com/privacy"
+              className="text-primary hover:underline"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Privacy Policy
+            </a>{" "}
+            and{" "}
+            <a
+              href="https://policies.google.com/terms"
+              className="text-primary hover:underline"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Terms of Service
+            </a>{" "}
+            apply.
           </p>
         </div>
       </form>
@@ -167,19 +204,16 @@ export default function NewsletterSignup({
   if (mode === "modal") {
     return (
       <div
-        className={`fixed bottom-6 right-6 z-50 max-w-sm w-full mx-4 sm:mx-0 ${isClosing ? "animate-slide-out-right" : "animate-slide-in-right"}`}
+        className={`fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4 ${isClosing ? "animate-fade-out" : "animate-fade-in"}`}
       >
-        <div className="bg-white rounded-2xl shadow-2xl border-2 border-primary relative overflow-hidden">
-          {/* Accent bar at top */}
-          <div className="h-1 bg-gradient-to-r from-primary to-accent"></div>
-
+        <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full relative animate-slide-up">
           {onClose && (
             <button
               onClick={onClose}
-              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition z-10"
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition"
               aria-label="Close"
             >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"

@@ -63,6 +63,24 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: "reCAPTCHA verification failed" });
     }
 
+    // Check if user is authenticated and update their profile
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
+
+    if (session?.user) {
+      // Update user profile to set subscribed_to_newsletter = true
+      const { error: profileError } = await supabase
+        .from("profiles")
+        .update({ subscribed_to_newsletter: true })
+        .eq("id", session.user.id);
+
+      if (profileError) {
+        console.warn("Failed to update user profile:", profileError);
+        // Continue with newsletter subscription even if profile update fails
+      }
+    }
+
     // Check if email already exists
     const { data: existing, error: checkError } = await supabase
       .from("newsletter_subscribers")

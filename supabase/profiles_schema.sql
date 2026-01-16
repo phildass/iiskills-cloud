@@ -19,6 +19,7 @@ CREATE TABLE IF NOT EXISTS public.profiles (
   country text,
   specify_country text,
   is_admin boolean DEFAULT false NOT NULL,
+  subscribed_to_newsletter boolean DEFAULT true NOT NULL,
   created_at timestamp with time zone DEFAULT timezone('utc'::text, now()) NOT NULL,
   updated_at timestamp with time zone DEFAULT timezone('utc'::text, now()) NOT NULL
 );
@@ -58,10 +59,33 @@ CREATE POLICY "Users can insert own profile"
 -- This automatically creates a profile row when a new user signs up
 CREATE OR REPLACE FUNCTION public.handle_new_user() 
 RETURNS trigger AS $$
+DECLARE
+  v_subscribed boolean;
 BEGIN
-  INSERT INTO public.profiles (id, is_admin)
-  VALUES (new.id, false)
-  ON CONFLICT (id) DO NOTHING;
+  -- Get subscription preference from metadata, default to true
+  v_subscribed := COALESCE((new.raw_user_meta_data->>'subscribed_to_newsletter')::boolean, true);
+  
+  INSERT INTO public.profiles (
+    id, 
+    is_admin,
+    subscribed_to_newsletter,
+    first_name,
+    last_name,
+    full_name
+  )
+  VALUES (
+    new.id, 
+    false,
+    v_subscribed,
+    new.raw_user_meta_data->>'first_name',
+    new.raw_user_meta_data->>'last_name',
+    new.raw_user_meta_data->>'full_name'
+  )
+  ON CONFLICT (id) DO UPDATE SET
+    subscribed_to_newsletter = v_subscribed,
+    first_name = COALESCE(EXCLUDED.first_name, public.profiles.first_name),
+    last_name = COALESCE(EXCLUDED.last_name, public.profiles.last_name),
+    full_name = COALESCE(EXCLUDED.full_name, public.profiles.full_name);
   RETURN new;
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
