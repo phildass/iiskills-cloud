@@ -13,9 +13,17 @@
  * 
  * Example:
  *   node test-resend-auth.js admin@iiskills.cloud
+ * 
+ * Note: Ensure .env.local file exists with required variables or set them via environment
  */
 
-require('dotenv').config({ path: '.env.local' });
+// Try to load .env.local if dotenv is available
+try {
+  require('dotenv').config({ path: '.env.local' });
+} catch (e) {
+  // dotenv not available, use process.env directly
+  console.log('ℹ️  Loading environment variables from system (dotenv not installed)');
+}
 
 const testEmailAddress = process.argv[2];
 
