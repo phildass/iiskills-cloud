@@ -25,7 +25,7 @@ export default async function handler(req, res) {
       .from('newsletter_queue')
       .select('*')
       .eq('status', 'pending')
-      .lt('attempts', 3) // Only process tasks with less than 3 attempts
+      .lte('attempts', 2) // Only process tasks with 2 or fewer attempts (will become 3 after increment)
       .order('created_at', { ascending: true })
       .limit(5); // Process 5 tasks at a time
 

@@ -1,6 +1,10 @@
 -- Courses and AI-Powered Newsletter System Migration
 -- 
 -- This migration creates tables for course management and AI-generated newsletters
+-- 
+-- PREREQUISITE: This migration assumes the newsletter_subscribers table already exists
+-- (created by newsletter_subscribers.sql migration). If not, run that migration first.
+--
 -- Run this in your Supabase SQL Editor:
 -- Dashboard → SQL Editor → New Query → Paste this script → Run
 
