@@ -14,10 +14,12 @@ echo "🔍 Verifying DNS Records for Resend Domain Authentication"
 echo "=========================================================="
 echo ""
 
+# Configuration
 DOMAIN="iiskills.cloud"
 SEND_DOMAIN="send.iiskills.cloud"
 DKIM_DOMAIN="resend._domainkey.iiskills.cloud"
 DMARC_DOMAIN="_dmarc.iiskills.cloud"
+MAX_DISPLAY_LENGTH=100
 
 # Colors for output
 RED='\033[0;31m'
@@ -50,7 +52,7 @@ check_record() {
     
     echo -e "${BLUE}Checking ${name}...${NC}"
     
-    result=$(dig +short ${record_type} ${domain} | tr '\n' ' ')
+    result=$(dig ${domain} ${record_type} +short | tr '\n' ' ')
     
     if [ -z "$result" ]; then
         echo -e "${RED}❌ NOT FOUND${NC}"
@@ -64,13 +66,13 @@ check_record() {
         if echo "$result" | grep -qi "${expected}"; then
             echo -e "${GREEN}✅ FOUND${NC}"
             echo "   Domain: ${domain}"
-            echo "   Value: ${result:0:100}..."
+            echo "   Value: ${result:0:${MAX_DISPLAY_LENGTH}}${result:${MAX_DISPLAY_LENGTH}:1:+...}"
             echo ""
             return 0
         else
             echo -e "${YELLOW}⚠️  FOUND BUT MAY BE INCORRECT${NC}"
             echo "   Domain: ${domain}"
-            echo "   Value: ${result:0:100}..."
+            echo "   Value: ${result:0:${MAX_DISPLAY_LENGTH}}${result:${MAX_DISPLAY_LENGTH}:1:+...}"
             echo "   Expected to contain: ${expected}"
             echo ""
             return 1

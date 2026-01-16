@@ -17,6 +17,28 @@
  * Note: Ensure .env.local file exists with required variables or set them via environment
  */
 
+// Configuration constants
+const DOMAIN_CONFIG = {
+  PRIMARY_DOMAIN: 'iiskills.cloud',
+  SEND_SUBDOMAIN: 'send.iiskills.cloud',
+  DKIM_DOMAIN: 'resend._domainkey.iiskills.cloud',
+  DMARC_DOMAIN: '_dmarc.iiskills.cloud'
+};
+
+const MAX_DISPLAY_LENGTH = 100;
+const ENV_PLACEHOLDER_PREFIX = 'your-';
+
+// Helper function to truncate long strings
+function truncateString(str, maxLength = MAX_DISPLAY_LENGTH) {
+  if (!str || str.length <= maxLength) return str;
+  return str.substring(0, maxLength) + '...';
+}
+
+// Helper function to generate placeholder value for env var
+function getEnvPlaceholder(varName) {
+  return `${ENV_PLACEHOLDER_PREFIX}${varName.toLowerCase().replace(/_/g, '-')}-here`;
+}
+
 // Try to load .env.local if dotenv is available
 try {
   require('dotenv').config({ path: '.env.local' });
@@ -84,8 +106,9 @@ const checks = [
 let configValid = true;
 
 checks.forEach(check => {
-  const status = check.value && check.value !== `your-${check.name.toLowerCase().replace('_', '-')}-here` ? '✅' : '❌';
-  const hasValue = check.value && check.value !== `your-${check.name.toLowerCase().replace('_', '-')}-here`;
+  const placeholder = getEnvPlaceholder(check.name);
+  const status = check.value && check.value !== placeholder ? '✅' : '❌';
+  const hasValue = check.value && check.value !== placeholder;
   
   console.log(`${status} ${check.name}: ${hasValue ? '✓ Set' : '✗ Not set'}`);
   
@@ -139,34 +162,40 @@ async function checkDNS() {
   const dnsChecks = [
     {
       name: 'DKIM Record',
-      command: 'dig TXT resend._domainkey.iiskills.cloud +short',
+      domain: DOMAIN_CONFIG.DKIM_DOMAIN,
+      type: 'TXT',
       expected: 'Should contain DKIM key'
     },
     {
       name: 'SPF Record',
-      command: 'dig TXT send.iiskills.cloud +short',
+      domain: DOMAIN_CONFIG.SEND_SUBDOMAIN,
+      type: 'TXT',
       expected: 'Should contain "v=spf1 include:amazonses.com"'
     },
     {
       name: 'MX Record',
-      command: 'dig MX send.iiskills.cloud +short',
+      domain: DOMAIN_CONFIG.SEND_SUBDOMAIN,
+      type: 'MX',
       expected: 'Should point to feedback-smtp.ap-northeast-1.amazonses.com'
     },
     {
       name: 'DMARC Record',
-      command: 'dig TXT _dmarc.iiskills.cloud +short',
+      domain: DOMAIN_CONFIG.DMARC_DOMAIN,
+      type: 'TXT',
       expected: 'Should contain "v=DMARC1"'
     }
   ];
 
   for (const check of dnsChecks) {
     try {
-      const { stdout, stderr } = await execPromise(check.command);
+      // Using fixed domain config to prevent any injection
+      const command = `dig ${check.domain} ${check.type} +short`;
+      const { stdout, stderr } = await execPromise(command);
       const result = stdout.trim();
       
       if (result && result.length > 0) {
         console.log(`✅ ${check.name}: Found`);
-        console.log(`   ${result.substring(0, 100)}${result.length > 100 ? '...' : ''}`);
+        console.log(`   ${truncateString(result)}`);
       } else {
         console.log(`❌ ${check.name}: Not found`);
         console.log(`   ${check.expected}`);
