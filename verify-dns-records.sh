@@ -52,7 +52,7 @@ check_record() {
     
     echo -e "${BLUE}Checking ${name}...${NC}"
     
-    result=$(dig ${domain} ${record_type} +short | tr '\n' ' ')
+    result=$(dig +short ${record_type} ${domain} | tr '\n' ' ')
     
     if [ -z "$result" ]; then
         echo -e "${RED}❌ NOT FOUND${NC}"
@@ -66,13 +66,23 @@ check_record() {
         if echo "$result" | grep -qi "${expected}"; then
             echo -e "${GREEN}✅ FOUND${NC}"
             echo "   Domain: ${domain}"
-            echo "   Value: ${result:0:${MAX_DISPLAY_LENGTH}}${result:${MAX_DISPLAY_LENGTH}:1:+...}"
+            # Properly truncate long results
+            if [ ${#result} -gt ${MAX_DISPLAY_LENGTH} ]; then
+                echo "   Value: ${result:0:${MAX_DISPLAY_LENGTH}}..."
+            else
+                echo "   Value: ${result}"
+            fi
             echo ""
             return 0
         else
             echo -e "${YELLOW}⚠️  FOUND BUT MAY BE INCORRECT${NC}"
             echo "   Domain: ${domain}"
-            echo "   Value: ${result:0:${MAX_DISPLAY_LENGTH}}${result:${MAX_DISPLAY_LENGTH}:1:+...}"
+            # Properly truncate long results
+            if [ ${#result} -gt ${MAX_DISPLAY_LENGTH} ]; then
+                echo "   Value: ${result:0:${MAX_DISPLAY_LENGTH}}..."
+            else
+                echo "   Value: ${result}"
+            fi
             echo "   Expected to contain: ${expected}"
             echo ""
             return 1

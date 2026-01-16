@@ -189,7 +189,8 @@ async function checkDNS() {
   for (const check of dnsChecks) {
     try {
       // Using fixed domain config to prevent any injection
-      const command = `dig ${check.domain} ${check.type} +short`;
+      // dig argument order: dig +short <type> <domain>
+      const command = `dig +short ${check.type} ${check.domain}`;
       const { stdout, stderr } = await execPromise(command);
       const result = stdout.trim();
       
