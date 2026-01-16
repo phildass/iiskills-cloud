@@ -2,18 +2,18 @@
  * Centralized pricing logic for iiskills.cloud
  *
  * Pricing structure:
- * - Introductory price: Rs 99 + GST (17.82) = 116.82 (until February 15, 2026)
- * - Regular price: Rs 299 + GST (53.82) = 352.82 (from February 15, 2026 midnight onwards)
+ * - Introductory price: Rs 99 + GST (17.82) = 116.82 (until end of February 14, 2026)
+ * - Regular price: Rs 299 + GST (53.82) = 352.82 (from midnight of February 15, 2026 onwards)
  */
 
-// Introductory pricing (until February 15, 2026)
+// Introductory pricing (until end of February 14, 2026)
 const INTRO_BASE_PRICE = 99;
 const INTRO_GST_RATE = 0.18; // 18%
 const INTRO_GST_AMOUNT = 17.82; // Pre-calculated for accuracy
 const INTRO_TOTAL_PRICE = 116.82;
-const INTRO_END_DATE = new Date("2026-02-15T23:59:59");
+const INTRO_END_DATE = new Date("2026-02-14T23:59:59");
 
-// Regular pricing (from February 15, 2026 midnight onwards)
+// Regular pricing (from midnight of February 15, 2026 onwards)
 const REGULAR_BASE_PRICE = 299;
 const REGULAR_GST_AMOUNT = 53.82; // Pre-calculated for accuracy
 const REGULAR_TOTAL_PRICE = 352.82;

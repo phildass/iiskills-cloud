@@ -207,7 +207,7 @@ export default function Home() {
                             🎉 Introductory Offer!
                           </p>
                           <p className="text-xs text-green-700 mt-1">
-                            Valid till Feb 15, 2026. New fees effective from Feb 15, 2026 midnight
+                            Valid till Feb 14, 2026. New fees effective from midnight of Feb 15, 2026
                             (₹352.82)
                           </p>
                         </div>
