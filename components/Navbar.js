@@ -63,7 +63,7 @@ export default function Navbar() {
         },
         {
           href: "/newsletter",
-          label: "Newsletter",
+          label: "📧 Newsletter",
           className: "hover:text-primary transition",
         },
         {
