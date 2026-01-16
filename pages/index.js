@@ -207,7 +207,7 @@ export default function Home() {
                             🎉 Introductory Offer!
                           </p>
                           <p className="text-xs text-green-700 mt-1">
-                            Valid till Feb 28, 2026. New fees effective from Feb 29, 2026 midnight
+                            Valid till Feb 15, 2026. New fees effective from Feb 15, 2026 midnight
                             (₹352.82)
                           </p>
                         </div>
@@ -347,8 +347,11 @@ export default function Home() {
                 href="/courses"
                 className="inline-block bg-accent text-white px-10 py-4 rounded-lg font-bold text-lg hover:bg-purple-600 transition shadow-lg"
               >
-                Browse All 50+ Courses →
+                Browse All Courses →
               </Link>
+              <p className="text-sm text-gray-600 mt-4">
+                10 courses available now. 50+ courses being developed!
+              </p>
             </div>
           </div>
         </section>

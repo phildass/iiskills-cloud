@@ -21,21 +21,16 @@ const HIDDEN_COURSE_NAMES = [
   "Data Visualization (Tableau, Power BI)",
 ];
 
-// List of available subdomain courses (15 total)
+// List of available subdomain courses (10 total)
 // To add a new available course, simply add its subdomain name to this array
 const AVAILABLE_SUBDOMAINS = [
   "learn-ai",
   "learn-apt",
   "learn-chemistry",
-  "learn-data-science",
   "learn-geography",
-  "learn-govt-jobs",
-  "learn-ias",
-  "learn-jee",
   "learn-leadership",
   "learn-management",
   "learn-math",
-  "learn-neet",
   "learn-physics",
   "learn-pr",
   "learn-winning",
@@ -1621,14 +1616,14 @@ export default function Courses() {
           <h1 className="text-4xl font-bold text-primary mb-4">Our Courses</h1>
           <p className="text-xl text-charcoal mb-2">Professional Skills Development for Everyone</p>
           <p className="text-lg text-gray-600">
-            57+ courses across 11+ domains - Many FREE courses available!
+            10 courses available now - Many FREE courses!
           </p>
           <div className="mt-4 text-lg font-semibold text-accent">
             Paid courses: {pricing.totalPrice} per course
             {pricing.isIntroductory ? " (Introductory Offer)" : ""}
           </div>
-          <p className="text-lg text-gray-600">
-            58+ courses across 11+ domains - Many FREE courses available!
+          <p className="text-sm text-gray-600 mt-2">
+            50+ courses being developed and should be uploaded soon.
           </p>
         </div>
 
