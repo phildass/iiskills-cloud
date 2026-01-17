@@ -1,31 +1,27 @@
-name: Deploy All Apps
+#!/bin/bash
+set -e
 
-on:
-  push:
-    branches:
-      - main
+echo "=== Running server-side deployment script ==="
 
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
+# Ensure we're in the correct directory
+echo "Current dir: $(pwd)"
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+# Install/update dependencies (uncomment if you use npm/yarn)
+if [ -f package.json ]; then
+    echo "-- Found package.json; running npm install --"
+    npm install
+fi
 
-      - name: Set up SSH
-        uses: webfactory/ssh-agent@v0.9.0
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+# Build project (uncomment for Next.js/React/TypeScript etc)
+if [ -f package.json ]; then
+    if grep -q '"build"' package.json; then
+        echo "-- package.json has a build script; running npm run build --"
+        npm run build
+    fi
+fi
 
-      - name: Deploy all apps via SSH
-        env:
-          SERVER_IP: ${{ secrets.SERVER_IP }}
-          SERVER_USER: ${{ secrets.SERVER_USER }}
-        run: |
-          ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP '
-            cd /root/iiskills-cloud && \
-            git pull && \
-            chmod +x deploy-all.sh && \
-            ./deploy-all.sh
-          '
+# Restart your process manager (uncomment and configure for PM2/systemd)
+# Example for PM2: pm2 restart all
+# Example for systemd: systemctl restart your-app.service
+
+echo "=== Deployment script completed successfully! ==="
