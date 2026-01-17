@@ -46,19 +46,19 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { email, recaptchaToken } = req.body;
+    const { email, token } = req.body;
 
     // Validate input
     if (!email || !email.includes("@")) {
       return res.status(400).json({ error: "Invalid email address" });
     }
 
-    if (!recaptchaToken) {
+    if (!token) {
       return res.status(400).json({ error: "reCAPTCHA verification required" });
     }
 
     // Verify reCAPTCHA
-    const isHuman = await verifyRecaptcha(recaptchaToken);
+    const isHuman = await verifyRecaptcha(token);
     if (!isHuman) {
       return res.status(400).json({ error: "reCAPTCHA verification failed" });
     }
