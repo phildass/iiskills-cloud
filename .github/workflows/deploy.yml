@@ -18,45 +18,27 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: Add server's SSH key to known_hosts (best practice)
+      - name: Add server's SSH key to known_hosts
         run: |
           ssh-keyscan -H ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
 
-      - name: Deploy all apps via SSH with error handling and validation
+      - name: Deploy all apps via SSH with forced sync (no server-side conflicts)
         env:
           SERVER_IP: ${{ secrets.SERVER_IP }}
           SERVER_USER: ${{ secrets.SERVER_USER }}
           DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
         run: |
-          set -e
-
           echo "==> Starting SSH deployment to $SERVER_USER@$SERVER_IP"
-          ssh $SERVER_USER@$SERVER_IP bash -s <<'ENDSSH'
+          ssh $SERVER_USER@$SERVER_IP "
             set -e
-
-            echo ">>> Changing directory to \$DEPLOY_PATH"
-            cd "\$DEPLOY_PATH"
-
-            echo ">>> Pulling latest code"
-            git pull --no-rebase
-
-            echo ">>> Making deploy script executable"
+            echo '>>> Changing directory to ${DEPLOY_PATH}'
+            cd '${DEPLOY_PATH}'
+            echo '>>> Forcibly syncing code from GitHub (hard reset)'
+            git fetch origin
+            git reset --hard origin/main
+            echo '>>> Making deploy script executable'
             chmod +x deploy-all.sh
-
-            echo ">>> Running deploy script"
+            echo '>>> Running deploy script'
             ./deploy-all.sh
-
-            echo ">>> [Verification step] Checking deploy result"
-            # Customize the following line to match your check; this just checks the script exit code:
-            if [ \$? -ne 0 ]; then
-              echo "Deployment script failed!"
-              exit 1
-            fi
-
-            # For further validation, for example, process running on port 3000:
-            # if ! lsof -i:3000; then
-            #   echo "Expected app isn't running!"; exit 1;
-            # fi
-
-            echo ">>> Deployment successful!"
-          ENDSSH
+            echo '>>> Deployment successful!'
+          "
