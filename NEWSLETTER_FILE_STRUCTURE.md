@@ -170,21 +170,24 @@ https://learn-physics.iiskills.cloud/newsletter
 |----------|-------|
 | Root Newsletter Components | 3 |
 | Root Newsletter Pages | 5 |
-| Root Newsletter APIs | 4 |
+| Root Newsletter APIs | 5 |
 | Root Newsletter Utils/Libs | 3 |
-| Root Newsletter Docs | 11 |
-| **Root Total** | **26** |
+| Root Newsletter Database | 3 |
+| Root Newsletter Test | 1 |
+| Root Newsletter Docs | 13 |
+| **Root Code Total** | **20** |
+| **Root Total (with docs)** | **33** |
 | | |
-| Components per App | 3 |
-| Pages per App | 2 |
+| Components per App | 2-3 |
+| Pages per App | 2-3 |
 | APIs per App | 3 |
-| Utils per App | 1 |
-| **Files per App** | **~9** |
+| Utils per App | 0-1 |
+| **Files per App** | **9** (average) |
 | | |
 | Total Apps | 16 |
-| **App Files Total** | **~144** |
+| **App Files Total** | **144** |
 | | |
-| **Grand Total** | **~170 files** |
+| **Grand Total** | **177 files** |
 
 ---
 

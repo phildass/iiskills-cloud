@@ -47,9 +47,9 @@ NEWSLETTER_DESIGN_VERIFICATION_REPORT.md    # This verification (full report)
 
 ## 📊 Coverage
 
-- **Total Files:** 120+ files
+- **Total Files:** 177 files (20 root code + 13 docs + 144 across apps)
 - **Apps Covered:** 16/16 (main + 15 learn-* apps)
-- **Documentation:** 9 comprehensive guides
+- **Documentation:** 13 comprehensive guides
 - **Status:** ✅ Production-ready, awaiting deployment
 
 ---
