@@ -60,3 +60,6 @@ logs/
 # Ignore all subproject package-lock.json files to prevent workspace root inference warnings
 learn-*/package-lock.json
 apps/main/.env.local
+
+# Deployment reports (generated on server)
+DEPLOYMENT_REPORT.md
