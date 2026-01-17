@@ -13,6 +13,8 @@ The Skilling Newsletter has been **fully designed, implemented, and deployed** t
 - Complete UI/UX design across all touchpoints
 - Backend integration with Supabase
 - API endpoints for subscription management
+- **PDF download functionality for newsletters**
+- **Admin approval workflow (draft → approved → sent)**
 - Comprehensive documentation
 - Deployment across all 16 applications (main + 15 learn-* apps)
 
@@ -105,6 +107,16 @@ The Skilling Newsletter has been **fully designed, implemented, and deployed** t
   - Endpoint: `POST /api/courses`
   - Features: CRUD operations, triggers newsletter on course publish
 
+- **approve.js** - Newsletter approval API (NEW)
+  - Path: `/home/runner/work/iiskills-cloud/iiskills-cloud/pages/api/newsletter/approve.js`
+  - Endpoint: `POST /api/newsletter/approve`
+  - Features: Admin approval workflow, approve/reject newsletters
+
+- **generate-pdf.js** - PDF generation API (NEW)
+  - Path: `/home/runner/work/iiskills-cloud/iiskills-cloud/pages/api/newsletter/generate-pdf.js`
+  - Endpoint: `GET /api/newsletter/generate-pdf`
+  - Features: Newsletter data for PDF generation
+
 #### 6. **Utility Files** (`/utils/`, `/lib/`)
 - **useNewsletterPopup.js** - Newsletter popup timing hook
   - Path: `/home/runner/work/iiskills-cloud/iiskills-cloud/utils/useNewsletterPopup.js`
@@ -127,8 +139,13 @@ The Skilling Newsletter has been **fully designed, implemented, and deployed** t
   - Path: `/home/runner/work/iiskills-cloud/iiskills-cloud/supabase/migrations/add_newsletter_subscription_to_profiles.sql`
   - Features: Unsubscribe tokens table, database functions
 
-- **migrations/courses_and_newsletter.sql** - Courses and newsletter schema (if exists)
+- **migrations/courses_and_newsletter.sql** - Courses and newsletter schema
+  - Path: `/home/runner/work/iiskills-cloud/iiskills-cloud/supabase/migrations/courses_and_newsletter.sql`
   - Features: Courses table, newsletter editions, queue system
+
+- **migrations/add_newsletter_approval_workflow.sql** - Approval workflow (NEW)
+  - Path: `/home/runner/work/iiskills-cloud/iiskills-cloud/supabase/migrations/add_newsletter_approval_workflow.sql`
+  - Features: Admin approval status, approved_at, approved_by fields
 
 #### 8. **Test Files**
 - **test-resend-auth.js** - Email authentication testing
@@ -264,6 +281,19 @@ All the above files (where applicable) are replicated in:
 - ✅ HTML and plain text versions
 - ✅ Unsubscribe link in every email
 
+### PDF Features (NEW)
+- ✅ PDF download on individual newsletter pages
+- ✅ Client-side PDF generation using jsPDF and html2canvas
+- ✅ Print-optimized layout
+- ✅ Automatic filename with edition number
+
+### Admin Approval Workflow (NEW)
+- ✅ Draft status for new newsletters
+- ✅ Admin approve/reject functionality
+- ✅ Visual status badges (draft/approved/rejected/sent)
+- ✅ Approval tracking (approved_at, approved_by)
+- ✅ Automatic queueing after approval
+
 ### Security
 - ✅ Cryptographically secure tokens (32 bytes)
 - ✅ Token expiration (90 days)
@@ -282,8 +312,11 @@ All the above files (where applicable) are replicated in:
 - **Production:** ⏳ Awaiting deployment
 
 ### Deployment Requirements
-1. ✅ Database migrations created
-2. ⏳ Run migrations in Supabase (deployment step)
+1. ✅ Database migrations created (including approval workflow)
+2. ⏳ Run migrations in Supabase (deployment step):
+   - supabase/migrations/courses_and_newsletter.sql
+   - supabase/migrations/add_newsletter_subscription_to_profiles.sql
+   - supabase/migrations/add_newsletter_approval_workflow.sql (NEW)
 3. ⏳ Set environment variables (deployment step)
 4. ⏳ Configure email provider (deployment step)
 5. ⏳ Set up cron job for queue processing (deployment step)

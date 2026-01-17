@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import Link from 'next/link';
+import { useState } from 'react';
 import { createClient } from '@supabase/supabase-js';
 
 /**
@@ -48,6 +49,66 @@ function sanitizeHTML(html) {
  */
 
 export default function ViewNewsletter({ newsletter, error }) {
+  const [downloadingPDF, setDownloadingPDF] = useState(false);
+
+  const handleDownloadPDF = async () => {
+    setDownloadingPDF(true);
+    
+    try {
+      // Dynamically import jsPDF
+      const { jsPDF } = await import('jspdf');
+      const html2canvas = (await import('html2canvas')).default;
+      
+      // Get the newsletter content
+      const element = document.querySelector('.newsletter-content');
+      
+      if (!element) {
+        alert('Newsletter content not found');
+        return;
+      }
+
+      // Create canvas from HTML
+      const canvas = await html2canvas(element, {
+        scale: 2,
+        useCORS: true,
+        logging: false
+      });
+      
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF({
+        orientation: 'portrait',
+        unit: 'mm',
+        format: 'a4'
+      });
+      
+      const imgWidth = 210; // A4 width in mm
+      const pageHeight = 297; // A4 height in mm
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      let heightLeft = imgHeight;
+      let position = 0;
+      
+      pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+      
+      while (heightLeft >= 0) {
+        position = heightLeft - imgHeight;
+        pdf.addPage();
+        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+      }
+      
+      // Download the PDF
+      const filename = `skilling-newsletter-${newsletter.edition_number}.pdf`;
+      pdf.save(filename);
+      
+    } catch (error) {
+      console.error('PDF generation error:', error);
+      alert('Failed to generate PDF. Please try again.');
+    } finally {
+      setDownloadingPDF(false);
+    }
+  };
+
   if (error) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
@@ -89,6 +150,14 @@ export default function ViewNewsletter({ newsletter, error }) {
                   Subscribe
                 </a>
               </Link>
+              <button
+                onClick={handleDownloadPDF}
+                disabled={downloadingPDF}
+                className="text-gray-600 hover:text-gray-800 disabled:opacity-50"
+                title="Download as PDF"
+              >
+                {downloadingPDF ? '⏳ Generating...' : '📥 PDF'}
+              </button>
               <button
                 onClick={() => window.print()}
                 className="text-gray-600 hover:text-gray-800"
