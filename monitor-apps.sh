@@ -86,7 +86,7 @@ get_pm2_status() {
 # Check if app is responding on its port
 check_port_health() {
     local port=$1
-    if curl -f -s -o /dev/null --connect-timeout 5 http://localhost:$port 2>/dev/null; then
+    if curl -f -s -o /dev/null --connect-timeout 2 http://localhost:$port 2>/dev/null; then
         return 0
     else
         return 1
@@ -96,7 +96,7 @@ check_port_health() {
 # Check HTTPS health
 check_https_health() {
     local domain=$1
-    if curl -f -s -o /dev/null --connect-timeout 5 https://$domain 2>/dev/null; then
+    if curl -f -s -o /dev/null --connect-timeout 2 https://$domain 2>/dev/null; then
         return 0
     else
         return 1
@@ -106,19 +106,22 @@ check_https_health() {
 # Get uptime for an app
 get_uptime() {
     local app_name=$1
-    pm2 describe "$app_name" 2>/dev/null | grep -oP 'uptime: \K.*' || echo "N/A"
+    # Use basic regex instead of Perl regex for compatibility
+    pm2 describe "$app_name" 2>/dev/null | grep 'uptime:' | sed 's/.*uptime: //' | awk '{print $1}' || echo "N/A"
 }
 
 # Get memory usage
 get_memory() {
     local app_name=$1
-    pm2 describe "$app_name" 2>/dev/null | grep -oP 'memory: \K.*' || echo "N/A"
+    # Use basic regex instead of Perl regex for compatibility
+    pm2 describe "$app_name" 2>/dev/null | grep 'memory:' | sed 's/.*memory: //' | awk '{print $1}' || echo "N/A"
 }
 
 # Get CPU usage
 get_cpu() {
     local app_name=$1
-    pm2 describe "$app_name" 2>/dev/null | grep -oP 'cpu: \K.*' || echo "N/A"
+    # Use basic regex instead of Perl regex for compatibility
+    pm2 describe "$app_name" 2>/dev/null | grep 'cpu:' | sed 's/.*cpu: //' | awk '{print $1}' || echo "N/A"
 }
 
 # Main monitoring function
@@ -163,7 +166,8 @@ monitor_table() {
         local pm2_status="❌"
         local pm2_color=$RED
         if pm2 describe "$app_name" &> /dev/null; then
-            local status=$(pm2 describe "$app_name" 2>/dev/null | grep -oP 'status.*?\K(online|stopped|errored)')
+            # Use basic regex for compatibility instead of Perl regex  
+            local status=$(pm2 describe "$app_name" 2>/dev/null | grep 'status' | grep -o 'online\|stopped\|errored' | head -n1)
             if [ "$status" = "online" ]; then
                 pm2_status="✅"
                 pm2_color=$GREEN
@@ -292,7 +296,8 @@ monitor_json() {
         local https_ok=false
         
         if pm2 describe "$app_name" &> /dev/null; then
-            local status=$(pm2 describe "$app_name" 2>/dev/null | grep -oP 'status.*?\K(online|stopped|errored)')
+            # Use basic regex for compatibility instead of Perl regex
+            local status=$(pm2 describe "$app_name" 2>/dev/null | grep 'status' | grep -o 'online\|stopped\|errored' | head -n1)
             if [ "$status" = "online" ]; then
                 pm2_online=true
             fi

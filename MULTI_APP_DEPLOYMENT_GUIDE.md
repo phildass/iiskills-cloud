@@ -155,6 +155,22 @@ fi
 
 **Never commit `.env.local` files to Git!**
 
+**Optional: Set SSL Email Address**
+
+By default, SSL certificates will use `admin@iiskills.cloud` as the contact email. To use a different email:
+
+```bash
+# Set before running deployment
+export SSL_EMAIL="your-email@example.com"
+sudo -E ./deploy-subdomains.sh
+```
+
+Or add to your shell profile:
+```bash
+echo 'export SSL_EMAIL="your-email@example.com"' >> ~/.bashrc
+source ~/.bashrc
+```
+
 ### Step 3: Run the Deployment Script
 
 The main deployment script handles everything:

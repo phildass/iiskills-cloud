@@ -74,13 +74,15 @@ check_dns_record() {
     local domain=$1
     local expected=$2
     
-    local result=$(dig +short A "$domain" | head -n1)
+    # Get all A records
+    local all_results=$(dig +short A "$domain")
+    local result=$(echo "$all_results" | head -n1)
     
     if [ -z "$result" ]; then
         echo -e "${RED}❌ NOT FOUND${NC} - $domain"
         echo -e "   ${CYAN}Action:${NC} Add A record: $domain -> $expected"
         return 1
-    elif [ "$result" = "$expected" ]; then
+    elif echo "$all_results" | grep -q "^${expected}$"; then
         echo -e "${GREEN}✅ VERIFIED${NC}  - $domain -> $result"
         return 0
     else

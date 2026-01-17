@@ -69,7 +69,7 @@ for arg in "$@"; do
 done
 
 # Check if running as root (required for Nginx and Certbot)
-if [ "$EUID" -ne 0 ] && [ "$SKIP_NGINX" = false -o "$SKIP_SSL" = false ]; then
+if [ "$EUID" -ne 0 ] && { [ "$SKIP_NGINX" = false ] || [ "$SKIP_SSL" = false ]; }; then
     echo -e "${RED}❌ This script must be run as root (use sudo)${NC}"
     echo "   Required for: Nginx configuration, SSL certificate management"
     echo "   If you only want to build/deploy apps: use --skip-nginx --skip-ssl"
@@ -305,10 +305,19 @@ build_all_apps() {
         # Install dependencies
         if [ -f "package.json" ]; then
             if [ "$DRY_RUN" = false ]; then
-                if ! npm install --production=false 2>&1 | tee "$LOG_DIR/${name}-install.log"; then
-                    log_error "Failed to install dependencies for $name"
-                    build_errors=$((build_errors + 1))
-                    continue
+                # Use npm ci for production builds if package-lock.json exists, otherwise npm install
+                if [ -f "package-lock.json" ]; then
+                    if ! npm ci 2>&1 | tee "$LOG_DIR/${name}-install.log"; then
+                        log_error "Failed to install dependencies for $name"
+                        build_errors=$((build_errors + 1))
+                        continue
+                    fi
+                else
+                    if ! npm install 2>&1 | tee "$LOG_DIR/${name}-install.log"; then
+                        log_error "Failed to install dependencies for $name"
+                        build_errors=$((build_errors + 1))
+                        continue
+                    fi
                 fi
                 
                 # Build the app
@@ -652,13 +661,16 @@ get_ssl_certificate() {
     log_section "Obtaining SSL Certificate for $domain"
     
     if [ "$DRY_RUN" = false ]; then
+        # Use environment variable or default email
+        local ssl_email="${SSL_EMAIL:-admin@$DOMAIN}"
+        
         local certbot_cmd="certbot --nginx -d $domain"
         
         if [ -n "$extra_domains" ]; then
             certbot_cmd="$certbot_cmd -d $extra_domains"
         fi
         
-        certbot_cmd="$certbot_cmd --non-interactive --agree-tos --email admin@$DOMAIN --redirect"
+        certbot_cmd="$certbot_cmd --non-interactive --agree-tos --email $ssl_email --redirect"
         
         if $certbot_cmd; then
             log_success "SSL certificate obtained for $domain"
