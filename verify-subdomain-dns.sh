@@ -76,16 +76,22 @@ check_dns_record() {
     
     # Get all A records
     local all_results=$(dig +short A "$domain")
-    local result=$(echo "$all_results" | head -n1)
     
-    if [ -z "$result" ]; then
+    if [ -z "$all_results" ]; then
         echo -e "${RED}❌ NOT FOUND${NC} - $domain"
         echo -e "   ${CYAN}Action:${NC} Add A record: $domain -> $expected"
         return 1
     elif echo "$all_results" | grep -q "^${expected}$"; then
-        echo -e "${GREEN}✅ VERIFIED${NC}  - $domain -> $result"
+        # Found the expected IP among the records
+        local record_count=$(echo "$all_results" | wc -l)
+        if [ $record_count -eq 1 ]; then
+            echo -e "${GREEN}✅ VERIFIED${NC}  - $domain -> $expected"
+        else
+            echo -e "${GREEN}✅ VERIFIED${NC}  - $domain -> $expected (among $record_count A records)"
+        fi
         return 0
     else
+        local result=$(echo "$all_results" | head -n1)
         echo -e "${YELLOW}⚠️  INCORRECT${NC} - $domain -> $result (expected: $expected)"
         echo -e "   ${CYAN}Action:${NC} Update A record to point to $expected"
         return 1
