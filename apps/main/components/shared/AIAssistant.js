@@ -21,6 +21,7 @@ export default function AIAssistant() {
   const [isLoading, setIsLoading] = useState(false);
   const chatEndRef = useRef(null);
   const [domain, setDomain] = useState("");
+  const [consecutiveFailures, setConsecutiveFailures] = useState(0);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -126,34 +127,152 @@ export default function AIAssistant() {
     // Wait a bit to simulate network call
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
-    // Simple keyword-based responses
+    // Simple keyword-based responses with expanded knowledge base
     const lowerQuestion = question.toLowerCase();
 
-    if (lowerQuestion.includes("help") || lowerQuestion.includes("how")) {
-      return `I can help you with ${context}. You can ask me about courses, content, registration, or navigation. What specific topic would you like to know more about?`;
-    }
-
+    // Course and Learning Related
     if (lowerQuestion.includes("course") || lowerQuestion.includes("learn")) {
+      setConsecutiveFailures(0);
       return `We offer comprehensive courses in ${context}. You can browse our course catalog, track your progress, and access learning materials. Would you like more details about any specific topic?`;
     }
 
+    // Registration and Authentication
     if (
       lowerQuestion.includes("register") ||
       lowerQuestion.includes("signup") ||
-      lowerQuestion.includes("sign up")
+      lowerQuestion.includes("sign up") ||
+      lowerQuestion.includes("create account")
     ) {
-      return 'To register, click the "Register" button in the navigation menu. Create an account once and access all iiskills.cloud apps with the same credentials!';
+      setConsecutiveFailures(0);
+      return `To register, click the "Register" button in the navigation menu. Create an account once and access all iiskills.cloud apps with the same credentials! Your account works across all our learning platforms.`;
     }
 
     if (
-      lowerQuestion.includes("price") ||
-      lowerQuestion.includes("cost") ||
-      lowerQuestion.includes("fee")
+      lowerQuestion.includes("login") ||
+      lowerQuestion.includes("sign in") ||
+      lowerQuestion.includes("log in")
     ) {
-      return "We offer affordable learning at competitive prices. Visit our pricing page or specific course pages for detailed pricing information. Some courses may have special introductory offers!";
+      setConsecutiveFailures(0);
+      return `You can log in by clicking the "Login" button in the navigation menu. We support multiple sign-in methods including email/password, Google OAuth, and other authentication providers. Your credentials work across all iiskills.cloud apps!`;
     }
 
-    return `Thanks for your question about ${context}! I'm here to assist you. Could you provide more details so I can give you the most helpful answer?`;
+    // Pricing and Payment
+    if (
+      lowerQuestion.includes("price") ||
+      lowerQuestion.includes("cost") ||
+      lowerQuestion.includes("fee") ||
+      lowerQuestion.includes("payment") ||
+      lowerQuestion.includes("subscription")
+    ) {
+      setConsecutiveFailures(0);
+      return `We offer affordable learning at competitive prices. Visit our pricing page or specific course pages for detailed pricing information. Some courses may have special introductory offers! You can make payments through our secure payment gateway.`;
+    }
+
+    // Newsletter
+    if (
+      lowerQuestion.includes("newsletter") ||
+      lowerQuestion.includes("subscribe") ||
+      lowerQuestion.includes("email update")
+    ) {
+      setConsecutiveFailures(0);
+      return `You can subscribe to our newsletter to stay updated with new courses, features, and learning resources! Visit the /newsletter page or use the newsletter signup form. We send weekly updates and never spam.`;
+    }
+
+    // Navigation and Features
+    if (
+      lowerQuestion.includes("navigate") ||
+      lowerQuestion.includes("menu") ||
+      lowerQuestion.includes("page") ||
+      lowerQuestion.includes("where")
+    ) {
+      setConsecutiveFailures(0);
+      return `You can navigate using the menu at the top of the page. Key sections include Home, Learning Content, Login, and Register. The footer also has links to important pages like Terms, Privacy, and About. You can also access our newsletter and other learning modules from the main site.`;
+    }
+
+    // About the platform
+    if (
+      lowerQuestion.includes("about") ||
+      lowerQuestion.includes("what is") ||
+      lowerQuestion.includes("iiskills")
+    ) {
+      setConsecutiveFailures(0);
+      return `iiskills.cloud is a professional skills development platform offering courses across multiple domains including AI, Mathematics, Physics, Chemistry, JEE/NEET preparation, Management, Leadership, and more. We provide comprehensive learning materials, certification, and career guidance.`;
+    }
+
+    // Certification
+    if (
+      lowerQuestion.includes("certificate") ||
+      lowerQuestion.includes("certification") ||
+      lowerQuestion.includes("credential")
+    ) {
+      setConsecutiveFailures(0);
+      return `We offer certification upon successful completion of courses. Certificates are recognized credentials that validate your skills and knowledge. Visit the Certification section in the main navigation to learn more about our certification programs.`;
+    }
+
+    // Contact and Support
+    if (
+      lowerQuestion.includes("contact") ||
+      lowerQuestion.includes("support") ||
+      lowerQuestion.includes("help desk") ||
+      lowerQuestion.includes("email")
+    ) {
+      setConsecutiveFailures(0);
+      return `For support, you can reach us at info@iiskills.cloud. We're here to help with any questions about courses, registration, payments, or technical issues. You can also check the About page for more contact information.`;
+    }
+
+    // Privacy and Terms
+    if (
+      lowerQuestion.includes("privacy") ||
+      lowerQuestion.includes("terms") ||
+      lowerQuestion.includes("policy") ||
+      lowerQuestion.includes("data")
+    ) {
+      setConsecutiveFailures(0);
+      return `Our Privacy Policy and Terms & Conditions are available in the footer of every page. We take your privacy seriously and follow industry best practices for data protection. Your personal information is secure with us.`;
+    }
+
+    // Progress Tracking
+    if (
+      lowerQuestion.includes("progress") ||
+      lowerQuestion.includes("track") ||
+      lowerQuestion.includes("dashboard")
+    ) {
+      setConsecutiveFailures(0);
+      return `You can track your learning progress through your personal dashboard. After logging in, you'll see your enrolled courses, completed lessons, and upcoming content. Your progress is saved automatically across all devices.`;
+    }
+
+    // Mobile App / PWA
+    if (
+      lowerQuestion.includes("app") ||
+      lowerQuestion.includes("mobile") ||
+      lowerQuestion.includes("install") ||
+      lowerQuestion.includes("download")
+    ) {
+      setConsecutiveFailures(0);
+      return `You can install iiskills.cloud as a Progressive Web App (PWA) on your device for a native app-like experience! Look for the "Install App" button or add to home screen option in your browser. This works on both mobile and desktop.`;
+    }
+
+    // General help
+    if (lowerQuestion.includes("help") || lowerQuestion.includes("how")) {
+      setConsecutiveFailures(0);
+      return `I can help you with ${context}. You can ask me about courses, content, registration, login, pricing, certificates, navigation, newsletter subscription, progress tracking, or general platform features. What would you like to know?`;
+    }
+
+    // If no match found - handle as failure with specific responses
+    const currentFailures = consecutiveFailures;
+    setConsecutiveFailures(prev => prev + 1);
+    
+    if (currentFailures === 0) {
+      // First failure
+      return "I am sorry, I cannot understand the question. Could you rephrase it.";
+    } else if (currentFailures === 1) {
+      // Second consecutive failure
+      return "I am sorry. Try again please.";
+    } else {
+      // Third+ failure - reset and give generic help
+      setConsecutiveFailures(0);
+      return "I am sorry. Try again please.";
+    }
   };
 
   return (
