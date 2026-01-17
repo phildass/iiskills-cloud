@@ -74,6 +74,35 @@ This repository contains multiple Next.js applications:
 
 Each app can be deployed independently on different subdomains while sharing authentication.
 
+## 🚀 Multi-App Subdomain Deployment
+
+**NEW: Automated deployment to VPS with subdomain routing!**
+
+Deploy all learning apps to their respective subdomains on Hostinger VPS with one command:
+
+```bash
+# Verify DNS configuration
+./verify-subdomain-dns.sh
+
+# Deploy everything (build, PM2, Nginx, SSL)
+sudo ./deploy-subdomains.sh
+
+# Monitor app health
+./monitor-apps.sh
+```
+
+**Features:**
+- ✅ Automated DNS verification for all subdomains
+- ✅ Builds and deploys all apps with PM2
+- ✅ Auto-configures Nginx reverse proxies
+- ✅ Sets up SSL certificates with Let's Encrypt
+- ✅ Health monitoring dashboard
+- ✅ Idempotent and safe to re-run
+
+**Documentation:**
+- 📚 **Full Guide:** [MULTI_APP_DEPLOYMENT_GUIDE.md](MULTI_APP_DEPLOYMENT_GUIDE.md)
+- 📋 **Quick Reference:** [DEPLOYMENT_QUICK_REFERENCE.md](DEPLOYMENT_QUICK_REFERENCE.md)
+
 ## Local Port Map
 
 All applications in this monorepo have been assigned unique, sequential ports to prevent EADDRINUSE errors when running concurrently. See [PORT_ASSIGNMENTS.md](PORT_ASSIGNMENTS.md) for full details.
