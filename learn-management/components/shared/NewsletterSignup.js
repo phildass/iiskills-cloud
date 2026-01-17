@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
 
 /**
  * NewsletterSignup Component
@@ -20,7 +19,6 @@ export default function NewsletterSignup({
   onSuccess = null,
   isClosing = false,
 }) {
-  const router = useRouter();
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState({ type: "", text: "" });
@@ -29,7 +27,7 @@ export default function NewsletterSignup({
   // Load reCAPTCHA script
   useEffect(() => {
     const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
-    
+
     // Validate environment variable
     if (!siteKey) {
       console.error("NEXT_PUBLIC_RECAPTCHA_SITE_KEY is not set");
@@ -42,9 +40,7 @@ export default function NewsletterSignup({
 
     // Check if script is already loaded
     if (typeof window !== "undefined") {
-      const existingScript = document.querySelector(
-        `script[src*="recaptcha/api.js"]`
-      );
+      const existingScript = document.querySelector('script[src*="recaptcha/api.js"]');
 
       if (existingScript) {
         // Script already exists, wait for it to be ready
@@ -108,11 +104,11 @@ export default function NewsletterSignup({
       const token = await new Promise((resolve, reject) => {
         window.grecaptcha.ready(async () => {
           try {
-            const token = await window.grecaptcha.execute(siteKey, {
+            const recaptchaToken = await window.grecaptcha.execute(siteKey, {
               action: "newsletter_signup",
             });
-            resolve(token);
-          } catch (error) {
+            resolve(recaptchaToken);
+          } catch (err) {
             reject(new Error("Failed to get reCAPTCHA token. Please try again."));
           }
         });
@@ -175,7 +171,8 @@ export default function NewsletterSignup({
             ✉️ <strong>Our Promise:</strong>
           </p>
           <p className="text-xs text-blue-800 mt-1">
-            The Skilling Newsletter will be sent ONLY when new courses are introduced, or important announcements/changes are made. You will NOT receive unnecessary or frequent emails.
+            The Skilling Newsletter will be sent ONLY when new courses are introduced, or important
+            announcements/changes are made. You will NOT receive unnecessary or frequent emails.
           </p>
         </div>
       </div>

@@ -12,9 +12,7 @@ export default function NewsletterPage() {
   };
 
   // Sort newsletters by date (newest first)
-  const sortedNewsletters = [...newsletters].sort(
-    (a, b) => new Date(b.date) - new Date(a.date)
-  );
+  const sortedNewsletters = [...newsletters].sort((a, b) => new Date(b.date) - new Date(a.date));
 
   const handleViewPDF = (newsletter) => {
     setSelectedNewsletter(newsletter);
@@ -49,16 +47,17 @@ export default function NewsletterPage() {
           <div className="text-center mb-12">
             <h1 className="text-5xl font-bold text-gray-800 mb-4">📧 The Skilling Newsletter</h1>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-6">
-              Stay informed about new courses and important updates—no unnecessary emails, just what matters to your learning journey.
+              Stay informed about new courses and important updates—no unnecessary emails, just what
+              matters to your learning journey.
             </p>
-            
+
             {/* Policy Banner */}
             <div className="bg-blue-50 border-l-4 border-blue-400 p-4 mb-8 text-left max-w-2xl mx-auto rounded">
-              <p className="text-sm text-blue-900 font-semibold">
-                📬 Our Newsletter Policy:
-              </p>
+              <p className="text-sm text-blue-900 font-semibold">📬 Our Newsletter Policy:</p>
               <p className="text-sm text-blue-800 mt-2">
-                The Skilling Newsletter will be sent <strong>ONLY</strong> when new courses are introduced, or important announcements/changes are made. You will <strong>NOT</strong> receive unnecessary or frequent emails.
+                The Skilling Newsletter will be sent <strong>ONLY</strong> when new courses are
+                introduced, or important announcements/changes are made. You will{" "}
+                <strong>NOT</strong> receive unnecessary or frequent emails.
               </p>
             </div>
 
@@ -113,7 +112,8 @@ export default function NewsletterPage() {
             {sortedNewsletters.length === 0 ? (
               <div className="bg-gray-50 border border-gray-200 rounded-lg p-8 text-center">
                 <p className="text-gray-600">
-                  No newsletters available yet. Subscribe to be notified when we publish our first issue!
+                  No newsletters available yet. Subscribe to be notified when we publish our first
+                  issue!
                 </p>
               </div>
             ) : (
@@ -125,14 +125,11 @@ export default function NewsletterPage() {
                   >
                     <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                       <div className="flex-1">
-                        <h3 className="text-xl font-bold text-gray-800 mb-2">
-                          {newsletter.title}
-                        </h3>
-                        <p className="text-gray-600 text-sm mb-2">
-                          {newsletter.description}
-                        </p>
+                        <h3 className="text-xl font-bold text-gray-800 mb-2">{newsletter.title}</h3>
+                        <p className="text-gray-600 text-sm mb-2">{newsletter.description}</p>
                         <p className="text-gray-500 text-xs">
-                          Published: {new Date(newsletter.date).toLocaleDateString("en-US", {
+                          Published:{" "}
+                          {new Date(newsletter.date).toLocaleDateString("en-US", {
                             year: "numeric",
                             month: "long",
                             day: "numeric",
@@ -196,8 +193,8 @@ export default function NewsletterPage() {
           <div className="bg-green-50 border border-green-200 rounded-lg p-6 text-center">
             <h3 className="font-bold text-lg mb-2">📬 What to Expect</h3>
             <p className="text-gray-600 text-sm mb-4">
-              We respect your inbox! You'll only receive emails when there's something truly important to share. 
-              You can easily unsubscribe at any time with one click.
+              We respect your inbox! You'll only receive emails when there's something truly
+              important to share. You can easily unsubscribe at any time with one click.
             </p>
             <div className="flex flex-wrap justify-center gap-4 text-sm text-gray-600">
               <span className="flex items-center">
@@ -252,21 +249,14 @@ export default function NewsletterPage() {
             <div className="bg-white rounded-lg shadow-2xl max-w-6xl w-full h-[90vh] flex flex-col">
               {/* Modal Header */}
               <div className="flex items-center justify-between p-4 border-b">
-                <h3 className="text-xl font-bold text-gray-800">
-                  {selectedNewsletter.title}
-                </h3>
+                <h3 className="text-xl font-bold text-gray-800">{selectedNewsletter.title}</h3>
                 <div className="flex gap-2">
                   <button
                     onClick={() => handleDownloadPDF(selectedNewsletter)}
                     className="bg-green-600 hover:bg-green-700 text-white font-medium px-4 py-2 rounded-lg transition flex items-center gap-2"
                     title="Download PDF"
                   >
-                    <svg
-                      className="w-5 h-5"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
