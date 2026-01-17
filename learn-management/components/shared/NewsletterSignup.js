@@ -28,15 +28,62 @@ export default function NewsletterSignup({
 
   // Load reCAPTCHA script
   useEffect(() => {
-    if (typeof window !== "undefined" && !window.grecaptcha) {
-      const script = document.createElement("script");
-      script.src = `https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`;
-      script.async = true;
-      script.defer = true;
-      script.onload = () => setRecaptchaLoaded(true);
-      document.body.appendChild(script);
-    } else if (window.grecaptcha) {
-      setRecaptchaLoaded(true);
+    const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
+    
+    // Validate environment variable
+    if (!siteKey) {
+      console.error("NEXT_PUBLIC_RECAPTCHA_SITE_KEY is not set");
+      setMessage({
+        type: "error",
+        text: "reCAPTCHA is not configured. Please contact the administrator.",
+      });
+      return;
+    }
+
+    // Check if script is already loaded
+    if (typeof window !== "undefined") {
+      const existingScript = document.querySelector(
+        `script[src*="recaptcha/api.js"]`
+      );
+
+      if (existingScript) {
+        // Script already exists, wait for it to be ready
+        if (window.grecaptcha && window.grecaptcha.ready) {
+          window.grecaptcha.ready(() => {
+            setRecaptchaLoaded(true);
+          });
+        } else {
+          // Script is loading, wait for onload
+          existingScript.addEventListener("load", () => {
+            if (window.grecaptcha && window.grecaptcha.ready) {
+              window.grecaptcha.ready(() => {
+                setRecaptchaLoaded(true);
+              });
+            }
+          });
+        }
+      } else {
+        // Load the script
+        const script = document.createElement("script");
+        script.src = `https://www.google.com/recaptcha/api.js?render=${siteKey}`;
+        script.async = true;
+        script.defer = true;
+        script.onload = () => {
+          if (window.grecaptcha && window.grecaptcha.ready) {
+            window.grecaptcha.ready(() => {
+              setRecaptchaLoaded(true);
+            });
+          }
+        };
+        script.onerror = () => {
+          console.error("Failed to load reCAPTCHA script");
+          setMessage({
+            type: "error",
+            text: "Failed to load reCAPTCHA. Please check your internet connection and try again.",
+          });
+        };
+        document.body.appendChild(script);
+      }
     }
   }, []);
 
@@ -46,13 +93,29 @@ export default function NewsletterSignup({
     setMessage({ type: "", text: "" });
 
     try {
-      // Get reCAPTCHA token
-      if (!recaptchaLoaded || !window.grecaptcha) {
-        throw new Error("reCAPTCHA not loaded. Please try again.");
+      // Validate reCAPTCHA is loaded
+      if (!recaptchaLoaded || !window.grecaptcha || !window.grecaptcha.ready) {
+        throw new Error("reCAPTCHA not loaded. Please refresh the page and try again.");
       }
 
-      const token = await window.grecaptcha.execute(process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY, {
-        action: "newsletter_signup",
+      // Get environment variable
+      const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
+      if (!siteKey) {
+        throw new Error("reCAPTCHA is not configured properly.");
+      }
+
+      // Get reCAPTCHA token with ready() callback to ensure it's initialized
+      const token = await new Promise((resolve, reject) => {
+        window.grecaptcha.ready(async () => {
+          try {
+            const token = await window.grecaptcha.execute(siteKey, {
+              action: "newsletter_signup",
+            });
+            resolve(token);
+          } catch (error) {
+            reject(new Error("Failed to get reCAPTCHA token. Please try again."));
+          }
+        });
       });
 
       // Submit to API
