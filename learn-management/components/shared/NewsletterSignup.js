@@ -49,14 +49,21 @@ export default function NewsletterSignup({
             setRecaptchaLoaded(true);
           });
         } else {
-          // Script is loading, wait for onload
-          existingScript.addEventListener("load", () => {
+          // Script is loading, add load event listener if not already loaded
+          const onScriptLoad = () => {
             if (window.grecaptcha && window.grecaptcha.ready) {
               window.grecaptcha.ready(() => {
                 setRecaptchaLoaded(true);
               });
             }
-          });
+          };
+
+          // Check if script has already loaded by checking readyState
+          if (existingScript.readyState === "complete" || existingScript.readyState === "loaded") {
+            onScriptLoad();
+          } else {
+            existingScript.addEventListener("load", onScriptLoad);
+          }
         }
       } else {
         // Load the script

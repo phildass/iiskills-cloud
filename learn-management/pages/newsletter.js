@@ -23,12 +23,25 @@ export default function NewsletterPage() {
   };
 
   const handleDownloadPDF = (newsletter) => {
+    // Validate filename to prevent path traversal
+    const sanitizedFilename = newsletter.filename.replace(/[^a-zA-Z0-9.-]/g, "");
     const link = document.createElement("a");
-    link.href = `/newsletters/${newsletter.filename}`;
-    link.download = newsletter.filename;
+    link.href = `/newsletters/${sanitizedFilename}`;
+    link.download = sanitizedFilename;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+  };
+
+  // Sanitize filename for iframe src to prevent XSS
+  const getSafeFilename = (filename) => {
+    // Only allow alphanumeric, hyphens, underscores, and .pdf extension
+    const sanitized = filename.replace(/[^a-zA-Z0-9._-]/g, "");
+    // Ensure it ends with .pdf
+    if (!sanitized.toLowerCase().endsWith(".pdf")) {
+      return null;
+    }
+    return sanitized;
   };
 
   return (
@@ -244,7 +257,7 @@ export default function NewsletterPage() {
         </div>
 
         {/* PDF Viewer Modal */}
-        {selectedNewsletter && (
+        {selectedNewsletter && getSafeFilename(selectedNewsletter.filename) && (
           <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4">
             <div className="bg-white rounded-lg shadow-2xl max-w-6xl w-full h-[90vh] flex flex-col">
               {/* Modal Header */}
@@ -286,7 +299,7 @@ export default function NewsletterPage() {
               {/* PDF Viewer */}
               <div className="flex-1 overflow-hidden">
                 <iframe
-                  src={`/newsletters/${selectedNewsletter.filename}`}
+                  src={`/newsletters/${getSafeFilename(selectedNewsletter.filename)}`}
                   className="w-full h-full border-0"
                   title={selectedNewsletter.title}
                 />
