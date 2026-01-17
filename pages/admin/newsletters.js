@@ -116,6 +116,42 @@ export default function AdminNewsletters() {
     }
   }
 
+  async function approveNewsletter(newsletterId, action) {
+    const actionText = action === 'approve' ? 'approve' : 'reject';
+    
+    if (!confirm(`Are you sure you want to ${actionText} this newsletter?`)) {
+      return;
+    }
+
+    try {
+      const response = await fetch('/api/newsletter/approve', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ newsletterId, action })
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setMessage({
+          type: 'success',
+          text: `✅ ${data.message}`
+        });
+        loadData();
+      } else {
+        setMessage({
+          type: 'error',
+          text: `❌ ${data.error}`
+        });
+      }
+    } catch (error) {
+      setMessage({
+        type: 'error',
+        text: `❌ Failed to ${actionText} newsletter: ${error.message}`
+      });
+    }
+  }
+
   return (
     <>
       <Head>
@@ -219,7 +255,10 @@ export default function AdminNewsletters() {
                           </span>
                           <span className={`px-2 py-1 rounded text-xs font-semibold ${
                             newsletter.status === 'sent' ? 'bg-green-100 text-green-800' :
-                            newsletter.status === 'scheduled' ? 'bg-blue-100 text-blue-800' :
+                            newsletter.status === 'approved' ? 'bg-blue-100 text-blue-800' :
+                            newsletter.status === 'draft' ? 'bg-yellow-100 text-yellow-800' :
+                            newsletter.status === 'rejected' ? 'bg-red-100 text-red-800' :
+                            newsletter.status === 'scheduled' ? 'bg-purple-100 text-purple-800' :
                             'bg-gray-100 text-gray-800'
                           }`}>
                             {newsletter.status}
@@ -241,10 +280,26 @@ export default function AdminNewsletters() {
                       </div>
                       <div className="flex flex-col gap-2 ml-4">
                         <Link href={`/newsletter/view/${newsletter.id}`}>
-                          <a className="text-sm text-purple-600 hover:text-purple-700 font-semibold">
+                          <a className="text-sm text-purple-600 hover:text-purple-700 font-semibold whitespace-nowrap">
                             👁️ Preview
                           </a>
                         </Link>
+                        {newsletter.status === 'draft' && (
+                          <>
+                            <button
+                              onClick={() => approveNewsletter(newsletter.id, 'approve')}
+                              className="text-sm bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded font-semibold whitespace-nowrap"
+                            >
+                              ✅ Approve
+                            </button>
+                            <button
+                              onClick={() => approveNewsletter(newsletter.id, 'reject')}
+                              className="text-sm bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded font-semibold whitespace-nowrap"
+                            >
+                              ❌ Reject
+                            </button>
+                          </>
+                        )}
                         {newsletter.status === 'sent' && (
                           <button
                             onClick={() => resendNewsletter(newsletter.id)}
