@@ -75,7 +75,15 @@ export default async function handler(req, res) {
 
       if (queueError) {
         console.error('Failed to queue newsletter for sending:', queueError);
-        // Don't fail the approval, just log it
+        // Revert the approval if queueing fails
+        await supabase
+          .from('newsletter_editions')
+          .update({ status: 'draft', approved_at: null, approved_by: null })
+          .eq('id', newsletterId);
+        
+        return res.status(500).json({ 
+          error: 'Newsletter approved but failed to queue for sending. Please try again.' 
+        });
       }
     }
 
