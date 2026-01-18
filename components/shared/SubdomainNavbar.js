@@ -1,3 +1,5 @@
+"use client"; // This component uses React hooks for interactive dropdown - must run on client side
+
 import { useState } from "react";
 import Link from "next/link";
 
