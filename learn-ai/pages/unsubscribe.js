@@ -1,3 +1,5 @@
+"use client"; // This page uses React hooks and router queries - must run on client side
+
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";

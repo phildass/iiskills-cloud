@@ -1,3 +1,5 @@
+"use client"; // This component uses React hooks and browser navigation - must run on client side
+
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";

@@ -1,3 +1,5 @@
+"use client"; // This component uses React hooks and DOM manipulation - must run on client side
+
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 

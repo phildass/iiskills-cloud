@@ -1,3 +1,5 @@
+"use client"; // This page uses React hooks for auth checking - must run on client side
+
 import Head from "next/head";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
