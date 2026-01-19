@@ -19,27 +19,28 @@ const HIDDEN_COURSE_NAMES = [
   "Machine Learning",
   "Deep Learning",
   "Data Visualization (Tableau, Power BI)",
+  "Interview Skills",
+  "Indian Cuisine Cooking",
+  "Music (Instrument or Vocal Training)",
+  "Vedic Mathematics",
+  "Abacus Training",
+  "Ethical Hacking (CEH)",
 ];
 
-// List of available subdomain courses (16 total)
+// List of available subdomain courses (11 total: 10 learn-* courses + cricket-know-all)
 // To add a new available course, simply add its subdomain name to this array
 const AVAILABLE_SUBDOMAINS = [
   "learn-ai",
   "learn-apt",
   "learn-chemistry",
-  "learn-cricket",
-  "learn-data-science",
   "learn-geography",
-  "learn-govt-jobs",
-  "learn-ias",
-  "learn-jee",
   "learn-leadership",
   "learn-management",
   "learn-math",
-  "learn-neet",
   "learn-physics",
   "learn-pr",
   "learn-winning",
+  "cricket-know-all",
 ];
 
 // Mapping for courses with names that don't directly match subdomain
@@ -51,6 +52,11 @@ const COURSE_NAME_TO_SUBDOMAIN = {
 
 // Helper function to check if a course is available based on its name
 function isCourseAvailable(courseName) {
+  // Special case for Cricket Know All
+  if (courseName === "Cricket Know All") {
+    return AVAILABLE_SUBDOMAINS.includes("cricket-know-all");
+  }
+  
   // Convert course name to subdomain format (e.g., "Learn AI" -> "learn-ai")
   // Remove suffixes like "– Free", "– From the book", etc.
   const cleanName = courseName
@@ -1038,7 +1044,7 @@ const coursesData = [
   },
   {
     id: 41,
-    name: "IBPS/SBI Exam Preparation",
+    name: "Banking Exams",
     category: "UPSC/Government Exams",
     description:
       "Targeted preparation for banking sector exams including IBPS PO, Clerk, and SBI positions. Cover quantitative aptitude, reasoning, English, general awareness, and banking knowledge for successful career in banking.",
@@ -1511,6 +1517,29 @@ const coursesData = [
       { id: 10, title: "Interview/Personality Test Prep", isFree: false },
     ],
   },
+  {
+    id: 61,
+    name: "Cricket Know All",
+    category: "Sports",
+    description:
+      "Comprehensive cricket knowledge covering rules, techniques, strategies, history, and analysis. Perfect for cricket enthusiasts, players, and aspiring coaches.",
+    duration: "10 weeks",
+    level: "Beginner",
+    comingSoon: false,
+    isFree: false,
+    modules: [
+      { id: 1, title: "Introduction to Cricket", isFree: true },
+      { id: 2, title: "Cricket Rules and Regulations", isFree: false },
+      { id: 3, title: "Batting Techniques", isFree: false },
+      { id: 4, title: "Bowling Techniques", isFree: false },
+      { id: 5, title: "Fielding Strategies", isFree: false },
+      { id: 6, title: "Cricket History and Legends", isFree: false },
+      { id: 7, title: "Match Analysis and Strategy", isFree: false },
+      { id: 8, title: "Cricket Formats (Test, ODI, T20)", isFree: false },
+      { id: 9, title: "Fitness and Training", isFree: false },
+      { id: 10, title: "Cricket Coaching Fundamentals", isFree: false },
+    ],
+  },
 ];
 
 export default function Courses() {
@@ -1566,6 +1595,7 @@ export default function Courses() {
     "Career Development",
     "Creative Arts",
     "Education",
+    "Sports",
     "Free Course",
   ];
 
@@ -1613,7 +1643,7 @@ export default function Courses() {
         <title>Courses - iiskills.cloud</title>
         <meta
           name="description"
-          content="Explore 58+ professional and personal development courses including Communication Skills, UI/UX Design, Data Science, Full Stack Development, Digital Marketing, Cybersecurity, FinTech, and more. Many free courses available!"
+          content="Explore 10 available professional and personal development courses including AI, PR, Leadership, Management, and more. 50+ courses being developed. Many free courses available!"
         />
       </Head>
 
@@ -1621,16 +1651,16 @@ export default function Courses() {
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-primary mb-4">Our Courses</h1>
           <p className="text-xl text-charcoal mb-2">Professional Skills Development for Everyone</p>
-          <p className="text-lg text-gray-600">
-            57+ courses across 11+ domains - Many FREE courses available!
+          <p className="text-lg font-semibold text-primary mb-2">
+            Courses available: 10
+          </p>
+          <p className="text-sm text-orange-600 font-semibold mb-4">
+            Introductory fee only till February 15. New fees will be applicable from midnight of February 15.
           </p>
           <div className="mt-4 text-lg font-semibold text-accent">
             Paid courses: {pricing.totalPrice} per course
             {pricing.isIntroductory ? " (Introductory Offer)" : ""}
           </div>
-          <p className="text-lg text-gray-600">
-            58+ courses across 11+ domains - Many FREE courses available!
-          </p>
         </div>
 
         {/* Introductory Offer Banner */}
@@ -1639,6 +1669,14 @@ export default function Courses() {
             <p className="text-lg font-bold">{introNotice}</p>
           </div>
         )}
+
+        {/* Available Courses Display */}
+        <div className="bg-gradient-to-r from-green-50 to-blue-50 rounded-lg shadow-lg p-6 mb-8 text-center border-2 border-green-200">
+          <h2 className="text-2xl font-bold text-primary mb-3">Available right now: 10 Courses</h2>
+          <p className="text-lg text-charcoal">
+            50+ Courses being developed and should be uploaded soon. Over the next few months you will have 100+ Courses to choose from.
+          </p>
+        </div>
 
         {/* Filters */}
         <div className="bg-white rounded-lg shadow p-6 mb-8">
