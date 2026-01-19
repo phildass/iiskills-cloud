@@ -1,3 +1,5 @@
+"use client"; // This component uses React hooks and browser navigation - must run on client side
+
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
@@ -61,9 +63,12 @@ export default function UniversalLogin({
     try {
       if (useMagicLink) {
         // Send magic link to user's email
+        // Universal Redirect: Use query param redirect if available, otherwise use current page
+        // This ensures users return to where they started the auth flow
+        const targetPath = router.query.redirect || redirectAfterLogin;
         const redirectUrl =
           typeof window !== "undefined"
-            ? `${window.location.origin}${redirectAfterLogin}`
+            ? `${window.location.origin}${targetPath}`
             : undefined;
 
         const { success: magicLinkSuccess, error: magicLinkError } = await sendMagicLink(
@@ -105,8 +110,8 @@ export default function UniversalLogin({
           // Authentication successful!
           setSuccess("Login successful! Redirecting...");
 
-          // Use redirect URL from query param or default redirect path
-          // No automatic admin redirect - respect the intended destination
+          // Universal Redirect: Use query param redirect if available, otherwise use default
+          // This ensures users return to where they started the auth flow
           const redirectUrl = router.query.redirect || redirectAfterLogin;
 
           // Redirect after a brief delay to show success message
@@ -127,9 +132,12 @@ export default function UniversalLogin({
     setError("");
 
     try {
+      // Universal Redirect: Use query param redirect if available, otherwise use default
+      // This ensures users return to where they started the auth flow after OAuth
+      const targetPath = router.query.redirect || redirectAfterLogin;
       const redirectUrl =
         typeof window !== "undefined"
-          ? `${window.location.origin}${redirectAfterLogin}`
+          ? `${window.location.origin}${targetPath}`
           : undefined;
 
       const { success: googleSuccess, error: googleError } = await signInWithGoogle(redirectUrl);

@@ -1,3 +1,5 @@
+"use client"; // This component uses React hooks and form handling - must run on client side
+
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
@@ -188,12 +190,19 @@ export default function UniversalRegister({
       }
 
       // Create user account in shared Supabase instance
+      // Universal Redirect: Set emailRedirectTo to the original page where user started registration
+      // If user came from a redirect param, use that; otherwise use the page they're registering from
+      const targetPath = redirectPath || (typeof window !== "undefined" ? window.location.pathname : "/");
+      const emailConfirmRedirect = typeof window !== "undefined" 
+        ? `${window.location.origin}${targetPath}` 
+        : undefined;
+
       const { data: authData, error: signUpError } = await supabase.auth.signUp({
         email: formData.email,
         password: formData.password,
         options: {
           data: userMetadata,
-          emailRedirectTo: typeof window !== "undefined" ? window.location.origin : undefined,
+          emailRedirectTo: emailConfirmRedirect,
         },
       });
 
