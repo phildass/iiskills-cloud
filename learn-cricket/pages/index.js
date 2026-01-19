@@ -23,10 +23,10 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Cricket Know-All - iiskills.cloud</title>
+        <title>Cricket Know-All - Free Cricket Knowledge & Game Portal</title>
         <meta
           name="description"
-          content="Master cricket knowledge, history, strategies, and become a cricket expert"
+          content="Your free cricket knowledge and games portal—quizzes, stats, history, events, and more!"
         />
       </Head>
 
@@ -36,15 +36,15 @@ export default function Home() {
           <div className="max-w-6xl mx-auto px-4 text-center">
             <h1 className="text-5xl font-bold mb-6">Cricket Know-All</h1>
             <p className="text-2xl mb-8 max-w-3xl mx-auto">
-              Master cricket knowledge, history, strategies, and become a cricket expert
+              Your free cricket knowledge and games portal—quizzes, stats, history, events, and more!
             </p>
 
             {!user && (
               <div className="bg-white/10 backdrop-blur-sm border-2 border-white/30 rounded-lg p-4 mb-8 max-w-2xl mx-auto">
-                <p className="text-lg font-semibold">📝 Registration Required</p>
+                <p className="text-lg font-semibold">📝 Free Registration - Save Your Progress</p>
                 <p className="text-sm mt-2">
-                  Create a free account to access all learning content. Register once, access all
-                  iiskills.cloud apps!
+                  Create a free account to save your scores, track progress, and personalize your experience. 
+                  All features are free for registered users!
                 </p>
               </div>
             )}
@@ -55,7 +55,7 @@ export default function Home() {
                   href="/learn"
                   className="inline-block bg-white text-primary px-10 py-4 rounded-lg font-bold text-lg hover:bg-gray-100 transition shadow-lg"
                 >
-                  Continue Learning →
+                  Explore Knowledge Portal →
                 </Link>
               ) : (
                 <>
@@ -81,30 +81,31 @@ export default function Home() {
         {/* Features Section */}
         <section className="py-16 bg-white">
           <div className="max-w-6xl mx-auto px-4">
-            <h2 className="text-4xl font-bold text-primary text-center mb-12">What You'll Learn</h2>
+            <h2 className="text-4xl font-bold text-primary text-center mb-12">What's Inside</h2>
 
             <div className="grid md:grid-cols-3 gap-8">
               <div className="bg-neutral p-8 rounded-lg shadow-lg">
                 <div className="text-5xl mb-4">🏏</div>
-                <h3 className="text-2xl font-bold text-primary mb-4">Cricket Fundamentals</h3>
+                <h3 className="text-2xl font-bold text-primary mb-4">Cricket Knowledge</h3>
                 <p className="text-charcoal">
-                  Master the rules, techniques, and fundamentals of cricket from basics to advanced concepts.
+                  Explore cricket rules, techniques, and fundamentals—from basics to advanced concepts, 
+                  all in one free portal.
                 </p>
               </div>
 
               <div className="bg-neutral p-8 rounded-lg shadow-lg">
                 <div className="text-5xl mb-4">📊</div>
-                <h3 className="text-2xl font-bold text-primary mb-4">Match Strategies</h3>
+                <h3 className="text-2xl font-bold text-primary mb-4">Games & Quizzes</h3>
                 <p className="text-charcoal">
-                  Learn tactical approaches, field placements, and strategies used by professional teams.
+                  Test your knowledge with interactive quizzes, match strategies, and tactical challenges.
                 </p>
               </div>
 
               <div className="bg-neutral p-8 rounded-lg shadow-lg">
                 <div className="text-5xl mb-4">🏆</div>
-                <h3 className="text-2xl font-bold text-primary mb-4">Cricket History</h3>
+                <h3 className="text-2xl font-bold text-primary mb-4">Stats & History</h3>
                 <p className="text-charcoal">
-                  Explore the rich history of cricket, legendary players, and memorable matches.
+                  Dive into cricket's rich history, legendary players, memorable matches, and fascinating records.
                 </p>
               </div>
             </div>
@@ -114,9 +115,9 @@ export default function Home() {
         {/* CTA Section */}
         <section className="py-16 bg-gradient-to-r from-cyan-600 to-primary text-white">
           <div className="max-w-4xl mx-auto px-4 text-center">
-            <h2 className="text-4xl font-bold mb-6">Ready to Begin Your Journey?</h2>
+            <h2 className="text-4xl font-bold mb-6">Ready to Begin?</h2>
             <p className="text-xl mb-8">
-              Join thousands of learners advancing their skills with iiskills.cloud
+              Join cricket enthusiasts worldwide and explore our free knowledge portal
             </p>
 
             {!user && (

@@ -38,11 +38,8 @@ export default function Privacy() {
             </p>
             <ul className="list-disc list-inside text-charcoal space-y-1 ml-4">
               <li>Name, email address, phone number</li>
-              <li>
-                Billing information (processed securely through third-party payment processors)
-              </li>
               <li>Profile information (education, organization, location)</li>
-              <li>Course enrollment and progress data</li>
+              <li>Learning progress and activity data</li>
               <li>Certificates and assessments</li>
             </ul>
 
@@ -63,9 +60,9 @@ export default function Privacy() {
             <h2 className="text-2xl font-bold text-accent mb-3">2. How We Use Your Information</h2>
             <p className="text-charcoal leading-relaxed mb-2">We use your information to:</p>
             <ul className="list-disc list-inside text-charcoal space-y-1 ml-4">
-              <li>Provide, maintain, and improve our educational services</li>
-              <li>Process course enrollments and issue certificates</li>
-              <li>Communicate with you regarding courses, updates, and support</li>
+              <li>Provide, maintain, and improve our free educational services</li>
+              <li>Track learning progress and issue certificates</li>
+              <li>Communicate with you regarding updates and support</li>
               <li>Analyze usage patterns and improve user experience</li>
               <li>Comply with legal obligations and prevent fraud</li>
               <li>
@@ -84,7 +81,7 @@ export default function Privacy() {
             <ul className="list-disc list-inside text-charcoal space-y-1 ml-4">
               <li>
                 <strong>Service Providers:</strong> Third-party vendors who assist us in operating
-                our platform (e.g., payment processors, hosting services, analytics providers).
+                our platform (e.g., hosting services, analytics providers).
                 These providers are contractually obligated to protect your data.
               </li>
               <li>
@@ -217,7 +214,7 @@ export default function Privacy() {
 
           <section className="border-t pt-6 mt-6">
             <p className="text-charcoal leading-relaxed italic">
-              By using iiskills.cloud, you acknowledge that you have read and understood this
+              By using Cricket Know-All via iiskills.cloud, you acknowledge that you have read and understood this
               Privacy Policy and agree to its terms.
             </p>
           </section>

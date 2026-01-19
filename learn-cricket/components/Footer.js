@@ -9,8 +9,11 @@ export default function Footer() {
         <div className="grid md:grid-cols-3 gap-8 mb-6">
           <div>
             <h3 className="font-bold text-lg mb-4">Cricket Know-All</h3>
-            <p className="text-gray-300 text-sm">
-              Part of the Indian Institute of Professional Skills Development initiative
+            <p className="text-gray-300 text-sm mb-2">
+              A free cricket knowledge and game portal by the Indian Institute of Professional Skills Development
+            </p>
+            <p className="text-gray-300 text-xs">
+              © {currentYear} All content freely accessible to registered users
             </p>
           </div>
 
@@ -51,9 +54,12 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-gray-700 pt-6 text-center text-sm text-gray-400">
-          <p>
-            &copy; {currentYear} iiskills.cloud - Indian Institute of Professional Skills
+          <p className="mb-2">
+            &copy; {currentYear} Cricket Know-All via iiskills.cloud - Indian Institute of Professional Skills
             Development. All rights reserved.
+          </p>
+          <p className="text-xs">
+            Free cricket knowledge portal | No payment required | Register to save progress
           </p>
         </div>
       </div>
