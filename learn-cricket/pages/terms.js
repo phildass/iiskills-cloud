@@ -122,7 +122,7 @@ export default function Terms() {
           <section>
             <h2 className="text-2xl font-bold text-accent mb-3">7. Disclaimer of Warranties</h2>
             <p className="text-charcoal leading-relaxed">
-              Our platform and courses are provided "as is" and "as available" without warranties of
+              Our platform and content are provided "as is" and "as available" without warranties of
               any kind, either express or implied. We do not guarantee that our services will be
               uninterrupted, error-free, or meet your specific requirements. We disclaim all
               warranties, including but not limited to merchantability, fitness for a particular
