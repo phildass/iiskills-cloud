@@ -40,6 +40,7 @@ Here is the complete port assignment for all applications:
 | 3013 | learn-physics | Physics mastery |
 | 3014 | learn-pr | Public Relations |
 | 3015 | learn-winning | Success strategies |
+| 3016 | learn-cricket | Cricket Know-All |
 
 ## How It Works
 
@@ -101,7 +102,7 @@ If you need to change a port assignment:
 
 ## Important Notes
 
-- All ports are unique and sequential from 3000 to 3015
+- All ports are unique and sequential from 3000 to 3016
 - Port assignments are consistent across development and production
 - No environment variable overrides are needed
 - All port specifications are in the package.json files for transparency

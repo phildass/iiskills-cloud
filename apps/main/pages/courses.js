@@ -21,12 +21,13 @@ const HIDDEN_COURSE_NAMES = [
   "Data Visualization (Tableau, Power BI)",
 ];
 
-// List of available subdomain courses (15 total)
+// List of available subdomain courses (16 total)
 // To add a new available course, simply add its subdomain name to this array
 const AVAILABLE_SUBDOMAINS = [
   "learn-ai",
   "learn-apt",
   "learn-chemistry",
+  "learn-cricket",
   "learn-data-science",
   "learn-geography",
   "learn-govt-jobs",
