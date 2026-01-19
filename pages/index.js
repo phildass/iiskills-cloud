@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Head from "next/head";
 import { getPricingDisplay, getIntroOfferNotice } from "../utils/pricing";
+import { getCurrentUser, isAdmin } from "../lib/supabaseClient";
 
 export default function Home() {
   const router = useRouter();
@@ -398,3 +399,4 @@ export default function Home() {
     </>
   );
 }
+
