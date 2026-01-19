@@ -663,10 +663,12 @@ export default function UniversalRegister({
                 📧 Subscribe to The Skilling Newsletter
               </p>
               <p className="text-xs text-blue-800">
-                The Skilling Newsletter will be sent ONLY when new courses are introduced, or important announcements/changes are made. You will NOT receive unnecessary or frequent emails.
+                The Skilling Newsletter will be sent ONLY when new courses are introduced, or
+                important announcements/changes are made. You will NOT receive unnecessary or
+                frequent emails.
               </p>
             </div>
-            
+
             <div className="space-y-2">
               <label className="flex items-start space-x-3 cursor-pointer">
                 <input
@@ -685,13 +687,15 @@ export default function UniversalRegister({
                   </p>
                 </div>
               </label>
-              
+
               <label className="flex items-start space-x-3 cursor-pointer">
                 <input
                   type="radio"
                   name="subscribeToNewsletter"
                   checked={formData.subscribeToNewsletter === false}
-                  onChange={() => setFormData((prev) => ({ ...prev, subscribeToNewsletter: false }))}
+                  onChange={() =>
+                    setFormData((prev) => ({ ...prev, subscribeToNewsletter: false }))
+                  }
                   className="mt-1 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300"
                 />
                 <div className="flex-1">
