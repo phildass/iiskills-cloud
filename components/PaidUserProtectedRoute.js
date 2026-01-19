@@ -1,3 +1,5 @@
+"use client"; // This component uses React hooks and authentication checks - must run on client side
+
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { getCurrentUser, checkUserPaymentStatus } from "../lib/supabaseClient";

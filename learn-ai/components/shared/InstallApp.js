@@ -1,3 +1,5 @@
+"use client"; // This component uses browser APIs and React hooks - must run on client side
+
 import { useState, useEffect } from "react";
 
 export default function InstallApp({ appName = "iiskills.cloud" }) {

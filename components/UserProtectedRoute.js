@@ -45,14 +45,17 @@ export default function UserProtectedRoute({ children }) {
           setIsAuthenticated(true);
         } else {
           // No user session found - redirect to register (registration-first workflow)
-          // Store the current path so we can redirect back after registration/login
+          // Universal Redirect: Store the current path so we can redirect back after registration/login
+          // This ensures users return to the exact page where they started the auth flow
           const currentPath = router.asPath;
           router.push(`/register?redirect=${encodeURIComponent(currentPath)}`);
         }
       } catch (error) {
         console.error("Error checking authentication:", error);
         // On error, redirect to register for safety (registration-first workflow)
-        router.push("/register");
+        // Universal Redirect: Preserve current path for post-auth redirect
+        const currentPath = router.asPath;
+        router.push(`/register?redirect=${encodeURIComponent(currentPath)}`);
       } finally {
         setIsLoading(false);
       }

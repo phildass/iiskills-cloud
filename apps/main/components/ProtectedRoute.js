@@ -28,6 +28,7 @@ export default function ProtectedRoute({ children, requireAdmin = true }) {
 
       if (!user) {
         // Not logged in - redirect to login with return URL
+        // Universal Redirect: Preserve current path for post-auth redirect
         // Only allow relative paths for security (prevent open redirect)
         const returnUrl = router.asPath.startsWith("/") ? router.asPath : "/";
         router.push(`/login?redirect=${encodeURIComponent(returnUrl)}`);
@@ -52,7 +53,9 @@ export default function ProtectedRoute({ children, requireAdmin = true }) {
       setIsLoading(false);
     } catch (error) {
       console.error("Error checking auth:", error);
-      router.push("/login");
+      // Universal Redirect: Preserve current path even on error
+      const returnUrl = router.asPath.startsWith("/") ? router.asPath : "/";
+      router.push(`/login?redirect=${encodeURIComponent(returnUrl)}`);
       setIsLoading(false);
     }
   };

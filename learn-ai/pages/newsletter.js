@@ -1,3 +1,5 @@
+"use client"; // This page uses React hooks (useRef) for DOM manipulation - must run on client side
+
 import Head from "next/head";
 import { useRef } from "react";
 import NewsletterSignup from "../components/shared/NewsletterSignup";

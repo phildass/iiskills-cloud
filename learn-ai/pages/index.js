@@ -1,3 +1,5 @@
+"use client"; // This page uses React hooks for user state management - must run on client side
+
 import Head from "next/head";
 import Link from "next/link";
 import { useState, useEffect } from "react";

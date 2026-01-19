@@ -16,6 +16,12 @@ import { getCurrentUser, isAdmin } from "../../lib/supabaseClient";
  * - Uses main Supabase authentication
  * - Role-based access control via user metadata
  */
+
+// Prevent static export/prerender errors by making this page SSR only
+export async function getServerSideProps() {
+  return { props: {} };
+}
+
 export default function AdminLogin() {
   const router = useRouter();
 

@@ -112,7 +112,8 @@ export default function NewsletterSignup({
             ✉️ <strong>Our Promise:</strong>
           </p>
           <p className="text-xs text-blue-800 mt-1">
-            The Skilling Newsletter will be sent ONLY when new courses are introduced, or important announcements/changes are made. You will NOT receive unnecessary or frequent emails.
+            The Skilling Newsletter will be sent ONLY when new courses are introduced, or important
+            announcements/changes are made. You will NOT receive unnecessary or frequent emails.
           </p>
         </div>
       </div>

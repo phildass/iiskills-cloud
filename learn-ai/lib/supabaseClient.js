@@ -20,6 +20,16 @@
  * - Role and permission data is synced via Supabase user metadata
  */
 
+// === DEBUG LINES: You can remove these after troubleshooting ===
+console.log("APT DEBUG: SUPABASE_URL:", process.env.NEXT_PUBLIC_SUPABASE_URL);
+console.log(
+  "APT DEBUG: SUPABASE_ANON_KEY:",
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+    ? process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY.substring(0, 12) + "..."
+    : "undefined"
+);
+// ===============================================================
+
 import { createClient } from "@supabase/supabase-js";
 
 // Supabase project URL and public anonymous key

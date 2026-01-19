@@ -347,7 +347,7 @@ export default function Home() {
                 href="/courses"
                 className="inline-block bg-accent text-white px-10 py-4 rounded-lg font-bold text-lg hover:bg-purple-600 transition shadow-lg"
               >
-                Browse All 50+ Courses →
+                Browse All 10 Available Courses →
               </Link>
             </div>
           </div>

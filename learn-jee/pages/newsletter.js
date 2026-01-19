@@ -25,16 +25,17 @@ export default function NewsletterPage() {
           <div className="text-center mb-12">
             <h1 className="text-5xl font-bold text-gray-800 mb-4">📧 The Skilling Newsletter</h1>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-6">
-              Stay informed about new courses and important updates—no unnecessary emails, just what matters to your learning journey.
+              Stay informed about new courses and important updates—no unnecessary emails, just what
+              matters to your learning journey.
             </p>
-            
+
             {/* Policy Banner */}
             <div className="bg-blue-50 border-l-4 border-blue-400 p-4 mb-8 text-left max-w-2xl mx-auto rounded">
-              <p className="text-sm text-blue-900 font-semibold">
-                📬 Our Newsletter Policy:
-              </p>
+              <p className="text-sm text-blue-900 font-semibold">📬 Our Newsletter Policy:</p>
               <p className="text-sm text-blue-800 mt-2">
-                The Skilling Newsletter will be sent <strong>ONLY</strong> when new courses are introduced, or important announcements/changes are made. You will <strong>NOT</strong> receive unnecessary or frequent emails.
+                The Skilling Newsletter will be sent <strong>ONLY</strong> when new courses are
+                introduced, or important announcements/changes are made. You will{" "}
+                <strong>NOT</strong> receive unnecessary or frequent emails.
               </p>
             </div>
 
@@ -81,8 +82,8 @@ export default function NewsletterPage() {
           <div className="bg-green-50 border border-green-200 rounded-lg p-6 text-center">
             <h3 className="font-bold text-lg mb-2">📬 What to Expect</h3>
             <p className="text-gray-600 text-sm mb-4">
-              We respect your inbox! You'll only receive emails when there's something truly important to share. 
-              You can easily unsubscribe at any time with one click.
+              We respect your inbox! You'll only receive emails when there's something truly
+              important to share. You can easily unsubscribe at any time with one click.
             </p>
             <div className="flex flex-wrap justify-center gap-4 text-sm text-gray-600">
               <span className="flex items-center">
