@@ -27,7 +27,7 @@ const HIDDEN_COURSE_NAMES = [
   "Ethical Hacking (CEH)",
 ];
 
-// List of available subdomain courses (10 total + cricket-know-all)
+// List of available subdomain courses (11 total: 10 learn-* courses + cricket-know-all)
 // To add a new available course, simply add its subdomain name to this array
 const AVAILABLE_SUBDOMAINS = [
   "learn-ai",
