@@ -165,7 +165,7 @@ export default function AIAssistant() {
       lowerQuestion.includes("subscription")
     ) {
       setConsecutiveFailures(0);
-      return `We offer affordable learning at competitive prices. Visit our pricing page or specific course pages for detailed pricing information. Some courses may have special introductory offers! You can make payments through our secure payment gateway.`;
+      return `Cricket Know-All is completely free! All you need to do is register for a free account to access all features. There are no payments, subscriptions, or hidden costs. Registration just helps you save your progress and personalize your experience.`;
     }
 
     // Newsletter
@@ -175,7 +175,7 @@ export default function AIAssistant() {
       lowerQuestion.includes("email update")
     ) {
       setConsecutiveFailures(0);
-      return `You can subscribe to our newsletter to stay updated with new courses, features, and learning resources! Visit the /newsletter page or use the newsletter signup form. We send weekly updates and never spam.`;
+      return `You can subscribe to our newsletter to stay updated with new content, features, and cricket knowledge! Visit the /newsletter page or use the newsletter signup form. We send weekly updates and never spam.`;
     }
 
     // Navigation and Features

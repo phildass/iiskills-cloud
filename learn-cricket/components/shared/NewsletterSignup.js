@@ -138,7 +138,7 @@ export default function NewsletterSignup({
 
       setMessage({
         type: "success",
-        text: "🎉 Thank you for subscribing! You'll only receive emails about new courses and important updates—no spam, we promise!",
+        text: "🎉 Thank you for subscribing! You'll only receive emails about new content and important updates—no spam, we promise!",
       });
       setEmail("");
 
@@ -178,7 +178,7 @@ export default function NewsletterSignup({
             ✉️ <strong>Our Promise:</strong>
           </p>
           <p className="text-xs text-blue-800 mt-1">
-            The Skilling Newsletter will be sent ONLY when new courses are introduced, or important
+            The Skilling Newsletter will be sent ONLY when new content or features are introduced, or important
             announcements/changes are made. You will NOT receive unnecessary or frequent emails.
           </p>
         </div>

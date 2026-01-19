@@ -145,8 +145,7 @@ export default function Terms() {
               <li>Any third-party content or conduct on the platform</li>
             </ul>
             <p className="text-charcoal leading-relaxed mt-2">
-              Our total liability shall not exceed the amount you paid to us in the six months prior
-              to the event giving rise to the claim, or ₹100, whichever is greater.
+              Our total liability for any free services provided shall not exceed ₹100.
             </p>
           </section>
 

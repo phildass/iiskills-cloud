@@ -673,7 +673,7 @@ export default function UniversalRegister({
                 📧 Subscribe to The Skilling Newsletter
               </p>
               <p className="text-xs text-blue-800">
-                The Skilling Newsletter will be sent ONLY when new courses are introduced, or important announcements/changes are made. You will NOT receive unnecessary or frequent emails.
+                The Skilling Newsletter will be sent ONLY when new content or features are introduced, or important announcements/changes are made. You will NOT receive unnecessary or frequent emails.
               </p>
             </div>
             
@@ -691,7 +691,7 @@ export default function UniversalRegister({
                     ✅ Yes, sign me up for updates!
                   </span>
                   <p className="text-xs text-gray-600">
-                    Get notified about new courses and important changes
+                    Get notified about new content and important changes
                   </p>
                 </div>
               </label>
