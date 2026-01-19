@@ -34,57 +34,6 @@ export default function Home() {
       </Head>
       
       <main className="min-h-screen">
-        {/* Hero Section */}
-        <section className="bg-gradient-to-r from-blue-600 via-blue-700 to-purple-700 text-white py-20">
-          <div className="max-w-6xl mx-auto px-4 text-center">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6">Learn JEE</h1>
-            <p className="text-2xl md:text-3xl mb-4 max-w-3xl mx-auto">
-              Master Physics, Chemistry, and Mathematics for JEE success
-            </p>
-            <p className="text-xl mb-8 max-w-2xl mx-auto opacity-90">
-              AI-generated lessons, comprehensive quizzes, and structured learning path to help you ace JEE
-            </p>
-            
-            {/* Pricing Badge */}
-            <div className="inline-block bg-white text-primary px-8 py-4 rounded-lg mb-8 shadow-2xl">
-              <div className="text-xl font-semibold mb-1">Complete JEE Course</div>
-              <div className="text-4xl font-bold">{pricing.basePrice} <span className="text-lg font-normal">+ GST {pricing.gstAmount}</span></div>
-              <div className="text-sm mt-1 text-gray-700">Total: {pricing.totalPrice}</div>
-              {pricing.isIntroductory && (
-                <div className="text-xs mt-2 text-green-600 font-semibold">
-                  Introductory Offer until {pricing.introEndDate}
-                </div>
-              )}
-            </div>
-            
-            {!user && (
-              <div className="bg-white/90 backdrop-blur-sm border-2 border-blue-300 rounded-lg p-4 mb-6 max-w-2xl mx-auto">
-                <p className="text-lg font-semibold text-gray-800">
-                  📝 Registration Required
-                </p>
-                <p className="text-sm mt-2 text-gray-700">
-                  Create a free account to access all learning content. Register once, access all iiskills.cloud apps!
-                </p>
-              </div>
-            )}
-            
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
-              {user ? (
-                <Link href="/learn" className="inline-block bg-white text-primary px-10 py-4 rounded-lg font-bold text-lg hover:bg-gray-100 transition shadow-lg">
-                  Continue Learning →
-                </Link>
-              ) : (
-                <>
-                  <Link href="/register" className="inline-block bg-white text-primary px-10 py-4 rounded-lg font-bold text-lg hover:bg-gray-100 transition shadow-lg">
-                    Register Free Account
-                  </Link>
-                  <Link href="/login" className="inline-block bg-transparent border-2 border-white text-white px-10 py-4 rounded-lg font-bold text-lg hover:bg-white hover:text-primary transition">
-                    Already Have Account? Sign In
-                  </Link>
-                </>
-              )}
-
-      <main className="min-h-screen">
         {/* Hero Section with Cover Image */}
         <section className="relative">
           {/* Cover Image - using a gradient background for now */}
@@ -191,6 +140,10 @@ export default function Home() {
                   <li>• Trigonometry</li>
                   <li>• Problem Solving</li>
                 </ul>
+              </div>
+            </div>
+          </div>
+        </section>
 
         {/* Course Preview Section */}
         <section className="py-16 bg-white">
@@ -231,11 +184,7 @@ export default function Home() {
             <div className="bg-green-50 border-2 border-green-500 rounded-lg p-6 text-center">
               <h3 className="text-2xl font-bold text-green-700 mb-2">🎁 Try Before You Buy</h3>
               <p className="text-lg text-gray-700">
-
-                The first lesson is completely FREE! Sign up to preview the course content before purchasing.
-
                 Chapter 1, Lesson 1 is completely FREE! Sign up to preview the course content before purchasing.
-
               </p>
             </div>
           </div>
@@ -270,6 +219,10 @@ export default function Home() {
                 <div className="text-5xl mb-4">⏱️</div>
                 <h3 className="text-xl font-bold mb-2">Exam Strategies</h3>
                 <p className="text-gray-600">Learn time management and problem-solving techniques</p>
+              </div>
+            </div>
+          </div>
+        </section>
 
         {/* Subject Coverage */}
         <section className="py-16 bg-gradient-to-br from-blue-50 to-purple-50">
@@ -317,30 +270,18 @@ export default function Home() {
         {/* CTA Section */}
         <section className="py-16 bg-gradient-to-r from-blue-600 to-purple-700 text-white">
           <div className="max-w-4xl mx-auto px-4 text-center">
-
-            <h2 className="text-4xl font-bold mb-4">Ready to Start Your JEE Preparation?</h2>
-            <p className="text-xl mb-6">
-              Join thousands of JEE aspirants preparing with AI-powered learning
-
             <h2 className="text-4xl font-bold mb-4">Ready to Begin Your JEE Journey?</h2>
             <p className="text-xl mb-6">
               Join thousands of students preparing for JEE with iiskills.cloud
-
             </p>
             
             {/* Pricing Display */}
             <div className="bg-white text-primary rounded-lg p-6 mb-6 inline-block">
               <div className="text-2xl font-bold mb-2">Complete Course Access</div>
-
               <div className="text-5xl font-bold text-accent mb-2">{pricing.basePrice}</div>
               <div className="text-lg mb-1">+ GST {pricing.gstAmount}</div>
               <div className="text-xl font-semibold border-t-2 border-gray-300 pt-2">Total: {pricing.totalPrice}</div>
               <p className="text-sm text-gray-600 mt-2">One-time payment • Lifetime access • Free first lesson</p>
-              <div className="text-5xl font-bold text-accent mb-2">₹499</div>
-              <div className="text-lg mb-1">+ GST ₹89.82</div>
-              <div className="text-xl font-semibold border-t-2 border-gray-300 pt-2">Total: ₹588.82</div>
-              <p className="text-sm text-gray-600 mt-2">One-time payment • Lifetime access</p>
-
             </div>
             
             {!user && (

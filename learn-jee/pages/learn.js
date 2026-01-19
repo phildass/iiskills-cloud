@@ -211,39 +211,21 @@ export default function Learn() {
     checkAuth()
   }, [router])
 
-
   const handleLessonClick = (subject, chapterId, lessonId, isFree) => {
     // Allow access to first lesson of Physics (first chapter, first lesson)
     if (subject === 'physics' && chapterId === 1 && lessonId === 1) {
       alert('FREE PREVIEW: Introduction to JEE Physics lesson would be displayed here. This is your free preview lesson!')
-
-  const handleLessonClick = (chapterId, lessonId, isFree) => {
-    // Allow access to Chapter 1, Lesson 1
-    if (chapterId === 1 && lessonId === 1) {
-      // TODO: Navigate to lesson content page or render lesson content
-      // For now, using alert as placeholder
-      alert('Lesson content would be displayed here. This is the FREE preview lesson!')
       return
     }
     
     // Check if user has purchased
     if (!hasPurchased && !isFree) {
-
       alert(`This lesson requires purchasing the full course.\n\nPrice: ${pricing.totalPrice}\n\nYou'll get access to all Physics, Chemistry, and Mathematics lessons with AI-generated content and quizzes!`)
-
-      // TODO: Show proper paywall modal instead of alert
-      // For now, using alert as placeholder
-      alert('This lesson requires purchasing the full course. Price: ₹499 + GST ₹89.82 (Total: ₹588.82)')
       return
     }
     
     // User has access
-
     alert(`Lesson content for ${subject} - Chapter ${chapterId}, Lesson ${lessonId} would be displayed here.`)
-
-    // TODO: Navigate to lesson content page or render lesson content
-    alert(`Lesson ${chapterId}.${lessonId} content would be displayed here.`)
-
   }
 
   if (isLoading) {
@@ -284,11 +266,7 @@ export default function Learn() {
     <>
       <Head>
         <title>Learn JEE - Course Content</title>
-
         <meta name="description" content="Access your Learn JEE course - Physics, Chemistry, and Mathematics" />
-
-        <meta name="description" content="Access your Learn JEE course" />
-
       </Head>
       
       <main className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 py-12 px-4">
@@ -331,8 +309,6 @@ export default function Learn() {
               <div className="bg-green-100 border-2 border-green-500 p-4 rounded-lg mt-4">
                 <p className="text-green-800 font-semibold">
                   ✓ You have full access to all JEE course content - Physics, Chemistry, and Mathematics!
-
-                  ✓ You have full access to all course content!
                 </p>
               </div>
             )}
@@ -437,76 +413,8 @@ export default function Learn() {
                 )})}
               </div>
             </div>
-
-          {/* Course Chapters */}
-          <div className="space-y-6">
-            {courseData.map((chapter) => (
-              <div key={chapter.id} className="bg-white rounded-lg shadow-lg overflow-hidden">
-                <div className={`bg-gradient-to-r ${getSubjectColor(chapter.subject)} text-white p-6`}>
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <div className="text-sm font-semibold mb-1 opacity-90">{chapter.subject}</div>
-                      <h2 className="text-2xl font-bold mb-2">
-                        Chapter {chapter.id}: {chapter.title}
-                      </h2>
-                      <p className="text-blue-100">{chapter.description}</p>
-                    </div>
-                    {!hasPurchased && chapter.id > 1 && (
-                      <div className="text-4xl">🔒</div>
-                    )}
-                  </div>
-                </div>
-                
-                <div className="p-6">
-                  <div className="space-y-3">
-                    {chapter.lessons.map((lesson) => {
-                      const isAccessible = (chapter.id === 1 && lesson.id === 1) || hasPurchased
-                      const isFreeLesson = chapter.id === 1 && lesson.id === 1
-                      
-                      return (
-                        <button
-                          key={lesson.id}
-                          onClick={() => handleLessonClick(chapter.id, lesson.id, isFreeLesson)}
-                          className={`w-full text-left p-4 rounded-lg border-2 transition ${
-                            isAccessible
-                              ? 'border-green-300 hover:border-green-500 hover:bg-green-50 cursor-pointer'
-                              : 'border-gray-300 bg-gray-50 cursor-not-allowed opacity-75'
-                          }`}
-                        >
-                          <div className="flex items-center justify-between">
-                            <div className="flex-1">
-                              <div className="flex items-center gap-3">
-                                <span className="text-2xl">
-                                  {isAccessible ? '▶️' : '🔒'}
-                                </span>
-                                <div>
-                                  <h3 className="font-semibold text-lg text-charcoal">
-                                    Lesson {lesson.id}: {lesson.title}
-                                  </h3>
-                                  <p className="text-sm text-gray-600">Duration: {lesson.duration}</p>
-                                </div>
-                              </div>
-                            </div>
-                            {isFreeLesson && (
-                              <span className="bg-green-500 text-white px-3 py-1 rounded-full text-sm font-bold">
-                                FREE
-                              </span>
-                            )}
-                            {!isAccessible && !isFreeLesson && (
-                              <span className="bg-gray-400 text-white px-3 py-1 rounded-full text-sm font-bold">
-                                LOCKED
-                              </span>
-                            )}
-                          </div>
-                        </button>
-                      )
-                    })}
-                  </div>
-                </div>
-              </div>
-            ))}
           </div>
-          
+
           {/* Purchase CTA at bottom */}
           {!hasPurchased && (
             <div className="mt-8 bg-gradient-to-r from-blue-600 to-purple-700 text-white p-8 rounded-lg shadow-lg text-center">
@@ -531,7 +439,6 @@ export default function Learn() {
             </div>
           )}
         </div>
-      </div>
       </main>
     </>
   )
