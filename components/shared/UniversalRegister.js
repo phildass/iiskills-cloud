@@ -190,12 +190,20 @@ export default function UniversalRegister({
       }
 
       // Create user account in shared Supabase instance
+      // Universal Redirect: Set emailRedirectTo to the original page where user started registration
+      // If user came from a redirect param, use that; otherwise use the page they're registering from
+      const isClient = typeof window !== "undefined";
+      const targetPath = redirectPath || (isClient ? window.location.pathname : "/");
+      const emailConfirmRedirect = isClient 
+        ? `${window.location.origin}${targetPath}` 
+        : undefined;
+
       const { data: authData, error: signUpError } = await supabase.auth.signUp({
         email: formData.email,
         password: formData.password,
         options: {
           data: userMetadata,
-          emailRedirectTo: typeof window !== "undefined" ? window.location.origin : undefined,
+          emailRedirectTo: emailConfirmRedirect,
         },
       });
 

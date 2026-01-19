@@ -55,7 +55,7 @@ interface AuthContextType {
   login: (email: string, password: string) => Promise<{ success: boolean; error?: string }>;
   logout: () => Promise<void>;
   register: (email: string, password: string) => Promise<{ success: boolean; error?: string }>;
-  signInWithGoogle: () => Promise<{ success: boolean; error?: string }>;
+  signInWithGoogle: (targetPath?: string) => Promise<{ success: boolean; error?: string }>;
   useSupabase: boolean;
   userEmail?: string | null;
 }
@@ -241,7 +241,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   // Google OAuth sign-in function
-  const signInWithGoogle = async () => {
+  // Universal Redirect: Accepts optional targetPath to return user to original page
+  const signInWithGoogle = async (targetPath?: string) => {
     if (!useSupabase || !supabase) {
       return {
         success: false,
@@ -250,9 +251,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
 
     try {
-      // Get the redirect URL - use current origin plus /admin as the destination
+      // Universal Redirect: Use provided target path, or current page, or default to /admin
+      // This ensures users return to where they started the auth flow
+      const finalPath = targetPath || (typeof window !== "undefined" ? window.location.pathname : "/admin");
       const redirectUrl =
-        typeof window !== "undefined" ? `${window.location.origin}/admin` : undefined;
+        typeof window !== "undefined" ? `${window.location.origin}${finalPath}` : undefined;
 
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: "google",

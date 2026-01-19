@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { getCurrentUser } from "../lib/supabaseClient";
 
 /**
- * UserProtectedRoute Component for Learn-Geography
+ * UserProtectedRoute Component
  *
  * This component protects pages that require authentication.
  * If a user is not logged in, they will be redirected to the login page.
@@ -44,15 +44,18 @@ export default function UserProtectedRoute({ children }) {
           // User is authenticated - allow access
           setIsAuthenticated(true);
         } else {
-          // No user session found - redirect to login
-          // Store the current path so we can redirect back after login
+          // No user session found - redirect to register (registration-first workflow)
+          // Universal Redirect: Store the current path so we can redirect back after registration/login
+          // This ensures users return to the exact page where they started the auth flow
           const currentPath = router.asPath;
-          router.push(`/login?redirect=${encodeURIComponent(currentPath)}`);
+          router.push(`/register?redirect=${encodeURIComponent(currentPath)}`);
         }
       } catch (error) {
         console.error("Error checking authentication:", error);
-        // On error, redirect to login for safety
-        router.push("/login");
+        // On error, redirect to register for safety (registration-first workflow)
+        // Universal Redirect: Preserve current path for post-auth redirect
+        const currentPath = router.asPath;
+        router.push(`/register?redirect=${encodeURIComponent(currentPath)}`);
       } finally {
         setIsLoading(false);
       }
