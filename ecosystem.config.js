@@ -76,6 +76,13 @@ module.exports = {
       args: "start",
       cwd: "/root/iiskills-cloud/learn-winning",
       env: { NODE_ENV: "production", PORT: 3010 }
+    },
+    {
+      name: "learn-cricket",
+      script: "yarn",
+      args: "start",
+      cwd: "/root/iiskills-cloud/learn-cricket",
+      env: { NODE_ENV: "production", PORT: 3016 }
     }
   ]
 };
