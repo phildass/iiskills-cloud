@@ -1,6 +1,20 @@
 # Learn JEE
 
+> **Build Status:** ✅ All build errors resolved (January 2026)
+
 Comprehensive JEE preparation module with AI-generated lessons covering Physics, Chemistry, and Mathematics.
+
+## Recent Updates
+
+### Build Fixes (January 19, 2026)
+The learn-jee package experienced build errors due to duplicate code sections and unclosed JSX tags. These have been resolved:
+- Removed duplicate hero and course preview sections in `index.js`
+- Fixed unclosed JSX tags and sections
+- Consolidated duplicate function definitions in `learn.js`
+- Applied linter fixes for code quality
+- Build now completes successfully with no errors
+
+For details, see the PR: [Fix build errors in learn-jee package](https://github.com/phildass/iiskills-cloud)
 
 ## Features
 
