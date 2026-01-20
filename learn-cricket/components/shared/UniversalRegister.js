@@ -355,7 +355,7 @@ export default function UniversalRegister({
               </div>
             </div>
 
-            {/* Strong recommendation for iiiskills.cloud email */}
+            {/* Strong recommendation for iiskills.cloud email */}
             <div className="mt-6 bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-md shadow-sm">
               <div className="flex">
                 <div className="flex-shrink-0">
@@ -365,7 +365,7 @@ export default function UniversalRegister({
                 </div>
                 <div className="ml-3">
                   <p className="text-sm font-semibold text-yellow-800 mb-2">
-                    💡 <strong>We strongly recommend registering directly with your iiiskills.cloud account</strong>
+                    💡 <strong>We strongly recommend registering directly with your iiskills.cloud account</strong>
                   </p>
                   <p className="text-xs text-yellow-700">
                     Most generic email addresses do not include your name or required personal details. Direct registration ensures your learning profile is secure, personalized, and can be fully supported in the future.
