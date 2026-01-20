@@ -197,13 +197,17 @@ export default function Learn() {
       setUser(currentUser)
       setUserProfile(getUserProfile(currentUser))
       
+      // Check if paywall is enabled via environment variable
+      const paywallEnabled = process.env.NEXT_PUBLIC_PAYWALL_ENABLED !== 'false'
 
       // Check if user has purchased the JEE course
 
       // Check if user has purchased the course
       // For now, we'll check user metadata
       const purchased = currentUser.user_metadata?.purchased_jee_course === true
-      setHasPurchased(purchased)
+      
+      // If paywall is disabled, grant access to everyone
+      setHasPurchased(!paywallEnabled || purchased)
       
       setIsLoading(false)
     }
@@ -213,37 +217,23 @@ export default function Learn() {
 
 
   const handleLessonClick = (subject, chapterId, lessonId, isFree) => {
+    // Check if paywall is enabled
+    const paywallEnabled = process.env.NEXT_PUBLIC_PAYWALL_ENABLED !== 'false'
+
     // Allow access to first lesson of Physics (first chapter, first lesson)
     if (subject === 'physics' && chapterId === 1 && lessonId === 1) {
       alert('FREE PREVIEW: Introduction to JEE Physics lesson would be displayed here. This is your free preview lesson!')
-
-  const handleLessonClick = (chapterId, lessonId, isFree) => {
-    // Allow access to Chapter 1, Lesson 1
-    if (chapterId === 1 && lessonId === 1) {
-      // TODO: Navigate to lesson content page or render lesson content
-      // For now, using alert as placeholder
-      alert('Lesson content would be displayed here. This is the FREE preview lesson!')
       return
     }
-    
-    // Check if user has purchased
-    if (!hasPurchased && !isFree) {
 
+    // Check if user has purchased (only if paywall is enabled)
+    if (paywallEnabled && !hasPurchased && !isFree) {
       alert(`This lesson requires purchasing the full course.\n\nPrice: ${pricing.totalPrice}\n\nYou'll get access to all Physics, Chemistry, and Mathematics lessons with AI-generated content and quizzes!`)
-
-      // TODO: Show proper paywall modal instead of alert
-      // For now, using alert as placeholder
-      alert('This lesson requires purchasing the full course. Price: ₹499 + GST ₹89.82 (Total: ₹588.82)')
       return
     }
     
     // User has access
-
     alert(`Lesson content for ${subject} - Chapter ${chapterId}, Lesson ${lessonId} would be displayed here.`)
-
-    // TODO: Navigate to lesson content page or render lesson content
-    alert(`Lesson ${chapterId}.${lessonId} content would be displayed here.`)
-
   }
 
   if (isLoading) {

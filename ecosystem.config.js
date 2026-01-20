@@ -5,8 +5,13 @@ module.exports = {
       script: "yarn",
       args: "start",
       interpreter: "none",
+
+      cwd: "/root/iiskills-cloud/main",
+      env: { NODE_ENV: "production", PORT: 3016, NEXT_PUBLIC_PAYWALL_ENABLED: "true" }
+
       cwd: "/root/iiskills-cloud/apps/main",
       env: { NODE_ENV: "production", PORT: 3000 }
+
     },
     {
       name: "iiskills-learn-jee",
@@ -14,7 +19,7 @@ module.exports = {
       args: "start",
       interpreter: "none",
       cwd: "/root/iiskills-cloud/learn-jee",
-      env: { NODE_ENV: "production", PORT: 3008 }
+      env: { NODE_ENV: "production", PORT: 3008, NEXT_PUBLIC_PAYWALL_ENABLED: "true" }
     },
     {
       name: "iiskills-learn-ai",
@@ -22,7 +27,7 @@ module.exports = {
       args: "start",
       interpreter: "none",
       cwd: "/root/iiskills-cloud/learn-ai",
-      env: { NODE_ENV: "production", PORT: 3001 }
+      env: { NODE_ENV: "production", PORT: 3001, NEXT_PUBLIC_PAYWALL_ENABLED: "true" }
     },
     {
       name: "iiskills-learn-apt",
@@ -30,7 +35,7 @@ module.exports = {
       args: "start",
       interpreter: "none",
       cwd: "/root/iiskills-cloud/learn-apt",
-      env: { NODE_ENV: "production", PORT: 3002 }
+      env: { NODE_ENV: "production", PORT: 3002, NEXT_PUBLIC_PAYWALL_ENABLED: "true" }
     },
     {
       name: "iiskills-learn-chemistry",
@@ -38,7 +43,7 @@ module.exports = {
       args: "start",
       interpreter: "none",
       cwd: "/root/iiskills-cloud/learn-chemistry",
-      env: { NODE_ENV: "production", PORT: 3003 }
+      env: { NODE_ENV: "production", PORT: 3003, NEXT_PUBLIC_PAYWALL_ENABLED: "true" }
     },
     {
       name: "iiskills-learn-cricket",
@@ -54,7 +59,7 @@ module.exports = {
       args: "start",
       interpreter: "none",
       cwd: "/root/iiskills-cloud/learn-data-science",
-      env: { NODE_ENV: "production", PORT: 3004 }
+      env: { NODE_ENV: "production", PORT: 3004, NEXT_PUBLIC_PAYWALL_ENABLED: "true" }
     },
     {
       name: "iiskills-learn-geography",
@@ -62,7 +67,7 @@ module.exports = {
       args: "start",
       interpreter: "none",
       cwd: "/root/iiskills-cloud/learn-geography",
-      env: { NODE_ENV: "production", PORT: 3005 }
+      env: { NODE_ENV: "production", PORT: 3005, NEXT_PUBLIC_PAYWALL_ENABLED: "true" }
     },
     {
       name: "iiskills-learn-govt-jobs",
@@ -70,7 +75,7 @@ module.exports = {
       args: "start",
       interpreter: "none",
       cwd: "/root/iiskills-cloud/learn-govt-jobs",
-      env: { NODE_ENV: "production", PORT: 3006 }
+      env: { NODE_ENV: "production", PORT: 3006, NEXT_PUBLIC_PAYWALL_ENABLED: "true" }
     },
     {
       name: "iiskills-learn-ias",
@@ -78,7 +83,7 @@ module.exports = {
       args: "start",
       interpreter: "none",
       cwd: "/root/iiskills-cloud/learn-ias",
-      env: { NODE_ENV: "production", PORT: 3007 }
+      env: { NODE_ENV: "production", PORT: 3007, NEXT_PUBLIC_PAYWALL_ENABLED: "true" }
     },
     {
       name: "iiskills-learn-leadership",
@@ -86,7 +91,7 @@ module.exports = {
       args: "start",
       interpreter: "none",
       cwd: "/root/iiskills-cloud/learn-leadership",
-      env: { NODE_ENV: "production", PORT: 3009 }
+      env: { NODE_ENV: "production", PORT: 3009, NEXT_PUBLIC_PAYWALL_ENABLED: "true" }
     },
     {
       name: "iiskills-learn-management",
@@ -94,7 +99,7 @@ module.exports = {
       args: "start",
       interpreter: "none",
       cwd: "/root/iiskills-cloud/learn-management",
-      env: { NODE_ENV: "production", PORT: 3010 }
+      env: { NODE_ENV: "production", PORT: 3010, NEXT_PUBLIC_PAYWALL_ENABLED: "true" }
     },
     {
       name: "iiskills-learn-math",
@@ -102,7 +107,7 @@ module.exports = {
       args: "start",
       interpreter: "none",
       cwd: "/root/iiskills-cloud/learn-math",
-      env: { NODE_ENV: "production", PORT: 3011 }
+      env: { NODE_ENV: "production", PORT: 3011, NEXT_PUBLIC_PAYWALL_ENABLED: "true" }
     },
     {
       name: "iiskills-learn-neet",
@@ -110,7 +115,7 @@ module.exports = {
       args: "start",
       interpreter: "none",
       cwd: "/root/iiskills-cloud/learn-neet",
-      env: { NODE_ENV: "production", PORT: 3012 }
+      env: { NODE_ENV: "production", PORT: 3012, NEXT_PUBLIC_PAYWALL_ENABLED: "true" }
     },
     {
       name: "iiskills-learn-physics",
@@ -118,7 +123,7 @@ module.exports = {
       args: "start",
       interpreter: "none",
       cwd: "/root/iiskills-cloud/learn-physics",
-      env: { NODE_ENV: "production", PORT: 3013 }
+      env: { NODE_ENV: "production", PORT: 3013, NEXT_PUBLIC_PAYWALL_ENABLED: "true" }
     },
     {
       name: "iiskills-learn-pr",
@@ -126,7 +131,7 @@ module.exports = {
       args: "start",
       interpreter: "none",
       cwd: "/root/iiskills-cloud/learn-pr",
-      env: { NODE_ENV: "production", PORT: 3014 }
+      env: { NODE_ENV: "production", PORT: 3014, NEXT_PUBLIC_PAYWALL_ENABLED: "true" }
     },
     {
       name: "iiskills-learn-winning",
@@ -134,7 +139,7 @@ module.exports = {
       args: "start",
       interpreter: "none",
       cwd: "/root/iiskills-cloud/learn-winning",
-      env: { NODE_ENV: "production", PORT: 3015 }
+      env: { NODE_ENV: "production", PORT: 3015, NEXT_PUBLIC_PAYWALL_ENABLED: "true" }
     },
     {
       name: "webhook",
@@ -142,7 +147,7 @@ module.exports = {
       args: "start",
       interpreter: "none",
       cwd: "/root/iiskills-cloud/webhook",
-      env: { NODE_ENV: "production", PORT: 3018 }
+      env: { NODE_ENV: "production", PORT: 3018, NEXT_PUBLIC_PAYWALL_ENABLED: "true" }
     }
   ]
 };

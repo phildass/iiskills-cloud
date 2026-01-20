@@ -207,12 +207,17 @@ export default function Learn() {
       setUser(currentUser);
       setUserProfile(getUserProfile(currentUser));
 
+      // Check if paywall is enabled via environment variable
+      const paywallEnabled = process.env.NEXT_PUBLIC_PAYWALL_ENABLED !== "false";
+
       // Check if user has purchased the JEE course
 
       // Check if user has purchased the course
       // For now, we'll check user metadata
       const purchased = currentUser.user_metadata?.purchased_jee_course === true;
-      setHasPurchased(purchased);
+      
+      // If paywall is disabled, grant access to everyone
+      setHasPurchased(!paywallEnabled || purchased);
 
       setIsLoading(false);
     };
@@ -221,6 +226,9 @@ export default function Learn() {
   }, [router]);
 
   const handleLessonClick = (subject, chapterId, lessonId, isFree) => {
+    // Check if paywall is enabled
+    const paywallEnabled = process.env.NEXT_PUBLIC_PAYWALL_ENABLED !== "false";
+
     // Allow access to first lesson of Physics (first chapter, first lesson)
     if (subject === "physics" && chapterId === 1 && lessonId === 1) {
       alert(
@@ -229,8 +237,8 @@ export default function Learn() {
       return;
     }
 
-    // Check if user has purchased
-    if (!hasPurchased && !isFree) {
+    // Check if user has purchased (only if paywall is enabled)
+    if (paywallEnabled && !hasPurchased && !isFree) {
       alert(
         `This lesson requires purchasing the full course.\n\nPrice: ${pricing.totalPrice}\n\nYou'll get access to all Physics, Chemistry, and Mathematics lessons with AI-generated content and quizzes!`
       );
