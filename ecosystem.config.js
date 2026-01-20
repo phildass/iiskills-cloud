@@ -1,6 +1,9 @@
 module.exports = {
   apps: [
     {
+      // Main iiskills.cloud website
+      // Note: Uses root directory as cwd since the main app files (package.json, pages/, etc.) 
+      // are located in the repository root
       name: "iiskills-main",
       script: "yarn",
       args: "start",

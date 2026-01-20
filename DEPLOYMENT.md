@@ -301,7 +301,7 @@ sudo apt install certbot python3-certbot-nginx
 # Get certificate for main domain
 sudo certbot --nginx -d iiskills.cloud -d www.iiskills.cloud
 
-Get certificates for all learning module subdomains
+# Get certificates for all learning module subdomains
 sudo certbot --nginx -d learn-ai.iiskills.cloud
 sudo certbot --nginx -d learn-apt.iiskills.cloud
 sudo certbot --nginx -d learn-chemistry.iiskills.cloud
