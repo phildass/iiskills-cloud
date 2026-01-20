@@ -354,6 +354,25 @@ export default function UniversalRegister({
                 <span className="px-2 bg-white text-gray-500">Or register with email</span>
               </div>
             </div>
+
+            {/* Strong recommendation for iiiskills.cloud email */}
+            <div className="mt-6 bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-md shadow-sm">
+              <div className="flex">
+                <div className="flex-shrink-0">
+                  <svg className="h-6 w-6 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                  </svg>
+                </div>
+                <div className="ml-3">
+                  <p className="text-sm font-semibold text-yellow-800 mb-2">
+                    💡 <strong>We strongly recommend registering directly with your iiiskills.cloud account</strong>
+                  </p>
+                  <p className="text-xs text-yellow-700">
+                    Most generic email addresses do not include your name or required personal details. Direct registration ensures your learning profile is secure, personalized, and can be fully supported in the future.
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         )}
 
