@@ -18,6 +18,15 @@ Inspired by iiskills.in and customized for the Indian Institute of Professional 
 
 📧 **Email Setup:** See [RESEND_DOMAIN_SETUP.md](RESEND_DOMAIN_SETUP.md) for domain authentication
 
+### Universal reCAPTCHA Protection
+🔒 **Security across all subdomains!** A single reCAPTCHA configuration protects the entire platform:
+- **One site key for all apps** - Register once at iiskills.cloud, covers all subdomains
+- **Universal bot protection** - Newsletter signups protected with reCAPTCHA v3
+- **Consistent security** - Same validation rules across all apps
+- **Easy setup** - Configure once in Google reCAPTCHA admin, deploy everywhere
+
+📚 **Setup Guide:** See configuration section below for reCAPTCHA setup instructions.
+
 ### Newsletter Subscription System
 📧 **Subscribe to stay updated!** All apps now include a unified newsletter subscription system:
 - Newsletter signup available on every domain and subdomain
@@ -142,14 +151,23 @@ All apps will start on their assigned ports without conflicts.
 
 ### Quick Environment Setup
 
-**⚠️ CRITICAL:** This repository includes pre-configured `.env.local` files with placeholder values in the root and all learning modules. **You MUST update these with your actual Supabase credentials before running any app**, or you will encounter runtime errors.
+**⚠️ CRITICAL:** This repository includes pre-configured `.env.local` files with placeholder values in the root and all learning modules. **You MUST update these with your actual Supabase and reCAPTCHA credentials before running any app**, or you will encounter runtime errors.
 
 **Required Actions:**
 1. Get your Supabase credentials from [supabase.com](https://supabase.com) (Project Settings → API)
-2. Update the placeholder values in all `.env.local` files:
+2. Get your reCAPTCHA keys from [Google reCAPTCHA Admin](https://www.google.com/recaptcha/admin/create)
+3. Update the placeholder values in all `.env.local` files:
    - Replace `your-project-url-here` with your actual `NEXT_PUBLIC_SUPABASE_URL`
    - Replace `your-anon-key-here` with your actual `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-3. Ensure both variables have non-empty, valid values in every `.env.local` file
+   - Replace `your-recaptcha-site-key-here` with your actual `NEXT_PUBLIC_RECAPTCHA_SITE_KEY`
+   - Replace `your-recaptcha-secret-key-here` with your actual `RECAPTCHA_SECRET_KEY`
+4. Ensure all variables have non-empty, valid values in every `.env.local` file
+
+**Universal reCAPTCHA Setup:**
+- Register a **SINGLE** site key for `iiskills.cloud` (this covers ALL subdomains)
+- Choose reCAPTCHA v3 for invisible verification
+- Add domain: `iiskills.cloud` in the reCAPTCHA admin console
+- Use the **SAME** site key and secret key across **ALL** apps
 
 **Verification:** Run `./ensure-env-files.sh` to check if all environment files are properly configured.
 
