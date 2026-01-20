@@ -1,0 +1,24 @@
+{
+  "name": "@iiskills/coming-soon",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Coming Soon Apps landing page for iiskills.cloud",
+  "scripts": {
+    "dev": "next dev -p 3019",
+    "build": "next build",
+    "start": "next start -p 3019",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.89.0",
+    "next": "^16.1.1",
+    "react": "latest",
+    "react-dom": "latest"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.14",
+    "eslint": "^9.39.2",
+    "postcss": "latest",
+    "tailwindcss": "^3.4.1"
+  }
+}
