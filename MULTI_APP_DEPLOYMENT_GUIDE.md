@@ -730,8 +730,8 @@ For issues, questions, or support:
 | Port | Application | Subdomain |
 |------|-------------|-----------|
 | 3000 | iiskills-main | iiskills.cloud |
-| 3001 | learn-apt | learn-apt.iiskills.cloud |
-| 3002 | learn-ai | learn-ai.iiskills.cloud |
+| 3001 | learn-ai | learn-ai.iiskills.cloud |
+| 3002 | learn-apt | learn-apt.iiskills.cloud |
 | 3003 | learn-chemistry | learn-chemistry.iiskills.cloud |
 | 3004 | learn-data-science | learn-data-science.iiskills.cloud |
 | 3005 | learn-geography | learn-geography.iiskills.cloud |
@@ -745,6 +745,7 @@ For issues, questions, or support:
 | 3013 | learn-physics | learn-physics.iiskills.cloud |
 | 3014 | learn-pr | learn-pr.iiskills.cloud |
 | 3015 | learn-winning | learn-winning.iiskills.cloud |
+| 3016 | learn-cricket | learn-cricket.iiskills.cloud |
 
 ### File Locations
 

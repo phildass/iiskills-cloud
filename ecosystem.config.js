@@ -1,17 +1,15 @@
 module.exports = {
   apps: [
     {
+      // Main iiskills.cloud website
+      // Note: Uses root directory as cwd since the main app files (package.json, pages/, etc.) 
+      // are located in the repository root
       name: "iiskills-main",
       script: "yarn",
       args: "start",
       interpreter: "none",
-
-      cwd: "/root/iiskills-cloud/main",
-      env: { NODE_ENV: "production", PORT: 3016, NEXT_PUBLIC_PAYWALL_ENABLED: "true" }
-
-      cwd: "/root/iiskills-cloud/apps/main",
-      env: { NODE_ENV: "production", PORT: 3000 }
-
+      cwd: "/root/iiskills-cloud",
+      env: { NODE_ENV: "production", PORT: 3000, NEXT_PUBLIC_PAYWALL_ENABLED: "true" }
     },
     {
       name: "iiskills-learn-jee",
@@ -51,7 +49,7 @@ module.exports = {
       args: "start",
       interpreter: "none",
       cwd: "/root/iiskills-cloud/learn-cricket",
-      env: { NODE_ENV: "production", PORT: 3016 }
+      env: { NODE_ENV: "production", PORT: 3016, NEXT_PUBLIC_PAYWALL_ENABLED: "true" }
     },
     {
       name: "iiskills-learn-data-science",

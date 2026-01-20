@@ -6,15 +6,22 @@ This guide explains how to deploy the iiskills.cloud platform with multiple stan
 
 ```
 iiskills.cloud (main app)              - Port 3000
-learn-apt.iiskills.cloud               - Port 3001
-learn-math.iiskills.cloud              - Port 3002
-learn-winning.iiskills.cloud           - Port 3003
+learn-ai.iiskills.cloud                - Port 3001
+learn-apt.iiskills.cloud               - Port 3002
+learn-chemistry.iiskills.cloud         - Port 3003
 learn-data-science.iiskills.cloud      - Port 3004
-learn-management.iiskills.cloud        - Port 3005
-learn-leadership.iiskills.cloud        - Port 3006
-learn-ai.iiskills.cloud                - Port 3007
-learn-pr.iiskills.cloud                - Port 3008
-learn-geography.iiskills.cloud         - Port 3009
+learn-geography.iiskills.cloud         - Port 3005
+learn-govt-jobs.iiskills.cloud         - Port 3006
+learn-ias.iiskills.cloud               - Port 3007
+learn-jee.iiskills.cloud               - Port 3008
+learn-leadership.iiskills.cloud        - Port 3009
+learn-management.iiskills.cloud        - Port 3010
+learn-math.iiskills.cloud              - Port 3011
+learn-neet.iiskills.cloud              - Port 3012
+learn-physics.iiskills.cloud           - Port 3013
+learn-pr.iiskills.cloud                - Port 3014
+learn-winning.iiskills.cloud           - Port 3015
+learn-cricket.iiskills.cloud           - Port 3016
 ```
 
 All apps share the same Supabase authentication backend for cross-subdomain single sign-on.
@@ -57,7 +64,7 @@ NEXT_PUBLIC_SITE_URL=https://learn-{module}.iiskills.cloud
 NEXT_PUBLIC_COOKIE_DOMAIN=.iiskills.cloud
 ```
 
-Replace `{module}` with: apt, math, winning, data-science, management, leadership, ai, or pr
+Replace `{module}` with: ai, apt, chemistry, cricket, data-science, geography, govt-jobs, ias, jee, leadership, management, math, neet, physics, pr, or winning
 
 ## Deployment Options
 
@@ -73,22 +80,29 @@ Configure domain: `iiskills.cloud`
 
 #### Learning Modules (Repeat for each module)
 
-For each module (apt, math, winning, data-science, management, leadership, ai, pr):
+For each module (ai, apt, chemistry, cricket, data-science, geography, govt-jobs, ias, jee, leadership, management, math, neet, physics, pr, winning):
 ```bash
 cd /path/to/iiskills-cloud/learn-{module}
 vercel --prod
 ```
 
 Configure domain for each:
-- `learn-apt.iiskills.cloud`
-- `learn-math.iiskills.cloud`
-- `learn-winning.iiskills.cloud`
-- `learn-data-science.iiskills.cloud`
-- `learn-management.iiskills.cloud`
-- `learn-leadership.iiskills.cloud`
 - `learn-ai.iiskills.cloud`
-- `learn-pr.iiskills.cloud`
+- `learn-apt.iiskills.cloud`
+- `learn-chemistry.iiskills.cloud`
+- `learn-cricket.iiskills.cloud`
+- `learn-data-science.iiskills.cloud`
 - `learn-geography.iiskills.cloud`
+- `learn-govt-jobs.iiskills.cloud`
+- `learn-ias.iiskills.cloud`
+- `learn-jee.iiskills.cloud`
+- `learn-leadership.iiskills.cloud`
+- `learn-management.iiskills.cloud`
+- `learn-math.iiskills.cloud`
+- `learn-neet.iiskills.cloud`
+- `learn-physics.iiskills.cloud`
+- `learn-pr.iiskills.cloud`
+- `learn-winning.iiskills.cloud`
 
 **Vercel Environment Variables:**
 - Add all environment variables in the Vercel dashboard for each project
@@ -141,7 +155,7 @@ Install PM2 globally:
 npm install -g pm2
 ```
 
-The repository includes a complete PM2 ecosystem file (`ecosystem.config.js`) with all 8 modules configured.
+The repository includes a complete PM2 ecosystem file (`ecosystem.config.js`) with all 16 learning modules configured.
 
 Start all apps:
 ```bash
@@ -153,15 +167,22 @@ pm2 startup
 
 This will start:
 - iiskills-main (port 3000)
-- iiskills-learn-apt (port 3001)
-- iiskills-learn-math (port 3002)
-- iiskills-learn-winning (port 3003)
+- iiskills-learn-ai (port 3001)
+- iiskills-learn-apt (port 3002)
+- iiskills-learn-chemistry (port 3003)
 - iiskills-learn-data-science (port 3004)
-- iiskills-learn-management (port 3005)
-- iiskills-learn-leadership (port 3006)
-- iiskills-learn-ai (port 3007)
-- iiskills-learn-pr (port 3008)
-- iiskills-learn-geography (port 3009)
+- iiskills-learn-geography (port 3005)
+- iiskills-learn-govt-jobs (port 3006)
+- iiskills-learn-ias (port 3007)
+- iiskills-learn-jee (port 3008)
+- iiskills-learn-leadership (port 3009)
+- iiskills-learn-management (port 3010)
+- iiskills-learn-math (port 3011)
+- iiskills-learn-neet (port 3012)
+- iiskills-learn-physics (port 3013)
+- iiskills-learn-pr (port 3014)
+- iiskills-learn-winning (port 3015)
+- iiskills-learn-cricket (port 3016)
 
 #### 3. Configure Nginx
 
@@ -281,15 +302,22 @@ sudo apt install certbot python3-certbot-nginx
 sudo certbot --nginx -d iiskills.cloud -d www.iiskills.cloud
 
 # Get certificates for all learning module subdomains
-sudo certbot --nginx -d learn-apt.iiskills.cloud
-sudo certbot --nginx -d learn-math.iiskills.cloud
-sudo certbot --nginx -d learn-winning.iiskills.cloud
-sudo certbot --nginx -d learn-data-science.iiskills.cloud
-sudo certbot --nginx -d learn-management.iiskills.cloud
-sudo certbot --nginx -d learn-leadership.iiskills.cloud
 sudo certbot --nginx -d learn-ai.iiskills.cloud
-sudo certbot --nginx -d learn-pr.iiskills.cloud
+sudo certbot --nginx -d learn-apt.iiskills.cloud
+sudo certbot --nginx -d learn-chemistry.iiskills.cloud
+sudo certbot --nginx -d learn-cricket.iiskills.cloud
+sudo certbot --nginx -d learn-data-science.iiskills.cloud
 sudo certbot --nginx -d learn-geography.iiskills.cloud
+sudo certbot --nginx -d learn-govt-jobs.iiskills.cloud
+sudo certbot --nginx -d learn-ias.iiskills.cloud
+sudo certbot --nginx -d learn-jee.iiskills.cloud
+sudo certbot --nginx -d learn-leadership.iiskills.cloud
+sudo certbot --nginx -d learn-management.iiskills.cloud
+sudo certbot --nginx -d learn-math.iiskills.cloud
+sudo certbot --nginx -d learn-neet.iiskills.cloud
+sudo certbot --nginx -d learn-physics.iiskills.cloud
+sudo certbot --nginx -d learn-pr.iiskills.cloud
+sudo certbot --nginx -d learn-winning.iiskills.cloud
 
 # Or get all certificates at once with a wildcard (requires DNS challenge):
 sudo certbot certonly --manual --preferred-challenges dns \
