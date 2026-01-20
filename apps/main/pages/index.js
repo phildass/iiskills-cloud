@@ -56,21 +56,13 @@ export default function Home() {
                 </div>
               </div>
               <div className="flex-1 relative z-10 w-full">
-                <div
-                  className="relative rounded-xl overflow-hidden shadow-2xl"
-                  style={{
-                    width: "100%",
-                    maxWidth: "500px",
-                    height: "375px",
-                    margin: "0 auto",
-                  }}
-                >
+                <div className="relative rounded-xl overflow-hidden shadow-2xl aspect-[4/3] max-w-lg mx-auto">
                   <Image
                     src="/images/iiskills-image1.jpg"
                     alt="Students learning together on iiskills.cloud platform"
-                    width={500}
-                    height={375}
-                    className="object-cover w-full h-full"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 50vw"
                     priority
                   />
                 </div>

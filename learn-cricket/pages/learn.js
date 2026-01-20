@@ -54,8 +54,8 @@ function LearnContent() {
   return (
     <>
       <Head>
-        <title>Learning Dashboard - Cricket Know-All</title>
-        <meta name="description" content="Access your cricket learning content" />
+        <title>Knowledge Portal - Cricket Know-All</title>
+        <meta name="description" content="Access your free cricket knowledge and game portal" />
       </Head>
 
       <main className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 py-12 px-4">
@@ -66,7 +66,7 @@ function LearnContent() {
               Welcome, {userProfile?.firstName || "Cricket Enthusiast"}! 🏏
             </h1>
             <p className="text-xl text-charcoal mb-4">
-              Ready to master cricket knowledge and become an expert?
+              Explore our free cricket knowledge and game portal!
             </p>
             <div className="bg-blue-50 border-l-4 border-primary p-4 rounded">
               <p className="text-gray-700">
@@ -78,7 +78,7 @@ function LearnContent() {
           {/* Learning Modules */}
           <div className="bg-white p-8 rounded-lg shadow-lg mb-8">
             <h2 className="text-3xl font-bold text-primary mb-6 text-center">
-              Cricket Learning Modules
+              Cricket Knowledge & Games
             </h2>
 
             <div className="grid md:grid-cols-2 gap-8">
@@ -111,7 +111,7 @@ function LearnContent() {
                 <button
                   className="w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white py-4 rounded-lg font-bold text-lg shadow-lg hover:shadow-xl transition-all transform hover:scale-105"
                 >
-                  Start Learning
+                  Explore Now
                 </button>
               </div>
 
@@ -144,7 +144,7 @@ function LearnContent() {
                 <button
                   className="w-full bg-gradient-to-r from-purple-500 to-purple-600 text-white py-4 rounded-lg font-bold text-lg shadow-lg hover:shadow-xl transition-all transform hover:scale-105"
                 >
-                  Start Learning
+                  Explore Now
                 </button>
               </div>
 
@@ -177,7 +177,7 @@ function LearnContent() {
                 <button
                   className="w-full bg-gradient-to-r from-green-500 to-green-600 text-white py-4 rounded-lg font-bold text-lg shadow-lg hover:shadow-xl transition-all transform hover:scale-105"
                 >
-                  Start Learning
+                  Explore Now
                 </button>
               </div>
 
@@ -210,7 +210,7 @@ function LearnContent() {
                 <button
                   className="w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white py-4 rounded-lg font-bold text-lg shadow-lg hover:shadow-xl transition-all transform hover:scale-105"
                 >
-                  Start Learning
+                  Explore Now
                 </button>
               </div>
             </div>
@@ -220,7 +220,7 @@ function LearnContent() {
           <div className="bg-white p-8 rounded-lg shadow-lg">
             <h2 className="text-2xl font-bold text-primary mb-4">Your Progress</h2>
             <p className="text-gray-600">
-              Track your learning journey and unlock achievements as you master cricket knowledge!
+              Track your journey and unlock achievements as you explore cricket knowledge!
             </p>
           </div>
         </div>
