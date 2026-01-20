@@ -72,6 +72,8 @@ This repository contains multiple Next.js applications:
 
 - **Learn-Government-Jobs** (`/learn-govt-jobs/`) - Government job exam preparation
 
+- **Learn-Cricket** (`/learn-cricket/`) - Cricket Know-All - Master cricket knowledge and strategies
+
 Each app can be deployed independently on different subdomains while sharing authentication.
 
 ## 🚀 Multi-App Subdomain Deployment
@@ -125,6 +127,7 @@ All applications in this monorepo have been assigned unique, sequential ports to
 | 3013 | **learn-physics** | Physics mastery |
 | 3014 | **learn-pr** | Public Relations |
 | 3015 | **learn-winning** | Success strategies |
+| 3016 | **learn-cricket** | Cricket Know-All |
 
 **Run all apps concurrently:**
 ```bash
@@ -209,6 +212,7 @@ All learning modules follow the same structure. Each has its assigned port (see 
 - [learn-physics/README.md](learn-physics/README.md) - Port 3013
 - [learn-pr/README.md](learn-pr/README.md) - Port 3014
 - [learn-winning/README.md](learn-winning/README.md) - Port 3015
+- [learn-cricket/README.md](learn-cricket/README.md) - Port 3016
 
 Quick start for any module:
 ```bash
