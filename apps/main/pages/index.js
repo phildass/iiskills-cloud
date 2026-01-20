@@ -56,7 +56,7 @@ export default function Home() {
                 </div>
               </div>
               <div className="flex-1 relative z-10 w-full">
-                <div className="relative rounded-xl overflow-hidden shadow-2xl aspect-[4/3] max-w-lg mx-auto">
+                <div className="relative rounded-xl overflow-hidden shadow-2xl max-w-lg mx-auto" style={{ aspectRatio: '4/3', height: 'auto' }}>
                   <Image
                     src="/images/iiskills-image1.jpg"
                     alt="Students learning together on iiskills.cloud platform"
