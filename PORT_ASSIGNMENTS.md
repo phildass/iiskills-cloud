@@ -42,6 +42,7 @@ Here is the complete port assignment for all applications:
 | 3015 | learn-winning | Success strategies |
 | 3016 | learn-cricket | Cricket Know-All |
 | 3018 | webhook | Webhook service |
+| 3019 | coming-soon | Coming Soon Apps landing page |
 
 ## How It Works
 
@@ -103,8 +104,9 @@ If you need to change a port assignment:
 
 ## Important Notes
 
-- All ports are unique and sequential from 3000 to 3016
+- All ports are unique and sequential from 3000 to 3019
 - Port assignments are consistent across development and production
 - No environment variable overrides are needed
 - All port specifications are in the package.json files for transparency
+- Port 3017 is reserved for future use
 
