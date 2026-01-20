@@ -213,6 +213,12 @@ export function getUserProfile(user) {
  * @returns {boolean} True if subscription is active
  */
 export function checkActiveSubscription(user) {
+  // Check if paywall is enabled via environment variable
+  const paywallEnabled = process.env.NEXT_PUBLIC_PAYWALL_ENABLED !== "false";
+  
+  // If paywall is disabled, grant access to everyone
+  if (!paywallEnabled) return true;
+
   if (!user) return false;
 
   const subscriptionEnd = user.user_metadata?.neet_subscription_end;

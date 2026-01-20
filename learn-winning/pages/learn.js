@@ -147,10 +147,15 @@ export default function Learn() {
       setUser(currentUser);
       setUserProfile(getUserProfile(currentUser));
 
+      // Check if paywall is enabled via environment variable
+      const paywallEnabled = process.env.NEXT_PUBLIC_PAYWALL_ENABLED !== "false";
+
       // Check if user has purchased the course
       // For now, we'll check user metadata
       const purchased = currentUser.user_metadata?.purchased_winning_course === true;
-      setHasPurchased(purchased);
+      
+      // If paywall is disabled, grant access to everyone
+      setHasPurchased(!paywallEnabled || purchased);
 
       setIsLoading(false);
     };
@@ -159,6 +164,9 @@ export default function Learn() {
   }, [router]);
 
   const handleLessonClick = (chapterId, lessonId, isFree) => {
+    // Check if paywall is enabled
+    const paywallEnabled = process.env.NEXT_PUBLIC_PAYWALL_ENABLED !== "false";
+
     // Allow access to Chapter 1, Lesson 1
     if (chapterId === 1 && lessonId === 1) {
       // TODO: Navigate to lesson content page or render lesson content
@@ -167,8 +175,8 @@ export default function Learn() {
       return;
     }
 
-    // Check if user has purchased
-    if (!hasPurchased && !isFree) {
+    // Check if user has purchased (only if paywall is enabled)
+    if (paywallEnabled && !hasPurchased && !isFree) {
       // TODO: Show proper paywall modal instead of alert
       // For now, using alert as placeholder
       alert(

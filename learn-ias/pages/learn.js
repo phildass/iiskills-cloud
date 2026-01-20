@@ -45,8 +45,11 @@ export default function Learn() {
   const phases = getAllPhases();
   const currentPhase = phases.find((p) => p.id === selectedPhase) || phases[0];
 
+  // Check if paywall is enabled via environment variable
+  const paywallEnabled = process.env.NEXT_PUBLIC_PAYWALL_ENABLED !== "false";
+
   // Check if user has purchased the course
-  const hasPurchased = profile?.hasPurchasedIAS || false;
+  const hasPurchased = !paywallEnabled || profile?.hasPurchasedIAS || false;
 
   return (
     <>
