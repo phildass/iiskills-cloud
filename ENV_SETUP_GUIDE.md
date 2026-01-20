@@ -147,6 +147,8 @@ This error **prevents the app from starting** until you configure the environmen
 |----------|-------------|---------|
 | `NEXT_PUBLIC_SUPABASE_URL` | Your Supabase project URL | `https://xyz123.supabase.co` |
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Your Supabase anon/public key | `eyJhbGciOi...` |
+| `NEXT_PUBLIC_RECAPTCHA_SITE_KEY` | Google reCAPTCHA v3 site key (same across all apps) | `6Lc...` |
+| `RECAPTCHA_SECRET_KEY` | Google reCAPTCHA v3 secret key (same across all apps) | `6Lc...` |
 
 ### Optional Variables
 
@@ -155,6 +157,45 @@ This error **prevents the app from starting** until you configure the environmen
 | `NEXT_PUBLIC_SITE_URL` | Site URL for OAuth redirects | `http://localhost:3000` |
 | `NEXT_PUBLIC_MAIN_DOMAIN` | Main domain (production only) | `iiskills.cloud` |
 | `NEXT_PUBLIC_COOKIE_DOMAIN` | Cookie domain for cross-subdomain auth | Empty (localhost) |
+
+## Universal reCAPTCHA Configuration
+
+All apps in the iiskills-cloud platform use a **single, unified reCAPTCHA configuration** for bot protection across newsletter signups, registration, and authentication.
+
+### Setting Up reCAPTCHA
+
+1. **Register a Site Key**
+   - Visit [Google reCAPTCHA Admin](https://www.google.com/recaptcha/admin/create)
+   - Choose **reCAPTCHA v3** (invisible verification)
+   - Add domain: `iiskills.cloud`
+   - This single registration covers **ALL** subdomains (*.iiskills.cloud)
+
+2. **Get Your Keys**
+   - After registration, you'll receive:
+     - **Site Key** (public, visible in browser) - starts with `6Lc`
+     - **Secret Key** (private, server-side only) - starts with `6Lc`
+
+3. **Configure All Apps**
+   - Add the **SAME** keys to **ALL** `.env.local` files:
+     ```env
+     NEXT_PUBLIC_RECAPTCHA_SITE_KEY=6Lc...your-site-key...
+     RECAPTCHA_SECRET_KEY=6Lc...your-secret-key...
+     ```
+   - ⚠️ **Important:** Use identical keys in every app for consistent protection
+
+4. **Why Universal Keys?**
+   - Single configuration for all apps and subdomains
+   - Simplified management - update once, works everywhere
+   - Consistent bot protection across the platform
+   - Covers: newsletter signups, registration, authentication, and more
+
+### Security Notes
+
+⚠️ **IMPORTANT:**
+- The site key is public and safe to expose in browser code
+- The secret key must remain confidential (server-side only)
+- Never commit `.env.local` files to git (they're in `.gitignore`)
+- All apps validate reCAPTCHA tokens using the same secret key
 
 ## Monorepo Structure
 
@@ -176,7 +217,7 @@ iiskills-cloud/
 
 ## Why Same Credentials?
 
-All modules must use the **same Supabase project** because:
+All modules must use the **same Supabase project** and **same reCAPTCHA keys** because:
 
 1. **Cross-subdomain authentication** - Users logged in on one subdomain (e.g., `iiskills.cloud`) are automatically logged in on all subdomains (e.g., `learn-math.iiskills.cloud`)
 
@@ -184,19 +225,29 @@ All modules must use the **same Supabase project** because:
 
 3. **Single source of truth** - User data, sessions, and authentication state are centralized
 
+4. **Universal bot protection** - Same reCAPTCHA validation across all forms and subdomains
+
 ## Production Configuration
 
-For production deployment:
+For production deployment, use the same credentials across all apps:
 
 ```env
+# Supabase Configuration (same for all apps)
 NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key-here
 NEXT_PUBLIC_SITE_URL=https://iiskills.cloud
 NEXT_PUBLIC_MAIN_DOMAIN=iiskills.cloud
 NEXT_PUBLIC_COOKIE_DOMAIN=.iiskills.cloud  # Note the leading dot!
+
+# Universal reCAPTCHA Configuration (same for all apps)
+NEXT_PUBLIC_RECAPTCHA_SITE_KEY=your-recaptcha-site-key-here
+RECAPTCHA_SECRET_KEY=your-recaptcha-secret-key-here
 ```
 
-The leading dot in `NEXT_PUBLIC_COOKIE_DOMAIN=.iiskills.cloud` enables session sharing across all subdomains.
+**Key Points:**
+- The leading dot in `NEXT_PUBLIC_COOKIE_DOMAIN=.iiskills.cloud` enables session sharing across all subdomains
+- Use the **same reCAPTCHA keys** in every app's `.env.local` file
+- Single site key for `iiskills.cloud` covers all `*.iiskills.cloud` subdomains
 
 ## Troubleshooting
 
