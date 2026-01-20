@@ -440,6 +440,7 @@ See [NAVIGATION_AUTH_GUIDE.md](NAVIGATION_AUTH_GUIDE.md) for complete navigation
 - [ONBOARDING.md](ONBOARDING.md) - **Getting started guide for new users**
 
 ### For Developers
+- [UNIVERSAL_RECAPTCHA_SETUP.md](UNIVERSAL_RECAPTCHA_SETUP.md) - **Universal reCAPTCHA configuration guide**
 - [NEWSLETTER_AI_ASSISTANT_README.md](NEWSLETTER_AI_ASSISTANT_README.md) - **Complete guide to Newsletter and AI Assistant system**
 - [LEARN_APPS_INTEGRATION_GUIDE.md](LEARN_APPS_INTEGRATION_GUIDE.md) - **Guide for integrating features into learn-* apps**
 - [SUPABASE_CONFIGURATION.md](SUPABASE_CONFIGURATION.md) - **Complete Supabase configuration guide (MUST READ)**
