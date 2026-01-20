@@ -5,8 +5,13 @@ module.exports = {
       script: "yarn",
       args: "start",
       interpreter: "none",
+
       cwd: "/root/iiskills-cloud/main",
       env: { NODE_ENV: "production", PORT: 3016, NEXT_PUBLIC_PAYWALL_ENABLED: "true" }
+
+      cwd: "/root/iiskills-cloud/apps/main",
+      env: { NODE_ENV: "production", PORT: 3000 }
+
     },
     {
       name: "iiskills-learn-jee",
@@ -39,6 +44,14 @@ module.exports = {
       interpreter: "none",
       cwd: "/root/iiskills-cloud/learn-chemistry",
       env: { NODE_ENV: "production", PORT: 3003, NEXT_PUBLIC_PAYWALL_ENABLED: "true" }
+    },
+    {
+      name: "iiskills-learn-cricket",
+      script: "yarn",
+      args: "start",
+      interpreter: "none",
+      cwd: "/root/iiskills-cloud/learn-cricket",
+      env: { NODE_ENV: "production", PORT: 3016 }
     },
     {
       name: "iiskills-learn-data-science",
