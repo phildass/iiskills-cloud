@@ -60,6 +60,7 @@ All subdomains must have A records pointing to `72.60.203.189`:
 - `learn-ai.iiskills.cloud` → `72.60.203.189`
 - `learn-apt.iiskills.cloud` → `72.60.203.189`
 - `learn-chemistry.iiskills.cloud` → `72.60.203.189`
+- `learn-cricket.iiskills.cloud` → `72.60.203.189`
 - `learn-data-science.iiskills.cloud` → `72.60.203.189`
 - `learn-geography.iiskills.cloud` → `72.60.203.189`
 - `learn-govt-jobs.iiskills.cloud` → `72.60.203.189`
