@@ -21,18 +21,18 @@ Inspired by iiskills.in and customized for the Indian Institute of Professional 
 ### Universal reCAPTCHA Protection
 🔒 **Security across all subdomains!** A single reCAPTCHA configuration protects the entire platform:
 - **One site key for all apps** - Register once at iiskills.cloud, covers all subdomains
-- **Universal bot protection** - Newsletter signups protected with reCAPTCHA v3
+- **Universal bot protection** - Currently used for newsletter signups; ready for auth/registration
 - **Consistent security** - Same validation rules across all apps
 - **Easy setup** - Configure once in Google reCAPTCHA admin, deploy everywhere
 
-📚 **Setup Guide:** See configuration section below for reCAPTCHA setup instructions.
+📚 **Setup Guide:** See [UNIVERSAL_RECAPTCHA_SETUP.md](UNIVERSAL_RECAPTCHA_SETUP.md) for complete configuration instructions.
 
 ### Newsletter Subscription System
 📧 **Subscribe to stay updated!** All apps now include a unified newsletter subscription system:
 - Newsletter signup available on every domain and subdomain
 - Modal popup on initial visit (configurable intervals)
 - Dedicated `/newsletter` page on all apps
-- Google reCAPTCHA v3 integration for security
+- Google reCAPTCHA v3 protection against bots
 - Supabase backend for email storage
 
 ### AI Assistant
