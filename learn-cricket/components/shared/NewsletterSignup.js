@@ -1,11 +1,7 @@
-<<<<<<< HEAD
 "use client"; // This component uses React hooks and form handling - must run on client side
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-=======
-import { useState, useEffect } from "react";
->>>>>>> 16d7e81cae1a1d0f8a50e5bcb0623039c8343c6e
 
 /**
  * NewsletterSignup Component
@@ -26,10 +22,7 @@ export default function NewsletterSignup({
   onSuccess = null,
   isClosing = false,
 }) {
-<<<<<<< HEAD
   const router = useRouter();
-=======
->>>>>>> 16d7e81cae1a1d0f8a50e5bcb0623039c8343c6e
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState({ type: "", text: "" });
@@ -37,17 +30,6 @@ export default function NewsletterSignup({
 
   // Load reCAPTCHA script
   useEffect(() => {
-<<<<<<< HEAD
-    if (typeof window !== "undefined" && !window.grecaptcha) {
-      const script = document.createElement("script");
-      script.src = `https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`;
-      script.async = true;
-      script.defer = true;
-      script.onload = () => setRecaptchaLoaded(true);
-      document.body.appendChild(script);
-    } else if (window.grecaptcha) {
-      setRecaptchaLoaded(true);
-=======
     const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
 
     // Validate environment variable
@@ -109,7 +91,6 @@ export default function NewsletterSignup({
         };
         document.body.appendChild(script);
       }
->>>>>>> 16d7e81cae1a1d0f8a50e5bcb0623039c8343c6e
     }
   }, []);
 
@@ -119,15 +100,6 @@ export default function NewsletterSignup({
     setMessage({ type: "", text: "" });
 
     try {
-<<<<<<< HEAD
-      // Get reCAPTCHA token
-      if (!recaptchaLoaded || !window.grecaptcha) {
-        throw new Error("reCAPTCHA not loaded. Please try again.");
-      }
-
-      const token = await window.grecaptcha.execute(process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY, {
-        action: "newsletter_signup",
-=======
       // Validate reCAPTCHA is loaded
       if (!recaptchaLoaded || !window.grecaptcha || !window.grecaptcha.ready) {
         throw new Error("reCAPTCHA not loaded. Please refresh the page and try again.");
@@ -151,7 +123,6 @@ export default function NewsletterSignup({
             reject(new Error("Failed to get reCAPTCHA token. Please try again."));
           }
         });
->>>>>>> 16d7e81cae1a1d0f8a50e5bcb0623039c8343c6e
       });
 
       // Submit to API
@@ -171,11 +142,7 @@ export default function NewsletterSignup({
 
       setMessage({
         type: "success",
-<<<<<<< HEAD
-        text: "🎉 Thank you for subscribing! You'll only receive emails about new courses and important updates—no spam, we promise!",
-=======
         text: "🎉 Thank you for subscribing! You'll only receive emails about new content and important updates—no spam, we promise!",
->>>>>>> 16d7e81cae1a1d0f8a50e5bcb0623039c8343c6e
       });
       setEmail("");
 
@@ -215,12 +182,8 @@ export default function NewsletterSignup({
             ✉️ <strong>Our Promise:</strong>
           </p>
           <p className="text-xs text-blue-800 mt-1">
-<<<<<<< HEAD
-            The Skilling Newsletter will be sent ONLY when new courses are introduced, or important announcements/changes are made. You will NOT receive unnecessary or frequent emails.
-=======
             The Skilling Newsletter will be sent ONLY when new content or features are introduced, or important
             announcements/changes are made. You will NOT receive unnecessary or frequent emails.
->>>>>>> 16d7e81cae1a1d0f8a50e5bcb0623039c8343c6e
           </p>
         </div>
       </div>
