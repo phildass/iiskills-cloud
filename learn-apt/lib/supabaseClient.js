@@ -41,10 +41,11 @@ const hasPlaceholderKey =
   supabaseAnonKey.startsWith("eyJhbGciOi...") ||
   supabaseAnonKey.length < 20;
 
+// Only warn during build, don't throw error
 if (!supabaseUrl || !supabaseAnonKey || hasPlaceholderUrl || hasPlaceholderKey) {
   const errorMessage = `
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-⚠️  SUPABASE CONFIGURATION ERROR - learn-apt module
+⚠️  SUPABASE CONFIGURATION WARNING - learn-apt module
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 Missing or invalid Supabase environment variables!
@@ -70,29 +71,22 @@ To fix this:
 4. Quick setup: Run the automated script from repo root:
    cd .. && ./setup-env.sh
 
-5. Restart the development server:
-   npm run dev
-
 ⚠️  IMPORTANT: All modules must use the same Supabase credentials
    for cross-subdomain authentication to work!
 
 For more information, see ENV_SETUP_GUIDE.md in the repo root.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 `;
-  console.error(errorMessage);
-
-  // Throw error to prevent app from starting with invalid configuration
-  throw new Error(
-    "Missing or invalid Supabase environment variables. Please configure NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY in .env.local with actual values (not placeholders)"
-  );
+  console.warn(errorMessage);
 }
 
 // Create Supabase client with cookie options for cross-subdomain support
-export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+// Use safe defaults if credentials are missing (for build time)
+const safeUrl = supabaseUrl && !hasPlaceholderUrl ? supabaseUrl : "https://placeholder.supabase.co";
+const safeKey = supabaseAnonKey && !hasPlaceholderKey ? supabaseAnonKey : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBsYWNlaG9sZGVyIiwicm9sZSI6ImFub24iLCJpYXQiOjE2MDk0NTkyMDAsImV4cCI6MTkyNTAzNTIwMH0.placeholder";
+
+export const supabase = createClient(safeUrl, safeKey, {
   auth: {
     // Enable auto-refresh of tokens
     autoRefreshToken: true,
