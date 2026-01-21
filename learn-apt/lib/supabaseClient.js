@@ -83,8 +83,10 @@ For more information, see ENV_SETUP_GUIDE.md in the repo root.
 
 // Create Supabase client with cookie options for cross-subdomain support
 // Use safe defaults if credentials are missing (for build time)
-const safeUrl = supabaseUrl && !hasPlaceholderUrl ? supabaseUrl : "https://placeholder.supabase.co";
-const safeKey = supabaseAnonKey && !hasPlaceholderKey ? supabaseAnonKey : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBsYWNlaG9sZGVyIiwicm9sZSI6ImFub24iLCJpYXQiOjE2MDk0NTkyMDAsImV4cCI6MTkyNTAzNTIwMH0.placeholder";
+// Note: These placeholder values are intentionally invalid and will not work for actual authentication
+// They are only used during build time when env vars might not be configured
+const safeUrl = supabaseUrl && !hasPlaceholderUrl ? supabaseUrl : "https://placeholder-build-only.supabase.co";
+const safeKey = supabaseAnonKey && !hasPlaceholderKey ? supabaseAnonKey : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJidWlsZC1wbGFjZWhvbGRlciIsInJlZiI6ImJ1aWxkIiwicm9sZSI6ImFub24iLCJpYXQiOjE2MDk0NTkyMDAsImV4cCI6MTYwOTQ1OTIwMH0.invalid-build-placeholder";
 
 export const supabase = createClient(safeUrl, safeKey, {
   auth: {

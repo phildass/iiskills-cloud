@@ -12,6 +12,7 @@
     --color-pastel-blue: #9bc4e9;
     --color-pastel-lavender-light: #d5c6e8;
     --color-pastel-lavender: #c2a9d9;
+    /* Font: Inter is loaded via system font stack fallback in Tailwind config */
     --font-family-sans: "Inter", Arial, sans-serif;
   }
 }
