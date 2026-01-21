@@ -1,0 +1,56 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-primary: #0052cc;
+    --color-accent: #c77ddb;
+    --color-neutral: #f8f9fa;
+    --color-charcoal: #24272a;
+    --color-pastel-blue-light: #b8d4f1;
+    --color-pastel-blue: #9bc4e9;
+    --color-pastel-lavender-light: #d5c6e8;
+    --color-pastel-lavender: #c2a9d9;
+    --font-family-sans: "Inter", Arial, sans-serif;
+  }
+}
+
+/* Global resets */
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: var(--font-family-sans);
+  background: var(--color-neutral);
+  color: var(--color-charcoal);
+}
+
+/* Blinking animation for FREE label */
+@keyframes blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+/* Fade in animation for modals */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
