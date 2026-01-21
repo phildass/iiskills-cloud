@@ -205,7 +205,7 @@ export default function Home() {
         {/* Features Section */}
         <section className="py-16 bg-white">
           <div className="max-w-6xl mx-auto px-4">
-            <h2 className="text-4xl font-bold text-learnapt-blue text-center mb-12">What's Inside</h2>
+            <h2 className="text-4xl font-bold text-learnapt-blue text-center mb-12">What&apos;s Inside</h2>
 
             <div className="grid md:grid-cols-3 gap-8">
               <div className="bg-neutral p-8 rounded-lg shadow-lg">
