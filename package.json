@@ -6,7 +6,8 @@
   "workspaces": [
     "apps/*",
     "packages/*",
-    "learn-*"
+    "learn-*",
+    "coming-soon"
   ],
   "scripts": {
     "dev": "turbo run dev",
