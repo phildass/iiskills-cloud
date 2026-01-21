@@ -93,10 +93,119 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Test Options Section - Two Distinct Tests */}
+        <section className="py-20 bg-gradient-to-br from-indigo-50 via-purple-50 to-blue-50">
+          <div className="max-w-6xl mx-auto px-4">
+            <div className="text-center mb-12">
+              <h2 className="text-5xl font-bold text-learnapt-blue mb-4">Choose Your Assessment Path</h2>
+              <p className="text-xl text-gray-700 max-w-3xl mx-auto">
+                Select the assessment that best fits your time and goals. Both tests provide valuable insights into your aptitude and learning style.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+              {/* Short Test Card */}
+              <div className="bg-white rounded-2xl shadow-2xl overflow-hidden transform transition-all duration-300 hover:scale-105 hover:shadow-3xl border-4 border-transparent hover:border-learnapt-blue">
+                <div className="bg-gradient-to-r from-green-500 to-teal-500 p-8 text-white">
+                  <div className="flex items-center justify-center mb-4">
+                    <div className="text-6xl">⚡</div>
+                  </div>
+                  <h3 className="text-3xl font-bold text-center mb-2">Short Assessment</h3>
+                  <div className="text-center">
+                    <p className="text-5xl font-extrabold mb-1">12</p>
+                    <p className="text-xl opacity-90">Questions</p>
+                  </div>
+                </div>
+                <div className="p-8">
+                  <div className="mb-6">
+                    <div className="flex items-center mb-3">
+                      <span className="text-2xl mr-3">⏱️</span>
+                      <p className="text-lg font-semibold text-gray-800">~7 minutes</p>
+                    </div>
+                    <div className="flex items-center mb-3">
+                      <span className="text-2xl mr-3">📋</span>
+                      <p className="text-lg font-semibold text-gray-800">4 focused modules</p>
+                    </div>
+                    <div className="flex items-center">
+                      <span className="text-2xl mr-3">🎯</span>
+                      <p className="text-lg font-semibold text-gray-800">Quick insights</p>
+                    </div>
+                  </div>
+                  <div className="bg-green-50 p-4 rounded-lg mb-6">
+                    <p className="text-gray-700 text-sm leading-relaxed">
+                      Perfect for a quick overview of your learning preferences, problem-solving style, motivation drivers, and numerical reasoning abilities.
+                    </p>
+                  </div>
+                  <Link
+                    href="/brief-test"
+                    className="block w-full bg-gradient-to-r from-green-500 to-teal-500 text-white text-center px-8 py-4 rounded-lg font-bold text-lg hover:from-green-600 hover:to-teal-600 transition-all shadow-lg transform hover:scale-105"
+                  >
+                    Start Short Test →
+                  </Link>
+                </div>
+              </div>
+
+              {/* Elaborate Test Card */}
+              <div className="bg-white rounded-2xl shadow-2xl overflow-hidden transform transition-all duration-300 hover:scale-105 hover:shadow-3xl border-4 border-transparent hover:border-learnapt-purple">
+                <div className="bg-gradient-to-r from-learnapt-purple via-learnapt-indigo to-learnapt-blue p-8 text-white">
+                  <div className="flex items-center justify-center mb-4">
+                    <div className="text-6xl">🎓</div>
+                  </div>
+                  <h3 className="text-3xl font-bold text-center mb-2">Elaborate Assessment</h3>
+                  <div className="text-center">
+                    <p className="text-5xl font-extrabold mb-1">200</p>
+                    <p className="text-xl opacity-90">Questions</p>
+                  </div>
+                </div>
+                <div className="p-8">
+                  <div className="mb-6">
+                    <div className="flex items-center mb-3">
+                      <span className="text-2xl mr-3">⏱️</span>
+                      <p className="text-lg font-semibold text-gray-800">~40-50 minutes</p>
+                    </div>
+                    <div className="flex items-center mb-3">
+                      <span className="text-2xl mr-3">📚</span>
+                      <p className="text-lg font-semibold text-gray-800">20 comprehensive modules</p>
+                    </div>
+                    <div className="flex items-center">
+                      <span className="text-2xl mr-3">💎</span>
+                      <p className="text-lg font-semibold text-gray-800">Deep analysis</p>
+                    </div>
+                  </div>
+                  <div className="bg-purple-50 p-4 rounded-lg mb-6">
+                    <p className="text-gray-700 text-sm leading-relaxed">
+                      Comprehensive evaluation covering learning styles, cognitive patterns, aptitude areas, professional skills, and personal effectiveness for detailed insights.
+                    </p>
+                  </div>
+                  <Link
+                    href="/elaborate-test"
+                    className="block w-full bg-gradient-to-r from-learnapt-purple via-learnapt-indigo to-learnapt-blue text-white text-center px-8 py-4 rounded-lg font-bold text-lg hover:opacity-90 transition-all shadow-lg transform hover:scale-105"
+                  >
+                    Start Elaborate Test →
+                  </Link>
+                </div>
+              </div>
+            </div>
+
+            {/* Comparison Note */}
+            <div className="mt-12 max-w-3xl mx-auto bg-white rounded-xl shadow-lg p-6 border-l-4 border-learnapt-blue">
+              <div className="flex items-start">
+                <div className="text-3xl mr-4">💡</div>
+                <div>
+                  <h4 className="font-bold text-lg text-learnapt-blue mb-2">Not sure which to choose?</h4>
+                  <p className="text-gray-700">
+                    Start with the <strong>Short Assessment</strong> for a quick snapshot, then take the <strong>Elaborate Assessment</strong> when you have more time for comprehensive insights. Both tests are free and your results are saved!
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Features Section */}
         <section className="py-16 bg-white">
           <div className="max-w-6xl mx-auto px-4">
-            <h2 className="text-4xl font-bold text-learnapt-blue text-center mb-12">What's Inside</h2>
+            <h2 className="text-4xl font-bold text-learnapt-blue text-center mb-12">What&apos;s Inside</h2>
 
             <div className="grid md:grid-cols-3 gap-8">
               <div className="bg-neutral p-8 rounded-lg shadow-lg">
