@@ -146,6 +146,16 @@ module.exports = {
       interpreter: "none",
       cwd: "/root/iiskills-cloud/webhook",
       env: { NODE_ENV: "production", PORT: 3018, NEXT_PUBLIC_PAYWALL_ENABLED: "true" }
+    },
+    {
+      // Coming Soon Apps landing page
+      // Note: No paywall needed - this is a public announcement page
+      name: "iiskills-coming-soon",
+      script: "yarn",
+      args: "start",
+      interpreter: "none",
+      cwd: "/root/iiskills-cloud/coming-soon",
+      env: { NODE_ENV: "production", PORT: 3019 }
     }
   ]
 };
