@@ -185,9 +185,9 @@ The application requires Supabase configuration for authentication:
 
 ## Available Scripts
 
-- `npm run dev` or `yarn dev` - Start development server on port 3001
+- `npm run dev` or `yarn dev` - Start development server on port 3002
 - `npm run build` or `yarn build` - Build for production
-- `npm run start` or `yarn start` - Start production server on port 3001 (uses custom server.js)
+- `npm run start` or `yarn start` - Start production server on port 3002 (uses custom server.js)
 - `npm run start:default` or `yarn start:default` - Start production server using default Next.js server
 - `npm run lint` or `yarn lint` - Run ESLint
 
@@ -198,15 +198,15 @@ If the production server fails to start or nginx returns 502 errors, follow thes
 ### Check if the server is running and bound to the correct port
 
 ```bash
-# Check if the process is listening on port 3001
-ss -tlnp | grep :3001
+# Check if the process is listening on port 3002
+ss -tlnp | grep :3002
 # OR
-netstat -tlnp | grep :3001
+netstat -tlnp | grep :3002
 # OR
-lsof -i :3001
+lsof -i :3002
 ```
 
-Expected output should show a process bound to `0.0.0.0:3001` or `*:3001`.
+Expected output should show a process bound to `0.0.0.0:3002` or `*:3002`.
 
 ### Verify the build completed successfully
 
@@ -221,20 +221,20 @@ The `.next` directory should exist and contain `BUILD_ID`, `server/`, and other 
 
 ```bash
 cd /path/to/learn-apt
-PORT=3001 NODE_ENV=production yarn start
+PORT=3002 NODE_ENV=production yarn start
 ```
 
 You should see:
 ```
 ✅ Server ready and listening
-   URL: http://localhost:3001
-   Binding: 0.0.0.0:3001
+   URL: http://localhost:3002
+   Binding: 0.0.0.0:3002
 ```
 
 ### Test with curl
 
 ```bash
-curl -v http://localhost:3001/
+curl -v http://localhost:3002/
 ```
 
 Should return HTTP 200 with the HTML page.
@@ -243,10 +243,10 @@ Should return HTTP 200 with the HTML page.
 
 **Issue: Port already in use**
 ```bash
-# Find process using port 3001
-lsof -ti:3001
+# Find process using port 3002
+lsof -ti:3002
 # Kill the process
-lsof -ti:3001 | xargs kill -9
+lsof -ti:3002 | xargs kill -9
 # Or with PM2
 pm2 delete iiskills-learn-apt
 pm2 start ecosystem.config.js --only iiskills-learn-apt
@@ -254,8 +254,8 @@ pm2 start ecosystem.config.js --only iiskills-learn-apt
 
 **Issue: Wrong port configured**
 - Check `ecosystem.config.js` - should have `PORT: 3001` for learn-apt
-- Check `.env.local` - should have `PORT=3001`
-- Check nginx config - should proxy to `localhost:3001`
+- Check `.env.local` - should have `PORT=3002`
+- Check nginx config - should proxy to `localhost:3002`
 
 **Issue: Server says "ready" but nothing is listening**
 - This was the original issue - fixed by using custom `server.js`
@@ -276,17 +276,17 @@ pm2 logs iiskills-learn-apt --lines 50
 # Common causes:
 # 1. Missing dependencies - run: yarn install
 # 2. Missing .next folder - run: yarn build
-# 3. Port conflict - check with: lsof -i :3001
+# 3. Port conflict - check with: lsof -i :3002
 # 4. Environment variables - check .env.local exists
 ```
 
 ### Verify nginx configuration
 
-Your nginx config should proxy to port 3001:
+Your nginx config should proxy to port 3002:
 
 ```nginx
 location / {
-    proxy_pass http://localhost:3001;
+    proxy_pass http://localhost:3002;
     proxy_http_version 1.1;
     proxy_set_header Upgrade $http_upgrade;
     proxy_set_header Connection 'upgrade';
@@ -300,10 +300,10 @@ location / {
 1. ✅ Install dependencies: `yarn install`
 2. ✅ Build the app: `yarn build`
 3. ✅ Verify .next folder exists: `ls -la .next/`
-4. ✅ Test manual start: `PORT=3001 yarn start`
-5. ✅ Verify port binding: `ss -tlnp | grep :3001`
-6. ✅ Test with curl: `curl http://localhost:3001/`
-7. ✅ Configure PM2 with PORT=3001 in `ecosystem.config.js`
+4. ✅ Test manual start: `PORT=3002 yarn start`
+5. ✅ Verify port binding: `ss -tlnp | grep :3002`
+6. ✅ Test with curl: `curl http://localhost:3002/`
+7. ✅ Configure PM2 with PORT=3002 in `ecosystem.config.js`
 8. ✅ Start with PM2: `pm2 start ecosystem.config.js --only iiskills-learn-apt`
 9. ✅ Save PM2 config: `pm2 save`
 10. ✅ Test nginx proxy: `curl http://your-domain.com/`

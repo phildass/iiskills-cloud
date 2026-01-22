@@ -26,7 +26,7 @@ const next = require('next');
 // Configuration
 const dev = process.env.NODE_ENV !== 'production';
 const hostname = '0.0.0.0'; // Bind to all interfaces for nginx proxy
-const port = parseInt(process.env.PORT || '3001', 10);
+const port = parseInt(process.env.PORT || '3002', 10);
 
 // Initialize Next.js
 const app = next({ dev });
@@ -64,7 +64,7 @@ async function startServer() {
         console.error(`❌ Error: Port ${port} is already in use`);
         console.error('   Try one of the following:');
         console.error(`   1. Stop the process using port ${port}: lsof -ti:${port} | xargs kill -9`);
-        console.error(`   2. Use a different port: PORT=3002 node server.js`);
+        console.error(`   2. Use a different port: PORT=3003 node server.js`);
         console.error(`   3. Check PM2 processes: pm2 list`);
         process.exit(1);
       } else {
