@@ -97,7 +97,6 @@ async function startServer() {
       console.log(`\n📡 Received ${signal}, starting graceful shutdown...`);
       server.close(() => {
         console.log('✅ Server closed');
-        app.close();
         process.exit(0);
       });
       

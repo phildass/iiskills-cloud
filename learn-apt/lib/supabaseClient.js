@@ -96,9 +96,9 @@ For more information, see ENV_SETUP_GUIDE.md in the repo root.
 }
 
 // Create Supabase client with cookie options for cross-subdomain support
-// Use dummy values if placeholders are detected (for build purposes)
-const finalUrl = supabaseUrl || 'https://placeholder.supabase.co';
-const finalKey = supabaseAnonKey || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBsYWNlaG9sZGVyIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NDUxOTIwMDAsImV4cCI6MTk2MDc2ODAwMH0.placeholder';
+// Use clearly invalid dummy values if placeholders are detected (for build purposes)
+const finalUrl = supabaseUrl || 'https://invalid-placeholder.supabase.co';
+const finalKey = supabaseAnonKey || 'INVALID_PLACEHOLDER_KEY_FOR_BUILD_ONLY';
 
 export const supabase = createClient(finalUrl, finalKey, {
   auth: {
