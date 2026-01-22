@@ -253,7 +253,7 @@ pm2 start ecosystem.config.js --only iiskills-learn-apt
 ```
 
 **Issue: Wrong port configured**
-- Check `ecosystem.config.js` - should have `PORT: 3001` for learn-apt
+- Check `ecosystem.config.js` - should have `PORT: 3002` for learn-apt
 - Check `.env.local` - should have `PORT=3002`
 - Check nginx config - should proxy to `localhost:3002`
 

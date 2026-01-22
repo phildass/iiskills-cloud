@@ -9,14 +9,14 @@
  * 
  * Features:
  * - Explicit binding to 0.0.0.0 (all interfaces) for nginx proxy compatibility
- * - Guaranteed PORT=3001 binding (with fallback from env)
+ * - Guaranteed PORT=3002 binding (with fallback from env)
  * - Graceful shutdown handling for PM2 compatibility
  * - Startup verification and logging
  * - Error handling for port conflicts
  * 
  * Usage:
- *   node server.js              # Uses PORT from env or defaults to 3001
- *   PORT=3001 node server.js    # Explicit port override
+ *   node server.js              # Uses PORT from env or defaults to 3002
+ *   PORT=3002 node server.js    # Explicit port override
  */
 
 const { createServer } = require('http');
