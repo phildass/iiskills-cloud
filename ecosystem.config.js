@@ -33,7 +33,7 @@ module.exports = {
       args: "start",
       interpreter: "none",
       cwd: "/root/iiskills-cloud/learn-apt",
-      env: { NODE_ENV: "production", PORT: 3002, NEXT_PUBLIC_PAYWALL_ENABLED: "true" }
+      env: { NODE_ENV: "production", PORT: 3001, NEXT_PUBLIC_PAYWALL_ENABLED: "true" }
     },
     {
       name: "iiskills-learn-chemistry",

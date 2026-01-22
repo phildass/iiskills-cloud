@@ -2,20 +2,21 @@ module.exports = {
   apps: [
     {
       name: "learn-apt",
-      script: "npm",
+      script: "yarn",
       args: "start",
-      instances: "max",
-      exec_mode: "cluster",
+      interpreter: "none",
+      instances: 1,
+      exec_mode: "fork",
       autorestart: true,
       watch: false,
       max_memory_restart: "1G",
       env: {
         NODE_ENV: "production",
-        PORT: 3000,
+        PORT: 3001,
       },
       env_development: {
         NODE_ENV: "development",
-        PORT: 3000,
+        PORT: 3001,
       },
     },
   ],
