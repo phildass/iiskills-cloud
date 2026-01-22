@@ -41,10 +41,11 @@ const hasPlaceholderKey =
   supabaseAnonKey.startsWith("eyJhbGciOi...") ||
   supabaseAnonKey.length < 20;
 
+// Allow build to proceed with placeholders, but warn
 if (!supabaseUrl || !supabaseAnonKey || hasPlaceholderUrl || hasPlaceholderKey) {
   const errorMessage = `
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-⚠️  SUPABASE CONFIGURATION ERROR - learn-apt module
+⚠️  SUPABASE CONFIGURATION WARNING - learn-apt module
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 Missing or invalid Supabase environment variables!
@@ -78,21 +79,35 @@ To fix this:
 
 For more information, see ENV_SETUP_GUIDE.md in the repo root.
 
+⚠️  Build will proceed, but authentication features will not work!
+
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 `;
-  console.error(errorMessage);
-
-  // Throw error to prevent app from starting with invalid configuration
-  throw new Error(
-    "Missing or invalid Supabase environment variables. Please configure NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY in .env.local with actual values (not placeholders)"
-  );
+  console.warn(errorMessage);
+  
+  // In production, continue with dummy client to allow build
+  // but authentication features will not work
+  if (process.env.NODE_ENV === 'production' || process.env.CI) {
+    console.warn('⚠️  Creating dummy Supabase client for build. Authentication will not work!');
+  }
 }
 
 // Create Supabase client with cookie options for cross-subdomain support
-export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+// Use clearly invalid dummy values if placeholders are detected (for build purposes)
+const finalUrl = supabaseUrl || 'https://invalid-placeholder.supabase.co';
+const finalKey = supabaseAnonKey || 'INVALID_PLACEHOLDER_KEY_FOR_BUILD_ONLY';
+
+// Warn at runtime if using dummy credentials in production
+if (typeof window !== 'undefined' && process.env.NODE_ENV === 'production') {
+  if (!supabaseUrl || !supabaseAnonKey || hasPlaceholderUrl || hasPlaceholderKey) {
+    console.error('⚠️  PRODUCTION WARNING: Running with invalid Supabase credentials. Authentication will not work!');
+  }
+}
+
+export const supabase = createClient(finalUrl, finalKey, {
   auth: {
     // Enable auto-refresh of tokens
     autoRefreshToken: true,
