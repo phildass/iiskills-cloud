@@ -100,6 +100,13 @@ For more information, see ENV_SETUP_GUIDE.md in the repo root.
 const finalUrl = supabaseUrl || 'https://invalid-placeholder.supabase.co';
 const finalKey = supabaseAnonKey || 'INVALID_PLACEHOLDER_KEY_FOR_BUILD_ONLY';
 
+// Warn at runtime if using dummy credentials in production
+if (typeof window !== 'undefined' && process.env.NODE_ENV === 'production') {
+  if (!supabaseUrl || !supabaseAnonKey || hasPlaceholderUrl || hasPlaceholderKey) {
+    console.error('⚠️  PRODUCTION WARNING: Running with invalid Supabase credentials. Authentication will not work!');
+  }
+}
+
 export const supabase = createClient(finalUrl, finalKey, {
   auth: {
     // Enable auto-refresh of tokens

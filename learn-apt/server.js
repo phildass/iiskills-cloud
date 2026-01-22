@@ -29,7 +29,7 @@ const hostname = '0.0.0.0'; // Bind to all interfaces for nginx proxy
 const port = parseInt(process.env.PORT || '3001', 10);
 
 // Initialize Next.js
-const app = next({ dev, hostname, port });
+const app = next({ dev });
 const handle = app.getRequestHandler();
 
 /**

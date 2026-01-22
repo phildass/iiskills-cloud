@@ -2,9 +2,8 @@ module.exports = {
   apps: [
     {
       name: "learn-apt",
-      script: "yarn",
-      args: "start",
-      interpreter: "none",
+      script: "server.js",
+      interpreter: "node",
       instances: 1,
       exec_mode: "fork",
       autorestart: true,
