@@ -14,7 +14,6 @@
  */
 
 import { createClient } from "@supabase/supabase-js";
-import { getCookieDomain } from "../utils/urlHelper";
 
 // Supabase project URL and public anonymous key
 // These must be set via environment variables in .env.local
@@ -89,24 +88,13 @@ For more information, see:
 
 // Create a single Supabase client instance for the app
 // This client will be reused across the application for all Supabase operations
-// Configure cookie options for cross-subdomain authentication
 export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
   auth: {
-    // Persist session in cookies for cross-subdomain support
-    storage: typeof window !== "undefined" ? window.localStorage : undefined,
     autoRefreshToken: true,
     persistSession: true,
     detectSessionInUrl: true,
-    // Cookie options for cross-subdomain authentication
-    cookieOptions: {
-      domain: getCookieDomain(),
-      // Secure cookies in production
-      secure:
-        typeof window !== "undefined"
-          ? window.location.protocol === "https:"
-          : process.env.NODE_ENV === "production",
-      sameSite: "lax",
-    },
+    flowType: "pkce",
+    storageKey: "iiskills-auth-token",
   },
 });
 
@@ -122,6 +110,25 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
  * }
  */
 export async function getCurrentUser() {
+  // TEMPORARY - RESTORE AFTER JAN 28, 2026
+  const DISABLE_AUTH = process.env.NEXT_PUBLIC_DISABLE_AUTH === 'true';
+  
+  if (DISABLE_AUTH) {
+    console.log('⚠️ TESTING MODE: Authentication bypassed - returning mock user');
+    return {
+      id: 'test-user-main',
+      email: 'test@iiskills.cloud',
+      user_metadata: {
+        firstName: 'Test',
+        lastName: 'User',
+        full_name: 'Test User',
+        is_admin: true,
+        payment_status: 'paid'
+      }
+    };
+  }
+  // END TEMPORARY
+
   try {
     // Get the current session from Supabase
     const {
