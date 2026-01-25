@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { getCurrentUser } from "../lib/supabaseClient";
 import InstallApp from "../../components/shared/InstallApp";
 import TranslationFeatureBanner from "../../components/shared/TranslationFeatureBanner";
+import { Zap, Microscope } from "lucide-react";
 
 export default function Home() {
   const [user, setUser] = useState(null);
@@ -11,9 +12,15 @@ export default function Home() {
 
   useEffect(() => {
     const checkUser = async () => {
-      const currentUser = await getCurrentUser();
-      setUser(currentUser);
-      setLoading(false);
+      try {
+        const currentUser = await getCurrentUser();
+        setUser(currentUser);
+      } catch (error) {
+        console.error("Error checking user:", error);
+        setUser(null);
+      } finally {
+        setLoading(false);
+      }
     };
 
     checkUser();
@@ -29,7 +36,7 @@ export default function Home() {
         />
       </Head>
 
-      <main className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
+      <main className="min-h-screen bg-gradient-radial from-slate-50 to-slate-200">
         {/* Hero Section */}
         <section className="relative bg-gradient-to-r from-primary to-blue-600 text-white py-20">
           <div className="max-w-6xl mx-auto px-6 text-center">
@@ -93,136 +100,89 @@ export default function Home() {
         </section>
 
         {/* Test Options Section - Two Distinct Tests */}
-        <section className="py-20 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
+        <section className="py-20">
           <div className="max-w-6xl mx-auto px-6">
             <div className="text-center mb-14">
-              <h2 className="text-4xl font-bold text-primary mb-5 leading-tight">
+              <h2 className="text-4xl font-bold text-gray-900 mb-5 leading-tight">
                 Choose Your Assessment Path
               </h2>
               
-              <p className="text-lg text-gray-700 max-w-3xl mx-auto leading-relaxed">
+              <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
                 Select the assessment that best fits your time and goals.
-              </p>
-              
-              <p className="text-lg text-gray-700 max-w-3xl mx-auto mt-2 leading-relaxed">
-                Both tests provide valuable insights into your aptitude and learning style.
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
-              {/* Short Test Card */}
-              <div className="bg-white rounded-2xl shadow-xl overflow-hidden transform transition-all duration-300 hover:scale-105 hover:shadow-2xl border-2 border-transparent hover:border-primary">
-                <div className="bg-gradient-to-r from-green-500 to-teal-500 p-8 text-white text-center">
-                  <div className="flex items-center justify-center mb-4">
-                    <div className="text-5xl">⚡</div>
-                  </div>
-                  
-                  <h3 className="text-2xl font-bold mb-4 leading-tight">Short Assessment</h3>
-                  
-                  <div>
-                    <p className="text-4xl font-extrabold mb-1">12</p>
-                    <p className="text-base opacity-90">Questions</p>
-                  </div>
-                </div>
-                
-                <div className="p-8">
-                  <div className="mb-6 space-y-3">
-                    <div className="flex items-center">
-                      <span className="text-xl mr-3">⏱️</span>
-                      <p className="text-base font-medium text-gray-800">~7 minutes</p>
-                    </div>
-                    
-                    <div className="flex items-center">
-                      <span className="text-xl mr-3">📋</span>
-                      <p className="text-base font-medium text-gray-800">4 focused modules</p>
-                    </div>
-                    
-                    <div className="flex items-center">
-                      <span className="text-xl mr-3">🎯</span>
-                      <p className="text-base font-medium text-gray-800">Quick insights</p>
+            <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+              {/* Card A - Express Assessment (The Sprint) */}
+              <div className="relative group">
+                <div className="bg-white/10 backdrop-blur-md rounded-2xl p-8 border-2 border-emerald-400/50 shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] hover:border-emerald-500">
+                  <div className="flex items-center justify-center mb-6">
+                    <div className="bg-emerald-500/20 p-4 rounded-full">
+                      <Zap className="w-12 h-12 text-emerald-500" />
                     </div>
                   </div>
                   
-                  <div className="bg-green-50 p-5 rounded-lg mb-6">
+                  <h3 className="text-3xl font-bold text-gray-900 mb-3 text-center">Express Assessment</h3>
+                  
+                  <p className="text-center text-gray-600 text-lg mb-6">
+                    12 Questions | 5 Minutes
+                  </p>
+                  
+                  <div className="bg-white/50 p-5 rounded-lg mb-6 backdrop-blur-sm">
                     <p className="text-gray-700 text-sm leading-relaxed">
-                      Perfect for a quick overview of your learning preferences, problem-solving style, motivation drivers, and numerical reasoning abilities.
+                      Perfect for a quick snapshot of your aptitude. Get instant insights into your problem-solving abilities and reasoning skills.
                     </p>
                   </div>
                   
                   <Link
                     href="/brief-test"
-                    className="block w-full bg-gradient-to-r from-green-500 to-teal-500 text-white text-center px-6 py-3 rounded-lg font-semibold text-base hover:from-green-600 hover:to-teal-600 transition-all shadow-lg transform hover:scale-105"
+                    className="block w-full bg-emerald-500 text-white text-center px-6 py-3 rounded-lg font-semibold text-base hover:bg-emerald-600 transition-all shadow-lg motion-safe:animate-pulse hover:animate-none"
                   >
-                    Start Short Test →
+                    Start →
                   </Link>
                 </div>
               </div>
 
-              {/* Elaborate Test Card */}
-              <div className="bg-white rounded-2xl shadow-xl overflow-hidden transform transition-all duration-300 hover:scale-105 hover:shadow-2xl border-2 border-transparent hover:border-accent">
-                <div className="bg-gradient-to-r from-accent via-purple-600 to-primary p-8 text-white text-center">
-                  <div className="flex items-center justify-center mb-4">
-                    <div className="text-5xl">🎓</div>
-                  </div>
-                  
-                  <h3 className="text-2xl font-bold mb-4 leading-tight">Elaborate Assessment</h3>
-                  
-                  <div>
-                    <p className="text-4xl font-extrabold mb-1">200</p>
-                    <p className="text-base opacity-90">Questions</p>
-                  </div>
+              {/* Card B - Professional Diagnostic (The Deep Dive) */}
+              <div className="relative group">
+                {/* Most Accurate Badge */}
+                <div className="absolute top-4 right-4 z-10 bg-gradient-to-r from-yellow-400 to-yellow-600 text-white px-4 py-1 rounded-full text-xs font-bold shadow-lg">
+                  Most Accurate
                 </div>
                 
-                <div className="p-8">
-                  <div className="mb-6 space-y-3">
-                    <div className="flex items-center">
-                      <span className="text-xl mr-3">⏱️</span>
-                      <p className="text-base font-medium text-gray-800">~40-50 minutes</p>
-                    </div>
+                {/* Gold gradient border wrapper */}
+                <div className="p-[2px] bg-gradient-to-br from-amber-400 via-yellow-500 to-amber-600 rounded-2xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
+                  <div className="relative bg-slate-900 rounded-2xl p-8 shadow-lg overflow-hidden">
+                    {/* Shimmer effect overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full motion-safe:group-hover:translate-x-full transition-transform duration-1000 ease-in-out"></div>
                     
-                    <div className="flex items-center">
-                      <span className="text-xl mr-3">📚</span>
-                      <p className="text-base font-medium text-gray-800">20 comprehensive modules</p>
-                    </div>
-                    
-                    <div className="flex items-center">
-                      <span className="text-xl mr-3">💎</span>
-                      <p className="text-base font-medium text-gray-800">Deep analysis</p>
+                    <div className="relative z-10">
+                      <div className="flex items-center justify-center mb-6">
+                        <div className="bg-amber-500/20 p-4 rounded-full">
+                          <Microscope className="w-12 h-12 text-amber-400" />
+                        </div>
+                      </div>
+                      
+                      <h3 className="text-3xl font-bold text-white mb-3 text-center">Professional Diagnostic</h3>
+                      
+                      <p className="text-center text-gray-300 text-lg mb-6">
+                        100+ Questions | 45 Minutes
+                      </p>
+                      
+                      <div className="bg-slate-800/50 p-5 rounded-lg mb-6 backdrop-blur-sm">
+                        <p className="text-gray-300 text-sm leading-relaxed">
+                          Comprehensive evaluation covering learning styles, cognitive patterns, and professional skills for detailed, accurate insights.
+                        </p>
+                      </div>
+                      
+                      <Link
+                        href="/elaborate-test"
+                        className="block w-full bg-gradient-to-r from-amber-500 to-amber-600 text-white text-center px-6 py-3 rounded-lg font-semibold text-base hover:from-amber-600 hover:to-amber-700 transition-all shadow-lg"
+                      >
+                        Start →
+                      </Link>
                     </div>
                   </div>
-                  
-                  <div className="bg-purple-50 p-5 rounded-lg mb-6">
-                    <p className="text-gray-700 text-sm leading-relaxed">
-                      Comprehensive evaluation covering learning styles, cognitive patterns, aptitude areas, professional skills, and personal effectiveness for detailed insights.
-                    </p>
-                  </div>
-                  
-                  <Link
-                    href="/elaborate-test"
-                    className="block w-full bg-gradient-to-r from-accent via-purple-600 to-primary text-white text-center px-6 py-3 rounded-lg font-semibold text-base hover:opacity-90 transition-all shadow-lg transform hover:scale-105"
-                  >
-                    Start Elaborate Test →
-                  </Link>
-                </div>
-              </div>
-            </div>
-
-            {/* Comparison Note */}
-            <div className="mt-14 max-w-3xl mx-auto bg-white rounded-xl shadow-lg p-8 border-l-4 border-primary">
-              <div className="flex items-start">
-                <div className="text-2xl mr-4">💡</div>
-                <div>
-                  <h4 className="font-bold text-lg text-primary mb-3 leading-tight">
-                    Not sure which to choose?
-                  </h4>
-                  
-                  <p className="text-gray-700 leading-relaxed">
-                    Start with the <strong>Short Assessment</strong> for a quick snapshot, then take the <strong>Elaborate Assessment</strong> when you have more time for comprehensive insights.
-                  </p>
-                  
-                  <p className="text-gray-700 mt-2 leading-relaxed">
-                    Both tests are free and your results are saved!
-                  </p>
                 </div>
               </div>
             </div>

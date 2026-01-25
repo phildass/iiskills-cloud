@@ -23,6 +23,9 @@ module.exports = {
           purple: "#8b5cf6",
         },
       },
+      backgroundImage: {
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+      },
       keyframes: {
         "slide-up": {
           "0%": { transform: "translateY(100%)", opacity: "0" },
