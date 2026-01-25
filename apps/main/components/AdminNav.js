@@ -39,6 +39,18 @@ export default function AdminNav() {
               Courses
             </Link>
             <Link
+              href="/admin/modules"
+              className="text-yellow-900 hover:text-yellow-700 font-medium"
+            >
+              Modules
+            </Link>
+            <Link
+              href="/admin/lessons"
+              className="text-yellow-900 hover:text-yellow-700 font-medium"
+            >
+              Lessons
+            </Link>
+            <Link
               href="/admin/content"
               className="text-yellow-900 hover:text-yellow-700 font-medium"
             >
