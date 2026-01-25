@@ -95,10 +95,10 @@ export function getCourseSubdomainLink(courseName, isDevelopment = false) {
       const port = PORT_MAP[withoutS] || "3000";
       return {
         subdomain: withoutS,
-        productionUrl: `https://${withoutS}.iiskills.cloud`,
+        productionUrl: `https://app1.${withoutS}.iiskills.cloud`,
         localUrl: `http://localhost:${port}`,
         localPort: port,
-        url: isDevelopment ? `http://localhost:${port}` : `https://${withoutS}.iiskills.cloud`,
+        url: isDevelopment ? `http://localhost:${port}` : `https://app1.${withoutS}.iiskills.cloud`,
         exists: true,
       };
     }
@@ -110,10 +110,10 @@ export function getCourseSubdomainLink(courseName, isDevelopment = false) {
 
   return {
     subdomain: normalizedName,
-    productionUrl: `https://${normalizedName}.iiskills.cloud`,
+    productionUrl: `https://app1.${normalizedName}.iiskills.cloud`,
     localUrl: `http://localhost:${port}`,
     localPort: port,
-    url: isDevelopment ? `http://localhost:${port}` : `https://${normalizedName}.iiskills.cloud`,
+    url: isDevelopment ? `http://localhost:${port}` : `https://app1.${normalizedName}.iiskills.cloud`,
     exists: true,
   };
 }
@@ -128,10 +128,10 @@ export function getAllSubdomains(isDevelopment = false) {
     const port = PORT_MAP[subdomain] || "3000";
     return {
       subdomain: subdomain,
-      productionUrl: `https://${subdomain}.iiskills.cloud`,
+      productionUrl: `https://app1.${subdomain}.iiskills.cloud`,
       localUrl: `http://localhost:${port}`,
       localPort: port,
-      url: isDevelopment ? `http://localhost:${port}` : `https://${subdomain}.iiskills.cloud`,
+      url: isDevelopment ? `http://localhost:${port}` : `https://app1.${subdomain}.iiskills.cloud`,
       exists: true,
     };
   });
