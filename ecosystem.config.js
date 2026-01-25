@@ -6,10 +6,19 @@ module.exports = {
       // are located in the repository root
       name: "iiskills-main",
       script: "yarn",
-      args: "start",
+      args: "start --filter=@iiskills/main",
       interpreter: "none",
       cwd: "/root/iiskills-cloud",
       env: { NODE_ENV: "production", PORT: 3000, NEXT_PUBLIC_PAYWALL_ENABLED: "true" }
+    },
+    {
+      // Coming Soon page for iiskills.cloud (port 3019)
+      name: "iiskills-comingsoon",
+      script: "yarn",
+      args: "start",
+      interpreter: "none",
+      cwd: "/root/iiskills-cloud/coming-soon",
+      env: { NODE_ENV: "production", PORT: 3019, NEXT_PUBLIC_PAYWALL_ENABLED: "true" }
     },
     {
       name: "iiskills-learn-jee",
@@ -146,16 +155,6 @@ module.exports = {
       interpreter: "none",
       cwd: "/root/iiskills-cloud/webhook",
       env: { NODE_ENV: "production", PORT: 3018, NEXT_PUBLIC_PAYWALL_ENABLED: "true" }
-    },
-    {
-      // Coming Soon Apps landing page
-      // Note: No paywall needed - this is a public announcement page
-      name: "iiskills-coming-soon",
-      script: "yarn",
-      args: "start",
-      interpreter: "none",
-      cwd: "/root/iiskills-cloud/coming-soon",
-      env: { NODE_ENV: "production", PORT: 3019 }
     }
   ]
 };
