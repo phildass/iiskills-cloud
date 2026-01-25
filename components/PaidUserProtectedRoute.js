@@ -45,6 +45,24 @@ export default function PaidUserProtectedRoute({ children }) {
      */
     const checkAccess = async () => {
       try {
+        // TEMPORARY - RESTORE AFTER JAN 28, 2026
+        const DISABLE_AUTH = process.env.NEXT_PUBLIC_DISABLE_AUTH === 'true';
+        
+        if (DISABLE_AUTH) {
+          console.log('⚠️ TESTING MODE: PaidUserProtectedRoute bypassed - granting full access');
+          // Set mock user with full permissions
+          setUser({
+            id: 'test-user',
+            email: 'test@iiskills.cloud',
+            user_metadata: {
+              full_name: 'Test User',
+            }
+          });
+          setIsLoading(false);
+          return; // Skip all auth checks
+        }
+        // END TEMPORARY
+
         // Get current user from Supabase session
         const currentUser = await getCurrentUser();
         setUser(currentUser);
