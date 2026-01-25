@@ -93,6 +93,30 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
  * @returns {Promise<Object|null>} User object if authenticated, null otherwise
  */
 export async function getCurrentUser() {
+  // TEMPORARY - RESTORE AFTER JAN 28, 2026
+  // Bypass authentication for testing
+  const DISABLE_AUTH = process.env.NEXT_PUBLIC_DISABLE_AUTH === 'true';
+  
+  if (DISABLE_AUTH) {
+    console.log('⚠️ TESTING MODE: Authentication bypassed - returning mock user');
+    return {
+      id: 'test-user-neet',
+      email: 'test@iiskills.cloud',
+      user_metadata: {
+        first_name: 'Test',
+        last_name: 'User',
+        full_name: 'Test User',
+        role: 'admin',
+        // Grant full access to all courses
+        purchased_jee_course: true,
+        purchased_ias_course: true,
+        purchased_winning_course: true,
+        neet_subscription_end: '2099-12-31'
+      }
+    };
+  }
+  // END TEMPORARY
+  
   try {
     const {
       data: { session },
@@ -213,6 +237,14 @@ export function getUserProfile(user) {
  * @returns {boolean} True if subscription is active
  */
 export function checkActiveSubscription(user) {
+  // TEMPORARY - RESTORE AFTER JAN 28, 2026
+  const DISABLE_PAYWALL = process.env.NEXT_PUBLIC_DISABLE_PAYWALL === 'true';
+  if (DISABLE_PAYWALL) {
+    console.log('⚠️ TESTING MODE: Paywall bypassed - granting subscription access');
+    return true;
+  }
+  // END TEMPORARY
+  
   // Check if paywall is enabled via environment variable
   const paywallEnabled = process.env.NEXT_PUBLIC_PAYWALL_ENABLED !== "false";
   
