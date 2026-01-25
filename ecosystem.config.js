@@ -1,5 +1,11 @@
 // TEMPORARY - RESTORE AFTER JAN 28, 2026
 // Testing mode enabled: All authentication and paywalls bypassed
+//
+// Note: We set both NEXT_PUBLIC_DISABLE_PAYWALL and NEXT_PUBLIC_PAYWALL_ENABLED
+// for backwards compatibility with apps that use either flag:
+// - NEXT_PUBLIC_DISABLE_PAYWALL: New flag (explicit bypass for testing)
+// - NEXT_PUBLIC_PAYWALL_ENABLED: Legacy flag (used by some apps)
+// Setting both ensures all apps recognize the bypass regardless of implementation
 
 module.exports = {
   apps: [

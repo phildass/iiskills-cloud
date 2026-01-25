@@ -93,16 +93,22 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       
       if (DISABLE_AUTH) {
         console.log('⚠️ TESTING MODE: Authentication bypassed - returning mock user');
-        setUser({
+        // Create properly typed mock user for testing
+        const mockUser: User = {
           id: 'test-user-apt',
           email: 'test@iiskills.cloud',
+          aud: 'authenticated',
+          role: 'authenticated',
+          created_at: new Date().toISOString(),
+          app_metadata: {},
           user_metadata: {
             first_name: 'Test',
             last_name: 'User',
             full_name: 'Test User',
             role: 'admin',
           },
-        } as User);
+        };
+        setUser(mockUser);
         setIsAuthenticated(true);
         setUserEmail('test@iiskills.cloud');
         setAuthCookie('true');

@@ -237,19 +237,21 @@ export function getUserProfile(user) {
  * @returns {boolean} True if subscription is active
  */
 export function checkActiveSubscription(user) {
-  // TEMPORARY - RESTORE AFTER JAN 28, 2026
-  const DISABLE_PAYWALL = process.env.NEXT_PUBLIC_DISABLE_PAYWALL === 'true';
-  if (DISABLE_PAYWALL) {
-    console.log('⚠️ TESTING MODE: Paywall bypassed - granting subscription access');
-    return true;
-  }
-  // END TEMPORARY
-  
   // Check if paywall is enabled via environment variable
   const paywallEnabled = process.env.NEXT_PUBLIC_PAYWALL_ENABLED !== "false";
   
-  // If paywall is disabled, grant access to everyone
-  if (!paywallEnabled) return true;
+  // TEMPORARY - RESTORE AFTER JAN 28, 2026
+  // Also check DISABLE_PAYWALL flag for testing mode
+  const DISABLE_PAYWALL = process.env.NEXT_PUBLIC_DISABLE_PAYWALL === 'true';
+  
+  // If paywall is disabled (either flag), grant access to everyone
+  if (!paywallEnabled || DISABLE_PAYWALL) {
+    if (DISABLE_PAYWALL) {
+      console.log('⚠️ TESTING MODE: Paywall bypassed - granting subscription access');
+    }
+    return true;
+  }
+  // END TEMPORARY
 
   if (!user) return false;
 
