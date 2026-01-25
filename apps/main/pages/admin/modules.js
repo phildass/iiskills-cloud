@@ -1,5 +1,6 @@
 import Head from "next/head";
 import { useState } from "react";
+import Link from "next/link";
 import ProtectedRoute from "../../components/ProtectedRoute";
 import AdminNav from "../../components/AdminNav";
 import Navbar from "../../components/Navbar";
@@ -30,6 +31,13 @@ export default function AdminModules() {
       <Navbar />
 
       <main className="max-w-7xl mx-auto px-4 py-12">
+        {/* Breadcrumb */}
+        <nav className="mb-4 text-sm text-gray-600">
+          <Link href="/admin" className="hover:text-blue-600">Admin</Link>
+          <span className="mx-2">›</span>
+          <span className="text-gray-900 font-semibold">Modules</span>
+        </nav>
+
         <div className="flex justify-between items-center mb-8">
           <div>
             <h1 className="text-3xl font-bold text-primary">Module Management</h1>

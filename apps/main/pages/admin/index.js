@@ -7,6 +7,8 @@ import { supabase } from "../../lib/supabaseClient";
 import AdminNav from "../../components/AdminNav";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
+import { ALL_SITES } from "../../lib/siteConfig";
+import { getSiteUrl } from "../../lib/navigation";
 
 export default function AdminDashboard() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -22,6 +24,7 @@ export default function AdminDashboard() {
   useEffect(() => {
     checkAdminAuth();
     fetchStats();
+    fetchSiteCounts();
   }, []);
 
   const checkAdminAuth = async () => {
@@ -80,6 +83,26 @@ export default function AdminDashboard() {
     }
   };
 
+  const fetchSiteCounts = async () => {
+    try {
+      // Fetch course counts per site
+      const { data: courses } = await supabase
+        .from('courses')
+        .select('subdomain');
+      
+      if (courses) {
+        const counts = {};
+        courses.forEach(course => {
+          const subdomain = course.subdomain || 'main';
+          counts[subdomain] = (counts[subdomain] || 0) + 1;
+        });
+        setSiteCounts(counts);
+      }
+    } catch (error) {
+      console.error('Error fetching site counts:', error);
+    }
+  };
+
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-neutral">
@@ -92,20 +115,7 @@ export default function AdminDashboard() {
     return null;
   }
 
-  const allSites = [
-    { name: 'Main Site', url: 'https://iiskills.cloud', subdomain: 'main' },
-    { name: 'Learn AI', url: 'https://learn-ai.iiskills.cloud', subdomain: 'learn-ai' },
-    { name: 'Learn APT', url: 'https://learn-apt.iiskills.cloud', subdomain: 'learn-apt' },
-    { name: 'Learn Chemistry', url: 'https://learn-chemistry.iiskills.cloud', subdomain: 'learn-chemistry' },
-    { name: 'Learn Cricket', url: 'https://learn-cricket.iiskills.cloud', subdomain: 'learn-cricket' },
-    { name: 'Learn Geography', url: 'https://learn-geography.iiskills.cloud', subdomain: 'learn-geography' },
-    { name: 'Learn Leadership', url: 'https://learn-leadership.iiskills.cloud', subdomain: 'learn-leadership' },
-    { name: 'Learn Management', url: 'https://learn-management.iiskills.cloud', subdomain: 'learn-management' },
-    { name: 'Learn Math', url: 'https://learn-math.iiskills.cloud', subdomain: 'learn-math' },
-    { name: 'Learn Physics', url: 'https://learn-physics.iiskills.cloud', subdomain: 'learn-physics' },
-    { name: 'Learn PR', url: 'https://learn-pr.iiskills.cloud', subdomain: 'learn-pr' },
-    { name: 'Learn Winning', url: 'https://learn-winning.iiskills.cloud', subdomain: 'learn-winning' },
-  ];
+  const [siteCounts, setSiteCounts] = useState({});
 
   return (
     <>
@@ -244,19 +254,92 @@ export default function AdminDashboard() {
         {/* Multi-Site Management */}
         <h2 className="text-2xl font-bold text-primary mb-6">Multi-Site Management</h2>
         <div className="bg-white rounded-lg shadow-lg p-6 mb-12">
-          <p className="text-gray-600 mb-4">
-            Manage content across all iiskills learning platforms. Select a site to filter content or manage site-specific settings.
+          <p className="text-gray-600 mb-6">
+            Manage content across all iiskills learning platforms. Click on a site to visit it, or use the buttons to manage content.
           </p>
-          <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-3">
-            {allSites.map((site) => (
-              <div
-                key={site.subdomain}
-                className="border border-gray-200 rounded-lg p-3 hover:border-blue-400 hover:shadow-md transition cursor-pointer"
-              >
-                <h4 className="font-semibold text-sm text-gray-800">{site.name}</h4>
-                <p className="text-xs text-gray-500 mt-1">{site.subdomain}</p>
-              </div>
-            ))}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {ALL_SITES.map((site) => {
+              const courseCount = siteCounts[site.subdomain] || 0;
+              const isOnline = true; // Could be implemented with a health check
+              
+              return (
+                <div
+                  key={site.subdomain}
+                  className="border-2 border-gray-200 rounded-lg p-5 hover:border-blue-400 hover:shadow-lg transition bg-white"
+                >
+                  <div className="flex justify-between items-start mb-3">
+                    <h4 className="font-bold text-lg text-gray-800">{site.name}</h4>
+                    <span className={`text-xs px-2 py-1 rounded-full font-semibold ${
+                      isOnline ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+                    }`}>
+                      {isOnline ? 'Online' : 'Offline'}
+                    </span>
+                  </div>
+                  <p className="text-xs text-gray-500 mb-4">{site.subdomain}</p>
+                  
+                  <div className="mb-4 space-y-1">
+                    <div className="flex items-center text-sm text-gray-600">
+                      <span className="mr-2">📚</span>
+                      <span>{courseCount} {courseCount === 1 ? 'Course' : 'Courses'}</span>
+                    </div>
+                  </div>
+                  
+                  <div className="flex space-x-2">
+                    <a
+                      href={getSiteUrl(site.slug)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-1 bg-blue-600 text-white text-center px-3 py-2 rounded text-sm font-semibold hover:bg-blue-700 transition"
+                    >
+                      Visit Site
+                    </a>
+                    <Link
+                      href={`/admin/courses?site=${site.subdomain}`}
+                      className="flex-1 bg-gray-600 text-white text-center px-3 py-2 rounded text-sm font-semibold hover:bg-gray-700 transition"
+                    >
+                      Manage
+                    </Link>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Quick Links */}
+        <h2 className="text-2xl font-bold text-primary mb-6">Quick Links</h2>
+        <div className="bg-white rounded-lg shadow-lg p-6 mb-12">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <a
+              href="https://app.iiskills.cloud"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center p-4 border border-gray-200 rounded-lg hover:border-blue-400 hover:shadow-md transition"
+            >
+              <span className="text-2xl mr-3">🏠</span>
+              <span className="font-semibold text-gray-800">View Main Site</span>
+            </a>
+            <Link
+              href="/admin/courses"
+              className="flex items-center p-4 border border-gray-200 rounded-lg hover:border-blue-400 hover:shadow-md transition"
+            >
+              <span className="text-2xl mr-3">📚</span>
+              <span className="font-semibold text-gray-800">Browse All Courses</span>
+            </Link>
+            <Link
+              href="/admin/users"
+              className="flex items-center p-4 border border-gray-200 rounded-lg hover:border-blue-400 hover:shadow-md transition"
+            >
+              <span className="text-2xl mr-3">👥</span>
+              <span className="font-semibold text-gray-800">Manage Users</span>
+            </Link>
+            <Link
+              href="/admin/settings"
+              className="flex items-center p-4 border border-gray-200 rounded-lg hover:border-blue-400 hover:shadow-md transition"
+            >
+              <span className="text-2xl mr-3">⚙️</span>
+              <span className="font-semibold text-gray-800">Site Settings</span>
+            </Link>
           </div>
         </div>
 
