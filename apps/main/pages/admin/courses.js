@@ -1,12 +1,17 @@
 import Head from "next/head";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import Link from "next/link";
 import ProtectedRoute from "../../components/ProtectedRoute";
 import AdminNav from "../../components/AdminNav";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import { supabase } from "../../lib/supabaseClient";
+import { SUBDOMAIN_OPTIONS } from "../../lib/siteConfig";
+import { getCoursePreviewUrl } from "../../lib/navigation";
 
 export default function AdminCourses() {
+  const router = useRouter();
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
@@ -25,21 +30,14 @@ export default function AdminCourses() {
     status: 'draft',
   });
 
-  const subdomains = [
-    { value: 'all', label: 'All Sites' },
-    { value: 'main', label: 'Main Site' },
-    { value: 'learn-ai', label: 'Learn AI' },
-    { value: 'learn-apt', label: 'Learn APT' },
-    { value: 'learn-chemistry', label: 'Learn Chemistry' },
-    { value: 'learn-cricket', label: 'Learn Cricket' },
-    { value: 'learn-geography', label: 'Learn Geography' },
-    { value: 'learn-leadership', label: 'Learn Leadership' },
-    { value: 'learn-management', label: 'Learn Management' },
-    { value: 'learn-math', label: 'Learn Math' },
-    { value: 'learn-physics', label: 'Learn Physics' },
-    { value: 'learn-pr', label: 'Learn PR' },
-    { value: 'learn-winning', label: 'Learn Winning' },
-  ];
+  // Get site filter from URL query params
+  useEffect(() => {
+    if (router.query.site && router.query.site !== 'all') {
+      setFilterSubdomain(router.query.site);
+    }
+  }, [router.query.site]);
+
+  const subdomains = SUBDOMAIN_OPTIONS;
 
   useEffect(() => {
     fetchCourses();
@@ -158,6 +156,13 @@ export default function AdminCourses() {
       <Navbar />
 
       <main className="max-w-7xl mx-auto px-4 py-12">
+        {/* Breadcrumb */}
+        <nav className="mb-4 text-sm text-gray-600">
+          <Link href="/admin" className="hover:text-blue-600">Admin</Link>
+          <span className="mx-2">›</span>
+          <span className="text-gray-900 font-semibold">Courses</span>
+        </nav>
+
         <div className="flex justify-between items-center mb-8">
           <div>
             <h1 className="text-3xl font-bold text-primary">Course Management</h1>
@@ -228,6 +233,9 @@ export default function AdminCourses() {
                     <td className="px-6 py-4">
                       <div className="text-sm font-medium text-gray-900">{course.title}</div>
                       <div className="text-xs text-gray-500">{course.slug}</div>
+                      {course.short_description && (
+                        <div className="text-xs text-gray-600 mt-1">{course.short_description.substring(0, 60)}...</div>
+                      )}
                     </td>
                     <td className="px-6 py-4 text-sm text-gray-700">
                       {course.subdomain || 'main'}
@@ -254,6 +262,14 @@ export default function AdminCourses() {
                       >
                         Edit
                       </button>
+                      <a
+                        href={getCoursePreviewUrl(course.subdomain || 'main', course.slug)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-green-600 hover:text-green-800 font-medium"
+                      >
+                        Preview
+                      </a>
                       <button
                         onClick={() => handleDelete(course.id, course.title)}
                         className="text-red-600 hover:text-red-800 font-medium"

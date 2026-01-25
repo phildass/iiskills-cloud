@@ -1,7 +1,10 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useState } from "react";
 import { getMainSiteUrl, isOnSubdomain } from "../utils/urlHelper";
 import { signOutUser } from "../lib/supabaseClient";
+import { LEARNING_SITES } from "../lib/siteConfig";
+import { getSiteUrl } from "../lib/navigation";
 
 /**
  * Admin Navigation Bar
@@ -11,6 +14,7 @@ import { signOutUser } from "../lib/supabaseClient";
  */
 export default function AdminNav() {
   const router = useRouter();
+  const [showSiteDropdown, setShowSiteDropdown] = useState(false);
 
   const handleLogout = async () => {
     const { success } = await signOutUser();
@@ -68,6 +72,36 @@ export default function AdminNav() {
           </nav>
         </div>
         <div className="flex items-center space-x-3">
+          {/* Site Selector Dropdown */}
+          <div className="relative">
+            <button
+              onClick={() => setShowSiteDropdown(!showSiteDropdown)}
+              className="bg-yellow-800 text-white px-4 py-1 rounded text-sm font-medium hover:bg-yellow-900 transition flex items-center"
+            >
+              🌐 Sites
+              <svg className="ml-1 w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+              </svg>
+            </button>
+            {showSiteDropdown && (
+              <div className="absolute right-0 mt-2 w-56 bg-white rounded-md shadow-lg border border-gray-200 z-50 max-h-96 overflow-y-auto">
+                <div className="py-1">
+                  {LEARNING_SITES.map((site) => (
+                    <a
+                      key={site.slug}
+                      href={getSiteUrl(site.slug)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    >
+                      {site.name}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+          
           {/* Link back to main site */}
           <a
             href={mainSiteUrl}
