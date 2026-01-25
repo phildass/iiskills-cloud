@@ -36,7 +36,7 @@
 ## If Deployment Fails
 
 - [ ] Check which step failed in deployment script output
-- [ ] Review error logs: `cat /tmp/build-*.log`
+- [ ] Review error logs: `cat logs/build-*.log`
 - [ ] Review PM2 logs: `pm2 logs --err --lines 50`
 - [ ] Decide: Fix forward or rollback?
 

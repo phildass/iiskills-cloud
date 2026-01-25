@@ -8,6 +8,9 @@ echo ""
 FAILED_APPS=()
 PASSED_APPS=()
 
+# Create logs directory if it doesn't exist
+mkdir -p logs
+
 apps=(
   "apps/main"
   "coming-soon"
@@ -37,7 +40,7 @@ for app in "${apps[@]}"; do
   
   cd "$app"
   
-  if yarn build > /tmp/build-${app//\//-}.log 2>&1; then
+  if yarn build > ../logs/build-${app//\//-}.log 2>&1; then
     if [ -d ".next" ]; then
       echo "✅"
       PASSED_APPS+=("$app")
@@ -65,7 +68,7 @@ if [ ${#FAILED_APPS[@]} -gt 0 ]; then
   echo "🔴 FAILED APPS:"
   for app in "${FAILED_APPS[@]}"; do
     echo "   - $app"
-    echo "     Log: /tmp/build-${app//\//-}.log"
+    echo "     Log: logs/build-${app//\//-}.log"
   done
   echo ""
   echo "❌ DEPLOYMENT ABORTED - Fix errors above first!"
