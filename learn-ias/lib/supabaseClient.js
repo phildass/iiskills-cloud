@@ -213,14 +213,24 @@ export async function signInWithMagicLink(email) {
 
 /**
  * Helper function to sign in with Google OAuth
+ * 
+ * @param {string} redirectTo - Optional custom redirect URL (defaults to current page)
+ * @returns {Promise<Object>} Object with success status or error
  */
-export async function signInWithGoogle() {
+export async function signInWithGoogle(redirectTo = null) {
   if (!supabase) return { data: null, error: "Supabase not configured" };
+
+  // Dynamic domain detection: Use provided redirect, fall back to current page, then env var
+  const redirectUrl =
+    redirectTo ||
+    (typeof window !== "undefined"
+      ? `${window.location.origin}${window.location.pathname}`
+      : process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000");
 
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "google",
     options: {
-      redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/learn`,
+      redirectTo: redirectUrl,
     },
   });
 
@@ -229,16 +239,29 @@ export async function signInWithGoogle() {
 
 /**
  * Helper function to sign up with email and password
+ * 
+ * @param {string} email - User's email address
+ * @param {string} password - User's password
+ * @param {Object} metadata - Optional user metadata
+ * @param {string} redirectTo - Optional custom redirect URL (defaults to current page)
+ * @returns {Promise<Object>} Object with user data or error
  */
-export async function signUp(email, password, metadata = {}) {
+export async function signUp(email, password, metadata = {}, redirectTo = null) {
   if (!supabase) return { data: null, error: "Supabase not configured" };
+
+  // Dynamic domain detection: Use provided redirect, fall back to current page, then env var
+  const redirectUrl =
+    redirectTo ||
+    (typeof window !== "undefined"
+      ? `${window.location.origin}${window.location.pathname}`
+      : process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000");
 
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
     options: {
       data: metadata,
-      emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/learn`,
+      emailRedirectTo: redirectUrl,
     },
   });
 

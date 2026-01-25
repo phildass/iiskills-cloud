@@ -201,6 +201,7 @@ export async function signInWithEmail(email, password) {
  * Helper function to send a magic link (passwordless sign-in email)
  *
  * @param {string} email - User's email address
+ * @param {string} redirectTo - Optional custom redirect URL (defaults to current page)
  * @returns {Promise<Object>} Object with success status or error
  *
  * Example usage:
@@ -209,12 +210,14 @@ export async function signInWithEmail(email, password) {
  *   console.log('Magic link sent! Check your email.')
  * }
  */
-export async function sendMagicLink(email) {
+export async function sendMagicLink(email, redirectTo = null) {
   try {
+    // Dynamic domain detection: Use provided redirect, fall back to current page, then env var
     const redirectUrl =
-      typeof window !== "undefined"
-        ? `${window.location.origin}/learn`
-        : process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3001";
+      redirectTo ||
+      (typeof window !== "undefined"
+        ? `${window.location.origin}${window.location.pathname}`
+        : process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3001");
 
     const { data, error } = await supabase.auth.signInWithOtp({
       email,
@@ -237,17 +240,20 @@ export async function sendMagicLink(email) {
 /**
  * Helper function to sign in with Google OAuth
  *
+ * @param {string} redirectTo - Optional custom redirect URL (defaults to current page)
  * @returns {Promise<Object>} Object with success status or error
  *
  * Example usage:
  * const { success, error } = await signInWithGoogle()
  */
-export async function signInWithGoogle() {
+export async function signInWithGoogle(redirectTo = null) {
   try {
+    // Dynamic domain detection: Use provided redirect, fall back to current page, then env var
     const redirectUrl =
-      typeof window !== "undefined"
-        ? `${window.location.origin}/learn`
-        : process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3001";
+      redirectTo ||
+      (typeof window !== "undefined"
+        ? `${window.location.origin}${window.location.pathname}`
+        : process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3001");
 
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: "google",
