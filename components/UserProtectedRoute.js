@@ -37,6 +37,17 @@ export default function UserProtectedRoute({ children }) {
      */
     const checkAuth = async () => {
       try {
+        // TEMPORARY - RESTORE AFTER JAN 28, 2026
+        const DISABLE_AUTH = process.env.NEXT_PUBLIC_DISABLE_AUTH === 'true';
+        
+        if (DISABLE_AUTH) {
+          console.log('⚠️ TESTING MODE: UserProtectedRoute bypassed - granting full access');
+          setIsAuthenticated(true);
+          setIsLoading(false);
+          return; // Skip all auth checks
+        }
+        // END TEMPORARY
+
         // Get current user from Supabase session
         const user = await getCurrentUser();
 

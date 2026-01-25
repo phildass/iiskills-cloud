@@ -31,6 +31,23 @@ export default function Lesson() {
   }, [moduleId, lessonId]);
 
   const checkAuth = async () => {
+    // TEMPORARY - RESTORE AFTER JAN 28, 2026
+    const DISABLE_AUTH = process.env.NEXT_PUBLIC_DISABLE_AUTH === 'true';
+    
+    if (DISABLE_AUTH) {
+      console.log('⚠️ TESTING MODE: Auth bypassed - granting full access to lesson');
+      setUser({
+        id: 'test-user',
+        email: 'test@iiskills.cloud',
+        user_metadata: {
+          full_name: 'Test User',
+        }
+      });
+      setIsLoading(false);
+      return; // Skip all auth checks
+    }
+    // END TEMPORARY
+
     const currentUser = await getCurrentUser();
 
     if (!currentUser) {
