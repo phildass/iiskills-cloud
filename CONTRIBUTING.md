@@ -56,6 +56,15 @@ All pull requests are automatically tested by GitHub Actions:
 - ✅ PRs with build failures cannot be merged
 - ✅ Check the "Actions" tab to see build status
 
+### GitHub Secrets Required
+
+The following secrets must be configured in the repository (Settings → Secrets and variables → Actions):
+
+- `NEXT_PUBLIC_SUPABASE_URL` - Your Supabase project URL
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY` - Your Supabase anon key
+
+These are used during the build process to ensure apps compile correctly. The CI workflow also sets `NEXT_PUBLIC_DISABLE_AUTH=true` to allow builds without full authentication setup.
+
 ## Deployment
 
 ### Manual Deployment
