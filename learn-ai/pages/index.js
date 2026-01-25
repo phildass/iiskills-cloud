@@ -68,7 +68,7 @@ export default function Home() {
                     Register Free Account
                   </Link>
                   <Link
-                    href="/login"
+                    href="/learn"
                     className="inline-block bg-transparent border-2 border-white text-white px-10 py-4 rounded-lg font-bold text-lg hover:bg-white hover:text-primary transition"
                   >
                     Already Have Account? Sign In
