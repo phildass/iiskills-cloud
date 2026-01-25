@@ -1731,6 +1731,7 @@ export default function Courses() {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {availableCourses.map((course) => {
                 const freeModule = course.modules?.find((m) => m.isFree);
+                const courseLink = getCourseSubdomainLink(course.name, isDevelopment);
                 return (
                   <div
                     key={course.id}
@@ -1791,9 +1792,17 @@ export default function Courses() {
                         </div>
                       )}
 
-                      <button className="w-full bg-pastel-blue text-white py-3 rounded font-bold hover:bg-pastel-blue-light transition">
-                        {course.isFree ? "Start Free Course" : "Enroll Now"}
-                      </button>
+                      {courseLink ? (
+                        <Link href={courseLink.url} target="_blank" rel="noopener noreferrer">
+                          <button className="w-full bg-pastel-blue text-white py-3 rounded font-bold hover:bg-pastel-blue-light transition">
+                            {course.isFree ? "Start Free Course" : "Enroll Now"}
+                          </button>
+                        </Link>
+                      ) : (
+                        <button className="w-full bg-pastel-blue text-white py-3 rounded font-bold hover:bg-pastel-blue-light transition opacity-50 cursor-not-allowed">
+                          {course.isFree ? "Start Free Course" : "Enroll Now"}
+                        </button>
+                      )}
                     </div>
                   </div>
                 );
