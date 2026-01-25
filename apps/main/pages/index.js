@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Head from "next/head";
 import { getPricingDisplay, getIntroOfferNotice } from "../utils/pricing";
+import TranslationFeatureBanner from "../../components/shared/TranslationFeatureBanner";
 
 export default function Home() {
   const pricing = getPricingDisplay();
@@ -68,6 +69,13 @@ export default function Home() {
                 </div>
               </div>
             </div>
+          </div>
+        </section>
+
+        {/* Translation Feature Banner */}
+        <section className="py-8 bg-gray-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <TranslationFeatureBanner />
           </div>
         </section>
 
