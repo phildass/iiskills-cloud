@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Head from "next/head";
 import { getPricingDisplay, getIntroOfferNotice } from "../utils/pricing";
-import TranslationFeatureBanner from "../../components/shared/TranslationFeatureBanner";
+import TranslationFeatureBanner from "../../../components/shared/TranslationFeatureBanner";
 
 export default function Home() {
   const pricing = getPricingDisplay();
