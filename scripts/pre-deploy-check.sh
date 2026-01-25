@@ -8,8 +8,11 @@ echo ""
 FAILED_APPS=()
 PASSED_APPS=()
 
+# Store the project root directory
+PROJECT_ROOT=$(pwd)
+
 # Create logs directory if it doesn't exist
-mkdir -p logs
+mkdir -p "$PROJECT_ROOT/logs"
 
 apps=(
   "apps/main"
@@ -40,7 +43,7 @@ for app in "${apps[@]}"; do
   
   cd "$app"
   
-  if yarn build > ../logs/build-${app//\//-}.log 2>&1; then
+  if yarn build > "$PROJECT_ROOT/logs/build-${app//\//-}.log" 2>&1; then
     if [ -d ".next" ]; then
       echo "✅"
       PASSED_APPS+=("$app")
@@ -53,7 +56,7 @@ for app in "${apps[@]}"; do
     FAILED_APPS+=("$app")
   fi
   
-  cd - > /dev/null
+  cd "$PROJECT_ROOT"
 done
 
 echo ""

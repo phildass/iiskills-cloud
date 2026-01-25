@@ -28,7 +28,8 @@ echo ""
 
 # Step 5: Health check
 echo "🏥 Step 5: Running health checks..."
-sleep 10
+echo "   Waiting 15 seconds for apps to fully start..."
+sleep 15
 
 HEALTH_FAILED=0
 
