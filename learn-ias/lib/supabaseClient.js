@@ -206,6 +206,8 @@ export async function signInWithMagicLink(email, redirectTo = null) {
   if (!supabase) return { data: null, error: "Supabase not configured" };
 
   // Dynamic domain detection: Use provided redirect, fall back to current page, then env var
+  // Priority: 1) redirectTo param, 2) current page (client), 3) env var (server/fallback)
+  // If all fail, defaults to localhost:3000 for development
   const redirectUrl =
     redirectTo ||
     (typeof window !== "undefined"
@@ -232,6 +234,8 @@ export async function signInWithGoogle(redirectTo = null) {
   if (!supabase) return { data: null, error: "Supabase not configured" };
 
   // Dynamic domain detection: Use provided redirect, fall back to current page, then env var
+  // Priority: 1) redirectTo param, 2) current page (client), 3) env var (server/fallback)
+  // If all fail, defaults to localhost:3000 for development
   const redirectUrl =
     redirectTo ||
     (typeof window !== "undefined"
@@ -261,6 +265,8 @@ export async function signUp(email, password, metadata = {}, redirectTo = null) 
   if (!supabase) return { data: null, error: "Supabase not configured" };
 
   // Dynamic domain detection: Use provided redirect, fall back to current page, then env var
+  // Priority: 1) redirectTo param, 2) current page (client), 3) env var (server/fallback)
+  // If all fail, defaults to localhost:3000 for development
   const redirectUrl =
     redirectTo ||
     (typeof window !== "undefined"

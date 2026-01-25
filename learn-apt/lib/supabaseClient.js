@@ -213,11 +213,13 @@ export async function signInWithEmail(email, password) {
 export async function sendMagicLink(email, redirectTo = null) {
   try {
     // Dynamic domain detection: Use provided redirect, fall back to current page, then env var
+    // Priority: 1) redirectTo param, 2) current page (client), 3) env var (server/fallback)
+    // If all fail, defaults to localhost:3000 for development
     const redirectUrl =
       redirectTo ||
       (typeof window !== "undefined"
         ? `${window.location.origin}${window.location.pathname}`
-        : process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3001");
+        : process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000");
 
     const { data, error } = await supabase.auth.signInWithOtp({
       email,
@@ -249,11 +251,13 @@ export async function sendMagicLink(email, redirectTo = null) {
 export async function signInWithGoogle(redirectTo = null) {
   try {
     // Dynamic domain detection: Use provided redirect, fall back to current page, then env var
+    // Priority: 1) redirectTo param, 2) current page (client), 3) env var (server/fallback)
+    // If all fail, defaults to localhost:3000 for development
     const redirectUrl =
       redirectTo ||
       (typeof window !== "undefined"
         ? `${window.location.origin}${window.location.pathname}`
-        : process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3001");
+        : process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000");
 
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: "google",
