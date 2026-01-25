@@ -136,7 +136,7 @@ export default function Home() {
                   
                   <Link
                     href="/brief-test"
-                    className="block w-full bg-emerald-500 text-white text-center px-6 py-3 rounded-lg font-semibold text-base hover:bg-emerald-600 transition-all shadow-lg animate-pulse hover:animate-none"
+                    className="block w-full bg-emerald-500 text-white text-center px-6 py-3 rounded-lg font-semibold text-base hover:bg-emerald-600 transition-all shadow-lg motion-safe:animate-pulse hover:animate-none"
                   >
                     Start →
                   </Link>
@@ -154,7 +154,7 @@ export default function Home() {
                 <div className="p-[2px] bg-gradient-to-br from-amber-400 via-yellow-500 to-amber-600 rounded-2xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
                   <div className="relative bg-slate-900 rounded-2xl p-8 shadow-lg overflow-hidden">
                     {/* Shimmer effect overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out"></div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full motion-safe:group-hover:translate-x-full transition-transform duration-1000 ease-in-out"></div>
                     
                     <div className="relative z-10">
                       <div className="flex items-center justify-center mb-6">
