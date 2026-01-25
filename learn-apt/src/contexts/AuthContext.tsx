@@ -86,6 +86,37 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const initAuth = async () => {
       setIsLoading(true);
+      
+      // TEMPORARY - RESTORE AFTER JAN 28, 2026
+      // Bypass authentication for testing
+      const DISABLE_AUTH = process.env.NEXT_PUBLIC_DISABLE_AUTH === 'true';
+      
+      if (DISABLE_AUTH) {
+        console.log('⚠️ TESTING MODE: Authentication bypassed - returning mock user');
+        // Create properly typed mock user for testing
+        const mockUser: User = {
+          id: 'test-user-apt',
+          email: 'test@iiskills.cloud',
+          aud: 'authenticated',
+          role: 'authenticated',
+          created_at: new Date().toISOString(),
+          app_metadata: {},
+          user_metadata: {
+            first_name: 'Test',
+            last_name: 'User',
+            full_name: 'Test User',
+            role: 'admin',
+          },
+        };
+        setUser(mockUser);
+        setIsAuthenticated(true);
+        setUserEmail('test@iiskills.cloud');
+        setAuthCookie('true');
+        setIsLoading(false);
+        return;
+      }
+      // END TEMPORARY
+      
       if (useSupabase && supabase) {
         // Supabase session init
         try {
