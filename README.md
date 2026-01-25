@@ -243,6 +243,40 @@ npm run dev
 
 ## Deployment
 
+### Automated Deployment
+
+Use the deployment script for safe, automated deployments:
+
+```bash
+cd ~/iiskills-cloud
+./scripts/deploy.sh
+```
+
+This script will:
+1. Pull latest code
+2. Install dependencies
+3. Test all app builds
+4. Restart PM2
+5. Health check all apps
+
+### Manual Deployment
+
+If you need to deploy manually:
+
+```bash
+git pull origin main
+yarn install
+./scripts/pre-deploy-check.sh  # Verify builds
+pm2 restart all
+pm2 save
+```
+
+### CI/CD
+
+All pull requests are automatically tested by GitHub Actions. PRs with build failures cannot be merged.
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for development guidelines and [DEPLOYMENT_GUIDE.md](DEPLOYMENT_GUIDE.md) for the complete deployment checklist.
+
 ### Production Deployment with PM2
 
 **Recommended:** Use PM2 process manager to run all applications in production. See [PM2_DEPLOYMENT.md](PM2_DEPLOYMENT.md) for comprehensive instructions.
@@ -275,7 +309,7 @@ pm2 save
 pm2 startup
 ```
 
-The `ecosystem.config.js` automatically configures all 16 applications with:
+The `ecosystem.config.js` automatically configures all 18 applications with:
 - Proper port assignments (auto-detected from package.json)
 - Cross-platform compatibility
 - Automatic conflict resolution
