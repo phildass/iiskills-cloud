@@ -196,15 +196,26 @@ export async function signInWithPassword(email, password) {
 }
 
 /**
- * Helper function to sign in with magic link
+ * Helper function to send a magic link for passwordless sign-in
+ * 
+ * @param {string} email - User's email address
+ * @param {string} redirectTo - Optional custom redirect URL (defaults to current page)
+ * @returns {Promise<Object>} Object with success status or error
  */
-export async function signInWithMagicLink(email) {
+export async function signInWithMagicLink(email, redirectTo = null) {
   if (!supabase) return { data: null, error: "Supabase not configured" };
+
+  // Dynamic domain detection: Use provided redirect, fall back to current page, then env var
+  const redirectUrl =
+    redirectTo ||
+    (typeof window !== "undefined"
+      ? `${window.location.origin}${window.location.pathname}`
+      : process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000");
 
   const { data, error } = await supabase.auth.signInWithOtp({
     email,
     options: {
-      emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/learn`,
+      emailRedirectTo: redirectUrl,
     },
   });
 
