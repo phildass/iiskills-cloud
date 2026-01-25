@@ -5,6 +5,7 @@ import { getCurrentUser } from "../lib/supabaseClient";
 import InstallApp from "../components/shared/InstallApp";
 
 import { getPricingDisplay, getIntroOfferNotice } from "../utils/pricing";
+import TranslationFeatureBanner from "../../components/shared/TranslationFeatureBanner";
 
 export default function Home() {
   const [user, setUser] = useState(null);
@@ -89,6 +90,12 @@ export default function Home() {
                 </div>
               </div>
             </div>
+          </div>
+        </section>
+        {/* Translation Feature Banner */}
+        <section className="py-8 bg-gray-50">
+          <div className="max-w-6xl mx-auto px-4">
+            <TranslationFeatureBanner />
           </div>
         </section>
 
