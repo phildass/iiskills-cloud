@@ -27,7 +27,8 @@ export default function AdminDashboard() {
   const checkAdminAuth = async () => {
     // TEMPORARY: Bypass authentication for immediate admin access
     // TODO: Re-enable authentication after initial setup
-    const BYPASS_AUTH = process.env.NEXT_PUBLIC_DISABLE_AUTH === 'true' || true;
+    // To disable bypass, set NEXT_PUBLIC_DISABLE_AUTH=false in .env.local
+    const BYPASS_AUTH = process.env.NEXT_PUBLIC_DISABLE_AUTH === 'true';
     
     if (BYPASS_AUTH) {
       console.log('⚠️ ADMIN MODE: Authentication bypassed - full access granted');

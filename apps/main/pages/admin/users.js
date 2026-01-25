@@ -59,9 +59,9 @@ export default function AdminUsers() {
   const filteredUsers = users.filter(user => {
     const searchLower = searchTerm.toLowerCase();
     return (
-      (user.first_name?.toLowerCase().includes(searchLower) || '') ||
-      (user.last_name?.toLowerCase().includes(searchLower) || '') ||
-      (user.full_name?.toLowerCase().includes(searchLower) || '')
+      (user.first_name?.toLowerCase().includes(searchLower)) ||
+      (user.last_name?.toLowerCase().includes(searchLower)) ||
+      (user.full_name?.toLowerCase().includes(searchLower))
     );
   });
 
