@@ -44,6 +44,34 @@ Inspired by iiskills.in and customized for the Indian Institute of Professional 
 
 📚 **Learn more:** See [NEWSLETTER_AI_ASSISTANT_README.md](NEWSLETTER_AI_ASSISTANT_README.md) for complete documentation.
 
+### 🗄️ Standardized Multi-App Database Schema v2
+**Unified data architecture for all 16+ learning apps!** Our new schema provides seamless data sharing:
+- **Progress Tracking** - Track user progress across all apps uniformly
+- **Certificates** - Standardized certificate issuance with verification codes
+- **Subscriptions** - Centralized payment tracking (app-specific or platform-wide)
+- **Analytics** - Unified event tracking and user behavior analysis
+- **Content Library** - Shared resources across multiple apps
+- **Apps Registry** - Centralized configuration for all learning apps
+
+**🎯 Quick Start:**
+1. After PR merge, go to [Supabase Dashboard](https://supabase.com) → SQL Editor
+2. Run 3 migration files (takes ~5-10 minutes)
+3. Verify with included validation script
+4. Start using new features in your apps!
+
+**📚 Complete Documentation:**
+- [SUPABASE_SCHEMA_V2.md](SUPABASE_SCHEMA_V2.md) - Full schema documentation with examples
+- [SCHEMA_V2_QUICK_REFERENCE.md](SCHEMA_V2_QUICK_REFERENCE.md) - Developer quick reference with TypeScript examples
+- [SCHEMA_V2_MIGRATION_CHECKLIST.md](SCHEMA_V2_MIGRATION_CHECKLIST.md) - Step-by-step migration checklist
+- [supabase/migrations/README.md](supabase/migrations/README.md) - Migration instructions and troubleshooting
+
+**✨ What You Get:**
+- ✅ 6 new tables with RLS security and performance indexes
+- ✅ 8 helper functions for common operations
+- ✅ 16 apps pre-seeded in registry
+- ✅ All migrations are idempotent (safe to re-run)
+- ✅ No manual data entry required!
+
 ## 🌟 New to iiskills.cloud?
 
 **See our [ONBOARDING.md](ONBOARDING.md) guide to get started!**
@@ -474,6 +502,10 @@ See [NAVIGATION_AUTH_GUIDE.md](NAVIGATION_AUTH_GUIDE.md) for complete navigation
 - [ONBOARDING.md](ONBOARDING.md) - **Getting started guide for new users**
 
 ### For Developers
+- [SUPABASE_SCHEMA_V2.md](SUPABASE_SCHEMA_V2.md) - **🆕 Complete Schema v2 documentation (database tables, functions, examples)**
+- [SCHEMA_V2_QUICK_REFERENCE.md](SCHEMA_V2_QUICK_REFERENCE.md) - **🆕 Developer quick reference with TypeScript code examples**
+- [SCHEMA_V2_MIGRATION_CHECKLIST.md](SCHEMA_V2_MIGRATION_CHECKLIST.md) - **🆕 Step-by-step migration checklist**
+- [supabase/migrations/README.md](supabase/migrations/README.md) - **🆕 Migration instructions and troubleshooting**
 - [UNIVERSAL_RECAPTCHA_SETUP.md](UNIVERSAL_RECAPTCHA_SETUP.md) - **Universal reCAPTCHA configuration guide**
 - [NEWSLETTER_AI_ASSISTANT_README.md](NEWSLETTER_AI_ASSISTANT_README.md) - **Complete guide to Newsletter and AI Assistant system**
 - [LEARN_APPS_INTEGRATION_GUIDE.md](LEARN_APPS_INTEGRATION_GUIDE.md) - **Guide for integrating features into learn-* apps**
