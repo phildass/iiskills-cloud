@@ -1,0 +1,83 @@
+{
+  "id": "learn-govt-jobs",
+  "name": "Learn Government Jobs",
+  "version": "1.0.0",
+  "environment": "production",
+  "features": {
+    "isSearchable": true,
+    "hasProgressTracking": true,
+    "hasCertificates": false,
+    "hasAIAssistant": true,
+    "hasNewsletterPopup": true,
+    "enablePaywall": false,
+    "enableSocialSharing": true,
+    "enableComments": false,
+    "enableBookmarks": true
+  },
+  "navigation": {
+    "depth": 2,
+    "showBreadcrumbs": true,
+    "enableSearch": true,
+    "menuItems": [
+      {
+        "label": "Home",
+        "path": "/",
+        "icon": "home"
+      },
+      {
+        "label": "Jobs",
+        "path": "/jobs",
+        "icon": "briefcase"
+      },
+      {
+        "label": "Preparation",
+        "path": "/learn",
+        "icon": "book"
+      },
+      {
+        "label": "Saved",
+        "path": "/saved",
+        "icon": "bookmark"
+      }
+    ]
+  },
+  "content": {
+    "supportedTypes": ["lesson", "job_posting", "article"],
+    "defaultType": "job_posting",
+    "enableUserGenerated": false,
+    "moderationRequired": true
+  },
+  "branding": {
+    "appName": "Learn Government Jobs",
+    "appDescription": "Comprehensive preparation for government examinations",
+    "appSlogan": "Your gateway to government careers",
+    "primaryColor": "#059669",
+    "secondaryColor": "#0891b2"
+  },
+  "api": {
+    "baseUrl": "/api",
+    "endpoints": {
+      "modules": "/modules",
+      "auth": "/auth",
+      "user": "/user",
+      "jobs": "/jobs"
+    },
+    "timeout": 30000,
+    "retryAttempts": 3
+  },
+  "analytics": {
+    "enabled": true,
+    "provider": "google",
+    "events": {
+      "pageView": true,
+      "moduleView": true,
+      "moduleComplete": false,
+      "testSubmit": false
+    }
+  },
+  "custom": {
+    "jobCategories": ["SSC", "UPSC", "Railway", "Banking", "Defence"],
+    "showApplicationDeadlines": true,
+    "enableJobAlerts": true
+  }
+}
