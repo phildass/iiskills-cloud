@@ -1,0 +1,29 @@
+{
+  "name": "@iiskills/core",
+  "version": "1.0.0",
+  "description": "Core Schema-Driven UI library for iiskills-cloud apps",
+  "main": "index.ts",
+  "types": "index.ts",
+  "scripts": {
+    "lint": "eslint .",
+    "type-check": "tsc --noEmit"
+  },
+  "keywords": [
+    "schema-driven-ui",
+    "react",
+    "typescript",
+    "components",
+    "design-system"
+  ],
+  "author": "iiskills.cloud",
+  "license": "MIT",
+  "peerDependencies": {
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "typescript": "^5.0.0"
+  }
+}
