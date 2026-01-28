@@ -530,6 +530,35 @@ See [NAVIGATION_AUTH_GUIDE.md](NAVIGATION_AUTH_GUIDE.md) for complete navigation
 
 ## Questions/Support
 
+### Frequently Asked Questions (FAQ)
+
+#### Q: If I clone this repository, will my changes affect the original repository?
+
+**A: No!** When you clone a repository, you create a completely independent copy on your local machine. Your changes are isolated and do NOT automatically sync to the original repository. You can experiment freely without any risk to the original project.
+
+For a complete explanation, see [GIT_BASICS.md](GIT_BASICS.md).
+
+#### Q: How do I contribute changes back to this project?
+
+**A:** The recommended workflow is:
+1. Fork the repository on GitHub
+2. Clone your fork to your local machine
+3. Make your changes and test them
+4. Push to your fork
+5. Create a Pull Request
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
+
+#### Q: Can I use this code for my own project?
+
+**A:** Yes! Please review the [LICENSE](LICENSE) file for terms and conditions.
+
+#### Q: What if I break something in my local clone?
+
+**A:** Don't worry! Your local clone is independent. You can always delete it and clone a fresh copy. The original repository remains unchanged.
+
+### Contact
+
 Contact: info@iiskills.cloud
 
 ## License

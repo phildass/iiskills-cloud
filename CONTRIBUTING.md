@@ -1,5 +1,26 @@
 # Contributing Guidelines
 
+## Understanding Repository Cloning
+
+**Important for New Contributors:**
+
+When you clone this repository, you create an **independent copy** on your local machine. Changes you make locally do NOT automatically affect the original repository. See [GIT_BASICS.md](GIT_BASICS.md) for a complete explanation.
+
+### Quick Facts:
+- ✅ Your cloned repository is completely independent
+- ✅ Local changes stay on your machine unless you explicitly push them
+- ✅ You need write permissions to push directly to this repository
+- ✅ Use Pull Requests to propose changes (recommended for all contributors)
+
+### Recommended Workflow:
+
+1. **Fork** this repository on GitHub (creates your own copy)
+2. **Clone** your fork to your local machine
+3. **Create a branch** for your changes
+4. **Make and test** your changes locally
+5. **Push** to your fork
+6. **Create a Pull Request** to propose merging your changes
+
 ## File Structure Rules
 
 ### Import Paths for Shared Components
