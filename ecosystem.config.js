@@ -10,6 +10,22 @@
 module.exports = {
   apps: [
     {
+      name: "iiskills-admin",
+      script: "node_modules/.bin/next",
+      args: "start -p 3023",
+      cwd: "/root/iiskills-cloud/apps/iiskills-admin",
+      env: { 
+        NODE_ENV: "production",
+        // Admin app runs in LOCAL CONTENT MODE ONLY
+        NEXT_PUBLIC_USE_LOCAL_CONTENT: "true",
+        NEXT_PUBLIC_SUPABASE_SUSPENDED: "true",
+        NEXT_PUBLIC_DISABLE_AUTH: "true",
+        NEXT_PUBLIC_DISABLE_PAYWALL: "true",
+        NEXT_PUBLIC_PAYWALL_ENABLED: "false",
+        NEXT_PUBLIC_TESTING_MODE: "true"
+      }
+    },
+    {
       name: "iiskills-main",
       script: "node_modules/.bin/next",
       args: "start -p 3000",

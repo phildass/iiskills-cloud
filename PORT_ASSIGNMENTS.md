@@ -43,6 +43,7 @@ Here is the complete port assignment for all applications:
 | 3016 | learn-cricket | Cricket Know-All |
 | 3018 | webhook | Webhook service |
 | 3019 | coming-soon | Coming Soon Apps landing page |
+| 3023 | iiskills-admin | Admin Dashboard (LOCAL MODE ONLY) |
 
 ## How It Works
 
