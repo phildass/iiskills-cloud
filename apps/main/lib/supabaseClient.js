@@ -17,6 +17,9 @@ import { createClient } from "@supabase/supabase-js";
 
 // Supabase project URL and public anonymous key
 // These must be set via environment variables in .env.local
+// Check if Supabase is suspended for maintenance/content review
+const isSupabaseSuspended = process.env.NEXT_PUBLIC_SUPABASE_SUSPENDED === "true";
+
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
@@ -40,7 +43,7 @@ const hasPlaceholderKey =
   supabaseAnonKey.startsWith("eyJhbGciOi...") ||
   supabaseAnonKey.length < MIN_ANON_KEY_LENGTH;
 
-if (!supabaseUrl || !supabaseAnonKey || hasPlaceholderUrl || hasPlaceholderKey) {
+if (!isSupabaseSuspended && (!supabaseUrl || !supabaseAnonKey || hasPlaceholderUrl || hasPlaceholderKey)) {
   const errorMessage = `
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ⚠️  SUPABASE CONFIGURATION ERROR
@@ -88,15 +91,60 @@ For more information, see:
 
 // Create a single Supabase client instance for the app
 // This client will be reused across the application for all Supabase operations
-export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
-  auth: {
-    autoRefreshToken: true,
-    persistSession: true,
-    detectSessionInUrl: true,
-    flowType: "pkce",
-    storageKey: "iiskills-auth-token",
-  },
-});
+
+/**
+ * Create a mock Supabase client when Supabase is suspended
+ * This allows the app to run without a database connection
+ */
+function createMockSupabaseClient() {
+  console.warn(
+    "⚠️ SUPABASE SUSPENDED MODE: Running without database connection. All auth operations will return mock data."
+  );
+
+  return {
+    auth: {
+      getSession: async () => ({
+        data: { session: null },
+        error: null,
+      }),
+      signOut: async () => ({ error: null }),
+      signInWithPassword: async () => ({
+        data: { user: null, session: null },
+        error: { message: "Supabase is currently suspended" },
+      }),
+      signInWithOtp: async () => ({
+        data: null,
+        error: { message: "Supabase is currently suspended" },
+      }),
+      signInWithOAuth: async () => ({
+        data: null,
+        error: { message: "Supabase is currently suspended" },
+      }),
+    },
+    from: () => ({
+      select: () => ({
+        eq: () => ({
+          single: async () => ({
+            data: null,
+            error: { message: "Supabase is currently suspended" },
+          }),
+        }),
+      }),
+    }),
+  };
+}
+
+export const supabase = isSupabaseSuspended
+  ? createMockSupabaseClient()
+  : createClient(supabaseUrl, supabaseAnonKey, {
+      auth: {
+        autoRefreshToken: true,
+        persistSession: true,
+        detectSessionInUrl: true,
+        flowType: "pkce",
+        storageKey: "iiskills-auth-token",
+      },
+    });
 
 /**
  * Helper function to get the currently logged-in user
@@ -110,6 +158,11 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
  * }
  */
 export async function getCurrentUser() {
+  // If Supabase is suspended, return null (no user)
+  if (isSupabaseSuspended) {
+    return null;
+  }
+
   // TEMPORARY - RESTORE AFTER JAN 28, 2026
   const DISABLE_AUTH = process.env.NEXT_PUBLIC_DISABLE_AUTH === 'true';
   

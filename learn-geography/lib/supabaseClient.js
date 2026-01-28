@@ -24,6 +24,9 @@ import { createClient } from "@supabase/supabase-js";
 
 // Supabase project URL and public anonymous key
 // These should match the main iiskills.cloud app for cross-app authentication
+// Check if Supabase is suspended for maintenance/content review
+const isSupabaseSuspended = process.env.NEXT_PUBLIC_SUPABASE_SUSPENDED === "true";
+
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
@@ -41,7 +44,7 @@ const hasPlaceholderKey =
   supabaseAnonKey.startsWith("eyJhbGciOi...") ||
   supabaseAnonKey.length < 20;
 
-if (!supabaseUrl || !supabaseAnonKey || hasPlaceholderUrl || hasPlaceholderKey) {
+if (!isSupabaseSuspended && (!supabaseUrl || !supabaseAnonKey || hasPlaceholderUrl || hasPlaceholderKey)) {
   const errorMessage = `
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ⚠️  SUPABASE CONFIGURATION ERROR - learn-geography module
@@ -92,20 +95,58 @@ For more information, see ENV_SETUP_GUIDE.md in the repo root.
 }
 
 // Create Supabase client with cookie options for cross-subdomain support
-export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
-  auth: {
-    // Enable auto-refresh of tokens
-    autoRefreshToken: true,
-    // Persist session in localStorage
-    persistSession: true,
-    // Detect session from URL (for OAuth redirects)
-    detectSessionInUrl: true,
-    // Cookie options for cross-subdomain authentication
-    flowType: "pkce",
-    // Storage key - use a shared key for consistency
-    storageKey: "iiskills-auth-token",
-  },
-});
+
+/**
+ * Create a mock Supabase client when Supabase is suspended
+ * This allows the app to run without a database connection
+ */
+function createMockSupabaseClient() {
+  console.warn(
+    "⚠️ SUPABASE SUSPENDED MODE: Running without database connection. All auth operations will return mock data."
+  );
+
+  return {
+    auth: {
+      getSession: async () => ({
+        data: { session: null },
+        error: null,
+      }),
+      signOut: async () => ({ error: null }),
+      signInWithPassword: async () => ({
+        data: { user: null, session: null },
+        error: { message: "Supabase is currently suspended" },
+      }),
+      signInWithOtp: async () => ({
+        data: null,
+        error: { message: "Supabase is currently suspended" },
+      }),
+      signInWithOAuth: async () => ({
+        data: null,
+        error: { message: "Supabase is currently suspended" },
+      }),
+    },
+    from: () => ({
+      select: () => ({
+        eq: () => ({
+          single: async () => ({
+            data: null,
+            error: { message: "Supabase is currently suspended" },
+          }),
+        }),
+      }),
+    }),
+  };
+}
+
+export const supabase = isSupabaseSuspended
+  ? createMockSupabaseClient()
+  : createClient(supabaseUrl, supabaseAnonKey, {
+      auth: {
+        autoRefreshToken: true,
+        persistSession: true,
+        detectSessionInUrl: true,
+      },
+    });
 
 /**
  * Helper function to get the currently logged-in user
@@ -116,6 +157,11 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
  * @returns {Promise<Object|null>} User object if authenticated, null otherwise
  */
 export async function getCurrentUser() {
+  // If Supabase is suspended, return null (no user)
+  if (isSupabaseSuspended) {
+    return null;
+  }
+
   // TEMPORARY - RESTORE AFTER JAN 28, 2026
   // Bypass authentication for testing
   const DISABLE_AUTH = process.env.NEXT_PUBLIC_DISABLE_AUTH === 'true';

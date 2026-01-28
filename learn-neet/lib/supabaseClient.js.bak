@@ -1,32 +1,15 @@
 /**
- * Supabase Client Configuration for Learn-Apt
+ * Supabase Client Configuration for Learn-NEET
  *
  * This file initializes the Supabase client with cross-subdomain session support.
  * The session cookie is configured to work across *.iiskills.cloud subdomains,
- * allowing seamless authentication between the main app and learn-apt app.
- *
- * Setup Instructions:
- * 1. Use the same Supabase project as the main iiskills.cloud app
- * 2. Create a .env.local file with the same credentials:
- *    NEXT_PUBLIC_SUPABASE_URL=your-project-url
- *    NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
- * 3. Configure Supabase session cookie domain in the Supabase dashboard:
- *    - Go to Authentication > Settings
- *    - Set cookie domain to: .iiskills.cloud
- *
- * Cross-Subdomain Auth:
- * - Users logged in on iiskills.cloud will automatically be logged in on learn-apt.iiskills.cloud
- * - Sessions are shared across all *.iiskills.cloud subdomains
- * - Role and permission data is synced via Supabase user metadata
+ * allowing seamless authentication between the main app and learn-neet app.
  */
 
 import { createClient } from "@supabase/supabase-js";
 
 // Supabase project URL and public anonymous key
 // These should match the main iiskills.cloud app for cross-app authentication
-// Check if Supabase is suspended for maintenance/content review
-const isSupabaseSuspended = process.env.NEXT_PUBLIC_SUPABASE_SUSPENDED === "true";
-
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
@@ -44,10 +27,10 @@ const hasPlaceholderKey =
   supabaseAnonKey.startsWith("eyJhbGciOi...") ||
   supabaseAnonKey.length < 20;
 
-if (!isSupabaseSuspended && (!supabaseUrl || !supabaseAnonKey || hasPlaceholderUrl || hasPlaceholderKey)) {
+if (!supabaseUrl || !supabaseAnonKey || hasPlaceholderUrl || hasPlaceholderKey) {
   const errorMessage = `
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-⚠️  SUPABASE CONFIGURATION ERROR - learn-winning module
+⚠️  SUPABASE CONFIGURATION ERROR - learn-neet module
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 Missing or invalid Supabase environment variables!
@@ -95,73 +78,21 @@ For more information, see ENV_SETUP_GUIDE.md in the repo root.
 }
 
 // Create Supabase client with cookie options for cross-subdomain support
-
-/**
- * Create a mock Supabase client when Supabase is suspended
- * This allows the app to run without a database connection
- */
-function createMockSupabaseClient() {
-  console.warn(
-    "⚠️ SUPABASE SUSPENDED MODE: Running without database connection. All auth operations will return mock data."
-  );
-
-  return {
-    auth: {
-      getSession: async () => ({
-        data: { session: null },
-        error: null,
-      }),
-      signOut: async () => ({ error: null }),
-      signInWithPassword: async () => ({
-        data: { user: null, session: null },
-        error: { message: "Supabase is currently suspended" },
-      }),
-      signInWithOtp: async () => ({
-        data: null,
-        error: { message: "Supabase is currently suspended" },
-      }),
-      signInWithOAuth: async () => ({
-        data: null,
-        error: { message: "Supabase is currently suspended" },
-      }),
-    },
-    from: () => ({
-      select: () => ({
-        eq: () => ({
-          single: async () => ({
-            data: null,
-            error: { message: "Supabase is currently suspended" },
-          }),
-        }),
-      }),
-    }),
-  };
-}
-
-export const supabase = isSupabaseSuspended
-  ? createMockSupabaseClient()
-  : createClient(supabaseUrl, supabaseAnonKey, {
-      auth: {
-        autoRefreshToken: true,
-        persistSession: true,
-        detectSessionInUrl: true,
-      },
-    });
+export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+  auth: {
+    autoRefreshToken: true,
+    persistSession: true,
+    detectSessionInUrl: true,
+    flowType: "pkce",
+    storageKey: "iiskills-auth-token",
+  },
+});
 
 /**
  * Helper function to get the currently logged-in user
- *
- * This checks for an active session that may have been created on any
- * *.iiskills.cloud subdomain (main app, learn-apt, etc.)
- *
  * @returns {Promise<Object|null>} User object if authenticated, null otherwise
  */
 export async function getCurrentUser() {
-  // If Supabase is suspended, return null (no user)
-  if (isSupabaseSuspended) {
-    return null;
-  }
-
   // TEMPORARY - RESTORE AFTER JAN 28, 2026
   // Bypass authentication for testing
   const DISABLE_AUTH = process.env.NEXT_PUBLIC_DISABLE_AUTH === 'true';
@@ -169,7 +100,7 @@ export async function getCurrentUser() {
   if (DISABLE_AUTH) {
     console.log('⚠️ TESTING MODE: Authentication bypassed - returning mock user');
     return {
-      id: 'test-user-winning',
+      id: 'test-user-neet',
       email: 'test@iiskills.cloud',
       user_metadata: {
         first_name: 'Test',
@@ -206,9 +137,6 @@ export async function getCurrentUser() {
 
 /**
  * Helper function to sign out the current user
- *
- * This will clear the session across all *.iiskills.cloud subdomains
- *
  * @returns {Promise<Object>} Object with success status and optional error
  */
 export async function signOutUser() {
@@ -229,7 +157,6 @@ export async function signOutUser() {
 
 /**
  * Helper function to sign in with email and password
- *
  * @param {string} email - User's email address
  * @param {string} password - User's password
  * @returns {Promise<Object>} Object with user data or error
@@ -286,7 +213,6 @@ export async function isAdmin(user) {
 
 /**
  * Helper function to get user's full profile
- *
  * @param {Object} user - User object from Supabase
  * @returns {Object} User profile data from metadata
  */
@@ -299,18 +225,52 @@ export function getUserProfile(user) {
     lastName: user.user_metadata?.last_name || "",
     fullName: user.user_metadata?.full_name || user.email,
     role: user.user_metadata?.role || user.app_metadata?.role || "user",
+    neetSubscriptionEnd: user.user_metadata?.neet_subscription_end || null,
+    hasActiveSubscription: checkActiveSubscription(user),
     ...user.user_metadata,
   };
 }
 
 /**
+ * Check if user has an active NEET subscription (2-year term)
+ * @param {Object} user - User object from Supabase
+ * @returns {boolean} True if subscription is active
+ */
+export function checkActiveSubscription(user) {
+  // Check if paywall is enabled via environment variable
+  const paywallEnabled = process.env.NEXT_PUBLIC_PAYWALL_ENABLED !== "false";
+  
+  // TEMPORARY - RESTORE AFTER JAN 28, 2026
+  // Also check DISABLE_PAYWALL flag for testing mode
+  const DISABLE_PAYWALL = process.env.NEXT_PUBLIC_DISABLE_PAYWALL === 'true';
+  
+  // If paywall is disabled (either flag), grant access to everyone
+  if (!paywallEnabled || DISABLE_PAYWALL) {
+    if (DISABLE_PAYWALL) {
+      console.log('⚠️ TESTING MODE: Paywall bypassed - granting subscription access');
+    }
+    return true;
+  }
+  // END TEMPORARY
+
+  if (!user) return false;
+
+  const subscriptionEnd = user.user_metadata?.neet_subscription_end;
+  if (!subscriptionEnd) return false;
+
+  const endDate = new Date(subscriptionEnd);
+  const now = new Date();
+
+  return endDate > now;
+}
+
+/**
  * Helper function to get the site URL for OAuth redirects
- *
  * @returns {string} The site URL
  */
 export function getSiteUrl() {
   return (
     process.env.NEXT_PUBLIC_SITE_URL ||
-    (typeof window !== "undefined" ? window.location.origin : "http://localhost:3003")
+    (typeof window !== "undefined" ? window.location.origin : "http://localhost:3009")
   );
 }

@@ -14,10 +14,6 @@
  */
 
 import { createClient } from "@supabase/supabase-js";
-import { getCookieDomain } from "../utils/urlHelper";
-
-// Check if Supabase is suspended for maintenance/content review
-const isSupabaseSuspended = process.env.NEXT_PUBLIC_SUPABASE_SUSPENDED === "true";
 
 // Supabase project URL and public anonymous key
 // These must be set via environment variables in .env.local
@@ -44,8 +40,7 @@ const hasPlaceholderKey =
   supabaseAnonKey.startsWith("eyJhbGciOi...") ||
   supabaseAnonKey.length < MIN_ANON_KEY_LENGTH;
 
-// Skip validation if Supabase is suspended
-if (!isSupabaseSuspended && (!supabaseUrl || !supabaseAnonKey || hasPlaceholderUrl || hasPlaceholderKey)) {
+if (!supabaseUrl || !supabaseAnonKey || hasPlaceholderUrl || hasPlaceholderKey) {
   const errorMessage = `
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ⚠️  SUPABASE CONFIGURATION ERROR
@@ -93,71 +88,15 @@ For more information, see:
 
 // Create a single Supabase client instance for the app
 // This client will be reused across the application for all Supabase operations
-// Configure cookie options for cross-subdomain authentication
-// If Supabase is suspended, create a mock client
-export const supabase = isSupabaseSuspended
-  ? createMockSupabaseClient()
-  : createClient(supabaseUrl, supabaseAnonKey, {
-      auth: {
-        // Persist session in cookies for cross-subdomain support
-        storage: typeof window !== "undefined" ? window.localStorage : undefined,
-        autoRefreshToken: true,
-        persistSession: true,
-        detectSessionInUrl: true,
-        // Cookie options for cross-subdomain authentication
-        cookieOptions: {
-          domain: getCookieDomain(),
-          // Secure cookies in production
-          secure:
-            typeof window !== "undefined"
-              ? window.location.protocol === "https:"
-              : process.env.NODE_ENV === "production",
-          sameSite: "lax",
-        },
-      },
-    });
-
-/**
- * Create a mock Supabase client when Supabase is suspended
- * This allows the app to run without a database connection
- */
-function createMockSupabaseClient() {
-  console.warn(
-    "⚠️ SUPABASE SUSPENDED MODE: Running without database connection. All auth operations will return mock data."
-  );
-
-  return {
-    auth: {
-      getSession: async () => ({
-        data: { session: null },
-        error: null,
-      }),
-      signOut: async () => ({ error: null }),
-      signInWithPassword: async () => ({
-        data: { user: null, session: null },
-        error: { message: "Supabase is currently suspended" },
-      }),
-      signInWithOtp: async () => ({
-        data: null,
-        error: { message: "Supabase is currently suspended" },
-      }),
-      signInWithOAuth: async () => ({
-        data: null,
-        error: { message: "Supabase is currently suspended" },
-      }),
-    },
-    from: () => ({
-      select: () => ({
-        eq: () => ({
-          single: async () => ({
-            data: null,
-            error: { message: "Supabase is currently suspended" },
-          }),
-        }),
-      }),
-    }),
-  };
-}
+export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+  auth: {
+    autoRefreshToken: true,
+    persistSession: true,
+    detectSessionInUrl: true,
+    flowType: "pkce",
+    storageKey: "iiskills-auth-token",
+  },
+});
 
 /**
  * Helper function to get the currently logged-in user
@@ -171,10 +110,24 @@ function createMockSupabaseClient() {
  * }
  */
 export async function getCurrentUser() {
-  // If Supabase is suspended, return null (no user)
-  if (isSupabaseSuspended) {
-    return null;
+  // TEMPORARY - RESTORE AFTER JAN 28, 2026
+  const DISABLE_AUTH = process.env.NEXT_PUBLIC_DISABLE_AUTH === 'true';
+  
+  if (DISABLE_AUTH) {
+    console.log('⚠️ TESTING MODE: Authentication bypassed - returning mock user');
+    return {
+      id: 'test-user-main',
+      email: 'test@iiskills.cloud',
+      user_metadata: {
+        firstName: 'Test',
+        lastName: 'User',
+        full_name: 'Test User',
+        is_admin: true,
+        payment_status: 'paid'
+      }
+    };
   }
+  // END TEMPORARY
 
   try {
     // Get the current session from Supabase
@@ -208,11 +161,6 @@ export async function getCurrentUser() {
  * }
  */
 export async function signOutUser() {
-  // If Supabase is suspended, return success (no-op)
-  if (isSupabaseSuspended) {
-    return { success: true };
-  }
-
   try {
     const { error } = await supabase.auth.signOut();
 
@@ -242,14 +190,6 @@ export async function signOutUser() {
  * }
  */
 export async function signInWithEmail(email, password) {
-  // If Supabase is suspended, return error
-  if (isSupabaseSuspended) {
-    return {
-      user: null,
-      error: "Authentication is temporarily suspended. Please try again later.",
-    };
-  }
-
   try {
     const { data, error } = await supabase.auth.signInWithPassword({
       email,
@@ -281,14 +221,6 @@ export async function signInWithEmail(email, password) {
  * }
  */
 export async function sendMagicLink(email, redirectTo = null) {
-  // If Supabase is suspended, return error
-  if (isSupabaseSuspended) {
-    return {
-      success: false,
-      error: "Authentication is temporarily suspended. Please try again later.",
-    };
-  }
-
   try {
     // Dynamic domain detection: Use provided redirect, fall back to current page, then env var
     // This ensures users stay on the same domain after auth (important for multi-domain setups)
@@ -326,14 +258,6 @@ export async function sendMagicLink(email, redirectTo = null) {
  * const { success, error } = await signInWithGoogle()
  */
 export async function signInWithGoogle(redirectTo = null) {
-  // If Supabase is suspended, return error
-  if (isSupabaseSuspended) {
-    return {
-      success: false,
-      error: "Authentication is temporarily suspended. Please try again later.",
-    };
-  }
-
   try {
     // Dynamic domain detection: Use provided redirect, fall back to current page, then env var
     // This ensures users stay on the same domain after auth (important for multi-domain setups)
@@ -389,11 +313,6 @@ export async function signInWithGoogle(redirectTo = null) {
 export async function isAdmin(user) {
   if (!user) return false;
 
-  // If Supabase is suspended, return false (no admin access)
-  if (isSupabaseSuspended) {
-    return false;
-  }
-
   // Hardcoded admin emails - always grant admin access
   const adminEmails = ["pda.indian@gmail.com", "pda.indian@gvmail.com"];
   if (adminEmails.includes(user.email)) {
@@ -442,11 +361,6 @@ export async function isAdmin(user) {
  */
 export async function checkUserPaymentStatus(user) {
   if (!user) return false;
-
-  // If Supabase is suspended, return false (no paid access)
-  if (isSupabaseSuspended) {
-    return false;
-  }
 
   try {
     // Check user metadata for payment status
