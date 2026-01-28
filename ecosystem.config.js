@@ -30,119 +30,119 @@ module.exports = {
       name: "iiskills-comingsoon",
       script: "node_modules/.bin/next",
       args: "start -p 3019",
-      cwd: "/root/iiskills-cloud/coming-soon",
+      cwd: "/root/iiskills-cloud/apps/coming-soon",
       env: { NODE_ENV: "production" }
     },
     {
       name: "iiskills-learn-jee",
       script: "node_modules/.bin/next",
       args: "start -p 3003",
-      cwd: "/root/iiskills-cloud/learn-jee",
+      cwd: "/root/iiskills-cloud/apps/learn-jee",
       env: { NODE_ENV: "production" }
     },
     {
       name: "iiskills-learn-ai",
       script: "node_modules/.bin/next",
       args: "start -p 3001",
-      cwd: "/root/iiskills-cloud/learn-ai",
+      cwd: "/root/iiskills-cloud/apps/learn-ai",
       env: { NODE_ENV: "production" }
     },
     {
       name: "iiskills-learn-apt",
       script: "node_modules/.bin/next",
       args: "start -p 3002",
-      cwd: "/root/iiskills-cloud/learn-apt",
+      cwd: "/root/iiskills-cloud/apps/learn-apt",
       env: { NODE_ENV: "production" }
     },
     {
       name: "iiskills-learn-chemistry",
       script: "node_modules/.bin/next",
       args: "start -p 3005",
-      cwd: "/root/iiskills-cloud/learn-chemistry",
+      cwd: "/root/iiskills-cloud/apps/learn-chemistry",
       env: { NODE_ENV: "production" }
     },
     {
       name: "iiskills-learn-cricket",
       script: "node_modules/.bin/next",
       args: "start -p 3009",
-      cwd: "/root/iiskills-cloud/learn-cricket",
+      cwd: "/root/iiskills-cloud/apps/learn-cricket",
       env: { NODE_ENV: "production" }
     },
     {
       name: "iiskills-learn-data-science",
       script: "node_modules/.bin/next",
       args: "start -p 3010",
-      cwd: "/root/iiskills-cloud/learn-data-science",
+      cwd: "/root/iiskills-cloud/apps/learn-data-science",
       env: { NODE_ENV: "production" }
     },
     {
       name: "iiskills-learn-geography",
       script: "node_modules/.bin/next",
       args: "start -p 3011",
-      cwd: "/root/iiskills-cloud/learn-geography",
+      cwd: "/root/iiskills-cloud/apps/learn-geography",
       env: { NODE_ENV: "production" }
     },
     {
       name: "iiskills-learn-govt-jobs",
       script: "node_modules/.bin/next",
       args: "start -p 3013",
-      cwd: "/root/iiskills-cloud/learn-govt-jobs",
+      cwd: "/root/iiskills-cloud/apps/learn-govt-jobs",
       env: { NODE_ENV: "production" }
     },
     {
       name: "iiskills-learn-ias",
       script: "node_modules/.bin/next",
       args: "start -p 3014",
-      cwd: "/root/iiskills-cloud/learn-ias",
+      cwd: "/root/iiskills-cloud/apps/learn-ias",
       env: { NODE_ENV: "production" }
     },
     {
       name: "iiskills-learn-leadership",
       script: "node_modules/.bin/next",
       args: "start -p 3015",
-      cwd: "/root/iiskills-cloud/learn-leadership",
+      cwd: "/root/iiskills-cloud/apps/learn-leadership",
       env: { NODE_ENV: "production" }
     },
     {
       name: "iiskills-learn-management",
       script: "node_modules/.bin/next",
       args: "start -p 3016",
-      cwd: "/root/iiskills-cloud/learn-management",
+      cwd: "/root/iiskills-cloud/apps/learn-management",
       env: { NODE_ENV: "production" }
     },
     {
       name: "iiskills-learn-math",
       script: "node_modules/.bin/next",
       args: "start -p 3017",
-      cwd: "/root/iiskills-cloud/learn-math",
+      cwd: "/root/iiskills-cloud/apps/learn-math",
       env: { NODE_ENV: "production" }
     },
     {
       name: "iiskills-learn-neet",
       script: "node_modules/.bin/next",
       args: "start -p 3018",
-      cwd: "/root/iiskills-cloud/learn-neet",
+      cwd: "/root/iiskills-cloud/apps/learn-neet",
       env: { NODE_ENV: "production" }
     },
     {
       name: "iiskills-learn-physics",
       script: "node_modules/.bin/next",
       args: "start -p 3020",
-      cwd: "/root/iiskills-cloud/learn-physics",
+      cwd: "/root/iiskills-cloud/apps/learn-physics",
       env: { NODE_ENV: "production" }
     },
     {
       name: "iiskills-learn-pr",
       script: "node_modules/.bin/next",
       args: "start -p 3021",
-      cwd: "/root/iiskills-cloud/learn-pr",
+      cwd: "/root/iiskills-cloud/apps/learn-pr",
       env: { NODE_ENV: "production" }
     },
     {
       name: "iiskills-learn-winning",
       script: "node_modules/.bin/next",
       args: "start -p 3022",
-      cwd: "/root/iiskills-cloud/learn-winning",
+      cwd: "/root/iiskills-cloud/apps/learn-winning",
       env: { NODE_ENV: "production" }
     },
     {
