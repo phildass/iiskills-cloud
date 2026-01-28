@@ -1,0 +1,160 @@
+{
+  "courses": [
+    {
+      "id": "course-1",
+      "title": "Sample Course - JEE Preparation",
+      "slug": "jee-preparation-sample",
+      "short_description": "Comprehensive JEE preparation course for aspiring engineers",
+      "full_description": "This is a comprehensive JEE preparation course covering Physics, Chemistry, and Mathematics. Perfect for students preparing for entrance exams.",
+      "duration": "6 months",
+      "category": "Engineering",
+      "subdomain": "learn-jee",
+      "price": 9999,
+      "is_free": false,
+      "status": "published",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    },
+    {
+      "id": "course-2",
+      "title": "Sample Course - NEET Biology",
+      "slug": "neet-biology-sample",
+      "short_description": "Complete NEET Biology course for medical aspirants",
+      "full_description": "Master Biology concepts for NEET with detailed explanations, practice questions, and mock tests.",
+      "duration": "4 months",
+      "category": "Medical",
+      "subdomain": "learn-neet",
+      "price": 7999,
+      "is_free": false,
+      "status": "published",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    },
+    {
+      "id": "course-3",
+      "title": "Free Introduction to Leadership",
+      "slug": "intro-leadership",
+      "short_description": "Learn the fundamentals of effective leadership",
+      "full_description": "A free introductory course on leadership principles and practices.",
+      "duration": "2 weeks",
+      "category": "Leadership",
+      "subdomain": "learn-leadership",
+      "price": 0,
+      "is_free": true,
+      "status": "published",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  ],
+  "modules": [
+    {
+      "id": "module-1",
+      "course_id": "course-1",
+      "title": "Physics Module 1",
+      "slug": "physics-module-1",
+      "description": "Basic mechanics and kinematics",
+      "order": 1,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    },
+    {
+      "id": "module-2",
+      "course_id": "course-1",
+      "title": "Chemistry Module 1",
+      "slug": "chemistry-module-1",
+      "description": "Organic chemistry fundamentals",
+      "order": 2,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    },
+    {
+      "id": "module-3",
+      "course_id": "course-2",
+      "title": "Cell Biology",
+      "slug": "cell-biology",
+      "description": "Structure and function of cells",
+      "order": 1,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  ],
+  "lessons": [
+    {
+      "id": "lesson-1",
+      "module_id": "module-1",
+      "title": "Introduction to Kinematics",
+      "content": "Kinematics is the branch of mechanics that describes the motion of objects without considering the forces that cause the motion.",
+      "duration": "45 minutes",
+      "order": 1,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    },
+    {
+      "id": "lesson-2",
+      "module_id": "module-1",
+      "title": "Newton's Laws of Motion",
+      "content": "Newton's three laws of motion form the foundation of classical mechanics.",
+      "duration": "60 minutes",
+      "order": 2,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    },
+    {
+      "id": "lesson-3",
+      "module_id": "module-3",
+      "title": "Cell Structure",
+      "content": "Understanding the basic components of prokaryotic and eukaryotic cells.",
+      "duration": "50 minutes",
+      "order": 1,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  ],
+  "profiles": [
+    {
+      "id": "admin-user-1",
+      "email": "admin@test.local",
+      "is_admin": true,
+      "full_name": "Admin User",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    },
+    {
+      "id": "user-1",
+      "email": "user@test.local",
+      "is_admin": false,
+      "full_name": "Test User",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  ],
+  "questions": [
+    {
+      "id": "question-1",
+      "lesson_id": "lesson-1",
+      "question_text": "What is the SI unit of velocity?",
+      "options": ["m/s", "km/h", "mph", "m/s²"],
+      "correct_answer": "m/s",
+      "explanation": "The SI unit of velocity is meters per second (m/s).",
+      "difficulty": "easy",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    },
+    {
+      "id": "question-2",
+      "lesson_id": "lesson-2",
+      "question_text": "State Newton's First Law of Motion.",
+      "options": [
+        "An object at rest stays at rest unless acted upon by a force",
+        "Force equals mass times acceleration",
+        "Every action has an equal and opposite reaction",
+        "Energy cannot be created or destroyed"
+      ],
+      "correct_answer": "An object at rest stays at rest unless acted upon by a force",
+      "explanation": "Newton's First Law states that an object at rest stays at rest and an object in motion stays in motion unless acted upon by an external force.",
+      "difficulty": "medium",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  ]
+}
