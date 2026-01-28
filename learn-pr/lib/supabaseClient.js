@@ -111,10 +111,61 @@ function createMockSupabaseClient() {
     "⚠️ SUPABASE SUSPENDED MODE: Running without database connection. All auth operations will return mock data."
   );
 
+  // Helper to create a chainable query mock that returns empty results
+  const createQueryChain = () => {
+    const chain = {
+      select: () => chain,
+      insert: () => chain,
+      update: () => chain,
+      upsert: () => chain,
+      delete: () => chain,
+      eq: () => chain,
+      neq: () => chain,
+      gt: () => chain,
+      gte: () => chain,
+      lt: () => chain,
+      lte: () => chain,
+      like: () => chain,
+      ilike: () => chain,
+      is: () => chain,
+      in: () => chain,
+      contains: () => chain,
+      containedBy: () => chain,
+      range: () => chain,
+      match: () => chain,
+      not: () => chain,
+      or: () => chain,
+      filter: () => chain,
+      order: () => chain,
+      limit: () => chain,
+      range: () => chain,
+      single: async () => ({
+        data: null,
+        error: { message: "Supabase is currently suspended" },
+      }),
+      maybeSingle: async () => ({
+        data: null,
+        error: null,
+      }),
+      then: async (resolve) => {
+        const result = {
+          data: null,
+          error: { message: "Supabase is currently suspended" },
+        };
+        return resolve ? resolve(result) : result;
+      },
+    };
+    return chain;
+  };
+
   return {
     auth: {
       getSession: async () => ({
         data: { session: null },
+        error: null,
+      }),
+      getUser: async () => ({
+        data: { user: null },
         error: null,
       }),
       signOut: async () => ({ error: null }),
@@ -130,17 +181,54 @@ function createMockSupabaseClient() {
         data: null,
         error: { message: "Supabase is currently suspended" },
       }),
+      signUp: async () => ({
+        data: { user: null, session: null },
+        error: { message: "Supabase is currently suspended" },
+      }),
+      resetPasswordForEmail: async () => ({
+        data: null,
+        error: { message: "Supabase is currently suspended" },
+      }),
+      updateUser: async () => ({
+        data: { user: null },
+        error: { message: "Supabase is currently suspended" },
+      }),
+      onAuthStateChange: () => ({
+        data: { subscription: { unsubscribe: () => {} } },
+      }),
     },
-    from: () => ({
-      select: () => ({
-        eq: () => ({
-          single: async () => ({
-            data: null,
-            error: { message: "Supabase is currently suspended" },
-          }),
+    from: () => createQueryChain(),
+    rpc: async () => ({
+      data: null,
+      error: { message: "Supabase is currently suspended" },
+    }),
+    storage: {
+      from: () => ({
+        upload: async () => ({
+          data: null,
+          error: { message: "Supabase is currently suspended" },
+        }),
+        download: async () => ({
+          data: null,
+          error: { message: "Supabase is currently suspended" },
+        }),
+        list: async () => ({
+          data: [],
+          error: null,
+        }),
+        remove: async () => ({
+          data: null,
+          error: { message: "Supabase is currently suspended" },
+        }),
+        createSignedUrl: async () => ({
+          data: null,
+          error: { message: "Supabase is currently suspended" },
+        }),
+        getPublicUrl: () => ({
+          data: { publicUrl: "" },
         }),
       }),
-    }),
+    },
   };
 }
 
