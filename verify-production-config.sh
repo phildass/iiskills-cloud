@@ -62,7 +62,7 @@ fi
 
 echo ""
 echo "2. Checking for .env files with local content mode..."
-LOCAL_CONTENT_FILES=$(find . -name ".env" -o -name ".env.local" -o -name ".env.production" -type f 2>/dev/null | while read file; do
+LOCAL_CONTENT_FILES=$(find . \( -name ".env" -o -name ".env.local" -o -name ".env.production" \) -type f 2>/dev/null | while read file; do
   if grep -q "NEXT_PUBLIC_USE_LOCAL_CONTENT.*true" "$file" 2>/dev/null; then
     echo "$file"
   fi
@@ -108,10 +108,10 @@ if command -v pm2 &> /dev/null; then
   if pm2 status &> /dev/null; then
     echo -e "${GREEN}✓ PM2 is running${NC}"
     
-    # Check a few sample apps for testing flags
+    # Check sample apps for testing flags (checking 3 apps as a representative sample)
     for app in iiskills-main iiskills-learn-jee iiskills-learn-ai; do
       if pm2 show "$app" &> /dev/null; then
-        ENV_CHECK=$(pm2 show "$app" 2>/dev/null | grep -E "(TESTING_MODE|DISABLE_AUTH|DISABLE_PAYWALL|USE_LOCAL_CONTENT)" || true)
+        ENV_CHECK=$(pm2 show "$app" 2>/dev/null | grep -E "(NEXT_PUBLIC_TESTING_MODE|NEXT_PUBLIC_DISABLE_AUTH|NEXT_PUBLIC_DISABLE_PAYWALL|NEXT_PUBLIC_USE_LOCAL_CONTENT)" || true)
         if [ -n "$ENV_CHECK" ]; then
           echo -e "${RED}✗ $app has testing mode flags in environment${NC}"
           echo "$ENV_CHECK"

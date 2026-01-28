@@ -38,7 +38,17 @@ fi
 
 echo ""
 echo -e "${YELLOW}Step 2: Pulling latest changes...${NC}"
-git pull origin main || git pull origin master || echo "Git pull failed, continuing..."
+if git pull origin main 2>/dev/null || git pull origin master 2>/dev/null; then
+  echo -e "${GREEN}✓ Git pull successful${NC}"
+else
+  echo -e "${YELLOW}⚠ Git pull failed - using current local version${NC}"
+  read -p "Continue with current code? (y/n) " -n 1 -r
+  echo
+  if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+    echo "Deployment cancelled."
+    exit 1
+  fi
+fi
 
 echo ""
 echo -e "${YELLOW}Step 3: Cleaning .next build caches...${NC}"
@@ -87,10 +97,9 @@ echo -e "${YELLOW}Step 6: Updating PM2 processes...${NC}"
 echo "Choose PM2 update method:"
 echo "1) Restart all apps (recommended - faster)"
 echo "2) Stop, delete, and restart all apps (clean slate)"
-read -p "Enter choice (1 or 2): " -n 1 -r
-echo
+read -p "Enter choice [1 or 2]: " -r PM2_CHOICE
 
-if [[ $REPLY == "2" ]]; then
+if [[ "$PM2_CHOICE" == "2" ]]; then
   echo "Stopping all PM2 processes..."
   pm2 stop all
   
@@ -99,8 +108,11 @@ if [[ $REPLY == "2" ]]; then
   
   echo "Starting apps with new configuration..."
   pm2 start ecosystem.config.js
-else
+elif [[ "$PM2_CHOICE" == "1" ]]; then
   echo "Restarting all PM2 processes..."
+  pm2 restart all
+else
+  echo -e "${YELLOW}Invalid choice. Defaulting to restart (option 1)...${NC}"
   pm2 restart all
 fi
 
@@ -122,7 +134,7 @@ echo -e "${YELLOW}Checking environment variables for sample apps...${NC}"
 for app in iiskills-main iiskills-learn-jee iiskills-learn-ai; do
   echo ""
   echo "=== $app ==="
-  pm2 show "$app" 2>/dev/null | grep -A 10 "│ env" || echo "App not found or env not available"
+  pm2 show "$app" 2>/dev/null | grep -A 20 "│ env" | head -25 || echo "App not found or env not available"
 done
 
 echo ""

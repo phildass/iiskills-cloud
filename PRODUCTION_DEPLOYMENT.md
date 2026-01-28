@@ -60,7 +60,7 @@ for app in learn-ai learn-apt learn-chemistry learn-cricket learn-data-science \
            learn-geography learn-govt-jobs learn-ias learn-jee learn-leadership \
            learn-management learn-math learn-neet learn-physics learn-pr learn-winning; do
   echo "Cleaning $app..."
-  rm -rf $app/.next
+  rm -rf "$app/.next"
 done
 
 echo "✓ All .next directories cleaned"
@@ -149,7 +149,7 @@ pm2 show iiskills-learn-jee | grep -E "(TESTING|DISABLE|PAYWALL)"
 # Check multiple apps
 for app in iiskills-learn-jee iiskills-learn-ai iiskills-main; do
   echo "=== $app ==="
-  pm2 show $app | grep -E "env:" -A 5
+  pm2 show "$app" | grep -E "env:" -A 5
 done
 ```
 
@@ -191,26 +191,40 @@ After deployment, verify:
 
 ## Rollback Plan (Emergency Only)
 
-If there are issues and you need to temporarily re-enable testing mode:
+⚠️ **WARNING**: Only use rollback for emergency situations. Testing mode should NEVER remain enabled in production.
+
+If there are critical issues and you need to temporarily restore the previous configuration:
+
+### Option 1: Using Git History
 
 ```bash
 cd /root/iiskills-cloud
 
-# Checkout the backup config (if you have one)
-git checkout ecosystem.config.js.backup
+# View recent commits to find the one before this fix
+git log --oneline -10
 
-# OR manually edit ecosystem.config.js to add:
-# env: {
-#   NODE_ENV: "production",
-#   NEXT_PUBLIC_TESTING_MODE: "true",
-#   NEXT_PUBLIC_DISABLE_AUTH: "true"
-# }
+# Revert to the specific commit (replace <commit-hash> with the actual hash)
+git checkout <commit-hash> -- ecosystem.config.js
 
 # Then restart PM2
 pm2 restart all
 ```
 
-⚠️ **WARNING**: Only use rollback for emergency situations. Testing mode should NEVER remain enabled in production.
+### Option 2: Manual Edit (Not Recommended)
+
+If absolutely necessary, you can manually re-enable testing mode by editing `ecosystem.config.js` and adding these environment variables to the affected apps:
+
+```javascript
+env: {
+  NODE_ENV: "production",
+  NEXT_PUBLIC_TESTING_MODE: "true",
+  NEXT_PUBLIC_DISABLE_AUTH: "true",
+  NEXT_PUBLIC_DISABLE_PAYWALL: "true",
+  NEXT_PUBLIC_PAYWALL_ENABLED: "false"
+}
+```
+
+Then restart: `pm2 restart all`
 
 ## Support
 
