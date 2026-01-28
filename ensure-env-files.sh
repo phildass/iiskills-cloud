@@ -97,7 +97,7 @@ echo ""
 
 # Check all learning modules
 echo "Checking learning modules..."
-for dir in learn-*/; do
+for dir in apps/learn-*/; do
   if [ -d "$dir" ]; then
     MODULE_NAME=$(basename "$dir")
     
