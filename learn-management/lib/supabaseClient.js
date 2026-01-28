@@ -234,7 +234,7 @@ let supabaseClient;
 if (useLocalContent) {
   // Only import in Node.js environment (not browser)
   if (typeof window === "undefined") {
-    const { createLocalContentClient } = require("../lib/localContentProvider.js");
+    const { createLocalContentClient } = require("../../lib/localContentProvider.js");
     supabaseClient = createLocalContentClient();
   } else {
     console.warn("⚠️ Local content mode is only supported in server-side/Node.js environment");

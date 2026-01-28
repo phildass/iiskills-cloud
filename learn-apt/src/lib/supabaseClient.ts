@@ -53,7 +53,7 @@ let supabaseClient;
 
 if (useLocalContent && typeof window === "undefined") {
   // Only import in Node.js environment (not browser)
-  const { createLocalContentClient } = require("../../lib/localContentProvider.js");
+  const { createLocalContentClient } = require("../../../lib/localContentProvider.js");
   supabaseClient = createLocalContentClient();
 } else {
   supabaseClient = createClient(supabaseUrl, supabaseAnonKey, {
