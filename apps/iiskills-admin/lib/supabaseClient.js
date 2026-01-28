@@ -189,16 +189,17 @@ function createMockSupabaseClient() {
       range: () => chain,
       single: async () => ({
         data: null,
-        error: { message: "Supabase is currently suspended" },
+        error: null,
       }),
       maybeSingle: async () => ({
         data: null,
         error: null,
       }),
       then: async (resolve) => {
+        // Return empty array instead of error for better UX in admin app
         const result = {
-          data: null,
-          error: { message: "Supabase is currently suspended" },
+          data: [],
+          error: null,
         };
         return resolve ? resolve(result) : result;
       },

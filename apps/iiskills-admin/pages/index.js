@@ -22,31 +22,16 @@ export default function AdminDashboard() {
     try {
       setLoading(true);
       
-      // Fetch course count
-      const { data: courses } = await supabase
-        .from('courses')
-        .select('*');
+      // Fetch from API endpoint
+      const response = await fetch('/api/stats');
+      const result = await response.json();
       
-      // Fetch user count
-      const { data: profiles } = await supabase
-        .from('profiles')
-        .select('*');
-
-      // Fetch modules count
-      const { data: modules } = await supabase
-        .from('modules')
-        .select('*');
-
-      // Fetch lessons count
-      const { data: lessons } = await supabase
-        .from('lessons')
-        .select('*');
-
-      setStats({
-        totalCourses: courses?.length || 0,
-        totalUsers: profiles?.length || 0,
-        totalModules: modules?.length || 0,
-        totalLessons: lessons?.length || 0,
+      if (result.error) throw new Error(result.error);
+      setStats(result.data || {
+        totalCourses: 0,
+        totalUsers: 0,
+        totalModules: 0,
+        totalLessons: 0,
       });
     } catch (error) {
       console.error('Error fetching stats:', error);

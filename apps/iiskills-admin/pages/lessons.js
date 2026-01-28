@@ -16,13 +16,13 @@ export default function AdminLessons() {
   const fetchLessons = async () => {
     try {
       setLoading(true);
-      const { data, error } = await supabase
-        .from('lessons')
-        .select('*')
-        .order('order_index', { ascending: true });
       
-      if (error) throw error;
-      setLessons(data || []);
+      // Fetch from API endpoint
+      const response = await fetch('/api/lessons');
+      const result = await response.json();
+      
+      if (result.error) throw new Error(result.error);
+      setLessons(result.data || []);
     } catch (error) {
       console.error('Error fetching lessons:', error);
     } finally {

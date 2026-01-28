@@ -17,16 +17,17 @@ export default function AdminCourses() {
   const fetchCourses = async () => {
     try {
       setLoading(true);
-      let query = supabase.from('courses').select('*').order('created_at', { ascending: false });
       
-      if (filterSubdomain !== 'all') {
-        query = query.eq('subdomain', filterSubdomain);
-      }
+      // Fetch from API endpoint
+      const url = filterSubdomain === 'all'
+        ? '/api/courses'
+        : `/api/courses?subdomain=${filterSubdomain}`;
       
-      const { data, error } = await query;
+      const response = await fetch(url);
+      const result = await response.json();
       
-      if (error) throw error;
-      setCourses(data || []);
+      if (result.error) throw new Error(result.error);
+      setCourses(result.data || []);
     } catch (error) {
       console.error('Error fetching courses:', error);
     } finally {

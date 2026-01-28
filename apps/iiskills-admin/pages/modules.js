@@ -16,13 +16,13 @@ export default function AdminModules() {
   const fetchModules = async () => {
     try {
       setLoading(true);
-      const { data, error } = await supabase
-        .from('modules')
-        .select('*')
-        .order('order_index', { ascending: true });
       
-      if (error) throw error;
-      setModules(data || []);
+      // Fetch from API endpoint
+      const response = await fetch('/api/modules');
+      const result = await response.json();
+      
+      if (result.error) throw new Error(result.error);
+      setModules(result.data || []);
     } catch (error) {
       console.error('Error fetching modules:', error);
     } finally {

@@ -5,7 +5,6 @@
 
 module.exports = {
   reactStrictMode: true,
-  swcMinify: true,
   
   // Transpile shared packages if using monorepo packages
   transpilePackages: ['@iiskills/core'],
