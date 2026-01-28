@@ -10,6 +10,9 @@ import { createClient } from "@supabase/supabase-js";
 
 // Supabase project URL and public anonymous key
 // These should match the main iiskills.cloud app for cross-app authentication
+// Check if Supabase is suspended for maintenance/content review
+const isSupabaseSuspended = process.env.NEXT_PUBLIC_SUPABASE_SUSPENDED === "true";
+
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
@@ -27,7 +30,7 @@ const hasPlaceholderKey =
   supabaseAnonKey.startsWith("eyJhbGciOi...") ||
   supabaseAnonKey.length < 20;
 
-if (!supabaseUrl || !supabaseAnonKey || hasPlaceholderUrl || hasPlaceholderKey) {
+if (!isSupabaseSuspended && (!supabaseUrl || !supabaseAnonKey || hasPlaceholderUrl || hasPlaceholderKey)) {
   const errorMessage = `
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ⚠️  SUPABASE CONFIGURATION ERROR - learn-neet module
@@ -78,21 +81,157 @@ For more information, see ENV_SETUP_GUIDE.md in the repo root.
 }
 
 // Create Supabase client with cookie options for cross-subdomain support
-export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
-  auth: {
-    autoRefreshToken: true,
-    persistSession: true,
-    detectSessionInUrl: true,
-    flowType: "pkce",
-    storageKey: "iiskills-auth-token",
-  },
-});
+
+/**
+ * Create a mock Supabase client when Supabase is suspended
+ * This allows the app to run without a database connection
+ */
+function createMockSupabaseClient() {
+  console.warn(
+    "⚠️ SUPABASE SUSPENDED MODE: Running without database connection. All auth operations will return mock data."
+  );
+
+  // Helper to create a chainable query mock that returns empty results
+  const createQueryChain = () => {
+    const chain = {
+      select: () => chain,
+      insert: () => chain,
+      update: () => chain,
+      upsert: () => chain,
+      delete: () => chain,
+      eq: () => chain,
+      neq: () => chain,
+      gt: () => chain,
+      gte: () => chain,
+      lt: () => chain,
+      lte: () => chain,
+      like: () => chain,
+      ilike: () => chain,
+      is: () => chain,
+      in: () => chain,
+      contains: () => chain,
+      containedBy: () => chain,
+      range: () => chain,
+      match: () => chain,
+      not: () => chain,
+      or: () => chain,
+      filter: () => chain,
+      order: () => chain,
+      limit: () => chain,
+      range: () => chain,
+      single: async () => ({
+        data: null,
+        error: { message: "Supabase is currently suspended" },
+      }),
+      maybeSingle: async () => ({
+        data: null,
+        error: null,
+      }),
+      then: async (resolve) => {
+        const result = {
+          data: null,
+          error: { message: "Supabase is currently suspended" },
+        };
+        return resolve ? resolve(result) : result;
+      },
+    };
+    return chain;
+  };
+
+  return {
+    auth: {
+      getSession: async () => ({
+        data: { session: null },
+        error: null,
+      }),
+      getUser: async () => ({
+        data: { user: null },
+        error: null,
+      }),
+      signOut: async () => ({ error: null }),
+      signInWithPassword: async () => ({
+        data: { user: null, session: null },
+        error: { message: "Supabase is currently suspended" },
+      }),
+      signInWithOtp: async () => ({
+        data: null,
+        error: { message: "Supabase is currently suspended" },
+      }),
+      signInWithOAuth: async () => ({
+        data: null,
+        error: { message: "Supabase is currently suspended" },
+      }),
+      signUp: async () => ({
+        data: { user: null, session: null },
+        error: { message: "Supabase is currently suspended" },
+      }),
+      resetPasswordForEmail: async () => ({
+        data: null,
+        error: { message: "Supabase is currently suspended" },
+      }),
+      updateUser: async () => ({
+        data: { user: null },
+        error: { message: "Supabase is currently suspended" },
+      }),
+      onAuthStateChange: () => ({
+        data: { subscription: { unsubscribe: () => {} } },
+      }),
+    },
+    from: () => createQueryChain(),
+    rpc: async () => ({
+      data: null,
+      error: { message: "Supabase is currently suspended" },
+    }),
+    storage: {
+      from: () => ({
+        upload: async () => ({
+          data: null,
+          error: { message: "Supabase is currently suspended" },
+        }),
+        download: async () => ({
+          data: null,
+          error: { message: "Supabase is currently suspended" },
+        }),
+        list: async () => ({
+          data: [],
+          error: null,
+        }),
+        remove: async () => ({
+          data: null,
+          error: { message: "Supabase is currently suspended" },
+        }),
+        createSignedUrl: async () => ({
+          data: null,
+          error: { message: "Supabase is currently suspended" },
+        }),
+        getPublicUrl: () => ({
+          data: { publicUrl: "" },
+        }),
+      }),
+    },
+  };
+}
+
+export const supabase = isSupabaseSuspended
+  ? createMockSupabaseClient()
+  : createClient(supabaseUrl, supabaseAnonKey, {
+      auth: {
+        autoRefreshToken: true,
+        persistSession: true,
+        detectSessionInUrl: true,
+      },
+    });
 
 /**
  * Helper function to get the currently logged-in user
  * @returns {Promise<Object|null>} User object if authenticated, null otherwise
  */
 export async function getCurrentUser() {
+  // If Supabase is suspended, return null (no user)
+  if (isSupabaseSuspended) {
+    return null;
+  }
+
   // TEMPORARY - RESTORE AFTER JAN 28, 2026
   // Bypass authentication for testing
   const DISABLE_AUTH = process.env.NEXT_PUBLIC_DISABLE_AUTH === 'true';
