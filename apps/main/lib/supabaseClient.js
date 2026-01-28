@@ -15,6 +15,9 @@
 
 import { createClient } from "@supabase/supabase-js";
 
+// Check if local content mode is enabled (for testing/QA)
+const useLocalContent = process.env.NEXT_PUBLIC_USE_LOCAL_CONTENT === "true";
+
 // Supabase project URL and public anonymous key
 // These must be set via environment variables in .env.local
 // Check if Supabase is suspended for maintenance/content review
@@ -43,7 +46,7 @@ const hasPlaceholderKey =
   supabaseAnonKey.startsWith("eyJhbGciOi...") ||
   supabaseAnonKey.length < MIN_ANON_KEY_LENGTH;
 
-if (!isSupabaseSuspended && (!supabaseUrl || !supabaseAnonKey || hasPlaceholderUrl || hasPlaceholderKey)) {
+if (!isSupabaseSuspended && !useLocalContent && (!supabaseUrl || !supabaseAnonKey || hasPlaceholderUrl || hasPlaceholderKey)) {
   const errorMessage = `
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ⚠️  SUPABASE CONFIGURATION ERROR
@@ -222,17 +225,42 @@ function createMockSupabaseClient() {
   };
 }
 
-export const supabase = isSupabaseSuspended
-  ? createMockSupabaseClient()
-  : createClient(supabaseUrl, supabaseAnonKey, {
-      auth: {
-        autoRefreshToken: true,
-        persistSession: true,
-        detectSessionInUrl: true,
-        flowType: "pkce",
-        storageKey: "iiskills-auth-token",
-      },
-    });
+let supabaseClient;
+
+if (useLocalContent) {
+  // Only import in Node.js environment (not browser)
+  if (typeof window === "undefined") {
+    const { createLocalContentClient } = require("../../lib/localContentProvider.js");
+    supabaseClient = createLocalContentClient();
+  } else {
+    console.warn("⚠️ Local content mode is only supported in server-side/Node.js environment");
+    supabaseClient = isSupabaseSuspended
+      ? createMockSupabaseClient()
+      : createClient(supabaseUrl, supabaseAnonKey, {
+          auth: {
+            autoRefreshToken: true,
+            persistSession: true,
+            detectSessionInUrl: true,
+            flowType: "pkce",
+            storageKey: "iiskills-auth-token",
+          },
+        });
+  }
+} else if (isSupabaseSuspended) {
+  supabaseClient = createMockSupabaseClient();
+} else {
+  supabaseClient = createClient(supabaseUrl, supabaseAnonKey, {
+    auth: {
+      autoRefreshToken: true,
+      persistSession: true,
+      detectSessionInUrl: true,
+      flowType: "pkce",
+      storageKey: "iiskills-auth-token",
+    },
+  });
+}
+
+export const supabase = supabaseClient;
 
 /**
  * Helper function to get the currently logged-in user
@@ -246,6 +274,12 @@ export const supabase = isSupabaseSuspended
  * }
  */
 export async function getCurrentUser() {
+  // If local content mode is enabled, return null (no auth in local mode)
+  if (useLocalContent) {
+    console.log("⚠️ Local content mode: Authentication bypassed");
+    return null;
+  }
+
   // If Supabase is suspended, return null (no user)
   if (isSupabaseSuspended) {
     return null;

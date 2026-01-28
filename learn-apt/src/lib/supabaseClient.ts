@@ -18,6 +18,9 @@
 
 import { createClient } from "@supabase/supabase-js";
 
+// Check if local content mode is enabled (for testing/QA)
+const useLocalContent = process.env.NEXT_PUBLIC_USE_LOCAL_CONTENT === "true";
+
 // Supabase project URL and public anonymous key
 // These are safe to use in the browser as they are public credentials
 // IMPORTANT: These must be set via environment variables
@@ -28,7 +31,8 @@ const supabaseAnonKey =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBsYWNlaG9sZGVyIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NDUxOTI4MDAsImV4cCI6MTk2MDc2ODgwMH0.placeholder";
 
 // Validate that Supabase credentials are configured (only in browser, not during build)
-if (typeof window !== "undefined") {
+// Skip validation if using local content mode
+if (typeof window !== "undefined" && !useLocalContent) {
   if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
     console.error(
       "Missing Supabase configuration. Please set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY in .env.local"
@@ -43,16 +47,27 @@ if (typeof window !== "undefined") {
  * Create a single Supabase client instance for the app
  * This client will be reused across the application for all Supabase operations
  * Configure cookie options for cross-subdomain authentication
+ * If local content mode is enabled, use the local content provider
  */
-export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
-  auth: {
-    // Persist session in localStorage for web apps
-    storage: typeof window !== "undefined" ? window.localStorage : undefined,
-    autoRefreshToken: true,
-    persistSession: true,
-    detectSessionInUrl: true,
-  },
-});
+let supabaseClient;
+
+if (useLocalContent && typeof window === "undefined") {
+  // Only import in Node.js environment (not browser)
+  const { createLocalContentClient } = require("../../lib/localContentProvider.js");
+  supabaseClient = createLocalContentClient();
+} else {
+  supabaseClient = createClient(supabaseUrl, supabaseAnonKey, {
+    auth: {
+      // Persist session in localStorage for web apps
+      storage: typeof window !== "undefined" ? window.localStorage : undefined,
+      autoRefreshToken: true,
+      persistSession: true,
+      detectSessionInUrl: true,
+    },
+  });
+}
+
+export const supabase = supabaseClient;
 
 /**
  * Helper function to get the currently logged-in user
