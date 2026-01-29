@@ -4,9 +4,9 @@
   "private": true,
   "description": "Learn Winning - Develop a winning mindset and success strategies",
   "scripts": {
-    "dev": "next dev -p 3015",
+    "dev": "next dev -p 3022",
     "build": "next build",
-    "start": "next start -p 3015",
+    "start": "next start -p 3022",
     "lint": "eslint ."
   },
   "dependencies": {

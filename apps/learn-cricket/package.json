@@ -4,9 +4,9 @@
   "private": true,
   "description": "Cricket Know-All - Master cricket knowledge and strategies",
   "scripts": {
-    "dev": "next dev -p 3016",
+    "dev": "next dev -p 3009",
     "build": "next build",
-    "start": "next start -p 3016",
+    "start": "next start -p 3009",
     "lint": "eslint ."
   },
   "dependencies": {

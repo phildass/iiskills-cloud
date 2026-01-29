@@ -26,7 +26,12 @@
     "validate-env": "node scripts/validate-env.js",
     "pre-deploy-check": "./scripts/pre-deploy-check.sh",
     "post-deploy-check": "./scripts/post-deploy-check.sh",
-    "verify-production": "./verify-production-config.sh"
+    "verify-production": "./verify-production-config.sh",
+    "validate-content": "node scripts/validate-content.js",
+    "validate-content:verbose": "node scripts/validate-content.js --verbose",
+    "check-orphans": "node scripts/check-orphans.js",
+    "check-orphans:json": "node scripts/check-orphans.js --json",
+    "generate:registry": "node scripts/generate-app-registry.js"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.89.0",
