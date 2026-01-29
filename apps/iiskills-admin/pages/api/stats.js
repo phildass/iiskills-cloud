@@ -1,6 +1,6 @@
 /**
- * API endpoint to fetch stats from local content
- * This endpoint loads data server-side from seeds/content.json
+ * API endpoint to fetch stats from unified content sources
+ * This endpoint aggregates data from both Supabase AND local content
  */
 
 export default async function handler(req, res) {
@@ -10,24 +10,12 @@ export default async function handler(req, res) {
   }
 
   try {
-    // Import local content provider (server-side only)
-    const { createLocalContentClient } = require('../../lib/localContentProvider.js');
-    const supabase = createLocalContentClient();
+    // Import unified content provider (server-side only)
+    const { createUnifiedContentProvider } = await import('../../../lib/unifiedContentProvider.js');
+    const provider = await createUnifiedContentProvider();
 
-    // Fetch all data
-    const [courses, profiles, modules, lessons] = await Promise.all([
-      supabase.from('courses').select('*'),
-      supabase.from('profiles').select('*'),
-      supabase.from('modules').select('*'),
-      supabase.from('lessons').select('*'),
-    ]);
-
-    const stats = {
-      totalCourses: courses.data?.length || 0,
-      totalUsers: profiles.data?.length || 0,
-      totalModules: modules.data?.length || 0,
-      totalLessons: lessons.data?.length || 0,
-    };
+    // Fetch aggregated stats from all sources
+    const stats = await provider.getStats();
 
     return res.status(200).json({ data: stats, error: null });
   } catch (error) {

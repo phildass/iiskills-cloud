@@ -33,7 +33,7 @@ export default function AdminLessons() {
   return (
     <>
       <Head>
-        <title>Manage Lessons - Admin Dashboard (LOCAL MODE)</title>
+        <title>Manage Lessons - Admin Dashboard (UNIFIED MODE)</title>
       </Head>
 
       <div className="min-h-screen bg-gray-50">
@@ -45,7 +45,7 @@ export default function AdminLessons() {
               <div>
                 <h1 className="text-3xl font-bold text-gray-900">Lessons</h1>
                 <p className="mt-2 text-sm text-gray-600">
-                  Viewing local content from seeds/content.json
+                  Viewing unified content from all sources (Supabase + Local)
                 </p>
               </div>
               <Link
@@ -85,6 +85,9 @@ export default function AdminLessons() {
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Status
                       </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Source
+                      </th>
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
@@ -106,6 +109,15 @@ export default function AdminLessons() {
                         <td className="px-6 py-4 whitespace-nowrap">
                           <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                             Active
+                          </span>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
+                            lesson._source === 'supabase' 
+                              ? 'bg-green-100 text-green-800' 
+                              : 'bg-blue-100 text-blue-800'
+                          }`}>
+                            {lesson._source === 'supabase' ? 'Supabase' : 'Local'}
                           </span>
                         </td>
                       </tr>
