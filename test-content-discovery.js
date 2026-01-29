@@ -133,7 +133,9 @@ try {
 
   process.exit(0);
 } catch (error) {
-  console.error('❌ Test failed:', error.message);
-  console.error(error.stack);
+  console.error('❌ Test failed:', error?.message || error);
+  if (error?.stack) {
+    console.error(error.stack);
+  }
   process.exit(1);
 }

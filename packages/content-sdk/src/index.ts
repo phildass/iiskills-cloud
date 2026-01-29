@@ -221,11 +221,9 @@ export function aggregateContent(manifests: ContentManifest[]): UnifiedContent[]
 
   for (const manifest of manifests) {
     for (const item of manifest.items) {
-      // Ensure app is set
-      if (!item.app) {
-        item.app = manifest.app;
-      }
-      allContent.push(item);
+      // Ensure app is set (create new object to avoid mutation)
+      const contentItem = item.app ? item : { ...item, app: manifest.app };
+      allContent.push(contentItem);
     }
   }
 
@@ -262,11 +260,20 @@ export async function loadManifest(path: string): Promise<ContentManifest> {
 
 /**
  * Generate content embeddings for semantic search
- * This is a placeholder - in production, use a proper embedding service
+ * 
+ * ⚠️ WARNING: This is a PLACEHOLDER implementation and should NOT be used in production!
+ * 
+ * For production use, integrate with:
+ * - OpenAI embeddings API (text-embedding-ada-002)
+ * - FAISS for local vector search
+ * - Pinecone for cloud vector database
+ * - Qdrant for open-source vector search
+ * 
+ * This placeholder returns a simple hash-based vector for testing purposes only.
  */
 export function generateEmbedding(content: UnifiedContent): number[] {
   // Placeholder: returns a simple hash-based embedding
-  // In production, use OpenAI embeddings, FAISS, or similar
+  // DO NOT USE IN PRODUCTION - this is not a real semantic embedding
   const text = `${content.title} ${content.description || ''} ${content.tags?.join(' ') || ''}`;
   const hash = text.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
   return Array.from({ length: 10 }, (_, i) => (hash * (i + 1)) % 100 / 100);
@@ -274,7 +281,10 @@ export function generateEmbedding(content: UnifiedContent): number[] {
 
 /**
  * Semantic search using embeddings
- * This is a placeholder implementation
+ * 
+ * ⚠️ WARNING: This is a PLACEHOLDER implementation for testing only!
+ * 
+ * For production, implement proper vector similarity search with a real embedding model.
  */
 export function semanticSearch(
   query: string,
@@ -282,7 +292,9 @@ export function semanticSearch(
   limit: number = 10
 ): UnifiedContent[] {
   // Placeholder: falls back to basic search
-  // In production, use vector similarity search
+  // In production, use vector similarity search with proper embeddings
+  
+  // Create a query object for embedding generation (marked as 'other' type as it's not real content)
   const queryEmbedding = generateEmbedding({
     id: 'query',
     type: 'other',

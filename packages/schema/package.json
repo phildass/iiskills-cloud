@@ -2,8 +2,8 @@
   "name": "@iiskills/schema",
   "version": "1.0.0",
   "description": "Unified content schema for iiskills-cloud monorepo",
-  "main": "index.ts",
-  "types": "index.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
     "lint": "eslint ."
