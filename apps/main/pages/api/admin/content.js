@@ -23,7 +23,7 @@ export default async function handler(req, res) {
   try {
     switch (method) {
       case 'GET': {
-        const { source_app, content_id, search } = query;
+        const { source_app, content_id, search, type } = query;
 
         if (search) {
           // Global search
@@ -44,6 +44,27 @@ export default async function handler(req, res) {
           // Get all content from app
           const contents = await contentManager.getAllContent(source_app);
           return res.status(200).json({ contents });
+        }
+
+        // NEW: Get all content by type from all apps
+        if (type === 'courses') {
+          const courses = await contentManager.getAllCourses();
+          return res.status(200).json({ contents: courses });
+        }
+
+        if (type === 'modules') {
+          const modules = await contentManager.getAllModules();
+          return res.status(200).json({ contents: modules });
+        }
+
+        if (type === 'lessons') {
+          const lessons = await contentManager.getAllLessons();
+          return res.status(200).json({ contents: lessons });
+        }
+
+        if (type === 'all') {
+          const all = await contentManager.getAllContentFromAllApps();
+          return res.status(200).json({ contents: all });
         }
 
         return res.status(400).json({ error: 'Missing required parameters' });
