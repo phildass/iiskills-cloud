@@ -10,6 +10,8 @@ export default async function handler(req, res) {
   }
 
   try {
+    console.log('👥 /api/users - Fetching user profiles...');
+    
     // Import unified content provider (server-side only)
     // Note: Import from repo root lib directory
     const { createUnifiedContentProvider } = await import('../../../../lib/unifiedContentProvider.js');
@@ -19,10 +21,24 @@ export default async function handler(req, res) {
     const data = await provider.getProfiles({
       order: { field: 'created_at', ascending: false },
     });
+    
+    console.log(`✅ /api/users - Success: ${data.length} profiles found`);
 
     return res.status(200).json({ data, error: null });
   } catch (error) {
-    console.error('Error in users API:', error);
-    return res.status(500).json({ error: error.message });
+    // Enhanced error logging
+    console.error('='.repeat(80));
+    console.error('❌ ERROR IN /api/users');
+    console.error('='.repeat(80));
+    console.error('Error Message:', error.message);
+    console.error('Error Stack:', error.stack);
+    console.error('Timestamp:', new Date().toISOString());
+    console.error('='.repeat(80));
+    
+    return res.status(500).json({ 
+      error: error.message,
+      stack: process.env.NODE_ENV !== 'production' ? error.stack : undefined,
+      timestamp: new Date().toISOString(),
+    });
   }
 }
