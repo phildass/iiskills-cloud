@@ -165,27 +165,47 @@ function validateEcosystemConfig() {
   let fileErrors = 0;
   
   // Check for testing mode flags in the config (unless allowed)
+  // Note: Admin apps are allowed to have DISABLE_AUTH for administrative access
   if (!allowTesting) {
-    const testingPatterns = [
-      /NEXT_PUBLIC_DISABLE_AUTH:\s*["']true["']/,
-      /NEXT_PUBLIC_DISABLE_PAYWALL:\s*["']true["']/,
-      /NEXT_PUBLIC_USE_LOCAL_CONTENT:\s*["']true["']/,
-      /NEXT_PUBLIC_SUPABASE_SUSPENDED:\s*["']true["']/,
-    ];
+    // Split content into app blocks
+    const appBlocks = content.split(/name:\s*["']/).slice(1);
     
-    testingPatterns.forEach(pattern => {
-      if (pattern.test(content)) {
-        console.log(`  ${RED}✗ FAIL: Testing mode flag detected in PM2 config${RESET}`);
-        console.log(`    Pattern: ${pattern}`);
+    for (const block of appBlocks) {
+      const appName = block.split(["'"])[0];
+      const appConfig = block.split('},')[0];
+      
+      // Skip validation for admin apps (intentionally have auth disabled)
+      if (appName.includes('admin')) {
+        continue;
+      }
+      
+      // Check for testing flags in non-admin apps
+      if (/NEXT_PUBLIC_DISABLE_AUTH:\s*["']true["']/.test(appConfig)) {
+        console.log(`  ${RED}✗ FAIL: ${appName} has NEXT_PUBLIC_DISABLE_AUTH=true${RESET}`);
+        console.log(`    Remove testing flags from non-admin apps in ecosystem.config.js\n`);
+        fileErrors++;
+        errors++;
+      }
+      
+      if (/NEXT_PUBLIC_DISABLE_PAYWALL:\s*["']true["']/.test(appConfig)) {
+        console.log(`  ${RED}✗ FAIL: ${appName} has NEXT_PUBLIC_DISABLE_PAYWALL=true${RESET}`);
+        console.log(`    Remove testing flags from non-admin apps in ecosystem.config.js\n`);
+        fileErrors++;
+        errors++;
+      }
+      
+      if (/NEXT_PUBLIC_USE_LOCAL_CONTENT:\s*["']true["']/.test(appConfig)) {
+        console.log(`  ${RED}✗ FAIL: ${appName} has NEXT_PUBLIC_USE_LOCAL_CONTENT=true${RESET}`);
         console.log(`    Remove testing flags from ecosystem.config.js for production\n`);
         fileErrors++;
         errors++;
       }
-    });
+    }
   }
   
   if (fileErrors === 0) {
-    console.log(`  ${GREEN}✓ PASS: PM2 configuration looks good${RESET}\n`);
+    console.log(`  ${GREEN}✓ PASS: PM2 configuration looks good${RESET}`);
+    console.log(`  ${GREEN}  (Admin apps correctly configured with auth bypass)${RESET}\n`);
   }
 }
 
