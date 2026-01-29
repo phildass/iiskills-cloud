@@ -5,6 +5,22 @@ Inspired by iiskills.in and customized for the Indian Institute of Professional 
 
 ## 🆕 New Features
 
+### 🔐 Multi-App Authentication System
+**Seamless authentication across all 18+ apps in the ecosystem!**
+- **Register once, access everywhere** - Single account works on all apps and subdomains
+- **Intelligent redirects** - Users stay on the app they logged into
+- **App-to-app navigation** - Navigate between apps without re-authentication
+- **Session persistence** - Automatic cross-domain session management
+- **App registry** - Centralized configuration for all apps
+- **Easy expansion** - Add new apps to the ecosystem with minimal configuration
+
+📚 **Complete Guides:**
+- [MULTI_APP_AUTH_GUIDE.md](MULTI_APP_AUTH_GUIDE.md) - Complete multi-app authentication guide
+- [SUPABASE_MULTI_APP_CONFIG.md](SUPABASE_MULTI_APP_CONFIG.md) - Supabase configuration for multi-app setup
+- [AUTHENTICATION_ARCHITECTURE.md](AUTHENTICATION_ARCHITECTURE.md) - Technical architecture overview
+
+🎯 **Demo:** Visit `/multi-app-demo` to see the system in action
+
 ### 🚀 Skilling Newsletter - AI-Powered Course Announcements
 **Automatically generated, engaging newsletters for every new course!**
 - AI-powered content generation using GPT-4o-mini

@@ -241,9 +241,10 @@ export default function UniversalRegister({
 
         // Redirect to login after a delay, using multi-app redirect logic
         const bestRedirect = getBestAuthRedirect(redirectPath);
+        const targetPath = bestRedirect?.path || redirectAfterRegister;
         const finalRedirect = redirectPath
           ? `/login?redirect=${encodeURIComponent(redirectPath)}`
-          : `/login?redirect=${encodeURIComponent(bestRedirect.path || redirectAfterRegister)}`;
+          : `/login?redirect=${encodeURIComponent(targetPath)}`;
         setTimeout(() => {
           router.push(finalRedirect);
         }, 2000);
@@ -261,7 +262,7 @@ export default function UniversalRegister({
     try {
       // Multi-App Redirect: Get the best redirect based on app registry
       const bestRedirect = getBestAuthRedirect(redirectPath);
-      const finalRedirect = bestRedirect.path || redirectAfterRegister;
+      const finalRedirect = bestRedirect?.path || redirectAfterRegister;
       const redirectUrl =
         typeof window !== "undefined" ? `${window.location.origin}${finalRedirect}` : undefined;
 

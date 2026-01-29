@@ -21,10 +21,44 @@ export default function AppSwitcher() {
   const [apps, setApps] = useState([]);
   const [currentApp, setCurrentApp] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [focusedIndex, setFocusedIndex] = useState(-1);
 
   useEffect(() => {
     loadApps();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    // Handle keyboard events when dropdown is open
+    if (!isOpen) return;
+
+    const handleKeyDown = (e) => {
+      switch (e.key) {
+        case 'Escape':
+          setIsOpen(false);
+          setFocusedIndex(-1);
+          break;
+        case 'ArrowDown':
+          e.preventDefault();
+          setFocusedIndex(prev => Math.min(prev + 1, apps.length - 1));
+          break;
+        case 'ArrowUp':
+          e.preventDefault();
+          setFocusedIndex(prev => Math.max(prev - 1, 0));
+          break;
+        case 'Enter':
+        case ' ':
+          e.preventDefault();
+          if (focusedIndex >= 0 && apps[focusedIndex]) {
+            handleAppSelect(apps[focusedIndex].id);
+          }
+          break;
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, focusedIndex, apps]);
 
   const loadApps = async () => {
     try {
@@ -86,14 +120,15 @@ export default function AppSwitcher() {
                 Switch Apps
               </div>
               
-              {apps.map((app) => (
+              {apps.map((app, index) => (
                 <button
                   key={app.id}
                   onClick={() => handleAppSelect(app.id)}
                   className={`w-full text-left px-4 py-2 text-sm hover:bg-gray-100 flex items-center justify-between ${
                     app.isCurrent ? 'bg-blue-50 text-blue-700' : 'text-gray-700'
-                  }`}
+                  } ${focusedIndex === index ? 'ring-2 ring-blue-500' : ''}`}
                   role="menuitem"
+                  tabIndex={isOpen ? 0 : -1}
                 >
                   <span className="flex items-center">
                     {app.isCurrent && (

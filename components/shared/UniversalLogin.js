@@ -76,7 +76,7 @@ export default function UniversalLogin({
         // Send magic link to user's email
         // Multi-App Redirect: Get the best redirect based on app registry and user preferences
         const bestRedirect = getBestAuthRedirect(router.query.redirect);
-        const targetPath = bestRedirect.path || redirectAfterLogin;
+        const targetPath = bestRedirect?.path || redirectAfterLogin;
         const redirectUrl =
           typeof window !== "undefined"
             ? `${window.location.origin}${targetPath}`
@@ -123,7 +123,7 @@ export default function UniversalLogin({
 
           // Multi-App Redirect: Get the best redirect based on app registry and user preferences
           const bestRedirect = getBestAuthRedirect(router.query.redirect);
-          const redirectUrl = bestRedirect.path || redirectAfterLogin;
+          const redirectUrl = bestRedirect?.path || redirectAfterLogin;
 
           // Redirect after a brief delay to show success message
           setTimeout(() => {
@@ -145,7 +145,7 @@ export default function UniversalLogin({
     try {
       // Multi-App Redirect: Get the best redirect based on app registry and user preferences
       const bestRedirect = getBestAuthRedirect(router.query.redirect);
-      const targetPath = bestRedirect.path || redirectAfterLogin;
+      const targetPath = bestRedirect?.path || redirectAfterLogin;
       const redirectUrl =
         typeof window !== "undefined"
           ? `${window.location.origin}${targetPath}`
