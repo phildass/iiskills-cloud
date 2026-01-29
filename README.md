@@ -84,89 +84,32 @@ Learn how to:
 
 ## Project Structure
 
-This is a **Yarn v4 (Berry) monorepo** with all applications organized in the `apps/` directory.
-
-### Monorepo Structure
-
-```
-iiskills-cloud/
-├── apps/                          # All workspace applications
-│   ├── main/                      # Main iiskills.cloud website
-│   ├── admin/                     # Admin dashboard (local content mode)
-│   ├── iiskills-admin/            # Legacy admin app
-│   ├── coming-soon/               # Coming soon page
-│   ├── learn-ai/                  # AI learning module
-│   ├── learn-apt/                 # Aptitude assessment
-│   ├── learn-chemistry/           # Chemistry learning
-│   ├── learn-cricket/             # Cricket knowledge
-│   ├── learn-data-science/        # Data science
-│   ├── learn-geography/           # Geography (FREE)
-│   ├── learn-govt-jobs/           # Government jobs prep
-│   ├── learn-ias/                 # UPSC Civil Services
-│   ├── learn-jee/                 # JEE preparation
-│   ├── learn-leadership/          # Leadership development
-│   ├── learn-management/          # Management skills
-│   ├── learn-math/                # Mathematics
-│   ├── learn-neet/                # NEET preparation
-│   ├── learn-physics/             # Physics mastery
-│   ├── learn-pr/                  # Public Relations
-│   └── learn-winning/             # Success strategies
-├── packages/                       # Shared packages
-│   └── core/                      # Core utilities
-├── components/                     # Shared components
-├── lib/                           # Shared libraries
-├── utils/                         # Shared utilities
-└── package.json                   # Root package.json
-
-```
-
-### Building and Running Apps
-
-The monorepo uses Yarn workspaces for dependency management. All apps are configured as workspaces and can be managed from the root.
-
-**Install dependencies:**
-```bash
-yarn install
-```
-
-**Build all apps:**
-```bash
-yarn build
-```
-
-**Run a specific app in development mode:**
-```bash
-cd apps/main && yarn dev          # Main app
-cd apps/admin && yarn dev         # Admin app
-cd apps/learn-ai && yarn dev      # Learn AI app
-# ... etc
-```
-
-**List all workspaces:**
-```bash
-yarn workspaces list
-```
-
 This repository contains multiple Next.js applications:
 
-- **Main App** (`apps/main/`) - The primary iiskills.cloud website
-- **Admin Dashboard** (`apps/admin/`) - Admin interface (local content mode)
-- **Learn-Apt** (`apps/learn-apt/`) - Aptitude assessment with AI-powered career guidance
-- **Learn-Math** (`apps/learn-math/`) - Mathematics learning module
-- **Learn-Chemistry** (`apps/learn-chemistry/`) - Chemistry mastery with AI-driven curriculum
-- **Learn-Winning** (`apps/learn-winning/`) - Success strategies and winning mindset
-- **Learn-Data-Science** (`apps/learn-data-science/`) - Data science fundamentals
-- **Learn-Management** (`apps/learn-management/`) - Management and business skills
-- **Learn-Leadership** (`apps/learn-leadership/`) - Leadership development
-- **Learn-AI** (`apps/learn-ai/`) - Artificial Intelligence fundamentals
-- **Learn-PR** (`apps/learn-pr/`) - Public Relations and communication
-- **Learn-JEE** (`apps/learn-jee/`) - JEE preparation with Physics, Chemistry, and Mathematics
-- **Learn-Geography** (`apps/learn-geography/`) - Geography and world exploration (FREE)
-- **Learn-NEET** (`apps/learn-neet/`) - Comprehensive NEET preparation (2-year paid subscription)
-- **Learn-Physics** (`apps/learn-physics/`) - Physics mastery with AI-driven lessons
-- **Learn-IAS** (`apps/learn-ias/`) - UPSC Civil Services preparation with AI-powered content (₹116.82/year)
-- **Learn-Government-Jobs** (`apps/learn-govt-jobs/`) - Government job exam preparation
-- **Learn-Cricket** (`apps/learn-cricket/`) - Cricket Know-All - Master cricket knowledge and strategies
+- **Main App** (`/`) - The primary iiskills.cloud website
+- **Learn-Apt** (`/learn-apt/`) - Aptitude assessment with AI-powered career guidance
+- **Learn-Math** (`/learn-math/`) - Mathematics learning module
+- **Learn-Chemistry** (`/learn-chemistry/`) - Chemistry mastery with AI-driven curriculum
+- **Learn-Winning** (`/learn-winning/`) - Success strategies and winning mindset
+- **Learn-Data-Science** (`/learn-data-science/`) - Data science fundamentals
+- **Learn-Management** (`/learn-management/`) - Management and business skills
+- **Learn-Leadership** (`/learn-leadership/`) - Leadership development
+- **Learn-AI** (`/learn-ai/`) - Artificial Intelligence fundamentals
+- **Learn-PR** (`/learn-pr/`) - Public Relations and communication
+
+- **Learn-JEE** (`/learn-jee/`) - JEE preparation with Physics, Chemistry, and Mathematics
+
+- **Learn-Geography** (`/learn-geography/`) - Geography and world exploration (FREE)
+
+- **Learn-JEE** (`/learn-jee/`) - JEE preparation (Physics, Chemistry, Mathematics)
+
+- **Learn-NEET** (`/learn-neet/`) - Comprehensive NEET preparation (2-year paid subscription)
+- **Learn-Physics** (`/learn-physics/`) - Physics mastery with AI-driven lessons
+- **Learn-IAS** (`/learn-ias/`) - UPSC Civil Services preparation with AI-powered content (₹116.82/year)
+
+- **Learn-Government-Jobs** (`/learn-govt-jobs/`) - Government job exam preparation
+
+- **Learn-Cricket** (`/learn-cricket/`) - Cricket Know-All - Master cricket knowledge and strategies
 
 Each app can be deployed independently on different subdomains while sharing authentication.
 

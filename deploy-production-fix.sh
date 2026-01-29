@@ -60,18 +60,18 @@ if [ -d "apps/main/.next" ]; then
 fi
 
 # Clean coming-soon app
-if [ -d "apps/coming-soon/.next" ]; then
-  echo "Cleaning apps/coming-soon/.next"
-  rm -rf apps/coming-soon/.next
+if [ -d "coming-soon/.next" ]; then
+  echo "Cleaning coming-soon/.next"
+  rm -rf coming-soon/.next
 fi
 
 # Clean all learning apps
 for app in learn-ai learn-apt learn-chemistry learn-cricket learn-data-science \
            learn-geography learn-govt-jobs learn-ias learn-jee learn-leadership \
            learn-management learn-math learn-neet learn-physics learn-pr learn-winning; do
-  if [ -d "apps/$app/.next" ]; then
-    echo "Cleaning apps/$app/.next"
-    rm -rf "apps/$app/.next"
+  if [ -d "$app/.next" ]; then
+    echo "Cleaning $app/.next"
+    rm -rf "$app/.next"
   fi
 done
 

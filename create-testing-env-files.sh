@@ -74,11 +74,11 @@ APPS=(
 
 # Create .env.local for each app
 for app in "${APPS[@]}"; do
-  if [ -d "apps/$app" ]; then
-    echo "Creating apps/$app/.env.local..."
-    create_env_file "apps/$app/.env.local" "$app"
+  if [ -d "$app" ]; then
+    echo "Creating $app/.env.local..."
+    create_env_file "$app/.env.local" "$app"
   else
-    echo "⚠️  apps/$app directory not found, skipping..."
+    echo "⚠️  $app directory not found, skipping..."
   fi
 done
 
