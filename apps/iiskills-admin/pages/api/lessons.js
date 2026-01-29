@@ -10,6 +10,8 @@ export default async function handler(req, res) {
   }
 
   try {
+    console.log('📝 /api/lessons - Fetching lessons...');
+    
     // Import unified content provider (server-side only)
     // Note: Import from repo root lib directory
     const { createUnifiedContentProvider } = await import('../../../../lib/unifiedContentProvider.js');
@@ -19,10 +21,26 @@ export default async function handler(req, res) {
     const data = await provider.getLessons({
       order: { field: 'order', ascending: true },
     });
+    
+    console.log(`✅ /api/lessons - Success: ${data.length} lessons found`);
 
     return res.status(200).json({ data, error: null });
   } catch (error) {
-    console.error('Error in lessons API:', error);
-    return res.status(500).json({ error: error.message });
+    // Enhanced error logging
+    console.error('='.repeat(80));
+    console.error('❌ ERROR IN /api/lessons');
+    console.error('='.repeat(80));
+    console.error('Error Message:', error.message);
+    console.error('Error Stack:', error.stack);
+    console.error('Timestamp:', new Date().toISOString());
+    console.error('='.repeat(80));
+    
+    return res.status(500).json({ 
+      error: error.message,
+      
+      timestamp: new Date().toISOString(),
+      // Only include stack in development
+      ...(process.env.NODE_ENV === 'development' && { stack: error.stack }),
+    });
   }
 }

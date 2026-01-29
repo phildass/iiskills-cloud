@@ -35,18 +35,27 @@ class ErrorBoundary extends React.Component {
   }
 
   componentDidCatch(error, errorInfo) {
-    // Log error details to console in development
-    if (process.env.NODE_ENV === "development") {
-      console.error("ErrorBoundary caught an error:", error, errorInfo);
-    }
+    // ALWAYS log error details to console for debugging (server-side logs)
+    console.error("=".repeat(80));
+    console.error("❌ ERROR CAUGHT BY ERROR BOUNDARY");
+    console.error("=".repeat(80));
+    console.error("Error:", error);
+    console.error("Error Message:", error.message);
+    console.error("Error Stack:", error.stack);
+    console.error("Component Stack:", errorInfo.componentStack);
+    console.error("Timestamp:", new Date().toISOString());
+    console.error("Environment:", process.env.NODE_ENV);
+    console.error("User Agent:", typeof window !== 'undefined' ? window.navigator.userAgent : 'N/A');
+    console.error("URL:", typeof window !== 'undefined' ? window.location.href : 'N/A');
+    console.error("=".repeat(80));
 
-    // Store error details in state
+    // Store error details in state (UI will show limited info in production)
     this.setState({
       error,
       errorInfo,
     });
 
-    // In production, you would send this to an error reporting service
+    // TODO: Send error to monitoring service (e.g., Sentry, LogRocket)
     // Example: logErrorToService(error, errorInfo)
   }
 
@@ -70,26 +79,44 @@ class ErrorBoundary extends React.Component {
 
             <div className="bg-red-50 border-2 border-red-300 rounded-lg p-6 mb-6">
               <p className="text-lg text-gray-800 leading-relaxed mb-4">
-                We're sorry, but something unexpected happened. Our team has been notified and we're
-                working to fix it.
+                We're sorry, but something unexpected happened. The error details have been logged 
+                for debugging.
               </p>
 
-              {process.env.NODE_ENV === "development" && this.state.error && (
+              {/* Show error details - but sanitize in production */}
+              {this.state.error && (
                 <div className="mt-4 p-4 bg-white rounded border border-red-200 overflow-auto">
-                  <p className="font-bold text-red-700 mb-2">Error Details (Development Only):</p>
-                  <p className="text-sm text-gray-700 font-mono mb-2">
-                    {this.state.error.toString()}
+                  <p className="font-bold text-red-700 mb-2">Error Details:</p>
+                  <p className="text-sm text-gray-700 font-mono mb-2 break-all">
+                    <strong>Message:</strong> {this.state.error.toString()}
                   </p>
-                  {this.state.errorInfo && (
+                  <p className="text-xs text-gray-600 mb-2">
+                    <strong>Time:</strong> {new Date().toISOString()}
+                  </p>
+                  {/* Only show full stack traces in development */}
+                  {process.env.NODE_ENV === "development" && this.state.error.stack && (
                     <details className="mt-2">
-                      <summary className="cursor-pointer text-sm text-gray-600 hover:text-gray-800">
-                        Stack Trace
+                      <summary className="cursor-pointer text-sm text-gray-600 hover:text-gray-800 font-semibold">
+                        📋 Full Stack Trace (Development Only)
                       </summary>
-                      <pre className="text-xs mt-2 p-2 bg-gray-50 rounded overflow-auto max-h-64">
-                        {this.state.errorInfo.componentStack}
+                      <pre className="text-xs mt-2 p-2 bg-gray-50 rounded overflow-auto max-h-64 whitespace-pre-wrap break-all">
+                        {this.state.error.stack}
                       </pre>
                     </details>
                   )}
+                  <div className="mt-3 p-2 bg-yellow-50 border border-yellow-200 rounded">
+                    <p className="text-xs text-yellow-800">
+                      💡 <strong>Troubleshooting Tips:</strong>
+                    </p>
+                    <ul className="text-xs text-yellow-700 mt-1 ml-4 list-disc space-y-1">
+                      <li>Check browser console (F12) for additional error messages</li>
+                      <li>Verify Supabase credentials in environment variables</li>
+                      <li>Ensure seeds/content.json exists and is valid JSON</li>
+                      <li>Check that all API endpoints are accessible</li>
+                      <li>Verify PM2 process is running: <code className="bg-yellow-100 px-1">pm2 status</code></li>
+                      <li>Check server logs: <code className="bg-yellow-100 px-1">pm2 logs iiskills-admin</code></li>
+                    </ul>
+                  </div>
                 </div>
               )}
             </div>

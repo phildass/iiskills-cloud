@@ -10,6 +10,8 @@ export default async function handler(req, res) {
   }
 
   try {
+    console.log('📊 /api/stats - Fetching statistics...');
+    
     // Import unified content provider (server-side only)
     // Note: Import from repo root lib directory
     const { createUnifiedContentProvider } = await import('../../../../lib/unifiedContentProvider.js');
@@ -18,9 +20,38 @@ export default async function handler(req, res) {
     // Fetch aggregated stats from all sources
     const stats = await provider.getStats();
 
+    console.log('✅ /api/stats - Success:', {
+      totalCourses: stats.totalCourses,
+      totalUsers: stats.totalUsers,
+      totalModules: stats.totalModules,
+      totalLessons: stats.totalLessons,
+    });
+
     return res.status(200).json({ data: stats, error: null });
   } catch (error) {
-    console.error('Error in stats API:', error);
-    return res.status(500).json({ error: error.message });
+    // Enhanced error logging
+    console.error('='.repeat(80));
+    console.error('❌ ERROR IN /api/stats');
+    console.error('='.repeat(80));
+    console.error('Error Message:', error.message);
+    console.error('Error Stack:', error.stack);
+    console.error('Request Method:', req.method);
+    console.error('Request URL:', req.url);
+    console.error('Timestamp:', new Date().toISOString());
+    console.error('Environment:', {
+      SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL ? 'SET (configured)' : 'NOT SET',
+      SUPABASE_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ? 'SET (configured)' : 'NOT SET',
+      SUPABASE_SUSPENDED: process.env.NEXT_PUBLIC_SUPABASE_SUSPENDED || 'false',
+      USE_LOCAL_CONTENT: process.env.NEXT_PUBLIC_USE_LOCAL_CONTENT || 'false',
+      NODE_ENV: process.env.NODE_ENV,
+    });
+    console.error('='.repeat(80));
+    
+    return res.status(500).json({ 
+      error: error.message,
+      timestamp: new Date().toISOString(),
+      // Only include stack in development
+      ...(process.env.NODE_ENV === 'development' && { stack: error.stack }),
+    });
   }
 }
