@@ -1,5 +1,12 @@
 # Local Content Mode for Testing and QA
 
+> **📢 NEW: Unified Admin Dashboard**  
+> The admin dashboard now **automatically aggregates content from both Supabase AND local sources**.  
+> You no longer need to enable "local content mode" - local content is always included alongside Supabase data.  
+> See [UNIFIED_ADMIN_DASHBOARD.md](../UNIFIED_ADMIN_DASHBOARD.md) for details.
+
+---
+
 This feature allows admin UIs to read content from a local JSON snapshot instead of Supabase, making it easier to test and QA without requiring a live database connection.
 
 ## Overview
