@@ -1,43 +1,14 @@
 // Production configuration - Authentication and paywalls enabled
-// All testing mode flags have been removed except for admin (intentional)
+// Only active apps are included. Inactive apps are in apps-backup/ and NOT deployed.
 // Environment validation is performed at startup
 
 module.exports = {
   apps: [
     {
-      name: "iiskills-admin",
-      script: "node_modules/.bin/next",
-      args: "start -p 3023",
-      cwd: "/root/iiskills-cloud/apps/iiskills-admin",
-      env: { 
-        NODE_ENV: "production",
-        // Admin app runs with auth disabled for administrative access
-        // This is INTENTIONAL for admin dashboard functionality
-        // The admin should be protected by other means (firewall, VPN, IP whitelist)
-        NEXT_PUBLIC_DISABLE_AUTH: "true",
-        NEXT_PUBLIC_DISABLE_PAYWALL: "true",
-        NEXT_PUBLIC_PAYWALL_ENABLED: "false"
-      }
-    },
-    {
       name: "iiskills-main",
       script: "node_modules/.bin/next",
       args: "start -p 3000",
       cwd: "/root/iiskills-cloud/apps/main",
-      env: { NODE_ENV: "production" }
-    },
-    {
-      name: "iiskills-comingsoon",
-      script: "node_modules/.bin/next",
-      args: "start -p 3019",
-      cwd: "/root/iiskills-cloud/apps/coming-soon",
-      env: { NODE_ENV: "production" }
-    },
-    {
-      name: "iiskills-learn-jee",
-      script: "node_modules/.bin/next",
-      args: "start -p 3003",
-      cwd: "/root/iiskills-cloud/apps/learn-jee",
       env: { NODE_ENV: "production" }
     },
     {
@@ -68,13 +39,7 @@ module.exports = {
       cwd: "/root/iiskills-cloud/apps/learn-cricket",
       env: { NODE_ENV: "production" }
     },
-    {
-      name: "iiskills-learn-data-science",
-      script: "node_modules/.bin/next",
-      args: "start -p 3010",
-      cwd: "/root/iiskills-cloud/apps/learn-data-science",
-      env: { NODE_ENV: "production" }
-    },
+
     {
       name: "iiskills-learn-geography",
       script: "node_modules/.bin/next",
@@ -89,13 +54,7 @@ module.exports = {
       cwd: "/root/iiskills-cloud/apps/learn-govt-jobs",
       env: { NODE_ENV: "production" }
     },
-    {
-      name: "iiskills-learn-ias",
-      script: "node_modules/.bin/next",
-      args: "start -p 3014",
-      cwd: "/root/iiskills-cloud/apps/learn-ias",
-      env: { NODE_ENV: "production" }
-    },
+
     {
       name: "iiskills-learn-leadership",
       script: "node_modules/.bin/next",
@@ -117,13 +76,7 @@ module.exports = {
       cwd: "/root/iiskills-cloud/apps/learn-math",
       env: { NODE_ENV: "production" }
     },
-    {
-      name: "iiskills-learn-neet",
-      script: "node_modules/.bin/next",
-      args: "start -p 3018",
-      cwd: "/root/iiskills-cloud/apps/learn-neet",
-      env: { NODE_ENV: "production" }
-    },
+
     {
       name: "iiskills-learn-physics",
       script: "node_modules/.bin/next",
