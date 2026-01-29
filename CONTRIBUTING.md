@@ -1,5 +1,25 @@
 # Contributing Guidelines
 
+## AI/Automation Agent Guidelines
+
+**All AI/automation agents must update DEV_AI_LOG.md with each session for handover.**
+
+When working with AI tools (GitHub Copilot, automation scripts, etc.):
+
+1. **Before starting**: Review [DEV_AI_LOG.md](DEV_AI_LOG.md) to understand previous agent sessions
+2. **After completing changes**: Append a detailed session summary to [DEV_AI_LOG.md](DEV_AI_LOG.md)
+3. **Include in summary**:
+   - Session date/time and agent used
+   - Objective and issues addressed
+   - Detailed list of changes made
+   - Testing/validation performed
+   - Status and any follow-up needed
+   - Important context for future agents
+
+**Guideline for Copilot prompts**: "After completing your changes, append a detailed session summary to ./DEV_AI_LOG.md for future Copilots/agents."
+
+This ensures continuity and knowledge transfer between different AI sessions and human developers.
+
 ## File Structure Rules
 
 ### Import Paths for Shared Components
