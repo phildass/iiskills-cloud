@@ -45,8 +45,10 @@ export default async function handler(req, res) {
     
     return res.status(500).json({ 
       error: error.message,
-      stack: process.env.NODE_ENV !== 'production' ? error.stack : undefined,
+      
       timestamp: new Date().toISOString(),
+      // Only include stack in development
+      ...(process.env.NODE_ENV === 'development' && { stack: error.stack }),
     });
   }
 }

@@ -38,19 +38,20 @@ export default async function handler(req, res) {
     console.error('Request Method:', req.method);
     console.error('Request URL:', req.url);
     console.error('Timestamp:', new Date().toISOString());
-    console.error('Environment Variables:', {
-      SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL ? 'SET' : 'NOT SET',
-      SUPABASE_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ? 'SET' : 'NOT SET',
-      SUPABASE_SUSPENDED: process.env.NEXT_PUBLIC_SUPABASE_SUSPENDED,
-      USE_LOCAL_CONTENT: process.env.NEXT_PUBLIC_USE_LOCAL_CONTENT,
+    console.error('Environment:', {
+      SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL ? 'SET (configured)' : 'NOT SET',
+      SUPABASE_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ? 'SET (configured)' : 'NOT SET',
+      SUPABASE_SUSPENDED: process.env.NEXT_PUBLIC_SUPABASE_SUSPENDED || 'false',
+      USE_LOCAL_CONTENT: process.env.NEXT_PUBLIC_USE_LOCAL_CONTENT || 'false',
       NODE_ENV: process.env.NODE_ENV,
     });
     console.error('='.repeat(80));
     
     return res.status(500).json({ 
       error: error.message,
-      stack: process.env.NODE_ENV !== 'production' ? error.stack : undefined,
       timestamp: new Date().toISOString(),
+      // Only include stack in development
+      ...(process.env.NODE_ENV === 'development' && { stack: error.stack }),
     });
   }
 }

@@ -35,7 +35,7 @@ class ErrorBoundary extends React.Component {
   }
 
   componentDidCatch(error, errorInfo) {
-    // ALWAYS log error details to console (including production for debugging)
+    // ALWAYS log error details to console for debugging (server-side logs)
     console.error("=".repeat(80));
     console.error("❌ ERROR CAUGHT BY ERROR BOUNDARY");
     console.error("=".repeat(80));
@@ -49,13 +49,13 @@ class ErrorBoundary extends React.Component {
     console.error("URL:", typeof window !== 'undefined' ? window.location.href : 'N/A');
     console.error("=".repeat(80));
 
-    // Store error details in state
+    // Store error details in state (UI will show limited info in production)
     this.setState({
       error,
       errorInfo,
     });
 
-    // In production, you would send this to an error reporting service
+    // TODO: Send error to monitoring service (e.g., Sentry, LogRocket)
     // Example: logErrorToService(error, errorInfo)
   }
 
@@ -80,10 +80,10 @@ class ErrorBoundary extends React.Component {
             <div className="bg-red-50 border-2 border-red-300 rounded-lg p-6 mb-6">
               <p className="text-lg text-gray-800 leading-relaxed mb-4">
                 We're sorry, but something unexpected happened. The error details have been logged 
-                to the console for debugging.
+                for debugging.
               </p>
 
-              {/* ALWAYS show error details in admin panel for debugging */}
+              {/* Show error details - but sanitize in production */}
               {this.state.error && (
                 <div className="mt-4 p-4 bg-white rounded border border-red-200 overflow-auto">
                   <p className="font-bold text-red-700 mb-2">Error Details:</p>
@@ -93,23 +93,14 @@ class ErrorBoundary extends React.Component {
                   <p className="text-xs text-gray-600 mb-2">
                     <strong>Time:</strong> {new Date().toISOString()}
                   </p>
-                  {this.state.error.stack && (
+                  {/* Only show full stack traces in development */}
+                  {process.env.NODE_ENV === "development" && this.state.error.stack && (
                     <details className="mt-2">
                       <summary className="cursor-pointer text-sm text-gray-600 hover:text-gray-800 font-semibold">
-                        📋 Full Stack Trace (Click to expand)
+                        📋 Full Stack Trace (Development Only)
                       </summary>
                       <pre className="text-xs mt-2 p-2 bg-gray-50 rounded overflow-auto max-h-64 whitespace-pre-wrap break-all">
                         {this.state.error.stack}
-                      </pre>
-                    </details>
-                  )}
-                  {this.state.errorInfo && (
-                    <details className="mt-2">
-                      <summary className="cursor-pointer text-sm text-gray-600 hover:text-gray-800 font-semibold">
-                        🔍 Component Stack (Click to expand)
-                      </summary>
-                      <pre className="text-xs mt-2 p-2 bg-gray-50 rounded overflow-auto max-h-64 whitespace-pre-wrap break-all">
-                        {this.state.errorInfo.componentStack}
                       </pre>
                     </details>
                   )}
@@ -123,6 +114,7 @@ class ErrorBoundary extends React.Component {
                       <li>Ensure seeds/content.json exists and is valid JSON</li>
                       <li>Check that all API endpoints are accessible</li>
                       <li>Verify PM2 process is running: <code className="bg-yellow-100 px-1">pm2 status</code></li>
+                      <li>Check server logs: <code className="bg-yellow-100 px-1">pm2 logs iiskills-admin</code></li>
                     </ul>
                   </div>
                 </div>
