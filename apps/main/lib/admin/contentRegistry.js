@@ -49,8 +49,8 @@ const APP_REGISTRY = {
     name: 'learn-cricket',
     displayName: 'Cricket Content',
     description: 'Markdown-based cricket lessons and articles',
-    contentType: 'markdown',
-    dataPath: 'apps/learn-cricket/CONTENT.md',
+    contentType: 'json',
+    dataPath: 'apps/learn-cricket/manifest.json',
     icon: '🏏',
     fields: [
       { name: 'id', label: 'Content ID', type: 'text', required: true, placeholder: 'batting-basics-001' },
@@ -167,7 +167,7 @@ const APP_REGISTRY = {
     displayName: 'Government Jobs',
     description: 'Government job listings with geographic and deadline data',
     contentType: 'json',
-    dataPath: 'apps/learn-govt-jobs/data',
+    dataPath: 'apps/learn-govt-jobs/manifest.json',
     icon: '🏢',
     fields: [
       { name: 'id', label: 'Job ID', type: 'text', required: true, placeholder: 'job-bihar-patna-clerk-001' },

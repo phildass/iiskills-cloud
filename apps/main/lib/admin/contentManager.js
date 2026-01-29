@@ -62,6 +62,65 @@ class ContentManager {
     const allApps = Object.values(APP_REGISTRY);
     const allContent = [];
 
+    // First, load seed data if it exists
+    try {
+      const seedPath = path.join(this.projectRoot, 'seeds', 'content.json');
+      if (fs.existsSync(seedPath)) {
+        const seedData = JSON.parse(fs.readFileSync(seedPath, 'utf-8'));
+        
+        // Add courses from seed data
+        if (seedData.courses && Array.isArray(seedData.courses)) {
+          seedData.courses.forEach(course => {
+            allContent.push({
+              id: course.id || course.slug,
+              appId: course.subdomain || 'seed-data',
+              title: course.title,
+              type: 'Course',
+              data: course,
+              source: 'filesystem',
+              sourceApp: course.subdomain || 'seed-data',
+              sourceBackend: 'filesystem',
+            });
+          });
+        }
+        
+        // Add modules from seed data
+        if (seedData.modules && Array.isArray(seedData.modules)) {
+          seedData.modules.forEach(module => {
+            allContent.push({
+              id: module.id || module.slug,
+              appId: module.subdomain || 'seed-data',
+              title: module.title,
+              type: 'Module',
+              data: module,
+              source: 'filesystem',
+              sourceApp: module.subdomain || 'seed-data',
+              sourceBackend: 'filesystem',
+            });
+          });
+        }
+        
+        // Add lessons from seed data
+        if (seedData.lessons && Array.isArray(seedData.lessons)) {
+          seedData.lessons.forEach(lesson => {
+            allContent.push({
+              id: lesson.id,
+              appId: lesson.subdomain || 'seed-data',
+              title: lesson.title,
+              type: 'Lesson',
+              data: lesson,
+              source: 'filesystem',
+              sourceApp: lesson.subdomain || 'seed-data',
+              sourceBackend: 'filesystem',
+            });
+          });
+        }
+      }
+    } catch (error) {
+      console.error('Error loading seed data:', error);
+    }
+
+    // Then load from each app
     for (const app of allApps) {
       try {
         const content = await this.loadAppContent(app);
@@ -79,11 +138,25 @@ class ContentManager {
    */
   async getAllCourses() {
     const allContent = await this.getAllContentFromAllApps();
-    return allContent.filter((item) => 
-      item.type === 'Course' || 
-      item.data.category || 
-      item.data.slug
-    );
+    
+    // Filter for courses - check various indicators
+    return allContent.filter((item) => {
+      // Check if type explicitly says Course
+      if (item.type === 'Course' || item.type === 'course') return true;
+      
+      // Check if data has course-specific fields
+      if (item.data.course_id || item.data.courseId) return false; // This is a module/lesson
+      if (item.data.module_id || item.data.moduleId) return false; // This is a lesson
+      
+      // Check for course-like properties
+      const hasCourseProps = (
+        item.data.slug || 
+        (item.data.category && (item.data.duration || item.data.full_description)) ||
+        item.data.subdomain
+      );
+      
+      return hasCourseProps;
+    });
   }
 
   /**
@@ -381,8 +454,14 @@ class ContentManager {
                   console.log(`Skipping ${fullPath}: ${reqError.message}`);
                 }
               } else if (entry.name.endsWith('.md')) {
-                // Parse markdown files (skip CONTENT.md as it's a doc file)
-                if (!entry.name.startsWith('README') && !entry.name.startsWith('CONTENT')) {
+                // Skip documentation files (README, CONTENT, etc.)
+                const skipFiles = ['README', 'CONTENT', 'CHANGELOG', 'LICENSE', 'CONTRIBUTING'];
+                const shouldSkip = skipFiles.some(skip => 
+                  entry.name.toUpperCase().startsWith(skip)
+                );
+                
+                if (!shouldSkip) {
+                  // Parse markdown files
                   const content = fs.readFileSync(fullPath, 'utf-8');
                   const sections = content.split(/^##\s+/m).filter(s => s.trim());
                   
