@@ -149,7 +149,9 @@ class ContentManager {
    * merge sources instead of duplicating
    */
   _addWithDeduplication(allContent, seenIds, item) {
-    const key = `${item.appId || item.sourceApp}-${item.id}`;
+    // Normalize to always use sourceApp for the key
+    const appId = item.sourceApp || item.appId;
+    const key = `${appId}-${item.id}`;
     
     if (seenIds.has(key)) {
       // Item already exists, merge source information
@@ -180,14 +182,20 @@ class ContentManager {
     }
     
     // Infer from data structure
-    if (item.lesson_id || item.lessonId || item.module_id || item.moduleId) {
+    // Lessons belong to a module (have module_id but no sub-modules)
+    if ((item.lesson_id || item.lessonId) || 
+        ((item.module_id || item.moduleId) && !item.modules)) {
       return 'Lesson';
     }
     
-    if (item.course_id || item.courseId || item.modules || (item.lessons && Array.isArray(item.lessons))) {
+    // Modules belong to a course or have sub-lessons
+    if (item.course_id || item.courseId || 
+        item.modules || 
+        (item.lessons && Array.isArray(item.lessons))) {
       return 'Module';
     }
     
+    // Courses have slug, subdomain, or are standalone content items
     if (item.slug || item.subdomain || (item.category && item.duration)) {
       return 'Course';
     }
@@ -249,12 +257,13 @@ class ContentManager {
     const allContent = await this.getAllContentFromAllApps();
     return allContent.filter((item) => {
       const itemType = (item.type || '').toLowerCase();
+      // A module has explicit type "module" OR belongs to a course OR has sub-lessons
       return (
         itemType === 'module' || 
-        item.data.module_id ||
-        item.data.moduleId ||
         item.data.course_id || // Module belongs to a course
-        item.data.courseId
+        item.data.courseId ||
+        (item.data.modules && Array.isArray(item.data.modules)) || // Has sub-modules
+        (item.data.lessons && Array.isArray(item.data.lessons)) // Has sub-lessons
       );
     });
   }
@@ -266,12 +275,15 @@ class ContentManager {
     const allContent = await this.getAllContentFromAllApps();
     return allContent.filter((item) => {
       const itemType = (item.type || '').toLowerCase();
+      // A lesson has explicit type "lesson" OR belongs to a module (but has no sub-content)
       return (
         itemType === 'lesson' ||
         item.data.lesson_id ||
         item.data.lessonId ||
-        (item.data.module_id && !item.data.modules) || // Belongs to module but has no sub-modules
-        (item.data.moduleId && !item.data.modules)
+        // Belongs to module but has no sub-modules or sub-lessons
+        ((item.data.module_id || item.data.moduleId) && 
+         !item.data.modules && 
+         !item.data.lessons)
       );
     });
   }
@@ -546,19 +558,24 @@ class ContentManager {
                       const objectStr = match[2];
                       
                       try {
-                        // Remove type annotations and convert to valid JSON
-                        let jsonStr = objectStr
+                        // Remove type annotations and convert to evaluable JavaScript
+                        // NOTE: This uses Function constructor which can execute code.
+                        // Only use with trusted content from the repository.
+                        // For production, consider using a proper TypeScript parser.
+                        let jsStr = objectStr
                           // Remove trailing semicolon
                           .replace(/;$/, '')
-                          // Remove type annotations like: key: Type = value
+                          // Remove simple type annotations like: key: Type = value
+                          // This is a simplified approach and may not handle all TS syntax
                           .replace(/:\s*[A-Z]\w+(\[\])?\s*=/g, ':')
-                          // Remove interface references
+                          // Remove 'as Type' casts
                           .replace(/as\s+\w+/g, '')
-                          // Handle nested objects and arrays more carefully
                           .trim();
                         
-                        // Try to evaluate as JS object (safer than eval)
-                        const evalFunc = new Function('return ' + jsonStr);
+                        // Use Function constructor to evaluate the object literal
+                        // SECURITY WARNING: This can execute arbitrary code
+                        // Only safe when processing trusted files from the repository
+                        const evalFunc = new Function('return ' + jsStr);
                         const data = evalFunc();
                         
                         if (data && typeof data === 'object') {
@@ -578,8 +595,11 @@ class ContentManager {
                       try {
                         // Extract just the object part
                         const objectStr = match[2];
-                        // Use Function to safely evaluate the object
-                        // This is safer than eval as it doesn't have access to local scope
+                        
+                        // Use Function constructor to evaluate the object literal
+                        // SECURITY WARNING: This can execute arbitrary code
+                        // Only safe when processing trusted files from the repository
+                        // For production with untrusted content, use a proper JS parser
                         const evalFunc = new Function('return ' + objectStr);
                         const data = evalFunc();
                         
