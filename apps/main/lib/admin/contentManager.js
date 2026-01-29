@@ -533,34 +533,62 @@ class ContentManager {
                 items.push(...this.parseContentData(appSchema, content, entry.name, fullPath));
               } else if (entry.name.endsWith('.js') || entry.name.endsWith('.ts')) {
                 // Handle JS/TS files with exported data
-                // Skip TypeScript files for now as they need compilation
-                if (entry.name.endsWith('.ts')) {
-                  console.log(`Skipping TypeScript file: ${fullPath}`);
-                  continue;
-                }
-                
                 try {
-                  // Read and parse JS files by extracting the data structure
                   const fileContent = fs.readFileSync(fullPath, 'utf-8');
                   
-                  // Extract the main data object from exports
-                  // Look for: export const variableName = { ... }
-                  const match = fileContent.match(/export\s+const\s+(\w+)\s*=\s*(\{[\s\S]*?\n\};)/);
-                  
-                  if (match) {
-                    try {
-                      // Extract just the object part
+                  // For TypeScript files, try to extract exported const data
+                  if (entry.name.endsWith('.ts')) {
+                    // Match: export const variableName = { ... };
+                    const tsMatches = fileContent.matchAll(/export\s+const\s+(\w+)\s*[:=]\s*(\{[\s\S]*?\n\};?)/g);
+                    
+                    for (const match of tsMatches) {
+                      const varName = match[1];
                       const objectStr = match[2];
-                      // Use Function to safely evaluate the object
-                      // This is safer than eval as it doesn't have access to local scope
-                      const evalFunc = new Function('return ' + objectStr);
-                      const data = evalFunc();
                       
-                      if (data && typeof data === 'object') {
-                        items.push(...this.parseContentData(appSchema, data, entry.name, fullPath));
+                      try {
+                        // Remove type annotations and convert to valid JSON
+                        let jsonStr = objectStr
+                          // Remove trailing semicolon
+                          .replace(/;$/, '')
+                          // Remove type annotations like: key: Type = value
+                          .replace(/:\s*[A-Z]\w+(\[\])?\s*=/g, ':')
+                          // Remove interface references
+                          .replace(/as\s+\w+/g, '')
+                          // Handle nested objects and arrays more carefully
+                          .trim();
+                        
+                        // Try to evaluate as JS object (safer than eval)
+                        const evalFunc = new Function('return ' + jsonStr);
+                        const data = evalFunc();
+                        
+                        if (data && typeof data === 'object') {
+                          items.push(...this.parseContentData(appSchema, data, `${entry.name}-${varName}`, fullPath));
+                        }
+                      } catch (parseError) {
+                        console.log(`Could not parse TypeScript export ${varName} from ${fullPath}: ${parseError.message}`);
                       }
-                    } catch (parseError) {
-                      console.log(`Could not parse data from ${fullPath}: ${parseError.message}`);
+                    }
+                  } else {
+                    // JavaScript files
+                    // Extract the main data object from exports
+                    // Look for: export const variableName = { ... }
+                    const match = fileContent.match(/export\s+const\s+(\w+)\s*=\s*(\{[\s\S]*?\n\};)/);
+                    
+                    if (match) {
+                      try {
+                        // Extract just the object part
+                        const objectStr = match[2];
+                        // Use Function to safely evaluate the object
+                        // This is safer than eval as it doesn't have access to local scope
+                        const evalFunc = new Function('return ' + objectStr);
+                        const data = evalFunc();
+                        
+                        if (data && typeof data === 'object') {
+                          items.push(...this.parseContentData(appSchema, data, entry.name, fullPath));
+                        }
+                      } catch (parseError) {
+                        console.log(`Could not parse data from ${fullPath}: ${parseError.message}`);
+                      }
                     }
                   }
                 } catch (fileError) {
