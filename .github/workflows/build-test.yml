@@ -74,5 +74,23 @@ jobs:
       contents: read
     
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'yarn'
+      
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+      
+      - name: Validate content schema
+        run: npm run validate-content
+      
+      - name: Check for orphans and broken links
+        run: npm run check-orphans
+      
       - name: All builds passed
         run: echo "✅ All 13 active apps built successfully - safe to merge!"
