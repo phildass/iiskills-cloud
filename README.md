@@ -153,27 +153,29 @@ This is a **Yarn v4 (Berry) monorepo** with all applications organized in the `a
 
 ```
 iiskills-cloud/
-├── apps/                          # All workspace applications
-│   ├── main/                      # Main iiskills.cloud website
-│   ├── admin/                     # Admin dashboard (local content mode)
-│   ├── iiskills-admin/            # Legacy admin app
-│   ├── coming-soon/               # Coming soon page
+├── apps/                          # All active workspace applications
+│   ├── main/                      # Main iiskills.cloud website (app.iiskills.cloud)
+│   │                              # Contains universal admin dashboard
 │   ├── learn-ai/                  # AI learning module
 │   ├── learn-apt/                 # Aptitude assessment
 │   ├── learn-chemistry/           # Chemistry learning
-│   ├── learn-cricket/             # Cricket knowledge
-│   ├── learn-data-science/        # Data science
-│   ├── learn-geography/           # Geography (FREE)
+│   ├── learn-cricket/             # Cricket knowledge (FREE)
+│   ├── learn-geography/           # Geography learning
 │   ├── learn-govt-jobs/           # Government jobs prep
-│   ├── learn-ias/                 # UPSC Civil Services
-│   ├── learn-jee/                 # JEE preparation
 │   ├── learn-leadership/          # Leadership development
 │   ├── learn-management/          # Management skills
 │   ├── learn-math/                # Mathematics
-│   ├── learn-neet/                # NEET preparation
 │   ├── learn-physics/             # Physics mastery
 │   ├── learn-pr/                  # Public Relations
 │   └── learn-winning/             # Success strategies
+├── apps-backup/                   # Archived legacy apps (not deployed)
+│   ├── admin/                     # Legacy admin app
+│   ├── coming-soon/               # Legacy coming soon page
+│   ├── iiskills-admin/            # Legacy admin dashboard
+│   ├── learn-data-science/        # Archived app
+│   ├── learn-ias/                 # Archived app
+│   ├── learn-jee/                 # Archived app
+│   └── learn-neet/                # Archived app
 ├── packages/                       # Shared packages
 │   └── core/                      # Core utilities
 ├── components/                     # Shared components
