@@ -1,22 +1,10 @@
-# Port Assignment Changes
+# Port Assignments
 
-This document describes the port assignments for all applications in the iiskills-cloud monorepo to prevent EADDRINUSE errors when running multiple apps concurrently.
+This document describes the port assignments for all active applications in the iiskills-cloud monorepo.
 
-## Problem
+## Current Port Map
 
-Multiple applications in the repository had conflicting port assignments in their `package.json` files. Specifically, five applications were all configured to use port 3009:
-
-- learn-jee
-- learn-chemistry
-- learn-geography
-- learn-neet
-- learn-physics
-
-This caused conflicts when running multiple apps simultaneously with turbo or PM2.
-
-## Solution
-
-All applications have been assigned unique, sequential ports starting from 3000. The port assignments are now consistent across both `package.json` files and `ecosystem.config.js`.
+All active applications have been assigned unique ports. The port assignments are consistent across both `package.json` files and `ecosystem.config.js`.
 
 ## Complete Port Map
 
@@ -61,18 +49,16 @@ Next.js will use the port specified in the start command. The PM2 configuration 
 When running apps individually during development, they will use the ports specified in their respective `package.json` files:
 
 ```bash
-cd learn-jee
-npm run dev  # Uses port 3008
+cd apps/learn-ai
+yarn dev  # Uses port 3001
 ```
 
 ### Running All Apps with Turbo
 
-To run all apps concurrently:
+To run all active apps concurrently:
 
 ```bash
-yarn dev --concurrency=17
-# or
-npm run dev
+yarn dev
 ```
 
 All apps will start on their assigned ports without conflicts.
@@ -84,7 +70,7 @@ When using PM2, the apps will use the same ports:
 ```bash
 pm2 start ecosystem.config.js
 # or start a specific app
-pm2 start ecosystem.config.js --only iiskills-learn-jee
+pm2 start ecosystem.config.js --only iiskills-learn-ai
 ```
 
 ### Updating Ports

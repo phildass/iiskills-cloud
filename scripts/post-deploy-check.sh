@@ -6,7 +6,7 @@
 # This script validates that the deployment was successful by:
 # 1. Checking that all PM2 processes are running
 # 2. Validating HTTP endpoints are responding
-# 3. Checking the admin health API
+# 3. Checking the main app health API
 # 4. Verifying no testing mode flags in production
 #
 # Usage: ./scripts/post-deploy-check.sh [--wait] [--rollback-on-fail]
@@ -30,7 +30,6 @@ RESET='\033[0m'
 # Configuration
 MAX_WAIT_TIME=60  # seconds
 CHECK_INTERVAL=5  # seconds
-ADMIN_PORT=3023
 MAIN_PORT=3000
 
 # Parse arguments

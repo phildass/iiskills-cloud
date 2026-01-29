@@ -201,9 +201,9 @@ yarn build
 
 **Run a specific app in development mode:**
 ```bash
-cd apps/main && yarn dev          # Main app
-cd apps/admin && yarn dev         # Admin app
-cd apps/learn-ai && yarn dev      # Learn AI app
+cd apps/main && yarn dev             # Main app (with universal admin)
+cd apps/learn-ai && yarn dev         # Learn AI app
+cd apps/learn-chemistry && yarn dev  # Learn Chemistry app
 # ... etc
 ```
 
