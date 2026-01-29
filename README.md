@@ -5,6 +5,31 @@ Inspired by iiskills.in and customized for the Indian Institute of Professional 
 
 ## 🆕 New Features
 
+### 📚 Centralized Content in Supabase (NEW!)
+**All educational content is now centralized in Supabase!**
+- **Single Source of Truth** - All courses, modules, lessons, and questions in one database
+- **Unified Schema** - Consistent structure across all 13+ learning apps
+- **Government Jobs Content** - Complete geography, deadlines, and eligibility data
+- **Trivia & Bios** - Support for cricket trivia and biographical content
+- **RESTful APIs** - 6 unified endpoints for all content types
+- **Easy Migration** - Automated scripts to import content from any source
+- **Admin Management** - Content CRUD via Supabase dashboard and APIs
+- **Future-Ready** - Extensible schema for new content types
+
+📚 **Complete Documentation:**
+- [CONTENT_CENTRALIZATION_GUIDE.md](CONTENT_CENTRALIZATION_GUIDE.md) - Complete schema and implementation guide
+- [CONTENT_API_DOCUMENTATION.md](CONTENT_API_DOCUMENTATION.md) - All API endpoint documentation
+- [CONTENT_MIGRATION_PLAYBOOK.md](CONTENT_MIGRATION_PLAYBOOK.md) - Step-by-step migration guide
+- [CONTENT_CENTRALIZATION_SUMMARY.md](CONTENT_CENTRALIZATION_SUMMARY.md) - Implementation summary
+
+🎯 **API Endpoints:**
+- `/api/content/courses` - All courses with filtering and pagination
+- `/api/content/modules` - Modules for any course
+- `/api/content/lessons` - Lessons with quiz questions
+- `/api/content/government-jobs` - Government job postings
+- `/api/content/geography` - Hierarchical geography data
+- `/api/content/trivia` - Trivia questions for all categories
+
 ### 🌍 Universal Public Content Access (CURRENT MODE)
 **All content from all learn-* apps is now publicly accessible!**
 - **No authentication required** - Full access to all courses, modules, and lessons
