@@ -223,7 +223,7 @@ export default function AdminDashboard() {
                 <p className="text-sm text-gray-600 mb-4">
                   This dashboard aggregates content from multiple sources to ensure you always see all available data.
                 </p>
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
                   {/* Supabase Source */}
                   <div className="border border-gray-200 rounded-lg p-4">
                     <div className="flex items-center mb-3">
@@ -288,6 +288,58 @@ export default function AdminDashboard() {
                         <dd className="font-medium text-gray-900">{stats.sources?.local?.lessons || 0}</dd>
                       </div>
                     </dl>
+                  </div>
+
+                  {/* Auto-Discovered Sources */}
+                  <div className="border border-gray-200 rounded-lg p-4">
+                    <div className="flex items-center mb-3">
+                      <div className="flex-shrink-0">
+                        <svg className="h-8 w-8 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+                        </svg>
+                      </div>
+                      <div className="ml-3">
+                        <h3 className="text-base font-medium text-gray-900">Auto-Discovered</h3>
+                        <p className="text-xs text-gray-500">From learn-* apps</p>
+                      </div>
+                    </div>
+                    <dl className="grid grid-cols-2 gap-2 text-sm">
+                      <div>
+                        <dt className="text-gray-500">Courses</dt>
+                        <dd className="font-medium text-gray-900">{stats.sources?.discovered?.courses || 0}</dd>
+                      </div>
+                      <div>
+                        <dt className="text-gray-500">Users</dt>
+                        <dd className="font-medium text-gray-900">{stats.sources?.discovered?.users || 0}</dd>
+                      </div>
+                      <div>
+                        <dt className="text-gray-500">Modules</dt>
+                        <dd className="font-medium text-gray-900">{stats.sources?.discovered?.modules || 0}</dd>
+                      </div>
+                      <div>
+                        <dt className="text-gray-500">Lessons</dt>
+                        <dd className="font-medium text-gray-900">{stats.sources?.discovered?.lessons || 0}</dd>
+                      </div>
+                    </dl>
+                    {stats.sources?.discovered?.sources?.length > 0 && (
+                      <div className="mt-3 pt-3 border-t border-gray-200">
+                        <p className="text-xs text-gray-600 font-medium mb-1">
+                          Discovered from {stats.sources.discovered.sources.length} app(s):
+                        </p>
+                        <div className="flex flex-wrap gap-1">
+                          {stats.sources.discovered.sources.slice(0, 5).map((source, idx) => (
+                            <span key={idx} className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-purple-100 text-purple-800">
+                              {source.app}
+                            </span>
+                          ))}
+                          {stats.sources.discovered.sources.length > 5 && (
+                            <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-800">
+                              +{stats.sources.discovered.sources.length - 5} more
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
