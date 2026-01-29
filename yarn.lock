@@ -371,6 +371,15 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@iiskills/content-sdk@workspace:packages/content-sdk":
+  version: 0.0.0-use.local
+  resolution: "@iiskills/content-sdk@workspace:packages/content-sdk"
+  dependencies:
+    "@iiskills/schema": "npm:*"
+    typescript: "npm:^5.9.3"
+  languageName: unknown
+  linkType: soft
+
 "@iiskills/core@workspace:packages/core":
   version: 0.0.0-use.local
   resolution: "@iiskills/core@workspace:packages/core"
@@ -399,6 +408,14 @@ __metadata:
     react: "npm:latest"
     react-dom: "npm:latest"
     tailwindcss: "npm:^3.4.1"
+  languageName: unknown
+  linkType: soft
+
+"@iiskills/schema@npm:*, @iiskills/schema@workspace:packages/schema":
+  version: 0.0.0-use.local
+  resolution: "@iiskills/schema@workspace:packages/schema"
+  dependencies:
+    typescript: "npm:^5.9.3"
   languageName: unknown
   linkType: soft
 
