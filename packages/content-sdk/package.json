@@ -1,0 +1,23 @@
+{
+  "name": "@iiskills/content-sdk",
+  "version": "1.0.0",
+  "description": "Content discovery and indexing SDK for iiskills-cloud",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@iiskills/schema": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3"
+  },
+  "keywords": [
+    "content",
+    "search",
+    "indexing"
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "name": "@iiskills/schema",
+  "version": "1.0.0",
+  "description": "Shared type definitions and interfaces for iiskills-cloud monorepo",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "^5.3.3"
+  },
+  "peerDependencies": {},
+  "keywords": [
+    "schema",
+    "types",
+    "unified-content"
+  ]
+}
