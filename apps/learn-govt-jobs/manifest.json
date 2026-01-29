@@ -1,0 +1,159 @@
+{
+  "app": "learn-govt-jobs",
+  "version": "1.0.0",
+  "contentTypes": ["job"],
+  "items": [
+    {
+      "id": "job-bihar-patna-clerk-001",
+      "type": "job",
+      "title": "Junior Clerk - Patna District Court",
+      "description": "Applications invited for the post of Junior Clerk in Patna District Court. Candidates must have completed 12th grade with typing skills.",
+      "tags": ["government", "clerk", "patna", "bihar", "district-court"],
+      "app": "learn-govt-jobs",
+      "url": "/jobs/bihar/patna/clerk-001",
+      "location": {
+        "country": "India",
+        "state": "Bihar",
+        "district": "Patna"
+      },
+      "deadline": "2026-03-15T23:59:59Z",
+      "status": "published",
+      "createdAt": "2026-01-15T10:00:00Z",
+      "updatedAt": "2026-01-15T10:00:00Z",
+      "customFields": {
+        "company": "Patna District Court",
+        "employmentType": "full-time",
+        "salary": {
+          "min": 25000,
+          "max": 35000,
+          "currency": "INR"
+        },
+        "requirements": [
+          "12th pass with minimum 50% marks",
+          "Typing speed: 30 WPM in English or Hindi",
+          "Age: 18-30 years"
+        ],
+        "applicationUrl": "https://patnadistrictcourt.gov.in/recruitment",
+        "eligibility": {
+          "education": "12th pass",
+          "age": { "min": 18, "max": 30 },
+          "experience": "Not required"
+        }
+      }
+    },
+    {
+      "id": "job-bihar-gaya-teacher-001",
+      "type": "job",
+      "title": "Primary Teacher - Gaya Municipal Schools",
+      "description": "Recruitment for Primary School Teachers in Gaya Municipal Corporation schools. B.Ed qualification required.",
+      "tags": ["government", "teacher", "education", "gaya", "bihar"],
+      "app": "learn-govt-jobs",
+      "url": "/jobs/bihar/gaya/teacher-001",
+      "location": {
+        "country": "India",
+        "state": "Bihar",
+        "district": "Gaya"
+      },
+      "deadline": "2026-02-28T23:59:59Z",
+      "status": "published",
+      "createdAt": "2026-01-16T10:00:00Z",
+      "updatedAt": "2026-01-16T10:00:00Z",
+      "customFields": {
+        "company": "Gaya Municipal Corporation",
+        "employmentType": "full-time",
+        "salary": {
+          "min": 35000,
+          "max": 50000,
+          "currency": "INR"
+        },
+        "requirements": [
+          "Bachelor's degree in relevant subject",
+          "B.Ed or equivalent teaching certification",
+          "Age: 21-35 years"
+        ],
+        "applicationUrl": "https://gayamc.gov.in/recruitment",
+        "eligibility": {
+          "education": "B.Ed",
+          "age": { "min": 21, "max": 35 },
+          "experience": "Freshers can apply"
+        }
+      }
+    },
+    {
+      "id": "job-maharashtra-mumbai-police-001",
+      "type": "job",
+      "title": "Constable - Mumbai Police",
+      "description": "Maharashtra Police recruitment for Constable positions in Mumbai. Physical fitness test required.",
+      "tags": ["government", "police", "constable", "mumbai", "maharashtra"],
+      "app": "learn-govt-jobs",
+      "url": "/jobs/maharashtra/mumbai/police-001",
+      "location": {
+        "country": "India",
+        "state": "Maharashtra",
+        "district": "Mumbai"
+      },
+      "deadline": "2026-04-10T23:59:59Z",
+      "status": "published",
+      "createdAt": "2026-01-17T10:00:00Z",
+      "updatedAt": "2026-01-17T10:00:00Z",
+      "customFields": {
+        "company": "Mumbai Police",
+        "employmentType": "full-time",
+        "salary": {
+          "min": 28000,
+          "max": 40000,
+          "currency": "INR"
+        },
+        "requirements": [
+          "12th pass",
+          "Height: Male 165cm, Female 155cm",
+          "Physical fitness test clearance",
+          "Age: 18-28 years"
+        ],
+        "applicationUrl": "https://mumbaipolice.gov.in/recruitment",
+        "eligibility": {
+          "education": "12th pass",
+          "age": { "min": 18, "max": 28 },
+          "physicalFitness": true
+        }
+      }
+    },
+    {
+      "id": "job-central-all-india-ias-001",
+      "type": "job",
+      "title": "IAS Officer - Civil Services Examination 2026",
+      "description": "Union Public Service Commission (UPSC) invites applications for the Civil Services Examination 2026.",
+      "tags": ["government", "ias", "upsc", "civil-services", "all-india"],
+      "app": "learn-govt-jobs",
+      "url": "/jobs/central/all-india/ias-001",
+      "location": {
+        "country": "India"
+      },
+      "deadline": "2026-03-31T23:59:59Z",
+      "status": "published",
+      "createdAt": "2026-01-18T10:00:00Z",
+      "updatedAt": "2026-01-18T10:00:00Z",
+      "customFields": {
+        "company": "Union Public Service Commission (UPSC)",
+        "employmentType": "full-time",
+        "salary": {
+          "min": 56100,
+          "max": 250000,
+          "currency": "INR"
+        },
+        "requirements": [
+          "Bachelor's degree in any discipline",
+          "Age: 21-32 years (relaxation for reserved categories)",
+          "Number of attempts: General - 6, OBC - 9, SC/ST - Unlimited"
+        ],
+        "applicationUrl": "https://upsc.gov.in/examinations/civil-services",
+        "eligibility": {
+          "education": "Bachelor's degree",
+          "age": { "min": 21, "max": 32 },
+          "nationality": "Indian"
+        }
+      }
+    }
+  ],
+  "lastUpdated": "2026-01-18T10:00:00Z"
+}

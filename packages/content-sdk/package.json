@@ -1,0 +1,17 @@
+{
+  "name": "@iiskills/content-sdk",
+  "version": "1.0.0",
+  "description": "Content discovery and management SDK for iiskills-cloud",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "scripts": {
+    "build": "tsc",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@iiskills/schema": "*"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  }
+}
