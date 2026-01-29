@@ -6,6 +6,8 @@
   "workspaces": [
     "apps/*",
     "packages/*"
+    // Note: apps-backup/* is intentionally excluded from workspaces
+    // These apps are preserved but not built/deployed
   ],
   "scripts": {
     "dev": "turbo run dev",

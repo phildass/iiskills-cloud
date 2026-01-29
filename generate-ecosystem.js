@@ -71,6 +71,11 @@ function detectApps(rootDir) {
       continue;
     }
 
+    // Skip apps-backup directory - these apps are intentionally inactive
+    if (entry.name === "apps-backup") {
+      continue;
+    }
+
     const dirPath = path.join(rootDir, entry.name);
     const pkgPath = path.join(dirPath, "package.json");
 
