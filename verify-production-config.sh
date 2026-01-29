@@ -26,22 +26,33 @@ else
   # Check for testing mode flags in NON-ADMIN apps
   # Note: Admin app intentionally has DISABLE_AUTH for administrative access
   
-  # Count total apps with testing flags
-  TESTING_COUNT=$(grep -c 'NEXT_PUBLIC_DISABLE_AUTH.*:.*"true"' ecosystem.config.js || echo "0")
+  # Check if admin app has the required flags
+  ADMIN_HAS_DISABLE_AUTH=$(grep -A 10 'name:.*"iiskills-admin"' ecosystem.config.js | grep -c 'NEXT_PUBLIC_DISABLE_AUTH.*:.*"true"' || echo "0")
   
-  # Admin app is allowed to have DISABLE_AUTH
-  # If we have more than 1 app with it, that's an error
-  if [ "$TESTING_COUNT" -gt 1 ]; then
+  if [ "$ADMIN_HAS_DISABLE_AUTH" -eq 0 ]; then
+    echo -e "${YELLOW}⚠️  Admin app missing DISABLE_AUTH flag (may be intentional)${NC}"
+    WARNINGS=$((WARNINGS + 1))
+  else
+    echo -e "${GREEN}✓ Admin app has DISABLE_AUTH (intentional for admin access)${NC}"
+  fi
+  
+  # Count total apps with DISABLE_AUTH
+  TOTAL_DISABLE_AUTH=$(grep -c 'NEXT_PUBLIC_DISABLE_AUTH.*:.*"true"' ecosystem.config.js || echo "0")
+  
+  # Should be exactly 1 (the admin app)
+  if [ "$TOTAL_DISABLE_AUTH" -gt 1 ]; then
     echo -e "${RED}✗ Found NEXT_PUBLIC_DISABLE_AUTH=true in non-admin apps${NC}"
+    echo -e "${RED}   Total apps with flag: $TOTAL_DISABLE_AUTH (expected: 1)${NC}"
     ERRORS=$((ERRORS + 1))
   else
     echo -e "${GREEN}✓ No NEXT_PUBLIC_DISABLE_AUTH=true in non-admin apps${NC}"
   fi
   
   # Check for DISABLE_PAYWALL in non-admin apps
-  PAYWALL_COUNT=$(grep -c 'NEXT_PUBLIC_DISABLE_PAYWALL.*:.*"true"' ecosystem.config.js || echo "0")
-  if [ "$PAYWALL_COUNT" -gt 1 ]; then
+  TOTAL_DISABLE_PAYWALL=$(grep -c 'NEXT_PUBLIC_DISABLE_PAYWALL.*:.*"true"' ecosystem.config.js || echo "0")
+  if [ "$TOTAL_DISABLE_PAYWALL" -gt 1 ]; then
     echo -e "${RED}✗ Found NEXT_PUBLIC_DISABLE_PAYWALL=true in non-admin apps${NC}"
+    echo -e "${RED}   Total apps with flag: $TOTAL_DISABLE_PAYWALL (expected: 1)${NC}"
     ERRORS=$((ERRORS + 1))
   else
     echo -e "${GREEN}✓ No NEXT_PUBLIC_DISABLE_PAYWALL=true in non-admin apps${NC}"
@@ -53,11 +64,6 @@ else
     ERRORS=$((ERRORS + 1))
   else
     echo -e "${GREEN}✓ No NEXT_PUBLIC_USE_LOCAL_CONTENT=true found${NC}"
-  fi
-  
-  # Verify admin app config exists
-  if grep -A 10 'name:.*"iiskills-admin"' ecosystem.config.js | grep -q 'NEXT_PUBLIC_DISABLE_AUTH.*:.*"true"'; then
-    echo -e "${GREEN}✓ Admin app has DISABLE_AUTH (intentional for admin access)${NC}"
   fi
 fi
 

@@ -26,6 +26,7 @@ export default function AdminDashboard() {
     checkAdminAuth();
     fetchStats();
     fetchSiteCounts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const checkAdminAuth = async () => {

@@ -171,7 +171,7 @@ function validateEcosystemConfig() {
     const appBlocks = content.split(/name:\s*["']/).slice(1);
     
     for (const block of appBlocks) {
-      const appName = block.split(["'"])[0];
+      const appName = block.split(/["']/)[0];
       const appConfig = block.split('},')[0];
       
       // Skip validation for admin apps (intentionally have auth disabled)

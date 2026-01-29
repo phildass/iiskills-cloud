@@ -42,8 +42,15 @@ echo ""
 # Step 4: Clean build directories
 echo -e "${CYAN}Step 4/7: Cleaning build directories${NC}"
 # Clean .next directories for main apps
-rm -rf apps/main/.next apps/iiskills-admin/.next 2>/dev/null || true
-echo "Cleaned main and admin build directories"
+if [ -d "apps/main/.next" ]; then
+  echo "Removing apps/main/.next..."
+  rm -rf apps/main/.next
+fi
+if [ -d "apps/iiskills-admin/.next" ]; then
+  echo "Removing apps/iiskills-admin/.next..."
+  rm -rf apps/iiskills-admin/.next
+fi
+echo "Build directories cleaned"
 echo ""
 
 # Step 5: Build all apps

@@ -25,6 +25,7 @@ YELLOW='\033[1;33m'
 CYAN='\033[0;36m'
 BOLD='\033[1m'
 NC='\033[0m'
+RESET='\033[0m'
 
 # Configuration
 MAX_WAIT_TIME=60  # seconds
@@ -189,17 +190,24 @@ echo ""
 echo -e "${CYAN}4. Checking for testing mode flags...${NC}"
 
 if [ -f "ecosystem.config.js" ]; then
+  # Check if admin app has the required flags (expected)
+  ADMIN_HAS_FLAGS=$(grep -A 10 'name:.*"iiskills-admin"' ecosystem.config.js | grep -c 'NEXT_PUBLIC_DISABLE_AUTH.*:.*"true"' || echo "0")
+  
+  # Count total apps with DISABLE_AUTH
+  TOTAL_DISABLE_AUTH=$(grep -c 'NEXT_PUBLIC_DISABLE_AUTH.*:.*"true"' ecosystem.config.js || echo "0")
+  
+  if [ "$ADMIN_HAS_FLAGS" -gt 0 ]; then
+    echo -e "  ${GREEN}✓ Admin app has DISABLE_AUTH (expected configuration)${NC}"
+  fi
+  
+  # If more than 1 app has the flag, non-admin apps are affected
+  if [ "$TOTAL_DISABLE_AUTH" -gt 1 ]; then
+    echo -e "  ${RED}✗ Found NEXT_PUBLIC_DISABLE_AUTH=true in non-admin apps${NC}"
+    TESTING_FLAGS_FOUND=$((TESTING_FLAGS_FOUND + 1))
+  fi
+  
+  # Check for other testing flags (should not be present)
   TESTING_FLAGS_FOUND=0
-  
-  if grep -q 'NEXT_PUBLIC_DISABLE_AUTH.*:.*"true"' ecosystem.config.js; then
-    echo -e "  ${RED}✗ Found NEXT_PUBLIC_DISABLE_AUTH=true${NC}"
-    TESTING_FLAGS_FOUND=$((TESTING_FLAGS_FOUND + 1))
-  fi
-  
-  if grep -q 'NEXT_PUBLIC_DISABLE_PAYWALL.*:.*"true"' ecosystem.config.js; then
-    echo -e "  ${RED}✗ Found NEXT_PUBLIC_DISABLE_PAYWALL=true${NC}"
-    TESTING_FLAGS_FOUND=$((TESTING_FLAGS_FOUND + 1))
-  fi
   
   if grep -q 'NEXT_PUBLIC_USE_LOCAL_CONTENT.*:.*"true"' ecosystem.config.js; then
     echo -e "  ${RED}✗ Found NEXT_PUBLIC_USE_LOCAL_CONTENT=true${NC}"
@@ -207,11 +215,10 @@ if [ -f "ecosystem.config.js" ]; then
   fi
   
   if [ $TESTING_FLAGS_FOUND -gt 0 ]; then
-    echo -e "  ${YELLOW}⚠️  Testing mode detected in ecosystem.config.js${NC}"
-    echo -e "  ${YELLOW}   This may be intentional for staging/testing environments${NC}"
-    WARNINGS=$((WARNINGS + 1))
+    echo -e "  ${RED}✗ Testing mode detected in production apps${NC}"
+    ERRORS=$((ERRORS + TESTING_FLAGS_FOUND))
   else
-    echo -e "  ${GREEN}✓ No testing mode flags in ecosystem.config.js${NC}"
+    echo -e "  ${GREEN}✓ No unexpected testing mode flags${NC}"
   fi
 else
   echo -e "  ${YELLOW}⚠️  ecosystem.config.js not found${NC}"
