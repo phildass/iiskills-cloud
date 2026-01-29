@@ -16,19 +16,13 @@
 import { createClient } from "@supabase/supabase-js";
 import { getCookieDomain } from "../utils/urlHelper";
 
-// Check if local content mode is enabled (for testing/QA)
-const useLocalContent = process.env.NEXT_PUBLIC_USE_LOCAL_CONTENT === "true";
-
-// Check if Supabase is suspended for maintenance/content review
-const isSupabaseSuspended = process.env.NEXT_PUBLIC_SUPABASE_SUSPENDED === "true";
-
 // Supabase project URL and public anonymous key
 // These must be set via environment variables in .env.local
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
 // Validation constants
-const PLACEHOLDER_URL_PATTERNS = ["your-project", "xyz", "xyzcompany", "abc123"];
+const PLACEHOLDER_URL_PATTERNS = ["your-project", "xyz", "xyzcompany", "abc123", "placeholder"];
 const MIN_ANON_KEY_LENGTH = 20; // Supabase anon keys are typically much longer
 
 // Check for missing or placeholder values
@@ -37,6 +31,7 @@ const hasPlaceholderUrl =
   !supabaseUrl ||
   supabaseUrl === "your-project-url-here" ||
   supabaseUrl === "https://your-project.supabase.co" ||
+  supabaseUrl === "https://placeholder.supabase.co" ||
   supabaseUrl.match(
     new RegExp(`^https?://(${PLACEHOLDER_URL_PATTERNS.join("|")}).*\\.supabase\\.co$`, "i")
   );
@@ -44,11 +39,12 @@ const hasPlaceholderUrl =
 const hasPlaceholderKey =
   !supabaseAnonKey ||
   supabaseAnonKey === "your-anon-key-here" ||
+  supabaseAnonKey === "placeholder-key-not-used-in-local-mode" ||
   supabaseAnonKey.startsWith("eyJhbGciOi...") ||
   supabaseAnonKey.length < MIN_ANON_KEY_LENGTH;
 
-// Skip validation if Supabase is suspended or using local content mode
-if (!isSupabaseSuspended && !useLocalContent && (!supabaseUrl || !supabaseAnonKey || hasPlaceholderUrl || hasPlaceholderKey)) {
+// ALWAYS require valid Supabase credentials - no local mode or suspended mode
+if (!supabaseUrl || !supabaseAnonKey || hasPlaceholderUrl || hasPlaceholderKey) {
   const errorMessage = `
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ⚠️  SUPABASE CONFIGURATION ERROR
@@ -96,214 +92,36 @@ For more information, see:
 
 // Create a single Supabase client instance for the app
 // This client will be reused across the application for all Supabase operations
-// Configure cookie options for cross-subdomain authentication
-// If Supabase is suspended, create a mock client
-// If local content mode is enabled, use the local content provider
-let supabaseClient;
-
-if (useLocalContent) {
-  // Only import in Node.js environment (not browser)
-  if (typeof window === "undefined") {
-    const { createLocalContentClient } = require("./localContentProvider.js");
-    supabaseClient = createLocalContentClient();
-  } else {
-    console.warn("⚠️ Local content mode is only supported in server-side/Node.js environment");
-    supabaseClient = isSupabaseSuspended
-      ? createMockSupabaseClient()
-      : createClient(supabaseUrl, supabaseAnonKey, {
-          auth: {
-            storage: window.localStorage,
-            autoRefreshToken: true,
-            persistSession: true,
-            detectSessionInUrl: true,
-            cookieOptions: {
-              domain: getCookieDomain(),
-              secure: window.location.protocol === "https:",
-              sameSite: "lax",
-            },
-          },
-        });
-  }
-} else if (isSupabaseSuspended) {
-  supabaseClient = createMockSupabaseClient();
-} else {
-  supabaseClient = createClient(supabaseUrl, supabaseAnonKey, {
-    auth: {
-      // Persist session in cookies for cross-subdomain support
-      storage: typeof window !== "undefined" ? window.localStorage : undefined,
-      autoRefreshToken: true,
-      persistSession: true,
-      detectSessionInUrl: true,
-      // Cookie options for cross-subdomain authentication
-      cookieOptions: {
-        domain: getCookieDomain(),
-        // Secure cookies in production
-        secure:
-          typeof window !== "undefined"
-            ? window.location.protocol === "https:"
-            : process.env.NODE_ENV === "production",
-        sameSite: "lax",
-      },
+// ALWAYS use real Supabase connection - no mock/local mode
+const supabaseClient = createClient(supabaseUrl, supabaseAnonKey, {
+  auth: {
+    // Persist session in cookies for cross-subdomain support
+    storage: typeof window !== "undefined" ? window.localStorage : undefined,
+    autoRefreshToken: true,
+    persistSession: true,
+    detectSessionInUrl: true,
+    // Cookie options for cross-subdomain authentication
+    cookieOptions: {
+      domain: getCookieDomain(),
+      // Secure cookies in production
+      secure:
+        typeof window !== "undefined"
+          ? window.location.protocol === "https:"
+          : process.env.NODE_ENV === "production",
+      sameSite: "lax",
     },
-  });
-}
+  },
+});
 
 export const supabase = supabaseClient;
 
 /**
- * Create a mock Supabase client when Supabase is suspended
- * This allows the app to run without a database connection
- */
-function createMockSupabaseClient() {
-  console.warn(
-    "⚠️ SUPABASE SUSPENDED MODE: Running without database connection. All auth operations will return mock data."
-  );
-
-  // Helper to create a chainable query mock that returns empty results
-  const createQueryChain = () => {
-    const chain = {
-      select: () => chain,
-      insert: () => chain,
-      update: () => chain,
-      upsert: () => chain,
-      delete: () => chain,
-      eq: () => chain,
-      neq: () => chain,
-      gt: () => chain,
-      gte: () => chain,
-      lt: () => chain,
-      lte: () => chain,
-      like: () => chain,
-      ilike: () => chain,
-      is: () => chain,
-      in: () => chain,
-      contains: () => chain,
-      containedBy: () => chain,
-      range: () => chain,
-      match: () => chain,
-      not: () => chain,
-      or: () => chain,
-      filter: () => chain,
-      order: () => chain,
-      limit: () => chain,
-      range: () => chain,
-      single: async () => ({
-        data: null,
-        error: null,
-      }),
-      maybeSingle: async () => ({
-        data: null,
-        error: null,
-      }),
-      then: async (resolve) => {
-        // Return empty array instead of error for better UX in admin app
-        const result = {
-          data: [],
-          error: null,
-        };
-        return resolve ? resolve(result) : result;
-      },
-    };
-    return chain;
-  };
-
-  return {
-    auth: {
-      getSession: async () => ({
-        data: { session: null },
-        error: null,
-      }),
-      getUser: async () => ({
-        data: { user: null },
-        error: null,
-      }),
-      signOut: async () => ({ error: null }),
-      signInWithPassword: async () => ({
-        data: { user: null, session: null },
-        error: { message: "Supabase is currently suspended" },
-      }),
-      signInWithOtp: async () => ({
-        data: null,
-        error: { message: "Supabase is currently suspended" },
-      }),
-      signInWithOAuth: async () => ({
-        data: null,
-        error: { message: "Supabase is currently suspended" },
-      }),
-      signUp: async () => ({
-        data: { user: null, session: null },
-        error: { message: "Supabase is currently suspended" },
-      }),
-      resetPasswordForEmail: async () => ({
-        data: null,
-        error: { message: "Supabase is currently suspended" },
-      }),
-      updateUser: async () => ({
-        data: { user: null },
-        error: { message: "Supabase is currently suspended" },
-      }),
-      onAuthStateChange: () => ({
-        data: { subscription: { unsubscribe: () => {} } },
-      }),
-    },
-    from: () => createQueryChain(),
-    rpc: async () => ({
-      data: null,
-      error: { message: "Supabase is currently suspended" },
-    }),
-    storage: {
-      from: () => ({
-        upload: async () => ({
-          data: null,
-          error: { message: "Supabase is currently suspended" },
-        }),
-        download: async () => ({
-          data: null,
-          error: { message: "Supabase is currently suspended" },
-        }),
-        list: async () => ({
-          data: [],
-          error: null,
-        }),
-        remove: async () => ({
-          data: null,
-          error: { message: "Supabase is currently suspended" },
-        }),
-        createSignedUrl: async () => ({
-          data: null,
-          error: { message: "Supabase is currently suspended" },
-        }),
-        getPublicUrl: () => ({
-          data: { publicUrl: "" },
-        }),
-      }),
-    },
-  };
-}
-
-/**
  * Helper function to get the currently logged-in user
+ * Note: Admin panel bypasses authentication, but this function is available for future use
  *
  * @returns {Promise<Object|null>} User object if authenticated, null otherwise
- *
- * Example usage:
- * const user = await getCurrentUser()
- * if (user) {
- *   console.log('Logged in as:', user.email)
- * }
  */
 export async function getCurrentUser() {
-  // If local content mode is enabled, return null (no auth in local mode)
-  if (useLocalContent) {
-    console.log("⚠️ Local content mode: Authentication bypassed");
-    return null;
-  }
-
-  // If Supabase is suspended, return null (no user)
-  if (isSupabaseSuspended) {
-    return null;
-  }
-
   try {
     // Get the current session from Supabase
     const {
@@ -326,26 +144,11 @@ export async function getCurrentUser() {
 
 /**
  * Helper function to sign out the current user
+ * Note: Admin panel bypasses authentication, but this function is available for future use
  *
  * @returns {Promise<Object>} Object with success status and optional error
- *
- * Example usage:
- * const { success, error } = await signOutUser()
- * if (success) {
- *   router.push('/login')
- * }
  */
 export async function signOutUser() {
-  // If local content mode is enabled, return success (no-op)
-  if (useLocalContent) {
-    return { success: true };
-  }
-
-  // If Supabase is suspended, return success (no-op)
-  if (isSupabaseSuspended) {
-    return { success: true };
-  }
-
   try {
     const { error } = await supabase.auth.signOut();
 
@@ -363,34 +166,13 @@ export async function signOutUser() {
 
 /**
  * Helper function to sign in with email and password
+ * Note: Admin panel bypasses authentication, but this function is available for future use
  *
  * @param {string} email - User's email address
  * @param {string} password - User's password
  * @returns {Promise<Object>} Object with user data or error
- *
- * Example usage:
- * const { user, error } = await signInWithEmail(email, password)
- * if (user) {
- *   console.log('Signed in successfully')
- * }
  */
 export async function signInWithEmail(email, password) {
-  // If local content mode is enabled, return error
-  if (useLocalContent) {
-    return {
-      user: null,
-      error: "Authentication is not available in local content mode.",
-    };
-  }
-
-  // If Supabase is suspended, return error
-  if (isSupabaseSuspended) {
-    return {
-      user: null,
-      error: "Authentication is temporarily suspended. Please try again later.",
-    };
-  }
-
   try {
     const { data, error } = await supabase.auth.signInWithPassword({
       email,
@@ -410,34 +192,13 @@ export async function signInWithEmail(email, password) {
 
 /**
  * Helper function to send a magic link (passwordless sign-in email)
+ * Note: Admin panel bypasses authentication, but this function is available for future use
  *
  * @param {string} email - User's email address
  * @param {string} redirectTo - Optional custom redirect URL (defaults to current page)
  * @returns {Promise<Object>} Object with success status or error
- *
- * Example usage:
- * const { success, error } = await sendMagicLink(email)
- * if (success) {
- *   console.log('Magic link sent! Check your email.')
- * }
  */
 export async function sendMagicLink(email, redirectTo = null) {
-  // If local content mode is enabled, return error
-  if (useLocalContent) {
-    return {
-      success: false,
-      error: "Authentication is not available in local content mode.",
-    };
-  }
-
-  // If Supabase is suspended, return error
-  if (isSupabaseSuspended) {
-    return {
-      success: false,
-      error: "Authentication is temporarily suspended. Please try again later.",
-    };
-  }
-
   try {
     // Dynamic domain detection: Use provided redirect, fall back to current page, then env var
     // This ensures users stay on the same domain after auth (important for multi-domain setups)
@@ -467,30 +228,12 @@ export async function sendMagicLink(email, redirectTo = null) {
 
 /**
  * Helper function to sign in with Google OAuth
+ * Note: Admin panel bypasses authentication, but this function is available for future use
  *
  * @param {string} redirectTo - Optional custom redirect URL (defaults to current page)
  * @returns {Promise<Object>} Object with success status or error
- *
- * Example usage:
- * const { success, error } = await signInWithGoogle()
  */
 export async function signInWithGoogle(redirectTo = null) {
-  // If local content mode is enabled, return error
-  if (useLocalContent) {
-    return {
-      success: false,
-      error: "Authentication is not available in local content mode.",
-    };
-  }
-
-  // If Supabase is suspended, return error
-  if (isSupabaseSuspended) {
-    return {
-      success: false,
-      error: "Authentication is temporarily suspended. Please try again later.",
-    };
-  }
-
   try {
     // Dynamic domain detection: Use provided redirect, fall back to current page, then env var
     // This ensures users stay on the same domain after auth (important for multi-domain setups)
@@ -535,26 +278,9 @@ export async function signInWithGoogle(redirectTo = null) {
  *
  * @param {Object} user - User object from Supabase
  * @returns {Promise<boolean>} True if user is admin
- *
- * Example usage:
- * const user = await getCurrentUser()
- * const hasAdminAccess = await isAdmin(user)
- * if (hasAdminAccess) {
- *   // Show admin UI
- * }
  */
 export async function isAdmin(user) {
   if (!user) return false;
-
-  // If local content mode is enabled, return false (no admin in local mode)
-  if (useLocalContent) {
-    return false;
-  }
-
-  // If Supabase is suspended, return false (no admin access)
-  if (isSupabaseSuspended) {
-    return false;
-  }
 
   // Hardcoded admin emails - always grant admin access
   const adminEmails = ["pda.indian@gmail.com", "pda.indian@gvmail.com"];
@@ -595,25 +321,9 @@ export async function isAdmin(user) {
  *
  * @param {Object} user - User object from Supabase
  * @returns {Promise<boolean>} True if user has paid/registered
- *
- * Example usage:
- * const hasPaid = await checkUserPaymentStatus(user)
- * if (hasPaid) {
- *   // Grant access to paid content
- * }
  */
 export async function checkUserPaymentStatus(user) {
   if (!user) return false;
-
-  // If local content mode is enabled, return false (no payment verification)
-  if (useLocalContent) {
-    return false;
-  }
-
-  // If Supabase is suspended, return false (no paid access)
-  if (isSupabaseSuspended) {
-    return false;
-  }
 
   try {
     // Check user metadata for payment status

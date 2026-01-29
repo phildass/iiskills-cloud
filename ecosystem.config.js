@@ -10,13 +10,10 @@ module.exports = {
       cwd: "/root/iiskills-cloud/apps/iiskills-admin",
       env: { 
         NODE_ENV: "production",
-        // Admin app runs in LOCAL CONTENT MODE ONLY
-        NEXT_PUBLIC_USE_LOCAL_CONTENT: "true",
-        NEXT_PUBLIC_SUPABASE_SUSPENDED: "true",
+        // Admin app runs with authentication bypass for open access
         NEXT_PUBLIC_DISABLE_AUTH: "true",
         NEXT_PUBLIC_DISABLE_PAYWALL: "true",
-        NEXT_PUBLIC_PAYWALL_ENABLED: "false",
-        NEXT_PUBLIC_TESTING_MODE: "true"
+        NEXT_PUBLIC_PAYWALL_ENABLED: "false"
       }
     },
     {

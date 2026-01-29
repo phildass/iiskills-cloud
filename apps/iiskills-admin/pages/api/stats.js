@@ -1,7 +1,9 @@
 /**
- * API endpoint to fetch stats from local content
- * This endpoint loads data server-side from seeds/content.json
+ * API endpoint to fetch statistics from Supabase
+ * This endpoint loads real data from the production Supabase database
  */
+
+import { supabase } from '../../lib/supabaseClient';
 
 export default async function handler(req, res) {
   // Only allow GET requests
@@ -10,17 +12,19 @@ export default async function handler(req, res) {
   }
 
   try {
-    // Import local content provider (server-side only)
-    const { createLocalContentClient } = require('../../lib/localContentProvider.js');
-    const supabase = createLocalContentClient();
-
-    // Fetch all data
+    // Fetch all data from Supabase
     const [courses, profiles, modules, lessons] = await Promise.all([
       supabase.from('courses').select('*'),
       supabase.from('profiles').select('*'),
       supabase.from('modules').select('*'),
       supabase.from('lessons').select('*'),
     ]);
+
+    // Check for errors
+    if (courses.error) throw new Error(`Courses error: ${courses.error.message}`);
+    if (profiles.error) throw new Error(`Profiles error: ${profiles.error.message}`);
+    if (modules.error) throw new Error(`Modules error: ${modules.error.message}`);
+    if (lessons.error) throw new Error(`Lessons error: ${lessons.error.message}`);
 
     const stats = {
       totalCourses: courses.data?.length || 0,

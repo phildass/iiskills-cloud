@@ -1,7 +1,9 @@
 /**
- * API endpoint to fetch modules from local content
- * This endpoint loads data server-side from seeds/content.json
+ * API endpoint to fetch modules from Supabase
+ * This endpoint loads real data from the production Supabase database
  */
+
+import { supabase } from '../../lib/supabaseClient';
 
 export default async function handler(req, res) {
   // Only allow GET requests
@@ -10,10 +12,6 @@ export default async function handler(req, res) {
   }
 
   try {
-    // Import local content provider (server-side only)
-    const { createLocalContentClient } = require('../../lib/localContentProvider.js');
-    const supabase = createLocalContentClient();
-
     // Execute query
     const { data, error } = await supabase
       .from('modules')
