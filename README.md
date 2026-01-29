@@ -135,6 +135,49 @@ NEXT_PUBLIC_PAYWALL_ENABLED=false  # No paywall
 - ✅ All migrations are idempotent (safe to re-run)
 - ✅ No manual data entry required!
 
+### 🔍 Content Quality & Validation Tools (NEW!)
+**Automated content validation and quality assurance for all learning apps!**
+- **Universal Content Schema** - Standardized JSON schema for courses, modules, and lessons
+- **Content Validator** - Validates all content files for required fields and schema compliance
+- **Orphan Checker** - Detects orphaned content and broken parent-child links
+- **Duplicate ID Detection** - Finds duplicate IDs across all apps
+- **Auto App Registry** - Automatically discovers and registers new apps
+- **CI Integration** - Run validators in CI/CD pipelines
+
+📚 **Quick Commands:**
+```bash
+# Validate all content files
+npm run validate-content
+
+# Check for orphans and broken links
+npm run check-orphans
+
+# Generate app registry from apps/
+npm run generate:registry
+
+# Validate specific app
+npm run validate-content -- --app=learn-ai --verbose
+npm run check-orphans -- --app=learn-cricket
+```
+
+📋 **Content Structure:**
+Each learning app maintains content in standardized directories:
+```
+apps/learn-*/
+├── content/
+│   ├── courses/    # Course definitions (JSON)
+│   ├── modules/    # Module definitions (JSON)
+│   └── lessons/    # Lesson content (JSON)
+```
+
+📖 **Complete Guides:**
+- [ADDING_NEW_APP.md](ADDING_NEW_APP.md) - Complete guide to adding new learning apps
+- [ROUTING_CONFIGURATION.md](ROUTING_CONFIGURATION.md) - Domain routing and Nginx/Traefik setup
+- [lib/contentSchema.js](lib/contentSchema.js) - Content schema reference
+
+🔧 **Admin API:**
+- `/api/admin/check-orphans` - REST API for orphan detection (supports `?app=learn-ai` filter)
+
 ## 🌟 New to iiskills.cloud?
 
 **See our [ONBOARDING.md](ONBOARDING.md) guide to get started!**
