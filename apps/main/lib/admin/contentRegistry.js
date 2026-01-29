@@ -3,32 +3,7 @@
  * This is the central registry for the Universal Admin Dashboard
  */
 
-export interface AppSchema {
-  id: string;
-  name: string;
-  displayName: string;
-  description: string;
-  contentType: 'json' | 'markdown' | 'typescript';
-  dataPath: string;
-  fields: FieldDefinition[];
-  icon?: string;
-}
-
-export interface FieldDefinition {
-  name: string;
-  label: string;
-  type: 'text' | 'textarea' | 'number' | 'date' | 'select' | 'multiselect' | 'nested' | 'array';
-  required?: boolean;
-  options?: { label: string; value: string }[];
-  placeholder?: string;
-  validation?: {
-    min?: number;
-    max?: number;
-    pattern?: string;
-  };
-}
-
-export const APP_REGISTRY: Record<string, AppSchema> = {
+const APP_REGISTRY = {
   'learn-apt': {
     id: 'learn-apt',
     name: 'learn-apt',
@@ -38,26 +13,9 @@ export const APP_REGISTRY: Record<string, AppSchema> = {
     dataPath: 'apps/learn-apt/manifest.json',
     icon: '🧠',
     fields: [
-      {
-        name: 'id',
-        label: 'Test ID',
-        type: 'text',
-        required: true,
-        placeholder: 'logical-reasoning-001',
-      },
-      {
-        name: 'title',
-        label: 'Test Title',
-        type: 'text',
-        required: true,
-        placeholder: 'Logical Reasoning Test',
-      },
-      {
-        name: 'description',
-        label: 'Description',
-        type: 'textarea',
-        required: true,
-      },
+      { name: 'id', label: 'Test ID', type: 'text', required: true, placeholder: 'logical-reasoning-001' },
+      { name: 'title', label: 'Test Title', type: 'text', required: true, placeholder: 'Logical Reasoning Test' },
+      { name: 'description', label: 'Description', type: 'textarea', required: true },
       {
         name: 'difficulty',
         label: 'Difficulty Level',
@@ -69,20 +27,8 @@ export const APP_REGISTRY: Record<string, AppSchema> = {
           { label: 'Advanced', value: 'advanced' },
         ],
       },
-      {
-        name: 'duration',
-        label: 'Duration (minutes)',
-        type: 'number',
-        required: true,
-        validation: { min: 5, max: 180 },
-      },
-      {
-        name: 'totalQuestions',
-        label: 'Total Questions',
-        type: 'number',
-        required: true,
-        validation: { min: 1, max: 100 },
-      },
+      { name: 'duration', label: 'Duration (minutes)', type: 'number', required: true, validation: { min: 5, max: 180 } },
+      { name: 'totalQuestions', label: 'Total Questions', type: 'number', required: true, validation: { min: 1, max: 100 } },
       {
         name: 'category',
         label: 'Category',
@@ -107,20 +53,8 @@ export const APP_REGISTRY: Record<string, AppSchema> = {
     dataPath: 'apps/learn-cricket/CONTENT.md',
     icon: '🏏',
     fields: [
-      {
-        name: 'id',
-        label: 'Content ID',
-        type: 'text',
-        required: true,
-        placeholder: 'batting-basics-001',
-      },
-      {
-        name: 'title',
-        label: 'Title',
-        type: 'text',
-        required: true,
-        placeholder: 'Batting Basics',
-      },
+      { name: 'id', label: 'Content ID', type: 'text', required: true, placeholder: 'batting-basics-001' },
+      { name: 'title', label: 'Title', type: 'text', required: true, placeholder: 'Batting Basics' },
       {
         name: 'type',
         label: 'Content Type',
@@ -132,24 +66,9 @@ export const APP_REGISTRY: Record<string, AppSchema> = {
           { label: 'Sports Guide', value: 'sports' },
         ],
       },
-      {
-        name: 'description',
-        label: 'Description',
-        type: 'textarea',
-        required: true,
-      },
-      {
-        name: 'objectives',
-        label: 'Learning Objectives',
-        type: 'array',
-        placeholder: 'Add learning objective',
-      },
-      {
-        name: 'content',
-        label: 'Content (Markdown)',
-        type: 'textarea',
-        required: true,
-      },
+      { name: 'description', label: 'Description', type: 'textarea', required: true },
+      { name: 'objectives', label: 'Learning Objectives', type: 'array', placeholder: 'Add learning objective' },
+      { name: 'content', label: 'Content (Markdown)', type: 'textarea', required: true },
     ],
   },
   
@@ -162,20 +81,8 @@ export const APP_REGISTRY: Record<string, AppSchema> = {
     dataPath: 'apps/learn-jee/manifest.json',
     icon: '📚',
     fields: [
-      {
-        name: 'id',
-        label: 'Lesson ID',
-        type: 'text',
-        required: true,
-        placeholder: 'physics-mechanics-001',
-      },
-      {
-        name: 'title',
-        label: 'Lesson Title',
-        type: 'text',
-        required: true,
-        placeholder: 'Introduction to Mechanics',
-      },
+      { name: 'id', label: 'Lesson ID', type: 'text', required: true, placeholder: 'physics-mechanics-001' },
+      { name: 'title', label: 'Lesson Title', type: 'text', required: true, placeholder: 'Introduction to Mechanics' },
       {
         name: 'subject',
         label: 'Subject',
@@ -187,12 +94,7 @@ export const APP_REGISTRY: Record<string, AppSchema> = {
           { label: 'Mathematics', value: 'mathematics' },
         ],
       },
-      {
-        name: 'description',
-        label: 'Description',
-        type: 'textarea',
-        required: true,
-      },
+      { name: 'description', label: 'Description', type: 'textarea', required: true },
       {
         name: 'difficulty',
         label: 'Difficulty',
@@ -203,11 +105,7 @@ export const APP_REGISTRY: Record<string, AppSchema> = {
           { label: 'Hard', value: 'hard' },
         ],
       },
-      {
-        name: 'objectives',
-        label: 'Learning Objectives',
-        type: 'array',
-      },
+      { name: 'objectives', label: 'Learning Objectives', type: 'array' },
     ],
   },
   
@@ -220,19 +118,8 @@ export const APP_REGISTRY: Record<string, AppSchema> = {
     dataPath: 'apps/learn-neet/manifest.json',
     icon: '🔬',
     fields: [
-      {
-        name: 'id',
-        label: 'Lesson ID',
-        type: 'text',
-        required: true,
-        placeholder: 'biology-cell-001',
-      },
-      {
-        name: 'title',
-        label: 'Lesson Title',
-        type: 'text',
-        required: true,
-      },
+      { name: 'id', label: 'Lesson ID', type: 'text', required: true, placeholder: 'biology-cell-001' },
+      { name: 'title', label: 'Lesson Title', type: 'text', required: true },
       {
         name: 'subject',
         label: 'Subject',
@@ -244,12 +131,7 @@ export const APP_REGISTRY: Record<string, AppSchema> = {
           { label: 'Chemistry', value: 'chemistry' },
         ],
       },
-      {
-        name: 'description',
-        label: 'Description',
-        type: 'textarea',
-        required: true,
-      },
+      { name: 'description', label: 'Description', type: 'textarea', required: true },
     ],
   },
   
@@ -262,18 +144,8 @@ export const APP_REGISTRY: Record<string, AppSchema> = {
     dataPath: 'apps/learn-ias/manifest.json',
     icon: '🏛️',
     fields: [
-      {
-        name: 'id',
-        label: 'Content ID',
-        type: 'text',
-        required: true,
-      },
-      {
-        name: 'title',
-        label: 'Title',
-        type: 'text',
-        required: true,
-      },
+      { name: 'id', label: 'Content ID', type: 'text', required: true },
+      { name: 'title', label: 'Title', type: 'text', required: true },
       {
         name: 'category',
         label: 'Category',
@@ -285,12 +157,7 @@ export const APP_REGISTRY: Record<string, AppSchema> = {
           { label: 'Optional Subject', value: 'optional' },
         ],
       },
-      {
-        name: 'description',
-        label: 'Description',
-        type: 'textarea',
-        required: true,
-      },
+      { name: 'description', label: 'Description', type: 'textarea', required: true },
     ],
   },
   
@@ -303,20 +170,8 @@ export const APP_REGISTRY: Record<string, AppSchema> = {
     dataPath: 'apps/learn-govt-jobs/data',
     icon: '🏢',
     fields: [
-      {
-        name: 'id',
-        label: 'Job ID',
-        type: 'text',
-        required: true,
-        placeholder: 'job-bihar-patna-clerk-001',
-      },
-      {
-        name: 'title',
-        label: 'Job Title',
-        type: 'text',
-        required: true,
-        placeholder: 'Junior Clerk',
-      },
+      { name: 'id', label: 'Job ID', type: 'text', required: true, placeholder: 'job-bihar-patna-clerk-001' },
+      { name: 'title', label: 'Job Title', type: 'text', required: true, placeholder: 'Junior Clerk' },
       {
         name: 'state',
         label: 'State',
@@ -331,23 +186,9 @@ export const APP_REGISTRY: Record<string, AppSchema> = {
           { label: 'All India', value: 'all-india' },
         ],
       },
-      {
-        name: 'district',
-        label: 'District',
-        type: 'select',
-        options: [], // Will be populated dynamically based on state
-      },
-      {
-        name: 'deadline',
-        label: 'Application Deadline',
-        type: 'date',
-        required: true,
-      },
-      {
-        name: 'examDate',
-        label: 'Exam Date',
-        type: 'date',
-      },
+      { name: 'district', label: 'District', type: 'select', options: [] },
+      { name: 'deadline', label: 'Application Deadline', type: 'date', required: true },
+      { name: 'examDate', label: 'Exam Date', type: 'date' },
       {
         name: 'status',
         label: 'Status',
@@ -359,29 +200,22 @@ export const APP_REGISTRY: Record<string, AppSchema> = {
           { label: 'Upcoming', value: 'upcoming' },
         ],
       },
-      {
-        name: 'description',
-        label: 'Description',
-        type: 'textarea',
-        required: true,
-      },
-      {
-        name: 'eligibility',
-        label: 'Eligibility',
-        type: 'nested',
-      },
+      { name: 'description', label: 'Description', type: 'textarea', required: true },
+      { name: 'eligibility', label: 'Eligibility', type: 'nested' },
     ],
   },
 };
 
-export function getAppSchema(appId: string): AppSchema | undefined {
+function getAppSchema(appId) {
   return APP_REGISTRY[appId];
 }
 
-export function getAllApps(): AppSchema[] {
+function getAllApps() {
   return Object.values(APP_REGISTRY);
 }
 
-export function getAppsByContentType(contentType: 'json' | 'markdown' | 'typescript'): AppSchema[] {
+function getAppsByContentType(contentType) {
   return Object.values(APP_REGISTRY).filter(app => app.contentType === contentType);
 }
+
+module.exports = { APP_REGISTRY, getAppSchema, getAllApps, getAppsByContentType };

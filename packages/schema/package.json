@@ -8,7 +8,6 @@
     "build": "tsc",
     "lint": "eslint ."
   },
-  "dependencies": {},
   "devDependencies": {
     "typescript": "^5.9.3"
   }

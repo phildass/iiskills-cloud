@@ -3,7 +3,7 @@
  * Fetch content from any app by source_app and content_id
  */
 
-import { ContentManager } from '../../../../lib/admin/contentManager';
+import { ContentManager } from '../../../lib/admin/contentManager';
 
 export default async function handler(req, res) {
   // Check if DEBUG_ADMIN is enabled

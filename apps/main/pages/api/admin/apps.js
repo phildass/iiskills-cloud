@@ -3,7 +3,7 @@
  * Returns schema information for apps
  */
 
-import { APP_REGISTRY, getAllApps, getAppSchema } from '../../../../lib/admin/contentRegistry';
+import { APP_REGISTRY, getAllApps, getAppSchema } from '../../../lib/admin/contentRegistry';
 
 export default async function handler(req, res) {
   // Check if DEBUG_ADMIN is enabled
