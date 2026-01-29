@@ -4,10 +4,7 @@ import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
-import { getCurrentUser } from "../apps/main/lib/supabaseClient";
-import InstallApp from "./shared/InstallApp";
-import TranslationFeatureBanner from "./shared/TranslationFeatureBanner";
-import { getLandingPageImages, getPlaceholderImage } from "../lib/imageUtils";
+import { getLandingPageImages, getPlaceholderImage } from "../../lib/imageUtils";
 
 /**
  * Shared Landing Page Component for all learn-* apps
