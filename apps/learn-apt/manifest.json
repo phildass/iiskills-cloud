@@ -1,0 +1,94 @@
+{
+  "app": "learn-apt",
+  "version": "1.0.0",
+  "contentTypes": ["test"],
+  "items": [
+    {
+      "id": "apt-logical-reasoning-1",
+      "type": "test",
+      "title": "Logical Reasoning - Pattern Recognition",
+      "description": "Test your ability to identify patterns and sequences. Includes 20 questions covering number series, letter series, and figure patterns.",
+      "tags": ["aptitude", "logical-reasoning", "patterns", "beginner"],
+      "app": "learn-apt",
+      "url": "/tests/logical-reasoning-1",
+      "status": "published",
+      "createdAt": "2024-01-15T10:00:00Z",
+      "updatedAt": "2024-01-15T10:00:00Z",
+      "customFields": {
+        "duration": 30,
+        "totalQuestions": 20,
+        "difficulty": "beginner"
+      }
+    },
+    {
+      "id": "apt-numerical-ability-1",
+      "type": "test",
+      "title": "Numerical Ability - Basic Arithmetic",
+      "description": "Test your numerical skills with questions on percentages, ratios, averages, and basic calculations.",
+      "tags": ["aptitude", "numerical", "arithmetic", "beginner"],
+      "app": "learn-apt",
+      "url": "/tests/numerical-ability-1",
+      "status": "published",
+      "createdAt": "2024-01-16T10:00:00Z",
+      "updatedAt": "2024-01-16T10:00:00Z",
+      "customFields": {
+        "duration": 40,
+        "totalQuestions": 25,
+        "difficulty": "beginner"
+      }
+    },
+    {
+      "id": "apt-verbal-reasoning-1",
+      "type": "test",
+      "title": "Verbal Reasoning - Analogies",
+      "description": "Enhance your verbal reasoning skills with analogy-based questions.",
+      "tags": ["aptitude", "verbal", "analogies", "intermediate"],
+      "app": "learn-apt",
+      "url": "/tests/verbal-reasoning-1",
+      "status": "published",
+      "createdAt": "2024-01-17T10:00:00Z",
+      "updatedAt": "2024-01-17T10:00:00Z",
+      "customFields": {
+        "duration": 35,
+        "totalQuestions": 30,
+        "difficulty": "intermediate"
+      }
+    },
+    {
+      "id": "apt-data-interpretation-1",
+      "type": "test",
+      "title": "Data Interpretation - Tables and Charts",
+      "description": "Practice analyzing data presented in tables, charts, and graphs.",
+      "tags": ["aptitude", "data-interpretation", "charts", "intermediate"],
+      "app": "learn-apt",
+      "url": "/tests/data-interpretation-1",
+      "status": "published",
+      "createdAt": "2024-01-18T10:00:00Z",
+      "updatedAt": "2024-01-18T10:00:00Z",
+      "customFields": {
+        "duration": 45,
+        "totalQuestions": 20,
+        "difficulty": "intermediate"
+      }
+    },
+    {
+      "id": "apt-ias-prelims-mock",
+      "type": "test",
+      "title": "IAS Prelims Mock Test - Aptitude Section",
+      "description": "Full-length mock test for IAS prelims focusing on aptitude and logical reasoning.",
+      "tags": ["aptitude", "ias", "civil-services", "mock-test", "advanced"],
+      "app": "learn-apt",
+      "url": "/tests/ias-prelims-mock",
+      "status": "published",
+      "createdAt": "2024-01-20T10:00:00Z",
+      "updatedAt": "2024-01-20T10:00:00Z",
+      "customFields": {
+        "duration": 120,
+        "totalQuestions": 100,
+        "difficulty": "advanced",
+        "examType": "ias"
+      }
+    }
+  ],
+  "lastUpdated": "2024-01-20T10:00:00Z"
+}

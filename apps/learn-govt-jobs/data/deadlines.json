@@ -1,0 +1,28 @@
+{
+  "job-bihar-patna-clerk-001": {
+    "deadline": "2026-03-15T23:59:59Z",
+    "status": "open",
+    "notificationDate": "2026-01-15T00:00:00Z",
+    "examDate": "2026-04-20T10:00:00Z"
+  },
+  "job-bihar-gaya-teacher-001": {
+    "deadline": "2026-02-28T23:59:59Z",
+    "status": "open",
+    "notificationDate": "2026-01-16T00:00:00Z",
+    "examDate": "2026-03-25T10:00:00Z"
+  },
+  "job-maharashtra-mumbai-police-001": {
+    "deadline": "2026-04-10T23:59:59Z",
+    "status": "open",
+    "notificationDate": "2026-01-17T00:00:00Z",
+    "physicalTestDate": "2026-05-01T08:00:00Z"
+  },
+  "job-central-all-india-ias-001": {
+    "deadline": "2026-03-31T23:59:59Z",
+    "status": "open",
+    "notificationDate": "2026-01-18T00:00:00Z",
+    "prelimsDate": "2026-06-15T10:00:00Z",
+    "mainsDate": "2026-10-01T10:00:00Z",
+    "interviewDate": "2027-02-01T10:00:00Z"
+  }
+}

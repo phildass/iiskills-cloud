@@ -1,0 +1,134 @@
+{
+  "app": "learn-cricket",
+  "version": "1.0.0",
+  "contentTypes": ["sports", "lesson", "article"],
+  "items": [
+    {
+      "id": "cricket-rules-basics",
+      "type": "lesson",
+      "title": "Cricket Rules - The Basics",
+      "description": "Learn the fundamental rules of cricket including field setup, scoring, and basic gameplay.",
+      "tags": ["cricket", "sports", "rules", "basics", "beginner"],
+      "app": "learn-cricket",
+      "url": "/lessons/rules-basics",
+      "status": "published",
+      "createdAt": "2024-01-10T10:00:00Z",
+      "updatedAt": "2024-01-10T10:00:00Z",
+      "customFields": {
+        "difficulty": "beginner",
+        "duration": 20,
+        "objectives": [
+          "Understand the cricket field layout",
+          "Learn basic scoring system",
+          "Know the roles of batsmen and bowlers"
+        ]
+      }
+    },
+    {
+      "id": "cricket-batting-techniques",
+      "type": "lesson",
+      "title": "Batting Techniques for Beginners",
+      "description": "Master the basic batting stance, grip, and common shots in cricket.",
+      "tags": ["cricket", "sports", "batting", "techniques", "beginner"],
+      "app": "learn-cricket",
+      "url": "/lessons/batting-techniques",
+      "status": "published",
+      "createdAt": "2024-01-11T10:00:00Z",
+      "updatedAt": "2024-01-11T10:00:00Z",
+      "customFields": {
+        "difficulty": "beginner",
+        "duration": 30,
+        "objectives": [
+          "Learn proper batting stance",
+          "Master basic shots: drive, cut, pull",
+          "Understand timing and placement"
+        ]
+      }
+    },
+    {
+      "id": "cricket-bowling-guide",
+      "type": "lesson",
+      "title": "Bowling Guide - Fast and Spin",
+      "description": "Introduction to bowling techniques including fast bowling and spin bowling basics.",
+      "tags": ["cricket", "sports", "bowling", "fast-bowling", "spin-bowling", "intermediate"],
+      "app": "learn-cricket",
+      "url": "/lessons/bowling-guide",
+      "status": "published",
+      "createdAt": "2024-01-12T10:00:00Z",
+      "updatedAt": "2024-01-12T10:00:00Z",
+      "customFields": {
+        "difficulty": "intermediate",
+        "duration": 40,
+        "objectives": [
+          "Understand bowling action mechanics",
+          "Learn fast bowling techniques",
+          "Introduction to spin bowling variations"
+        ]
+      }
+    },
+    {
+      "id": "cricket-history-world-cup",
+      "type": "article",
+      "title": "History of Cricket World Cup",
+      "description": "Explore the rich history of the ICC Cricket World Cup from 1975 to present, including memorable moments and legendary players.",
+      "tags": ["cricket", "sports", "history", "world-cup", "icc"],
+      "app": "learn-cricket",
+      "url": "/articles/world-cup-history",
+      "status": "published",
+      "createdAt": "2024-01-13T10:00:00Z",
+      "updatedAt": "2024-01-13T10:00:00Z",
+      "customFields": {
+        "readTime": 15,
+        "topics": [
+          "World Cup Origins",
+          "Memorable Finals",
+          "Greatest Players",
+          "Record Holders"
+        ]
+      }
+    },
+    {
+      "id": "cricket-ipl-guide",
+      "type": "article",
+      "title": "Indian Premier League - Complete Guide",
+      "description": "Everything you need to know about the IPL: teams, format, rules, and what makes it the world's biggest T20 league.",
+      "tags": ["cricket", "sports", "ipl", "t20", "india"],
+      "app": "learn-cricket",
+      "url": "/articles/ipl-guide",
+      "status": "published",
+      "createdAt": "2024-01-14T10:00:00Z",
+      "updatedAt": "2024-01-14T10:00:00Z",
+      "customFields": {
+        "readTime": 20,
+        "topics": [
+          "IPL Format and Rules",
+          "Team Profiles",
+          "Player Auctions",
+          "Notable Records"
+        ]
+      }
+    },
+    {
+      "id": "cricket-test-vs-odi-vs-t20",
+      "type": "lesson",
+      "title": "Cricket Formats: Test, ODI, and T20",
+      "description": "Understand the differences between cricket's three major formats and their unique characteristics.",
+      "tags": ["cricket", "sports", "formats", "test", "odi", "t20", "beginner"],
+      "app": "learn-cricket",
+      "url": "/lessons/cricket-formats",
+      "status": "published",
+      "createdAt": "2024-01-15T10:00:00Z",
+      "updatedAt": "2024-01-15T10:00:00Z",
+      "customFields": {
+        "difficulty": "beginner",
+        "duration": 25,
+        "objectives": [
+          "Distinguish between Test, ODI, and T20",
+          "Understand format-specific rules",
+          "Learn strategic differences"
+        ]
+      }
+    }
+  ],
+  "lastUpdated": "2024-01-15T10:00:00Z"
+}
