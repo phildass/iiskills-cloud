@@ -24,13 +24,13 @@ export default function ProtectedRoute({ children, requireAdmin = true }) {
 
   const checkAuth = async () => {
     try {
-      // TEMPORARY: Bypass authentication for immediate admin access
-      // TODO: Re-enable authentication after initial setup
-      // To disable bypass, set NEXT_PUBLIC_DISABLE_AUTH=false in .env.local
-      const BYPASS_AUTH = process.env.NEXT_PUBLIC_DISABLE_AUTH === 'true';
+      // UNIVERSAL PUBLIC ACCESS MODE: Authentication disabled
+      // All admin and user routes are now publicly accessible
+      // To re-enable authentication, set NEXT_PUBLIC_DISABLE_AUTH=false in .env.local
+      const BYPASS_AUTH = process.env.NEXT_PUBLIC_DISABLE_AUTH !== 'false';
       
-      if (BYPASS_AUTH && requireAdmin) {
-        console.log('⚠️ ADMIN MODE: Authentication bypassed - full access granted');
+      if (BYPASS_AUTH) {
+        console.log('⚠️ PUBLIC MODE: Authentication bypassed - full public access granted');
         setIsAuthenticated(true);
         setIsLoading(false);
         return;

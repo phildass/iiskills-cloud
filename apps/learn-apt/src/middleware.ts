@@ -7,6 +7,16 @@ import { createClient } from "@/lib/supabase/middleware";
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
+  // UNIVERSAL PUBLIC ACCESS MODE: Authentication disabled
+  // All admin routes are now publicly accessible
+  // To re-enable authentication, set NEXT_PUBLIC_DISABLE_AUTH=false in .env.local
+  const BYPASS_AUTH = process.env.NEXT_PUBLIC_DISABLE_AUTH !== 'false';
+  
+  if (BYPASS_AUTH) {
+    console.log('⚠️ PUBLIC MODE: Admin middleware bypassed - full public access');
+    return NextResponse.next();
+  }
+
   // Check if the request is for an admin route
   if (pathname.startsWith("/admin")) {
     // Try to create Supabase client for session validation

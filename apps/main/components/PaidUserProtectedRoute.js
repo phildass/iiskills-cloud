@@ -47,6 +47,20 @@ export default function PaidUserProtectedRoute({ children }) {
      */
     const checkAccess = async () => {
       try {
+        // UNIVERSAL PUBLIC ACCESS MODE: Authentication and paywall disabled
+        // All paid content is now publicly accessible
+        // To re-enable paywall, set NEXT_PUBLIC_DISABLE_AUTH=false in .env.local
+        const BYPASS_AUTH = process.env.NEXT_PUBLIC_DISABLE_AUTH !== 'false';
+        
+        if (BYPASS_AUTH) {
+          console.log('⚠️ PUBLIC MODE: Paywall bypassed - full public access to all content');
+          // Mock authenticated paid user
+          setUser({ email: 'public-access@iiskills.cloud' });
+          setHasPaid(true);
+          setIsLoading(false);
+          return;
+        }
+
         // Get current user from Supabase session
         const currentUser = await getCurrentUser();
         setUser(currentUser);

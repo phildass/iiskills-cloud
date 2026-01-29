@@ -117,34 +117,68 @@ class ContentManager {
       const stats = fs.existsSync(filePath) ? fs.statSync(filePath) : null;
       
       if (stats && stats.isDirectory()) {
-        const files = fs.readdirSync(filePath).filter(f => f.endsWith('.json'));
+        // Recursively scan directory for JSON files
         const items = [];
-        
-        for (const file of files) {
-          const fullPath = path.join(filePath, file);
-          const content = JSON.parse(fs.readFileSync(fullPath, 'utf-8'));
+        const scanDirectory = (dir) => {
+          const entries = fs.readdirSync(dir, { withFileTypes: true });
           
-          if (Array.isArray(content)) {
-            items.push(...content.map((item, idx) => ({
-              id: item.id || `${file}-${idx}`,
-              appId: appSchema.id,
-              title: item.title || item.name || `Item ${idx}`,
-              type: appSchema.displayName,
-              data: item,
-              source: 'filesystem',
-            })));
-          } else if (typeof content === 'object') {
-            items.push(...Object.entries(content).map((entry) => ({
-              id: entry[0],
-              appId: appSchema.id,
-              title: entry[1].title || entry[0],
-              type: appSchema.displayName,
-              data: entry[1],
-              source: 'filesystem',
-            })));
+          for (const entry of entries) {
+            const fullPath = path.join(dir, entry.name);
+            
+            if (entry.isDirectory()) {
+              // Recursively scan subdirectories
+              scanDirectory(fullPath);
+            } else if (entry.isFile() && entry.name.endsWith('.json')) {
+              try {
+                const content = JSON.parse(fs.readFileSync(fullPath, 'utf-8'));
+                const fileName = entry.name.replace('.json', '');
+                
+                if (Array.isArray(content)) {
+                  items.push(...content.map((item, idx) => ({
+                    id: item.id || `${fileName}-${idx}`,
+                    appId: appSchema.id,
+                    title: item.title || item.name || `Item ${idx}`,
+                    type: appSchema.displayName,
+                    data: item,
+                    source: 'filesystem',
+                    sourceApp: appSchema.id,
+                    sourceBackend: 'filesystem',
+                  })));
+                } else if (typeof content === 'object' && content !== null) {
+                  if (content.items && Array.isArray(content.items)) {
+                    // Handle manifest.json style with items array
+                    items.push(...content.items.map((item) => ({
+                      id: item.id || item.slug,
+                      appId: appSchema.id,
+                      title: item.title || item.name,
+                      type: appSchema.displayName,
+                      data: item,
+                      source: 'filesystem',
+                      sourceApp: appSchema.id,
+                      sourceBackend: 'filesystem',
+                    })));
+                  } else {
+                    // Handle object with key-value pairs
+                    items.push(...Object.entries(content).map((entry) => ({
+                      id: entry[0],
+                      appId: appSchema.id,
+                      title: entry[1].title || entry[0],
+                      type: appSchema.displayName,
+                      data: entry[1],
+                      source: 'filesystem',
+                      sourceApp: appSchema.id,
+                      sourceBackend: 'filesystem',
+                    })));
+                  }
+                }
+              } catch (err) {
+                console.error(`Error reading ${fullPath}:`, err);
+              }
+            }
           }
-        }
+        };
         
+        scanDirectory(filePath);
         return items;
       } else if (fs.existsSync(filePath)) {
         const content = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
@@ -157,6 +191,8 @@ class ContentManager {
             type: appSchema.displayName,
             data: item,
             source: 'filesystem',
+            sourceApp: appSchema.id,
+            sourceBackend: 'filesystem',
           }));
         } else if (content.items && Array.isArray(content.items)) {
           return content.items.map((item) => ({
@@ -166,6 +202,8 @@ class ContentManager {
             type: appSchema.displayName,
             data: item,
             source: 'filesystem',
+            sourceApp: appSchema.id,
+            sourceBackend: 'filesystem',
           }));
         }
       }
@@ -198,6 +236,8 @@ class ContentManager {
               markdown: section,
             },
             source: 'filesystem',
+            sourceApp: appSchema.id,
+            sourceBackend: 'filesystem',
           };
         });
       }
