@@ -46,16 +46,43 @@ export default function AdminCourses() {
   const fetchCourses = async () => {
     try {
       setLoading(true);
-      let query = supabase.from('courses').select('*').order('created_at', { ascending: false });
       
-      if (filterSubdomain !== 'all') {
-        query = query.eq('subdomain', filterSubdomain);
+      // Fetch courses from the aggregated content API
+      const response = await fetch('/api/admin/content?type=courses');
+      const data = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to fetch courses');
       }
       
-      const { data, error } = await query;
+      let allCourses = data.contents || [];
       
-      if (error) throw error;
-      setCourses(data || []);
+      // Transform to match expected structure and add source info
+      allCourses = allCourses.map((item) => ({
+        id: item.id,
+        title: item.title,
+        slug: item.data.slug || item.id,
+        short_description: item.data.short_description || item.data.description,
+        full_description: item.data.full_description,
+        duration: item.data.duration,
+        category: item.data.category,
+        subdomain: item.sourceApp || item.data.subdomain || 'unknown',
+        price: item.data.price || 0,
+        is_free: item.data.is_free !== false,
+        status: item.data.status || 'published',
+        source: item.source,
+        sourceApp: item.sourceApp,
+        sourceBackend: item.sourceBackend,
+        created_at: item.data.created_at || item.data.createdAt,
+        updated_at: item.data.updated_at || item.data.updatedAt,
+      }));
+      
+      // Filter by subdomain if needed
+      if (filterSubdomain !== 'all') {
+        allCourses = allCourses.filter(c => c.subdomain === filterSubdomain);
+      }
+      
+      setCourses(allCourses);
     } catch (error) {
       console.error('Error fetching courses:', error);
       alert('Error loading courses. Check console for details.');
@@ -214,6 +241,9 @@ export default function AdminCourses() {
                     Site
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Source
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Category
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -239,6 +269,14 @@ export default function AdminCourses() {
                     </td>
                     <td className="px-6 py-4 text-sm text-gray-700">
                       {course.subdomain || 'main'}
+                    </td>
+                    <td className="px-6 py-4 text-sm">
+                      <span className={`px-2 py-1 text-xs font-semibold rounded ${
+                        course.sourceBackend === 'supabase' ? 'bg-blue-100 text-blue-800' :
+                        'bg-green-100 text-green-800'
+                      }`}>
+                        {course.sourceBackend || 'unknown'}
+                      </span>
                     </td>
                     <td className="px-6 py-4 text-sm text-gray-700">
                       {course.category || 'N/A'}

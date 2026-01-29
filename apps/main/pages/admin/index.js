@@ -66,21 +66,38 @@ export default function AdminDashboard() {
 
   const fetchStats = async () => {
     try {
-      // Fetch course count
-      const { count: courseCount } = await supabase
-        .from('courses')
-        .select('*', { count: 'exact', head: true });
-      
-      // Fetch user count
-      const { count: userCount } = await supabase
-        .from('profiles')
-        .select('*', { count: 'exact', head: true });
+      // Fetch aggregated content from all sources
+      const [coursesRes, modulesRes, lessonsRes, usersRes] = await Promise.all([
+        fetch('/api/admin/content?type=courses').catch(() => ({ ok: false })),
+        fetch('/api/admin/content?type=modules').catch(() => ({ ok: false })),
+        fetch('/api/admin/content?type=lessons').catch(() => ({ ok: false })),
+        supabase.from('profiles').select('*', { count: 'exact', head: true }),
+      ]);
+
+      let courseCount = 0;
+      let moduleCount = 0;
+      let lessonCount = 0;
+
+      if (coursesRes.ok) {
+        const data = await coursesRes.json();
+        courseCount = data.contents?.length || 0;
+      }
+
+      if (modulesRes.ok) {
+        const data = await modulesRes.json();
+        moduleCount = data.contents?.length || 0;
+      }
+
+      if (lessonsRes.ok) {
+        const data = await lessonsRes.json();
+        lessonCount = data.contents?.length || 0;
+      }
 
       setStats({
-        totalCourses: courseCount || 0,
-        totalUsers: userCount || 0,
-        totalModules: 0, // Will be implemented when modules table exists
-        totalLessons: 0, // Will be implemented when lessons table exists
+        totalCourses: courseCount,
+        totalUsers: usersRes.count || 0,
+        totalModules: moduleCount,
+        totalLessons: lessonCount,
       });
     } catch (error) {
       console.error('Error fetching stats:', error);
@@ -89,15 +106,14 @@ export default function AdminDashboard() {
 
   const fetchSiteCounts = async () => {
     try {
-      // Fetch course counts per site
-      const { data: courses } = await supabase
-        .from('courses')
-        .select('subdomain');
+      // Fetch aggregated courses to get counts per site
+      const response = await fetch('/api/admin/content?type=courses');
+      const data = await response.json();
       
-      if (courses) {
+      if (response.ok && data.contents) {
         const counts = {};
-        courses.forEach(course => {
-          const subdomain = course.subdomain || 'main';
+        data.contents.forEach(course => {
+          const subdomain = course.sourceApp || course.subdomain || 'main';
           counts[subdomain] = (counts[subdomain] || 0) + 1;
         });
         setSiteCounts(counts);

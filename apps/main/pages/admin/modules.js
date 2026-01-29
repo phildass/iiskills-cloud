@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import ProtectedRoute from "../../components/ProtectedRoute";
 import AdminNav from "../../components/AdminNav";
@@ -7,6 +7,8 @@ import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 
 export default function AdminModules() {
+  const [modules, setModules] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [formData, setFormData] = useState({
     title: '',
@@ -14,6 +16,39 @@ export default function AdminModules() {
     courseId: '',
     order: 1,
   });
+
+  useEffect(() => {
+    fetchModules();
+  }, []);
+
+  const fetchModules = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch('/api/admin/content?type=modules');
+      const data = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to fetch modules');
+      }
+      
+      // Transform modules to display format
+      const transformedModules = (data.contents || []).map((item) => ({
+        id: item.id,
+        title: item.title,
+        description: item.data.description,
+        course: item.data.course_id || item.data.courseId || 'N/A',
+        sourceApp: item.sourceApp,
+        sourceBackend: item.sourceBackend,
+        order: item.data.order || 0,
+      }));
+      
+      setModules(transformedModules);
+    } catch (error) {
+      console.error('Error fetching modules:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -61,7 +96,7 @@ export default function AdminModules() {
             </div>
             <div className="ml-3">
               <p className="text-sm text-blue-700">
-                <strong>Note:</strong> Module management functionality will be fully operational once the database schema for modules is created. The interface is ready to manage course modules including creation, editing, ordering, and deletion.
+                <strong>Viewing aggregated modules:</strong> Showing modules from all sources including local filesystem and Supabase.
               </p>
             </div>
           </div>
@@ -69,39 +104,76 @@ export default function AdminModules() {
 
         {/* Modules Table */}
         <div className="bg-white rounded-lg shadow overflow-hidden">
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
-              <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Order
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Module Name
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Course
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Lessons
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Actions
-                </th>
-              </tr>
-            </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
-              <tr>
-                <td colSpan="5" className="px-6 py-4 text-center text-gray-500">
-                  No modules found. Module management will be available once the database schema is set up.
-                  <br />
-                  <span className="text-xs text-gray-400 mt-2 block">
-                    Database table 'modules' needs to be created with fields: id, course_id, title, description, order, created_at, updated_at
-                  </span>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          {loading ? (
+            <div className="p-8 text-center text-gray-500">Loading modules...</div>
+          ) : modules.length === 0 ? (
+            <div className="p-8 text-center text-gray-500">
+              No modules found. Modules will appear here once content is aggregated from all sources.
+            </div>
+          ) : (
+            <table className="min-w-full divide-y divide-gray-200">
+              <thead className="bg-gray-50">
+                <tr>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Order
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Module Name
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Course
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    App
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Source
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Actions
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="bg-white divide-y divide-gray-200">
+                {modules.map((module) => (
+                  <tr key={module.id} className="hover:bg-gray-50">
+                    <td className="px-6 py-4 text-sm text-gray-700">
+                      {module.order}
+                    </td>
+                    <td className="px-6 py-4">
+                      <div className="text-sm font-medium text-gray-900">{module.title}</div>
+                      {module.description && (
+                        <div className="text-xs text-gray-600 mt-1">{module.description.substring(0, 60)}...</div>
+                      )}
+                    </td>
+                    <td className="px-6 py-4 text-sm text-gray-700">
+                      {module.course}
+                    </td>
+                    <td className="px-6 py-4 text-sm text-gray-700">
+                      {module.sourceApp}
+                    </td>
+                    <td className="px-6 py-4 text-sm">
+                      <span className={`px-2 py-1 text-xs font-semibold rounded ${
+                        module.sourceBackend === 'supabase' ? 'bg-blue-100 text-blue-800' :
+                        'bg-green-100 text-green-800'
+                      }`}>
+                        {module.sourceBackend}
+                      </span>
+                    </td>
+                     <td className="px-6 py-4 text-sm space-x-2">
+                      <button
+                        className="text-blue-600 hover:text-blue-800 font-medium"
+                      >
+                        View
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
         </div>
+      </main>
 
         {/* Feature List */}
         <div className="mt-8 bg-white rounded-lg shadow p-6">

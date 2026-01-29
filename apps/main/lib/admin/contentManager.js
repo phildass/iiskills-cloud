@@ -11,6 +11,11 @@ class ContentManager {
   constructor(isDev) {
     this.isDevelopment = isDev !== undefined ? isDev : process.env.NODE_ENV === 'development';
     this.projectRoot = process.cwd();
+    
+    // If we're in apps/main, go up two levels to the monorepo root
+    if (this.projectRoot.endsWith('/apps/main')) {
+      this.projectRoot = path.join(this.projectRoot, '..', '..');
+    }
   }
 
   async getContent(sourceApp, contentId) {
@@ -55,6 +60,135 @@ class ContentManager {
     return results;
   }
 
+  /**
+   * Get all content from all apps (aggregated from all sources)
+   */
+  async getAllContentFromAllApps() {
+    const allApps = Object.values(APP_REGISTRY);
+    const allContent = [];
+
+    // First, load seed data if it exists
+    try {
+      const seedPath = path.join(this.projectRoot, 'seeds', 'content.json');
+      if (fs.existsSync(seedPath)) {
+        const seedData = JSON.parse(fs.readFileSync(seedPath, 'utf-8'));
+        
+        // Add courses from seed data
+        if (seedData.courses && Array.isArray(seedData.courses)) {
+          seedData.courses.forEach(course => {
+            allContent.push({
+              id: course.id || course.slug,
+              appId: course.subdomain || 'seed-data',
+              title: course.title,
+              type: 'Course',
+              data: course,
+              source: 'filesystem',
+              sourceApp: course.subdomain || 'seed-data',
+              sourceBackend: 'filesystem',
+            });
+          });
+        }
+        
+        // Add modules from seed data
+        if (seedData.modules && Array.isArray(seedData.modules)) {
+          seedData.modules.forEach(module => {
+            allContent.push({
+              id: module.id || module.slug,
+              appId: module.subdomain || 'seed-data',
+              title: module.title,
+              type: 'Module',
+              data: module,
+              source: 'filesystem',
+              sourceApp: module.subdomain || 'seed-data',
+              sourceBackend: 'filesystem',
+            });
+          });
+        }
+        
+        // Add lessons from seed data
+        if (seedData.lessons && Array.isArray(seedData.lessons)) {
+          seedData.lessons.forEach(lesson => {
+            allContent.push({
+              id: lesson.id,
+              appId: lesson.subdomain || 'seed-data',
+              title: lesson.title,
+              type: 'Lesson',
+              data: lesson,
+              source: 'filesystem',
+              sourceApp: lesson.subdomain || 'seed-data',
+              sourceBackend: 'filesystem',
+            });
+          });
+        }
+      }
+    } catch (error) {
+      console.error('Error loading seed data:', error);
+    }
+
+    // Then load from each app
+    for (const app of allApps) {
+      try {
+        const content = await this.loadAppContent(app);
+        allContent.push(...content);
+      } catch (error) {
+        console.error(`Error loading content from ${app.id}:`, error);
+      }
+    }
+
+    return allContent;
+  }
+
+  /**
+   * Get all courses (type=Course) from all apps and Supabase
+   */
+  async getAllCourses() {
+    const allContent = await this.getAllContentFromAllApps();
+    
+    // Filter for courses - check various indicators
+    return allContent.filter((item) => {
+      // Check if type explicitly says Course
+      if (item.type === 'Course' || item.type === 'course') return true;
+      
+      // Check if data has course-specific fields
+      if (item.data.course_id || item.data.courseId) return false; // This is a module/lesson
+      if (item.data.module_id || item.data.moduleId) return false; // This is a lesson
+      
+      // Check for course-like properties
+      const hasCourseProps = (
+        item.data.slug || 
+        (item.data.category && (item.data.duration || item.data.full_description)) ||
+        item.data.subdomain
+      );
+      
+      return hasCourseProps;
+    });
+  }
+
+  /**
+   * Get all modules from all apps
+   */
+  async getAllModules() {
+    const allContent = await this.getAllContentFromAllApps();
+    return allContent.filter((item) => 
+      item.type === 'Module' || 
+      item.data.module_id ||
+      item.data.moduleId
+    );
+  }
+
+  /**
+   * Get all lessons from all apps
+   */
+  async getAllLessons() {
+    const allContent = await this.getAllContentFromAllApps();
+    return allContent.filter((item) => 
+      item.type === 'Lesson' || 
+      item.type === 'lesson' ||
+      item.data.lesson_id ||
+      item.data.lessonId
+    );
+  }
+
   async saveContent(sourceApp, contentId, data) {
     const appSchema = APP_REGISTRY[sourceApp];
     if (!appSchema) {
@@ -92,24 +226,58 @@ class ContentManager {
   }
 
   async loadAppContent(appSchema) {
+    // AGGREGATION MODE: Load from BOTH filesystem AND Supabase
+    const filesystemContent = [];
+    const supabaseContent = [];
+    
     try {
-      return this.loadFromFileSystem(appSchema);
+      const fsContent = await this.loadFromFileSystem(appSchema);
+      filesystemContent.push(...fsContent);
     } catch (error) {
       console.error(`Error loading from filesystem for ${appSchema.id}:`, error);
-      return this.loadFromSupabase(appSchema);
     }
+    
+    try {
+      const sbContent = await this.loadFromSupabase(appSchema);
+      supabaseContent.push(...sbContent);
+    } catch (error) {
+      console.error(`Error loading from Supabase for ${appSchema.id}:`, error);
+    }
+    
+    // Merge both sources
+    return [...filesystemContent, ...supabaseContent];
   }
 
-  loadFromFileSystem(appSchema) {
+  async loadFromFileSystem(appSchema) {
+    const items = [];
     const filePath = path.join(this.projectRoot, appSchema.dataPath);
 
+    // Load from the primary data path
     if (appSchema.contentType === 'json') {
-      return this.loadJsonContent(appSchema, filePath);
+      items.push(...this.loadJsonContent(appSchema, filePath));
     } else if (appSchema.contentType === 'markdown') {
-      return this.loadMarkdownContent(appSchema, filePath);
+      items.push(...this.loadMarkdownContent(appSchema, filePath));
     } else {
-      return this.loadTypescriptContent(appSchema, filePath);
+      items.push(...this.loadTypescriptContent(appSchema, filePath));
     }
+    
+    // Also scan for additional content directories (data/, content/)
+    const appDir = path.join(this.projectRoot, 'apps', appSchema.id);
+    const additionalDirs = ['data', 'content'];
+    
+    for (const dirName of additionalDirs) {
+      const dirPath = path.join(appDir, dirName);
+      if (fs.existsSync(dirPath) && fs.statSync(dirPath).isDirectory()) {
+        try {
+          const scannedItems = this.scanContentDirectory(appSchema, dirPath);
+          items.push(...scannedItems);
+        } catch (error) {
+          console.error(`Error scanning ${dirPath}:`, error);
+        }
+      }
+    }
+    
+    return items;
   }
 
   loadJsonContent(appSchema, filePath) {
@@ -253,8 +421,294 @@ class ContentManager {
     return [];
   }
 
+  /**
+   * Scan a content directory for JSON, JS, MD, YAML files
+   * Used to discover additional content in data/ and content/ directories
+   */
+  scanContentDirectory(appSchema, dirPath) {
+    const items = [];
+    
+    const scanRecursive = (dir) => {
+      try {
+        const entries = fs.readdirSync(dir, { withFileTypes: true });
+        
+        for (const entry of entries) {
+          const fullPath = path.join(dir, entry.name);
+          
+          if (entry.isDirectory()) {
+            // Recursively scan subdirectories
+            scanRecursive(fullPath);
+          } else if (entry.isFile()) {
+            try {
+              if (entry.name.endsWith('.json')) {
+                // Parse JSON files
+                const content = JSON.parse(fs.readFileSync(fullPath, 'utf-8'));
+                items.push(...this.parseContentData(appSchema, content, entry.name, fullPath));
+              } else if (entry.name.endsWith('.js') || entry.name.endsWith('.ts')) {
+                // Handle JS/TS files with exported data
+                // Skip TypeScript files for now as they need compilation
+                if (entry.name.endsWith('.ts')) {
+                  console.log(`Skipping TypeScript file: ${fullPath}`);
+                  continue;
+                }
+                
+                try {
+                  // Read and parse JS files by extracting the data structure
+                  const fileContent = fs.readFileSync(fullPath, 'utf-8');
+                  
+                  // Extract the main data object from exports
+                  // Look for: export const variableName = { ... }
+                  const match = fileContent.match(/export\s+const\s+(\w+)\s*=\s*(\{[\s\S]*?\n\};)/);
+                  
+                  if (match) {
+                    try {
+                      // Extract just the object part
+                      const objectStr = match[2];
+                      // Use Function to safely evaluate the object
+                      // This is safer than eval as it doesn't have access to local scope
+                      const evalFunc = new Function('return ' + objectStr);
+                      const data = evalFunc();
+                      
+                      if (data && typeof data === 'object') {
+                        items.push(...this.parseContentData(appSchema, data, entry.name, fullPath));
+                      }
+                    } catch (parseError) {
+                      console.log(`Could not parse data from ${fullPath}: ${parseError.message}`);
+                    }
+                  }
+                } catch (fileError) {
+                  console.error(`Error reading ${fullPath}:`, fileError.message);
+                }
+              } else if (entry.name.endsWith('.md')) {
+                // Skip documentation files (README, CONTENT, etc.)
+                const skipFiles = ['README', 'CONTENT', 'CHANGELOG', 'LICENSE', 'CONTRIBUTING'];
+                const shouldSkip = skipFiles.some(skip => 
+                  entry.name.toUpperCase().startsWith(skip)
+                );
+                
+                if (!shouldSkip) {
+                  // Parse markdown files
+                  const content = fs.readFileSync(fullPath, 'utf-8');
+                  const sections = content.split(/^##\s+/m).filter(s => s.trim());
+                  
+                  sections.forEach((section, idx) => {
+                    const lines = section.split('\n');
+                    const title = lines[0].trim();
+                    const body = lines.slice(1).join('\n').trim();
+                    
+                    if (title && body) {
+                      items.push({
+                        id: `${appSchema.id}-md-${entry.name}-${idx}`,
+                        appId: appSchema.id,
+                        title,
+                        type: appSchema.displayName,
+                        data: { content: body, markdown: section, file: entry.name },
+                        source: 'filesystem',
+                        sourceApp: appSchema.id,
+                        sourceBackend: 'filesystem',
+                      });
+                    }
+                  });
+                }
+              }
+            } catch (fileError) {
+              console.error(`Error processing ${fullPath}:`, fileError.message);
+            }
+          }
+        }
+      } catch (dirError) {
+        console.error(`Error scanning directory ${dir}:`, dirError);
+      }
+    };
+    
+    scanRecursive(dirPath);
+    
+    return items;
+  }
+
+  /**
+   * Parse content data from various formats into unified structure
+   */
+  parseContentData(appSchema, data, fileName, filePath) {
+    const items = [];
+    
+    try {
+      if (Array.isArray(data)) {
+        // Direct array of items
+        items.push(...data.map((item, idx) => ({
+          id: item.id || `${appSchema.id}-${fileName}-${idx}`,
+          appId: appSchema.id,
+          title: item.title || item.name || `Item ${idx}`,
+          type: appSchema.displayName,
+          data: item,
+          source: 'filesystem',
+          sourceApp: appSchema.id,
+          sourceBackend: 'filesystem',
+        })));
+      } else if (typeof data === 'object' && data !== null) {
+        // Handle special structures
+        if (data.items && Array.isArray(data.items)) {
+          // Manifest-style with items array
+          items.push(...data.items.map((item) => ({
+            id: item.id || item.slug,
+            appId: appSchema.id,
+            title: item.title || item.name,
+            type: item.type || appSchema.displayName,
+            data: item,
+            source: 'filesystem',
+            sourceApp: appSchema.id,
+            sourceBackend: 'filesystem',
+          })));
+        } else if (data.levels && Array.isArray(data.levels)) {
+          // Physics curriculum structure
+          data.levels.forEach((level) => {
+            if (level.modules && Array.isArray(level.modules)) {
+              level.modules.forEach((module) => {
+                items.push({
+                  id: module.id || `${appSchema.id}-module-${module.name}`,
+                  appId: appSchema.id,
+                  title: module.name || module.title,
+                  type: 'Module',
+                  data: {
+                    ...module,
+                    level: level.name,
+                    levelId: level.id,
+                  },
+                  source: 'filesystem',
+                  sourceApp: appSchema.id,
+                  sourceBackend: 'filesystem',
+                });
+                
+                // Also add lessons within modules
+                if (module.lessons && Array.isArray(module.lessons)) {
+                  module.lessons.forEach((lesson) => {
+                    items.push({
+                      id: lesson.id || `${module.id}-${lesson.title}`,
+                      appId: appSchema.id,
+                      title: lesson.title,
+                      type: 'Lesson',
+                      data: {
+                        ...lesson,
+                        moduleId: module.id,
+                        moduleName: module.name,
+                        level: level.name,
+                      },
+                      source: 'filesystem',
+                      sourceApp: appSchema.id,
+                      sourceBackend: 'filesystem',
+                    });
+                  });
+                }
+              });
+            }
+          });
+        } else if (data.courses && Array.isArray(data.courses)) {
+          // Seed data structure
+          items.push(...data.courses.map((course) => ({
+            id: course.id || course.slug,
+            appId: appSchema.id,
+            title: course.title,
+            type: 'Course',
+            data: course,
+            source: 'filesystem',
+            sourceApp: appSchema.id,
+            sourceBackend: 'filesystem',
+          })));
+          
+          if (data.modules) {
+            items.push(...data.modules.map((module) => ({
+              id: module.id || module.slug,
+              appId: appSchema.id,
+              title: module.title,
+              type: 'Module',
+              data: module,
+              source: 'filesystem',
+              sourceApp: appSchema.id,
+              sourceBackend: 'filesystem',
+            })));
+          }
+          
+          if (data.lessons) {
+            items.push(...data.lessons.map((lesson) => ({
+              id: lesson.id,
+              appId: appSchema.id,
+              title: lesson.title,
+              type: 'Lesson',
+              data: lesson,
+              source: 'filesystem',
+              sourceApp: appSchema.id,
+              sourceBackend: 'filesystem',
+            })));
+          }
+        } else {
+          // Generic object with key-value pairs
+          const keys = Object.keys(data);
+          // Only process if it looks like content data
+          if (keys.length > 0 && keys.length < 100) {
+            Object.entries(data).forEach(([key, value]) => {
+              if (typeof value === 'object' && value !== null) {
+                items.push({
+                  id: key,
+                  appId: appSchema.id,
+                  title: value.title || value.name || key,
+                  type: appSchema.displayName,
+                  data: value,
+                  source: 'filesystem',
+                  sourceApp: appSchema.id,
+                  sourceBackend: 'filesystem',
+                });
+              }
+            });
+          }
+        }
+      }
+    } catch (error) {
+      console.error(`Error parsing content from ${fileName}:`, error);
+    }
+    
+    return items;
+  }
+
   async loadFromSupabase(appSchema) {
-    return [];
+    try {
+      // Import supabase client - use dynamic import to avoid issues
+      const { createClient } = require('@supabase/supabase-js');
+      const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL;
+      const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY;
+      
+      // Skip if Supabase not configured
+      if (!supabaseUrl || !supabaseKey || supabaseUrl.includes('your-project')) {
+        return [];
+      }
+      
+      const supabase = createClient(supabaseUrl, supabaseKey);
+      
+      // Fetch courses from Supabase for this app (matching by subdomain)
+      const { data: courses, error } = await supabase
+        .from('courses')
+        .select('*')
+        .eq('subdomain', appSchema.id);
+      
+      if (error) {
+        console.error(`Supabase error for ${appSchema.id}:`, error);
+        return [];
+      }
+      
+      // Transform courses to unified format
+      return (courses || []).map((course) => ({
+        id: course.id || course.slug,
+        appId: appSchema.id,
+        title: course.title,
+        type: 'Course',
+        data: course,
+        source: 'supabase',
+        sourceApp: appSchema.id,
+        sourceBackend: 'supabase',
+      }));
+    } catch (error) {
+      console.error(`Error loading from Supabase for ${appSchema.id}:`, error);
+      return [];
+    }
   }
 
   saveToFileSystem(appSchema, contentId, data) {

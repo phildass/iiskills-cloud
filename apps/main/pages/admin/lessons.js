@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import ProtectedRoute from "../../components/ProtectedRoute";
 import AdminNav from "../../components/AdminNav";
@@ -7,6 +7,8 @@ import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 
 export default function AdminLessons() {
+  const [lessons, setLessons] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [formData, setFormData] = useState({
     title: '',
@@ -15,6 +17,39 @@ export default function AdminLessons() {
     order: 1,
     duration: '',
   });
+
+  useEffect(() => {
+    fetchLessons();
+  }, []);
+
+  const fetchLessons = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch('/api/admin/content?type=lessons');
+      const data = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to fetch lessons');
+      }
+      
+      // Transform lessons to display format
+      const transformedLessons = (data.contents || []).map((item) => ({
+        id: item.id,
+        title: item.title,
+        module: item.data.module_id || item.data.moduleId || item.data.moduleName || 'N/A',
+        duration: item.data.duration || 'N/A',
+        sourceApp: item.sourceApp,
+        sourceBackend: item.sourceBackend,
+        order: item.data.order || 0,
+      }));
+      
+      setLessons(transformedLessons);
+    } catch (error) {
+      console.error('Error fetching lessons:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -62,7 +97,7 @@ export default function AdminLessons() {
             </div>
             <div className="ml-3">
               <p className="text-sm text-blue-700">
-                <strong>Note:</strong> Lesson management functionality will be fully operational once the database schema for lessons is created. The interface is ready to manage lesson content including creation, editing, rich text content, and ordering.
+                <strong>Viewing aggregated lessons:</strong> Showing lessons from all sources including local filesystem and Supabase.
               </p>
             </div>
           </div>
@@ -70,38 +105,77 @@ export default function AdminLessons() {
 
         {/* Lessons Table */}
         <div className="bg-white rounded-lg shadow overflow-hidden">
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
-              <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Order
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Lesson Title
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Module
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Duration
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Actions
-                </th>
-              </tr>
-            </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
-              <tr>
-                <td colSpan="5" className="px-6 py-4 text-center text-gray-500">
-                  No lessons found. Lesson management will be available once the database schema is set up.
-                  <br />
-                  <span className="text-xs text-gray-400 mt-2 block">
-                    Database table 'lessons' needs to be created with fields: id, module_id, title, content, duration, order, created_at, updated_at
-                  </span>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          {loading ? (
+            <div className="p-8 text-center text-gray-500">Loading lessons...</div>
+          ) : lessons.length === 0 ? (
+            <div className="p-8 text-center text-gray-500">
+              No lessons found. Lessons will appear here once content is aggregated from all sources.
+            </div>
+          ) : (
+            <table className="min-w-full divide-y divide-gray-200">
+              <thead className="bg-gray-50">
+                <tr>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Order
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Lesson Title
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Module
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    App
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Source
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Duration
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Actions
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="bg-white divide-y divide-gray-200">
+                {lessons.map((lesson) => (
+                  <tr key={lesson.id} className="hover:bg-gray-50">
+                    <td className="px-6 py-4 text-sm text-gray-700">
+                      {lesson.order}
+                    </td>
+                    <td className="px-6 py-4">
+                      <div className="text-sm font-medium text-gray-900">{lesson.title}</div>
+                    </td>
+                    <td className="px-6 py-4 text-sm text-gray-700">
+                      {lesson.module}
+                    </td>
+                    <td className="px-6 py-4 text-sm text-gray-700">
+                      {lesson.sourceApp}
+                    </td>
+                    <td className="px-6 py-4 text-sm">
+                      <span className={`px-2 py-1 text-xs font-semibold rounded ${
+                        lesson.sourceBackend === 'supabase' ? 'bg-blue-100 text-blue-800' :
+                        'bg-green-100 text-green-800'
+                      }`}>
+                        {lesson.sourceBackend}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4 text-sm text-gray-700">
+                      {lesson.duration}
+                    </td>
+                    <td className="px-6 py-4 text-sm space-x-2">
+                      <button
+                        className="text-blue-600 hover:text-blue-800 font-medium"
+                      >
+                        View
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
         </div>
 
         {/* Feature List */}
