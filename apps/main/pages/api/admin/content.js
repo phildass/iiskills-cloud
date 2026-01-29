@@ -6,10 +6,13 @@
 import { ContentManager } from '../../../lib/admin/contentManager';
 
 export default async function handler(req, res) {
-  // Check if DEBUG_ADMIN is enabled
-  const debugAdmin = process.env.DEBUG_ADMIN === 'true' || process.env.NEXT_PUBLIC_DEBUG_ADMIN === 'true';
+  // UNIVERSAL PUBLIC ACCESS MODE: Authentication disabled
+  // All content APIs are now publicly accessible
+  // To re-enable authentication, set DEBUG_ADMIN=false and NEXT_PUBLIC_DEBUG_ADMIN=false
+  const debugAdmin = process.env.DEBUG_ADMIN !== 'false' && process.env.NEXT_PUBLIC_DEBUG_ADMIN !== 'false';
   
   if (!debugAdmin) {
+    // When not in public mode, require authentication
     // TODO: Add proper authentication check here
     return res.status(401).json({ error: 'Unauthorized' });
   }

@@ -204,6 +204,141 @@ const APP_REGISTRY = {
       { name: 'eligibility', label: 'Eligibility', type: 'nested' },
     ],
   },
+  
+  'learn-ai': {
+    id: 'learn-ai',
+    name: 'learn-ai',
+    displayName: 'AI & Machine Learning',
+    description: 'AI and Machine Learning courses and content',
+    contentType: 'json',
+    dataPath: 'apps/learn-ai/manifest.json',
+    icon: '🤖',
+    fields: [
+      { name: 'id', label: 'Content ID', type: 'text', required: true },
+      { name: 'title', label: 'Title', type: 'text', required: true },
+      { name: 'description', label: 'Description', type: 'textarea', required: true },
+    ],
+  },
+  
+  'learn-chemistry': {
+    id: 'learn-chemistry',
+    name: 'learn-chemistry',
+    displayName: 'Chemistry',
+    description: 'Chemistry courses and lessons',
+    contentType: 'json',
+    dataPath: 'apps/learn-chemistry/manifest.json',
+    icon: '🧪',
+    fields: [
+      { name: 'id', label: 'Content ID', type: 'text', required: true },
+      { name: 'title', label: 'Title', type: 'text', required: true },
+      { name: 'description', label: 'Description', type: 'textarea', required: true },
+    ],
+  },
+  
+  'learn-geography': {
+    id: 'learn-geography',
+    name: 'learn-geography',
+    displayName: 'Geography',
+    description: 'Geography courses and content',
+    contentType: 'json',
+    dataPath: 'apps/learn-geography/manifest.json',
+    icon: '🌍',
+    fields: [
+      { name: 'id', label: 'Content ID', type: 'text', required: true },
+      { name: 'title', label: 'Title', type: 'text', required: true },
+      { name: 'description', label: 'Description', type: 'textarea', required: true },
+    ],
+  },
+  
+  'learn-leadership': {
+    id: 'learn-leadership',
+    name: 'learn-leadership',
+    displayName: 'Leadership',
+    description: 'Leadership development content',
+    contentType: 'json',
+    dataPath: 'apps/learn-leadership/manifest.json',
+    icon: '👔',
+    fields: [
+      { name: 'id', label: 'Content ID', type: 'text', required: true },
+      { name: 'title', label: 'Title', type: 'text', required: true },
+      { name: 'description', label: 'Description', type: 'textarea', required: true },
+    ],
+  },
+  
+  'learn-management': {
+    id: 'learn-management',
+    name: 'learn-management',
+    displayName: 'Management',
+    description: 'Management and business content',
+    contentType: 'json',
+    dataPath: 'apps/learn-management/manifest.json',
+    icon: '📊',
+    fields: [
+      { name: 'id', label: 'Content ID', type: 'text', required: true },
+      { name: 'title', label: 'Title', type: 'text', required: true },
+      { name: 'description', label: 'Description', type: 'textarea', required: true },
+    ],
+  },
+  
+  'learn-math': {
+    id: 'learn-math',
+    name: 'learn-math',
+    displayName: 'Mathematics',
+    description: 'Mathematics courses and problems',
+    contentType: 'json',
+    dataPath: 'apps/learn-math/manifest.json',
+    icon: '📐',
+    fields: [
+      { name: 'id', label: 'Content ID', type: 'text', required: true },
+      { name: 'title', label: 'Title', type: 'text', required: true },
+      { name: 'description', label: 'Description', type: 'textarea', required: true },
+    ],
+  },
+  
+  'learn-physics': {
+    id: 'learn-physics',
+    name: 'learn-physics',
+    displayName: 'Physics',
+    description: 'Physics courses and experiments',
+    contentType: 'json',
+    dataPath: 'apps/learn-physics/manifest.json',
+    icon: '⚛️',
+    fields: [
+      { name: 'id', label: 'Content ID', type: 'text', required: true },
+      { name: 'title', label: 'Title', type: 'text', required: true },
+      { name: 'description', label: 'Description', type: 'textarea', required: true },
+    ],
+  },
+  
+  'learn-pr': {
+    id: 'learn-pr',
+    name: 'learn-pr',
+    displayName: 'Public Relations',
+    description: 'Public Relations and communication content',
+    contentType: 'json',
+    dataPath: 'apps/learn-pr/manifest.json',
+    icon: '📢',
+    fields: [
+      { name: 'id', label: 'Content ID', type: 'text', required: true },
+      { name: 'title', label: 'Title', type: 'text', required: true },
+      { name: 'description', label: 'Description', type: 'textarea', required: true },
+    ],
+  },
+  
+  'learn-winning': {
+    id: 'learn-winning',
+    name: 'learn-winning',
+    displayName: 'Winning Strategies',
+    description: 'Competitive strategies and success content',
+    contentType: 'json',
+    dataPath: 'apps/learn-winning/manifest.json',
+    icon: '🏆',
+    fields: [
+      { name: 'id', label: 'Content ID', type: 'text', required: true },
+      { name: 'title', label: 'Title', type: 'text', required: true },
+      { name: 'description', label: 'Description', type: 'textarea', required: true },
+    ],
+  },
 };
 
 function getAppSchema(appId) {

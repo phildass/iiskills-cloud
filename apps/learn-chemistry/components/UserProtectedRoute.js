@@ -37,6 +37,18 @@ export default function UserProtectedRoute({ children }) {
      */
     const checkAuth = async () => {
       try {
+        // UNIVERSAL PUBLIC ACCESS MODE: Authentication disabled
+        // All user routes are now publicly accessible
+        // To re-enable authentication, set NEXT_PUBLIC_DISABLE_AUTH=false in .env.local
+        const BYPASS_AUTH = process.env.NEXT_PUBLIC_DISABLE_AUTH !== 'false';
+        
+        if (BYPASS_AUTH) {
+          console.log('⚠️ PUBLIC MODE: User authentication bypassed - full public access');
+          setIsAuthenticated(true);
+          setIsLoading(false);
+          return;
+        }
+
         // Get current user from Supabase session
         const user = await getCurrentUser();
 

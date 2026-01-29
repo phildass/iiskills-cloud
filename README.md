@@ -5,6 +5,28 @@ Inspired by iiskills.in and customized for the Indian Institute of Professional 
 
 ## 🆕 New Features
 
+### 🌍 Universal Public Content Access (CURRENT MODE)
+**All content from all learn-* apps is now publicly accessible!**
+- **No authentication required** - Full access to all courses, modules, and lessons
+- **12+ active apps aggregated** - Content from learn-apt, learn-cricket, learn-govt-jobs, and more
+- **Source attribution** - Every content item tagged with its source app and backend
+- **Admin dashboard public** - Full admin interface accessible without login
+- **Health monitoring** - `/api/healthz` endpoint shows complete content inventory
+- **Future-proof** - Easy to add new apps and content sources
+
+📚 **Complete Guides:**
+- [PUBLIC_CONTENT_ACCESS_GUIDE.md](PUBLIC_CONTENT_ACCESS_GUIDE.md) - Complete implementation guide
+- [PUBLIC_ACCESS_QUICK_REFERENCE.md](PUBLIC_ACCESS_QUICK_REFERENCE.md) - Quick reference for developers
+
+🔧 **Configuration:**
+```bash
+NEXT_PUBLIC_DISABLE_AUTH=false  # Public access enabled
+DEBUG_ADMIN=true                # Admin access without login
+NEXT_PUBLIC_PAYWALL_ENABLED=false  # No paywall
+```
+
+**To re-enable authentication:** See [PUBLIC_CONTENT_ACCESS_GUIDE.md](PUBLIC_CONTENT_ACCESS_GUIDE.md#re-enabling-authentication)
+
 ### 🔐 Multi-App Authentication System
 **Seamless authentication across all 18+ apps in the ecosystem!**
 - **Register once, access everywhere** - Single account works on all apps and subdomains
