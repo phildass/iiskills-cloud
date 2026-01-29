@@ -11,6 +11,11 @@ class ContentManager {
   constructor(isDev) {
     this.isDevelopment = isDev !== undefined ? isDev : process.env.NODE_ENV === 'development';
     this.projectRoot = process.cwd();
+    
+    // If we're in apps/main, go up two levels to the monorepo root
+    if (this.projectRoot.endsWith('/apps/main')) {
+      this.projectRoot = path.join(this.projectRoot, '..', '..');
+    }
   }
 
   async getContent(sourceApp, contentId) {
@@ -226,7 +231,7 @@ class ContentManager {
     const supabaseContent = [];
     
     try {
-      const fsContent = this.loadFromFileSystem(appSchema);
+      const fsContent = await this.loadFromFileSystem(appSchema);
       filesystemContent.push(...fsContent);
     } catch (error) {
       console.error(`Error loading from filesystem for ${appSchema.id}:`, error);
@@ -243,7 +248,7 @@ class ContentManager {
     return [...filesystemContent, ...supabaseContent];
   }
 
-  loadFromFileSystem(appSchema) {
+  async loadFromFileSystem(appSchema) {
     const items = [];
     const filePath = path.join(this.projectRoot, appSchema.dataPath);
 
@@ -264,7 +269,8 @@ class ContentManager {
       const dirPath = path.join(appDir, dirName);
       if (fs.existsSync(dirPath) && fs.statSync(dirPath).isDirectory()) {
         try {
-          items.push(...this.scanContentDirectory(appSchema, dirPath));
+          const scannedItems = this.scanContentDirectory(appSchema, dirPath);
+          items.push(...scannedItems);
         } catch (error) {
           console.error(`Error scanning ${dirPath}:`, error);
         }
@@ -440,18 +446,38 @@ class ContentManager {
                 items.push(...this.parseContentData(appSchema, content, entry.name, fullPath));
               } else if (entry.name.endsWith('.js') || entry.name.endsWith('.ts')) {
                 // Handle JS/TS files with exported data
+                // Skip TypeScript files for now as they need compilation
+                if (entry.name.endsWith('.ts')) {
+                  console.log(`Skipping TypeScript file: ${fullPath}`);
+                  continue;
+                }
+                
                 try {
-                  // Use require for .js files in data directories
-                  delete require.cache[require.resolve(fullPath)];
-                  const exported = require(fullPath);
-                  const data = exported.default || exported.physicsCurriculum || exported;
+                  // Read and parse JS files by extracting the data structure
+                  const fileContent = fs.readFileSync(fullPath, 'utf-8');
                   
-                  if (data && typeof data === 'object') {
-                    items.push(...this.parseContentData(appSchema, data, entry.name, fullPath));
+                  // Extract the main data object from exports
+                  // Look for: export const variableName = { ... }
+                  const match = fileContent.match(/export\s+const\s+(\w+)\s*=\s*(\{[\s\S]*?\n\};)/);
+                  
+                  if (match) {
+                    try {
+                      // Extract just the object part
+                      const objectStr = match[2];
+                      // Use Function to safely evaluate the object
+                      // This is safer than eval as it doesn't have access to local scope
+                      const evalFunc = new Function('return ' + objectStr);
+                      const data = evalFunc();
+                      
+                      if (data && typeof data === 'object') {
+                        items.push(...this.parseContentData(appSchema, data, entry.name, fullPath));
+                      }
+                    } catch (parseError) {
+                      console.log(`Could not parse data from ${fullPath}: ${parseError.message}`);
+                    }
                   }
-                } catch (reqError) {
-                  // Skip files that can't be required (TypeScript, etc.)
-                  console.log(`Skipping ${fullPath}: ${reqError.message}`);
+                } catch (fileError) {
+                  console.error(`Error reading ${fullPath}:`, fileError.message);
                 }
               } else if (entry.name.endsWith('.md')) {
                 // Skip documentation files (README, CONTENT, etc.)
@@ -496,6 +522,7 @@ class ContentManager {
     };
     
     scanRecursive(dirPath);
+    
     return items;
   }
 
