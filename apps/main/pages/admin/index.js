@@ -19,6 +19,7 @@ export default function AdminDashboard() {
     totalModules: 0,
     totalLessons: 0,
   });
+  const [siteCounts, setSiteCounts] = useState({});
   const router = useRouter();
 
   useEffect(() => {
@@ -114,8 +115,6 @@ export default function AdminDashboard() {
   if (!isAuthenticated) {
     return null;
   }
-
-  const [siteCounts, setSiteCounts] = useState({});
 
   return (
     <>
