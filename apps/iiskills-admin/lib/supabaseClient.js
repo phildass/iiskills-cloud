@@ -48,7 +48,10 @@ const hasPlaceholderKey =
   supabaseAnonKey.length < MIN_ANON_KEY_LENGTH;
 
 // Skip validation if Supabase is suspended or using local content mode
-if (!isSupabaseSuspended && !useLocalContent && (!supabaseUrl || !supabaseAnonKey || hasPlaceholderUrl || hasPlaceholderKey)) {
+// IMPORTANT: For unified admin dashboard, we allow missing Supabase since we can use local content
+const allowMissingSupabase = isSupabaseSuspended || useLocalContent || true; // Always allow for admin
+
+if (!allowMissingSupabase && (!supabaseUrl || !supabaseAnonKey || hasPlaceholderUrl || hasPlaceholderKey)) {
   const errorMessage = `
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ⚠️  SUPABASE CONFIGURATION ERROR
@@ -99,7 +102,10 @@ For more information, see:
 // Configure cookie options for cross-subdomain authentication
 // If Supabase is suspended, create a mock client
 // If local content mode is enabled, use the local content provider
+// UNIFIED MODE: If credentials are missing, use mock client to allow app to run with local content only
 let supabaseClient;
+
+const hasValidCredentials = supabaseUrl && supabaseAnonKey && !hasPlaceholderUrl && !hasPlaceholderKey;
 
 if (useLocalContent) {
   // Only import in Node.js environment (not browser)
@@ -108,7 +114,7 @@ if (useLocalContent) {
     supabaseClient = createLocalContentClient();
   } else {
     console.warn("⚠️ Local content mode is only supported in server-side/Node.js environment");
-    supabaseClient = isSupabaseSuspended
+    supabaseClient = isSupabaseSuspended || !hasValidCredentials
       ? createMockSupabaseClient()
       : createClient(supabaseUrl, supabaseAnonKey, {
           auth: {
@@ -124,7 +130,9 @@ if (useLocalContent) {
           },
         });
   }
-} else if (isSupabaseSuspended) {
+} else if (isSupabaseSuspended || !hasValidCredentials) {
+  // Use mock client if Supabase is suspended or credentials are missing
+  console.log("ℹ️ Using mock Supabase client (credentials missing or suspended)");
   supabaseClient = createMockSupabaseClient();
 } else {
   supabaseClient = createClient(supabaseUrl, supabaseAnonKey, {

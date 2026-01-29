@@ -11,7 +11,8 @@ export default async function handler(req, res) {
 
   try {
     // Import unified content provider (server-side only)
-    const { createUnifiedContentProvider } = await import('../../../lib/unifiedContentProvider.js');
+    // Note: Import from repo root lib directory
+    const { createUnifiedContentProvider } = await import('../../../../lib/unifiedContentProvider.js');
     const provider = await createUnifiedContentProvider();
 
     // Fetch modules from all sources with ordering
