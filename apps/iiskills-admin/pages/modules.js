@@ -109,9 +109,11 @@ export default function AdminModules() {
                           <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
                             module._source === 'supabase' 
                               ? 'bg-green-100 text-green-800' 
-                              : 'bg-blue-100 text-blue-800'
+                              : module._source === 'local'
+                              ? 'bg-blue-100 text-blue-800'
+                              : 'bg-gray-100 text-gray-800'
                           }`}>
-                            {module._source === 'supabase' ? 'Supabase' : 'Local'}
+                            {module._source === 'supabase' ? 'Supabase' : module._source === 'local' ? 'Local' : 'Unknown'}
                           </span>
                         </td>
                       </tr>

@@ -48,8 +48,9 @@ const hasPlaceholderKey =
   supabaseAnonKey.length < MIN_ANON_KEY_LENGTH;
 
 // Skip validation if Supabase is suspended or using local content mode
-// IMPORTANT: For unified admin dashboard, we allow missing Supabase since we can use local content
-const allowMissingSupabase = isSupabaseSuspended || useLocalContent || true; // Always allow for admin
+// IMPORTANT: For unified admin dashboard, we always allow missing Supabase since we can use local content
+// This ensures the admin app can run even without Supabase credentials
+const allowMissingSupabase = true; // Always allow for admin dashboard
 
 if (!allowMissingSupabase && (!supabaseUrl || !supabaseAnonKey || hasPlaceholderUrl || hasPlaceholderKey)) {
   const errorMessage = `

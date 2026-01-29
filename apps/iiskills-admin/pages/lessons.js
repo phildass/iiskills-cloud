@@ -115,9 +115,11 @@ export default function AdminLessons() {
                           <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
                             lesson._source === 'supabase' 
                               ? 'bg-green-100 text-green-800' 
-                              : 'bg-blue-100 text-blue-800'
+                              : lesson._source === 'local'
+                              ? 'bg-blue-100 text-blue-800'
+                              : 'bg-gray-100 text-gray-800'
                           }`}>
-                            {lesson._source === 'supabase' ? 'Supabase' : 'Local'}
+                            {lesson._source === 'supabase' ? 'Supabase' : lesson._source === 'local' ? 'Local' : 'Unknown'}
                           </span>
                         </td>
                       </tr>

@@ -112,9 +112,11 @@ export default function AdminUsers() {
                           <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
                             user._source === 'supabase' 
                               ? 'bg-green-100 text-green-800' 
-                              : 'bg-blue-100 text-blue-800'
+                              : user._source === 'local'
+                              ? 'bg-blue-100 text-blue-800'
+                              : 'bg-gray-100 text-gray-800'
                           }`}>
-                            {user._source === 'supabase' ? 'Supabase' : 'Local'}
+                            {user._source === 'supabase' ? 'Supabase' : user._source === 'local' ? 'Local' : 'Unknown'}
                           </span>
                         </td>
                       </tr>
