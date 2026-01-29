@@ -1,6 +1,6 @@
 /**
- * API endpoint to fetch courses from unified content sources
- * This endpoint aggregates data from both Supabase AND local content
+ * API endpoint to get all apps with content
+ * Returns list of all apps and their content counts
  */
 
 export default async function handler(req, res) {
@@ -10,44 +10,30 @@ export default async function handler(req, res) {
   }
 
   try {
-    console.log('📚 /api/courses - Fetching courses...');
+    console.log('📱 /api/apps - Fetching all apps...');
     
     // Import unified content provider (server-side only)
-    // Note: Import from repo root lib directory
     const { createUnifiedContentProvider } = await import('../../../../lib/unifiedContentProvider.js');
     const provider = await createUnifiedContentProvider();
 
-    // Get query parameters
-    const { subdomain, appId } = req.query;
-
-    // Build query options
-    const options = {
-      // Support both subdomain and appId for filtering
-      appId: appId || subdomain,
-      filters: subdomain && !appId ? { subdomain } : {},
-      order: { field: 'created_at', ascending: false },
-    };
-
-    // Fetch courses from all sources
-    const data = await provider.getCourses(options);
+    // Fetch all apps
+    const apps = await provider.getAllApps();
     
-    console.log(`✅ /api/courses - Success: ${data.length} courses found${options.appId ? ` for app: ${options.appId}` : ''}`);
+    console.log(`✅ /api/apps - Success: ${apps.length} apps found`);
 
-    return res.status(200).json({ data, error: null });
+    return res.status(200).json({ data: apps, error: null });
   } catch (error) {
     // Enhanced error logging
     console.error('='.repeat(80));
-    console.error('❌ ERROR IN /api/courses');
+    console.error('❌ ERROR IN /api/apps');
     console.error('='.repeat(80));
     console.error('Error Message:', error.message);
     console.error('Error Stack:', error.stack);
-    console.error('Query Parameters:', req.query);
     console.error('Timestamp:', new Date().toISOString());
     console.error('='.repeat(80));
     
     return res.status(500).json({ 
       error: error.message,
-      
       timestamp: new Date().toISOString(),
       // Only include stack in development
       ...(process.env.NODE_ENV === 'development' && { stack: error.stack }),

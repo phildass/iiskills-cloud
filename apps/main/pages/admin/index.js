@@ -36,7 +36,9 @@ export default function AdminDashboard() {
     const BYPASS_AUTH = process.env.NEXT_PUBLIC_DISABLE_AUTH === 'true';
     
     if (BYPASS_AUTH) {
-      console.log('⚠️ ADMIN MODE: Authentication bypassed - full access granted');
+      console.warn('⚠️ SECURITY WARNING: Admin authentication is bypassed!');
+      console.warn('⚠️ This should NEVER be enabled in production!');
+      console.warn('⚠️ Set NEXT_PUBLIC_DISABLE_AUTH=false to re-enable authentication');
       setIsAuthenticated(true);
       setIsLoading(false);
       return;
@@ -128,20 +130,23 @@ export default function AdminDashboard() {
 
       <main className="max-w-7xl mx-auto px-4 py-12">
         {/* Warning Banner */}
-        <div className="bg-orange-100 border-l-4 border-orange-500 p-4 mb-8">
-          <div className="flex">
-            <div className="flex-shrink-0">
-              <svg className="h-5 w-5 text-orange-500" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
-              </svg>
-            </div>
-            <div className="ml-3">
-              <p className="text-sm text-orange-700">
-                <strong>⚠️ ADMIN MODE ACTIVE:</strong> Authentication is temporarily bypassed for immediate access. All administrative functions are available without restrictions.
-              </p>
+        {process.env.NEXT_PUBLIC_DISABLE_AUTH === 'true' && (
+          <div className="bg-red-100 border-l-4 border-red-500 p-4 mb-8">
+            <div className="flex">
+              <div className="flex-shrink-0">
+                <svg className="h-5 w-5 text-red-500" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                </svg>
+              </div>
+              <div className="ml-3">
+                <p className="text-sm text-red-700">
+                  <strong>🚨 SECURITY WARNING:</strong> Admin authentication is currently BYPASSED! This mode should NEVER be enabled in production. 
+                  All administrative functions are available without authentication. Set <code className="bg-red-200 px-1">NEXT_PUBLIC_DISABLE_AUTH=false</code> to re-enable authentication.
+                </p>
+              </div>
             </div>
           </div>
-        </div>
+        )}
 
         <h1 className="text-4xl font-bold text-primary mb-2">Universal Admin Dashboard</h1>
         <p className="text-gray-600 mb-8">Manage all iiskills.cloud sites and content from one central location</p>
