@@ -5,6 +5,8 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import { supabase } from "../../lib/supabaseClient";
 import { genderOptions, educationLevels, countries, indianStates } from "../../utils/data";
+import { getCurrentApp, getAuthRedirectUrl } from "../../lib/appRegistry";
+import { recordLoginApp, getBestAuthRedirect, initSessionManager } from "../../lib/sessionManager";
 
 /**
  * Universal Registration Component
@@ -61,6 +63,15 @@ export default function UniversalRegister({
   const [isLoading, setIsLoading] = useState(false);
   const [isGoogleLoading, setIsGoogleLoading] = useState(false);
   const router = useRouter();
+
+  // Initialize session manager and record registration app
+  useEffect(() => {
+    initSessionManager();
+    const currentApp = getCurrentApp();
+    if (currentApp) {
+      recordLoginApp(currentApp.id);
+    }
+  }, []);
 
   // Check if redirected from protected content
   const redirectPath = router.query.redirect;
@@ -228,10 +239,12 @@ export default function UniversalRegister({
           sessionStorage.setItem("registrationSuccess", "true");
         }
 
-        // Redirect to login after a delay, using query redirect param if present
+        // Redirect to login after a delay, using multi-app redirect logic
+        const bestRedirect = getBestAuthRedirect(redirectPath);
+        const targetPath = bestRedirect?.path || redirectAfterRegister;
         const finalRedirect = redirectPath
           ? `/login?redirect=${encodeURIComponent(redirectPath)}`
-          : redirectAfterRegister;
+          : `/login?redirect=${encodeURIComponent(targetPath)}`;
         setTimeout(() => {
           router.push(finalRedirect);
         }, 2000);
@@ -247,8 +260,9 @@ export default function UniversalRegister({
   const handleGoogleSignUp = async () => {
     setIsGoogleLoading(true);
     try {
-      // Use redirect query param if present, otherwise use redirectAfterRegister prop
-      const finalRedirect = redirectPath || redirectAfterRegister;
+      // Multi-App Redirect: Get the best redirect based on app registry
+      const bestRedirect = getBestAuthRedirect(redirectPath);
+      const finalRedirect = bestRedirect?.path || redirectAfterRegister;
       const redirectUrl =
         typeof window !== "undefined" ? `${window.location.origin}${finalRedirect}` : undefined;
 

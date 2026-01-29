@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { signInWithEmail, sendMagicLink, signInWithGoogle } from "../../lib/supabaseClient";
+import { getCurrentApp, getAuthRedirectUrl } from "../../lib/appRegistry";
+import { recordLoginApp, getBestAuthRedirect, initSessionManager } from "../../lib/sessionManager";
 
 /**
  * Universal Login Component
@@ -45,6 +47,15 @@ export default function UniversalLogin({
   const [useMagicLink, setUseMagicLink] = useState(true);
   const router = useRouter();
 
+  // Initialize session manager and record login app
+  useEffect(() => {
+    initSessionManager();
+    const currentApp = getCurrentApp();
+    if (currentApp) {
+      recordLoginApp(currentApp.id);
+    }
+  }, []);
+
   // Show success message if coming from registration
   useEffect(() => {
     const registrationSuccess = sessionStorage.getItem("registrationSuccess");
@@ -63,9 +74,9 @@ export default function UniversalLogin({
     try {
       if (useMagicLink) {
         // Send magic link to user's email
-        // Universal Redirect: Use query param redirect if available, otherwise use current page
-        // This ensures users return to where they started the auth flow
-        const targetPath = router.query.redirect || redirectAfterLogin;
+        // Multi-App Redirect: Get the best redirect based on app registry and user preferences
+        const bestRedirect = getBestAuthRedirect(router.query.redirect);
+        const targetPath = bestRedirect?.path || redirectAfterLogin;
         const redirectUrl =
           typeof window !== "undefined"
             ? `${window.location.origin}${targetPath}`
@@ -110,9 +121,9 @@ export default function UniversalLogin({
           // Authentication successful!
           setSuccess("Login successful! Redirecting...");
 
-          // Universal Redirect: Use query param redirect if available, otherwise use default
-          // This ensures users return to where they started the auth flow
-          const redirectUrl = router.query.redirect || redirectAfterLogin;
+          // Multi-App Redirect: Get the best redirect based on app registry and user preferences
+          const bestRedirect = getBestAuthRedirect(router.query.redirect);
+          const redirectUrl = bestRedirect?.path || redirectAfterLogin;
 
           // Redirect after a brief delay to show success message
           setTimeout(() => {
@@ -132,9 +143,9 @@ export default function UniversalLogin({
     setError("");
 
     try {
-      // Universal Redirect: Use query param redirect if available, otherwise use default
-      // This ensures users return to where they started the auth flow after OAuth
-      const targetPath = router.query.redirect || redirectAfterLogin;
+      // Multi-App Redirect: Get the best redirect based on app registry and user preferences
+      const bestRedirect = getBestAuthRedirect(router.query.redirect);
+      const targetPath = bestRedirect?.path || redirectAfterLogin;
       const redirectUrl =
         typeof window !== "undefined"
           ? `${window.location.origin}${targetPath}`
