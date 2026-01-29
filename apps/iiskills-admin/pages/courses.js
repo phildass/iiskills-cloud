@@ -8,7 +8,7 @@ import { supabase } from "../lib/supabaseClient";
 export default function AdminCourses() {
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [filterSubdomain, setFilterSubdomain] = useState('all');
+  const [filterAppId, setFilterAppId] = useState('all');
   const [availableApps, setAvailableApps] = useState([]);
 
   useEffect(() => {
@@ -17,7 +17,7 @@ export default function AdminCourses() {
 
   useEffect(() => {
     fetchCourses();
-  }, [filterSubdomain]);
+  }, [filterAppId]);
 
   const fetchAvailableApps = async () => {
     try {
@@ -36,9 +36,9 @@ export default function AdminCourses() {
       setLoading(true);
       
       // Fetch from API endpoint with appId parameter
-      const url = filterSubdomain === 'all'
+      const url = filterAppId === 'all'
         ? '/api/courses'
-        : `/api/courses?appId=${filterSubdomain}`;
+        : `/api/courses?appId=${encodeURIComponent(filterAppId)}`;
       
       const response = await fetch(url);
       const result = await response.json();
@@ -80,13 +80,13 @@ export default function AdminCourses() {
 
             {/* Filter */}
             <div className="mb-6">
-              <label htmlFor="subdomain" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="appFilter" className="block text-sm font-medium text-gray-700 mb-2">
                 Filter by App
               </label>
               <select
-                id="subdomain"
-                value={filterSubdomain}
-                onChange={(e) => setFilterSubdomain(e.target.value)}
+                id="appFilter"
+                value={filterAppId}
+                onChange={(e) => setFilterAppId(e.target.value)}
                 className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
               >
                 <option value="all">All Apps ({courses.length} total)</option>
@@ -96,9 +96,9 @@ export default function AdminCourses() {
                   </option>
                 ))}
               </select>
-              {filterSubdomain !== 'all' && (
+              {filterAppId !== 'all' && (
                 <p className="mt-2 text-sm text-gray-600">
-                  Showing content only from: <span className="font-semibold">{filterSubdomain}</span>
+                  Showing content only from: <span className="font-semibold">{filterAppId}</span>
                 </p>
               )}
             </div>
