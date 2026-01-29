@@ -44,27 +44,10 @@ function header(message) {
 function detectApps(rootDir) {
   const apps = [];
 
-  // Check root directory
-  const rootPkgPath = path.join(rootDir, "package.json");
-  if (fs.existsSync(rootPkgPath)) {
-    try {
-      const pkg = JSON.parse(fs.readFileSync(rootPkgPath, "utf8"));
-      if (isNextJsApp(pkg)) {
-        apps.push({
-          name: "main",
-          displayName: "iiskills-main",
-          dir: rootDir,
-          relativeDir: ".",
-          package: pkg,
-          description: "Main iiskills.cloud application",
-        });
-      }
-    } catch (err) {
-      warn(`Failed to read root package.json: ${err.message}`);
-    }
-  }
+  // Skip root directory - it's a monorepo root, not a deployable app
+  // Apps are located in apps/ subdirectory
 
-  // Check subdirectories
+  // Check subdirectories (including apps/ folder)
   const entries = fs.readdirSync(rootDir, { withFileTypes: true });
   for (const entry of entries) {
     if (!entry.isDirectory() || entry.name.startsWith(".")) {
@@ -94,6 +77,37 @@ function detectApps(rootDir) {
         }
       } catch (err) {
         warn(`Failed to read package.json in ${entry.name}: ${err.message}`);
+      }
+    }
+
+    // If this is the apps/ directory, scan its subdirectories too
+    if (entry.name === "apps") {
+      const appsEntries = fs.readdirSync(dirPath, { withFileTypes: true });
+      for (const appEntry of appsEntries) {
+        if (!appEntry.isDirectory() || appEntry.name.startsWith(".")) {
+          continue;
+        }
+
+        const appDirPath = path.join(dirPath, appEntry.name);
+        const appPkgPath = path.join(appDirPath, "package.json");
+
+        if (fs.existsSync(appPkgPath)) {
+          try {
+            const pkg = JSON.parse(fs.readFileSync(appPkgPath, "utf8"));
+            if (isNextJsApp(pkg)) {
+              apps.push({
+                name: appEntry.name,
+                displayName: `iiskills-${appEntry.name}`,
+                dir: appDirPath,
+                relativeDir: `apps/${appEntry.name}`,
+                package: pkg,
+                description: pkg.description || `${appEntry.name} module`,
+              });
+            }
+          } catch (err) {
+            warn(`Failed to read package.json in apps/${appEntry.name}: ${err.message}`);
+          }
+        }
       }
     }
   }
