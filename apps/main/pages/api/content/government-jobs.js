@@ -29,8 +29,8 @@ export default async function handler(req, res) {
       offset = 0,
     } = query;
 
-    // Build query
-    let queryBuilder = supabase.from('government_jobs').select('*');
+    // Build query with count
+    let queryBuilder = supabase.from('government_jobs').select('*', { count: 'exact' });
 
     // Apply filters
     if (level) {
@@ -50,8 +50,9 @@ export default async function handler(req, res) {
     }
 
     // Apply pagination and ordering
+    // Note: Jobs with null deadlines will appear at the end
     queryBuilder = queryBuilder
-      .order('application_deadline', { ascending: true, nullsFirst: false })
+      .order('application_deadline', { ascending: true, nullsLast: true })
       .range(parseInt(offset), parseInt(offset) + parseInt(limit) - 1);
 
     const { data, error, count } = await queryBuilder;

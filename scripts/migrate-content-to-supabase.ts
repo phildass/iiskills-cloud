@@ -296,27 +296,53 @@ async function migrateQuestions(questions: any[], lessonIdMap: Map<string, strin
         continue;
       }
 
-      // Insert or update question
-      const { error } = await supabase
+      // Check if question already exists
+      const { data: existing } = await supabase
         .from('questions')
-        .upsert({
-          lesson_id: lessonId,
-          question_text: question.question_text,
-          question_type: 'multiple_choice',
-          options: question.options,
-          correct_answer: question.correct_answer,
-          explanation: question.explanation,
-          difficulty: question.difficulty,
-        }, {
-          onConflict: 'lesson_id,question_text',
-          ignoreDuplicates: false,
-        });
+        .select('id')
+        .eq('lesson_id', lessonId)
+        .eq('question_text', question.question_text)
+        .single();
 
-      if (error) {
-        console.error(`Error upserting question:`, error);
-        stats.questions.errors++;
+      if (existing) {
+        // Update existing question
+        const { error } = await supabase
+          .from('questions')
+          .update({
+            question_type: 'multiple_choice',
+            options: question.options,
+            correct_answer: question.correct_answer,
+            explanation: question.explanation,
+            difficulty: question.difficulty,
+          })
+          .eq('id', existing.id);
+
+        if (error) {
+          console.error(`Error updating question:`, error);
+          stats.questions.errors++;
+        } else {
+          stats.questions.updated++;
+        }
       } else {
-        stats.questions.created++;
+        // Insert new question
+        const { error } = await supabase
+          .from('questions')
+          .insert({
+            lesson_id: lessonId,
+            question_text: question.question_text,
+            question_type: 'multiple_choice',
+            options: question.options,
+            correct_answer: question.correct_answer,
+            explanation: question.explanation,
+            difficulty: question.difficulty,
+          });
+
+        if (error) {
+          console.error(`Error inserting question:`, error);
+          stats.questions.errors++;
+        } else {
+          stats.questions.created++;
+        }
       }
     } catch (err) {
       console.error(`Exception migrating question:`, err);
@@ -488,7 +514,7 @@ async function migrateGovernmentJobs() {
           education_requirement: eligibility.education,
           age_min: eligibility.age.min,
           age_max: eligibility.age.max,
-          age_relaxations: eligibility.age.relaxation ? JSON.stringify(eligibility.age.relaxation) : null,
+          age_relaxations: eligibility.age.relaxation || null,
           physical_fitness_required: eligibility.physicalFitness || false,
           application_deadline: jobData.deadline,
           notification_date: jobData.notificationDate,

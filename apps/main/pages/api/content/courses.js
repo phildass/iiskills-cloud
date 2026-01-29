@@ -33,7 +33,7 @@ export default async function handler(req, res) {
       include_modules = 'false',
     } = query;
 
-    // Build query
+    // Build query with count
     let queryBuilder = supabase
       .from('courses')
       .select(
@@ -49,7 +49,8 @@ export default async function handler(req, res) {
               duration
             )
           `
-          : '*'
+          : '*',
+        { count: 'exact' }
       );
 
     // Apply filters

@@ -29,10 +29,10 @@ export default async function handler(req, res) {
       random = 'false',
     } = query;
 
-    // Build query
+    // Build query with count
     let queryBuilder = supabase
       .from('trivia')
-      .select('*')
+      .select('*', { count: 'exact' })
       .eq('is_published', true);
 
     // Apply filters
@@ -49,20 +49,20 @@ export default async function handler(req, res) {
       queryBuilder = queryBuilder.eq('difficulty', difficulty);
     }
 
+    // Apply ordering before pagination
+    if (random === 'true') {
+      // Use PostgreSQL's random() function for true random ordering
+      // Note: This can be slow for large datasets - consider using a pre-shuffled view
+      queryBuilder = queryBuilder.order('id', { ascending: false }); // Placeholder - see note below
+    } else {
+      queryBuilder = queryBuilder.order('created_at', { ascending: false });
+    }
+
     // Apply pagination
     queryBuilder = queryBuilder.range(
       parseInt(offset),
       parseInt(offset) + parseInt(limit) - 1
     );
-
-    // Random order or default
-    if (random === 'true') {
-      // Note: For production, consider using a view with random ordering
-      // or implement client-side randomization for better performance
-      queryBuilder = queryBuilder.order('created_at', { ascending: false });
-    } else {
-      queryBuilder = queryBuilder.order('created_at', { ascending: false });
-    }
 
     const { data, error, count } = await queryBuilder;
 
@@ -71,7 +71,8 @@ export default async function handler(req, res) {
       return res.status(500).json({ error: error.message });
     }
 
-    // Shuffle if random is requested (client-side shuffle for simplicity)
+    // Note: For true randomization, PostgreSQL RANDOM() would require raw SQL
+    // Current implementation provides pseudo-random ordering via client-side shuffle
     let results = data || [];
     if (random === 'true' && results.length > 0) {
       results = results.sort(() => Math.random() - 0.5);
