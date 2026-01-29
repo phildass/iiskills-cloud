@@ -344,6 +344,67 @@ export default function AdminDashboard() {
                 </div>
               </div>
             </div>
+
+            {/* Per-App Breakdown */}
+            {stats.perApp && Object.keys(stats.perApp).length > 0 && (
+              <div className="mt-8 bg-white shadow rounded-lg">
+                <div className="px-4 py-5 sm:p-6">
+                  <h2 className="text-lg font-medium text-gray-900 mb-4">Content by App ({stats.totalApps || 0} total)</h2>
+                  <p className="text-sm text-gray-600 mb-4">
+                    Content is properly isolated per app. Each app's content is kept separate.
+                  </p>
+                  <div className="overflow-x-auto">
+                    <table className="min-w-full divide-y divide-gray-200">
+                      <thead className="bg-gray-50">
+                        <tr>
+                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            App ID
+                          </th>
+                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Courses
+                          </th>
+                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Modules
+                          </th>
+                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Lessons
+                          </th>
+                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Actions
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody className="bg-white divide-y divide-gray-200">
+                        {Object.entries(stats.perApp).map(([appId, counts]) => (
+                          <tr key={appId}>
+                            <td className="px-6 py-4 whitespace-nowrap">
+                              <div className="text-sm font-medium text-gray-900">{appId}</div>
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                              {counts.courses}
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                              {counts.modules}
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                              {counts.lessons}
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm">
+                              <Link 
+                                href={`/courses?appId=${appId}`}
+                                className="text-blue-600 hover:text-blue-900"
+                              >
+                                View Courses →
+                              </Link>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </main>
 

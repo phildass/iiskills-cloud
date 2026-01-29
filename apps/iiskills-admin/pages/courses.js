@@ -9,19 +9,36 @@ export default function AdminCourses() {
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filterSubdomain, setFilterSubdomain] = useState('all');
+  const [availableApps, setAvailableApps] = useState([]);
+
+  useEffect(() => {
+    fetchAvailableApps();
+  }, []);
 
   useEffect(() => {
     fetchCourses();
   }, [filterSubdomain]);
 
+  const fetchAvailableApps = async () => {
+    try {
+      const response = await fetch('/api/apps');
+      const result = await response.json();
+      if (!result.error && result.data) {
+        setAvailableApps(result.data);
+      }
+    } catch (error) {
+      console.error('Error fetching apps:', error);
+    }
+  };
+
   const fetchCourses = async () => {
     try {
       setLoading(true);
       
-      // Fetch from API endpoint
+      // Fetch from API endpoint with appId parameter
       const url = filterSubdomain === 'all'
         ? '/api/courses'
-        : `/api/courses?subdomain=${filterSubdomain}`;
+        : `/api/courses?appId=${filterSubdomain}`;
       
       const response = await fetch(url);
       const result = await response.json();
@@ -64,7 +81,7 @@ export default function AdminCourses() {
             {/* Filter */}
             <div className="mb-6">
               <label htmlFor="subdomain" className="block text-sm font-medium text-gray-700 mb-2">
-                Filter by Site
+                Filter by App
               </label>
               <select
                 id="subdomain"
@@ -72,12 +89,18 @@ export default function AdminCourses() {
                 onChange={(e) => setFilterSubdomain(e.target.value)}
                 className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
               >
-                <option value="all">All Sites</option>
-                <option value="main">Main</option>
-                <option value="learn-ai">Learn AI</option>
-                <option value="learn-jee">Learn JEE</option>
-                <option value="learn-neet">Learn NEET</option>
+                <option value="all">All Apps ({courses.length} total)</option>
+                {availableApps.map(app => (
+                  <option key={app.appId} value={app.appId}>
+                    {app.name} ({app.coursesCount} courses)
+                  </option>
+                ))}
               </select>
+              {filterSubdomain !== 'all' && (
+                <p className="mt-2 text-sm text-gray-600">
+                  Showing content only from: <span className="font-semibold">{filterSubdomain}</span>
+                </p>
+              )}
             </div>
 
             {/* Courses Table */}
@@ -98,7 +121,7 @@ export default function AdminCourses() {
                         Title
                       </th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Subdomain
+                        App / Subdomain
                       </th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Category
@@ -121,8 +144,13 @@ export default function AdminCourses() {
                           <div className="text-sm font-medium text-gray-900">{course.title}</div>
                           <div className="text-sm text-gray-500">{course.slug}</div>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                          {course.subdomain || 'main'}
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <div className="text-sm font-medium text-gray-900">
+                            {course.appId || course._discoveredFrom || course.subdomain || 'main'}
+                          </div>
+                          {course.subdomain && course.subdomain !== (course.appId || course._discoveredFrom) && (
+                            <div className="text-xs text-gray-500">subdomain: {course.subdomain}</div>
+                          )}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                           {course.category || 'N/A'}
@@ -143,9 +171,13 @@ export default function AdminCourses() {
                               ? 'bg-green-100 text-green-800' 
                               : course._source === 'local'
                               ? 'bg-blue-100 text-blue-800'
+                              : course._source === 'discovered'
+                              ? 'bg-purple-100 text-purple-800'
                               : 'bg-gray-100 text-gray-800'
                           }`}>
-                            {course._source === 'supabase' ? 'Supabase' : course._source === 'local' ? 'Local' : 'Unknown'}
+                            {course._source === 'supabase' ? 'Supabase' : 
+                             course._source === 'local' ? 'Local' : 
+                             course._source === 'discovered' ? 'Discovered' : 'Unknown'}
                           </span>
                         </td>
                       </tr>
