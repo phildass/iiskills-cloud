@@ -66,6 +66,7 @@ class ContentManager {
   async getAllContentFromAllApps() {
     const allApps = Object.values(APP_REGISTRY);
     const allContent = [];
+    const seenIds = new Map(); // For deduplication
 
     // First, load seed data if it exists
     try {
@@ -76,7 +77,7 @@ class ContentManager {
         // Add courses from seed data
         if (seedData.courses && Array.isArray(seedData.courses)) {
           seedData.courses.forEach(course => {
-            allContent.push({
+            const item = {
               id: course.id || course.slug,
               appId: course.subdomain || 'seed-data',
               title: course.title,
@@ -85,14 +86,15 @@ class ContentManager {
               source: 'filesystem',
               sourceApp: course.subdomain || 'seed-data',
               sourceBackend: 'filesystem',
-            });
+            };
+            this._addWithDeduplication(allContent, seenIds, item);
           });
         }
         
         // Add modules from seed data
         if (seedData.modules && Array.isArray(seedData.modules)) {
           seedData.modules.forEach(module => {
-            allContent.push({
+            const item = {
               id: module.id || module.slug,
               appId: module.subdomain || 'seed-data',
               title: module.title,
@@ -101,14 +103,15 @@ class ContentManager {
               source: 'filesystem',
               sourceApp: module.subdomain || 'seed-data',
               sourceBackend: 'filesystem',
-            });
+            };
+            this._addWithDeduplication(allContent, seenIds, item);
           });
         }
         
         // Add lessons from seed data
         if (seedData.lessons && Array.isArray(seedData.lessons)) {
           seedData.lessons.forEach(lesson => {
-            allContent.push({
+            const item = {
               id: lesson.id,
               appId: lesson.subdomain || 'seed-data',
               title: lesson.title,
@@ -117,7 +120,8 @@ class ContentManager {
               source: 'filesystem',
               sourceApp: lesson.subdomain || 'seed-data',
               sourceBackend: 'filesystem',
-            });
+            };
+            this._addWithDeduplication(allContent, seenIds, item);
           });
         }
       }
@@ -129,13 +133,80 @@ class ContentManager {
     for (const app of allApps) {
       try {
         const content = await this.loadAppContent(app);
-        allContent.push(...content);
+        content.forEach(item => {
+          this._addWithDeduplication(allContent, seenIds, item);
+        });
       } catch (error) {
         console.error(`Error loading content from ${app.id}:`, error);
       }
     }
 
     return allContent;
+  }
+
+  /**
+   * Add item with deduplication - if item with same ID and app exists,
+   * merge sources instead of duplicating
+   */
+  _addWithDeduplication(allContent, seenIds, item) {
+    const key = `${item.appId || item.sourceApp}-${item.id}`;
+    
+    if (seenIds.has(key)) {
+      // Item already exists, merge source information
+      const existingItem = seenIds.get(key);
+      if (!existingItem.sources) {
+        existingItem.sources = [existingItem.sourceBackend];
+      }
+      if (!existingItem.sources.includes(item.sourceBackend)) {
+        existingItem.sources.push(item.sourceBackend);
+      }
+    } else {
+      // New item, add it
+      allContent.push(item);
+      seenIds.set(key, item);
+    }
+  }
+
+  /**
+   * Infer content type from item data and metadata
+   */
+  _inferContentType(item, fileName, appSchema) {
+    // If type is explicitly set and recognized, use it
+    if (item.type) {
+      const normalizedType = item.type.toLowerCase();
+      if (normalizedType === 'course' || normalizedType === 'module' || normalizedType === 'lesson') {
+        return item.type.charAt(0).toUpperCase() + normalizedType.slice(1);
+      }
+    }
+    
+    // Infer from data structure
+    if (item.lesson_id || item.lessonId || item.module_id || item.moduleId) {
+      return 'Lesson';
+    }
+    
+    if (item.course_id || item.courseId || item.modules || (item.lessons && Array.isArray(item.lessons))) {
+      return 'Module';
+    }
+    
+    if (item.slug || item.subdomain || (item.category && item.duration)) {
+      return 'Course';
+    }
+    
+    // Infer from file name
+    if (fileName) {
+      const lowerFileName = fileName.toLowerCase();
+      if (lowerFileName.includes('lesson')) return 'Lesson';
+      if (lowerFileName.includes('module')) return 'Module';
+      if (lowerFileName.includes('course') || lowerFileName.includes('curriculum')) return 'Course';
+    }
+    
+    // Default to treating as course-level content for learning apps
+    if (appSchema && appSchema.id.startsWith('learn-')) {
+      return 'Course';
+    }
+    
+    // Otherwise use the app display name
+    return appSchema ? appSchema.displayName : 'Content';
   }
 
   /**
@@ -146,10 +217,14 @@ class ContentManager {
     
     // Filter for courses - check various indicators
     return allContent.filter((item) => {
-      // Check if type explicitly says Course
-      if (item.type === 'Course' || item.type === 'course') return true;
+      // Normalize type for comparison
+      const itemType = (item.type || '').toLowerCase();
       
-      // Check if data has course-specific fields
+      // Check if type explicitly says Course
+      if (itemType === 'course') return true;
+      
+      // Exclude items that are clearly modules or lessons
+      if (itemType === 'module' || itemType === 'lesson') return false;
       if (item.data.course_id || item.data.courseId) return false; // This is a module/lesson
       if (item.data.module_id || item.data.moduleId) return false; // This is a lesson
       
@@ -157,7 +232,10 @@ class ContentManager {
       const hasCourseProps = (
         item.data.slug || 
         (item.data.category && (item.data.duration || item.data.full_description)) ||
-        item.data.subdomain
+        item.data.subdomain ||
+        item.data.modules || // Has sub-modules
+        // If it's from a learn-* app and doesn't have parent references, treat as course
+        (item.sourceApp && item.sourceApp.startsWith('learn-') && !item.data.course_id && !item.data.module_id)
       );
       
       return hasCourseProps;
@@ -169,11 +247,16 @@ class ContentManager {
    */
   async getAllModules() {
     const allContent = await this.getAllContentFromAllApps();
-    return allContent.filter((item) => 
-      item.type === 'Module' || 
-      item.data.module_id ||
-      item.data.moduleId
-    );
+    return allContent.filter((item) => {
+      const itemType = (item.type || '').toLowerCase();
+      return (
+        itemType === 'module' || 
+        item.data.module_id ||
+        item.data.moduleId ||
+        item.data.course_id || // Module belongs to a course
+        item.data.courseId
+      );
+    });
   }
 
   /**
@@ -181,12 +264,16 @@ class ContentManager {
    */
   async getAllLessons() {
     const allContent = await this.getAllContentFromAllApps();
-    return allContent.filter((item) => 
-      item.type === 'Lesson' || 
-      item.type === 'lesson' ||
-      item.data.lesson_id ||
-      item.data.lessonId
-    );
+    return allContent.filter((item) => {
+      const itemType = (item.type || '').toLowerCase();
+      return (
+        itemType === 'lesson' ||
+        item.data.lesson_id ||
+        item.data.lessonId ||
+        (item.data.module_id && !item.data.modules) || // Belongs to module but has no sub-modules
+        (item.data.moduleId && !item.data.modules)
+      );
+    });
   }
 
   async saveContent(sourceApp, contentId, data) {
@@ -539,7 +626,7 @@ class ContentManager {
           id: item.id || `${appSchema.id}-${fileName}-${idx}`,
           appId: appSchema.id,
           title: item.title || item.name || `Item ${idx}`,
-          type: appSchema.displayName,
+          type: this._inferContentType(item, fileName, appSchema),
           data: item,
           source: 'filesystem',
           sourceApp: appSchema.id,
@@ -553,7 +640,7 @@ class ContentManager {
             id: item.id || item.slug,
             appId: appSchema.id,
             title: item.title || item.name,
-            type: item.type || appSchema.displayName,
+            type: this._inferContentType(item, fileName, appSchema),
             data: item,
             source: 'filesystem',
             sourceApp: appSchema.id,
@@ -651,7 +738,7 @@ class ContentManager {
                   id: key,
                   appId: appSchema.id,
                   title: value.title || value.name || key,
-                  type: appSchema.displayName,
+                  type: this._inferContentType(value, fileName, appSchema),
                   data: value,
                   source: 'filesystem',
                   sourceApp: appSchema.id,
