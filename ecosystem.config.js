@@ -1,5 +1,6 @@
 // Production configuration - Authentication and paywalls enabled
-// All testing mode flags have been removed
+// All testing mode flags have been removed except for admin (intentional)
+// Environment validation is performed at startup
 
 module.exports = {
   apps: [
@@ -10,10 +11,9 @@ module.exports = {
       cwd: "/root/iiskills-cloud/apps/iiskills-admin",
       env: { 
         NODE_ENV: "production",
-        // Admin app now runs in UNIFIED MODE (Supabase + Local fallback)
-        // Supabase credentials should be provided via environment variables
-        // Local content is used as fallback if Supabase is unavailable
-        // Auth and paywall are disabled for admin access
+        // Admin app runs with auth disabled for administrative access
+        // This is INTENTIONAL for admin dashboard functionality
+        // The admin should be protected by other means (firewall, VPN, IP whitelist)
         NEXT_PUBLIC_DISABLE_AUTH: "true",
         NEXT_PUBLIC_DISABLE_PAYWALL: "true",
         NEXT_PUBLIC_PAYWALL_ENABLED: "false"

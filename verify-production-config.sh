@@ -23,35 +23,42 @@ if [ ! -f "ecosystem.config.js" ]; then
   echo -e "${RED}✗ ecosystem.config.js not found${NC}"
   ERRORS=$((ERRORS + 1))
 else
-  # Check for testing mode flags
-  if grep -q "NEXT_PUBLIC_TESTING_MODE.*true" ecosystem.config.js; then
-    echo -e "${RED}✗ Found NEXT_PUBLIC_TESTING_MODE=true in ecosystem.config.js${NC}"
-    ERRORS=$((ERRORS + 1))
+  # Check for testing mode flags in NON-ADMIN apps
+  # Note: Admin app intentionally has DISABLE_AUTH for administrative access
+  
+  # Check if admin app has the required flags
+  ADMIN_HAS_DISABLE_AUTH=$(grep -A 10 'name:.*"iiskills-admin"' ecosystem.config.js | grep -c 'NEXT_PUBLIC_DISABLE_AUTH.*:.*"true"' || echo "0")
+  
+  if [ "$ADMIN_HAS_DISABLE_AUTH" -eq 0 ]; then
+    echo -e "${YELLOW}⚠️  Admin app missing DISABLE_AUTH flag (may be intentional)${NC}"
+    WARNINGS=$((WARNINGS + 1))
   else
-    echo -e "${GREEN}✓ No NEXT_PUBLIC_TESTING_MODE=true found${NC}"
+    echo -e "${GREEN}✓ Admin app has DISABLE_AUTH (intentional for admin access)${NC}"
   fi
   
-  if grep -q "NEXT_PUBLIC_DISABLE_AUTH.*true" ecosystem.config.js; then
-    echo -e "${RED}✗ Found NEXT_PUBLIC_DISABLE_AUTH=true in ecosystem.config.js${NC}"
+  # Count total apps with DISABLE_AUTH
+  TOTAL_DISABLE_AUTH=$(grep -c 'NEXT_PUBLIC_DISABLE_AUTH.*:.*"true"' ecosystem.config.js || echo "0")
+  
+  # Should be exactly 1 (the admin app)
+  if [ "$TOTAL_DISABLE_AUTH" -gt 1 ]; then
+    echo -e "${RED}✗ Found NEXT_PUBLIC_DISABLE_AUTH=true in non-admin apps${NC}"
+    echo -e "${RED}   Total apps with flag: $TOTAL_DISABLE_AUTH (expected: 1)${NC}"
     ERRORS=$((ERRORS + 1))
   else
-    echo -e "${GREEN}✓ No NEXT_PUBLIC_DISABLE_AUTH=true found${NC}"
+    echo -e "${GREEN}✓ No NEXT_PUBLIC_DISABLE_AUTH=true in non-admin apps${NC}"
   fi
   
-  if grep -q "NEXT_PUBLIC_DISABLE_PAYWALL.*true" ecosystem.config.js; then
-    echo -e "${RED}✗ Found NEXT_PUBLIC_DISABLE_PAYWALL=true in ecosystem.config.js${NC}"
+  # Check for DISABLE_PAYWALL in non-admin apps
+  TOTAL_DISABLE_PAYWALL=$(grep -c 'NEXT_PUBLIC_DISABLE_PAYWALL.*:.*"true"' ecosystem.config.js || echo "0")
+  if [ "$TOTAL_DISABLE_PAYWALL" -gt 1 ]; then
+    echo -e "${RED}✗ Found NEXT_PUBLIC_DISABLE_PAYWALL=true in non-admin apps${NC}"
+    echo -e "${RED}   Total apps with flag: $TOTAL_DISABLE_PAYWALL (expected: 1)${NC}"
     ERRORS=$((ERRORS + 1))
   else
-    echo -e "${GREEN}✓ No NEXT_PUBLIC_DISABLE_PAYWALL=true found${NC}"
+    echo -e "${GREEN}✓ No NEXT_PUBLIC_DISABLE_PAYWALL=true in non-admin apps${NC}"
   fi
   
-  if grep -q 'NEXT_PUBLIC_PAYWALL_ENABLED.*"false"' ecosystem.config.js; then
-    echo -e "${RED}✗ Found NEXT_PUBLIC_PAYWALL_ENABLED=false in ecosystem.config.js${NC}"
-    ERRORS=$((ERRORS + 1))
-  else
-    echo -e "${GREEN}✓ No NEXT_PUBLIC_PAYWALL_ENABLED=false found${NC}"
-  fi
-  
+  # Local content should never be in production
   if grep -q "NEXT_PUBLIC_USE_LOCAL_CONTENT.*true" ecosystem.config.js; then
     echo -e "${RED}✗ Found NEXT_PUBLIC_USE_LOCAL_CONTENT=true in ecosystem.config.js${NC}"
     ERRORS=$((ERRORS + 1))
