@@ -24,12 +24,7 @@ This ensures continuity and knowledge transfer between different AI sessions and
 
 ### Import Paths for Shared Components
 
-**For apps in root directory** (learn-ai, learn-apt, etc.):
-```javascript
-import Component from "../../components/shared/Component"
-```
-
-**For apps in /apps/ subdirectory** (apps/main, apps/coming-soon):
+**For apps in apps/ subdirectory** (apps/main, apps/learn-ai, etc.):
 ```javascript
 import Component from "../../../components/shared/Component"
 ```
@@ -55,11 +50,9 @@ import Component from "../../../components/shared/Component"
 
 When modifying files in `/components/shared/`:
 
-1. Test import in BOTH:
-   - Root-level app (e.g., learn-ai)
-   - Apps subdirectory app (e.g., apps/main)
+1. Test import in multiple apps (e.g., apps/main, apps/learn-ai)
 
-2. Verify with: `yarn build` in both locations
+2. Verify with: `yarn build` in the tested apps
 
 ### Pull Request Checklist
 
@@ -72,7 +65,7 @@ When modifying files in `/components/shared/`:
 ## GitHub Actions CI/CD
 
 All pull requests are automatically tested by GitHub Actions:
-- ✅ All 18 apps must build successfully
+- ✅ All 13 active apps must build successfully
 - ✅ PRs with build failures cannot be merged
 - ✅ Check the "Actions" tab to see build status
 

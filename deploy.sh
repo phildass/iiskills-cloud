@@ -41,14 +41,10 @@ echo ""
 
 # Step 4: Clean build directories
 echo -e "${CYAN}Step 4/7: Cleaning build directories${NC}"
-# Clean .next directories for main apps
+# Clean .next directories for main app
 if [ -d "apps/main/.next" ]; then
   echo "Removing apps/main/.next..."
   rm -rf apps/main/.next
-fi
-if [ -d "apps/iiskills-admin/.next" ]; then
-  echo "Removing apps/iiskills-admin/.next..."
-  rm -rf apps/iiskills-admin/.next
 fi
 echo "Build directories cleaned"
 echo ""
@@ -61,14 +57,13 @@ yarn workspaces foreach -A run build
 echo -e "${CYAN}Verifying build output...${NC}"
 BUILD_FAILURES=0
 
-for app in apps/main apps/iiskills-admin; do
-  if [ ! -d "$app/.next" ]; then
-    echo -e "${RED}✗ Build failed for $app - no .next directory${NC}"
-    BUILD_FAILURES=$((BUILD_FAILURES + 1))
-  else
-    echo -e "${GREEN}✓ Build succeeded for $app${NC}"
-  fi
-done
+# Only verify main app as it contains the universal admin dashboard
+if [ ! -d "apps/main/.next" ]; then
+  echo -e "${RED}✗ Build failed for apps/main - no .next directory${NC}"
+  BUILD_FAILURES=$((BUILD_FAILURES + 1))
+else
+  echo -e "${GREEN}✓ Build succeeded for apps/main${NC}"
+fi
 
 if [ $BUILD_FAILURES -gt 0 ]; then
   echo -e "${RED}Build verification failed!${NC}"

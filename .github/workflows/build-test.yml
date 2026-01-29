@@ -1,6 +1,6 @@
 name: Build & Test All Apps
 
-# This workflow tests all 18 apps on every PR and push to main
+# This workflow tests all active apps on every PR and push to main
 # Required GitHub Secrets:
 #   - NEXT_PUBLIC_SUPABASE_URL
 #   - NEXT_PUBLIC_SUPABASE_ANON_KEY
@@ -22,23 +22,18 @@ jobs:
       matrix:
         app:
           - apps/main
-          - coming-soon
-          - learn-ai
-          - learn-apt
-          - learn-jee
-          - learn-chemistry
-          - learn-cricket
-          - learn-geography
-          - learn-govt-jobs
-          - learn-ias
-          - learn-leadership
-          - learn-management
-          - learn-math
-          - learn-neet
-          - learn-physics
-          - learn-pr
-          - learn-winning
-          - learn-data-science
+          - apps/learn-ai
+          - apps/learn-apt
+          - apps/learn-chemistry
+          - apps/learn-cricket
+          - apps/learn-geography
+          - apps/learn-govt-jobs
+          - apps/learn-leadership
+          - apps/learn-management
+          - apps/learn-math
+          - apps/learn-physics
+          - apps/learn-pr
+          - apps/learn-winning
       fail-fast: false
     
     steps:
@@ -80,4 +75,4 @@ jobs:
     
     steps:
       - name: All builds passed
-        run: echo "✅ All 18 apps built successfully - safe to merge!"
+        run: echo "✅ All 13 active apps built successfully - safe to merge!"

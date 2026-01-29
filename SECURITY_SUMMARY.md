@@ -17,7 +17,7 @@ This PR implements selective deployment configuration for the iiskills-cloud mon
 ### 2. File Movements
 **Action:** Moved 7 inactive apps from `apps/` to `apps-backup/`
 
-**Apps Moved:**
+**Apps Archived:**
 - admin
 - coming-soon
 - iiskills-admin
@@ -25,6 +25,21 @@ This PR implements selective deployment configuration for the iiskills-cloud mon
 - learn-ias
 - learn-jee
 - learn-neet
+
+**Active Apps (deployed):**
+- main (app.iiskills.cloud) - contains universal admin dashboard
+- learn-ai
+- learn-apt
+- learn-chemistry
+- learn-cricket (free)
+- learn-geography
+- learn-govt-jobs
+- learn-leadership
+- learn-management
+- learn-math
+- learn-physics
+- learn-pr
+- learn-winning
 
 **Security Impact:**
 - ✅ No code changes in moved files
@@ -61,9 +76,10 @@ This PR implements selective deployment configuration for the iiskills-cloud mon
 ✅ No changes to data handling or validation  
 
 ### Security Benefits
-✅ **Reduced Attack Surface**: Only 12 active apps are deployed instead of 19  
+✅ **Reduced Attack Surface**: Only 13 active apps are deployed  
 ✅ **Clear Separation**: Inactive apps cannot be accidentally deployed  
 ✅ **Maintainability**: Clearer configuration makes security audits easier  
+✅ **Universal Admin**: Admin functionality consolidated in main app at app.iiskills.cloud  
 
 ### Potential Security Considerations
 ⚠️ **Apps-backup Directory**: Contains backed-up apps that are not deployed but remain in repository

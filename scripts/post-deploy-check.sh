@@ -6,7 +6,7 @@
 # This script validates that the deployment was successful by:
 # 1. Checking that all PM2 processes are running
 # 2. Validating HTTP endpoints are responding
-# 3. Checking the admin health API
+# 3. Checking the main app health API
 # 4. Verifying no testing mode flags in production
 #
 # Usage: ./scripts/post-deploy-check.sh [--wait] [--rollback-on-fail]
@@ -30,7 +30,6 @@ RESET='\033[0m'
 # Configuration
 MAX_WAIT_TIME=60  # seconds
 CHECK_INTERVAL=5  # seconds
-ADMIN_PORT=3023
 MAIN_PORT=3000
 
 # Parse arguments
@@ -74,10 +73,18 @@ else
   # Get list of apps that should be running
   EXPECTED_APPS=(
     "iiskills-main"
-    "iiskills-admin"
     "iiskills-learn-ai"
     "iiskills-learn-apt"
-    "iiskills-learn-jee"
+    "iiskills-learn-chemistry"
+    "iiskills-learn-cricket"
+    "iiskills-learn-geography"
+    "iiskills-learn-govt-jobs"
+    "iiskills-learn-leadership"
+    "iiskills-learn-management"
+    "iiskills-learn-math"
+    "iiskills-learn-physics"
+    "iiskills-learn-pr"
+    "iiskills-learn-winning"
   )
   
   PM2_FAILURES=0
@@ -139,31 +146,27 @@ if ! check_http_endpoint $MAIN_PORT "Main app"; then
   HTTP_FAILURES=$((HTTP_FAILURES + 1))
 fi
 
-if ! check_http_endpoint $ADMIN_PORT "Admin app"; then
-  HTTP_FAILURES=$((HTTP_FAILURES + 1))
-fi
-
 if [ $HTTP_FAILURES -gt 0 ]; then
   ERRORS=$((ERRORS + HTTP_FAILURES))
 fi
 echo ""
 
 #
-# Check admin health API
+# Check main app admin health API
 #
-echo -e "${CYAN}3. Checking admin health API...${NC}"
+echo -e "${CYAN}3. Checking main app admin health API...${NC}"
 
-HEALTH_RESPONSE=$(curl -s http://localhost:$ADMIN_PORT/api/health 2>/dev/null || echo "")
+HEALTH_RESPONSE=$(curl -s http://localhost:$MAIN_PORT/api/healthz 2>/dev/null || echo "")
 
 if [ -z "$HEALTH_RESPONSE" ]; then
-  echo -e "  ${RED}✗ Admin health API not responding${NC}"
+  echo -e "  ${RED}✗ Main app health API not responding${NC}"
   ERRORS=$((ERRORS + 1))
 else
   # Parse JSON response (simple check)
   if echo "$HEALTH_RESPONSE" | grep -q '"status":"OK"'; then
-    echo -e "  ${GREEN}✓ Admin health status: OK${NC}"
+    echo -e "  ${GREEN}✓ Main app health status: OK${NC}"
   elif echo "$HEALTH_RESPONSE" | grep -q '"status":"WARNING"'; then
-    echo -e "  ${YELLOW}⚠️  Admin health status: WARNING${NC}"
+    echo -e "  ${YELLOW}⚠️  Main app health status: WARNING${NC}"
     WARNINGS=$((WARNINGS + 1))
     
     # Show warning details
@@ -172,7 +175,7 @@ else
       echo -e "  ${YELLOW}   $MESSAGE${NC}"
     fi
   else
-    echo -e "  ${RED}✗ Admin health status: ERROR${NC}"
+    echo -e "  ${RED}✗ Main app health status: ERROR${NC}"
     ERRORS=$((ERRORS + 1))
     
     # Show error details
@@ -190,24 +193,13 @@ echo ""
 echo -e "${CYAN}4. Checking for testing mode flags...${NC}"
 
 if [ -f "ecosystem.config.js" ]; then
-  # Check if admin app has the required flags (expected)
-  ADMIN_HAS_FLAGS=$(grep -A 10 'name:.*"iiskills-admin"' ecosystem.config.js | grep -c 'NEXT_PUBLIC_DISABLE_AUTH.*:.*"true"' || echo "0")
+  # Check for testing flags (should not be present in production)
+  TESTING_FLAGS_FOUND=0
   
-  # Count total apps with DISABLE_AUTH
-  TOTAL_DISABLE_AUTH=$(grep -c 'NEXT_PUBLIC_DISABLE_AUTH.*:.*"true"' ecosystem.config.js || echo "0")
-  
-  if [ "$ADMIN_HAS_FLAGS" -gt 0 ]; then
-    echo -e "  ${GREEN}✓ Admin app has DISABLE_AUTH (expected configuration)${NC}"
-  fi
-  
-  # If more than 1 app has the flag, non-admin apps are affected
-  if [ "$TOTAL_DISABLE_AUTH" -gt 1 ]; then
-    echo -e "  ${RED}✗ Found NEXT_PUBLIC_DISABLE_AUTH=true in non-admin apps${NC}"
+  if grep -q 'NEXT_PUBLIC_DISABLE_AUTH.*:.*"true"' ecosystem.config.js; then
+    echo -e "  ${RED}✗ Found NEXT_PUBLIC_DISABLE_AUTH=true${NC}"
     TESTING_FLAGS_FOUND=$((TESTING_FLAGS_FOUND + 1))
   fi
-  
-  # Check for other testing flags (should not be present)
-  TESTING_FLAGS_FOUND=0
   
   if grep -q 'NEXT_PUBLIC_USE_LOCAL_CONTENT.*:.*"true"' ecosystem.config.js; then
     echo -e "  ${RED}✗ Found NEXT_PUBLIC_USE_LOCAL_CONTENT=true${NC}"
@@ -218,7 +210,7 @@ if [ -f "ecosystem.config.js" ]; then
     echo -e "  ${RED}✗ Testing mode detected in production apps${NC}"
     ERRORS=$((ERRORS + TESTING_FLAGS_FOUND))
   else
-    echo -e "  ${GREEN}✓ No unexpected testing mode flags${NC}"
+    echo -e "  ${GREEN}✓ No testing mode flags found${NC}"
   fi
 else
   echo -e "  ${YELLOW}⚠️  ecosystem.config.js not found${NC}"
@@ -233,14 +225,12 @@ echo -e "${CYAN}5. Checking build directories...${NC}"
 
 MISSING_BUILDS=0
 
-for app in apps/main apps/iiskills-admin; do
-  if [ -d "$app/.next" ]; then
-    echo -e "  ${GREEN}✓ $app/.next exists${NC}"
-  else
-    echo -e "  ${RED}✗ $app/.next missing${NC}"
-    MISSING_BUILDS=$((MISSING_BUILDS + 1))
-  fi
-done
+if [ -d "apps/main/.next" ]; then
+  echo -e "  ${GREEN}✓ apps/main/.next exists${NC}"
+else
+  echo -e "  ${RED}✗ apps/main/.next missing${NC}"
+  MISSING_BUILDS=$((MISSING_BUILDS + 1))
+fi
 
 if [ $MISSING_BUILDS -gt 0 ]; then
   ERRORS=$((ERRORS + MISSING_BUILDS))

@@ -59,16 +59,10 @@ if [ -d "apps/main/.next" ]; then
   rm -rf apps/main/.next
 fi
 
-# Clean coming-soon app
-if [ -d "apps/coming-soon/.next" ]; then
-  echo "Cleaning apps/coming-soon/.next"
-  rm -rf apps/coming-soon/.next
-fi
-
-# Clean all learning apps
-for app in learn-ai learn-apt learn-chemistry learn-cricket learn-data-science \
-           learn-geography learn-govt-jobs learn-ias learn-jee learn-leadership \
-           learn-management learn-math learn-neet learn-physics learn-pr learn-winning; do
+# Clean all active learning apps
+for app in learn-ai learn-apt learn-chemistry learn-cricket \
+           learn-geography learn-govt-jobs learn-leadership \
+           learn-management learn-math learn-physics learn-pr learn-winning; do
   if [ -d "apps/$app/.next" ]; then
     echo "Cleaning apps/$app/.next"
     rm -rf "apps/$app/.next"
@@ -131,7 +125,7 @@ pm2 status
 echo ""
 echo -e "${YELLOW}Checking environment variables for sample apps...${NC}"
 
-for app in iiskills-main iiskills-learn-jee iiskills-learn-ai; do
+for app in iiskills-main iiskills-learn-ai iiskills-learn-apt; do
   echo ""
   echo "=== $app ==="
   pm2 show "$app" 2>/dev/null | grep -A 20 "│ env" | head -25 || echo "App not found or env not available"

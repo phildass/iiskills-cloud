@@ -23,39 +23,28 @@ if [ ! -f "ecosystem.config.js" ]; then
   echo -e "${RED}✗ ecosystem.config.js not found${NC}"
   ERRORS=$((ERRORS + 1))
 else
-  # Check for testing mode flags in NON-ADMIN apps
-  # Note: Admin app intentionally has DISABLE_AUTH for administrative access
+  # Check for testing mode flags in production apps
+  # All apps should have auth and paywalls enabled in production
   
-  # Check if admin app has the required flags
-  ADMIN_HAS_DISABLE_AUTH=$(grep -A 10 'name:.*"iiskills-admin"' ecosystem.config.js | grep -c 'NEXT_PUBLIC_DISABLE_AUTH.*:.*"true"' || echo "0")
-  
-  if [ "$ADMIN_HAS_DISABLE_AUTH" -eq 0 ]; then
-    echo -e "${YELLOW}⚠️  Admin app missing DISABLE_AUTH flag (may be intentional)${NC}"
-    WARNINGS=$((WARNINGS + 1))
-  else
-    echo -e "${GREEN}✓ Admin app has DISABLE_AUTH (intentional for admin access)${NC}"
-  fi
-  
-  # Count total apps with DISABLE_AUTH
+  # Check for DISABLE_AUTH in any app
   TOTAL_DISABLE_AUTH=$(grep -c 'NEXT_PUBLIC_DISABLE_AUTH.*:.*"true"' ecosystem.config.js || echo "0")
   
-  # Should be exactly 1 (the admin app)
-  if [ "$TOTAL_DISABLE_AUTH" -gt 1 ]; then
-    echo -e "${RED}✗ Found NEXT_PUBLIC_DISABLE_AUTH=true in non-admin apps${NC}"
-    echo -e "${RED}   Total apps with flag: $TOTAL_DISABLE_AUTH (expected: 1)${NC}"
+  if [ "$TOTAL_DISABLE_AUTH" -gt 0 ]; then
+    echo -e "${RED}✗ Found NEXT_PUBLIC_DISABLE_AUTH=true in apps${NC}"
+    echo -e "${RED}   Total apps with flag: $TOTAL_DISABLE_AUTH (expected: 0)${NC}"
     ERRORS=$((ERRORS + 1))
   else
-    echo -e "${GREEN}✓ No NEXT_PUBLIC_DISABLE_AUTH=true in non-admin apps${NC}"
+    echo -e "${GREEN}✓ No NEXT_PUBLIC_DISABLE_AUTH=true in apps${NC}"
   fi
   
-  # Check for DISABLE_PAYWALL in non-admin apps
+  # Check for DISABLE_PAYWALL in apps
   TOTAL_DISABLE_PAYWALL=$(grep -c 'NEXT_PUBLIC_DISABLE_PAYWALL.*:.*"true"' ecosystem.config.js || echo "0")
-  if [ "$TOTAL_DISABLE_PAYWALL" -gt 1 ]; then
-    echo -e "${RED}✗ Found NEXT_PUBLIC_DISABLE_PAYWALL=true in non-admin apps${NC}"
-    echo -e "${RED}   Total apps with flag: $TOTAL_DISABLE_PAYWALL (expected: 1)${NC}"
+  if [ "$TOTAL_DISABLE_PAYWALL" -gt 0 ]; then
+    echo -e "${RED}✗ Found NEXT_PUBLIC_DISABLE_PAYWALL=true in apps${NC}"
+    echo -e "${RED}   Total apps with flag: $TOTAL_DISABLE_PAYWALL (expected: 0)${NC}"
     ERRORS=$((ERRORS + 1))
   else
-    echo -e "${GREEN}✓ No NEXT_PUBLIC_DISABLE_PAYWALL=true in non-admin apps${NC}"
+    echo -e "${GREEN}✓ No NEXT_PUBLIC_DISABLE_PAYWALL=true in apps${NC}"
   fi
   
   # Local content should never be in production
@@ -116,7 +105,7 @@ if command -v pm2 &> /dev/null; then
     echo -e "${GREEN}✓ PM2 is running${NC}"
     
     # Check sample apps for testing flags (checking 3 apps as a representative sample)
-    for app in iiskills-main iiskills-learn-jee iiskills-learn-ai; do
+    for app in iiskills-main iiskills-learn-ai iiskills-learn-apt; do
       if pm2 show "$app" &> /dev/null; then
         ENV_CHECK=$(pm2 show "$app" 2>/dev/null | grep -E "(NEXT_PUBLIC_TESTING_MODE|NEXT_PUBLIC_DISABLE_AUTH|NEXT_PUBLIC_DISABLE_PAYWALL|NEXT_PUBLIC_USE_LOCAL_CONTENT)" || true)
         if [ -n "$ENV_CHECK" ]; then
