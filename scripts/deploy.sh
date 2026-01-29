@@ -90,4 +90,24 @@ else
   echo ""
   echo "📊 PM2 Status:"
   pm2 list
+
+  # Step 6: Automated Logging (logs only after success)
+  LOGFILE="./devlog"
+  NOW=$(date --utc +"%Y-%m-%d %H:%M UTC")
+  USER=$(whoami)
+  COMMIT=$(git rev-parse HEAD | cut -c 1-8)
+  APPS_DEPLOYED=$(printf '%s ' "${!ports[@]}" | xargs)
+  HEALTH_SUMMARY="All healthy"
+  {
+    echo "## [${NOW}] — Automated Script Deploy by ${USER}"
+    echo "- Deployed commit: ${COMMIT}"
+    echo "- Apps checked: ${APPS_DEPLOYED}"
+    echo "- Health check result: ${HEALTH_SUMMARY}"
+    echo "- PM2 status:"
+    pm2 list
+    echo "- Outstanding issues / TODOs:"
+    echo "    [ ] Ensure content aggregation from all learn-* apps and Supabase is robust and visible in dashboard."
+    echo "    [ ] Confirm admin and public APIs/UIs show merged superset."
+    echo ""
+  } >> "$LOGFILE"
 fi
