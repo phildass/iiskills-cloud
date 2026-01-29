@@ -597,6 +597,8 @@ See [NAVIGATION_AUTH_GUIDE.md](NAVIGATION_AUTH_GUIDE.md) for complete navigation
 - [ONBOARDING.md](ONBOARDING.md) - **Getting started guide for new users**
 
 ### For Developers
+- [CONTRIBUTING.md](CONTRIBUTING.md) - **🤖 Contributing guidelines (includes AI agent handover practices)**
+- [DEV_AI_LOG.md](DEV_AI_LOG.md) - **🤖 AI agent session log for continuity and handover**
 - [SUPABASE_SCHEMA_V2.md](SUPABASE_SCHEMA_V2.md) - **🆕 Complete Schema v2 documentation (database tables, functions, examples)**
 - [SCHEMA_V2_QUICK_REFERENCE.md](SCHEMA_V2_QUICK_REFERENCE.md) - **🆕 Developer quick reference with TypeScript code examples**
 - [SCHEMA_V2_MIGRATION_CHECKLIST.md](SCHEMA_V2_MIGRATION_CHECKLIST.md) - **🆕 Step-by-step migration checklist**
