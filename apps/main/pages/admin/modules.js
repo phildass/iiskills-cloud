@@ -173,7 +173,6 @@ export default function AdminModules() {
             </table>
           )}
         </div>
-      </main>
 
         {/* Feature List */}
         <div className="mt-8 bg-white rounded-lg shadow p-6">
