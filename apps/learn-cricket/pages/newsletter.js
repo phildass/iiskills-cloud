@@ -82,10 +82,18 @@ export default function NewsletterPage() {
               <p className="text-gray-600 text-center mb-6">
                 Enter your email below to receive cricket news and lesson updates
               </p>
-              <form className="max-w-md mx-auto">
+              <form className="max-w-md mx-auto" onSubmit={(e) => {
+                e.preventDefault();
+                const email = e.target.email.value;
+                if (email) {
+                  alert('Thank you for subscribing! You will receive cricket updates at ' + email);
+                  e.target.reset();
+                }
+              }}>
                 <div className="mb-4">
                   <input
                     type="email"
+                    name="email"
                     placeholder="Enter your email"
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
                     required

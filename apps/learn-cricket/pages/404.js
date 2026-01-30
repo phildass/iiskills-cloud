@@ -1,5 +1,7 @@
 import Link from "next/link";
 import Head from "next/head";
+import SubdomainNavbar from "@shared/SubdomainNavbar";
+import Footer from "../components/Footer";
 
 export default function Custom404() {
   return (
@@ -8,6 +10,24 @@ export default function Custom404() {
         <title>404 - Page Not Found</title>
         <meta name="description" content="The page you're looking for doesn't exist." />
       </Head>
+
+      <SubdomainNavbar 
+        title="Cricket Know-All"
+        user={null}
+        onLogout={() => {}}
+        customLinks={[
+          {
+            href: "https://iiskills.cloud",
+            label: "Home",
+            className: "hover:text-primary transition",
+          },
+          {
+            href: "https://iiskills.cloud/about",
+            label: "About",
+            className: "hover:text-primary transition",
+          },
+        ]}
+      />
 
       <main className="min-h-screen bg-gradient-to-b from-neutral to-white flex items-center justify-center px-4 py-20">
         <div className="max-w-2xl mx-auto text-center">
@@ -61,6 +81,8 @@ export default function Custom404() {
           </p>
         </div>
       </main>
+
+      <Footer />
     </>
   );
 }
