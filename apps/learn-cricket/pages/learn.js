@@ -40,6 +40,11 @@ function LearnContent() {
     }
   };
 
+  const handleExploreModule = (moduleName) => {
+    // Show coming soon alert for now - these modules are being developed
+    alert(`${moduleName} module is coming soon! Stay tuned for comprehensive cricket lessons.`);
+  };
+
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-neutral">
@@ -109,6 +114,7 @@ function LearnContent() {
                 </ul>
 
                 <button
+                  onClick={() => handleExploreModule('Cricket Basics')}
                   className="w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white py-4 rounded-lg font-bold text-lg shadow-lg hover:shadow-xl transition-all transform hover:scale-105"
                 >
                   Explore Now
@@ -142,6 +148,7 @@ function LearnContent() {
                 </ul>
 
                 <button
+                  onClick={() => handleExploreModule('Match Strategies')}
                   className="w-full bg-gradient-to-r from-purple-500 to-purple-600 text-white py-4 rounded-lg font-bold text-lg shadow-lg hover:shadow-xl transition-all transform hover:scale-105"
                 >
                   Explore Now
@@ -175,6 +182,7 @@ function LearnContent() {
                 </ul>
 
                 <button
+                  onClick={() => handleExploreModule('Cricket History')}
                   className="w-full bg-gradient-to-r from-green-500 to-green-600 text-white py-4 rounded-lg font-bold text-lg shadow-lg hover:shadow-xl transition-all transform hover:scale-105"
                 >
                   Explore Now
@@ -208,6 +216,7 @@ function LearnContent() {
                 </ul>
 
                 <button
+                  onClick={() => handleExploreModule('Stats & Records')}
                   className="w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white py-4 rounded-lg font-bold text-lg shadow-lg hover:shadow-xl transition-all transform hover:scale-105"
                 >
                   Explore Now
