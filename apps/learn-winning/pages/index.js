@@ -5,8 +5,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { getCurrentUser } from "../lib/supabaseClient";
-import InstallApp from "../../components/shared/InstallApp";
-import TranslationFeatureBanner from "../../components/shared/TranslationFeatureBanner";
+import InstallApp from "@shared/InstallApp";
+import TranslationFeatureBanner from "@shared/TranslationFeatureBanner";
 import { getLandingPageImages, getPlaceholderImage } from "../lib/imageUtils";
 
 export default function Home() {

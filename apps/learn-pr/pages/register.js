@@ -1,5 +1,5 @@
 import Head from "next/head";
-import UniversalRegister from "../../components/shared/UniversalRegister";
+import UniversalRegister from "@shared/UniversalRegister";
 
 /**
  * Registration Page for Learn-Pr

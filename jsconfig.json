@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@shared/*": ["apps/main/components/shared/*"],
+      "@components/*": ["apps/main/components/*"]
+    }
+  },
+  "exclude": [
+    "node_modules",
+    ".next",
+    "dist",
+    "build"
+  ]
+}

@@ -2,7 +2,7 @@
 
 import Head from "next/head";
 import { useRef } from "react";
-import NewsletterSignup from "../components/shared/NewsletterSignup";
+import NewsletterSignup from "@shared/NewsletterSignup";
 
 export default function NewsletterPage() {
   const formRef = useRef(null);

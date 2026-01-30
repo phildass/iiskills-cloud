@@ -1,9 +1,9 @@
 import "../styles/globals.css";
 import { useEffect, useState } from "react";
 import { supabase, getCurrentUser } from "../lib/supabaseClient";
-import AuthenticationChecker from "../../components/shared/AuthenticationChecker";
-import AIAssistant from "../components/shared/AIAssistant";
-import NewsletterSignup from "../components/shared/NewsletterSignup";
+import AuthenticationChecker from "@shared/AuthenticationChecker";
+import AIAssistant from "@shared/AIAssistant";
+import NewsletterSignup from "@shared/NewsletterSignup";
 import { useNewsletterPopup } from "../utils/useNewsletterPopup";
 
 /**

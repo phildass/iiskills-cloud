@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { useRef, useState } from "react";
-import NewsletterSignup from "../components/shared/NewsletterSignup";
+import NewsletterSignup from "@shared/NewsletterSignup";
 import newsletters from "../data/newsletters.json";
 
 export default function NewsletterPage() {
