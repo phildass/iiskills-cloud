@@ -255,28 +255,35 @@ cd apps/learn-chemistry && yarn dev  # Learn Chemistry app
 yarn workspaces list
 ```
 
-This repository contains multiple Next.js applications:
+## 🎓 Production Applications
 
-- **Main App** (`apps/main/`) - The primary iiskills.cloud website
-- **Admin Dashboard** (`apps/admin/`) - Admin interface (local content mode)
-- **Learn-Apt** (`apps/learn-apt/`) - Aptitude assessment with AI-powered career guidance
-- **Learn-Math** (`apps/learn-math/`) - Mathematics learning module
-- **Learn-Chemistry** (`apps/learn-chemistry/`) - Chemistry mastery with AI-driven curriculum
-- **Learn-Winning** (`apps/learn-winning/`) - Success strategies and winning mindset
-- **Learn-Data-Science** (`apps/learn-data-science/`) - Data science fundamentals
-- **Learn-Management** (`apps/learn-management/`) - Management and business skills
-- **Learn-Leadership** (`apps/learn-leadership/`) - Leadership development
+This repository contains **13 production-ready Next.js applications** (main + 12 learning apps):
+
+### Main Platform
+- **Main App** (`apps/main/`) - The primary iiskills.cloud website with universal admin dashboard
+
+### Active Learning Apps (Production)
 - **Learn-AI** (`apps/learn-ai/`) - Artificial Intelligence fundamentals
-- **Learn-PR** (`apps/learn-pr/`) - Public Relations and communication
-- **Learn-JEE** (`apps/learn-jee/`) - JEE preparation with Physics, Chemistry, and Mathematics
-- **Learn-Geography** (`apps/learn-geography/`) - Geography and world exploration (FREE)
-- **Learn-NEET** (`apps/learn-neet/`) - Comprehensive NEET preparation (2-year paid subscription)
-- **Learn-Physics** (`apps/learn-physics/`) - Physics mastery with AI-driven lessons
-- **Learn-IAS** (`apps/learn-ias/`) - UPSC Civil Services preparation with AI-powered content (₹116.82/year)
+- **Learn-Apt** (`apps/learn-apt/`) - Aptitude assessment with AI-powered career guidance
+- **Learn-Chemistry** (`apps/learn-chemistry/`) - Chemistry mastery with comprehensive curriculum
+- **Learn-Cricket** (`apps/learn-cricket/`) - Cricket knowledge and strategies (FREE)
+- **Learn-Geography** (`apps/learn-geography/`) - Geography and world exploration
 - **Learn-Government-Jobs** (`apps/learn-govt-jobs/`) - Government job exam preparation
-- **Learn-Cricket** (`apps/learn-cricket/`) - Cricket Know-All - Master cricket knowledge and strategies
+- **Learn-Leadership** (`apps/learn-leadership/`) - Leadership development
+- **Learn-Management** (`apps/learn-management/`) - Management and business skills
+- **Learn-Math** (`apps/learn-math/`) - Mathematics learning module
+- **Learn-Physics** (`apps/learn-physics/`) - Physics mastery with structured curriculum
+- **Learn-PR** (`apps/learn-pr/`) - Public Relations and communication
+- **Learn-Winning** (`apps/learn-winning/`) - Success strategies and winning mindset
 
-Each app can be deployed independently on different subdomains while sharing authentication.
+### Archived Applications
+Legacy and inactive apps have been moved to `apps-backup/` and are not deployed:
+- `admin/` - Legacy standalone admin interface (now integrated into main app)
+- `coming-soon/` - Legacy placeholder page
+- `iiskills-admin/` - Legacy admin dashboard
+- `learn-data-science/`, `learn-ias/`, `learn-jee/`, `learn-neet/` - Archived learning modules
+
+Each active app can be deployed independently on different subdomains while sharing authentication.
 
 ## 🚀 Multi-App Subdomain Deployment
 
@@ -309,33 +316,29 @@ sudo ./deploy-subdomains.sh
 
 ## Local Port Map
 
-All applications in this monorepo have been assigned unique, sequential ports to prevent EADDRINUSE errors when running concurrently. See [PORT_ASSIGNMENTS.md](PORT_ASSIGNMENTS.md) for full details.
+All active production applications have been assigned unique ports. See [PORT_ASSIGNMENTS.md](PORT_ASSIGNMENTS.md) for full details.
 
-| Port | Application | Description |
-|------|-------------|-------------|
-| 3000 | **iiskills-main** | Main website |
-| 3001 | **learn-apt** | Aptitude assessment |
-| 3002 | **learn-ai** | Artificial Intelligence fundamentals |
-| 3003 | **learn-chemistry** | Chemistry mastery |
-| 3004 | **learn-data-science** | Data science fundamentals |
-| 3005 | **learn-geography** | Geography and world exploration |
-| 3006 | **learn-govt-jobs** | Government job exam preparation |
-| 3007 | **learn-ias** | UPSC Civil Services preparation |
-| 3008 | **learn-jee** | JEE preparation |
-| 3009 | **learn-leadership** | Leadership development |
-| 3010 | **learn-management** | Management and business skills |
-| 3011 | **learn-math** | Mathematics learning |
-| 3012 | **learn-neet** | NEET preparation |
-| 3013 | **learn-physics** | Physics mastery |
-| 3014 | **learn-pr** | Public Relations |
-| 3015 | **learn-winning** | Success strategies |
-| 3016 | **learn-cricket** | Cricket Know-All |
+| Port | Application | Status | Description |
+|------|-------------|--------|-------------|
+| 3000 | **iiskills-main** | ✅ Active | Main website with universal admin dashboard |
+| 3001 | **learn-ai** | ✅ Active | Artificial Intelligence fundamentals |
+| 3002 | **learn-apt** | ✅ Active | Aptitude assessment |
+| 3005 | **learn-chemistry** | ✅ Active | Chemistry mastery |
+| 3009 | **learn-cricket** | ✅ Active | Cricket knowledge (FREE) |
+| 3011 | **learn-geography** | ✅ Active | Geography and world exploration |
+| 3013 | **learn-govt-jobs** | ✅ Active | Government job exam preparation |
+| 3015 | **learn-leadership** | ✅ Active | Leadership development |
+| 3016 | **learn-management** | ✅ Active | Management and business skills |
+| 3017 | **learn-math** | ✅ Active | Mathematics learning |
+| 3020 | **learn-physics** | ✅ Active | Physics mastery |
+| 3021 | **learn-pr** | ✅ Active | Public Relations |
+| 3022 | **learn-winning** | ✅ Active | Success strategies |
 
-**Run all apps concurrently:**
+**Archived apps** (in apps-backup/): admin, coming-soon, iiskills-admin, learn-data-science, learn-ias, learn-jee, learn-neet
+
+**Run all active apps concurrently:**
 ```bash
-yarn dev --concurrency=17
-# or
-npm run dev
+yarn workspaces foreach -A run dev
 ```
 
 All apps will start on their assigned ports without conflicts.
