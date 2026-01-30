@@ -21,10 +21,15 @@
         "name": "next"
       }
     ],
+    "baseUrl": "../..",
     "paths": {
       "@/*": [
-        "./src/*"
-      ]
+        "apps/learn-apt/src/*"
+      ],
+      "@shared/*": ["components/shared/*"],
+      "@components/*": ["components/*"],
+      "@lib/*": ["lib/*"],
+      "@utils/*": ["utils/*"]
     },
     "target": "ES2017"
   },

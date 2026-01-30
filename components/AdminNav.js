@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { getMainSiteUrl, isOnSubdomain } from "../utils/urlHelper";
-import { signOutUser } from "../lib/supabaseClient";
+import { signOutUser } from "@lib/supabaseClient";
 
 /**
  * Admin Navigation Bar

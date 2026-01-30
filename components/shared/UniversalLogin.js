@@ -3,9 +3,9 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { signInWithEmail, sendMagicLink, signInWithGoogle } from "../../lib/supabaseClient";
-import { getCurrentApp, getAuthRedirectUrl } from "../../lib/appRegistry";
-import { recordLoginApp, getBestAuthRedirect, initSessionManager } from "../../lib/sessionManager";
+import { signInWithEmail, sendMagicLink, signInWithGoogle } from "@lib/supabaseClient";
+import { getCurrentApp, getAuthRedirectUrl } from "@lib/appRegistry";
+import { recordLoginApp, getBestAuthRedirect, initSessionManager } from "@lib/sessionManager";
 
 /**
  * Universal Login Component

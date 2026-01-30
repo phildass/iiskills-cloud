@@ -2,7 +2,7 @@ import Head from "next/head";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 import UniversalLogin from "@shared/UniversalLogin";
-import { getCurrentUser, isAdmin } from "../../lib/supabaseClient";
+import { getCurrentUser, isAdmin } from "@lib/supabaseClient";
 
 /**
  * Admin Login Page for Learn Management

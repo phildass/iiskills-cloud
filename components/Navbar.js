@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
 // Import Supabase helpers for authentication state and logout
-import { getCurrentUser, signOutUser } from "../lib/supabaseClient";
+import { getCurrentUser, signOutUser } from "@lib/supabaseClient";
 import SharedNavbar from "./shared/SharedNavbar";
 
 /**

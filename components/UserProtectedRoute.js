@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { getCurrentUser } from "../lib/supabaseClient";
+import { getCurrentUser } from "@lib/supabaseClient";
 
 /**
  * UserProtectedRoute Component
