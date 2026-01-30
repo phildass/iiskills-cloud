@@ -1,9 +1,0 @@
-{
-  "id": "cricket-basics-module-1",
-  "title": "Introduction to Cricket",
-  "description": "Learn the history of cricket, basic rules, and the structure of the game. Understand what makes cricket one of the world's most popular sports.",
-  "sourceApp": "learn-cricket",
-  "course_id": "cricket-basics",
-  "order": 1,
-  "duration": "1 week"
-}
