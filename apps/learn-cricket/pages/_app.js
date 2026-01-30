@@ -92,11 +92,6 @@ export default function App({ Component, pageProps }) {
             className: "hover:text-primary transition",
           },
           {
-            href: "https://iiskills.cloud/about",
-            label: "About",
-            className: "hover:text-primary transition",
-          },
-          {
             href: "https://iiskills.cloud/terms",
             label: "Terms & Conditions",
             className: "hover:text-primary transition",

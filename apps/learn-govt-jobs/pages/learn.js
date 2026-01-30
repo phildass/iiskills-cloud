@@ -18,6 +18,16 @@ export default function Learn() {
 
   useEffect(() => {
     const checkAuth = async () => {
+      // Check if authentication is disabled for testing
+      const disableAuth = process.env.NEXT_PUBLIC_DISABLE_AUTH !== 'false';
+      const supabaseSuspended = process.env.NEXT_PUBLIC_SUPABASE_SUSPENDED === 'true';
+      
+      if (disableAuth || supabaseSuspended) {
+        // Skip authentication for testing phase
+        setIsLoading(false);
+        return;
+      }
+
       const currentUser = await getCurrentUser();
 
       if (!currentUser) {
