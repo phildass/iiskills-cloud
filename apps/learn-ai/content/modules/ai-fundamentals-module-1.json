@@ -1,0 +1,9 @@
+{
+  "id": "ai-fundamentals-module-1",
+  "title": "Introduction to AI Concepts",
+  "description": "Explore the foundational concepts of artificial intelligence, including its history, types, and real-world applications.",
+  "sourceApp": "learn-ai",
+  "course_id": "ai-fundamentals",
+  "order": 1,
+  "duration": "2 weeks"
+}

@@ -38,13 +38,49 @@ import Component from "../../../components/shared/Component"
    ./scripts/pre-deploy-check.sh
    ```
 
-2. Ensure ALL apps build successfully
+2. **Validate content** (if you added/modified content files):
+   ```bash
+   npm run validate-content
+   npm run check-orphans
+   ```
 
-3. Test on localhost:
+3. Ensure ALL apps build successfully
+
+4. Test on localhost:
    ```bash
    cd <your-app>
    yarn dev
    ```
+
+### Content Validation Requirements
+
+When adding or modifying content files:
+
+1. **Follow the schema** defined in `lib/contentSchema.js`
+2. **Required fields** for all content:
+   - `id` - Unique identifier
+   - `title` - Content title
+   - `description` - Content description
+   - `sourceApp` - Must match app name (e.g., "learn-ai")
+3. **Parent links** must be valid:
+   - Modules must reference existing courses
+   - Lessons must reference existing modules
+4. **Run validators**:
+   ```bash
+   npm run validate-content -- --app=<your-app> --verbose
+   npm run check-orphans -- --app=<your-app>
+   ```
+
+### Adding a New Learning App
+
+See [ADDING_NEW_APP.md](ADDING_NEW_APP.md) for complete instructions. Quick checklist:
+
+- [ ] Choose and document port in PORT_ASSIGNMENTS.md
+- [ ] Create content structure (courses/, modules/, lessons/)
+- [ ] Add sample content following schema
+- [ ] Validate content with `npm run validate-content`
+- [ ] Run `npm run generate:registry` to update app registry
+- [ ] Test locally before deploying
 
 ### Shared Component Changes
 
@@ -58,9 +94,13 @@ When modifying files in `/components/shared/`:
 
 - [ ] All apps build successfully locally
 - [ ] Pre-deployment check passes
+- [ ] Content validation passes (if applicable): `npm run validate-content`
+- [ ] Orphan checker passes (if applicable): `npm run check-orphans`
+- [ ] App registry updated (if new app): `npm run generate:registry`
 - [ ] No console errors in browser
 - [ ] Tested on localhost
 - [ ] Updated documentation if needed
+- [ ] Added/updated content follows schema (if applicable)
 
 ## GitHub Actions CI/CD
 

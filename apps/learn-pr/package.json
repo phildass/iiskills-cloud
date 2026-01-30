@@ -4,9 +4,9 @@
   "private": true,
   "description": "Learn PR - Master Public Relations and communication strategies",
   "scripts": {
-    "dev": "next dev -p 3014",
+    "dev": "next dev -p 3021",
     "build": "next build",
-    "start": "next start -p 3014",
+    "start": "next start -p 3021",
     "lint": "eslint ."
   },
   "dependencies": {

@@ -1,0 +1,10 @@
+{
+  "id": "ai-fundamentals",
+  "title": "AI Fundamentals: Introduction to Artificial Intelligence",
+  "description": "Learn the basics of artificial intelligence, including machine learning, neural networks, and practical applications. Perfect for beginners looking to understand AI concepts.",
+  "sourceApp": "learn-ai",
+  "instructor": "Dr. Sarah Chen",
+  "duration": "8 weeks",
+  "level": "beginner",
+  "tags": ["artificial-intelligence", "machine-learning", "neural-networks", "fundamentals"]
+}
