@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { getCurrentUser, isAdmin } from "../lib/supabaseClient";
+import { getCurrentUser, isAdmin } from "@lib/supabaseClient";
 
 /**
  * Protected Route Component for Admin Pages

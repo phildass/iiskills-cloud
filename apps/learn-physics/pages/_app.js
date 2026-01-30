@@ -1,12 +1,12 @@
 import "../styles/globals.css";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import SharedNavbar from "../../components/shared/SharedNavbar";
-import SubdomainNavbar from "../../components/shared/SubdomainNavbar";
-import AuthenticationChecker from "../../components/shared/AuthenticationChecker";
+import SharedNavbar from "@shared/SharedNavbar";
+import SubdomainNavbar from "@shared/SubdomainNavbar";
+import AuthenticationChecker from "@shared/AuthenticationChecker";
 import Footer from "../components/Footer";
-import AIAssistant from "../components/shared/AIAssistant";
-import NewsletterSignup from "../components/shared/NewsletterSignup";
+import AIAssistant from "@shared/AIAssistant";
+import NewsletterSignup from "@shared/NewsletterSignup";
 import { supabase, getCurrentUser, signOutUser } from "../lib/supabaseClient";
 import { useNewsletterPopup } from "../utils/useNewsletterPopup";
 

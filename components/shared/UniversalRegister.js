@@ -3,10 +3,10 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { supabase } from "../../lib/supabaseClient";
-import { genderOptions, educationLevels, countries, indianStates } from "../../utils/data";
-import { getCurrentApp, getAuthRedirectUrl } from "../../lib/appRegistry";
-import { recordLoginApp, getBestAuthRedirect, initSessionManager } from "../../lib/sessionManager";
+import { supabase } from "@lib/supabaseClient";
+import { genderOptions, educationLevels, countries, indianStates } from "@utils/data";
+import { getCurrentApp, getAuthRedirectUrl } from "@lib/appRegistry";
+import { recordLoginApp, getBestAuthRedirect, initSessionManager } from "@lib/sessionManager";
 
 /**
  * Universal Registration Component

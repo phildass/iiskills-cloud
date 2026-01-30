@@ -2,7 +2,7 @@
 
 import { useEffect, useCallback } from "react";
 import { useRouter } from "next/router";
-import { getCurrentUser } from "../../lib/supabaseClient";
+import { getCurrentUser } from "@lib/supabaseClient";
 
 /**
  * AuthenticationChecker Component

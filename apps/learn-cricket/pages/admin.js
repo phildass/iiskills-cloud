@@ -2,7 +2,7 @@ import Head from "next/head";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { getCurrentUser, isAdmin } from "../lib/supabaseClient";
-import UniversalLogin from "../../components/shared/UniversalLogin";
+import UniversalLogin from "@shared/UniversalLogin";
 
 /**
  * Admin Page for Learn-Cricket

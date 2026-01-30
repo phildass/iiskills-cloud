@@ -12,9 +12,9 @@
  */
 
 import { useState, useEffect } from 'react';
-import { getCurrentUser, isAdmin } from '../../lib/supabaseClient';
-import { getAppNavigationItems, getCurrentApp } from '../../lib/appRegistry';
-import { navigateToApp } from '../../lib/sessionManager';
+import { getCurrentUser, isAdmin } from "@lib/supabaseClient";
+import { getAppNavigationItems, getCurrentApp } from "@lib/appRegistry";
+import { navigateToApp } from "@lib/sessionManager";
 
 export default function AppSwitcher() {
   const [isOpen, setIsOpen] = useState(false);
