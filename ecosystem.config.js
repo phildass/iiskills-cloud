@@ -99,6 +99,13 @@ module.exports = {
       env: { NODE_ENV: "production" }
     },
     {
+      name: "iiskills-learn-companion",
+      script: "node_modules/.bin/next",
+      args: "start -p 3023",
+      cwd: "/root/iiskills-cloud/apps/learn-companion",
+      env: { NODE_ENV: "production" }
+    },
+    {
       name: "webhook",
       script: "webhook.js",
       cwd: "/root",

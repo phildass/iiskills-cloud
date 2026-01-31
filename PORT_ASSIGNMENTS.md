@@ -25,6 +25,7 @@ Here is the complete port assignment for all active applications:
 | 3020 | learn-physics | Physics mastery |
 | 3021 | learn-pr | Public Relations |
 | 3022 | learn-winning | Success strategies |
+| 3023 | learn-companion | AI Life Advisor (Free) |
 | 9000 | webhook | Webhook service |
 
 ## How It Works
