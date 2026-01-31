@@ -34,8 +34,7 @@
     "check-orphans": "node scripts/check-orphans.js",
     "check-orphans:json": "node scripts/check-orphans.js --json",
     "generate:registry": "node scripts/generate-app-registry.js",
-    "seed:ai-content": "node scripts/seed_data.js",
-    "seed:ai-content:upload": "node scripts/seed_data.js --upload"
+    "seed:ai-content": "node scripts/seed_data.js"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.89.0",

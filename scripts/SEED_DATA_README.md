@@ -44,14 +44,16 @@ This will generate `data/learn-ai-seed.json` with all the course content.
 
 ### With Supabase Upload
 
+To upload to Supabase, simply set the required environment variables before running:
+
 ```bash
 # Set all required credentials
 export OPENAI_API_KEY=sk-...
 export SUPABASE_URL=https://your-project.supabase.co
 export SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
 
-# Run with upload flag
-npm run seed:ai-content:upload
+# Run the script - it will automatically upload when credentials are present
+npm run seed:ai-content
 ```
 
 This will:
@@ -116,6 +118,36 @@ Each quiz:
 ## Quiz Behavior
 
 **Important**: This app follows the pattern where objective-type questions automatically move to the next question when an answer is selected. This provides a smooth, modern UX consistent with other apps in the platform.
+
+### Implementation Example
+
+When implementing a quiz component that uses this seed data, the answer selection handler should automatically advance to the next question:
+
+```javascript
+const handleAnswerSelect = (questionId, answerIndex) => {
+  // Save the answer
+  setAnswers({
+    ...answers,
+    [questionId]: answerIndex,
+  });
+  
+  // Auto-advance to next question after a brief delay
+  setTimeout(() => {
+    if (currentQuestion < questions.length - 1) {
+      setCurrentQuestion(currentQuestion + 1);
+    } else {
+      // Last question - submit or show results
+      handleSubmitQuiz();
+    }
+  }, 300); // 300ms delay for visual feedback
+};
+```
+
+This auto-progression pattern:
+- Speeds up quiz completion
+- Reduces clicks/taps required
+- Provides immediate feedback
+- Matches user expectations from modern quiz apps
 
 ## Environment Variables
 
@@ -209,7 +241,7 @@ cat data/learn-ai-seed.json | jq '.modules[0].lessons[0]'
 # 3. If satisfied, upload to Supabase
 export SUPABASE_URL=https://...
 export SUPABASE_SERVICE_ROLE_KEY=...
-npm run seed:ai-content:upload
+npm run seed:ai-content  # Will automatically upload with credentials set
 ```
 
 ## Troubleshooting

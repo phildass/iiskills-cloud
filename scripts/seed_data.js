@@ -8,8 +8,8 @@
  *
  * Usage:
  *  OPENAI_API_KEY=sk-... node scripts/seed_data.js
- *  # optional upload:
- *  OPENAI_API_KEY=sk-... SUPABASE_URL=https://... SUPABASE_SERVICE_ROLE_KEY=service_key node scripts/seed_data.js --upload
+ *  # optional upload (requires both env vars):
+ *  OPENAI_API_KEY=sk-... SUPABASE_URL=https://... SUPABASE_SERVICE_ROLE_KEY=service_key node scripts/seed_data.js
  *
  * WARNING: Do NOT commit any real keys. Add them to your local .env only.
  */
