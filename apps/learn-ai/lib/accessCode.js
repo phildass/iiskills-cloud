@@ -7,6 +7,7 @@
 /**
  * Generate a random access code
  * Format: XXXX-XXXX-XXXX (12 characters)
+ * Character set excludes I, O, 0, 1 to avoid visual ambiguity
  */
 export function generateAccessCode() {
   const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';

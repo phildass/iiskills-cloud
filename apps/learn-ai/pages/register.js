@@ -43,7 +43,7 @@ export default function Register() {
                 Special Offer: Only Rs 99
               </h2>
               <p className="text-gray-700">
-                Get full access to all 100 lessons, case studies, and certification exam for a limited time free period.
+                Get full access to all 100 lessons, case studies, and certification exam with a free trial period.
               </p>
             </div>
 

@@ -94,7 +94,7 @@ export default function Home() {
                 />
               </div>
               <p className="mt-6 text-lg">
-                <strong>Special Offer:</strong> Register by paying only Rs 99 and get membership for a free period
+                <strong>Special Offer:</strong> Register by paying only Rs 99 and get 3 months of free membership
               </p>
             </div>
           </div>
