@@ -3751,6 +3751,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"learn-apt@workspace:apps/learn-apt":
+  version: 0.0.0-use.local
+  resolution: "learn-apt@workspace:apps/learn-apt"
+  dependencies:
+    "@supabase/supabase-js": "npm:^2.89.0"
+    autoprefixer: "npm:^10.4.14"
+    eslint: "npm:^9.39.2"
+    next: "npm:^16.1.1"
+    postcss: "npm:^8.4.31"
+    react: "npm:^19.2.3"
+    react-dom: "npm:^19.2.3"
+    tailwindcss: "npm:^3.4.18"
+  languageName: unknown
+  linkType: soft
+
 "learn-companion@workspace:apps/learn-companion":
   version: 0.0.0-use.local
   resolution: "learn-companion@workspace:apps/learn-companion"
