@@ -3,8 +3,8 @@
   "apps": [
     {
       "name": "learn-apt",
-      "path": "apps/learn-apt",
-      "manifestPath": "apps/learn-apt/manifest.json",
+      "path": "learn-apt",
+      "manifestPath": "learn-apt/manifest.json",
       "contentTypes": ["test"]
     },
     {
@@ -21,20 +21,26 @@
     },
     {
       "name": "learn-jee",
-      "path": "apps/learn-jee",
-      "manifestPath": "apps/learn-jee/manifest.json",
+      "path": "learn-jee",
+      "manifestPath": "learn-jee/manifest.json",
       "contentTypes": ["lesson", "test", "module"]
     },
     {
       "name": "learn-neet",
-      "path": "apps/learn-neet",
-      "manifestPath": "apps/learn-neet/manifest.json",
+      "path": "learn-neet",
+      "manifestPath": "learn-neet/manifest.json",
       "contentTypes": ["lesson", "test", "module"]
     },
     {
       "name": "learn-ias",
-      "path": "apps/learn-ias",
-      "manifestPath": "apps/learn-ias/manifest.json",
+      "path": "learn-ias",
+      "manifestPath": "learn-ias/manifest.json",
+      "contentTypes": ["lesson", "test", "module"]
+    },
+    {
+      "name": "learn-data-science",
+      "path": "learn-data-science",
+      "manifestPath": "learn-data-science/manifest.json",
       "contentTypes": ["lesson", "test", "module"]
     },
     {
@@ -62,5 +68,5 @@
       "contentTypes": ["lesson", "test"]
     }
   ],
-  "lastUpdated": "2026-01-29T02:55:00Z"
+  "lastUpdated": "2026-01-31T10:19:00Z"
 }

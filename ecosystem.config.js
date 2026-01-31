@@ -1,5 +1,6 @@
 // Production configuration - Authentication and paywalls enabled
-// Only active apps are included. Inactive apps are in apps-backup/ and NOT deployed.
+// All learn-* apps are deployed from root directory
+// learn-companion is in apps/learn-companion
 // Environment validation is performed at startup
 
 module.exports = {
@@ -22,7 +23,35 @@ module.exports = {
       name: "iiskills-learn-apt",
       script: "node_modules/.bin/next",
       args: "start -p 3002",
-      cwd: "/root/iiskills-cloud/apps/learn-apt",
+      cwd: "/root/iiskills-cloud/learn-apt",
+      env: { NODE_ENV: "production" }
+    },
+    {
+      name: "iiskills-learn-data-science",
+      script: "node_modules/.bin/next",
+      args: "start -p 3004",
+      cwd: "/root/iiskills-cloud/learn-data-science",
+      env: { NODE_ENV: "production" }
+    },
+    {
+      name: "iiskills-learn-ias",
+      script: "node_modules/.bin/next",
+      args: "start -p 3007",
+      cwd: "/root/iiskills-cloud/learn-ias",
+      env: { NODE_ENV: "production" }
+    },
+    {
+      name: "iiskills-learn-jee",
+      script: "node_modules/.bin/next",
+      args: "start -p 3008",
+      cwd: "/root/iiskills-cloud/learn-jee",
+      env: { NODE_ENV: "production" }
+    },
+    {
+      name: "iiskills-learn-neet",
+      script: "node_modules/.bin/next",
+      args: "start -p 3012",
+      cwd: "/root/iiskills-cloud/learn-neet",
       env: { NODE_ENV: "production" }
     },
     {

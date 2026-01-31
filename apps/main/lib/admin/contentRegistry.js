@@ -10,7 +10,7 @@ const APP_REGISTRY = {
     displayName: 'Aptitude Tests',
     description: 'JSON-based aptitude tests with multiple question types',
     contentType: 'json',
-    dataPath: 'apps/learn-apt/manifest.json',
+    dataPath: 'learn-apt/manifest.json',
     icon: '🧠',
     fields: [
       { name: 'id', label: 'Test ID', type: 'text', required: true, placeholder: 'logical-reasoning-001' },
@@ -78,7 +78,7 @@ const APP_REGISTRY = {
     displayName: 'JEE Exam Prep',
     description: 'JEE exam preparation content (Physics, Chemistry, Mathematics)',
     contentType: 'json',
-    dataPath: 'apps/learn-jee/manifest.json',
+    dataPath: 'learn-jee/manifest.json',
     icon: '📚',
     fields: [
       { name: 'id', label: 'Lesson ID', type: 'text', required: true, placeholder: 'physics-mechanics-001' },
@@ -115,7 +115,7 @@ const APP_REGISTRY = {
     displayName: 'NEET Exam Prep',
     description: 'NEET exam preparation content (Biology, Physics, Chemistry)',
     contentType: 'json',
-    dataPath: 'apps/learn-neet/manifest.json',
+    dataPath: 'learn-neet/manifest.json',
     icon: '🔬',
     fields: [
       { name: 'id', label: 'Lesson ID', type: 'text', required: true, placeholder: 'biology-cell-001' },
@@ -141,7 +141,7 @@ const APP_REGISTRY = {
     displayName: 'IAS Exam Prep',
     description: 'IAS/UPSC exam preparation content',
     contentType: 'json',
-    dataPath: 'apps/learn-ias/manifest.json',
+    dataPath: 'learn-ias/manifest.json',
     icon: '🏛️',
     fields: [
       { name: 'id', label: 'Content ID', type: 'text', required: true },
