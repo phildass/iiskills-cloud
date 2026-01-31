@@ -1,12 +1,12 @@
 {
-  "name": "learn-jee",
+  "name": "learn-apt",
   "version": "1.0.0",
   "private": true,
-  "description": "Learn JEE - Master Physics, Chemistry, and Mathematics for JEE preparation",
+  "description": "Learn Your Aptitude - AI-powered aptitude assessment and career guidance",
   "scripts": {
-    "dev": "next dev -p 3008",
+    "dev": "next dev -p 3002",
     "build": "next build",
-    "start": "next start -p 3008",
+    "start": "next start -p 3002",
     "lint": "eslint ."
   },
   "dependencies": {
