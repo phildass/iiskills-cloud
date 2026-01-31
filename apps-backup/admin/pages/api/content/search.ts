@@ -110,9 +110,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     // Try to load manifests from known apps
     const appPaths = [
-      'apps/learn-apt/manifest.json',
-      'apps/learn-govt-jobs/manifest.json',
-      'apps/learn-cricket/manifest.json',
+      'learn-apt/manifest.json',
+      'learn-govt-jobs/manifest.json',
+      'learn-cricket/manifest.json',
     ];
 
     for (const appPath of appPaths) {

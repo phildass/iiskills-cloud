@@ -10,7 +10,7 @@
  *   node scripts/generate-app-registry.js [--output=path/to/output.js] [--dry-run]
  * 
  * Discovery Rules:
- * - Scans apps/learn-* directories
+ * - Scans learn-* directories at repository root
  * - Requires package.json with dev port
  * - Detects content structure (content/ directory)
  * - Extracts app metadata from package.json or defaults
@@ -38,14 +38,18 @@ function extractPort(packageJson) {
  * Discover all learning apps
  */
 function discoverApps() {
-  const appsDir = path.join(__dirname, '..', 'apps');
-  const allApps = fs.readdirSync(appsDir);
+  const rootDir = path.join(__dirname, '..');
+  const allDirs = fs.readdirSync(rootDir);
   const learningApps = [];
 
-  for (const appDir of allApps) {
+  for (const appDir of allDirs) {
     if (!appDir.startsWith('learn-')) continue;
 
-    const appPath = path.join(appsDir, appDir);
+    const appPath = path.join(rootDir, appDir);
+    
+    // Skip if not a directory
+    if (!fs.statSync(appPath).isDirectory()) continue;
+    
     const packageJsonPath = path.join(appPath, 'package.json');
     
     if (!fs.existsSync(packageJsonPath)) {

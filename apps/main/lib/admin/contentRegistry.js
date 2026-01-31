@@ -10,7 +10,7 @@ const APP_REGISTRY = {
     displayName: 'Aptitude Tests',
     description: 'JSON-based aptitude tests with multiple question types',
     contentType: 'json',
-    dataPath: 'apps/learn-apt/manifest.json',
+    dataPath: 'learn-apt/manifest.json',
     icon: '🧠',
     fields: [
       { name: 'id', label: 'Test ID', type: 'text', required: true, placeholder: 'logical-reasoning-001' },
@@ -50,7 +50,7 @@ const APP_REGISTRY = {
     displayName: 'Cricket Content',
     description: 'Markdown-based cricket lessons and articles',
     contentType: 'json',
-    dataPath: 'apps/learn-cricket/manifest.json',
+    dataPath: 'learn-cricket/manifest.json',
     icon: '🏏',
     fields: [
       { name: 'id', label: 'Content ID', type: 'text', required: true, placeholder: 'batting-basics-001' },
@@ -78,7 +78,7 @@ const APP_REGISTRY = {
     displayName: 'JEE Exam Prep',
     description: 'JEE exam preparation content (Physics, Chemistry, Mathematics)',
     contentType: 'json',
-    dataPath: 'apps/learn-jee/manifest.json',
+    dataPath: 'learn-jee/manifest.json',
     icon: '📚',
     fields: [
       { name: 'id', label: 'Lesson ID', type: 'text', required: true, placeholder: 'physics-mechanics-001' },
@@ -115,7 +115,7 @@ const APP_REGISTRY = {
     displayName: 'NEET Exam Prep',
     description: 'NEET exam preparation content (Biology, Physics, Chemistry)',
     contentType: 'json',
-    dataPath: 'apps/learn-neet/manifest.json',
+    dataPath: 'learn-neet/manifest.json',
     icon: '🔬',
     fields: [
       { name: 'id', label: 'Lesson ID', type: 'text', required: true, placeholder: 'biology-cell-001' },
@@ -141,7 +141,7 @@ const APP_REGISTRY = {
     displayName: 'IAS Exam Prep',
     description: 'IAS/UPSC exam preparation content',
     contentType: 'json',
-    dataPath: 'apps/learn-ias/manifest.json',
+    dataPath: 'learn-ias/manifest.json',
     icon: '🏛️',
     fields: [
       { name: 'id', label: 'Content ID', type: 'text', required: true },
@@ -167,7 +167,7 @@ const APP_REGISTRY = {
     displayName: 'Government Jobs',
     description: 'Government job listings with geographic and deadline data',
     contentType: 'json',
-    dataPath: 'apps/learn-govt-jobs/manifest.json',
+    dataPath: 'learn-govt-jobs/manifest.json',
     icon: '🏢',
     fields: [
       { name: 'id', label: 'Job ID', type: 'text', required: true, placeholder: 'job-bihar-patna-clerk-001' },
@@ -211,7 +211,7 @@ const APP_REGISTRY = {
     displayName: 'AI & Machine Learning',
     description: 'AI and Machine Learning courses and content',
     contentType: 'json',
-    dataPath: 'apps/learn-ai/manifest.json',
+    dataPath: 'learn-ai/manifest.json',
     icon: '🤖',
     fields: [
       { name: 'id', label: 'Content ID', type: 'text', required: true },
@@ -226,7 +226,7 @@ const APP_REGISTRY = {
     displayName: 'Chemistry',
     description: 'Chemistry courses and lessons',
     contentType: 'json',
-    dataPath: 'apps/learn-chemistry/manifest.json',
+    dataPath: 'learn-chemistry/manifest.json',
     icon: '🧪',
     fields: [
       { name: 'id', label: 'Content ID', type: 'text', required: true },
@@ -241,7 +241,7 @@ const APP_REGISTRY = {
     displayName: 'Geography',
     description: 'Geography courses and content',
     contentType: 'json',
-    dataPath: 'apps/learn-geography/manifest.json',
+    dataPath: 'learn-geography/manifest.json',
     icon: '🌍',
     fields: [
       { name: 'id', label: 'Content ID', type: 'text', required: true },
@@ -256,7 +256,7 @@ const APP_REGISTRY = {
     displayName: 'Leadership',
     description: 'Leadership development content',
     contentType: 'json',
-    dataPath: 'apps/learn-leadership/manifest.json',
+    dataPath: 'learn-leadership/manifest.json',
     icon: '👔',
     fields: [
       { name: 'id', label: 'Content ID', type: 'text', required: true },
@@ -271,7 +271,7 @@ const APP_REGISTRY = {
     displayName: 'Management',
     description: 'Management and business content',
     contentType: 'json',
-    dataPath: 'apps/learn-management/manifest.json',
+    dataPath: 'learn-management/manifest.json',
     icon: '📊',
     fields: [
       { name: 'id', label: 'Content ID', type: 'text', required: true },
@@ -286,7 +286,7 @@ const APP_REGISTRY = {
     displayName: 'Mathematics',
     description: 'Mathematics courses and problems',
     contentType: 'json',
-    dataPath: 'apps/learn-math/manifest.json',
+    dataPath: 'learn-math/manifest.json',
     icon: '📐',
     fields: [
       { name: 'id', label: 'Content ID', type: 'text', required: true },
@@ -301,7 +301,7 @@ const APP_REGISTRY = {
     displayName: 'Physics',
     description: 'Physics courses and experiments',
     contentType: 'json',
-    dataPath: 'apps/learn-physics/manifest.json',
+    dataPath: 'learn-physics/manifest.json',
     icon: '⚛️',
     fields: [
       { name: 'id', label: 'Content ID', type: 'text', required: true },
@@ -316,7 +316,7 @@ const APP_REGISTRY = {
     displayName: 'Public Relations',
     description: 'Public Relations and communication content',
     contentType: 'json',
-    dataPath: 'apps/learn-pr/manifest.json',
+    dataPath: 'learn-pr/manifest.json',
     icon: '📢',
     fields: [
       { name: 'id', label: 'Content ID', type: 'text', required: true },
@@ -331,7 +331,7 @@ const APP_REGISTRY = {
     displayName: 'Winning Strategies',
     description: 'Competitive strategies and success content',
     contentType: 'json',
-    dataPath: 'apps/learn-winning/manifest.json',
+    dataPath: 'learn-winning/manifest.json',
     icon: '🏆',
     fields: [
       { name: 'id', label: 'Content ID', type: 'text', required: true },

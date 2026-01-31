@@ -5,7 +5,7 @@
  * This script migrates ALL educational content from local files to Supabase.
  * It extracts content from:
  * - seeds/content.json (courses, modules, lessons, questions)
- * - apps/learn-govt-jobs/data/* (geography, deadlines, eligibility)
+ * - learn-govt-jobs/data/* (geography, deadlines, eligibility)
  * - Future: cricket trivia, biographical content, etc.
  * 
  * Usage:
@@ -357,7 +357,7 @@ async function migrateQuestions(questions: any[], lessonIdMap: Map<string, strin
  * Migrate geography data from learn-govt-jobs
  */
 async function migrateGeography() {
-  const geographyFile = path.join(__dirname, '../apps/learn-govt-jobs/data/geography.json');
+  const geographyFile = path.join(__dirname, '../learn-govt-jobs/data/geography.json');
   
   if (!fs.existsSync(geographyFile)) {
     log('⚠️  Geography data file not found, skipping...');
@@ -448,7 +448,7 @@ async function migrateGeography() {
  * Migrate government jobs data
  */
 async function migrateGovernmentJobs() {
-  const deadlinesFile = path.join(__dirname, '../apps/learn-govt-jobs/data/deadlines.json');
+  const deadlinesFile = path.join(__dirname, '../learn-govt-jobs/data/deadlines.json');
   
   if (!fs.existsSync(deadlinesFile)) {
     log('⚠️  Deadlines data file not found, skipping...');

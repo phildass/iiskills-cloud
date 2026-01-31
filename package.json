@@ -6,6 +6,7 @@
   "description": "iiskills-cloud monorepo. Note: apps-backup/* is intentionally excluded from workspaces - these apps are preserved but not built/deployed.",
   "workspaces": [
     "apps/*",
+    "learn-*",
     "packages/*"
   ],
   "scripts": {
