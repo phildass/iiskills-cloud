@@ -704,4 +704,6 @@ Contact: info@iiskills.cloud
 
 ## License
 
-© 2024 AI Cloud Enterprises - Indian Institute of Professional Skills Development. All rights reserved.
+This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
+
+© 2026 AI Cloud Enterprises
