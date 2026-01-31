@@ -16,7 +16,6 @@
 
 const fs = require("fs");
 const path = require("path");
-const { execSync } = require("child_process");
 const OpenAI = require("openai");
 
 // optional supabase insert
@@ -115,7 +114,7 @@ Make the lesson title short (<=10 words). Ensure the lesson's content teaches on
 }
 
 async function generateAll() {
-  const output = { generatedAt: new Date().toISOString(), modules: [] };
+  const output = { generated_at: new Date().toISOString(), modules: [] };
 
   for (let i = 0; i < MODULE_TITLES.length; i++) {
     const moduleId = i + 1;

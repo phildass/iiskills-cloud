@@ -15,11 +15,11 @@ Generates comprehensive AI/Data Science course content using OpenAI's LLM API.
 
 **Usage:**
 ```bash
-# Generate content only
+# Generate content
 npm run seed:ai-content
 
-# Generate and upload to Supabase
-npm run seed:ai-content:upload
+# To upload to Supabase, set env vars before running:
+# SUPABASE_URL=https://... SUPABASE_SERVICE_ROLE_KEY=... npm run seed:ai-content
 ```
 
 ### Deployment & Validation

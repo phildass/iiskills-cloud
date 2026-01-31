@@ -66,7 +66,7 @@ The generated JSON follows this structure:
 
 ```json
 {
-  "generatedAt": "2024-01-31T12:00:00.000Z",
+  "generated_at": "2024-01-31T12:00:00.000Z",
   "modules": [
     {
       "moduleId": 1,
@@ -224,7 +224,7 @@ This directory is gitignored by default.
 To integrate the generated content into your app:
 
 1. **Direct JSON Import**: Load `learn-ai-seed.json` in your application
-2. **Supabase Upload**: Use the `--upload` flag to populate your database
+2. **Supabase Upload**: Set Supabase environment variables to automatically upload
 3. **Manual Review**: Review and edit content before deployment
 4. **Staging Environment**: Test content in a staging environment first
 
