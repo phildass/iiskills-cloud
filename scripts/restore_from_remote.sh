@@ -17,7 +17,7 @@ while IFS= read -r line; do
   if [[ $line == App:* ]]; then
     current_app=$(echo "$line" | cut -d':' -f2 | tr -d ' ')
   elif [[ $line =~ MISSING:\ (.*) ]]; then
-    file=$(echo "${BASH_REMATCH[1]}")
+    file="${BASH_REMATCH[1]}"
     # strip quotes if present
     file=${file//\"/}
     path="apps/${current_app}/${file}"

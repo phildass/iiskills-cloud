@@ -27,7 +27,7 @@ for app_path in "$APPS_DIR"/*; do
       fi
     done
     
-    # Check for missing files (only for main app)
+    # Check for missing files (only for the 'main' app specifically)
     if [ "$app_name" = "main" ]; then
       for file in "${EXPECTED_FILES[@]}"; do
         if [ ! -f "$app_path/$file" ]; then
