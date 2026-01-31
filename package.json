@@ -33,7 +33,9 @@
     "validate-content:verbose": "node scripts/validate-content.js --verbose",
     "check-orphans": "node scripts/check-orphans.js",
     "check-orphans:json": "node scripts/check-orphans.js --json",
-    "generate:registry": "node scripts/generate-app-registry.js"
+    "generate:registry": "node scripts/generate-app-registry.js",
+    "seed:ai-content": "node scripts/seed_data.js",
+    "seed:ai-content:upload": "node scripts/seed_data.js --upload"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.89.0",
