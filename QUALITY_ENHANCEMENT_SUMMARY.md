@@ -8,9 +8,9 @@ This document summarizes the comprehensive quality and robustness enhancements i
 
 **Implemented:**
 - ✅ Created content directory structure for all 12 learning apps
-  - `apps/learn-*/content/courses/`
-  - `apps/learn-*/content/modules/`
-  - `apps/learn-*/content/lessons/`
+  - `learn-*/content/courses/`
+  - `learn-*/content/modules/`
+  - `learn-*/content/lessons/`
 - ✅ Defined universal JSON schema (`lib/contentSchema.js`)
   - Course schema with id, title, description, sourceApp, optional fields
   - Module schema with parent course_id reference
@@ -39,7 +39,7 @@ npm run validate-content -- --app=learn-ai    # Specific app
 
 **Implemented:**
 - ✅ Created registry generator (`scripts/generate-app-registry.js`)
-  - Auto-discovers all apps/learn-* directories
+  - Auto-discovers all learn-* directories
   - Extracts ports from package.json dev scripts
   - Detects content structure presence
   - Identifies free apps (learn-cricket)
@@ -229,12 +229,12 @@ GET /api/admin/check-orphans?app=learn-ai
 - `QUALITY_ENHANCEMENT_SUMMARY.md` - This document
 
 ### Sample Content
-- `apps/learn-ai/content/courses/ai-fundamentals.json`
-- `apps/learn-ai/content/modules/ai-fundamentals-module-1.json`
-- `apps/learn-ai/content/lessons/ai-fundamentals-lesson-1.json`
-- `apps/learn-cricket/content/courses/cricket-basics.json`
-- `apps/learn-cricket/content/modules/cricket-basics-module-1.json`
-- `apps/learn-cricket/content/lessons/cricket-basics-lesson-1.json`
+- `learn-ai/content/courses/ai-fundamentals.json`
+- `learn-ai/content/modules/ai-fundamentals-module-1.json`
+- `learn-ai/content/lessons/ai-fundamentals-lesson-1.json`
+- `learn-cricket/content/courses/cricket-basics.json`
+- `learn-cricket/content/modules/cricket-basics-module-1.json`
+- `learn-cricket/content/lessons/cricket-basics-lesson-1.json`
 
 ### Images
 - `public/images/cricket1.jpg`
@@ -348,7 +348,7 @@ Failed validations block PR merges.
 
 **For Content Creators:**
 1. Review content schema in `lib/contentSchema.js`
-2. Check sample content in `apps/learn-ai/content/`
+2. Check sample content in `learn-ai/content/`
 3. Run `npm run validate-content` to check your work
 4. Use `npm run check-orphans` to verify links
 

@@ -24,7 +24,7 @@ This ensures continuity and knowledge transfer between different AI sessions and
 
 ### Import Paths for Shared Components
 
-**For apps in apps/ subdirectory** (apps/main, apps/learn-ai, etc.):
+**For apps in apps/ subdirectory** (apps/main, learn-ai, etc.):
 ```javascript
 import Component from "../../../components/shared/Component"
 ```
@@ -86,7 +86,7 @@ See [ADDING_NEW_APP.md](ADDING_NEW_APP.md) for complete instructions. Quick chec
 
 When modifying files in `/components/shared/`:
 
-1. Test import in multiple apps (e.g., apps/main, apps/learn-ai)
+1. Test import in multiple apps (e.g., apps/main, learn-ai)
 
 2. Verify with: `yarn build` in the tested apps
 

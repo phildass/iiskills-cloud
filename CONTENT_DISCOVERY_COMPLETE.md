@@ -153,15 +153,15 @@ Total: 23 files
 - packages/content-sdk/tsconfig.json
 
 ### Manifests & Data (9 files)
-- apps/learn-apt/manifest.json
-- apps/learn-apt/CONTENT.md
-- apps/learn-govt-jobs/manifest.json
-- apps/learn-govt-jobs/CONTENT.md
-- apps/learn-govt-jobs/data/geography.json
-- apps/learn-govt-jobs/data/eligibility.ts
-- apps/learn-govt-jobs/data/deadlines.json
-- apps/learn-cricket/manifest.json
-- apps/learn-cricket/CONTENT.md
+- learn-apt/manifest.json
+- learn-apt/CONTENT.md
+- learn-govt-jobs/manifest.json
+- learn-govt-jobs/CONTENT.md
+- learn-govt-jobs/data/geography.json
+- learn-govt-jobs/data/eligibility.ts
+- learn-govt-jobs/data/deadlines.json
+- learn-cricket/manifest.json
+- learn-cricket/CONTENT.md
 
 ### Admin & API (2 files)
 - apps/admin/pages/content/discovery.tsx

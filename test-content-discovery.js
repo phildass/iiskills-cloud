@@ -11,13 +11,13 @@ console.log('=== Content Discovery Agent Test ===\n');
 console.log('Test 1: Loading Content Manifests');
 try {
   const aptManifest = JSON.parse(
-    fs.readFileSync(path.join(__dirname, 'apps/learn-apt/manifest.json'), 'utf-8')
+    fs.readFileSync(path.join(__dirname, 'learn-apt/manifest.json'), 'utf-8')
   );
   const jobsManifest = JSON.parse(
-    fs.readFileSync(path.join(__dirname, 'apps/learn-govt-jobs/manifest.json'), 'utf-8')
+    fs.readFileSync(path.join(__dirname, 'learn-govt-jobs/manifest.json'), 'utf-8')
   );
   const cricketManifest = JSON.parse(
-    fs.readFileSync(path.join(__dirname, 'apps/learn-cricket/manifest.json'), 'utf-8')
+    fs.readFileSync(path.join(__dirname, 'learn-cricket/manifest.json'), 'utf-8')
   );
 
   console.log(`✓ Loaded ${aptManifest.items.length} tests from learn-apt`);
@@ -96,7 +96,7 @@ try {
   // Test 8: Geographic Resolver
   console.log('Test 8: Geographic Data');
   const geography = JSON.parse(
-    fs.readFileSync(path.join(__dirname, 'apps/learn-govt-jobs/data/geography.json'), 'utf-8')
+    fs.readFileSync(path.join(__dirname, 'learn-govt-jobs/data/geography.json'), 'utf-8')
   );
   console.log('✓ Loaded geography data with states:');
   geography[0].children.forEach(state => {

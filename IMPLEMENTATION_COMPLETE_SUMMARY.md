@@ -84,7 +84,7 @@ The iiskills-cloud admin panel has been comprehensively fixed and future-proofed
 **File:** `lib/contentDiscovery.js` (9KB)
 
 **Capabilities:**
-- Scans all `apps/learn-*` directories automatically
+- Scans all `learn-*` directories automatically
 - Checks multiple file locations:
   - `data/courses.json`
   - `data/modules.json`

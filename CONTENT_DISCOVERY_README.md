@@ -111,7 +111,7 @@ const page = paginateContent(iasContent, 1, 10);
 ```typescript
 import { GeographicResolver } from '@iiskills/content-sdk';
 
-const geography = require('./apps/learn-govt-jobs/data/geography.json');
+const geography = require('./learn-govt-jobs/data/geography.json');
 const resolver = new GeographicResolver(geography);
 
 // Find jobs in Bihar

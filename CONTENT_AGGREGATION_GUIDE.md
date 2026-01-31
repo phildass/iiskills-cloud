@@ -26,7 +26,7 @@ The admin dashboard pulls content from **three primary sources**:
 - **Type**: Content discovered from individual `learn-*` apps
 - **Badge**: Purple "Discovered" badge
 - **Priority**: Lowest
-- **Location**: All `apps/learn-*/` directories
+- **Location**: All `learn-*/` directories
 - **Field**: `_source: 'discovered'`
 - **Discovery Path**: Scans multiple patterns (see below)
 
@@ -159,7 +159,7 @@ When displaying content (e.g., courses list):
 
 When adding a new `learn-*` app:
 
-1. **Create app directory**: `apps/learn-{name}/`
+1. **Create app directory**: `learn-{name}/`
 2. **Add content file**: Use one of the discovery patterns above
 3. **Include appId**: Ensure all content items have `"appId": "learn-{name}"`
 4. **Manifest format** (recommended):

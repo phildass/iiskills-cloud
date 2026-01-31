@@ -50,7 +50,7 @@ Next.js will use the port specified in the start command. The PM2 configuration 
 When running apps individually during development, they will use the ports specified in their respective `package.json` files:
 
 ```bash
-cd apps/learn-ai
+cd learn-ai
 yarn dev  # Uses port 3001
 ```
 

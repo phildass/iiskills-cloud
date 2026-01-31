@@ -231,7 +231,7 @@ yarn install
 yarn dev
 
 # Run specific app
-cd apps/learn-ai && yarn dev
+cd learn-ai && yarn dev
 ```
 
 ### Production

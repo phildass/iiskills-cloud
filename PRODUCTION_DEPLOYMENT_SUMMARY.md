@@ -315,7 +315,7 @@ iiskills-cloud/
 ### For Developers
 
 - **Run all apps:** `yarn dev`
-- **Run specific app:** `cd apps/learn-ai && yarn dev`
+- **Run specific app:** `cd learn-ai && yarn dev`
 - **Monitor logs:** `pm2 logs`
 - **Check status:** `pm2 status`
 

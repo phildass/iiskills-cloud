@@ -21,8 +21,8 @@ Example: If adding `learn-coding`, choose an available port like `3024`.
 
 ```bash
 # From the repository root
-mkdir -p apps/learn-{topic}
-cd apps/learn-{topic}
+mkdir -p learn-{topic}
+cd learn-{topic}
 ```
 
 ### 1.3 Initialize the App
@@ -38,7 +38,7 @@ yarn add -D tailwindcss postcss autoprefixer eslint
 
 ### 1.4 Update package.json
 
-Edit `apps/learn-{topic}/package.json`:
+Edit `learn-{topic}/package.json`:
 
 ```json
 {
@@ -435,7 +435,7 @@ Before submitting your new app:
 
 ## Getting Help
 
-- Check existing learning apps for reference (e.g., `apps/learn-ai`)
+- Check existing learning apps for reference (e.g., `learn-ai`)
 - Review documentation in the repository root
 - Run validation scripts to catch common issues
 - Check logs: `pm2 logs iiskills-learn-{topic}`

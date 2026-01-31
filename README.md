@@ -163,7 +163,7 @@ npm run check-orphans -- --app=learn-cricket
 📋 **Content Structure:**
 Each learning app maintains content in standardized directories:
 ```
-apps/learn-*/
+learn-*/
 ├── content/
 │   ├── courses/    # Course definitions (JSON)
 │   ├── modules/    # Module definitions (JSON)
@@ -245,8 +245,8 @@ yarn build
 **Run a specific app in development mode:**
 ```bash
 cd apps/main && yarn dev             # Main app (with universal admin)
-cd apps/learn-ai && yarn dev         # Learn AI app
-cd apps/learn-chemistry && yarn dev  # Learn Chemistry app
+cd learn-ai && yarn dev         # Learn AI app
+cd learn-chemistry && yarn dev  # Learn Chemistry app
 # ... etc
 ```
 
@@ -263,18 +263,18 @@ This repository contains **13 production-ready Next.js applications** (main + 12
 - **Main App** (`apps/main/`) - The primary iiskills.cloud website with universal admin dashboard
 
 ### Active Learning Apps (Production)
-- **Learn-AI** (`apps/learn-ai/`) - Artificial Intelligence fundamentals
-- **Learn-Apt** (`apps/learn-apt/`) - Aptitude assessment with AI-powered career guidance
-- **Learn-Chemistry** (`apps/learn-chemistry/`) - Chemistry mastery with comprehensive curriculum
-- **Learn-Cricket** (`apps/learn-cricket/`) - Cricket knowledge and strategies (FREE)
-- **Learn-Geography** (`apps/learn-geography/`) - Geography and world exploration
-- **Learn-Government-Jobs** (`apps/learn-govt-jobs/`) - Government job exam preparation
-- **Learn-Leadership** (`apps/learn-leadership/`) - Leadership development
-- **Learn-Management** (`apps/learn-management/`) - Management and business skills
-- **Learn-Math** (`apps/learn-math/`) - Mathematics learning module
-- **Learn-Physics** (`apps/learn-physics/`) - Physics mastery with structured curriculum
-- **Learn-PR** (`apps/learn-pr/`) - Public Relations and communication
-- **Learn-Winning** (`apps/learn-winning/`) - Success strategies and winning mindset
+- **Learn-AI** (`learn-ai/`) - Artificial Intelligence fundamentals
+- **Learn-Apt** (`learn-apt/`) - Aptitude assessment with AI-powered career guidance
+- **Learn-Chemistry** (`learn-chemistry/`) - Chemistry mastery with comprehensive curriculum
+- **Learn-Cricket** (`learn-cricket/`) - Cricket knowledge and strategies (FREE)
+- **Learn-Geography** (`learn-geography/`) - Geography and world exploration
+- **Learn-Government-Jobs** (`learn-govt-jobs/`) - Government job exam preparation
+- **Learn-Leadership** (`learn-leadership/`) - Leadership development
+- **Learn-Management** (`learn-management/`) - Management and business skills
+- **Learn-Math** (`learn-math/`) - Mathematics learning module
+- **Learn-Physics** (`learn-physics/`) - Physics mastery with structured curriculum
+- **Learn-PR** (`learn-pr/`) - Public Relations and communication
+- **Learn-Winning** (`learn-winning/`) - Success strategies and winning mindset
 
 ### Archived Applications
 Legacy and inactive apps have been moved to `apps-backup/` and are not deployed:

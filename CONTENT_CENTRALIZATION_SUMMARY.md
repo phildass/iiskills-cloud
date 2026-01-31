@@ -39,9 +39,9 @@ Created `scripts/migrate-content-to-supabase.ts` that:
 
 **Content Sources Migrated**:
 - ✅ `seeds/content.json` - Sample courses, modules, lessons, questions
-- ✅ `apps/learn-govt-jobs/data/geography.json` - Hierarchical geography
-- ✅ `apps/learn-govt-jobs/data/deadlines.json` - Job deadlines and dates
-- ✅ `apps/learn-govt-jobs/data/eligibility.ts` - Eligibility criteria
+- ✅ `learn-govt-jobs/data/geography.json` - Hierarchical geography
+- ✅ `learn-govt-jobs/data/deadlines.json` - Job deadlines and dates
+- ✅ `learn-govt-jobs/data/eligibility.ts` - Eligibility criteria
 
 ### 3. Unified API Endpoints ✅
 

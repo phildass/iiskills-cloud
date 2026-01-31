@@ -1,7 +1,7 @@
 # Workspace/Shared Component/Build Issues - Fix Summary
 
 ## Overview
-This document summarizes the fixes applied to all learning apps (apps/learn-*) in the iiskills-cloud monorepo to ensure they build and run successfully in the Next.js monorepo workspace.
+This document summarizes the fixes applied to all learning apps (learn-*) in the iiskills-cloud monorepo to ensure they build and run successfully in the Next.js monorepo workspace.
 
 ## Changes Implemented
 
@@ -13,18 +13,18 @@ This document summarizes the fixes applied to all learning apps (apps/learn-*) i
 - For `learn-apt` which uses ES modules, created `next.config.mjs` with proper Turbopack configuration using `import` syntax
 
 **Files Modified**:
-- `apps/learn-ai/next.config.js`
-- `apps/learn-apt/next.config.mjs` (newly created)
-- `apps/learn-chemistry/next.config.js`
-- `apps/learn-cricket/next.config.js`
-- `apps/learn-geography/next.config.js`
-- `apps/learn-govt-jobs/next.config.js`
-- `apps/learn-leadership/next.config.js`
-- `apps/learn-management/next.config.js`
-- `apps/learn-math/next.config.js`
-- `apps/learn-physics/next.config.js`
-- `apps/learn-pr/next.config.js`
-- `apps/learn-winning/next.config.js`
+- `learn-ai/next.config.js`
+- `learn-apt/next.config.mjs` (newly created)
+- `learn-chemistry/next.config.js`
+- `learn-cricket/next.config.js`
+- `learn-geography/next.config.js`
+- `learn-govt-jobs/next.config.js`
+- `learn-leadership/next.config.js`
+- `learn-management/next.config.js`
+- `learn-math/next.config.js`
+- `learn-physics/next.config.js`
+- `learn-pr/next.config.js`
+- `learn-winning/next.config.js`
 
 ### 2. Path Aliases Configuration
 **Issue**: 113 files across all learning apps used relative imports (`../../components/`) which made maintenance difficult and caused build issues.
@@ -55,20 +55,20 @@ This document summarizes the fixes applied to all learning apps (apps/learn-*) i
 
 **Files Created**:
 - `jsconfig.json` (root)
-- `apps/learn-ai/jsconfig.json`
-- `apps/learn-chemistry/jsconfig.json`
-- `apps/learn-cricket/jsconfig.json`
-- `apps/learn-geography/jsconfig.json`
-- `apps/learn-govt-jobs/jsconfig.json`
-- `apps/learn-leadership/jsconfig.json`
-- `apps/learn-management/jsconfig.json`
-- `apps/learn-math/jsconfig.json`
-- `apps/learn-physics/jsconfig.json`
-- `apps/learn-pr/jsconfig.json`
-- `apps/learn-winning/jsconfig.json`
+- `learn-ai/jsconfig.json`
+- `learn-chemistry/jsconfig.json`
+- `learn-cricket/jsconfig.json`
+- `learn-geography/jsconfig.json`
+- `learn-govt-jobs/jsconfig.json`
+- `learn-leadership/jsconfig.json`
+- `learn-management/jsconfig.json`
+- `learn-math/jsconfig.json`
+- `learn-physics/jsconfig.json`
+- `learn-pr/jsconfig.json`
+- `learn-winning/jsconfig.json`
 
 **Files Modified**:
-- `apps/learn-apt/tsconfig.json`
+- `learn-apt/tsconfig.json`
 
 ### 3. Import Statement Updates
 **Issue**: All imports used relative paths which broke when used across different directory structures.
@@ -96,7 +96,7 @@ import { getCurrentUser } from "@lib/supabaseClient";
 ```
 
 **Files Modified** (partial list):
-- All `apps/learn-*/pages/*.js` files
+- All `learn-*/pages/*.js` files
 - `components/shared/UniversalLogin.js`
 - `components/shared/UniversalRegister.js`
 - `components/shared/AuthenticationChecker.js`
@@ -196,7 +196,7 @@ NEXT_PUBLIC_USE_LOCAL_CONTENT=true
 
 To test a single app:
 ```bash
-cd apps/learn-[app-name]
+cd learn-[app-name]
 yarn build
 yarn start
 ```
@@ -205,7 +205,7 @@ To test all apps:
 ```bash
 # From repository root
 yarn install
-cd apps/learn-[app-name] && yarn build && cd ../..
+cd learn-[app-name] && yarn build && cd ../..
 # Repeat for each app
 ```
 

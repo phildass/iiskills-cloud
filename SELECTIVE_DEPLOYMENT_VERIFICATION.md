@@ -14,18 +14,18 @@
 **Output:**
 - ✓ Root workspace (.)
 - ✓ 12 active learn-* apps:
-  - apps/learn-ai
-  - apps/learn-apt
-  - apps/learn-chemistry
-  - apps/learn-cricket
-  - apps/learn-geography
-  - apps/learn-govt-jobs
-  - apps/learn-leadership
-  - apps/learn-management
-  - apps/learn-math
-  - apps/learn-physics
-  - apps/learn-pr
-  - apps/learn-winning
+  - learn-ai
+  - learn-apt
+  - learn-chemistry
+  - learn-cricket
+  - learn-geography
+  - learn-govt-jobs
+  - learn-leadership
+  - learn-management
+  - learn-math
+  - learn-physics
+  - learn-pr
+  - learn-winning
 - ✓ apps/main
 - ✓ 3 packages:
   - packages/content-sdk

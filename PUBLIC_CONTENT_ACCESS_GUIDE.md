@@ -77,7 +77,7 @@ NEXT_PUBLIC_PAYWALL_ENABLED=false  # false = no paywall
 Each learn-* app follows this structure:
 
 ```
-apps/learn-{app-name}/
+learn-{app-name}/
 ├── manifest.json          # Main content manifest (JSON apps)
 ├── CONTENT.md            # Content file (Markdown apps)
 ├── data/                 # Additional data files (optional)
@@ -242,7 +242,7 @@ Add to `apps/main/lib/admin/contentRegistry.js`:
   displayName: 'New App Display Name',
   description: 'App description',
   contentType: 'json',  // or 'markdown'
-  dataPath: 'apps/learn-{new-app}/manifest.json',
+  dataPath: 'learn-{new-app}/manifest.json',
   icon: '📚',
   fields: [
     { name: 'id', label: 'ID', type: 'text', required: true },

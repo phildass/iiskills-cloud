@@ -3,62 +3,62 @@
   "apps": [
     {
       "name": "learn-apt",
-      "path": "apps/learn-apt",
-      "manifestPath": "apps/learn-apt/manifest.json",
+      "path": "learn-apt",
+      "manifestPath": "learn-apt/manifest.json",
       "contentTypes": ["test"]
     },
     {
       "name": "learn-cricket",
-      "path": "apps/learn-cricket",
-      "manifestPath": "apps/learn-cricket/manifest.json",
+      "path": "learn-cricket",
+      "manifestPath": "learn-cricket/manifest.json",
       "contentTypes": ["sports", "lesson", "article"]
     },
     {
       "name": "learn-govt-jobs",
-      "path": "apps/learn-govt-jobs",
-      "manifestPath": "apps/learn-govt-jobs/manifest.json",
+      "path": "learn-govt-jobs",
+      "manifestPath": "learn-govt-jobs/manifest.json",
       "contentTypes": ["job"]
     },
     {
       "name": "learn-jee",
-      "path": "apps/learn-jee",
-      "manifestPath": "apps/learn-jee/manifest.json",
+      "path": "learn-jee",
+      "manifestPath": "learn-jee/manifest.json",
       "contentTypes": ["lesson", "test", "module"]
     },
     {
       "name": "learn-neet",
-      "path": "apps/learn-neet",
-      "manifestPath": "apps/learn-neet/manifest.json",
+      "path": "learn-neet",
+      "manifestPath": "learn-neet/manifest.json",
       "contentTypes": ["lesson", "test", "module"]
     },
     {
       "name": "learn-ias",
-      "path": "apps/learn-ias",
-      "manifestPath": "apps/learn-ias/manifest.json",
+      "path": "learn-ias",
+      "manifestPath": "learn-ias/manifest.json",
       "contentTypes": ["lesson", "test", "module"]
     },
     {
       "name": "learn-math",
-      "path": "apps/learn-math",
-      "manifestPath": "apps/learn-math/manifest.json",
+      "path": "learn-math",
+      "manifestPath": "learn-math/manifest.json",
       "contentTypes": ["lesson", "test"]
     },
     {
       "name": "learn-physics",
-      "path": "apps/learn-physics",
-      "manifestPath": "apps/learn-physics/manifest.json",
+      "path": "learn-physics",
+      "manifestPath": "learn-physics/manifest.json",
       "contentTypes": ["lesson", "test"]
     },
     {
       "name": "learn-chemistry",
-      "path": "apps/learn-chemistry",
-      "manifestPath": "apps/learn-chemistry/manifest.json",
+      "path": "learn-chemistry",
+      "manifestPath": "learn-chemistry/manifest.json",
       "contentTypes": ["lesson", "test"]
     },
     {
       "name": "learn-geography",
-      "path": "apps/learn-geography",
-      "manifestPath": "apps/learn-geography/manifest.json",
+      "path": "learn-geography",
+      "manifestPath": "learn-geography/manifest.json",
       "contentTypes": ["lesson", "test"]
     }
   ],

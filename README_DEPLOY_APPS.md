@@ -158,7 +158,7 @@ Edit `ecosystem.config.js` and add the app configuration:
   name: "iiskills-learn-[app-name]",
   script: "node_modules/.bin/next",
   args: "start -p [PORT]",
-  cwd: "/root/iiskills-cloud/apps/learn-[app-name]",
+  cwd: "/root/iiskills-cloud/learn-[app-name]",
   env: { NODE_ENV: "production" }
 }
 ```
@@ -180,7 +180,7 @@ Add the app to the "Active Applications" list in this document and remove it fro
 yarn install
 
 # Build the newly activated app
-cd apps/learn-[app-name]
+cd learn-[app-name]
 yarn build
 
 # Or build all apps from root
@@ -212,7 +212,7 @@ pm2 delete iiskills-learn-[app-name]
 ### 2. Move to backup directory
 
 ```bash
-git mv apps/learn-[app-name] apps-backup/
+git mv learn-[app-name] apps-backup/
 ```
 
 ### 3. Update PM2 configuration

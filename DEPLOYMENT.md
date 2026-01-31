@@ -84,7 +84,7 @@ Configure domain: `iiskills.cloud`
 
 For each active module (ai, apt, chemistry, cricket, geography, govt-jobs, leadership, management, math, physics, pr, winning):
 ```bash
-cd /path/to/iiskills-cloud/apps/learn-{module}
+cd /path/to/iiskills-cloud/learn-{module}
 vercel --prod
 ```
 

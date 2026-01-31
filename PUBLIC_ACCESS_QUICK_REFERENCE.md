@@ -46,7 +46,7 @@ curl http://localhost:3000/api/admin/content?search=test
 - `apps/main/components/ProtectedRoute.js` - Admin routes now public
 - `apps/main/components/UserProtectedRoute.js` - User routes now public
 - `apps/main/components/PaidUserProtectedRoute.js` - Paid routes now public
-- `apps/learn-apt/src/middleware.ts` - Admin middleware bypassed
+- `learn-apt/src/middleware.ts` - Admin middleware bypassed
 
 ### Configuration
 - `.env.local.example` - Updated defaults to public mode
@@ -121,7 +121,7 @@ Every content item now includes:
 
 ### For Existing Apps
 
-Edit `apps/learn-{app}/manifest.json`:
+Edit `learn-{app}/manifest.json`:
 
 ```json
 {
@@ -138,7 +138,7 @@ Edit `apps/learn-{app}/manifest.json`:
 
 ### For New Apps
 
-1. Create app in `apps/learn-{new}/`
+1. Create app in `learn-{new}/`
 2. Add `manifest.json` with content
 3. Register in `contentRegistry.js`
 4. Test: `node test-content-aggregation.js`

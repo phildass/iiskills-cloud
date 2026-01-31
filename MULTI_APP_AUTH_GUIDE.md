@@ -173,10 +173,10 @@ export const APPS = {
 
 ```bash
 # Copy existing app as template
-cp -r apps/learn-jee apps/learn-newcourse
+cp -r learn-jee learn-newcourse
 
 # Update package.json
-cd apps/learn-newcourse
+cd learn-newcourse
 # Edit name, description, etc.
 ```
 
@@ -184,7 +184,7 @@ cd apps/learn-newcourse
 
 Ensure your login and register pages use the universal components:
 
-**`apps/learn-newcourse/pages/login.js`:**
+**`learn-newcourse/pages/login.js`:**
 ```javascript
 import UniversalLogin from '../../components/shared/UniversalLogin';
 
@@ -200,7 +200,7 @@ export default function Login() {
 }
 ```
 
-**`apps/learn-newcourse/pages/register.js`:**
+**`learn-newcourse/pages/register.js`:**
 ```javascript
 import UniversalRegister from '../../components/shared/UniversalRegister';
 
@@ -257,7 +257,7 @@ module.exports = {
       name: "iiskills-learn-newcourse",
       script: "node_modules/.bin/next",
       args: "start -p 3020",
-      cwd: "/root/iiskills-cloud/apps/learn-newcourse",
+      cwd: "/root/iiskills-cloud/learn-newcourse",
       env: { NODE_ENV: "production" }
     },
   ]
@@ -277,7 +277,7 @@ Value: [Your server IP or main domain]
 
 1. **Development:**
    ```bash
-   cd apps/learn-newcourse
+   cd learn-newcourse
    npm run dev
    ```
    Visit: `http://localhost:3020`

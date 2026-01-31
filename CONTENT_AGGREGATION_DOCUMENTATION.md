@@ -167,14 +167,14 @@ Update `apps/main/lib/admin/contentRegistry.js`:
   name: 'learn-newapp',
   displayName: 'New App',
   contentType: 'json',
-  dataPath: 'apps/learn-newapp/manifest.json',
+  dataPath: 'learn-newapp/manifest.json',
   icon: '📚',
   fields: [...]
 }
 ```
 
 ### 2. Create Manifest
-Create `apps/learn-newapp/manifest.json`:
+Create `learn-newapp/manifest.json`:
 ```json
 {
   "app": "learn-newapp",

@@ -207,12 +207,12 @@ Audit trail for content migration.
    - 3 lessons
    - 2 questions
 
-2. **apps/learn-govt-jobs/data/**
+2. **learn-govt-jobs/data/**
    - `geography.json` - Hierarchical geography (8 states, 37+ districts)
    - `deadlines.json` - Job deadlines and exam dates
    - `eligibility.ts` - Eligibility criteria templates
 
-3. **apps/learn-management/data/**
+3. **learn-management/data/**
    - `newsletters.json` - Newsletter data (currently empty)
 
 ### Future Content to Migrate
