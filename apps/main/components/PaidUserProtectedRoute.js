@@ -18,6 +18,11 @@ const ACCESS_DENIED_CONFIG = {
  * This component protects pages that require both authentication AND payment/registration.
  * If a user is not logged in or hasn't paid, they will see a message with options to login or pay.
  *
+ * ⚠️ TEST MODE ENHANCEMENT:
+ * - When NEXT_PUBLIC_TEST_MODE=true, all paywall checks are bypassed
+ * - This allows admin to access and test all paid content
+ * - WARNING: This should NEVER be enabled in production
+ *
  * Usage:
  * import PaidUserProtectedRoute from '../components/PaidUserProtectedRoute'
  *
@@ -30,10 +35,11 @@ const ACCESS_DENIED_CONFIG = {
  * }
  *
  * How it works:
- * 1. Checks if user is authenticated via Supabase
- * 2. If authenticated, checks if user has paid/registered status
- * 3. Shows access denied message if user is not authenticated or hasn't paid
- * 4. Only renders children if user is authenticated and has paid
+ * 1. Checks if TEST_MODE is enabled - if yes, bypass all checks
+ * 2. Checks if user is authenticated via Supabase
+ * 3. If authenticated, checks if user has paid/registered status
+ * 4. Shows access denied message if user is not authenticated or hasn't paid
+ * 5. Only renders children if user is authenticated and has paid
  */
 export default function PaidUserProtectedRoute({ children }) {
   const router = useRouter();
@@ -47,6 +53,19 @@ export default function PaidUserProtectedRoute({ children }) {
      */
     const checkAccess = async () => {
       try {
+        // TEST MODE: Bypass all paywall and authentication checks
+        // This allows admin to access and test all content
+        // ⚠️ WARNING: NEVER enable in production
+        const TEST_MODE = process.env.NEXT_PUBLIC_TEST_MODE === 'true';
+        
+        if (TEST_MODE) {
+          console.log('🧪 TEST MODE: Paywall bypassed - full access to all paid content');
+          setUser({ email: 'test-mode-admin@iiskills.cloud' });
+          setHasPaid(true);
+          setIsLoading(false);
+          return;
+        }
+
         // UNIVERSAL PUBLIC ACCESS MODE: Authentication and paywall disabled
         // All paid content is now publicly accessible
         // To re-enable paywall, set NEXT_PUBLIC_DISABLE_AUTH=false in .env.local
