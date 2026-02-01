@@ -58,3 +58,7 @@ apps_audit.txt
 # Generated seed data
 data/
 data/*.json
+
+# Build validation reports
+build-validation-reports/
+smoke-test-report-*.md

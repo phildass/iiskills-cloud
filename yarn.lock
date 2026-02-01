@@ -3781,6 +3781,21 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"learn-chemistry@workspace:apps/learn-chemistry":
+  version: 0.0.0-use.local
+  resolution: "learn-chemistry@workspace:apps/learn-chemistry"
+  dependencies:
+    "@supabase/supabase-js": "npm:^2.89.0"
+    autoprefixer: "npm:^10.4.14"
+    eslint: "npm:^9.39.2"
+    next: "npm:^16.1.1"
+    postcss: "npm:^8.4.31"
+    react: "npm:^19.2.3"
+    react-dom: "npm:^19.2.3"
+    tailwindcss: "npm:^3.4.18"
+  languageName: unknown
+  linkType: soft
+
 "learn-companion@workspace:apps/learn-companion":
   version: 0.0.0-use.local
   resolution: "learn-companion@workspace:apps/learn-companion"
@@ -3790,6 +3805,141 @@ __metadata:
     eslint: "npm:^9.39.2"
     next: "npm:^16.1.1"
     openai: "npm:^4.73.0"
+    postcss: "npm:^8.4.31"
+    react: "npm:^19.2.3"
+    react-dom: "npm:^19.2.3"
+    tailwindcss: "npm:^3.4.18"
+  languageName: unknown
+  linkType: soft
+
+"learn-cricket@workspace:apps/learn-cricket":
+  version: 0.0.0-use.local
+  resolution: "learn-cricket@workspace:apps/learn-cricket"
+  dependencies:
+    "@supabase/supabase-js": "npm:^2.89.0"
+    autoprefixer: "npm:^10.4.14"
+    eslint: "npm:^9.39.2"
+    next: "npm:^16.1.1"
+    postcss: "npm:^8.4.31"
+    react: "npm:^19.2.3"
+    react-dom: "npm:^19.2.3"
+    tailwindcss: "npm:^3.4.18"
+  languageName: unknown
+  linkType: soft
+
+"learn-geography@workspace:apps/learn-geography":
+  version: 0.0.0-use.local
+  resolution: "learn-geography@workspace:apps/learn-geography"
+  dependencies:
+    "@supabase/supabase-js": "npm:^2.89.0"
+    autoprefixer: "npm:^10.4.14"
+    eslint: "npm:^9.39.2"
+    next: "npm:^16.1.1"
+    postcss: "npm:^8.4.31"
+    react: "npm:^19.2.3"
+    react-dom: "npm:^19.2.3"
+    tailwindcss: "npm:^3.4.18"
+  languageName: unknown
+  linkType: soft
+
+"learn-govt-jobs@workspace:apps/learn-govt-jobs":
+  version: 0.0.0-use.local
+  resolution: "learn-govt-jobs@workspace:apps/learn-govt-jobs"
+  dependencies:
+    "@supabase/supabase-js": "npm:^2.89.0"
+    autoprefixer: "npm:^10.4.14"
+    eslint: "npm:^9.39.2"
+    next: "npm:^16.1.1"
+    postcss: "npm:^8.4.31"
+    react: "npm:^19.2.3"
+    react-dom: "npm:^19.2.3"
+    tailwindcss: "npm:^3.4.18"
+  languageName: unknown
+  linkType: soft
+
+"learn-leadership@workspace:apps/learn-leadership":
+  version: 0.0.0-use.local
+  resolution: "learn-leadership@workspace:apps/learn-leadership"
+  dependencies:
+    "@supabase/supabase-js": "npm:^2.89.0"
+    autoprefixer: "npm:^10.4.14"
+    eslint: "npm:^9.39.2"
+    next: "npm:^16.1.1"
+    postcss: "npm:^8.4.31"
+    react: "npm:^19.2.3"
+    react-dom: "npm:^19.2.3"
+    tailwindcss: "npm:^3.4.18"
+  languageName: unknown
+  linkType: soft
+
+"learn-management@workspace:apps/learn-management":
+  version: 0.0.0-use.local
+  resolution: "learn-management@workspace:apps/learn-management"
+  dependencies:
+    "@supabase/supabase-js": "npm:^2.89.0"
+    autoprefixer: "npm:^10.4.14"
+    eslint: "npm:^9.39.2"
+    next: "npm:^16.1.1"
+    postcss: "npm:^8.4.31"
+    react: "npm:^19.2.3"
+    react-dom: "npm:^19.2.3"
+    tailwindcss: "npm:^3.4.18"
+  languageName: unknown
+  linkType: soft
+
+"learn-math@workspace:apps/learn-math":
+  version: 0.0.0-use.local
+  resolution: "learn-math@workspace:apps/learn-math"
+  dependencies:
+    "@supabase/supabase-js": "npm:^2.89.0"
+    autoprefixer: "npm:^10.4.14"
+    eslint: "npm:^9.39.2"
+    next: "npm:^16.1.1"
+    postcss: "npm:^8.4.31"
+    react: "npm:^19.2.3"
+    react-dom: "npm:^19.2.3"
+    tailwindcss: "npm:^3.4.18"
+  languageName: unknown
+  linkType: soft
+
+"learn-physics@workspace:apps/learn-physics":
+  version: 0.0.0-use.local
+  resolution: "learn-physics@workspace:apps/learn-physics"
+  dependencies:
+    "@supabase/supabase-js": "npm:^2.89.0"
+    autoprefixer: "npm:^10.4.14"
+    eslint: "npm:^9.39.2"
+    next: "npm:^16.1.1"
+    postcss: "npm:^8.4.31"
+    react: "npm:^19.2.3"
+    react-dom: "npm:^19.2.3"
+    tailwindcss: "npm:^3.4.18"
+  languageName: unknown
+  linkType: soft
+
+"learn-pr@workspace:apps/learn-pr":
+  version: 0.0.0-use.local
+  resolution: "learn-pr@workspace:apps/learn-pr"
+  dependencies:
+    "@supabase/supabase-js": "npm:^2.89.0"
+    autoprefixer: "npm:^10.4.14"
+    eslint: "npm:^9.39.2"
+    next: "npm:^16.1.1"
+    postcss: "npm:^8.4.31"
+    react: "npm:^19.2.3"
+    react-dom: "npm:^19.2.3"
+    tailwindcss: "npm:^3.4.18"
+  languageName: unknown
+  linkType: soft
+
+"learn-winning@workspace:apps/learn-winning":
+  version: 0.0.0-use.local
+  resolution: "learn-winning@workspace:apps/learn-winning"
+  dependencies:
+    "@supabase/supabase-js": "npm:^2.89.0"
+    autoprefixer: "npm:^10.4.14"
+    eslint: "npm:^9.39.2"
+    next: "npm:^16.1.1"
     postcss: "npm:^8.4.31"
     react: "npm:^19.2.3"
     react-dom: "npm:^19.2.3"
