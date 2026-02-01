@@ -1,8 +1,28 @@
-# Apps Audit and Restore Scripts
+# Scripts Directory
 
-This directory contains scripts to audit and restore missing files in the apps directory.
+This directory contains utility scripts for managing the IISKILLS Cloud platform.
 
-## Scripts
+## Available Scripts
+
+### AI Content Generation
+
+#### seed_data.js
+Generates comprehensive AI/Data Science course content using OpenAI's LLM API.
+
+- **What it does**: Creates 10 modules × 10 lessons with 5-question quizzes
+- **Output**: `data/learn-ai-seed.json`
+- **Documentation**: See [SEED_DATA_README.md](./SEED_DATA_README.md)
+
+**Usage:**
+```bash
+# Generate content
+npm run seed:ai-content
+
+# To upload to Supabase, set env vars before running:
+# SUPABASE_URL=https://... SUPABASE_SERVICE_ROLE_KEY=... npm run seed:ai-content
+```
+
+### Deployment & Validation
 
 ### audit-apps.sh
 

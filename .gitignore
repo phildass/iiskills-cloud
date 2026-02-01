@@ -54,3 +54,7 @@ package-lock.json
 
 # Audit files
 apps_audit.txt
+
+# Generated seed data
+data/
+data/*.json
