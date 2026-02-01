@@ -72,6 +72,26 @@ module.exports = {
       time: true
     },
     
+    // Learn Chemistry - Chemistry mastery
+    {
+      name: 'iiskills-learn-chemistry',
+      cwd: path.join(__dirname, 'apps/learn-chemistry'),
+      script: 'npm',
+      args: 'start',
+      env: {
+        NODE_ENV: 'production',
+        // PORT 3005 is specified in package.json start script
+      },
+      instances: 1,
+      autorestart: true,
+      watch: false,
+      max_memory_restart: '1G',
+      error_file: path.join(__dirname, 'logs', 'learn-chemistry-error.log'),
+      out_file: path.join(__dirname, 'logs', 'learn-chemistry-out.log'),
+      log_file: path.join(__dirname, 'logs', 'learn-chemistry-combined.log'),
+      time: true
+    },
+    
     // Learn Companion - Your AI Life Advisor
     {
       name: 'iiskills-learn-companion',
@@ -89,6 +109,186 @@ module.exports = {
       error_file: path.join(__dirname, 'logs', 'learn-companion-error.log'),
       out_file: path.join(__dirname, 'logs', 'learn-companion-out.log'),
       log_file: path.join(__dirname, 'logs', 'learn-companion-combined.log'),
+      time: true
+    },
+    
+    // Learn Cricket - Cricket Know-All
+    {
+      name: 'iiskills-learn-cricket',
+      cwd: path.join(__dirname, 'apps/learn-cricket'),
+      script: 'npm',
+      args: 'start',
+      env: {
+        NODE_ENV: 'production',
+        // PORT 3009 is specified in package.json start script
+      },
+      instances: 1,
+      autorestart: true,
+      watch: false,
+      max_memory_restart: '1G',
+      error_file: path.join(__dirname, 'logs', 'learn-cricket-error.log'),
+      out_file: path.join(__dirname, 'logs', 'learn-cricket-out.log'),
+      log_file: path.join(__dirname, 'logs', 'learn-cricket-combined.log'),
+      time: true
+    },
+    
+    // Learn Geography - Geography and world exploration
+    {
+      name: 'iiskills-learn-geography',
+      cwd: path.join(__dirname, 'apps/learn-geography'),
+      script: 'npm',
+      args: 'start',
+      env: {
+        NODE_ENV: 'production',
+        // PORT 3011 is specified in package.json start script
+      },
+      instances: 1,
+      autorestart: true,
+      watch: false,
+      max_memory_restart: '1G',
+      error_file: path.join(__dirname, 'logs', 'learn-geography-error.log'),
+      out_file: path.join(__dirname, 'logs', 'learn-geography-out.log'),
+      log_file: path.join(__dirname, 'logs', 'learn-geography-combined.log'),
+      time: true
+    },
+    
+    // Learn Government Jobs - Government job exam preparation
+    {
+      name: 'iiskills-learn-govt-jobs',
+      cwd: path.join(__dirname, 'apps/learn-govt-jobs'),
+      script: 'npm',
+      args: 'start',
+      env: {
+        NODE_ENV: 'production',
+        // PORT 3013 is specified in package.json start script
+      },
+      instances: 1,
+      autorestart: true,
+      watch: false,
+      max_memory_restart: '1G',
+      error_file: path.join(__dirname, 'logs', 'learn-govt-jobs-error.log'),
+      out_file: path.join(__dirname, 'logs', 'learn-govt-jobs-out.log'),
+      log_file: path.join(__dirname, 'logs', 'learn-govt-jobs-combined.log'),
+      time: true
+    },
+    
+    // Learn Leadership - Leadership development
+    {
+      name: 'iiskills-learn-leadership',
+      cwd: path.join(__dirname, 'apps/learn-leadership'),
+      script: 'npm',
+      args: 'start',
+      env: {
+        NODE_ENV: 'production',
+        // PORT 3015 is specified in package.json start script
+      },
+      instances: 1,
+      autorestart: true,
+      watch: false,
+      max_memory_restart: '1G',
+      error_file: path.join(__dirname, 'logs', 'learn-leadership-error.log'),
+      out_file: path.join(__dirname, 'logs', 'learn-leadership-out.log'),
+      log_file: path.join(__dirname, 'logs', 'learn-leadership-combined.log'),
+      time: true
+    },
+    
+    // Learn Management - Management and business skills
+    {
+      name: 'iiskills-learn-management',
+      cwd: path.join(__dirname, 'apps/learn-management'),
+      script: 'npm',
+      args: 'start',
+      env: {
+        NODE_ENV: 'production',
+        // PORT 3016 is specified in package.json start script
+      },
+      instances: 1,
+      autorestart: true,
+      watch: false,
+      max_memory_restart: '1G',
+      error_file: path.join(__dirname, 'logs', 'learn-management-error.log'),
+      out_file: path.join(__dirname, 'logs', 'learn-management-out.log'),
+      log_file: path.join(__dirname, 'logs', 'learn-management-combined.log'),
+      time: true
+    },
+    
+    // Learn Math - Mathematics learning
+    {
+      name: 'iiskills-learn-math',
+      cwd: path.join(__dirname, 'apps/learn-math'),
+      script: 'npm',
+      args: 'start',
+      env: {
+        NODE_ENV: 'production',
+        // PORT 3017 is specified in package.json start script
+      },
+      instances: 1,
+      autorestart: true,
+      watch: false,
+      max_memory_restart: '1G',
+      error_file: path.join(__dirname, 'logs', 'learn-math-error.log'),
+      out_file: path.join(__dirname, 'logs', 'learn-math-out.log'),
+      log_file: path.join(__dirname, 'logs', 'learn-math-combined.log'),
+      time: true
+    },
+    
+    // Learn Physics - Physics mastery
+    {
+      name: 'iiskills-learn-physics',
+      cwd: path.join(__dirname, 'apps/learn-physics'),
+      script: 'npm',
+      args: 'start',
+      env: {
+        NODE_ENV: 'production',
+        // PORT 3020 is specified in package.json start script
+      },
+      instances: 1,
+      autorestart: true,
+      watch: false,
+      max_memory_restart: '1G',
+      error_file: path.join(__dirname, 'logs', 'learn-physics-error.log'),
+      out_file: path.join(__dirname, 'logs', 'learn-physics-out.log'),
+      log_file: path.join(__dirname, 'logs', 'learn-physics-combined.log'),
+      time: true
+    },
+    
+    // Learn PR - Public Relations
+    {
+      name: 'iiskills-learn-pr',
+      cwd: path.join(__dirname, 'apps/learn-pr'),
+      script: 'npm',
+      args: 'start',
+      env: {
+        NODE_ENV: 'production',
+        // PORT 3021 is specified in package.json start script
+      },
+      instances: 1,
+      autorestart: true,
+      watch: false,
+      max_memory_restart: '1G',
+      error_file: path.join(__dirname, 'logs', 'learn-pr-error.log'),
+      out_file: path.join(__dirname, 'logs', 'learn-pr-out.log'),
+      log_file: path.join(__dirname, 'logs', 'learn-pr-combined.log'),
+      time: true
+    },
+    
+    // Learn Winning - Success strategies
+    {
+      name: 'iiskills-learn-winning',
+      cwd: path.join(__dirname, 'apps/learn-winning'),
+      script: 'npm',
+      args: 'start',
+      env: {
+        NODE_ENV: 'production',
+        // PORT 3022 is specified in package.json start script
+      },
+      instances: 1,
+      autorestart: true,
+      watch: false,
+      max_memory_restart: '1G',
+      error_file: path.join(__dirname, 'logs', 'learn-winning-error.log'),
+      out_file: path.join(__dirname, 'logs', 'learn-winning-out.log'),
+      log_file: path.join(__dirname, 'logs', 'learn-winning-combined.log'),
       time: true
     },
     
