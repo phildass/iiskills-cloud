@@ -4,6 +4,37 @@
 
 This document describes the selective deployment strategy for the iiskills-cloud monorepo. Only a specific set of applications are actively built and deployed, while others are preserved in a backup state for future use.
 
+## Universal Header & Hero Sync
+
+### Shared Components
+All apps now use shared components for consistent branding:
+
+- **SiteHeader** (`components/shared/SiteHeader.js`) - Universal navigation header
+- **HeroManager** (`components/shared/HeroManager.js`) - Hero image selection and rendering
+- **UniversalLandingPage** - Updated to use HeroManager for consistent hero behavior
+
+### Hero Image Rules
+- **Default Apps**: Randomly select 2 images from pool:
+  - `iiskills-image1.jpg`, `iiskills-image2.jpg`, `iiskills-image3.jpg`, `iiskills-image4.jpg`
+  - First image used as full-size hero background (Next/Image fill + object-fit: cover)
+  - Overlay text positioned at bottom of hero area
+  
+- **learn-cricket**: Uses dedicated images:
+  - `cricket1.jpg`, `cricket2.jpg`
+  - Same hero rendering behavior as other apps
+
+### Deployment Notes
+- All apps have SiteHeader integrated via `_app.js`
+- Hero behavior is consistent across all landing pages
+- Custom landing pages (main, learn-apt) preserve unique content while using shared hero
+- learn-companion is a chat interface and doesn't use hero (by design)
+
+### Audit Script
+Run `node scripts/audit-landing-pages.js` to verify:
+- SiteHeader presence in all apps
+- Hero image selection correctness
+- No unintended "Learn AI" text in other apps
+
 ## Active Applications
 
 The following **12 learn-* applications** are currently active and will be built/deployed:

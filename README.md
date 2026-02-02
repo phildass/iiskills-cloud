@@ -5,7 +5,39 @@ Inspired by iiskills.in and customized for the Indian Institute of Professional 
 
 ## 🆕 New Features
 
-### 📚 Centralized Content in Supabase (NEW!)
+### 🎨 Universal Header & Hero Sync (NEW!)
+**Consistent branding and hero experience across all apps!**
+- **Shared Site Header** - Universal navigation header (SiteHeader) on all apps
+- **Hero Manager** - Synchronized hero image selection and rendering
+- **Random Image Selection** - Two random images per app from `/public/images` pool
+- **Cricket Exception** - learn-cricket uses dedicated cricket1.jpg and cricket2.jpg
+- **Bottom-Aligned Overlay** - Hero text positioned at bottom to avoid covering faces
+- **Full-Size Hero Backgrounds** - Cover images with optimal positioning
+- **Preserved Unique Content** - Each app keeps its unique landing content and features
+
+📚 **Hero Configuration:**
+```javascript
+// Default image pool (used for all apps except learn-cricket)
+['iiskills-image1.jpg', 'iiskills-image2.jpg', 
+ 'iiskills-image3.jpg', 'iiskills-image4.jpg']
+
+// Cricket-specific images
+['cricket1.jpg', 'cricket2.jpg']
+```
+
+🔧 **Usage in Your App:**
+```javascript
+// In _app.js - adds global header
+import SiteHeader from '../../../components/shared/SiteHeader'
+
+// In landing page - use HeroManager for hero
+import Hero from '../../../components/shared/HeroManager'
+<Hero appId="your-app-id">
+  {/* Your overlay content */}
+</Hero>
+```
+
+### 📚 Centralized Content in Supabase
 **All educational content is now centralized in Supabase!**
 - **Single Source of Truth** - All courses, modules, lessons, and questions in one database
 - **Unified Schema** - Consistent structure across all 13+ learning apps
