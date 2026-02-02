@@ -363,11 +363,41 @@ yarn install --force
 yarn clean && yarn install && yarn build
 ```
 
+## UI Updates
+
+### Shared Landing Hero Update (February 2026)
+
+**What Changed:** The shared landing hero component (`components/shared/UniversalLandingPage.js`) has been updated to use a full-cover hero image design with overlay text and centered CTAs.
+
+**Key Changes:**
+- Hero image now covers the entire hero area using Next.js Image `fill` with `object-cover`
+- Semi-transparent gradient overlay (black/70-50%) for improved text readability
+- Hero text and CTAs are centered over the image
+- Consistent spacing and drop shadows for better accessibility
+- Main app hero also updated to match the new design
+
+**Action Required:** 
+- Pull the latest changes from the branch
+- Run `yarn install` if dependencies changed
+- Rebuild affected apps: `bash scripts/workspace-install-build.sh <workspace>` or navigate to app directory and run `yarn build`
+- Restart apps with PM2: `pm2 restart ecosystem.config.js`
+
+**Apps Affected:**
+- `main` - Updated hero section while preserving custom content below
+- All `learn-*` apps using the shared UniversalLandingPage component (auto-updated)
+
+**Verification:**
+- Visit the landing pages and verify the hero image fills the entire hero area
+- Check that overlay text is readable with good contrast
+- Test CTAs ("Explore Courses", "Learn About Certification" for main; "Start Learning"/"Register"/"Sign In" for learn apps)
+
+---
+
 ## Contact
 
 For questions or issues related to this deployment configuration, please contact the development team or refer to the main project documentation.
 
 ---
 
-**Last Updated:** January 2026  
+**Last Updated:** February 2026  
 **Maintained By:** iiskills-cloud development team
