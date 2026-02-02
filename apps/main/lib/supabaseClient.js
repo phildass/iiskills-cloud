@@ -314,25 +314,6 @@ export async function getCurrentUser() {
     return null;
   }
 
-  // TEMPORARY - RESTORE AFTER JAN 28, 2026
-  const DISABLE_AUTH = process.env.NEXT_PUBLIC_DISABLE_AUTH === 'true';
-  
-  if (DISABLE_AUTH) {
-    console.log('⚠️ TESTING MODE: Authentication bypassed - returning mock user');
-    return {
-      id: 'test-user-main',
-      email: 'test@iiskills.cloud',
-      user_metadata: {
-        firstName: 'Test',
-        lastName: 'User',
-        full_name: 'Test User',
-        is_admin: true,
-        payment_status: 'paid'
-      }
-    };
-  }
-  // END TEMPORARY
-
   try {
     // Get the current session from Supabase
     const {
