@@ -456,3 +456,261 @@ const handleLogout = async () => {
 - ✅ No UI hints for regular users
 
 This architecture provides a secure, consistent, and user-friendly experience across all iiskills.cloud applications.
+
+---
+
+## Test Mode Configuration (TEMPORARY)
+
+⚠️ **WARNING: FOR TESTING ONLY - NEVER USE IN PRODUCTION**
+
+### Overview
+
+A temporary test mode has been implemented to allow:
+1. Password-first admin authentication (no Supabase login required)
+2. Universal bypass of all paywalls and authentication checks
+3. Full admin access to all content across all apps
+
+**This mode MUST be disabled before any production deployment.**
+
+### Enabling Test Mode
+
+**Step 1: Set Environment Variables**
+
+Add to `.env.local` in all apps (main and subdomains):
+
+```bash
+# Test mode flags
+NEXT_PUBLIC_TEST_MODE=true  # Client-side - bypasses paywalls
+TEST_MODE=true              # Server-side - bypasses auth checks
+
+# Admin authentication
+ADMIN_JWT_SECRET=<generate-with: openssl rand -base64 32>
+SUPABASE_SERVICE_ROLE_KEY=<from-supabase-dashboard>
+```
+
+**Step 2: Apply Supabase Migration**
+
+Run the SQL migration in Supabase SQL Editor:
+
+```bash
+# File: supabase/migrations/admin_settings_table.sql
+# Creates the admin_settings table for password storage
+```
+
+Or manually:
+```sql
+CREATE TABLE IF NOT EXISTS public.admin_settings (
+  id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
+  key text UNIQUE NOT NULL,
+  value text NOT NULL,
+  created_at timestamp with time zone DEFAULT timezone('utc'::text, now()) NOT NULL,
+  updated_at timestamp with time zone DEFAULT timezone('utc'::text, now()) NOT NULL
+);
+
+ALTER TABLE public.admin_settings ENABLE ROW LEVEL SECURITY;
+```
+
+**Step 3: Restart Applications**
+
+```bash
+pm2 restart all
+# Or for development:
+npm run dev
+```
+
+### Admin Password Setup Flow
+
+**First Visit to `/admin/universal`:**
+
+1. System checks if admin password exists in `admin_settings` table
+2. If not found, displays "Setup Admin Password" screen
+3. Admin creates password (minimum 8 characters)
+4. Password is hashed with bcrypt (12 rounds)
+5. Hash stored in `admin_settings` table (key: 'admin_password_hash')
+6. JWT token generated and set as HttpOnly cookie
+7. Admin gains immediate access to dashboard
+
+**Subsequent Visits:**
+
+1. If valid `admin_token` cookie exists → automatically authenticated
+2. If no valid cookie → shows login screen
+3. Admin enters password
+4. System verifies against stored hash
+5. On success → new JWT token issued
+6. Admin gains access to dashboard
+
+### Test Mode Features
+
+When `NEXT_PUBLIC_TEST_MODE=true`:
+
+**1. Paywall Bypass**
+- All content protected by `PaidUserProtectedRoute` is accessible
+- No payment checks performed
+- Warning banner shows "TEST MODE" on all pages
+
+**2. Authentication Relaxation**
+- Admin routes accept `admin_token` cookie for authentication
+- Supabase user authentication is optional
+- Falls back to Supabase auth if `admin_token` not present
+
+**3. Visual Indicators**
+- Yellow warning banner on admin pages: "TEST MODE: All paywalls and authentication bypassed"
+- Setup page shows test mode notice
+- Console warnings in browser developer tools
+
+**4. Admin Access**
+- Direct access to `/admin/universal` (no redirect to login)
+- Logout button prominently displayed
+- Session expires after 24 hours
+
+### URLs and Routes
+
+| Route | Test Mode | Production |
+|-------|-----------|------------|
+| `/admin/universal` | Password setup/login | Redirect to Supabase login |
+| `/admin` | Protected by admin_token | Protected by Supabase + is_admin |
+| `/admin/*` | Protected by admin_token | Protected by Supabase + is_admin |
+| Paid content pages | Accessible to all | Requires auth + payment |
+
+### Security Considerations
+
+⚠️ **Test mode reduces security:**
+
+- Service role key used client-side (normally server-only)
+- Single shared admin password (not user-specific)
+- All paywalls disabled (revenue protection removed)
+- No audit trail of admin actions
+- RLS policies effectively bypassed
+
+**Therefore:**
+- ✅ Use ONLY in development/testing environments
+- ✅ Set strong admin password
+- ✅ Rotate all keys after testing
+- ❌ NEVER enable on production domain
+- ❌ NEVER commit secrets to git
+- ❌ NEVER leave enabled after testing
+
+### Disabling Test Mode
+
+**Follow the complete rollback guide: `TEST_MODE_ROLLBACK.md`**
+
+**Quick Disable (Emergency):**
+
+```bash
+# In .env.local for all apps:
+NEXT_PUBLIC_TEST_MODE=false
+TEST_MODE=false
+
+# Restart apps
+pm2 restart all
+```
+
+**Complete Rollback:**
+
+1. Set `NEXT_PUBLIC_TEST_MODE=false` and `TEST_MODE=false`
+2. Remove/rotate `ADMIN_JWT_SECRET`
+3. Rotate `SUPABASE_SERVICE_ROLE_KEY`
+4. Drop `admin_settings` table
+5. Configure Supabase admin users (`is_admin=true`)
+6. Restart all applications
+7. Verify normal authentication works
+8. Verify paywalls are active
+
+### Testing Checklist
+
+Use this checklist when testing in test mode:
+
+**Admin Access:**
+- [ ] Visit `/admin/universal` - should show password setup
+- [ ] Create admin password - should succeed
+- [ ] Access admin dashboard - should see all features
+- [ ] Logout - should clear session
+- [ ] Login again - should accept password
+- [ ] Check cookie - `admin_token` should be HttpOnly
+
+**Paywall Bypass:**
+- [ ] Visit paid content page - should show content
+- [ ] Check for test mode banner - should be visible
+- [ ] Console warnings - should show test mode messages
+
+**Cross-App Access:**
+- [ ] Admin can see content from all apps
+- [ ] Admin queries return complete data
+- [ ] No permission errors in console
+
+### Environment Variable Reference
+
+```bash
+# Required for test mode
+NEXT_PUBLIC_TEST_MODE=true              # Enable test mode (client)
+TEST_MODE=true                          # Enable test mode (server)
+ADMIN_JWT_SECRET=<secret>               # JWT signing secret
+SUPABASE_SERVICE_ROLE_KEY=<key>         # Service role key
+
+# Standard Supabase (still required)
+NEXT_PUBLIC_SUPABASE_URL=<url>
+NEXT_PUBLIC_SUPABASE_ANON_KEY=<key>
+
+# Optional
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
+NEXT_PUBLIC_COOKIE_DOMAIN=              # Empty for localhost
+```
+
+### Troubleshooting
+
+**Issue: "Failed to check password status"**
+- Check `SUPABASE_SERVICE_ROLE_KEY` is set
+- Verify `admin_settings` table exists
+- Check server logs for errors
+
+**Issue: "Invalid password" even with correct password**
+- Check password was created in test mode
+- Verify `admin_settings` table has 'admin_password_hash' row
+- Try setting up password again
+
+**Issue: Test mode not activating**
+- Verify `NEXT_PUBLIC_TEST_MODE=true` (exact string)
+- Restart the application
+- Clear browser cache and cookies
+- Check `.env.local` file syntax
+
+**Issue: Paywall still showing**
+- Confirm `NEXT_PUBLIC_TEST_MODE=true` in `.env.local`
+- Restart application
+- Check browser console for test mode messages
+- Verify environment variable is loaded: `console.log(process.env.NEXT_PUBLIC_TEST_MODE)`
+
+### Migration from Test Mode to Production
+
+**Before Production Launch:**
+
+1. Complete all testing and documentation
+2. Follow `TEST_MODE_ROLLBACK.md` instructions completely
+3. Set up proper Supabase admin users
+4. Enable all authentication and paywall checks
+5. Test normal auth flow thoroughly
+6. Verify security is fully restored
+7. Remove test mode code (optional)
+8. Update documentation to remove test mode references
+
+**Admin Setup for Production:**
+
+```sql
+-- Grant admin access to specific users
+UPDATE public.profiles 
+SET is_admin = true 
+WHERE id IN (
+  SELECT id FROM auth.users 
+  WHERE email IN ('admin1@example.com', 'admin2@example.com')
+);
+
+-- Verify admin users
+SELECT u.email, p.is_admin 
+FROM auth.users u 
+JOIN public.profiles p ON u.id = p.id 
+WHERE p.is_admin = true;
+```
+
+---
+
+This architecture provides a secure, consistent, and user-friendly experience across all iiskills.cloud applications.

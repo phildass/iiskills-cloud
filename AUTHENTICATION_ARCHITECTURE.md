@@ -430,6 +430,162 @@ For complete documentation on admin validation, see [PROFILES_TABLE_ADMIN.md](PR
    - Biometric authentication for mobile
    - Session activity monitoring
 
+## Test Mode Admin Authentication (TEMPORARY)
+
+⚠️ **WARNING: FOR TESTING ONLY - NOT FOR PRODUCTION USE**
+
+### Overview
+
+A temporary password-first admin authentication system has been implemented for testing purposes. This system allows admin access without requiring Supabase user authentication.
+
+**Status:** 🧪 **TEST MODE ONLY** - Must be disabled before production deployment
+
+### How It Works
+
+1. **First Visit to /admin/universal:**
+   - System checks if admin password has been set
+   - If not set, shows "Setup Admin Password" flow
+   - Admin creates a password (minimum 8 characters)
+
+2. **Password Storage:**
+   - Password is hashed using bcrypt (12 rounds)
+   - Hash is stored in `admin_settings` Supabase table
+   - Accessed via `SUPABASE_SERVICE_ROLE_KEY` (server-side only)
+
+3. **Subsequent Admin Access:**
+   - Admin enters password
+   - System verifies against stored hash
+   - On success, issues JWT token signed with `ADMIN_JWT_SECRET`
+   - Token stored in HttpOnly cookie (`admin_token`)
+   - Cookie valid for 24 hours
+
+4. **Admin Session Management:**
+   - Token verified server-side on each protected route
+   - Logout clears the HttpOnly cookie
+   - Token expiry enforced by JWT
+
+### Security Features
+
+- ✅ Passwords hashed with bcrypt (never stored plain text)
+- ✅ JWT tokens signed with secret key
+- ✅ HttpOnly cookies prevent XSS attacks
+- ✅ Server-side token verification
+- ✅ 24-hour token expiry
+- ✅ Secure cookie settings (HTTPS in production)
+
+### Environment Variables Required
+
+```bash
+# Server-side admin JWT secret
+ADMIN_JWT_SECRET=<generated-secret-32-chars-minimum>
+
+# Supabase service role key (for admin_settings table access)
+SUPABASE_SERVICE_ROLE_KEY=<your-service-role-key>
+
+# Test mode flags
+NEXT_PUBLIC_TEST_MODE=true  # Client-side flag
+TEST_MODE=true              # Server-side flag
+```
+
+### Components Affected
+
+- `apps/main/pages/api/admin/auth.js` - Auth API with bcrypt & JWT
+- `apps/main/pages/admin/universal.js` - Admin login/setup UI
+- `apps/main/components/ProtectedRoute.js` - Supports admin_token verification
+- `supabase/migrations/admin_settings_table.sql` - Password storage table
+
+### Test Mode Features
+
+When `NEXT_PUBLIC_TEST_MODE=true`:
+
+1. **Paywall Bypass:** All paid content accessible without payment
+2. **Auth Relaxation:** Content available without Supabase authentication
+3. **Admin Access:** Password-first authentication active
+4. **Warning Banners:** UI shows test mode indicators
+
+### Rollback Instructions
+
+⚠️ **CRITICAL:** Follow these steps to disable test mode:
+
+1. **Set environment flags to false:**
+   ```bash
+   NEXT_PUBLIC_TEST_MODE=false
+   TEST_MODE=false
+   ```
+
+2. **Remove/rotate secrets:**
+   ```bash
+   ADMIN_JWT_SECRET=  # Remove or generate new
+   # Rotate SUPABASE_SERVICE_ROLE_KEY in Supabase dashboard
+   ```
+
+3. **Drop admin_settings table:**
+   ```sql
+   DROP TABLE IF EXISTS public.admin_settings CASCADE;
+   DROP FUNCTION IF EXISTS public.handle_admin_settings_updated_at() CASCADE;
+   ```
+
+4. **Verify Supabase admin users:**
+   ```sql
+   UPDATE public.profiles 
+   SET is_admin = true 
+   WHERE id = (SELECT id FROM auth.users WHERE email = 'admin@example.com');
+   ```
+
+5. **Restart all applications**
+
+6. **Test normal auth flow** - should require Supabase login
+
+**See `TEST_MODE_ROLLBACK.md` for detailed rollback instructions.**
+
+### Security Warnings
+
+⚠️ **NEVER use this in production because:**
+
+1. Service role key exposure risk
+2. Single admin password (not user-specific)
+3. No audit trail of admin actions
+4. Bypasses Supabase security policies
+5. All paywalls disabled when test mode active
+
+### Comparison: Test Mode vs Production
+
+| Feature | Test Mode | Production |
+|---------|-----------|------------|
+| Admin Auth | Password-first | Supabase user-based |
+| Admin Password | Single shared password | Individual user credentials |
+| Paywalls | Bypassed | Active |
+| Content Access | Full (no auth required) | Auth + payment required |
+| Audit Trail | None | Full Supabase audit |
+| Security | Reduced | Full RLS + policies |
+
+### When to Use
+
+✅ **Use test mode for:**
+- Initial testing of admin features
+- Content validation across all apps
+- Pre-launch system verification
+- Temporary QA access
+
+❌ **Never use test mode for:**
+- Production deployments
+- Live customer environments
+- Long-term operations
+- Environments with real user data
+
+### Migration Path
+
+**From Test Mode → Production:**
+
+1. Complete all testing and validation
+2. Follow rollback instructions in `TEST_MODE_ROLLBACK.md`
+3. Configure proper Supabase admin users
+4. Enable all authentication and paywall checks
+5. Verify security is fully restored
+6. Monitor for issues in first 24 hours
+
+---
+
 ## Summary
 
 The universal authentication system in iiskills.cloud provides:
@@ -441,10 +597,11 @@ The universal authentication system in iiskills.cloud provides:
 ✅ **Multiple authentication methods** (email, magic link, OAuth)
 ✅ **Standardized components** for consistency
 ✅ **Seamless user experience** across the entire platform
+🧪 **Test mode admin auth** for temporary testing (must be disabled for production)
 
 Users register once and enjoy frictionless access to all iiskills.cloud services, now and in the future.
 
 ---
 
-**Last Updated:** January 2026
+**Last Updated:** February 2026
 **Maintained by:** iiskills.cloud Development Team
