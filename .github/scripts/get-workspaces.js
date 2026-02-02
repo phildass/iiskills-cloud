@@ -40,7 +40,7 @@ const FALLBACK_WORKSPACES = [
 function getWorkspaces() {
   try {
     if (!fs.existsSync(APPS_DIR)) {
-      console.error('apps/ directory not found, using fallback', { APPS_DIR });
+      console.log('apps/ directory not found, using fallback');
       return FALLBACK_WORKSPACES;
     }
 
@@ -57,7 +57,7 @@ function getWorkspaces() {
       const pkgPath = path.join(appPath, 'package.json');
 
       if (!fs.existsSync(pkgPath)) {
-        console.error(`Skipping ${entry.name}: no package.json`);
+        console.log(`Skipping ${entry.name}: no package.json`);
         continue;
       }
 
@@ -72,21 +72,21 @@ function getWorkspaces() {
             workspacePath: `apps/${entry.name}`
           });
         } else {
-          console.error(`Skipping ${entry.name}: no build script`);
+          console.log(`Skipping ${entry.name}: no build script`);
         }
       } catch (err) {
-        console.error(`Error reading package.json for ${entry.name}:`, err.message);
+        console.log(`Error reading package.json for ${entry.name}:`, err.message);
       }
     }
 
     if (workspaces.length === 0) {
-      console.error('No workspaces found, using fallback');
+      console.log('No workspaces found, using fallback');
       return FALLBACK_WORKSPACES;
     }
 
     return workspaces;
   } catch (err) {
-    console.error('Error scanning workspaces, using fallback:', err.message);
+    console.log('Error scanning workspaces, using fallback:', err.message);
     return FALLBACK_WORKSPACES;
   }
 }

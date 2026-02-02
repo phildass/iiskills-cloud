@@ -24,6 +24,8 @@ jobs:
   prepare-matrix:
     name: Prepare build matrix
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
@@ -56,6 +58,8 @@ jobs:
     name: Build ${{ matrix.workspaceName }}
     needs: prepare-matrix
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     strategy:
       fail-fast: false
       matrix: ${{ fromJson(needs.prepare-matrix.outputs.matrix) }}

@@ -64,7 +64,8 @@ echo "Detected Yarn version: $YARN_VERSION"
 YARN_MAJOR_VERSION=$(echo "$YARN_VERSION" | cut -d. -f1)
 SUPPORTS_FOCUS=false
 
-if [ "$YARN_MAJOR_VERSION" -ge 2 ] 2>/dev/null; then
+# Check if major version is numeric and >= 2
+if [[ "$YARN_MAJOR_VERSION" =~ ^[0-9]+$ ]] && [ "$YARN_MAJOR_VERSION" -ge 2 ]; then
   SUPPORTS_FOCUS=true
 elif [ "$YARN_VERSION" = "unknown" ]; then
   echo "Warning: Could not detect Yarn version, assuming v1 fallback"

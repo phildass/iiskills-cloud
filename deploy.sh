@@ -58,9 +58,9 @@ BUILD_FAILURES=0
 
 for d in apps/*; do
   if [ -d "$d" ] && [ -f "$d/package.json" ]; then
-    # skip apps-backup
+    # skip apps-backup directory
     case "$d" in
-      apps/apps-backup*)
+      apps/apps-backup)
         echo "Skipping $d (backup directory)"
         continue
         ;;
