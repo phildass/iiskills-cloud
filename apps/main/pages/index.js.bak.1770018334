@@ -27,50 +27,46 @@ export default function Home() {
         `}</style>
       </Head>
       <main>
-        {/* Full-Cover Hero Section */}
-        <section className="relative h-screen min-h-[600px] w-full overflow-hidden">
-          {/* Background Image */}
-          <div className="absolute inset-0 z-0">
-            <Image
-              src="/images/iiskills-image1.jpg"
-              alt="Students learning together on iiskills.cloud platform"
-              fill
-              className="object-cover"
-              sizes="100vw"
-              priority
-            />
-          </div>
-          
-          {/* Semi-transparent Dark Overlay */}
-          <div className="absolute inset-0 bg-black bg-opacity-60 z-10"></div>
-          
-          {/* Centered Content */}
-          <div className="relative z-20 h-full flex items-center justify-center">
-            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-                iiskills.cloud
-              </h1>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-white mb-4 leading-snug">
-                Indian Institute of Professional Skills Development
-              </h2>
-              <p className="text-xl sm:text-2xl lg:text-3xl text-white mb-10 leading-relaxed">
-                Education for All, Online and Affordable
-              </p>
-              
-              {/* CTA Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <Link
-                  href="/learn"
-                  className="inline-block bg-white text-primary px-8 py-4 rounded-lg font-bold shadow-lg hover:bg-gray-100 hover:shadow-xl transition-all duration-200 text-center text-base sm:text-lg min-w-[240px]"
-                >
-                  Explore Courses
-                </Link>
-                <Link
-                  href="/certification"
-                  className="inline-block bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-bold hover:bg-white hover:text-primary transition-all duration-200 text-center text-base sm:text-lg min-w-[240px]"
-                >
-                  Learn About Certification
-                </Link>
+        {/* Hero Section */}
+        <section className="relative bg-gradient-to-r from-primary to-accent text-white py-20 md:py-24 overflow-hidden">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-col md:flex-row items-center gap-12 md:gap-16">
+              <div className="flex-1 text-center md:text-left z-10 space-y-6">
+                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight">
+                  iiskills.cloud
+                </h1>
+                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold leading-snug">
+                  Indian Institute of Professional Skills Development
+                </h2>
+                <p className="text-lg sm:text-xl lg:text-2xl leading-relaxed">
+                  Education for All, Online and Affordable
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start pt-4">
+                  <Link
+                    href="/courses"
+                    className="inline-block bg-white text-primary px-8 py-4 rounded-lg font-bold shadow-lg hover:bg-gray-100 hover:shadow-xl transition-all duration-200 text-center text-base sm:text-lg"
+                  >
+                    Explore Courses
+                  </Link>
+                  <Link
+                    href="/certification"
+                    className="inline-block bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-bold hover:bg-white hover:text-primary transition-all duration-200 text-center text-base sm:text-lg"
+                  >
+                    Learn About Certification
+                  </Link>
+                </div>
+              </div>
+              <div className="flex-1 relative z-10 w-full">
+                <div className="relative rounded-xl overflow-hidden shadow-2xl max-w-lg mx-auto" style={{ aspectRatio: '4/3', height: 'auto' }}>
+                  <Image
+                    src="/images/iiskills-image1.jpg"
+                    alt="Students learning together on iiskills.cloud platform"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    priority
+                  />
+                </div>
               </div>
             </div>
           </div>
