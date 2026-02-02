@@ -6,8 +6,8 @@ export default function Home() {
   return (
     <UniversalLandingPage
       appId="learn-leadership"
-      appName="Master Leadership"
-      title="Master Leadership - iiskills.cloud"
+      appName="Develop Leadership Skills"
+      title="Develop Leadership Skills - iiskills.cloud"
       description="Build essential leadership capabilities to inspire teams, drive change, and achieve organizational success."
       features={[
   {

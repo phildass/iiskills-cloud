@@ -6,8 +6,8 @@ export default function Home() {
   return (
     <UniversalLandingPage
       appId="learn-govt-jobs"
-      appName="Master Government Jobs"
-      title="Master Government Jobs - iiskills.cloud"
+      appName="Prepare for Government Jobs"
+      title="Prepare for Government Jobs - iiskills.cloud"
       description="Comprehensive preparation for government job exams with practice tests, study materials, and expert guidance."
       features={[
   {

@@ -63,7 +63,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Master Life Skills - iiskills.cloud</title>
+        <title>Learn Companion - Your AI Life Advisor</title>
         <meta name="description" content="Get helpful life advice from your AI companion" />
         <link rel="icon" href="/favicon.ico" />
       </Head>

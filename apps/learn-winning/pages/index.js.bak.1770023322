@@ -6,8 +6,8 @@ export default function Home() {
   return (
     <UniversalLandingPage
       appId="learn-winning"
-      appName="Master Winning Mindset"
-      title="Master Winning Mindset - iiskills.cloud"
+      appName="Develop a Winning Mindset"
+      title="Develop a Winning Mindset - iiskills.cloud"
       description="Build mental toughness, positive habits, and success strategies to achieve your personal and professional goals."
       features={[
   {
