@@ -3,7 +3,6 @@ import Image from "next/image";
 import Head from "next/head";
 import { getPricingDisplay, getIntroOfferNotice } from "../utils/pricing";
 import TranslationFeatureBanner from "../../../components/shared/TranslationFeatureBanner";
-import Hero from "../../../components/shared/HeroManager";
 
 export default function Home() {
   const pricing = getPricingDisplay();
@@ -28,36 +27,55 @@ export default function Home() {
         `}</style>
       </Head>
       <main>
-        {/* HERO SECTION: Full-size background with HeroManager */}
-        <Hero appId="main" className="h-[70vh] md:h-[80vh] lg:h-[90vh]">
-          <div className="text-center text-white space-y-6 max-w-4xl mx-auto">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight">
-              iiskills.cloud
-            </h1>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold leading-snug">
-              Indian Institute of Professional Skills Development
-            </h2>
-            <p className="text-xl sm:text-2xl lg:text-3xl leading-relaxed">
-              Education for All, Online and Affordable
-            </p>
-            
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
-              <Link
-                href="/courses"
-                className="inline-block bg-white text-primary px-8 py-4 rounded-lg font-bold shadow-lg hover:bg-gray-100 hover:shadow-xl transition-all duration-200 text-center text-base sm:text-lg min-w-[240px]"
-              >
-                Explore Courses
-              </Link>
-              <Link
-                href="/certification"
-                className="inline-block bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-bold hover:bg-white hover:text-primary transition-all duration-200 text-center text-base sm:text-lg min-w-[240px]"
-              >
-                Learn About Certification
-              </Link>
+        {/* HERO SECTION: keep image normal (object-position favoring top), move text down slightly */}
+        <section className="relative w-full h-[70vh] md:h-[80vh] lg:h-[90vh] overflow-hidden">
+          {/* Background image - fills hero area, object-position tuned to preserve faces */}
+          <div className="absolute inset-0 z-0">
+            <Image
+              src="/images/iiskills-image1.jpg"
+              alt="Students learning together on iiskills.cloud platform"
+              fill
+              className="object-cover"
+              style={{ objectPosition: '50% 30%' }}
+              sizes="100vw"
+              priority
+            />
+          </div>
+          
+          {/* Reduced overlay opacity for better balance */}
+          <div className="absolute inset-0 bg-black/40 z-10" aria-hidden="true"></div>
+          
+          {/* Content container - pushed down slightly to avoid covering faces */}
+          <div className="relative z-20 h-full flex items-center justify-center">
+            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center translate-y-8 md:translate-y-12 lg:translate-y-16">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+                iiskills.cloud
+              </h1>
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-white mb-4 leading-snug">
+                Indian Institute of Professional Skills Development
+              </h2>
+              <p className="text-xl sm:text-2xl lg:text-3xl text-white mb-10 leading-relaxed">
+                Education for All, Online and Affordable
+              </p>
+              
+              {/* CTA Buttons */}
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <Link
+                  href="/courses"
+                  className="inline-block bg-white text-primary px-8 py-4 rounded-lg font-bold shadow-lg hover:bg-gray-100 hover:shadow-xl transition-all duration-200 text-center text-base sm:text-lg min-w-[240px]"
+                >
+                  Explore Courses
+                </Link>
+                <Link
+                  href="/certification"
+                  className="inline-block bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-bold hover:bg-white hover:text-primary transition-all duration-200 text-center text-base sm:text-lg min-w-[240px]"
+                >
+                  Learn About Certification
+                </Link>
+              </div>
             </div>
           </div>
-        </Hero>
+        </section>
 
         {/* Translation Feature Banner */}
         <section className="py-8 bg-gray-50">
