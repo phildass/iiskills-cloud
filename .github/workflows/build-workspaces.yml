@@ -1,0 +1,111 @@
+name: Build workspaces (per-workspace)
+
+on:
+  push:
+    paths:
+      - 'apps/**'
+      - 'packages/**'
+      - '.github/workflows/build-workspaces.yml'
+      - 'scripts/workspace-install-build.sh'
+  pull_request:
+    paths:
+      - 'apps/**'
+      - 'packages/**'
+      - '.github/workflows/build-workspaces.yml'
+      - 'scripts/workspace-install-build.sh'
+  workflow_dispatch:
+    inputs:
+      workspace:
+        description: 'Specific workspace to build (leave empty for all)'
+        required: false
+        type: string
+
+jobs:
+  prepare-matrix:
+    name: Prepare build matrix
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Generate workspace matrix
+        id: set-matrix
+        run: |
+          if [ -n "${{ github.event.inputs.workspace }}" ]; then
+            # Build specific workspace from workflow_dispatch
+            echo "matrix={\"include\":[{\"workspaceName\":\"${{ github.event.inputs.workspace }}\",\"workspacePath\":\"apps/${{ github.event.inputs.workspace }}\"}]}" >> $GITHUB_OUTPUT
+          else
+            # Generate dynamic matrix
+            MATRIX=$(node .github/scripts/get-workspaces.js)
+            echo "matrix=$MATRIX" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Display matrix
+        run: |
+          echo "Build matrix:"
+          echo '${{ steps.set-matrix.outputs.matrix }}' | jq .
+
+  build:
+    name: Build ${{ matrix.workspaceName }}
+    needs: prepare-matrix
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJson(needs.prepare-matrix.outputs.matrix) }}
+    env:
+      NODE_OPTIONS: '--max-old-space-size=4096'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'yarn'
+
+      - name: Install and build workspace
+        run: |
+          bash scripts/workspace-install-build.sh ${{ matrix.workspaceName }} production
+
+      - name: Check build output
+        run: |
+          if [ -d "${{ matrix.workspacePath }}/.next" ]; then
+            echo "✓ Build output exists for ${{ matrix.workspaceName }}"
+            ls -lh ${{ matrix.workspacePath }}/.next
+          elif [ -d "${{ matrix.workspacePath }}/build" ]; then
+            echo "✓ Build output exists for ${{ matrix.workspaceName }}"
+            ls -lh ${{ matrix.workspacePath }}/build
+          elif [ -d "${{ matrix.workspacePath }}/dist" ]; then
+            echo "✓ Build output exists for ${{ matrix.workspaceName }}"
+            ls -lh ${{ matrix.workspacePath }}/dist
+          else
+            echo "⚠ No standard build output found for ${{ matrix.workspaceName }}"
+          fi
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        if: success()
+        with:
+          name: build-${{ matrix.workspaceName }}
+          path: |
+            ${{ matrix.workspacePath }}/.next
+            ${{ matrix.workspacePath }}/build
+            ${{ matrix.workspacePath }}/dist
+            ${{ matrix.workspacePath }}/out
+          retention-days: 7
+          if-no-files-found: ignore

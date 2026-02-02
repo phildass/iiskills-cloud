@@ -97,6 +97,36 @@ yarn turbo run build
 yarn dev
 ```
 
+### Per-Workspace CI-Friendly Builds
+
+The repository now includes a **per-workspace build system** designed to prevent memory exhaustion and enable efficient CI builds:
+
+- **GitHub Actions Workflow**: `.github/workflows/build-workspaces.yml` builds each workspace independently in parallel
+- **Helper Script**: `scripts/workspace-install-build.sh` performs workspace-focused installs and builds
+- **Yarn Version Detection**: Automatically uses `yarn workspaces focus` for Yarn v2+ (Berry) or falls back to Yarn v1 behavior
+- **Matrix Generation**: `.github/scripts/get-workspaces.js` dynamically generates the list of workspaces to build
+
+**Build a single workspace locally:**
+```bash
+# Using the helper script directly
+bash scripts/workspace-install-build.sh learn-math
+
+# Using package.json script
+yarn ci:build:workspace learn-math production
+```
+
+**Build all workspaces serially:**
+```bash
+yarn build:all-serial
+```
+
+**List all buildable workspaces:**
+```bash
+node .github/scripts/get-workspaces.js
+```
+
+The deployment script (`deploy.sh`) now uses this per-workspace approach for production builds, ensuring memory-bounded sequential builds.
+
 ### PM2 Deployment
 
 The PM2 ecosystem configuration (`ecosystem.config.js`) includes only active apps:

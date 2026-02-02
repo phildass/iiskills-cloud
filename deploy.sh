@@ -50,24 +50,42 @@ echo "Build directories cleaned"
 echo ""
 
 # Step 5: Build all apps
-echo -e "${CYAN}Step 5/7: Building all apps${NC}"
-yarn workspaces foreach -A run build
+echo -e "${CYAN}Step 5/7: Building all apps using per-workspace helper${NC}"
 
-# Verify build output
-echo -e "${CYAN}Verifying build output...${NC}"
+# Build each app/workspace sequentially using workspace-install-build helper
+echo "Building apps sequentially using workspace-install-build helper..."
 BUILD_FAILURES=0
 
-# Only verify main app as it contains the universal admin dashboard
-if [ ! -d "apps/main/.next" ]; then
-  echo -e "${RED}✗ Build failed for apps/main - no .next directory${NC}"
-  BUILD_FAILURES=$((BUILD_FAILURES + 1))
-else
-  echo -e "${GREEN}✓ Build succeeded for apps/main${NC}"
-fi
+for d in apps/*; do
+  if [ -d "$d" ] && [ -f "$d/package.json" ]; then
+    # skip apps-backup directory
+    case "$(basename "$d")" in
+      apps-backup)
+        echo "Skipping $d (backup directory)"
+        continue
+        ;;
+    esac
+    
+    APP_NAME=$(basename "$d")
+    echo ""
+    echo -e "${CYAN}Building $APP_NAME...${NC}"
+    
+    if bash scripts/workspace-install-build.sh "$APP_NAME" production; then
+      echo -e "${GREEN}✓ Build succeeded for $APP_NAME${NC}"
+    else
+      echo -e "${RED}✗ Build failed for $APP_NAME${NC}"
+      BUILD_FAILURES=$((BUILD_FAILURES + 1))
+    fi
+  fi
+done
 
+echo ""
+echo -e "${CYAN}Build Summary:${NC}"
 if [ $BUILD_FAILURES -gt 0 ]; then
-  echo -e "${RED}Build verification failed!${NC}"
+  echo -e "${RED}Build verification failed! $BUILD_FAILURES app(s) failed to build.${NC}"
   exit 1
+else
+  echo -e "${GREEN}All apps built successfully!${NC}"
 fi
 echo ""
 
