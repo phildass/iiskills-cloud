@@ -78,18 +78,12 @@ echo ""
 echo "Installing dependencies..."
 if [ "$SUPPORTS_FOCUS" = true ]; then
   echo "Using Yarn workspaces focus (efficient workspace-only install)"
-  if [ "$MODE" = "production" ]; then
-    yarn workspaces focus "$WORKSPACE_NAME" --production
-  else
-    yarn workspaces focus "$WORKSPACE_NAME"
-  fi
+  # Note: Always install all dependencies (including devDependencies) for builds
+  # The --production flag would skip devDependencies which are needed for building
+  yarn workspaces focus "$WORKSPACE_NAME"
 else
   echo "Using Yarn v1 fallback (root install)"
-  if [ "$MODE" = "production" ]; then
-    yarn install --frozen-lockfile --production
-  else
-    yarn install --frozen-lockfile
-  fi
+  yarn install --frozen-lockfile
 fi
 
 # Build the workspace

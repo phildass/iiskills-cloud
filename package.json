@@ -36,7 +36,7 @@
     "generate:registry": "node scripts/generate-app-registry.js",
     "seed:ai-content": "node scripts/seed_data.js",
     "ci:build:workspace": "bash scripts/workspace-install-build.sh",
-    "build:all-serial": "node .github/scripts/get-workspaces.js | node -e \"const fs=require('fs');const j=JSON.parse(fs.readFileSync(0,'utf8')); const cp=require('child_process'); for(const i of j.include){ console.log('Building', i.workspaceName); cp.execSync(\\`bash scripts/workspace-install-build.sh \\${i.workspaceName}\\`, { stdio:'inherit' }) }\""
+    "build:all-serial": "node .github/scripts/get-workspaces.js | node -e \"const fs=require('fs');const j=JSON.parse(fs.readFileSync(0,'utf8')); const cp=require('child_process'); for(const i of j.include){ console.log('Building', i.workspaceName); cp.execSync('bash scripts/workspace-install-build.sh '+i.workspaceName, { stdio:'inherit' }) }\""
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.89.0",
