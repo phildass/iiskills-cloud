@@ -292,35 +292,6 @@ function createMockSupabaseClient() {
  * }
  */
 export async function getCurrentUser() {
-  // TEMPORARY AUTH DISABLE - PR: feature/disable-auth-temporary
-  // Global feature flag to bypass authentication for debugging/maintenance
-  // To enable: Set NEXT_PUBLIC_DISABLE_AUTH=true and rebuild
-  try {
-    const isAuthDisabled = process.env.NEXT_PUBLIC_DISABLE_AUTH === 'true';
-    if (isAuthDisabled) {
-      console.log("⚠️ AUTH DISABLED: Returning mock user with full permissions");
-      return {
-        id: 'dev-override',
-        email: 'dev@iiskills.cloud',
-        role: 'bypass',
-        user_metadata: {
-          firstName: 'Dev',
-          lastName: 'Override',
-          full_name: 'Dev Override',
-          is_admin: true,
-          payment_status: 'paid'
-        },
-        app_metadata: {
-          payment_status: 'paid',
-          is_admin: true
-        }
-      };
-    }
-  } catch (e) {
-    // Silently continue if env check fails
-  }
-  // END TEMPORARY AUTH DISABLE
-
   // If local content mode is enabled, return null (no auth in local mode)
   if (useLocalContent) {
     console.log("⚠️ Local content mode: Authentication bypassed");

@@ -45,28 +45,23 @@ export default function PaidUserProtectedRoute({ children }) {
      */
     const checkAccess = async () => {
       try {
-        // TEMPORARY AUTH DISABLE - PR: feature/disable-auth-temporary  
-        // Bypass paywall when global auth disable flag is enabled
-        const isAuthDisabled = process.env.NEXT_PUBLIC_DISABLE_AUTH === 'true';
+        // TEMPORARY - RESTORE AFTER JAN 28, 2026
+        const DISABLE_AUTH = process.env.NEXT_PUBLIC_DISABLE_AUTH === 'true';
         
-        if (isAuthDisabled) {
-          console.log('⚠️ AUTH DISABLED: PaidUserProtectedRoute bypassed - granting full access');
+        if (DISABLE_AUTH) {
+          console.log('⚠️ TESTING MODE: PaidUserProtectedRoute bypassed - granting full access');
           // Set mock user with full permissions
           setUser({
-            id: 'dev-override',
-            email: 'dev@iiskills.cloud',
+            id: 'test-user',
+            email: 'test@iiskills.cloud',
             user_metadata: {
-              full_name: 'Dev Override',
-              firstName: 'Dev',
-              lastName: 'Override',
-              is_admin: true,
-              payment_status: 'paid'
+              full_name: 'Test User',
             }
           });
           setIsLoading(false);
           return; // Skip all auth checks
         }
-        // END TEMPORARY AUTH DISABLE
+        // END TEMPORARY
 
         // Get current user from Supabase session
         const currentUser = await getCurrentUser();
