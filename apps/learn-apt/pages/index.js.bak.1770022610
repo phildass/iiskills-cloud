@@ -22,8 +22,9 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Master Aptitude - iiskills.cloud</title>
+        <title>Learn Apt - Free Aptitude Testing Platform</title>
         <meta name="description" content="Test and improve your aptitude skills with our free comprehensive testing platform" />
+        <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50">
@@ -163,7 +164,22 @@ export default function Home() {
           </section>
         )}
 
-        {/* Removed inline footer - SiteHeader now provides global navigation */}
+        {/* Footer */}
+        <footer className="bg-gray-900 text-white py-8">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p className="text-gray-400">
+              © 2026 Learn Apt. All rights reserved.
+            </p>
+            <div className="mt-4 space-x-4">
+              <Link href="/terms" className="text-gray-400 hover:text-white transition">
+                Terms
+              </Link>
+              <Link href="/privacy" className="text-gray-400 hover:text-white transition">
+                Privacy
+              </Link>
+            </div>
+          </div>
+        </footer>
       </main>
     </>
   );
