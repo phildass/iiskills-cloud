@@ -23,7 +23,6 @@ export default function Home() {
       <Head>
         <title>Master Aptitude - iiskills.cloud</title>
         <meta name="description" content="Test and improve your aptitude skills with our free comprehensive testing platform" />
-        <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50">

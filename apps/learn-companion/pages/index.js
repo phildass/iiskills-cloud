@@ -65,7 +65,6 @@ export default function Home() {
       <Head>
         <title>Master Life Skills - iiskills.cloud</title>
         <meta name="description" content="Get helpful life advice from your AI companion" />
-        <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50">
