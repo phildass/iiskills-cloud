@@ -32,6 +32,28 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
  * @returns {Promise<Object|null>} User object if authenticated, null otherwise
  */
 export async function getCurrentUser() {
+  // TEMPORARY AUTH DISABLE - PR: feature/disable-auth-temporary
+  // Global feature flag to bypass authentication for debugging/maintenance
+  try {
+    const isAuthDisabled = process.env.NEXT_PUBLIC_DISABLE_AUTH === 'true';
+    if (isAuthDisabled) {
+      console.log("⚠️ AUTH DISABLED [learn-companion]: Returning mock user");
+      return {
+        id: 'dev-override-companion',
+        email: 'dev@iiskills.cloud',
+        role: 'bypass',
+        user_metadata: {
+          full_name: 'Dev Override',
+          is_admin: true,
+          payment_status: 'paid'
+        }
+      };
+    }
+  } catch (e) {
+    // Continue if env check fails
+  }
+  // END TEMPORARY AUTH DISABLE
+
   try {
     const {
       data: { session },
