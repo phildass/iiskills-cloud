@@ -10,21 +10,21 @@ export default function Home() {
       title="Master Mathematics - iiskills.cloud"
       description="Build strong mathematical foundations from arithmetic to advanced calculus with step-by-step lessons and practice."
       features={[
-        {
-                "emoji": "🔢",
-                "title": "Core Concepts",
-                "description": "Master algebra, geometry, and trigonometry"
-        },
-        {
-                "emoji": "📐",
-                "title": "Problem Solving",
-                "description": "Develop analytical and logical thinking skills"
-        },
-        {
-                "emoji": "∞",
-                "title": "Advanced Math",
-                "description": "Explore calculus, statistics, and more"
-        }
+  {
+    "emoji": "🔢",
+    "title": "Core Concepts",
+    "description": "Master algebra, geometry, and trigonometry"
+  },
+  {
+    "emoji": "📐",
+    "title": "Problem Solving",
+    "description": "Develop analytical and logical thinking skills"
+  },
+  {
+    "emoji": "∞",
+    "title": "Advanced Math",
+    "description": "Explore calculus, statistics, and more"
+  }
 ]}
       isFree={true}
       heroGradient="from-primary to-accent"

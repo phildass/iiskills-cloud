@@ -175,7 +175,7 @@ export default function Home() {
       appName="${content.title}"
       title="${content.title} - iiskills.cloud"
       description="${content.description}"
-      features={${JSON.stringify(content.features, null, 8)}}
+      features={${JSON.stringify(content.features, null, 2)}}
       isFree={true}
       heroGradient="from-primary to-accent"
     />
