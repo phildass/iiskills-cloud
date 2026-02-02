@@ -1,5 +1,16 @@
-/* Updated UniversalLandingPage: hero image covers entire hero area with text overlay - PR: UI: Make landing hero image full-cover with overlay text and CTAs */
 "use client";
+
+/**
+ * Shared Landing Page Component
+ * 
+ * Universal landing page component for all learning apps.
+ * Features:
+ * - Consistent layout across all apps
+ * - Random image selection (2 images per app)
+ * - Special handling for cricket app (cricket1, cricket2)
+ * - Responsive design
+ * - User authentication detection
+ */
 
 import Head from "next/head";
 import Link from "next/link";
@@ -80,44 +91,22 @@ export default function UniversalLandingPage({
       </Head>
 
       <main className="min-h-screen">
-        {/* Hero Section - Full Cover with Overlay */}
-        <section className="relative h-[600px] md:h-[700px] overflow-hidden">
-          {/* Hero Image - Full Cover */}
-          {images.length > 0 && (
-            <div className="absolute inset-0">
-              <Image
-                src={`/images/${images[0]}`}
-                alt={`${appName} learning platform illustration`}
-                fill
-                className="object-cover"
-                sizes="100vw"
-                priority
-              />
-            </div>
-          )}
-
-          {/* Semi-transparent Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/60 to-black/50"></div>
-
-          {/* Hero Content - Centered Over Image */}
-          <div className="relative h-full flex items-center justify-center">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white z-10">
-              <div className="space-y-6">
-                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight drop-shadow-lg">
-                  {appId === "main" ? "iiskills.cloud" : appName}
+        {/* Hero Section */}
+        <section className={`relative bg-gradient-to-r ${heroGradient} text-white py-20 md:py-24 overflow-hidden`}>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-col md:flex-row items-center gap-12 md:gap-16">
+              {/* Text Content */}
+              <div className="flex-1 text-center md:text-left z-10 space-y-6">
+                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight">
+                  {appName}
                 </h1>
-                {appId === "main" && (
-                  <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold leading-snug drop-shadow-lg">
-                    Indian Institute of Professional Skills Development
-                  </h2>
-                )}
-                <p className="text-lg sm:text-xl lg:text-2xl leading-relaxed max-w-4xl mx-auto drop-shadow-lg">
-                  {appId === "main" ? "Education for All, Online and Affordable" : description}
+                <p className="text-lg sm:text-xl lg:text-2xl leading-relaxed">
+                  {description}
                 </p>
 
                 {/* Free App Notice */}
-                {isFree && !user && appId !== "main" && (
-                  <div className="bg-white/20 backdrop-blur-md border-2 border-white/40 rounded-lg p-4 max-w-2xl mx-auto">
+                {isFree && !user && (
+                  <div className="bg-white/10 backdrop-blur-sm border-2 border-white/30 rounded-lg p-4 max-w-2xl mx-auto md:mx-0">
                     <p className="text-lg font-semibold">📝 Free Registration - Save Your Progress</p>
                     <p className="text-sm mt-2">
                       Create a free account to save your scores, track progress, and personalize your experience. 
@@ -126,26 +115,11 @@ export default function UniversalLandingPage({
                   </div>
                 )}
 
-                {/* Call to Action Buttons - Centered */}
-                <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+                {/* Call to Action Buttons */}
+                <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start pt-4">
                   {!loading && (
                     <>
-                      {appId === "main" ? (
-                        <>
-                          <Link
-                            href="/courses"
-                            className="inline-block bg-white text-primary px-8 py-4 rounded-lg font-bold shadow-lg hover:bg-gray-100 hover:shadow-xl transition-all duration-200 text-center text-base sm:text-lg"
-                          >
-                            Explore Courses
-                          </Link>
-                          <Link
-                            href="/certification"
-                            className="inline-block bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-bold hover:bg-white hover:text-primary transition-all duration-200 text-center text-base sm:text-lg"
-                          >
-                            Learn About Certification
-                          </Link>
-                        </>
-                      ) : user ? (
+                      {user ? (
                         <Link
                           href="/learn"
                           className="inline-block bg-white text-primary px-8 py-4 rounded-lg font-bold shadow-lg hover:bg-gray-100 hover:shadow-xl transition-all duration-200 text-center text-base sm:text-lg"
@@ -171,6 +145,22 @@ export default function UniversalLandingPage({
                     </>
                   )}
                 </div>
+              </div>
+
+              {/* Image Content */}
+              <div className="flex-1 relative z-10 w-full">
+                {images.length > 0 && (
+                  <div className="relative rounded-xl overflow-hidden shadow-2xl max-w-lg mx-auto" style={{ aspectRatio: '4/3', height: 'auto' }}>
+                    <Image
+                      src={`/images/${images[0]}`}
+                      alt={`${appName} learning platform illustration`}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      priority
+                    />
+                  </div>
+                )}
               </div>
             </div>
           </div>
