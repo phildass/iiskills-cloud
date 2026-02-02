@@ -46,7 +46,7 @@ export default function Home() {
           <div className="absolute inset-0 bg-black/40 z-10" aria-hidden="true"></div>
           
           {/* Content container - pushed down slightly to avoid covering faces */}
-          <div className="relative z-20 h-full flex items-center justify-center pt-8 md:pt-12 lg:pt-16">
+          <div className="relative z-20 h-full flex items-center justify-center">
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center translate-y-8 md:translate-y-12 lg:translate-y-16">
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
                 iiskills.cloud
