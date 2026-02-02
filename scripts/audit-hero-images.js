@@ -24,16 +24,19 @@ const DEFAULT_IMAGE_POOL = [
 
 /**
  * Replicated logic from HeroManager for audit purposes
+ * Note: This doesn't replicate the random selection - it just validates
+ * that the pool has sufficient images (3+) for selection.
+ * At runtime, HeroManager randomly selects 3 images without replacement.
  */
 function getHeroImagesForApp(appId) {
   // Special case: cricket uses specific cricket images
-  if (appId === 'learn-cricket' || (appId && appId.includes('cricket'))) {
+  if (appId?.includes('cricket')) {
     return ['cricket1.jpg', 'cricket2.jpg'];
   }
 
-  // For other apps, return the pool (actual selection is random at runtime)
-  // For audit purposes, we just need to verify the pool has at least 3 images
-  return DEFAULT_IMAGE_POOL.slice(0, 3);
+  // For other apps, validate the pool has at least 3 images available
+  // Actual runtime selection is random - this audit only checks pool size
+  return DEFAULT_IMAGE_POOL.slice(0, Math.min(3, DEFAULT_IMAGE_POOL.length));
 }
 
 // List of all apps to audit
