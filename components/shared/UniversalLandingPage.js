@@ -1,5 +1,21 @@
-/* Updated UniversalLandingPage: hero image covers entire hero area with text overlay - PR: UI: Make landing hero image full-cover with overlay text and CTAs */
 "use client";
+
+/**
+ * Shared Landing Page Component
+ * 
+ * Universal landing page component for all learning apps.
+ * Updated with full-cover hero design - PR: UI: Make landing hero image full-cover with overlay text and CTAs
+ * 
+ * Features:
+ * - Full-cover hero image with semi-transparent overlay
+ * - Centered text and CTAs over hero image
+ * - Consistent layout across all apps
+ * - Random image selection (2 images per app)
+ * - Special handling for cricket app (cricket1, cricket2)
+ * - Special handling for main app (displays iiskills.cloud branding)
+ * - Responsive design
+ * - User authentication detection
+ */
 
 import Head from "next/head";
 import Link from "next/link";
