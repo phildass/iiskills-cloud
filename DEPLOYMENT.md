@@ -111,12 +111,32 @@ Configure domain for each:
 
 #### 1. Build All Apps
 
+**Using per-workspace builds (recommended for memory efficiency):**
+
+```bash
+cd /path/to/iiskills-cloud
+yarn install
+
+# Build each workspace separately using the helper script
+# This prevents memory exhaustion by building one app at a time
+bash scripts/workspace-install-build.sh learn-ai production
+bash scripts/workspace-install-build.sh learn-apt production
+# ... repeat for other apps
+
+# Or build all workspaces serially with one command:
+yarn build:all-serial
+```
+
+**Traditional method (may exhaust memory with many apps):**
+
 ```bash
 # Build all active production apps using yarn workspaces
 cd /path/to/iiskills-cloud
 yarn install
 yarn workspaces foreach -A run build
 ```
+
+The per-workspace approach is now used by the deployment script (`deploy.sh`) and GitHub Actions CI to avoid memory issues.
 
 This will build:
 - main app (port 3000)
