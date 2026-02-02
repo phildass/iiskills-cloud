@@ -4,7 +4,6 @@ import Head from "next/head";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { getCurrentUser } from "../lib/supabaseClient";
-import Hero from "../../../components/shared/HeroManager";
 
 export default function Home() {
   const [user, setUser] = useState(null);
@@ -22,29 +21,56 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Master Aptitude - iiskills.cloud</title>
+        <title>Learn Apt - Free Aptitude Testing Platform</title>
         <meta name="description" content="Test and improve your aptitude skills with our free comprehensive testing platform" />
+        <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50">
-        {/* Hero Section with HeroManager */}
-        <Hero appId="learn-apt" className="h-[60vh] md:h-[70vh]">
-          <div className="text-center text-white space-y-4 max-w-4xl mx-auto">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold">
-              Learn Apt
-            </h1>
-            <p className="text-xl sm:text-2xl lg:text-3xl">
-              Master Your Aptitude Skills
-            </p>
-            <p className="text-lg sm:text-xl max-w-3xl mx-auto">
-              Take comprehensive aptitude tests absolutely free. Choose between quick assessments or in-depth evaluations.
-            </p>
+        {/* Header */}
+        <header className="bg-white shadow-sm border-b border-gray-200">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <h1 className="text-2xl font-bold text-primary">Learn Apt</h1>
+                <p className="text-sm text-gray-600">Free Aptitude Testing Platform</p>
+              </div>
+              <nav className="flex gap-4 text-sm">
+                {user ? (
+                  <>
+                    <Link href="/tests" className="text-gray-600 hover:text-primary transition">
+                      My Tests
+                    </Link>
+                    <Link href="/profile" className="text-gray-600 hover:text-primary transition">
+                      Profile
+                    </Link>
+                  </>
+                ) : (
+                  <>
+                    <Link href="/login" className="text-gray-600 hover:text-primary transition">
+                      Login
+                    </Link>
+                    <Link href="/register" className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-blue-700 transition">
+                      Sign Up Free
+                    </Link>
+                  </>
+                )}
+              </nav>
+            </div>
           </div>
-        </Hero>
+        </header>
 
-        {/* Test Type Selection */}
+        {/* Hero Section */}
         <section className="py-16 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-7xl mx-auto">
+          <div className="max-w-7xl mx-auto text-center">
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-6">
+              Master Your Aptitude Skills
+            </h2>
+            <p className="text-xl text-gray-600 mb-12 max-w-3xl mx-auto">
+              Take comprehensive aptitude tests absolutely free. Choose between quick assessments or in-depth evaluations to measure and improve your skills.
+            </p>
+
+            {/* Test Type Selection */}
             <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto mb-16">
               {/* Short Test Card */}
               <div className="bg-white rounded-2xl shadow-lg p-8 border-2 border-transparent hover:border-primary transition-all hover:shadow-xl">
@@ -163,7 +189,22 @@ export default function Home() {
           </section>
         )}
 
-        {/* Removed inline footer - SiteHeader now provides global navigation */}
+        {/* Footer */}
+        <footer className="bg-gray-900 text-white py-8">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p className="text-gray-400">
+              © 2026 Learn Apt. All rights reserved.
+            </p>
+            <div className="mt-4 space-x-4">
+              <Link href="/terms" className="text-gray-400 hover:text-white transition">
+                Terms
+              </Link>
+              <Link href="/privacy" className="text-gray-400 hover:text-white transition">
+                Privacy
+              </Link>
+            </div>
+          </div>
+        </footer>
       </main>
     </>
   );

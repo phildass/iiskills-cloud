@@ -63,12 +63,31 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Master Life Skills - iiskills.cloud</title>
+        <title>Learn Companion - Your AI Life Advisor</title>
         <meta name="description" content="Get helpful life advice from your AI companion" />
+        <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50">
-        {/* Removed duplicate header - SiteHeader now provides global navigation */}
+        {/* Header */}
+        <header className="bg-white shadow-sm border-b border-gray-200">
+          <div className="max-w-4xl mx-auto px-4 py-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <h1 className="text-2xl font-bold text-primary">Learn Companion</h1>
+                <p className="text-sm text-gray-600">Your AI Life Advisor - Free</p>
+              </div>
+              <nav className="flex gap-4 text-sm">
+                <Link href="/terms" className="text-gray-600 hover:text-primary transition">
+                  Terms
+                </Link>
+                <Link href="/privacy" className="text-gray-600 hover:text-primary transition">
+                  Privacy
+                </Link>
+              </nav>
+            </div>
+          </div>
+        </header>
 
         {/* Chat Container */}
         <div className="max-w-4xl mx-auto px-4 py-6 h-[calc(100vh-160px)] flex flex-col">

@@ -6,8 +6,8 @@ export default function Home() {
   return (
     <UniversalLandingPage
       appId="learn-geography"
-      appName="Master Geography"
-      title="Master Geography - iiskills.cloud"
+      appName="Explore World Geography"
+      title="Explore World Geography - iiskills.cloud"
       description="Discover the world through comprehensive geography lessons covering physical features, cultures, and global relationships."
       features={[
   {

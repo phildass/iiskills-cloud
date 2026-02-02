@@ -6,8 +6,8 @@ export default function Home() {
   return (
     <UniversalLandingPage
       appId="learn-physics"
-      appName="Master Physics"
-      title="Master Physics - iiskills.cloud"
+      appName="Understand Physics Principles"
+      title="Understand Physics Principles - iiskills.cloud"
       description="Explore the fundamental laws of nature through interactive physics lessons covering mechanics, energy, and modern physics."
       features={[
   {
