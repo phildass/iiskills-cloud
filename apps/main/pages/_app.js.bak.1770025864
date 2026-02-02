@@ -3,6 +3,7 @@ import Head from "next/head";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import ErrorBoundary from "../components/ErrorBoundary";
+import SiteHeader from "../../../components/shared/SiteHeader";
 import AIAssistant from "../components/shared/AIAssistant";
 import NewsletterSignup from "../components/shared/NewsletterSignup";
 import { useNewsletterPopup } from "../utils/useNewsletterPopup";
@@ -17,6 +18,7 @@ export default function App({ Component, pageProps }) {
         <link rel="icon" href="/images/favicon-iiskills.svg" />
         <link rel="apple-touch-icon" href="/images/favicon-iiskills.svg" />
       </Head>
+      <SiteHeader />
 
       <Navbar />
       <Component {...pageProps} />

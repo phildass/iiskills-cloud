@@ -1,0 +1,140 @@
+#!/usr/bin/env node
+
+/**
+ * Check for Top Utility Bar Removal
+ * 
+ * This script scans all apps' pages/index.js and pages/_app.js files
+ * for the strings "Get Started" (in SiteHeader context) or known utility bar classnames.
+ * 
+ * Exit 1 if any non-excluded file still contains problematic patterns (so CI can validate).
+ * Exit 0 if all files are clean.
+ */
+
+const fs = require('fs');
+const path = require('path');
+
+// Patterns to search for
+const PATTERNS = [
+  'import.*SiteHeader',           // SiteHeader import
+  'from.*SiteHeader',             // SiteHeader import alternative
+  '<SiteHeader',                   // SiteHeader JSX usage
+  'top-utility-bar',              // Top utility bar class
+  'utility-bar',                  // Utility bar class
+  'top-bar',                      // Top bar class
+  'header-top',                   // Header top class
+  'promo-bar'                     // Promo bar class
+];
+
+// Files to check (relative to repo root)
+const FILES_TO_CHECK = [
+  // Root pages
+  'pages/_app.js',
+  'pages/index.js',
+  
+  // Main app
+  'apps/main/pages/_app.js',
+  'apps/main/pages/index.js',
+  
+  // Learn apps
+  'apps/learn-ai/pages/_app.js',
+  'apps/learn-ai/pages/index.js',
+  'apps/learn-apt/pages/_app.js',
+  'apps/learn-apt/pages/index.js',
+  'apps/learn-chemistry/pages/_app.js',
+  'apps/learn-chemistry/pages/index.js',
+  'apps/learn-companion/pages/_app.js',
+  'apps/learn-companion/pages/index.js',
+  'apps/learn-cricket/pages/_app.js',
+  'apps/learn-cricket/pages/index.js',
+  'apps/learn-geography/pages/_app.js',
+  'apps/learn-geography/pages/index.js',
+  'apps/learn-govt-jobs/pages/_app.js',
+  'apps/learn-govt-jobs/pages/index.js',
+  'apps/learn-leadership/pages/_app.js',
+  'apps/learn-leadership/pages/index.js',
+  'apps/learn-management/pages/_app.js',
+  'apps/learn-management/pages/index.js',
+  'apps/learn-math/pages/_app.js',
+  'apps/learn-math/pages/index.js',
+  'apps/learn-physics/pages/_app.js',
+  'apps/learn-physics/pages/index.js',
+  'apps/learn-pr/pages/_app.js',
+  'apps/learn-pr/pages/index.js',
+  'apps/learn-winning/pages/_app.js',
+  'apps/learn-winning/pages/index.js',
+];
+
+// Excluded patterns (legitimate uses of "Get Started" text)
+const EXCLUDED_PATTERNS = [
+  'href="/register"',  // Links to registration with "Get Started" text are OK in buttons
+  'Register Free',     // Alternative CTA text
+  'btn-primary'        // Button classes
+];
+
+let hasIssues = false;
+let filesChecked = 0;
+let filesWithIssues = 0;
+
+console.log('🔍 Checking for Top Utility Bar remnants...\n');
+
+FILES_TO_CHECK.forEach(filePath => {
+  const fullPath = path.join(__dirname, '..', filePath);
+  
+  // Skip if file doesn't exist
+  if (!fs.existsSync(fullPath)) {
+    console.log(`⏭️  Skipping (not found): ${filePath}`);
+    return;
+  }
+  
+  filesChecked++;
+  const content = fs.readFileSync(fullPath, 'utf8');
+  const lines = content.split('\n');
+  const issues = [];
+  
+  // Check each pattern
+  PATTERNS.forEach(pattern => {
+    const regex = new RegExp(pattern, 'i');
+    lines.forEach((line, index) => {
+      if (regex.test(line)) {
+        // Check if this is an excluded pattern
+        const isExcluded = EXCLUDED_PATTERNS.some(excluded => line.includes(excluded));
+        if (!isExcluded) {
+          issues.push({
+            line: index + 1,
+            pattern: pattern,
+            content: line.trim()
+          });
+        }
+      }
+    });
+  });
+  
+  if (issues.length > 0) {
+    hasIssues = true;
+    filesWithIssues++;
+    console.log(`❌ ${filePath}`);
+    issues.forEach(issue => {
+      console.log(`   Line ${issue.line}: ${issue.content}`);
+      console.log(`   Matched pattern: ${issue.pattern}`);
+    });
+    console.log('');
+  } else {
+    console.log(`✅ ${filePath}`);
+  }
+});
+
+console.log('\n' + '='.repeat(60));
+console.log(`\n📊 Summary:`);
+console.log(`   Files checked: ${filesChecked}`);
+console.log(`   Files with issues: ${filesWithIssues}`);
+console.log(`   Files clean: ${filesChecked - filesWithIssues}`);
+
+if (hasIssues) {
+  console.log('\n❌ FAILED: Top utility bar remnants found!');
+  console.log('   Please remove all SiteHeader imports and usages.\n');
+  process.exit(1);
+} else {
+  console.log('\n✅ SUCCESS: No top utility bar remnants found!');
+  console.log('   All files are clean.\n');
+  process.exit(0);
+}
