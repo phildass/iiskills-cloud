@@ -21,7 +21,10 @@
   --spacing-lg: 2rem;
 }
 
-/* Ensure consistent font rendering */
+/* Ensure consistent font rendering
+ * Note: Inter font is loaded via Next.js in the app's layout/globals.css
+ * If Inter is not available, falls back to system fonts
+ */
 body {
   font-family: Inter, Arial, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
   color: var(--charcoal);

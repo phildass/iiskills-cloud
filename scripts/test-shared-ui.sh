@@ -62,7 +62,7 @@ test_app() {
   fi
   
   # Check for footer
-  if echo "$html" | grep -q -i "AI Cloud Enterprises\|Indian Institute of Professional Skills"; then
+  if echo "$html" | grep -E -q -i "AI Cloud Enterprises|Indian Institute of Professional Skills"; then
     has_footer=1
   fi
   
