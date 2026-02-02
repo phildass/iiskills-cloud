@@ -53,7 +53,9 @@ fi
 # Enable Corepack if available (for Yarn Berry/modern versions)
 if command -v corepack &> /dev/null; then
   echo "Enabling Corepack for package manager..."
-  corepack enable || true
+  if ! corepack enable; then
+    echo "Warning: Corepack enable failed, continuing anyway"
+  fi
 fi
 
 # Detect Yarn version
