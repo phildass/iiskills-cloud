@@ -2,26 +2,30 @@
  * Admin Authentication API
  * Handles first-time password setup and subsequent logins
  * 
- * ⚠️ TEST MODE ONLY - DO NOT KEEP IN PRODUCTION
+ * ⚠️ FEATURE FLAG CONTROLLED - SAFE FOR PRODUCTION WITH PROPER CONFIGURATION
  * 
  * Features:
+ * - Feature-flagged first-time admin setup (ADMIN_SETUP_MODE)
  * - Password-first authentication (no Supabase login required)
  * - Bcrypt password hashing
  * - JWT token-based sessions with HttpOnly cookies
  * - Persistent storage in Supabase admin_settings table
+ * - Audit logging for all setup and auth events
  * 
  * Security:
  * - Passwords are hashed with bcrypt (12 rounds)
  * - Session tokens are signed with ADMIN_JWT_SECRET
  * - HttpOnly cookies prevent XSS attacks
  * - Service role key used for database access
+ * - Audit logs track all admin setup and login events
  * 
  * Rollback Instructions:
- * 1. Remove this implementation
- * 2. Drop admin_settings table in Supabase
- * 3. Restore original Supabase-based admin authentication
- * 4. Remove ADMIN_JWT_SECRET from environment
- * 5. Rotate SUPABASE_SERVICE_ROLE_KEY if exposed
+ * 1. Set ADMIN_SETUP_MODE=false
+ * 2. Set TEMP_SUSPEND_AUTH=false
+ * 3. Drop admin_settings table in Supabase
+ * 4. Restore original Supabase-based admin authentication
+ * 5. Remove ADMIN_JWT_SECRET from environment
+ * 6. Rotate SUPABASE_SERVICE_ROLE_KEY if exposed
  */
 
 import bcrypt from 'bcrypt';
@@ -84,6 +88,40 @@ async function setAdminSetting(key, value) {
     .upsert({ key, value }, { onConflict: 'key' });
 
   if (error) throw error;
+}
+
+// Write audit log entry
+async function logAuditEvent(eventType, details = {}, req = null) {
+  try {
+    const timestamp = new Date().toISOString();
+    const ip = req ? (req.headers['x-forwarded-for'] || req.connection?.remoteAddress || 'unknown') : 'unknown';
+    
+    const logEntry = {
+      timestamp,
+      event_type: eventType,
+      ip_address: ip,
+      user_agent: req ? req.headers['user-agent'] : 'unknown',
+      details: JSON.stringify(details),
+    };
+
+    // Try to store in database
+    const supabase = getSupabaseAdmin();
+    const { error } = await supabase
+      .from('admin_audit_logs')
+      .insert(logEntry);
+
+    if (error) {
+      // If database logging fails, log to console as fallback
+      console.warn('Failed to write audit log to database:', error);
+      console.log('AUDIT LOG:', JSON.stringify(logEntry));
+    } else {
+      console.log(`✅ Audit log: ${eventType} from ${ip}`);
+    }
+  } catch (error) {
+    // Fallback to console logging
+    console.error('Audit logging error:', error);
+    console.log(`AUDIT LOG: ${eventType}`, details);
+  }
 }
 
 // Generate JWT token
@@ -172,6 +210,19 @@ export default async function handler(req, res) {
 
       case 'setup': {
         // First-time password setup
+        // ⚠️ SECURITY: Only allow if ADMIN_SETUP_MODE is explicitly enabled
+        const setupModeEnabled = process.env.ADMIN_SETUP_MODE === 'true' || 
+                                 process.env.NEXT_PUBLIC_ADMIN_SETUP_MODE === 'true';
+        
+        if (!setupModeEnabled) {
+          await logAuditEvent('SETUP_BLOCKED_DISABLED', { 
+            reason: 'ADMIN_SETUP_MODE not enabled' 
+          }, req);
+          return res.status(403).json({ 
+            error: 'Admin setup is disabled. Enable ADMIN_SETUP_MODE to use this feature.' 
+          });
+        }
+
         if (!password) {
           return res.status(400).json({ error: 'Password is required' });
         }
@@ -186,6 +237,9 @@ export default async function handler(req, res) {
         // Check if password already exists
         const existingHash = await getAdminSetting('admin_password_hash');
         if (existingHash) {
+          await logAuditEvent('SETUP_BLOCKED_EXISTS', { 
+            reason: 'Admin already exists' 
+          }, req);
           return res.status(400).json({ 
             error: 'Admin password already set. Use login instead.' 
           });
@@ -197,14 +251,27 @@ export default async function handler(req, res) {
         // Store the hash in database
         await setAdminSetting('admin_password_hash', hash);
         
+        // Store setup completion timestamp
+        await setAdminSetting('admin_setup_completed_at', new Date().toISOString());
+        
+        // Log audit event
+        await logAuditEvent('ADMIN_SETUP_SUCCESS', {
+          email: body.email || 'not_provided',
+          setup_completed: true,
+          password_strength: password.length >= 12 ? 'strong' : 'medium'
+        }, req);
+        
         // Generate token and set cookie
         const token = generateToken();
         res.setHeader('Set-Cookie', createCookie(token));
+        
+        console.log('⚠️ IMPORTANT: Admin account created. Set ADMIN_SETUP_MODE=false and restart server.');
         
         return res.status(200).json({ 
           success: true,
           message: 'Admin password set successfully',
           token,
+          instructions: 'Please set ADMIN_SETUP_MODE=false in your environment and restart the server.'
         });
       }
 
@@ -217,6 +284,9 @@ export default async function handler(req, res) {
         // Get stored password hash
         const storedHash = await getAdminSetting('admin_password_hash');
         if (!storedHash) {
+          await logAuditEvent('LOGIN_FAILED', { 
+            reason: 'No admin password set' 
+          }, req);
           return res.status(401).json({ 
             error: 'Admin password not set. Please set up admin password first.' 
           });
@@ -225,12 +295,17 @@ export default async function handler(req, res) {
         // Verify password
         const isValid = await bcrypt.compare(password, storedHash);
         if (!isValid) {
+          await logAuditEvent('LOGIN_FAILED', { 
+            reason: 'Invalid password' 
+          }, req);
           return res.status(401).json({ error: 'Invalid password' });
         }
 
         // Generate token and set cookie
         const token = generateToken();
         res.setHeader('Set-Cookie', createCookie(token));
+
+        await logAuditEvent('LOGIN_SUCCESS', {}, req);
 
         return res.status(200).json({ 
           success: true,

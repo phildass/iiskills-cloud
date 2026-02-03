@@ -5,6 +5,7 @@ import Footer from "../components/Footer";
 import ErrorBoundary from "../components/ErrorBoundary";
 import AIAssistant from "../components/shared/AIAssistant";
 import NewsletterSignup from "../components/shared/NewsletterSignup";
+import TestingModeBanner from "../components/TestingModeBanner";
 import { useNewsletterPopup } from "../utils/useNewsletterPopup";
 
 export default function App({ Component, pageProps }) {
@@ -34,6 +35,9 @@ export default function App({ Component, pageProps }) {
           isClosing={isClosing}
         />
       )}
+
+      {/* Testing Mode Banner - shows when feature flags are enabled */}
+      <TestingModeBanner />
     </ErrorBoundary>
   );
 }
