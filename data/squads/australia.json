@@ -1,0 +1,42 @@
+{
+  "team": "Australia",
+  "captain": "Pat Cummins",
+  "coach": "Andrew McDonald",
+  "players": [
+    {
+      "id": "player_aus_001",
+      "name": "Pat Cummins",
+      "role": "Bowler",
+      "battingStyle": "Right-handed",
+      "bowlingStyle": "Right-arm fast"
+    },
+    {
+      "id": "player_aus_002",
+      "name": "Steve Smith",
+      "role": "Batsman",
+      "battingStyle": "Right-handed",
+      "bowlingStyle": "Leg-break googly"
+    },
+    {
+      "id": "player_aus_003",
+      "name": "David Warner",
+      "role": "Batsman",
+      "battingStyle": "Left-handed",
+      "bowlingStyle": "Leg-break"
+    },
+    {
+      "id": "player_aus_004",
+      "name": "Mitchell Starc",
+      "role": "Bowler",
+      "battingStyle": "Left-handed",
+      "bowlingStyle": "Left-arm fast"
+    },
+    {
+      "id": "player_aus_005",
+      "name": "Glenn Maxwell",
+      "role": "All-rounder",
+      "battingStyle": "Right-handed",
+      "bowlingStyle": "Right-arm off-break"
+    }
+  ]
+}

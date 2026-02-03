@@ -56,9 +56,15 @@ package-lock.json
 # Audit files
 apps_audit.txt
 
-# Generated seed data
-data/
-data/*.json
+# Generated seed data (ALLOW fixtures and squads for WC launch)
+data/*
+!data/fixtures/
+!data/fixtures/*.json
+!data/squads/
+!data/squads/*.json
+
+# Generated images - DO NOT commit
+public/generated-images/*
 
 # Build validation reports
 build-validation-reports/

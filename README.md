@@ -3,9 +3,219 @@
 Professional, scalable business site built with Next.js + Tailwind CSS  
 Inspired by iiskills.in and customized for the Indian Institute of Professional Skills Development.
 
+# IISKILLS Cloud
+
+Professional, scalable business site built with Next.js + Tailwind CSS  
+Inspired by iiskills.in and customized for the Indian Institute of Professional Skills Development.
+
 ## 🆕 New Features
 
-### 🏏 Cricket Universe MVP (LATEST!)
+### 🏏 World Cup Launch — Cricket Universe (LATEST!)
+
+#### 🎯 Daily Strike
+**5-10 World Cup focused trivia questions daily challenge**
+- Questions generated from local World Cup fixtures
+- Multiple difficulty levels (easy/medium/hard)
+- Score tracking and results summary
+- Optional LLM enrichment for question phrasing
+- Content moderation with banlist filtering
+
+Visit: `/daily-strike` when `ENABLE_DAILY_STRIKE=true`
+
+#### ⚡ Super Over
+**60-second rapid-fire cricket trivia match**
+- 6-ball Super Over format
+- Bot opponent with configurable difficulty
+- Real-time scoring (correct = runs, wrong = wicket)
+- Solo play mode for MVP
+- In-memory match state (Redis-ready for Phase 2)
+
+Visit: `/super-over` when `ENABLE_SUPER_OVER=true`
+
+#### 📊 Local Fixtures (Source of Truth)
+World Cup fixtures and squads stored locally:
+- `/data/fixtures/worldcup-fixtures.json` - Match schedule, venues, dates
+- `/data/squads/*.json` - Team rosters and player info
+- No external API calls by default (use `CRICKET_API_KEY` for live stats)
+
+#### 🎨 Image Management System
+**License-free images with optional AI generation**
+- Image manifest template: `components/shared/imageManifest.template.json`
+- Generation script: `scripts/generate-or-download-images.sh`
+- Prefers license-free URLs (Unsplash/Pexels)
+- Falls back to Gemini Image API for generation (when needed)
+- Generated images stored in `/public/generated-images/` (git-ignored)
+- SharedHero component updated to use manifest
+
+Run image script:
+```bash
+# Download license-free images only (no API key needed)
+./scripts/generate-or-download-images.sh --download-only
+
+# Generate with Gemini (requires API key)
+export GEMINI_API_KEY=your-key-here
+./scripts/generate-or-download-images.sh
+```
+
+⚠️ **IMPORTANT**: Generated images are NOT committed to git. They exist only locally.
+
+#### 🔐 Content Safety & Moderation
+**AI-powered content filtering with safety rules**
+- Banlist: `config/content-banlist.json` (political/religious/offensive keywords)
+- Auto-rejection of flagged content
+- AI audit logging to `logs/ai-content-audit.log`
+- Numeric validation against local fixtures
+- Source attribution requirements
+
+All LLM outputs are:
+1. Checked against banlist
+2. Validated for factual accuracy
+3. Logged for audit trail
+4. Rejected if controversial
+
+See: [docs/ai-templates.md](docs/ai-templates.md) for complete guidelines
+
+#### 🎮 Feature Flags
+
+**World Cup Mode**
+```bash
+ENABLE_WORLD_CUP_MODE=true  # Enable World Cup landing and features
+```
+
+**Daily Strike**
+```bash
+ENABLE_DAILY_STRIKE=true    # Enable Daily Strike trivia (default: true)
+```
+
+**Super Over**
+```bash
+ENABLE_SUPER_OVER=true      # Enable Super Over matches (default: true)
+```
+
+**LLM Enrichment (Optional)**
+```bash
+ENABLE_LLM=true             # Enable LLM question enrichment
+GEMINI_API_KEY=xxx          # Read from process.env (NEVER commit!)
+# OR
+LLM_API_KEY=xxx             # Alternative API key
+```
+
+**Live Stats (Optional)**
+```bash
+ENABLE_LIVE_STATS=true      # Enable live match stats
+CRICKET_API_KEY=xxx         # External cricket API (if available)
+```
+
+**Bot Configuration**
+```bash
+BOT_ACCURACY_EASY=0.5       # Bot accuracy for easy mode
+BOT_ACCURACY_MEDIUM=0.7     # Bot accuracy for medium mode (default)
+BOT_ACCURACY_HARD=0.9       # Bot accuracy for hard mode
+BOT_DELAY_MS_EASY=2000      # Bot answer delay (ms)
+BOT_DELAY_MS_MEDIUM=1500
+BOT_DELAY_MS_HARD=1000
+```
+
+#### 🚀 Quick Start (World Cup Features)
+
+1. **Clone and install**
+```bash
+git checkout feature/world-cup-launch
+npm install
+```
+
+2. **Set up images (optional)**
+```bash
+# For license-free images only (no API key)
+./scripts/generate-or-download-images.sh --download-only
+
+# For AI generation (requires Gemini API key)
+export GEMINI_API_KEY=your-key-here
+./scripts/generate-or-download-images.sh
+```
+
+3. **Enable features**
+```bash
+# Create .env.local or set environment variables
+ENABLE_WORLD_CUP_MODE=true
+ENABLE_DAILY_STRIKE=true
+ENABLE_SUPER_OVER=true
+
+# Optional: Enable LLM enrichment
+ENABLE_LLM=true
+GEMINI_API_KEY=your-key-here
+```
+
+4. **Run locally**
+```bash
+npm run dev
+# Visit http://localhost:3000/daily-strike
+# Visit http://localhost:3000/super-over
+```
+
+#### 📁 Files Added/Modified
+
+**New Files:**
+- `data/fixtures/worldcup-fixtures.json` - World Cup match schedule
+- `data/squads/india.json` - India squad
+- `data/squads/australia.json` - Australia squad
+- `config/content-banlist.json` - Content moderation banlist
+- `components/shared/imageManifest.template.json` - Image manifest template
+- `components/shared/imageManifest.js` - Generated image manifest (auto-generated)
+- `scripts/generate-or-download-images.sh` - Image download/generation script
+- `apps/learn-cricket/pages/daily-strike.js` - Daily Strike page
+- `apps/learn-cricket/pages/super-over.js` - Super Over page
+- `apps/learn-cricket/pages/api/daily-strike.js` - Daily Strike API
+- `apps/learn-cricket/pages/api/match/create.js` - Create match API
+- `apps/learn-cricket/pages/api/match/answer.js` - Submit answer API
+- `apps/learn-cricket/pages/api/match/[matchId].js` - Get match status API
+- `tests/contentFilter.test.js` - Content filtering tests
+
+**Modified Files:**
+- `.gitignore` - Added generated images and logs exclusions
+- `components/shared/SharedHero.js` - Updated to use image manifest
+- `tests/sharedHero.test.js` - Updated tests for manifest system
+
+**Backup Files Created:**
+- `.gitignore.bak.1738573891`
+- `docs/ai-templates.md.bak.1738574115`
+- `components/shared/SharedHero.js.bak.1738574211`
+- `tests/sharedHero.test.js.bak.1738575295`
+- `apps/learn-cricket/pages/daily-strike.js.bak.1738575733`
+- `apps/learn-cricket/pages/super-over.js.bak.1738575733`
+
+#### ✅ Testing
+
+```bash
+# Run all tests
+npm test
+
+# Test results: 55 tests passing
+# - contentFilter.test.js: 24 tests (content moderation)
+# - match.test.js: 19 tests (Super Over logic)
+# - sharedHero.test.js: 12 tests (image manifest)
+```
+
+#### 🔒 Security Checklist
+
+✅ No API keys committed to git
+✅ Generated images excluded from git (.gitignore)
+✅ Logs excluded from git (.gitignore)
+✅ Content moderation with banlist
+✅ AI audit logging for transparency
+✅ Numeric validation against fixtures
+✅ ADMIN_SETUP_MODE and TEMP_SUSPEND_AUTH disabled by default
+
+#### 📚 Documentation
+
+- [AI Templates & Safety Rules](docs/ai-templates.md)
+- [Image Manifest Template](components/shared/imageManifest.template.json)
+- [Content Banlist](config/content-banlist.json)
+- [World Cup Fixtures](data/fixtures/worldcup-fixtures.json)
+
+---
+
+### 🏏 Cricket Universe MVP (Previous Release)
 **Interactive cricket learning and engagement platform!**
 
 The Cricket Universe (learn-cricket) MVP brings an exciting new dimension to cricket education:
