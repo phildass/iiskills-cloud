@@ -5,7 +5,6 @@ import { useRouter } from "next/router";
 import { getCurrentUser, isAdmin } from "../../lib/supabaseClient";
 import { supabase } from "../../lib/supabaseClient";
 import AdminNav from "../../components/AdminNav";
-import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import { ALL_SITES } from "../../lib/siteConfig";
 import { getSiteUrl } from "../../lib/navigation";
@@ -142,8 +141,6 @@ export default function AdminDashboard() {
         <meta name="robots" content="noindex, nofollow" />
       </Head>
       <AdminNav />
-      <Navbar />
-
       <main className="max-w-7xl mx-auto px-4 py-12">
         {/* Warning Banner */}
         {process.env.NEXT_PUBLIC_DISABLE_AUTH === 'true' && (

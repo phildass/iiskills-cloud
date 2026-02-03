@@ -4,7 +4,6 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import ProtectedRoute from "../../components/ProtectedRoute";
 import AdminNav from "../../components/AdminNav";
-import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import { supabase } from "../../lib/supabaseClient";
 import { SUBDOMAIN_OPTIONS } from "../../lib/siteConfig";
@@ -180,8 +179,6 @@ export default function AdminCourses() {
         <title>Course Management - Admin - iiskills.cloud</title>
       </Head>
       <AdminNav />
-      <Navbar />
-
       <main className="max-w-7xl mx-auto px-4 py-12">
         {/* Breadcrumb */}
         <nav className="mb-4 text-sm text-gray-600">

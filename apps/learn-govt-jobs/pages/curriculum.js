@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import Head from 'next/head';
-import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import ModuleCard from '../components/ModuleCard';
 import { getAllModules } from '../lib/curriculumGenerator';
@@ -20,8 +19,6 @@ export default function Curriculum() {
         <title>Full Curriculum - Learn AI</title>
         <meta name="description" content="Complete AI course curriculum with 10 modules and 100 lessons" />
       </Head>
-
-      <Navbar />
 
       <main className="min-h-screen bg-gray-50 py-12">
         <div className="container mx-auto px-4">
