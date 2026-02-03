@@ -5,7 +5,133 @@ Inspired by iiskills.in and customized for the Indian Institute of Professional 
 
 ## 🆕 New Features
 
-### 🎨 Universal Header & Hero Sync (NEW!)
+### 🏏 Cricket Universe MVP (LATEST!)
+**Interactive cricket learning and engagement platform!**
+
+The Cricket Universe (learn-cricket) MVP brings an exciting new dimension to cricket education:
+
+#### Core Features
+- **🏆 Super Over Duels** - 1v1 trivia matches vs bot opponents or friends
+- **📚 The Vault** - Comprehensive database of players, matches, and venues
+- **🎯 Deterministic Hero Images** - Each app gets a consistent, beautifully selected hero image
+- **🔐 First-Time Admin Setup** - Secure, feature-flagged admin account creation
+- **🤖 AI Content Templates** - LLM-powered trivia and player summary generation
+
+#### Feature Flags (Development/Setup Only)
+
+⚠️ **CRITICAL**: These flags are for development and initial setup only. NEVER enable in production!
+
+**ADMIN_SETUP_MODE** - First-time admin account creation
+```bash
+# Enable ONLY for first-time setup
+ADMIN_SETUP_MODE=true
+
+# After creating admin account, immediately disable:
+ADMIN_SETUP_MODE=false
+```
+- Only active when NO admin accounts exist
+- Creates bcrypt-hashed admin credentials
+- Logs all setup attempts to `logs/admin-setup.log`
+- Visit `/admin/setup` when enabled
+- [Full Documentation](docs/ADMIN_SETUP_README.md)
+
+**TEMP_SUSPEND_AUTH** - Temporary authentication bypass (DANGEROUS!)
+```bash
+# Requires BOTH flags to activate (dual confirmation)
+TEMP_SUSPEND_AUTH=true
+ADMIN_SUSPEND_CONFIRM=true
+```
+- Only bypasses auth on `/admin/*` routes
+- Logs all bypassed requests
+- Must be disabled before production
+- [Full Documentation](docs/TEMP_SUSPEND_AUTH.md)
+
+#### Super Over Match System
+Real-time trivia-based cricket matches:
+```javascript
+// Create a match
+POST /api/match/create
+{ playerAId: "user_123", mode: "bot" }
+
+// Submit answer
+POST /api/match/answer
+{ matchId: "match_1", playerId: "user_123", answer: "correct", isCorrect: true }
+
+// Get match status
+GET /api/match/match_1
+```
+
+Features:
+- In-memory match state (Redis-ready for Phase 2)
+- Configurable bot difficulty (easy/medium/hard)
+- Deterministic bot behavior (70% accuracy by default)
+- 6-ball Super Over format
+- Run scoring based on correct answers
+
+#### The Vault
+Browse cricket history and statistics:
+- `/vault` - Searchable player index (stub search for MVP)
+- `/vault/[playerId]` - Individual player profiles
+- Placeholder data for MVP, real data in Phase 2
+- OpenSearch/Elasticsearch integration planned
+
+#### AI Content Generation
+Professional templates for generating:
+- Trivia questions from match events
+- 3 plausible distractors per question
+- Player summaries from structured data
+- Content validation and paraphrase guidelines
+
+See [docs/ai-templates.md](docs/ai-templates.md) for complete LLM prompt templates.
+
+#### SharedHero Component (Updated)
+Deterministic hero image mapping:
+- `main` → main-hero.jpg
+- `learn-apt` → little-girl.jpg
+- `learn-management` → girl-hero.jpg
+- `learn-cricket` → cricket1.jpg (deterministic)
+- `learn-companion` → no hero (returns null)
+- All others → deterministic selection from hero1.jpg, hero2.jpg, hero3.jpg
+
+```javascript
+import SharedHero from '@/components/shared/SharedHero';
+
+<SharedHero appName="learn-cricket">
+  <h1>Your hero content</h1>
+</SharedHero>
+```
+
+#### Backup Files Created
+All modified files have `.bak.<timestamp>` backups (excluded from git):
+- `SharedHero.js.bak.1770104823`
+- `canonicalNavLinks.js.bak.1770104823`
+- `README.md.bak.1770105415`
+
+#### Testing
+```bash
+# Install dependencies (if not already installed)
+npm install --save-dev jest
+
+# Run tests
+npm test
+
+# Test specific suites
+npm test sharedHero
+npm test match
+```
+
+Test coverage includes:
+- SharedHero deterministic mapping (all app mappings)
+- Super Over match creation and lifecycle
+- Answer submission and scoring logic
+- Match state management
+
+#### Documentation
+- [AI Content Templates](docs/ai-templates.md) - LLM prompts and validation
+- [TEMP_SUSPEND_AUTH Guide](docs/TEMP_SUSPEND_AUTH.md) - Auth bypass documentation
+- [Test Files](tests/) - SharedHero and Match service tests
+
+### 🎨 Universal Header & Hero Sync
 **Consistent branding and hero experience across all apps!**
 - **Shared Site Header** - Universal navigation header (SiteHeader) on all apps
 - **Hero Manager** - Synchronized hero image selection and rendering
