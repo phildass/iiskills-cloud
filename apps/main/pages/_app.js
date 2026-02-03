@@ -1,10 +1,10 @@
 import "../styles/globals.css";
 import Head from "next/head";
-// import SiteHeader from "../../../components/shared/SiteHeader";
-// import Footer from "../components/Footer";
+import SiteHeader from "../../../components/shared/SiteHeader";
+import Footer from "../components/Footer";
 import ErrorBoundary from "../components/ErrorBoundary";
-// import AIAssistant from "../components/shared/AIAssistant";
-// import NewsletterSignup from "../components/shared/NewsletterSignup";
+import AIAssistant from "../components/shared/AIAssistant";
+import NewsletterSignup from "../components/shared/NewsletterSignup";
 import TestingModeBanner from "../components/TestingModeBanner";
 import { useNewsletterPopup } from "../utils/useNewsletterPopup";
 
@@ -19,22 +19,22 @@ export default function App({ Component, pageProps }) {
         <link rel="apple-touch-icon" href="/images/favicon-iiskills.svg" />
       </Head>
 
-      {/* <SiteHeader /> */}
+      <SiteHeader />
       <Component {...pageProps} />
-      {/* <Footer /> */}
+      <Footer />
 
       {/* AI Assistant - always visible */}
-      {/* <AIAssistant /> */}
+      <AIAssistant />
 
       {/* Newsletter Popup - shows based on timing */}
-      {/* {showPopup && (
+      {showPopup && (
         <NewsletterSignup
           mode="modal"
           onClose={() => closePopup(false)}
           onSuccess={() => closePopup(true)}
           isClosing={isClosing}
         />
-      )} */}
+      )}
 
       {/* Testing Mode Banner - shows when feature flags are enabled */}
       <TestingModeBanner />
