@@ -13,8 +13,8 @@
 import fs from 'fs';
 import path from 'path';
 
-// Load fixtures
-const fixturesPath = path.join(process.cwd(), '../../data/fixtures/worldcup-fixtures.json');
+// Load fixtures - adjust path for Next.js API routes
+const fixturesPath = path.join(process.cwd(), 'data/fixtures/worldcup-fixtures.json');
 let worldCupFixtures = { fixtures: [], venues: [] };
 
 try {
@@ -24,8 +24,8 @@ try {
   console.error('Failed to load World Cup fixtures:', error);
 }
 
-// Load content banlist for moderation
-const banlistPath = path.join(process.cwd(), '../../config/content-banlist.json');
+// Load content banlist for moderation - adjust path for Next.js API routes
+const banlistPath = path.join(process.cwd(), 'config/content-banlist.json');
 let contentBanlist = { bannedKeywords: [], bannedPhrases: [], controversialTopics: [] };
 
 try {
@@ -162,7 +162,7 @@ function generateQuestionsFromFixtures(count = 5) {
  * Log AI generation event (for audit trail)
  */
 function logAIEvent(eventData) {
-  const logsDir = path.join(process.cwd(), '../../logs');
+  const logsDir = path.join(process.cwd(), 'logs');
   const logFile = path.join(logsDir, 'ai-content-audit.log');
   
   try {

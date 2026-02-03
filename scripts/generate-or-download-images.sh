@@ -133,18 +133,13 @@ if command -v jq &> /dev/null; then
       
       # Call Gemini API for image generation
       # Note: This is a placeholder - actual Gemini Image API integration needed
-      # For MVP, we create a placeholder file
-      echo -e "  ${YELLOW}⚠ Note: Gemini Image API integration needed - creating placeholder${NC}"
+      # For MVP, we skip creation and leave localPath as null in manifest
+      echo -e "  ${YELLOW}⚠ Note: Gemini Image API integration needed - skipping generation${NC}"
+      echo -e "  ${YELLOW}⚠ Set localPath to null in manifest (will use remoteUrl if available)${NC}"
       
-      # Create a simple placeholder (in production, this would call Gemini API)
-      # Placeholder: just copy a default image or create empty file
-      touch "$IMAGE_FILE"
-      echo "PLACEHOLDER_IMAGE_FOR_$APP" > "$IMAGE_FILE"
+      GENERATED+=("$APP (skipped - API not integrated)")
       
-      echo -e "  ${GREEN}✓ Placeholder created (TODO: implement Gemini API call)${NC}"
-      GENERATED+=("$APP")
-      
-      echo -n " \"localPath\": \"/generated-images/${APP}-hero.jpg\", \"generatedViaGemini\": true, \"prompt\": \"$GEN_PROMPT\"" >> "$OUTPUT_MANIFEST"
+      echo -n " \"generationPrompt\": \"$GEN_PROMPT\", \"localPath\": null" >> "$OUTPUT_MANIFEST"
       echo -n " }" >> "$OUTPUT_MANIFEST"
       
     # Case 3: No image (e.g., learn-companion)

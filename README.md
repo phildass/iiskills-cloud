@@ -11,9 +11,6 @@ Inspired by iiskills.in and customized for the Indian Institute of Professional 
 ## 🆕 New Features
 
 ### 🏏 World Cup Launch — Cricket Universe (LATEST!)
-**ICC Cricket World Cup 2026 features for engaging cricket fans!**
-
-The World Cup Launch brings exciting new features to Cricket Universe (learn-cricket):
 
 #### 🎯 Daily Strike
 **5-10 World Cup focused trivia questions daily challenge**

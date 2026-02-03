@@ -201,8 +201,19 @@ export default function DailyStrike() {
 
   // Render quiz question
   const currentQ = questions[currentQuestion];
+  
+  // Fisher-Yates shuffle for proper randomization
+  const shuffleArray = (array) => {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+  };
+  
   const allOptions = currentQ
-    ? [currentQ.correctAnswer, ...currentQ.distractors].sort(() => Math.random() - 0.5)
+    ? shuffleArray([currentQ.correctAnswer, ...currentQ.distractors])
     : [];
 
   return (
