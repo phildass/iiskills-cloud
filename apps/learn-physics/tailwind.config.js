@@ -2,10 +2,9 @@
 module.exports = {
   content: [
     './pages/**/*.{js,jsx,ts,tsx,mdx}',
-    './apps/**/*.{js,jsx,ts,tsx,mdx}',
     './components/**/*.{js,jsx,ts,tsx,mdx}',
-    './packages/**/*.{js,jsx,ts,tsx,mdx}',
-    './**/*.html'
+    '../../components/**/*.{js,jsx,ts,tsx,mdx}',
+    '../../packages/**/*.{js,jsx,ts,tsx,mdx}',
   ],
   safelist: [
     {
