@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import Head from 'next/head';
-import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import NewsList from '../components/NewsList';
 
@@ -55,7 +54,7 @@ export default function News() {
         <meta name="description" content="Latest news and updates in Artificial Intelligence" />
       </Head>
 
-      <Navbar />
+      
 
       <main className="min-h-screen bg-gray-50 py-12">
         <div className="container mx-auto px-4">

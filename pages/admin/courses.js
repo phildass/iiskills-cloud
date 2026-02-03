@@ -1,7 +1,6 @@
 import Head from "next/head";
 import ProtectedRoute from "../../components/ProtectedRoute";
 import AdminNav from "../../components/AdminNav";
-import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 
 export default function AdminCourses() {
@@ -11,7 +10,7 @@ export default function AdminCourses() {
         <title>Course Management - Admin - iiskills.cloud</title>
       </Head>
       <AdminNav />
-      <Navbar />
+      
 
       <main className="max-w-7xl mx-auto px-4 py-12">
         <div className="flex justify-between items-center mb-8">

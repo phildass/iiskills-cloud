@@ -3,7 +3,6 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
 export default function Register() {
@@ -25,7 +24,7 @@ export default function Register() {
         <meta name="description" content="Register for Learn AI course" />
       </Head>
 
-      <Navbar />
+      
 
       <main className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="max-w-2xl mx-auto px-4">

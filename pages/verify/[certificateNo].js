@@ -1,6 +1,5 @@
 import { useRouter } from "next/router";
 import Head from "next/head";
-import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 
 export default function VerifyCertificate() {
@@ -31,7 +30,7 @@ export default function VerifyCertificate() {
           content="Verify the authenticity of an iiskills.cloud certificate"
         />
       </Head>
-      <Navbar />
+      
 
       <main className="max-w-4xl mx-auto px-4 py-12">
         <h1 className="text-4xl font-bold text-primary mb-6 text-center">

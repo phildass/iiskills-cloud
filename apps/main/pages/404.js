@@ -1,6 +1,5 @@
 import Link from "next/link";
 import Head from "next/head";
-import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
 export default function Custom404() {
@@ -11,7 +10,7 @@ export default function Custom404() {
         <meta name="description" content="The page you're looking for doesn't exist." />
       </Head>
 
-      <Navbar />
+      
 
       <main className="min-h-screen bg-gradient-to-b from-neutral to-white flex items-center justify-center px-4 py-20">
         <div className="max-w-2xl mx-auto text-center">

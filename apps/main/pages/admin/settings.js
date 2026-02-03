@@ -1,7 +1,6 @@
 import Head from "next/head";
 import ProtectedRoute from "../../components/ProtectedRoute";
 import AdminNav from "../../components/AdminNav";
-import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import { getCurrentPricing, formatPrice } from "../../utils/pricing";
 
@@ -13,7 +12,7 @@ export default function AdminSettings() {
         <title>Settings - Admin - iiskills.cloud</title>
       </Head>
       <AdminNav />
-      <Navbar />
+      
 
       <main className="max-w-4xl mx-auto px-4 py-12">
         <h1 className="text-3xl font-bold text-primary mb-8">Site Settings</h1>
