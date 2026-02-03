@@ -32,3 +32,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# logs (audit logs should not be committed)
+/logs
+*.log
+
+# backup files
+*.bak.*

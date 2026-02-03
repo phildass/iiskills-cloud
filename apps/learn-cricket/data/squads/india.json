@@ -1,0 +1,302 @@
+{
+  "teamName": "India",
+  "teamCode": "IND",
+  "fullName": "India National Cricket Team",
+  "flag": "🇮🇳",
+  "captain": "Rohit Sharma",
+  "viceCaptain": "Hardik Pandya",
+  "coach": "Rahul Dravid",
+  "group": "A",
+  "players": [
+    {
+      "playerId": "ind-001",
+      "name": "Rohit Sharma",
+      "role": "batsman",
+      "battingStyle": "right-hand",
+      "bowlingStyle": "right-arm off-break",
+      "isCaptain": true,
+      "isViceCaptain": false,
+      "jerseyNumber": 45,
+      "stats": {
+        "matches": 245,
+        "runs": 9915,
+        "average": 48.63,
+        "strikeRate": 89.89,
+        "centuries": 30,
+        "fifties": 48,
+        "highestScore": 264
+      }
+    },
+    {
+      "playerId": "ind-002",
+      "name": "Virat Kohli",
+      "role": "batsman",
+      "battingStyle": "right-hand",
+      "bowlingStyle": "right-arm medium",
+      "isCaptain": false,
+      "isViceCaptain": false,
+      "jerseyNumber": 18,
+      "stats": {
+        "matches": 274,
+        "runs": 13437,
+        "average": 58.18,
+        "strikeRate": 93.62,
+        "centuries": 50,
+        "fifties": 71,
+        "highestScore": 183
+      }
+    },
+    {
+      "playerId": "ind-003",
+      "name": "Hardik Pandya",
+      "role": "all-rounder",
+      "battingStyle": "right-hand",
+      "bowlingStyle": "right-arm fast-medium",
+      "isCaptain": false,
+      "isViceCaptain": true,
+      "jerseyNumber": 33,
+      "stats": {
+        "matches": 89,
+        "runs": 1548,
+        "average": 32.88,
+        "strikeRate": 113.91,
+        "wickets": 79,
+        "bowlingAverage": 32.53,
+        "economy": 5.91,
+        "bestBowling": "4/24"
+      }
+    },
+    {
+      "playerId": "ind-004",
+      "name": "Jasprit Bumrah",
+      "role": "bowler",
+      "battingStyle": "right-hand",
+      "bowlingStyle": "right-arm fast",
+      "isCaptain": false,
+      "isViceCaptain": false,
+      "jerseyNumber": 93,
+      "stats": {
+        "matches": 79,
+        "wickets": 133,
+        "average": 23.36,
+        "economy": 4.63,
+        "strikeRate": 30.3,
+        "bestBowling": "6/19",
+        "fiveWickets": 3
+      }
+    },
+    {
+      "playerId": "ind-005",
+      "name": "KL Rahul",
+      "role": "wicket-keeper",
+      "battingStyle": "right-hand",
+      "bowlingStyle": "right-arm off-break",
+      "isCaptain": false,
+      "isViceCaptain": false,
+      "jerseyNumber": 1,
+      "stats": {
+        "matches": 50,
+        "runs": 2321,
+        "average": 45.51,
+        "strikeRate": 85.23,
+        "centuries": 6,
+        "fifties": 13,
+        "dismissals": 45,
+        "catches": 38,
+        "stumpings": 7
+      }
+    },
+    {
+      "playerId": "ind-006",
+      "name": "Ravindra Jadeja",
+      "role": "all-rounder",
+      "battingStyle": "left-hand",
+      "bowlingStyle": "left-arm orthodox",
+      "isCaptain": false,
+      "isViceCaptain": false,
+      "jerseyNumber": 8,
+      "stats": {
+        "matches": 178,
+        "runs": 2575,
+        "average": 32.59,
+        "wickets": 220,
+        "bowlingAverage": 36.14,
+        "economy": 4.92,
+        "bestBowling": "5/36"
+      }
+    },
+    {
+      "playerId": "ind-007",
+      "name": "Shubman Gill",
+      "role": "batsman",
+      "battingStyle": "right-hand",
+      "bowlingStyle": "right-arm off-break",
+      "isCaptain": false,
+      "isViceCaptain": false,
+      "jerseyNumber": 77,
+      "stats": {
+        "matches": 31,
+        "runs": 1583,
+        "average": 57.11,
+        "strikeRate": 98.95,
+        "centuries": 5,
+        "fifties": 8,
+        "highestScore": 208
+      }
+    },
+    {
+      "playerId": "ind-008",
+      "name": "Mohammed Shami",
+      "role": "bowler",
+      "battingStyle": "right-hand",
+      "bowlingStyle": "right-arm fast",
+      "isCaptain": false,
+      "isViceCaptain": false,
+      "jerseyNumber": 11,
+      "stats": {
+        "matches": 95,
+        "wickets": 178,
+        "average": 25.17,
+        "economy": 5.59,
+        "strikeRate": 27.0,
+        "bestBowling": "5/51",
+        "fiveWickets": 3
+      }
+    },
+    {
+      "playerId": "ind-009",
+      "name": "Ravichandran Ashwin",
+      "role": "bowler",
+      "battingStyle": "right-hand",
+      "bowlingStyle": "right-arm off-break",
+      "isCaptain": false,
+      "isViceCaptain": false,
+      "jerseyNumber": 99,
+      "stats": {
+        "matches": 116,
+        "wickets": 156,
+        "average": 33.20,
+        "economy": 4.92,
+        "strikeRate": 40.5,
+        "bestBowling": "4/25",
+        "runs": 707,
+        "battingAverage": 16.86
+      }
+    },
+    {
+      "playerId": "ind-010",
+      "name": "Shreyas Iyer",
+      "role": "batsman",
+      "battingStyle": "right-hand",
+      "bowlingStyle": "right-arm off-break",
+      "isCaptain": false,
+      "isViceCaptain": false,
+      "jerseyNumber": 41,
+      "stats": {
+        "matches": 48,
+        "runs": 1838,
+        "average": 47.13,
+        "strikeRate": 94.95,
+        "centuries": 3,
+        "fifties": 15,
+        "highestScore": 128
+      }
+    },
+    {
+      "playerId": "ind-011",
+      "name": "Suryakumar Yadav",
+      "role": "batsman",
+      "battingStyle": "right-hand",
+      "bowlingStyle": "right-arm off-break",
+      "isCaptain": false,
+      "isViceCaptain": false,
+      "jerseyNumber": 63,
+      "stats": {
+        "matches": 31,
+        "runs": 1124,
+        "average": 43.23,
+        "strikeRate": 104.63,
+        "centuries": 1,
+        "fifties": 10,
+        "highestScore": 103
+      }
+    },
+    {
+      "playerId": "ind-012",
+      "name": "Kuldeep Yadav",
+      "role": "bowler",
+      "battingStyle": "left-hand",
+      "bowlingStyle": "left-arm chinaman",
+      "isCaptain": false,
+      "isViceCaptain": false,
+      "jerseyNumber": 23,
+      "stats": {
+        "matches": 88,
+        "wickets": 154,
+        "average": 25.22,
+        "economy": 5.03,
+        "strikeRate": 30.1,
+        "bestBowling": "6/25",
+        "fiveWickets": 2
+      }
+    },
+    {
+      "playerId": "ind-013",
+      "name": "Ishan Kishan",
+      "role": "wicket-keeper",
+      "battingStyle": "left-hand",
+      "bowlingStyle": null,
+      "isCaptain": false,
+      "isViceCaptain": false,
+      "jerseyNumber": 32,
+      "stats": {
+        "matches": 34,
+        "runs": 983,
+        "average": 30.71,
+        "strikeRate": 98.20,
+        "centuries": 2,
+        "fifties": 5,
+        "dismissals": 28,
+        "catches": 25,
+        "stumpings": 3
+      }
+    },
+    {
+      "playerId": "ind-014",
+      "name": "Mohammed Siraj",
+      "role": "bowler",
+      "battingStyle": "right-hand",
+      "bowlingStyle": "right-arm fast",
+      "isCaptain": false,
+      "isViceCaptain": false,
+      "jerseyNumber": 13,
+      "stats": {
+        "matches": 24,
+        "wickets": 40,
+        "average": 25.05,
+        "economy": 5.23,
+        "strikeRate": 28.7,
+        "bestBowling": "4/32"
+      }
+    },
+    {
+      "playerId": "ind-015",
+      "name": "Shardul Thakur",
+      "role": "all-rounder",
+      "battingStyle": "right-hand",
+      "bowlingStyle": "right-arm fast-medium",
+      "isCaptain": false,
+      "isViceCaptain": false,
+      "jerseyNumber": 54,
+      "stats": {
+        "matches": 47,
+        "runs": 402,
+        "average": 17.48,
+        "wickets": 62,
+        "bowlingAverage": 35.85,
+        "economy": 5.96,
+        "bestBowling": "4/37"
+      }
+    }
+  ]
+}
