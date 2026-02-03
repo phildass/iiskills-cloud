@@ -11,39 +11,8 @@
  */
 
 export const canonicalLinks = [
-  { 
-    href: "/", 
-    label: "Home", 
-    className: "hover:text-primary transition" 
-  },
-  { 
-    href: "/courses", 
-    label: "Courses", 
-    className: "hover:text-primary transition" 
-  },
-  {
-    href: "/certification",
-    label: "Certification",
-    className: "hover:text-primary transition",
-  },
-  {
-    href: "/newsletter",
-    label: "📧 Newsletter",
-    className: "hover:text-primary transition",
-  },
-  {
-    href: "https://www.aienter.in/payments",
-    label: "Payments",
-    className:
-      "bg-accent text-white px-4 py-2 rounded-lg hover:bg-purple-600 transition font-bold shadow-sm",
-    mobileClassName:
-      "block bg-accent text-white px-4 py-3 rounded-lg hover:bg-purple-600 transition font-bold text-center shadow-sm",
-    target: "_blank",
-    rel: "noopener noreferrer",
-  },
-  { 
-    href: "/about", 
-    label: "About", 
-    className: "hover:text-primary transition" 
-  },
+  { href: "/", label: "Home", className: "hover:text-primary transition" },
+  { href: "/apps", label: "All Apps", className: "hover:text-primary transition" },
+  { href: "/about", label: "About", className: "hover:text-primary transition" },
+  { href: "/contact", label: "Contact", className: "hover:text-primary transition" }
 ];

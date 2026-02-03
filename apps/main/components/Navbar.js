@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 // Import Supabase helpers for authentication state and logout
 import { getCurrentUser, signOutUser } from "../lib/supabaseClient";
 import SharedNavbar from "./shared/SharedNavbar";
+import { canonicalLinks } from "../../../components/shared/canonicalNavLinks";
 
 /**
  * Navigation Bar Component for Main Domain
@@ -55,32 +56,7 @@ export default function Navbar() {
       appName="iiskills.cloud"
       homeUrl="/"
       showAuthButtons={true}
-      customLinks={[
-        { href: "/", label: "Home", className: "hover:text-primary transition" },
-        { href: "/courses", label: "Courses", className: "hover:text-primary transition" },
-        {
-          href: "/certification",
-          label: "Certification",
-          className: "hover:text-primary transition",
-        },
-        {
-          href: "/newsletter",
-          label: "📧 Newsletter",
-          className: "hover:text-primary transition",
-        },
-        {
-          href: "https://www.aienter.in/payments",
-          label: "Payments",
-          className:
-            "bg-accent text-white px-4 py-2 rounded hover:bg-purple-600 transition font-bold",
-          mobileClassName:
-            "block bg-accent text-white px-4 py-2 rounded hover:bg-purple-600 transition font-bold",
-          target: "_blank",
-          rel: "noopener noreferrer",
-        },
-        { href: "/about", label: "About", className: "hover:text-primary transition" },
-        { href: "/terms", label: "Terms & Conditions", className: "hover:text-primary transition" },
-      ]}
+      customLinks={canonicalLinks}
     />
   );
 }
