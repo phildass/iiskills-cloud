@@ -61,7 +61,9 @@ export default function AdminModules() {
       <Head>
         <title>Module Management - Admin - iiskills.cloud</title>
       </Head>
-      <AdminNav /><main className="max-w-7xl mx-auto px-4 py-12">
+      <AdminNav />
+
+      <main className="max-w-7xl mx-auto px-4 py-12">
         {/* Breadcrumb */}
         <nav className="mb-4 text-sm text-gray-600">
           <Link href="/admin" className="hover:text-blue-600">Admin</Link>

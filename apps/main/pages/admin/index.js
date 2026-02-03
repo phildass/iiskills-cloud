@@ -140,7 +140,9 @@ export default function AdminDashboard() {
         <title>Universal Admin Dashboard - iiskills.cloud</title>
         <meta name="robots" content="noindex, nofollow" />
       </Head>
-      <AdminNav /><main className="max-w-7xl mx-auto px-4 py-12">
+      <AdminNav />
+
+      <main className="max-w-7xl mx-auto px-4 py-12">
         {/* Warning Banner */}
         {process.env.NEXT_PUBLIC_DISABLE_AUTH === 'true' && (
           <div className="bg-red-100 border-l-4 border-red-500 p-4 mb-8">

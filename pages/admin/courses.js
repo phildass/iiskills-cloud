@@ -9,7 +9,9 @@ export default function AdminCourses() {
       <Head>
         <title>Course Management - Admin - iiskills.cloud</title>
       </Head>
-      <AdminNav /><main className="max-w-7xl mx-auto px-4 py-12">
+      <AdminNav />
+
+      <main className="max-w-7xl mx-auto px-4 py-12">
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-3xl font-bold text-primary">Course Management</h1>
           <button className="bg-primary text-white px-6 py-3 rounded font-bold hover:bg-blue-700 transition">

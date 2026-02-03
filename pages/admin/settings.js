@@ -11,7 +11,9 @@ export default function AdminSettings() {
       <Head>
         <title>Settings - Admin - iiskills.cloud</title>
       </Head>
-      <AdminNav /><main className="max-w-4xl mx-auto px-4 py-12">
+      <AdminNav />
+
+      <main className="max-w-4xl mx-auto px-4 py-12">
         <h1 className="text-3xl font-bold text-primary mb-8">Site Settings</h1>
 
         <div className="space-y-6">
