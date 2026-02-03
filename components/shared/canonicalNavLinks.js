@@ -12,7 +12,11 @@
 
 export const canonicalLinks = [
   { href: "/", label: "Home", className: "hover:text-primary transition" },
-  { href: "/apps", label: "All Apps", className: "hover:text-primary transition" },
+  { href: "/courses", label: "Courses", className: "hover:text-primary transition" },
+  { href: "/certification", label: "Certification", className: "hover:text-primary transition" },
+  { href: "/newsletter", label: "Newsletter", className: "hover:text-primary transition" },
+  { href: "https://aienter.in/payments", label: "Payments", className: "hover:text-primary transition", target: "_blank", rel: "noopener noreferrer" },
   { href: "/about", label: "About", className: "hover:text-primary transition" },
-  { href: "/contact", label: "Contact", className: "hover:text-primary transition" }
+  { href: "/terms", label: "Terms and Conditions", className: "hover:text-primary transition" },
+  { href: "/register", label: "Register", className: "hover:text-primary transition" }
 ];
