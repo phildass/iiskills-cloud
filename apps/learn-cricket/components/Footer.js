@@ -8,7 +8,7 @@ export default function Footer() {
           <div>
             <h3 className="text-xl font-bold mb-4">Cricket University</h3>
             <p className="text-gray-300">
-              Everything you want to know. Live on your phone! Free! Your ultimate cricket knowledge portal - master the game, explore history, test your skills.
+              Your ultimate cricket knowledge portal - master the game, explore history, test your skills. Free for all!
             </p>
           </div>
 
