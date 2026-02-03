@@ -47,6 +47,7 @@ Thumbs.db
 *.tsbuildinfo
 .turbo/
 *.bak
+*.bak.*
 
 # Documentation Archive
 docs-archive/

@@ -10,6 +10,10 @@ export default function AdminCourses() {
         <title>Course Management - Admin - iiskills.cloud</title>
       </Head>
       <AdminNav />
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/main
       <main className="max-w-7xl mx-auto px-4 py-12">
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-3xl font-bold text-primary">Course Management</h1>

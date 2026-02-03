@@ -54,7 +54,12 @@ export default function AdminDashboard() {
         <title>Admin Dashboard - iiskills.cloud</title>
         <meta name="robots" content="noindex, nofollow" />
       </Head>
+
       <AdminNav />
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/main
       <main className="max-w-7xl mx-auto px-4 py-12">
         <h1 className="text-3xl font-bold text-primary mb-8">Admin Dashboard</h1>
 
