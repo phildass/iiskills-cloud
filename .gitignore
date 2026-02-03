@@ -66,3 +66,4 @@ smoke-test-report-*.md
 # Environment files (prevent committing secrets)
 apps/**/.env.local
 .env.local
+*.bak.*
