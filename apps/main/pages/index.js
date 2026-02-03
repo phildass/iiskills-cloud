@@ -15,9 +15,16 @@ export default function Home() {
 
   useEffect(() => {
     const checkUser = async () => {
-      const currentUser = await getCurrentUser();
-      setUser(currentUser);
-      setLoading(false);
+      try {
+        const currentUser = await getCurrentUser();
+        setUser(currentUser);
+      } catch (error) {
+        console.error('Error checking user authentication:', error);
+        // Set user to null on error to show default non-authenticated state
+        setUser(null);
+      } finally {
+        setLoading(false);
+      }
     };
     checkUser();
   }, []);
@@ -56,7 +63,13 @@ export default function Home() {
             
             {/* CTA Buttons - Universal Links */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
-              {!loading && (
+              {loading ? (
+                // Loading skeleton to prevent layout shift
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <div className="inline-block bg-white/50 animate-pulse px-8 py-4 rounded-lg min-w-[240px] h-[56px]"></div>
+                  <div className="inline-block bg-white/30 animate-pulse px-8 py-4 rounded-lg min-w-[240px] h-[56px]"></div>
+                </div>
+              ) : (
                 <>
                   {user ? (
                     <>
