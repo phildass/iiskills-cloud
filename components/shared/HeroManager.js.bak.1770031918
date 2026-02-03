@@ -26,7 +26,7 @@ const DEFAULT_IMAGE_POOL = [
  */
 export function getHeroImagesForApp(appId) {
   // Special case: cricket uses specific cricket images
-  if (appId?.includes('cricket')) {
+  if (appId === 'learn-cricket' || (appId && appId.includes('cricket'))) {
     return ['cricket1.jpg', 'cricket2.jpg'];
   }
 
