@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
 export default function Onboarding() {
@@ -85,8 +84,6 @@ export default function Onboarding() {
         <title>Welcome - Learn AI</title>
         <meta name="description" content="Complete your profile to get started" />
       </Head>
-
-      <Navbar />
 
       <main className="min-h-screen bg-gray-50 py-12">
         <div className="container mx-auto px-4 max-w-3xl">

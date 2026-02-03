@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { getCurrentUser, isAdmin } from "../../lib/supabaseClient";
 import AdminNav from "../../components/AdminNav";
-import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 
 export default function AdminDashboard() {
@@ -55,8 +54,8 @@ export default function AdminDashboard() {
         <title>Admin Dashboard - iiskills.cloud</title>
         <meta name="robots" content="noindex, nofollow" />
       </Head>
+
       <AdminNav />
-      <Navbar />
 
       <main className="max-w-7xl mx-auto px-4 py-12">
         <h1 className="text-3xl font-bold text-primary mb-8">Admin Dashboard</h1>

@@ -1,7 +1,6 @@
 import "../styles/globals.css";
 import Head from "next/head";
 import SiteHeader from "../../../components/shared/SiteHeader";
-import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import ErrorBoundary from "../components/ErrorBoundary";
 import AIAssistant from "../components/shared/AIAssistant";
@@ -20,7 +19,6 @@ export default function App({ Component, pageProps }) {
       </Head>
 
       <SiteHeader />
-      <Navbar />
       <Component {...pageProps} />
       <Footer />
 

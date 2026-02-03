@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import ProtectedRoute from "../../components/ProtectedRoute";
 import AdminNav from "../../components/AdminNav";
-import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 
 export default function AdminModules() {
@@ -63,7 +62,6 @@ export default function AdminModules() {
         <title>Module Management - Admin - iiskills.cloud</title>
       </Head>
       <AdminNav />
-      <Navbar />
 
       <main className="max-w-7xl mx-auto px-4 py-12">
         {/* Breadcrumb */}
