@@ -82,15 +82,17 @@ function generateQuestionsFromFixtures(count = 5) {
     {
       type: 'fixture',
       generate: (fixture) => {
+        const teamAName = fixture.teamA?.name || fixture.teamA;
+        const teamBName = fixture.teamB?.name || fixture.teamB;
         const venue = venues.find(v => v.id === fixture.venue);
         return {
           question: `Which teams are playing in Match ${fixture.matchNumber} of the World Cup?`,
-          correctAnswer: `${fixture.teamA} vs ${fixture.teamB}`,
+          correctAnswer: `${teamAName} vs ${teamBName}`,
           distractors: [
             'India vs Australia',
             'England vs Pakistan',
             'New Zealand vs South Africa'
-          ].filter(d => d !== `${fixture.teamA} vs ${fixture.teamB}`).slice(0, 3),
+          ].filter(d => d !== `${teamAName} vs ${teamBName}`).slice(0, 3),
           category: 'fixtures',
           difficulty: 'easy'
         };
@@ -99,10 +101,12 @@ function generateQuestionsFromFixtures(count = 5) {
     {
       type: 'venue',
       generate: (fixture) => {
+        const teamAName = fixture.teamA?.name || fixture.teamA;
+        const teamBName = fixture.teamB?.name || fixture.teamB;
         const venue = venues.find(v => v.id === fixture.venue);
         if (!venue) return null;
         return {
-          question: `In which city is the ${fixture.teamA} vs ${fixture.teamB} match being held?`,
+          question: `In which city is the ${teamAName} vs ${teamBName} match being held?`,
           correctAnswer: venue.city,
           distractors: venues
             .filter(v => v.city !== venue.city)

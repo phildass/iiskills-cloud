@@ -1,8 +1,7 @@
 import '../styles/globals.css'
 
 import Head from 'next/head'
-import SiteHeader from '../../../components/shared/SiteHeader'
-import Footer from '@iiskills/ui/src/Footer'
+import Footer from '../components/Footer'
 
 
 export default function App({ Component, pageProps }) {
@@ -14,7 +13,6 @@ export default function App({ Component, pageProps }) {
         <link rel="apple-touch-icon" href="/images/favicon-learn-cricket.svg" />
       </Head>
 
-      <SiteHeader />
       <Component {...pageProps} />
       <Footer />
     </>

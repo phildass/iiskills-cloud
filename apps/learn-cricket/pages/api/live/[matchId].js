@@ -57,6 +57,8 @@ function generateStubData(matchId) {
   }
   
   const venue = worldCupFixtures.venues.find(v => v.id === fixture.venue);
+  const teamAName = fixture.teamA?.name || fixture.teamA;
+  const teamBName = fixture.teamB?.name || fixture.teamB;
   
   // Simulate live match state
   const matchStates = ['upcoming', 'live', 'completed'];
@@ -68,13 +70,13 @@ function generateStubData(matchId) {
     status: randomState,
     teams: {
       teamA: {
-        name: fixture.teamA,
+        name: teamAName,
         score: randomState === 'upcoming' ? null : Math.floor(Math.random() * 200) + 100,
         wickets: randomState === 'upcoming' ? null : Math.floor(Math.random() * 10),
         overs: randomState === 'upcoming' ? null : (Math.random() * 20).toFixed(1)
       },
       teamB: {
-        name: fixture.teamB,
+        name: teamBName,
         score: randomState === 'completed' ? Math.floor(Math.random() * 200) + 100 : null,
         wickets: randomState === 'completed' ? Math.floor(Math.random() * 10) : null,
         overs: randomState === 'completed' ? (Math.random() * 20).toFixed(1) : null
