@@ -1,5 +1,5 @@
 import "../styles/globals.css";
-import Navbar from "../components/Navbar";
+import SiteHeader from "../components/shared/SiteHeader";
 import Footer from "../components/Footer";
 import ErrorBoundary from "../components/ErrorBoundary";
 import AIAssistant from "../components/shared/AIAssistant";
@@ -11,7 +11,7 @@ export default function App({ Component, pageProps }) {
 
   return (
     <ErrorBoundary>
-      <Navbar />
+      <SiteHeader />
       <Component {...pageProps} />
       <Footer />
 

@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import { getCurrentUser } from '../../lib/supabaseClient';
 
@@ -56,9 +55,7 @@ export default function AdminPanel() {
 
   if (loading) {
     return (
-      <>
-        <Navbar />
-        <div className="min-h-screen flex items-center justify-center">
+      <><div className="min-h-screen flex items-center justify-center">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
             <p className="mt-4 text-gray-600">Loading admin panel...</p>
@@ -74,11 +71,7 @@ export default function AdminPanel() {
       <Head>
         <title>Admin Panel - Learn AI</title>
         <meta name="description" content="Learn AI Admin Dashboard" />
-      </Head>
-
-      <Navbar />
-
-      <main className="min-h-screen bg-gray-50 py-12">
+      </Head><main className="min-h-screen bg-gray-50 py-12">
         <div className="container mx-auto px-4">
           <h1 className="text-4xl font-bold mb-8">Admin Dashboard</h1>
 

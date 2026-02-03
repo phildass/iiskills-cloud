@@ -2,7 +2,6 @@ import Head from "next/head";
 import { useState, useEffect } from "react";
 import ProtectedRoute from "../../components/ProtectedRoute";
 import AdminNav from "../../components/AdminNav";
-import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import { supabase } from "../../lib/supabaseClient";
 
@@ -70,10 +69,7 @@ export default function AdminUsers() {
       <Head>
         <title>User Management - Admin - iiskills.cloud</title>
       </Head>
-      <AdminNav />
-      <Navbar />
-
-      <main className="max-w-7xl mx-auto px-4 py-12">
+      <AdminNav /><main className="max-w-7xl mx-auto px-4 py-12">
         <h1 className="text-3xl font-bold text-primary mb-8">User Management</h1>
 
         {/* Filters and Search */}
