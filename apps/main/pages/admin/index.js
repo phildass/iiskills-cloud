@@ -141,10 +141,6 @@ export default function AdminDashboard() {
         <meta name="robots" content="noindex, nofollow" />
       </Head>
       <AdminNav />
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/main
       <main className="max-w-7xl mx-auto px-4 py-12">
         {/* Warning Banner */}
         {process.env.NEXT_PUBLIC_DISABLE_AUTH === 'true' && (
