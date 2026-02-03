@@ -1,5 +1,6 @@
 "use client"; // This component uses React hooks and interactive UI - must run on client side
 
+import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
