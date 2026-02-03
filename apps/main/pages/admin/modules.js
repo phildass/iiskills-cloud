@@ -62,7 +62,10 @@ export default function AdminModules() {
         <title>Module Management - Admin - iiskills.cloud</title>
       </Head>
       <AdminNav />
+<<<<<<< HEAD
+=======
 
+>>>>>>> origin/main
       <main className="max-w-7xl mx-auto px-4 py-12">
         {/* Breadcrumb */}
         <nav className="mb-4 text-sm text-gray-600">

@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useCallback } from "react";
 import { useRouter } from "next/router";
 import { getCurrentUser } from "../../lib/supabaseClient";

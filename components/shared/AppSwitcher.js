@@ -1,4 +1,6 @@
 /**
+
+"use client";
  * App Switcher Component
  * 
  * Provides a dropdown UI for users to switch between accessible apps

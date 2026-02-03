@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, useEffect } from 'react';
 import AppSwitcher from './admin/AppSwitcher';
 import ContentList from './admin/ContentList';
