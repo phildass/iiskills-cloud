@@ -9,71 +9,104 @@ import { useState, useEffect } from 'react';
  * A reusable hero component for landing pages across all iiskills apps.
  * This component provides:
  * - Full-width hero background image
- * - Automatic image selection based on appId
- * - Responsive height settings
+ * - Deterministic image selection based on appName
+ * - Responsive height settings (520px desktop, smaller on mobile)
  * - Dark overlay for text readability
- * - Bottom-aligned content area
+ * - Positioned content area
  * 
  * Usage:
- *   <SharedHero appId="learn-ai" className="h-[70vh]">
+ *   <SharedHero appName="learn-cricket">
  *     <h1>Your Hero Content</h1>
  *   </SharedHero>
  * 
  * Props:
- * @param {string} appId - The app identifier for image selection (e.g., "learn-ai", "main")
+ * @param {string} appName - The app identifier for image selection (e.g., "learn-cricket", "main")
  * @param {React.ReactNode} children - Content to display in the hero overlay
  * @param {string} className - Additional CSS classes for the hero section
- * @param {string} heroHeight - Height of hero section (default: responsive)
  */
 
 /**
- * Default pool of images available for hero selection
+ * Shared pool of images for apps without specific hero images
  */
-const DEFAULT_IMAGE_POOL = [
-  'iiskills-image1.jpg',
-  'iiskills-image2.jpg',
-  'iiskills-image3.jpg',
-  'iiskills-image4.jpg'
+const SHARED_HERO_POOL = [
+  'hero1.jpg',
+  'hero2.jpg',
+  'hero3.jpg'
 ];
 
 /**
- * Get hero image for a specific app
- * @param {string} appId - The app identifier (e.g., "learn-cricket", "main")
- * @returns {string} Image filename to use as hero background
+ * Cricket-specific hero images pool
  */
-export function getHeroImageForApp(appId) {
-  // Special case: cricket uses specific cricket images
-  if (appId?.includes('cricket')) {
-    return 'cricket1.jpg';
+const CRICKET_HERO_POOL = [
+  'cricket1.jpg',
+  'cricket2.jpg'
+];
+
+/**
+ * Get hero image for a specific app using deterministic mapping
+ * @param {string} appName - The app identifier (e.g., "learn-cricket", "main")
+ * @returns {string|null} Image filename to use as hero background, or null for no hero
+ */
+export function getHeroImageForApp(appName) {
+  if (!appName) {
+    return SHARED_HERO_POOL[0];
   }
 
-  // For other apps, select first image from pool (can be made random if desired)
-  return DEFAULT_IMAGE_POOL[0];
+  // Deterministic mapping rules
+  switch (appName) {
+    case 'main':
+      return 'main-hero.jpg';
+    
+    case 'learn-apt':
+      return 'little-girl.jpg';
+    
+    case 'learn-management':
+      return 'girl-hero.jpg';
+    
+    case 'learn-cricket':
+      // Deterministically pick from cricket pool (using first for consistency)
+      // Can use hash of appName for more variety if needed
+      return CRICKET_HERO_POOL[0];
+    
+    case 'learn-companion':
+      // No hero for learn-companion
+      return null;
+    
+    default:
+      // All other apps: pick deterministically from shared pool
+      // Use simple hash to select from pool
+      const hash = appName.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+      return SHARED_HERO_POOL[hash % SHARED_HERO_POOL.length];
+  }
 }
 
 /**
  * SharedHero Component
  */
 export default function SharedHero({ 
-  appId, 
+  appName, 
   children, 
-  className = '', 
-  heroHeight = '70vh' 
+  className = ''
 }) {
   const [heroImage, setHeroImage] = useState(null);
 
   useEffect(() => {
     // Select image on mount to avoid hydration issues
-    const image = getHeroImageForApp(appId);
+    const image = getHeroImageForApp(appName);
     setHeroImage(image);
-  }, [appId]);
+  }, [appName]);
+
+  // If no hero image (e.g., learn-companion), return null
+  if (heroImage === null) {
+    return null;
+  }
 
   return (
     <section 
       className={`relative w-full overflow-hidden ${className}`}
       style={{ 
-        height: heroHeight,
-        minHeight: '500px'
+        height: '520px',
+        minHeight: '400px'
       }}
     >
       {/* Full-size background image */}
@@ -94,7 +127,7 @@ export default function SharedHero({
       {/* Overlay for better text readability */}
       <div className="absolute inset-0 bg-black/40 z-10" aria-hidden="true"></div>
 
-      {/* Content container - positioned at bottom */}
+      {/* Content container - positioned absolutely so overlay content can be placed */}
       <div className="relative z-20 h-full flex items-end pb-12 md:pb-16 lg:pb-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
           {children}
