@@ -8,7 +8,7 @@ import { useState } from "react";
  * Centralized header for all iiskills.cloud apps
  * Features:
  * - Dual logo display (AI Cloud + iiskills)
- * - Navigation links
+ * - Navigation links (supports canonicalLinks)
  * - Auth buttons (Sign In / Register)
  * - Mobile responsive menu
  * - Sticky positioning with high z-index
