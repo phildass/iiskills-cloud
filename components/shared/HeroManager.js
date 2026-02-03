@@ -27,9 +27,9 @@ const DEFAULT_IMAGE_POOL = [
  * @returns {Array<string>} Array of at least 3 image filenames (2 minimum for cricket)
  */
 export function getHeroImagesForApp(appId) {
-  // Special case: main app uses cover-main-hero.jpg
+  // Special case: main app uses cover3.jpg
   if (appId === 'main') {
-    return ['cover-main-hero.jpg', 'main-hero.jpg'];
+    return ['cover3.jpg', 'main-hero.jpg'];
   }
   
   // Special case: cricket uses specific cricket images
