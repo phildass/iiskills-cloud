@@ -62,3 +62,7 @@ data/*.json
 # Build validation reports
 build-validation-reports/
 smoke-test-report-*.md
+
+# Environment files (prevent committing secrets)
+apps/**/.env.local
+.env.local

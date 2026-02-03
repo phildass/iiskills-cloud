@@ -1,0 +1,50 @@
+/**
+ * Global CSS Variables and Resets for iiskills.cloud
+ * 
+ * Defines shared design tokens and ensures consistent styling across apps
+ */
+
+:root {
+  /* Brand colors - matching Tailwind config */
+  --brand-blue: #0052CC;
+  --brand-purple: #C77DDB;
+  --neutral-bg: #F8F9FA;
+  --charcoal: #24272a;
+  
+  /* Layout constants */
+  --page-max-width: 1280px;
+  --header-z-index: 9999;
+  
+  /* Spacing */
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 2rem;
+}
+
+/* Ensure consistent font rendering
+ * Note: Inter font is loaded via Next.js in the app's layout/globals.css
+ * If Inter is not available, falls back to system fonts
+ */
+body {
+  font-family: Inter, Arial, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  color: var(--charcoal);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Ensure header stays above all content */
+nav[class*="sticky"] {
+  z-index: var(--header-z-index);
+}
+
+/* Fix any hero overlays that might conflict */
+.hero-overlay,
+[class*="hero"] [class*="overlay"] {
+  z-index: 10;
+}
+
+/* Ensure main content doesn't overlap with sticky header */
+main {
+  position: relative;
+  z-index: 1;
+}
