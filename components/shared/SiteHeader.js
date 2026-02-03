@@ -1,4 +1,4 @@
-import Header from "../../../packages/ui/src/Header";
+import Header from "@iiskills/ui/src/Header";
 import { canonicalLinks } from "./canonicalNavLinks";
 
 /**
