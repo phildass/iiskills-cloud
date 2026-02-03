@@ -1,13 +1,26 @@
 import Link from "next/link";
 import Image from "next/image";
 import Head from "next/head";
+import { useState, useEffect } from "react";
 import { getPricingDisplay, getIntroOfferNotice } from "../utils/pricing";
 import TranslationFeatureBanner from "../../../components/shared/TranslationFeatureBanner";
 import Hero from "../../../components/shared/HeroManager";
+import { getCurrentUser } from "../lib/supabaseClient";
 
 export default function Home() {
   const pricing = getPricingDisplay();
   const introNotice = getIntroOfferNotice();
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const checkUser = async () => {
+      const currentUser = await getCurrentUser();
+      setUser(currentUser);
+      setLoading(false);
+    };
+    checkUser();
+  }, []);
 
   return (
     <>
@@ -41,20 +54,43 @@ export default function Home() {
               Education for All, Online and Affordable
             </p>
             
-            {/* CTA Buttons */}
+            {/* CTA Buttons - Universal Links */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
-              <Link
-                href="/courses"
-                className="inline-block bg-white text-primary px-8 py-4 rounded-lg font-bold shadow-lg hover:bg-gray-100 hover:shadow-xl transition-all duration-200 text-center text-base sm:text-lg min-w-[240px]"
-              >
-                Explore Courses
-              </Link>
-              <Link
-                href="/certification"
-                className="inline-block bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-bold hover:bg-white hover:text-primary transition-all duration-200 text-center text-base sm:text-lg min-w-[240px]"
-              >
-                Learn About Certification
-              </Link>
+              {!loading && (
+                <>
+                  {user ? (
+                    <>
+                      <Link
+                        href="/courses"
+                        className="inline-block bg-white text-primary px-8 py-4 rounded-lg font-bold shadow-lg hover:bg-gray-100 hover:shadow-xl transition-all duration-200 text-center text-base sm:text-lg min-w-[240px]"
+                      >
+                        Explore Courses
+                      </Link>
+                      <Link
+                        href="/apps"
+                        className="inline-block bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-bold hover:bg-white hover:text-primary transition-all duration-200 text-center text-base sm:text-lg min-w-[240px]"
+                      >
+                        All Apps
+                      </Link>
+                    </>
+                  ) : (
+                    <>
+                      <Link
+                        href="/register"
+                        className="inline-block bg-white text-primary px-8 py-4 rounded-lg font-bold shadow-lg hover:bg-gray-100 hover:shadow-xl transition-all duration-200 text-center text-base sm:text-lg min-w-[240px]"
+                      >
+                        Get Started - Register
+                      </Link>
+                      <Link
+                        href="/login"
+                        className="inline-block bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-bold hover:bg-white hover:text-primary transition-all duration-200 text-center text-base sm:text-lg min-w-[240px]"
+                      >
+                        Sign In
+                      </Link>
+                    </>
+                  )}
+                </>
+              )}
             </div>
           </div>
         </Hero>
