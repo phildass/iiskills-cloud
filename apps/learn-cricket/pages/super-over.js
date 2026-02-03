@@ -11,8 +11,6 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
 
 export default function SuperOver() {
   const router = useRouter();
@@ -105,7 +103,6 @@ export default function SuperOver() {
   if (!gameStarted) {
     return (
       <div className="min-h-screen bg-gray-50">
-        <Navbar />
         <div className="max-w-4xl mx-auto px-4 py-16">
           <div className="bg-white rounded-lg shadow-lg p-8">
             <h1 className="text-4xl font-bold text-center mb-4">Super Over ⚡</h1>
@@ -151,7 +148,6 @@ export default function SuperOver() {
             </div>
           </div>
         </div>
-        <Footer />
       </div>
     );
   }
@@ -165,7 +161,6 @@ export default function SuperOver() {
 
     return (
       <div className="min-h-screen bg-gray-50">
-        <Navbar />
         <div className="max-w-4xl mx-auto px-4 py-16">
           <div className="bg-white rounded-lg shadow-lg p-8">
             <h1 className="text-3xl font-bold text-center mb-6">
@@ -212,7 +207,6 @@ export default function SuperOver() {
             </div>
           </div>
         </div>
-        <Footer />
       </div>
     );
   }
@@ -236,8 +230,6 @@ export default function SuperOver() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Navbar />
-      
       <div className="max-w-4xl mx-auto px-4 py-8">
         {/* Scoreboard */}
         {match && (
@@ -320,8 +312,6 @@ export default function SuperOver() {
           </div>
         )}
       </div>
-
-      <Footer />
     </div>
   );
 }

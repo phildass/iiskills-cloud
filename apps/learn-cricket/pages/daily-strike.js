@@ -11,8 +11,6 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
 
 export default function DailyStrike() {
   const router = useRouter();
@@ -103,14 +101,12 @@ export default function DailyStrike() {
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50">
-        <Navbar />
         <div className="max-w-4xl mx-auto px-4 py-16">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
             <p className="mt-4 text-gray-600">Loading Daily Strike...</p>
           </div>
         </div>
-        <Footer />
       </div>
     );
   }
@@ -119,7 +115,6 @@ export default function DailyStrike() {
   if (error) {
     return (
       <div className="min-h-screen bg-gray-50">
-        <Navbar />
         <div className="max-w-4xl mx-auto px-4 py-16">
           <div className="bg-red-50 border border-red-200 rounded-lg p-6">
             <h2 className="text-xl font-semibold text-red-800 mb-2">Error Loading Questions</h2>
@@ -132,7 +127,6 @@ export default function DailyStrike() {
             </button>
           </div>
         </div>
-        <Footer />
       </div>
     );
   }
@@ -142,7 +136,6 @@ export default function DailyStrike() {
     const percentage = Math.round((score / questions.length) * 100);
     return (
       <div className="min-h-screen bg-gray-50">
-        <Navbar />
         <div className="max-w-4xl mx-auto px-4 py-16">
           <div className="bg-white rounded-lg shadow-lg p-8">
             <h1 className="text-3xl font-bold text-center mb-6">Daily Strike Complete! 🎉</h1>
@@ -194,7 +187,6 @@ export default function DailyStrike() {
             </div>
           </div>
         </div>
-        <Footer />
       </div>
     );
   }
@@ -218,8 +210,6 @@ export default function DailyStrike() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Navbar />
-      
       <div className="max-w-4xl mx-auto px-4 py-8">
         {/* Header */}
         <div className="mb-8">
@@ -325,8 +315,6 @@ export default function DailyStrike() {
           </div>
         )}
       </div>
-
-      <Footer />
     </div>
   );
 }
