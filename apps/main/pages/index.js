@@ -92,7 +92,7 @@ export default function Home() {
                         href="/register"
                         className="inline-block bg-white text-primary px-8 py-4 rounded-lg font-bold shadow-lg hover:bg-gray-100 hover:shadow-xl transition-all duration-200 text-center text-base sm:text-lg min-w-[240px]"
                       >
-                        Get Started - Register
+                        Get Started
                       </Link>
                       <Link
                         href="/login"
