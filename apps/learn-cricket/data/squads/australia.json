@@ -1,0 +1,314 @@
+{
+  "teamName": "Australia",
+  "teamCode": "AUS",
+  "fullName": "Australia National Cricket Team",
+  "flag": "🇦🇺",
+  "captain": "Pat Cummins",
+  "viceCaptain": "Steve Smith",
+  "coach": "Andrew McDonald",
+  "group": "A",
+  "players": [
+    {
+      "playerId": "aus-001",
+      "name": "Pat Cummins",
+      "role": "bowler",
+      "battingStyle": "right-hand",
+      "bowlingStyle": "right-arm fast",
+      "isCaptain": true,
+      "isViceCaptain": false,
+      "jerseyNumber": 30,
+      "stats": {
+        "matches": 71,
+        "wickets": 111,
+        "average": 28.34,
+        "economy": 5.23,
+        "strikeRate": 32.5,
+        "bestBowling": "5/70",
+        "fiveWickets": 1,
+        "runs": 424,
+        "battingAverage": 17.66
+      }
+    },
+    {
+      "playerId": "aus-002",
+      "name": "Steve Smith",
+      "role": "batsman",
+      "battingStyle": "right-hand",
+      "bowlingStyle": "right-arm leg-break",
+      "isCaptain": false,
+      "isViceCaptain": true,
+      "jerseyNumber": 49,
+      "stats": {
+        "matches": 147,
+        "runs": 4895,
+        "average": 43.52,
+        "strikeRate": 87.23,
+        "centuries": 12,
+        "fifties": 31,
+        "highestScore": 164
+      }
+    },
+    {
+      "playerId": "aus-003",
+      "name": "David Warner",
+      "role": "batsman",
+      "battingStyle": "left-hand",
+      "bowlingStyle": "right-arm leg-break",
+      "isCaptain": false,
+      "isViceCaptain": false,
+      "jerseyNumber": 31,
+      "stats": {
+        "matches": 161,
+        "runs": 6932,
+        "average": 45.30,
+        "strikeRate": 96.62,
+        "centuries": 22,
+        "fifties": 33,
+        "highestScore": 179
+      }
+    },
+    {
+      "playerId": "aus-004",
+      "name": "Mitchell Starc",
+      "role": "bowler",
+      "battingStyle": "left-hand",
+      "bowlingStyle": "left-arm fast",
+      "isCaptain": false,
+      "isViceCaptain": false,
+      "jerseyNumber": 56,
+      "stats": {
+        "matches": 115,
+        "wickets": 240,
+        "average": 21.78,
+        "economy": 5.19,
+        "strikeRate": 25.2,
+        "bestBowling": "6/43",
+        "fiveWickets": 5
+      }
+    },
+    {
+      "playerId": "aus-005",
+      "name": "Alex Carey",
+      "role": "wicket-keeper",
+      "battingStyle": "left-hand",
+      "bowlingStyle": null,
+      "isCaptain": false,
+      "isViceCaptain": false,
+      "jerseyNumber": 58,
+      "stats": {
+        "matches": 59,
+        "runs": 1429,
+        "average": 29.77,
+        "strikeRate": 82.34,
+        "centuries": 1,
+        "fifties": 9,
+        "dismissals": 71,
+        "catches": 62,
+        "stumpings": 9
+      }
+    },
+    {
+      "playerId": "aus-006",
+      "name": "Glenn Maxwell",
+      "role": "all-rounder",
+      "battingStyle": "right-hand",
+      "bowlingStyle": "right-arm off-break",
+      "isCaptain": false,
+      "isViceCaptain": false,
+      "jerseyNumber": 32,
+      "stats": {
+        "matches": 137,
+        "runs": 3689,
+        "average": 33.35,
+        "strikeRate": 124.23,
+        "centuries": 4,
+        "fifties": 22,
+        "wickets": 56,
+        "bowlingAverage": 45.33,
+        "economy": 5.91,
+        "bestBowling": "4/46"
+      }
+    },
+    {
+      "playerId": "aus-007",
+      "name": "Travis Head",
+      "role": "batsman",
+      "battingStyle": "left-hand",
+      "bowlingStyle": "left-arm orthodox",
+      "isCaptain": false,
+      "isViceCaptain": false,
+      "jerseyNumber": 5,
+      "stats": {
+        "matches": 39,
+        "runs": 1214,
+        "average": 39.16,
+        "strikeRate": 104.22,
+        "centuries": 2,
+        "fifties": 8,
+        "highestScore": 152
+      }
+    },
+    {
+      "playerId": "aus-008",
+      "name": "Josh Hazlewood",
+      "role": "bowler",
+      "battingStyle": "right-hand",
+      "bowlingStyle": "right-arm fast-medium",
+      "isCaptain": false,
+      "isViceCaptain": false,
+      "jerseyNumber": 8,
+      "stats": {
+        "matches": 63,
+        "wickets": 103,
+        "average": 26.63,
+        "economy": 4.94,
+        "strikeRate": 32.3,
+        "bestBowling": "5/31",
+        "fiveWickets": 2
+      }
+    },
+    {
+      "playerId": "aus-009",
+      "name": "Marcus Stoinis",
+      "role": "all-rounder",
+      "battingStyle": "right-hand",
+      "bowlingStyle": "right-arm fast-medium",
+      "isCaptain": false,
+      "isViceCaptain": false,
+      "jerseyNumber": 16,
+      "stats": {
+        "matches": 58,
+        "runs": 1140,
+        "average": 32.57,
+        "strikeRate": 98.53,
+        "centuries": 0,
+        "fifties": 7,
+        "wickets": 39,
+        "bowlingAverage": 41.89,
+        "economy": 6.12,
+        "bestBowling": "3/35"
+      }
+    },
+    {
+      "playerId": "aus-010",
+      "name": "Adam Zampa",
+      "role": "bowler",
+      "battingStyle": "right-hand",
+      "bowlingStyle": "right-arm leg-break",
+      "isCaptain": false,
+      "isViceCaptain": false,
+      "jerseyNumber": 97,
+      "stats": {
+        "matches": 85,
+        "wickets": 136,
+        "average": 28.46,
+        "economy": 5.51,
+        "strikeRate": 31.0,
+        "bestBowling": "5/35",
+        "fiveWickets": 1
+      }
+    },
+    {
+      "playerId": "aus-011",
+      "name": "Marnus Labuschagne",
+      "role": "batsman",
+      "battingStyle": "right-hand",
+      "bowlingStyle": "right-arm leg-break",
+      "isCaptain": false,
+      "isViceCaptain": false,
+      "jerseyNumber": 48,
+      "stats": {
+        "matches": 24,
+        "runs": 787,
+        "average": 40.89,
+        "strikeRate": 84.12,
+        "centuries": 2,
+        "fifties": 4,
+        "highestScore": 108
+      }
+    },
+    {
+      "playerId": "aus-012",
+      "name": "Mitchell Marsh",
+      "role": "all-rounder",
+      "battingStyle": "right-hand",
+      "bowlingStyle": "right-arm fast-medium",
+      "isCaptain": false,
+      "isViceCaptain": false,
+      "jerseyNumber": 50,
+      "stats": {
+        "matches": 85,
+        "runs": 2243,
+        "average": 34.50,
+        "strikeRate": 95.67,
+        "centuries": 3,
+        "fifties": 12,
+        "wickets": 38,
+        "bowlingAverage": 48.55,
+        "economy": 5.84,
+        "bestBowling": "5/33"
+      }
+    },
+    {
+      "playerId": "aus-013",
+      "name": "Cameron Green",
+      "role": "all-rounder",
+      "battingStyle": "right-hand",
+      "bowlingStyle": "right-arm fast-medium",
+      "isCaptain": false,
+      "isViceCaptain": false,
+      "jerseyNumber": 55,
+      "stats": {
+        "matches": 15,
+        "runs": 365,
+        "average": 30.41,
+        "strikeRate": 105.79,
+        "centuries": 0,
+        "fifties": 3,
+        "wickets": 12,
+        "bowlingAverage": 42.75,
+        "economy": 6.03,
+        "bestBowling": "3/44"
+      }
+    },
+    {
+      "playerId": "aus-014",
+      "name": "Josh Inglis",
+      "role": "wicket-keeper",
+      "battingStyle": "right-hand",
+      "bowlingStyle": null,
+      "isCaptain": false,
+      "isViceCaptain": false,
+      "jerseyNumber": 28,
+      "stats": {
+        "matches": 7,
+        "runs": 253,
+        "average": 42.16,
+        "strikeRate": 107.20,
+        "centuries": 0,
+        "fifties": 2,
+        "dismissals": 8,
+        "catches": 7,
+        "stumpings": 1
+      }
+    },
+    {
+      "playerId": "aus-015",
+      "name": "Nathan Ellis",
+      "role": "bowler",
+      "battingStyle": "right-hand",
+      "bowlingStyle": "right-arm fast-medium",
+      "isCaptain": false,
+      "isViceCaptain": false,
+      "jerseyNumber": 35,
+      "stats": {
+        "matches": 8,
+        "wickets": 12,
+        "average": 31.41,
+        "economy": 6.14,
+        "strikeRate": 30.7,
+        "bestBowling": "3/21"
+      }
+    }
+  ]
+}

@@ -1,0 +1,394 @@
+{
+  "tournament": {
+    "name": "ICC Cricket World Cup 2026",
+    "edition": "14th",
+    "format": "ODI",
+    "startDate": "2026-02-07",
+    "endDate": "2026-03-15",
+    "hostCountries": ["India", "Sri Lanka", "Bangladesh"],
+    "totalMatches": 48,
+    "totalTeams": 10
+  },
+  "groups": {
+    "groupA": {
+      "name": "Group A",
+      "teams": ["India", "Australia", "South Africa", "Sri Lanka", "Afghanistan"]
+    },
+    "groupB": {
+      "name": "Group B",
+      "teams": ["Pakistan", "England", "New Zealand", "West Indies", "Bangladesh"]
+    }
+  },
+  "teams": [
+    {
+      "code": "IND",
+      "name": "India",
+      "fullName": "India National Cricket Team",
+      "group": "A",
+      "flag": "🇮🇳",
+      "ranking": 1
+    },
+    {
+      "code": "PAK",
+      "name": "Pakistan",
+      "fullName": "Pakistan National Cricket Team",
+      "group": "B",
+      "flag": "🇵🇰",
+      "ranking": 5
+    },
+    {
+      "code": "AUS",
+      "name": "Australia",
+      "fullName": "Australia National Cricket Team",
+      "group": "A",
+      "flag": "🇦🇺",
+      "ranking": 2
+    },
+    {
+      "code": "ENG",
+      "name": "England",
+      "fullName": "England National Cricket Team",
+      "group": "B",
+      "flag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+      "ranking": 4
+    },
+    {
+      "code": "SA",
+      "name": "South Africa",
+      "fullName": "South Africa National Cricket Team",
+      "group": "A",
+      "flag": "🇿🇦",
+      "ranking": 3
+    },
+    {
+      "code": "NZ",
+      "name": "New Zealand",
+      "fullName": "New Zealand National Cricket Team",
+      "group": "B",
+      "flag": "🇳🇿",
+      "ranking": 6
+    },
+    {
+      "code": "WI",
+      "name": "West Indies",
+      "fullName": "West Indies Cricket Team",
+      "group": "B",
+      "flag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+      "ranking": 9
+    },
+    {
+      "code": "SL",
+      "name": "Sri Lanka",
+      "fullName": "Sri Lanka National Cricket Team",
+      "group": "A",
+      "flag": "🇱🇰",
+      "ranking": 8
+    },
+    {
+      "code": "BAN",
+      "name": "Bangladesh",
+      "fullName": "Bangladesh National Cricket Team",
+      "group": "B",
+      "flag": "🇧🇩",
+      "ranking": 7
+    },
+    {
+      "code": "AFG",
+      "name": "Afghanistan",
+      "fullName": "Afghanistan National Cricket Team",
+      "group": "A",
+      "flag": "🇦🇫",
+      "ranking": 10
+    }
+  ],
+  "venues": [
+    {
+      "id": "venue-1",
+      "name": "Narendra Modi Stadium",
+      "city": "Ahmedabad",
+      "country": "India",
+      "capacity": 132000,
+      "coordinates": {
+        "lat": 23.0909,
+        "lng": 72.5952
+      }
+    },
+    {
+      "id": "venue-2",
+      "name": "Wankhede Stadium",
+      "city": "Mumbai",
+      "country": "India",
+      "capacity": 33108,
+      "coordinates": {
+        "lat": 18.9388,
+        "lng": 72.8258
+      }
+    },
+    {
+      "id": "venue-3",
+      "name": "Eden Gardens",
+      "city": "Kolkata",
+      "country": "India",
+      "capacity": 66000,
+      "coordinates": {
+        "lat": 22.5648,
+        "lng": 88.3426
+      }
+    },
+    {
+      "id": "venue-4",
+      "name": "M. Chinnaswamy Stadium",
+      "city": "Bengaluru",
+      "country": "India",
+      "capacity": 40000,
+      "coordinates": {
+        "lat": 12.9789,
+        "lng": 77.5996
+      }
+    },
+    {
+      "id": "venue-5",
+      "name": "R. Premadasa Stadium",
+      "city": "Colombo",
+      "country": "Sri Lanka",
+      "capacity": 35000,
+      "coordinates": {
+        "lat": 6.9271,
+        "lng": 79.8612
+      }
+    },
+    {
+      "id": "venue-6",
+      "name": "Shere Bangla National Stadium",
+      "city": "Dhaka",
+      "country": "Bangladesh",
+      "capacity": 25000,
+      "coordinates": {
+        "lat": 23.7908,
+        "lng": 90.3995
+      }
+    }
+  ],
+  "fixtures": [
+    {
+      "matchId": "wc2026-001",
+      "matchNumber": 1,
+      "date": "2026-02-07",
+      "time": "09:30",
+      "timezone": "UTC",
+      "teamA": {
+        "code": "IND",
+        "name": "India"
+      },
+      "teamB": {
+        "code": "PAK",
+        "name": "Pakistan"
+      },
+      "venue": "venue-1",
+      "stage": "Group Stage",
+      "group": "A vs B",
+      "matchType": "ODI",
+      "status": "scheduled"
+    },
+    {
+      "matchId": "wc2026-002",
+      "matchNumber": 2,
+      "date": "2026-02-08",
+      "time": "09:30",
+      "timezone": "UTC",
+      "teamA": {
+        "code": "AUS",
+        "name": "Australia"
+      },
+      "teamB": {
+        "code": "ENG",
+        "name": "England"
+      },
+      "venue": "venue-2",
+      "stage": "Group Stage",
+      "group": "A vs B",
+      "matchType": "ODI",
+      "status": "scheduled"
+    },
+    {
+      "matchId": "wc2026-003",
+      "matchNumber": 3,
+      "date": "2026-02-09",
+      "time": "09:30",
+      "timezone": "UTC",
+      "teamA": {
+        "code": "SA",
+        "name": "South Africa"
+      },
+      "teamB": {
+        "code": "NZ",
+        "name": "New Zealand"
+      },
+      "venue": "venue-3",
+      "stage": "Group Stage",
+      "group": "A vs B",
+      "matchType": "ODI",
+      "status": "scheduled"
+    },
+    {
+      "matchId": "wc2026-004",
+      "matchNumber": 4,
+      "date": "2026-02-10",
+      "time": "09:30",
+      "timezone": "UTC",
+      "teamA": {
+        "code": "SL",
+        "name": "Sri Lanka"
+      },
+      "teamB": {
+        "code": "BAN",
+        "name": "Bangladesh"
+      },
+      "venue": "venue-5",
+      "stage": "Group Stage",
+      "group": "A vs B",
+      "matchType": "ODI",
+      "status": "scheduled"
+    },
+    {
+      "matchId": "wc2026-005",
+      "matchNumber": 5,
+      "date": "2026-02-11",
+      "time": "09:30",
+      "timezone": "UTC",
+      "teamA": {
+        "code": "WI",
+        "name": "West Indies"
+      },
+      "teamB": {
+        "code": "AFG",
+        "name": "Afghanistan"
+      },
+      "venue": "venue-4",
+      "stage": "Group Stage",
+      "group": "B vs A",
+      "matchType": "ODI",
+      "status": "scheduled"
+    },
+    {
+      "matchId": "wc2026-006",
+      "matchNumber": 6,
+      "date": "2026-02-13",
+      "time": "09:30",
+      "timezone": "UTC",
+      "teamA": {
+        "code": "IND",
+        "name": "India"
+      },
+      "teamB": {
+        "code": "AUS",
+        "name": "Australia"
+      },
+      "venue": "venue-1",
+      "stage": "Group Stage",
+      "group": "A",
+      "matchType": "ODI",
+      "status": "scheduled"
+    },
+    {
+      "matchId": "wc2026-007",
+      "matchNumber": 7,
+      "date": "2026-02-14",
+      "time": "09:30",
+      "timezone": "UTC",
+      "teamA": {
+        "code": "PAK",
+        "name": "Pakistan"
+      },
+      "teamB": {
+        "code": "ENG",
+        "name": "England"
+      },
+      "venue": "venue-6",
+      "stage": "Group Stage",
+      "group": "B",
+      "matchType": "ODI",
+      "status": "scheduled"
+    },
+    {
+      "matchId": "wc2026-008",
+      "matchNumber": 8,
+      "date": "2026-02-15",
+      "time": "09:30",
+      "timezone": "UTC",
+      "teamA": {
+        "code": "SA",
+        "name": "South Africa"
+      },
+      "teamB": {
+        "code": "SL",
+        "name": "Sri Lanka"
+      },
+      "venue": "venue-3",
+      "stage": "Group Stage",
+      "group": "A",
+      "matchType": "ODI",
+      "status": "scheduled"
+    },
+    {
+      "matchId": "wc2026-sf1",
+      "matchNumber": 45,
+      "date": "2026-03-11",
+      "time": "09:30",
+      "timezone": "UTC",
+      "teamA": {
+        "code": "TBD",
+        "name": "Winner Group A"
+      },
+      "teamB": {
+        "code": "TBD",
+        "name": "Runner-up Group B"
+      },
+      "venue": "venue-2",
+      "stage": "Semi Final",
+      "group": null,
+      "matchType": "ODI",
+      "status": "scheduled"
+    },
+    {
+      "matchId": "wc2026-sf2",
+      "matchNumber": 46,
+      "date": "2026-03-12",
+      "time": "09:30",
+      "timezone": "UTC",
+      "teamA": {
+        "code": "TBD",
+        "name": "Winner Group B"
+      },
+      "teamB": {
+        "code": "TBD",
+        "name": "Runner-up Group A"
+      },
+      "venue": "venue-3",
+      "stage": "Semi Final",
+      "group": null,
+      "matchType": "ODI",
+      "status": "scheduled"
+    },
+    {
+      "matchId": "wc2026-final",
+      "matchNumber": 48,
+      "date": "2026-03-15",
+      "time": "09:30",
+      "timezone": "UTC",
+      "teamA": {
+        "code": "TBD",
+        "name": "Winner SF1"
+      },
+      "teamB": {
+        "code": "TBD",
+        "name": "Winner SF2"
+      },
+      "venue": "venue-1",
+      "stage": "Final",
+      "group": null,
+      "matchType": "ODI",
+      "status": "scheduled"
+    }
+  ]
+}
