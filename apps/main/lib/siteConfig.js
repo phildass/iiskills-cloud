@@ -30,7 +30,7 @@ export const SITES = {
     subdomain: 'learn-chemistry'
   },
   'learn-cricket': {
-    name: 'Learn Cricket',
+    name: 'Cricket University',
     url: 'https://app1.learn-cricket.iiskills.cloud',
     slug: 'learn-cricket',
     subdomain: 'learn-cricket'

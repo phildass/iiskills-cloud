@@ -2,7 +2,7 @@
   "name": "learn-cricket",
   "version": "1.0.0",
   "private": true,
-  "description": "Learn Cricket - Cricket Know-All",
+  "description": "Cricket University - Everything you want to know. Live on your phone! Free!",
   "scripts": {
     "dev": "next dev -p 3009",
     "build": "next build",

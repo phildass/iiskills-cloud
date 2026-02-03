@@ -92,7 +92,7 @@ export default function AdminSetup() {
     return (
       <>
         <Head>
-          <title>Admin Setup Complete - Learn Cricket</title>
+          <title>Admin Setup Complete - Cricket University</title>
         </Head>
         <div className="min-h-screen bg-gray-50 flex items-center justify-center">
           <div className="max-w-md w-full bg-white rounded-lg shadow-lg p-8">
@@ -122,7 +122,7 @@ export default function AdminSetup() {
   return (
     <>
       <Head>
-        <title>Admin Setup - Learn Cricket</title>
+        <title>Admin Setup - Cricket University</title>
         <meta name="robots" content="noindex, nofollow" />
       </Head>
 
