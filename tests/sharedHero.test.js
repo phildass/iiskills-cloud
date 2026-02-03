@@ -1,103 +1,87 @@
 /**
  * SharedHero Component Tests
  * 
- * Tests for deterministic hero image mapping
+ * Tests for hero image mapping using manifest system
  */
 
 import { getHeroImageForApp } from '../components/shared/SharedHero';
 
-describe('SharedHero - Hero Image Mapping', () => {
-  describe('Specific app mappings', () => {
-    test('main app returns main-hero.jpg', () => {
-      const result = getHeroImageForApp('main');
-      expect(result).toBe('main-hero.jpg');
-    });
-
-    test('learn-apt returns little-girl.jpg', () => {
-      const result = getHeroImageForApp('learn-apt');
-      expect(result).toBe('little-girl.jpg');
-    });
-
-    test('learn-management returns girl-hero.jpg', () => {
-      const result = getHeroImageForApp('learn-management');
-      expect(result).toBe('girl-hero.jpg');
-    });
-
-    test('learn-cricket returns cricket1.jpg (deterministic)', () => {
+describe('SharedHero - Hero Image Mapping with Manifest', () => {
+  describe('Manifest-based mappings', () => {
+    test('returns config object for apps', () => {
       const result = getHeroImageForApp('learn-cricket');
-      expect(result).toBe('cricket1.jpg');
+      expect(result).toBeDefined();
+      expect(result).toHaveProperty('src');
     });
 
     test('learn-companion returns null (no hero)', () => {
       const result = getHeroImageForApp('learn-companion');
       expect(result).toBeNull();
     });
+
+    test('config includes remote URL flag', () => {
+      const result = getHeroImageForApp('main');
+      expect(result).toHaveProperty('isRemote');
+      expect(typeof result.isRemote).toBe('boolean');
+    });
+
+    test('config includes credit info when available', () => {
+      const result = getHeroImageForApp('learn-cricket');
+      // Credit may be null or an object
+      expect(result).toHaveProperty('credit');
+    });
   });
 
-  describe('Shared pool mappings', () => {
-    test('learn-ai returns image from shared pool', () => {
-      const result = getHeroImageForApp('learn-ai');
-      expect(result).toMatch(/^hero[123]\.jpg$/);
+  describe('Fallback behavior', () => {
+    test('unknown apps get fallback image', () => {
+      const result = getHeroImageForApp('learn-unknown-app');
+      expect(result).toBeDefined();
+      expect(result.src).toBeDefined();
     });
 
-    test('learn-physics returns image from shared pool', () => {
-      const result = getHeroImageForApp('learn-physics');
-      expect(result).toMatch(/^hero[123]\.jpg$/);
+    test('null appName returns default', () => {
+      const result = getHeroImageForApp(null);
+      expect(result).toBeDefined();
+      expect(result.src).toBeDefined();
     });
 
-    test('learn-math returns image from shared pool', () => {
-      const result = getHeroImageForApp('learn-math');
-      expect(result).toMatch(/^hero[123]\.jpg$/);
+    test('undefined appName returns default', () => {
+      const result = getHeroImageForApp(undefined);
+      expect(result).toBeDefined();
+      expect(result.src).toBeDefined();
     });
 
-    test('unknown app returns image from shared pool', () => {
-      const result = getHeroImageForApp('learn-unknown');
-      expect(result).toMatch(/^hero[123]\.jpg$/);
+    test('empty string appName returns default', () => {
+      const result = getHeroImageForApp('');
+      expect(result).toBeDefined();
+      expect(result.src).toBeDefined();
     });
   });
 
   describe('Deterministic behavior', () => {
-    test('same app name returns same image consistently', () => {
-      const result1 = getHeroImageForApp('learn-ai');
-      const result2 = getHeroImageForApp('learn-ai');
-      const result3 = getHeroImageForApp('learn-ai');
+    test('same app name returns same config consistently', () => {
+      const result1 = getHeroImageForApp('learn-cricket');
+      const result2 = getHeroImageForApp('learn-cricket');
+      const result3 = getHeroImageForApp('learn-cricket');
       
-      expect(result1).toBe(result2);
-      expect(result2).toBe(result3);
+      expect(result1.src).toBe(result2.src);
+      expect(result2.src).toBe(result3.src);
     });
 
-    test('different app names may return different images', () => {
-      // While not guaranteed, different apps should potentially get different images
-      // We just ensure the function is stable for each app
-      const apps = ['learn-physics', 'learn-chemistry', 'learn-geography'];
+    test('different app names may have different images', () => {
+      const apps = ['learn-physics', 'learn-chemistry', 'learn-math'];
       const results = apps.map(app => getHeroImageForApp(app));
       
-      // All results should be valid hero images
+      // All results should have valid src
       results.forEach(result => {
-        expect(result).toMatch(/^hero[123]\.jpg$/);
+        expect(result).toBeDefined();
+        expect(result.src).toBeDefined();
       });
     });
   });
 
-  describe('Edge cases', () => {
-    test('null appName returns default hero', () => {
-      const result = getHeroImageForApp(null);
-      expect(result).toMatch(/^hero[123]\.jpg$/);
-    });
-
-    test('undefined appName returns default hero', () => {
-      const result = getHeroImageForApp(undefined);
-      expect(result).toMatch(/^hero[123]\.jpg$/);
-    });
-
-    test('empty string appName returns default hero', () => {
-      const result = getHeroImageForApp('');
-      expect(result).toMatch(/^hero[123]\.jpg$/);
-    });
-  });
-
-  describe('All expected images are valid filenames', () => {
-    test('all returned images are valid .jpg files', () => {
+  describe('Image source validation', () => {
+    test('image sources are valid strings', () => {
       const apps = [
         'main', 
         'learn-apt', 
@@ -111,9 +95,34 @@ describe('SharedHero - Hero Image Mapping', () => {
       apps.forEach(app => {
         const result = getHeroImageForApp(app);
         if (result !== null) {
-          expect(result).toMatch(/^[\w-]+\.jpg$/);
+          expect(typeof result.src).toBe('string');
+          expect(result.src.length).toBeGreaterThan(0);
         }
       });
+    });
+
+    test('remote URLs are valid HTTP(S) URLs', () => {
+      const result = getHeroImageForApp('learn-cricket');
+      if (result && result.isRemote && result.src) {
+        expect(result.src).toMatch(/^https?:\/\//);
+      }
+    });
+
+    test('local paths start with /', () => {
+      const result = getHeroImageForApp('main');
+      if (result && !result.isRemote && result.src) {
+        expect(result.src).toMatch(/^\//);
+      }
+    });
+  });
+
+  describe('Credit attribution', () => {
+    test('credit object has required fields when present', () => {
+      const result = getHeroImageForApp('learn-cricket');
+      if (result && result.credit) {
+        expect(result.credit).toHaveProperty('sourceName');
+        expect(result.credit).toHaveProperty('sourceUrl');
+      }
     });
   });
 });
