@@ -1,6 +1,5 @@
 import "../styles/globals.css";
 import Head from "next/head";
-import SiteHeader from "../../../components/shared/SiteHeader";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import ErrorBoundary from "../components/ErrorBoundary";
@@ -19,7 +18,6 @@ export default function App({ Component, pageProps }) {
         <link rel="apple-touch-icon" href="/images/favicon-iiskills.svg" />
       </Head>
 
-      <SiteHeader />
       <Navbar />
       <Component {...pageProps} />
       <Footer />
