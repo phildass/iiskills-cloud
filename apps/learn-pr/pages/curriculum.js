@@ -18,7 +18,9 @@ export default function Curriculum() {
       <Head>
         <title>Full Curriculum - Learn AI</title>
         <meta name="description" content="Complete AI course curriculum with 10 modules and 100 lessons" />
-      </Head><main className="min-h-screen bg-gray-50 py-12">
+      </Head>
+
+      <main className="min-h-screen bg-gray-50 py-12">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto mb-12">
             <h1 className="text-4xl font-bold mb-6">Complete AI Course Curriculum</h1>

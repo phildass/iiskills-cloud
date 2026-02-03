@@ -8,7 +8,9 @@ export default function Custom404() {
       <Head>
         <title>404 - Page Not Found | iiskills.cloud</title>
         <meta name="description" content="The page you're looking for doesn't exist." />
-      </Head><main className="min-h-screen bg-gradient-to-b from-neutral to-white flex items-center justify-center px-4 py-20">
+      </Head>
+
+      <main className="min-h-screen bg-gradient-to-b from-neutral to-white flex items-center justify-center px-4 py-20">
         <div className="max-w-2xl mx-auto text-center">
           {/* 404 Illustration */}
           <div className="text-9xl font-bold text-primary mb-6 animate-pulse">404</div>

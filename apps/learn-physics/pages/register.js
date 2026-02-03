@@ -22,7 +22,9 @@ export default function Register() {
       <Head>
         <title>Register - Learn AI</title>
         <meta name="description" content="Register for Learn AI course" />
-      </Head><main className="min-h-screen flex items-center justify-center bg-gray-50">
+      </Head>
+
+      <main className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="max-w-2xl mx-auto px-4">
           <div className="card text-center">
             <div className="mb-6">

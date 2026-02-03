@@ -83,7 +83,9 @@ export default function Onboarding() {
       <Head>
         <title>Welcome - Learn AI</title>
         <meta name="description" content="Complete your profile to get started" />
-      </Head><main className="min-h-screen bg-gray-50 py-12">
+      </Head>
+
+      <main className="min-h-screen bg-gray-50 py-12">
         <div className="container mx-auto px-4 max-w-3xl">
           <div className="card">
             <h1 className="text-3xl font-bold mb-6">Welcome to Learn AI!</h1>

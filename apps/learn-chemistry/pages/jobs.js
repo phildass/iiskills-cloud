@@ -68,7 +68,9 @@ export default function Jobs() {
       <Head>
         <title>AI Jobs in India - Learn AI</title>
         <meta name="description" content="Explore AI and ML job opportunities in India" />
-      </Head><main className="min-h-screen bg-gray-50 py-12">
+      </Head>
+
+      <main className="min-h-screen bg-gray-50 py-12">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <h1 className="text-4xl font-bold mb-4">AI Jobs in India</h1>

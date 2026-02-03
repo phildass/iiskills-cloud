@@ -176,7 +176,9 @@ export default function LessonPage() {
       <Head>
         <title>{lesson?.title} - Learn AI</title>
         <meta name="description" content={`Learn AI - Module ${moduleId}, Lesson ${lessonId}`} />
-      </Head><main className="min-h-screen bg-gray-50 py-12">
+      </Head>
+
+      <main className="min-h-screen bg-gray-50 py-12">
         <div className="container mx-auto px-4 max-w-4xl">
           <div className="mb-6">
             <button

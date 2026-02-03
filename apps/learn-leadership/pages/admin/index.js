@@ -71,7 +71,9 @@ export default function AdminPanel() {
       <Head>
         <title>Admin Panel - Learn AI</title>
         <meta name="description" content="Learn AI Admin Dashboard" />
-      </Head><main className="min-h-screen bg-gray-50 py-12">
+      </Head>
+
+      <main className="min-h-screen bg-gray-50 py-12">
         <div className="container mx-auto px-4">
           <h1 className="text-4xl font-bold mb-8">Admin Dashboard</h1>
 

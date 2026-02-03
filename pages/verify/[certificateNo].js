@@ -29,7 +29,9 @@ export default function VerifyCertificate() {
           name="description"
           content="Verify the authenticity of an iiskills.cloud certificate"
         />
-      </Head><main className="max-w-4xl mx-auto px-4 py-12">
+      </Head>
+
+      <main className="max-w-4xl mx-auto px-4 py-12">
         <h1 className="text-4xl font-bold text-primary mb-6 text-center">
           Certificate Verification
         </h1>
