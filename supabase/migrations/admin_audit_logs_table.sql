@@ -22,12 +22,19 @@ CREATE INDEX IF NOT EXISTS idx_admin_audit_logs_event_type ON public.admin_audit
 -- Enable Row Level Security
 ALTER TABLE public.admin_audit_logs ENABLE ROW LEVEL SECURITY;
 
--- Policy: Only service role can access audit logs
-CREATE POLICY "Only service role can access admin_audit_logs" 
+-- Policy: Block all regular user access
+CREATE POLICY "Block all user access to admin_audit_logs" 
   ON public.admin_audit_logs 
   USING (false);
 
--- Grant access to service role
+-- Policy: Allow service role full access
+CREATE POLICY "Allow service role access to admin_audit_logs"
+  ON public.admin_audit_logs
+  TO service_role
+  USING (true)
+  WITH CHECK (true);
+
+-- Grant explicit permissions to service role
 GRANT ALL ON public.admin_audit_logs TO service_role;
 
 -- Add comment

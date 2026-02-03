@@ -39,8 +39,10 @@ export default function AdminSetupPage() {
   }, []);
 
   const checkSetupAvailability = async () => {
-    // Check if ADMIN_SETUP_MODE is enabled
-    const setupMode = process.env.NEXT_PUBLIC_ADMIN_SETUP_MODE === 'true';
+    // Check if ADMIN_SETUP_MODE is enabled (client-side flag)
+    // Note: NEXT_PUBLIC_ env vars are embedded at build time and available in browser
+    const setupMode = typeof window !== 'undefined' && 
+                      process.env.NEXT_PUBLIC_ADMIN_SETUP_MODE === 'true';
     
     if (!setupMode) {
       console.log('Admin setup is disabled (ADMIN_SETUP_MODE not enabled)');
@@ -53,7 +55,7 @@ export default function AdminSetupPage() {
       return;
     }
 
-    // Check if admin already exists
+    // Check if admin already exists via API (server-side check)
     try {
       const response = await fetch('/api/admin/auth?action=check', {
         method: 'GET',

@@ -94,14 +94,25 @@ async function setAdminSetting(key, value) {
 async function logAuditEvent(eventType, details = {}, req = null) {
   try {
     const timestamp = new Date().toISOString();
-    const ip = req ? (req.headers['x-forwarded-for'] || req.connection?.remoteAddress || 'unknown') : 'unknown';
+    
+    // Get client IP with fallback chain for trusted proxies
+    // Note: In production, configure your reverse proxy to set these headers
+    let ip = 'unknown';
+    if (req) {
+      // Check trusted proxy headers in order of precedence
+      ip = req.headers['x-real-ip'] || 
+           req.headers['x-forwarded-for']?.split(',')[0]?.trim() || 
+           req.connection?.remoteAddress || 
+           req.socket?.remoteAddress ||
+           'unknown';
+    }
     
     const logEntry = {
       timestamp,
       event_type: eventType,
       ip_address: ip,
       user_agent: req ? req.headers['user-agent'] : 'unknown',
-      details: JSON.stringify(details),
+      details: details, // Pass as object, not stringified (jsonb column)
     };
 
     // Try to store in database
