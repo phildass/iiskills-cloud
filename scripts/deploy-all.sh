@@ -81,14 +81,14 @@ for app in "${!ports[@]}"; do
   # Retry health check up to 3 times with timeout
   success=0
   for i in {1..3}; do
-    status=$(curl -s -o /dev/null -w "%{http_code}" --connect-timeout 5 --max-time 10 http://localhost:$port 2>/dev/null || echo "000")
+    status=$(curl -s -o /dev/null -w "%{http_code}" --connect-timeout 5 --max-time 10 http://localhost:"$port" 2>/dev/null || echo "000")
     
     if [ "$status" -eq 200 ] || [ "$status" -eq 304 ]; then
       log "  ✅ $app (port $port): $status"
       success=1
       break
     else
-      if [ $i -lt 3 ]; then
+      if [ "$i" -lt 3 ]; then
         sleep 2
       fi
     fi
