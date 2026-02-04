@@ -1,0 +1,22 @@
+import '../styles/globals.css'
+
+import Head from 'next/head'
+import SiteHeader from '../../../components/shared/SiteHeader'
+import Footer from '@iiskills/ui/src/Footer'
+
+
+export default function App({ Component, pageProps }) {
+  return (
+    <>
+
+      <Head>
+        <link rel="icon" href="/images/favicon-learn-developer.svg" />
+        <link rel="apple-touch-icon" href="/images/favicon-learn-developer.svg" />
+      </Head>
+
+      <SiteHeader />
+      <Component {...pageProps} />
+      <Footer />
+    </>
+  )
+}

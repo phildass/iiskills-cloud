@@ -26,6 +26,7 @@ Here is the complete port assignment for all active applications:
 | 3021 | learn-pr | Public Relations |
 | 3022 | learn-winning | Success strategies |
 | 3023 | learn-companion | AI Life Advisor (Free) |
+| 3024 | learn-developer | Web Developer Bootcamp |
 | 9000 | webhook | Webhook service |
 
 ## How It Works
