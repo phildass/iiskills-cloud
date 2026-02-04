@@ -153,6 +153,7 @@ function logAPIUsage(matchId, source, success) {
   }
 }
 
+/**
  * Live Match API Endpoint
  * 
  * GET /api/live/[matchId]
