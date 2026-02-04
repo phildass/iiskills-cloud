@@ -11,20 +11,23 @@ export default function Home() {
       description="Get helpful life advice and master essential life skills with your AI companion. Build better habits, improve productivity, and achieve your goals."
       features={[
         {
-          "emoji": "💭",
-          "title": "AI Life Advisor",
-          "description": "Get personalized advice and actionable insights for any life situation"
+          emoji: "💭",
+          title: "AI Life Advisor",
+          description:
+            "Get personalized advice and actionable insights for any life situation",
         },
         {
-          "emoji": "🎯",
-          "title": "Goal Achievement",
-          "description": "Learn strategies to set and achieve meaningful personal and professional goals"
+          emoji: "🎯",
+          title: "Goal Achievement",
+          description:
+            "Learn strategies to set and achieve meaningful personal and professional goals",
         },
         {
-          "emoji": "🌱",
-          "title": "Personal Growth",
-          "description": "Develop essential life skills for continuous self-improvement and success"
-        }
+          emoji: "🌱",
+          title: "Personal Growth",
+          description:
+            "Develop essential life skills for continuous self-improvement and success",
+        },
       ]}
       isFree={true}
       heroGradient="from-primary to-accent"
