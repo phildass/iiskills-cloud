@@ -42,7 +42,13 @@ export function getHeroImagesForApp(appId) {
     return ['indianjpg.jpg', 'medium-shot-man-working-laptop.jpg', 'businessman-using-application.jpg'];
   }
 
-  // For other apps, randomly select at least 3 images from the pool
+  // For all other learning apps, use indianjpg.jpg as the primary hero image
+  // This ensures consistent branding across all learning platforms
+  if (appId?.startsWith('learn-')) {
+    return ['indianjpg.jpg', 'medium-shot-man-working-laptop.jpg', 'businessman-using-application.jpg'];
+  }
+
+  // Fallback: for other apps, randomly select at least 3 images from the pool
   const pool = [...DEFAULT_IMAGE_POOL];
   const selected = [];
   const numToSelect = Math.min(3, pool.length);
