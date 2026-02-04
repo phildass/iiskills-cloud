@@ -120,7 +120,7 @@ else
   
   # Record deployment in devlog
   DEVLOG="./devlog"
-  NOW=$(date --utc +"%Y-%m-%d %H:%M UTC")
+  NOW=$(date -u +"%Y-%m-%d %H:%M UTC")
   USER=$(whoami)
   COMMIT=$(git rev-parse HEAD | cut -c 1-8)
   APPS_DEPLOYED=$(printf '%s ' "${!ports[@]}" | xargs)
@@ -133,7 +133,7 @@ else
     echo "- Health check result: ${HEALTH_SUMMARY}"
     echo "- Log file: ${LOGFILE}"
     echo "- PM2 status:"
-    pm2 list
+    pm2 list 2>&1
     echo ""
   } >> "$DEVLOG"
   
