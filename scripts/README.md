@@ -37,7 +37,7 @@ Complete automated deployment script with comprehensive logging and health check
 - Logs deployment to devlog and timestamped log file
 
 **Features:**
-- Timestamped log files at `/tmp/deploy-all-{timestamp}.log`
+- Timestamped log files at `/tmp/deploy-all-YYYYMMDD-HHMMSS.log`
 - Exit on error with detailed logging (set -euo pipefail)
 - Can run in detached tmux sessions for long deployments
 - Health check retries with timeout

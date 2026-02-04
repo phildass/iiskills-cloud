@@ -6,7 +6,7 @@ set -euo pipefail
 # It can be run in a detached tmux session for long-running deployments.
 
 # Create timestamped log file
-TIMESTAMP=$(date +"%Y%m%d-%H%M%S")
+TIMESTAMP=$(date -u +"%Y%m%d-%H%M%S")
 LOGFILE="/tmp/deploy-all-${TIMESTAMP}.log"
 
 # Function to log messages to both console and log file
