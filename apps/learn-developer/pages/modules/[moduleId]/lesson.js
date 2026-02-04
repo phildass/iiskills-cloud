@@ -159,7 +159,7 @@ export default function LessonPage() {
               The Lesson: Deep Dive
             </h2>
             <div className="prose max-w-none">
-              {module.lesson.split('\n\n').map((paragraph, index) => (
+              {(module.lesson || module.deepDive || '').split('\n\n').map((paragraph, index) => (
                 <p key={index} className="mb-4 text-gray-700 leading-relaxed">
                   {paragraph}
                 </p>
@@ -173,16 +173,18 @@ export default function LessonPage() {
               <span className="mr-2">💻</span>
               The Code Lab: Clean Code Example
             </h2>
-            <div className="bg-gray-100 p-4 rounded-lg mb-4">
-              <p className="text-sm text-gray-600 mb-2">
-                <strong>Language:</strong> {module.codeExample.language}
-              </p>
-              <p className="text-sm text-gray-600">
-                <strong>Description:</strong> {module.codeExample.description}
-              </p>
-            </div>
+            {typeof module.codeExample === 'object' && module.codeExample.language && (
+              <div className="bg-gray-100 p-4 rounded-lg mb-4">
+                <p className="text-sm text-gray-600 mb-2">
+                  <strong>Language:</strong> {module.codeExample.language}
+                </p>
+                <p className="text-sm text-gray-600">
+                  <strong>Description:</strong> {module.codeExample.description}
+                </p>
+              </div>
+            )}
             <pre className="bg-gray-900 text-gray-100 p-6 rounded-lg overflow-x-auto">
-              <code>{module.codeExample.code}</code>
+              <code>{typeof module.codeExample === 'object' ? module.codeExample.code : module.codeExample}</code>
             </pre>
           </div>
 

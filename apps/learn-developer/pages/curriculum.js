@@ -61,21 +61,21 @@ export default function Curriculum() {
               {modules.map((module, index) => (
                 <div key={module.id} className="card hover:shadow-xl transition-shadow duration-300">
                   <div className="flex items-center justify-between mb-4">
-                    <span className="text-3xl">{module.emoji}</span>
+                    <span className="text-3xl">{module.emoji || '📘'}</span>
                     <span className="text-sm font-semibold text-blue-600 bg-blue-50 px-3 py-1 rounded-full">
                       Module {index + 1}
                     </span>
                   </div>
                   <h3 className="text-xl font-bold mb-2">{module.title}</h3>
-                  <p className="text-gray-600 text-sm mb-4">{module.description}</p>
+                  <p className="text-gray-600 text-sm mb-4">{module.description || 'Learn essential web development concepts'}</p>
                   <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
-                    <span>⏱️ {module.duration}</span>
+                    <span>⏱️ {module.duration || '30-45 mins'}</span>
                     <span className={`px-2 py-1 rounded ${
-                      module.difficulty === 'Beginner' ? 'bg-green-100 text-green-700' :
-                      module.difficulty === 'Intermediate' ? 'bg-yellow-100 text-yellow-700' :
+                      (module.difficulty || 'Beginner') === 'Beginner' ? 'bg-green-100 text-green-700' :
+                      (module.difficulty || 'Beginner') === 'Intermediate' ? 'bg-yellow-100 text-yellow-700' :
                       'bg-red-100 text-red-700'
                     }`}>
-                      {module.difficulty}
+                      {module.difficulty || 'Beginner'}
                     </span>
                   </div>
                   <Link 
