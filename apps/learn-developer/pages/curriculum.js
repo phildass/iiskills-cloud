@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
-import Footer from '../components/Footer';
 import { curriculumData } from '../lib/curriculumData';
 
 export default function Curriculum() {
@@ -80,7 +79,7 @@ export default function Curriculum() {
                   </div>
                   <Link 
                     href={`/modules/${module.id}/lesson`}
-                    className="block w-full text-center bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-200"
+                    className="block w-full text-center btn-primary"
                   >
                     Start Module
                   </Link>
@@ -114,8 +113,6 @@ export default function Curriculum() {
           </div>
         </div>
       </main>
-
-      <Footer />
     </>
   );
 }
