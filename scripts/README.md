@@ -24,6 +24,82 @@ npm run seed:ai-content
 
 ### Deployment & Validation
 
+#### deploy-all.sh
+
+Complete automated deployment script with comprehensive logging and health checks.
+
+**What it does:**
+- Pulls latest code from origin/main
+- Installs dependencies with yarn
+- Runs pre-deployment checks (builds all apps)
+- Restarts all PM2 processes
+- Performs health checks on all 13 applications
+- Logs deployment to devlog and timestamped log file
+
+**Features:**
+- Timestamped log files at `/tmp/deploy-all-YYYYMMDD-HHMMSS.log`
+- Exit on error with detailed logging (set -euo pipefail)
+- Can run in detached tmux sessions for long deployments
+- Health check retries with timeout
+- Comprehensive status reporting
+
+**Usage:**
+
+```bash
+# Simple deployment from repository root
+./scripts/deploy-all.sh
+
+# Run in detached tmux session for production deployments
+tmux new-session -d -s deploy './scripts/deploy-all.sh'
+
+# Monitor the deployment
+tmux attach -t deploy
+
+# Or check the log file (find latest)
+tail -f /tmp/deploy-all-*.log
+
+# Detach from tmux session without stopping it
+# Press: Ctrl+b, then d
+```
+
+**Detached Tmux Workflow (Recommended for Production):**
+
+This workflow allows deployment to continue even if SSH connection drops:
+
+```bash
+# 1. Start deployment in detached tmux session
+tmux new-session -d -s deploy './scripts/deploy-all.sh'
+
+# 2. Check if session is running
+tmux list-sessions
+
+# 3. Attach to watch progress (optional)
+tmux attach -t deploy
+
+# 4. Detach without stopping (Ctrl+b, then d)
+# or close your terminal - deployment continues
+
+# 5. Re-attach later to check status
+tmux attach -t deploy
+
+# 6. View log file at any time
+LOG_FILE=$(ls -t /tmp/deploy-all-*.log | head -1)
+tail -f "$LOG_FILE"
+
+# 7. Kill session when done (if needed)
+tmux kill-session -t deploy
+```
+
+**Output:**
+- Creates `/tmp/deploy-all-YYYYMMDD-HHMMSS.log` with full deployment log
+- Appends deployment record to `./devlog`
+- Returns exit code 0 on success, 1 on failure
+
+**Prerequisites:**
+- Must be run from repository root
+- Requires PM2 to be configured
+- All apps must be in ecosystem.config.js
+
 ### audit-apps.sh
 
 Scans the `apps/` directory and creates an audit file (`apps_audit.txt`) listing any missing expected files or directories.
