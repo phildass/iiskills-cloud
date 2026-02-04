@@ -37,6 +37,11 @@ export function getHeroImagesForApp(appId) {
     return ['cricket1.jpg', 'cricket2.jpg'];
   }
 
+  // Special case: learn-developer uses indianjpg.jpg
+  if (appId === 'learn-developer') {
+    return ['indianjpg.jpg', 'medium-shot-man-working-laptop.jpg', 'businessman-using-application.jpg'];
+  }
+
   // For other apps, randomly select at least 3 images from the pool
   const pool = [...DEFAULT_IMAGE_POOL];
   const selected = [];

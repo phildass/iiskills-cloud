@@ -6,39 +6,54 @@ export default function Home() {
   return (
     <UniversalLandingPage
       appId="learn-developer"
-      appName="Web Developer Bootcamp"
-      title="Web Developer Bootcamp - Become a Proficient Web Developer | iiskills.cloud"
-      description="Master web development from HTML to deployment. Learn React, Node.js, databases, and DevOps. Build apps that can make you reap big!"
+      appName="Master Web & App Development - Your Gateway to Millions"
+      title="Web Developer Bootcamp - Your Gateway to Millions | iiskills.cloud"
+      description="Transform your future with professional web and app development skills. In today's digital economy, developers are in unprecedented demand - with millions of websites and apps being built daily, this is your pathway to unlimited earning potential and career freedom."
       features={[
+  {
+    "emoji": "💰",
+    "title": "Gateway to Millions",
+    "description": "Join the high-demand field where developers earn 6-figure salaries and freelancers charge premium rates for websites and apps"
+  },
   {
     "emoji": "🌐",
     "title": "Full-Stack Mastery",
-    "description": "Learn frontend and backend development from scratch"
+    "description": "Master both frontend and backend development - become the complete developer that companies desperately need"
   },
   {
     "emoji": "⚛️",
     "title": "Modern Technologies",
-    "description": "React, Node.js, Express, SQL, NoSQL, and more"
+    "description": "Learn React, Node.js, Express, SQL, NoSQL, and the latest tools that power today's successful web applications"
   },
   {
     "emoji": "🚀",
-    "title": "Deploy with Confidence",
-    "description": "Master deployment, JWT security, and CI/CD pipelines"
+    "title": "Production-Ready Skills",
+    "description": "Master deployment, security, JWT authentication, and CI/CD pipelines - build apps that scale to millions of users"
+  },
+  {
+    "emoji": "📱",
+    "title": "Build Real Apps",
+    "description": "Create responsive websites and mobile-ready applications that solve real problems and generate real income"
+  },
+  {
+    "emoji": "💼",
+    "title": "Career Transformation",
+    "description": "Whether starting fresh or pivoting careers, this course gives you the exact skills that top companies hire for"
   },
   {
     "emoji": "🎯",
-    "title": "Rapid-Fire Testing",
-    "description": "Test your knowledge with instant feedback quizzes"
+    "title": "Project-Based Learning",
+    "description": "Build a professional portfolio with real-world projects that demonstrate your expertise to employers and clients"
   },
   {
     "emoji": "🏆",
-    "title": "Earn Certificates",
-    "description": "Get certified on completion or honors for excellence"
+    "title": "Professional Certification",
+    "description": "Earn industry-recognized certificates that validate your skills and boost your credibility in the job market"
   },
   {
-    "emoji": "💻",
-    "title": "Clean Code Labs",
-    "description": "Learn with practical, industry-standard code examples"
+    "emoji": "⚡",
+    "title": "Lifetime Access",
+    "description": "One-time investment for lifetime access to all course materials, updates, and new technologies as they emerge"
   }
 ]}
       isFree={false}
