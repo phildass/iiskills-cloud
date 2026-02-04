@@ -157,6 +157,15 @@ echo "📦 STEP 2: Installing dependencies..."
 yarn install
 echo ""
 
+# Step 2.5: Load learn-cricket secret
+echo "🔑 STEP 2.5: Loading learn-cricket secret..."
+if ./scripts/load-cricket-secret.sh 2>&1 | tee -a "${LOG_FILE}"; then
+    echo "Loaded learn-cricket secret" | tee -a "${LOG_FILE}"
+else
+    echo "Warning: learn-cricket secret not found; continuing without it" | tee -a "${LOG_FILE}"
+fi
+echo ""
+
 # Step 3: Run pre-deployment check (build all apps)
 echo "🧪 STEP 3: Running pre-deployment checks..."
 if [ -f "./scripts/pre-deploy-check.sh" ]; then
