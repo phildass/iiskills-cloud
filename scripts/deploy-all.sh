@@ -157,6 +157,20 @@ echo "📦 STEP 2: Installing dependencies..."
 yarn install
 echo ""
 
+# Step 2.5: Load Learn Cricket secret
+echo "🔐 STEP 2.5: Loading Learn Cricket API secret..."
+if [ -f "./scripts/load-cricket-secret.sh" ]; then
+    if ./scripts/load-cricket-secret.sh; then
+        echo "✅ Cricket secret loaded successfully"
+    else
+        echo "⚠️  Warning: Cricket secret loader returned non-zero, continuing anyway"
+        echo "   The Learn Cricket app may not have API credentials during build."
+    fi
+else
+    echo "⚠️  Warning: load-cricket-secret.sh not found, skipping"
+fi
+echo ""
+
 # Step 3: Run pre-deployment check (build all apps)
 echo "🧪 STEP 3: Running pre-deployment checks..."
 if [ -f "./scripts/pre-deploy-check.sh" ]; then
