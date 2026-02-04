@@ -6,6 +6,11 @@
 # the entire iiskills-cloud monorepo. It runs a full deployment flow in a
 # tmux session that you can attach to monitor progress.
 #
+# Requirements:
+#   - Bash 4.0+ (for associative arrays)
+#   - tmux
+#   - PM2 (for process management)
+#
 # Usage:
 #   ./scripts/deploy-all.sh
 #
@@ -23,6 +28,14 @@
 #
 
 set -e
+
+# Check Bash version (require 4.0+ for associative arrays)
+if [ "${BASH_VERSINFO[0]}" -lt 4 ]; then
+    echo "❌ ERROR: This script requires Bash 4.0 or higher"
+    echo "   Current version: ${BASH_VERSION}"
+    echo "   Please upgrade Bash or use a system with Bash 4+"
+    exit 1
+fi
 
 # Configuration
 SESSION_NAME="deploy_all"
@@ -59,21 +72,24 @@ fi
 echo "🚀 Starting detached deployment in tmux session..."
 echo ""
 
-# Create the deployment script that will run inside tmux
-DEPLOY_SCRIPT=$(cat <<'DEPLOY_EOF'
-#!/bin/bash
+# Create and start the tmux session with inline deployment script
+# Variables are expanded at creation time, and pipe-pane captures all output
+tmux new-session -d -s "${SESSION_NAME}" bash <<EOF
 set -e
+
+# Redirect all output to log file
+exec > >(tee -a "${LOG_FILE}") 2>&1
 
 # Header
 echo "============================================"
 echo "  IISKILLS-CLOUD DEPLOYMENT"
-echo "  Started: $(date)"
+echo "  Started: \$(date)"
 echo "============================================"
 echo ""
 
 # Navigate to project root
 cd "${PROJECT_ROOT}"
-echo "📂 Working directory: $(pwd)"
+echo "📂 Working directory: \$(pwd)"
 echo ""
 
 # Step 1: Pull latest code
@@ -142,27 +158,27 @@ declare -A ports=(
   ["learn-winning"]="3022"
 )
 
-for app in "${!ports[@]}"; do
-  port="${ports[$app]}"
+for app in "\${!ports[@]}"; do
+  port="\${ports[\$app]}"
   
   # Retry health check up to 3 times with timeout
   success=0
   for i in {1..3}; do
-    status=$(curl -s -o /dev/null -w "%{http_code}" --connect-timeout 5 --max-time 10 http://localhost:$port 2>/dev/null || echo "000")
+    status=\$(curl -s -o /dev/null -w "%{http_code}" --connect-timeout 5 --max-time 10 http://localhost:\$port 2>/dev/null || echo "000")
     
-    if [ "$status" -eq 200 ] || [ "$status" -eq 304 ]; then
-      echo "  ✅ $app (port $port): $status"
+    if [ "\$status" -eq 200 ] || [ "\$status" -eq 304 ]; then
+      echo "  ✅ \$app (port \$port): \$status"
       success=1
       break
     else
-      if [ $i -lt 3 ]; then
+      if [ \$i -lt 3 ]; then
         sleep 2
       fi
     fi
   done
   
-  if [ $success -eq 0 ]; then
-    echo "  ❌ $app (port $port): $status - UNHEALTHY!"
+  if [ \$success -eq 0 ]; then
+    echo "  ❌ \$app (port \$port): \$status - UNHEALTHY!"
     HEALTH_FAILED=1
   fi
 done
@@ -171,7 +187,7 @@ echo ""
 
 # Final status
 echo "============================================"
-if [ $HEALTH_FAILED -eq 1 ]; then
+if [ \$HEALTH_FAILED -eq 1 ]; then
   echo "⚠️  DEPLOYMENT COMPLETED WITH WARNINGS"
   echo "   Some apps are unhealthy - check logs:"
   echo "   pm2 logs --lines 50"
@@ -184,23 +200,15 @@ else
   EXIT_CODE=0
 fi
 echo ""
-echo "Completed: $(date)"
+echo "Completed: \$(date)"
 echo "Log saved to: ${LOG_FILE}"
 echo "============================================"
+echo ""
+echo "Press Enter to close this tmux session..."
+read
 
-exit $EXIT_CODE
-DEPLOY_EOF
-)
-
-# Create and start the tmux session with the deployment script
-tmux new-session -d -s "${SESSION_NAME}" "
-    export PROJECT_ROOT='${PROJECT_ROOT}';
-    export LOG_FILE='${LOG_FILE}';
-    ${DEPLOY_SCRIPT}
-    echo '';
-    echo 'Press Enter to close this tmux session...';
-    read;
-" 2>&1 | tee "${LOG_FILE}"
+exit \$EXIT_CODE
+EOF
 
 # Give tmux a moment to start
 sleep 1
