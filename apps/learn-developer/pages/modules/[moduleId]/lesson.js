@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Link from 'next/link';
-import Footer from '../../../components/Footer';
 import RapidFireQuiz from '../../../components/RapidFireQuiz';
 import { curriculumData } from '../../../lib/curriculumData';
 import { getCurrentUser } from '../../../lib/supabaseClient';
@@ -87,7 +86,6 @@ export default function LessonPage() {
             <p className="mt-4 text-gray-600">Loading module...</p>
           </div>
         </div>
-        <Footer />
       </>
     );
   }
@@ -103,7 +101,6 @@ export default function LessonPage() {
             </Link>
           </div>
         </div>
-        <Footer />
       </>
     );
   }
@@ -240,8 +237,6 @@ export default function LessonPage() {
           )}
         </div>
       </main>
-
-      <Footer />
     </>
   );
 }
