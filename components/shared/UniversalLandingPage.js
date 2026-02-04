@@ -58,8 +58,8 @@ export default function UniversalLandingPage({
 
       <main className="min-h-screen">
         {/* Hero Section with Full-Size Background */}
-        <Hero appId={appId} className="md:h-[80vh] lg:h-[90vh]">
-          <div className="text-white space-y-6 max-w-4xl">
+        <Hero appId={appId} className="h-[70vh] md:h-[80vh] lg:h-[90vh]">
+          <div className="text-center text-white space-y-6 max-w-4xl mx-auto">
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight">
               {appName}
             </h1>
