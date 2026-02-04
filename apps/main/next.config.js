@@ -2,11 +2,6 @@
 const nextConfig = {
   reactStrictMode: true,
 
-  // Turbopack configuration removed to prevent build hangs
-  // turbopack: {
-  //   root: path.resolve(__dirname, "../.."),
-  // },
-
   async rewrites() {
     return [
       // Rewrite admin subdomain to /admin routes
