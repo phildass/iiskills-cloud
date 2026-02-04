@@ -37,12 +37,7 @@ export function getHeroImagesForApp(appId) {
     return ['cricket1.jpg', 'cricket2.jpg'];
   }
 
-  // Special case: learn-developer uses indianjpg.jpg
-  if (appId === 'learn-developer') {
-    return ['indianjpg.jpg', 'medium-shot-man-working-laptop.jpg', 'businessman-using-application.jpg'];
-  }
-
-  // For all other learning apps, use indianjpg.jpg as the primary hero image
+  // For all learning apps (except cricket), use indianjpg.jpg as the primary hero image
   // This ensures consistent branding across all learning platforms
   if (appId?.startsWith('learn-')) {
     return ['indianjpg.jpg', 'medium-shot-man-working-laptop.jpg', 'businessman-using-application.jpg'];
