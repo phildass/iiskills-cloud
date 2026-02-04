@@ -823,6 +823,51 @@ This script will:
 4. Restart PM2
 5. Health check all apps
 
+### Detached Tmux Deployment (Recommended for Remote Servers)
+
+For long-running deployments on remote servers, use the detached tmux workflow:
+
+```bash
+cd ~/iiskills-cloud
+./scripts/deploy-all.sh
+```
+
+**Benefits:**
+- ✅ Runs deployment in a detached tmux session
+- ✅ Safe from SSH disconnections
+- ✅ Can monitor progress anytime
+- ✅ Full deployment logs saved to `/tmp/deploy-all-{timestamp}.log`
+
+**Monitor the deployment:**
+```bash
+# Attach to the running deployment session
+tmux attach-session -t deploy_all
+
+# Detach without stopping (press these keys)
+# Ctrl+b, then d
+```
+
+**View logs:**
+```bash
+# List available log files
+ls -lt /tmp/deploy-all-*.log | head -5
+
+# Tail the latest log
+tail -f /tmp/deploy-all-*.log
+```
+
+**Troubleshooting:**
+```bash
+# List all tmux sessions
+tmux list-sessions
+
+# Kill a stuck session
+tmux kill-session -t deploy_all
+
+# Re-run deployment
+./scripts/deploy-all.sh
+```
+
 ### Manual Deployment
 
 If you need to deploy manually:
