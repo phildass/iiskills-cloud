@@ -42,6 +42,11 @@ export function getHeroImagesForApp(appId) {
     return ['indianjpg.jpg', 'medium-shot-man-working-laptop.jpg', 'businessman-using-application.jpg'];
   }
 
+  // Special case: learn-companion uses indianjpg.jpg
+  if (appId === 'learn-companion') {
+    return ['indianjpg.jpg', 'group-three-indian-ethnicity-friendship-togetherness-mans-technology-leisure-guys-with-phone.jpg'];
+  }
+
   // For other apps, randomly select at least 3 images from the pool
   const pool = [...DEFAULT_IMAGE_POOL];
   const selected = [];
