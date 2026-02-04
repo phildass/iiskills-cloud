@@ -43,13 +43,20 @@ fi
 
 # Copy secret file to target location
 echo "   Copying secret file..."
-cp "$SECRET_FILE" "$TARGET_FILE"
+if ! cp "$SECRET_FILE" "$TARGET_FILE"; then
+  echo "❌ ERROR: Failed to copy secret file"
+  echo "   Check permissions and disk space"
+  exit 1
+fi
 
 # Set secure permissions (owner read/write only)
-chmod 600 "$TARGET_FILE"
+if ! chmod 600 "$TARGET_FILE"; then
+  echo "⚠️  WARNING: Failed to set secure permissions on ${TARGET_FILE}"
+fi
 
 echo "✅ Secret loaded successfully"
-echo "   Permissions: $(stat -c '%a' "$TARGET_FILE" 2>/dev/null || stat -f '%A' "$TARGET_FILE" 2>/dev/null)"
+# Use ls -l for cross-platform consistency
+echo "   Permissions: $(ls -l "$TARGET_FILE" | awk '{print $1}')"
 echo ""
 
 exit 0
