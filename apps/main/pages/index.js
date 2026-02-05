@@ -45,9 +45,37 @@ export default function Home() {
           .blink-animation {
             animation: blink 2s ease-in-out infinite;
           }
+          @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+          }
+          /* Marquee uses -50% translation because content is duplicated 4 times.
+             This ensures seamless looping as the second copy moves into view. */
+          .animate-marquee {
+            display: inline-block;
+            animation: marquee 20s linear infinite;
+          }
         `}</style>
       </Head>
       <main>
+        {/* Scrolling Test Site Message */}
+        <div className="bg-yellow-400 text-black py-3 overflow-hidden relative">
+          <div className="animate-marquee whitespace-nowrap">
+            <span className="text-xl font-bold mx-4">
+              Just a test site. This will go live soon.
+            </span>
+            <span className="text-xl font-bold mx-4">
+              Just a test site. This will go live soon.
+            </span>
+            <span className="text-xl font-bold mx-4">
+              Just a test site. This will go live soon.
+            </span>
+            <span className="text-xl font-bold mx-4">
+              Just a test site. This will go live soon.
+            </span>
+          </div>
+        </div>
+
         {/* HERO SECTION: Full-size background with HeroManager */}
         <Hero appId="main" className="h-[70vh] md:h-[80vh] lg:h-[90vh]">
           <div className="text-center text-white space-y-6 max-w-4xl mx-auto">
@@ -232,7 +260,7 @@ export default function Home() {
                             🎉 Introductory Offer!
                           </p>
                           <p className="text-xs text-green-700 mt-1">
-                            Valid till Feb 28, 2026. New fees effective from Feb 29, 2026 midnight
+                            Valid till Feb 28, 2026. New fees effective from March 01, 2026
                             (₹352.82)
                           </p>
                         </div>

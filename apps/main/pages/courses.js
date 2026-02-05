@@ -1643,7 +1643,7 @@ export default function Courses() {
         <title>Courses - iiskills.cloud</title>
         <meta
           name="description"
-          content="Explore 10 available professional and personal development courses including AI, PR, Leadership, Management, and more. 50+ courses being developed. Many free courses available!"
+          content="Courses available from Feb 10: 5 free and 9 paid. Introductory price of Rs 99 (plus GST Rs 17.82) valid till Feb 28th. Professional and personal development courses."
         />
       </Head>
 
@@ -1651,11 +1651,21 @@ export default function Courses() {
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-primary mb-4">Our Courses</h1>
           <p className="text-xl text-charcoal mb-2">Professional Skills Development for Everyone</p>
+          
+          {/* Test Site Notice */}
+          <div className="bg-yellow-100 border-2 border-yellow-400 text-yellow-900 rounded-lg p-4 mb-4 mx-auto max-w-2xl">
+            <p className="text-lg font-bold">⚠️ This is just a test page</p>
+            <p className="text-base">Courses are currently not available</p>
+          </div>
+          
           <p className="text-lg font-semibold text-primary mb-2">
-            Courses available: 10
+            Courses available from Feb 10: 5 free and 9 paid
           </p>
           <p className="text-sm text-orange-600 font-semibold mb-4">
-            Introductory fee only till February 15. New fees will be applicable from midnight of February 15.
+            Introductory price of ₹99 (plus GST ₹17.82) valid till Feb 28th. Total ₹116.82
+          </p>
+          <p className="text-sm text-gray-700 font-semibold mb-4">
+            New prices ₹299 + GST of ₹53.82 (Total ₹352.82) will be effective from March 01, 2026
           </p>
           <div className="mt-4 text-lg font-semibold text-accent">
             Paid courses: {pricing.totalPrice} per course
