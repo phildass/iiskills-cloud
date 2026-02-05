@@ -5,57 +5,51 @@ import { useState, useEffect } from 'react';
 
 /**
  * HeroManager:
- * - Selects at least 3 images for a workspace (random from /public/images by default)
- * - For learn-cricket: uses cricket1.jpg, cricket2.jpg (minimum 2 for cricket)
- * - Renders a full-size hero background with one image
+ * - Assigns specific images to each app (2-3 images per app)
+ * - learn-developer: uses indian.png as hero
+ * - learn-management: uses girl-hero.jpg as hero
+ * - learn-cricket: uses cricket1.jpg, cricket2.jpg, adult-man-using-laptop-bed.jpg
+ * - All other apps: unique image sets from available pool
+ * - No duplicate images across apps
+ * - Renders a full-size hero background with first image
  * - Positions overlay text at the bottom of the hero area
  */
 
 /**
- * Default pool of images available for hero selection
+ * Image assignments for each app
+ * Each app gets 2-3 images with specific requirements:
+ * - learn-developer: hero = indian.png (3 images total)
+ * - learn-management: hero = girl-hero.jpg (3 images total)
+ * - learn-cricket: cricket1.jpg, cricket2.jpg, adult-man-using-laptop-bed.jpg (3 images total)
+ * NO duplicates across any apps - each image used only once
+ * Total: 39 unique images distributed across 15 apps
  */
-const DEFAULT_IMAGE_POOL = [
-  'iiskills-image1.jpg',
-  'iiskills-image2.jpg',
-  'iiskills-image3.jpg',
-  'iiskills-image4.jpg'
-];
+const APP_IMAGE_ASSIGNMENTS = {
+  'main': ['cover3.jpg', 'main-hero.jpg', 'cover-main-hero.jpg'],
+  'learn-cricket': ['cricket1.jpg', 'cricket2.jpg', 'adult-man-using-laptop-bed.jpg'],
+  'learn-developer': ['indian.png', 'businessman-using-application.jpg', 'excited-young-woman-4.jpg'],
+  'learn-management': ['girl-hero.jpg', 'focused-young-employees-waiting-meeting-beginning.jpg', 'focused-young-office-employee-chatting-cellphone-coffee-break.jpg'],
+  'learn-ai': ['friends-sitting-few-steps-with-smartphones-tablets.jpg', 'general.jpg', 'group-business-executives-discussing-digital-tablet.jpg'],
+  'learn-math': ['group-business-executives-smiling-camera.jpg', 'group-business-executives-using-digital-tablet-mobile-pho.jpg', 'group-three-indian-ethnicity-friendship-togetherness-mans-technology-leisure-guys-with-phone.jpg'],
+  'learn-physics': ['group-three-south-asian-indian-mans-traditional-casual-wear-looking-mobile-phone (1).jpg', 'hero1.jpg', 'hero2.jpg'],
+  'learn-chemistry': ['hero3.jpg', 'iiskills-image1.jpg', 'iiskills-image2.jpg'],
+  'learn-geography': ['iiskills-image3.jpg', 'iiskills-image4.jpg', 'indian-people-celebrating-holi-with-sweet-laddu-colours-thali-colour-splash.jpg'],
+  'learn-leadership': ['indianjpg.jpg', 'little-girl.jpg'],
+  'learn-govt-jobs': ['little-girl7.jpg', 'medium-shot-man-working-laptop.jpg'],
+  'learn-pr': ['multiracial-friends-using-smartphone-against-wall-university-college-backyard-young-people.jpg', 'portrait-young-man-using-his-laptop-using-his-mobile-phone-while-sitting-coffee-shop.jpg'],
+  'learn-apt': ['schoolgirl-gestur6.jpg', 'smiling-businessman-speaking-phone-browsing-laptop.jpg'],
+  'learn-companion': ['smiling-young-2.jpg', 'surprised-young-3.jpg'],
+  'learn-winning': ['young-girl-ha5.jpg', 'young-male-with-trendy-watch-holding-cell-phone-call-while-sitting-table.jpg']
+};
 
 /**
  * Get hero images for a specific app
- * @param {string} appId - The app identifier (e.g., "learn-cricket")
- * @returns {Array<string>} Array of at least 3 image filenames (2 minimum for cricket)
+ * @param {string} appId - The app identifier (e.g., "learn-developer")
+ * @returns {Array<string>} Array of 2-3 image filenames assigned to this app
  */
 export function getHeroImagesForApp(appId) {
-  // Special case: main app uses cover3.jpg
-  if (appId === 'main') {
-    return ['cover3.jpg', 'main-hero.jpg'];
-  }
-  
-  // Special case: cricket uses specific cricket images
-  if (appId?.includes('cricket')) {
-    return ['cricket1.jpg', 'cricket2.jpg'];
-  }
-
-  // For all learning apps (except cricket), use indianjpg.jpg as the primary hero image
-  // This ensures consistent branding across all learning platforms
-  if (appId?.startsWith('learn-')) {
-    return ['indianjpg.jpg', 'medium-shot-man-working-laptop.jpg', 'businessman-using-application.jpg'];
-  }
-
-  // Fallback: for other apps, randomly select at least 3 images from the pool
-  const pool = [...DEFAULT_IMAGE_POOL];
-  const selected = [];
-  const numToSelect = Math.min(3, pool.length);
-  
-  // Select images randomly without replacement
-  for (let i = 0; i < numToSelect; i++) {
-    const idx = Math.floor(Math.random() * pool.length);
-    selected.push(pool[idx]);
-    pool.splice(idx, 1);
-  }
-  
-  return selected;
+  // Return assigned images for the app, or fallback to a default set
+  return APP_IMAGE_ASSIGNMENTS[appId] || ['hero1.jpg', 'hero2.jpg', 'hero3.jpg'];
 }
 
 /**
