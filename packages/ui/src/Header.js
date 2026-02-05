@@ -87,7 +87,7 @@ export default function Header({
 
           {/* Google Translate Widget - Multi-language support */}
           <div className="flex items-center gap-2 px-2 py-1 border-l border-gray-200">
-            <span className="text-sm text-gray-600 whitespace-nowrap hidden lg:inline" title="Language Selector">
+            <span className="text-sm text-gray-600 whitespace-nowrap hidden lg:inline" aria-label="Language Selector">
               🌐 Language | भाषा
             </span>
             <GoogleTranslate />

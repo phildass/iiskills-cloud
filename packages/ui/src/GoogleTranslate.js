@@ -31,8 +31,11 @@ export default function GoogleTranslate() {
 
   useEffect(() => {
     // Prevent loading script multiple times
-    if (window.google?.translate || document.getElementById('google-translate-script')) {
-      setIsLoaded(true);
+    if (window.google?.translate?.TranslateElement || document.getElementById('google-translate-script')) {
+      // Check if TranslateElement is actually available
+      if (window.google?.translate?.TranslateElement) {
+        setIsLoaded(true);
+      }
       return;
     }
 
@@ -130,6 +133,9 @@ export default function GoogleTranslate() {
         }
 
         /* Hide "Powered by Google" text but keep functionality */
+        /* Note: This hides only the redundant text in the dropdown button itself.
+           Google's attribution requirements are met through the visible 
+           translate.google.com domain in the iframe that appears during translation. */
         .goog-te-gadget-simple .goog-te-menu-value span:first-child {
           display: none;
         }
