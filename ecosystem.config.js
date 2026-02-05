@@ -24,7 +24,7 @@ module.exports = {
       "name": "iiskills-main",
       "cwd": path.join(__dirname, 'apps/main'),
       "script": "npx",
-      "args": "next start -p 3000",
+      "args": "next start",
       "interpreter": "none",
       "env": {
         "NODE_ENV": "production",
@@ -43,7 +43,7 @@ module.exports = {
       "name": "iiskills-learn-ai",
       "cwd": path.join(__dirname, 'apps/learn-ai'),
       "script": "npx",
-      "args": "next start -p 3024",
+      "args": "next start",
       "interpreter": "none",
       "env": {
         "NODE_ENV": "production",
@@ -62,7 +62,7 @@ module.exports = {
       "name": "iiskills-learn-apt",
       "cwd": path.join(__dirname, 'apps/learn-apt'),
       "script": "npx",
-      "args": "next start -p 3002",
+      "args": "next start",
       "interpreter": "none",
       "env": {
         "NODE_ENV": "production",
@@ -81,7 +81,7 @@ module.exports = {
       "name": "iiskills-learn-chemistry",
       "cwd": path.join(__dirname, 'apps/learn-chemistry'),
       "script": "npx",
-      "args": "next start -p 3005",
+      "args": "next start",
       "interpreter": "none",
       "env": {
         "NODE_ENV": "production",
@@ -100,7 +100,7 @@ module.exports = {
       "name": "iiskills-learn-developer",
       "cwd": path.join(__dirname, 'apps/learn-developer'),
       "script": "npx",
-      "args": "next start -p 3007",
+      "args": "next start",
       "interpreter": "none",
       "env": {
         "NODE_ENV": "production",
@@ -119,7 +119,7 @@ module.exports = {
       "name": "iiskills-learn-geography",
       "cwd": path.join(__dirname, 'apps/learn-geography'),
       "script": "npx",
-      "args": "next start -p 3011",
+      "args": "next start",
       "interpreter": "none",
       "env": {
         "NODE_ENV": "production",
@@ -138,7 +138,7 @@ module.exports = {
       "name": "iiskills-learn-govt-jobs",
       "cwd": path.join(__dirname, 'apps/learn-govt-jobs'),
       "script": "npx",
-      "args": "next start -p 3013",
+      "args": "next start",
       "interpreter": "none",
       "env": {
         "NODE_ENV": "production",
@@ -157,7 +157,7 @@ module.exports = {
       "name": "iiskills-learn-management",
       "cwd": path.join(__dirname, 'apps/learn-management'),
       "script": "npx",
-      "args": "next start -p 3016",
+      "args": "next start",
       "interpreter": "none",
       "env": {
         "NODE_ENV": "production",
@@ -176,7 +176,7 @@ module.exports = {
       "name": "iiskills-learn-math",
       "cwd": path.join(__dirname, 'apps/learn-math'),
       "script": "npx",
-      "args": "next start -p 3017",
+      "args": "next start",
       "interpreter": "none",
       "env": {
         "NODE_ENV": "production",
@@ -195,7 +195,7 @@ module.exports = {
       "name": "iiskills-learn-physics",
       "cwd": path.join(__dirname, 'apps/learn-physics'),
       "script": "npx",
-      "args": "next start -p 3020",
+      "args": "next start",
       "interpreter": "none",
       "env": {
         "NODE_ENV": "production",
@@ -214,7 +214,7 @@ module.exports = {
       "name": "iiskills-learn-pr",
       "cwd": path.join(__dirname, 'apps/learn-pr'),
       "script": "npx",
-      "args": "next start -p 3021",
+      "args": "next start",
       "interpreter": "none",
       "env": {
         "NODE_ENV": "production",
