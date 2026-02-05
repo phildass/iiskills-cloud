@@ -49,6 +49,8 @@ export default function Home() {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
           }
+          /* Marquee uses -50% translation because content is duplicated 4 times.
+             This ensures seamless looping as the second copy moves into view. */
           .animate-marquee {
             display: inline-block;
             animation: marquee 20s linear infinite;

@@ -1662,10 +1662,10 @@ export default function Courses() {
             Courses available from Feb 10: 5 free and 9 paid
           </p>
           <p className="text-sm text-orange-600 font-semibold mb-4">
-            Introductory price of Rs 99 (plus GST Rs 17.82) valid till Feb 28th. Total 116.82
+            Introductory price of ₹99 (plus GST ₹17.82) valid till Feb 28th. Total ₹116.82
           </p>
           <p className="text-sm text-gray-700 font-semibold mb-4">
-            New prices Rs 299 + GST of 53.82 (Total Rs 352.82) will be effective from March 01, 2026
+            New prices ₹299 + GST of ₹53.82 (Total ₹352.82) will be effective from March 01, 2026
           </p>
           <div className="mt-4 text-lg font-semibold text-accent">
             Paid courses: {pricing.totalPrice} per course
