@@ -92,43 +92,23 @@ module.exports = {
       time: true
     },
     
-    // Learn Companion - Your AI Life Advisor
+    // Learn Web Development - Web Developer Bootcamp
     {
-      name: 'iiskills-learn-companion',
-      cwd: path.join(__dirname, 'apps/learn-companion'),
+      name: 'iiskills-learn-developer',
+      cwd: path.join(__dirname, 'apps/learn-developer'),
       script: 'npm',
       args: 'start',
       env: {
         NODE_ENV: 'production',
-        // PORT 3023 is specified in package.json start script
+        PORT: 3001  // Reassigned to resolve conflict
       },
       instances: 1,
       autorestart: true,
       watch: false,
       max_memory_restart: '1G',
-      error_file: path.join(__dirname, 'logs', 'learn-companion-error.log'),
-      out_file: path.join(__dirname, 'logs', 'learn-companion-out.log'),
-      log_file: path.join(__dirname, 'logs', 'learn-companion-combined.log'),
-      time: true
-    },
-    
-    // Learn Cricket - Cricket Know-All
-    {
-      name: 'iiskills-learn-cricket',
-      cwd: path.join(__dirname, 'apps/learn-cricket'),
-      script: 'npm',
-      args: 'start',
-      env: {
-        NODE_ENV: 'production',
-        // PORT 3009 is specified in package.json start script
-      },
-      instances: 1,
-      autorestart: true,
-      watch: false,
-      max_memory_restart: '1G',
-      error_file: path.join(__dirname, 'logs', 'learn-cricket-error.log'),
-      out_file: path.join(__dirname, 'logs', 'learn-cricket-out.log'),
-      log_file: path.join(__dirname, 'logs', 'learn-cricket-combined.log'),
+      error_file: path.join(__dirname, 'logs', 'learn-developer-error.log'),
+      out_file: path.join(__dirname, 'logs', 'learn-developer-out.log'),
+      log_file: path.join(__dirname, 'logs', 'learn-developer-combined.log'),
       time: true
     },
     
@@ -169,26 +149,6 @@ module.exports = {
       error_file: path.join(__dirname, 'logs', 'learn-govt-jobs-error.log'),
       out_file: path.join(__dirname, 'logs', 'learn-govt-jobs-out.log'),
       log_file: path.join(__dirname, 'logs', 'learn-govt-jobs-combined.log'),
-      time: true
-    },
-    
-    // Learn Leadership - Leadership development
-    {
-      name: 'iiskills-learn-leadership',
-      cwd: path.join(__dirname, 'apps/learn-leadership'),
-      script: 'npm',
-      args: 'start',
-      env: {
-        NODE_ENV: 'production',
-        // PORT 3015 is specified in package.json start script
-      },
-      instances: 1,
-      autorestart: true,
-      watch: false,
-      max_memory_restart: '1G',
-      error_file: path.join(__dirname, 'logs', 'learn-leadership-error.log'),
-      out_file: path.join(__dirname, 'logs', 'learn-leadership-out.log'),
-      log_file: path.join(__dirname, 'logs', 'learn-leadership-combined.log'),
       time: true
     },
     
@@ -269,26 +229,6 @@ module.exports = {
       error_file: path.join(__dirname, 'logs', 'learn-pr-error.log'),
       out_file: path.join(__dirname, 'logs', 'learn-pr-out.log'),
       log_file: path.join(__dirname, 'logs', 'learn-pr-combined.log'),
-      time: true
-    },
-    
-    // Learn Winning - Success strategies
-    {
-      name: 'iiskills-learn-winning',
-      cwd: path.join(__dirname, 'apps/learn-winning'),
-      script: 'npm',
-      args: 'start',
-      env: {
-        NODE_ENV: 'production',
-        // PORT 3022 is specified in package.json start script
-      },
-      instances: 1,
-      autorestart: true,
-      watch: false,
-      max_memory_restart: '1G',
-      error_file: path.join(__dirname, 'logs', 'learn-winning-error.log'),
-      out_file: path.join(__dirname, 'logs', 'learn-winning-out.log'),
-      log_file: path.join(__dirname, 'logs', 'learn-winning-combined.log'),
       time: true
     },
     
