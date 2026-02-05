@@ -8,11 +8,13 @@ import { useState, useEffect } from 'react';
  * - Assigns specific images to each app (2-3 images per app)
  * - learn-developer: uses indian.png as hero
  * - learn-management: uses girl-hero.jpg as hero
- * - learn-cricket: uses cricket1.jpg, cricket2.jpg, adult-man-using-laptop-bed.jpg
  * - All other apps: unique image sets from available pool
  * - No duplicate images across apps
  * - Renders a full-size hero background with first image
  * - Positions overlay text at the bottom of the hero area
+ * 
+ * Note: Archived apps (learn-cricket, learn-companion, learn-leadership, learn-winning)
+ * are in apps-backup/ and are not included in this configuration.
  */
 
 /**
@@ -20,13 +22,14 @@ import { useState, useEffect } from 'react';
  * Each app gets 2-3 images with specific requirements:
  * - learn-developer: hero = indian.png (3 images total)
  * - learn-management: hero = girl-hero.jpg (3 images total)
- * - learn-cricket: cricket1.jpg, cricket2.jpg, adult-man-using-laptop-bed.jpg (3 images total)
  * NO duplicates across any apps - each image used only once
- * Total: 39 unique images distributed across 15 apps
+ * Total: 30 unique images distributed across 11 active apps
+ * 
+ * Note: Apps in apps-backup/ (learn-cricket, learn-companion, learn-leadership, learn-winning) 
+ * are archived and no longer have image assignments here.
  */
 const APP_IMAGE_ASSIGNMENTS = {
   'main': ['cover3.jpg', 'main-hero.jpg', 'cover-main-hero.jpg'],
-  'learn-cricket': ['cricket1.jpg', 'cricket2.jpg', 'adult-man-using-laptop-bed.jpg'],
   'learn-developer': ['indian.png', 'businessman-using-application.jpg', 'excited-young-woman-4.jpg'],
   'learn-management': ['girl-hero.jpg', 'focused-young-employees-waiting-meeting-beginning.jpg', 'focused-young-office-employee-chatting-cellphone-coffee-break.jpg'],
   'learn-ai': ['friends-sitting-few-steps-with-smartphones-tablets.jpg', 'general.jpg', 'group-business-executives-discussing-digital-tablet.jpg'],
@@ -34,12 +37,9 @@ const APP_IMAGE_ASSIGNMENTS = {
   'learn-physics': ['group-three-south-asian-indian-mans-traditional-casual-wear-looking-mobile-phone (1).jpg', 'hero1.jpg', 'hero2.jpg'],
   'learn-chemistry': ['hero3.jpg', 'iiskills-image1.jpg', 'iiskills-image2.jpg'],
   'learn-geography': ['iiskills-image3.jpg', 'iiskills-image4.jpg', 'indian-people-celebrating-holi-with-sweet-laddu-colours-thali-colour-splash.jpg'],
-  'learn-leadership': ['indianjpg.jpg', 'little-girl.jpg'],
   'learn-govt-jobs': ['little-girl7.jpg', 'medium-shot-man-working-laptop.jpg'],
   'learn-pr': ['multiracial-friends-using-smartphone-against-wall-university-college-backyard-young-people.jpg', 'portrait-young-man-using-his-laptop-using-his-mobile-phone-while-sitting-coffee-shop.jpg'],
-  'learn-apt': ['schoolgirl-gestur6.jpg', 'smiling-businessman-speaking-phone-browsing-laptop.jpg'],
-  'learn-companion': ['smiling-young-2.jpg', 'surprised-young-3.jpg'],
-  'learn-winning': ['young-girl-ha5.jpg', 'young-male-with-trendy-watch-holding-cell-phone-call-while-sitting-table.jpg']
+  'learn-apt': ['schoolgirl-gestur6.jpg', 'smiling-businessman-speaking-phone-browsing-laptop.jpg']
 };
 
 /**
