@@ -5,10 +5,10 @@ import { useState, useEffect } from 'react';
 
 /**
  * HeroManager:
- * - Assigns specific images to each app (3-4 images per app)
+ * - Assigns specific images to each app (2-3 images per app)
  * - learn-developer: uses indian.png as hero
  * - learn-management: uses girl-hero.jpg as hero
- * - learn-cricket: uses cricket1.jpg, cricket2.jpg
+ * - learn-cricket: uses cricket1.jpg, cricket2.jpg, adult-man-using-laptop-bed.jpg
  * - All other apps: unique image sets from available pool
  * - No duplicate images across apps
  * - Renders a full-size hero background with first image
@@ -18,9 +18,9 @@ import { useState, useEffect } from 'react';
 /**
  * Image assignments for each app
  * Each app gets 2-3 images with specific requirements:
- * - learn-developer: hero = indian.png
- * - learn-management: hero = girl-hero.jpg
- * - learn-cricket: cricket1.jpg, cricket2.jpg + 1 additional
+ * - learn-developer: hero = indian.png (3 images total)
+ * - learn-management: hero = girl-hero.jpg (3 images total)
+ * - learn-cricket: cricket1.jpg, cricket2.jpg, adult-man-using-laptop-bed.jpg (3 images total)
  * NO duplicates across any apps - each image used only once
  * Total: 39 unique images distributed across 15 apps
  */
@@ -45,7 +45,7 @@ const APP_IMAGE_ASSIGNMENTS = {
 /**
  * Get hero images for a specific app
  * @param {string} appId - The app identifier (e.g., "learn-developer")
- * @returns {Array<string>} Array of 3-4 image filenames assigned to this app
+ * @returns {Array<string>} Array of 2-3 image filenames assigned to this app
  */
 export function getHeroImagesForApp(appId) {
   // Return assigned images for the app, or fallback to a default set
