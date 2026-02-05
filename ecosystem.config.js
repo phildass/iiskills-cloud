@@ -72,6 +72,27 @@ module.exports = {
       "log_file": "/home/runner/work/iiskills-cloud/iiskills-cloud/logs/learn-chemistry-combined.log",
       "time": true
     },
+
+    
+    // Learn Web Development - Web Developer Bootcamp
+    {
+      name: 'iiskills-learn-developer',
+      cwd: path.join(__dirname, 'apps/learn-developer'),
+      script: 'npm',
+      args: 'start',
+      env: {
+        NODE_ENV: 'production',
+        PORT: 3001  // Reassigned to resolve conflict
+      },
+      instances: 1,
+      autorestart: true,
+      watch: false,
+      max_memory_restart: '1G',
+      error_file: path.join(__dirname, 'logs', 'learn-developer-error.log'),
+      out_file: path.join(__dirname, 'logs', 'learn-developer-out.log'),
+      log_file: path.join(__dirname, 'logs', 'learn-developer-combined.log'),
+      time: true
+
     {
       "name": "iiskills-learn-companion",
       "cwd": "/home/runner/work/iiskills-cloud/iiskills-cloud/apps/learn-companion/.next/standalone/apps/learn-companion",
@@ -105,6 +126,7 @@ module.exports = {
       "out_file": "/home/runner/work/iiskills-cloud/iiskills-cloud/logs/learn-cricket-out.log",
       "log_file": "/home/runner/work/iiskills-cloud/iiskills-cloud/logs/learn-cricket-combined.log",
       "time": true
+
     },
     {
       "name": "iiskills-learn-developer",
@@ -140,6 +162,10 @@ module.exports = {
       "log_file": "/home/runner/work/iiskills-cloud/iiskills-cloud/logs/learn-geography-combined.log",
       "time": true
     },
+
+    
+    // Learn Management - Management and business skills
+
     {
       "name": "iiskills-learn-govt-jobs",
       "cwd": "/home/runner/work/iiskills-cloud/iiskills-cloud/apps/learn-govt-jobs/.next/standalone/apps/learn-govt-jobs",
@@ -157,6 +183,7 @@ module.exports = {
       "log_file": "/home/runner/work/iiskills-cloud/iiskills-cloud/logs/learn-govt-jobs-combined.log",
       "time": true
     },
+
     {
       "name": "iiskills-learn-leadership",
       "cwd": "/home/runner/work/iiskills-cloud/iiskills-cloud/apps/learn-leadership/.next/standalone/apps/learn-leadership",
@@ -225,6 +252,10 @@ module.exports = {
       "log_file": "/home/runner/work/iiskills-cloud/iiskills-cloud/logs/learn-physics-combined.log",
       "time": true
     },
+
+    
+    // main module
+
     {
       "name": "iiskills-learn-pr",
       "cwd": "/home/runner/work/iiskills-cloud/iiskills-cloud/apps/learn-pr/.next/standalone/apps/learn-pr",

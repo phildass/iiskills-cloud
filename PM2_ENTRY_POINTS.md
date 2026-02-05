@@ -3,7 +3,7 @@
 This file documents the automatically detected entry points and configurations
 for all applications in the iiskills-cloud repository.
 
-Generated: 2026-02-01T07:59:34.247Z
+Generated: 2026-02-05T10:42:05.782Z
 
 ## Detected Applications
 
@@ -12,16 +12,13 @@ Generated: 2026-02-01T07:59:34.247Z
 | iiskills-learn-ai | apps/learn-ai | 3024 | package.json | `next start -p 3024` |
 | iiskills-learn-apt | apps/learn-apt | 3002 | package.json | `next start -p 3002` |
 | iiskills-learn-chemistry | apps/learn-chemistry | 3005 | package.json | `next start -p 3005` |
-| iiskills-learn-companion | apps/learn-companion | 3023 | package.json | `next start -p 3023` |
-| iiskills-learn-cricket | apps/learn-cricket | 3009 | package.json | `next start -p 3009` |
+| iiskills-learn-developer | apps/learn-developer | 3001 | reassigned | `next start -p 3024` |
 | iiskills-learn-geography | apps/learn-geography | 3011 | package.json | `next start -p 3011` |
 | iiskills-learn-govt-jobs | apps/learn-govt-jobs | 3013 | package.json | `next start -p 3013` |
-| iiskills-learn-leadership | apps/learn-leadership | 3015 | package.json | `next start -p 3015` |
 | iiskills-learn-management | apps/learn-management | 3016 | package.json | `next start -p 3016` |
 | iiskills-learn-math | apps/learn-math | 3017 | package.json | `next start -p 3017` |
 | iiskills-learn-physics | apps/learn-physics | 3020 | package.json | `next start -p 3020` |
 | iiskills-learn-pr | apps/learn-pr | 3021 | package.json | `next start -p 3021` |
-| iiskills-learn-winning | apps/learn-winning | 3022 | package.json | `next start -p 3022` |
 | iiskills-main | apps/main | 3000 | package.json | `next start -p 3000` |
 
 ## Port Assignment Details
@@ -36,16 +33,10 @@ These apps have port specifications in their package.json start scripts:
   - Start script: `next start -p 3002`
 - **iiskills-learn-chemistry**: Port 3005
   - Start script: `next start -p 3005`
-- **iiskills-learn-companion**: Port 3023
-  - Start script: `next start -p 3023`
-- **iiskills-learn-cricket**: Port 3009
-  - Start script: `next start -p 3009`
 - **iiskills-learn-geography**: Port 3011
   - Start script: `next start -p 3011`
 - **iiskills-learn-govt-jobs**: Port 3013
   - Start script: `next start -p 3013`
-- **iiskills-learn-leadership**: Port 3015
-  - Start script: `next start -p 3015`
 - **iiskills-learn-management**: Port 3016
   - Start script: `next start -p 3016`
 - **iiskills-learn-math**: Port 3017
@@ -54,10 +45,16 @@ These apps have port specifications in their package.json start scripts:
   - Start script: `next start -p 3020`
 - **iiskills-learn-pr**: Port 3021
   - Start script: `next start -p 3021`
-- **iiskills-learn-winning**: Port 3022
-  - Start script: `next start -p 3022`
 - **iiskills-main**: Port 3000
   - Start script: `next start -p 3000`
+
+### Reassigned Ports
+
+These apps had port conflicts and were reassigned to different ports:
+
+- **iiskills-learn-developer**: Port 3001 (reassigned to resolve conflict)
+  - Original: Port 3024
+  - Start script: `next start -p 3024`
 
 ## Entry Point Strategy
 

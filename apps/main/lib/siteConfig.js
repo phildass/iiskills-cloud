@@ -29,11 +29,11 @@ export const SITES = {
     slug: 'learn-chemistry',
     subdomain: 'learn-chemistry'
   },
-  'learn-cricket': {
-    name: 'Cricket University',
-    url: 'https://app1.learn-cricket.iiskills.cloud',
-    slug: 'learn-cricket',
-    subdomain: 'learn-cricket'
+  'learn-developer': {
+    name: 'Learn Developer',
+    url: 'https://app1.learn-developer.iiskills.cloud',
+    slug: 'learn-developer',
+    subdomain: 'learn-developer'
   },
   'learn-geography': {
     name: 'Learn Geography',
@@ -41,11 +41,11 @@ export const SITES = {
     slug: 'learn-geography',
     subdomain: 'learn-geography'
   },
-  'learn-leadership': {
-    name: 'Learn Leadership',
-    url: 'https://app1.learn-leadership.iiskills.cloud',
-    slug: 'learn-leadership',
-    subdomain: 'learn-leadership'
+  'learn-govt-jobs': {
+    name: 'Learn Govt Jobs',
+    url: 'https://app1.learn-govt-jobs.iiskills.cloud',
+    slug: 'learn-govt-jobs',
+    subdomain: 'learn-govt-jobs'
   },
   'learn-management': {
     name: 'Learn Management',
@@ -70,12 +70,6 @@ export const SITES = {
     url: 'https://app1.learn-pr.iiskills.cloud',
     slug: 'learn-pr',
     subdomain: 'learn-pr'
-  },
-  'learn-winning': {
-    name: 'Learn Winning',
-    url: 'https://app1.learn-winning.iiskills.cloud',
-    slug: 'learn-winning',
-    subdomain: 'learn-winning'
   }
 };
 
