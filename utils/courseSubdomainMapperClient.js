@@ -18,35 +18,30 @@ const AVAILABLE_SUBDOMAINS = [
   "learn-ai",
   "learn-apt",
   "learn-chemistry",
+  "learn-developer",
   "learn-geography",
-  "learn-leadership",
+  "learn-govt-jobs",
   "learn-management",
   "learn-math",
   "learn-physics",
   "learn-pr",
-  "learn-winning",
 ];
 
 /**
  * Port assignments for local development
- * Matches the configuration in learn-modules.js
+ * Matches the configuration in package.json
  */
 const PORT_MAP = {
-  "learn-apt": "3001",
-  "learn-math": "3002",
-  "learn-winning": "3003",
-  "learn-data-science": "3004",
-  "learn-management": "3005",
-  "learn-leadership": "3006",
-  "learn-ai": "3007",
-  "learn-pr": "3008",
-  "learn-jee": "3009",
-  "learn-chemistry": "3010",
-  "learn-physics": "3011",
-  "learn-geography": "3012",
-  "learn-neet": "3013",
-  "learn-govt-jobs": "3014",
-  "learn-ias": "3015",
+  "learn-ai": "3024",
+  "learn-apt": "3002",
+  "learn-chemistry": "3005",
+  "learn-developer": "3001",
+  "learn-geography": "3011",
+  "learn-govt-jobs": "3013",
+  "learn-management": "3016",
+  "learn-math": "3017",
+  "learn-physics": "3020",
+  "learn-pr": "3021",
 };
 
 /**
