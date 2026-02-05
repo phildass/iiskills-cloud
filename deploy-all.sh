@@ -1,27 +1,64 @@
 #!/bin/bash
+
 set -e
 
-echo "=== Running server-side deployment script ==="
+# List all your Next.js apps here. Add/remove as needed.
+apps=(
+  learn-ai
+  learn-management
+  learn-pr
+  learn-math
+  learn-physics
+  learn-chemistry
+  learn-geography
+  learn-govt-jobs
+  learn-apt
+  learn-developer
+  Main
+)
 
-# Ensure we're in the correct directory
-echo "Current dir: $(pwd)"
+MONOREPO_ROOT="/mnt/c/users/pdake/cloud/iiskills-cloud"
 
-# Install/update dependencies (uncomment if you use npm/yarn)
-if [ -f package.json ]; then
-    echo "-- Found package.json; running npm install --"
-    npm install
-fi
+cd "$MONOREPO_ROOT"
+echo "📦 Installing root dependencies..."
+yarn install
 
-# Build project (uncomment for Next.js/React/TypeScript etc)
-if [ -f package.json ]; then
-    if grep -q '"build"' package.json; then
-        echo "-- package.json has a build script; running npm run build --"
-        npm run build
+success_count=0
+fail_count=0
+
+for app in "${apps[@]}"; do
+  APPDIR="apps/$app"
+  if [ ! -d "$APPDIR" ]; then
+    echo "⚠️  Skipping missing app directory: $APPDIR"
+    continue
+  fi
+
+  echo "🔨 Building $app..."
+  cd "$MONOREPO_ROOT/$APPDIR"
+  if yarn build; then
+    if [ -f ".next/standalone/server.js" ]; then
+      echo "✅ Build succeeded for $app"
+      ((success_count++))
+    else
+      echo "❌ Build did not produce standalone output for $app"
+      ((fail_count++))
+      cd "$MONOREPO_ROOT"
+      exit 1
     fi
-fi
+  else
+    echo "❌ Build failed for $app!"
+    ((fail_count++))
+    cd "$MONOREPO_ROOT"
+    exit 1
+  fi
+  cd "$MONOREPO_ROOT"
+done
 
-# Restart your process manager (uncomment and configure for PM2/systemd)
-# Example for PM2: pm2 restart all
-# Example for systemd: systemctl restart your-app.service
+echo "---------------------------"
+echo "✅ Built $success_count app(s); ❌ $fail_count failed."
+echo "---------------------------"
 
-echo "=== Deployment script completed successfully! ==="
+echo "🚀 Restarting all apps with PM2..."
+pm2 start ecosystem.config.js
+
+echo "🎉 Auto build and deploy complete!"
