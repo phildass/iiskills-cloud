@@ -1,7 +1,7 @@
 /**
  * PM2 Ecosystem Configuration for Next.js Apps
  * 
- * This configuration uses yarn start for Next.js 16+ apps.
+ * This configuration uses `npx next start` for Next.js 16+ apps.
  * 
  * Prerequisites:
  *   1. Build all apps: yarn build (from root)
@@ -23,8 +23,9 @@ module.exports = {
     {
       "name": "iiskills-main",
       "cwd": path.join(__dirname, 'apps/main'),
-      "script": "yarn",
-      "args": "start",
+      "script": "npx",
+      "args": "next start -p 3000",
+      "interpreter": "none",
       "env": {
         "NODE_ENV": "production",
         "PORT": 3000
@@ -41,8 +42,9 @@ module.exports = {
     {
       "name": "iiskills-learn-ai",
       "cwd": path.join(__dirname, 'apps/learn-ai'),
-      "script": "yarn",
-      "args": "start",
+      "script": "npx",
+      "args": "next start -p 3024",
+      "interpreter": "none",
       "env": {
         "NODE_ENV": "production",
         "PORT": 3024
@@ -59,8 +61,9 @@ module.exports = {
     {
       "name": "iiskills-learn-apt",
       "cwd": path.join(__dirname, 'apps/learn-apt'),
-      "script": "yarn",
-      "args": "start",
+      "script": "npx",
+      "args": "next start -p 3002",
+      "interpreter": "none",
       "env": {
         "NODE_ENV": "production",
         "PORT": 3002
@@ -77,8 +80,9 @@ module.exports = {
     {
       "name": "iiskills-learn-chemistry",
       "cwd": path.join(__dirname, 'apps/learn-chemistry'),
-      "script": "yarn",
-      "args": "start",
+      "script": "npx",
+      "args": "next start -p 3005",
+      "interpreter": "none",
       "env": {
         "NODE_ENV": "production",
         "PORT": 3005
@@ -95,8 +99,9 @@ module.exports = {
     {
       "name": "iiskills-learn-developer",
       "cwd": path.join(__dirname, 'apps/learn-developer'),
-      "script": "yarn",
-      "args": "start",
+      "script": "npx",
+      "args": "next start -p 3007",
+      "interpreter": "none",
       "env": {
         "NODE_ENV": "production",
         "PORT": 3007
@@ -113,8 +118,9 @@ module.exports = {
     {
       "name": "iiskills-learn-geography",
       "cwd": path.join(__dirname, 'apps/learn-geography'),
-      "script": "yarn",
-      "args": "start",
+      "script": "npx",
+      "args": "next start -p 3011",
+      "interpreter": "none",
       "env": {
         "NODE_ENV": "production",
         "PORT": 3011
@@ -131,8 +137,9 @@ module.exports = {
     {
       "name": "iiskills-learn-govt-jobs",
       "cwd": path.join(__dirname, 'apps/learn-govt-jobs'),
-      "script": "yarn",
-      "args": "start",
+      "script": "npx",
+      "args": "next start -p 3013",
+      "interpreter": "none",
       "env": {
         "NODE_ENV": "production",
         "PORT": 3013
@@ -149,8 +156,9 @@ module.exports = {
     {
       "name": "iiskills-learn-management",
       "cwd": path.join(__dirname, 'apps/learn-management'),
-      "script": "yarn",
-      "args": "start",
+      "script": "npx",
+      "args": "next start -p 3016",
+      "interpreter": "none",
       "env": {
         "NODE_ENV": "production",
         "PORT": 3016
@@ -167,8 +175,9 @@ module.exports = {
     {
       "name": "iiskills-learn-math",
       "cwd": path.join(__dirname, 'apps/learn-math'),
-      "script": "yarn",
-      "args": "start",
+      "script": "npx",
+      "args": "next start -p 3017",
+      "interpreter": "none",
       "env": {
         "NODE_ENV": "production",
         "PORT": 3017
@@ -185,8 +194,9 @@ module.exports = {
     {
       "name": "iiskills-learn-physics",
       "cwd": path.join(__dirname, 'apps/learn-physics'),
-      "script": "yarn",
-      "args": "start",
+      "script": "npx",
+      "args": "next start -p 3020",
+      "interpreter": "none",
       "env": {
         "NODE_ENV": "production",
         "PORT": 3020
@@ -203,8 +213,9 @@ module.exports = {
     {
       "name": "iiskills-learn-pr",
       "cwd": path.join(__dirname, 'apps/learn-pr'),
-      "script": "yarn",
-      "args": "start",
+      "script": "npx",
+      "args": "next start -p 3021",
+      "interpreter": "none",
       "env": {
         "NODE_ENV": "production",
         "PORT": 3021
