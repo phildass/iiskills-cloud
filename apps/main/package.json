@@ -12,13 +12,16 @@
     "@supabase/supabase-js": "^2.89.0",
     "bcrypt": "^6.0.0",
     "cookie": "^1.1.1",
+    "framer-motion": "^12.33.0",
     "html2canvas": "^1.4.1",
     "jsonwebtoken": "^9.0.3",
     "jspdf": "^4.0.0",
     "next": "^16.1.1",
     "qrcode": "^1.5.4",
     "react": "latest",
-    "react-dom": "latest"
+    "react-dom": "latest",
+    "react-force-graph-2d": "^1.29.1",
+    "recharts": "^3.7.0"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.14",
