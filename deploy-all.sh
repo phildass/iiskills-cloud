@@ -14,7 +14,7 @@ apps=(
   learn-govt-jobs
   learn-apt
   learn-developer
-  Main
+  main
 )
 
 MONOREPO_ROOT="/mnt/c/users/pdake/cloud/iiskills-cloud"

@@ -78,6 +78,18 @@ jobs:
           node-version: '18'
           cache: 'yarn'
 
+      - name: Setup environment files for CI
+        run: |
+          # Create .env.local files with dummy values for CI builds
+          bash ./ensure-env-files.sh || true
+          # Update with CI-safe dummy values
+          for file in .env.local apps/*/.env.local; do 
+            if [ -f "$file" ]; then
+              sed -i 's|NEXT_PUBLIC_SUPABASE_URL=.*|NEXT_PUBLIC_SUPABASE_URL=https://example.supabase.co|' "$file"
+              sed -i 's|NEXT_PUBLIC_SUPABASE_ANON_KEY=.*|NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV4YW1wbGUiLCJyb2xlIjoiYW5vbiIsImlhdCI6MTYwOTQ1OTIwMCwiZXhwIjoxOTI1MDM1MjAwfQ.example|' "$file"
+            fi
+          done
+
       - name: Install and build workspace
         run: |
           bash scripts/workspace-install-build.sh ${{ matrix.workspaceName }} production
