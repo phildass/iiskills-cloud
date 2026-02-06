@@ -47,6 +47,15 @@ export default function UserProtectedRoute({ children }) {
           setIsLoading(false);
           return; // Skip all auth checks
         }
+        
+        // GUEST MODE: Allow temporary guest access via URL parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('guest') === 'true') {
+          console.log('👤 GUEST MODE: Granting read-only access');
+          setIsAuthenticated(true);
+          setIsLoading(false);
+          return;
+        }
         // END TEMPORARY AUTH DISABLE
 
         // Get current user from Supabase session
