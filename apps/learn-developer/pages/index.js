@@ -57,6 +57,7 @@ export default function Home() {
   }
 ]}
       isFree={false}
+      firstModuleId={1}
       heroGradient="from-primary to-accent"
     />
   );
