@@ -133,9 +133,12 @@ export default function DailyBrief() {
       ? news
       : news.filter((item) => item.category === selectedCategory);
 
+  const [readArticles, setReadArticles] = useState(new Set());
+
   const handleReadArticle = (articleId) => {
-    // In real implementation, track which articles are read
-    if (readCount < 3) {
+    // Track unique articles read to prevent duplicate counting
+    if (!readArticles.has(articleId) && readCount < 3) {
+      setReadArticles(new Set([...readArticles, articleId]));
       setReadCount(readCount + 1);
     }
   };

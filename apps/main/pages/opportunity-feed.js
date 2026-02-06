@@ -39,7 +39,7 @@ export default function OpportunityFeed() {
         matchReason: "You passed 30% in Learn-Developer",
         description: "Looking for passionate junior developers with basic understanding of web development.",
         requirements: ["HTML/CSS", "JavaScript basics", "Problem solving"],
-        applyUrl: "#",
+        applyUrl: "#", // TODO: Replace with actual job application URL from API
       },
       {
         id: 2,
