@@ -78,6 +78,12 @@ jobs:
           node-version: '18'
           cache: 'yarn'
 
+      - name: Setup environment files for CI
+        run: |
+          # Create .env.local files with dummy values for CI builds
+          bash ./ensure-env-files.sh || true
+          bash ./scripts/setup-ci-env.sh
+
       - name: Install and build workspace
         run: |
           bash scripts/workspace-install-build.sh ${{ matrix.workspaceName }} production
