@@ -21,6 +21,7 @@
     "react": "latest",
     "react-dom": "latest",
     "react-force-graph-2d": "^1.29.1",
+    "react-is": "latest",
     "recharts": "^3.7.0"
   },
   "devDependencies": {
