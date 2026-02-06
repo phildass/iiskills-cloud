@@ -6,60 +6,61 @@ export default function Home() {
   return (
     <UniversalLandingPage
       appId="learn-developer"
-      headline="Master Web & App Development"
-      subheadline="Your Gateway to Millions"
-      title="Web Developer Bootcamp - Your Gateway to Millions | iiskills.cloud"
-      description="Transform your future with professional web and app development skills. In today's digital economy, developers are in unprecedented demand - with millions of websites and apps being built daily, this is your pathway to unlimited earning potential and career freedom."
+      headline="Code the Future. Train the Machine."
+      subheadline="Stop Guessing. Start Building. The Path to Senior Engineer."
+      title="Learn Developer - Build the Future | iiskills.cloud"
+      description="Master the complete developer stack from fundamentals to production. Learn web development, backend systems, APIs, and integrate seamlessly with AI. Two apps, one mastery—unlock both Learn Developer and Learn AI with a single enrollment."
       features={[
   {
-    "emoji": "💰",
-    "title": "Gateway to Millions",
-    "description": "Join the high-demand field where developers earn 6-figure salaries and freelancers charge premium rates for websites and apps"
-  },
-  {
-    "emoji": "🌐",
-    "title": "Full-Stack Mastery",
-    "description": "Master both frontend and backend development - become the complete developer that companies desperately need"
-  },
-  {
-    "emoji": "⚛️",
-    "title": "Modern Technologies",
-    "description": "Learn React, Node.js, Express, SQL, NoSQL, and the latest tools that power today's successful web applications"
-  },
-  {
-    "emoji": "🚀",
-    "title": "Production-Ready Skills",
-    "description": "Master deployment, security, JWT authentication, and CI/CD pipelines - build apps that scale to millions of users"
-  },
-  {
-    "emoji": "📱",
-    "title": "Build Real Apps",
-    "description": "Create responsive websites and mobile-ready applications that solve real problems and generate real income"
-  },
-  {
-    "emoji": "💼",
-    "title": "Career Transformation",
-    "description": "Whether starting fresh or pivoting careers, this course gives you the exact skills that top companies hire for"
-  },
-  {
-    "emoji": "🎯",
-    "title": "Project-Based Learning",
-    "description": "Build a professional portfolio with real-world projects that demonstrate your expertise to employers and clients"
-  },
-  {
-    "emoji": "🏆",
-    "title": "Professional Certification",
-    "description": "Earn industry-recognized certificates that validate your skills and boost your credibility in the job market"
+    "emoji": "💎",
+    "title": "Two for One Bundle",
+    "description": "Unlock BOTH Learn Developer and Learn AI with a single enrollment—master code and intelligence together"
   },
   {
     "emoji": "⚡",
-    "title": "Lifetime Access",
-    "description": "One-time investment for lifetime access to all course materials, updates, and new technologies as they emerge"
+    "title": "Three-Tier Mastery Path",
+    "description": "Progress through Basics, Intermediate, and Advanced levels with AI-generated lessons, exercises, and deep-dive explanations"
+  },
+  {
+    "emoji": "🔗",
+    "title": "Cross-App Sync",
+    "description": "Your progress unlocks related content in Learn AI—complete shared modules once, benefit twice"
+  },
+  {
+    "emoji": "🌐",
+    "title": "Full-Stack Development",
+    "description": "Master HTML, CSS, JavaScript, React, Node.js, databases, APIs, deployment, and production-ready architectures"
+  },
+  {
+    "emoji": "🎯",
+    "title": "30% Pass-Gate Unlock",
+    "description": "Achieve 30% in any module to auto-unlock related AI content—seamless integration across both platforms"
+  },
+  {
+    "emoji": "🧠",
+    "title": "Logic & Algorithms Bridge",
+    "description": "Master shared modules like Logic & Algorithms, Data Structures, and API Management with dual developer/AI perspectives"
+  },
+  {
+    "emoji": "🏆",
+    "title": "Universal Certification",
+    "description": "Complete both apps to earn the prestigious Universal Technical Lead certificate—validate your mastery across code and AI"
+  },
+  {
+    "emoji": "👨‍🏫",
+    "title": "Mentor Mode Unlock",
+    "description": "Reach 30% in both apps to activate Mentor Mode and help fellow learners on their journey"
+  },
+  {
+    "emoji": "💻",
+    "title": "Production-Ready Skills",
+    "description": "Build real applications with JWT auth, CI/CD pipelines, security best practices, and scalable architectures"
   }
 ]}
       isFree={false}
       firstModuleId={1}
-      heroGradient="from-primary to-accent"
+      heroGradient="from-cyan-500 via-blue-600 to-cyan-400"
+      themeColor="cyan"
     />
   );
 }
