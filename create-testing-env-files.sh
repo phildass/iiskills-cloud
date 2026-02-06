@@ -1,12 +1,12 @@
 #!/bin/bash
 
-# TEMPORARY - RESTORE AFTER JAN 28, 2026
-# This script creates .env.local files with testing mode enabled for all apps
+# Testing Phase - Enable Public Access
+# This script creates .env.local files with authentication bypass enabled for all apps
 
 set -e  # Exit on error
 
-echo "🔧 Creating .env.local files with TEMPORARY testing mode..."
-echo "⚠️  CRITICAL: RESTORE AFTER JAN 28, 2026"
+echo "🔧 Creating .env.local files with public access mode for testing..."
+echo "⚠️  This disables all authentication and paywalls for testing phase"
 echo ""
 
 # Function to create env file with backup
@@ -23,17 +23,13 @@ create_env_file() {
   
   # Create new file
   cat > "$file_path" << 'EOF'
-# TEMPORARY - RESTORE AFTER JAN 28, 2026
-# Testing mode: Bypass all authentication and paywalls
+# Testing Phase - Public Access Mode
+# Authentication and paywalls disabled for testing
 
-NEXT_PUBLIC_TESTING_MODE=true
+# Enable public access (bypasses authentication and paywalls)
 NEXT_PUBLIC_DISABLE_AUTH=true
-NEXT_PUBLIC_DISABLE_PAYWALL=true
 
-# This also sets the legacy paywall flag to false
-NEXT_PUBLIC_PAYWALL_ENABLED=false
-
-# Supabase Configuration (optional - bypassed in testing mode)
+# Supabase Configuration (optional - bypassed when NEXT_PUBLIC_DISABLE_AUTH=true)
 NEXT_PUBLIC_SUPABASE_URL=https://placeholder.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=placeholder-key
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
@@ -52,21 +48,21 @@ EOF
 echo "Creating root .env.local..."
 create_env_file ".env.local" "root"
 
-# List of all learning apps
+# Main app
+echo "Creating apps/main/.env.local..."
+create_env_file "apps/main/.env.local" "main"
+
+# List of all active learning apps
 APPS=(
   "learn-ai"
   "learn-apt"
   "learn-chemistry"
-  "learn-cricket"
-  "learn-data-science"
+  "learn-developer"
   "learn-geography"
   "learn-govt-jobs"
-  "learn-ias"
-  "learn-jee"
   "learn-leadership"
   "learn-management"
   "learn-math"
-  "learn-neet"
   "learn-physics"
   "learn-pr"
   "learn-winning"
@@ -83,12 +79,11 @@ for app in "${APPS[@]}"; do
 done
 
 echo ""
-echo "✅ All .env.local files created with testing mode enabled"
+echo "✅ All .env.local files created with public access mode enabled"
 echo ""
-echo "📝 Next steps:"
-echo "   1. Review the changes in this commit"
-echo "   2. Modify code to respect NEXT_PUBLIC_DISABLE_AUTH flag"
-echo "   3. Build and deploy"
+echo "📝 Testing configuration:"
+echo "   - All authentication bypassed"
+echo "   - All paywalls removed"
+echo "   - All content publicly accessible"
 echo ""
-echo "⚠️  REMEMBER: Restore after January 28, 2026"
-echo "   See TEMPORARY_TESTING_MODE.md for restoration instructions"
+echo "⚠️  REMEMBER: Disable for production by setting NEXT_PUBLIC_DISABLE_AUTH=false"

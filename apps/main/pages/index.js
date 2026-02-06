@@ -5,32 +5,15 @@ import { useState, useEffect } from "react";
 import { getPricingDisplay, getIntroOfferNotice } from "../utils/pricing";
 import TranslationFeatureBanner from "../../../components/shared/TranslationFeatureBanner";
 import Hero, { getHeroImagesForApp } from "../../../components/shared/HeroManager";
-import { getCurrentUser } from "../lib/supabaseClient";
 
 export default function Home() {
   const pricing = getPricingDisplay();
   const introNotice = getIntroOfferNotice();
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
   const [randomImage1, setRandomImage1] = useState('');
   const [randomImage2, setRandomImage2] = useState('');
   const [randomImage3, setRandomImage3] = useState('');
 
   useEffect(() => {
-    const checkUser = async () => {
-      try {
-        const currentUser = await getCurrentUser();
-        setUser(currentUser);
-      } catch (error) {
-        console.error('Error checking user authentication:', error);
-        // Set user to null on error to show default non-authenticated state
-        setUser(null);
-      } finally {
-        setLoading(false);
-      }
-    };
-    checkUser();
-    
     // Set random images for the page, ensuring no duplicates using Fisher-Yates shuffle
     const images = getHeroImagesForApp('main').slice(1); // Get all secondary images
     const shuffled = [...images];
@@ -72,24 +55,6 @@ export default function Home() {
         `}</style>
       </Head>
       <main>
-        {/* Scrolling Test Site Message */}
-        <div className="bg-yellow-400 text-black py-3 overflow-hidden relative">
-          <div className="animate-marquee whitespace-nowrap">
-            <span className="text-xl font-bold mx-4">
-              Just a test site. This will go live soon.
-            </span>
-            <span className="text-xl font-bold mx-4">
-              Just a test site. This will go live soon.
-            </span>
-            <span className="text-xl font-bold mx-4">
-              Just a test site. This will go live soon.
-            </span>
-            <span className="text-xl font-bold mx-4">
-              Just a test site. This will go live soon.
-            </span>
-          </div>
-        </div>
-
         {/* HERO SECTION: Full-size background with HeroManager */}
         <Hero appId="main" className="h-[70vh] md:h-[80vh] lg:h-[90vh]">
           <div className="text-center text-white space-y-6 max-w-4xl mx-auto">
@@ -105,47 +70,18 @@ export default function Home() {
             
             {/* CTA Buttons - Universal Links */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
-              {loading ? (
-                // Loading skeleton to prevent layout shift
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <div className="inline-block bg-white/50 animate-pulse px-8 py-4 rounded-lg min-w-[240px] h-[56px]"></div>
-                  <div className="inline-block bg-white/30 animate-pulse px-8 py-4 rounded-lg min-w-[240px] h-[56px]"></div>
-                </div>
-              ) : (
-                <>
-                  {user ? (
-                    <>
-                      <Link
-                        href="/courses"
-                        className="inline-block bg-white text-primary px-8 py-4 rounded-lg font-bold shadow-lg hover:bg-gray-100 hover:shadow-xl transition-all duration-200 text-center text-base sm:text-lg min-w-[240px]"
-                      >
-                        Explore Courses
-                      </Link>
-                      <Link
-                        href="/apps"
-                        className="inline-block bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-bold hover:bg-white hover:text-primary transition-all duration-200 text-center text-base sm:text-lg min-w-[240px]"
-                      >
-                        All Apps
-                      </Link>
-                    </>
-                  ) : (
-                    <>
-                      <Link
-                        href="/register"
-                        className="inline-block bg-white text-primary px-8 py-4 rounded-lg font-bold shadow-lg hover:bg-gray-100 hover:shadow-xl transition-all duration-200 text-center text-base sm:text-lg min-w-[240px]"
-                      >
-                        Get Started
-                      </Link>
-                      <Link
-                        href="/login"
-                        className="inline-block bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-bold hover:bg-white hover:text-primary transition-all duration-200 text-center text-base sm:text-lg min-w-[240px]"
-                      >
-                        Sign In
-                      </Link>
-                    </>
-                  )}
-                </>
-              )}
+              <Link
+                href="/courses"
+                className="inline-block bg-white text-primary px-8 py-4 rounded-lg font-bold shadow-lg hover:bg-gray-100 hover:shadow-xl transition-all duration-200 text-center text-base sm:text-lg min-w-[240px]"
+              >
+                Explore Courses
+              </Link>
+              <Link
+                href="/apps"
+                className="inline-block bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-bold hover:bg-white hover:text-primary transition-all duration-200 text-center text-base sm:text-lg min-w-[240px]"
+              >
+                All Apps
+              </Link>
             </div>
           </div>
         </Hero>

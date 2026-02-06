@@ -27,7 +27,7 @@ const HIDDEN_COURSE_NAMES = [
   "Ethical Hacking (CEH)",
 ];
 
-// List of available subdomain courses (11 total: 10 learn-* courses + cricket-know-all)
+// List of available subdomain courses (10 total for launch)
 // To add a new available course, simply add its subdomain name to this array
 const AVAILABLE_SUBDOMAINS = [
   "learn-ai",
@@ -40,7 +40,6 @@ const AVAILABLE_SUBDOMAINS = [
   "learn-physics",
   "learn-pr",
   "learn-winning",
-  "cricket-know-all",
 ];
 
 // Mapping for courses with names that don't directly match subdomain
@@ -52,11 +51,6 @@ const COURSE_NAME_TO_SUBDOMAIN = {
 
 // Helper function to check if a course is available based on its name
 function isCourseAvailable(courseName) {
-  // Special case for Cricket Know All
-  if (courseName === "Cricket Know All") {
-    return AVAILABLE_SUBDOMAINS.includes("cricket-know-all");
-  }
-  
   // Convert course name to subdomain format (e.g., "Learn AI" -> "learn-ai")
   // Remove suffixes like "– Free", "– From the book", etc.
   const cleanName = courseName
@@ -2002,11 +1996,21 @@ export default function Courses() {
         {/* Expansion Note */}
         <div className="bg-blue-50 border-l-4 border-primary p-6 rounded">
           <h2 className="text-xl font-bold text-primary mb-2">🚀 Growing Course Library</h2>
-          <p className="text-charcoal">
+          <p className="text-charcoal mb-4">
             We're continuously expanding our course offerings! New courses are being added regularly
-            to help you develop a wide range of professional and personal skills. Check back often
-            to discover new learning opportunities.
+            to help you develop a wide range of professional and personal skills.
           </p>
+          <div className="bg-white border-2 border-blue-200 rounded-lg p-4 mt-4">
+            <p className="text-charcoal mb-3">
+              <strong>📬 Stay Updated:</strong> Subscribe to our newsletter to be the first to know when new courses are launched!
+            </p>
+            <Link
+              href="/newsletter"
+              className="inline-block bg-primary text-white px-6 py-3 rounded-lg font-bold hover:bg-blue-700 transition shadow-md"
+            >
+              Subscribe to Newsletter →
+            </Link>
+          </div>
         </div>
       </main>
     </>
