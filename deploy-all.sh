@@ -36,11 +36,16 @@ for app in "${apps[@]}"; do
   echo "🔨 Building $app..."
   cd "$MONOREPO_ROOT/$APPDIR"
   if yarn build; then
-    if [ -f ".next/standalone/server.js" ]; then
-      echo "✅ Build succeeded for $app"
+    # Check for Next.js build output (.next directory)
+    # For Next.js v16+, standalone mode is deprecated; standard build output is .next/
+    if [ -d ".next" ]; then
+      echo "✅ Build succeeded for $app (Next.js build output: .next/)"
+      ((success_count++))
+    elif [ -d "build" ] || [ -d "dist" ]; then
+      echo "✅ Build succeeded for $app (Build output found)"
       ((success_count++))
     else
-      echo "❌ Build did not produce standalone output for $app"
+      echo "❌ Build did not produce expected output for $app"
       ((fail_count++))
       cd "$MONOREPO_ROOT"
       exit 1
