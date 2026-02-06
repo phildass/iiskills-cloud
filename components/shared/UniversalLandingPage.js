@@ -69,7 +69,7 @@ export default function UniversalLandingPage({
             </h1>
             {/* Subheadline - if provided, show as normal text instead of description */}
             {subheadline && (
-              <p className="text-xl sm:text-2xl lg:text-3xl leading-relaxed font-normal">
+              <p className="text-lg sm:text-xl lg:text-2xl leading-relaxed font-normal">
                 {subheadline}
               </p>
             )}
