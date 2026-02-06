@@ -31,12 +31,16 @@ export default function Home() {
     };
     checkUser();
     
-    // Set random images for the page, ensuring no duplicates
+    // Set random images for the page, ensuring no duplicates using Fisher-Yates shuffle
     const images = getHeroImagesForApp('main').slice(1); // Get all secondary images
-    const shuffled = [...images].sort(() => Math.random() - 0.5); // Shuffle the array
+    const shuffled = [...images];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
     setRandomImage1(shuffled[0] || images[0]);
     setRandomImage2(shuffled[1] || images[1] || images[0]);
-    setRandomImage3(shuffled[2] || images[0]);
+    setRandomImage3(shuffled[2] || images[1] || images[0]);
   }, []);
 
   return (
