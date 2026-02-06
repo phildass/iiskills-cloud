@@ -2,7 +2,7 @@ import '../styles/globals.css'
 
 import Head from 'next/head'
 import SiteHeader from '../../../components/shared/SiteHeader'
-import Footer from '../../../components/Footer'
+import Footer from '@iiskills/ui/src/Footer'
 
 
 export default function App({ Component, pageProps }) {
