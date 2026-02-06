@@ -9,15 +9,15 @@
  *   import { canonicalLinks } from '@/components/shared/canonicalNavLinks';
  *   <Header customLinks={canonicalLinks} showAuthButtons={true} />
  * 
- * Note: Links are currently inactive as this is a test site
+ * All links are now fully operational for testing
  */
 
 export const canonicalLinks = [
-  { href: "#", label: "Home", className: "hover:text-gray-400 transition cursor-not-allowed opacity-60" },
-  { href: "#", label: "Courses", className: "hover:text-gray-400 transition cursor-not-allowed opacity-60" },
-  { href: "#", label: "Certification", className: "hover:text-gray-400 transition cursor-not-allowed opacity-60" },
-  { href: "#", label: "Newsletter", className: "hover:text-gray-400 transition cursor-not-allowed opacity-60" },
-  { href: "#", label: "Payments", className: "hover:text-gray-400 transition cursor-not-allowed opacity-60" },
-  { href: "#", label: "About", className: "hover:text-gray-400 transition cursor-not-allowed opacity-60" },
-  { href: "#", label: "Terms and Conditions", className: "hover:text-gray-400 transition cursor-not-allowed opacity-60" }
+  { href: "/", label: "Home", className: "hover:text-primary transition" },
+  { href: "/courses", label: "Courses", className: "hover:text-primary transition" },
+  { href: "/certification", label: "Certification", className: "hover:text-primary transition" },
+  { href: "/newsletter", label: "Newsletter", className: "hover:text-primary transition" },
+  { href: "/payments", label: "Payments", className: "hover:text-primary transition" },
+  { href: "/about", label: "About", className: "hover:text-primary transition" },
+  { href: "/terms", label: "Terms and Conditions", className: "hover:text-primary transition" }
 ];

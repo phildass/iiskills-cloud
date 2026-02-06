@@ -406,7 +406,7 @@ const coursesData = [
     name: "Learn Aptitude – Free",
     category: "Personal Development",
     description:
-      "FREE course to develop logical reasoning, quantitative aptitude, and analytical skills for competitive exams and career growth.",
+      "FREE aptitude testing app that analyzes your strengths across logical reasoning, quantitative ability, and analytical skills to help you discover what you'll do best in life. Get personalized insights for career planning and competitive exam preparation.",
     duration: "10 weeks",
     level: "Beginner",
     comingSoon: true,
@@ -1637,7 +1637,7 @@ export default function Courses() {
         <title>Courses - iiskills.cloud</title>
         <meta
           name="description"
-          content="Courses available from Feb 10: 5 free and 9 paid. Introductory price of Rs 99 (plus GST Rs 17.82) valid till Feb 28th. Professional and personal development courses."
+          content="Courses available now: 10 | Five Free | Five Paid. Introductory price of Rs 99 (plus GST Rs 17.82) valid till Feb 28th. Professional and personal development courses."
         />
       </Head>
 
@@ -1646,14 +1646,8 @@ export default function Courses() {
           <h1 className="text-4xl font-bold text-primary mb-4">Our Courses</h1>
           <p className="text-xl text-charcoal mb-2">Professional Skills Development for Everyone</p>
           
-          {/* Test Site Notice */}
-          <div className="bg-yellow-100 border-2 border-yellow-400 text-yellow-900 rounded-lg p-4 mb-4 mx-auto max-w-2xl">
-            <p className="text-lg font-bold">⚠️ This is just a test page</p>
-            <p className="text-base">Courses are currently not available</p>
-          </div>
-          
           <p className="text-lg font-semibold text-primary mb-2">
-            Courses available from Feb 10: 5 free and 9 paid
+            Courses available now: 10 | Five Free | Five Paid
           </p>
           <p className="text-sm text-orange-600 font-semibold mb-4">
             Introductory price of ₹99 (plus GST ₹17.82) valid till Feb 28th. Total ₹116.82
