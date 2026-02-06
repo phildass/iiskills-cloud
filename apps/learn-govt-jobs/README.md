@@ -1,19 +1,26 @@
-# Learn Govt Jobs - Comprehensive AI Course Platform
+# Learn Govt Jobs - Government Job Notification Platform
 
-A complete AI learning platform built with Next.js, offering 100 lessons across 10 modules, from beginner to advanced topics.
+A comprehensive platform for discovering and applying to government jobs in India, powered by AI-driven job matching and intelligent scraping.
 
 ## 🎯 Overview
 
-Learn Govt Jobs is a self-paced online course platform designed to take students from AI fundamentals to monetization strategies. The platform includes:
+Learn Govt Jobs is an AI-powered government job notification aggregator designed to help job seekers in India find relevant opportunities. The platform includes:
 
-- **10 Comprehensive Modules** - Beginner to Advanced levels
-- **100 Detailed Lessons** - Each with quiz assessments
-- **Progressive Learning** - Pass quizzes to unlock next lessons
-- **Final Certification Exam** - 20 questions, pass with 13+ correct
-- **5 Case Studies** - Real-world AI applications
-- **5 Skill Simulators** - Hands-on practice tools
-- **AI News Monitor** - Stay updated with latest AI developments
-- **Jobs Board** - AI career opportunities in India
+- **Intelligent Job Scraping** - Automated collection from government portals
+- **AI-Powered Matching** - Personalized job recommendations with match scores
+- **Geo-spatial Search** - Filter by state, district, and taluk
+- **Document Checklist** - Track required documents for each application
+- **Application Timeline** - Visual timeline showing deadlines and exam dates
+- **WhatsApp Integration** - Share jobs and receive notifications
+- **Offline Support** - Save jobs for offline viewing
+- **Multilingual Support** - Hindi and regional languages
+
+## 📚 Documentation
+
+- **[System Architecture](docs/system_architecture.md)** - Complete technical architecture with diagrams
+- **[Database Schema](database/README.md)** - PostgreSQL schema documentation
+- **[Implementation Recommendations](docs/recommendations.md)** - Best practices and guidelines
+- **[JobCard Component](components/JobCard.tsx)** - React component for displaying jobs
 
 ## 🚀 Quick Start
 
