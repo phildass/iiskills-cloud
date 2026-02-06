@@ -5,30 +5,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import CommandCenterSidebar from "../components/CommandCenterSidebar";
 import { useUserProgress } from "../contexts/UserProgressContext";
 
-/**
- * Universal Career Mapper - Skill Constellation Page
- * 
- * Features:
- * - Interactive skill constellation with 10 app nodes
- * - Glassmorphism career path cards
- * - Weighted suitability algorithm for career matching
- * - Dynamic salary ticker based on skill combinations
- * - Missing link nudges for high-value opportunities
- * - PDF roadmap export
- * - Free access for all users
- * 
- * Planned API: Real-time user progress from all 10 apps
- */
-export default function CareerMapper() {
-  const { apps } = useUserProgress();
-  const [selectedCareerPath, setSelectedCareerPath] = useState(null);
-  const [salaryEstimate, setSalaryEstimate] = useState(0);
-  const [targetSalary, setTargetSalary] = useState(0);
-  const [missingLinks, setMissingLinks] = useState([]);
-  const canvasRef = useRef(null);
-
-  // Career path definitions with prerequisite mappings
-  const careerPaths = [
+// Career path definitions with prerequisite mappings (static data)
+const CAREER_PATHS = [
     {
       id: "fintech-architect",
       title: "FinTech Architect",
@@ -180,6 +158,28 @@ export default function CareerMapper() {
     },
   ];
 
+/**
+ * Universal Career Mapper - Skill Constellation Page
+ * 
+ * Features:
+ * - Interactive skill constellation with 10 app nodes
+ * - Glassmorphism career path cards
+ * - Weighted suitability algorithm for career matching
+ * - Dynamic salary ticker based on skill combinations
+ * - Missing link nudges for high-value opportunities
+ * - PDF roadmap export
+ * - Free access for all users
+ * 
+ * Planned API: Real-time user progress from all 10 apps
+ */
+export default function CareerMapper() {
+  const { apps } = useUserProgress();
+  const [selectedCareerPath, setSelectedCareerPath] = useState(null);
+  const [salaryEstimate, setSalaryEstimate] = useState(0);
+  const [targetSalary, setTargetSalary] = useState(0);
+  const [missingLinks, setMissingLinks] = useState([]);
+  const canvasRef = useRef(null);
+
   // Calculate app completion percentage
   const getAppCompletion = (appId) => {
     const app = apps.find(a => a.id === appId);
@@ -222,7 +222,7 @@ export default function CareerMapper() {
 
   // Calculate salary estimate based on strongest matches
   useEffect(() => {
-    const suitabilities = careerPaths.map(path => ({
+    const suitabilities = CAREER_PATHS.map(path => ({
       ...path,
       suitability: calculateSuitability(path),
     }));
@@ -292,7 +292,7 @@ export default function CareerMapper() {
     return () => clearInterval(timer);
   }, [targetSalary]);
 
-  // Render constellation stars
+  // Render constellation stars (optimized for mobile)
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -301,7 +301,9 @@ export default function CareerMapper() {
     canvas.width = canvas.offsetWidth;
     canvas.height = canvas.offsetHeight;
 
-    const stars = Array.from({ length: 100 }, () => ({
+    // Reduce star count on mobile devices for better performance
+    const starCount = canvas.width < 768 ? 50 : 100;
+    const stars = Array.from({ length: starCount }, () => ({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
       size: Math.random() * 2,
@@ -365,7 +367,7 @@ export default function CareerMapper() {
     doc.text('Top Career Matches:', 20, yPos);
     yPos += 10;
 
-    const suitabilities = careerPaths
+    const suitabilities = CAREER_PATHS
       .map(path => ({ ...path, suitability: calculateSuitability(path) }))
       .filter(p => p.suitability.score > 40)
       .sort((a, b) => b.suitability.score - a.suitability.score)
@@ -482,7 +484,7 @@ export default function CareerMapper() {
                 Your Skill Constellation
               </h2>
               <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-                {apps.map((app) => {
+                {apps.map((app, index) => {
                   const completion = getAppCompletion(app.id);
                   const isPulsing = completion >= 30;
 
@@ -491,7 +493,7 @@ export default function CareerMapper() {
                       key={app.id}
                       initial={{ scale: 0, opacity: 0 }}
                       animate={{ scale: 1, opacity: 1 }}
-                      transition={{ delay: 0.1 }}
+                      transition={{ delay: index * 0.05 }}
                       className="relative"
                     >
                       <motion.div
@@ -571,8 +573,6 @@ export default function CareerMapper() {
                         <Link
                           href={`/${link.appId}`}
                           className="inline-block px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white text-sm font-medium rounded-lg transition-colors"
-                          target="_blank"
-                          rel="noopener noreferrer"
                         >
                           Quick Start →
                         </Link>
@@ -599,7 +599,7 @@ export default function CareerMapper() {
             </div>
 
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {careerPaths.map((path) => {
+              {CAREER_PATHS.map((path) => {
                 const suitability = calculateSuitability(path);
                 const isHighMatch = suitability.score >= 70;
                 const isMediumMatch = suitability.score >= 40;
