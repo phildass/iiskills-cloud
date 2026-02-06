@@ -72,6 +72,45 @@ export default function NewsletterPage() {
             </div>
           </div>
 
+          {/* Previous Newsletters Section */}
+          <div className="mb-12 bg-white rounded-lg shadow-lg p-8">
+            <h2 className="text-3xl font-bold text-primary mb-6 text-center">📰 Previous Newsletters</h2>
+            <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-6 border-2 border-blue-200">
+              <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+                <div className="flex-1">
+                  <h3 className="text-xl font-bold text-primary mb-2">📧 Issue #1 - February 2026</h3>
+                  <p className="text-gray-700 mb-2">
+                    Welcome to our first newsletter! Learn about our platform launch, the 10 courses now available, 
+                    and our mission to contribute to Viksit Bharat.
+                  </p>
+                  <p className="text-sm text-gray-600">
+                    <strong>Highlights:</strong> Platform launch announcement, course catalog, pricing information, and our vision
+                  </p>
+                </div>
+                <div className="flex flex-col gap-2 min-w-[200px]">
+                  <a
+                    href="/newsletters/issue-1-february-2026.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-primary hover:bg-blue-700 text-white font-bold px-6 py-3 rounded-lg transition text-center shadow-md"
+                  >
+                    📄 View PDF
+                  </a>
+                  <a
+                    href="/newsletters/issue-1-february-2026.pdf"
+                    download="The-Skilling-Newsletter-Issue-1.pdf"
+                    className="bg-green-600 hover:bg-green-700 text-white font-bold px-6 py-3 rounded-lg transition text-center shadow-md"
+                  >
+                    ⬇️ Download PDF
+                  </a>
+                </div>
+              </div>
+            </div>
+            <p className="text-center text-gray-600 text-sm mt-4">
+              All newsletters are freely available - no registration required!
+            </p>
+          </div>
+
           {/* Newsletter Signup Form */}
           <div ref={formRef} className="mb-12">
             <NewsletterSignup mode="embedded" />
