@@ -13,10 +13,11 @@ The learn-ai app (and potentially other apps) failed to produce standalone outpu
 ### Issue 1: Incorrect Build Output Validation
 The `deploy-all.sh` script was checking for `.next/standalone/server.js`, which is specific to Next.js apps configured with `output: 'standalone'` mode. However:
 
-- Next.js v16+ (current version: 16.1.1) has deprecated standalone mode for most use cases
+- Next.js 16+ (current version: 16.1.1) apps don't require standalone mode for standard deployments
 - The learn-ai app does NOT have `output: 'standalone'` in its `next.config.js`
-- Standard Next.js v16+ builds produce `.next/` directory without the standalone subdirectory
+- Standard Next.js builds produce `.next/` directory without the standalone subdirectory
 - PM2 configuration already correctly uses `npx next start` instead of `node .next/standalone/server.js`
+- Standalone mode is optional and primarily for Docker/containerized deployments
 
 ### Issue 2: Missing Environment Variables
 Apps failed to build in CI/CD because `.env.local` files were missing or had placeholder values, causing Supabase client validation to fail during the build process.
@@ -60,7 +61,8 @@ fi
 **Rationale:**
 - Checks for `.next` directory instead of standalone-specific files
 - Falls back to checking for `build` or `dist` directories for non-Next.js apps
-- Aligns with Next.js v16+ best practices
+- Aligns with standard Next.js deployment practices
+- Standalone mode is optional and not needed for PM2 deployments
 
 ### 2. Fixed App Name Case Sensitivity
 
@@ -101,13 +103,15 @@ A utility script to easily set up environment files with CI-safe dummy values. C
 
 ## Next.js Version and Deployment Strategy
 
-### Current Setup (Correct for Next.js v16+)
+### Current Setup (Correct for Next.js 15+/16+)
 
 - **Next.js Version:** 16.1.1
 - **Build Command:** `yarn build`
 - **Start Command:** `next start` (via PM2: `npx next start`)
 - **Build Output:** `.next/` directory (standard)
-- **No standalone mode needed** - deprecated in v16+
+- **Standalone mode:** Optional, not required for standard deployments
+
+Note: While standalone mode is still supported in Next.js 15+, it's primarily intended for Docker deployments or specific hosting environments. For standard PM2 deployments like this monorepo, the default build output is sufficient and recommended.
 
 ### PM2 Configuration (Already Correct)
 

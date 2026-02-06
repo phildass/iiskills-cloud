@@ -6,7 +6,7 @@
 
 set -e
 
-REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$REPO_ROOT"
 
 # Dummy Supabase credentials that look valid but are for CI only
@@ -21,11 +21,12 @@ update_env_file() {
   
   if [ -f "$file" ]; then
     # Replace placeholder values with dummy but valid-looking values
-    sed -i.bak \
+    # Use a temporary file for portability across Linux and macOS
+    sed \
       -e "s|NEXT_PUBLIC_SUPABASE_URL=.*|NEXT_PUBLIC_SUPABASE_URL=${DUMMY_SUPABASE_URL}|" \
       -e "s|NEXT_PUBLIC_SUPABASE_ANON_KEY=.*|NEXT_PUBLIC_SUPABASE_ANON_KEY=${DUMMY_SUPABASE_KEY}|" \
-      "$file"
-    rm -f "${file}.bak"
+      "$file" > "$file.tmp"
+    mv "$file.tmp" "$file"
     echo "✓ Updated: $file"
   fi
 }
