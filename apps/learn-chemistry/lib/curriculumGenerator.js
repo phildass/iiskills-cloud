@@ -1,81 +1,25 @@
 /**
- * Curriculum Generator
+ * Curriculum Generator - Chemistry
  * 
  * Utilities for generating course structure metadata.
+ * Now using unified content format from /data/chemistry-content.js
  */
 
-export const moduleTopics = [
-  {
-    id: 1,
-    title: "Introduction to AI",
-    description: "Understanding the fundamentals of Artificial Intelligence",
-    order: 1,
-    difficulty: "Beginner"
-  },
-  {
-    id: 2,
-    title: "Types of AI",
-    description: "Exploring different categories and applications of AI",
-    order: 2,
-    difficulty: "Beginner"
-  },
-  {
-    id: 3,
-    title: "Data Science Fundamentals",
-    description: "Building the foundation for AI with data science",
-    order: 3,
-    difficulty: "Beginner"
-  },
-  {
-    id: 4,
-    title: "Python for AI",
-    description: "Learning Python programming for AI applications",
-    order: 4,
-    difficulty: "Beginner"
-  },
-  {
-    id: 5,
-    title: "Supervised Learning",
-    description: "Understanding supervised machine learning algorithms",
-    order: 5,
-    difficulty: "Intermediate"
-  },
-  {
-    id: 6,
-    title: "Unsupervised Learning",
-    description: "Exploring clustering and dimensionality reduction",
-    order: 6,
-    difficulty: "Intermediate"
-  },
-  {
-    id: 7,
-    title: "Neural Networks",
-    description: "Deep dive into neural network architectures",
-    order: 7,
-    difficulty: "Intermediate"
-  },
-  {
-    id: 8,
-    title: "AI Monetization",
-    description: "Turning AI skills into income streams",
-    order: 8,
-    difficulty: "Advanced"
-  },
-  {
-    id: 9,
-    title: "AI Tools & Frameworks",
-    description: "Mastering popular AI tools and platforms",
-    order: 9,
-    difficulty: "Advanced"
-  },
-  {
-    id: 10,
-    title: "Career Pathways in AI",
-    description: "Building a successful career in artificial intelligence",
-    order: 10,
-    difficulty: "Advanced"
-  }
-];
+import { 
+  getAllChemistryModules, 
+  getChemistryModuleById,
+  getChemistryModulesByLevel,
+  chemistryContent 
+} from '../../../data/chemistry-content';
+
+// Export modules in the format expected by existing code
+export const moduleTopics = getAllChemistryModules().map(module => ({
+  id: module.id,
+  title: module.title,
+  description: module.description,
+  order: module.id,
+  difficulty: module.level
+}));
 
 /**
  * Generate lesson metadata for a module
@@ -107,7 +51,7 @@ export function generateQuizTemplate() {
  * Get module by ID
  */
 export function getModuleById(id) {
-  return moduleTopics.find(m => m.id === id);
+  return getChemistryModuleById(id);
 }
 
 /**
@@ -115,4 +59,18 @@ export function getModuleById(id) {
  */
 export function getAllModules() {
   return moduleTopics;
+}
+
+/**
+ * Get modules by level
+ */
+export function getModulesByLevel(level) {
+  return getChemistryModulesByLevel(level);
+}
+
+/**
+ * Get content organized by level
+ */
+export function getContentByLevel() {
+  return chemistryContent;
 }
