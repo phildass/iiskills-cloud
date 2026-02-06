@@ -184,14 +184,7 @@ export default function QuickFireTest() {
           />
         )}
 
-        {/* Superpower Reveal */}
-        {showSuperpower && !testCompleted && (
-          <SuperpowerReveal
-            domain={COGNITIVE_DOMAINS.NUMERICAL}
-            score={domainScores[COGNITIVE_DOMAINS.NUMERICAL] || 0}
-            onContinue={() => setShowSuperpower(false)}
-          />
-        )}
+        {/* Superpower Reveal - Removed as it will be shown in results */}
 
         <div className={`max-w-6xl mx-auto px-4 py-8 ${testStarted && 'lg:pr-96'}`}>
           {/* Header */}
@@ -392,6 +385,7 @@ export default function QuickFireTest() {
                     total={QUICK_FIRE_QUESTIONS.length}
                     current={currentQuestion}
                     answers={answers}
+                    questions={QUICK_FIRE_QUESTIONS}
                     onNavigate={handleNavigate}
                   />
 

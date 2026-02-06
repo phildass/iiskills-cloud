@@ -270,26 +270,31 @@ export function DomainTag({ domain, color }) {
 }
 
 // Question Navigation Dots
-export function QuestionNavigation({ total, current, answers, onNavigate }) {
+export function QuestionNavigation({ total, current, answers, questions }) {
   return (
     <div className="flex flex-wrap gap-2 justify-center">
-      {Array.from({ length: total }, (_, i) => (
-        <motion.button
-          key={i}
-          onClick={() => onNavigate(i)}
-          whileHover={{ scale: 1.2 }}
-          whileTap={{ scale: 0.9 }}
-          className={`w-10 h-10 rounded-full font-semibold text-sm transition-all ${
-            i === current
-              ? 'bg-gradient-to-r from-electric-violet-500 to-blue-500 text-white ring-4 ring-electric-violet-300'
-              : answers[i] !== undefined
-              ? 'bg-emerald-glow text-white'
-              : 'bg-white/10 text-gray-400 border border-white/20'
-          }`}
-        >
-          {i + 1}
-        </motion.button>
-      ))}
+      {Array.from({ length: total }, (_, i) => {
+        const questionId = questions[i]?.id;
+        const isAnswered = answers[questionId] !== undefined;
+        
+        return (
+          <motion.button
+            key={i}
+            onClick={() => onNavigate(i)}
+            whileHover={{ scale: 1.2 }}
+            whileTap={{ scale: 0.9 }}
+            className={`w-10 h-10 rounded-full font-semibold text-sm transition-all ${
+              i === current
+                ? 'bg-gradient-to-r from-electric-violet-500 to-blue-500 text-white ring-4 ring-electric-violet-300'
+                : isAnswered
+                ? 'bg-emerald-glow text-white'
+                : 'bg-white/10 text-gray-400 border border-white/20'
+            }`}
+          >
+            {i + 1}
+          </motion.button>
+        );
+      })}
     </div>
   );
 }
