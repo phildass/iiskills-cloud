@@ -77,8 +77,9 @@ export default function UniversalLandingPage({
                   <Link 
                     href={`/modules/${firstModuleId}/lesson`}
                     className="underline hover:text-blue-200 font-semibold"
+                    aria-label={`Try Module ${firstModuleId} for free before purchasing`}
                   >
-                    (Try Module 1 Free)
+                    (Try Module {firstModuleId} Free)
                   </Link>
                   {' '}before you pay!
                 </p>
@@ -123,7 +124,11 @@ export default function UniversalLandingPage({
           {!isFree && !user && !loading && (
             <div className="absolute bottom-8 left-0 right-0 px-4 sm:px-8 lg:px-16 flex justify-between items-end gap-4">
               {/* Left Bottom - Free Registration Box */}
-              <div className="bg-white/10 backdrop-blur-sm border-2 border-white/30 rounded-lg p-3 sm:p-4 max-w-xs">
+              <div 
+                className="bg-white/10 backdrop-blur-sm border-2 border-white/30 rounded-lg p-3 sm:p-4 max-w-xs"
+                role="complementary"
+                aria-label="Free registration information"
+              >
                 <p className="text-sm sm:text-base font-semibold text-white">📝 Free Registration - Save Your Progress</p>
                 <p className="text-xs sm:text-sm mt-1 text-white/90">
                   Create a free account to save your scores, track progress, and personalize your experience. 
@@ -135,6 +140,7 @@ export default function UniversalLandingPage({
               <Link
                 href="/register"
                 className="inline-block bg-white text-primary px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-bold shadow-lg hover:bg-gray-100 hover:shadow-xl transition-all duration-200 text-center text-sm sm:text-base whitespace-nowrap"
+                aria-label="Get started by creating an account"
               >
                 Get Started
               </Link>
