@@ -6,7 +6,8 @@ export default function Home() {
   return (
     <UniversalLandingPage
       appId="learn-developer"
-      appName="Master Web & App Development - Your Gateway to Millions"
+      headline="Master Web & App Development"
+      subheadline="Your Gateway to Millions"
       title="Web Developer Bootcamp - Your Gateway to Millions | iiskills.cloud"
       description="Transform your future with professional web and app development skills. In today's digital economy, developers are in unprecedented demand - with millions of websites and apps being built daily, this is your pathway to unlimited earning potential and career freedom."
       features={[

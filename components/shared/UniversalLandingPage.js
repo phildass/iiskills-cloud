@@ -22,7 +22,9 @@ import { getCurrentUser } from "../../lib/supabaseClient";
 
 export default function UniversalLandingPage({
   appId,
-  appName,
+  appName, // Backward compatibility - will be used if headline is not provided
+  headline, // New: Large headline text
+  subheadline, // New: Normal subheadline text
   title,
   description,
   features,
@@ -61,12 +63,22 @@ export default function UniversalLandingPage({
         {/* Hero Section with Full-Size Background */}
         <Hero appId={appId} className="h-[70vh] md:h-[80vh] lg:h-[90vh] relative">
           <div className="text-center text-white space-y-6 max-w-4xl mx-auto">
+            {/* Main Headline */}
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight">
-              {appName}
+              {headline || appName}
             </h1>
-            <p className="text-lg sm:text-xl lg:text-2xl leading-relaxed">
-              {description}
-            </p>
+            {/* Subheadline - if provided, show as normal text instead of description */}
+            {subheadline && (
+              <p className="text-lg sm:text-xl lg:text-2xl leading-relaxed font-normal">
+                {subheadline}
+              </p>
+            )}
+            {/* Description - only show if no subheadline provided */}
+            {!subheadline && description && (
+              <p className="text-lg sm:text-xl lg:text-2xl leading-relaxed">
+                {description}
+              </p>
+            )}
 
             {/* Paid Course Notice - Centered */}
             {!isFree && !user && (
