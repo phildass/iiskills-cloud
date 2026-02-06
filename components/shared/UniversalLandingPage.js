@@ -29,6 +29,7 @@ export default function UniversalLandingPage({
   isFree = false,
   heroGradient = "from-primary to-accent",
   metaDescription = null,
+  firstModuleId = 1, // Default first module ID for paid apps
 }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -58,7 +59,7 @@ export default function UniversalLandingPage({
 
       <main className="min-h-screen">
         {/* Hero Section with Full-Size Background */}
-        <Hero appId={appId} className="h-[70vh] md:h-[80vh] lg:h-[90vh]">
+        <Hero appId={appId} className="h-[70vh] md:h-[80vh] lg:h-[90vh] relative">
           <div className="text-center text-white space-y-6 max-w-4xl mx-auto">
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight">
               {appName}
@@ -67,48 +68,96 @@ export default function UniversalLandingPage({
               {description}
             </p>
 
-            {/* Free App Notice */}
-            {isFree && !user && (
-              <div className="bg-white/10 backdrop-blur-sm border-2 border-white/30 rounded-lg p-4 max-w-2xl">
-                <p className="text-lg font-semibold">📝 Free Registration - Save Your Progress</p>
+            {/* Paid Course Notice - Centered */}
+            {!isFree && !user && (
+              <div className="bg-white/10 backdrop-blur-sm border-2 border-white/30 rounded-lg p-4 max-w-2xl mx-auto">
+                <p className="text-lg font-semibold">💳 Paid Course</p>
                 <p className="text-sm mt-2">
-                  Create a free account to save your scores, track progress, and personalize your experience. 
-                  All features are free for registered users!
+                  Sample One Module Free{' '}
+                  <Link 
+                    href={`/modules/${firstModuleId}/lesson`}
+                    className="underline hover:text-blue-200 font-semibold"
+                    aria-label={`Try Module ${firstModuleId} for free before purchasing`}
+                  >
+                    (Try Module {firstModuleId} Free)
+                  </Link>
+                  {' '}before you pay!
                 </p>
               </div>
             )}
 
-            {/* Call to Action Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 pt-4">
-              {!loading && (
-                <>
-                  {user ? (
-                    <Link
-                      href="/learn"
-                      className="inline-block bg-white text-primary px-8 py-4 rounded-lg font-bold shadow-lg hover:bg-gray-100 hover:shadow-xl transition-all duration-200 text-center text-base sm:text-lg"
-                    >
-                      Start Learning
-                    </Link>
-                  ) : (
-                    <>
+            {/* Call to Action Buttons - Centered for Free Apps, Hidden for Paid */}
+            {isFree && (
+              <div className="flex flex-col sm:flex-row gap-4 pt-4 justify-center">
+                {!loading && (
+                  <>
+                    {user ? (
                       <Link
-                        href="/register"
+                        href="/learn"
                         className="inline-block bg-white text-primary px-8 py-4 rounded-lg font-bold shadow-lg hover:bg-gray-100 hover:shadow-xl transition-all duration-200 text-center text-base sm:text-lg"
                       >
-                        {isFree ? "Register Free" : "Get Started"}
+                        Start Learning
                       </Link>
-                      <Link
-                        href="/login"
-                        className="inline-block bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-bold hover:bg-white hover:text-primary transition-all duration-200 text-center text-base sm:text-lg"
-                      >
-                        Sign In
-                      </Link>
-                    </>
-                  )}
-                </>
-              )}
-            </div>
+                    ) : (
+                      <>
+                        <Link
+                          href="/register"
+                          className="inline-block bg-white text-primary px-8 py-4 rounded-lg font-bold shadow-lg hover:bg-gray-100 hover:shadow-xl transition-all duration-200 text-center text-base sm:text-lg"
+                        >
+                          Register Free
+                        </Link>
+                        <Link
+                          href="/login"
+                          className="inline-block bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-bold hover:bg-white hover:text-primary transition-all duration-200 text-center text-base sm:text-lg"
+                        >
+                          Sign In
+                        </Link>
+                      </>
+                    )}
+                  </>
+                )}
+              </div>
+            )}
           </div>
+
+          {/* Paid App - Bottom Corner Boxes (only show when not logged in) */}
+          {!isFree && !user && !loading && (
+            <div className="absolute bottom-8 left-0 right-0 px-4 sm:px-8 lg:px-16 flex justify-between items-end gap-4">
+              {/* Left Bottom - Free Registration Box */}
+              <div 
+                className="bg-white/10 backdrop-blur-sm border-2 border-white/30 rounded-lg p-3 sm:p-4 max-w-xs"
+                role="complementary"
+                aria-label="Free registration information"
+              >
+                <p className="text-sm sm:text-base font-semibold text-white">📝 Free Registration - Save Your Progress</p>
+                <p className="text-xs sm:text-sm mt-1 text-white/90">
+                  Create a free account to save your scores, track progress, and personalize your experience. 
+                  All features are free for registered users!
+                </p>
+              </div>
+
+              {/* Right Bottom - Register Button */}
+              <Link
+                href="/register"
+                className="inline-block bg-white text-primary px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-bold shadow-lg hover:bg-gray-100 hover:shadow-xl transition-all duration-200 text-center text-sm sm:text-base whitespace-nowrap"
+                aria-label="Get started by creating an account"
+              >
+                Get Started
+              </Link>
+            </div>
+          )}
+
+          {/* Paid App - Start Learning Button for Logged In Users */}
+          {!isFree && user && !loading && (
+            <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
+              <Link
+                href="/learn"
+                className="inline-block bg-white text-primary px-8 py-4 rounded-lg font-bold shadow-lg hover:bg-gray-100 hover:shadow-xl transition-all duration-200 text-center text-base sm:text-lg"
+              >
+                Start Learning
+              </Link>
+            </div>
+          )}
         </Hero>
 
         {/* Features Section */}
