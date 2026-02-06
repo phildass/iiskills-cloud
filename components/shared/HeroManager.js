@@ -5,12 +5,11 @@ import { useState, useEffect } from 'react';
 
 /**
  * HeroManager:
- * - Assigns specific images to each app (2-3 images per app)
- * - learn-developer: uses indian.png as hero
- * - learn-management: uses girl-hero.jpg as hero
- * - All other apps: unique image sets from available pool
- * - No duplicate images across apps
- * - Renders a full-size hero background with first image
+ * - Uses images from each app's own public/images folder
+ * - Image with "hero" suffix in the name is used as the hero image (first in array)
+ * - Other 2 images from the folder are used randomly for secondary images
+ * - Each app uses only its own images
+ * - Renders a full-size hero background with first image (hero image)
  * - Positions overlay text at the bottom of the hero area
  * 
  * Note: Archived apps (learn-cricket, learn-companion, learn-leadership, learn-winning)
@@ -19,27 +18,25 @@ import { useState, useEffect } from 'react';
 
 /**
  * Image assignments for each app
- * Each app gets 2-3 images with specific requirements:
- * - learn-developer: hero = indian.png (3 images total)
- * - learn-management: hero = girl-hero.jpg (3 images total)
- * NO duplicates across any apps - each image used only once
- * Total: 30 unique images distributed across 11 active apps
+ * Images are sourced from each app's public/images folder.
+ * First image in array is the hero image (has "hero" in filename).
+ * Other images are used for secondary display.
  * 
  * Note: Apps in apps-backup/ (learn-cricket, learn-companion, learn-leadership, learn-winning) 
  * are archived and no longer have image assignments here.
  */
 const APP_IMAGE_ASSIGNMENTS = {
-  'main': ['cover3.jpg', 'main-hero.jpg', 'cover-main-hero.jpg'],
-  'learn-developer': ['indian.png', 'businessman-using-application.jpg', 'excited-young-woman-4.jpg'],
-  'learn-management': ['girl-hero.jpg', 'focused-young-employees-waiting-meeting-beginning.jpg', 'focused-young-office-employee-chatting-cellphone-coffee-break.jpg'],
-  'learn-ai': ['friends-sitting-few-steps-with-smartphones-tablets.jpg', 'general.jpg', 'group-business-executives-discussing-digital-tablet.jpg'],
-  'learn-math': ['group-business-executives-smiling-camera.jpg', 'group-business-executives-using-digital-tablet-mobile-pho.jpg', 'group-three-indian-ethnicity-friendship-togetherness-mans-technology-leisure-guys-with-phone.jpg'],
-  'learn-physics': ['group-three-south-asian-indian-mans-traditional-casual-wear-looking-mobile-phone (1).jpg', 'hero1.jpg', 'hero2.jpg'],
-  'learn-chemistry': ['hero3.jpg', 'iiskills-image1.jpg', 'iiskills-image2.jpg'],
-  'learn-geography': ['iiskills-image3.jpg', 'iiskills-image4.jpg', 'indian-people-celebrating-holi-with-sweet-laddu-colours-thali-colour-splash.jpg'],
-  'learn-govt-jobs': ['little-girl7.jpg', 'medium-shot-man-working-laptop.jpg'],
-  'learn-pr': ['multiracial-friends-using-smartphone-against-wall-university-college-backyard-young-people.jpg', 'portrait-young-man-using-his-laptop-using-his-mobile-phone-while-sitting-coffee-shop.jpg'],
-  'learn-apt': ['schoolgirl-gestur6.jpg', 'smiling-businessman-speaking-phone-browsing-laptop.jpg']
+  'main': ['cover-main-hero.jpg', 'iiskills-image2.jpg', 'iiskills-image3.jpg'],
+  'learn-developer': ['iiskills-dev-hero.jpg', 'iiskills-dev-cman.jpg', 'iiskills-dev-couple.jpg'],
+  'learn-management': ['girl-hero.jpg', 'iiskills-mgmt-mgrs.jpg', 'iiskills-mgmt-mgrs2.jpg'],
+  'learn-ai': ['iiskills-aii-hero.png', 'iiskills-ai-cafe.jpg', 'iiskills-ai-sar.png'],
+  'learn-math': ['iiskills-math-hero.jpg', 'iiskills-math-egirl.jpg', 'iiskills-math-mgirl.jpg'],
+  'learn-physics': ['iiskills-physics-heor.jpg', 'iiskills-physics-eman.jpg', 'iiskills-physics-girls.jpg'],
+  'learn-chemistry': ['iiskills-chem-hero.jpg', 'iiskills-chem-labman.jpg', 'iiskills-chem-lwoman.jpg'],
+  'learn-geography': ['cover3.jpg', 'iiskills-image1.jpg', 'iiskills-image4.jpg'],
+  'learn-govt-jobs': ['iiskills-govt-hero.jpg', 'iiskills-govt-staff.jpg', 'iiskills-govt-teacher.jpg'],
+  'learn-pr': ['iiskills-pr-hero.jpg', 'iiskills-pr-girl.jpg', 'iiskills-pr-media.jpg'],
+  'learn-apt': ['iiskills-apt-heo.jpg', 'iiskills-apt-boyu.jpg', 'iiskills-apt-girl.jpg']
 };
 
 /**
