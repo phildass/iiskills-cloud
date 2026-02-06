@@ -50,6 +50,20 @@ export function getHeroImagesForApp(appId) {
 }
 
 /**
+ * Get a random secondary image (non-hero image) for a specific app
+ * @param {string} appId - The app identifier (e.g., "learn-developer")
+ * @returns {string} A random image filename from the non-hero images
+ */
+export function getRandomSecondaryImage(appId) {
+  const images = getHeroImagesForApp(appId);
+  // Skip the first image (hero) and randomly select from the rest
+  const secondaryImages = images.slice(1);
+  if (secondaryImages.length === 0) return images[0]; // fallback to hero if no secondary images
+  const randomIndex = Math.floor(Math.random() * secondaryImages.length);
+  return secondaryImages[randomIndex];
+}
+
+/**
  * Hero component with full-size background image and bottom-aligned overlay
  * @param {Object} props
  * @param {string} props.appId - App identifier for image selection
@@ -104,18 +118,16 @@ export default function Hero({ appId, children, className = '', heroHeight = '70
 }
 
 /**
- * Secondary image display component for showing the second selected image
+ * Secondary image display component for showing a randomly selected secondary image
  * Can be used in content sections below the hero
  */
 export function SecondaryImage({ appId, alt, className = '' }) {
   const [secondImage, setSecondImage] = useState(null);
 
   useEffect(() => {
-    const images = getHeroImagesForApp(appId);
-    // Use the second selected image
-    if (images.length > 1) {
-      setSecondImage(images[1]);
-    }
+    // Randomly select from the secondary images (non-hero images)
+    const randomImage = getRandomSecondaryImage(appId);
+    setSecondImage(randomImage);
   }, [appId]);
 
   if (!secondImage) return null;

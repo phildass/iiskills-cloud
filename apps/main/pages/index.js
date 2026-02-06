@@ -4,7 +4,7 @@ import Head from "next/head";
 import { useState, useEffect } from "react";
 import { getPricingDisplay, getIntroOfferNotice } from "../utils/pricing";
 import TranslationFeatureBanner from "../../../components/shared/TranslationFeatureBanner";
-import Hero from "../../../components/shared/HeroManager";
+import Hero, { getRandomSecondaryImage } from "../../../components/shared/HeroManager";
 import { getCurrentUser } from "../lib/supabaseClient";
 
 export default function Home() {
@@ -12,6 +12,9 @@ export default function Home() {
   const introNotice = getIntroOfferNotice();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [randomImage1, setRandomImage1] = useState('');
+  const [randomImage2, setRandomImage2] = useState('');
+  const [randomImage3, setRandomImage3] = useState('');
 
   useEffect(() => {
     const checkUser = async () => {
@@ -27,6 +30,11 @@ export default function Home() {
       }
     };
     checkUser();
+    
+    // Set random images for the page
+    setRandomImage1(getRandomSecondaryImage('main'));
+    setRandomImage2(getRandomSecondaryImage('main'));
+    setRandomImage3(getRandomSecondaryImage('main'));
   }, []);
 
   return (
@@ -153,13 +161,15 @@ export default function Home() {
             {/* Featured Student Image */}
             <div className="flex justify-center mb-12">
               <div className="relative w-full max-w-md rounded-lg overflow-hidden shadow-xl">
-                <Image
-                  src="/images/iiskills-image2.jpg"
-                  alt="Empowered student ready to learn and succeed"
-                  width={600}
-                  height={800}
-                  className="w-full h-auto object-cover"
-                />
+                {randomImage1 && (
+                  <Image
+                    src={`/images/${randomImage1}`}
+                    alt="Empowered student ready to learn and succeed"
+                    width={600}
+                    height={800}
+                    className="w-full h-auto object-cover"
+                  />
+                )}
               </div>
             </div>
 
@@ -227,14 +237,16 @@ export default function Home() {
                   Quality education that's accessible to everyone
                 </p>
                 <div className="relative rounded-lg overflow-hidden shadow-xl">
-                  <Image
-                    src="/images/iiskills-image3.jpg"
-                    alt="Confident learner ready to transform their future"
-                    width={600}
-                    height={800}
-                    className="w-full h-auto object-cover"
-                    priority
-                  />
+                  {randomImage2 && (
+                    <Image
+                      src={`/images/${randomImage2}`}
+                      alt="Confident learner ready to transform their future"
+                      width={600}
+                      height={800}
+                      className="w-full h-auto object-cover"
+                      priority
+                    />
+                  )}
                 </div>
               </div>
               <div className="flex-1">
@@ -432,13 +444,15 @@ export default function Home() {
               </div>
               <div className="flex-1">
                 <div className="relative rounded-lg overflow-hidden shadow-2xl">
-                  <Image
-                    src="/images/iiskills-image4.jpg"
-                    alt="Diverse community of learners achieving success together"
-                    width={800}
-                    height={600}
-                    className="w-full h-auto object-cover"
-                  />
+                  {randomImage3 && (
+                    <Image
+                      src={`/images/${randomImage3}`}
+                      alt="Diverse community of learners achieving success together"
+                      width={800}
+                      height={600}
+                      className="w-full h-auto object-cover"
+                    />
+                  )}
                 </div>
               </div>
             </div>
