@@ -7,12 +7,14 @@ import AIAssistant from "../components/shared/AIAssistant";
 import NewsletterSignup from "../components/shared/NewsletterSignup";
 import TestingModeBanner from "../components/TestingModeBanner";
 import { useNewsletterPopup } from "../utils/useNewsletterPopup";
+import { UserProgressProvider } from "../contexts/UserProgressContext";
 
 export default function App({ Component, pageProps }) {
   const { showPopup, closePopup, isClosing } = useNewsletterPopup(30); // Show for 30 seconds on each page load
 
   return (
     <ErrorBoundary>
+      <UserProgressProvider>
 
       <Head>
         <link rel="icon" href="/images/favicon-iiskills.svg" />
@@ -38,6 +40,7 @@ export default function App({ Component, pageProps }) {
 
       {/* Testing Mode Banner - shows when feature flags are enabled */}
       <TestingModeBanner />
+      </UserProgressProvider>
     </ErrorBoundary>
   );
 }
