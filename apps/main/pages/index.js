@@ -4,7 +4,7 @@ import Head from "next/head";
 import { useState, useEffect } from "react";
 import { getPricingDisplay, getIntroOfferNotice } from "../utils/pricing";
 import TranslationFeatureBanner from "../../../components/shared/TranslationFeatureBanner";
-import Hero, { getRandomSecondaryImage } from "../../../components/shared/HeroManager";
+import Hero, { getHeroImagesForApp } from "../../../components/shared/HeroManager";
 import { getCurrentUser } from "../lib/supabaseClient";
 
 export default function Home() {
@@ -31,10 +31,12 @@ export default function Home() {
     };
     checkUser();
     
-    // Set random images for the page
-    setRandomImage1(getRandomSecondaryImage('main'));
-    setRandomImage2(getRandomSecondaryImage('main'));
-    setRandomImage3(getRandomSecondaryImage('main'));
+    // Set random images for the page, ensuring no duplicates
+    const images = getHeroImagesForApp('main').slice(1); // Get all secondary images
+    const shuffled = [...images].sort(() => Math.random() - 0.5); // Shuffle the array
+    setRandomImage1(shuffled[0] || images[0]);
+    setRandomImage2(shuffled[1] || images[1] || images[0]);
+    setRandomImage3(shuffled[2] || images[0]);
   }, []);
 
   return (
