@@ -33,6 +33,17 @@ export default function ProtectedRoute({ children, requireAdmin = true }) {
         setIsLoading(false);
         return;
       }
+      
+      // GUEST MODE: Allow temporary guest access via URL parameter (non-admin only)
+      if (!requireAdmin) {
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('guest') === 'true') {
+          console.log('👤 GUEST MODE: Granting read-only access');
+          setIsAuthenticated(true);
+          setIsLoading(false);
+          return;
+        }
+      }
       // END TEMPORARY AUTH DISABLE
 
       const user = await getCurrentUser();

@@ -75,17 +75,33 @@ export default function NewsletterPage() {
           {/* Previous Newsletters Section */}
           <div className="mb-12 bg-white rounded-lg shadow-lg p-8">
             <h2 className="text-3xl font-bold text-primary mb-6 text-center">📰 Previous Newsletters</h2>
+            
+            {/* Last Updated Banner */}
+            <div className="bg-gradient-to-r from-blue-100 to-purple-100 rounded-lg p-4 mb-6 text-center border-2 border-blue-300">
+              <p className="text-sm font-semibold text-blue-900">
+                📅 Last Updated: <span className="text-purple-700">February 6, 2026</span>
+              </p>
+              <p className="text-xs text-gray-700 mt-1">
+                Platform Status: 11 Active Learning Apps • Open Access for Testing
+              </p>
+            </div>
+            
             <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-6 border-2 border-blue-200">
               <div className="flex flex-col md:flex-row items-center justify-between gap-4">
                 <div className="flex-1">
                   <h3 className="text-xl font-bold text-primary mb-2">📧 Issue #1 - February 2026</h3>
                   <p className="text-gray-700 mb-2">
-                    Welcome to our first newsletter! Learn about our platform launch, the 10 courses now available, 
-                    and our mission to contribute to Viksit Bharat.
+                    Welcome to our first newsletter! Learn about our platform launch, the 11 learning apps now available, 
+                    and our mission to contribute to Viksit Bharat through accessible education.
                   </p>
-                  <p className="text-sm text-gray-600">
-                    <strong>Highlights:</strong> Platform launch announcement, course catalog, pricing information, and our vision
+                  <p className="text-sm text-gray-600 mb-3">
+                    <strong>Highlights:</strong> Platform launch announcement, 11-app ecosystem (Developer, AI, Government Jobs, Management, PR, Physics, Chemistry, Math, Geography, and APT), current open access status for testing and preview
                   </p>
+                  <div className="bg-green-50 border-l-4 border-green-500 p-3 rounded">
+                    <p className="text-sm text-green-900 font-semibold">
+                      ✨ Current Status: All apps are freely accessible during our preview and testing phase!
+                    </p>
+                  </div>
                 </div>
                 <div className="flex flex-col gap-2 min-w-[200px]">
                   <a

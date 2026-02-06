@@ -66,6 +66,25 @@ export default function PaidUserProtectedRoute({ children }) {
           setIsLoading(false);
           return; // Skip all auth checks
         }
+        
+        // GUEST MODE: Allow temporary guest access via URL parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('guest') === 'true') {
+          console.log('👤 GUEST MODE: Granting read-only access');
+          setUser({
+            id: 'guest-user',
+            email: 'guest@iiskills.cloud',
+            user_metadata: {
+              full_name: 'Guest User',
+              firstName: 'Guest',
+              lastName: 'User',
+              is_admin: false,
+              payment_status: 'guest'
+            }
+          });
+          setIsLoading(false);
+          return;
+        }
         // END TEMPORARY AUTH DISABLE
 
         // Get current user from Supabase session
@@ -107,6 +126,23 @@ export default function PaidUserProtectedRoute({ children }) {
           </div>
 
           <div className="space-y-4">
+            {/* Continue as Guest Button - Temporary for Testing */}
+            <button
+              onClick={() => {
+                // Set temporary flag and reload to enable guest access
+                if (typeof window !== 'undefined') {
+                  window.location.href = `${router.asPath}?guest=true`;
+                }
+              }}
+              className="block w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white px-6 py-4 rounded-lg font-bold text-lg shadow-lg hover:from-green-600 hover:to-emerald-700 transition text-center"
+            >
+              🌟 Continue as Guest (Browse Only)
+            </button>
+            
+            <div className="text-center text-gray-500 text-sm">
+              <span>or create a free account</span>
+            </div>
+            
             <div className="text-center text-gray-700 mb-4">
               <p className="font-medium text-lg">New to iiskills.cloud?</p>
               <p className="text-sm text-gray-600 mt-2">Create a free account to get started</p>

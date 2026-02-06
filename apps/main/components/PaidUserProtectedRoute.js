@@ -81,6 +81,16 @@ export default function PaidUserProtectedRoute({ children }) {
           setIsLoading(false);
           return;
         }
+        
+        // GUEST MODE: Allow temporary guest access via URL parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('guest') === 'true') {
+          console.log('👤 GUEST MODE: Granting read-only access');
+          setUser({ email: 'guest@iiskills.cloud' });
+          setHasPaid(true); // Grant access but in guest mode
+          setIsLoading(false);
+          return;
+        }
 
         // Get current user from Supabase session
         const currentUser = await getCurrentUser();
@@ -127,6 +137,23 @@ export default function PaidUserProtectedRoute({ children }) {
           </div>
 
           <div className="space-y-4">
+            {/* Continue as Guest Button - Temporary for Testing */}
+            <button
+              onClick={() => {
+                // Set temporary flag and reload to enable guest access
+                if (typeof window !== 'undefined') {
+                  window.location.href = `${router.asPath}?guest=true`;
+                }
+              }}
+              className="block w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white px-6 py-4 rounded-lg font-bold text-lg shadow-lg hover:from-green-600 hover:to-emerald-700 transition text-center"
+            >
+              🌟 Explore Without Signup (Browse Only)
+            </button>
+            
+            <div className="text-center text-gray-500 text-sm">
+              <span>or create a free account</span>
+            </div>
+            
             {!user && (
               <>
                 <div className="text-center text-gray-700 mb-4">
