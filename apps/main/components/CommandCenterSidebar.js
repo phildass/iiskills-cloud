@@ -6,6 +6,7 @@ import { useState } from "react";
  * CommandCenterSidebar - Consistent sidebar for Portal Feature Pages
  * 
  * Provides navigation between:
+ * - Career Mapper (Skill Constellation & Career Guidance)
  * - Opportunity Feed (Jobs & Internships)
  * - Daily Brief (AI News Summaries)
  * - Exam Countdown (Education Alerts)
@@ -20,6 +21,13 @@ export default function CommandCenterSidebar() {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
   const navItems = [
+    {
+      href: "/career-mapper",
+      label: "Career Mapper",
+      icon: "🌌",
+      description: "Skill Constellation",
+      badge: "New",
+    },
     {
       href: "/opportunity-feed",
       label: "Opportunity Feed",
