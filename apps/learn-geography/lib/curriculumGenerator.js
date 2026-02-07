@@ -2,24 +2,80 @@
  * Curriculum Generator - Geography
  * 
  * Utilities for generating course structure metadata.
- * Now using unified content format from /data/geography-content.js
  */
 
-import { 
-  getAllGeographyModules, 
-  getGeographyModuleById,
-  getGeographyModulesByLevel,
-  geographyContent 
-} from '../../../data/geography-content';
-
-// Export modules in the format expected by existing code
-export const moduleTopics = getAllGeographyModules().map(module => ({
-  id: module.id,
-  title: module.title,
-  description: module.description,
-  order: module.id,
-  difficulty: module.level
-}));
+export const moduleTopics = [
+  {
+    id: 1,
+    title: "Physical Geography",
+    description: "Landforms, climate, and natural features",
+    order: 1,
+    difficulty: "Beginner"
+  },
+  {
+    id: 2,
+    title: "World Continents",
+    description: "Exploring the seven continents",
+    order: 2,
+    difficulty: "Beginner"
+  },
+  {
+    id: 3,
+    title: "Oceans and Seas",
+    description: "Marine geography and ocean systems",
+    order: 3,
+    difficulty: "Beginner"
+  },
+  {
+    id: 4,
+    title: "Climate Zones",
+    description: "Understanding global climate patterns",
+    order: 4,
+    difficulty: "Intermediate"
+  },
+  {
+    id: 5,
+    title: "Human Geography",
+    description: "Population, culture, and urbanization",
+    order: 5,
+    difficulty: "Intermediate"
+  },
+  {
+    id: 6,
+    title: "Economic Geography",
+    description: "Resources, trade, and development",
+    order: 6,
+    difficulty: "Intermediate"
+  },
+  {
+    id: 7,
+    title: "Environmental Issues",
+    description: "Climate change and sustainability",
+    order: 7,
+    difficulty: "Advanced"
+  },
+  {
+    id: 8,
+    title: "Geopolitics",
+    description: "Political boundaries and global relations",
+    order: 8,
+    difficulty: "Advanced"
+  },
+  {
+    id: 9,
+    title: "Geographic Information Systems",
+    description: "GIS technology and mapping",
+    order: 9,
+    difficulty: "Advanced"
+  },
+  {
+    id: 10,
+    title: "Advanced Topics",
+    description: "Remote sensing and spatial analysis",
+    order: 10,
+    difficulty: "Advanced"
+  }
+];
 
 /**
  * Generate lesson metadata for a module
@@ -51,7 +107,7 @@ export function generateQuizTemplate() {
  * Get module by ID
  */
 export function getModuleById(id) {
-  return getGeographyModuleById(id);
+  return moduleTopics.find(m => m.id === id);
 }
 
 /**
@@ -65,12 +121,16 @@ export function getAllModules() {
  * Get modules by level
  */
 export function getModulesByLevel(level) {
-  return getGeographyModulesByLevel(level);
+  return moduleTopics.filter(m => m.difficulty === level);
 }
 
 /**
  * Get content organized by level
  */
 export function getContentByLevel() {
-  return geographyContent;
+  return {
+    Beginner: moduleTopics.filter(m => m.difficulty === 'Beginner'),
+    Intermediate: moduleTopics.filter(m => m.difficulty === 'Intermediate'),
+    Advanced: moduleTopics.filter(m => m.difficulty === 'Advanced')
+  };
 }
