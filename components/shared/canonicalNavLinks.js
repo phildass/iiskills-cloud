@@ -50,9 +50,9 @@ export function getCanonicalLinks(appId = "main", isFreeApp = false) {
     if (isFreeApp) {
       // Non-clickable "Free" label for free apps
       baseLinks.push({
-        href: "#",
         label: "Free",
-        className: "text-green-600 font-bold cursor-default pointer-events-none",
+        className: "text-green-600 font-bold cursor-default",
+        isNonClickable: true, // Flag to indicate this should not be a link
       });
     } else {
       // Payments link for paid apps

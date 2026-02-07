@@ -7,16 +7,16 @@ import { useUserProgress } from "../../contexts/UserProgressContext";
  * Format: app{number}.{app-name}.iiskills.cloud
  */
 const APP_SUBDOMAIN_MAP = {
-  "learn-ai": { number: 1, subdomain: "learn-ai" },
-  "learn-management": { number: 2, subdomain: "learn-management" },
-  "learn-pr": { number: 3, subdomain: "learn-pr" },
-  "learn-developer": { number: 4, subdomain: "learn-developer" },
-  "learn-apt": { number: 5, subdomain: "learn-apt" },
-  "learn-physics": { number: 6, subdomain: "learn-physics" },
-  "learn-chemistry": { number: 7, subdomain: "learn-chemistry" },
-  "learn-math": { number: 8, subdomain: "learn-math" },
-  "learn-geography": { number: 9, subdomain: "learn-geography" },
-  "learn-govt-jobs": { number: 10, subdomain: "learn-govt-jobs" },
+  "learn-ai": 1,
+  "learn-management": 2,
+  "learn-pr": 3,
+  "learn-developer": 4,
+  "learn-apt": 5,
+  "learn-physics": 6,
+  "learn-chemistry": 7,
+  "learn-math": 8,
+  "learn-geography": 9,
+  "learn-govt-jobs": 10,
 };
 
 /**
@@ -25,9 +25,9 @@ const APP_SUBDOMAIN_MAP = {
  * @returns {string} The full subdomain URL
  */
 function getAppUrl(appId) {
-  const appInfo = APP_SUBDOMAIN_MAP[appId];
-  if (!appInfo) return `/${appId}`; // Fallback to local path
-  return `https://app${appInfo.number}.${appInfo.subdomain}.iiskills.cloud`;
+  const appNumber = APP_SUBDOMAIN_MAP[appId];
+  if (!appNumber) return `/${appId}`; // Fallback to local path
+  return `https://app${appNumber}.${appId}.iiskills.cloud`;
 }
 
 export default function BentoBoxGrid() {
