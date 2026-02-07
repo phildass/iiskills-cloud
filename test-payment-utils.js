@@ -70,10 +70,11 @@ async function testRazorpayUtilities() {
   // Test 3: Membership expiry calculation
   const expiry = calculateMembershipExpiry();
   const now = new Date();
-  const oneYearLater = new Date(now.getTime() + 365 * 24 * 60 * 60 * 1000);
+  const oneYearLater = new Date(now);
+  oneYearLater.setFullYear(oneYearLater.getFullYear() + 1);
   assert(
-    Math.abs(expiry.getTime() - oneYearLater.getTime()) < 2000,
-    "Membership expiry is 365 days from now"
+    Math.abs(expiry.getTime() - oneYearLater.getTime()) < 100,
+    "Membership expiry is 1 year from now"
   );
 
   // Test 4: Webhook signature verification
