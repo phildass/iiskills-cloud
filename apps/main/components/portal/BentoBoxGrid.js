@@ -2,6 +2,34 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useUserProgress } from "../../contexts/UserProgressContext";
 
+/**
+ * Map app IDs to their subdomain numbers
+ * Format: app{number}.{app-name}.iiskills.cloud
+ */
+const APP_SUBDOMAIN_MAP = {
+  "learn-ai": 1,
+  "learn-management": 2,
+  "learn-pr": 3,
+  "learn-developer": 4,
+  "learn-apt": 5,
+  "learn-physics": 6,
+  "learn-chemistry": 7,
+  "learn-math": 8,
+  "learn-geography": 9,
+  "learn-govt-jobs": 10,
+};
+
+/**
+ * Get the full subdomain URL for an app
+ * @param {string} appId - The app identifier
+ * @returns {string} The full subdomain URL
+ */
+function getAppUrl(appId) {
+  const appNumber = APP_SUBDOMAIN_MAP[appId];
+  if (!appNumber) return `/${appId}`; // Fallback to local path
+  return `https://app${appNumber}.${appId}.iiskills.cloud`;
+}
+
 export default function BentoBoxGrid() {
   const { apps } = useUserProgress();
   const [hoveredApp, setHoveredApp] = useState(null);
@@ -33,7 +61,8 @@ export default function BentoBoxGrid() {
   };
 
   const getProgressColor = (app) => {
-    const avgProgress = (app.progress.basics + app.progress.intermediate + app.progress.advanced) / 3;
+    const avgProgress =
+      (app.progress.basics + app.progress.intermediate + app.progress.advanced) / 3;
     if (avgProgress >= 30) return "border-yellow-400 shadow-yellow-200";
     if (avgProgress >= 20) return "border-blue-400";
     return "border-gray-300";
@@ -76,7 +105,8 @@ export default function BentoBoxGrid() {
       {/* Bento Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {apps.map((app, index) => {
-          const avgProgress = (app.progress.basics + app.progress.intermediate + app.progress.advanced) / 3;
+          const avgProgress =
+            (app.progress.basics + app.progress.intermediate + app.progress.advanced) / 3;
           const isHighlighted = shouldHighlight(app.id);
           const hasAdvancedGate = app.progress.advanced >= 30;
 
@@ -95,17 +125,17 @@ export default function BentoBoxGrid() {
               className={`relative bg-white rounded-lg shadow-lg p-6 border-4 ${getProgressColor(
                 app
               )} transition-all cursor-pointer hover:shadow-xl ${
-                hasAdvancedGate ? "ring-4 ring-yellow-300 bg-gradient-to-br from-yellow-50 to-white" : ""
-              } ${
-                avgProgress > 20 && avgProgress < 30 ? "animate-pulse" : ""
-              }`}
+                hasAdvancedGate
+                  ? "ring-4 ring-yellow-300 bg-gradient-to-br from-yellow-50 to-white"
+                  : ""
+              } ${avgProgress > 20 && avgProgress < 30 ? "animate-pulse" : ""}`}
               style={{
                 opacity: isHighlighted ? 1 : 0.5,
               }}
             >
               {/* Icon/Title */}
               <div className="text-center mb-4">
-                <div 
+                <div
                   className="w-16 h-16 mx-auto mb-3 rounded-full flex items-center justify-center text-3xl"
                   style={{ backgroundColor: app.color + "20", color: app.color }}
                 >
@@ -140,7 +170,9 @@ export default function BentoBoxGrid() {
                     exit={{ opacity: 0, y: 10 }}
                     className="mt-4 p-4 bg-gray-50 rounded-lg border border-gray-200"
                   >
-                    <p className="text-sm font-semibold text-charcoal mb-3">{app.microQuiz.question}</p>
+                    <p className="text-sm font-semibold text-charcoal mb-3">
+                      {app.microQuiz.question}
+                    </p>
                     <div className="space-y-2">
                       {app.microQuiz.options.map((option, idx) => (
                         <button
@@ -150,9 +182,10 @@ export default function BentoBoxGrid() {
                             quizState[app.id]?.answered
                               ? idx === app.microQuiz.correctAnswer
                                 ? "bg-green-500 text-white"
-                                : quizState[app.id]?.correct === false && idx === quizState[app.id]?.selected
-                                ? "bg-red-500 text-white"
-                                : "bg-gray-200 text-charcoal"
+                                : quizState[app.id]?.correct === false &&
+                                    idx === quizState[app.id]?.selected
+                                  ? "bg-red-500 text-white"
+                                  : "bg-gray-200 text-charcoal"
                               : "bg-white border border-gray-300 hover:bg-gray-100"
                           }`}
                           disabled={quizState[app.id]?.answered}
@@ -172,7 +205,7 @@ export default function BentoBoxGrid() {
 
               {/* Quick Start CTA */}
               <a
-                href={`/${app.id}`}
+                href={getAppUrl(app.id)}
                 className="block text-center mt-4 py-2 rounded-lg font-semibold transition-colors text-sm"
                 style={{
                   backgroundColor: app.color,

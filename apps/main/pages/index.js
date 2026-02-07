@@ -6,9 +6,6 @@ import { getPricingDisplay, getIntroOfferNotice } from "../utils/pricing";
 import TranslationFeatureBanner from "../../../components/shared/TranslationFeatureBanner";
 import Hero, { getHeroImagesForApp } from "../../../components/shared/HeroManager";
 import MagicSearchBar from "../components/portal/MagicSearchBar";
-import SkillGalaxyMap from "../components/portal/SkillGalaxyMap";
-import UniversalProgressDashboard from "../components/portal/UniversalProgressDashboard";
-import CrossPollinationFeed from "../components/portal/CrossPollinationFeed";
 import BentoBoxGrid from "../components/portal/BentoBoxGrid";
 
 export default function Home() {
@@ -101,34 +98,10 @@ export default function Home() {
         {/* Universal Search Bar (floating, always accessible) */}
         <MagicSearchBar />
 
-        {/* Multi-App Portal Features */}
+        {/* Interactive Learning Apps Section */}
         <section className="py-16 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12">
-              <h2 className="text-4xl md:text-5xl font-bold text-primary mb-4">
-                Your Universal Skills Dashboard
-              </h2>
-              <p className="text-xl text-charcoal max-w-3xl mx-auto">
-                Explore connections, track progress, and discover how learning in one area enhances understanding across all apps
-              </p>
-            </div>
-
-            {/* Skill Galaxy Map */}
-            <div className="mb-12">
-              <SkillGalaxyMap />
-            </div>
-
-            {/* Universal Progress Dashboard & Cross-Pollination Feed */}
-            <div className="grid lg:grid-cols-3 gap-8 mb-12">
-              <div className="lg:col-span-2">
-                <UniversalProgressDashboard />
-              </div>
-              <div className="lg:col-span-1">
-                <CrossPollinationFeed />
-              </div>
-            </div>
-
-            {/* Bento Box Grid */}
+            {/* Interactive Learning Apps */}
             <div className="mb-8">
               <h3 className="text-3xl font-bold text-primary text-center mb-8">
                 Interactive Learning Apps

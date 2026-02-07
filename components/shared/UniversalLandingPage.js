@@ -2,7 +2,7 @@
 
 /**
  * Shared Landing Page Component
- * 
+ *
  * Universal landing page component for all learning apps.
  * Features:
  * - Consistent layout across all apps
@@ -27,19 +27,19 @@ import { getCurrentUser } from "../../lib/supabaseClient";
  */
 function getAppContextLabel(appId) {
   const labels = {
-    'main': 'iiskills Cloud',
-    'learn-pr': 'iiskills PR',
-    'learn-management': 'iiskills Management',
-    'learn-ai': 'iiskills AI',
-    'learn-apt': 'iiskills APTITUDE',
-    'learn-developer': 'iiskills Developer',
-    'learn-physics': 'iiskills Physics',
-    'learn-chemistry': 'iiskills Chemistry',
-    'learn-math': 'iiskills Math',
-    'learn-geography': 'iiskills Geography',
-    'learn-govt-jobs': 'iiskills Government Jobs',
+    main: "iiskills Cloud",
+    "learn-pr": "iiskills PR",
+    "learn-management": "iiskills Management",
+    "learn-ai": "iiskills AI",
+    "learn-apt": "iiskills APTITUDE",
+    "learn-developer": "iiskills Developer",
+    "learn-physics": "iiskills Physics",
+    "learn-chemistry": "iiskills Chemistry",
+    "learn-math": "iiskills Math",
+    "learn-geography": "iiskills Geography",
+    "learn-govt-jobs": "iiskills Government Jobs",
   };
-  return labels[appId] || 'iiskills';
+  return labels[appId] || "iiskills";
 }
 
 /**
@@ -48,17 +48,55 @@ function getAppContextLabel(appId) {
  */
 function getCourseLinks() {
   return [
-    { name: 'Learn AI', icon: '🤖', url: 'https://app1.learn-ai.iiskills.cloud' },
-    { name: 'Learn Management', icon: '📊', url: 'https://app2.learn-management.iiskills.cloud' },
-    { name: 'Learn PR', icon: '📢', url: 'https://app3.learn-pr.iiskills.cloud' },
-    { name: 'Learn Developer', icon: '💻', url: 'https://app4.learn-developer.iiskills.cloud' },
-    { name: 'Learn Aptitude', icon: '🧠', url: 'https://app5.learn-apt.iiskills.cloud' },
-    { name: 'Learn Physics', icon: '⚛️', url: 'https://app6.learn-physics.iiskills.cloud' },
-    { name: 'Learn Chemistry', icon: '🧪', url: 'https://app7.learn-chemistry.iiskills.cloud' },
-    { name: 'Learn Math', icon: '📐', url: 'https://app8.learn-math.iiskills.cloud' },
-    { name: 'Learn Geography', icon: '🌍', url: 'https://app9.learn-geography.iiskills.cloud' },
-    { name: 'Learn Govt Jobs', icon: '🏛️', url: 'https://app10.learn-govt-jobs.iiskills.cloud' },
+    { name: "Learn AI", icon: "🤖", url: "https://app1.learn-ai.iiskills.cloud" },
+    { name: "Learn Management", icon: "📊", url: "https://app2.learn-management.iiskills.cloud" },
+    { name: "Learn PR", icon: "📢", url: "https://app3.learn-pr.iiskills.cloud" },
+    { name: "Learn Developer", icon: "💻", url: "https://app4.learn-developer.iiskills.cloud" },
+    { name: "Learn Aptitude", icon: "🧠", url: "https://app5.learn-apt.iiskills.cloud" },
+    { name: "Learn Physics", icon: "⚛️", url: "https://app6.learn-physics.iiskills.cloud" },
+    { name: "Learn Chemistry", icon: "🧪", url: "https://app7.learn-chemistry.iiskills.cloud" },
+    { name: "Learn Math", icon: "📐", url: "https://app8.learn-math.iiskills.cloud" },
+    { name: "Learn Geography", icon: "🌍", url: "https://app9.learn-geography.iiskills.cloud" },
+    { name: "Learn Govt Jobs", icon: "🏛️", url: "https://app10.learn-govt-jobs.iiskills.cloud" },
   ];
+}
+
+/**
+ * Get app-specific links (courses, tests, features) for the App Links panel
+ * @param {string} appId - The app identifier
+ * @returns {Array} Array of link objects with label and href
+ */
+function getAppSpecificLinks(appId) {
+  const commonLinks = [
+    { label: "Courses", href: "/courses" },
+    { label: "Tests", href: "/tests" },
+    { label: "Curriculum", href: "/curriculum" },
+  ];
+
+  // App-specific additional links
+  const appSpecificMap = {
+    "learn-govt-jobs": [
+      { label: "Job Search", href: "/jobs" },
+      { label: "Opportunities", href: "/opportunity-feed" },
+      { label: "Daily Brief", href: "/daily-brief" },
+      { label: "Exam Alerts", href: "/exam-countdown" },
+      { label: "News", href: "/news" },
+    ],
+    "learn-ai": [
+      { label: "AI Playground", href: "/playground" },
+      { label: "Projects", href: "/projects" },
+    ],
+    "learn-pr": [
+      { label: "Case Studies", href: "/case-studies" },
+      { label: "Resources", href: "/resources" },
+    ],
+    "learn-management": [
+      { label: "Leadership Tools", href: "/tools" },
+      { label: "Resources", href: "/resources" },
+    ],
+  };
+
+  return [...commonLinks, ...(appSpecificMap[appId] || [])];
 }
 
 export default function UniversalLandingPage({
@@ -98,13 +136,30 @@ export default function UniversalLandingPage({
     <>
       <Head>
         <title>{title || `${appName} - iiskills.cloud`}</title>
-        <meta
-          name="description"
-          content={metaDescription || description}
-        />
+        <meta name="description" content={metaDescription || description} />
       </Head>
 
       <main className="min-h-screen">
+        {/* App Links Panel - Above Hero Section */}
+        <section className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 px-4 sm:px-6 lg:px-8">
+          <div className="max-w-7xl mx-auto">
+            <div className="flex flex-wrap items-center gap-4">
+              <h2 className="text-lg font-bold whitespace-nowrap">App Links:</h2>
+              <div className="flex flex-wrap gap-2 sm:gap-3">
+                {getAppSpecificLinks(appId).map((link, index) => (
+                  <Link
+                    key={index}
+                    href={link.href}
+                    className="inline-block bg-white/20 hover:bg-white/30 backdrop-blur-sm px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg font-medium text-sm sm:text-base transition-all duration-200 border border-white/30 hover:border-white/50"
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Hero Section with Full-Size Background */}
         <Hero appId={appId} className="h-[70vh] md:h-[80vh] lg:h-[90vh] relative">
           {/* App Context Label - Overlaid on top-left of hero image */}
@@ -125,9 +180,7 @@ export default function UniversalLandingPage({
             )}
             {/* Description - only show if no subheadline provided */}
             {!subheadline && description && (
-              <p className="text-lg sm:text-xl lg:text-2xl leading-relaxed">
-                {description}
-              </p>
+              <p className="text-lg sm:text-xl lg:text-2xl leading-relaxed">{description}</p>
             )}
 
             {/* Paid Course Notice - Centered */}
@@ -135,15 +188,15 @@ export default function UniversalLandingPage({
               <div className="bg-white/10 backdrop-blur-sm border-2 border-white/30 rounded-lg p-4 max-w-2xl mx-auto">
                 <p className="text-lg font-semibold">💳 Paid Course</p>
                 <p className="text-sm mt-2">
-                  Sample One Module Free{' '}
-                  <Link 
+                  Sample One Module Free{" "}
+                  <Link
                     href={`/modules/${firstModuleId}/lesson`}
                     className="underline hover:text-blue-200 font-semibold"
                     aria-label={`Try Module ${firstModuleId} for free before purchasing`}
                   >
                     (Try Module {firstModuleId} Free)
-                  </Link>
-                  {' '}before you pay!
+                  </Link>{" "}
+                  before you pay!
                 </p>
               </div>
             )}
@@ -186,15 +239,17 @@ export default function UniversalLandingPage({
           {!isFree && !user && !loading && (
             <div className="absolute bottom-8 left-0 right-0 px-4 sm:px-8 lg:px-16 flex justify-between items-end gap-4">
               {/* Left Bottom - Free Registration Box */}
-              <div 
+              <div
                 className="bg-white/10 backdrop-blur-sm border-2 border-white/30 rounded-lg p-3 sm:p-4 max-w-xs"
                 role="complementary"
                 aria-label="Free registration information"
               >
-                <p className="text-sm sm:text-base font-semibold text-white">📝 Free Registration - Save Your Progress</p>
+                <p className="text-sm sm:text-base font-semibold text-white">
+                  📝 Free Registration - Save Your Progress
+                </p>
                 <p className="text-xs sm:text-sm mt-1 text-white/90">
-                  Create a free account to save your scores, track progress, and personalize your experience. 
-                  All features are free for registered users!
+                  Create a free account to save your scores, track progress, and personalize your
+                  experience. All features are free for registered users!
                 </p>
               </div>
 
@@ -236,9 +291,7 @@ export default function UniversalLandingPage({
                     className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200"
                   >
                     <div className="text-4xl mb-4">{feature.emoji}</div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-2">
-                      {feature.title}
-                    </h3>
+                    <h3 className="text-xl font-bold text-gray-900 mb-2">{feature.title}</h3>
                     <p className="text-gray-600">{feature.description}</p>
                   </div>
                 ))}
@@ -283,11 +336,11 @@ export default function UniversalLandingPage({
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col md:flex-row items-center gap-12">
               <div className="flex-1">
-                <SecondaryImage 
-                  appId={appId} 
+                <SecondaryImage
+                  appId={appId}
                   alt={`${appName} interactive learning experience`}
                   className="w-full"
-                  style={{ aspectRatio: '4/3', height: 'auto' }}
+                  style={{ aspectRatio: "4/3", height: "auto" }}
                 />
               </div>
               <div className="flex-1 text-center md:text-left">
@@ -295,8 +348,8 @@ export default function UniversalLandingPage({
                   Learn at Your Own Pace
                 </h2>
                 <p className="text-lg text-gray-600 mb-6">
-                  Access comprehensive courses, interactive lessons, and expert guidance 
-                  anytime, anywhere. Build your skills with our structured learning paths.
+                  Access comprehensive courses, interactive lessons, and expert guidance anytime,
+                  anywhere. Build your skills with our structured learning paths.
                 </p>
                 {!user && (
                   <Link

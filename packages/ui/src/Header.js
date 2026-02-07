@@ -5,7 +5,7 @@ import GoogleTranslate from "./GoogleTranslate";
 
 /**
  * Shared Header Component
- * 
+ *
  * Centralized header for all iiskills.cloud apps
  * Features:
  * - Dual logo display (AI Cloud + iiskills)
@@ -67,22 +67,27 @@ export default function Header({
               Indian Institute of Professional Skills Development
             </span>
           </div>
-
         </Link>
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex space-x-6 font-medium items-center">
-          {customLinks.map((link, index) => (
-            <Link
-              key={index}
-              href={link.href}
-              className={link.className || "hover:text-primary transition"}
-              target={link.target}
-              rel={link.rel}
-            >
-              {link.label}
-            </Link>
-          ))}
+          {customLinks.map((link, index) =>
+            link.isNonClickable ? (
+              <span key={index} className={link.className || ""}>
+                {link.label}
+              </span>
+            ) : (
+              <Link
+                key={index}
+                href={link.href}
+                className={link.className || "hover:text-primary transition"}
+                target={link.target}
+                rel={link.rel}
+              >
+                {link.label}
+              </Link>
+            )
+          )}
 
           {/* Show Sign In/Register or User Info based on authentication */}
           {showAuthButtons && (
@@ -117,7 +122,10 @@ export default function Header({
 
           {/* Google Translate Widget - Multi-language support - Moved to far right */}
           <div className="flex items-center gap-2 px-2 py-1 border-l border-gray-200">
-            <span className="text-sm text-gray-600 whitespace-nowrap hidden lg:inline" aria-label="Language Selector">
+            <span
+              className="text-sm text-gray-600 whitespace-nowrap hidden lg:inline"
+              aria-label="Language Selector"
+            >
               🌐 Language | भाषा
             </span>
             <GoogleTranslate />
@@ -153,23 +161,27 @@ export default function Header({
       {/* Mobile Menu */}
       {isMenuOpen && (
         <div className="md:hidden mt-4 pb-4 space-y-3">
-          {customLinks.map((link, index) => (
-            <Link
-              key={index}
-              href={link.href}
-              className={link.mobileClassName || "block hover:text-primary transition"}
-              target={link.target}
-              rel={link.rel}
-            >
-              {link.label}
-            </Link>
-          ))}
+          {customLinks.map((link, index) =>
+            link.isNonClickable ? (
+              <span key={index} className={link.mobileClassName || link.className || "block"}>
+                {link.label}
+              </span>
+            ) : (
+              <Link
+                key={index}
+                href={link.href}
+                className={link.mobileClassName || "block hover:text-primary transition"}
+                target={link.target}
+                rel={link.rel}
+              >
+                {link.label}
+              </Link>
+            )
+          )}
 
           {/* Google Translate Widget for Mobile */}
           <div className="flex items-center gap-2 px-2 py-2 border-t border-gray-200 mt-2 pt-4">
-            <span className="text-sm text-gray-600 whitespace-nowrap">
-              🌐 Language | भाषा:
-            </span>
+            <span className="text-sm text-gray-600 whitespace-nowrap">🌐 Language | भाषा:</span>
             <GoogleTranslate />
           </div>
 
