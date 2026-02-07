@@ -2,24 +2,80 @@
  * Curriculum Generator - Chemistry
  * 
  * Utilities for generating course structure metadata.
- * Now using unified content format from /data/chemistry-content.js
  */
 
-import { 
-  getAllChemistryModules, 
-  getChemistryModuleById,
-  getChemistryModulesByLevel,
-  chemistryContent 
-} from '../../../data/chemistry-content';
-
-// Export modules in the format expected by existing code
-export const moduleTopics = getAllChemistryModules().map(module => ({
-  id: module.id,
-  title: module.title,
-  description: module.description,
-  order: module.id,
-  difficulty: module.level
-}));
+export const moduleTopics = [
+  {
+    id: 1,
+    title: "Introduction to Chemistry",
+    description: "Matter, elements, and the periodic table",
+    order: 1,
+    difficulty: "Beginner"
+  },
+  {
+    id: 2,
+    title: "Atomic Structure",
+    description: "Atoms, electrons, and atomic models",
+    order: 2,
+    difficulty: "Beginner"
+  },
+  {
+    id: 3,
+    title: "Chemical Bonding",
+    description: "Ionic, covalent, and metallic bonds",
+    order: 3,
+    difficulty: "Beginner"
+  },
+  {
+    id: 4,
+    title: "States of Matter",
+    description: "Solids, liquids, gases, and phase changes",
+    order: 4,
+    difficulty: "Intermediate"
+  },
+  {
+    id: 5,
+    title: "Chemical Reactions",
+    description: "Types of reactions and balancing equations",
+    order: 5,
+    difficulty: "Intermediate"
+  },
+  {
+    id: 6,
+    title: "Stoichiometry",
+    description: "Quantitative relationships in chemical reactions",
+    order: 6,
+    difficulty: "Intermediate"
+  },
+  {
+    id: 7,
+    title: "Organic Chemistry",
+    description: "Carbon compounds and functional groups",
+    order: 7,
+    difficulty: "Advanced"
+  },
+  {
+    id: 8,
+    title: "Chemical Kinetics",
+    description: "Reaction rates and mechanisms",
+    order: 8,
+    difficulty: "Advanced"
+  },
+  {
+    id: 9,
+    title: "Thermochemistry",
+    description: "Energy changes in chemical reactions",
+    order: 9,
+    difficulty: "Advanced"
+  },
+  {
+    id: 10,
+    title: "Advanced Topics",
+    description: "Electrochemistry and quantum chemistry",
+    order: 10,
+    difficulty: "Advanced"
+  }
+];
 
 /**
  * Generate lesson metadata for a module
@@ -51,7 +107,7 @@ export function generateQuizTemplate() {
  * Get module by ID
  */
 export function getModuleById(id) {
-  return getChemistryModuleById(id);
+  return moduleTopics.find(m => m.id === id);
 }
 
 /**
@@ -65,12 +121,16 @@ export function getAllModules() {
  * Get modules by level
  */
 export function getModulesByLevel(level) {
-  return getChemistryModulesByLevel(level);
+  return moduleTopics.filter(m => m.difficulty === level);
 }
 
 /**
  * Get content organized by level
  */
 export function getContentByLevel() {
-  return chemistryContent;
+  return {
+    Beginner: moduleTopics.filter(m => m.difficulty === 'Beginner'),
+    Intermediate: moduleTopics.filter(m => m.difficulty === 'Intermediate'),
+    Advanced: moduleTopics.filter(m => m.difficulty === 'Advanced')
+  };
 }
