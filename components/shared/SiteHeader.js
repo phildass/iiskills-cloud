@@ -1,5 +1,5 @@
 import Header from "@iiskills/ui/src/Header";
-import { canonicalLinks } from "./canonicalNavLinks";
+import { getCanonicalLinks } from "./canonicalNavLinks";
 
 /**
  * Shared site header used across all apps.
@@ -7,13 +7,16 @@ import { canonicalLinks } from "./canonicalNavLinks";
  * 
  * This is a simplified wrapper that uses the shared Header component
  * with the canonical set of navigation links.
+ * 
+ * @param {string} appId - The app identifier (e.g., 'learn-ai', 'main')
+ * @param {boolean} isFreeApp - Whether this is a free app (affects payment link display)
  */
-export default function SiteHeader() {
+export default function SiteHeader({ appId = "main", isFreeApp = false }) {
   return (
     <Header
       appName="" // Removed to create more space in navigation
       homeUrl="/"
-      customLinks={canonicalLinks}
+      customLinks={getCanonicalLinks(appId, isFreeApp)}
       showAuthButtons={true}
     />
   );

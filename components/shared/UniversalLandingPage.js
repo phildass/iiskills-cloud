@@ -61,6 +61,44 @@ function getCourseLinks() {
   ];
 }
 
+/**
+ * Get app-specific links (courses, tests, features) for the App Links panel
+ * @param {string} appId - The app identifier
+ * @returns {Array} Array of link objects with label and href
+ */
+function getAppSpecificLinks(appId) {
+  const commonLinks = [
+    { label: "Courses", href: "/courses" },
+    { label: "Tests", href: "/tests" },
+    { label: "Curriculum", href: "/curriculum" },
+  ];
+
+  // App-specific additional links
+  const appSpecificMap = {
+    "learn-govt-jobs": [
+      { label: "Job Search", href: "/jobs" },
+      { label: "Opportunities", href: "/opportunity-feed" },
+      { label: "Daily Brief", href: "/daily-brief" },
+      { label: "Exam Alerts", href: "/exam-countdown" },
+      { label: "News", href: "/news" },
+    ],
+    "learn-ai": [
+      { label: "AI Playground", href: "/playground" },
+      { label: "Projects", href: "/projects" },
+    ],
+    "learn-pr": [
+      { label: "Case Studies", href: "/case-studies" },
+      { label: "Resources", href: "/resources" },
+    ],
+    "learn-management": [
+      { label: "Leadership Tools", href: "/tools" },
+      { label: "Resources", href: "/resources" },
+    ],
+  };
+
+  return [...commonLinks, ...(appSpecificMap[appId] || [])];
+}
+
 export default function UniversalLandingPage({
   appId,
   appName, // Backward compatibility - will be used if headline is not provided
@@ -105,6 +143,26 @@ export default function UniversalLandingPage({
       </Head>
 
       <main className="min-h-screen">
+        {/* App Links Panel - Above Hero Section */}
+        <section className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 px-4 sm:px-6 lg:px-8">
+          <div className="max-w-7xl mx-auto">
+            <div className="flex flex-wrap items-center gap-4">
+              <h2 className="text-lg font-bold whitespace-nowrap">App Links:</h2>
+              <div className="flex flex-wrap gap-2 sm:gap-3">
+                {getAppSpecificLinks(appId).map((link, index) => (
+                  <Link
+                    key={index}
+                    href={link.href}
+                    className="inline-block bg-white/20 hover:bg-white/30 backdrop-blur-sm px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg font-medium text-sm sm:text-base transition-all duration-200 border border-white/30 hover:border-white/50"
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Hero Section with Full-Size Background */}
         <Hero appId={appId} className="h-[70vh] md:h-[80vh] lg:h-[90vh] relative">
           {/* App Context Label - Overlaid on top-left of hero image */}

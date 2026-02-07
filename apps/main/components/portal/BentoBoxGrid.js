@@ -2,6 +2,34 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useUserProgress } from "../../contexts/UserProgressContext";
 
+/**
+ * Map app IDs to their subdomain numbers
+ * Format: app{number}.{app-name}.iiskills.cloud
+ */
+const APP_SUBDOMAIN_MAP = {
+  "learn-ai": { number: 1, subdomain: "learn-ai" },
+  "learn-management": { number: 2, subdomain: "learn-management" },
+  "learn-pr": { number: 3, subdomain: "learn-pr" },
+  "learn-developer": { number: 4, subdomain: "learn-developer" },
+  "learn-apt": { number: 5, subdomain: "learn-apt" },
+  "learn-physics": { number: 6, subdomain: "learn-physics" },
+  "learn-chemistry": { number: 7, subdomain: "learn-chemistry" },
+  "learn-math": { number: 8, subdomain: "learn-math" },
+  "learn-geography": { number: 9, subdomain: "learn-geography" },
+  "learn-govt-jobs": { number: 10, subdomain: "learn-govt-jobs" },
+};
+
+/**
+ * Get the full subdomain URL for an app
+ * @param {string} appId - The app identifier
+ * @returns {string} The full subdomain URL
+ */
+function getAppUrl(appId) {
+  const appInfo = APP_SUBDOMAIN_MAP[appId];
+  if (!appInfo) return `/${appId}`; // Fallback to local path
+  return `https://app${appInfo.number}.${appInfo.subdomain}.iiskills.cloud`;
+}
+
 export default function BentoBoxGrid() {
   const { apps } = useUserProgress();
   const [hoveredApp, setHoveredApp] = useState(null);
@@ -172,7 +200,7 @@ export default function BentoBoxGrid() {
 
               {/* Quick Start CTA */}
               <a
-                href={`/${app.id}`}
+                href={getAppUrl(app.id)}
                 className="block text-center mt-4 py-2 rounded-lg font-semibold transition-colors text-sm"
                 style={{
                   backgroundColor: app.color,
