@@ -45,20 +45,21 @@ export default function PaidUserProtectedRoute({ children }) {
      */
     const checkAccess = async () => {
       try {
-        // TEMPORARY AUTH DISABLE - PR: feature/disable-auth-temporary  
-        // Bypass paywall when global auth disable flag is enabled
-        const isAuthDisabled = process.env.NEXT_PUBLIC_DISABLE_AUTH === 'true';
+        // OPEN ACCESS MODE - Check for OPEN_ACCESS or legacy NEXT_PUBLIC_DISABLE_AUTH
+        // Bypass all authentication, login, signup, registration, and paywall logic
+        const isOpenAccess = process.env.NEXT_PUBLIC_OPEN_ACCESS === 'true' || 
+                             process.env.NEXT_PUBLIC_DISABLE_AUTH === 'true';
         
-        if (isAuthDisabled) {
-          console.log('⚠️ AUTH DISABLED: PaidUserProtectedRoute bypassed - granting full access');
+        if (isOpenAccess) {
+          console.log('⚠️ OPEN ACCESS MODE: All authentication bypassed - granting full access');
           // Set mock user with full permissions
           setUser({
-            id: 'dev-override',
-            email: 'dev@iiskills.cloud',
+            id: 'open-access-user',
+            email: 'open-access@iiskills.cloud',
             user_metadata: {
-              full_name: 'Dev Override',
-              firstName: 'Dev',
-              lastName: 'Override',
+              full_name: 'Open Access User',
+              firstName: 'Open',
+              lastName: 'Access',
               is_admin: true,
               payment_status: 'paid'
             }

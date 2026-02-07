@@ -32,40 +32,14 @@ export default function ProtectedRoute({ children, requireAdmin = true }) {
 
   const checkAuth = async () => {
     try {
-      // TEST MODE: Check for password-first admin authentication
-      const testMode = process.env.NEXT_PUBLIC_TEST_MODE === 'true';
+      // OPEN ACCESS MODE - Check for OPEN_ACCESS or legacy flags
+      // Bypass all authentication, login, signup, registration, and paywall logic
+      const isOpenAccess = process.env.NEXT_PUBLIC_OPEN_ACCESS === 'true' || 
+                           process.env.NEXT_PUBLIC_TEST_MODE === 'true' ||
+                           process.env.NEXT_PUBLIC_DISABLE_AUTH === 'true';
       
-      if (testMode && requireAdmin) {
-        // In test mode, try admin_token verification first
-        try {
-          const verifyResponse = await fetch('/api/admin/auth', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ action: 'verify' }),
-            credentials: 'include',
-          });
-
-          if (verifyResponse.ok) {
-            const verifyData = await verifyResponse.json();
-            if (verifyData.ok) {
-              console.log('✅ Admin authenticated via admin_token (TEST MODE)');
-              setIsAuthenticated(true);
-              setIsLoading(false);
-              return;
-            }
-          }
-        } catch (error) {
-          console.error('Admin token verification failed:', error);
-        }
-      }
-
-      // UNIVERSAL PUBLIC ACCESS MODE: Authentication disabled
-      // All admin and user routes are now publicly accessible
-      // To re-enable authentication, set NEXT_PUBLIC_DISABLE_AUTH=false in .env.local
-      const BYPASS_AUTH = process.env.NEXT_PUBLIC_DISABLE_AUTH !== 'false';
-      
-      if (BYPASS_AUTH) {
-        console.log('⚠️ PUBLIC MODE: Authentication bypassed - full public access granted');
+      if (isOpenAccess) {
+        console.log('⚠️ OPEN ACCESS MODE: All authentication bypassed - granting full access');
         setIsAuthenticated(true);
         setIsLoading(false);
         return;

@@ -1,20 +1,41 @@
-# Temporary Open Access Configuration
+# Temporary Open Access Configuration (LEGACY)
 
-**Status:** ⚠️ ACTIVE - Authentication Fully Disabled  
-**Last Updated:** February 7, 2026 (Latest Update)  
+**Status:** ⚠️ DEPRECATED - Use OPEN_ACCESS Mode Instead  
+**Last Updated:** February 7, 2026  
 **Purpose:** Enable full platform access without authentication for testing period  
-**Verification Status:** ✅ All apps configured with open access enabled
-**Landing Pages:** ✅ Physics, Math, Chemistry, Geography fully enhanced
+**Recommended:** See [OPEN_ACCESS_MODE.md](OPEN_ACCESS_MODE.md) for the current implementation
 
 ---
 
-## 🎯 Quick Activation
+## ⚠️ Notice: This Document is Deprecated
 
-### Option 1: Global Environment Variable (Recommended)
+This document describes the **legacy** method for enabling open access using `NEXT_PUBLIC_DISABLE_AUTH`.
+
+**For new implementations, please use:**
+- **New Variable:** `OPEN_ACCESS=true` (see [OPEN_ACCESS_MODE.md](OPEN_ACCESS_MODE.md))
+- **New Script:** `./scripts/enable-open-access.sh` (updated to use OPEN_ACCESS)
+
+The legacy `NEXT_PUBLIC_DISABLE_AUTH` variable is still supported for backward compatibility but is no longer recommended.
+
+---
+
+## 🎯 Quick Activation (Legacy Method)
+
+### Option 1: New Method (Recommended)
+Use the new OPEN_ACCESS mode:
+
+```bash
+# In .env.local
+OPEN_ACCESS=true
+```
+
+See [OPEN_ACCESS_MODE.md](OPEN_ACCESS_MODE.md) for full documentation.
+
+### Option 2: Legacy Method (Deprecated)
 Set this in your `.env.local` file at the root of the repository:
 
 ```bash
-# Enable temporary open access - bypass all authentication
+# Enable temporary open access - bypass all authentication (LEGACY)
 NEXT_PUBLIC_DISABLE_AUTH=true
 
 # Disable paywalls (optional - already disabled by default)

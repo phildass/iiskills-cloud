@@ -37,12 +37,13 @@ export default function UserProtectedRoute({ children }) {
      */
     const checkAuth = async () => {
       try {
-        // TEMPORARY AUTH DISABLE - PR: feature/disable-auth-temporary
-        // Bypass user auth check when global flag is enabled
-        const isAuthDisabled = process.env.NEXT_PUBLIC_DISABLE_AUTH === 'true';
+        // OPEN ACCESS MODE - Check for OPEN_ACCESS or legacy NEXT_PUBLIC_DISABLE_AUTH
+        // Bypass all authentication, login, signup, registration, and paywall logic
+        const isOpenAccess = process.env.NEXT_PUBLIC_OPEN_ACCESS === 'true' || 
+                             process.env.NEXT_PUBLIC_DISABLE_AUTH === 'true';
         
-        if (isAuthDisabled) {
-          console.log('⚠️ AUTH DISABLED: UserProtectedRoute bypassed - granting full access');
+        if (isOpenAccess) {
+          console.log('⚠️ OPEN ACCESS MODE: All authentication bypassed - granting full access');
           setIsAuthenticated(true);
           setIsLoading(false);
           return; // Skip all auth checks

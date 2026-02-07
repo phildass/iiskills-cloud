@@ -55,28 +55,15 @@ export default function PaidUserProtectedRoute({ children }) {
      */
     const checkAccess = async () => {
       try {
-        // TEST MODE: Bypass all paywall and authentication checks
-        // This allows admin to access and test all content
-        // ⚠️ WARNING: NEVER enable in production
-        const TEST_MODE = process.env.NEXT_PUBLIC_TEST_MODE === 'true';
+        // OPEN ACCESS MODE - Check for OPEN_ACCESS or legacy flags
+        // Bypass all authentication, login, signup, registration, and paywall logic
+        const isOpenAccess = process.env.NEXT_PUBLIC_OPEN_ACCESS === 'true' || 
+                             process.env.NEXT_PUBLIC_TEST_MODE === 'true' ||
+                             process.env.NEXT_PUBLIC_DISABLE_AUTH === 'true';
         
-        if (TEST_MODE) {
-          console.log('🧪 TEST MODE: Paywall bypassed - full access to all paid content');
-          setUser({ email: 'test-mode-admin@iiskills.cloud' });
-          setHasPaid(true);
-          setIsLoading(false);
-          return;
-        }
-
-        // UNIVERSAL PUBLIC ACCESS MODE: Authentication and paywall disabled
-        // All paid content is now publicly accessible
-        // To re-enable paywall, set NEXT_PUBLIC_DISABLE_AUTH=false in .env.local
-        const BYPASS_AUTH = process.env.NEXT_PUBLIC_DISABLE_AUTH !== 'false';
-        
-        if (BYPASS_AUTH) {
-          console.log('⚠️ PUBLIC MODE: Paywall bypassed - full public access to all content');
-          // Mock authenticated paid user
-          setUser({ email: 'public-access@iiskills.cloud' });
+        if (isOpenAccess) {
+          console.log('⚠️ OPEN ACCESS MODE: All authentication and paywalls bypassed - granting full access');
+          setUser({ email: 'open-access@iiskills.cloud' });
           setHasPaid(true);
           setIsLoading(false);
           return;
