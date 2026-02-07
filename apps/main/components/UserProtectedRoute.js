@@ -39,13 +39,13 @@ export default function UserProtectedRoute({ children }) {
      */
     const checkAuth = async () => {
       try {
-        // UNIVERSAL PUBLIC ACCESS MODE: Authentication disabled
-        // All user routes are now publicly accessible
-        // To re-enable authentication, set NEXT_PUBLIC_DISABLE_AUTH=false in .env.local
-        const BYPASS_AUTH = process.env.NEXT_PUBLIC_DISABLE_AUTH !== 'false';
+        // OPEN ACCESS MODE - Check for OPEN_ACCESS or legacy flags
+        // Bypass all authentication, login, signup, registration, and paywall logic
+        const isOpenAccess = process.env.NEXT_PUBLIC_OPEN_ACCESS === 'true' || 
+                             process.env.NEXT_PUBLIC_DISABLE_AUTH === 'true';
         
-        if (BYPASS_AUTH) {
-          console.log('⚠️ PUBLIC MODE: User authentication bypassed - full public access');
+        if (isOpenAccess) {
+          console.log('⚠️ OPEN ACCESS MODE: All authentication bypassed - granting full access');
           setIsAuthenticated(true);
           setIsLoading(false);
           return;

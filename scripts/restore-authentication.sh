@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Restore Authentication Script
-# This script disables temporary open access and restores normal authentication
+# This script disables open access mode and restores normal authentication
 
 set -e
 
@@ -11,7 +11,7 @@ echo "━━━━━━━━━━━━━━━━━━━━━━━━�
 echo ""
 echo "This script will:"
 echo "  1. Update .env.local files for all apps"
-echo "  2. Set NEXT_PUBLIC_DISABLE_AUTH=false"
+echo "  2. Set OPEN_ACCESS=false (disables open access mode)"
 echo "  3. Restore normal authentication requirements"
 echo ""
 echo "Note: 'Continue as Guest' buttons will still work for session-based access"
@@ -31,8 +31,8 @@ echo ""
 # Root .env.local
 if [ -f .env.local ]; then
     echo "Restoring root .env.local..."
-    if grep -q "NEXT_PUBLIC_DISABLE_AUTH" .env.local; then
-        sed -i.bak 's/NEXT_PUBLIC_DISABLE_AUTH=.*/NEXT_PUBLIC_DISABLE_AUTH=false/' .env.local
+    if grep -q "OPEN_ACCESS=" .env.local; then
+        sed -i.bak 's/OPEN_ACCESS=.*/OPEN_ACCESS=false/' .env.local
         echo "✅ Root .env.local updated"
     fi
 fi
@@ -55,8 +55,8 @@ APPS=(
 for app in "${APPS[@]}"; do
     if [ -f "$app/.env.local" ]; then
         echo "Restoring $app/.env.local..."
-        if grep -q "NEXT_PUBLIC_DISABLE_AUTH" "$app/.env.local"; then
-            sed -i.bak 's/NEXT_PUBLIC_DISABLE_AUTH=.*/NEXT_PUBLIC_DISABLE_AUTH=false/' "$app/.env.local"
+        if grep -q "OPEN_ACCESS=" "$app/.env.local"; then
+            sed -i.bak 's/OPEN_ACCESS=.*/OPEN_ACCESS=false/' "$app/.env.local"
             echo "✅ $app/.env.local updated"
         fi
     fi
@@ -75,7 +75,7 @@ echo ""
 echo "2. Verify authentication is active:"
 echo "   - Navigate to any protected route"
 echo "   - Should see login/register screen or 'Continue as Guest' button"
-echo "   - Console should NOT show '⚠️ AUTH DISABLED' message"
+echo "   - Console should NOT show '⚠️ OPEN ACCESS MODE' message"
 echo ""
 echo "3. Guest mode still available:"
 echo "   - Users can still click 'Continue as Guest' for session access"
