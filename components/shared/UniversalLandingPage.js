@@ -11,6 +11,7 @@
  * - Responsive design
  * - User authentication detection
  * - Full-size hero background with bottom-aligned overlay text
+ * - Standardized app context labels (e.g., "iiskills PR", "iiskills Management")
  */
 
 import Head from "next/head";
@@ -19,6 +20,46 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import Hero, { getHeroImagesForApp, SecondaryImage } from "./HeroManager";
 import { getCurrentUser } from "../../lib/supabaseClient";
+
+/**
+ * Generate standardized app context label
+ * Maps app IDs to their iiskills branded labels
+ */
+function getAppContextLabel(appId) {
+  const labels = {
+    'main': 'iiskills Cloud',
+    'learn-pr': 'iiskills PR',
+    'learn-management': 'iiskills Management',
+    'learn-ai': 'iiskills AI',
+    'learn-apt': 'iiskills APTITUDE',
+    'learn-developer': 'iiskills Developer',
+    'learn-physics': 'iiskills Physics',
+    'learn-chemistry': 'iiskills Chemistry',
+    'learn-math': 'iiskills Math',
+    'learn-geography': 'iiskills Geography',
+    'learn-govt-jobs': 'iiskills Government Jobs',
+  };
+  return labels[appId] || 'iiskills';
+}
+
+/**
+ * Get direct course links for all available apps
+ * Returns array of course objects with name, icon, and subdomain URL
+ */
+function getCourseLinks() {
+  return [
+    { name: 'Learn AI', icon: '🤖', url: 'https://app1.learn-ai.iiskills.cloud' },
+    { name: 'Learn Management', icon: '📊', url: 'https://app2.learn-management.iiskills.cloud' },
+    { name: 'Learn PR', icon: '📢', url: 'https://app3.learn-pr.iiskills.cloud' },
+    { name: 'Learn Developer', icon: '💻', url: 'https://app4.learn-developer.iiskills.cloud' },
+    { name: 'Learn Aptitude', icon: '🧠', url: 'https://app5.learn-apt.iiskills.cloud' },
+    { name: 'Learn Physics', icon: '⚛️', url: 'https://app6.learn-physics.iiskills.cloud' },
+    { name: 'Learn Chemistry', icon: '🧪', url: 'https://app7.learn-chemistry.iiskills.cloud' },
+    { name: 'Learn Math', icon: '📐', url: 'https://app8.learn-math.iiskills.cloud' },
+    { name: 'Learn Geography', icon: '🌍', url: 'https://app9.learn-geography.iiskills.cloud' },
+    { name: 'Learn Govt Jobs', icon: '🏛️', url: 'https://app10.learn-govt-jobs.iiskills.cloud' },
+  ];
+}
 
 export default function UniversalLandingPage({
   appId,
@@ -32,10 +73,14 @@ export default function UniversalLandingPage({
   heroGradient = "from-primary to-accent",
   metaDescription = null,
   firstModuleId = 1, // Default first module ID for paid apps
+  appContextLabel = null, // New: Standardized app context line (e.g., "iiskills PR")
 }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [images, setImages] = useState([]);
+
+  // Auto-generate app context label if not provided
+  const displayAppContextLabel = appContextLabel || getAppContextLabel(appId);
 
   useEffect(() => {
     const checkUser = async () => {
@@ -62,6 +107,11 @@ export default function UniversalLandingPage({
       <main className="min-h-screen">
         {/* Hero Section with Full-Size Background */}
         <Hero appId={appId} className="h-[70vh] md:h-[80vh] lg:h-[90vh] relative">
+          {/* App Context Label - Overlaid on top-left of hero image */}
+          <div className="absolute top-4 left-4 bg-black/50 backdrop-blur-sm text-white px-4 py-2 rounded-lg text-sm font-semibold z-10">
+            {displayAppContextLabel}
+          </div>
+
           <div className="text-center text-white space-y-6 max-w-4xl mx-auto">
             {/* Main Headline */}
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight">
@@ -196,6 +246,37 @@ export default function UniversalLandingPage({
             </div>
           </section>
         )}
+
+        {/* Direct Course Access Links Section */}
+        <section className="py-12 bg-gradient-to-r from-blue-50 to-purple-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-3xl sm:text-4xl font-bold text-center text-gray-900 mb-4">
+              Quick Access to All Courses
+            </h2>
+            <p className="text-center text-gray-600 mb-8">
+              Direct links to specialized learning apps
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {getCourseLinks().map((course, index) => (
+                <a
+                  key={index}
+                  href={course.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-white p-4 rounded-lg shadow-md hover:shadow-xl transition-all duration-200 border-2 border-transparent hover:border-primary"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="text-3xl">{course.icon}</div>
+                    <div className="flex-1">
+                      <h3 className="font-bold text-gray-900">{course.name}</h3>
+                      <p className="text-sm text-gray-600">{course.url}</p>
+                    </div>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </div>
+        </section>
 
         {/* Second Image Section (Optional) */}
         <section className="py-16 bg-white">

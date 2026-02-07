@@ -11,7 +11,7 @@ import { canonicalLinks } from "./canonicalNavLinks";
 export default function SiteHeader() {
   return (
     <Header
-      appName="iiskills.cloud"
+      appName="" // Removed to create more space in navigation
       homeUrl="/"
       customLinks={canonicalLinks}
       showAuthButtons={true}
