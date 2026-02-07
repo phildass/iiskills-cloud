@@ -68,7 +68,6 @@ export default function Header({
             </span>
           </div>
 
-          <span className="font-bold text-xl text-gray-800 ml-2">{appName}</span>
         </Link>
 
         {/* Desktop Navigation */}
@@ -84,14 +83,6 @@ export default function Header({
               {link.label}
             </Link>
           ))}
-
-          {/* Google Translate Widget - Multi-language support */}
-          <div className="flex items-center gap-2 px-2 py-1 border-l border-gray-200">
-            <span className="text-sm text-gray-600 whitespace-nowrap hidden lg:inline" aria-label="Language Selector">
-              🌐 Language | भाषा
-            </span>
-            <GoogleTranslate />
-          </div>
 
           {/* Show Sign In/Register or User Info based on authentication */}
           {showAuthButtons && (
@@ -123,6 +114,14 @@ export default function Header({
               )}
             </>
           )}
+
+          {/* Google Translate Widget - Multi-language support - Moved to far right */}
+          <div className="flex items-center gap-2 px-2 py-1 border-l border-gray-200">
+            <span className="text-sm text-gray-600 whitespace-nowrap hidden lg:inline" aria-label="Language Selector">
+              🌐 Language | भाषा
+            </span>
+            <GoogleTranslate />
+          </div>
         </div>
 
         {/* Mobile Menu Button */}
