@@ -47,8 +47,8 @@ test('Root next.config.js exists and has env config', () => {
   
   // Simulate OPEN_ACCESS=true
   process.env.OPEN_ACCESS = 'true';
-  const NEXT_PUBLIC_OPEN_ACCESS = process.env.OPEN_ACCESS || process.env.NEXT_PUBLIC_OPEN_ACCESS || 'false';
-  assert(NEXT_PUBLIC_OPEN_ACCESS === 'true', 'OPEN_ACCESS not properly exposed');
+  const openAccessValue = process.env.OPEN_ACCESS || process.env.NEXT_PUBLIC_OPEN_ACCESS || 'false';
+  assert(openAccessValue === 'true', 'OPEN_ACCESS not properly exposed');
 });
 
 test('Main app next.config.js exists and has env config', () => {
@@ -192,15 +192,15 @@ test('Environment variable hierarchy works correctly', () => {
   process.env.NEXT_PUBLIC_OPEN_ACCESS = 'false';
   process.env.NEXT_PUBLIC_DISABLE_AUTH = 'false';
   
-  const NEXT_PUBLIC_OPEN_ACCESS = process.env.OPEN_ACCESS || process.env.NEXT_PUBLIC_OPEN_ACCESS || 'false';
-  assert(NEXT_PUBLIC_OPEN_ACCESS === 'true', 'OPEN_ACCESS should take precedence');
+  const evaluatedOpenAccess = process.env.OPEN_ACCESS || process.env.NEXT_PUBLIC_OPEN_ACCESS || 'false';
+  assert(evaluatedOpenAccess === 'true', 'OPEN_ACCESS should take precedence');
   
   // Test scenario: NEXT_PUBLIC_OPEN_ACCESS as fallback
   delete process.env.OPEN_ACCESS;
   process.env.NEXT_PUBLIC_OPEN_ACCESS = 'true';
   
-  const fallback = process.env.OPEN_ACCESS || process.env.NEXT_PUBLIC_OPEN_ACCESS || 'false';
-  assert(fallback === 'true', 'NEXT_PUBLIC_OPEN_ACCESS should work as fallback');
+  const fallbackValue = process.env.OPEN_ACCESS || process.env.NEXT_PUBLIC_OPEN_ACCESS || 'false';
+  assert(fallbackValue === 'true', 'NEXT_PUBLIC_OPEN_ACCESS should work as fallback');
 });
 
 console.log('');
