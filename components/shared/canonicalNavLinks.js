@@ -1,14 +1,14 @@
 /**
  * Canonical Navigation Links
- * 
+ *
  * This module exports the universal set of navigation links used across all iiskills apps.
  * By centralizing navigation links here, we ensure consistency and make it easy to update
  * navigation across the entire platform.
- * 
+ *
  * Usage:
  *   import { canonicalLinks } from '@/components/shared/canonicalNavLinks';
  *   <Header customLinks={canonicalLinks} showAuthButtons={true} />
- * 
+ *
  * All links are now fully operational for testing
  */
 
@@ -28,15 +28,21 @@ export function getCanonicalLinks(appId = "main", isFreeApp = false) {
   // Add special links only for Learn-Govt-Jobs
   if (appId === "learn-govt-jobs") {
     baseLinks.push(
-      { href: "/opportunity-feed", label: "Opportunities", className: "hover:text-primary transition" },
+      {
+        href: "/opportunity-feed",
+        label: "Opportunities",
+        className: "hover:text-primary transition",
+      },
       { href: "/daily-brief", label: "Daily Brief", className: "hover:text-primary transition" },
       { href: "/exam-countdown", label: "Exam Alerts", className: "hover:text-primary transition" }
     );
   }
 
-  baseLinks.push(
-    { href: "/newsletter", label: "Newsletter", className: "hover:text-primary transition" }
-  );
+  baseLinks.push({
+    href: "/newsletter",
+    label: "Newsletter",
+    className: "hover:text-primary transition",
+  });
 
   // Payment logic: show Payments link for paid apps, "Free" label for free apps
   // Free apps: learn-apt, learn-physics, learn-math, learn-chemistry, learn-geography
@@ -46,14 +52,14 @@ export function getCanonicalLinks(appId = "main", isFreeApp = false) {
       baseLinks.push({
         href: "#",
         label: "Free",
-        className: "text-green-600 font-bold cursor-default pointer-events-none"
+        className: "text-green-600 font-bold cursor-default pointer-events-none",
       });
     } else {
       // Payments link for paid apps
       baseLinks.push({
         href: "/payments",
         label: "Payments",
-        className: "hover:text-primary transition"
+        className: "hover:text-primary transition",
       });
     }
   }

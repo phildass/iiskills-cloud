@@ -4,10 +4,10 @@ import { getCanonicalLinks } from "./canonicalNavLinks";
 /**
  * Shared site header used across all apps.
  * Provides consistent navigation and branding across the entire platform.
- * 
+ *
  * This is a simplified wrapper that uses the shared Header component
  * with the canonical set of navigation links.
- * 
+ *
  * @param {string} appId - The app identifier (e.g., 'learn-ai', 'main')
  * @param {boolean} isFreeApp - Whether this is a free app (affects payment link display)
  */

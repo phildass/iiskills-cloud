@@ -61,7 +61,8 @@ export default function BentoBoxGrid() {
   };
 
   const getProgressColor = (app) => {
-    const avgProgress = (app.progress.basics + app.progress.intermediate + app.progress.advanced) / 3;
+    const avgProgress =
+      (app.progress.basics + app.progress.intermediate + app.progress.advanced) / 3;
     if (avgProgress >= 30) return "border-yellow-400 shadow-yellow-200";
     if (avgProgress >= 20) return "border-blue-400";
     return "border-gray-300";
@@ -104,7 +105,8 @@ export default function BentoBoxGrid() {
       {/* Bento Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {apps.map((app, index) => {
-          const avgProgress = (app.progress.basics + app.progress.intermediate + app.progress.advanced) / 3;
+          const avgProgress =
+            (app.progress.basics + app.progress.intermediate + app.progress.advanced) / 3;
           const isHighlighted = shouldHighlight(app.id);
           const hasAdvancedGate = app.progress.advanced >= 30;
 
@@ -123,17 +125,17 @@ export default function BentoBoxGrid() {
               className={`relative bg-white rounded-lg shadow-lg p-6 border-4 ${getProgressColor(
                 app
               )} transition-all cursor-pointer hover:shadow-xl ${
-                hasAdvancedGate ? "ring-4 ring-yellow-300 bg-gradient-to-br from-yellow-50 to-white" : ""
-              } ${
-                avgProgress > 20 && avgProgress < 30 ? "animate-pulse" : ""
-              }`}
+                hasAdvancedGate
+                  ? "ring-4 ring-yellow-300 bg-gradient-to-br from-yellow-50 to-white"
+                  : ""
+              } ${avgProgress > 20 && avgProgress < 30 ? "animate-pulse" : ""}`}
               style={{
                 opacity: isHighlighted ? 1 : 0.5,
               }}
             >
               {/* Icon/Title */}
               <div className="text-center mb-4">
-                <div 
+                <div
                   className="w-16 h-16 mx-auto mb-3 rounded-full flex items-center justify-center text-3xl"
                   style={{ backgroundColor: app.color + "20", color: app.color }}
                 >
@@ -168,7 +170,9 @@ export default function BentoBoxGrid() {
                     exit={{ opacity: 0, y: 10 }}
                     className="mt-4 p-4 bg-gray-50 rounded-lg border border-gray-200"
                   >
-                    <p className="text-sm font-semibold text-charcoal mb-3">{app.microQuiz.question}</p>
+                    <p className="text-sm font-semibold text-charcoal mb-3">
+                      {app.microQuiz.question}
+                    </p>
                     <div className="space-y-2">
                       {app.microQuiz.options.map((option, idx) => (
                         <button
@@ -178,9 +182,10 @@ export default function BentoBoxGrid() {
                             quizState[app.id]?.answered
                               ? idx === app.microQuiz.correctAnswer
                                 ? "bg-green-500 text-white"
-                                : quizState[app.id]?.correct === false && idx === quizState[app.id]?.selected
-                                ? "bg-red-500 text-white"
-                                : "bg-gray-200 text-charcoal"
+                                : quizState[app.id]?.correct === false &&
+                                    idx === quizState[app.id]?.selected
+                                  ? "bg-red-500 text-white"
+                                  : "bg-gray-200 text-charcoal"
                               : "bg-white border border-gray-300 hover:bg-gray-100"
                           }`}
                           disabled={quizState[app.id]?.answered}
