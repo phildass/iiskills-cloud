@@ -6,28 +6,43 @@ export default function Home() {
   return (
     <UniversalLandingPage
       appId="learn-chemistry"
-      appName="Master Chemistry Concepts"
+      appName="Discover the Magic of Chemistry 🧪"
       title="Master Chemistry Concepts - iiskills.cloud"
-      description="Build a strong foundation in chemistry with interactive lessons covering all key topics from basic concepts to advanced principles."
+      description="Build a comprehensive understanding of chemistry from atomic structure to complex reactions. Interactive lessons, virtual labs, and real-world applications that bring the molecular world to life."
       features={[
   {
     "emoji": "⚗️",
-    "title": "Chemical Reactions",
-    "description": "Understand reaction mechanisms and chemical processes"
+    "title": "Chemical Reactions & Kinetics",
+    "description": "Understand reaction mechanisms, rates, equilibrium, and the dynamic processes that drive chemical transformations"
   },
   {
     "emoji": "🔬",
-    "title": "Lab Techniques",
-    "description": "Learn proper laboratory procedures and safety protocols"
+    "title": "Laboratory Techniques",
+    "description": "Learn proper experimental methods, safety protocols, analytical techniques, and hands-on laboratory skills"
   },
   {
     "emoji": "📊",
-    "title": "Periodic Table",
-    "description": "Master element properties and periodic trends"
+    "title": "Periodic Table Mastery",
+    "description": "Master element properties, periodic trends, electron configurations, and the organization of matter"
+  },
+  {
+    "emoji": "⚛️",
+    "title": "Atomic & Molecular Structure",
+    "description": "Explore atomic theory, bonding, molecular geometry, and the fundamental building blocks of matter"
+  },
+  {
+    "emoji": "🌡️",
+    "title": "Thermochemistry & Energetics",
+    "description": "Study energy changes, enthalpy, entropy, thermodynamic laws, and the energy landscape of reactions"
+  },
+  {
+    "emoji": "💧",
+    "title": "Organic & Biochemistry",
+    "description": "Discover carbon compounds, functional groups, biomolecules, and the chemistry of living systems"
   }
 ]}
       isFree={true}
-      heroGradient="from-primary to-accent"
+      heroGradient="from-green-600 to-teal-600"
     />
   );
 }
