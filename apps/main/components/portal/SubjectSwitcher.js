@@ -139,11 +139,11 @@ export default function SubjectSwitcher() {
           <div className="mt-8 text-center">
             <a
               href={`https://app${
-                subject.id === "math"
+                selectedSubject.id === "math"
                   ? "8"
-                  : subject.id === "physics"
+                  : selectedSubject.id === "physics"
                     ? "6"
-                    : subject.id === "chemistry"
+                    : selectedSubject.id === "chemistry"
                       ? "7"
                       : "9"
               }.learn-${selectedSubject.id}.iiskills.cloud`}
