@@ -18,8 +18,7 @@ import { useState } from "react";
 
 // Get secret password from environment variable or use default for development
 // In production, this should be removed or the env var should not be set
-const SECRET_PASSWORD =
-  process.env.NEXT_PUBLIC_ADMIN_SECRET_PASSWORD || "iiskills123";
+const SECRET_PASSWORD = process.env.NEXT_PUBLIC_ADMIN_SECRET_PASSWORD || "iiskills123";
 const ADMIN_FLAG_KEY = "iiskills_secret_admin";
 
 export default function SecretPasswordPrompt({ onSuccess }) {
