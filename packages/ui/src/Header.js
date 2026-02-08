@@ -11,9 +11,14 @@ import GoogleTranslate from "./GoogleTranslate";
  * - Dual logo display (AI Cloud + iiskills)
  * - Navigation links (supports canonicalLinks)
  * - Google Translate widget for 12+ Indian languages
- * - Auth buttons (Sign In / Register)
+ * - Auth buttons (Sign In / Register) - HIDDEN in open-access mode via showAuthButtons prop
  * - Mobile responsive menu
  * - Sticky positioning with high z-index
+ *
+ * OPEN ACCESS REFACTOR:
+ * By default, showAuthButtons is set to false in SiteHeader component,
+ * hiding all authentication UI (Sign In/Register buttons) to provide
+ * a fully open-access experience.
  */
 export default function Header({
   appName = "iiskills.cloud",
