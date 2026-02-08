@@ -21,10 +21,6 @@ export default function ProtectedRoute({ children, requireAdmin = true }) {
   const [isLoading, setIsLoading] = useState(true);
   const [showPasswordPrompt, setShowPasswordPrompt] = useState(false);
 
-  useEffect(() => {
-    checkAuth();
-  }, [router]);
-
   const checkAuth = async () => {
     try {
       // Mode 1: Local Dev - Check for DISABLE_AUTH flag
@@ -78,6 +74,11 @@ export default function ProtectedRoute({ children, requireAdmin = true }) {
       setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    checkAuth();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [router]);
 
   const handlePasswordSuccess = () => {
     setShowPasswordPrompt(false);

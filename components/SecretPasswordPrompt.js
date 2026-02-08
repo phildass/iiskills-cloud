@@ -1,20 +1,20 @@
 /**
  * Secret Password Prompt Component
- * 
+ *
  * Provides an alternative admin access mechanism through a secret password.
  * When user is not logged in as admin, shows a password input box.
  * On correct password entry ('iiskills123'), grants admin access for the session.
- * 
+ *
  * Usage:
  * - Local dev (NEXT_PUBLIC_DISABLE_AUTH=true): Full access, no prompt shown
- * - Online (NEXT_PUBLIC_DISABLE_AUTH=false): Only authenticated admins OR users 
+ * - Online (NEXT_PUBLIC_DISABLE_AUTH=false): Only authenticated admins OR users
  *   who enter the secret password get admin access
- * 
+ *
  * ⚠️ SECURITY WARNING: This is a backdoor for demo/testing purposes.
  * Remove or disable for production deployments!
  */
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 const SECRET_PASSWORD = "iiskills123";
 const ADMIN_FLAG_KEY = "iiskills_secret_admin";
@@ -37,9 +37,9 @@ export default function SecretPasswordPrompt({ onSuccess }) {
           localStorage.setItem(ADMIN_FLAG_KEY, "true");
           sessionStorage.setItem(ADMIN_FLAG_KEY, "true");
         }
-        
+
         console.log("✅ Secret password accepted - Admin access granted");
-        
+
         // Call success callback to update parent component
         if (onSuccess) {
           onSuccess();
@@ -63,7 +63,10 @@ export default function SecretPasswordPrompt({ onSuccess }) {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label htmlFor="secretPassword" className="block text-sm font-medium text-gray-700 mb-2">
+            <label
+              htmlFor="secretPassword"
+              className="block text-sm font-medium text-gray-700 mb-2"
+            >
               Secret Password
             </label>
             <input
@@ -95,19 +98,13 @@ export default function SecretPasswordPrompt({ onSuccess }) {
 
         <div className="mt-6 pt-6 border-t border-gray-200 text-center">
           <p className="text-sm text-gray-600 mb-2">Or login with your account</p>
-          <a
-            href="/login"
-            className="text-primary hover:text-blue-700 font-medium text-sm"
-          >
+          <a href="/login" className="text-primary hover:text-blue-700 font-medium text-sm">
             Go to Login →
           </a>
         </div>
 
         <div className="mt-4 text-center">
-          <a
-            href="/"
-            className="text-gray-500 hover:text-gray-700 text-sm"
-          >
+          <a href="/" className="text-gray-500 hover:text-gray-700 text-sm">
             ← Back to Home
           </a>
         </div>
@@ -122,7 +119,7 @@ export default function SecretPasswordPrompt({ onSuccess }) {
  */
 export function hasSecretAdminAccess() {
   if (typeof window === "undefined") return false;
-  
+
   return (
     localStorage.getItem(ADMIN_FLAG_KEY) === "true" ||
     sessionStorage.getItem(ADMIN_FLAG_KEY) === "true"
@@ -135,7 +132,7 @@ export function hasSecretAdminAccess() {
  */
 export function clearSecretAdminAccess() {
   if (typeof window === "undefined") return;
-  
+
   localStorage.removeItem(ADMIN_FLAG_KEY);
   sessionStorage.removeItem(ADMIN_FLAG_KEY);
   console.log("🔓 Secret admin access cleared");

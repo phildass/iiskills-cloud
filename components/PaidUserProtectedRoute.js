@@ -39,8 +39,8 @@ export default function PaidUserProtectedRoute({ children }) {
               firstName: "Open",
               lastName: "Access",
               is_admin: true,
-              payment_status: "paid"
-            }
+              payment_status: "paid",
+            },
           });
           setIsLoading(false);
           return;
@@ -58,8 +58,8 @@ export default function PaidUserProtectedRoute({ children }) {
               firstName: "Secret",
               lastName: "Admin",
               is_admin: true,
-              payment_status: "paid"
-            }
+              payment_status: "paid",
+            },
           });
           setIsLoading(false);
           return;
@@ -97,8 +97,8 @@ export default function PaidUserProtectedRoute({ children }) {
         firstName: "Secret",
         lastName: "Admin",
         is_admin: true,
-        payment_status: "paid"
-      }
+        payment_status: "paid",
+      },
     });
   };
 

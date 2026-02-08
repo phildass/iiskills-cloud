@@ -15,7 +15,9 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { getCurrentUser } from "../lib/supabaseClient";
-import SecretPasswordPrompt, { hasSecretAdminAccess } from "../../../components/SecretPasswordPrompt";
+import SecretPasswordPrompt, {
+  hasSecretAdminAccess,
+} from "../../../components/SecretPasswordPrompt";
 
 export default function PaidUserProtectedRoute({ children }) {
   const router = useRouter();
@@ -39,8 +41,8 @@ export default function PaidUserProtectedRoute({ children }) {
               firstName: "Open",
               lastName: "Access",
               is_admin: true,
-              payment_status: "paid"
-            }
+              payment_status: "paid",
+            },
           });
           setIsLoading(false);
           return;
@@ -58,8 +60,8 @@ export default function PaidUserProtectedRoute({ children }) {
               firstName: "Secret",
               lastName: "Admin",
               is_admin: true,
-              payment_status: "paid"
-            }
+              payment_status: "paid",
+            },
           });
           setIsLoading(false);
           return;
@@ -97,8 +99,8 @@ export default function PaidUserProtectedRoute({ children }) {
         firstName: "Secret",
         lastName: "Admin",
         is_admin: true,
-        payment_status: "paid"
-      }
+        payment_status: "paid",
+      },
     });
   };
 
