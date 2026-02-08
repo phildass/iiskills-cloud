@@ -1,0 +1,238 @@
+{
+  "quizId": "prompt-engineering-quiz",
+  "moduleId": "prompt-engineering",
+  "questionCount": 10,
+  "passPercentage": 30,
+  "questions": [
+    {
+      "questionId": "q1",
+      "questionText": "What does the 'Context' part of the C.T.F.C. framework define?",
+      "options": [
+        "The expected length of the AI response",
+        "The persona or background information the AI should adopt",
+        "The programming language to use",
+        "The speed at which AI should respond",
+        "I don't know"
+      ],
+      "correctAnswerIndex": 1,
+      "rationale": "Context sets the AI's role or perspective, like 'Act as a senior developer' or 'You are a technical writer.'",
+      "deepDive": {
+        "explanation": "Just as you'd brief a colleague on their role in a project, Context tells AI what perspective to take. This dramatically improves output quality because the AI draws from relevant knowledge patterns. In development, this is like setting up the right environment before running code—context matters!",
+        "crossAppReference": {
+          "appId": "learn-developer",
+          "moduleId": "js-fundamentals",
+          "topic": "Function scope and context"
+        }
+      },
+      "difficulty": "easy",
+      "tags": ["ctfc-framework", "context", "fundamentals"]
+    },
+    {
+      "questionId": "q2",
+      "questionText": "Which element of C.T.F.C. specifies how you want the output structured?",
+      "options": [
+        "Context",
+        "Task",
+        "Format",
+        "Constraints",
+        "I don't know"
+      ],
+      "correctAnswerIndex": 2,
+      "rationale": "Format determines the presentation style: code blocks, bullet points, tables, JSON, etc.",
+      "deepDive": {
+        "explanation": "Format is crucial for getting usable output. Without it, you might get prose when you need code, or vice versa. Think of it like setting function return types in programming—you're specifying the data structure you expect. This saves time and reduces back-and-forth refinement.",
+        "crossAppReference": {
+          "appId": "learn-developer",
+          "moduleId": "api-management",
+          "topic": "API response formats (JSON vs XML)"
+        }
+      },
+      "difficulty": "easy",
+      "tags": ["ctfc-framework", "format", "fundamentals"]
+    },
+    {
+      "questionId": "q3",
+      "questionText": "What is the primary purpose of adding 'Constraints' to a prompt?",
+      "options": [
+        "To make the AI work harder",
+        "To define boundaries and prevent unwanted assumptions",
+        "To slow down the response time",
+        "To increase the output length",
+        "I don't know"
+      ],
+      "correctAnswerIndex": 1,
+      "rationale": "Constraints prevent the AI from making assumptions or including elements you don't want or can't use.",
+      "deepDive": {
+        "explanation": "Constraints are like type checking or input validation in code—they prevent errors before they happen. If you specify 'no external libraries,' AI won't suggest solutions requiring packages you can't install. This is especially important in production environments with strict dependencies or security requirements.",
+        "crossAppReference": {
+          "appId": "learn-developer",
+          "moduleId": "testing-qa",
+          "topic": "Input validation and boundary testing"
+        }
+      },
+      "difficulty": "medium",
+      "tags": ["ctfc-framework", "constraints", "best-practices"]
+    },
+    {
+      "questionId": "q4",
+      "questionText": "Which approach typically yields better AI results?",
+      "options": [
+        "Vague, open-ended prompts to give AI freedom",
+        "Specific, structured prompts with clear requirements",
+        "Very short, one-word prompts",
+        "Copying examples from the internet without modification",
+        "I don't know"
+      ],
+      "correctAnswerIndex": 1,
+      "rationale": "Specific, structured prompts (like C.T.F.C.) guide the AI to produce focused, relevant outputs.",
+      "deepDive": {
+        "explanation": "AI models are powerful but literal—they work best with clear instructions. This mirrors debugging: vague error descriptions get vague solutions, but detailed reproduction steps get precise fixes. The C.T.F.C. framework provides that structure, making your AI interactions predictable and reliable.",
+        "crossAppReference": {
+          "appId": "learn-developer",
+          "moduleId": "debugging-tools",
+          "topic": "Writing effective bug reports"
+        }
+      },
+      "difficulty": "easy",
+      "tags": ["best-practices", "fundamentals"]
+    },
+    {
+      "questionId": "q5",
+      "questionText": "How does prompting relate to code generation?",
+      "options": [
+        "Prompts can generate code, but developers must validate it",
+        "AI-generated code is always perfect and needs no review",
+        "Prompting cannot be used for code generation",
+        "Generated code should be used without understanding it",
+        "I don't know"
+      ],
+      "correctAnswerIndex": 0,
+      "rationale": "AI can generate code, but human developers must review, test, and adapt it for their specific context.",
+      "deepDive": {
+        "explanation": "Think of AI as a junior developer who writes fast but needs code review. The generated code might have bugs, security issues, or not fit your architecture perfectly. Always treat AI output as a first draft that needs your expertise to refine. This is why the 30% pass-gate exists—you need foundational knowledge to safely use AI assistance!",
+        "crossAppReference": {
+          "appId": "learn-developer",
+          "moduleId": "code-review",
+          "topic": "Code review best practices"
+        }
+      },
+      "difficulty": "medium",
+      "tags": ["code-generation", "best-practices", "safety"]
+    },
+    {
+      "questionId": "q6",
+      "questionText": "What happens if you omit the 'Task' element from a C.T.F.C. prompt?",
+      "options": [
+        "AI will still understand what you want",
+        "The prompt becomes unclear and likely produces poor results",
+        "AI will automatically fill in the task",
+        "It makes the prompt more flexible",
+        "I don't know"
+      ],
+      "correctAnswerIndex": 1,
+      "rationale": "Without a clear task, the AI doesn't know what action to take, resulting in unfocused or irrelevant output.",
+      "deepDive": {
+        "explanation": "The Task is the heart of your prompt—it's the function call in your AI interaction. Just as calling a function without parameters or with wrong parameters causes errors, omitting the task leaves AI guessing. Be explicit: 'write a function,' 'explain a concept,' 'debug this code.' Ambiguity wastes your time and tokens.",
+        "crossAppReference": {
+          "appId": "learn-developer",
+          "moduleId": "js-fundamentals",
+          "topic": "Function parameters and clear interfaces"
+        }
+      },
+      "difficulty": "medium",
+      "tags": ["ctfc-framework", "task", "common-mistakes"]
+    },
+    {
+      "questionId": "q7",
+      "questionText": "Why is iteration important in prompt engineering?",
+      "options": [
+        "It wastes time and tokens",
+        "First prompts are always perfect",
+        "Refining prompts based on output improves results",
+        "AI doesn't learn from iterations",
+        "I don't know"
+      ],
+      "correctAnswerIndex": 2,
+      "rationale": "Like debugging or refactoring code, iterating on prompts helps you refine and improve results.",
+      "deepDive": {
+        "explanation": "Prompt engineering is an iterative process, just like software development. You write, test, observe results, and refine. Each iteration teaches you how the AI interprets your instructions, helping you craft better prompts faster. This is the same mindset as test-driven development: write, test, improve, repeat.",
+        "crossAppReference": {
+          "appId": "learn-developer",
+          "moduleId": "testing-qa",
+          "topic": "Test-driven development and iteration"
+        }
+      },
+      "difficulty": "medium",
+      "tags": ["best-practices", "iteration", "improvement"]
+    },
+    {
+      "questionId": "q8",
+      "questionText": "What is a 'zero-shot' prompt?",
+      "options": [
+        "A prompt with no examples provided to the AI",
+        "A prompt that always fails",
+        "A prompt without context",
+        "A very short prompt",
+        "I don't know"
+      ],
+      "correctAnswerIndex": 0,
+      "rationale": "Zero-shot means asking AI to perform a task without providing any examples, relying on its training.",
+      "deepDive": {
+        "explanation": "Zero-shot is like asking a developer to build something without reference code—they rely on existing knowledge. Few-shot (providing examples) is like showing code snippets first. Most tasks benefit from few-shot prompting because examples clarify expectations and reduce ambiguity. This mirrors how humans learn better with examples than abstract descriptions alone.",
+        "crossAppReference": {
+          "appId": "learn-developer",
+          "moduleId": "documentation",
+          "topic": "Code examples in documentation"
+        }
+      },
+      "difficulty": "hard",
+      "tags": ["advanced-concepts", "zero-shot", "few-shot"]
+    },
+    {
+      "questionId": "q9",
+      "questionText": "Which scenario best demonstrates good use of the 'Context' element?",
+      "options": [
+        "\"Write code\"",
+        "\"You are a React expert. Build a component.\"",
+        "\"Make it fast\"",
+        "\"Do something useful\"",
+        "I don't know"
+      ],
+      "correctAnswerIndex": 1,
+      "rationale": "This option clearly sets the AI's role (React expert) and provides a specific task (build a component).",
+      "deepDive": {
+        "explanation": "Good context is specific and relevant. 'React expert' primes the AI to use React patterns, hooks, and best practices. Without it, you might get vanilla JavaScript or jQuery suggestions. This is like setting the right compiler flags or import statements—you're configuring the environment for the type of output you need.",
+        "crossAppReference": {
+          "appId": "learn-developer",
+          "moduleId": "react-components",
+          "topic": "React component patterns and best practices"
+        }
+      },
+      "difficulty": "medium",
+      "tags": ["ctfc-framework", "context", "examples"]
+    },
+    {
+      "questionId": "q10",
+      "questionText": "What is the main benefit of mastering prompt engineering?",
+      "options": [
+        "You can replace all developers",
+        "AI becomes a reliable, productive tool in your workflow",
+        "You never need to write code again",
+        "It makes you an AI expert instantly",
+        "I don't know"
+      ],
+      "correctAnswerIndex": 1,
+      "rationale": "Good prompting makes AI a dependable collaborator that amplifies your productivity and capabilities.",
+      "deepDive": {
+        "explanation": "Prompt engineering isn't about replacement—it's about augmentation. Like using a framework or library, good prompting lets you work faster and tackle bigger problems. You still need domain knowledge to validate, integrate, and deploy AI outputs. Think of it as adding a powerful library to your toolkit: it's transformative, but you're still the architect.",
+        "crossAppReference": {
+          "appId": "learn-developer",
+          "moduleId": "productivity-tools",
+          "topic": "Developer tools and workflow optimization"
+        }
+      },
+      "difficulty": "easy",
+      "tags": ["mindset", "best-practices", "career"]
+    }
+  ]
+}

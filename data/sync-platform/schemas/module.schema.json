@@ -1,0 +1,103 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Module Schema",
+  "description": "Schema for learning modules in the Sync Learning Platform",
+  "type": "object",
+  "required": ["moduleId", "title", "difficulty", "lessonCount", "passGatePercentage"],
+  "properties": {
+    "moduleId": {
+      "type": "string",
+      "description": "Unique identifier for the module (e.g., 'logic-algorithms')",
+      "pattern": "^[a-z0-9-]+$"
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title of the module",
+      "minLength": 5,
+      "maxLength": 100
+    },
+    "description": {
+      "type": "string",
+      "description": "Brief description of module content",
+      "maxLength": 500
+    },
+    "difficulty": {
+      "type": "string",
+      "enum": ["Beginner", "Intermediate", "Advanced"],
+      "description": "Difficulty level of the module"
+    },
+    "tier": {
+      "type": "string",
+      "enum": ["basics", "intermediate", "advanced"],
+      "description": "Which tier this module belongs to"
+    },
+    "order": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Order within the tier (1-6)"
+    },
+    "isSyncedModule": {
+      "type": "boolean",
+      "description": "Whether this module is shared across both apps"
+    },
+    "syncPartnerApp": {
+      "type": "string",
+      "enum": ["learn-ai", "learn-developer"],
+      "description": "Partner app if this is a synced module"
+    },
+    "syncPartnerModuleId": {
+      "type": "string",
+      "description": "Module ID in the partner app"
+    },
+    "lessonCount": {
+      "type": "integer",
+      "minimum": 5,
+      "maximum": 8,
+      "description": "Number of lessons in this module"
+    },
+    "estimatedHours": {
+      "type": "number",
+      "minimum": 1,
+      "description": "Estimated hours to complete"
+    },
+    "passGatePercentage": {
+      "type": "integer",
+      "minimum": 30,
+      "maximum": 100,
+      "description": "Minimum percentage to pass (typically 30)"
+    },
+    "unlocks": {
+      "type": "object",
+      "properties": {
+        "currentApp": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Module IDs to unlock in current app"
+        },
+        "partnerApp": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Module IDs to unlock in partner app"
+        }
+      }
+    },
+    "prerequisites": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Module IDs that must be completed first"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Searchable tags for the module"
+    }
+  }
+}
