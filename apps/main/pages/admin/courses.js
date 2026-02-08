@@ -2,7 +2,7 @@ import Head from "next/head";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import ProtectedRoute from "../../components/ProtectedRoute";
+// import ProtectedRoute from "../../components/ProtectedRoute";
 import AdminNav from "../../components/AdminNav";
 import Footer from "../../components/Footer";
 import { supabase } from "../../lib/supabaseClient";
@@ -174,7 +174,7 @@ export default function AdminCourses() {
   };
 
   return (
-    <ProtectedRoute>
+    <>
       <Head>
         <title>Course Management - Admin - iiskills.cloud</title>
       </Head>
@@ -495,6 +495,6 @@ export default function AdminCourses() {
       )}
 
       <Footer />
-    </ProtectedRoute>
+    </>
   );
 }
