@@ -7,6 +7,8 @@ export default function Home() {
     <UniversalLandingPage
       appId="learn-geography"
       appName="Explore Our Interconnected World 🌍"
+      headline="Command the Systems of Earth"
+      subheadline="Navigate physical and human geography from grids to geopolitics. The Systems Path awaits."
       title="Master Geography - iiskills.cloud"
       description="Discover the physical and human dimensions of our planet. Comprehensive lessons covering landforms, climate systems, cultures, and global relationships that shape our interconnected world."
       features={[
@@ -42,7 +44,7 @@ export default function Home() {
   }
 ]}
       isFree={true}
-      heroGradient="from-emerald-600 to-cyan-600"
+      heroGradient="from-green-500 to-green-900"
     />
   );
 }

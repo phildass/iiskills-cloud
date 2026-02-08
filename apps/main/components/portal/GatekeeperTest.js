@@ -47,15 +47,22 @@ export default function GatekeeperTest() {
   const [selectedSubject, setSelectedSubject] = useState(SUBJECTS[0]);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [showResult, setShowResult] = useState(false);
+  const [showConfetti, setShowConfetti] = useState(false);
 
   const handleAnswer = (answer) => {
     setSelectedAnswer(answer);
     setShowResult(true);
+    // Trigger confetti animation on correct answer
+    if (answer === TEST_QUESTIONS[selectedSubject.id].correctAnswer) {
+      setShowConfetti(true);
+      setTimeout(() => setShowConfetti(false), 3000);
+    }
   };
 
   const resetTest = () => {
     setSelectedAnswer(null);
     setShowResult(false);
+    setShowConfetti(false);
   };
 
   const currentQuestion = TEST_QUESTIONS[selectedSubject.id];
@@ -72,12 +79,43 @@ export default function GatekeeperTest() {
       {/* Glassmorphic overlay effect */}
       <div className="absolute inset-0 bg-white/40 backdrop-blur-md -z-10" />
 
+      {/* Confetti Animation */}
+      {showConfetti && typeof window !== "undefined" && (
+        <div className="absolute inset-0 pointer-events-none z-50">
+          {[...Array(50)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute w-2 h-2 rounded-full"
+              style={{
+                backgroundColor: ["#FFD700", "#FF6B6B", "#4ECDC4", "#95E1D3", "#F38181"][i % 5],
+                left: `${Math.random() * 100}%`,
+                top: "-10px",
+              }}
+              initial={{ y: -10, opacity: 1, rotate: 0 }}
+              animate={{
+                y: typeof window !== "undefined" ? window.innerHeight + 100 : 1000,
+                opacity: 0,
+                rotate: 360,
+              }}
+              transition={{
+                duration: 2 + Math.random() * 2,
+                delay: Math.random() * 0.5,
+                ease: "easeIn",
+              }}
+            />
+          ))}
+        </div>
+      )}
+
       <div className="relative z-10">
         <h2 className="text-3xl md:text-4xl font-bold text-center text-primary mb-3">
-          Prove Your Level
+          🎯 Prove Your Level
         </h2>
-        <p className="text-center text-gray-600 mb-8 text-lg">
-          Don't just take our word for it. Test your knowledge right now.
+        <p className="text-center text-gray-700 mb-2 text-lg font-semibold">
+          Don't just watch. Prove it.
+        </p>
+        <p className="text-center text-gray-600 mb-8">
+          Test your knowledge right now and discover your starting point.
         </p>
 
         {/* Subject Selector */}
@@ -122,21 +160,47 @@ export default function GatekeeperTest() {
               "{currentQuestion.question}"
             </p>
 
-            {/* Answer Buttons */}
+            {/* Answer Buttons with Enhanced Microinteractions */}
             {!showResult ? (
               <div className="flex gap-4 justify-center">
-                <button
+                <motion.button
                   onClick={() => handleAnswer("yes")}
-                  className="px-8 py-4 bg-green-500 text-white rounded-lg font-bold text-lg hover:bg-green-600 transition-all shadow-md hover:shadow-lg"
+                  className="relative px-8 py-4 bg-green-500 text-white rounded-lg font-bold text-lg transition-all shadow-md overflow-hidden group"
+                  whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(34, 197, 94, 0.5)" }}
+                  whileTap={{ scale: 0.95 }}
                 >
-                  YES
-                </button>
-                <button
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-r from-green-400 to-green-600 opacity-0 group-hover:opacity-100 transition-opacity"
+                    animate={{
+                      scale: [1, 1.2, 1],
+                    }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
+                  />
+                  <span className="relative z-10">YES</span>
+                </motion.button>
+                <motion.button
                   onClick={() => handleAnswer("no")}
-                  className="px-8 py-4 bg-red-500 text-white rounded-lg font-bold text-lg hover:bg-red-600 transition-all shadow-md hover:shadow-lg"
+                  className="relative px-8 py-4 bg-red-500 text-white rounded-lg font-bold text-lg transition-all shadow-md overflow-hidden group"
+                  whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(239, 68, 68, 0.5)" }}
+                  whileTap={{ scale: 0.95 }}
                 >
-                  NO
-                </button>
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-r from-red-400 to-red-600 opacity-0 group-hover:opacity-100 transition-opacity"
+                    animate={{
+                      scale: [1, 1.2, 1],
+                    }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
+                  />
+                  <span className="relative z-10">NO</span>
+                </motion.button>
               </div>
             ) : (
               <motion.div

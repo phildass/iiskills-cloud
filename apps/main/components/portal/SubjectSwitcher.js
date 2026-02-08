@@ -5,37 +5,53 @@ const SUBJECTS = [
   {
     id: "math",
     name: "Math",
-    color: "#3B82F6",
-    basicHook: "Number Sense: The Power of Zero.",
-    advancedHook: "Calculus: Limits & Derivatives.",
-    ctaText: "Solve the Universe",
+    color: "#DC143C", // Crimson Red
+    gradient: "from-red-700 to-black",
+    basicHook: "The Power of Zero & One",
+    intermediateHook: "The Variable Hunter",
+    advancedHook: "The Infinite Curve",
+    pathName: "The Architect's Path",
+    ctaText: "Start My Power Hour: Math",
+    tagline: "Unlock the Language of Logic",
     icon: "∑",
   },
   {
     id: "physics",
     name: "Physics",
-    color: "#8B5CF6",
-    basicHook: "Motion: The Cheetah's Velocity.",
-    advancedHook: "Quantum: Special Relativity.",
-    ctaText: "Master the Laws",
+    color: "#0080FF", // Electric Blue
+    gradient: "from-blue-500 to-blue-900",
+    basicHook: "The Cheetah's Secret",
+    intermediateHook: "The Invisible Hand",
+    advancedHook: "The Fabric of Time",
+    pathName: "The Force Path",
+    ctaText: "Master the Laws Now",
+    tagline: "Master the Laws of the Universe",
     icon: "⚡",
   },
   {
     id: "geography",
     name: "Geography",
-    color: "#10B981",
-    basicHook: "The Grid: Equators & Compasses.",
-    advancedHook: "Geopolitics: Global Trade Routes.",
-    ctaText: "Command the Map",
+    color: "#10B981", // Emerald Green
+    gradient: "from-green-500 to-green-900",
+    basicHook: "The Global Grid",
+    intermediateHook: "The Moving Earth",
+    advancedHook: "The Human Engine",
+    pathName: "The Systems Path",
+    ctaText: "Chart the Course",
+    tagline: "Command the Systems of Earth",
     icon: "🌍",
   },
   {
     id: "chemistry",
     name: "Chemistry",
-    color: "#F59E0B",
-    basicHook: "The Atom: Protons & Electrons.",
-    advancedHook: "Thermodynamics: Entropy.",
-    ctaText: "Decode Matter",
+    color: "#9B59B6", // Atomic Purple
+    gradient: "from-purple-600 to-gray-800",
+    basicHook: "The Atom's Heart",
+    intermediateHook: "The Great Balance",
+    advancedHook: "The Heat of Chaos",
+    pathName: "The Elemental Path",
+    ctaText: "Decode the Elements",
+    tagline: "Decode the Ingredients of Reality",
     icon: "⚗️",
   },
 ];
@@ -84,60 +100,107 @@ export default function SubjectSwitcher() {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
           transition={{ duration: 0.3 }}
-          className="bg-white rounded-xl shadow-xl p-8 md:p-12"
+          className="bg-white rounded-xl shadow-2xl p-8 md:p-12 relative overflow-hidden"
           style={{
             borderTop: `6px solid ${selectedSubject.color}`,
           }}
         >
-          <div className="grid md:grid-cols-2 gap-8 items-center">
-            {/* Left Column: Basic Level */}
-            <div className="space-y-4">
-              <div className="flex items-center gap-3 mb-2">
-                <div
-                  className="w-3 h-3 rounded-full animate-pulse"
-                  style={{ backgroundColor: selectedSubject.color }}
-                />
-                <h3 className="text-sm font-mono uppercase tracking-wider text-gray-500">
-                  Level 1: Basic
-                </h3>
-              </div>
-              <p
-                className="text-2xl font-bold leading-tight"
-                style={{ color: selectedSubject.color }}
-              >
-                {selectedSubject.basicHook}
-              </p>
-              <p className="text-gray-600">
-                Building foundational intuition and terminology. Master the basics in under 60 minutes.
-              </p>
-            </div>
+          {/* Glassmorphic background gradient */}
+          <div 
+            className="absolute inset-0 opacity-10 pointer-events-none"
+            style={{
+              background: `linear-gradient(135deg, ${selectedSubject.color}40 0%, transparent 100%)`,
+            }}
+          />
 
-            {/* Right Column: Advanced Level */}
-            <div className="space-y-4">
-              <div className="flex items-center gap-3 mb-2">
-                <div
-                  className="w-3 h-3 rounded-full"
-                  style={{ backgroundColor: selectedSubject.color }}
-                />
-                <h3 className="text-sm font-mono uppercase tracking-wider text-gray-500">
-                  Level 3: Advanced
-                </h3>
-              </div>
-              <p
-                className="text-2xl font-bold leading-tight"
-                style={{ color: selectedSubject.color }}
-              >
-                {selectedSubject.advancedHook}
-              </p>
-              <p className="text-gray-600">
-                Theoretical proofs and contemporary research. For the top 1% of learners.
-              </p>
-            </div>
+          {/* Path Name Header */}
+          <div className="text-center mb-8 relative z-10">
+            <h3 
+              className="text-3xl md:text-4xl font-bold mb-2"
+              style={{ color: selectedSubject.color }}
+            >
+              {selectedSubject.pathName}
+            </h3>
+            <p className="text-gray-600 text-lg italic">
+              {selectedSubject.tagline}
+            </p>
           </div>
 
-          {/* CTA Button */}
-          <div className="mt-8 text-center">
-            <a
+          {/* Tri-Level Progression */}
+          <div className="space-y-6 relative z-10">
+            {/* Level 1: Basic */}
+            <motion.div 
+              className="bg-gradient-to-r from-green-50 to-green-100 rounded-xl p-6 border-l-4 border-green-500 hover:shadow-lg transition-all duration-300"
+              whileHover={{ scale: 1.02 }}
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.1 }}
+            >
+              <div className="flex items-center gap-4 mb-3">
+                <div className="text-4xl">🟢</div>
+                <div>
+                  <h4 className="text-xl font-bold text-green-700">Level 1: BASIC</h4>
+                  <p className="text-sm text-green-600 font-semibold">Building Intuition</p>
+                </div>
+              </div>
+              <p className="text-lg font-semibold text-gray-800 mb-2">
+                {selectedSubject.basicHook}
+              </p>
+              <p className="text-gray-600 text-sm">
+                Foundational literacy and terminology. Master the basics in under 60 minutes.
+              </p>
+            </motion.div>
+
+            {/* Level 2: Intermediate */}
+            <motion.div 
+              className="bg-gradient-to-r from-blue-50 to-blue-100 rounded-xl p-6 border-l-4 border-blue-500 hover:shadow-lg transition-all duration-300"
+              whileHover={{ scale: 1.02 }}
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.2 }}
+            >
+              <div className="flex items-center gap-4 mb-3">
+                <div className="text-4xl">🔵</div>
+                <div>
+                  <h4 className="text-xl font-bold text-blue-700">Level 2: INTERMEDIATE</h4>
+                  <p className="text-sm text-blue-600 font-semibold">The Systems</p>
+                </div>
+              </div>
+              <p className="text-lg font-semibold text-gray-800 mb-2">
+                {selectedSubject.intermediateHook}
+              </p>
+              <p className="text-gray-600 text-sm">
+                Interactive problem solving and formula application. Predict system behaviors.
+              </p>
+            </motion.div>
+
+            {/* Level 3: Advanced */}
+            <motion.div 
+              className="bg-gradient-to-r from-purple-50 to-purple-100 rounded-xl p-6 border-l-4 border-purple-500 hover:shadow-lg transition-all duration-300"
+              whileHover={{ scale: 1.02 }}
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.3 }}
+            >
+              <div className="flex items-center gap-4 mb-3">
+                <div className="text-4xl">🟣</div>
+                <div>
+                  <h4 className="text-xl font-bold text-purple-700">Level 3: ADVANCED</h4>
+                  <p className="text-sm text-purple-600 font-semibold">The Architect</p>
+                </div>
+              </div>
+              <p className="text-lg font-semibold text-gray-800 mb-2">
+                {selectedSubject.advancedHook}
+              </p>
+              <p className="text-gray-600 text-sm">
+                Theoretical proofs and contemporary research. For the top 1% of learners.
+              </p>
+            </motion.div>
+          </div>
+
+          {/* Enhanced CTA Button with Glow Effect */}
+          <div className="mt-8 text-center relative z-10">
+            <motion.a
               href={`https://app${
                 selectedSubject.id === "math"
                   ? "8"
@@ -147,13 +210,30 @@ export default function SubjectSwitcher() {
                       ? "7"
                       : "9"
               }.learn-${selectedSubject.id}.iiskills.cloud`}
-              className="inline-block px-8 py-4 rounded-lg font-bold text-lg text-white transition-all duration-300 hover:shadow-2xl hover:scale-105"
+              className="inline-block px-8 py-4 rounded-lg font-bold text-lg text-white transition-all duration-300 shadow-lg hover:shadow-2xl relative overflow-hidden group"
               style={{
                 backgroundColor: selectedSubject.color,
               }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
-              {selectedSubject.ctaText} →
-            </a>
+              {/* Animated glow effect */}
+              <motion.div
+                className="absolute inset-0 opacity-0 group-hover:opacity-30 transition-opacity duration-300"
+                style={{
+                  background: `radial-gradient(circle, ${selectedSubject.color} 0%, transparent 70%)`,
+                }}
+                animate={{
+                  scale: [1, 1.5, 1],
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              />
+              <span className="relative z-10">{selectedSubject.ctaText} →</span>
+            </motion.a>
           </div>
         </motion.div>
       </AnimatePresence>

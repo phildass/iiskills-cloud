@@ -7,6 +7,8 @@ export default function Home() {
     <UniversalLandingPage
       appId="learn-math"
       appName="Master the Language of Mathematics 📐"
+      headline="Unlock the Language of Logic"
+      subheadline="Master mathematics from foundational arithmetic to advanced calculus. The Architect's Path awaits."
       title="Master Mathematics - iiskills.cloud"
       description="Build unshakeable mathematical foundations from basic arithmetic to advanced calculus. Step-by-step lessons, practice problems, and real-world applications that make math intuitive and engaging."
       features={[
@@ -42,7 +44,7 @@ export default function Home() {
   }
 ]}
       isFree={true}
-      heroGradient="from-purple-600 to-pink-600"
+      heroGradient="from-red-700 to-black"
     />
   );
 }

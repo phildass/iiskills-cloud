@@ -7,6 +7,8 @@ export default function Home() {
     <UniversalLandingPage
       appId="learn-physics"
       appName="Unlock the Universe of Physics 🌟"
+      headline="Master the Laws of the Universe"
+      subheadline="Explore the fundamental forces that govern reality. The Force Path begins here."
       title="Master Physics - iiskills.cloud"
       description="Explore the fundamental laws that govern our universe through interactive lessons, real-world applications, and cutting-edge physics concepts. From classical mechanics to quantum theory."
       features={[
@@ -42,7 +44,7 @@ export default function Home() {
   }
 ]}
       isFree={true}
-      heroGradient="from-blue-600 to-indigo-600"
+      heroGradient="from-blue-500 to-blue-900"
     />
   );
 }
