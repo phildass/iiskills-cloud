@@ -1,0 +1,18 @@
+{
+  "moduleId": "prompt-engineering",
+  "title": "The Art of Prompting",
+  "description": "Master the C.T.F.C. framework and learn how to communicate effectively with AI systems through structured, clear prompts.",
+  "difficulty": "Beginner",
+  "tier": "basics",
+  "order": 2,
+  "isSyncedModule": false,
+  "lessonCount": 5,
+  "estimatedHours": 6,
+  "passGatePercentage": 30,
+  "unlocks": {
+    "currentApp": ["ai-ecosystem"],
+    "partnerApp": ["html-semantic"]
+  },
+  "prerequisites": ["ai-foundations"],
+  "tags": ["prompt-engineering", "communication", "ai-basics", "ctfc-framework"]
+}

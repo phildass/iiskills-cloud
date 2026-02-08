@@ -1,0 +1,111 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Quiz Schema",
+  "description": "Schema for module quizzes in the Sync Learning Platform",
+  "type": "object",
+  "required": ["quizId", "moduleId", "questionCount", "passPercentage", "questions"],
+  "properties": {
+    "quizId": {
+      "type": "string",
+      "description": "Unique identifier for the quiz",
+      "pattern": "^[a-z0-9-]+$"
+    },
+    "moduleId": {
+      "type": "string",
+      "description": "Parent module ID"
+    },
+    "questionCount": {
+      "type": "integer",
+      "minimum": 10,
+      "maximum": 20,
+      "description": "Total number of questions (typically 10)"
+    },
+    "passPercentage": {
+      "type": "integer",
+      "minimum": 30,
+      "maximum": 100,
+      "description": "Minimum percentage to pass (typically 30)"
+    },
+    "timeLimit": {
+      "type": "integer",
+      "description": "Optional time limit in minutes"
+    },
+    "questions": {
+      "type": "array",
+      "minItems": 10,
+      "items": {
+        "type": "object",
+        "required": ["questionId", "questionText", "options", "correctAnswerIndex", "rationale"],
+        "properties": {
+          "questionId": {
+            "type": "string",
+            "description": "Unique question identifier"
+          },
+          "questionText": {
+            "type": "string",
+            "description": "The question being asked",
+            "minLength": 10
+          },
+          "options": {
+            "type": "array",
+            "minItems": 5,
+            "maxItems": 5,
+            "items": {
+              "type": "string"
+            },
+            "description": "Answer options (4 answers + 'I don't know')"
+          },
+          "correctAnswerIndex": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 3,
+            "description": "Index of the correct answer (0-3, option 4 is always 'I don't know')"
+          },
+          "rationale": {
+            "type": "string",
+            "description": "Brief explanation of why the answer is correct",
+            "minLength": 20
+          },
+          "deepDive": {
+            "type": "object",
+            "required": ["explanation"],
+            "properties": {
+              "explanation": {
+                "type": "string",
+                "description": "Detailed 2-3 sentence explanation with cross-app reference",
+                "minLength": 50
+              },
+              "crossAppReference": {
+                "type": "object",
+                "properties": {
+                  "appId": {
+                    "type": "string",
+                    "enum": ["learn-ai", "learn-developer"]
+                  },
+                  "moduleId": {
+                    "type": "string"
+                  },
+                  "topic": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "difficulty": {
+            "type": "string",
+            "enum": ["easy", "medium", "hard"],
+            "description": "Question difficulty level"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Tags for categorizing questions"
+          }
+        }
+      }
+    }
+  }
+}

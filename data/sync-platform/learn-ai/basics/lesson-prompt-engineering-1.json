@@ -1,0 +1,55 @@
+{
+  "lessonId": "prompt-engineering-1",
+  "moduleId": "prompt-engineering",
+  "lessonNumber": 1,
+  "title": "The Anatomy of a Perfect Prompt",
+  "textBody": "<h2>The Anatomy of a Perfect Prompt</h2>\n\n<h3>Introduction</h3>\n<p>In today's AI-powered world, <strong>prompting</strong> is your new interface. When you talk to a LLM (like ChatGPT), you bridge human intent and machine action. If instructions are vague, results are vague; clear structure produces high-value output.</p>\n\n<p>Think of prompting like giving directions to a highly capable but literal assistant. The more precise your instructions, the better the outcome. This is where the C.T.F.C. framework comes in—a systematic approach to crafting prompts that deliver consistent, high-quality results.</p>\n\n<h3>The C.T.F.C. Framework</h3>\n\n<h4>1. Context - Who/What is the AI?</h4>\n<p><strong>Context</strong> sets the stage by defining the AI's role or persona. This primes the model to respond from a specific perspective, leveraging the appropriate knowledge and tone.</p>\n<p><strong>Example:</strong> \"Act as a senior Python developer with 10 years of experience in web scraping.\"</p>\n<p>Without context, AI defaults to a general assistant mode. With context, it adopts expertise, vocabulary, and thinking patterns appropriate to the role.</p>\n\n<h4>2. Task - What is Being Asked?</h4>\n<p>The <strong>Task</strong> is the core request—what you want the AI to do. Be specific and actionable.</p>\n<p><strong>Example:</strong> \"Write a web scraper to extract article headlines from a news website.\"</p>\n<p>Vague tasks yield vague results. Instead of \"help me with code,\" say \"write a function that validates email addresses using regex.\"</p>\n\n<h4>3. Format - Desired Output Presentation</h4>\n<p>The <strong>Format</strong> specifies how you want the response structured. This could be code blocks, bullet points, tables, or specific document formats.</p>\n<p><strong>Example:</strong> \"Provide the code in a Python code block with inline comments explaining each section.\"</p>\n<p>Without format guidance, AI might give you prose when you need code, or vice versa.</p>\n\n<h4>4. Constraints - What to Avoid</h4>\n<p><strong>Constraints</strong> define boundaries and limitations. This prevents the AI from making assumptions or including unwanted elements.</p>\n<p><strong>Example:</strong> \"Use only the Python standard library—no external packages like BeautifulSoup or Scrapy.\"</p>\n<p>Constraints save time by preventing solutions that don't fit your requirements, environment, or expertise level.</p>\n\n<h3>Putting It All Together</h3>\n<p>Here's a complete C.T.F.C. prompt:</p>\n<blockquote>\n<p><strong>Context:</strong> You are a senior Python developer with 10 years of experience in web scraping.</p>\n<p><strong>Task:</strong> Write a web scraper to extract article headlines and publication dates from a news website.</p>\n<p><strong>Format:</strong> Provide the code in a Python code block with inline comments explaining each major section.</p>\n<p><strong>Constraints:</strong> Use only the Python standard library (urllib and html.parser). Do not use external packages.</p>\n</blockquote>\n\n<h3>Why This Matters</h3>\n<p>The C.T.F.C. framework transforms AI from a sometimes-helpful tool into a reliable collaborator. When you master structured prompting, you'll:</p>\n<ul>\n<li>Get better results on the first try (saving time and tokens)</li>\n<li>Achieve more consistent quality across different requests</li>\n<li>Build a mental model for communicating with any AI system</li>\n<li>Develop transferable skills as AI tools evolve</li>\n</ul>\n\n<h3>Key Takeaways</h3>\n<ul>\n<li>Prompting is a skill that improves with practice and structure</li>\n<li>C.T.F.C. provides a repeatable framework: Context, Task, Format, Constraints</li>\n<li>Specific prompts yield specific results; vague prompts yield vague results</li>\n<li>Every element of C.T.F.C. serves a purpose in guiding AI behavior</li>\n</ul>",
+  "duration": 15,
+  "proTips": [
+    {
+      "type": "dev-sync",
+      "content": "Prompting is your new compiler—use it to generate code, but always validate and adapt it before integrating. The 30% pass-gate ensures you understand enough to safely use AI-generated code."
+    },
+    {
+      "type": "best-practice",
+      "content": "Start simple and iterate. Your first prompt rarely needs to be perfect. Refine based on the output you receive."
+    }
+  ],
+  "crossAppReferences": [
+    {
+      "appId": "learn-developer",
+      "moduleId": "logic-algorithms",
+      "lessonId": "algorithm-thinking",
+      "context": "Just as algorithms require clear, unambiguous instructions for computers, prompts require clear instructions for AI. Both are about precise communication with machine intelligence."
+    },
+    {
+      "appId": "learn-developer",
+      "moduleId": "js-fundamentals",
+      "lessonId": "functions-scope",
+      "context": "See how to validate and integrate AI-generated code into your JavaScript projects. Prompting generates code; developers integrate it."
+    }
+  ],
+  "exercises": [
+    {
+      "title": "Craft Your First C.T.F.C. Prompt",
+      "description": "Write a complete C.T.F.C. prompt that asks AI to create a simple calculator function in your preferred programming language. Include all four elements clearly labeled.",
+      "difficulty": "easy"
+    },
+    {
+      "title": "Debug a Vague Prompt",
+      "description": "Given: 'Make a website.' Rewrite this using C.T.F.C. to specify a landing page for a coffee shop with specific sections and styling requirements.",
+      "difficulty": "medium"
+    },
+    {
+      "title": "Constraint Challenge",
+      "description": "Create a prompt that asks for a sorting algorithm, but constrain it to use no more than 10 lines of code and include time complexity analysis.",
+      "difficulty": "hard"
+    }
+  ],
+  "interactiveCodeSnippet": {
+    "language": "python",
+    "code": "# Example: Testing a C.T.F.C. Prompt Result\n# This is sample code that might be generated from a C.T.F.C. prompt\n\nimport urllib.request\nfrom html.parser import HTMLParser\n\nclass HeadlineParser(HTMLParser):\n    def __init__(self):\n        super().__init__()\n        self.headlines = []\n        self.in_headline = False\n    \n    def handle_starttag(self, tag, attrs):\n        # Track when we enter a headline tag\n        if tag == 'h2' and ('class', 'article-title') in attrs:\n            self.in_headline = True\n    \n    def handle_data(self, data):\n        # Extract headline text\n        if self.in_headline:\n            self.headlines.append(data.strip())\n            self.in_headline = False\n\n# Usage\nurl = 'https://example-news-site.com'\nwith urllib.request.urlopen(url) as response:\n    html = response.read().decode('utf-8')\n\nparser = HeadlineParser()\nparser.feed(html)\n\nprint('Headlines found:', parser.headlines)",
+    "editable": true,
+    "hasTests": false
+  }
+}
