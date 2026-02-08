@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import ProtectedRoute from "../../components/ProtectedRoute";
+// import ProtectedRoute from "../../components/ProtectedRoute";
 import AdminNav from "../../components/AdminNav";
 import Footer from "../../components/Footer";
 
@@ -58,7 +58,7 @@ export default function AdminLessons() {
   };
 
   return (
-    <ProtectedRoute>
+    <>
       <Head>
         <title>Lesson Management - Admin - iiskills.cloud</title>
       </Head>
@@ -328,6 +328,6 @@ export default function AdminLessons() {
       )}
 
       <Footer />
-    </ProtectedRoute>
+    </>
   );
 }

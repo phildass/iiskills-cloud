@@ -1,3 +1,12 @@
+// ============================================================================
+// AUTHENTICATION REMOVED - OPEN ACCESS REFACTOR
+// ============================================================================
+// This component previously enforced authentication for paid user content.
+// All authentication logic has been commented out to make content publicly accessible.
+// All pages are now open to all users without login/registration requirements.
+// ============================================================================
+
+/*
 "use client"; // This component uses React hooks and authentication checks - must run on client side
 
 import { useEffect, useState } from "react";
@@ -11,38 +20,33 @@ const ACCESS_DENIED_CONFIG = {
   message:
     "Please register or log in to access this content. Registration is free and allows you to save your progress and personalize your experience.",
 };
+*/
 
 /**
- * PaidUserProtectedRoute Component
+ * PaidUserProtectedRoute Component - AUTHENTICATION DISABLED
  *
- * This component protects pages that require authentication (free registration).
- * All registered users get full access - no payment required.
+ * OPEN ACCESS MODE: This component now grants full access to all users without authentication.
+ * All authentication, login, registration, and paywall logic has been removed.
  *
- * Usage:
- * import PaidUserProtectedRoute from '../components/PaidUserProtectedRoute'
- *
- * export default function MyProtectedPage() {
- *   return (
- *     <PaidUserProtectedRoute>
- *       <div>This content is visible to all registered users</div>
- *     </PaidUserProtectedRoute>
- *   )
- * }
- *
- * How it works:
- * 1. Checks if user is authenticated via Supabase
- * 2. Shows registration/login message if user is not authenticated
- * 3. Renders children if user is authenticated (all features are free)
+ * Previous functionality (now disabled):
+ * - Checked if user is authenticated via Supabase
+ * - Showed registration/login message if user is not authenticated
+ * - Rendered children only if user is authenticated
  */
+export default function PaidUserProtectedRoute({ children }) {
+  // OPEN ACCESS: Bypass all authentication - grant full access to everyone
+  // No loading state, no auth checks, no redirects
+  return <>{children}</>;
+}
+
+/*
+// ALL AUTHENTICATION LOGIC BELOW HAS BEEN DISABLED FOR OPEN ACCESS
 export default function PaidUserProtectedRoute({ children }) {
   const router = useRouter();
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    /**
-     * Check if user is authenticated
-     */
     const checkAccess = async () => {
       try {
         // OPEN ACCESS MODE - Check for OPEN_ACCESS or legacy NEXT_PUBLIC_DISABLE_AUTH
@@ -127,7 +131,6 @@ export default function PaidUserProtectedRoute({ children }) {
           </div>
 
           <div className="space-y-4">
-            {/* Continue as Guest Button - Temporary for Testing */}
             <button
               onClick={() => {
                 // Set temporary flag and reload to enable guest access
@@ -181,3 +184,4 @@ export default function PaidUserProtectedRoute({ children }) {
   // User is authenticated - render the protected content (all features are free)
   return <>{children}</>;
 }
+*/

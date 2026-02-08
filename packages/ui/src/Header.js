@@ -11,9 +11,14 @@ import GoogleTranslate from "./GoogleTranslate";
  * - Dual logo display (AI Cloud + iiskills)
  * - Navigation links (supports canonicalLinks)
  * - Google Translate widget for 12+ Indian languages
- * - Auth buttons (Sign In / Register)
+ * - Auth buttons (Sign In / Register) - HIDDEN in open-access mode via showAuthButtons prop
  * - Mobile responsive menu
  * - Sticky positioning with high z-index
+ *
+ * OPEN ACCESS REFACTOR:
+ * By default, showAuthButtons is set to false in SiteHeader component,
+ * hiding all authentication UI (Sign In/Register buttons) to provide
+ * a fully open-access experience.
  */
 export default function Header({
   appName = "iiskills.cloud",
@@ -24,6 +29,16 @@ export default function Header({
   showAuthButtons = true,
 }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  // Check if open access mode is enabled
+  // In open access mode, hide all authentication UI elements
+  const isOpenAccess = 
+    process.env.NEXT_PUBLIC_OPEN_ACCESS === "true" ||
+    process.env.NEXT_PUBLIC_DISABLE_AUTH === "true" ||
+    process.env.NEXT_PUBLIC_TEST_MODE === "true";
+
+  // Override showAuthButtons if in open access mode
+  const shouldShowAuthButtons = showAuthButtons && !isOpenAccess;
 
   const handleLogout = async () => {
     if (onLogout) {
@@ -90,7 +105,7 @@ export default function Header({
           )}
 
           {/* Show Sign In/Register or User Info based on authentication */}
-          {showAuthButtons && (
+          {shouldShowAuthButtons && (
             <>
               {user ? (
                 // User is logged in - show email and logout button
@@ -186,7 +201,7 @@ export default function Header({
           </div>
 
           {/* Show Sign In/Register or User Info based on authentication */}
-          {showAuthButtons && (
+          {shouldShowAuthButtons && (
             <>
               {user ? (
                 // User is logged in - show email and logout button

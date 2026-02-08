@@ -201,11 +201,19 @@ export default function UniversalLandingPage({
               </div>
             )}
 
-            {/* Call to Action Buttons - Centered for Free Apps, Hidden for Paid */}
+            {/* Call to Action Buttons - OPEN ACCESS: Auth buttons removed */}
             {isFree && (
               <div className="flex flex-col sm:flex-row gap-4 pt-4 justify-center">
                 {!loading && (
                   <>
+                    {/* OPEN ACCESS: Show "Start Learning" for everyone, no auth required */}
+                    <Link
+                      href="/learn"
+                      className="inline-block bg-white text-primary px-8 py-4 rounded-lg font-bold shadow-lg hover:bg-gray-100 hover:shadow-xl transition-all duration-200 text-center text-base sm:text-lg"
+                    >
+                      Start Learning
+                    </Link>
+                    {/* OPEN ACCESS: Register/Sign In buttons removed - all content is public
                     {user ? (
                       <Link
                         href="/learn"
@@ -229,16 +237,28 @@ export default function UniversalLandingPage({
                         </Link>
                       </>
                     )}
+                    */}
                   </>
                 )}
               </div>
             )}
           </div>
 
-          {/* Paid App - Bottom Corner Boxes (only show when not logged in) */}
+          {/* OPEN ACCESS: Paid App registration boxes removed - show Start Learning for all */}
+          {!isFree && !loading && (
+            <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
+              <Link
+                href="/learn"
+                className="inline-block bg-white text-primary px-8 py-4 rounded-lg font-bold shadow-lg hover:bg-gray-100 hover:shadow-xl transition-all duration-200 text-center text-base sm:text-lg"
+              >
+                Start Learning
+              </Link>
+            </div>
+          )}
+          
+          {/* OPEN ACCESS: Original paid app registration UI removed
           {!isFree && !user && !loading && (
             <div className="absolute bottom-8 left-0 right-0 px-4 sm:px-8 lg:px-16 flex justify-between items-end gap-4">
-              {/* Left Bottom - Free Registration Box */}
               <div
                 className="bg-white/10 backdrop-blur-sm border-2 border-white/30 rounded-lg p-3 sm:p-4 max-w-xs"
                 role="complementary"
@@ -253,7 +273,6 @@ export default function UniversalLandingPage({
                 </p>
               </div>
 
-              {/* Right Bottom - Register Button */}
               <Link
                 href="/register"
                 className="inline-block bg-white text-primary px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-bold shadow-lg hover:bg-gray-100 hover:shadow-xl transition-all duration-200 text-center text-sm sm:text-base whitespace-nowrap"
@@ -264,7 +283,6 @@ export default function UniversalLandingPage({
             </div>
           )}
 
-          {/* Paid App - Start Learning Button for Logged In Users */}
           {!isFree && user && !loading && (
             <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
               <Link
@@ -275,6 +293,7 @@ export default function UniversalLandingPage({
               </Link>
             </div>
           )}
+          */}
         </Hero>
 
         {/* Features Section */}

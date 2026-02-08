@@ -138,8 +138,15 @@ export default function Home() {
                   transition={{ delay: 0.5 }}
                   className="pt-8"
                 >
-                  <Link
+                  {/* OPEN ACCESS: Registration link removed - all content is publicly accessible */}
+                  {/* <Link
                     href="/register"
+                    className="inline-block px-10 py-5 bg-gradient-to-r from-electric-violet-500 to-blue-500 text-white text-xl font-bold rounded-2xl hover:from-electric-violet-600 hover:to-blue-600 transition-all shadow-2xl hover:shadow-electric-violet-500/50 transform hover:scale-105"
+                  >
+                    🚀 Start Your Diagnostic Journey
+                  </Link> */}
+                  <Link
+                    href="/tests"
                     className="inline-block px-10 py-5 bg-gradient-to-r from-electric-violet-500 to-blue-500 text-white text-xl font-bold rounded-2xl hover:from-electric-violet-600 hover:to-blue-600 transition-all shadow-2xl hover:shadow-electric-violet-500/50 transform hover:scale-105"
                   >
                     🚀 Start Your Diagnostic Journey
@@ -424,8 +431,15 @@ export default function Home() {
                 <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
                   Join thousands discovering their cognitive strengths. Get your Brain-Print and career insights today - 100% free!
                 </p>
-                <Link
+                {/* OPEN ACCESS: Registration link removed - direct to tests */}
+                {/* <Link
                   href="/register"
+                  className="inline-block px-12 py-5 bg-white text-electric-violet-600 rounded-2xl font-bold text-xl hover:bg-gray-100 transition-all shadow-2xl transform hover:scale-105"
+                >
+                  🚀 Start Free Diagnostic
+                </Link> */}
+                <Link
+                  href="/tests"
                   className="inline-block px-12 py-5 bg-white text-electric-violet-600 rounded-2xl font-bold text-xl hover:bg-gray-100 transition-all shadow-2xl transform hover:scale-105"
                 >
                   🚀 Start Free Diagnostic

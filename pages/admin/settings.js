@@ -1,5 +1,5 @@
 import Head from "next/head";
-import ProtectedRoute from "../../components/ProtectedRoute";
+// import ProtectedRoute from "../../components/ProtectedRoute";
 import AdminNav from "../../components/AdminNav";
 import Footer from "../../components/Footer";
 import { getCurrentPricing, formatPrice } from "../../utils/pricing";
@@ -7,7 +7,7 @@ import { getCurrentPricing, formatPrice } from "../../utils/pricing";
 export default function AdminSettings() {
   const pricing = getCurrentPricing();
   return (
-    <ProtectedRoute>
+    <>
       <Head>
         <title>Settings - Admin - iiskills.cloud</title>
       </Head>
@@ -145,6 +145,6 @@ export default function AdminSettings() {
       </main>
 
       <Footer />
-    </ProtectedRoute>
+    </>
   );
 }

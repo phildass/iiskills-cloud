@@ -138,7 +138,8 @@ export default function AIAssistant() {
       return `We offer comprehensive courses in ${context}. You can browse our course catalog, track your progress, and access learning materials. Would you like more details about any specific topic?`;
     }
 
-    // Registration and Authentication
+    // OPEN ACCESS: Registration and login removed - all content is publicly accessible
+    // Registration and Authentication - DISABLED
     if (
       lowerQuestion.includes("register") ||
       lowerQuestion.includes("signup") ||
@@ -146,7 +147,7 @@ export default function AIAssistant() {
       lowerQuestion.includes("create account")
     ) {
       setConsecutiveFailures(0);
-      return `To register, click the "Register" button in the navigation menu. Create an account once and access all iiskills.cloud apps with the same credentials! Your account works across all our learning platforms.`;
+      return `All content on iiskills.cloud is now freely accessible - no registration required! You can explore all courses, modules, and learning materials without creating an account. Just browse and learn!`;
     }
 
     if (
@@ -155,7 +156,7 @@ export default function AIAssistant() {
       lowerQuestion.includes("log in")
     ) {
       setConsecutiveFailures(0);
-      return `You can log in by clicking the "Login" button in the navigation menu. We support multiple sign-in methods including email/password, Google OAuth, and other authentication providers. Your credentials work across all iiskills.cloud apps!`;
+      return `No login required! All content on iiskills.cloud is now freely accessible. You can access all courses, modules, and learning materials without signing in. Just browse and start learning!`;
     }
 
     // Pricing and Payment
@@ -257,7 +258,7 @@ export default function AIAssistant() {
     // General help
     if (lowerQuestion.includes("help") || lowerQuestion.includes("how")) {
       setConsecutiveFailures(0);
-      return `I can help you with ${context}. You can ask me about courses, content, registration, login, pricing, certificates, navigation, newsletter subscription, progress tracking, or general platform features. What would you like to know?`;
+      return `I can help you with ${context}. You can ask me about courses, content, pricing, certificates, navigation, newsletter subscription, progress tracking, or general platform features. All content is freely accessible without registration or login! What would you like to know?`;
     }
 
     // If no match found - handle as failure with specific responses
