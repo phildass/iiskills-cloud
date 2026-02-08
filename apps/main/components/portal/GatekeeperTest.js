@@ -80,7 +80,7 @@ export default function GatekeeperTest() {
       <div className="absolute inset-0 bg-white/40 backdrop-blur-md -z-10" />
 
       {/* Confetti Animation */}
-      {showConfetti && (
+      {showConfetti && typeof window !== "undefined" && (
         <div className="absolute inset-0 pointer-events-none z-50">
           {[...Array(50)].map((_, i) => (
             <motion.div
@@ -93,7 +93,7 @@ export default function GatekeeperTest() {
               }}
               initial={{ y: -10, opacity: 1, rotate: 0 }}
               animate={{
-                y: window.innerHeight + 100,
+                y: typeof window !== "undefined" ? window.innerHeight + 100 : 1000,
                 opacity: 0,
                 rotate: 360,
               }}
