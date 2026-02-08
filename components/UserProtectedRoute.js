@@ -1,31 +1,95 @@
-// ============================================================================
-// AUTHENTICATION REMOVED - OPEN ACCESS REFACTOR
-// ============================================================================
-// This component previously enforced user authentication for protected pages.
-// All authentication logic has been commented out to make content publicly accessible.
-// All pages are now open to all users without login/registration requirements.
-// ============================================================================
+/**
+ * UserProtectedRoute Component
+ *
+ * Supports three access modes:
+ * 1. Local Dev (NEXT_PUBLIC_DISABLE_AUTH=true): Full access to everyone
+ * 2. Online with Secret Password: Access via secret password 'iiskills123'
+ * 3. Online with Auth: Standard authentication check
+ *
+ * The secret password feature provides a backdoor for demo/testing purposes.
+ * ⚠️ SECURITY WARNING: Disable secret password feature for production!
+ */
 
-/*
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { getCurrentUser } from "@lib/supabaseClient";
-*/
+import SecretPasswordPrompt, { hasSecretAdminAccess } from "./SecretPasswordPrompt";
 
-/**
- * UserProtectedRoute Component - AUTHENTICATION DISABLED
- *
- * OPEN ACCESS MODE: This component now grants full access to all users without authentication.
- * All authentication, login, and registration logic has been removed.
- *
- * Previous functionality (now disabled):
- * - Checked if user is authenticated via Supabase
- * - Redirected to login/register if not authenticated
- * - Only rendered children if user is authenticated
- */
 export default function UserProtectedRoute({ children }) {
-  // OPEN ACCESS: Bypass all authentication - grant full access to everyone
-  // No loading state, no auth checks, no redirects
+  const router = useRouter();
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [showPasswordPrompt, setShowPasswordPrompt] = useState(false);
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        // Mode 1: Local Dev - Check for DISABLE_AUTH flag
+        const isAuthDisabled = process.env.NEXT_PUBLIC_DISABLE_AUTH === "true";
+        if (isAuthDisabled) {
+          console.log("⚠️ LOCAL DEV MODE: Authentication bypassed - full access granted");
+          setIsAuthenticated(true);
+          setIsLoading(false);
+          return;
+        }
+
+        // Mode 2: Secret Password - Check if user has entered secret password
+        if (hasSecretAdminAccess()) {
+          console.log("✅ Secret password verified - access granted");
+          setIsAuthenticated(true);
+          setIsLoading(false);
+          return;
+        }
+
+        // Mode 3: Standard Authentication - Check Supabase auth
+        const user = await getCurrentUser();
+
+        if (user) {
+          // User is authenticated - allow access
+          setIsAuthenticated(true);
+        } else {
+          // No user session found - show secret password prompt
+          console.log("🔐 No authentication found - showing secret password prompt");
+          setShowPasswordPrompt(true);
+        }
+      } catch (error) {
+        console.error("Error checking authentication:", error);
+        // On error, show secret password prompt as fallback
+        setShowPasswordPrompt(true);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    checkAuth();
+  }, [router]);
+
+  const handlePasswordSuccess = () => {
+    setShowPasswordPrompt(false);
+    setIsAuthenticated(true);
+  };
+
+  // Show loading state while checking authentication
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-neutral">
+        <div className="text-lg text-charcoal">
+          <div className="animate-pulse">Checking authentication...</div>
+        </div>
+      </div>
+    );
+  }
+
+  if (showPasswordPrompt) {
+    return <SecretPasswordPrompt onSuccess={handlePasswordSuccess} />;
+  }
+
+  // Don't render anything if not authenticated (redirect is happening)
+  if (!isAuthenticated) {
+    return null;
+  }
+
+  // User is authenticated - render the protected content
   return <>{children}</>;
 }
 

@@ -1,41 +1,96 @@
-// ============================================================================
-// AUTHENTICATION REMOVED - OPEN ACCESS REFACTOR
-// ============================================================================
-// This component previously enforced authentication for paid user content.
-// All authentication logic has been commented out to make content publicly accessible.
-// All pages are now open to all users without login/registration requirements.
-// ============================================================================
+/**
+ * PaidUserProtectedRoute Component
+ *
+ * Supports three access modes:
+ * 1. Local Dev (NEXT_PUBLIC_DISABLE_AUTH=true): Full access to everyone
+ * 2. Online with Secret Password: Access via secret password 'iiskills123'
+ * 3. Online with Auth: Standard authentication check
+ *
+ * The secret password feature provides a backdoor for demo/testing purposes.
+ * ⚠️ SECURITY WARNING: Disable secret password feature for production!
+ */
 
-/*
 "use client"; // This component uses React hooks and authentication checks - must run on client side
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { getCurrentUser } from "@lib/supabaseClient";
-import Link from "next/link";
+import SecretPasswordPrompt, {
+  hasSecretAdminAccess,
+  createSecretAdminUser,
+} from "./SecretPasswordPrompt";
 
-// Configuration for access denied message
-const ACCESS_DENIED_CONFIG = {
-  title: "Registration Required",
-  message:
-    "Please register or log in to access this content. Registration is free and allows you to save your progress and personalize your experience.",
-};
-*/
-
-/**
- * PaidUserProtectedRoute Component - AUTHENTICATION DISABLED
- *
- * OPEN ACCESS MODE: This component now grants full access to all users without authentication.
- * All authentication, login, registration, and paywall logic has been removed.
- *
- * Previous functionality (now disabled):
- * - Checked if user is authenticated via Supabase
- * - Showed registration/login message if user is not authenticated
- * - Rendered children only if user is authenticated
- */
 export default function PaidUserProtectedRoute({ children }) {
-  // OPEN ACCESS: Bypass all authentication - grant full access to everyone
-  // No loading state, no auth checks, no redirects
+  const router = useRouter();
+  const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [showPasswordPrompt, setShowPasswordPrompt] = useState(false);
+
+  useEffect(() => {
+    const checkAccess = async () => {
+      try {
+        // Mode 1: Local Dev - Check for DISABLE_AUTH flag
+        const isAuthDisabled = process.env.NEXT_PUBLIC_DISABLE_AUTH === "true";
+        if (isAuthDisabled) {
+          console.log("⚠️ LOCAL DEV MODE: Authentication bypassed - full access granted");
+          // Set mock user with full permissions
+          setUser(createSecretAdminUser());
+          setIsLoading(false);
+          return;
+        }
+
+        // Mode 2: Secret Password - Check if user has entered secret password
+        if (hasSecretAdminAccess()) {
+          console.log("✅ Secret password verified - full access granted");
+          // Set mock user with full permissions
+          setUser(createSecretAdminUser());
+          setIsLoading(false);
+          return;
+        }
+
+        // Mode 3: Standard Authentication - Check Supabase auth
+        const currentUser = await getCurrentUser();
+        if (currentUser) {
+          setUser(currentUser);
+        } else {
+          // No user session found - show secret password prompt
+          console.log("🔐 No authentication found - showing secret password prompt");
+          setShowPasswordPrompt(true);
+        }
+      } catch (error) {
+        console.error("Error checking access:", error);
+        // On error, show secret password prompt as fallback
+        setShowPasswordPrompt(true);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    checkAccess();
+  }, [router]);
+
+  const handlePasswordSuccess = () => {
+    setShowPasswordPrompt(false);
+    // Set mock user with full permissions
+    setUser(createSecretAdminUser());
+  };
+
+  // Show loading state while checking access
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-neutral">
+        <div className="text-lg text-charcoal">
+          <div className="animate-pulse">Checking access permissions...</div>
+        </div>
+      </div>
+    );
+  }
+
+  if (showPasswordPrompt) {
+    return <SecretPasswordPrompt onSuccess={handlePasswordSuccess} />;
+  }
+
+  // User is authenticated - render the protected content (all features are free)
   return <>{children}</>;
 }
 
