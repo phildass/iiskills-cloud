@@ -30,7 +30,7 @@ export default function Footer() {
             </ul>
           </div>
           <div>
-            <h4 className="font-bold text-lg mb-3 text-accent">The Axiom</h4>
+            <h4 className="font-bold text-lg mb-3 text-accent">The iiskills Way</h4>
             <ul className="space-y-2 text-gray-300 text-sm">
               <li>🔗 Monorepo Powered</li>
               <li>⚡ The Power Hour</li>

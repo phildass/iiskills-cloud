@@ -96,11 +96,11 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Icon Row: The Axiom Core Values */}
+        {/* Icon Row: The iiskills Core Values */}
         <section className="py-16 bg-white">
           <div className="max-w-6xl mx-auto px-4">
             <h2 className="text-4xl font-bold text-primary text-center mb-12">
-              The Axiom Core Values
+              The iiskills Core Values
             </h2>
             <div className="grid md:grid-cols-3 gap-8">
               {/* Value 1: Monorepo Powered */}
@@ -249,56 +249,77 @@ export default function Home() {
           </div>
         </section>
 
-        {/* The Monorepo Advantage Section */}
+        {/* Why iiskills? - The Monorepo Advantage Section */}
         <section className="py-16 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
           <div className="max-w-6xl mx-auto px-4">
-            <h2 className="text-4xl font-bold text-primary text-center mb-6">
-              A Unified Ecosystem for Curious Minds
+            <h2 className="text-4xl font-bold text-primary text-center mb-3">
+              Why iiskills?
             </h2>
+            <p className="text-xl text-center text-gray-600 mb-8">
+              A Unified Ecosystem for Curious Minds
+            </p>
             <div className="bg-white rounded-2xl p-8 md:p-12 shadow-2xl">
               <div className="flex flex-col md:flex-row items-center gap-8">
                 <div className="flex-1">
                   <div className="text-6xl mb-6 text-center md:text-left">🌐</div>
-                  <p className="text-lg text-gray-700 leading-relaxed mb-4">
+                  <p className="text-lg text-gray-700 leading-relaxed mb-6">
                     Because our apps are built in a single, synchronized monorepo, your learning isn't siloed.
                   </p>
-                  <ul className="space-y-3 text-gray-700">
-                    <li className="flex items-start">
-                      <span className="text-primary mr-3 text-xl">→</span>
-                      <span>Your <strong>Math Logic</strong> score helps predict your <strong>Physics</strong> performance.</span>
+                  <ul className="space-y-4 text-gray-700">
+                    <li className="flex items-start bg-blue-50 p-4 rounded-lg">
+                      <span className="text-primary mr-3 text-2xl">👤</span>
+                      <div>
+                        <strong className="block text-gray-900">One Profile</strong>
+                        <span className="text-sm">Your iiskills account powers all apps.</span>
+                      </div>
                     </li>
-                    <li className="flex items-start">
-                      <span className="text-accent mr-3 text-xl">→</span>
-                      <span>Your <strong>Geography</strong> streak keeps your <strong>Chemistry</strong> profile active.</span>
+                    <li className="flex items-start bg-purple-50 p-4 rounded-lg">
+                      <span className="text-accent mr-3 text-2xl">🔥</span>
+                      <div>
+                        <strong className="block text-gray-900">Unified Streaks</strong>
+                        <span className="text-sm">Progress in Chemistry keeps your Math streak alive.</span>
+                      </div>
                     </li>
-                    <li className="flex items-start">
-                      <span className="text-green-600 mr-3 text-xl">→</span>
-                      <span>It's <strong>one journey</strong> across <strong>four worlds</strong>.</span>
+                    <li className="flex items-start bg-green-50 p-4 rounded-lg">
+                      <span className="text-green-600 mr-3 text-2xl">🎯</span>
+                      <div>
+                        <strong className="block text-gray-900">Shared UI</strong>
+                        <span className="text-sm">Learn one navigation. Rule all subjects.</span>
+                      </div>
                     </li>
                   </ul>
                 </div>
                 <div className="flex-1">
-                  <div className="bg-gradient-to-br from-primary/10 to-accent/10 rounded-xl p-8 border-2 border-dashed border-primary/30">
-                    <div className="grid grid-cols-2 gap-4 text-center">
-                      <div className="bg-white rounded-lg p-4 shadow">
+                  <div className="bg-gradient-to-br from-primary/10 to-accent/10 rounded-xl p-8 border-2 border-dashed border-primary/30 relative overflow-hidden">
+                    {/* Animated connecting lines between apps */}
+                    <svg className="absolute inset-0 w-full h-full opacity-20" style={{ zIndex: 0 }}>
+                      <line x1="25%" y1="25%" x2="75%" y2="25%" stroke="currentColor" strokeWidth="2" className="text-primary" />
+                      <line x1="25%" y1="25%" x2="25%" y2="75%" stroke="currentColor" strokeWidth="2" className="text-primary" />
+                      <line x1="75%" y1="25%" x2="75%" y2="75%" stroke="currentColor" strokeWidth="2" className="text-primary" />
+                      <line x1="25%" y1="75%" x2="75%" y2="75%" stroke="currentColor" strokeWidth="2" className="text-primary" />
+                      <line x1="25%" y1="25%" x2="75%" y2="75%" stroke="currentColor" strokeWidth="2" className="text-accent" />
+                      <line x1="75%" y1="25%" x2="25%" y2="75%" stroke="currentColor" strokeWidth="2" className="text-accent" />
+                    </svg>
+                    <div className="grid grid-cols-2 gap-4 text-center relative z-10">
+                      <div className="bg-white rounded-lg p-4 shadow-lg transform hover:scale-105 transition-transform duration-300 border-2 border-red-200">
                         <div className="text-3xl mb-2">∑</div>
-                        <div className="text-sm font-semibold text-primary">Math</div>
+                        <div className="text-sm font-semibold" style={{ color: "#DC143C" }}>Math</div>
                       </div>
-                      <div className="bg-white rounded-lg p-4 shadow">
+                      <div className="bg-white rounded-lg p-4 shadow-lg transform hover:scale-105 transition-transform duration-300 border-2 border-blue-200">
                         <div className="text-3xl mb-2">⚡</div>
-                        <div className="text-sm font-semibold text-purple-600">Physics</div>
+                        <div className="text-sm font-semibold" style={{ color: "#0080FF" }}>Physics</div>
                       </div>
-                      <div className="bg-white rounded-lg p-4 shadow">
+                      <div className="bg-white rounded-lg p-4 shadow-lg transform hover:scale-105 transition-transform duration-300 border-2 border-green-200">
                         <div className="text-3xl mb-2">🌍</div>
                         <div className="text-sm font-semibold text-green-600">Geography</div>
                       </div>
-                      <div className="bg-white rounded-lg p-4 shadow">
+                      <div className="bg-white rounded-lg p-4 shadow-lg transform hover:scale-105 transition-transform duration-300 border-2 border-purple-200">
                         <div className="text-3xl mb-2">⚗️</div>
-                        <div className="text-sm font-semibold text-orange-600">Chemistry</div>
+                        <div className="text-sm font-semibold" style={{ color: "#9B59B6" }}>Chemistry</div>
                       </div>
                     </div>
-                    <div className="mt-4 text-center text-sm font-semibold text-primary">
-                      One Account • Unified Progress
+                    <div className="mt-6 text-center text-sm font-bold text-primary relative z-10">
+                      One Account • Unified Progress • Seamless Experience
                     </div>
                   </div>
                 </div>
