@@ -3,7 +3,7 @@
  *
  * Provides an alternative admin access mechanism through a secret password.
  * When user is not logged in as admin, shows a password input box.
- * On correct password entry ('iiskills123'), grants admin access for the session.
+ * On correct password entry, grants admin access for the session.
  *
  * Usage:
  * - Local dev (NEXT_PUBLIC_DISABLE_AUTH=true): Full access, no prompt shown
@@ -16,7 +16,10 @@
 
 import { useState } from "react";
 
-const SECRET_PASSWORD = "iiskills123";
+// Get secret password from environment variable or use default for development
+// In production, this should be removed or the env var should not be set
+const SECRET_PASSWORD =
+  process.env.NEXT_PUBLIC_ADMIN_SECRET_PASSWORD || "iiskills123";
 const ADMIN_FLAG_KEY = "iiskills_secret_admin";
 
 export default function SecretPasswordPrompt({ onSuccess }) {
@@ -33,6 +36,8 @@ export default function SecretPasswordPrompt({ onSuccess }) {
     setTimeout(() => {
       if (password === SECRET_PASSWORD) {
         // Store admin flag in localStorage for session persistence
+        // NOTE: This is not secure - client-side flags can be manipulated
+        // This feature is only for testing/demo environments
         if (typeof window !== "undefined") {
           localStorage.setItem(ADMIN_FLAG_KEY, "true");
           sessionStorage.setItem(ADMIN_FLAG_KEY, "true");
@@ -115,6 +120,7 @@ export default function SecretPasswordPrompt({ onSuccess }) {
 
 /**
  * Utility function to check if user has secret admin access
+ * NOTE: This is client-side only and can be manipulated - not secure!
  * @returns {boolean} True if secret password was entered
  */
 export function hasSecretAdminAccess() {
@@ -136,4 +142,22 @@ export function clearSecretAdminAccess() {
   localStorage.removeItem(ADMIN_FLAG_KEY);
   sessionStorage.removeItem(ADMIN_FLAG_KEY);
   console.log("🔓 Secret admin access cleared");
+}
+
+/**
+ * Create a mock user object for secret admin access
+ * @returns {object} Mock user with admin permissions
+ */
+export function createSecretAdminUser() {
+  return {
+    id: "secret-admin-user",
+    email: "secret-admin@iiskills.cloud",
+    user_metadata: {
+      full_name: "Secret Admin User",
+      firstName: "Secret",
+      lastName: "Admin",
+      is_admin: true,
+      payment_status: "paid",
+    },
+  };
 }

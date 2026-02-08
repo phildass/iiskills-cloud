@@ -473,7 +473,7 @@ NEXT_PUBLIC_DISABLE_AUTH=false
 2. **Access admin pages:**
    - Navigate to any admin route (e.g., `/admin`)
    - If not logged in, you'll see the secret password prompt
-   - Enter: `iiskills123`
+   - Enter the configured secret password (contact your admin for the password)
    - Admin access granted for the session
 
 3. **The password works on all protected routes:**
@@ -482,12 +482,26 @@ NEXT_PUBLIC_DISABLE_AUTH=false
    - User management
    - Any page using ProtectedRoute, UserProtectedRoute, or PaidUserProtectedRoute
 
+#### Environment Variable Configuration
+
+The secret password can be configured via environment variable:
+
+```bash
+# Optional: Set custom secret password (defaults to 'iiskills123' for dev only)
+NEXT_PUBLIC_ADMIN_SECRET_PASSWORD=your_custom_password_here
+```
+
+**Default Password (Development Only):**
+- For local development, the default password is `iiskills123`
+- For staging/production, MUST set `NEXT_PUBLIC_ADMIN_SECRET_PASSWORD` to a secure value
+- Never commit passwords to source control or public documentation
+
 #### ⚠️ SECURITY WARNINGS
 
 **CRITICAL: For Testing/Demo Only!**
-- The secret password (`iiskills123`) is hardcoded and known
-- This is a **backdoor** for quick access during development/demos
-- **MUST be disabled or removed for production deployments**
+- The secret password feature provides a backdoor for development and testing
+- Client-side storage (localStorage/sessionStorage) can be manipulated
+- **MUST be disabled or properly secured for production deployments**
 
 **Best Practices:**
 - ✅ Use `NEXT_PUBLIC_DISABLE_AUTH=true` for local development only

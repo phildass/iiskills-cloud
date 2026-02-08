@@ -33,17 +33,7 @@ export default function PaidUserProtectedRoute({ children }) {
         if (isAuthDisabled) {
           console.log("⚠️ LOCAL DEV MODE: Authentication bypassed - full access granted");
           // Set mock user with full permissions
-          setUser({
-            id: "open-access-user",
-            email: "open-access@iiskills.cloud",
-            user_metadata: {
-              full_name: "Open Access User",
-              firstName: "Open",
-              lastName: "Access",
-              is_admin: true,
-              payment_status: "paid",
-            },
-          });
+          setUser(createSecretAdminUser());
           setIsLoading(false);
           return;
         }
@@ -52,17 +42,7 @@ export default function PaidUserProtectedRoute({ children }) {
         if (hasSecretAdminAccess()) {
           console.log("✅ Secret password verified - full access granted");
           // Set mock user with full permissions
-          setUser({
-            id: "secret-admin-user",
-            email: "secret-admin@iiskills.cloud",
-            user_metadata: {
-              full_name: "Secret Admin User",
-              firstName: "Secret",
-              lastName: "Admin",
-              is_admin: true,
-              payment_status: "paid",
-            },
-          });
+          setUser(createSecretAdminUser());
           setIsLoading(false);
           return;
         }
@@ -91,17 +71,7 @@ export default function PaidUserProtectedRoute({ children }) {
   const handlePasswordSuccess = () => {
     setShowPasswordPrompt(false);
     // Set mock user with full permissions
-    setUser({
-      id: "secret-admin-user",
-      email: "secret-admin@iiskills.cloud",
-      user_metadata: {
-        full_name: "Secret Admin User",
-        firstName: "Secret",
-        lastName: "Admin",
-        is_admin: true,
-        payment_status: "paid",
-      },
-    });
+    setUser(createSecretAdminUser());
   };
 
   if (isLoading) {
