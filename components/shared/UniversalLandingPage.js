@@ -370,14 +370,12 @@ export default function UniversalLandingPage({
                   Access comprehensive courses, interactive lessons, and expert guidance anytime,
                   anywhere. Build your skills with our structured learning paths.
                 </p>
-                {!user && (
-                  <Link
-                    href="/register"
-                    className="inline-block bg-primary text-white px-8 py-4 rounded-lg font-bold shadow-lg hover:bg-primary/90 hover:shadow-xl transition-all duration-200"
-                  >
-                    Start Your Journey
-                  </Link>
-                )}
+                <Link
+                  href="/courses"
+                  className="inline-block bg-primary text-white px-8 py-4 rounded-lg font-bold shadow-lg hover:bg-primary/90 hover:shadow-xl transition-all duration-200"
+                >
+                  Explore Courses
+                </Link>
               </div>
             </div>
           </div>
