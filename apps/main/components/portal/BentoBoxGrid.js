@@ -17,6 +17,7 @@ const APP_SUBDOMAIN_MAP = {
   "learn-math": 8,
   "learn-geography": 9,
   "learn-govt-jobs": 10,
+  "learn-finesse": 11,
 };
 
 /**
