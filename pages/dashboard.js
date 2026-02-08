@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import Head from "next/head";
-import UserProtectedRoute from "../components/UserProtectedRoute";
+// import UserProtectedRoute from "../components/UserProtectedRoute";
 import { getCurrentUser } from "../lib/supabaseClient";
 
 /**
@@ -36,7 +36,7 @@ export default function Dashboard() {
   return (
     // Wrap entire page in UserProtectedRoute
     // Only authenticated users will see this content
-    <UserProtectedRoute>
+    <>
       <Head>
         <title>Dashboard - iiskills.cloud</title>
         <meta name="description" content="Your personal dashboard" />
@@ -106,6 +106,6 @@ export default function Dashboard() {
           )}
         </div>
       </div>
-    </UserProtectedRoute>
+    </>
   );
 }

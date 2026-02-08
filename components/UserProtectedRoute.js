@@ -1,40 +1,42 @@
+// ============================================================================
+// AUTHENTICATION REMOVED - OPEN ACCESS REFACTOR
+// ============================================================================
+// This component previously enforced user authentication for protected pages.
+// All authentication logic has been commented out to make content publicly accessible.
+// All pages are now open to all users without login/registration requirements.
+// ============================================================================
+
+/*
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { getCurrentUser } from "@lib/supabaseClient";
+*/
 
 /**
- * UserProtectedRoute Component
+ * UserProtectedRoute Component - AUTHENTICATION DISABLED
  *
- * This component protects pages that require authentication.
- * If a user is not logged in, they will be redirected to the login page.
+ * OPEN ACCESS MODE: This component now grants full access to all users without authentication.
+ * All authentication, login, and registration logic has been removed.
  *
- * Usage:
- * import UserProtectedRoute from '../components/UserProtectedRoute'
- *
- * export default function MyProtectedPage() {
- *   return (
- *     <UserProtectedRoute>
- *       <div>This content is only visible to logged-in users</div>
- *     </UserProtectedRoute>
- *   )
- * }
- *
- * How it works:
- * 1. On mount, checks if user is authenticated via Supabase
- * 2. If not authenticated, redirects to /login
- * 3. Shows loading state while checking authentication
- * 4. Only renders children if user is authenticated
+ * Previous functionality (now disabled):
+ * - Checked if user is authenticated via Supabase
+ * - Redirected to login/register if not authenticated
+ * - Only rendered children if user is authenticated
  */
+export default function UserProtectedRoute({ children }) {
+  // OPEN ACCESS: Bypass all authentication - grant full access to everyone
+  // No loading state, no auth checks, no redirects
+  return <>{children}</>;
+}
+
+/*
+// ALL AUTHENTICATION LOGIC BELOW HAS BEEN DISABLED FOR OPEN ACCESS
 export default function UserProtectedRoute({ children }) {
   const router = useRouter();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    /**
-     * Check if user is authenticated
-     * Uses Supabase session to verify authentication
-     */
     const checkAuth = async () => {
       try {
         // OPEN ACCESS MODE - Check for OPEN_ACCESS or legacy NEXT_PUBLIC_DISABLE_AUTH
@@ -105,3 +107,4 @@ export default function UserProtectedRoute({ children }) {
   // User is authenticated - render the protected content
   return <>{children}</>;
 }
+*/

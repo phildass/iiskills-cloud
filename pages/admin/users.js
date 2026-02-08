@@ -1,11 +1,11 @@
 import Head from "next/head";
-import ProtectedRoute from "../../components/ProtectedRoute";
+// import ProtectedRoute from "../../components/ProtectedRoute";
 import AdminNav from "../../components/AdminNav";
 import Footer from "../../components/Footer";
 
 export default function AdminUsers() {
   return (
-    <ProtectedRoute>
+    <>
       <Head>
         <title>User Management - Admin - iiskills.cloud</title>
       </Head>
@@ -57,6 +57,6 @@ export default function AdminUsers() {
       </main>
 
       <Footer />
-    </ProtectedRoute>
+    </>
   );
 }

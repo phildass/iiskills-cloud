@@ -1,32 +1,37 @@
+// ============================================================================
+// AUTHENTICATION REMOVED - OPEN ACCESS REFACTOR
+// ============================================================================
+// This admin authentication API has been disabled.
+// Authentication is no longer required - all admin pages are publicly accessible.
+// This file has been commented out to prevent authentication enforcement.
+// ============================================================================
+
 /**
- * Admin Authentication API
- * Handles first-time password setup and subsequent logins
- * 
- * ⚠️ FEATURE FLAG CONTROLLED - SAFE FOR PRODUCTION WITH PROPER CONFIGURATION
- * 
- * Features:
- * - Feature-flagged first-time admin setup (ADMIN_SETUP_MODE)
- * - Password-first authentication (no Supabase login required)
- * - Bcrypt password hashing
- * - JWT token-based sessions with HttpOnly cookies
- * - Persistent storage in Supabase admin_settings table
- * - Audit logging for all setup and auth events
- * 
- * Security:
- * - Passwords are hashed with bcrypt (12 rounds)
- * - Session tokens are signed with ADMIN_JWT_SECRET
- * - HttpOnly cookies prevent XSS attacks
- * - Service role key used for database access
- * - Audit logs track all admin setup and login events
- * 
- * Rollback Instructions:
- * 1. Set ADMIN_SETUP_MODE=false
- * 2. Set TEMP_SUSPEND_AUTH=false
- * 3. Drop admin_settings table in Supabase
- * 4. Restore original Supabase-based admin authentication
- * 5. Remove ADMIN_JWT_SECRET from environment
- * 6. Rotate SUPABASE_SERVICE_ROLE_KEY if exposed
+ * Admin Authentication API - DISABLED
+ *
+ * This API previously handled admin authentication with:
+ * - First-time password setup
+ * - Login verification
+ * - JWT token-based sessions
+ * - Password hashing with bcrypt
+ *
+ * All authentication has been removed. Admin pages are now publicly accessible.
  */
+
+export default async function handler(req, res) {
+  // Return message that authentication is disabled
+  return res.status(200).json({
+    message: "Authentication is disabled. All content is publicly accessible.",
+    disabled: true
+  });
+}
+
+/*
+// ============================================================================
+// ORIGINAL ADMIN AUTHENTICATION API - DISABLED
+// ============================================================================
+// All code below has been commented out for open access refactor
+// ============================================================================
 
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
@@ -34,11 +39,10 @@ import { serialize } from 'cookie';
 import { createClient } from '@supabase/supabase-js';
 
 const SALT_ROUNDS = 12;
-const TOKEN_EXPIRY = '24h'; // 24 hours for test period
+const TOKEN_EXPIRY = '24h';
 const COOKIE_NAME = 'admin_token';
 const PASSWORD_MIN_LENGTH = 8;
 
-// Initialize Supabase client with service role key for admin operations
 function getSupabaseAdmin() {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -55,7 +59,6 @@ function getSupabaseAdmin() {
   });
 }
 
-// Get admin setting from database
 async function getAdminSetting(key) {
   try {
     const supabase = getSupabaseAdmin();
@@ -67,7 +70,6 @@ async function getAdminSetting(key) {
 
     if (error) {
       if (error.code === 'PGRST116') {
-        // No rows returned - setting doesn't exist
         return null;
       }
       throw error;
@@ -80,7 +82,6 @@ async function getAdminSetting(key) {
   }
 }
 
-// Set admin setting in database
 async function setAdminSetting(key, value) {
   const supabase = getSupabaseAdmin();
   const { error } = await supabase
@@ -90,16 +91,11 @@ async function setAdminSetting(key, value) {
   if (error) throw error;
 }
 
-// Write audit log entry
 async function logAuditEvent(eventType, details = {}, req = null) {
   try {
     const timestamp = new Date().toISOString();
-    
-    // Get client IP with fallback chain for trusted proxies
-    // Note: In production, configure your reverse proxy to set these headers
     let ip = 'unknown';
     if (req) {
-      // Check trusted proxy headers in order of precedence
       ip = req.headers['x-real-ip'] || 
            req.headers['x-forwarded-for']?.split(',')[0]?.trim() || 
            req.connection?.remoteAddress || 
@@ -112,30 +108,26 @@ async function logAuditEvent(eventType, details = {}, req = null) {
       event_type: eventType,
       ip_address: ip,
       user_agent: req ? req.headers['user-agent'] : 'unknown',
-      details: details, // Pass as object, not stringified (jsonb column)
+      details: details,
     };
 
-    // Try to store in database
     const supabase = getSupabaseAdmin();
     const { error } = await supabase
       .from('admin_audit_logs')
       .insert(logEntry);
 
     if (error) {
-      // If database logging fails, log to console as fallback
       console.warn('Failed to write audit log to database:', error);
       console.log('AUDIT LOG:', JSON.stringify(logEntry));
     } else {
       console.log(`✅ Audit log: ${eventType} from ${ip}`);
     }
   } catch (error) {
-    // Fallback to console logging
     console.error('Audit logging error:', error);
     console.log(`AUDIT LOG: ${eventType}`, details);
   }
 }
 
-// Generate JWT token
 function generateToken() {
   const secret = process.env.ADMIN_JWT_SECRET;
   if (!secret) {
@@ -149,7 +141,6 @@ function generateToken() {
   );
 }
 
-// Verify JWT token
 function verifyToken(token) {
   const secret = process.env.ADMIN_JWT_SECRET;
   if (!secret) {
@@ -164,18 +155,16 @@ function verifyToken(token) {
   }
 }
 
-// Create HttpOnly cookie
 function createCookie(token) {
   return serialize(COOKIE_NAME, token, {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
     sameSite: 'lax',
-    maxAge: 60 * 60 * 24, // 24 hours
+    maxAge: 60 * 60 * 24,
     path: '/',
   });
 }
 
-// Create cookie for logout (expires immediately)
 function createLogoutCookie() {
   return serialize(COOKIE_NAME, '', {
     httpOnly: true,
@@ -194,7 +183,6 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: `Method ${method} Not Allowed` });
   }
 
-  // Handle GET requests for check action
   if (method === 'GET') {
     const { action } = req.query;
     if (action === 'check') {
@@ -214,14 +202,11 @@ export default async function handler(req, res) {
   try {
     switch (action) {
       case 'check': {
-        // Check if password has been set
         const hasPassword = !!(await getAdminSetting('admin_password_hash'));
         return res.status(200).json({ hasPassword });
       }
 
       case 'setup': {
-        // First-time password setup
-        // ⚠️ SECURITY: Only allow if ADMIN_SETUP_MODE is explicitly enabled
         const setupModeEnabled = process.env.ADMIN_SETUP_MODE === 'true' || 
                                  process.env.NEXT_PUBLIC_ADMIN_SETUP_MODE === 'true';
         
@@ -238,14 +223,12 @@ export default async function handler(req, res) {
           return res.status(400).json({ error: 'Password is required' });
         }
 
-        // Validate password strength
         if (password.length < PASSWORD_MIN_LENGTH) {
           return res.status(400).json({ 
             error: `Password must be at least ${PASSWORD_MIN_LENGTH} characters long` 
           });
         }
 
-        // Check if password already exists
         const existingHash = await getAdminSetting('admin_password_hash');
         if (existingHash) {
           await logAuditEvent('SETUP_BLOCKED_EXISTS', { 
@@ -256,23 +239,16 @@ export default async function handler(req, res) {
           });
         }
 
-        // Hash the password
         const hash = await bcrypt.hash(password, SALT_ROUNDS);
-        
-        // Store the hash in database
         await setAdminSetting('admin_password_hash', hash);
-        
-        // Store setup completion timestamp
         await setAdminSetting('admin_setup_completed_at', new Date().toISOString());
         
-        // Log audit event
         await logAuditEvent('ADMIN_SETUP_SUCCESS', {
           email: body.email || 'not_provided',
           setup_completed: true,
           password_strength: password.length >= 12 ? 'strong' : 'medium'
         }, req);
         
-        // Generate token and set cookie
         const token = generateToken();
         res.setHeader('Set-Cookie', createCookie(token));
         
@@ -287,12 +263,10 @@ export default async function handler(req, res) {
       }
 
       case 'login': {
-        // Subsequent login verification
         if (!password) {
           return res.status(400).json({ error: 'Password is required' });
         }
 
-        // Get stored password hash
         const storedHash = await getAdminSetting('admin_password_hash');
         if (!storedHash) {
           await logAuditEvent('LOGIN_FAILED', { 
@@ -303,7 +277,6 @@ export default async function handler(req, res) {
           });
         }
 
-        // Verify password
         const isValid = await bcrypt.compare(password, storedHash);
         if (!isValid) {
           await logAuditEvent('LOGIN_FAILED', { 
@@ -312,7 +285,6 @@ export default async function handler(req, res) {
           return res.status(401).json({ error: 'Invalid password' });
         }
 
-        // Generate token and set cookie
         const token = generateToken();
         res.setHeader('Set-Cookie', createCookie(token));
 
@@ -326,10 +298,8 @@ export default async function handler(req, res) {
       }
 
       case 'verify': {
-        // Verify admin token from cookie or body
         let token = req.cookies?.[COOKIE_NAME];
         
-        // Fallback to token in body (for manual verification)
         if (!token && body.token) {
           token = body.token;
         }
@@ -348,7 +318,6 @@ export default async function handler(req, res) {
       }
 
       case 'logout': {
-        // Clear the admin token cookie
         res.setHeader('Set-Cookie', createLogoutCookie());
         return res.status(200).json({ 
           success: true,
@@ -364,3 +333,4 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: error.message || 'Internal server error' });
   }
 }
+*/
