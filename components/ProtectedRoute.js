@@ -1,18 +1,37 @@
+// ============================================================================
+// AUTHENTICATION REMOVED - OPEN ACCESS REFACTOR
+// ============================================================================
+// This component previously enforced admin authentication for protected pages.
+// All authentication logic has been commented out to make content publicly accessible.
+// All admin pages are now open to all users without login/admin verification.
+// ============================================================================
+
+/*
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { getCurrentUser, isAdmin } from "@lib/supabaseClient";
+*/
 
 /**
- * Protected Route Component for Admin Pages
+ * Protected Route Component for Admin Pages - AUTHENTICATION DISABLED
  *
- * This component ensures only authenticated users with admin role can access admin pages.
- * Uses Supabase backend authentication and checks admin status from public.profiles table.
+ * OPEN ACCESS MODE: This component now grants full access to all users without authentication.
+ * All authentication and admin role checking has been removed.
  *
- * Security:
- * - Backend validation via Supabase
- * - Role-based access control via profiles.is_admin
- * - Automatic redirect to login if not authenticated
+ * Previous functionality (now disabled):
+ * - Checked if user is authenticated via Supabase
+ * - Verified admin role from public.profiles table
+ * - Redirected to login if not authenticated
+ * - Showed access denied if not admin
  */
+export default function ProtectedRoute({ children, requireAdmin = true }) {
+  // OPEN ACCESS: Bypass all authentication - grant full access to everyone
+  // No loading state, no auth checks, no redirects
+  return <>{children}</>;
+}
+
+/*
+// ALL AUTHENTICATION LOGIC BELOW HAS BEEN DISABLED FOR OPEN ACCESS
 export default function ProtectedRoute({ children, requireAdmin = true }) {
   const router = useRouter();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -97,3 +116,4 @@ export default function ProtectedRoute({ children, requireAdmin = true }) {
 
   return <>{children}</>;
 }
+*/
