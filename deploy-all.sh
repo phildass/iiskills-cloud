@@ -1,8 +1,7 @@
 #!/bin/bash
 
-set -e
+set +e  # Don't exit on error—try all builds
 
-# List all your Next.js apps here. Add/remove as needed.
 apps=(
   learn-ai
   learn-management
@@ -25,6 +24,7 @@ yarn install
 
 success_count=0
 fail_count=0
+failed_apps=()
 
 for app in "${apps[@]}"; do
   APPDIR="apps/$app"
@@ -36,8 +36,6 @@ for app in "${apps[@]}"; do
   echo "🔨 Building $app..."
   cd "$MONOREPO_ROOT/$APPDIR"
   if yarn build; then
-    # Check for Next.js build output (.next directory)
-    # For Next.js v16+, standalone mode is deprecated; standard build output is .next/
     if [ -d ".next" ]; then
       echo "✅ Build succeeded for $app (Next.js build output: .next/)"
       ((success_count++))
@@ -47,20 +45,25 @@ for app in "${apps[@]}"; do
     else
       echo "❌ Build did not produce expected output for $app"
       ((fail_count++))
-      cd "$MONOREPO_ROOT"
-      exit 1
+      failed_apps+=("$app")
     fi
   else
     echo "❌ Build failed for $app!"
     ((fail_count++))
-    cd "$MONOREPO_ROOT"
-    exit 1
+    failed_apps+=("$app")
   fi
   cd "$MONOREPO_ROOT"
 done
 
 echo "---------------------------"
 echo "✅ Built $success_count app(s); ❌ $fail_count failed."
+if [ $fail_count -gt 0 ]; then
+  echo ""
+  echo "Failed apps:"
+  for app in "${failed_apps[@]}"; do
+    echo " - $app"
+  done
+fi
 echo "---------------------------"
 
 echo "🚀 Restarting all apps with PM2..."

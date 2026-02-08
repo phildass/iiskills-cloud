@@ -42,15 +42,18 @@
     "build:all-serial": "node .github/scripts/get-workspaces.js | node -e \"const fs=require('fs');const j=JSON.parse(fs.readFileSync(0,'utf8')); const cp=require('child_process'); for(const i of j.include){ console.log('Building', i.workspaceName); cp.execSync('bash scripts/workspace-install-build.sh '+i.workspaceName, { stdio:'inherit' }) }\""
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.89.0",
+    "@sendgrid/mail": "^8.1.6",
+    "@supabase/supabase-js": "^2.95.3",
     "html2canvas": "^1.4.1",
     "jspdf": "^4.0.0",
     "next": "^16.1.1",
     "openai": "^4.73.0",
     "qrcode": "^1.5.4",
+    "razorpay": "^2.9.6",
     "react": "latest",
     "react-dom": "latest",
-    "resend": "^4.0.1"
+    "resend": "^4.0.1",
+    "twilio": "^5.12.1"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.29.0",
