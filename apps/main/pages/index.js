@@ -7,6 +7,8 @@ import TranslationFeatureBanner from "../../../components/shared/TranslationFeat
 import Hero, { getHeroImagesForApp } from "../../../components/shared/HeroManager";
 import MagicSearchBar from "../components/portal/MagicSearchBar";
 import BentoBoxGrid from "../components/portal/BentoBoxGrid";
+import SubjectSwitcher from "../components/portal/SubjectSwitcher";
+import GatekeeperTest from "../components/portal/GatekeeperTest";
 
 export default function Home() {
   const pricing = getPricingDisplay();
@@ -57,17 +59,16 @@ export default function Home() {
         `}</style>
       </Head>
       <main>
-        {/* HERO SECTION: Full-size background with HeroManager */}
+        {/* HERO SECTION: Unified Portal */}
         <Hero appId="main" className="h-[70vh] md:h-[80vh] lg:h-[90vh]">
           <div className="text-center text-white space-y-6 max-w-4xl mx-auto">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight">
-              iiskills.cloud
+            <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold leading-tight tracking-tight">
+              One Engine. Infinite Mastery.
             </h1>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold leading-snug">
-              Indian Institute of Professional Skills Development
-            </h2>
-            <p className="text-xl sm:text-2xl lg:text-3xl leading-relaxed">
-              Education for All, Online and Affordable
+            <p className="text-lg sm:text-xl lg:text-2xl leading-relaxed max-w-3xl mx-auto px-4">
+              We've standardized the laws of the universe. Using our signature Tri-Level Engine, 
+              you can master Math, Physics, Chemistry, and Geography through a single, proven logical flow. 
+              <span className="font-bold block mt-2">100% Free. 100% Open.</span>
             </p>
             
             {/* CTA Buttons - Universal Links */}
@@ -95,8 +96,216 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Icon Row: The Axiom Core Values */}
+        <section className="py-16 bg-white">
+          <div className="max-w-6xl mx-auto px-4">
+            <h2 className="text-4xl font-bold text-primary text-center mb-12">
+              The Axiom Core Values
+            </h2>
+            <div className="grid md:grid-cols-3 gap-8">
+              {/* Value 1: Monorepo Powered */}
+              <div className="text-center p-8 bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
+                <div className="text-6xl mb-4">🔗</div>
+                <h3 className="text-xl font-bold text-primary mb-3">Monorepo Powered</h3>
+                <p className="text-gray-700">
+                  One account, four subjects, zero friction.
+                </p>
+              </div>
+
+              {/* Value 2: The Power Hour */}
+              <div className="text-center p-8 bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
+                <div className="text-6xl mb-4">⚡</div>
+                <h3 className="text-xl font-bold text-accent mb-3">The Power Hour</h3>
+                <p className="text-gray-700">
+                  Master the "Basic 6" modules in under 60 minutes.
+                </p>
+              </div>
+
+              {/* Value 3: Tri-Level Logic */}
+              <div className="text-center p-8 bg-gradient-to-br from-green-50 to-green-100 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
+                <div className="text-6xl mb-4">🎯</div>
+                <h3 className="text-xl font-bold text-green-600 mb-3">Tri-Level Logic</h3>
+                <p className="text-gray-700">
+                  A consistent path from Intuition to Expertise.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Universal Search Bar (floating, always accessible) */}
         <MagicSearchBar />
+
+        {/* Interactive Subject Switcher Widget */}
+        <section className="py-16 bg-gradient-to-br from-gray-50 via-blue-50 to-purple-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-4xl font-bold text-primary text-center mb-4">
+              Unified Portal
+            </h2>
+            <p className="text-xl text-center text-gray-600 mb-12">
+              One engine powering four subjects. Click to explore each mastery path.
+            </p>
+            <SubjectSwitcher />
+          </div>
+        </section>
+
+        {/* Mastery in Three Steps Journey Section */}
+        <section className="py-16 bg-white">
+          <div className="max-w-6xl mx-auto px-4">
+            <h2 className="text-4xl font-bold text-primary text-center mb-4">
+              Mastery in Three Steps
+            </h2>
+            <p className="text-xl text-center text-gray-600 mb-12">
+              Our signature Tri-Level system takes you from curiosity to expertise
+            </p>
+
+            <div className="space-y-8">
+              {/* Level 1: BASIC */}
+              <div className="bg-gradient-to-r from-green-50 to-green-100 rounded-xl p-8 shadow-lg border-l-8 border-green-500">
+                <div className="flex items-start gap-6">
+                  <div className="text-5xl">🟢</div>
+                  <div className="flex-1">
+                    <h3 className="text-2xl font-bold text-green-700 mb-3">
+                      Level 1: BASIC (Building Intuition)
+                    </h3>
+                    <div className="space-y-2 text-gray-700">
+                      <p>
+                        <strong>What:</strong> Foundational literacy and terminology.
+                      </p>
+                      <p>
+                        <strong>Proof:</strong> Can you identify the units and the "why" behind the rules?
+                      </p>
+                      <p>
+                        <strong>Visual:</strong> Progress bar fills to 100% in under 1 hour.
+                      </p>
+                    </div>
+                    {/* Progress bar visual */}
+                    <div className="mt-4 bg-white rounded-full h-4 overflow-hidden shadow-inner">
+                      <div className="bg-green-500 h-full rounded-full animate-pulse" style={{ width: "100%" }} />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Level 2: INTERMEDIATE */}
+              <div className="bg-gradient-to-r from-blue-50 to-blue-100 rounded-xl p-8 shadow-lg border-l-8 border-blue-500">
+                <div className="flex items-start gap-6">
+                  <div className="text-5xl">🔵</div>
+                  <div className="flex-1">
+                    <h3 className="text-2xl font-bold text-blue-700 mb-3">
+                      Level 2: INTERMEDIATE (The Systems)
+                    </h3>
+                    <div className="space-y-2 text-gray-700">
+                      <p>
+                        <strong>What:</strong> Interactive problem solving and formula application.
+                      </p>
+                      <p>
+                        <strong>Proof:</strong> Can you predict how changing one variable affects the whole system?
+                      </p>
+                      <p>
+                        <strong>Visual:</strong> Gears animation with interconnected modules.
+                      </p>
+                    </div>
+                    {/* Gears visual representation */}
+                    <div className="mt-4 flex gap-2 items-center justify-center">
+                      <div className="text-4xl animate-spin" style={{ animationDuration: "3s" }}>⚙️</div>
+                      <div className="text-3xl animate-spin" style={{ animationDuration: "2s", animationDirection: "reverse" }}>⚙️</div>
+                      <div className="text-4xl animate-spin" style={{ animationDuration: "4s" }}>⚙️</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Level 3: ADVANCED */}
+              <div className="bg-gradient-to-r from-purple-50 to-purple-100 rounded-xl p-8 shadow-lg border-l-8 border-purple-500">
+                <div className="flex items-start gap-6">
+                  <div className="text-5xl">🟣</div>
+                  <div className="flex-1">
+                    <h3 className="text-2xl font-bold text-purple-700 mb-3">
+                      Level 3: ADVANCED (The Architect)
+                    </h3>
+                    <div className="space-y-2 text-gray-700">
+                      <p>
+                        <strong>What:</strong> Theoretical proofs and contemporary research.
+                      </p>
+                      <p>
+                        <strong>Proof:</strong> High-stakes testing for the top 1% of learners.
+                      </p>
+                      <p>
+                        <strong>Visual:</strong> Rocket or Crown icon representing achievement.
+                      </p>
+                    </div>
+                    {/* Achievement visual */}
+                    <div className="mt-4 text-center">
+                      <div className="inline-flex gap-4 text-5xl">
+                        <span className="animate-bounce">🚀</span>
+                        <span className="animate-pulse">👑</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* The Monorepo Advantage Section */}
+        <section className="py-16 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
+          <div className="max-w-6xl mx-auto px-4">
+            <h2 className="text-4xl font-bold text-primary text-center mb-6">
+              A Unified Ecosystem for Curious Minds
+            </h2>
+            <div className="bg-white rounded-2xl p-8 md:p-12 shadow-2xl">
+              <div className="flex flex-col md:flex-row items-center gap-8">
+                <div className="flex-1">
+                  <div className="text-6xl mb-6 text-center md:text-left">🌐</div>
+                  <p className="text-lg text-gray-700 leading-relaxed mb-4">
+                    Because our apps are built in a single, synchronized monorepo, your learning isn't siloed.
+                  </p>
+                  <ul className="space-y-3 text-gray-700">
+                    <li className="flex items-start">
+                      <span className="text-primary mr-3 text-xl">→</span>
+                      <span>Your <strong>Math Logic</strong> score helps predict your <strong>Physics</strong> performance.</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="text-accent mr-3 text-xl">→</span>
+                      <span>Your <strong>Geography</strong> streak keeps your <strong>Chemistry</strong> profile active.</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="text-green-600 mr-3 text-xl">→</span>
+                      <span>It's <strong>one journey</strong> across <strong>four worlds</strong>.</span>
+                    </li>
+                  </ul>
+                </div>
+                <div className="flex-1">
+                  <div className="bg-gradient-to-br from-primary/10 to-accent/10 rounded-xl p-8 border-2 border-dashed border-primary/30">
+                    <div className="grid grid-cols-2 gap-4 text-center">
+                      <div className="bg-white rounded-lg p-4 shadow">
+                        <div className="text-3xl mb-2">∑</div>
+                        <div className="text-sm font-semibold text-primary">Math</div>
+                      </div>
+                      <div className="bg-white rounded-lg p-4 shadow">
+                        <div className="text-3xl mb-2">⚡</div>
+                        <div className="text-sm font-semibold text-purple-600">Physics</div>
+                      </div>
+                      <div className="bg-white rounded-lg p-4 shadow">
+                        <div className="text-3xl mb-2">🌍</div>
+                        <div className="text-sm font-semibold text-green-600">Geography</div>
+                      </div>
+                      <div className="bg-white rounded-lg p-4 shadow">
+                        <div className="text-3xl mb-2">⚗️</div>
+                        <div className="text-sm font-semibold text-orange-600">Chemistry</div>
+                      </div>
+                    </div>
+                    <div className="mt-4 text-center text-sm font-semibold text-primary">
+                      One Account • Unified Progress
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
 
         {/* Interactive Learning Apps Section */}
         <section className="py-16 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
@@ -375,6 +584,13 @@ export default function Home() {
                 Browse All 10 Available Courses →
               </Link>
             </div>
+          </div>
+        </section>
+
+        {/* Gatekeeper Call-to-Action: Prove Your Level */}
+        <section className="py-16 bg-white">
+          <div className="max-w-4xl mx-auto px-4">
+            <GatekeeperTest />
           </div>
         </section>
 
