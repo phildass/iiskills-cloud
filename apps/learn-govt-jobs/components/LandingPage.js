@@ -311,7 +311,8 @@ export default function LandingPage({
               <p className="text-xl mb-6 opacity-90">
                 Login to see AI-powered job recommendations tailored to your profile
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              {/* OPEN ACCESS: Registration links removed - all content is publicly accessible */}
+              {/* <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link href="/register">
                   <span className="bg-white text-purple-600 hover:bg-gray-100 font-bold py-3 px-8 rounded-lg cursor-pointer inline-block transition">
                     Try Free for 7 Days
@@ -320,6 +321,13 @@ export default function LandingPage({
                 <Link href="/register">
                   <span className="bg-purple-800 hover:bg-purple-900 font-bold py-3 px-8 rounded-lg cursor-pointer inline-block transition">
                     Login / Register
+                  </span>
+                </Link>
+              </div> */}
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Link href="/jobs">
+                  <span className="bg-white text-purple-600 hover:bg-gray-100 font-bold py-3 px-8 rounded-lg cursor-pointer inline-block transition">
+                    Explore Jobs
                   </span>
                 </Link>
               </div>
@@ -517,7 +525,8 @@ export default function LandingPage({
                   </p>
                 </div>
 
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                {/* OPEN ACCESS: Registration/trial links removed */}
+                {/* <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Link href="/register?trial=true">
                     <span className="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg cursor-pointer inline-block transition">
                       Start Free Trial (7 Days)
@@ -526,6 +535,13 @@ export default function LandingPage({
                   <Link href="/register">
                     <span className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg cursor-pointer inline-block transition">
                       Subscribe Now
+                    </span>
+                  </Link>
+                </div> */}
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <Link href="/jobs">
+                    <span className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg cursor-pointer inline-block transition">
+                      Explore Jobs Now
                     </span>
                   </Link>
                 </div>

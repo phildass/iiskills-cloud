@@ -27,11 +27,12 @@ export default function Navbar() {
             </Link>
           </div>
 
-          <div className="flex items-center space-x-4">
+          {/* OPEN ACCESS: Registration link removed - all content is publicly accessible */}
+          {/* <div className="flex items-center space-x-4">
             <Link href="/register" className="btn-primary">
               Get Started
             </Link>
-          </div>
+          </div> */}
         </div>
       </div>
     </nav>
