@@ -420,6 +420,110 @@ NEXT_PUBLIC_PAYWALL_ENABLED=false  # No paywall
 
 **To re-enable authentication:** See [PUBLIC_CONTENT_ACCESS_GUIDE.md](PUBLIC_CONTENT_ACCESS_GUIDE.md#re-enabling-authentication)
 
+### 🔑 Secret Password Admin Access
+**Quick admin access for testing and demos without authentication!**
+
+This feature provides an alternative way to access admin and protected content when authentication is disabled or for quick demo access.
+
+#### How It Works
+
+**Three Access Modes:**
+1. **Local Development (`NEXT_PUBLIC_DISABLE_AUTH=true`):** 
+   - Full unrestricted access to all admin and content pages
+   - No authentication required at all
+   - Perfect for local development and testing
+
+2. **Online with Secret Password:**
+   - When not logged in as admin, users see a password prompt
+   - Enter the secret password: `iiskills123`
+   - Instantly grants admin access for the session
+   - Access persists until browser close or logout
+
+3. **Online with Standard Auth:**
+   - Normal authentication flow with Supabase
+   - Role-based access control for admins
+   - Production-ready security
+
+#### Setup for Local Development
+
+1. **Create or edit `.env.local` in your app directory:**
+```bash
+# Enable full open access for local development
+NEXT_PUBLIC_DISABLE_AUTH=true
+```
+
+2. **Restart your dev server:**
+```bash
+npm run dev
+```
+
+3. **Access admin pages directly:**
+   - All admin routes (`/admin/*`) are fully accessible
+   - All content routes (`/courses`, `/modules`, etc.) are accessible
+   - No password or login required
+
+#### Setup for Online/Staging with Secret Password
+
+1. **Set environment variables:**
+```bash
+# Disable open access, enable authentication
+NEXT_PUBLIC_DISABLE_AUTH=false
+```
+
+2. **Access admin pages:**
+   - Navigate to any admin route (e.g., `/admin`)
+   - If not logged in, you'll see the secret password prompt
+   - Enter: `iiskills123`
+   - Admin access granted for the session
+
+3. **The password works on all protected routes:**
+   - Admin dashboard (`/admin/*`)
+   - Content management pages
+   - User management
+   - Any page using ProtectedRoute, UserProtectedRoute, or PaidUserProtectedRoute
+
+#### ⚠️ SECURITY WARNINGS
+
+**CRITICAL: For Testing/Demo Only!**
+- The secret password (`iiskills123`) is hardcoded and known
+- This is a **backdoor** for quick access during development/demos
+- **MUST be disabled or removed for production deployments**
+
+**Best Practices:**
+- ✅ Use `NEXT_PUBLIC_DISABLE_AUTH=true` for local development only
+- ✅ Use the secret password for staging/QA environments
+- ✅ Use proper authentication (Supabase) for production
+- ❌ Never deploy to production with the secret password enabled
+- ❌ Never use this for real user data or sensitive content
+
+**To Disable Secret Password Access:**
+- The secret password feature is always available as a fallback
+- To completely disable it, you would need to modify the ProtectedRoute components
+- For production, ensure `NEXT_PUBLIC_DISABLE_AUTH=false` and require proper Supabase authentication
+
+#### Implementation Details
+
+The secret password feature is integrated into all protected route components:
+- `/components/SecretPasswordPrompt.js` - The password input UI
+- `/components/ProtectedRoute.js` - Admin route protection
+- `/components/UserProtectedRoute.js` - User route protection  
+- `/components/PaidUserProtectedRoute.js` - Paid content protection
+- `/apps/main/components/*ProtectedRoute.js` - App-specific versions
+
+**Session Storage:**
+- Password verification sets flags in `localStorage` and `sessionStorage`
+- Access persists until browser close or explicit logout
+- Can be cleared by calling `clearSecretAdminAccess()` utility function
+
+#### Quick Reference
+
+| Mode | NEXT_PUBLIC_DISABLE_AUTH | Access Method | Use Case |
+|------|-------------------------|---------------|----------|
+| Local Dev | `true` | Automatic | Development |
+| Online Demo | `false` | Secret password: `iiskills123` | Staging/QA/Demos |
+| Production | `false` | Supabase authentication | Production |
+
+
 ### 🔐 Multi-App Authentication System
 **Seamless authentication across all 18+ apps in the ecosystem!**
 - **Register once, access everywhere** - Single account works on all apps and subdomains

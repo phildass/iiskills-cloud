@@ -1,46 +1,121 @@
-// ============================================================================
-// AUTHENTICATION REMOVED - OPEN ACCESS REFACTOR
-// ============================================================================
-// This component previously enforced authentication and payment for paid content.
-// All authentication logic has been commented out to make content publicly accessible.
-// All pages are now open to all users without login/registration/payment requirements.
-// ============================================================================
+/**
+ * PaidUserProtectedRoute Component
+ *
+ * Supports three access modes:
+ * 1. Local Dev (NEXT_PUBLIC_DISABLE_AUTH=true): Full access to everyone
+ * 2. Online with Secret Password: Access via secret password 'iiskills123'
+ * 3. Online with Auth: Standard authentication and payment check
+ *
+ * The secret password feature provides a backdoor for demo/testing purposes.
+ * ⚠️ SECURITY WARNING: Disable secret password feature for production!
+ */
 
-/*
 "use client";
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { getCurrentUser, checkUserPaymentStatus } from "../lib/supabaseClient";
-import Link from "next/link";
-*/
+import { getCurrentUser } from "../lib/supabaseClient";
+import SecretPasswordPrompt, { hasSecretAdminAccess } from "../../../components/SecretPasswordPrompt";
 
-/*
-// Configuration for access denied message
-const ACCESS_DENIED_CONFIG = {
-  title: "Access Restricted",
-  message:
-    "Only registered and paid users can access this page. Please log in if you are already registered. Or make payment here. This will lead you to our parent organisation AI Cloud Enterprises (aienter.in).",
-  paymentUrl: "https://www.aienter.in/payments",
-  paymentButtonText: "Make Payment (AI Cloud Enterprises)",
-};
-*/
-
-/**
- * PaidUserProtectedRoute Component - AUTHENTICATION DISABLED
- *
- * OPEN ACCESS MODE: This component now grants full access to all users without authentication.
- * All authentication, login, registration, payment, and paywall logic has been removed.
- *
- * Previous functionality (now disabled):
- * - Checked if user is authenticated via Supabase
- * - Verified payment status
- * - Showed access denied message if user is not authenticated or hasn't paid
- * - Rendered children only if user is authenticated and has paid
- */
 export default function PaidUserProtectedRoute({ children }) {
-  // OPEN ACCESS: Bypass all authentication - grant full access to everyone
-  // No loading state, no auth checks, no payment checks, no redirects
+  const router = useRouter();
+  const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [showPasswordPrompt, setShowPasswordPrompt] = useState(false);
+
+  useEffect(() => {
+    const checkAccess = async () => {
+      try {
+        // Mode 1: Local Dev - Check for DISABLE_AUTH flag
+        const isAuthDisabled = process.env.NEXT_PUBLIC_DISABLE_AUTH === "true";
+        if (isAuthDisabled) {
+          console.log("⚠️ LOCAL DEV MODE: Authentication bypassed - full access granted");
+          // Set mock user with full permissions
+          setUser({
+            id: "open-access-user",
+            email: "open-access@iiskills.cloud",
+            user_metadata: {
+              full_name: "Open Access User",
+              firstName: "Open",
+              lastName: "Access",
+              is_admin: true,
+              payment_status: "paid"
+            }
+          });
+          setIsLoading(false);
+          return;
+        }
+
+        // Mode 2: Secret Password - Check if user has entered secret password
+        if (hasSecretAdminAccess()) {
+          console.log("✅ Secret password verified - full access granted");
+          // Set mock user with full permissions
+          setUser({
+            id: "secret-admin-user",
+            email: "secret-admin@iiskills.cloud",
+            user_metadata: {
+              full_name: "Secret Admin User",
+              firstName: "Secret",
+              lastName: "Admin",
+              is_admin: true,
+              payment_status: "paid"
+            }
+          });
+          setIsLoading(false);
+          return;
+        }
+
+        // Mode 3: Standard Authentication - Check Supabase auth
+        const currentUser = await getCurrentUser();
+        if (currentUser) {
+          setUser(currentUser);
+        } else {
+          // No user session found - show secret password prompt
+          console.log("🔐 No authentication found - showing secret password prompt");
+          setShowPasswordPrompt(true);
+        }
+      } catch (error) {
+        console.error("Error checking access:", error);
+        // On error, show secret password prompt as fallback
+        setShowPasswordPrompt(true);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    checkAccess();
+  }, [router]);
+
+  const handlePasswordSuccess = () => {
+    setShowPasswordPrompt(false);
+    // Set mock user with full permissions
+    setUser({
+      id: "secret-admin-user",
+      email: "secret-admin@iiskills.cloud",
+      user_metadata: {
+        full_name: "Secret Admin User",
+        firstName: "Secret",
+        lastName: "Admin",
+        is_admin: true,
+        payment_status: "paid"
+      }
+    });
+  };
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-neutral">
+        <div className="text-lg text-charcoal">
+          <div className="animate-pulse">Checking access permissions...</div>
+        </div>
+      </div>
+    );
+  }
+
+  if (showPasswordPrompt) {
+    return <SecretPasswordPrompt onSuccess={handlePasswordSuccess} />;
+  }
+
   return <>{children}</>;
 }
 
