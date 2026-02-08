@@ -127,9 +127,9 @@ All apps' register pages disabled using same pattern:
 
 ---
 
-### Phase 3: Landing Page & UI Components (1 file)
+### Phase 3: Landing Page & UI Components (3 files)
 
-**File:** `/components/shared/UniversalLandingPage.js`
+**File 1:** `/components/shared/UniversalLandingPage.js`
 
 **Changes:**
 1. **Free Apps:** Show "Start Learning" button for everyone (no conditional rendering based on user)
@@ -157,6 +157,54 @@ All apps' register pages disabled using same pattern:
 ```javascript
 {/* OPEN ACCESS: Show "Start Learning" for everyone, no auth required */}
 <Link href="/learn">Start Learning</Link>
+```
+
+**File 2:** `/apps/learn-apt/pages/index.js`
+
+**Changes:**
+1. Replaced 2 register CTAs with direct links to /tests
+2. "Start Your Diagnostic Journey" → `/tests` (instead of `/register`)
+3. Preserved original register links in comments
+
+**Before:**
+```javascript
+<Link href="/register">
+  🚀 Start Your Diagnostic Journey
+</Link>
+```
+
+**After:**
+```javascript
+{/* OPEN ACCESS: Registration link removed - direct to tests */}
+<Link href="/tests">
+  🚀 Start Your Diagnostic Journey
+</Link>
+```
+
+**File 3:** `/apps/learn-govt-jobs/components/LandingPage.js`
+
+**Changes:**
+1. Removed "Try Free for 7 Days" button
+2. Removed "Login / Register" buttons
+3. Removed "Subscribe Now" button
+4. Replaced all with "Explore Jobs" buttons pointing to `/jobs`
+
+**Before:**
+```javascript
+<Link href="/register?trial=true">
+  Start Free Trial (7 Days)
+</Link>
+<Link href="/register">
+  Subscribe Now
+</Link>
+```
+
+**After:**
+```javascript
+{/* OPEN ACCESS: Registration/trial links removed */}
+<Link href="/jobs">
+  Explore Jobs Now
+</Link>
 ```
 
 ---
@@ -317,10 +365,11 @@ NEXT_PUBLIC_DISABLE_AUTH=true
 ## Summary Statistics
 
 ### Files Modified in This Session
-- **Total:** 23 files
+- **Total:** 26 files
 - **Navigation:** 11 files (Navbar components + learn-modules + AIAssistant)
 - **Auth Pages:** 12 files (login.js + register.js across all apps)
-- **Landing Pages:** 1 file (UniversalLandingPage)
+- **Landing Pages:** 3 files (UniversalLandingPage + learn-apt index + learn-govt-jobs LandingPage)
+- **Documentation:** 1 file (this summary)
 
 ### Code Removed/Commented
 - **Auth buttons:** ~50+ button/link elements
