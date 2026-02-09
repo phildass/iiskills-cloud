@@ -7,6 +7,8 @@ export default function Home() {
     <UniversalLandingPage
       appId="learn-chemistry"
       appName="Discover the Magic of Chemistry 🧪"
+      headline="Decode the Ingredients of Reality"
+      subheadline="Explore the atomic world from basic elements to complex reactions. The Elemental Path unveils."
       title="Master Chemistry Concepts - iiskills.cloud"
       description="Build a comprehensive understanding of chemistry from atomic structure to complex reactions. Interactive lessons, virtual labs, and real-world applications that bring the molecular world to life."
       features={[
@@ -42,7 +44,7 @@ export default function Home() {
   }
 ]}
       isFree={true}
-      heroGradient="from-green-600 to-teal-600"
+      heroGradient="from-purple-600 to-gray-800"
     />
   );
 }
