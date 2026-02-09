@@ -30,7 +30,7 @@ export default function Home() {
 
   useEffect(() => {
     // Set random images for the page, ensuring no duplicates using Fisher-Yates shuffle
-    const images = getHeroImagesForApp('main').slice(1); // Get all secondary images (14 images)
+    const images = getHeroImagesForApp("main").slice(1); // Get all secondary images (14 images)
     const shuffled = [...images];
     for (let i = shuffled.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -95,7 +95,7 @@ export default function Home() {
               Master the laws of nature for free. Master the laws of the economy for a premium.
               <span className="font-bold block mt-2">One engine, two paths, infinite growth.</span>
             </p>
-            
+
             {/* CTA Buttons - Dual Path */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
               <Link
@@ -129,13 +129,17 @@ export default function Home() {
                 Two Paths. One Ecosystem.
               </h2>
               <p className="text-xl text-gray-700 max-w-3xl mx-auto">
-                Choose your learning journey: Build your cognitive foundation for free, or advance your career with professional expertise.
+                Choose your learning journey: Build your cognitive foundation for free, or advance
+                your career with professional expertise.
               </p>
             </div>
 
             <div className="grid lg:grid-cols-2 gap-8">
               {/* 🟢 THE FOUNDATION */}
-              <div id="foundation" className="bg-white rounded-2xl shadow-2xl overflow-hidden border-4 border-green-500">
+              <div
+                id="foundation"
+                className="bg-white rounded-2xl shadow-2xl overflow-hidden border-4 border-green-500"
+              >
                 <div className="bg-gradient-to-br from-green-500 via-blue-500 to-purple-600 text-white p-8">
                   <div className="text-5xl mb-4">🟢</div>
                   <h3 className="text-3xl font-bold mb-3">The Foundation</h3>
@@ -143,21 +147,58 @@ export default function Home() {
                     "The tools every mind needs. No paywalls, no barriers."
                   </p>
                 </div>
-                
+
                 <div className="p-8">
                   <p className="text-gray-700 mb-6 text-lg">
-                    Build your cognitive base—essential for any high-level career. Master the laws of nature through our signature Tri-Level Engine.
+                    Build your cognitive base—essential for any high-level career. Master the laws
+                    of nature through our signature Tri-Level Engine.
                   </p>
-                  
+
                   {/* Foundation Apps List */}
                   <div className="space-y-3 mb-6">
                     {[
-                      { name: "iiskills-math", displayName: "Math", icon: "∑", color: "#DC143C", url: "https://app8.learn-math.iiskills.cloud" },
-                      { name: "iiskills-physics", displayName: "Physics", icon: "⚡", color: "#0080FF", url: "https://app6.learn-physics.iiskills.cloud" },
-                      { name: "iiskills-chemistry", displayName: "Chemistry", icon: "⚗️", color: "#9B59B6", url: "https://app7.learn-chemistry.iiskills.cloud" },
-                      { name: "iiskills-biology", displayName: "Biology", icon: "🧬", color: "#2E7D32", url: "https://app12.learn-biology.iiskills.cloud" },
-                      { name: "iiskills-geography", displayName: "Geography", icon: "🌍", color: "#10B981", url: "https://app9.learn-geography.iiskills.cloud" },
-                      { name: "iiskills-aptitude", displayName: "Aptitude", icon: "🎯", color: "#6366F1", url: "https://app5.learn-apt.iiskills.cloud" },
+                      {
+                        name: "iiskills-math",
+                        displayName: "Math",
+                        icon: "∑",
+                        color: "#DC143C",
+                        url: "https://app8.learn-math.iiskills.cloud",
+                      },
+                      {
+                        name: "iiskills-physics",
+                        displayName: "Physics",
+                        icon: "⚡",
+                        color: "#0080FF",
+                        url: "https://app6.learn-physics.iiskills.cloud",
+                      },
+                      {
+                        name: "iiskills-chemistry",
+                        displayName: "Chemistry",
+                        icon: "⚗️",
+                        color: "#9B59B6",
+                        url: "https://app7.learn-chemistry.iiskills.cloud",
+                      },
+                      {
+                        name: "iiskills-biology",
+                        displayName: "Biology",
+                        icon: "🧬",
+                        color: "#2E7D32",
+                        url: "https://app12.learn-biology.iiskills.cloud",
+                      },
+                      {
+                        name: "iiskills-geography",
+                        displayName: "Geography",
+                        icon: "🌍",
+                        color: "#10B981",
+                        url: "https://app9.learn-geography.iiskills.cloud",
+                      },
+                      {
+                        name: "iiskills-aptitude",
+                        displayName: "Aptitude",
+                        icon: "🎯",
+                        color: "#6366F1",
+                        url: "https://app5.learn-apt.iiskills.cloud",
+                      },
                     ].map((app) => (
                       <a
                         key={app.name}
@@ -168,7 +209,9 @@ export default function Home() {
                         <div className="flex items-center gap-3">
                           <div className="text-3xl">{app.icon}</div>
                           <div>
-                            <span className="font-semibold text-lg text-gray-900 block">{app.name}</span>
+                            <span className="font-semibold text-lg text-gray-900 block">
+                              {app.name}
+                            </span>
                             <span className="text-sm text-gray-600">{app.displayName}</span>
                           </div>
                         </div>
@@ -176,7 +219,9 @@ export default function Home() {
                           <span className="bg-green-500 text-white px-3 py-1 rounded-full text-sm font-bold">
                             FREE
                           </span>
-                          <span className="text-gray-400 group-hover:text-gray-900 transition-colors">→</span>
+                          <span className="text-gray-400 group-hover:text-gray-900 transition-colors">
+                            →
+                          </span>
                         </div>
                       </a>
                     ))}
@@ -191,33 +236,75 @@ export default function Home() {
               </div>
 
               {/* 💰 THE ACADEMY (CAREER SUITE - PAID) */}
-              <div id="academy" className="bg-gray-900 rounded-2xl shadow-2xl overflow-hidden border-4 border-yellow-500">
+              <div
+                id="academy"
+                className="bg-gray-900 rounded-2xl shadow-2xl overflow-hidden border-4 border-yellow-500"
+              >
                 <div className="bg-gradient-to-br from-gray-800 via-gray-900 to-black text-white p-8 relative overflow-hidden">
                   <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-yellow-500/20 to-transparent rounded-full blur-3xl"></div>
                   <div className="relative z-10">
                     <div className="text-5xl mb-4">💰</div>
                     <h3 className="text-3xl font-bold mb-3">The Academy</h3>
-                    <p className="text-xl font-semibold mb-2 text-yellow-400">Career Suite - Premium</p>
+                    <p className="text-xl font-semibold mb-2 text-yellow-400">
+                      Career Suite - Premium
+                    </p>
                     <p className="text-lg opacity-90">
                       "Specialized expertise for the modern professional."
                     </p>
                   </div>
                 </div>
-                
+
                 <div className="p-8 bg-gradient-to-br from-gray-900 to-gray-800 text-white">
                   <p className="text-gray-300 mb-6 text-lg">
-                    Direct-to-employment skills, advanced certifications, in-depth industry modules. Your premium subscription fuels cutting-edge research and development.
+                    Direct-to-employment skills, advanced certifications, in-depth industry modules.
+                    Your premium subscription fuels cutting-edge research and development.
                   </p>
-                  
+
                   {/* Paid Apps List */}
                   <div className="space-y-3 mb-6">
                     {[
-                      { name: "iiskills-ai", displayName: "AI", icon: "🤖", tagline: "Stop prompting. Start Architecting.", url: "https://app1.learn-ai.iiskills.cloud" },
-                      { name: "iiskills-developer", displayName: "Developer", icon: "💻", tagline: "Industry-standard stacks. System Design.", url: "https://app4.learn-developer.iiskills.cloud" },
-                      { name: "iiskills-govt-jobs", displayName: "Govt Jobs", icon: "🏛️", tagline: "Most rigorous simulation engine.", url: "https://app10.learn-govt-jobs.iiskills.cloud" },
-                      { name: "iiskills-pr", displayName: "PR", icon: "📢", tagline: "Psychology of power and influence.", url: "https://app3.learn-pr.iiskills.cloud" },
-                      { name: "iiskills-management", displayName: "Management", icon: "📊", tagline: "Executive decision-making.", url: "https://app2.learn-management.iiskills.cloud" },
-                      { name: "iiskills-finesse", displayName: "Finesse", icon: "👔", tagline: "Master executive presence & social intelligence.", url: "https://app11.learn-finesse.iiskills.cloud" },
+                      {
+                        name: "iiskills-ai",
+                        displayName: "AI",
+                        icon: "🤖",
+                        tagline: "Stop prompting. Start Architecting.",
+                        url: "https://app1.learn-ai.iiskills.cloud",
+                      },
+                      {
+                        name: "iiskills-developer",
+                        displayName: "Developer",
+                        icon: "💻",
+                        tagline: "Industry-standard stacks. System Design.",
+                        url: "https://app4.learn-developer.iiskills.cloud",
+                      },
+                      {
+                        name: "iiskills-govt-jobs",
+                        displayName: "Govt Jobs",
+                        icon: "🏛️",
+                        tagline: "Most rigorous simulation engine.",
+                        url: "https://app10.learn-govt-jobs.iiskills.cloud",
+                      },
+                      {
+                        name: "iiskills-pr",
+                        displayName: "PR",
+                        icon: "📢",
+                        tagline: "Psychology of power and influence.",
+                        url: "https://app3.learn-pr.iiskills.cloud",
+                      },
+                      {
+                        name: "iiskills-management",
+                        displayName: "Management",
+                        icon: "📊",
+                        tagline: "Executive decision-making.",
+                        url: "https://app2.learn-management.iiskills.cloud",
+                      },
+                      {
+                        name: "iiskills-finesse",
+                        displayName: "Finesse",
+                        icon: "👔",
+                        tagline: "Master executive presence & social intelligence.",
+                        url: "https://app11.learn-finesse.iiskills.cloud",
+                      },
                     ].map((app) => (
                       <a
                         key={app.name}
@@ -228,11 +315,15 @@ export default function Home() {
                           <div className="flex items-center gap-3">
                             <div className="text-3xl">{app.icon}</div>
                             <div>
-                              <span className="font-semibold text-lg text-white block">{app.name}</span>
+                              <span className="font-semibold text-lg text-white block">
+                                {app.name}
+                              </span>
                               <span className="text-sm text-gray-400">{app.displayName}</span>
                             </div>
                           </div>
-                          <span className="text-gray-400 group-hover:text-yellow-400 transition-colors">→</span>
+                          <span className="text-gray-400 group-hover:text-yellow-400 transition-colors">
+                            →
+                          </span>
                         </div>
                         <p className="text-sm text-gray-400 pl-12">{app.tagline}</p>
                       </a>
@@ -253,41 +344,61 @@ export default function Home() {
               <div className="bg-gradient-to-r from-primary to-accent text-white p-6">
                 <h3 className="text-2xl font-bold text-center">Feature Comparison</h3>
               </div>
-              
+
               <div className="overflow-x-auto">
                 <table className="w-full">
                   <thead className="bg-gray-100">
                     <tr>
-                      <th className="px-6 py-4 text-left text-sm font-semibold text-gray-900">Feature</th>
-                      <th className="px-6 py-4 text-left text-sm font-semibold text-green-700">The Foundation</th>
-                      <th className="px-6 py-4 text-left text-sm font-semibold text-yellow-700">The Academy (Premium)</th>
+                      <th className="px-6 py-4 text-left text-sm font-semibold text-gray-900">
+                        Feature
+                      </th>
+                      <th className="px-6 py-4 text-left text-sm font-semibold text-green-700">
+                        The Foundation
+                      </th>
+                      <th className="px-6 py-4 text-left text-sm font-semibold text-yellow-700">
+                        The Academy (Premium)
+                      </th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-200">
                     <tr>
                       <td className="px-6 py-4 text-sm font-medium text-gray-900">Objective</td>
                       <td className="px-6 py-4 text-sm text-gray-700">Universal Literacy</td>
-                      <td className="px-6 py-4 text-sm text-gray-700">Professional Competitiveness</td>
+                      <td className="px-6 py-4 text-sm text-gray-700">
+                        Professional Competitiveness
+                      </td>
                     </tr>
                     <tr className="bg-gray-50">
                       <td className="px-6 py-4 text-sm font-medium text-gray-900">Subjects</td>
-                      <td className="px-6 py-4 text-sm text-gray-700">Math, Physics, Chemistry, Biology, Geography, Aptitude</td>
-                      <td className="px-6 py-4 text-sm text-gray-700">AI, Developer, Govt Jobs, PR, Management, Finesse</td>
+                      <td className="px-6 py-4 text-sm text-gray-700">
+                        Math, Physics, Chemistry, Biology, Geography, Aptitude
+                      </td>
+                      <td className="px-6 py-4 text-sm text-gray-700">
+                        AI, Developer, Govt Jobs, PR, Management, Finesse
+                      </td>
                     </tr>
                     <tr>
                       <td className="px-6 py-4 text-sm font-medium text-gray-900">Depth</td>
                       <td className="px-6 py-4 text-sm text-gray-700">Academic Mastery</td>
-                      <td className="px-6 py-4 text-sm text-gray-700">Industry-Ready Implementation</td>
+                      <td className="px-6 py-4 text-sm text-gray-700">
+                        Industry-Ready Implementation
+                      </td>
                     </tr>
                     <tr className="bg-gray-50">
                       <td className="px-6 py-4 text-sm font-medium text-gray-900">Tier System</td>
-                      <td className="px-6 py-4 text-sm text-gray-700">Basic → Intermediate → Advanced</td>
-                      <td className="px-6 py-4 text-sm text-gray-700">Specialist → Architect → Lead</td>
+                      <td className="px-6 py-4 text-sm text-gray-700">
+                        Basic → Intermediate → Advanced
+                      </td>
+                      <td className="px-6 py-4 text-sm text-gray-700">
+                        Specialist → Architect → Lead
+                      </td>
                     </tr>
                     <tr>
                       <td className="px-6 py-4 text-sm font-medium text-gray-900">Testing</td>
                       <td className="px-6 py-4 text-sm text-gray-700">Standard Gatekeepers</td>
-                      <td className="px-6 py-4 text-sm text-gray-700">Simulation & Case Study Exams</td>
+                      <td className="px-6 py-4 text-sm text-gray-700">
+                        Simulation & Case Study Exams
+                      </td>
                     </tr>
                     <tr className="bg-gray-50">
                       <td className="px-6 py-4 text-sm font-medium text-gray-900">Support</td>
@@ -302,7 +413,9 @@ export default function Home() {
                     <tr className="bg-green-50">
                       <td className="px-6 py-4 text-sm font-bold text-gray-900">Cost</td>
                       <td className="px-6 py-4 text-lg font-bold text-green-700">$0</td>
-                      <td className="px-6 py-4 text-lg font-bold text-yellow-700">Premium Subscription</td>
+                      <td className="px-6 py-4 text-lg font-bold text-yellow-700">
+                        Premium Subscription
+                      </td>
                     </tr>
                   </tbody>
                 </table>
@@ -322,27 +435,21 @@ export default function Home() {
               <div className="text-center p-8 bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
                 <div className="text-6xl mb-4">🔗</div>
                 <h3 className="text-xl font-bold text-primary mb-3">Monorepo Powered</h3>
-                <p className="text-gray-700">
-                  One account, four subjects, zero friction.
-                </p>
+                <p className="text-gray-700">One account, four subjects, zero friction.</p>
               </div>
 
               {/* Value 2: The Power Hour */}
               <div className="text-center p-8 bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
                 <div className="text-6xl mb-4">⚡</div>
                 <h3 className="text-xl font-bold text-accent mb-3">The Power Hour</h3>
-                <p className="text-gray-700">
-                  Master the "Basic 6" modules in under 60 minutes.
-                </p>
+                <p className="text-gray-700">Master the "Basic 6" modules in under 60 minutes.</p>
               </div>
 
               {/* Value 3: Tri-Level Logic */}
               <div className="text-center p-8 bg-gradient-to-br from-green-50 to-green-100 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
                 <div className="text-6xl mb-4">🎯</div>
                 <h3 className="text-xl font-bold text-green-600 mb-3">Tri-Level Logic</h3>
-                <p className="text-gray-700">
-                  A consistent path from Intuition to Expertise.
-                </p>
+                <p className="text-gray-700">A consistent path from Intuition to Expertise.</p>
               </div>
             </div>
           </div>
@@ -359,7 +466,7 @@ export default function Home() {
                   width={1200}
                   height={400}
                   className="w-full h-auto object-cover"
-                  style={{ maxHeight: '400px', objectFit: 'cover' }}
+                  style={{ maxHeight: "400px", objectFit: "cover" }}
                 />
               )}
               <div className="absolute inset-0 bg-gradient-to-r from-blue-900/30 via-transparent to-purple-900/30"></div>
@@ -381,7 +488,7 @@ export default function Home() {
                   width={1200}
                   height={400}
                   className="w-full h-auto object-cover"
-                  style={{ maxHeight: '400px', objectFit: 'cover' }}
+                  style={{ maxHeight: "400px", objectFit: "cover" }}
                 />
               )}
               <div className="absolute inset-0 bg-gradient-to-r from-green-900/30 via-transparent to-blue-900/30"></div>
@@ -392,9 +499,7 @@ export default function Home() {
         {/* Interactive Subject Switcher Widget */}
         <section className="py-16 bg-gradient-to-br from-gray-50 via-blue-50 to-purple-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-4xl font-bold text-primary text-center mb-4">
-              Unified Portal
-            </h2>
+            <h2 className="text-4xl font-bold text-primary text-center mb-4">Unified Portal</h2>
             <p className="text-xl text-center text-gray-600 mb-12">
               One engine powering four subjects. Click to explore each mastery path.
             </p>
@@ -426,7 +531,8 @@ export default function Home() {
                         <strong>What:</strong> Foundational literacy and terminology.
                       </p>
                       <p>
-                        <strong>Proof:</strong> Can you identify the units and the "why" behind the rules?
+                        <strong>Proof:</strong> Can you identify the units and the "why" behind the
+                        rules?
                       </p>
                       <p>
                         <strong>Visual:</strong> Progress bar fills to 100% in under 1 hour.
@@ -434,7 +540,10 @@ export default function Home() {
                     </div>
                     {/* Progress bar visual */}
                     <div className="mt-4 bg-white rounded-full h-4 overflow-hidden shadow-inner">
-                      <div className="bg-green-500 h-full rounded-full animate-pulse" style={{ width: "100%" }} />
+                      <div
+                        className="bg-green-500 h-full rounded-full animate-pulse"
+                        style={{ width: "100%" }}
+                      />
                     </div>
                   </div>
                 </div>
@@ -453,7 +562,8 @@ export default function Home() {
                         <strong>What:</strong> Interactive problem solving and formula application.
                       </p>
                       <p>
-                        <strong>Proof:</strong> Can you predict how changing one variable affects the whole system?
+                        <strong>Proof:</strong> Can you predict how changing one variable affects
+                        the whole system?
                       </p>
                       <p>
                         <strong>Visual:</strong> Gears animation with interconnected modules.
@@ -461,9 +571,18 @@ export default function Home() {
                     </div>
                     {/* Gears visual representation */}
                     <div className="mt-4 flex gap-2 items-center justify-center">
-                      <div className="text-4xl animate-spin" style={{ animationDuration: "3s" }}>⚙️</div>
-                      <div className="text-3xl animate-spin" style={{ animationDuration: "2s", animationDirection: "reverse" }}>⚙️</div>
-                      <div className="text-4xl animate-spin" style={{ animationDuration: "4s" }}>⚙️</div>
+                      <div className="text-4xl animate-spin" style={{ animationDuration: "3s" }}>
+                        ⚙️
+                      </div>
+                      <div
+                        className="text-3xl animate-spin"
+                        style={{ animationDuration: "2s", animationDirection: "reverse" }}
+                      >
+                        ⚙️
+                      </div>
+                      <div className="text-4xl animate-spin" style={{ animationDuration: "4s" }}>
+                        ⚙️
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -513,13 +632,15 @@ export default function Home() {
                   width={1000}
                   height={500}
                   className="w-full h-auto object-cover"
-                  style={{ maxHeight: '500px' }}
+                  style={{ maxHeight: "500px" }}
                 />
               )}
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
               <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
                 <h3 className="text-2xl font-bold mb-2">Master Your Learning Journey</h3>
-                <p className="text-lg opacity-90">From foundational concepts to advanced expertise</p>
+                <p className="text-lg opacity-90">
+                  From foundational concepts to advanced expertise
+                </p>
               </div>
             </div>
           </div>
@@ -528,9 +649,7 @@ export default function Home() {
         {/* Why iiskills? - The Monorepo Advantage Section */}
         <section className="py-16 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
           <div className="max-w-6xl mx-auto px-4">
-            <h2 className="text-4xl font-bold text-primary text-center mb-3">
-              Why iiskills?
-            </h2>
+            <h2 className="text-4xl font-bold text-primary text-center mb-3">Why iiskills?</h2>
             <p className="text-xl text-center text-gray-600 mb-8">
               A Unified Ecosystem for Curious Minds
             </p>
@@ -539,7 +658,8 @@ export default function Home() {
                 <div className="flex-1">
                   <div className="text-6xl mb-6 text-center md:text-left">🌐</div>
                   <p className="text-lg text-gray-700 leading-relaxed mb-6">
-                    Because our apps are built in a single, synchronized monorepo, your learning isn't siloed.
+                    Because our apps are built in a single, synchronized monorepo, your learning
+                    isn't siloed.
                   </p>
                   <ul className="space-y-4 text-gray-700">
                     <li className="flex items-start bg-blue-50 p-4 rounded-lg">
@@ -553,7 +673,9 @@ export default function Home() {
                       <span className="text-accent mr-3 text-2xl">🔥</span>
                       <div>
                         <strong className="block text-gray-900">Unified Streaks</strong>
-                        <span className="text-sm">Progress in Chemistry keeps your Math streak alive.</span>
+                        <span className="text-sm">
+                          Progress in Chemistry keeps your Math streak alive.
+                        </span>
                       </div>
                     </li>
                     <li className="flex items-start bg-green-50 p-4 rounded-lg">
@@ -568,22 +690,77 @@ export default function Home() {
                 <div className="flex-1">
                   <div className="bg-gradient-to-br from-primary/10 to-accent/10 rounded-xl p-8 border-2 border-dashed border-primary/30 relative overflow-hidden">
                     {/* Animated connecting lines between apps */}
-                    <svg className="absolute inset-0 w-full h-full opacity-20" style={{ zIndex: 0 }}>
-                      <line x1="25%" y1="25%" x2="75%" y2="25%" stroke="currentColor" strokeWidth="2" className="text-primary" />
-                      <line x1="25%" y1="25%" x2="25%" y2="75%" stroke="currentColor" strokeWidth="2" className="text-primary" />
-                      <line x1="75%" y1="25%" x2="75%" y2="75%" stroke="currentColor" strokeWidth="2" className="text-primary" />
-                      <line x1="25%" y1="75%" x2="75%" y2="75%" stroke="currentColor" strokeWidth="2" className="text-primary" />
-                      <line x1="25%" y1="25%" x2="75%" y2="75%" stroke="currentColor" strokeWidth="2" className="text-accent" />
-                      <line x1="75%" y1="25%" x2="25%" y2="75%" stroke="currentColor" strokeWidth="2" className="text-accent" />
+                    <svg
+                      className="absolute inset-0 w-full h-full opacity-20"
+                      style={{ zIndex: 0 }}
+                    >
+                      <line
+                        x1="25%"
+                        y1="25%"
+                        x2="75%"
+                        y2="25%"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        className="text-primary"
+                      />
+                      <line
+                        x1="25%"
+                        y1="25%"
+                        x2="25%"
+                        y2="75%"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        className="text-primary"
+                      />
+                      <line
+                        x1="75%"
+                        y1="25%"
+                        x2="75%"
+                        y2="75%"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        className="text-primary"
+                      />
+                      <line
+                        x1="25%"
+                        y1="75%"
+                        x2="75%"
+                        y2="75%"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        className="text-primary"
+                      />
+                      <line
+                        x1="25%"
+                        y1="25%"
+                        x2="75%"
+                        y2="75%"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        className="text-accent"
+                      />
+                      <line
+                        x1="75%"
+                        y1="25%"
+                        x2="25%"
+                        y2="75%"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        className="text-accent"
+                      />
                     </svg>
                     <div className="grid grid-cols-2 gap-4 text-center relative z-10">
                       <div className="bg-white rounded-lg p-4 shadow-lg transform hover:scale-105 transition-transform duration-300 border-2 border-red-200">
                         <div className="text-3xl mb-2">∑</div>
-                        <div className="text-sm font-semibold" style={{ color: "#DC143C" }}>Math</div>
+                        <div className="text-sm font-semibold" style={{ color: "#DC143C" }}>
+                          Math
+                        </div>
                       </div>
                       <div className="bg-white rounded-lg p-4 shadow-lg transform hover:scale-105 transition-transform duration-300 border-2 border-blue-200">
                         <div className="text-3xl mb-2">⚡</div>
-                        <div className="text-sm font-semibold" style={{ color: "#0080FF" }}>Physics</div>
+                        <div className="text-sm font-semibold" style={{ color: "#0080FF" }}>
+                          Physics
+                        </div>
                       </div>
                       <div className="bg-white rounded-lg p-4 shadow-lg transform hover:scale-105 transition-transform duration-300 border-2 border-green-200">
                         <div className="text-3xl mb-2">🌍</div>
@@ -591,7 +768,9 @@ export default function Home() {
                       </div>
                       <div className="bg-white rounded-lg p-4 shadow-lg transform hover:scale-105 transition-transform duration-300 border-2 border-purple-200">
                         <div className="text-3xl mb-2">⚗️</div>
-                        <div className="text-sm font-semibold" style={{ color: "#9B59B6" }}>Chemistry</div>
+                        <div className="text-sm font-semibold" style={{ color: "#9B59B6" }}>
+                          Chemistry
+                        </div>
                       </div>
                     </div>
                     <div className="mt-6 text-center text-sm font-bold text-primary relative z-10">
@@ -616,7 +795,7 @@ export default function Home() {
                     width={600}
                     height={400}
                     className="w-full h-auto object-cover"
-                    style={{ maxHeight: '400px' }}
+                    style={{ maxHeight: "400px" }}
                   />
                 )}
                 <div className="absolute inset-0 bg-gradient-to-t from-green-900/40 to-transparent"></div>
@@ -629,7 +808,7 @@ export default function Home() {
                     width={600}
                     height={400}
                     className="w-full h-auto object-cover"
-                    style={{ maxHeight: '400px' }}
+                    style={{ maxHeight: "400px" }}
                   />
                 )}
                 <div className="absolute inset-0 bg-gradient-to-t from-blue-900/40 to-transparent"></div>
@@ -850,7 +1029,7 @@ export default function Home() {
                   width={1200}
                   height={600}
                   className="w-full h-auto object-cover"
-                  style={{ maxHeight: '600px' }}
+                  style={{ maxHeight: "600px" }}
                 />
               )}
               <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-accent/20"></div>
@@ -953,7 +1132,7 @@ export default function Home() {
                     width={600}
                     height={400}
                     className="w-full h-auto object-cover"
-                    style={{ maxHeight: '400px' }}
+                    style={{ maxHeight: "400px" }}
                   />
                 )}
                 <div className="absolute inset-0 bg-gradient-to-t from-blue-900/40 to-transparent"></div>
@@ -966,7 +1145,7 @@ export default function Home() {
                     width={600}
                     height={400}
                     className="w-full h-auto object-cover"
-                    style={{ maxHeight: '400px' }}
+                    style={{ maxHeight: "400px" }}
                   />
                 )}
                 <div className="absolute inset-0 bg-gradient-to-t from-purple-900/40 to-transparent"></div>
@@ -1009,7 +1188,7 @@ export default function Home() {
                   width={1200}
                   height={500}
                   className="w-full h-auto object-cover"
-                  style={{ maxHeight: '500px', objectFit: 'cover' }}
+                  style={{ maxHeight: "500px", objectFit: "cover" }}
                 />
               )}
               <div className="absolute inset-0 bg-gradient-to-r from-purple-900/30 via-transparent to-blue-900/30"></div>
@@ -1022,9 +1201,7 @@ export default function Home() {
           <div className="max-w-6xl mx-auto px-4">
             <div className="bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 rounded-2xl p-8 md:p-12 shadow-xl">
               <div className="text-center mb-8">
-                <h2 className="text-4xl font-bold text-primary mb-4">
-                  Built on the same DNA.
-                </h2>
+                <h2 className="text-4xl font-bold text-primary mb-4">Built on the same DNA.</h2>
                 <p className="text-xl text-gray-700">
                   One profile, one continuous journey from student to professional.
                 </p>
@@ -1038,8 +1215,9 @@ export default function Home() {
                     <div>
                       <h3 className="text-xl font-bold text-gray-900 mb-2">Learn Developer</h3>
                       <p className="text-gray-700">
-                        <strong>Mastered Learn Math (Free)?</strong> You already have a strong foundation in the logic needed for this course. 
-                        Jump straight into the code while others struggle with basic algorithms.
+                        <strong>Mastered Learn Math (Free)?</strong> You already have a strong
+                        foundation in the logic needed for this course. Jump straight into the code
+                        while others struggle with basic algorithms.
                       </p>
                     </div>
                   </div>
@@ -1058,8 +1236,9 @@ export default function Home() {
                     <div>
                       <h3 className="text-xl font-bold text-gray-900 mb-2">Learn AI</h3>
                       <p className="text-gray-700">
-                        <strong>Strong foundation in Physics & Math?</strong> That's the secret to understanding Neural Networks. 
-                        Our free modules prepare you for the most advanced AI concepts.
+                        <strong>Strong foundation in Physics & Math?</strong> That's the secret to
+                        understanding Neural Networks. Our free modules prepare you for the most
+                        advanced AI concepts.
                       </p>
                     </div>
                   </div>
@@ -1078,8 +1257,9 @@ export default function Home() {
                     <div>
                       <h3 className="text-xl font-bold text-gray-900 mb-2">Learn Govt Jobs</h3>
                       <p className="text-gray-700">
-                        <strong>Completed Geography & Aptitude?</strong> You're already ahead in the UPSC/SSC game.
-                        Our premium simulation engine builds on your foundation knowledge.
+                        <strong>Completed Geography & Aptitude?</strong> You're already ahead in the
+                        UPSC/SSC game. Our premium simulation engine builds on your foundation
+                        knowledge.
                       </p>
                     </div>
                   </div>
@@ -1114,7 +1294,9 @@ export default function Home() {
 
               <div className="mt-8 text-center">
                 <p className="text-gray-700 text-lg">
-                  <strong>One account. Unified progress. Seamless transition from free to premium.</strong>
+                  <strong>
+                    One account. Unified progress. Seamless transition from free to premium.
+                  </strong>
                 </p>
               </div>
             </div>
@@ -1133,7 +1315,7 @@ export default function Home() {
                     width={600}
                     height={400}
                     className="w-full h-auto object-cover"
-                    style={{ maxHeight: '400px' }}
+                    style={{ maxHeight: "400px" }}
                   />
                 )}
                 <div className="absolute inset-0 bg-gradient-to-t from-purple-900/40 to-transparent"></div>
@@ -1146,7 +1328,7 @@ export default function Home() {
                     width={600}
                     height={400}
                     className="w-full h-auto object-cover"
-                    style={{ maxHeight: '400px' }}
+                    style={{ maxHeight: "400px" }}
                   />
                 )}
                 <div className="absolute inset-0 bg-gradient-to-t from-green-900/40 to-transparent"></div>
@@ -1168,24 +1350,35 @@ export default function Home() {
 
               <div className="space-y-6 text-lg text-gray-700 leading-relaxed">
                 <p>
-                  <strong className="text-primary">We believe the laws of the universe—Math, Physics, and Science—should be a human right.</strong> 
-                  That's why our Foundation Suite is <span className="text-green-600 font-bold">free forever</span>.
+                  <strong className="text-primary">
+                    We believe the laws of the universe—Math, Physics, and Science—should be a human
+                    right.
+                  </strong>
+                  That's why our Foundation Suite is{" "}
+                  <span className="text-green-600 font-bold">free forever</span>.
                 </p>
 
                 <p>
-                  Our Academy Suite (AI, Developer, Management, Finesse, etc.) requires <strong>constant updates to keep pace with the global economy</strong>. 
-                  These are professional-grade tools designed to increase your earning potential and prepare you for real-world career challenges.
+                  Our Academy Suite (AI, Developer, Management, Finesse, etc.) requires{" "}
+                  <strong>constant updates to keep pace with the global economy</strong>. These are
+                  professional-grade tools designed to increase your earning potential and prepare
+                  you for real-world career challenges.
                 </p>
 
                 <p>
-                  <strong className="text-accent">Your premium subscription fuels the research and development that keeps both tiers cutting-edge.</strong> 
-                  When you invest in the Academy, you're not just advancing your career—you're supporting universal access to foundational knowledge for everyone.
+                  <strong className="text-accent">
+                    Your premium subscription fuels the research and development that keeps both
+                    tiers cutting-edge.
+                  </strong>
+                  When you invest in the Academy, you're not just advancing your career—you're
+                  supporting universal access to foundational knowledge for everyone.
                 </p>
 
                 <div className="bg-gradient-to-r from-green-50 to-blue-50 border-l-4 border-green-500 p-6 rounded-lg mt-8">
                   <p className="font-semibold text-gray-900">
-                    🌟 <strong>Our Promise:</strong> The Foundation (Math, Physics, Chemistry, Biology, Geography, Aptitude) will always remain 100% free. 
-                    Your success in our paid courses helps keep it that way.
+                    🌟 <strong>Our Promise:</strong> The Foundation (Math, Physics, Chemistry,
+                    Biology, Geography, Aptitude) will always remain 100% free. Your success in our
+                    paid courses helps keep it that way.
                   </p>
                 </div>
               </div>
@@ -1217,7 +1410,11 @@ export default function Home() {
                   </Link>
                 </div>
                 <p className="text-sm mt-4 opacity-90">
-                  <strong>Career Suite Pro Pass:</strong> Subscribe to get all 6 Professional Apps (AI, Developer, Govt Jobs, PR, Management, Finesse) + Advanced Certifications. <Link href="/courses" className="underline hover:text-gray-200">View pricing →</Link>
+                  <strong>Career Suite Pro Pass:</strong> Subscribe to get all 6 Professional Apps
+                  (AI, Developer, Govt Jobs, PR, Management, Finesse) + Advanced Certifications.{" "}
+                  <Link href="/courses" className="underline hover:text-gray-200">
+                    View pricing →
+                  </Link>
                 </p>
               </div>
               <div className="flex-1">
