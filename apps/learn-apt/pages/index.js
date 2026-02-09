@@ -136,20 +136,21 @@ export default function Home() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.5 }}
-                  className="pt-8"
+                  className="pt-8 flex flex-col sm:flex-row gap-4 justify-center"
                 >
-                  {/* OPEN ACCESS: Registration link removed - all content is publicly accessible */}
-                  {/* <Link
-                    href="/register"
+                  {/* Primary CTA: Diagnostic Test */}
+                  <Link
+                    href="/test/diagnostic"
                     className="inline-block px-10 py-5 bg-gradient-to-r from-electric-violet-500 to-blue-500 text-white text-xl font-bold rounded-2xl hover:from-electric-violet-600 hover:to-blue-600 transition-all shadow-2xl hover:shadow-electric-violet-500/50 transform hover:scale-105"
                   >
-                    🚀 Start Your Diagnostic Journey
-                  </Link> */}
+                    🚀 Start My Diagnostics
+                  </Link>
+                  {/* Secondary CTA: Browse Tests */}
                   <Link
                     href="/tests"
-                    className="inline-block px-10 py-5 bg-gradient-to-r from-electric-violet-500 to-blue-500 text-white text-xl font-bold rounded-2xl hover:from-electric-violet-600 hover:to-blue-600 transition-all shadow-2xl hover:shadow-electric-violet-500/50 transform hover:scale-105"
+                    className="inline-block px-10 py-5 bg-white/10 border-2 border-white/30 text-white text-xl font-bold rounded-2xl hover:bg-white/20 hover:border-white/50 transition-all transform hover:scale-105"
                   >
-                    🚀 Start Your Diagnostic Journey
+                    📊 Browse All Tests
                   </Link>
                 </motion.div>
               )}
@@ -439,10 +440,10 @@ export default function Home() {
                   🚀 Start Free Diagnostic
                 </Link> */}
                 <Link
-                  href="/tests"
+                  href="/test/diagnostic"
                   className="inline-block px-12 py-5 bg-white text-electric-violet-600 rounded-2xl font-bold text-xl hover:bg-gray-100 transition-all shadow-2xl transform hover:scale-105"
                 >
-                  🚀 Start Free Diagnostic
+                  🚀 Start My Diagnostics
                 </Link>
               </motion.div>
             </div>
