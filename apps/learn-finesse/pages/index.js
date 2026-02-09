@@ -1,50 +1,46 @@
 "use client";
 
-import UniversalLandingPage from "../../../components/shared/UniversalLandingPage";
+import Head from "next/head";
+import PremiumHero from "../components/PremiumHero";
+import TriLevelEngine from "../components/TriLevelEngine";
+import BoardroomSimulation from "../components/BoardroomSimulation";
+import InteractiveRoleplays from "../components/InteractiveRoleplays";
+import PremiumCertification from "../components/PremiumCertification";
+import MonorepoCrossSell from "../components/MonorepoCrossSell";
 
 export default function Home() {
   return (
-    <UniversalLandingPage
-      appId="learn-finesse"
-      appName="Master Global Finesse"
-      headline="Master Global Etiquette & Professional Polish ✨"
-      subheadline="Your digital finishing school for cross-cultural excellence. Master Western, Indian, and Eastern business etiquette in 10 transformative days."
-      title="Learn Finesse - Global Finishing School | iiskills.cloud"
-      description="Master modern etiquette, soft skills, and professional polish across Western, Indian, and Eastern cultures. Your 10-day bootcamp to global excellence."
-      features={[
-        {
-          "emoji": "🌍",
-          "title": "The Internal Blueprint",
-          "description": "Personal branding, grooming standards, and digital image management across three global contexts."
-        },
-        {
-          "emoji": "💬",
-          "title": "The Communication Suite",
-          "description": "Verbal artistry, active listening, and emotional intelligence. Master the nuances of cross-cultural dialogue."
-        },
-        {
-          "emoji": "🍽️",
-          "title": "The Global Table & Social Grace",
-          "description": "Dining etiquette and networking protocols. From Western table settings to Eastern bow depths to Indian hierarchy."
-        },
-        {
-          "emoji": "🎯",
-          "title": "The Career Accelerator",
-          "description": "STAR/STAR-P interviews, resume crafting, and managing up. Adapt your approach for New York, Mumbai, or Tokyo."
-        },
-        {
-          "emoji": "✨",
-          "title": "The Modern Finesse Factor",
-          "description": "Digital ethics, AI etiquette, and cultural resilience. Navigate the modern professional landscape with confidence."
-        },
-        {
-          "emoji": "📊",
-          "title": "Interactive Cultural Pivots",
-          "description": "Real-world scenarios with branching logic. Learn when to bow, when to shake hands, when to say 'maybe' means 'no'."
-        }
-      ]}
-      isFree={false}
-      heroGradient="from-indigo-500 via-purple-500 to-pink-500"
-    />
+    <>
+      <Head>
+        <title>Learn Finesse - Master Executive Presence | iiskills Academy</title>
+        <meta
+          name="description"
+          content="Master the invisible mechanics of social intelligence, executive presence, and high-stakes negotiation. The premium finishing school for ambitious leaders."
+        />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </Head>
+
+      <main className="bg-gray-900">
+        {/* Premium Hero Section */}
+        <PremiumHero />
+
+        {/* Tri-Level Finesse Engine */}
+        <TriLevelEngine />
+
+        {/* Boardroom Simulation (Gatekeeper) */}
+        <div id="gatekeeper">
+          <BoardroomSimulation />
+        </div>
+
+        {/* Interactive Roleplays */}
+        <InteractiveRoleplays />
+
+        {/* Premium Certification */}
+        <PremiumCertification />
+
+        {/* Monorepo Cross-Sell */}
+        <MonorepoCrossSell />
+      </main>
+    </>
   );
 }
