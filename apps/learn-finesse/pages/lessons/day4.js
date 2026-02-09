@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Head from "next/head";
+import PremiumAccessPrompt from "../../components/PremiumAccessPrompt";
 
 const CULTURAL_CONTEXTS = {
   western: {
@@ -47,10 +48,15 @@ export default function Day4Lesson() {
   const [selectedContext, setSelectedContext] = useState("western");
   const [quizAnswer, setQuizAnswer] = useState(null);
   const [showFeedback, setShowFeedback] = useState(false);
+  const [showPremiumPrompt, setShowPremiumPrompt] = useState(false);
 
   const handleQuizSubmit = (answer) => {
     setQuizAnswer(answer);
     setShowFeedback(true);
+    // Show premium prompt if they got the correct answer
+    if (answer === "B") {
+      setTimeout(() => setShowPremiumPrompt(true), 2000); // Show after 2 seconds
+    }
   };
 
   const context = CULTURAL_CONTEXTS[selectedContext];
@@ -335,6 +341,15 @@ export default function Day4Lesson() {
           </div>
         </div>
       </div>
+
+      {/* Premium Access Prompt */}
+      {showPremiumPrompt && (
+        <PremiumAccessPrompt
+          appName="Learn Finesse"
+          appHighlight="Master social intelligence, executive presence, and the logic of power dynamics. Complete the 10-day bootcamp across Western, Indian, and Eastern cultures."
+          onCancel={() => setShowPremiumPrompt(false)}
+        />
+      )}
     </>
   );
 }

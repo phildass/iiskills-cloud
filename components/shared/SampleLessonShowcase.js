@@ -239,7 +239,7 @@ export default function SampleLessonShowcase({
               </div>
 
               <Link
-                href={`/modules/${sampleModuleId}/lesson/${sampleLessonId}`}
+                href={appId === "learn-finesse" ? "/lessons/day4" : `/modules/${sampleModuleId}/lesson/${sampleLessonId}`}
                 className="inline-block bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-lg font-bold text-lg hover:from-blue-700 hover:to-purple-700 transition-all shadow-lg hover:shadow-xl"
               >
                 Start Sample Lesson →
@@ -277,10 +277,10 @@ export default function SampleLessonShowcase({
               </div>
 
               <Link
-                href={`/modules/${sampleModuleId}/test`}
+                href={appId === "learn-finesse" ? "/lessons/day4" : `/modules/${sampleModuleId}/test`}
                 className="inline-block bg-gradient-to-r from-green-600 to-teal-600 text-white px-8 py-4 rounded-lg font-bold text-lg hover:from-green-700 hover:to-teal-700 transition-all shadow-lg hover:shadow-xl"
               >
-                Take Level 1 Test →
+                {appId === "learn-finesse" ? "Experience Interactive Scenarios →" : "Take Level 1 Test →"}
               </Link>
 
               <p className="text-sm text-gray-600 mt-4">
