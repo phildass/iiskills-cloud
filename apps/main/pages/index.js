@@ -140,12 +140,12 @@ export default function Home() {
                   {/* Foundation Apps List */}
                   <div className="space-y-3 mb-6">
                     {[
-                      { name: "Math", icon: "∑", color: "#DC143C", url: "https://app8.learn-math.iiskills.cloud" },
-                      { name: "Physics", icon: "⚡", color: "#0080FF", url: "https://app6.learn-physics.iiskills.cloud" },
-                      { name: "Chemistry", icon: "⚗️", color: "#9B59B6", url: "https://app7.learn-chemistry.iiskills.cloud" },
-                      { name: "Biology", icon: "🧬", color: "#2E7D32", url: "https://app12.learn-biology.iiskills.cloud" },
-                      { name: "Geography", icon: "🌍", color: "#10B981", url: "https://app9.learn-geography.iiskills.cloud" },
-                      { name: "Aptitude", icon: "🎯", color: "#6366F1", url: "https://app5.learn-apt.iiskills.cloud" },
+                      { name: "iiskills-math", displayName: "Math", icon: "∑", color: "#DC143C", url: "https://app8.learn-math.iiskills.cloud" },
+                      { name: "iiskills-physics", displayName: "Physics", icon: "⚡", color: "#0080FF", url: "https://app6.learn-physics.iiskills.cloud" },
+                      { name: "iiskills-chemistry", displayName: "Chemistry", icon: "⚗️", color: "#9B59B6", url: "https://app7.learn-chemistry.iiskills.cloud" },
+                      { name: "iiskills-biology", displayName: "Biology", icon: "🧬", color: "#2E7D32", url: "https://app12.learn-biology.iiskills.cloud" },
+                      { name: "iiskills-geography", displayName: "Geography", icon: "🌍", color: "#10B981", url: "https://app9.learn-geography.iiskills.cloud" },
+                      { name: "iiskills-aptitude", displayName: "Aptitude", icon: "🎯", color: "#6366F1", url: "https://app5.learn-apt.iiskills.cloud" },
                     ].map((app) => (
                       <a
                         key={app.name}
@@ -155,7 +155,10 @@ export default function Home() {
                       >
                         <div className="flex items-center gap-3">
                           <div className="text-3xl">{app.icon}</div>
-                          <span className="font-semibold text-lg text-gray-900">{app.name}</span>
+                          <div>
+                            <span className="font-semibold text-lg text-gray-900 block">{app.name}</span>
+                            <span className="text-sm text-gray-600">{app.displayName}</span>
+                          </div>
                         </div>
                         <div className="flex items-center gap-2">
                           <span className="bg-green-500 text-white px-3 py-1 rounded-full text-sm font-bold">
@@ -197,12 +200,12 @@ export default function Home() {
                   {/* Paid Apps List */}
                   <div className="space-y-3 mb-6">
                     {[
-                      { name: "AI", icon: "🤖", tagline: "Stop prompting. Start Architecting.", url: "https://app1.learn-ai.iiskills.cloud" },
-                      { name: "Developer", icon: "💻", tagline: "Industry-standard stacks. System Design.", url: "https://app4.learn-developer.iiskills.cloud" },
-                      { name: "Govt Jobs", icon: "🏛️", tagline: "Most rigorous simulation engine.", url: "https://app10.learn-govt-jobs.iiskills.cloud" },
-                      { name: "PR", icon: "📢", tagline: "Psychology of power and influence.", url: "https://app3.learn-pr.iiskills.cloud" },
-                      { name: "Management", icon: "📊", tagline: "Executive decision-making.", url: "https://app2.learn-management.iiskills.cloud" },
-                      { name: "Finesse", icon: "👔", tagline: "Master executive presence & social intelligence.", url: "https://app11.learn-finesse.iiskills.cloud" },
+                      { name: "iiskills-ai", displayName: "AI", icon: "🤖", tagline: "Stop prompting. Start Architecting.", url: "https://app1.learn-ai.iiskills.cloud" },
+                      { name: "iiskills-developer", displayName: "Developer", icon: "💻", tagline: "Industry-standard stacks. System Design.", url: "https://app4.learn-developer.iiskills.cloud" },
+                      { name: "iiskills-govt-jobs", displayName: "Govt Jobs", icon: "🏛️", tagline: "Most rigorous simulation engine.", url: "https://app10.learn-govt-jobs.iiskills.cloud" },
+                      { name: "iiskills-pr", displayName: "PR", icon: "📢", tagline: "Psychology of power and influence.", url: "https://app3.learn-pr.iiskills.cloud" },
+                      { name: "iiskills-management", displayName: "Management", icon: "📊", tagline: "Executive decision-making.", url: "https://app2.learn-management.iiskills.cloud" },
+                      { name: "iiskills-finesse", displayName: "Finesse", icon: "👔", tagline: "Master executive presence & social intelligence.", url: "https://app11.learn-finesse.iiskills.cloud" },
                     ].map((app) => (
                       <a
                         key={app.name}
@@ -212,7 +215,10 @@ export default function Home() {
                         <div className="flex items-center justify-between mb-2">
                           <div className="flex items-center gap-3">
                             <div className="text-3xl">{app.icon}</div>
-                            <span className="font-semibold text-lg text-white">Learn {app.name}</span>
+                            <div>
+                              <span className="font-semibold text-lg text-white block">{app.name}</span>
+                              <span className="text-sm text-gray-400">{app.displayName}</span>
+                            </div>
                           </div>
                           <span className="text-gray-400 group-hover:text-yellow-400 transition-colors">→</span>
                         </div>

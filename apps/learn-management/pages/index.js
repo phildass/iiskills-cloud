@@ -9,7 +9,7 @@ export default function Home() {
       appName="Learn Management"
       headline="Transform Your Leadership Skills 🚀"
       subheadline="Master proven management techniques used by Fortune 500 companies. Build your career with real-world business strategies."
-      title="Master Management Principles - iiskills.cloud"
+      title="iiskills-management - Master Management Principles"
       description="Learn core management concepts, techniques, and best practices to excel in business and organizational leadership."
       features={[
   {

@@ -9,7 +9,7 @@ export default function Home() {
       appName="Learn Developer"
       headline="Code the Future. Train the Machine."
       subheadline="Stop Guessing. Start Building. The Path to Senior Engineer."
-      title="Learn Developer - Build the Future | iiskills.cloud"
+      title="iiskills-developer - Master Software Development"
       description="Master the complete developer stack from fundamentals to production. Learn web development, backend systems, APIs, and integrate seamlessly with AI. Two apps, one mastery—unlock both Learn Developer and Learn AI with a single enrollment."
       features={[
   {

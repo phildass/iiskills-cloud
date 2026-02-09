@@ -9,7 +9,7 @@ export default function Home() {
       appName="Learn AI"
       headline="Train the Machine. Master the Intelligence."
       subheadline="Don't Just Use AI—Control It. Master the Logic Behind the Machine."
-      title="Learn AI - Master Artificial Intelligence | iiskills.cloud"
+      title="iiskills-ai - Master Artificial Intelligence"
       description="Master AI from prompts to production. Learn prompt engineering, machine learning, neural networks, and AI monetization. Two apps, one mastery—unlock both Learn AI and Learn Developer with a single enrollment."
       features={[
   {
