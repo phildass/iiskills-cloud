@@ -18,6 +18,7 @@ const APP_SUBDOMAIN_MAP = {
   "learn-geography": 9,
   "learn-govt-jobs": 10,
   "learn-finesse": 11,
+  "learn-biology": 12,
 };
 
 /**
@@ -48,7 +49,7 @@ export default function BentoBoxGrid() {
     },
     scientist: {
       name: "The Scientist",
-      apps: ["learn-physics", "learn-chemistry", "learn-math"],
+      apps: ["learn-physics", "learn-chemistry", "learn-biology", "learn-math"],
     },
   };
 

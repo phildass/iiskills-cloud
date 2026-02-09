@@ -41,6 +41,7 @@ const APP_IMAGE_ASSIGNMENTS = {
   'learn-math': ['iiskills-math-hero.jpg', 'iiskills-math-egirl.jpg', 'iiskills-math-mgirl.jpg'],
   'learn-physics': ['iiskills-physics-heor.jpg', 'iiskills-physics-eman.jpg', 'iiskills-physics-girls.jpg'],
   'learn-chemistry': ['iiskills-chem-hero.jpg', 'iiskills-chem-labman.jpg', 'iiskills-chem-lwoman.jpg'],
+  'learn-biology': ['iiskills-bio-hero.jpg', 'iiskills-bio-student.jpg', 'iiskills-bio-researcher.jpg'],
   'learn-geography': ['iiskills-geo-hero.jpg', 'iiskills-geo-road.jpg', 'iiskills-geo-tour.jpg'],
   'learn-govt-jobs': ['iiskills-govt-hero.jpg', 'iiskills-govt-staff.jpg', 'iiskills-govt-teacher.jpg'],
   'learn-pr': ['iiskills-pr-hero.jpg', 'iiskills-pr-girl.jpg', 'iiskills-pr-media.jpg'],
