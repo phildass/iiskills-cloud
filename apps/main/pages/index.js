@@ -39,6 +39,9 @@ export default function Home() {
           content={`Education for All, Online and Affordable. Professional skills development at just ${pricing.totalPrice} per course. Part of Viksit Bharat initiative.`}
         />
         <style>{`
+          html {
+            scroll-behavior: smooth;
+          }
           @keyframes blink {
             0%, 100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
             50% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.05); }
@@ -841,7 +844,7 @@ export default function Home() {
                     <div>
                       <h3 className="text-xl font-bold text-gray-900 mb-2">Learn Developer</h3>
                       <p className="text-gray-700">
-                        <strong>Mastered Learn Math (Free)?</strong> You already have 40% of the logic needed for this course. 
+                        <strong>Mastered Learn Math (Free)?</strong> You already have a strong foundation in the logic needed for this course. 
                         Jump straight into the code while others struggle with basic algorithms.
                       </p>
                     </div>
@@ -986,7 +989,7 @@ export default function Home() {
                   </Link>
                 </div>
                 <p className="text-sm mt-4 opacity-90">
-                  <strong>Pro Pass:</strong> Get all 5 Professional Apps + Advanced Certifications
+                  <strong>Career Suite Pro Pass:</strong> Subscribe to get all 5 Professional Apps (AI, Developer, Govt Jobs, PR, Management) + Advanced Certifications. <Link href="/courses" className="underline hover:text-gray-200">View pricing →</Link>
                 </p>
               </div>
               <div className="flex-1">
