@@ -247,6 +247,25 @@ module.exports = {
       "out_file": path.join(__dirname, 'logs', 'learn-finesse-out.log'),
       "log_file": path.join(__dirname, 'logs', 'learn-finesse-combined.log'),
       "time": true
+    },
+    {
+      "name": "iiskills-learn-biology",
+      "cwd": path.join(__dirname, 'apps/learn-biology'),
+      "script": "npx",
+      "args": "next start",
+      "interpreter": "none",
+      "env": {
+        "NODE_ENV": "production",
+        "PORT": 3026
+      },
+      "instances": 1,
+      "autorestart": true,
+      "watch": false,
+      "max_memory_restart": "1G",
+      "error_file": path.join(__dirname, 'logs', 'learn-biology-error.log'),
+      "out_file": path.join(__dirname, 'logs', 'learn-biology-out.log'),
+      "log_file": path.join(__dirname, 'logs', 'learn-biology-combined.log'),
+      "time": true
     }
   ]
 };

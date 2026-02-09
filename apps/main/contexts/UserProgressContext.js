@@ -86,10 +86,27 @@ const INITIAL_APPS = [
       intermediate: 0,
       advanced: 0,
     },
-    connections: ["learn-physics"],
+    connections: ["learn-physics", "learn-biology"],
     microQuiz: {
       question: "What is H2O?",
       options: ["Oxygen", "Water", "Hydrogen"],
+      correctAnswer: 1,
+    },
+  },
+  {
+    id: "learn-biology",
+    name: "Learn Biology",
+    category: "Science",
+    color: "#2E7D32",
+    progress: {
+      basics: 0,
+      intermediate: 0,
+      advanced: 0,
+    },
+    connections: ["learn-chemistry", "learn-physics"],
+    microQuiz: {
+      question: "Which organelle is the powerhouse of the cell?",
+      options: ["Nucleus", "Mitochondria", "Ribosome"],
       correctAnswer: 1,
     },
   },

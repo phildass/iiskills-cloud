@@ -144,6 +144,7 @@ export default function Home() {
                       { name: "Math", icon: "∑", color: "#DC143C", url: "https://app8.learn-math.iiskills.cloud" },
                       { name: "Physics", icon: "⚡", color: "#0080FF", url: "https://app6.learn-physics.iiskills.cloud" },
                       { name: "Chemistry", icon: "⚗️", color: "#9B59B6", url: "https://app7.learn-chemistry.iiskills.cloud" },
+                      { name: "Biology", icon: "🧬", color: "#2E7D32", url: "https://app12.learn-biology.iiskills.cloud" },
                       { name: "Geography", icon: "🌍", color: "#10B981", url: "https://app9.learn-geography.iiskills.cloud" },
                       { name: "Aptitude", icon: "🎯", color: "#6366F1", url: "https://app5.learn-apt.iiskills.cloud" },
                     ].map((app) => (
@@ -253,7 +254,7 @@ export default function Home() {
                     </tr>
                     <tr className="bg-gray-50">
                       <td className="px-6 py-4 text-sm font-medium text-gray-900">Subjects</td>
-                      <td className="px-6 py-4 text-sm text-gray-700">Math, Physics, Chemistry, Geography, Aptitude</td>
+                      <td className="px-6 py-4 text-sm text-gray-700">Math, Physics, Chemistry, Biology, Geography, Aptitude</td>
                       <td className="px-6 py-4 text-sm text-gray-700">AI, Developer, Govt Jobs, PR, Management, Finesse</td>
                     </tr>
                     <tr>
@@ -1063,7 +1064,7 @@ export default function Home() {
 
                 <div className="bg-gradient-to-r from-green-50 to-blue-50 border-l-4 border-green-500 p-6 rounded-lg mt-8">
                   <p className="font-semibold text-gray-900">
-                    🌟 <strong>Our Promise:</strong> The Foundation (Math, Physics, Chemistry, Geography, Aptitude) will always remain 100% free. 
+                    🌟 <strong>Our Promise:</strong> The Foundation (Math, Physics, Chemistry, Biology, Geography, Aptitude) will always remain 100% free. 
                     Your success in our paid courses helps keep it that way.
                   </p>
                 </div>
