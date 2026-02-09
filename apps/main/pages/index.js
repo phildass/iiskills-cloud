@@ -122,12 +122,11 @@ export default function Home() {
             </div>
 
             <div className="grid lg:grid-cols-2 gap-8">
-              {/* 🟢 THE FOUNDATION (FREE FOREVER) */}
+              {/* 🟢 THE FOUNDATION */}
               <div id="foundation" className="bg-white rounded-2xl shadow-2xl overflow-hidden border-4 border-green-500">
                 <div className="bg-gradient-to-br from-green-500 via-blue-500 to-purple-600 text-white p-8">
                   <div className="text-5xl mb-4">🟢</div>
                   <h3 className="text-3xl font-bold mb-3">The Foundation</h3>
-                  <p className="text-xl font-semibold mb-2">Free Forever</p>
                   <p className="text-lg opacity-90">
                     "The tools every mind needs. No paywalls, no barriers."
                   </p>
@@ -138,7 +137,7 @@ export default function Home() {
                     Build your cognitive base—essential for any high-level career. Master the laws of nature through our signature Tri-Level Engine.
                   </p>
                   
-                  {/* Free Apps List */}
+                  {/* Foundation Apps List */}
                   <div className="space-y-3 mb-6">
                     {[
                       { name: "Math", icon: "∑", color: "#DC143C", url: "https://app8.learn-math.iiskills.cloud" },
@@ -242,7 +241,7 @@ export default function Home() {
                   <thead className="bg-gray-100">
                     <tr>
                       <th className="px-6 py-4 text-left text-sm font-semibold text-gray-900">Feature</th>
-                      <th className="px-6 py-4 text-left text-sm font-semibold text-green-700">The Foundation (Free)</th>
+                      <th className="px-6 py-4 text-left text-sm font-semibold text-green-700">The Foundation</th>
                       <th className="px-6 py-4 text-left text-sm font-semibold text-yellow-700">The Academy (Premium)</th>
                     </tr>
                   </thead>
@@ -817,9 +816,6 @@ export default function Home() {
               </div>
 
               <div className="bg-white rounded-lg shadow-lg p-6 border-t-4 border-green-500 relative">
-                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-green-500 bg-opacity-90 backdrop-blur-sm text-white px-6 py-3 rounded-full text-2xl font-bold z-20 shadow-2xl blink-animation">
-                  FREE
-                </div>
                 <h3 className="font-bold text-xl mb-3 text-primary">Learn Aptitude</h3>
                 <p className="text-charcoal mb-4">
                   Develop logical reasoning, quantitative aptitude, and analytical skills for
@@ -832,7 +828,7 @@ export default function Home() {
                   href="/courses"
                   className="block text-center bg-green-500 text-white py-2 rounded font-medium hover:bg-green-600 transition"
                 >
-                  Start Free Course
+                  Start Course
                 </Link>
               </div>
 
@@ -919,7 +915,7 @@ export default function Home() {
               </div>
               <div className="bg-white rounded-xl p-6 shadow-lg text-center border-t-4 border-accent">
                 <div className="text-5xl mb-3">✅</div>
-                <div className="text-3xl font-bold text-accent mb-2">100% Free</div>
+                <div className="text-3xl font-bold text-accent mb-2">Universal Access</div>
                 <p className="text-gray-600 font-semibold">STEM Learning</p>
               </div>
               <div className="bg-white rounded-xl p-6 shadow-lg text-center border-t-4 border-green-600">
@@ -1080,14 +1076,14 @@ export default function Home() {
               <div className="flex-1 text-center md:text-left">
                 <h2 className="text-4xl font-bold mb-6">Ready to Build Your Future?</h2>
                 <p className="text-2xl mb-8">
-                  Start with a free foundation, or jump straight into career-ready skills
+                  Start with the foundation, or jump straight into career-ready skills
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
                   <Link
                     href="#foundation"
                     className="inline-block bg-white text-green-600 px-10 py-4 rounded-lg font-bold text-lg hover:bg-gray-100 transition"
                   >
-                    Start Free Foundation
+                    Start Foundation
                   </Link>
                   <Link
                     href="#academy"
