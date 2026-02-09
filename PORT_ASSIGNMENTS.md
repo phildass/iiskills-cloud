@@ -16,6 +16,7 @@ Here is the complete port assignment for all active applications:
 | 3001 | learn-ai | Artificial Intelligence fundamentals |
 | 3002 | learn-apt | Aptitude assessment |
 | 3005 | learn-chemistry | Chemistry mastery |
+| 3007 | learn-developer | Web Developer Bootcamp |
 | 3009 | learn-cricket | Cricket Know-All (Free) |
 | 3011 | learn-geography | Geography and world exploration |
 | 3013 | learn-govt-jobs | Government job exam preparation |
@@ -26,7 +27,7 @@ Here is the complete port assignment for all active applications:
 | 3021 | learn-pr | Public Relations |
 | 3022 | learn-winning | Success strategies |
 | 3023 | learn-companion | AI Life Advisor (Free) |
-| 3024 | learn-developer | Web Developer Bootcamp |
+| 3024 | learn-ai | AI & Machine Learning (UPDATED: learn-developer moved to 3007) |
 | 3025 | learn-finesse | Global Finishing School for Modern Etiquette |
 | 9000 | webhook | Webhook service |
 
