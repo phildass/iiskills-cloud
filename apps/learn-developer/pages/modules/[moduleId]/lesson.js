@@ -6,6 +6,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import Footer from '../../../components/Footer';
 import RapidFireQuiz from '../../../components/RapidFireQuiz';
+import PremiumAccessPrompt from '../../../components/shared/PremiumAccessPrompt';
 import { curriculumData } from '../../../lib/curriculumData';
 import { getCurrentUser } from '../../../lib/supabaseClient';
 
@@ -18,6 +19,7 @@ export default function LessonPage() {
   const [showQuiz, setShowQuiz] = useState(false);
   const [quizCompleted, setQuizCompleted] = useState(false);
   const [quizScore, setQuizScore] = useState(null);
+  const [showPremiumPrompt, setShowPremiumPrompt] = useState(false);
 
   useEffect(() => {
     checkAuth();
@@ -64,6 +66,11 @@ export default function LessonPage() {
   const handleQuizComplete = async (passed, score, percentage) => {
     setQuizCompleted(passed);
     setQuizScore({ score, total: module?.test.length || 5, percentage });
+    
+    // Show Premium Access Prompt after completing sample lesson (Module 1)
+    if (passed && moduleId === '1') {
+      setShowPremiumPrompt(true);
+    }
     
     // Save progress (you can integrate with Supabase here)
     console.log('Quiz completed:', { moduleId, passed, score, percentage });
@@ -240,6 +247,15 @@ export default function LessonPage() {
           )}
         </div>
       </main>
+
+      {/* Premium Access Prompt - shown after sample lesson completion */}
+      {showPremiumPrompt && (
+        <PremiumAccessPrompt
+          appName="Learn Developer"
+          appHighlight="Standardize your coding logic and master full-stack system architecture. Unlock the complete developer curriculum with exclusive Learn AI bundle access."
+          onCancel={() => setShowPremiumPrompt(false)}
+        />
+      )}
 
       <Footer />
     </>
