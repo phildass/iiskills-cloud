@@ -66,7 +66,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>iiskills-aptitude - Learn Apt - Universal Diagnostic Engine</title>
+        <title>iiskills-aptitude - Master Aptitude & Cognitive Skills</title>
         <meta name="description" content="Discover your cognitive superpowers with our scientific diagnostic engine. Test across 5 domains, get your Brain-Print, and unlock your career potential." />
       </Head>
 

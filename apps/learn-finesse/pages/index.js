@@ -12,7 +12,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>iiskills-finesse - Learn Finesse - Master Executive Presence</title>
+        <title>iiskills-finesse - Master Executive Presence</title>
         <meta
           name="description"
           content="Master the invisible mechanics of social intelligence, executive presence, and high-stakes negotiation. The premium finishing school for ambitious leaders."
