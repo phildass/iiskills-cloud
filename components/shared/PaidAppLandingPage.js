@@ -18,7 +18,12 @@ import Hero, { SecondaryImage } from "./HeroManager";
 import { getCurrentUser } from "../../lib/supabaseClient";
 import SampleLessonShowcase from "./SampleLessonShowcase";
 import AIDevBundlePitch from "./AIDevBundlePitch";
+
+import CalibrationGatekeeper from "./CalibrationGatekeeper";
+import PremiumAccessPrompt from "./PremiumAccessPrompt";
+
 import LevelSelector from "./LevelSelector";
+
 
 /**
  * Generate standardized app context label
@@ -72,11 +77,32 @@ export default function PaidAppLandingPage({
   showAIDevBundle = false,
   sampleModuleId = 1,
   sampleLessonId = 1,
+  appType = null, // For gatekeeper questions
 }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [showPaymentPreview, setShowPaymentPreview] = useState(false);
 
   const displayAppContextLabel = getAppContextLabel(appId);
+
+  // Map appId to appType for gatekeeper questions
+  const getAppType = () => {
+    if (appType) return appType;
+    
+    const typeMap = {
+      "learn-ai": "ai",
+      "learn-developer": "developer",
+      "learn-finesse": "finesse",
+      "learn-management": "management",
+      "learn-pr": "pr",
+      "learn-govt-jobs": "govt-jobs",
+    };
+    return typeMap[appId] || "ai";
+  };
+
+  const handlePaymentRequired = () => {
+    setShowPaymentPreview(true);
+  };
 
   useEffect(() => {
     const checkUser = async () => {
@@ -188,6 +214,25 @@ export default function PaidAppLandingPage({
               </div>
             </div>
           </section>
+        )}
+
+        {/* Level 1 Qualifier (Gatekeeper) Section */}
+        <CalibrationGatekeeper
+          appName={appName}
+          appType={getAppType()}
+          tier="Level 1"
+          isPaid={true}
+          onPaymentRequired={handlePaymentRequired}
+        />
+
+        {/* Payment Preview Modal */}
+        {showPaymentPreview && (
+          <PremiumAccessPrompt
+            appName={appName}
+            appHighlight={description}
+            showAIDevBundle={showAIDevBundle}
+            onCancel={() => setShowPaymentPreview(false)}
+          />
         )}
 
         {/* Sample Lesson Showcase - Zero-Barrier Sample */}
