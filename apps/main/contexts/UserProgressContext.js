@@ -166,6 +166,23 @@ const INITIAL_APPS = [
     },
   },
   {
+    id: "learn-finesse",
+    name: "Learn Finesse",
+    category: "Professional",
+    color: "#8B7355",
+    progress: {
+      basics: 0,
+      intermediate: 0,
+      advanced: 0,
+    },
+    connections: ["learn-management", "learn-pr"],
+    microQuiz: {
+      question: "What is the key to executive presence?",
+      options: ["Confidence and Communication", "Loud Voice", "Formal Attire"],
+      correctAnswer: 0,
+    },
+  },
+  {
     id: "learn-developer",
     name: "Learn Developer",
     category: "Technology",

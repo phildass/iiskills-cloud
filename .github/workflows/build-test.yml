@@ -24,8 +24,11 @@ jobs:
           - apps/main
           - apps/learn-ai
           - apps/learn-apt
+          - apps/learn-biology
           - apps/learn-chemistry
           - apps/learn-cricket
+          - apps/learn-developer
+          - apps/learn-finesse
           - apps/learn-geography
           - apps/learn-govt-jobs
           - apps/learn-leadership
@@ -93,4 +96,4 @@ jobs:
         run: npm run check-orphans
       
       - name: All builds passed
-        run: echo "✅ All 13 active apps built successfully - safe to merge!"
+        run: echo "✅ All 15 active apps built successfully - safe to merge!"
