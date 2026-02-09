@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Footer from '../../../../components/Footer';
 import QuizComponent from '../../../../components/QuizComponent';
-import PremiumAccessPrompt from '../../../../components/shared/PremiumAccessPrompt';
+import PremiumAccessPrompt from '@shared/PremiumAccessPrompt';
 import { getCurrentUser } from '../../../../lib/supabaseClient';
 
 export default function LessonPage() {

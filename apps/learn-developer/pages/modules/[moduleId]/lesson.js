@@ -6,7 +6,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import Footer from '../../../components/Footer';
 import RapidFireQuiz from '../../../components/RapidFireQuiz';
-import PremiumAccessPrompt from '../../../components/shared/PremiumAccessPrompt';
+import PremiumAccessPrompt from '@shared/PremiumAccessPrompt';
 import { curriculumData } from '../../../lib/curriculumData';
 import { getCurrentUser } from '../../../lib/supabaseClient';
 
