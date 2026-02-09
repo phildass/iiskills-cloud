@@ -8,10 +8,12 @@ import AdminNav from "../../components/AdminNav";
 import Footer from "../../components/Footer";
 import { ALL_SITES } from "../../lib/siteConfig";
 import { getSiteUrl } from "../../lib/navigation";
+import SecretPasswordPrompt, { hasSecretAdminAccess } from "../../components/SecretPasswordPrompt";
 
 export default function AdminDashboard() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [showPasswordPrompt, setShowPasswordPrompt] = useState(false);
   const [stats, setStats] = useState({
     totalCourses: 0,
     totalUsers: 0,
@@ -29,9 +31,7 @@ export default function AdminDashboard() {
   }, []);
 
   const checkAdminAuth = async () => {
-    // TEMPORARY: Bypass authentication for immediate admin access
-    // TODO: Re-enable authentication after initial setup
-    // To disable bypass, set NEXT_PUBLIC_DISABLE_AUTH=false in .env.local
+    // Mode 1: Local Dev - Check for DISABLE_AUTH flag
     const BYPASS_AUTH = process.env.NEXT_PUBLIC_DISABLE_AUTH === 'true';
     
     if (BYPASS_AUTH) {
@@ -43,24 +43,42 @@ export default function AdminDashboard() {
       return;
     }
 
+    // Mode 2: Secret Password - Check if user has entered secret password
+    if (hasSecretAdminAccess()) {
+      console.log('✅ Secret password verified - admin access granted');
+      setIsAuthenticated(true);
+      setIsLoading(false);
+      return;
+    }
+
+    // Mode 3: Standard Authentication - Check Supabase auth
     const user = await getCurrentUser();
 
     if (!user) {
-      // Not logged in at all, redirect to admin login
-      router.push("/admin/login");
+      // Not logged in - show secret password prompt instead of redirecting
+      console.log('🔐 No authentication found - showing secret password prompt');
+      setShowPasswordPrompt(true);
+      setIsLoading(false);
       return;
     }
 
     const hasAdminAccess = await isAdmin(user);
     if (!hasAdminAccess) {
-      // Logged in but not admin, redirect to regular login with error
-      router.push("/login?error=admin_access_denied");
+      // Logged in but not admin - show secret password prompt
+      console.log('❌ User is not admin - showing secret password prompt');
+      setShowPasswordPrompt(true);
+      setIsLoading(false);
       return;
     }
 
     // User is authenticated and has admin role
     setIsAuthenticated(true);
     setIsLoading(false);
+  };
+
+  const handlePasswordSuccess = () => {
+    setShowPasswordPrompt(false);
+    setIsAuthenticated(true);
   };
 
   const fetchStats = async () => {
@@ -128,6 +146,10 @@ export default function AdminDashboard() {
         <div className="text-lg">Loading...</div>
       </div>
     );
+  }
+
+  if (showPasswordPrompt) {
+    return <SecretPasswordPrompt onSuccess={handlePasswordSuccess} />;
   }
 
   if (!isAuthenticated) {
