@@ -1,12 +1,12 @@
 "use client";
 
-import UniversalLandingPage from "../../../components/shared/UniversalLandingPage";
+import PaidAppLandingPage from "../../../components/shared/PaidAppLandingPage";
 
 export default function Home() {
   return (
-    <UniversalLandingPage
+    <PaidAppLandingPage
       appId="learn-finesse"
-      appName="Master Global Finesse"
+      appName="Learn Finesse"
       headline="Master Global Etiquette & Professional Polish ✨"
       subheadline="Your digital finishing school for cross-cultural excellence. Master Western, Indian, and Eastern business etiquette in 10 transformative days."
       title="Learn Finesse - Global Finishing School | iiskills.cloud"
@@ -43,8 +43,9 @@ export default function Home() {
           "description": "Real-world scenarios with branching logic. Learn when to bow, when to shake hands, when to say 'maybe' means 'no'."
         }
       ]}
-      isFree={false}
       heroGradient="from-indigo-500 via-purple-500 to-pink-500"
+      sampleModuleId={1}
+      sampleLessonId={1}
     />
   );
 }

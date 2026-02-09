@@ -1,11 +1,12 @@
 "use client";
 
-import UniversalLandingPage from "../../../components/shared/UniversalLandingPage";
+import PaidAppLandingPage from "../../../components/shared/PaidAppLandingPage";
 
 export default function Home() {
   return (
-    <UniversalLandingPage
+    <PaidAppLandingPage
       appId="learn-ai"
+      appName="Learn AI"
       headline="Train the Machine. Master the Intelligence."
       subheadline="Don't Just Use AI—Control It. Master the Logic Behind the Machine."
       title="Learn AI - Master Artificial Intelligence | iiskills.cloud"
@@ -57,9 +58,10 @@ export default function Home() {
     "description": "Learn how to build AI products, consulting services, automation tools, and turn AI skills into multiple income streams"
   }
 ]}
-      isFree={true}
       heroGradient="from-purple-500 via-fuchsia-600 to-purple-400"
-      themeColor="purple"
+      showAIDevBundle={true}
+      sampleModuleId={1}
+      sampleLessonId={1}
     />
   );
 }

@@ -1,12 +1,12 @@
 "use client";
 
-import UniversalLandingPage from "../../../components/shared/UniversalLandingPage";
+import PaidAppLandingPage from "../../../components/shared/PaidAppLandingPage";
 
 export default function Home() {
   return (
-    <UniversalLandingPage
+    <PaidAppLandingPage
       appId="learn-pr"
-      appName="Master Public Relations"
+      appName="Learn PR"
       headline="Master the Art of Public Relations ✨"
       subheadline="Build your brand, manage crises, and dominate media coverage. Learn PR strategies from industry experts."
       title="Master Public Relations - iiskills.cloud"
@@ -43,8 +43,9 @@ export default function Home() {
     "description": "Track media mentions, measure campaign ROI, and demonstrate PR value with data-driven insights."
   }
 ]}
-      isFree={true}
       heroGradient="from-pink-500 to-orange-500"
+      sampleModuleId={1}
+      sampleLessonId={1}
     />
   );
 }
