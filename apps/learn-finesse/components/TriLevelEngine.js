@@ -47,11 +47,10 @@ export default function TriLevelEngine() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-5xl md:text-6xl font-serif text-white mb-6">
-            The Finesse Engine
-          </h2>
+          <h2 className="text-5xl md:text-6xl font-serif text-white mb-6">The Finesse Engine</h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            A rigorous, engineered system for social intelligence. Ascend through three levels of mastery.
+            A rigorous, engineered system for social intelligence. Ascend through three levels of
+            mastery.
           </p>
         </motion.div>
 
@@ -74,12 +73,15 @@ export default function TriLevelEngine() {
                 <div
                   className={`backdrop-blur-xl rounded-2xl p-8 border ${level.borderColor} shadow-2xl`}
                   style={{
-                    background: "linear-gradient(135deg, rgba(30, 30, 30, 0.95) 0%, rgba(15, 15, 15, 0.95) 100%)",
+                    background:
+                      "linear-gradient(135deg, rgba(30, 30, 30, 0.95) 0%, rgba(15, 15, 15, 0.95) 100%)",
                   }}
                 >
                   {/* Level Badge */}
                   <div className="flex items-center justify-between mb-6">
-                    <div className={`inline-block bg-gradient-to-r ${level.gradient} text-gray-900 px-6 py-2 rounded-full font-bold text-sm tracking-wider`}>
+                    <div
+                      className={`inline-block bg-gradient-to-r ${level.gradient} text-gray-900 px-6 py-2 rounded-full font-bold text-sm tracking-wider`}
+                    >
                       LEVEL {level.level}: {level.tier}
                     </div>
                     <div className="text-4xl font-serif text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-yellow-300">
@@ -88,14 +90,10 @@ export default function TriLevelEngine() {
                   </div>
 
                   {/* Title */}
-                  <h3 className="text-3xl font-serif text-white mb-3">
-                    {level.title}
-                  </h3>
+                  <h3 className="text-3xl font-serif text-white mb-3">{level.title}</h3>
 
                   {/* Hook */}
-                  <p className="text-xl text-amber-400 italic mb-6">
-                    {level.hook}
-                  </p>
+                  <p className="text-xl text-amber-400 italic mb-6">{level.hook}</p>
 
                   {/* Modules */}
                   <div className="mb-6">
@@ -124,7 +122,9 @@ export default function TriLevelEngine() {
 
                 {/* Connector Dot */}
                 <div className="hidden md:block absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                  <div className={`w-4 h-4 rounded-full bg-gradient-to-r ${level.gradient} shadow-lg`} />
+                  <div
+                    className={`w-4 h-4 rounded-full bg-gradient-to-r ${level.gradient} shadow-lg`}
+                  />
                 </div>
               </motion.div>
             ))}

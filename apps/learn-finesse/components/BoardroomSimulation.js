@@ -10,14 +10,16 @@ const BOARDROOM_SCENARIO = {
     {
       id: "A",
       text: "Interrupt back to regain control",
-      feedback: "You're reacting, not responding. Aggression reads as insecurity in high-stakes rooms.",
+      feedback:
+        "You're reacting, not responding. Aggression reads as insecurity in high-stakes rooms.",
       result: "aggressive",
       level: "Start with Finesse Basic: Module 4 (The Power of the Pause)",
     },
     {
       id: "B",
       text: "Pause two seconds, hold eye contact, finish your point slowly",
-      feedback: "That is Power Silence (Level 2 Logic). You've demonstrated command without confrontation.",
+      feedback:
+        "That is Power Silence (Level 2 Logic). You've demonstrated command without confrontation.",
       result: "finesse",
       level: "You're ready for Intermediate.",
       isCorrect: true,
@@ -40,7 +42,7 @@ export default function BoardroomSimulation() {
   const handleChoice = (choice) => {
     setSelectedChoice(choice);
     setShowFeedback(true);
-    
+
     // Update pulse meter based on choice
     if (choice.result === "submissive") {
       setPulseMeter(20);
@@ -94,7 +96,8 @@ export default function BoardroomSimulation() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="backdrop-blur-xl rounded-2xl p-8 md:p-12 border border-amber-400/20 shadow-2xl"
           style={{
-            background: "linear-gradient(135deg, rgba(20, 20, 20, 0.95) 0%, rgba(10, 10, 10, 0.95) 100%)",
+            background:
+              "linear-gradient(135deg, rgba(20, 20, 20, 0.95) 0%, rgba(10, 10, 10, 0.95) 100%)",
           }}
         >
           {/* Pulse Meter */}
@@ -103,7 +106,9 @@ export default function BoardroomSimulation() {
               <span className="text-sm uppercase tracking-wider text-gray-400 font-semibold">
                 Power Dynamic
               </span>
-              <span className={`text-sm font-bold bg-gradient-to-r ${getPulseMeterColor()} bg-clip-text text-transparent`}>
+              <span
+                className={`text-sm font-bold bg-gradient-to-r ${getPulseMeterColor()} bg-clip-text text-transparent`}
+              >
                 {getPulseMeterLabel()}
               </span>
             </div>
@@ -124,9 +129,7 @@ export default function BoardroomSimulation() {
 
           {/* Scenario */}
           <div className="mb-8 p-6 bg-gray-800/30 rounded-lg border border-gray-700">
-            <h3 className="text-2xl font-serif text-amber-400 mb-4">
-              {BOARDROOM_SCENARIO.title}
-            </h3>
+            <h3 className="text-2xl font-serif text-amber-400 mb-4">{BOARDROOM_SCENARIO.title}</h3>
             <p className="text-gray-300 text-lg leading-relaxed italic">
               "{BOARDROOM_SCENARIO.scenario}"
             </p>
@@ -153,9 +156,7 @@ export default function BoardroomSimulation() {
                   <span className="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full bg-gray-700 text-white font-bold">
                     {choice.id}
                   </span>
-                  <span className="text-gray-300 text-lg">
-                    {choice.text}
-                  </span>
+                  <span className="text-gray-300 text-lg">{choice.text}</span>
                 </div>
               </motion.button>
             ))}
@@ -176,24 +177,22 @@ export default function BoardroomSimulation() {
                 }`}
               >
                 <div className="flex items-start gap-3 mb-4">
-                  <span className="text-3xl">
-                    {selectedChoice.isCorrect ? "✓" : "✗"}
-                  </span>
+                  <span className="text-3xl">{selectedChoice.isCorrect ? "✓" : "✗"}</span>
                   <div>
-                    <h4 className={`text-xl font-bold mb-2 ${
-                      selectedChoice.isCorrect ? "text-amber-400" : "text-red-400"
-                    }`}>
+                    <h4
+                      className={`text-xl font-bold mb-2 ${
+                        selectedChoice.isCorrect ? "text-amber-400" : "text-red-400"
+                      }`}
+                    >
                       {selectedChoice.isCorrect ? "Success" : "Error"}
                     </h4>
-                    <p className="text-gray-300 leading-relaxed mb-3">
-                      {selectedChoice.feedback}
-                    </p>
+                    <p className="text-gray-300 leading-relaxed mb-3">{selectedChoice.feedback}</p>
                     <p className="text-sm text-gray-400">
                       <span className="font-semibold">Next Step:</span> {selectedChoice.level}
                     </p>
                   </div>
                 </div>
-                
+
                 <button
                   onClick={resetSimulation}
                   className="mt-4 px-6 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors duration-200"

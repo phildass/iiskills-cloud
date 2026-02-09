@@ -21,14 +21,17 @@ const SCENARIOS = [
         id: "B",
         text: "Apologize profusely and lose momentum",
         feedback: "Submission diminishes your expertise. Over-apologizing broadcasts weakness.",
-        logic: "Excessive apology suggests you're uncertain of your value. Leaders acknowledge and move forward.",
+        logic:
+          "Excessive apology suggests you're uncertain of your value. Leaders acknowledge and move forward.",
         isCorrect: false,
       },
       {
         id: "C",
-        text: "\"Good catch – that's the attention to detail we need for execution.\" [Continue unfazed.]",
-        feedback: "Perfect. You've reframed the interruption as validation, maintained authority, and redirected focus.",
-        logic: "This is the Finesse Pivot: acknowledge without apologizing, reframe as team strength, maintain control. The typo becomes proof of collective diligence.",
+        text: '"Good catch – that\'s the attention to detail we need for execution." [Continue unfazed.]',
+        feedback:
+          "Perfect. You've reframed the interruption as validation, maintained authority, and redirected focus.",
+        logic:
+          "This is the Finesse Pivot: acknowledge without apologizing, reframe as team strength, maintain control. The typo becomes proof of collective diligence.",
         isCorrect: true,
       },
     ],
@@ -37,7 +40,8 @@ const SCENARIOS = [
     id: 2,
     level: "Level 3",
     title: "High-Stakes Negotiation",
-    context: "Employer rejects your salary offer and stares at you silently, waiting for your response.",
+    context:
+      "Employer rejects your salary offer and stares at you silently, waiting for your response.",
     choices: [
       {
         id: "A",
@@ -50,14 +54,17 @@ const SCENARIOS = [
         id: "B",
         text: "Defend your number with more justification",
         feedback: "Over-explaining signals doubt. You're negotiating with yourself.",
-        logic: "Justification dilutes power. Your initial case was enough. Silence is your ally, not your enemy.",
+        logic:
+          "Justification dilutes power. Your initial case was enough. Silence is your ally, not your enemy.",
         isCorrect: false,
       },
       {
         id: "C",
         text: "Hold pleasant eye contact. Say nothing. Let the vacuum do the work.",
-        feedback: "Masterful. You've weaponized silence. Most people can't tolerate it and will fill the void with compromise.",
-        logic: "This is Advanced Negotiation Psychology: silence creates pressure that the other party feels compelled to relieve. You've used the pause as leverage.",
+        feedback:
+          "Masterful. You've weaponized silence. Most people can't tolerate it and will fill the void with compromise.",
+        logic:
+          "This is Advanced Negotiation Psychology: silence creates pressure that the other party feels compelled to relieve. You've used the pause as leverage.",
         isCorrect: true,
       },
     ],
@@ -66,27 +73,33 @@ const SCENARIOS = [
     id: 3,
     level: "Level 3",
     title: "The Backhanded Compliment",
-    context: "A rival says, \"Impressive how you managed to succeed despite your... unconventional background.\"",
+    context:
+      'A rival says, "Impressive how you managed to succeed despite your... unconventional background."',
     choices: [
       {
         id: "A",
         text: "Hit back with a snarky comeback",
-        feedback: "You took the bait. Sarcasm confirms their comment landed. You've revealed the wound.",
-        logic: "Reacting emotionally proves they struck a nerve. Power doesn't rise to provocations.",
+        feedback:
+          "You took the bait. Sarcasm confirms their comment landed. You've revealed the wound.",
+        logic:
+          "Reacting emotionally proves they struck a nerve. Power doesn't rise to provocations.",
         isCorrect: false,
       },
       {
         id: "B",
-        text: "\"Adaptability is our strongest asset in a changing world. I'm glad you recognize it.\"",
-        feedback: "Brilliant. You've reframed their insult as a strength and refused to engage with the subtext.",
-        logic: "This is Verbal Aikido: use their force against them by reframing the narrative. You've turned 'unconventional' into 'adaptive' and made them complicit in praising you.",
+        text: '"Adaptability is our strongest asset in a changing world. I\'m glad you recognize it."',
+        feedback:
+          "Brilliant. You've reframed their insult as a strength and refused to engage with the subtext.",
+        logic:
+          "This is Verbal Aikido: use their force against them by reframing the narrative. You've turned 'unconventional' into 'adaptive' and made them complicit in praising you.",
         isCorrect: true,
       },
       {
         id: "C",
         text: "Laugh it off and change the subject",
         feedback: "You missed the insult entirely. Avoidance isn't finesse; it's evasion.",
-        logic: "Ignoring doesn't neutralize. They know you heard it, and so does everyone else. Strategic reframing is stronger than silence.",
+        logic:
+          "Ignoring doesn't neutralize. They know you heard it, and so does everyone else. Strategic reframing is stronger than silence.",
         isCorrect: false,
       },
     ],
@@ -124,9 +137,7 @@ export default function InteractiveRoleplays() {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <h2 className="text-5xl md:text-6xl font-serif text-white mb-6">
-            Interactive Roleplays
-          </h2>
+          <h2 className="text-5xl md:text-6xl font-serif text-white mb-6">Interactive Roleplays</h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
             Real scenarios. Real stakes. See the Finesse logic behind each response.
           </p>
@@ -158,7 +169,8 @@ export default function InteractiveRoleplays() {
           transition={{ duration: 0.5 }}
           className="backdrop-blur-xl rounded-2xl p-8 md:p-12 border border-amber-400/20 shadow-2xl"
           style={{
-            background: "linear-gradient(135deg, rgba(20, 20, 20, 0.95) 0%, rgba(10, 10, 10, 0.95) 100%)",
+            background:
+              "linear-gradient(135deg, rgba(20, 20, 20, 0.95) 0%, rgba(10, 10, 10, 0.95) 100%)",
           }}
         >
           {/* Context */}
@@ -167,9 +179,7 @@ export default function InteractiveRoleplays() {
               <span className="px-3 py-1 bg-amber-600 text-gray-900 rounded-full text-xs font-bold">
                 {selectedScenario.level}
               </span>
-              <h3 className="text-2xl font-serif text-amber-400">
-                {selectedScenario.title}
-              </h3>
+              <h3 className="text-2xl font-serif text-amber-400">{selectedScenario.title}</h3>
             </div>
             <p className="text-gray-300 text-lg leading-relaxed italic">
               "{selectedScenario.context}"
@@ -200,9 +210,7 @@ export default function InteractiveRoleplays() {
                   <span className="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full bg-gray-700 text-white font-bold">
                     {choice.id}
                   </span>
-                  <span className="text-gray-300 text-lg">
-                    {choice.text}
-                  </span>
+                  <span className="text-gray-300 text-lg">{choice.text}</span>
                 </div>
               </motion.button>
             ))}
@@ -223,13 +231,13 @@ export default function InteractiveRoleplays() {
                 }`}
               >
                 <div className="flex items-start gap-4 mb-6">
-                  <span className="text-4xl">
-                    {selectedChoice.isCorrect ? "✓" : "✗"}
-                  </span>
+                  <span className="text-4xl">{selectedChoice.isCorrect ? "✓" : "✗"}</span>
                   <div className="flex-1">
-                    <h4 className={`text-2xl font-serif mb-3 ${
-                      selectedChoice.isCorrect ? "text-amber-400" : "text-red-400"
-                    }`}>
+                    <h4
+                      className={`text-2xl font-serif mb-3 ${
+                        selectedChoice.isCorrect ? "text-amber-400" : "text-red-400"
+                      }`}
+                    >
                       {selectedChoice.isCorrect ? "Finesse Mastery" : "Missed Opportunity"}
                     </h4>
                     <p className="text-gray-300 text-lg leading-relaxed mb-4">
@@ -243,9 +251,7 @@ export default function InteractiveRoleplays() {
                   <h5 className="text-sm uppercase tracking-wider text-gray-400 mb-2 font-semibold">
                     The Finesse Logic
                   </h5>
-                  <p className="text-gray-300 leading-relaxed">
-                    {selectedChoice.logic}
-                  </p>
+                  <p className="text-gray-300 leading-relaxed">{selectedChoice.logic}</p>
                 </div>
 
                 <div className="flex gap-4 mt-6">

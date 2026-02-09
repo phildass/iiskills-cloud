@@ -19,7 +19,7 @@ export default function PremiumHero() {
           animate={{ rotate: -360, scale: [1, 1.2, 1] }}
           transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
         />
-        
+
         {/* Glass texture overlay */}
         <div className="absolute inset-0 bg-gradient-to-br from-amber-900/5 via-transparent to-amber-900/5" />
       </div>
@@ -71,7 +71,8 @@ export default function PremiumHero() {
           transition={{ duration: 0.8, delay: 0.7 }}
           className="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto mb-12 italic"
         >
-          Master the invisible mechanics of social intelligence, executive presence, and high-stakes negotiation.
+          Master the invisible mechanics of social intelligence, executive presence, and high-stakes
+          negotiation.
         </motion.p>
 
         {/* Primary CTA */}
@@ -93,7 +94,12 @@ export default function PremiumHero() {
                 stroke="currentColor"
                 viewBox="0 0 24 24"
               >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M13 7l5 5m0 0l-5 5m5-5H6"
+                />
               </svg>
             </span>
           </Link>

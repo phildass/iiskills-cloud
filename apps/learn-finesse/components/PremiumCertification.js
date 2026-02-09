@@ -17,18 +17,18 @@ export default function PremiumCertification() {
             <div className="inline-block px-4 py-2 bg-amber-600/20 border border-amber-600/30 rounded-full text-amber-400 text-sm font-semibold mb-6">
               iiskills Academy Premium
             </div>
-            
-            <h2 className="text-5xl md:text-6xl font-serif text-white mb-6">
-              The Final Layer
-            </h2>
-            
+
+            <h2 className="text-5xl md:text-6xl font-serif text-white mb-6">The Final Layer</h2>
+
             <p className="text-xl text-gray-300 leading-relaxed mb-6">
-              You've mastered <span className="text-amber-400 font-semibold">Learn Developer</span> or{" "}
-              <span className="text-amber-400 font-semibold">Learn Management</span>.
+              You've mastered <span className="text-amber-400 font-semibold">Learn Developer</span>{" "}
+              or <span className="text-amber-400 font-semibold">Learn Management</span>.
             </p>
-            
+
             <p className="text-xl text-gray-300 leading-relaxed mb-8">
-              Now, master the <span className="italic">people who hire them</span>. Finesse is the final layer that turns technical skill into <span className="text-amber-400 font-semibold">career velocity</span>.
+              Now, master the <span className="italic">people who hire them</span>. Finesse is the
+              final layer that turns technical skill into{" "}
+              <span className="text-amber-400 font-semibold">career velocity</span>.
             </p>
 
             <div className="space-y-4">
@@ -70,7 +70,8 @@ export default function PremiumCertification() {
             <div
               className="backdrop-blur-xl rounded-2xl p-8 border border-amber-400/30 shadow-2xl"
               style={{
-                background: "linear-gradient(135deg, rgba(30, 30, 30, 0.95) 0%, rgba(15, 15, 15, 0.95) 100%)",
+                background:
+                  "linear-gradient(135deg, rgba(30, 30, 30, 0.95) 0%, rgba(15, 15, 15, 0.95) 100%)",
               }}
             >
               {/* Badge Mockup */}
@@ -114,7 +115,8 @@ export default function PremiumCertification() {
 
               <div className="p-4 bg-amber-600/10 border border-amber-600/30 rounded-lg">
                 <p className="text-xs text-gray-400 text-center">
-                  Displays on your <span className="text-amber-400 font-semibold">iiskills Global Profile</span>
+                  Displays on your{" "}
+                  <span className="text-amber-400 font-semibold">iiskills Global Profile</span>
                 </p>
               </div>
             </div>
