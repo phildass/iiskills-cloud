@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { SecondaryImage } from "../../../components/shared/HeroManager";
 
 const LEVELS = [
   {
@@ -145,6 +146,25 @@ export default function TriLevelEngine() {
           >
             Begin Your Ascent
           </a>
+        </motion.div>
+
+        {/* Accent Image */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 1 }}
+          className="mt-16 relative"
+        >
+          <div className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-amber-600/30">
+            <div className="absolute inset-0 bg-gradient-to-br from-amber-900/20 via-transparent to-black/20 z-10" />
+            <SecondaryImage
+              appId="learn-finesse"
+              alt="Learn Finesse - Master the Art of Social Intelligence"
+              className="w-full"
+              style={{ aspectRatio: "16/9" }}
+            />
+          </div>
         </motion.div>
       </div>
     </div>

@@ -2,12 +2,40 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
+import { useState, useEffect } from "react";
+import { getHeroImagesForApp } from "../../../components/shared/HeroManager";
 
 export default function PremiumHero() {
+  const [heroImage, setHeroImage] = useState(null);
+
+  useEffect(() => {
+    const images = getHeroImagesForApp("learn-finesse");
+    setHeroImage(images[0]);
+  }, []);
+
   return (
-    <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-gray-900 via-slate-900 to-black">
-      {/* Animated Background Elements */}
-      <div className="absolute inset-0 overflow-hidden">
+    <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Hero Background Image */}
+      {heroImage && (
+        <div className="absolute inset-0 z-0">
+          <Image
+            src={`/images/${heroImage}`}
+            alt="Learn Finesse Hero"
+            fill
+            className="object-cover"
+            style={{ objectPosition: "50% 30%" }}
+            sizes="100vw"
+            priority
+          />
+        </div>
+      )}
+
+      {/* Dark overlay for better text readability - Obsidian theme */}
+      <div className="absolute inset-0 bg-gradient-to-br from-gray-900/90 via-slate-900/85 to-black/90 z-10" />
+
+      {/* Animated Background Elements - on top of image */}
+      <div className="absolute inset-0 overflow-hidden z-20">
         {/* Geometric shapes */}
         <motion.div
           className="absolute top-20 left-20 w-64 h-64 border border-amber-600/20 rounded-full"
@@ -20,12 +48,12 @@ export default function PremiumHero() {
           transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
         />
 
-        {/* Glass texture overlay */}
+        {/* Glass texture overlay - Gold accents */}
         <div className="absolute inset-0 bg-gradient-to-br from-amber-900/5 via-transparent to-amber-900/5" />
       </div>
 
       {/* Content */}
-      <div className="relative z-10 max-w-6xl mx-auto px-4 py-20 text-center">
+      <div className="relative z-30 max-w-6xl mx-auto px-4 py-20 text-center">
         {/* iiskills Academy Badge */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
