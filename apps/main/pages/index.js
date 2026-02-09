@@ -21,16 +21,22 @@ export default function Home() {
   const [randomImage6, setRandomImage6] = useState("");
   const [randomImage7, setRandomImage7] = useState("");
   const [randomImage8, setRandomImage8] = useState("");
+  const [randomImage9, setRandomImage9] = useState("");
+  const [randomImage10, setRandomImage10] = useState("");
+  const [randomImage11, setRandomImage11] = useState("");
+  const [randomImage12, setRandomImage12] = useState("");
+  const [randomImage13, setRandomImage13] = useState("");
+  const [randomImage14, setRandomImage14] = useState("");
 
   useEffect(() => {
     // Set random images for the page, ensuring no duplicates using Fisher-Yates shuffle
-    const images = getHeroImagesForApp('main').slice(1); // Get all secondary images (8 images)
+    const images = getHeroImagesForApp('main').slice(1); // Get all secondary images (14 images)
     const shuffled = [...images];
     for (let i = shuffled.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
     }
-    // Assign all 8 secondary images to states
+    // Assign all 14 secondary images to states
     setRandomImage1(shuffled[0] || images[0]);
     setRandomImage2(shuffled[1] || images[1] || images[0]);
     setRandomImage3(shuffled[2] || images[2] || images[0]);
@@ -39,6 +45,12 @@ export default function Home() {
     setRandomImage6(shuffled[5] || images[5] || images[0]);
     setRandomImage7(shuffled[6] || images[6] || images[0]);
     setRandomImage8(shuffled[7] || images[7] || images[0]);
+    setRandomImage9(shuffled[8] || images[8] || images[0]);
+    setRandomImage10(shuffled[9] || images[9] || images[0]);
+    setRandomImage11(shuffled[10] || images[10] || images[0]);
+    setRandomImage12(shuffled[11] || images[11] || images[0]);
+    setRandomImage13(shuffled[12] || images[12] || images[0]);
+    setRandomImage14(shuffled[13] || images[13] || images[0]);
   }, []);
 
   return (
@@ -358,6 +370,25 @@ export default function Home() {
         {/* Universal Search Bar (floating, always accessible) */}
         <MagicSearchBar />
 
+        {/* Accent Image - Vibrant Visual 5 */}
+        <section className="py-8 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="relative rounded-2xl overflow-hidden shadow-2xl">
+              {randomImage9 && (
+                <Image
+                  src={`/images/${randomImage9}`}
+                  alt="iiskills learning excellence"
+                  width={1200}
+                  height={400}
+                  className="w-full h-auto object-cover"
+                  style={{ maxHeight: '400px', objectFit: 'cover' }}
+                />
+              )}
+              <div className="absolute inset-0 bg-gradient-to-r from-green-900/30 via-transparent to-blue-900/30"></div>
+            </div>
+          </div>
+        </section>
+
         {/* Interactive Subject Switcher Widget */}
         <section className="py-16 bg-gradient-to-br from-gray-50 via-blue-50 to-purple-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -568,6 +599,40 @@ export default function Home() {
                     </div>
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Accent Image - Vibrant Visual 6 */}
+        <section className="py-8 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="relative rounded-xl overflow-hidden shadow-lg">
+                {randomImage10 && (
+                  <Image
+                    src={`/images/${randomImage10}`}
+                    alt="iiskills engaging learning experience"
+                    width={600}
+                    height={400}
+                    className="w-full h-auto object-cover"
+                    style={{ maxHeight: '400px' }}
+                  />
+                )}
+                <div className="absolute inset-0 bg-gradient-to-t from-green-900/40 to-transparent"></div>
+              </div>
+              <div className="relative rounded-xl overflow-hidden shadow-lg">
+                {randomImage11 && (
+                  <Image
+                    src={`/images/${randomImage11}`}
+                    alt="iiskills innovative learning methods"
+                    width={600}
+                    height={400}
+                    className="w-full h-auto object-cover"
+                    style={{ maxHeight: '400px' }}
+                  />
+                )}
+                <div className="absolute inset-0 bg-gradient-to-t from-blue-900/40 to-transparent"></div>
               </div>
             </div>
           </div>
@@ -933,6 +998,25 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Accent Image - Vibrant Visual 7 */}
+        <section className="py-8 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="relative rounded-2xl overflow-hidden shadow-2xl">
+              {randomImage12 && (
+                <Image
+                  src={`/images/${randomImage12}`}
+                  alt="iiskills transformative learning"
+                  width={1200}
+                  height={500}
+                  className="w-full h-auto object-cover"
+                  style={{ maxHeight: '500px', objectFit: 'cover' }}
+                />
+              )}
+              <div className="absolute inset-0 bg-gradient-to-r from-purple-900/30 via-transparent to-blue-900/30"></div>
+            </div>
+          </div>
+        </section>
+
         {/* Cross-App Unlock: Monorepo Marketing */}
         <section className="py-16 bg-white">
           <div className="max-w-6xl mx-auto px-4">
@@ -1032,6 +1116,40 @@ export default function Home() {
                 <p className="text-gray-700 text-lg">
                   <strong>One account. Unified progress. Seamless transition from free to premium.</strong>
                 </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Accent Image - Vibrant Visual 8 */}
+        <section className="py-8 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="relative rounded-xl overflow-hidden shadow-lg">
+                {randomImage13 && (
+                  <Image
+                    src={`/images/${randomImage13}`}
+                    alt="iiskills dedicated learners"
+                    width={600}
+                    height={400}
+                    className="w-full h-auto object-cover"
+                    style={{ maxHeight: '400px' }}
+                  />
+                )}
+                <div className="absolute inset-0 bg-gradient-to-t from-purple-900/40 to-transparent"></div>
+              </div>
+              <div className="relative rounded-xl overflow-hidden shadow-lg">
+                {randomImage14 && (
+                  <Image
+                    src={`/images/${randomImage14}`}
+                    alt="iiskills success stories"
+                    width={600}
+                    height={400}
+                    className="w-full h-auto object-cover"
+                    style={{ maxHeight: '400px' }}
+                  />
+                )}
+                <div className="absolute inset-0 bg-gradient-to-t from-green-900/40 to-transparent"></div>
               </div>
             </div>
           </div>

@@ -9,9 +9,11 @@ import { useState, useEffect } from 'react';
  * - Image with "hero" suffix in the name is used as the hero image (first in array)
  * - Other images from the folder are used randomly for secondary images
  * - Each app uses only its own images
- * - Main app: 1 hero + 8 random images for maximum variety
- * - Learn-geography app: 1 hero + 2 random images
- * - Other apps: 1 hero + 2 random images each
+ * - Main app: 1 hero + 14 secondary images for maximum variety (15 total)
+ * - Learn-ai app: 1 hero + 8 secondary images (9 total)
+ * - Learn-biology app: 1 hero + 6 secondary images (7 total)
+ * - Learn-geography app: 1 hero + 1 secondary image (2 total)
+ * - Other apps: 1 hero + 2 secondary images each (3 total)
  * - Renders a full-size hero background with first image (hero image)
  * - Positions overlay text at the bottom of the hero area
  * 
@@ -25,23 +27,25 @@ import { useState, useEffect } from 'react';
  * First image in array is the hero image (has "hero" in filename).
  * Other images are used for secondary display.
  * 
- * Main app has 9 images total (1 hero + 8 random images for variety)
+ * Main app has 15 images total (1 hero + 14 secondary images for variety)
+ * Learn-ai has 9 images total (1 hero + 8 secondary images)
+ * Learn-biology has 7 images total (1 hero + 6 secondary images)
  * Learn-finesse has 6 images total (1 hero + 5 random images for premium styling)
- * Learn-geography has 3 images total (1 hero + 2 random images)
+ * Learn-geography has 2 images total (1 hero + 1 secondary image)
  * Other apps have 3 images each (1 hero + 2 random images)
  * 
  * Note: Apps in apps-backup/ (learn-cricket, learn-companion, learn-leadership, learn-winning) 
  * are archived and no longer have image assignments here.
  */
 const APP_IMAGE_ASSIGNMENTS = {
-  'main': ['iiskills-main-hero.jpg', 'iiskills-main.1.jpg', 'iiskils.main.2.jpg', 'iiskills.main.3..jpg', 'iiskills.main.4..jpg', 'iiskills.main.5..jpg', 'iiskills.main.6..jpg', 'iiskills.main.7..jpg', 'iiskills.main.8..jpg'],
+  'main': ['iiskills-main-hero.jpg', 'iiskills-main.1.jpg', 'iiskils.main.2.jpg', 'iiskills.main.3..jpg', 'iiskills.main.4..jpg', 'iiskills.main.5..jpg', 'iiskills.main.6..jpg', 'iiskills.main.7..jpg', 'iiskills.main.8..jpg', 'iiskills-main-wm1.jpg', 'iiskills-main-wm2.jpg', 'iiskills-image1.jpg', 'iiskills-image2.jpg', 'iiskills-image3.jpg', 'iiskills-image4.jpg'],
   'learn-developer': ['iiskills-dev-hero.jpg', 'iiskills-dev-cman.jpg', 'iiskills-dev-couple.jpg'],
   'learn-management': ['girl-hero.jpg', 'iiskills-mgmt-mgrs.jpg', 'iiskills-mgmt-mgrs2.jpg'],
-  'learn-ai': ['iiskills-aii-hero.png', 'iiskills-ai-cafe.jpg', 'iiskills-ai-sar.png'],
+  'learn-ai': ['iiskills-aii-hero.png', 'iiskills-ai-cafe.jpg', 'iiskills-ai-sar.png', 'iiskills-ai-fl.jpg', 'iiskills-ai-h.jpg', 'iiskills-ai-wm.jpg', 'iiskills-ai-wm2.jpg', 'iiskills-ai-wm4.jpg', 'iiskills-ai-wm5.jpg'],
   'learn-math': ['iiskills-math-hero.jpg', 'iiskills-math-egirl.jpg', 'iiskills-math-mgirl.jpg'],
   'learn-physics': ['iiskills-physics-heor.jpg', 'iiskills-physics-eman.jpg', 'iiskills-physics-girls.jpg'],
   'learn-chemistry': ['iiskills-chem-hero.jpg', 'iiskills-chem-labman.jpg', 'iiskills-chem-lwoman.jpg'],
-  'learn-biology': ['iiskills-bio-hero.jpg', 'iiskills-bio-student.jpg', 'iiskills-bio-researcher.jpg'],
+  'learn-biology': ['iiskills-bio-hero.jpg', 'iiskills-bio-student.jpg', 'iiskills-bio-researcher.jpg', 'iiskills-bio-lab.jpg', 'iiskills-bio-mn.jpg', 'iiskills-bio-mn1.jpg', 'iiskills-bio-mn2.jpg'],
   'learn-geography': ['iiskills-geo-road.jpg', 'iiskills-geo-tour.jpg'],
   'learn-govt-jobs': ['iiskills-govt-hero.jpg', 'iiskills-govt-staff.jpg', 'iiskills-govt-teacher.jpg'],
   'learn-pr': ['iiskills-pr-hero.jpg', 'iiskills-pr-girl.jpg', 'iiskills-pr-media.jpg'],
@@ -52,7 +56,7 @@ const APP_IMAGE_ASSIGNMENTS = {
 /**
  * Get hero images for a specific app
  * @param {string} appId - The app identifier (e.g., "learn-developer")
- * @returns {Array<string>} Array of image filenames assigned to this app (3 for most apps, 9 for main)
+ * @returns {Array<string>} Array of image filenames assigned to this app (15 for main, 9 for learn-ai, 7 for learn-biology, 3 for most apps)
  */
 export function getHeroImagesForApp(appId) {
   // Return assigned images for the app, or fallback to a default set
