@@ -228,6 +228,25 @@ module.exports = {
       "out_file": path.join(__dirname, 'logs', 'learn-pr-out.log'),
       "log_file": path.join(__dirname, 'logs', 'learn-pr-combined.log'),
       "time": true
+    },
+    {
+      "name": "iiskills-learn-finesse",
+      "cwd": path.join(__dirname, 'apps/learn-finesse'),
+      "script": "npx",
+      "args": "next start",
+      "interpreter": "none",
+      "env": {
+        "NODE_ENV": "production",
+        "PORT": 3025
+      },
+      "instances": 1,
+      "autorestart": true,
+      "watch": false,
+      "max_memory_restart": "1G",
+      "error_file": path.join(__dirname, 'logs', 'learn-finesse-error.log'),
+      "out_file": path.join(__dirname, 'logs', 'learn-finesse-out.log'),
+      "log_file": path.join(__dirname, 'logs', 'learn-finesse-combined.log'),
+      "time": true
     }
   ]
 };
