@@ -202,6 +202,7 @@ export default function Home() {
                       { name: "Govt Jobs", icon: "🏛️", tagline: "Most rigorous simulation engine.", url: "https://app10.learn-govt-jobs.iiskills.cloud" },
                       { name: "PR", icon: "📢", tagline: "Psychology of power and influence.", url: "https://app3.learn-pr.iiskills.cloud" },
                       { name: "Management", icon: "📊", tagline: "Executive decision-making.", url: "https://app2.learn-management.iiskills.cloud" },
+                      { name: "Finesse", icon: "👔", tagline: "Master executive presence & social intelligence.", url: "https://app11.learn-finesse.iiskills.cloud" },
                     ].map((app) => (
                       <a
                         key={app.name}
@@ -253,7 +254,7 @@ export default function Home() {
                     <tr className="bg-gray-50">
                       <td className="px-6 py-4 text-sm font-medium text-gray-900">Subjects</td>
                       <td className="px-6 py-4 text-sm text-gray-700">Math, Physics, Chemistry, Geography, Aptitude</td>
-                      <td className="px-6 py-4 text-sm text-gray-700">AI, Developer, Govt Jobs, PR, Management</td>
+                      <td className="px-6 py-4 text-sm text-gray-700">AI, Developer, Govt Jobs, PR, Management, Finesse</td>
                     </tr>
                     <tr>
                       <td className="px-6 py-4 text-sm font-medium text-gray-900">Depth</td>
@@ -1051,7 +1052,7 @@ export default function Home() {
                 </p>
 
                 <p>
-                  Our Academy Suite (AI, Developer, Management, etc.) requires <strong>constant updates to keep pace with the global economy</strong>. 
+                  Our Academy Suite (AI, Developer, Management, Finesse, etc.) requires <strong>constant updates to keep pace with the global economy</strong>. 
                   These are professional-grade tools designed to increase your earning potential and prepare you for real-world career challenges.
                 </p>
 
@@ -1095,7 +1096,7 @@ export default function Home() {
                   </Link>
                 </div>
                 <p className="text-sm mt-4 opacity-90">
-                  <strong>Career Suite Pro Pass:</strong> Subscribe to get all 5 Professional Apps (AI, Developer, Govt Jobs, PR, Management) + Advanced Certifications. <Link href="/courses" className="underline hover:text-gray-200">View pricing →</Link>
+                  <strong>Career Suite Pro Pass:</strong> Subscribe to get all 6 Professional Apps (AI, Developer, Govt Jobs, PR, Management, Finesse) + Advanced Certifications. <Link href="/courses" className="underline hover:text-gray-200">View pricing →</Link>
                 </p>
               </div>
               <div className="flex-1">
