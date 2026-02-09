@@ -1,12 +1,12 @@
 "use client";
 
-import UniversalLandingPage from "../../../components/shared/UniversalLandingPage";
+import PaidAppLandingPage from "../../../components/shared/PaidAppLandingPage";
 
 export default function Home() {
   return (
-    <UniversalLandingPage
+    <PaidAppLandingPage
       appId="learn-management"
-      appName="Master Management Principles"
+      appName="Learn Management"
       headline="Transform Your Leadership Skills 🚀"
       subheadline="Master proven management techniques used by Fortune 500 companies. Build your career with real-world business strategies."
       title="Master Management Principles - iiskills.cloud"
@@ -43,8 +43,9 @@ export default function Home() {
     "description": "Lead organizational transformation, manage resistance, and drive innovation. Navigate complexity with confidence."
   }
 ]}
-      isFree={true}
       heroGradient="from-blue-600 to-purple-600"
+      sampleModuleId={1}
+      sampleLessonId={1}
     />
   );
 }

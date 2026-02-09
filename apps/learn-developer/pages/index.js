@@ -1,11 +1,12 @@
 "use client";
 
-import UniversalLandingPage from "../../../components/shared/UniversalLandingPage";
+import PaidAppLandingPage from "../../../components/shared/PaidAppLandingPage";
 
 export default function Home() {
   return (
-    <UniversalLandingPage
+    <PaidAppLandingPage
       appId="learn-developer"
+      appName="Learn Developer"
       headline="Code the Future. Train the Machine."
       subheadline="Stop Guessing. Start Building. The Path to Senior Engineer."
       title="Learn Developer - Build the Future | iiskills.cloud"
@@ -57,10 +58,10 @@ export default function Home() {
     "description": "Build real applications with JWT auth, CI/CD pipelines, security best practices, and scalable architectures"
   }
 ]}
-      isFree={false}
-      firstModuleId={1}
       heroGradient="from-cyan-500 via-blue-600 to-cyan-400"
-      themeColor="cyan"
+      showAIDevBundle={true}
+      sampleModuleId={1}
+      sampleLessonId={1}
     />
   );
 }

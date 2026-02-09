@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Footer from '../../../../components/Footer';
 import QuizComponent from '../../../../components/QuizComponent';
+import PremiumAccessPrompt from '@shared/PremiumAccessPrompt';
 import { getCurrentUser } from '../../../../lib/supabaseClient';
 
 export default function LessonPage() {
@@ -14,6 +15,7 @@ export default function LessonPage() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [quizCompleted, setQuizCompleted] = useState(false);
+  const [showPremiumPrompt, setShowPremiumPrompt] = useState(false);
 
   useEffect(() => {
     checkAuth();
@@ -127,6 +129,11 @@ export default function LessonPage() {
   const handleQuizComplete = async (passed, score) => {
     setQuizCompleted(passed);
     
+    // Show Premium Access Prompt after completing sample lesson (Module 1, Lesson 1)
+    if (passed && moduleId === '1' && lessonId === '1') {
+      setShowPremiumPrompt(true);
+    }
+    
     if (passed) {
       try {
         await fetch('/api/assessments/submit', {
@@ -227,6 +234,15 @@ export default function LessonPage() {
           )}
         </div>
       </main>
+
+      {/* Premium Access Prompt - shown after sample lesson completion */}
+      {showPremiumPrompt && (
+        <PremiumAccessPrompt
+          appName="Learn AI"
+          appHighlight="Move from user to architect. Understand neural logic and AI business models. Master the complete AI curriculum with exclusive Learn Developer bundle access."
+          onCancel={() => setShowPremiumPrompt(false)}
+        />
+      )}
 
       <Footer />
     </>
