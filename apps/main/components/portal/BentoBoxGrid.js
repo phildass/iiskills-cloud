@@ -45,7 +45,7 @@ export default function BentoBoxGrid() {
     },
     leader: {
       name: "The Leader",
-      apps: ["learn-management", "learn-pr"],
+      apps: ["learn-management", "learn-pr", "learn-finesse"],
     },
     scientist: {
       name: "The Scientist",

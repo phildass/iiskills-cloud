@@ -82,6 +82,20 @@ export const SITES = {
     slug: 'learn-pr',
     subdomain: 'learn-pr',
     localhostPort: 3021
+  },
+  'learn-finesse': {
+    name: 'Learn Finesse',
+    url: 'https://app11.learn-finesse.iiskills.cloud',
+    slug: 'learn-finesse',
+    subdomain: 'learn-finesse',
+    localhostPort: 3025
+  },
+  'learn-biology': {
+    name: 'Learn Biology',
+    url: 'https://app12.learn-biology.iiskills.cloud',
+    slug: 'learn-biology',
+    subdomain: 'learn-biology',
+    localhostPort: 3026
   }
 };
 
