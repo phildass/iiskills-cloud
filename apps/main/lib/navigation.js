@@ -9,10 +9,21 @@ import { SITES } from './siteConfig';
 /**
  * Get the URL for a specific site
  * @param {string} siteSlug - The site slug (e.g., 'learn-ai', 'main')
+ * @param {boolean} useLocalhost - Whether to use localhost URLs (for development)
  * @returns {string} The site URL
  */
-export const getSiteUrl = (siteSlug) => {
-  return SITES[siteSlug]?.url || SITES['main'].url;
+export const getSiteUrl = (siteSlug, useLocalhost = false) => {
+  const site = SITES[siteSlug] || SITES['main'];
+  
+  // Check if we should use localhost based on environment or parameter
+  const isLocalDev = process.env.NEXT_PUBLIC_USE_LOCALHOST === 'true' || 
+                     typeof window !== 'undefined' && window.location.hostname === 'localhost';
+  
+  if (useLocalhost || isLocalDev) {
+    return `http://localhost:${site.localhostPort}`;
+  }
+  
+  return site.url;
 };
 
 /**

@@ -324,6 +324,193 @@ export default function AdminDashboard() {
           </div>
         </div>
 
+        {/* Localhost Development Navigation */}
+        <h2 className="text-2xl font-bold text-primary mb-6">🔧 Localhost Development Navigation</h2>
+        <div className="bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-300 rounded-lg shadow-lg p-6 mb-12">
+          <div className="bg-blue-100 border-l-4 border-blue-500 p-4 mb-6">
+            <div className="flex">
+              <div className="flex-shrink-0">
+                <svg className="h-5 w-5 text-blue-500" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+                </svg>
+              </div>
+              <div className="ml-3">
+                <p className="text-sm text-blue-700">
+                  <strong>Local Development:</strong> Quick navigation to all apps running on localhost.
+                  Make sure the apps are running on their assigned ports before clicking.
+                </p>
+              </div>
+            </div>
+          </div>
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            {/* Main Site */}
+            <a
+              href="http://localhost:3000"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-white border-2 border-gray-300 rounded-lg p-4 hover:border-blue-500 hover:shadow-xl transition transform hover:scale-105"
+            >
+              <div className="flex items-center justify-between mb-2">
+                <h4 className="font-bold text-gray-800">Main Domain</h4>
+                <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded font-mono">:3000</span>
+              </div>
+              <p className="text-xs text-gray-600 mb-2">Primary Hub</p>
+              <div className="text-2xl">🏠</div>
+            </a>
+
+            {/* Learn AI */}
+            <a
+              href="http://localhost:3024"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-white border-2 border-purple-300 rounded-lg p-4 hover:border-purple-500 hover:shadow-xl transition transform hover:scale-105"
+            >
+              <div className="flex items-center justify-between mb-2">
+                <h4 className="font-bold text-gray-800">Learn AI</h4>
+                <span className="text-xs bg-purple-100 text-purple-800 px-2 py-1 rounded font-mono">:3024</span>
+              </div>
+              <p className="text-xs text-gray-600 mb-2">AI & Machine Learning</p>
+              <div className="text-2xl">🤖</div>
+            </a>
+
+            {/* Learn Management */}
+            <a
+              href="http://localhost:3016"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-white border-2 border-green-300 rounded-lg p-4 hover:border-green-500 hover:shadow-xl transition transform hover:scale-105"
+            >
+              <div className="flex items-center justify-between mb-2">
+                <h4 className="font-bold text-gray-800">Learn Management</h4>
+                <span className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded font-mono">:3016</span>
+              </div>
+              <p className="text-xs text-gray-600 mb-2">Business Management</p>
+              <div className="text-2xl">📊</div>
+            </a>
+
+            {/* Learn PR */}
+            <a
+              href="http://localhost:3021"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-white border-2 border-pink-300 rounded-lg p-4 hover:border-pink-500 hover:shadow-xl transition transform hover:scale-105"
+            >
+              <div className="flex items-center justify-between mb-2">
+                <h4 className="font-bold text-gray-800">Learn PR</h4>
+                <span className="text-xs bg-pink-100 text-pink-800 px-2 py-1 rounded font-mono">:3021</span>
+              </div>
+              <p className="text-xs text-gray-600 mb-2">Public Relations</p>
+              <div className="text-2xl">📢</div>
+            </a>
+
+            {/* Learn Math */}
+            <a
+              href="http://localhost:3017"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-white border-2 border-red-300 rounded-lg p-4 hover:border-red-500 hover:shadow-xl transition transform hover:scale-105"
+            >
+              <div className="flex items-center justify-between mb-2">
+                <h4 className="font-bold text-gray-800">Learn Math</h4>
+                <span className="text-xs bg-red-100 text-red-800 px-2 py-1 rounded font-mono">:3017</span>
+              </div>
+              <p className="text-xs text-gray-600 mb-2">Mathematics</p>
+              <div className="text-2xl">🔢</div>
+            </a>
+
+            {/* Learn Physics */}
+            <a
+              href="http://localhost:3020"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-white border-2 border-blue-300 rounded-lg p-4 hover:border-blue-500 hover:shadow-xl transition transform hover:scale-105"
+            >
+              <div className="flex items-center justify-between mb-2">
+                <h4 className="font-bold text-gray-800">Learn Physics</h4>
+                <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded font-mono">:3020</span>
+              </div>
+              <p className="text-xs text-gray-600 mb-2">Physics Mastery</p>
+              <div className="text-2xl">⚛️</div>
+            </a>
+
+            {/* Learn Chemistry */}
+            <a
+              href="http://localhost:3005"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-white border-2 border-purple-300 rounded-lg p-4 hover:border-purple-500 hover:shadow-xl transition transform hover:scale-105"
+            >
+              <div className="flex items-center justify-between mb-2">
+                <h4 className="font-bold text-gray-800">Learn Chemistry</h4>
+                <span className="text-xs bg-purple-100 text-purple-800 px-2 py-1 rounded font-mono">:3005</span>
+              </div>
+              <p className="text-xs text-gray-600 mb-2">Chemistry</p>
+              <div className="text-2xl">🧪</div>
+            </a>
+
+            {/* Learn Geography */}
+            <a
+              href="http://localhost:3011"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-white border-2 border-green-300 rounded-lg p-4 hover:border-green-500 hover:shadow-xl transition transform hover:scale-105"
+            >
+              <div className="flex items-center justify-between mb-2">
+                <h4 className="font-bold text-gray-800">Learn Geography</h4>
+                <span className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded font-mono">:3011</span>
+              </div>
+              <p className="text-xs text-gray-600 mb-2">World Geography</p>
+              <div className="text-2xl">🌍</div>
+            </a>
+
+            {/* Learn Govt Jobs */}
+            <a
+              href="http://localhost:3013"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-white border-2 border-yellow-300 rounded-lg p-4 hover:border-yellow-500 hover:shadow-xl transition transform hover:scale-105"
+            >
+              <div className="flex items-center justify-between mb-2">
+                <h4 className="font-bold text-gray-800">Learn Govt Jobs</h4>
+                <span className="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded font-mono">:3013</span>
+              </div>
+              <p className="text-xs text-gray-600 mb-2">Government Exams</p>
+              <div className="text-2xl">🏛️</div>
+            </a>
+
+            {/* Learn APT */}
+            <a
+              href="http://localhost:3002"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-white border-2 border-indigo-300 rounded-lg p-4 hover:border-indigo-500 hover:shadow-xl transition transform hover:scale-105"
+            >
+              <div className="flex items-center justify-between mb-2">
+                <h4 className="font-bold text-gray-800">Learn APT</h4>
+                <span className="text-xs bg-indigo-100 text-indigo-800 px-2 py-1 rounded font-mono">:3002</span>
+              </div>
+              <p className="text-xs text-gray-600 mb-2">Aptitude Tests</p>
+              <div className="text-2xl">🎯</div>
+            </a>
+
+            {/* Learn Developer */}
+            <a
+              href="http://localhost:3007"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-white border-2 border-orange-300 rounded-lg p-4 hover:border-orange-500 hover:shadow-xl transition transform hover:scale-105"
+            >
+              <div className="flex items-center justify-between mb-2">
+                <h4 className="font-bold text-gray-800">Learn Developer</h4>
+                <span className="text-xs bg-orange-100 text-orange-800 px-2 py-1 rounded font-mono">:3007</span>
+              </div>
+              <p className="text-xs text-gray-600 mb-2">Web Development</p>
+              <div className="text-2xl">💻</div>
+            </a>
+          </div>
+        </div>
+
         {/* Quick Links */}
         <h2 className="text-2xl font-bold text-primary mb-6">Quick Links</h2>
         <div className="bg-white rounded-lg shadow-lg p-6 mb-12">

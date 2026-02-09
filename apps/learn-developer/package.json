@@ -4,9 +4,9 @@
   "private": true,
   "description": "Learn Web Development - Web Developer Bootcamp",
   "scripts": {
-    "dev": "next dev -p 3024",
+    "dev": "next dev -p 3007",
     "build": "next build",
-    "start": "next start -p 3024",
+    "start": "next start -p 3007",
     "lint": "eslint ."
   },
   "dependencies": {
