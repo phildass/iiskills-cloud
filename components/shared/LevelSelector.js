@@ -74,6 +74,13 @@ export default function LevelSelector({
     }
   };
 
+  const handleKeyPress = (event, tier) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      handleTierSelect(tier);
+    }
+  };
+
   const handleQuizPass = () => {
     // User passed the quiz, redirect to appropriate level
     if (selectedTier.id === "intermediate") {
@@ -146,9 +153,14 @@ export default function LevelSelector({
               transition={{ delay: index * 0.1 }}
               whileHover={{ scale: 1.03 }}
               className="cursor-pointer"
-              onClick={() => handleTierSelect(tier)}
             >
-              <div className={`rounded-2xl p-6 border-4 ${tier.borderColor} ${tier.bgColor} shadow-xl hover:shadow-2xl transition-all duration-300 h-full flex flex-col`}>
+              <div 
+                role="button"
+                tabIndex={0}
+                onClick={() => handleTierSelect(tier)}
+                onKeyPress={(e) => handleKeyPress(e, tier)}
+                className={`rounded-2xl p-6 border-4 ${tier.borderColor} ${tier.bgColor} shadow-xl hover:shadow-2xl transition-all duration-300 h-full flex flex-col focus:outline-none focus:ring-4 focus:ring-blue-500`}
+              >
                 {/* Emoji Icon */}
                 <div className="text-center mb-4">
                   <div className="text-7xl mb-3">{tier.emoji}</div>

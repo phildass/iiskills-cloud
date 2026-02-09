@@ -24,6 +24,14 @@ export default function DiagnosticQuiz({
   const [answers, setAnswers] = useState([]);
   const [showResults, setShowResults] = useState(false);
   const [score, setScore] = useState(0);
+  const [correctCount, setCorrectCount] = useState(0);
+
+  // Helper function to calculate correct answers
+  const calculateCorrectCount = (userAnswers, quizQuestions) => {
+    return userAnswers.reduce((count, answer, index) => {
+      return count + (answer === quizQuestions[index].correctAnswer ? 1 : 0);
+    }, 0);
+  };
 
   // Default questions if none provided
   const defaultQuestions = [
@@ -89,11 +97,10 @@ export default function DiagnosticQuiz({
       setCurrentQuestion(currentQuestion + 1);
     } else {
       // Calculate score
-      const correctCount = newAnswers.reduce((count, answer, index) => {
-        return count + (answer === quizQuestions[index].correctAnswer ? 1 : 0);
-      }, 0);
+      const correct = calculateCorrectCount(newAnswers, quizQuestions);
+      setCorrectCount(correct);
       
-      const finalScore = (correctCount / quizQuestions.length) * 100;
+      const finalScore = (correct / quizQuestions.length) * 100;
       setScore(finalScore);
       setShowResults(true);
     }
@@ -104,8 +111,10 @@ export default function DiagnosticQuiz({
     setAnswers([]);
     setShowResults(false);
     setScore(0);
+    setCorrectCount(0);
   };
 
+  // Score is already a percentage (0-100), so 30 means 30%
   const isPassed = score >= 30;
 
   if (showResults) {
@@ -123,7 +132,7 @@ export default function DiagnosticQuiz({
                 Congratulations! You Passed!
               </h2>
               <p className="text-xl text-gray-700 mb-2">
-                Score: {score.toFixed(0)}% ({answers.filter((a, i) => a === quizQuestions[i].correctAnswer).length}/{quizQuestions.length} correct)
+                Score: {score.toFixed(0)}% ({correctCount}/{quizQuestions.length} correct)
               </p>
               <p className="text-gray-600 mb-6">
                 You've demonstrated sufficient knowledge to proceed to the {tier} tier.
@@ -142,7 +151,7 @@ export default function DiagnosticQuiz({
                 Additional Learning Recommended
               </h2>
               <p className="text-xl text-gray-700 mb-2">
-                Score: {score.toFixed(0)}% ({answers.filter((a, i) => a === quizQuestions[i].correctAnswer).length}/{quizQuestions.length} correct)
+                Score: {score.toFixed(0)}% ({correctCount}/{quizQuestions.length} correct)
               </p>
               <p className="text-gray-600 mb-6">
                 We recommend starting with the Basic tier to build a strong foundation.
