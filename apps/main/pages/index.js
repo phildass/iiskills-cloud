@@ -59,31 +59,30 @@ export default function Home() {
         `}</style>
       </Head>
       <main>
-        {/* HERO SECTION: Unified Portal */}
+        {/* HERO SECTION: Two-Tiered Knowledge Ecosystem */}
         <Hero appId="main" className="h-[70vh] md:h-[80vh] lg:h-[90vh]">
-          <div className="text-center text-white space-y-6 max-w-4xl mx-auto">
+          <div className="text-center text-white space-y-6 max-w-5xl mx-auto">
             <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold leading-tight tracking-tight">
-              One Engine. Infinite Mastery.
+              From Foundational Logic to Professional Mastery.
             </h1>
-            <p className="text-lg sm:text-xl lg:text-2xl leading-relaxed max-w-3xl mx-auto px-4">
-              We've standardized the laws of the universe. Using our signature Tri-Level Engine, 
-              you can master Math, Physics, Chemistry, and Geography through a single, proven logical flow. 
-              <span className="font-bold block mt-2">100% Free. 100% Open.</span>
+            <p className="text-lg sm:text-xl lg:text-2xl leading-relaxed max-w-4xl mx-auto px-4">
+              Master the laws of nature for free. Master the laws of the economy for a premium.
+              <span className="font-bold block mt-2">One engine, two paths, infinite growth.</span>
             </p>
             
-            {/* CTA Buttons - Universal Links */}
+            {/* CTA Buttons - Dual Path */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
               <Link
-                href="/courses"
-                className="inline-block bg-white text-primary px-8 py-4 rounded-lg font-bold shadow-lg hover:bg-gray-100 hover:shadow-xl transition-all duration-200 text-center text-base sm:text-lg min-w-[240px]"
+                href="#foundation"
+                className="inline-block bg-white text-green-600 px-8 py-4 rounded-lg font-bold shadow-lg hover:bg-gray-100 hover:shadow-xl transition-all duration-200 text-center text-base sm:text-lg min-w-[280px]"
               >
-                Explore Courses
+                Build My Foundation - $0
               </Link>
               <Link
-                href="/apps"
-                className="inline-block bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-bold hover:bg-white hover:text-primary transition-all duration-200 text-center text-base sm:text-lg min-w-[240px]"
+                href="#academy"
+                className="inline-block bg-gradient-to-r from-yellow-500 to-amber-600 border-2 border-yellow-400 text-gray-900 px-8 py-4 rounded-lg font-bold hover:from-yellow-400 hover:to-amber-500 transition-all duration-200 text-center text-base sm:text-lg min-w-[280px] shadow-lg"
               >
-                All Apps
+                Unlock The Career Suite
               </Link>
             </div>
           </div>
@@ -93,6 +92,189 @@ export default function Home() {
         <section className="py-8 bg-gray-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <TranslationFeatureBanner />
+          </div>
+        </section>
+
+        {/* DUAL-ENGINE LAYOUT: Foundation vs Academy */}
+        <section className="py-16 bg-gradient-to-br from-gray-100 to-gray-200">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-12">
+              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+                Two Paths. One Ecosystem.
+              </h2>
+              <p className="text-xl text-gray-700 max-w-3xl mx-auto">
+                Choose your learning journey: Build your cognitive foundation for free, or advance your career with professional expertise.
+              </p>
+            </div>
+
+            <div className="grid lg:grid-cols-2 gap-8">
+              {/* 🟢 THE FOUNDATION (FREE FOREVER) */}
+              <div id="foundation" className="bg-white rounded-2xl shadow-2xl overflow-hidden border-4 border-green-500">
+                <div className="bg-gradient-to-br from-green-500 via-blue-500 to-purple-600 text-white p-8">
+                  <div className="text-5xl mb-4">🟢</div>
+                  <h3 className="text-3xl font-bold mb-3">The Foundation</h3>
+                  <p className="text-xl font-semibold mb-2">Free Forever</p>
+                  <p className="text-lg opacity-90">
+                    "The tools every mind needs. No paywalls, no barriers."
+                  </p>
+                </div>
+                
+                <div className="p-8">
+                  <p className="text-gray-700 mb-6 text-lg">
+                    Build your cognitive base—essential for any high-level career. Master the laws of nature through our signature Tri-Level Engine.
+                  </p>
+                  
+                  {/* Free Apps List */}
+                  <div className="space-y-3 mb-6">
+                    {[
+                      { name: "Math", icon: "∑", color: "#DC143C", url: "https://app8.learn-math.iiskills.cloud" },
+                      { name: "Physics", icon: "⚡", color: "#0080FF", url: "https://app6.learn-physics.iiskills.cloud" },
+                      { name: "Chemistry", icon: "⚗️", color: "#9B59B6", url: "https://app7.learn-chemistry.iiskills.cloud" },
+                      { name: "Geography", icon: "🌍", color: "#10B981", url: "https://app9.learn-geography.iiskills.cloud" },
+                      { name: "Aptitude", icon: "🎯", color: "#6366F1", url: "https://app5.learn-apt.iiskills.cloud" },
+                    ].map((app) => (
+                      <a
+                        key={app.name}
+                        href={app.url}
+                        className="flex items-center justify-between p-4 rounded-lg border-2 hover:shadow-lg transition-all group"
+                        style={{ borderColor: app.color }}
+                      >
+                        <div className="flex items-center gap-3">
+                          <div className="text-3xl">{app.icon}</div>
+                          <span className="font-semibold text-lg text-gray-900">{app.name}</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="bg-green-500 text-white px-3 py-1 rounded-full text-sm font-bold">
+                            FREE
+                          </span>
+                          <span className="text-gray-400 group-hover:text-gray-900 transition-colors">→</span>
+                        </div>
+                      </a>
+                    ))}
+                  </div>
+
+                  <div className="bg-green-50 border-2 border-green-200 rounded-lg p-4">
+                    <p className="text-sm text-green-800 font-semibold">
+                      ✨ Universal Literacy • Academic Mastery • Cognitive Literacy
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* 💰 THE ACADEMY (CAREER SUITE - PAID) */}
+              <div id="academy" className="bg-gray-900 rounded-2xl shadow-2xl overflow-hidden border-4 border-yellow-500">
+                <div className="bg-gradient-to-br from-gray-800 via-gray-900 to-black text-white p-8 relative overflow-hidden">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-yellow-500/20 to-transparent rounded-full blur-3xl"></div>
+                  <div className="relative z-10">
+                    <div className="text-5xl mb-4">💰</div>
+                    <h3 className="text-3xl font-bold mb-3">The Academy</h3>
+                    <p className="text-xl font-semibold mb-2 text-yellow-400">Career Suite - Premium</p>
+                    <p className="text-lg opacity-90">
+                      "Specialized expertise for the modern professional."
+                    </p>
+                  </div>
+                </div>
+                
+                <div className="p-8 bg-gradient-to-br from-gray-900 to-gray-800 text-white">
+                  <p className="text-gray-300 mb-6 text-lg">
+                    Direct-to-employment skills, advanced certifications, in-depth industry modules. Your premium subscription fuels cutting-edge research and development.
+                  </p>
+                  
+                  {/* Paid Apps List */}
+                  <div className="space-y-3 mb-6">
+                    {[
+                      { name: "AI", icon: "🤖", tagline: "Stop prompting. Start Architecting.", url: "https://app1.learn-ai.iiskills.cloud" },
+                      { name: "Developer", icon: "💻", tagline: "Industry-standard stacks. System Design.", url: "https://app4.learn-developer.iiskills.cloud" },
+                      { name: "Govt Jobs", icon: "🏛️", tagline: "Most rigorous simulation engine.", url: "https://app10.learn-govt-jobs.iiskills.cloud" },
+                      { name: "PR", icon: "📢", tagline: "Psychology of power and influence.", url: "https://app3.learn-pr.iiskills.cloud" },
+                      { name: "Management", icon: "📊", tagline: "Executive decision-making.", url: "https://app2.learn-management.iiskills.cloud" },
+                    ].map((app) => (
+                      <a
+                        key={app.name}
+                        href={app.url}
+                        className="block p-4 rounded-lg border-2 border-gray-700 hover:border-yellow-500 hover:shadow-lg transition-all group bg-gray-800/50"
+                      >
+                        <div className="flex items-center justify-between mb-2">
+                          <div className="flex items-center gap-3">
+                            <div className="text-3xl">{app.icon}</div>
+                            <span className="font-semibold text-lg text-white">Learn {app.name}</span>
+                          </div>
+                          <span className="text-gray-400 group-hover:text-yellow-400 transition-colors">→</span>
+                        </div>
+                        <p className="text-sm text-gray-400 pl-12">{app.tagline}</p>
+                      </a>
+                    ))}
+                  </div>
+
+                  <div className="bg-yellow-500/10 border-2 border-yellow-500/30 rounded-lg p-4">
+                    <p className="text-sm text-yellow-300 font-semibold">
+                      🏆 Professional Competitiveness • Industry-Ready • Career Readiness
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Feature Comparison Table */}
+            <div className="mt-12 bg-white rounded-xl shadow-xl overflow-hidden">
+              <div className="bg-gradient-to-r from-primary to-accent text-white p-6">
+                <h3 className="text-2xl font-bold text-center">Feature Comparison</h3>
+              </div>
+              
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead className="bg-gray-100">
+                    <tr>
+                      <th className="px-6 py-4 text-left text-sm font-semibold text-gray-900">Feature</th>
+                      <th className="px-6 py-4 text-left text-sm font-semibold text-green-700">The Foundation (Free)</th>
+                      <th className="px-6 py-4 text-left text-sm font-semibold text-yellow-700">The Academy (Premium)</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-200">
+                    <tr>
+                      <td className="px-6 py-4 text-sm font-medium text-gray-900">Objective</td>
+                      <td className="px-6 py-4 text-sm text-gray-700">Universal Literacy</td>
+                      <td className="px-6 py-4 text-sm text-gray-700">Professional Competitiveness</td>
+                    </tr>
+                    <tr className="bg-gray-50">
+                      <td className="px-6 py-4 text-sm font-medium text-gray-900">Subjects</td>
+                      <td className="px-6 py-4 text-sm text-gray-700">Math, Physics, Chemistry, Geography, Aptitude</td>
+                      <td className="px-6 py-4 text-sm text-gray-700">AI, Developer, Govt Jobs, PR, Management</td>
+                    </tr>
+                    <tr>
+                      <td className="px-6 py-4 text-sm font-medium text-gray-900">Depth</td>
+                      <td className="px-6 py-4 text-sm text-gray-700">Academic Mastery</td>
+                      <td className="px-6 py-4 text-sm text-gray-700">Industry-Ready Implementation</td>
+                    </tr>
+                    <tr className="bg-gray-50">
+                      <td className="px-6 py-4 text-sm font-medium text-gray-900">Tier System</td>
+                      <td className="px-6 py-4 text-sm text-gray-700">Basic → Intermediate → Advanced</td>
+                      <td className="px-6 py-4 text-sm text-gray-700">Specialist → Architect → Lead</td>
+                    </tr>
+                    <tr>
+                      <td className="px-6 py-4 text-sm font-medium text-gray-900">Testing</td>
+                      <td className="px-6 py-4 text-sm text-gray-700">Standard Gatekeepers</td>
+                      <td className="px-6 py-4 text-sm text-gray-700">Simulation & Case Study Exams</td>
+                    </tr>
+                    <tr className="bg-gray-50">
+                      <td className="px-6 py-4 text-sm font-medium text-gray-900">Support</td>
+                      <td className="px-6 py-4 text-sm text-gray-700">Community-Driven</td>
+                      <td className="px-6 py-4 text-sm text-gray-700">Expert-Vetted Curriculum</td>
+                    </tr>
+                    <tr>
+                      <td className="px-6 py-4 text-sm font-medium text-gray-900">Outcome</td>
+                      <td className="px-6 py-4 text-sm text-gray-700">Cognitive Literacy</td>
+                      <td className="px-6 py-4 text-sm text-gray-700">Career Readiness</td>
+                    </tr>
+                    <tr className="bg-green-50">
+                      <td className="px-6 py-4 text-sm font-bold text-gray-900">Cost</td>
+                      <td className="px-6 py-4 text-lg font-bold text-green-700">$0</td>
+                      <td className="px-6 py-4 text-lg font-bold text-yellow-700">Premium Subscription</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -638,29 +820,174 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Cross-App Unlock: Monorepo Marketing */}
+        <section className="py-16 bg-white">
+          <div className="max-w-6xl mx-auto px-4">
+            <div className="bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 rounded-2xl p-8 md:p-12 shadow-xl">
+              <div className="text-center mb-8">
+                <h2 className="text-4xl font-bold text-primary mb-4">
+                  Built on the same DNA.
+                </h2>
+                <p className="text-xl text-gray-700">
+                  One profile, one continuous journey from student to professional.
+                </p>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-8">
+                {/* Example 1: Math to Developer */}
+                <div className="bg-white rounded-xl p-6 shadow-lg border-l-4 border-blue-500">
+                  <div className="flex items-start gap-4 mb-4">
+                    <div className="text-4xl">💻</div>
+                    <div>
+                      <h3 className="text-xl font-bold text-gray-900 mb-2">Learn Developer</h3>
+                      <p className="text-gray-700">
+                        <strong>Mastered Learn Math (Free)?</strong> You already have 40% of the logic needed for this course. 
+                        Jump straight into the code while others struggle with basic algorithms.
+                      </p>
+                    </div>
+                  </div>
+                  <a
+                    href="https://app4.learn-developer.iiskills.cloud"
+                    className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-all"
+                  >
+                    Start Developer Path →
+                  </a>
+                </div>
+
+                {/* Example 2: Physics/Math to AI */}
+                <div className="bg-white rounded-xl p-6 shadow-lg border-l-4 border-purple-500">
+                  <div className="flex items-start gap-4 mb-4">
+                    <div className="text-4xl">🤖</div>
+                    <div>
+                      <h3 className="text-xl font-bold text-gray-900 mb-2">Learn AI</h3>
+                      <p className="text-gray-700">
+                        <strong>Strong foundation in Physics & Math?</strong> That's the secret to understanding Neural Networks. 
+                        Our free modules prepare you for the most advanced AI concepts.
+                      </p>
+                    </div>
+                  </div>
+                  <a
+                    href="https://app1.learn-ai.iiskills.cloud"
+                    className="inline-block bg-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-purple-700 transition-all"
+                  >
+                    Start AI Path →
+                  </a>
+                </div>
+
+                {/* Example 3: Geography to Govt Jobs */}
+                <div className="bg-white rounded-xl p-6 shadow-lg border-l-4 border-red-500">
+                  <div className="flex items-start gap-4 mb-4">
+                    <div className="text-4xl">🏛️</div>
+                    <div>
+                      <h3 className="text-xl font-bold text-gray-900 mb-2">Learn Govt Jobs</h3>
+                      <p className="text-gray-700">
+                        <strong>Completed Geography & Aptitude?</strong> You're already ahead in the UPSC/SSC game.
+                        Our premium simulation engine builds on your foundation knowledge.
+                      </p>
+                    </div>
+                  </div>
+                  <a
+                    href="https://app10.learn-govt-jobs.iiskills.cloud"
+                    className="inline-block bg-red-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-red-700 transition-all"
+                  >
+                    Start Govt Jobs Path →
+                  </a>
+                </div>
+
+                {/* Example 4: Foundation to Management */}
+                <div className="bg-white rounded-xl p-6 shadow-lg border-l-4 border-indigo-500">
+                  <div className="flex items-start gap-4 mb-4">
+                    <div className="text-4xl">📊</div>
+                    <div>
+                      <h3 className="text-xl font-bold text-gray-900 mb-2">Learn Management</h3>
+                      <p className="text-gray-700">
+                        <strong>Did you master Math Level 3?</strong> You've done the hard work.
+                        Data-driven decision making becomes natural when you understand the numbers.
+                      </p>
+                    </div>
+                  </div>
+                  <a
+                    href="https://app2.learn-management.iiskills.cloud"
+                    className="inline-block bg-indigo-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-indigo-700 transition-all"
+                  >
+                    Start Management Path →
+                  </a>
+                </div>
+              </div>
+
+              <div className="mt-8 text-center">
+                <p className="text-gray-700 text-lg">
+                  <strong>One account. Unified progress. Seamless transition from free to premium.</strong>
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Why It's Paid Philosophy Block */}
+        <section className="py-16 bg-gradient-to-br from-gray-100 to-gray-200">
+          <div className="max-w-4xl mx-auto px-4">
+            <div className="bg-white rounded-2xl p-8 md:p-12 shadow-2xl">
+              <div className="text-center mb-8">
+                <div className="text-5xl mb-4">💡</div>
+                <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                  Why some apps are free, and others are premium.
+                </h2>
+              </div>
+
+              <div className="space-y-6 text-lg text-gray-700 leading-relaxed">
+                <p>
+                  <strong className="text-primary">We believe the laws of the universe—Math, Physics, and Science—should be a human right.</strong> 
+                  That's why our Foundation Suite is <span className="text-green-600 font-bold">free forever</span>.
+                </p>
+
+                <p>
+                  Our Academy Suite (AI, Developer, Management, etc.) requires <strong>constant updates to keep pace with the global economy</strong>. 
+                  These are professional-grade tools designed to increase your earning potential and prepare you for real-world career challenges.
+                </p>
+
+                <p>
+                  <strong className="text-accent">Your premium subscription fuels the research and development that keeps both tiers cutting-edge.</strong> 
+                  When you invest in the Academy, you're not just advancing your career—you're supporting universal access to foundational knowledge for everyone.
+                </p>
+
+                <div className="bg-gradient-to-r from-green-50 to-blue-50 border-l-4 border-green-500 p-6 rounded-lg mt-8">
+                  <p className="font-semibold text-gray-900">
+                    🌟 <strong>Our Promise:</strong> The Foundation (Math, Physics, Chemistry, Geography, Aptitude) will always remain 100% free. 
+                    Your success in our paid courses helps keep it that way.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Call to Action */}
         <section className="py-16 bg-gradient-to-r from-primary to-accent text-white">
           <div className="max-w-6xl mx-auto px-4">
             <div className="flex flex-col md:flex-row items-center gap-8">
               <div className="flex-1 text-center md:text-left">
-                <h2 className="text-4xl font-bold mb-6">Ready to Transform Your Future?</h2>
+                <h2 className="text-4xl font-bold mb-6">Ready to Build Your Future?</h2>
                 <p className="text-2xl mb-8">
-                  Join thousands of learners building skills for tomorrow
+                  Start with a free foundation, or jump straight into career-ready skills
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
                   <Link
-                    href="/courses"
-                    className="inline-block bg-white text-primary px-10 py-4 rounded-lg font-bold text-lg hover:bg-gray-100 transition"
+                    href="#foundation"
+                    className="inline-block bg-white text-green-600 px-10 py-4 rounded-lg font-bold text-lg hover:bg-gray-100 transition"
                   >
-                    Get Started Now
+                    Start Free Foundation
                   </Link>
                   <Link
-                    href="/about"
-                    className="inline-block bg-transparent border-2 border-white text-white px-10 py-4 rounded-lg font-bold text-lg hover:bg-white hover:text-primary transition"
+                    href="#academy"
+                    className="inline-block bg-gradient-to-r from-yellow-500 to-amber-600 border-2 border-yellow-400 text-gray-900 px-10 py-4 rounded-lg font-bold text-lg hover:from-yellow-400 hover:to-amber-500 transition"
                   >
-                    Learn More About Us
+                    Unlock Career Suite
                   </Link>
                 </div>
+                <p className="text-sm mt-4 opacity-90">
+                  <strong>Pro Pass:</strong> Get all 5 Professional Apps + Advanced Certifications
+                </p>
               </div>
               <div className="flex-1">
                 <div className="relative rounded-lg overflow-hidden shadow-2xl">
