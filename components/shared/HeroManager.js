@@ -12,7 +12,7 @@ import { useState, useEffect } from "react";
  * - Main app: 1 hero + 14 secondary images for maximum variety (15 total)
  * - Learn-ai app: 1 hero + 8 secondary images (9 total)
  * - Learn-biology app: 1 hero + 6 secondary images (7 total)
- * - Learn-geography app: 1 hero + 1 secondary image (2 total)
+ * - Learn-geography app: 1 hero + 2 secondary images (3 total)
  * - Other apps: 1 hero + 2 secondary images each (3 total)
  * - Renders a full-size hero background with first image (hero image)
  * - Positions overlay text at the bottom of the hero area
@@ -31,7 +31,7 @@ import { useState, useEffect } from "react";
  * Learn-ai has 9 images total (1 hero + 8 secondary images)
  * Learn-biology has 7 images total (1 hero + 6 secondary images)
  * Learn-finesse has 6 images total (1 hero + 5 random images for premium styling)
- * Learn-geography has 2 images total (1 hero + 1 secondary image)
+ * Learn-geography has 3 images total (1 hero + 2 secondary images)
  * Other apps have 3 images each (1 hero + 2 random images)
  *
  * Note: Apps in apps-backup/ (learn-cricket, learn-companion, learn-leadership, learn-winning)
@@ -88,7 +88,7 @@ const APP_IMAGE_ASSIGNMENTS = {
     "iiskills-bio-mn1.jpg",
     "iiskills-bio-mn2.jpg",
   ],
-  "learn-geography": ["iiskills-geo-road.jpg", "iiskills-geo-tour.jpg"],
+  "learn-geography": ["iiskills-geo-hero.jpg", "iiskills-geo-road.jpg", "iiskills-geo-tour.jpg"],
   "learn-govt-jobs": [
     "iiskills-govt-hero.jpg",
     "iiskills-govt-staff.jpg",
