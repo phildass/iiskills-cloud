@@ -26,6 +26,7 @@ import { useState, useEffect } from 'react';
  * Other images are used for secondary display.
  * 
  * Main app has 9 images total (1 hero + 8 random images for variety)
+ * Learn-finesse has 6 images total (1 hero + 5 random images for premium styling)
  * Learn-geography has 3 images total (1 hero + 2 random images)
  * Other apps have 3 images each (1 hero + 2 random images)
  * 
@@ -43,7 +44,8 @@ const APP_IMAGE_ASSIGNMENTS = {
   'learn-geography': ['iiskills-geo-hero.jpg', 'iiskills-geo-road.jpg', 'iiskills-geo-tour.jpg'],
   'learn-govt-jobs': ['iiskills-govt-hero.jpg', 'iiskills-govt-staff.jpg', 'iiskills-govt-teacher.jpg'],
   'learn-pr': ['iiskills-pr-hero.jpg', 'iiskills-pr-girl.jpg', 'iiskills-pr-media.jpg'],
-  'learn-apt': ['iiskills-apt-heo.jpg', 'iiskills-apt-boyu.jpg', 'iiskills-apt-girl.jpg']
+  'learn-apt': ['iiskills-apt-heo.jpg', 'iiskills-apt-boyu.jpg', 'iiskills-apt-girl.jpg'],
+  'learn-finesse': ['iiskills-finesse-hero.jpg', 'iiskills-finesse-bw.jpg', 'iiskills-finesse-grpm.jpg', 'iiskills-finesse-grpmw.jpg', 'iiskills-finesse-grpmwg.jpg', 'iiskills-finesse-grpw.jpg']
 };
 
 /**

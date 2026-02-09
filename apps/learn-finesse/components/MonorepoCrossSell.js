@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { SecondaryImage } from "../../../components/shared/HeroManager";
 
 const BUNDLE_APPS = [
   {
@@ -131,6 +132,25 @@ export default function MonorepoCrossSell() {
                 .
               </p>
             </div>
+          </div>
+        </motion.div>
+
+        {/* Accent Image - Premium Visual */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+          className="mb-12 relative"
+        >
+          <div className="relative rounded-2xl overflow-hidden shadow-2xl border-2 border-amber-600/20">
+            <div className="absolute inset-0 bg-gradient-to-br from-black/30 via-transparent to-amber-900/30 z-10" />
+            <SecondaryImage
+              appId="learn-finesse"
+              alt="Learn Finesse - Professional Excellence"
+              className="w-full"
+              style={{ aspectRatio: "21/9" }}
+            />
           </div>
         </motion.div>
 

@@ -16,18 +16,29 @@ export default function Home() {
   const [randomImage1, setRandomImage1] = useState('');
   const [randomImage2, setRandomImage2] = useState('');
   const [randomImage3, setRandomImage3] = useState('');
+  const [randomImage4, setRandomImage4] = useState('');
+  const [randomImage5, setRandomImage5] = useState('');
+  const [randomImage6, setRandomImage6] = useState('');
+  const [randomImage7, setRandomImage7] = useState('');
+  const [randomImage8, setRandomImage8] = useState('');
 
   useEffect(() => {
     // Set random images for the page, ensuring no duplicates using Fisher-Yates shuffle
-    const images = getHeroImagesForApp('main').slice(1); // Get all secondary images
+    const images = getHeroImagesForApp('main').slice(1); // Get all secondary images (8 images)
     const shuffled = [...images];
     for (let i = shuffled.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
     }
+    // Assign all 8 secondary images to states
     setRandomImage1(shuffled[0] || images[0]);
     setRandomImage2(shuffled[1] || images[1] || images[0]);
-    setRandomImage3(shuffled[2] || images[1] || images[0]);
+    setRandomImage3(shuffled[2] || images[2] || images[0]);
+    setRandomImage4(shuffled[3] || images[3] || images[0]);
+    setRandomImage5(shuffled[4] || images[4] || images[0]);
+    setRandomImage6(shuffled[5] || images[5] || images[0]);
+    setRandomImage7(shuffled[6] || images[6] || images[0]);
+    setRandomImage8(shuffled[7] || images[7] || images[0]);
   }, []);
 
   return (
@@ -318,6 +329,25 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Accent Image - Vibrant Visual 1 */}
+        <section className="py-8 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="relative rounded-2xl overflow-hidden shadow-2xl">
+              {randomImage4 && (
+                <Image
+                  src={`/images/${randomImage4}`}
+                  alt="iiskills learning community"
+                  width={1200}
+                  height={400}
+                  className="w-full h-auto object-cover"
+                  style={{ maxHeight: '400px', objectFit: 'cover' }}
+                />
+              )}
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-900/30 via-transparent to-purple-900/30"></div>
+            </div>
+          </div>
+        </section>
+
         {/* Universal Search Bar (floating, always accessible) */}
         <MagicSearchBar />
 
@@ -429,6 +459,29 @@ export default function Home() {
                     </div>
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Accent Image - Vibrant Visual 2 */}
+        <section className="py-0 bg-white">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="relative rounded-xl overflow-hidden shadow-xl">
+              {randomImage5 && (
+                <Image
+                  src={`/images/${randomImage5}`}
+                  alt="iiskills tri-level learning journey"
+                  width={1000}
+                  height={500}
+                  className="w-full h-auto object-cover"
+                  style={{ maxHeight: '500px' }}
+                />
+              )}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+              <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                <h3 className="text-2xl font-bold mb-2">Master Your Learning Journey</h3>
+                <p className="text-lg opacity-90">From foundational concepts to advanced expertise</p>
               </div>
             </div>
           </div>
@@ -714,6 +767,25 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Accent Image - Vibrant Visual 3 */}
+        <section className="py-12 bg-gradient-to-br from-gray-50 to-white">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-primary/20">
+              {randomImage6 && (
+                <Image
+                  src={`/images/${randomImage6}`}
+                  alt="iiskills interactive learning platform"
+                  width={1200}
+                  height={600}
+                  className="w-full h-auto object-cover"
+                  style={{ maxHeight: '600px' }}
+                />
+              )}
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-accent/20"></div>
+            </div>
+          </div>
+        </section>
+
         {/* Featured Courses Preview */}
         <section className="py-16 bg-white">
           <div className="max-w-6xl mx-auto px-4">
@@ -797,6 +869,40 @@ export default function Home() {
         <section className="py-16 bg-white">
           <div className="max-w-4xl mx-auto px-4">
             <GatekeeperTest />
+          </div>
+        </section>
+
+        {/* Accent Image - Vibrant Visual 4 */}
+        <section className="py-8 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="relative rounded-xl overflow-hidden shadow-lg">
+                {randomImage7 && (
+                  <Image
+                    src={`/images/${randomImage7}`}
+                    alt="iiskills collaborative learning"
+                    width={600}
+                    height={400}
+                    className="w-full h-auto object-cover"
+                    style={{ maxHeight: '400px' }}
+                  />
+                )}
+                <div className="absolute inset-0 bg-gradient-to-t from-blue-900/40 to-transparent"></div>
+              </div>
+              <div className="relative rounded-xl overflow-hidden shadow-lg">
+                {randomImage8 && (
+                  <Image
+                    src={`/images/${randomImage8}`}
+                    alt="iiskills achievement and growth"
+                    width={600}
+                    height={400}
+                    className="w-full h-auto object-cover"
+                    style={{ maxHeight: '400px' }}
+                  />
+                )}
+                <div className="absolute inset-0 bg-gradient-to-t from-purple-900/40 to-transparent"></div>
+              </div>
+            </div>
           </div>
         </section>
 
