@@ -8,6 +8,7 @@
  * - App-specific highlights
  * - Optional AI-Developer Bundle pitch
  * - Post-sample Premium Access flow
+ * - UNIVERSAL DIAGNOSTIC FUNNEL: "Where would you like to start?" with tier selection
  */
 
 import Head from "next/head";
@@ -17,8 +18,12 @@ import Hero, { SecondaryImage } from "./HeroManager";
 import { getCurrentUser } from "../../lib/supabaseClient";
 import SampleLessonShowcase from "./SampleLessonShowcase";
 import AIDevBundlePitch from "./AIDevBundlePitch";
+
 import CalibrationGatekeeper from "./CalibrationGatekeeper";
 import PremiumAccessPrompt from "./PremiumAccessPrompt";
+
+import LevelSelector from "./LevelSelector";
+
 
 /**
  * Generate standardized app context label
@@ -179,6 +184,14 @@ export default function PaidAppLandingPage({
             )}
           </div>
         </Hero>
+
+        {/* UNIVERSAL DIAGNOSTIC FUNNEL: Where would you like to start? */}
+        <LevelSelector
+          appName={appName}
+          sampleModuleUrl={`/modules/${sampleModuleId}/lesson/${sampleLessonId}`}
+          intermediateUrl="/curriculum?level=intermediate"
+          advancedUrl="/curriculum?level=advanced"
+        />
 
         {/* Features Section */}
         {features && features.length > 0 && (

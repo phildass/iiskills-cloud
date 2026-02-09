@@ -12,6 +12,7 @@
  * - User authentication detection
  * - Full-size hero background with bottom-aligned overlay text
  * - Standardized app context labels (e.g., "iiskills PR", "iiskills Management")
+ * - UNIVERSAL DIAGNOSTIC FUNNEL: "Where would you like to start?" with tier selection
  */
 
 import Head from "next/head";
@@ -20,8 +21,12 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import Hero, { getHeroImagesForApp, SecondaryImage } from "./HeroManager";
 import { getCurrentUser } from "../../lib/supabaseClient";
+
 import CalibrationGatekeeper from "./CalibrationGatekeeper";
 import PremiumAccessPrompt from "./PremiumAccessPrompt";
+
+import LevelSelector from "./LevelSelector";
+
 
 /**
  * Generate standardized app context label
@@ -333,6 +338,14 @@ export default function UniversalLandingPage({
           )}
           */}
         </Hero>
+
+        {/* UNIVERSAL DIAGNOSTIC FUNNEL: Where would you like to start? */}
+        <LevelSelector
+          appName={appName}
+          sampleModuleUrl={`/modules/${firstModuleId}/lesson/1`}
+          intermediateUrl="/curriculum?level=intermediate"
+          advancedUrl="/curriculum?level=advanced"
+        />
 
         {/* Features Section */}
         {features && features.length > 0 && (
