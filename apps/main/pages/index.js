@@ -13,14 +13,14 @@ import GatekeeperTest from "../components/portal/GatekeeperTest";
 export default function Home() {
   const pricing = getPricingDisplay();
   const introNotice = getIntroOfferNotice();
-  const [randomImage1, setRandomImage1] = useState('');
-  const [randomImage2, setRandomImage2] = useState('');
-  const [randomImage3, setRandomImage3] = useState('');
-  const [randomImage4, setRandomImage4] = useState('');
-  const [randomImage5, setRandomImage5] = useState('');
-  const [randomImage6, setRandomImage6] = useState('');
-  const [randomImage7, setRandomImage7] = useState('');
-  const [randomImage8, setRandomImage8] = useState('');
+  const [randomImage1, setRandomImage1] = useState("");
+  const [randomImage2, setRandomImage2] = useState("");
+  const [randomImage3, setRandomImage3] = useState("");
+  const [randomImage4, setRandomImage4] = useState("");
+  const [randomImage5, setRandomImage5] = useState("");
+  const [randomImage6, setRandomImage6] = useState("");
+  const [randomImage7, setRandomImage7] = useState("");
+  const [randomImage8, setRandomImage8] = useState("");
 
   useEffect(() => {
     // Set random images for the page, ensuring no duplicates using Fisher-Yates shuffle
