@@ -9,7 +9,7 @@ export default function Home() {
       appName="Learn PR"
       headline="Master the Art of Public Relations ✨"
       subheadline="Build your brand, manage crises, and dominate media coverage. Learn PR strategies from industry experts."
-      title="Master Public Relations - iiskills.cloud"
+      title="iiskills-pr - Master Public Relations"
       description="Learn PR strategies, media relations, and communication skills to build and maintain a positive public image."
       features={[
   {

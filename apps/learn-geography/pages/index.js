@@ -9,7 +9,7 @@ export default function Home() {
       appName="Explore Our Interconnected World 🌍"
       headline="Command the Systems of Earth"
       subheadline="Navigate physical and human geography from grids to geopolitics. The Systems Path awaits."
-      title="Master Geography - iiskills.cloud"
+      title="iiskills-geography - Master Geography"
       description="Discover the physical and human dimensions of our planet. Comprehensive lessons covering landforms, climate systems, cultures, and global relationships that shape our interconnected world."
       features={[
   {

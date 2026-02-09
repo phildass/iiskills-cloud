@@ -9,7 +9,7 @@ export default function Home() {
       appName="Unlock the Living Blueprint 🧬"
       headline="Decode the Ingredients of Life"
       subheadline="Explore cellular machinery, biological systems, and genetic codes. From organelles to ecosystems—master the logic of life."
-      title="Master Biology Concepts - iiskills.cloud"
+      title="iiskills-biology - Master Biology Concepts"
       description="Build comprehensive understanding of biology from cellular structures to complex ecosystems. Interactive lessons, virtual labs, and real-world applications that bring the living world to life."
       features={[
   {

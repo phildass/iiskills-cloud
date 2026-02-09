@@ -9,7 +9,7 @@ export default function Home() {
       appName="Discover the Magic of Chemistry 🧪"
       headline="Decode the Ingredients of Reality"
       subheadline="Explore the atomic world from basic elements to complex reactions. The Elemental Path unveils."
-      title="Master Chemistry Concepts - iiskills.cloud"
+      title="iiskills-chemistry - Master Chemistry Concepts"
       description="Build a comprehensive understanding of chemistry from atomic structure to complex reactions. Interactive lessons, virtual labs, and real-world applications that bring the molecular world to life."
       features={[
   {

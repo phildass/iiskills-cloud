@@ -9,7 +9,7 @@ export default function Home() {
       appName="Unlock the Universe of Physics 🌟"
       headline="Master the Laws of the Universe"
       subheadline="Explore the fundamental forces that govern reality. The Force Path begins here."
-      title="Master Physics - iiskills.cloud"
+      title="iiskills-physics - Master Physics"
       description="Explore the fundamental laws that govern our universe through interactive lessons, real-world applications, and cutting-edge physics concepts. From classical mechanics to quantum theory."
       features={[
   {
