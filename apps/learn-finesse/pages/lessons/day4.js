@@ -44,6 +44,8 @@ const CULTURAL_CONTEXTS = {
   }
 };
 
+const QUIZ_CORRECT_ANSWER = "B"; // Option B is the correct cultural response
+
 export default function Day4Lesson() {
   const [selectedContext, setSelectedContext] = useState("western");
   const [quizAnswer, setQuizAnswer] = useState(null);
@@ -54,7 +56,7 @@ export default function Day4Lesson() {
     setQuizAnswer(answer);
     setShowFeedback(true);
     // Show premium prompt if they got the correct answer
-    if (answer === "B") {
+    if (answer === QUIZ_CORRECT_ANSWER) {
       setTimeout(() => setShowPremiumPrompt(true), 2000); // Show after 2 seconds
     }
   };
@@ -307,7 +309,7 @@ export default function Day4Lesson() {
                 }`}
               >
                 <h3 className="font-bold text-xl mb-2">
-                  {quizAnswer === "B" ? "✅ Correct!" : "❌ Not Quite"}
+                  {quizAnswer === QUIZ_CORRECT_ANSWER ? "✅ Correct!" : "❌ Not Quite"}
                 </h3>
                 <p className="text-gray-800 mb-3">
                   {quizAnswer === "A" &&

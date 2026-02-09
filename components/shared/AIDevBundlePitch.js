@@ -15,13 +15,11 @@ export default function AIDevBundlePitch({ currentApp = "learn-ai" }) {
   const bundleInfo = {
     "learn-ai": {
       otherApp: "Learn Developer",
-      otherAppUrl: "https://app4.learn-developer.iiskills.cloud",
       icon: "💻",
       pitch: "Master both AI and full-stack development. Understanding code makes you a better AI architect."
     },
     "learn-developer": {
       otherApp: "Learn AI",
-      otherAppUrl: "https://app1.learn-ai.iiskills.cloud",
       icon: "🤖",
       pitch: "AI is transforming software development. Master both to stay ahead of the curve."
     }

@@ -14,6 +14,26 @@
 import { useState } from "react";
 import Link from "next/link";
 
+/**
+ * Helper function to get sample lesson URL based on app structure
+ */
+function getSampleLessonUrl(appId, moduleId, lessonId) {
+  if (appId === "learn-finesse") {
+    return "/lessons/day4"; // Learn Finesse uses day-based structure
+  }
+  return `/modules/${moduleId}/lesson/${lessonId}`; // Standard module-based structure
+}
+
+/**
+ * Helper function to get test/assessment URL based on app structure
+ */
+function getTestUrl(appId, moduleId) {
+  if (appId === "learn-finesse") {
+    return "/lessons/day4"; // Learn Finesse uses interactive scenarios in lessons
+  }
+  return `/modules/${moduleId}/test`; // Standard test structure
+}
+
 export default function SampleLessonShowcase({ 
   appId,
   appName,
@@ -239,7 +259,7 @@ export default function SampleLessonShowcase({
               </div>
 
               <Link
-                href={appId === "learn-finesse" ? "/lessons/day4" : `/modules/${sampleModuleId}/lesson/${sampleLessonId}`}
+                href={getSampleLessonUrl(appId, sampleModuleId, sampleLessonId)}
                 className="inline-block bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-lg font-bold text-lg hover:from-blue-700 hover:to-purple-700 transition-all shadow-lg hover:shadow-xl"
               >
                 Start Sample Lesson →
@@ -277,7 +297,7 @@ export default function SampleLessonShowcase({
               </div>
 
               <Link
-                href={appId === "learn-finesse" ? "/lessons/day4" : `/modules/${sampleModuleId}/test`}
+                href={getTestUrl(appId, sampleModuleId)}
                 className="inline-block bg-gradient-to-r from-green-600 to-teal-600 text-white px-8 py-4 rounded-lg font-bold text-lg hover:from-green-700 hover:to-teal-700 transition-all shadow-lg hover:shadow-xl"
               >
                 {appId === "learn-finesse" ? "Experience Interactive Scenarios →" : "Take Level 1 Test →"}
