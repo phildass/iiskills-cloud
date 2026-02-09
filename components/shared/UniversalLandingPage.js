@@ -20,6 +20,8 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import Hero, { getHeroImagesForApp, SecondaryImage } from "./HeroManager";
 import { getCurrentUser } from "../../lib/supabaseClient";
+import CalibrationGatekeeper from "./CalibrationGatekeeper";
+import PremiumAccessPrompt from "./PremiumAccessPrompt";
 
 /**
  * Generate standardized app context label
@@ -112,13 +114,49 @@ export default function UniversalLandingPage({
   metaDescription = null,
   firstModuleId = 1, // Default first module ID for paid apps
   appContextLabel = null, // New: Standardized app context line (e.g., "iiskills PR")
+  appType = null, // For gatekeeper questions (e.g., "math", "physics", "ai")
 }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [images, setImages] = useState([]);
+  const [showPaymentPreview, setShowPaymentPreview] = useState(false);
 
   // Auto-generate app context label if not provided
   const displayAppContextLabel = appContextLabel || getAppContextLabel(appId);
+
+  // Map appId to appType for gatekeeper questions
+  const getAppType = () => {
+    if (appType) return appType;
+    
+    // Extract app type from appId (e.g., "learn-math" -> "math")
+    const typeMap = {
+      "learn-math": "math",
+      "learn-physics": "physics",
+      "learn-chemistry": "chemistry",
+      "learn-biology": "biology",
+      "learn-geography": "geography",
+      "learn-apt": "aptitude",
+      "learn-ai": "ai",
+      "learn-developer": "developer",
+      "learn-finesse": "finesse",
+      "learn-management": "management",
+      "learn-pr": "pr",
+      "learn-govt-jobs": "govt-jobs",
+    };
+    return typeMap[appId] || "math";
+  };
+
+  const handleGatekeeperSuccess = () => {
+    // For free apps, navigate to Lesson 1.1
+    if (isFree) {
+      window.location.href = `/modules/1/lesson/1`;
+    }
+  };
+
+  const handlePaymentRequired = () => {
+    // For paid apps, show payment preview
+    setShowPaymentPreview(true);
+  };
 
   useEffect(() => {
     const checkUser = async () => {
@@ -317,6 +355,26 @@ export default function UniversalLandingPage({
               </div>
             </div>
           </section>
+        )}
+
+        {/* Level 1 Qualifier (Gatekeeper) Section */}
+        <CalibrationGatekeeper
+          appName={appName}
+          appType={getAppType()}
+          tier="Level 1"
+          isPaid={!isFree}
+          onCalibrationSuccess={handleGatekeeperSuccess}
+          onPaymentRequired={handlePaymentRequired}
+        />
+
+        {/* Payment Preview Modal (for paid apps) */}
+        {showPaymentPreview && (
+          <PremiumAccessPrompt
+            appName={appName}
+            appHighlight={description}
+            showAIDevBundle={appId === "learn-ai" || appId === "learn-developer"}
+            onCancel={() => setShowPaymentPreview(false)}
+          />
         )}
 
         {/* Direct Course Access Links Section */}

@@ -17,99 +17,82 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 
-// Sample calibration questions per app theme
+// Level 1 Qualifier (Gatekeeper) questions per app - as per progression charts
 const CALIBRATION_QUESTIONS = {
+  // FOUNDATION SUITE (Free Apps)
   math: {
-    question: "If f(x) = 2x² - 3x + 1, what is f(3)?",
-    options: ["10", "12", "14", "16"],
-    correctAnswer: 0,
-    explanation: "f(3) = 2(3)² - 3(3) + 1 = 2(9) - 9 + 1 = 18 - 9 + 1 = 10",
+    question: "If a set of numbers is 2, 4, 8, 16, what is the formula for the nth term?",
+    options: ["n²", "2n", "2^n (Exponential growth)", "n + 2"],
+    correctAnswer: 2,
+    explanation: "The pattern shows exponential growth: 2¹=2, 2²=4, 2³=8, 2⁴=16. The formula is 2^n.",
   },
   physics: {
-    question: "A 5kg object experiences a net force of 20N. What is its acceleration?",
-    options: ["2 m/s²", "4 m/s²", "15 m/s²", "25 m/s²"],
+    question: "If you double the mass of an object but keep the force the same, what happens to acceleration?",
+    options: ["It doubles", "It is halved (F = ma)", "It stays the same", "It quadruples"],
     correctAnswer: 1,
-    explanation: "Using F = ma, a = F/m = 20N / 5kg = 4 m/s²",
-  },
-  chemistry: {
-    question: "What is the molar mass of H₂O (water)?",
-    options: ["16 g/mol", "18 g/mol", "20 g/mol", "22 g/mol"],
-    correctAnswer: 1,
-    explanation: "H₂O = 2(1) + 16 = 18 g/mol",
+    explanation: "Using F = ma, if F is constant and m doubles, then a = F/(2m) = (F/m)/2, so acceleration is halved.",
   },
   biology: {
-    question: "What is the powerhouse of the cell?",
+    question: "Which organelle acts as the 'Power Plant' generating ATP for the cell?",
     options: ["Nucleus", "Ribosome", "Mitochondria", "Chloroplast"],
     correctAnswer: 2,
-    explanation: "Mitochondria generate ATP through cellular respiration",
+    explanation: "Mitochondria are the powerhouse of the cell, generating ATP through cellular respiration.",
+  },
+  chemistry: {
+    question: "Which type of bond involves the sharing of electron pairs between atoms?",
+    options: ["Ionic Bond", "Covalent Bond", "Metallic Bond", "Hydrogen Bond"],
+    correctAnswer: 1,
+    explanation: "A covalent bond is formed when atoms share electron pairs between them.",
   },
   geography: {
-    question: "Which line of latitude divides the Earth into Northern and Southern hemispheres?",
-    options: ["Tropic of Cancer", "Equator", "Prime Meridian", "Tropic of Capricorn"],
-    correctAnswer: 1,
-    explanation: "The Equator (0° latitude) divides Earth into Northern and Southern hemispheres",
+    question: "On a map with a scale of 1:100,000, a 5cm line represents how many kilometers?",
+    options: ["5 km", "10 km", "50 km", "100 km"],
+    correctAnswer: 0,
+    explanation: "Scale 1:100,000 means 1cm = 1km. Therefore, 5cm = 5km.",
   },
   aptitude: {
-    question: "If all Bloops are Razzies and all Razzies are Lazzies, then all Bloops are:",
-    options: ["Definitely Lazzies", "Definitely not Lazzies", "Cannot be determined", "Sometimes Lazzies"],
-    correctAnswer: 0,
-    explanation: "This is a valid syllogism. If A⊆B and B⊆C, then A⊆C",
+    question: "3 workers build a wall in 6 hours. How many workers are needed to do it in 2 hours?",
+    options: ["3 workers", "6 workers", "9 workers (Inverse ratio)", "12 workers"],
+    correctAnswer: 2,
+    explanation: "Work is constant. 3 workers × 6 hours = 18 worker-hours. For 2 hours: 18 ÷ 2 = 9 workers needed (inverse ratio).",
   },
+  
+  // ACADEMY SUITE (Paid Apps)
   ai: {
-    question: "What type of machine learning uses labeled training data?",
-    options: ["Unsupervised Learning", "Supervised Learning", "Reinforcement Learning", "Transfer Learning"],
-    correctAnswer: 1,
-    explanation: "Supervised learning uses labeled datasets to train models",
+    question: "In Machine Learning, does 'Supervised Learning' require labeled data?",
+    options: ["Yes, it requires labeled data", "No, it doesn't require labeled data", "Only sometimes", "It depends on the algorithm"],
+    correctAnswer: 0,
+    explanation: "Supervised Learning requires labeled training data to learn the mapping between inputs and outputs. Master Neural Architectures.",
   },
   developer: {
-    question: "What does 'DRY' stand for in programming principles?",
-    options: [
-      "Don't Repeat Yourself",
-      "Do Repeat Yourself",
-      "Data Retrieval Yield",
-      "Debug Run Yearly"
-    ],
-    correctAnswer: 0,
-    explanation: "DRY (Don't Repeat Yourself) is a principle to reduce code repetition",
-  },
-  "govt-jobs": {
-    question: "The Constitution of India was adopted on which date?",
-    options: ["26 January 1950", "26 November 1949", "15 August 1947", "26 January 1949"],
-    correctAnswer: 1,
-    explanation: "The Constitution was adopted on 26 November 1949, came into effect on 26 January 1950",
-  },
-  pr: {
-    question: "In crisis communication, what is the first priority?",
-    options: [
-      "Protect company reputation",
-      "Ensure stakeholder safety and transparency",
-      "Issue legal disclaimers",
-      "Minimize media coverage"
-    ],
-    correctAnswer: 1,
-    explanation: "Safety and transparency are paramount in crisis communication",
-  },
-  management: {
-    question: "In Agile methodology, what is a 'Sprint'?",
-    options: [
-      "A marathon planning session",
-      "A time-boxed iteration for development",
-      "A quick meeting",
-      "A project milestone"
-    ],
-    correctAnswer: 1,
-    explanation: "A Sprint is a time-boxed iteration (typically 2-4 weeks) in Agile",
+    question: "Which HTTP method is typically used to update existing data on a server?",
+    options: ["GET", "POST", "PUT or PATCH", "DELETE"],
+    correctAnswer: 2,
+    explanation: "PUT or PATCH methods are used to update existing resources on a server. PUT replaces the entire resource, while PATCH applies partial modifications.",
   },
   finesse: {
-    question: "In executive presence, what is the 'power pause'?",
-    options: [
-      "Taking a break during meetings",
-      "Strategic silence to emphasize a point",
-      "Pausing to check phone",
-      "Stopping mid-sentence"
-    ],
+    question: "If a client goes silent after your pitch, should you:",
+    options: ["A) Fill the gap immediately", "B) Wait and let the silence work", "C) Change the subject", "D) Apologize"],
     correctAnswer: 1,
-    explanation: "The power pause is strategic silence used to emphasize key points and command attention",
+    explanation: "Master Executive Presence: Option B - Wait. Strategic silence after your pitch creates pressure and shows confidence. Don't rush to fill the gap.",
+  },
+  management: {
+    question: "A 'Bottleneck' in a workflow is defined by the stage with the:",
+    options: ["A) Highest cost", "B) Lowest capacity", "C) Most workers", "D) Longest distance"],
+    correctAnswer: 1,
+    explanation: "Optimize Human Systems: A bottleneck is the stage with the lowest capacity (B), which limits the entire workflow's throughput.",
+  },
+  pr: {
+    question: "Is the primary goal of PR to buy ads or to earn 'Organic Authority'?",
+    options: ["Buy ads", "Earn Organic Authority", "Both equally", "Neither"],
+    correctAnswer: 1,
+    explanation: "Control Public Perception: The primary goal of PR is to earn Organic Authority through media relations, not to buy advertising space.",
+  },
+  "govt-jobs": {
+    question: "Which pillar of the Constitution ensures the separation of Judiciary and Executive?",
+    options: ["Fundamental Rights (Part III)", "Directive Principles (Art 50)", "Emergency Provisions", "Amendment Procedure"],
+    correctAnswer: 1,
+    explanation: "Directive Principles of State Policy, specifically Article 50, mandates the separation of Judiciary from the Executive to ensure independent justice.",
   },
 };
 
@@ -172,11 +155,11 @@ export default function CalibrationGatekeeper({
           >
             <div className="text-6xl mb-4">🎯</div>
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              Calibration Gatekeeper
+              Level 1 Qualifier (Gatekeeper)
             </h2>
             <p className="text-lg text-gray-700 mb-6">
-              Complete this qualifying logic question to confirm your <strong>{tier}</strong> tier
-              entry for <strong>{appName}</strong>
+              Complete this qualifying question to access <strong>{appName}</strong>
+              {isPaid ? " and unlock the payment preview" : " Lesson 1.1"}
             </p>
             <motion.button
               whileHover={{ scale: 1.05 }}
