@@ -73,7 +73,7 @@ export default function LandingPage({
   return (
     <>
       <Head>
-        <title>Find Government Jobs That Match You - Learn Govt Jobs</title>
+        <title>iiskills-govt-jobs - Find Government Jobs That Match You</title>
         <meta name="description" content="AI-powered government job search platform. Find jobs by state, category, qualification with real-time updates from verified sources." />
       </Head>
 
