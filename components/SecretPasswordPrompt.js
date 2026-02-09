@@ -16,9 +16,15 @@
 
 import { useState } from "react";
 
-// Get secret password from environment variable or use default for development
-// In production, this should be removed or the env var should not be set
-const SECRET_PASSWORD = process.env.NEXT_PUBLIC_ADMIN_SECRET_PASSWORD || "iiskills123";
+// Get secret password from localStorage (if changed) or use default
+// In production, this should be removed or the password should be stored securely in a database
+const getSecretPassword = () => {
+  if (typeof window !== "undefined") {
+    return localStorage.getItem("iiskills_admin_password") || process.env.NEXT_PUBLIC_ADMIN_SECRET_PASSWORD || "iiskills123";
+  }
+  return process.env.NEXT_PUBLIC_ADMIN_SECRET_PASSWORD || "iiskills123";
+};
+
 const ADMIN_FLAG_KEY = "iiskills_secret_admin";
 
 export default function SecretPasswordPrompt({ onSuccess }) {
@@ -33,6 +39,8 @@ export default function SecretPasswordPrompt({ onSuccess }) {
 
     // Simulate a small delay for UX
     setTimeout(() => {
+      const SECRET_PASSWORD = getSecretPassword();
+      
       if (password === SECRET_PASSWORD) {
         // Store admin flag in localStorage for session persistence
         // NOTE: This is not secure - client-side flags can be manipulated

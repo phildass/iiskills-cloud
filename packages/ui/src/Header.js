@@ -30,15 +30,9 @@ export default function Header({
 }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // Check if open access mode is enabled
-  // In open access mode, hide all authentication UI elements
-  const isOpenAccess = 
-    process.env.NEXT_PUBLIC_OPEN_ACCESS === "true" ||
-    process.env.NEXT_PUBLIC_DISABLE_AUTH === "true" ||
-    process.env.NEXT_PUBLIC_TEST_MODE === "true";
-
-  // Override showAuthButtons if in open access mode
-  const shouldShowAuthButtons = showAuthButtons && !isOpenAccess;
+  // UNIVERSAL NAV UPDATE: Register and Sign In links must be visible to ALL users
+  // Removed open access mode override to ensure auth buttons always show when prop is true
+  const shouldShowAuthButtons = showAuthButtons;
 
   const handleLogout = async () => {
     if (onLogout) {

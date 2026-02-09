@@ -1,4 +1,5 @@
 import Head from "next/head";
+import { useState } from "react";
 // import ProtectedRoute from "../../components/ProtectedRoute";
 import AdminNav from "../../components/AdminNav";
 import Footer from "../../components/Footer";
@@ -6,6 +7,63 @@ import { getCurrentPricing, formatPrice } from "../../utils/pricing";
 
 export default function AdminSettings() {
   const pricing = getCurrentPricing();
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [passwordMessage, setPasswordMessage] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+
+  const handlePasswordChange = (e) => {
+    e.preventDefault();
+    setPasswordMessage("");
+    setPasswordError("");
+
+    // Validate passwords
+    if (!currentPassword || !newPassword || !confirmPassword) {
+      setPasswordError("All password fields are required");
+      return;
+    }
+
+    if (newPassword !== confirmPassword) {
+      setPasswordError("New password and confirm password do not match");
+      return;
+    }
+
+    if (newPassword.length < 8) {
+      setPasswordError("New password must be at least 8 characters long");
+      return;
+    }
+
+    // Check current password (default is 'iiskills123')
+    const storedPassword = localStorage.getItem("iiskills_admin_password") || "iiskills123";
+    if (currentPassword !== storedPassword) {
+      setPasswordError("Current password is incorrect");
+      return;
+    }
+
+    // Save new password to localStorage
+    // NOTE: This is for demo purposes only. In production, this should be stored securely in a database
+    localStorage.setItem("iiskills_admin_password", newPassword);
+    
+    // Update the environment variable equivalent in localStorage for SecretPasswordPrompt
+    // This ensures the new password works with the login prompt
+    if (typeof window !== "undefined") {
+      // Clear the session to force re-authentication with new password
+      localStorage.removeItem("iiskills_secret_admin");
+      sessionStorage.removeItem("iiskills_secret_admin");
+    }
+
+    setPasswordMessage("Password changed successfully! Please log in again with your new password.");
+    setCurrentPassword("");
+    setNewPassword("");
+    setConfirmPassword("");
+
+    // Redirect to login after 2 seconds
+    setTimeout(() => {
+      window.location.href = "/admin";
+    }, 2000);
+  };
+
   return (
     <>
       <Head>
@@ -16,6 +74,80 @@ export default function AdminSettings() {
         <h1 className="text-3xl font-bold text-primary mb-8">Site Settings</h1>
 
         <div className="space-y-6">
+          {/* Admin Password Management */}
+          <div className="bg-white rounded-lg shadow p-6 border-l-4 border-red-500">
+            <h2 className="text-xl font-bold text-red-600 mb-4">🔐 Admin Password Management</h2>
+            <p className="text-sm text-gray-600 mb-4">
+              Change your admin password. Default password is <code className="bg-gray-100 px-2 py-1 rounded">iiskills123</code>
+            </p>
+            
+            <form onSubmit={handlePasswordChange} className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-charcoal mb-2">
+                  Current Password
+                </label>
+                <input
+                  type="password"
+                  value={currentPassword}
+                  onChange={(e) => setCurrentPassword(e.target.value)}
+                  className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-500"
+                  placeholder="Enter current password"
+                />
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-charcoal mb-2">
+                  New Password
+                </label>
+                <input
+                  type="password"
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                  className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-500"
+                  placeholder="Enter new password (min 8 characters)"
+                />
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-charcoal mb-2">
+                  Confirm New Password
+                </label>
+                <input
+                  type="password"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-500"
+                  placeholder="Confirm new password"
+                />
+              </div>
+
+              {passwordError && (
+                <div className="bg-red-50 border-2 border-red-300 rounded p-3">
+                  <p className="text-red-700 text-sm font-medium">{passwordError}</p>
+                </div>
+              )}
+
+              {passwordMessage && (
+                <div className="bg-green-50 border-2 border-green-300 rounded p-3">
+                  <p className="text-green-700 text-sm font-medium">{passwordMessage}</p>
+                </div>
+              )}
+
+              <button
+                type="submit"
+                className="w-full bg-red-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-red-700 transition"
+              >
+                Change Admin Password
+              </button>
+            </form>
+
+            <div className="mt-4 bg-yellow-50 border border-yellow-200 rounded p-3">
+              <p className="text-yellow-800 text-xs">
+                <strong>⚠️ Security Note:</strong> This is a demo implementation. In production, passwords should be stored securely in a database with proper hashing and encryption.
+              </p>
+            </div>
+          </div>
+
           <div className="bg-white rounded-lg shadow p-6">
             <h2 className="text-xl font-bold text-accent mb-4">General Settings</h2>
             <div className="space-y-4">
