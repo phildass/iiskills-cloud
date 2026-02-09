@@ -150,7 +150,7 @@ export default function BoardroomSimulation() {
                       ? "border-amber-400 bg-amber-400/10"
                       : "border-red-500 bg-red-500/10"
                     : "border-gray-700 bg-gray-800/50 hover:border-gray-600"
-                } ${showFeedback && !selectedChoice?.id !== choice.id ? "opacity-50" : ""}`}
+                } ${showFeedback && selectedChoice?.id !== choice.id ? "opacity-50" : ""}`}
               >
                 <div className="flex items-start gap-4">
                   <span className="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full bg-gray-700 text-white font-bold">

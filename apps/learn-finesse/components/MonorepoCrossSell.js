@@ -144,7 +144,7 @@ export default function MonorepoCrossSell() {
         >
           <a
             href="https://iiskills.cloud"
-            className="inline-block px-12 py-5 bg-gradient-to-r from-amber-600 via-yellow-500 to-amber-400 text-gray-900 font-bold text-xl rounded-full shadow-2xl hover:shadow-amber-500/50 transition-all duration-300 hover:scale-105 animate-pulse"
+            className="inline-block px-12 py-5 bg-gradient-to-r from-amber-600 via-yellow-500 to-amber-400 text-gray-900 font-bold text-xl rounded-full shadow-2xl hover:shadow-amber-500/50 transition-all duration-300 hover:scale-105"
           >
             Get the Academy Bundle
           </a>
