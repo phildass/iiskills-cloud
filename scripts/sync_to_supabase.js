@@ -93,6 +93,16 @@ function slugify(text) {
 }
 
 /**
+ * Format app name as title (e.g., "learn-ai" -> "Ai Course")
+ */
+function formatAppNameAsTitle(appName) {
+  return appName
+    .replace('learn-', '')
+    .replace(/-/g, ' ')
+    .replace(/\b\w/g, l => l.toUpperCase()) + ' Course';
+}
+
+/**
  * Recursively find files matching pattern
  */
 function findFiles(dir, pattern, results = []) {
@@ -217,14 +227,16 @@ async function upsertModule(module, courseId, source) {
       is_published: module.is_published !== undefined ? module.is_published : true,
       prerequisites: module.prerequisites || [],
       learning_objectives: module.learning_objectives || [],
-      metadata: {
-        difficulty: module.difficulty,
-        tier: module.tier,
-        lessonCount: module.lessonCount || module.lesson_count,
-        estimatedHours: module.estimatedHours,
-        tags: module.tags || [],
-        unlocks: module.unlocks,
-      },
+      metadata: Object.fromEntries(
+        Object.entries({
+          difficulty: module.difficulty,
+          tier: module.tier,
+          lessonCount: module.lessonCount || module.lesson_count,
+          estimatedHours: module.estimatedHours,
+          tags: module.tags || [],
+          unlocks: module.unlocks,
+        }).filter(([_, value]) => value !== undefined)
+      ),
     };
 
     // Check if module exists
@@ -307,11 +319,13 @@ async function upsertLesson(lesson, moduleId, source) {
       is_free: lesson.is_free || false,
       video_url: lesson.video_url || null,
       attachments: lesson.attachments || [],
-      metadata: {
-        exercises: lesson.exercises,
-        interactiveCodeSnippet: lesson.interactiveCodeSnippet,
-        tags: lesson.tags || [],
-      },
+      metadata: Object.fromEntries(
+        Object.entries({
+          exercises: lesson.exercises,
+          interactiveCodeSnippet: lesson.interactiveCodeSnippet,
+          tags: lesson.tags || [],
+        }).filter(([_, value]) => value !== undefined)
+      ),
     };
 
     // Check if lesson exists
@@ -447,7 +461,15 @@ async function processAppSeeds() {
 
   for (const seedFile of appSeedFiles) {
     stats.filesScanned++;
-    const appName = seedFile.match(/apps\/(learn-[^/]+)\//)[1];
+    const appNameMatch = seedFile.match(/apps\/(learn-[^/]+)\//);
+    
+    if (!appNameMatch) {
+      log(`Failed to extract app name from ${seedFile}`, 'warn');
+      stats.filesSkipped.push({ file: seedFile, reason: 'Could not extract app name from path' });
+      continue;
+    }
+    
+    const appName = appNameMatch[1];
     log(`Processing ${appName}/data/seed.json...`);
 
     try {
@@ -455,7 +477,7 @@ async function processAppSeeds() {
 
       // Create a course for this app if it doesn't exist
       const appCourse = {
-        title: `${appName.replace('learn-', '').replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())} Course`,
+        title: formatAppNameAsTitle(appName),
         slug: `${appName}-course`,
         short_description: `Complete ${appName} learning path`,
         subdomain: appName,
@@ -509,7 +531,7 @@ async function processSyncPlatform() {
 
       // Create/find course for this app
       const appCourse = {
-        title: `${appName.replace('learn-', '').replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())} Course`,
+        title: formatAppNameAsTitle(appName),
         slug: `${appName}-course`,
         short_description: `Complete ${appName} learning path`,
         subdomain: appName,
