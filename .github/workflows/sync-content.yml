@@ -24,6 +24,10 @@ jobs:
     name: Sync Content to Supabase
     runs-on: ubuntu-latest
     
+    permissions:
+      contents: read  # Read repository content
+      actions: read   # Read workflow artifacts if needed
+    
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
