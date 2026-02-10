@@ -137,8 +137,17 @@ export function getRandomSecondaryImage(appId) {
  * @param {React.ReactNode} props.children - Content to display in hero overlay (positioned at bottom)
  * @param {string} props.className - Additional CSS classes for the hero section
  * @param {string} props.heroHeight - Height of hero section (default: 70vh for mobile, 80vh for md, 90vh for lg)
+ * @param {boolean} props.noOverlay - If true, displays image naturally without dark overlay (default: false)
+ * @param {string} props.overlayOpacity - Custom overlay opacity class (e.g., "bg-black/20", "bg-black/40")
  */
-export default function Hero({ appId, children, className = "", heroHeight = "70vh" }) {
+export default function Hero({ 
+  appId, 
+  children, 
+  className = "", 
+  heroHeight = "70vh", 
+  noOverlay = false,
+  overlayOpacity = "bg-black/40"
+}) {
   const [heroImage, setHeroImage] = useState(null);
 
   useEffect(() => {
@@ -171,8 +180,10 @@ export default function Hero({ appId, children, className = "", heroHeight = "70
         </div>
       )}
 
-      {/* Overlay for better text readability */}
-      <div className="absolute inset-0 bg-black/40 z-10" aria-hidden="true"></div>
+      {/* Overlay for better text readability - can be disabled with noOverlay prop or customized */}
+      {!noOverlay && (
+        <div className={`absolute inset-0 ${overlayOpacity} z-10`} aria-hidden="true"></div>
+      )}
 
       {/* Content container - positioned at bottom */}
       <div className="relative z-20 h-full flex items-end pb-12 md:pb-16 lg:pb-20">

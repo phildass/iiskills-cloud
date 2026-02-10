@@ -86,7 +86,7 @@ export default function Home() {
       </Head>
       <main>
         {/* HERO SECTION: Two-Tiered Knowledge Ecosystem */}
-        <Hero appId="main" className="h-[70vh] md:h-[80vh] lg:h-[90vh]">
+        <Hero appId="main" className="h-[70vh] md:h-[80vh] lg:h-[90vh]" overlayOpacity="bg-black/20">
           <div className="text-center text-white space-y-6 max-w-5xl mx-auto">
             <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold leading-tight tracking-tight">
               From Foundational Logic to Professional Mastery.
