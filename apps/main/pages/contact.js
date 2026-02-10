@@ -4,7 +4,8 @@ export default function Contact() {
       <main className="max-w-xl mx-auto px-4 py-12">
         <h1 className="text-2xl font-bold text-accent mb-6">Contact AI Cloud Enterprises</h1>
         <p className="text-gray-700 mb-6">
-          Get in touch to learn more about our corporate solutions and how we can help transform your organization.
+          Get in touch to learn more about our corporate solutions and how we can help transform
+          your organization.
         </p>
         <form className="bg-white rounded shadow p-6 mb-8">
           <label className="block mb-2 font-semibold">Name</label>

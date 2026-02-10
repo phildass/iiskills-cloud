@@ -41,9 +41,9 @@ export default function Home() {
               AI Cloud Enterprises: Services that touch every Indian.
             </h1>
             <p className="text-lg sm:text-xl lg:text-2xl leading-relaxed max-w-4xl mx-auto px-4 drop-shadow-md">
-              SaaS-enabled training and digital applications designed for universal reach. 
-              From mass audiences to niche sectors, we deliver seamless solutions that empower 
-              every organization to thrive in India's digital future.
+              SaaS-enabled training and digital applications designed for universal reach. From mass
+              audiences to niche sectors, we deliver seamless solutions that empower every
+              organization to thrive in India's digital future.
             </p>
 
             {/* Corporate CTA */}
@@ -72,7 +72,7 @@ export default function Home() {
                 Tailored Solutions for Every Sector
               </h2>
               <p className="text-xl text-gray-700 max-w-3xl mx-auto">
-                From healthcare to education, our apps are precisely tailored to address the unique 
+                From healthcare to education, our apps are precisely tailored to address the unique
                 challenges of each industry.
               </p>
             </div>
@@ -83,8 +83,8 @@ export default function Home() {
                 <div className="text-4xl mb-4">🏢</div>
                 <h3 className="text-2xl font-bold text-gray-900 mb-3">Sector Focus</h3>
                 <p className="text-gray-700">
-                  Industry-specific solutions that address real challenges and deliver measurable results 
-                  across healthcare, education, finance, and more.
+                  Industry-specific solutions that address real challenges and deliver measurable
+                  results across healthcare, education, finance, and more.
                 </p>
               </div>
 
@@ -93,7 +93,7 @@ export default function Home() {
                 <div className="text-4xl mb-4">📈</div>
                 <h3 className="text-2xl font-bold text-gray-900 mb-3">Scalable Solutions</h3>
                 <p className="text-gray-700">
-                  Subscription-based platforms that grow with your business, ensuring seamless 
+                  Subscription-based platforms that grow with your business, ensuring seamless
                   digital experiences for both mass and niche audiences.
                 </p>
               </div>
@@ -103,7 +103,7 @@ export default function Home() {
                 <div className="text-4xl mb-4">📱</div>
                 <h3 className="text-2xl font-bold text-gray-900 mb-3">Mobile & Web Apps</h3>
                 <p className="text-gray-700">
-                  Smart mobile solutions and robust web applications that bring India's digital 
+                  Smart mobile solutions and robust web applications that bring India's digital
                   future to your fingertips.
                 </p>
               </div>
@@ -115,7 +115,7 @@ export default function Home() {
         {randomImage1 && (
           <section className="relative h-[400px] md:h-[500px] overflow-hidden">
             <Image
-              src={randomImage1}
+              src={`/images/${randomImage1}`}
               alt="AI Cloud Enterprises Solutions"
               fill
               className="object-cover"
@@ -134,24 +134,25 @@ export default function Home() {
                   SaaS-Enabled Training Solutions
                 </h2>
                 <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-                  Our cloud-based training platform delivers professional development at scale. 
-                  Organizations can upskill their workforce with cutting-edge content, powered by 
+                  Our cloud-based training platform delivers professional development at scale.
+                  Organizations can upskill their workforce with cutting-edge content, powered by
                   advanced learning management and analytics.
                 </p>
                 <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-                  With subscription access to specialized content across AI, technology, management, 
+                  With subscription access to specialized content across AI, technology, management,
                   and more, we enable continuous learning that drives real business outcomes.
                 </p>
                 <div className="bg-blue-50 border-l-4 border-blue-600 p-6 rounded-r-lg">
                   <p className="text-blue-900 font-semibold">
-                    💡 Powered by iiskills.cloud infrastructure - one of our comprehensive digital solutions
+                    💡 Powered by iiskills.cloud infrastructure - one of our comprehensive digital
+                    solutions
                   </p>
                 </div>
               </div>
               <div className="relative h-80 rounded-xl overflow-hidden shadow-2xl">
                 {randomImage2 && (
                   <Image
-                    src={randomImage2}
+                    src={`/images/${randomImage2}`}
                     alt="Professional training solutions"
                     fill
                     className="object-cover"
@@ -170,7 +171,7 @@ export default function Home() {
               <div className="relative h-80 rounded-xl overflow-hidden shadow-2xl order-2 lg:order-1">
                 {randomImage3 && (
                   <Image
-                    src={randomImage3}
+                    src={`/images/${randomImage3}`}
                     alt="Digital applications for every Indian"
                     fill
                     className="object-cover"
@@ -183,30 +184,36 @@ export default function Home() {
                   Digital Apps for Every Indian
                 </h2>
                 <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-                  We build applications that serve India's diverse population - from urban professionals 
-                  to rural communities. Our solutions are designed for accessibility, scalability, and 
-                  impact.
+                  We build applications that serve India's diverse population - from urban
+                  professionals to rural communities. Our solutions are designed for accessibility,
+                  scalability, and impact.
                 </p>
                 <div className="space-y-4">
                   <div className="flex items-start gap-3">
                     <div className="text-2xl">✓</div>
                     <div>
                       <h4 className="font-bold text-gray-900 mb-1">Universal Reach</h4>
-                      <p className="text-gray-600">Solutions designed for mass adoption across all demographics</p>
+                      <p className="text-gray-600">
+                        Solutions designed for mass adoption across all demographics
+                      </p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
                     <div className="text-2xl">✓</div>
                     <div>
                       <h4 className="font-bold text-gray-900 mb-1">Niche Capabilities</h4>
-                      <p className="text-gray-600">Specialized features for specific industry requirements</p>
+                      <p className="text-gray-600">
+                        Specialized features for specific industry requirements
+                      </p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
                     <div className="text-2xl">✓</div>
                     <div>
                       <h4 className="font-bold text-gray-900 mb-1">Cloud Infrastructure</h4>
-                      <p className="text-gray-600">Reliable, secure, and scalable platform architecture</p>
+                      <p className="text-gray-600">
+                        Reliable, secure, and scalable platform architecture
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -219,7 +226,7 @@ export default function Home() {
         {randomImage4 && (
           <section className="relative h-[400px] md:h-[500px] overflow-hidden">
             <Image
-              src={randomImage4}
+              src={`/images/${randomImage4}`}
               alt="AI Cloud Enterprises Innovation"
               fill
               className="object-cover"
@@ -233,11 +240,10 @@ export default function Home() {
         <section className="py-16 bg-gradient-to-br from-blue-600 to-purple-600 text-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
-              <h2 className="text-4xl md:text-5xl font-bold mb-4">
-                Our Approach
-              </h2>
+              <h2 className="text-4xl md:text-5xl font-bold mb-4">Our Approach</h2>
               <p className="text-xl max-w-3xl mx-auto opacity-90">
-                We combine cutting-edge technology with deep understanding of India's unique challenges
+                We combine cutting-edge technology with deep understanding of India's unique
+                challenges
               </p>
             </div>
 
@@ -273,7 +279,7 @@ export default function Home() {
               Transform Your Organization
             </h2>
             <p className="text-xl text-gray-700 mb-8 max-w-2xl mx-auto">
-              Discover how AI Cloud Enterprises can help you deliver seamless digital experiences 
+              Discover how AI Cloud Enterprises can help you deliver seamless digital experiences
               and drive growth in the digital era.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
