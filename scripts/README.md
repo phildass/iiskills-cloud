@@ -162,7 +162,11 @@ git status
 
 ## Content Sync Scripts
 
+
+### sync_to_supabase.js
+
 ### sync_to_supabase.js (NEW - Recommended)
+
 
 **Purpose**: Discovers and syncs ALL course content from multiple sources to Supabase.
 
@@ -177,10 +181,19 @@ git status
 1. `seeds/content.json` - Legacy unified content file
 2. `apps/learn-*/data/seed.json` - App-specific module data
 3. `data/sync-platform/**/*.json` - Individual module/lesson files
+4. Government jobs, geography data, and other content types
+
+
 
 **Usage**:
 ```bash
 # Dry run (test without changes)
+
+DRY_RUN=true node scripts/sync_to_supabase.js
+
+# Actual sync
+SUPABASE_URL="your-url" SUPABASE_KEY="your-key" node scripts/sync_to_supabase.js
+
 node scripts/sync_to_supabase.js --dry-run
 
 # Dry run with verbose output
@@ -191,19 +204,31 @@ SUPABASE_URL="your-url" SUPABASE_SERVICE_ROLE_KEY="your-key" node scripts/sync_t
 
 # With verbose logging
 SUPABASE_URL="your-url" SUPABASE_SERVICE_ROLE_KEY="your-key" node scripts/sync_to_supabase.js --verbose
+
 ```
 
 **Environment Variables**:
 - `SUPABASE_URL` or `NEXT_PUBLIC_SUPABASE_URL` - Your Supabase project URL
+
+- `SUPABASE_KEY` or `SUPABASE_SERVICE_ROLE_KEY` - Service role key with admin access
+- `DRY_RUN` - Set to `true` for dry-run mode (optional)
+
+**Output**:
+The script provides detailed statistics about content synced to Supabase.
+
+**Documentation**: 
+- See [SUPABASE_SYNC_SETUP.md](../SUPABASE_SYNC_SETUP.md) for complete setup guide
+- See [CONTENT_SYNC_REFERENCE.md](../CONTENT_SYNC_REFERENCE.md) for quick reference
+- See [CONTENT_SYNC_ARCHITECTURE.md](../CONTENT_SYNC_ARCHITECTURE.md) for architecture details
+
 - `SUPABASE_SERVICE_ROLE_KEY` (recommended) - Service role key with admin access
 - OR `SUPABASE_KEY` - Alternative key name
 - OR `SUPABASE_ANON_KEY` - Anonymous key (limited access)
 
 **Output**:
 ```
-========================================
   CONTENT SYNC TO SUPABASE
-========================================
+
 
 Summary:
   Files Scanned:  4
@@ -213,6 +238,7 @@ Summary:
 ```
 
 **Documentation**: See [COURSE_SYNC_FIX.md](../COURSE_SYNC_FIX.md) for detailed problem analysis and solution.
+
 
 ### migrate-content-to-supabase.ts (Legacy)
 
@@ -233,9 +259,13 @@ Summary:
 **Solution**:
 ```bash
 export SUPABASE_URL="https://your-project.supabase.co"
+
+export SUPABASE_KEY="your-key-here"
+
 export SUPABASE_SERVICE_ROLE_KEY="your-key-here"
+
 node scripts/sync_to_supabase.js
-```
+
 
 ### Content not appearing in admin
 
@@ -245,4 +275,8 @@ node scripts/sync_to_supabase.js
 3. Supabase RLS policies blocking access
 4. SSG cached static pages
 
+
+**Solution**: See [SUPABASE_SYNC_SETUP.md](../SUPABASE_SYNC_SETUP.md) for detailed troubleshooting steps.
+
 **Solution**: See [COURSE_SYNC_FIX.md](../COURSE_SYNC_FIX.md) for detailed troubleshooting steps.
+
