@@ -121,7 +121,7 @@ npm install --legacy-peer-deps
 ### Want to add more content?
 1. Add files to any of these locations:
    - `seeds/content.json`
-   - `apps/learn-APPNAME/data/seed.json`
+   - `apps/learn-APPNAME/data/seed.json` (e.g., `apps/learn-ai/data/seed.json`)
    - `data/sync-platform/`
 2. Run: `node scripts/sync_to_supabase.js --verbose`
 3. Verify in Supabase dashboard

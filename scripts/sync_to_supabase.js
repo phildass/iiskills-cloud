@@ -99,7 +99,7 @@ function formatAppNameAsTitle(appName) {
   return appName
     .replace('learn-', '')
     .replace(/-/g, ' ')
-    .replace(/\b\w/g, l => l.toUpperCase()) + ' Course';
+    .replace(/\b\w/g, letter => letter.toUpperCase()) + ' Course';
 }
 
 /**
@@ -120,6 +120,22 @@ function findFiles(dir, pattern, results = []) {
     }
   }
   return results;
+}
+
+/**
+ * Extract app name from file path
+ * Handles both /apps/learn-NAME/ and /data/sync-platform/learn-NAME/ patterns
+ */
+function extractAppNameFromPath(filePath) {
+  // Try apps pattern first
+  let match = filePath.match(/\/apps\/(learn-[^/]+)\//);
+  if (match) return match[1];
+  
+  // Try sync-platform pattern
+  match = filePath.match(/\/sync-platform\/(learn-[^/]+)\//);
+  if (match) return match[1];
+  
+  return null;
 }
 
 /**
@@ -235,7 +251,7 @@ async function upsertModule(module, courseId, source) {
           estimatedHours: module.estimatedHours,
           tags: module.tags || [],
           unlocks: module.unlocks,
-        }).filter(([_, value]) => value !== undefined)
+        }).filter(([, value]) => value !== undefined)
       ),
     };
 
@@ -324,7 +340,7 @@ async function upsertLesson(lesson, moduleId, source) {
           exercises: lesson.exercises,
           interactiveCodeSnippet: lesson.interactiveCodeSnippet,
           tags: lesson.tags || [],
-        }).filter(([_, value]) => value !== undefined)
+        }).filter(([, value]) => value !== undefined)
       ),
     };
 
@@ -461,15 +477,14 @@ async function processAppSeeds() {
 
   for (const seedFile of appSeedFiles) {
     stats.filesScanned++;
-    const appNameMatch = seedFile.match(/apps\/(learn-[^/]+)\//);
+    const appName = extractAppNameFromPath(seedFile);
     
-    if (!appNameMatch) {
+    if (!appName) {
       log(`Failed to extract app name from ${seedFile}`, 'warn');
       stats.filesSkipped.push({ file: seedFile, reason: 'Could not extract app name from path' });
       continue;
     }
     
-    const appName = appNameMatch[1];
     log(`Processing ${appName}/data/seed.json...`);
 
     try {
@@ -523,8 +538,13 @@ async function processSyncPlatform() {
   // Process module files
   for (const moduleFile of moduleFiles) {
     stats.filesScanned++;
-    const relativePath = path.relative(syncPlatformDir, moduleFile);
-    const appName = relativePath.split('/')[0]; // e.g., 'learn-ai'
+    const appName = extractAppNameFromPath(moduleFile);
+    
+    if (!appName) {
+      log(`Failed to extract app name from ${moduleFile}`, 'warn');
+      stats.filesSkipped.push({ file: moduleFile, reason: 'Could not extract app name from path' });
+      continue;
+    }
 
     try {
       const moduleData = JSON.parse(fs.readFileSync(moduleFile, 'utf-8'));
