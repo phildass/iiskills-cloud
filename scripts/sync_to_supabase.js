@@ -7,12 +7,12 @@
  * 
  * Content Sources Scanned:
  * - /seeds/content.json (courses, modules, lessons, questions)
- * - /data/sync-platform/** (all structured content)
- * - /apps/learn-*/data/seed.json (app-specific seeds)
- * - /apps/learn-*/content/** (if exists, future-proofing)
- * - /data/squads/** (cricket/sports data)
- * - /data/fixtures/** (event fixtures)
- * - /apps/learn-govt-jobs/data/** (geography, deadlines, eligibility)
+ * - /data/sync-platform/ (all structured content)
+ * - /apps/learn-[app]/data/seed.json (app-specific seeds)
+ * - /apps/learn-[app]/content/ (if exists, future-proofing)
+ * - /data/squads/ (cricket/sports data)
+ * - /data/fixtures/ (event fixtures)
+ * - /apps/learn-govt-jobs/data/ (geography, deadlines, eligibility)
  * 
  * Usage:
  *   node scripts/sync_to_supabase.js
@@ -27,17 +27,19 @@ const fs = require('fs');
 const path = require('path');
 
 // Configuration
+const DRY_RUN = process.env.DRY_RUN === 'true';
 const SUPABASE_URL = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL;
 const SUPABASE_KEY = process.env.SUPABASE_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY;
 
-if (!SUPABASE_URL || !SUPABASE_KEY) {
+if (!DRY_RUN && (!SUPABASE_URL || !SUPABASE_KEY)) {
   console.error('❌ Missing Supabase credentials!');
   console.error('Set SUPABASE_URL and SUPABASE_KEY environment variables');
   console.error('Example: SUPABASE_URL=https://xxx.supabase.co SUPABASE_KEY=xxx node scripts/sync_to_supabase.js');
+  console.error('Or run in dry-run mode: DRY_RUN=true node scripts/sync_to_supabase.js');
   process.exit(1);
 }
 
-const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+const supabase = DRY_RUN ? null : createClient(SUPABASE_URL, SUPABASE_KEY);
 
 // Statistics tracking
 const stats = {
@@ -114,6 +116,15 @@ async function migrateCourses(courses, sourceFile) {
   log(`📚 Migrating ${courses.length} courses from ${sourceFile}...`);
   const idMapping = new Map();
   stats.courses.files.push(sourceFile);
+
+  if (DRY_RUN) {
+    log(`[DRY RUN] Would migrate ${courses.length} courses`, 'info');
+    courses.forEach((course, idx) => {
+      idMapping.set(course.id, `dry-run-course-${idx}`);
+      stats.courses.created++;
+    });
+    return idMapping;
+  }
 
   for (const course of courses) {
     try {
@@ -195,6 +206,15 @@ async function migrateModules(modules, courseIdMap, sourceFile) {
   const idMapping = new Map();
   stats.modules.files.push(sourceFile);
 
+  if (DRY_RUN) {
+    log(`[DRY RUN] Would migrate ${modules.length} modules`, 'info');
+    modules.forEach((module, idx) => {
+      idMapping.set(module.id, `dry-run-module-${idx}`);
+      stats.modules.created++;
+    });
+    return idMapping;
+  }
+
   for (const module of modules) {
     try {
       const courseId = courseIdMap.get(module.course_id);
@@ -273,6 +293,15 @@ async function migrateLessons(lessons, moduleIdMap, sourceFile) {
   log(`📝 Migrating ${lessons.length} lessons from ${sourceFile}...`);
   const idMapping = new Map();
   stats.lessons.files.push(sourceFile);
+
+  if (DRY_RUN) {
+    log(`[DRY RUN] Would migrate ${lessons.length} lessons`, 'info');
+    lessons.forEach((lesson, idx) => {
+      idMapping.set(lesson.id, `dry-run-lesson-${idx}`);
+      stats.lessons.created++;
+    });
+    return idMapping;
+  }
 
   for (const lesson of lessons) {
     try {
@@ -353,6 +382,12 @@ async function migrateQuestions(questions, lessonIdMap, sourceFile) {
   
   log(`❓ Migrating ${questions.length} questions from ${sourceFile}...`);
   stats.questions.files.push(sourceFile);
+
+  if (DRY_RUN) {
+    log(`[DRY RUN] Would migrate ${questions.length} questions`, 'info');
+    stats.questions.created += questions.length;
+    return;
+  }
 
   for (const question of questions) {
     try {
@@ -586,6 +621,12 @@ async function processGeography(filePath) {
   const geographyData = readJsonFile(filePath);
   if (!geographyData) return;
 
+  if (DRY_RUN) {
+    log(`[DRY RUN] Would migrate ${geographyData.length} geography entries`, 'info');
+    stats.geography.created += geographyData.length * 10; // Estimate with states/districts
+    return;
+  }
+
   for (const country of geographyData) {
     try {
       // Insert country
@@ -674,6 +715,12 @@ async function processGovernmentJobs(filePath) {
   stats.governmentJobs.files.push(filePath);
   const deadlinesData = readJsonFile(filePath);
   if (!deadlinesData) return;
+
+  if (DRY_RUN) {
+    log(`[DRY RUN] Would migrate ${Object.keys(deadlinesData).length} government jobs`, 'info');
+    stats.governmentJobs.created += Object.keys(deadlinesData).length;
+    return;
+  }
 
   // Import eligibility templates
   const eligibilityTemplates = {
@@ -766,9 +813,14 @@ async function main() {
   console.log('');
   console.log('========================================');
   console.log('  COMPREHENSIVE CONTENT SYNC TO SUPABASE');
+  if (DRY_RUN) {
+    console.log('  [DRY RUN MODE - No actual database changes]');
+  }
   console.log('========================================');
   console.log('');
-  log(`Supabase URL: ${SUPABASE_URL}`);
+  if (!DRY_RUN) {
+    log(`Supabase URL: ${SUPABASE_URL}`);
+  }
   log(`Starting comprehensive content sync...`);
   console.log('');
 
