@@ -1,0 +1,110 @@
+name: Sync Content to Supabase
+
+# Trigger on every push to main branch that affects content files
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'seeds/**'
+      - 'data/**'
+      - 'apps/learn-*/data/**'
+      - 'apps/learn-*/content/**'
+      - 'scripts/sync_to_supabase.js'
+      - '.github/workflows/sync-content.yml'
+  workflow_dispatch: # Allow manual trigger
+
+# Prevent concurrent syncs
+concurrency:
+  group: content-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    name: Sync Content to Supabase
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: read  # Read repository content
+      actions: read   # Read workflow artifacts if needed
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1 # Shallow clone for faster checkout
+      
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'yarn'
+      
+      - name: Install dependencies
+        run: |
+          echo "Installing dependencies..."
+          yarn install --frozen-lockfile
+        env:
+          NODE_ENV: production
+      
+      - name: Create .env.local
+        run: |
+          echo "Creating .env.local with Supabase credentials..."
+          cat > .env.local << EOF
+          SUPABASE_URL=${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY=${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          NEXT_PUBLIC_SUPABASE_URL=${{ secrets.SUPABASE_URL }}
+          EOF
+          echo ".env.local created successfully"
+      
+      - name: Verify Supabase credentials
+        run: |
+          if [ -z "${{ secrets.SUPABASE_URL }}" ]; then
+            echo "❌ Error: SUPABASE_URL secret is not set!"
+            exit 1
+          fi
+          if [ -z "${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}" ]; then
+            echo "❌ Error: SUPABASE_SERVICE_ROLE_KEY secret is not set!"
+            exit 1
+          fi
+          echo "✅ Supabase credentials verified"
+      
+      - name: Run content sync
+        id: sync
+        run: |
+          echo "Starting comprehensive content sync to Supabase..."
+          node scripts/sync_to_supabase.js
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          NODE_ENV: production
+      
+      - name: Upload sync logs on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sync-logs-${{ github.run_id }}
+          path: |
+            *.log
+          retention-days: 7
+      
+      - name: Report sync status
+        if: always()
+        run: |
+          if [ "${{ steps.sync.outcome }}" == "success" ]; then
+            echo "✅ Content sync completed successfully!"
+          else
+            echo "❌ Content sync failed. Check the logs above for details."
+            echo "💡 Tip: Check that your Supabase credentials are correct and tables exist."
+          fi
+      
+      - name: Send notification on failure
+        if: failure()
+        run: |
+          echo "🚨 Content sync failed for commit ${{ github.sha }}"
+          echo "📝 View logs: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          echo "💡 Check GitHub Secrets: SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY"
+          # Uncomment below to send notifications via webhook or email
+          # curl -X POST ${{ secrets.NOTIFICATION_WEBHOOK_URL }} \
+          #   -H 'Content-Type: application/json' \
+          #   -d '{"text":"Content sync failed for ${{ github.repository }}"}'
