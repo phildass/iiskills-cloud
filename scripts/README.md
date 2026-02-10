@@ -159,3 +159,77 @@ git status
 - The scripts use `set -euo pipefail` for safer error handling
 - Files that don't exist on `origin/main` cannot be restored and will be skipped
 - After restoration, use `git status` to review changes before committing
+
+## Content Sync Scripts
+
+### sync_to_supabase.js
+
+**Purpose**: Discovers and syncs ALL course content from multiple sources to Supabase.
+
+**Features**:
+- ✅ Auto-discovers content from all sources
+- ✅ Comprehensive error reporting and logging
+- ✅ Dry-run mode for safe testing
+- ✅ Environment variable validation
+- ✅ Prevents duplicate entries (upsert logic)
+
+**Content Sources**:
+1. `seeds/content.json` - Legacy unified content file
+2. `apps/learn-*/data/seed.json` - App-specific module data
+3. `data/sync-platform/**/*.json` - Individual module/lesson files
+4. Government jobs, geography data, and other content types
+
+**Usage**:
+```bash
+# Dry run (test without changes)
+DRY_RUN=true node scripts/sync_to_supabase.js
+
+# Actual sync
+SUPABASE_URL="your-url" SUPABASE_KEY="your-key" node scripts/sync_to_supabase.js
+```
+
+**Environment Variables**:
+- `SUPABASE_URL` or `NEXT_PUBLIC_SUPABASE_URL` - Your Supabase project URL
+- `SUPABASE_KEY` or `SUPABASE_SERVICE_ROLE_KEY` - Service role key with admin access
+- `DRY_RUN` - Set to `true` for dry-run mode (optional)
+
+**Output**:
+The script provides detailed statistics about content synced to Supabase.
+
+**Documentation**: 
+- See [SUPABASE_SYNC_SETUP.md](../SUPABASE_SYNC_SETUP.md) for complete setup guide
+- See [CONTENT_SYNC_REFERENCE.md](../CONTENT_SYNC_REFERENCE.md) for quick reference
+- See [CONTENT_SYNC_ARCHITECTURE.md](../CONTENT_SYNC_ARCHITECTURE.md) for architecture details
+
+### migrate-content-to-supabase.ts (Legacy)
+
+**Purpose**: Migrates content from `seeds/content.json` only.
+
+**Limitations**:
+- ❌ Only reads from seeds/content.json
+- ❌ Doesn't discover app-specific content
+- ❌ Doesn't process sync-platform files
+- ❌ Limited error reporting
+
+**Recommendation**: Use `sync_to_supabase.js` instead for comprehensive content sync.
+
+## Troubleshooting Content Sync
+
+### Error: Missing Supabase credentials
+
+**Solution**:
+```bash
+export SUPABASE_URL="https://your-project.supabase.co"
+export SUPABASE_KEY="your-key-here"
+node scripts/sync_to_supabase.js
+```
+
+### Content not appearing in admin
+
+**Possible causes**:
+1. Environment variables mismatch between script and admin
+2. Admin UI using mock data instead of Supabase
+3. Supabase RLS policies blocking access
+4. SSG cached static pages
+
+**Solution**: See [SUPABASE_SYNC_SETUP.md](../SUPABASE_SYNC_SETUP.md) for detailed troubleshooting steps.
