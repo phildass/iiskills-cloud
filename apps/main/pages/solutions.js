@@ -14,7 +14,7 @@ export default function Solutions() {
       </Head>
 
       {/* Hero Section */}
-      <Hero appId="main" className="h-[60vh] md:h-[70vh]">
+      <Hero appId="main" className="h-[60vh] md:h-[70vh]" noOverlay>
         <div className="text-center text-white space-y-4 max-w-5xl mx-auto">
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight tracking-tight">
             Solutions for Every Industry
@@ -129,18 +129,12 @@ export default function Solutions() {
           <p className="text-lg md:text-xl mb-8 max-w-3xl mx-auto">
             Discover how our solutions can help your organization thrive in the digital era.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex justify-center">
             <a
               href="/contact"
               className="inline-block bg-white text-blue-600 px-8 py-4 rounded-lg font-bold hover:bg-gray-100 transition-all duration-200"
             >
               Contact Us
-            </a>
-            <a
-              href="/courses"
-              className="inline-block bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-bold hover:bg-white hover:text-blue-600 transition-all duration-200"
-            >
-              Explore Courses
             </a>
           </div>
         </section>
