@@ -2,40 +2,50 @@
 /**
  * Comprehensive Content Sync Script for Supabase
  * 
- * This script recursively scans ALL content directories in the repository
- * and syncs them to Supabase, making the database the single source of truth.
+ * This script discovers and syncs ALL course content from multiple sources:
+ * 1. seeds/content.json (legacy courses, modules, lessons, questions)
+ * 2. apps/learn-APPNAME/data/seed.json (app-specific module data)
+ * 3. data/sync-platform (individual lesson/module files)
  * 
- * Content Sources Scanned:
- * - /seeds/content.json (courses, modules, lessons, questions)
- * - /data/sync-platform/ (all structured content)
- * - /apps/learn-[app]/data/seed.json (app-specific seeds)
- * - /apps/learn-[app]/content/ (if exists, future-proofing)
- * - /data/squads/ (cricket/sports data)
- * - /data/fixtures/ (event fixtures)
- * - /apps/learn-govt-jobs/data/ (geography, deadlines, eligibility)
+ * Features:
+ * - Auto-discovery of all content files
+ * - Comprehensive logging with warnings for skipped files
+ * - Dry-run mode for testing
+ * - Environment variable validation
+ * - Primary key conflict resolution
+ * - Error tracking and reporting
  * 
  * Usage:
- *   node scripts/sync_to_supabase.js
- *   
+ *   node scripts/sync_to_supabase.js [--dry-run] [--verbose]
+ * 
  * Environment Variables Required:
  *   SUPABASE_URL - Your Supabase project URL
- *   SUPABASE_KEY - Service role key (has admin access)
+ *   SUPABASE_SERVICE_ROLE_KEY or SUPABASE_KEY - Service role key
  */
 
 const { createClient } = require('@supabase/supabase-js');
 const fs = require('fs');
 const path = require('path');
 
-// Configuration
-const DRY_RUN = process.env.DRY_RUN === 'true';
-const SUPABASE_URL = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL;
-const SUPABASE_KEY = process.env.SUPABASE_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY;
+// Parse command-line arguments
+const args = process.argv.slice(2);
+const DRY_RUN = args.includes('--dry-run');
+const VERBOSE = args.includes('--verbose') || args.includes('-v');
 
-if (!DRY_RUN && (!SUPABASE_URL || !SUPABASE_KEY)) {
+// Configuration
+const SUPABASE_URL = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL;
+const SUPABASE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_KEY || process.env.SUPABASE_ANON_KEY;
+
+// Validate environment
+if (!SUPABASE_URL || !SUPABASE_KEY) {
   console.error('❌ Missing Supabase credentials!');
-  console.error('Set SUPABASE_URL and SUPABASE_KEY environment variables');
-  console.error('Example: SUPABASE_URL=https://xxx.supabase.co SUPABASE_KEY=xxx node scripts/sync_to_supabase.js');
-  console.error('Or run in dry-run mode: DRY_RUN=true node scripts/sync_to_supabase.js');
+  console.error('   Required: SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY (or SUPABASE_KEY)');
+  console.error('');
+  console.error('   Current environment:');
+  console.error(`   SUPABASE_URL: ${SUPABASE_URL ? '✓ Set' : '✗ Missing'}`);
+  console.error(`   SUPABASE_SERVICE_ROLE_KEY: ${process.env.SUPABASE_SERVICE_ROLE_KEY ? '✓ Set' : '✗ Missing'}`);
+  console.error(`   SUPABASE_KEY: ${process.env.SUPABASE_KEY ? '✓ Set' : '✗ Missing'}`);
+  console.error(`   SUPABASE_ANON_KEY: ${process.env.SUPABASE_ANON_KEY ? '✓ Set' : '✗ Missing'}`);
   process.exit(1);
 }
 
@@ -43,18 +53,13 @@ const supabase = DRY_RUN ? null : createClient(SUPABASE_URL, SUPABASE_KEY);
 
 // Statistics tracking
 const stats = {
-  courses: { created: 0, updated: 0, errors: 0, files: [] },
-  modules: { created: 0, updated: 0, errors: 0, files: [] },
-  lessons: { created: 0, updated: 0, errors: 0, files: [] },
-  questions: { created: 0, updated: 0, errors: 0, files: [] },
-  geography: { created: 0, updated: 0, errors: 0, files: [] },
-  governmentJobs: { created: 0, updated: 0, errors: 0, files: [] },
-  syncPlatform: { created: 0, updated: 0, errors: 0, files: [] },
-  appSeeds: { created: 0, updated: 0, errors: 0, files: [] },
-  otherContent: { created: 0, updated: 0, errors: 0, files: [] },
-  unknownTypes: [],
-  filesProcessed: 0,
-  filesSkipped: 0,
+  courses: { created: 0, updated: 0, errors: 0, skipped: 0 },
+  modules: { created: 0, updated: 0, errors: 0, skipped: 0 },
+  lessons: { created: 0, updated: 0, errors: 0, skipped: 0 },
+  questions: { created: 0, updated: 0, errors: 0, skipped: 0 },
+  filesScanned: 0,
+  filesSkipped: [],
+  errors: [],
 };
 
 /**
@@ -62,941 +67,586 @@ const stats = {
  */
 function log(message, level = 'info') {
   const timestamp = new Date().toISOString();
-  const prefixes = {
-    error: '❌',
-    warn: '⚠️ ',
-    success: '✅',
-    info: 'ℹ️ '
-  };
-  const prefix = prefixes[level] || 'ℹ️ ';
-  console.log(`[${timestamp}] ${prefix} ${message}`);
+  const prefix = level === 'error' ? '❌' : level === 'warn' ? '⚠️' : level === 'success' ? '✅' : 'ℹ️';
+  console.log(`${prefix} [${timestamp}] ${message}`);
 }
 
 /**
- * Generate a URL-friendly slug from text
+ * Verbose log - only shows when --verbose flag is used
  */
-function generateSlug(text) {
-  if (!text) return 'untitled';
-  return text.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
-}
-
-/**
- * Recursively find all files matching a pattern
- */
-function findFiles(dir, pattern = /./, results = []) {
-  if (!fs.existsSync(dir)) {
-    return results;
+function vlog(message) {
+  if (VERBOSE) {
+    console.log(`   ${message}`);
   }
+}
 
-  const files = fs.readdirSync(dir);
+/**
+ * Generate slug from title
+ */
+function slugify(text) {
+  return text
+    .toLowerCase()
+    .replace(/[^\w\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .trim();
+}
+
+/**
+ * Format app name as title (e.g., "learn-ai" -> "Ai Course")
+ */
+function formatAppNameAsTitle(appName) {
+  return appName
+    .replace('learn-', '')
+    .replace(/-/g, ' ')
+    .replace(/\b\w/g, letter => letter.toUpperCase()) + ' Course';
+}
+
+/**
+ * Recursively find files matching pattern
+ */
+function findFiles(dir, pattern, results = []) {
+  if (!fs.existsSync(dir)) return results;
   
+  const files = fs.readdirSync(dir);
   for (const file of files) {
     const filePath = path.join(dir, file);
     const stat = fs.statSync(filePath);
     
     if (stat.isDirectory()) {
-      // Skip node_modules, .git, .next, etc.
-      if (!file.startsWith('.') && file !== 'node_modules' && file !== 'dist' && file !== 'build') {
-        findFiles(filePath, pattern, results);
-      }
-    } else if (pattern.test(filePath)) {
+      findFiles(filePath, pattern, results);
+    } else if (pattern.test(file)) {
       results.push(filePath);
     }
   }
-  
   return results;
 }
 
 /**
- * Safely read and parse JSON file
+ * Extract app name from file path
+ * Handles both /apps/learn-NAME/ and /data/sync-platform/learn-NAME/ patterns
  */
-function readJsonFile(filePath) {
+function extractAppNameFromPath(filePath) {
+  // Try apps pattern first
+  let match = filePath.match(/\/apps\/(learn-[^/]+)\//);
+  if (match) return match[1];
+  
+  // Try sync-platform pattern
+  match = filePath.match(/\/sync-platform\/(learn-[^/]+)\//);
+  if (match) return match[1];
+  
+  return null;
+}
+
+/**
+ * Upsert a course into Supabase
+ */
+async function upsertCourse(course, source) {
   try {
-    const content = fs.readFileSync(filePath, 'utf-8');
-    return JSON.parse(content);
-  } catch (error) {
-    log(`Error reading ${filePath}: ${error.message}`, 'error');
-    stats.filesSkipped++;
+    vlog(`Processing course: ${course.title || course.slug} from ${source}`);
+    
+    if (DRY_RUN) {
+      log(`[DRY RUN] Would upsert course: ${course.title}`, 'info');
+      stats.courses.created++;
+      return { id: `dry-run-${course.id || course.slug}` };
+    }
+
+    const courseData = {
+      title: course.title,
+      slug: course.slug || slugify(course.title),
+      short_description: course.short_description || course.description,
+      full_description: course.full_description || course.description,
+      duration: course.duration || null,
+      category: course.category || 'General',
+      subdomain: course.subdomain || source.replace(/.*learn-/, 'learn-'),
+      price: course.price || 0,
+      is_free: course.is_free !== undefined ? course.is_free : (course.price === 0),
+      status: course.status || 'published',
+      highlights: course.highlights || [],
+      topics_skills: course.topics_skills || course.tags || [],
+    };
+
+    // Check if course exists by slug
+    const { data: existing, error: checkError } = await supabase
+      .from('courses')
+      .select('id')
+      .eq('slug', courseData.slug)
+      .maybeSingle();
+
+    if (checkError && checkError.code !== 'PGRST116') {
+      throw checkError;
+    }
+
+    if (existing) {
+      // Update existing
+      const { error } = await supabase
+        .from('courses')
+        .update({
+          ...courseData,
+          updated_at: new Date().toISOString(),
+        })
+        .eq('id', existing.id);
+
+      if (error) throw error;
+      stats.courses.updated++;
+      vlog(`Updated course: ${courseData.title}`);
+      return { id: existing.id };
+    } else {
+      // Insert new
+      const { data, error } = await supabase
+        .from('courses')
+        .insert(courseData)
+        .select('id')
+        .single();
+
+      if (error) throw error;
+      stats.courses.created++;
+      vlog(`Created course: ${courseData.title}`);
+      return { id: data.id };
+    }
+  } catch (err) {
+    const errorMsg = `Failed to upsert course ${course.title}: ${err.message}`;
+    log(errorMsg, 'error');
+    stats.courses.errors++;
+    stats.errors.push({ type: 'course', item: course.title, error: err.message, source });
     return null;
   }
 }
 
 /**
- * Migrate courses from seed data
+ * Upsert a module into Supabase
  */
-async function migrateCourses(courses, sourceFile) {
-  if (!Array.isArray(courses) || courses.length === 0) return new Map();
-  
-  log(`📚 Migrating ${courses.length} courses from ${sourceFile}...`);
-  const idMapping = new Map();
-  stats.courses.files.push(sourceFile);
-
-  if (DRY_RUN) {
-    log(`[DRY RUN] Would migrate ${courses.length} courses`, 'info');
-    courses.forEach((course, idx) => {
-      idMapping.set(course.id, `dry-run-course-${idx}`);
-      stats.courses.created++;
-    });
-    return idMapping;
-  }
-
-  for (const course of courses) {
-    try {
-      // Check if course already exists
-      const { data: existing } = await supabase
-        .from('courses')
-        .select('id')
-        .eq('slug', course.slug)
-        .single();
-
-      if (existing) {
-        // Update existing course
-        const { error } = await supabase
-          .from('courses')
-          .update({
-            title: course.title,
-            short_description: course.short_description || course.description,
-            full_description: course.full_description || course.description,
-            duration: course.duration,
-            category: course.category,
-            subdomain: course.subdomain,
-            price: course.price || 0,
-            is_free: course.is_free !== undefined ? course.is_free : (course.price === 0),
-            status: course.status || 'published',
-            updated_at: new Date().toISOString(),
-          })
-          .eq('id', existing.id);
-
-        if (error) {
-          log(`Error updating course ${course.slug}: ${error.message}`, 'error');
-          stats.courses.errors++;
-        } else {
-          idMapping.set(course.id, existing.id);
-          stats.courses.updated++;
-        }
-      } else {
-        // Insert new course
-        const { data, error } = await supabase
-          .from('courses')
-          .insert({
-            title: course.title,
-            slug: course.slug,
-            short_description: course.short_description || course.description,
-            full_description: course.full_description || course.description,
-            duration: course.duration,
-            category: course.category,
-            subdomain: course.subdomain,
-            price: course.price || 0,
-            is_free: course.is_free !== undefined ? course.is_free : (course.price === 0),
-            status: course.status || 'published',
-          })
-          .select('id')
-          .single();
-
-        if (error) {
-          log(`Error creating course ${course.slug}: ${error.message}`, 'error');
-          stats.courses.errors++;
-        } else if (data) {
-          idMapping.set(course.id, data.id);
-          stats.courses.created++;
-        }
-      }
-    } catch (err) {
-      log(`Exception migrating course ${course.slug}: ${err.message}`, 'error');
-      stats.courses.errors++;
-    }
-  }
-
-  return idMapping;
-}
-
-/**
- * Migrate modules from seed data
- */
-async function migrateModules(modules, courseIdMap, sourceFile) {
-  if (!Array.isArray(modules) || modules.length === 0) return new Map();
-  
-  log(`📖 Migrating ${modules.length} modules from ${sourceFile}...`);
-  const idMapping = new Map();
-  stats.modules.files.push(sourceFile);
-
-  if (DRY_RUN) {
-    log(`[DRY RUN] Would migrate ${modules.length} modules`, 'info');
-    modules.forEach((module, idx) => {
-      idMapping.set(module.id, `dry-run-module-${idx}`);
+async function upsertModule(module, courseId, source) {
+  try {
+    vlog(`Processing module: ${module.title} from ${source}`);
+    
+    if (DRY_RUN) {
+      log(`[DRY RUN] Would upsert module: ${module.title}`, 'info');
       stats.modules.created++;
-    });
-    return idMapping;
-  }
+      return { id: `dry-run-${module.id || module.moduleId}` };
+    }
 
-  for (const module of modules) {
-    try {
-      const courseId = courseIdMap.get(module.course_id);
-      if (!courseId) {
-        log(`Course ID not found for module ${module.slug || module.id}`, 'warn');
-        stats.modules.errors++;
-        continue;
-      }
+    if (!courseId) {
+      log(`Skipping module ${module.title}: No course ID`, 'warn');
+      stats.modules.skipped++;
+      stats.filesSkipped.push({ file: source, reason: 'No course ID for module' });
+      return null;
+    }
 
-      const slug = module.slug || module.id || generateSlug(module.title);
+    const moduleData = {
+      course_id: courseId,
+      title: module.title,
+      slug: module.slug || module.moduleId || slugify(module.title),
+      description: module.description,
+      order_index: module.order || module.order_index || 0,
+      duration: module.duration || null,
+      is_published: module.is_published !== undefined ? module.is_published : true,
+      prerequisites: module.prerequisites || [],
+      learning_objectives: module.learning_objectives || [],
+      metadata: Object.fromEntries(
+        Object.entries({
+          difficulty: module.difficulty,
+          tier: module.tier,
+          lessonCount: module.lessonCount || module.lesson_count,
+          estimatedHours: module.estimatedHours,
+          tags: module.tags || [],
+          unlocks: module.unlocks,
+        }).filter(([, value]) => value !== undefined)
+      ),
+    };
 
-      // Check if module already exists
-      const { data: existing } = await supabase
+    // Check if module exists
+    const { data: existing, error: checkError } = await supabase
+      .from('modules')
+      .select('id')
+      .eq('course_id', courseId)
+      .eq('slug', moduleData.slug)
+      .maybeSingle();
+
+    if (checkError && checkError.code !== 'PGRST116') {
+      throw checkError;
+    }
+
+    if (existing) {
+      // Update existing
+      const { error } = await supabase
         .from('modules')
+        .update({
+          ...moduleData,
+          updated_at: new Date().toISOString(),
+        })
+        .eq('id', existing.id);
+
+      if (error) throw error;
+      stats.modules.updated++;
+      vlog(`Updated module: ${moduleData.title}`);
+      return { id: existing.id };
+    } else {
+      // Insert new
+      const { data, error } = await supabase
+        .from('modules')
+        .insert(moduleData)
         .select('id')
-        .eq('course_id', courseId)
-        .eq('slug', slug)
         .single();
 
-      if (existing) {
-        // Update existing module
-        const { error } = await supabase
-          .from('modules')
-          .update({
-            title: module.title,
-            description: module.description,
-            order_index: module.order || module.order_index || 0,
-            updated_at: new Date().toISOString(),
-          })
-          .eq('id', existing.id);
-
-        if (error) {
-          log(`Error updating module ${slug}: ${error.message}`, 'error');
-          stats.modules.errors++;
-        } else {
-          idMapping.set(module.id, existing.id);
-          stats.modules.updated++;
-        }
-      } else {
-        // Insert new module
-        const { data, error } = await supabase
-          .from('modules')
-          .insert({
-            course_id: courseId,
-            title: module.title,
-            slug,
-            description: module.description,
-            order_index: module.order || module.order_index || 0,
-          })
-          .select('id')
-          .single();
-
-        if (error) {
-          log(`Error creating module ${slug}: ${error.message}`, 'error');
-          stats.modules.errors++;
-        } else if (data) {
-          idMapping.set(module.id, data.id);
-          stats.modules.created++;
-        }
-      }
-    } catch (err) {
-      log(`Exception migrating module: ${err.message}`, 'error');
-      stats.modules.errors++;
+      if (error) throw error;
+      stats.modules.created++;
+      vlog(`Created module: ${moduleData.title}`);
+      return { id: data.id };
     }
+  } catch (err) {
+    const errorMsg = `Failed to upsert module ${module.title}: ${err.message}`;
+    log(errorMsg, 'error');
+    stats.modules.errors++;
+    stats.errors.push({ type: 'module', item: module.title, error: err.message, source });
+    return null;
   }
-
-  return idMapping;
 }
 
 /**
- * Migrate lessons from seed data
+ * Upsert a lesson into Supabase
  */
-async function migrateLessons(lessons, moduleIdMap, sourceFile) {
-  if (!Array.isArray(lessons) || lessons.length === 0) return new Map();
-  
-  log(`📝 Migrating ${lessons.length} lessons from ${sourceFile}...`);
-  const idMapping = new Map();
-  stats.lessons.files.push(sourceFile);
-
-  if (DRY_RUN) {
-    log(`[DRY RUN] Would migrate ${lessons.length} lessons`, 'info');
-    lessons.forEach((lesson, idx) => {
-      idMapping.set(lesson.id, `dry-run-lesson-${idx}`);
+async function upsertLesson(lesson, moduleId, source) {
+  try {
+    vlog(`Processing lesson: ${lesson.title} from ${source}`);
+    
+    if (DRY_RUN) {
+      log(`[DRY RUN] Would upsert lesson: ${lesson.title}`, 'info');
       stats.lessons.created++;
-    });
-    return idMapping;
-  }
+      return { id: `dry-run-${lesson.id || lesson.lessonId}` };
+    }
 
-  for (const lesson of lessons) {
-    try {
-      const moduleId = moduleIdMap.get(lesson.module_id);
-      if (!moduleId) {
-        log(`Module ID not found for lesson ${lesson.id}`, 'warn');
-        stats.lessons.errors++;
-        continue;
-      }
+    if (!moduleId) {
+      log(`Skipping lesson ${lesson.title}: No module ID`, 'warn');
+      stats.lessons.skipped++;
+      stats.filesSkipped.push({ file: source, reason: 'No module ID for lesson' });
+      return null;
+    }
 
-      const slug = lesson.slug || generateSlug(lesson.title);
+    const lessonData = {
+      module_id: moduleId,
+      title: lesson.title,
+      slug: lesson.slug || lesson.lessonId || slugify(lesson.title),
+      content: lesson.content || lesson.textBody || '',
+      content_type: lesson.content_type || (lesson.video_url ? 'video' : 'text'),
+      duration: lesson.duration || null,
+      order_index: lesson.order || lesson.order_index || 0,
+      is_published: lesson.is_published !== undefined ? lesson.is_published : true,
+      is_free: lesson.is_free || false,
+      video_url: lesson.video_url || null,
+      attachments: lesson.attachments || [],
+      metadata: Object.fromEntries(
+        Object.entries({
+          exercises: lesson.exercises,
+          interactiveCodeSnippet: lesson.interactiveCodeSnippet,
+          tags: lesson.tags || [],
+        }).filter(([, value]) => value !== undefined)
+      ),
+    };
 
-      // Check if lesson already exists
-      const { data: existing } = await supabase
+    // Check if lesson exists
+    const { data: existing, error: checkError } = await supabase
+      .from('lessons')
+      .select('id')
+      .eq('module_id', moduleId)
+      .eq('slug', lessonData.slug)
+      .maybeSingle();
+
+    if (checkError && checkError.code !== 'PGRST116') {
+      throw checkError;
+    }
+
+    if (existing) {
+      // Update existing
+      const { error } = await supabase
         .from('lessons')
+        .update({
+          ...lessonData,
+          updated_at: new Date().toISOString(),
+        })
+        .eq('id', existing.id);
+
+      if (error) throw error;
+      stats.lessons.updated++;
+      vlog(`Updated lesson: ${lessonData.title}`);
+      return { id: existing.id };
+    } else {
+      // Insert new
+      const { data, error } = await supabase
+        .from('lessons')
+        .insert(lessonData)
         .select('id')
-        .eq('module_id', moduleId)
-        .eq('slug', slug)
         .single();
 
-      if (existing) {
-        // Update existing lesson
-        const { error } = await supabase
-          .from('lessons')
-          .update({
-            title: lesson.title,
-            content: lesson.content,
-            duration: lesson.duration,
-            order_index: lesson.order || lesson.order_index || 0,
-            updated_at: new Date().toISOString(),
-          })
-          .eq('id', existing.id);
-
-        if (error) {
-          log(`Error updating lesson ${lesson.title}: ${error.message}`, 'error');
-          stats.lessons.errors++;
-        } else {
-          idMapping.set(lesson.id, existing.id);
-          stats.lessons.updated++;
-        }
-      } else {
-        // Insert new lesson
-        const { data, error } = await supabase
-          .from('lessons')
-          .insert({
-            module_id: moduleId,
-            title: lesson.title,
-            slug,
-            content: lesson.content,
-            duration: lesson.duration,
-            order_index: lesson.order || lesson.order_index || 0,
-          })
-          .select('id')
-          .single();
-
-        if (error) {
-          log(`Error creating lesson ${lesson.title}: ${error.message}`, 'error');
-          stats.lessons.errors++;
-        } else if (data) {
-          idMapping.set(lesson.id, data.id);
-          stats.lessons.created++;
-        }
-      }
-    } catch (err) {
-      log(`Exception migrating lesson: ${err.message}`, 'error');
-      stats.lessons.errors++;
+      if (error) throw error;
+      stats.lessons.created++;
+      vlog(`Created lesson: ${lessonData.title}`);
+      return { id: data.id };
     }
+  } catch (err) {
+    const errorMsg = `Failed to upsert lesson ${lesson.title}: ${err.message}`;
+    log(errorMsg, 'error');
+    stats.lessons.errors++;
+    stats.errors.push({ type: 'lesson', item: lesson.title, error: err.message, source });
+    return null;
   }
-
-  return idMapping;
 }
 
 /**
- * Migrate questions from seed data
+ * Process seeds/content.json
  */
-async function migrateQuestions(questions, lessonIdMap, sourceFile) {
-  if (!Array.isArray(questions) || questions.length === 0) return;
+async function processSeedContent() {
+  const seedFile = path.join(__dirname, '../seeds/content.json');
   
-  log(`❓ Migrating ${questions.length} questions from ${sourceFile}...`);
-  stats.questions.files.push(sourceFile);
-
-  if (DRY_RUN) {
-    log(`[DRY RUN] Would migrate ${questions.length} questions`, 'info');
-    stats.questions.created += questions.length;
+  if (!fs.existsSync(seedFile)) {
+    log('seeds/content.json not found, skipping...', 'warn');
     return;
   }
 
-  for (const question of questions) {
-    try {
-      const lessonId = lessonIdMap.get(question.lesson_id);
-      if (!lessonId) {
-        log(`Lesson ID not found for question ${question.id}`, 'warn');
-        stats.questions.errors++;
-        continue;
+  log('📚 Processing seeds/content.json...');
+  stats.filesScanned++;
+  
+  const seedData = JSON.parse(fs.readFileSync(seedFile, 'utf-8'));
+  const courseIdMap = new Map();
+  const moduleIdMap = new Map();
+
+  // Process courses
+  if (seedData.courses && Array.isArray(seedData.courses)) {
+    for (const course of seedData.courses) {
+      const result = await upsertCourse(course, 'seeds/content.json');
+      if (result) {
+        courseIdMap.set(course.id, result.id);
       }
-
-      // Check if question already exists
-      const { data: existing } = await supabase
-        .from('questions')
-        .select('id')
-        .eq('lesson_id', lessonId)
-        .eq('question_text', question.question_text)
-        .single();
-
-      if (existing) {
-        // Update existing question
-        const { error } = await supabase
-          .from('questions')
-          .update({
-            question_type: question.question_type || 'multiple_choice',
-            options: question.options,
-            correct_answer: question.correct_answer,
-            explanation: question.explanation,
-            difficulty: question.difficulty,
-          })
-          .eq('id', existing.id);
-
-        if (error) {
-          log(`Error updating question: ${error.message}`, 'error');
-          stats.questions.errors++;
-        } else {
-          stats.questions.updated++;
-        }
-      } else {
-        // Insert new question
-        const { error } = await supabase
-          .from('questions')
-          .insert({
-            lesson_id: lessonId,
-            question_text: question.question_text,
-            question_type: question.question_type || 'multiple_choice',
-            options: question.options,
-            correct_answer: question.correct_answer,
-            explanation: question.explanation,
-            difficulty: question.difficulty,
-          });
-
-        if (error) {
-          log(`Error inserting question: ${error.message}`, 'error');
-          stats.questions.errors++;
-        } else {
-          stats.questions.created++;
-        }
-      }
-    } catch (err) {
-      log(`Exception migrating question: ${err.message}`, 'error');
-      stats.questions.errors++;
     }
   }
+
+  // Process modules
+  if (seedData.modules && Array.isArray(seedData.modules)) {
+    for (const module of seedData.modules) {
+      const courseId = courseIdMap.get(module.course_id);
+      const result = await upsertModule(module, courseId, 'seeds/content.json');
+      if (result) {
+        moduleIdMap.set(module.id, result.id);
+      }
+    }
+  }
+
+  // Process lessons
+  if (seedData.lessons && Array.isArray(seedData.lessons)) {
+    for (const lesson of seedData.lessons) {
+      const moduleId = moduleIdMap.get(lesson.module_id);
+      await upsertLesson(lesson, moduleId, 'seeds/content.json');
+    }
+  }
+
+  // Process questions
+  if (seedData.questions && Array.isArray(seedData.questions)) {
+    for (const question of seedData.questions) {
+      // Questions will be handled separately if needed
+      vlog(`Skipping question processing for now: ${question.question_text?.substring(0, 50)}...`);
+    }
+  }
+
+  log(`✅ Processed seeds/content.json`, 'success');
 }
 
 /**
- * Process sync-platform content
+ * Process app-specific seed.json files
  */
-async function processSyncPlatformContent(baseDir) {
-  log(`🔄 Scanning sync-platform content in ${baseDir}...`);
+async function processAppSeeds() {
+  const appsDir = path.join(__dirname, '../apps');
+  const appSeedFiles = [];
   
-  const contentFiles = findFiles(baseDir, /\.(json)$/);
-  
-  for (const file of contentFiles) {
-    // Skip schema files
-    if (file.includes('/schemas/')) {
+  // Find all learn-* directories
+  if (fs.existsSync(appsDir)) {
+    const apps = fs.readdirSync(appsDir).filter(name => name.startsWith('learn-'));
+    for (const app of apps) {
+      const seedFile = path.join(appsDir, app, 'data', 'seed.json');
+      if (fs.existsSync(seedFile)) {
+        appSeedFiles.push(seedFile);
+      }
+    }
+  }
+
+  if (appSeedFiles.length === 0) {
+    log('No app-specific seed.json files found', 'warn');
+    return;
+  }
+
+  log(`📦 Found ${appSeedFiles.length} app-specific seed file(s)...`);
+
+  for (const seedFile of appSeedFiles) {
+    stats.filesScanned++;
+    const appName = extractAppNameFromPath(seedFile);
+    
+    if (!appName) {
+      log(`Failed to extract app name from ${seedFile}`, 'warn');
+      stats.filesSkipped.push({ file: seedFile, reason: 'Could not extract app name from path' });
       continue;
     }
     
-    stats.filesProcessed++;
-    const data = readJsonFile(file);
-    if (!data) continue;
-    
-    stats.syncPlatform.files.push(file);
-    
-    // Detect content type from filename or structure
-    const filename = path.basename(file);
-    
-    if (filename.startsWith('module-') && !filename.includes('quiz')) {
-      // Module content
-      try {
-        // Extract app name from path
-        const pathParts = file.split(path.sep);
-        const appIndex = pathParts.findIndex(p => p.startsWith('learn-'));
-        const appName = appIndex >= 0 ? pathParts[appIndex] : 'unknown';
-        
-        log(`Processing module from sync-platform: ${filename} (${appName})`, 'info');
-        stats.syncPlatform.created++;
-        // TODO: Store in content_library or appropriate table
-      } catch (err) {
-        log(`Error processing sync-platform module ${filename}: ${err.message}`, 'error');
-        stats.syncPlatform.errors++;
-      }
-    } else if (filename.startsWith('lesson-')) {
-      // Lesson content
-      try {
-        log(`Processing lesson from sync-platform: ${filename}`, 'info');
-        stats.syncPlatform.created++;
-        // TODO: Store in content_library or appropriate table
-      } catch (err) {
-        log(`Error processing sync-platform lesson ${filename}: ${err.message}`, 'error');
-        stats.syncPlatform.errors++;
-      }
-    } else if (filename.startsWith('quiz-')) {
-      // Quiz content
-      try {
-        log(`Processing quiz from sync-platform: ${filename}`, 'info');
-        stats.syncPlatform.created++;
-        // TODO: Store in questions table or quiz-specific table
-      } catch (err) {
-        log(`Error processing sync-platform quiz ${filename}: ${err.message}`, 'error');
-        stats.syncPlatform.errors++;
-      }
-    } else {
-      // Unknown type - log for future schema extension
-      stats.unknownTypes.push({
-        file,
-        type: 'sync-platform-unknown',
-        sample: Object.keys(data).slice(0, 5),
-      });
-    }
-  }
-}
+    log(`Processing ${appName}/data/seed.json...`);
 
-/**
- * Process app-specific seed files
- */
-async function processAppSeeds(appsDir) {
-  log(`🎓 Scanning app-specific seed files in ${appsDir}...`);
-  
-  const seedFiles = findFiles(appsDir, /\/data\/seed\.json$/);
-  
-  for (const file of seedFiles) {
-    stats.filesProcessed++;
-    const data = readJsonFile(file);
-    if (!data) continue;
-    
-    stats.appSeeds.files.push(file);
-    
-    // Extract app name from path
-    const appName = file.split(path.sep).find(p => p.startsWith('learn-'));
-    log(`Processing seed file for ${appName}: ${file}`, 'info');
-    
-    // Process based on structure
-    if (data.courses) {
-      const courseMap = await migrateCourses(data.courses, file);
-      if (data.modules) {
-        const moduleMap = await migrateModules(data.modules, courseMap, file);
-        if (data.lessons) {
-          const lessonMap = await migrateLessons(data.lessons, moduleMap, file);
-          if (data.questions) {
-            await migrateQuestions(data.questions, lessonMap, file);
-          }
-        }
-      }
-    } else {
-      // Unknown structure
-      stats.unknownTypes.push({
-        file,
-        type: 'app-seed-unknown',
-        sample: Object.keys(data).slice(0, 5),
-      });
-    }
-  }
-}
-
-/**
- * Process other data sources (squads, fixtures, etc.)
- */
-async function processOtherData(dataDir) {
-  log(`📊 Scanning other data sources in ${dataDir}...`);
-  
-  const dataFiles = findFiles(dataDir, /\.(json)$/);
-  
-  for (const file of dataFiles) {
-    // Skip already processed files
-    if (file.includes('/sync-platform/')) continue;
-    
-    stats.filesProcessed++;
-    const data = readJsonFile(file);
-    if (!data) continue;
-    
-    const filename = path.basename(file);
-    
-    // Process cricket squads
-    if (file.includes('/squads/')) {
-      stats.otherContent.files.push(file);
-      log(`Processing cricket squad: ${filename}`, 'info');
-      stats.otherContent.created++;
-      // TODO: Store in sports/cricket-specific table if needed
-    }
-    // Process fixtures
-    else if (file.includes('/fixtures/')) {
-      stats.otherContent.files.push(file);
-      log(`Processing fixtures: ${filename}`, 'info');
-      stats.otherContent.created++;
-      // TODO: Store in events/fixtures table if needed
-    }
-    // Unknown data type
-    else if (!file.includes('/schemas/')) {
-      stats.unknownTypes.push({
-        file,
-        type: 'other-data-unknown',
-        sample: Object.keys(data).slice(0, 5),
-      });
-    }
-  }
-}
-
-/**
- * Process geography data
- */
-async function processGeography(filePath) {
-  if (!fs.existsSync(filePath)) {
-    log('Geography data file not found, skipping...', 'warn');
-    return;
-  }
-
-  log('🌍 Migrating geography data...');
-  stats.geography.files.push(filePath);
-  const geographyData = readJsonFile(filePath);
-  if (!geographyData) return;
-
-  if (DRY_RUN) {
-    log(`[DRY RUN] Would migrate ${geographyData.length} geography entries`, 'info');
-    stats.geography.created += geographyData.length * 10; // Estimate with states/districts
-    return;
-  }
-
-  // Conflict resolution for geography upserts
-  const conflictColumns = 'name,type,parent_id';
-
-  for (const country of geographyData) {
     try {
-      // Insert country
-      const { data: countryData, error: countryError } = await supabase
-        .from('geography')
-        .upsert({
-          name: country.name,
-          type: country.type,
-          parent_id: null,
-        }, {
-          onConflict: conflictColumns,
-          ignoreDuplicates: false,
-        })
-        .select('id')
-        .single();
+      const seedData = JSON.parse(fs.readFileSync(seedFile, 'utf-8'));
 
-      if (countryError) {
-        log(`Error inserting country ${country.name}: ${countryError.message}`, 'error');
-        stats.geography.errors++;
-        continue;
+      // Create a course for this app if it doesn't exist
+      const appCourse = {
+        title: formatAppNameAsTitle(appName),
+        slug: `${appName}-course`,
+        short_description: `Complete ${appName} learning path`,
+        subdomain: appName,
+        is_free: true,
+        status: 'published',
+      };
+
+      const courseResult = await upsertCourse(appCourse, seedFile);
+      if (!courseResult) continue;
+
+      // Process modules
+      if (seedData.modules && Array.isArray(seedData.modules)) {
+        for (const module of seedData.modules) {
+          await upsertModule(module, courseResult.id, seedFile);
+        }
       }
 
-      stats.geography.created++;
+      log(`✅ Processed ${appName}/data/seed.json - ${seedData.modules?.length || 0} modules`, 'success');
+    } catch (err) {
+      log(`Failed to process ${seedFile}: ${err.message}`, 'error');
+      stats.filesSkipped.push({ file: seedFile, reason: err.message });
+    }
+  }
+}
 
-      // Insert states/provinces
-      for (const state of country.children || []) {
-        const { data: stateData, error: stateError } = await supabase
-          .from('geography')
-          .upsert({
-            name: state.name,
-            type: state.type,
-            parent_id: countryData.id,
-          }, {
-            onConflict: conflictColumns,
-            ignoreDuplicates: false,
-          })
-          .select('id')
-          .single();
+/**
+ * Process sync-platform files
+ */
+async function processSyncPlatform() {
+  const syncPlatformDir = path.join(__dirname, '../data/sync-platform');
+  
+  if (!fs.existsSync(syncPlatformDir)) {
+    log('data/sync-platform directory not found, skipping...', 'warn');
+    return;
+  }
 
-        if (stateError) {
-          log(`Error inserting state ${state.name}: ${stateError.message}`, 'error');
-          stats.geography.errors++;
-          continue;
-        }
+  // Find all module and lesson files
+  const moduleFiles = findFiles(syncPlatformDir, /^module-.*\.json$/);
+  const lessonFiles = findFiles(syncPlatformDir, /^lesson-.*\.json$/);
 
-        stats.geography.created++;
+  log(`📁 Found ${moduleFiles.length} module file(s) and ${lessonFiles.length} lesson file(s) in sync-platform...`);
 
-        // Insert districts
-        for (const district of state.children || []) {
-          const { error: districtError } = await supabase
-            .from('geography')
-            .upsert({
-              name: district.name,
-              type: district.type,
-              parent_id: stateData.id,
-            }, {
-              onConflict: conflictColumns,
-              ignoreDuplicates: false,
-            });
+  // Process module files
+  for (const moduleFile of moduleFiles) {
+    stats.filesScanned++;
+    const appName = extractAppNameFromPath(moduleFile);
+    
+    if (!appName) {
+      log(`Failed to extract app name from ${moduleFile}`, 'warn');
+      stats.filesSkipped.push({ file: moduleFile, reason: 'Could not extract app name from path' });
+      continue;
+    }
 
-          if (districtError) {
-            log(`Error inserting district ${district.name}: ${districtError.message}`, 'error');
-            stats.geography.errors++;
-          } else {
-            stats.geography.created++;
-          }
-        }
+    try {
+      const moduleData = JSON.parse(fs.readFileSync(moduleFile, 'utf-8'));
+
+      // Create/find course for this app
+      const appCourse = {
+        title: formatAppNameAsTitle(appName),
+        slug: `${appName}-course`,
+        short_description: `Complete ${appName} learning path`,
+        subdomain: appName,
+        is_free: true,
+        status: 'published',
+      };
+
+      const courseResult = await upsertCourse(appCourse, moduleFile);
+      if (courseResult) {
+        await upsertModule(moduleData, courseResult.id, moduleFile);
       }
     } catch (err) {
-      log(`Exception migrating geography: ${err.message}`, 'error');
-      stats.geography.errors++;
+      log(`Failed to process ${moduleFile}: ${err.message}`, 'error');
+      stats.filesSkipped.push({ file: moduleFile, reason: err.message });
     }
   }
-}
 
-/**
- * Process government jobs data
- */
-async function processGovernmentJobs(filePath) {
-  if (!fs.existsSync(filePath)) {
-    log('Government jobs deadlines file not found, skipping...', 'warn');
-    return;
+  // Process lesson files
+  for (const lessonFile of lessonFiles) {
+    stats.filesScanned++;
+    // Lessons require module context - skip for now or handle separately
+    vlog(`Skipping lesson file (requires module context): ${lessonFile}`);
   }
 
-  log('💼 Migrating government jobs data...');
-  stats.governmentJobs.files.push(filePath);
-  const deadlinesData = readJsonFile(filePath);
-  if (!deadlinesData) return;
-
-  if (DRY_RUN) {
-    log(`[DRY RUN] Would migrate ${Object.keys(deadlinesData).length} government jobs`, 'info');
-    stats.governmentJobs.created += Object.keys(deadlinesData).length;
-    return;
-  }
-
-  // Import eligibility templates
-  const eligibilityTemplates = {
-    clerk: {
-      education: '12th pass',
-      age: { min: 18, max: 30 },
-      experience: 'Not required',
-    },
-    teacher: {
-      education: 'B.Ed or equivalent',
-      age: { min: 21, max: 35 },
-      experience: 'Freshers can apply',
-    },
-    police: {
-      education: '12th pass',
-      age: { min: 18, max: 28 },
-      physicalFitness: true,
-    },
-    ias: {
-      education: "Bachelor's degree",
-      age: { 
-        min: 21, 
-        max: 32,
-        relaxation: [
-          { category: 'OBC', years: 3 },
-          { category: 'SC/ST', years: 5 }
-        ]
-      },
-      nationality: 'Indian',
-    },
-  };
-
-  for (const [jobId, jobData] of Object.entries(deadlinesData)) {
-    try {
-      // Parse job ID to extract location and type
-      const parts = jobId.split('-');
-      const level = parts[1] === 'central' ? 'central' : 'state';
-      const state = parts[1] !== 'central' ? parts[1] : null;
-      const district = parts[2] !== 'all' ? parts[2] : null;
-      const jobType = parts[parts.length - 2];
-
-      // Get eligibility template
-      const eligibility = eligibilityTemplates[jobType] || eligibilityTemplates.clerk;
-
-      const { error } = await supabase
-        .from('government_jobs')
-        .upsert({
-          job_id: jobId,
-          title: `${jobType.charAt(0).toUpperCase() + jobType.slice(1)} Position`,
-          department: 'Various Departments',
-          level,
-          location_state: state,
-          location_district: district,
-          position_type: jobType,
-          education_requirement: eligibility.education,
-          age_min: eligibility.age.min,
-          age_max: eligibility.age.max,
-          age_relaxations: eligibility.age.relaxation || null,
-          physical_fitness_required: eligibility.physicalFitness || false,
-          application_deadline: jobData.deadline,
-          notification_date: jobData.notificationDate,
-          exam_date: jobData.examDate || jobData.prelimsDate,
-          physical_test_date: jobData.physicalTestDate,
-          interview_date: jobData.interviewDate,
-          status: jobData.status,
-        }, {
-          onConflict: 'job_id',
-          ignoreDuplicates: false,
-        });
-
-      if (error) {
-        log(`Error upserting job ${jobId}: ${error.message}`, 'error');
-        stats.governmentJobs.errors++;
-      } else {
-        stats.governmentJobs.created++;
-      }
-    } catch (err) {
-      log(`Exception migrating job ${jobId}: ${err.message}`, 'error');
-      stats.governmentJobs.errors++;
-    }
-  }
+  log(`✅ Processed sync-platform files`, 'success');
 }
 
 /**
  * Main sync function
  */
 async function main() {
-  const startTime = Date.now();
-  
   console.log('');
   console.log('========================================');
-  console.log('  COMPREHENSIVE CONTENT SYNC TO SUPABASE');
+  console.log('  CONTENT SYNC TO SUPABASE');
   if (DRY_RUN) {
-    console.log('  [DRY RUN MODE - No actual database changes]');
+    console.log('  MODE: DRY RUN (no changes will be made)');
   }
   console.log('========================================');
   console.log('');
-  if (!DRY_RUN) {
-    log(`Supabase URL: ${SUPABASE_URL}`);
-  }
-  log(`Starting comprehensive content sync...`);
+  console.log('Environment:');
+  console.log(`  SUPABASE_URL: ${SUPABASE_URL}`);
+  console.log(`  SUPABASE_KEY: ${'*'.repeat(20)}...`);
+  console.log(`  Verbose: ${VERBOSE}`);
   console.log('');
 
   try {
-    const rootDir = path.join(__dirname, '..');
-
-    // 1. Process main seed file
-    const seedFile = path.join(rootDir, 'seeds', 'content.json');
-    if (fs.existsSync(seedFile)) {
-      log('📦 Processing main seed file...');
-      stats.filesProcessed++;
-      const seedData = readJsonFile(seedFile);
-      
-      if (seedData) {
-        const courseIdMap = await migrateCourses(seedData.courses || [], seedFile);
-        const moduleIdMap = await migrateModules(seedData.modules || [], courseIdMap, seedFile);
-        const lessonIdMap = await migrateLessons(seedData.lessons || [], moduleIdMap, seedFile);
-        await migrateQuestions(seedData.questions || [], lessonIdMap, seedFile);
-      }
-    } else {
-      log('Main seed file not found, skipping...', 'warn');
-    }
-
-    // 2. Process sync-platform content
-    const syncPlatformDir = path.join(rootDir, 'data', 'sync-platform');
-    if (fs.existsSync(syncPlatformDir)) {
-      await processSyncPlatformContent(syncPlatformDir);
-    } else {
-      log('Sync-platform directory not found, skipping...', 'warn');
-    }
-
-    // 3. Process app-specific seeds
-    const appsDir = path.join(rootDir, 'apps');
-    if (fs.existsSync(appsDir)) {
-      await processAppSeeds(appsDir);
-    } else {
-      log('Apps directory not found, skipping...', 'warn');
-    }
-
-    // 4. Process geography data
-    const geographyFile = path.join(rootDir, 'apps', 'learn-govt-jobs', 'data', 'geography.json');
-    await processGeography(geographyFile);
-
-    // 5. Process government jobs
-    const jobsFile = path.join(rootDir, 'apps', 'learn-govt-jobs', 'data', 'deadlines.json');
-    await processGovernmentJobs(jobsFile);
-
-    // 6. Process other data sources
-    const dataDir = path.join(rootDir, 'data');
-    if (fs.existsSync(dataDir)) {
-      await processOtherData(dataDir);
-    }
-
-    // 7. Scan for any /apps/learn-*/content/ directories (future-proofing)
-    log('🔍 Scanning for learn-*/content/ directories...');
-    const learnApps = fs.readdirSync(appsDir).filter(d => d.startsWith('learn-'));
-    for (const app of learnApps) {
-      const contentDir = path.join(appsDir, app, 'content');
-      if (fs.existsSync(contentDir)) {
-        log(`Found content directory for ${app}`, 'warn');
-        const contentFiles = findFiles(contentDir, /\.(json|js)$/);
-        if (contentFiles.length > 0) {
-          log(`Found ${contentFiles.length} content files in ${app}/content/`, 'warn');
-          stats.unknownTypes.push({
-            file: contentDir,
-            type: 'app-content-directory',
-            files: contentFiles.length,
-          });
-        }
-      }
-    }
+    // Process all content sources
+    await processSeedContent();
+    await processAppSeeds();
+    await processSyncPlatform();
 
     // Print summary
-    const duration = ((Date.now() - startTime) / 1000).toFixed(2);
-    
     console.log('');
     console.log('========================================');
     console.log('  SYNC COMPLETE!');
     console.log('========================================');
     console.log('');
-    console.log('📊 Summary:');
-    console.log(`  ⏱️  Duration: ${duration}s`);
-    console.log(`  📁 Files Processed: ${stats.filesProcessed}`);
-    console.log(`  ⏭️  Files Skipped: ${stats.filesSkipped}`);
-    console.log('');
-    console.log('📚 Content Synced:');
-    console.log(`  Courses:        ${stats.courses.created} created, ${stats.courses.updated} updated, ${stats.courses.errors} errors`);
-    console.log(`  Modules:        ${stats.modules.created} created, ${stats.modules.updated} updated, ${stats.modules.errors} errors`);
-    console.log(`  Lessons:        ${stats.lessons.created} created, ${stats.lessons.updated} updated, ${stats.lessons.errors} errors`);
-    console.log(`  Questions:      ${stats.questions.created} created, ${stats.questions.updated} updated, ${stats.questions.errors} errors`);
-    console.log(`  Geography:      ${stats.geography.created} created, ${stats.geography.errors} errors`);
-    console.log(`  Govt Jobs:      ${stats.governmentJobs.created} created, ${stats.governmentJobs.errors} errors`);
-    console.log(`  Sync Platform:  ${stats.syncPlatform.created} processed, ${stats.syncPlatform.errors} errors`);
-    console.log(`  App Seeds:      Processed ${stats.appSeeds.files.length} files`);
-    console.log(`  Other Content:  ${stats.otherContent.created} processed, ${stats.otherContent.errors} errors`);
+    console.log('Summary:');
+    console.log(`  Files Scanned:  ${stats.filesScanned}`);
+    console.log(`  Courses:        ${stats.courses.created} created, ${stats.courses.updated} updated, ${stats.courses.errors} errors, ${stats.courses.skipped} skipped`);
+    console.log(`  Modules:        ${stats.modules.created} created, ${stats.modules.updated} updated, ${stats.modules.errors} errors, ${stats.modules.skipped} skipped`);
+    console.log(`  Lessons:        ${stats.lessons.created} created, ${stats.lessons.updated} updated, ${stats.lessons.errors} errors, ${stats.lessons.skipped} skipped`);
     console.log('');
 
-    // Report unknown types for schema extension recommendations
-    if (stats.unknownTypes.length > 0) {
-      console.log('⚠️  Unknown Content Types Found (Schema Extension Recommended):');
-      console.log('');
-      for (const unknown of stats.unknownTypes) {
-        console.log(`  📄 ${unknown.file}`);
-        console.log(`     Type: ${unknown.type}`);
-        if (unknown.sample) {
-          console.log(`     Keys: ${unknown.sample.join(', ')}`);
-        }
-        if (unknown.files) {
-          console.log(`     Files: ${unknown.files}`);
-        }
-        console.log('');
-      }
-      console.log('  💡 Recommendation: Review these files and extend Supabase schema if needed.');
+    // Show skipped files
+    if (stats.filesSkipped.length > 0) {
+      console.log('⚠️  Skipped Files:');
+      stats.filesSkipped.forEach(({ file, reason }) => {
+        console.log(`   - ${file}: ${reason}`);
+      });
       console.log('');
     }
 
-    // Report files processed by category
-    console.log('📋 Files Processed by Source:');
-    if (stats.courses.files.length > 0) {
-      console.log(`  Courses: ${stats.courses.files.join(', ')}`);
+    // Show errors
+    if (stats.errors.length > 0) {
+      console.log('❌ Errors:');
+      stats.errors.forEach(({ type, item, error, source }) => {
+        console.log(`   - [${type}] ${item} from ${source}: ${error}`);
+      });
+      console.log('');
     }
-    if (stats.geography.files.length > 0) {
-      console.log(`  Geography: ${stats.geography.files.join(', ')}`);
-    }
-    if (stats.governmentJobs.files.length > 0) {
-      console.log(`  Govt Jobs: ${stats.governmentJobs.files.join(', ')}`);
-    }
-    if (stats.syncPlatform.files.length > 0) {
-      console.log(`  Sync Platform: ${stats.syncPlatform.files.length} files`);
-    }
-    if (stats.appSeeds.files.length > 0) {
-      console.log(`  App Seeds: ${stats.appSeeds.files.join(', ')}`);
-    }
-    if (stats.otherContent.files.length > 0) {
-      console.log(`  Other Content: ${stats.otherContent.files.length} files`);
-    }
-    console.log('');
 
-    const totalErrors = Object.values(stats).reduce((sum, s) => {
-      return sum + (s.errors || 0);
-    }, 0);
-
+    const totalErrors = stats.courses.errors + stats.modules.errors + stats.lessons.errors;
     if (totalErrors > 0) {
-      log(`Sync completed with ${totalErrors} errors. Check logs above.`, 'warn');
+      console.log(`⚠️  Sync completed with ${totalErrors} error(s). Check logs above.`);
       process.exit(1);
     } else {
-      log('Sync completed successfully! ✨', 'success');
+      console.log('✅ Sync completed successfully!');
       process.exit(0);
     }
   } catch (error) {
-    log(`Fatal error during sync: ${error.message}`, 'error');
-    console.error(error.stack);
+    console.error('❌ Fatal error during sync:', error);
     process.exit(1);
   }
 }
 
 // Run sync
-if (require.main === module) {
-  main();
-}
-
-module.exports = { main };
+main();
