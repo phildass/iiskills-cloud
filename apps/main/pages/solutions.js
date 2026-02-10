@@ -6,7 +6,7 @@ export default function Solutions() {
   return (
     <>
       <Head>
-        <title>Solutions - iiskills.cloud</title>
+        <title>Solutions - AI Cloud Enterprises</title>
         <meta
           name="description"
           content="Discover our tailored solutions for every industry. Scalable platforms, mobile apps, and web applications designed for businesses of every sector."
@@ -16,10 +16,10 @@ export default function Solutions() {
       {/* Hero Section */}
       <Hero appId="main" className="h-[60vh] md:h-[70vh]" noOverlay>
         <div className="text-center text-white space-y-4 max-w-5xl mx-auto">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight tracking-tight">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight tracking-tight drop-shadow-lg">
             Solutions for Every Industry
           </h1>
-          <p className="text-lg sm:text-xl lg:text-2xl leading-relaxed max-w-3xl mx-auto px-4">
+          <p className="text-lg sm:text-xl lg:text-2xl leading-relaxed max-w-3xl mx-auto px-4 drop-shadow-md">
             Empowering organizations to thrive in the digital era
           </p>
         </div>
