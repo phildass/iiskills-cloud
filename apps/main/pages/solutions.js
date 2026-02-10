@@ -30,13 +30,11 @@ export default function Solutions() {
         <section className="mb-20">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-                Sector Focus
-              </h2>
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">Sector Focus</h2>
               <p className="text-lg text-gray-700 leading-relaxed">
-                From healthcare to education, our apps are precisely tailored to address the unique 
-                challenges of each industry. We empower organizations to thrive in the digital era—delivering 
-                seamless, effective solutions for businesses of every sector.
+                From healthcare to education, our apps are precisely tailored to address the unique
+                challenges of each industry. We empower organizations to thrive in the digital
+                era—delivering seamless, effective solutions for businesses of every sector.
               </p>
             </div>
             <div className="relative h-80 rounded-xl overflow-hidden shadow-2xl">
@@ -68,7 +66,7 @@ export default function Solutions() {
                 Scalable Solutions
               </h2>
               <p className="text-lg text-gray-700 leading-relaxed">
-                Our subscription-based platforms grow with your business, ensuring seamless digital 
+                Our subscription-based platforms grow with your business, ensuring seamless digital
                 experiences for both mass and niche audiences.
               </p>
             </div>
@@ -79,9 +77,7 @@ export default function Solutions() {
         <section className="mb-20">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-                Mobile Apps
-              </h2>
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">Mobile Apps</h2>
               <p className="text-lg text-gray-700 leading-relaxed">
                 Smart mobile solutions that bring India's digital future right to your fingertips.
               </p>
@@ -111,9 +107,7 @@ export default function Solutions() {
               />
             </div>
             <div className="order-1 md:order-2">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-                Web Apps
-              </h2>
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">Web Apps</h2>
               <p className="text-lg text-gray-700 leading-relaxed">
                 Robust, scalable web applications designed for broad and niche audiences alike.
               </p>
@@ -123,9 +117,7 @@ export default function Solutions() {
 
         {/* Call to Action */}
         <section className="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-2xl shadow-2xl p-12 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Ready to Transform Your Business?
-          </h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to Transform Your Business?</h2>
           <p className="text-lg md:text-xl mb-8 max-w-3xl mx-auto">
             Discover how our solutions can help your organization thrive in the digital era.
           </p>
