@@ -137,8 +137,8 @@ export function getRandomSecondaryImage(appId) {
  * @param {React.ReactNode} props.children - Content to display in hero overlay (positioned at bottom)
  * @param {string} props.className - Additional CSS classes for the hero section
  * @param {string} props.heroHeight - Height of hero section (default: 70vh for mobile, 80vh for md, 90vh for lg)
- * @param {boolean} props.noOverlay - If true, displays image naturally without dark overlay (default: false)
- * @param {string} props.overlayOpacity - Custom overlay opacity class (e.g., "bg-black/20", "bg-black/40")
+ * @param {boolean} props.noOverlay - If true, displays image naturally without any overlay (default: false)
+ * @param {string} props.overlayOpacity - Custom overlay opacity class (e.g., "bg-black/20", "bg-black/40"). Only applies when noOverlay is false. Default: "bg-black/40"
  */
 export default function Hero({ 
   appId, 
