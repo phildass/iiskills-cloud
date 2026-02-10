@@ -62,8 +62,22 @@ const stats = {
  */
 function log(message, level = 'info') {
   const timestamp = new Date().toISOString();
-  const prefix = level === 'error' ? '❌' : level === 'warn' ? '⚠️ ' : level === 'success' ? '✅' : 'ℹ️ ';
+  const prefixes = {
+    error: '❌',
+    warn: '⚠️ ',
+    success: '✅',
+    info: 'ℹ️ '
+  };
+  const prefix = prefixes[level] || 'ℹ️ ';
   console.log(`[${timestamp}] ${prefix} ${message}`);
+}
+
+/**
+ * Generate a URL-friendly slug from text
+ */
+function generateSlug(text) {
+  if (!text) return 'untitled';
+  return text.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
 }
 
 /**
@@ -224,7 +238,7 @@ async function migrateModules(modules, courseIdMap, sourceFile) {
         continue;
       }
 
-      const slug = module.slug || module.id || module.title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+      const slug = module.slug || module.id || generateSlug(module.title);
 
       // Check if module already exists
       const { data: existing } = await supabase
@@ -312,7 +326,7 @@ async function migrateLessons(lessons, moduleIdMap, sourceFile) {
         continue;
       }
 
-      const slug = lesson.slug || lesson.title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+      const slug = lesson.slug || generateSlug(lesson.title);
 
       // Check if lesson already exists
       const { data: existing } = await supabase
@@ -627,6 +641,9 @@ async function processGeography(filePath) {
     return;
   }
 
+  // Conflict resolution for geography upserts
+  const conflictColumns = 'name,type,parent_id';
+
   for (const country of geographyData) {
     try {
       // Insert country
@@ -637,7 +654,7 @@ async function processGeography(filePath) {
           type: country.type,
           parent_id: null,
         }, {
-          onConflict: 'name,type,parent_id',
+          onConflict: conflictColumns,
           ignoreDuplicates: false,
         })
         .select('id')
@@ -660,7 +677,7 @@ async function processGeography(filePath) {
             type: state.type,
             parent_id: countryData.id,
           }, {
-            onConflict: 'name,type,parent_id',
+            onConflict: conflictColumns,
             ignoreDuplicates: false,
           })
           .select('id')
@@ -683,7 +700,7 @@ async function processGeography(filePath) {
               type: district.type,
               parent_id: stateData.id,
             }, {
-              onConflict: 'name,type,parent_id',
+              onConflict: conflictColumns,
               ignoreDuplicates: false,
             });
 

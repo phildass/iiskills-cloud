@@ -328,11 +328,21 @@ supabase db push
 -- Check RLS policies
 SELECT * FROM pg_policies WHERE tablename = 'courses';
 
--- Temporarily disable RLS for testing
-ALTER TABLE courses DISABLE ROW LEVEL SECURITY;
+-- ⚠️ DANGER: Only disable RLS temporarily in DEVELOPMENT environments for testing
+-- NEVER disable RLS in production - this exposes your data to unauthorized access!
+-- After testing, immediately re-enable RLS:
+ALTER TABLE courses DISABLE ROW LEVEL SECURITY;  -- DEVELOPMENT ONLY!
 
 -- Check data exists
 SELECT COUNT(*) FROM courses;
+
+-- Re-enable RLS immediately after testing:
+ALTER TABLE courses ENABLE ROW LEVEL SECURITY;
+
+-- Better solution: Fix your RLS policies instead of disabling them
+-- Example: Allow service role to read all data
+CREATE POLICY "Service role can read all" ON courses
+  FOR SELECT USING (auth.jwt() ->> 'role' = 'service_role');
 ```
 
 ### Problem: "Permission denied" Errors

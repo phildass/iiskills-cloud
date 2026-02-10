@@ -81,7 +81,6 @@ jobs:
         with:
           name: sync-logs-${{ github.run_id }}
           path: |
-            .env.local
             *.log
           retention-days: 7
       
