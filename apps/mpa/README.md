@@ -2,6 +2,8 @@
 
 A highly efficient, witty, and supportive AI personal assistant with a personality of a high-end digital butler, now integrated into the iiskills-cloud monorepo.
 
+![MPA App Screenshot](https://github.com/user-attachments/assets/8de34512-f6ec-484c-80a0-9d6c96882994)
+
 ## Overview
 
 MPA (My Personal Assistant) is a standalone app within the iiskills-cloud monorepo that provides personal assistant features including reminders, translations, WhatsApp messaging, and more.
