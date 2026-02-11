@@ -37,6 +37,7 @@ jobs:
           - apps/learn-physics
           - apps/learn-pr
           - apps/learn-winning
+          - apps/mpa
       fail-fast: false
     
     steps:

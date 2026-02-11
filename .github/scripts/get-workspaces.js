@@ -37,7 +37,8 @@ const FALLBACK_WORKSPACES = [
   { workspaceName: 'learn-math', workspacePath: 'apps/learn-math' },
   { workspaceName: 'learn-physics', workspacePath: 'apps/learn-physics' },
   { workspaceName: 'learn-pr', workspacePath: 'apps/learn-pr' },
-  { workspaceName: 'learn-winning', workspacePath: 'apps/learn-winning' }
+  { workspaceName: 'learn-winning', workspacePath: 'apps/learn-winning' },
+  { workspaceName: 'mpa', workspacePath: 'apps/mpa' }
 ];
 
 function getWorkspaces() {
