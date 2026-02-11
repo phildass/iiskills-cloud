@@ -1,5 +1,6 @@
 import "../styles/globals.css";
 import Head from "next/head";
+import SiteHeader from "../../../components/shared/SiteHeader";
 
 export default function App({ Component, pageProps }) {
   return (
@@ -11,6 +12,7 @@ export default function App({ Component, pageProps }) {
         <meta name="description" content="MPA - Your Personal Digital Butler. An AI-powered personal assistant app." />
       </Head>
 
+      <SiteHeader appId="mpa" isFreeApp={false} showAuthButtons={true} />
       <Component {...pageProps} />
     </>
   );

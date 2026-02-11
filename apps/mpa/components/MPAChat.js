@@ -155,7 +155,7 @@ export default function MPAChat() {
   };
 
   return (
-    <div className="min-h-screen mpa-gradient flex justify-center items-center p-5">
+    <div className="min-h-screen mpa-gradient flex justify-center items-center p-5 pt-20">{/* pt-20 for header space */}
       {/* Setup Modal */}
       {showSetup && (
         <div className="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center z-50">
