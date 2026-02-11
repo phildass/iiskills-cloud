@@ -266,6 +266,25 @@ module.exports = {
       "out_file": path.join(__dirname, 'logs', 'learn-biology-out.log'),
       "log_file": path.join(__dirname, 'logs', 'learn-biology-combined.log'),
       "time": true
+    },
+    {
+      "name": "iiskills-mpa",
+      "cwd": path.join(__dirname, 'apps/mpa'),
+      "script": "npx",
+      "args": "next start",
+      "interpreter": "none",
+      "env": {
+        "NODE_ENV": "production",
+        "PORT": 3014
+      },
+      "instances": 1,
+      "autorestart": true,
+      "watch": false,
+      "max_memory_restart": "1G",
+      "error_file": path.join(__dirname, 'logs', 'mpa-error.log'),
+      "out_file": path.join(__dirname, 'logs', 'mpa-out.log'),
+      "log_file": path.join(__dirname, 'logs', 'mpa-combined.log'),
+      "time": true
     }
   ]
 };
