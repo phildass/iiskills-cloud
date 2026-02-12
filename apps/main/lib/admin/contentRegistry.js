@@ -292,6 +292,406 @@ export const APP_REGISTRY = {
       },
     ],
   },
+
+  'learn-ai': {
+    id: 'learn-ai',
+    name: 'learn-ai',
+    displayName: 'Artificial Intelligence',
+    description: 'AI and machine learning courses',
+    contentType: 'json',
+    dataPath: 'apps/learn-ai/data',
+    icon: '🤖',
+    fields: [
+      {
+        name: 'id',
+        label: 'Content ID',
+        type: 'text',
+        required: true,
+      },
+      {
+        name: 'title',
+        label: 'Title',
+        type: 'text',
+        required: true,
+      },
+      {
+        name: 'description',
+        label: 'Description',
+        type: 'textarea',
+        required: true,
+      },
+      {
+        name: 'difficulty',
+        label: 'Difficulty',
+        type: 'select',
+        options: [
+          { label: 'Beginner', value: 'Beginner' },
+          { label: 'Intermediate', value: 'Intermediate' },
+          { label: 'Advanced', value: 'Advanced' },
+        ],
+      },
+    ],
+  },
+
+  'learn-biology': {
+    id: 'learn-biology',
+    name: 'learn-biology',
+    displayName: 'Biology',
+    description: 'Biology courses and content',
+    contentType: 'json',
+    dataPath: 'apps/learn-biology/data',
+    icon: '🧬',
+    fields: [
+      {
+        name: 'id',
+        label: 'Content ID',
+        type: 'text',
+        required: true,
+      },
+      {
+        name: 'title',
+        label: 'Title',
+        type: 'text',
+        required: true,
+      },
+      {
+        name: 'description',
+        label: 'Description',
+        type: 'textarea',
+        required: true,
+      },
+      {
+        name: 'difficulty',
+        label: 'Difficulty',
+        type: 'select',
+        options: [
+          { label: 'Beginner', value: 'Beginner' },
+          { label: 'Intermediate', value: 'Intermediate' },
+          { label: 'Advanced', value: 'Advanced' },
+        ],
+      },
+    ],
+  },
+
+  'learn-chemistry': {
+    id: 'learn-chemistry',
+    name: 'learn-chemistry',
+    displayName: 'Chemistry',
+    description: 'Chemistry courses and content',
+    contentType: 'json',
+    dataPath: 'apps/learn-chemistry/data',
+    icon: '⚗️',
+    fields: [
+      {
+        name: 'id',
+        label: 'Content ID',
+        type: 'text',
+        required: true,
+      },
+      {
+        name: 'title',
+        label: 'Title',
+        type: 'text',
+        required: true,
+      },
+      {
+        name: 'description',
+        label: 'Description',
+        type: 'textarea',
+        required: true,
+      },
+      {
+        name: 'difficulty',
+        label: 'Difficulty',
+        type: 'select',
+        options: [
+          { label: 'Beginner', value: 'Beginner' },
+          { label: 'Intermediate', value: 'Intermediate' },
+          { label: 'Advanced', value: 'Advanced' },
+        ],
+      },
+    ],
+  },
+
+  'learn-developer': {
+    id: 'learn-developer',
+    name: 'learn-developer',
+    displayName: 'Software Development',
+    description: 'Software development and programming courses',
+    contentType: 'json',
+    dataPath: 'apps/learn-developer/data',
+    icon: '💻',
+    fields: [
+      {
+        name: 'id',
+        label: 'Content ID',
+        type: 'text',
+        required: true,
+      },
+      {
+        name: 'title',
+        label: 'Title',
+        type: 'text',
+        required: true,
+      },
+      {
+        name: 'description',
+        label: 'Description',
+        type: 'textarea',
+        required: true,
+      },
+      {
+        name: 'difficulty',
+        label: 'Difficulty',
+        type: 'select',
+        options: [
+          { label: 'Beginner', value: 'Beginner' },
+          { label: 'Intermediate', value: 'Intermediate' },
+          { label: 'Advanced', value: 'Advanced' },
+        ],
+      },
+    ],
+  },
+
+  'learn-finesse': {
+    id: 'learn-finesse',
+    name: 'learn-finesse',
+    displayName: 'Professional Skills',
+    description: 'Professional development and soft skills',
+    contentType: 'json',
+    dataPath: 'apps/learn-finesse/data',
+    icon: '🎯',
+    fields: [
+      {
+        name: 'id',
+        label: 'Content ID',
+        type: 'text',
+        required: true,
+      },
+      {
+        name: 'title',
+        label: 'Title',
+        type: 'text',
+        required: true,
+      },
+      {
+        name: 'description',
+        label: 'Description',
+        type: 'textarea',
+        required: true,
+      },
+      {
+        name: 'difficulty',
+        label: 'Difficulty',
+        type: 'select',
+        options: [
+          { label: 'Beginner', value: 'Beginner' },
+          { label: 'Intermediate', value: 'Intermediate' },
+          { label: 'Advanced', value: 'Advanced' },
+        ],
+      },
+    ],
+  },
+
+  'learn-geography': {
+    id: 'learn-geography',
+    name: 'learn-geography',
+    displayName: 'Geography',
+    description: 'Geography courses and content',
+    contentType: 'json',
+    dataPath: 'apps/learn-geography/data',
+    icon: '🌍',
+    fields: [
+      {
+        name: 'id',
+        label: 'Content ID',
+        type: 'text',
+        required: true,
+      },
+      {
+        name: 'title',
+        label: 'Title',
+        type: 'text',
+        required: true,
+      },
+      {
+        name: 'description',
+        label: 'Description',
+        type: 'textarea',
+        required: true,
+      },
+      {
+        name: 'difficulty',
+        label: 'Difficulty',
+        type: 'select',
+        options: [
+          { label: 'Beginner', value: 'Beginner' },
+          { label: 'Intermediate', value: 'Intermediate' },
+          { label: 'Advanced', value: 'Advanced' },
+        ],
+      },
+    ],
+  },
+
+  'learn-management': {
+    id: 'learn-management',
+    name: 'learn-management',
+    displayName: 'Management',
+    description: 'Management and business courses',
+    contentType: 'json',
+    dataPath: 'apps/learn-management/data',
+    icon: '📊',
+    fields: [
+      {
+        name: 'id',
+        label: 'Content ID',
+        type: 'text',
+        required: true,
+      },
+      {
+        name: 'title',
+        label: 'Title',
+        type: 'text',
+        required: true,
+      },
+      {
+        name: 'description',
+        label: 'Description',
+        type: 'textarea',
+        required: true,
+      },
+      {
+        name: 'difficulty',
+        label: 'Difficulty',
+        type: 'select',
+        options: [
+          { label: 'Beginner', value: 'Beginner' },
+          { label: 'Intermediate', value: 'Intermediate' },
+          { label: 'Advanced', value: 'Advanced' },
+        ],
+      },
+    ],
+  },
+
+  'learn-math': {
+    id: 'learn-math',
+    name: 'learn-math',
+    displayName: 'Mathematics',
+    description: 'Mathematics courses and content',
+    contentType: 'json',
+    dataPath: 'apps/learn-math/data',
+    icon: '📐',
+    fields: [
+      {
+        name: 'id',
+        label: 'Content ID',
+        type: 'text',
+        required: true,
+      },
+      {
+        name: 'title',
+        label: 'Title',
+        type: 'text',
+        required: true,
+      },
+      {
+        name: 'description',
+        label: 'Description',
+        type: 'textarea',
+        required: true,
+      },
+      {
+        name: 'difficulty',
+        label: 'Difficulty',
+        type: 'select',
+        options: [
+          { label: 'Beginner', value: 'Beginner' },
+          { label: 'Intermediate', value: 'Intermediate' },
+          { label: 'Advanced', value: 'Advanced' },
+        ],
+      },
+    ],
+  },
+
+  'learn-physics': {
+    id: 'learn-physics',
+    name: 'learn-physics',
+    displayName: 'Physics',
+    description: 'Physics courses and content',
+    contentType: 'json',
+    dataPath: 'apps/learn-physics/data',
+    icon: '⚛️',
+    fields: [
+      {
+        name: 'id',
+        label: 'Content ID',
+        type: 'text',
+        required: true,
+      },
+      {
+        name: 'title',
+        label: 'Title',
+        type: 'text',
+        required: true,
+      },
+      {
+        name: 'description',
+        label: 'Description',
+        type: 'textarea',
+        required: true,
+      },
+      {
+        name: 'difficulty',
+        label: 'Difficulty',
+        type: 'select',
+        options: [
+          { label: 'Beginner', value: 'Beginner' },
+          { label: 'Intermediate', value: 'Intermediate' },
+          { label: 'Advanced', value: 'Advanced' },
+        ],
+      },
+    ],
+  },
+
+  'learn-pr': {
+    id: 'learn-pr',
+    name: 'learn-pr',
+    displayName: 'Public Relations',
+    description: 'Public relations and communication courses',
+    contentType: 'json',
+    dataPath: 'apps/learn-pr/data',
+    icon: '📢',
+    fields: [
+      {
+        name: 'id',
+        label: 'Content ID',
+        type: 'text',
+        required: true,
+      },
+      {
+        name: 'title',
+        label: 'Title',
+        type: 'text',
+        required: true,
+      },
+      {
+        name: 'description',
+        label: 'Description',
+        type: 'textarea',
+        required: true,
+      },
+      {
+        name: 'difficulty',
+        label: 'Difficulty',
+        type: 'select',
+        options: [
+          { label: 'Beginner', value: 'Beginner' },
+          { label: 'Intermediate', value: 'Intermediate' },
+          { label: 'Advanced', value: 'Advanced' },
+        ],
+      },
+    ],
+  },
 };
 
 export function getAppSchema(appId) {
