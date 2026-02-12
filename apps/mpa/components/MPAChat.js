@@ -14,6 +14,7 @@ export default function MPAChat() {
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
   const [interimTranscript, setInterimTranscript] = useState('');
+  const [isMounted, setIsMounted] = useState(false);
   const [settings, setSettings] = useState({
     userName: 'MPA',
     gender: 'neutral',
@@ -26,6 +27,10 @@ export default function MPAChat() {
   const mpaRef = useRef(null);
   const voiceManagerRef = useRef(null);
   const conversationManagerRef = useRef(null);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -568,7 +573,7 @@ export default function MPAChat() {
         </div>
 
         <div className="mpa-input-container">
-          {settings.voiceEnabled && VoiceManager.isSpeechRecognitionSupported() && (
+          {isMounted && settings.voiceEnabled && VoiceManager.isSpeechRecognitionSupported() && (
             <button
               onClick={toggleVoiceRecognition}
               className={`p-4 rounded-full transition-all ${
