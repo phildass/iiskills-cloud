@@ -211,6 +211,9 @@ function generateLessonTitles(moduleTitle, count) {
 }
 
 // Generate lesson content
+// NOTE: This generates placeholder/template content for demonstration purposes.
+// In production, content should be authored by subject matter experts or
+// generated using AI with proper educational value for each specific topic.
 function generateLessonContent(lessonTitle, moduleTitle) {
   return `
       <h2>${lessonTitle}</h2>
