@@ -1,5 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import MPA from '../lib/mpa';
+import VoiceManager from '../lib/voiceManager';
+import ConversationManager from '../lib/conversationManager';
 
 export default function MPAChat() {
   const [messages, setMessages] = useState([]);
@@ -8,30 +10,96 @@ export default function MPAChat() {
   const [showSettings, setShowSettings] = useState(false);
   const [showSetup, setShowSetup] = useState(false);
   const [setupName, setSetupName] = useState('');
+  const [isListening, setIsListening] = useState(false);
+  const [isSpeaking, setIsSpeaking] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [interimTranscript, setInterimTranscript] = useState('');
   const [settings, setSettings] = useState({
     userName: 'MPA',
     gender: 'neutral',
-    language: 'en'
+    language: 'en',
+    voiceEnabled: true,
+    autoSpeak: true
   });
   
   const chatContainerRef = useRef(null);
   const mpaRef = useRef(null);
+  const voiceManagerRef = useRef(null);
+  const conversationManagerRef = useRef(null);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
       mpaRef.current = new MPA();
+      voiceManagerRef.current = new VoiceManager();
+      conversationManagerRef.current = new ConversationManager();
+      
       const savedUser = localStorage.getItem('mpa_registered_user');
       const savedName = localStorage.getItem('mpaUserName') || 'MPA';
       const savedGender = localStorage.getItem('mpaGender') || 'neutral';
       const savedLanguage = localStorage.getItem('mpaLanguage') || 'en';
+      const savedVoiceEnabled = localStorage.getItem('mpaVoiceEnabled') !== 'false';
+      const savedAutoSpeak = localStorage.getItem('mpaAutoSpeak') !== 'false';
       
-      setSettings({ userName: savedName, gender: savedGender, language: savedLanguage });
+      const loadedSettings = { 
+        userName: savedName, 
+        gender: savedGender, 
+        language: savedLanguage,
+        voiceEnabled: savedVoiceEnabled,
+        autoSpeak: savedAutoSpeak
+      };
+      
+      setSettings(loadedSettings);
       
       if (savedUser) {
         setCurrentUser(savedUser);
         mpaRef.current.setRegisteredUser(savedUser);
+        conversationManagerRef.current.init(savedUser, loadedSettings);
+        
+        // Load conversation history
+        const history = conversationManagerRef.current.messages;
+        if (history.length > 0) {
+          setMessages(history.map(m => ({
+            text: m.content,
+            isUser: m.role === 'user',
+            timestamp: m.timestamp
+          })));
+        }
       } else {
         setShowSetup(true);
+      }
+
+      // Setup voice recognition callbacks
+      if (voiceManagerRef.current.initRecognition(savedLanguage)) {
+        voiceManagerRef.current.onResult = (transcript, isFinal) => {
+          if (isFinal) {
+            setUserInput(transcript);
+            setInterimTranscript('');
+          } else {
+            setInterimTranscript(transcript);
+          }
+        };
+
+        voiceManagerRef.current.onStart = () => {
+          setIsListening(true);
+        };
+
+        voiceManagerRef.current.onEnd = () => {
+          setIsListening(false);
+          setInterimTranscript('');
+        };
+
+        voiceManagerRef.current.onError = (error) => {
+          console.error('Voice recognition error:', error);
+          setIsListening(false);
+          setInterimTranscript('');
+          if (error !== 'no-speech' && error !== 'aborted') {
+            setMessages(prev => [...prev, {
+              text: 'Sorry, I didn\'t catch that. Please try again or type your message.',
+              isUser: false,
+              isError: true
+            }]);
+          }
+        };
       }
 
       // Request notification permission
@@ -47,52 +115,115 @@ export default function MPAChat() {
     }
   }, [messages]);
 
-  const handleUserMessage = () => {
-    if (!userInput.trim()) return;
+  const handleUserMessage = async () => {
+    if (!userInput.trim() || isProcessing) return;
 
-    const newMessages = [...messages, { text: userInput, isUser: true }];
-    setMessages(newMessages);
+    const messageText = userInput.trim();
+    setUserInput('');
+    setIsProcessing(true);
 
-    const response = mpaRef.current.processMessage(userInput, currentUser);
-    const actions = mpaRef.current.parseActionCodes(response);
-    const cleanedResponse = mpaRef.current.cleanResponse(response);
+    // Add user message to display
+    setMessages(prev => [...prev, { text: messageText, isUser: true }]);
 
-    setTimeout(() => {
-      setMessages(prev => [...prev, { text: cleanedResponse, isUser: false }]);
+    try {
+      // Use conversation manager for LLM integration
+      const result = await conversationManagerRef.current.sendMessage(messageText);
       
-      actions.forEach(action => {
-        if (action.type === 'SET_REMINDER') {
-          setReminder(action.datetime, userInput);
-          setMessages(prev => [...prev, { text: action.text, isAction: true }]);
-        } else if (action.type === 'WHATSAPP_LINK') {
+      // Add assistant response
+      if (result.message) {
+        setMessages(prev => [...prev, { text: result.message, isUser: false }]);
+        
+        // Speak response if voice enabled
+        if (settings.voiceEnabled && settings.autoSpeak && voiceManagerRef.current) {
+          await voiceManagerRef.current.speak(result.message, {
+            languageCode: settings.language,
+            gender: settings.gender
+          });
+        }
+      }
+
+      // Handle skill results
+      if (result.skillResults && result.skillResults.length > 0) {
+        for (const skillResult of result.skillResults) {
+          if (skillResult.success) {
+            handleSkillAction(skillResult);
+          } else {
+            setMessages(prev => [...prev, { 
+              text: skillResult.message || 'Action failed',
+              isUser: false,
+              isError: true 
+            }]);
+          }
+        }
+      }
+
+    } catch (error) {
+      console.error('Error processing message:', error);
+      setMessages(prev => [...prev, { 
+        text: 'I apologize, but I encountered an error. Please try again.',
+        isUser: false,
+        isError: true 
+      }]);
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
+  const handleSkillAction = (skillResult) => {
+    const { action, data } = skillResult;
+
+    switch (action) {
+      case 'SET_REMINDER':
+        setReminder(data.datetime, data.task);
+        setMessages(prev => [...prev, { 
+          text: `✓ ${data.message}`, 
+          isAction: true 
+        }]);
+        break;
+
+      case 'OPEN_WHATSAPP':
+        setMessages(prev => [...prev, { 
+          text: `✓ ${data.message}`,
+          isAction: true,
+          link: data.link,
+          linkText: '📱 Open WhatsApp'
+        }]);
+        break;
+
+      case 'DISPLAY_WEATHER':
+        setMessages(prev => [...prev, { 
+          text: `🌤️ ${data.message}`,
+          isAction: true
+        }]);
+        break;
+
+      case 'DISPLAY_NEWS':
+        const newsText = data.headlines.map((h, i) => 
+          `${i + 1}. ${h.title}`
+        ).join('\n');
+        setMessages(prev => [...prev, { 
+          text: `📰 Top ${data.category} news:\n${newsText}`,
+          isAction: true
+        }]);
+        break;
+
+      case 'DISPLAY_KNOWLEDGE':
+        setMessages(prev => [...prev, { 
+          text: `💡 ${data.message}`,
+          isAction: true,
+          link: data.url,
+          linkText: 'Read more'
+        }]);
+        break;
+
+      default:
+        if (data.message) {
           setMessages(prev => [...prev, { 
-            text: `WhatsApp message ready for ${action.phone}`, 
-            isAction: true, 
-            link: action.link 
-          }]);
-        } else if (action.type === 'TRANSLATE') {
-          setMessages(prev => [...prev, { text: action.displayText, isAction: true }]);
-        } else if (action.type === 'CALL') {
-          setMessages(prev => [...prev, { text: action.text, isAction: true }]);
-        } else if (action.type === 'PLAY_VIDEO') {
-          const searchUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent(action.videoName + ' public domain')}`;
-          setMessages(prev => [...prev, { 
-            text: `Search for "${action.videoName}"`, 
-            isAction: true, 
-            link: searchUrl 
-          }]);
-        } else if (action.type === 'PLAY_SONG') {
-          const searchUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent(action.songName)}`;
-          setMessages(prev => [...prev, { 
-            text: `Search for "${action.songName}"`, 
-            isAction: true, 
-            link: searchUrl 
+            text: data.message,
+            isAction: true 
           }]);
         }
-      });
-    }, 300);
-
-    setUserInput('');
+    }
   };
 
   const setReminder = (datetime, task) => {
@@ -127,22 +258,76 @@ export default function MPAChat() {
     setCurrentUser(name);
     mpaRef.current.setRegisteredUser(name);
     localStorage.setItem('mpa_registered_user', name);
+    
+    // Initialize conversation manager
+    conversationManagerRef.current.init(name, settings);
+    
     setShowSetup(false);
     setMessages([{ 
-      text: `Welcome, ${name}! I'm MPA, your personal assistant. How may I be of service?`, 
+      text: `Welcome, ${name}! I'm ${settings.userName}, your personal AI assistant. I can help you with reminders, weather, news, messages, and much more. How may I assist you today?`, 
       isUser: false 
     }]);
+    
+    // Speak welcome message if voice enabled
+    if (settings.voiceEnabled && voiceManagerRef.current) {
+      voiceManagerRef.current.speak(
+        `Welcome, ${name}! I'm ${settings.userName}, your personal AI assistant. How may I assist you today?`,
+        {
+          languageCode: settings.language,
+          gender: settings.gender
+        }
+      );
+    }
   };
 
   const handleSaveSettings = () => {
     mpaRef.current.setUserName(settings.userName);
     mpaRef.current.setGender(settings.gender);
     mpaRef.current.setLanguage(settings.language);
+    
+    // Update conversation manager settings
+    conversationManagerRef.current.updateSettings(settings);
+    
+    // Update voice language
+    if (voiceManagerRef.current) {
+      voiceManagerRef.current.setLanguage(settings.language);
+    }
+    
     setShowSettings(false);
+    const confirmMessage = `Settings saved! I'm now ${settings.userName} (${settings.gender} assistant, ${settings.language} language). Voice ${settings.voiceEnabled ? 'enabled' : 'disabled'}.`;
+    
     setMessages(prev => [...prev, { 
-      text: `Settings saved! I'm now ${settings.userName} (${settings.gender} assistant, ${settings.language} language).`, 
+      text: confirmMessage,
       isUser: false 
     }]);
+    
+    // Speak confirmation if voice enabled
+    if (settings.voiceEnabled && voiceManagerRef.current) {
+      voiceManagerRef.current.speak(confirmMessage, {
+        languageCode: settings.language,
+        gender: settings.gender
+      });
+    }
+  };
+
+  const toggleVoiceRecognition = () => {
+    if (!VoiceManager.isSpeechRecognitionSupported()) {
+      alert('Voice recognition is not supported in your browser. Please use Chrome, Edge, or Safari.');
+      return;
+    }
+
+    if (isListening) {
+      voiceManagerRef.current.stopListening();
+    } else {
+      voiceManagerRef.current.startListening();
+    }
+  };
+
+  const toggleSpeaking = () => {
+    if (isSpeaking && voiceManagerRef.current) {
+      voiceManagerRef.current.stopSpeaking();
+      setIsSpeaking(false);
+    }
   };
 
   const handleQuickAction = (action) => {
@@ -185,7 +370,7 @@ export default function MPAChat() {
       {/* Settings Modal */}
       {showSettings && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-          <div className="bg-white rounded-3xl p-8 max-w-lg w-11/12">
+          <div className="bg-white rounded-3xl p-8 max-w-lg w-11/12 max-h-[90vh] overflow-y-auto">
             <h2 className="text-2xl font-bold mb-5" style={{ color: '#667eea' }}>⚙️ MPA Settings</h2>
             
             <div className="mb-5">
@@ -263,6 +448,38 @@ export default function MPAChat() {
               </select>
             </div>
             
+            <div className="mb-5">
+              <label className="flex items-center cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={settings.voiceEnabled}
+                  onChange={(e) => setSettings({...settings, voiceEnabled: e.target.checked})}
+                  className="mr-3 w-5 h-5"
+                />
+                <span className="font-semibold">Enable Voice Features</span>
+              </label>
+              <p className="text-sm text-gray-600 mt-1 ml-8">
+                Allows speech-to-text input and text-to-speech output
+              </p>
+            </div>
+            
+            {settings.voiceEnabled && (
+              <div className="mb-5">
+                <label className="flex items-center cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={settings.autoSpeak}
+                    onChange={(e) => setSettings({...settings, autoSpeak: e.target.checked})}
+                    className="mr-3 w-5 h-5"
+                  />
+                  <span className="font-semibold">Auto-speak Responses</span>
+                </label>
+                <p className="text-sm text-gray-600 mt-1 ml-8">
+                  Automatically read responses aloud
+                </p>
+              </div>
+            )}
+            
             <div className="flex gap-3">
               <button
                 onClick={handleSaveSettings}
@@ -285,10 +502,29 @@ export default function MPAChat() {
       <div className="mpa-container">
         <div className="mpa-header">
           <h1 className="text-4xl font-bold mb-2">🎩 MPA</h1>
-          <p className="text-sm italic opacity-90">Your Personal Digital Butler</p>
+          <p className="text-sm italic opacity-90">Your Personal AI Assistant</p>
+          {isListening && (
+            <div className="mt-2 flex items-center justify-center gap-2 text-sm">
+              <span className="mpa-pulse">🎤</span>
+              <span>Listening...</span>
+            </div>
+          )}
+          {isSpeaking && (
+            <div className="mt-2 flex items-center justify-center gap-2 text-sm">
+              <span className="mpa-pulse">🔊</span>
+              <span>Speaking...</span>
+            </div>
+          )}
+          {isProcessing && !isListening && !isSpeaking && (
+            <div className="mt-2 flex items-center justify-center gap-2 text-sm">
+              <span className="mpa-pulse">⚙️</span>
+              <span>Thinking...</span>
+            </div>
+          )}
           <button
             onClick={() => setShowSettings(true)}
             className="absolute top-5 right-5 bg-white bg-opacity-20 border-2 border-white border-opacity-40 text-white px-4 py-2 rounded-full text-xl hover:bg-opacity-30 transition-all"
+            title="Settings"
           >
             ⚙️
           </button>
@@ -297,25 +533,33 @@ export default function MPAChat() {
         <div ref={chatContainerRef} className="mpa-chat-container">
           {messages.length === 0 && (
             <div className="text-center text-gray-600 italic p-5">
-              <p>Good day! I'm <span className="font-semibold">{settings.userName}</span>, your personal assistant. How may I be of service?</p>
+              <p>Good day! I'm <span className="font-semibold">{settings.userName}</span>, your personal AI assistant.</p>
+              <p className="mt-2 text-sm">Ask me anything - use text or voice! I can help with reminders, weather, news, messages, and more.</p>
+            </div>
+          )}
+          {interimTranscript && (
+            <div className="mpa-message">
+              <div className="mpa-user-message opacity-60 italic">
+                {interimTranscript}...
+              </div>
             </div>
           )}
           {messages.map((msg, idx) => (
             <div key={idx} className="mpa-message">
               {msg.isAction ? (
-                <div className="mpa-action-notification">
-                  ✓ {msg.text}
+                <div className={`mpa-action-notification ${msg.isError ? 'mpa-error-notification' : ''}`}>
+                  {msg.text}
                   {msg.link && (
                     <>
                       <br />
-                      <a href={msg.link} target="_blank" rel="noopener noreferrer" className="mpa-whatsapp-link">
-                        📱 Open Link
+                      <a href={msg.link} target="_blank" rel="noopener noreferrer" className="mpa-action-link">
+                        {msg.linkText || '📱 Open Link'}
                       </a>
                     </>
                   )}
                 </div>
               ) : (
-                <div className={msg.isUser ? 'mpa-user-message' : 'mpa-ai-message'}>
+                <div className={`${msg.isUser ? 'mpa-user-message' : 'mpa-ai-message'} ${msg.isError ? 'mpa-error-message' : ''}`}>
                   {msg.text}
                 </div>
               )}
@@ -324,29 +568,51 @@ export default function MPAChat() {
         </div>
 
         <div className="mpa-input-container">
+          {settings.voiceEnabled && VoiceManager.isSpeechRecognitionSupported() && (
+            <button
+              onClick={toggleVoiceRecognition}
+              className={`p-4 rounded-full transition-all ${
+                isListening 
+                  ? 'bg-red-500 text-white animate-pulse' 
+                  : 'bg-purple-100 text-purple-600 hover:bg-purple-200'
+              }`}
+              title={isListening ? 'Stop listening' : 'Start voice input'}
+              disabled={isProcessing}
+            >
+              🎤
+            </button>
+          )}
           <input
             type="text"
             value={userInput}
             onChange={(e) => setUserInput(e.target.value)}
             onKeyPress={(e) => e.key === 'Enter' && handleUserMessage()}
-            placeholder="Ask me anything... (e.g., 'Remind me to call the dentist tomorrow at 10 AM')"
+            placeholder={isListening ? "Listening..." : "Ask me anything... (e.g., 'What's the weather?', 'Remind me to...')"}
             className="flex-1 p-4 border-2 border-gray-300 rounded-full outline-none focus:border-purple-600"
             autoComplete="off"
+            disabled={isListening || isProcessing}
           />
           <button
             onClick={handleUserMessage}
-            className="ml-3 px-8 py-4 mpa-gradient text-white rounded-full font-bold hover:scale-105 active:scale-95 transition-transform"
+            disabled={!userInput.trim() || isProcessing}
+            className="ml-3 px-8 py-4 mpa-gradient text-white rounded-full font-bold hover:scale-105 active:scale-95 transition-transform disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            Send
+            {isProcessing ? '...' : 'Send'}
           </button>
         </div>
 
         <div className="mpa-quick-actions">
-          <button onClick={() => handleQuickAction('joke')} className="mpa-quick-btn">
-            Tell me a joke
+          <button onClick={() => { setUserInput('Tell me a joke'); }} className="mpa-quick-btn">
+            😄 Joke
           </button>
-          <button onClick={() => handleQuickAction('quote')} className="mpa-quick-btn">
-            Give me a quote
+          <button onClick={() => { setUserInput('Give me a motivational quote'); }} className="mpa-quick-btn">
+            💪 Quote
+          </button>
+          <button onClick={() => { setUserInput('What\'s the weather?'); }} className="mpa-quick-btn">
+            🌤️ Weather
+          </button>
+          <button onClick={() => { setUserInput('Latest news'); }} className="mpa-quick-btn">
+            📰 News
           </button>
         </div>
       </div>
