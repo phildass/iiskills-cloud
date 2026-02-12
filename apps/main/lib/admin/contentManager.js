@@ -738,7 +738,7 @@ class ContentManager {
             }
           });
         } else if (data.courses && Array.isArray(data.courses)) {
-          // Seed data structure
+          // Seed data structure with courses
           items.push(...data.courses.map((course) => ({
             id: course.id || course.slug,
             appId: appSchema.id,
@@ -764,6 +764,31 @@ class ContentManager {
           }
           
           if (data.lessons) {
+            items.push(...data.lessons.map((lesson) => ({
+              id: lesson.id,
+              appId: appSchema.id,
+              title: lesson.title,
+              type: 'Lesson',
+              data: lesson,
+              source: 'filesystem',
+              sourceApp: appSchema.id,
+              sourceBackend: 'filesystem',
+            })));
+          }
+        } else if (data.modules && Array.isArray(data.modules)) {
+          // App seed data structure with modules and lessons (no courses array)
+          items.push(...data.modules.map((module) => ({
+            id: module.id || module.slug,
+            appId: appSchema.id,
+            title: module.title,
+            type: 'Module',
+            data: module,
+            source: 'filesystem',
+            sourceApp: appSchema.id,
+            sourceBackend: 'filesystem',
+          })));
+          
+          if (data.lessons && Array.isArray(data.lessons)) {
             items.push(...data.lessons.map((lesson) => ({
               id: lesson.id,
               appId: appSchema.id,
