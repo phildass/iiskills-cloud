@@ -14,6 +14,8 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/router";
 import DiagnosticQuiz from "./DiagnosticQuiz";
+import GatekeeperQuiz from "./GatekeeperQuiz";
+import { getGatekeeperQuestions, getSubjectName } from "../../lib/gatekeeperUtils";
 
 const TIERS = [
   {
@@ -53,10 +55,12 @@ const TIERS = [
 
 export default function LevelSelector({ 
   appName = "this course",
+  appId = null, // App ID for gatekeeper questions (e.g., 'learn-math', 'learn-pr')
   sampleModuleUrl = "/modules/1/lesson/1",
   intermediateUrl = "/curriculum?level=intermediate",
   advancedUrl = "/curriculum?level=advanced",
-  questions = [] // Optional: app-specific questions
+  questions = [], // Optional: app-specific questions (legacy support)
+  useGatekeeper = true // Set to true to use new gatekeeper logic (100% accuracy)
 }) {
   const router = useRouter();
   const [selectedTier, setSelectedTier] = useState(null);
@@ -96,6 +100,16 @@ export default function LevelSelector({
   };
 
   if (showQuiz && selectedTier) {
+    // Get gatekeeper questions if appId is provided and useGatekeeper is true
+    const gatekeeperQuestions = useGatekeeper && appId 
+      ? getGatekeeperQuestions(appId, selectedTier.name)
+      : [];
+    
+    // Determine which quiz component to use
+    const hasGatekeeperQuestions = gatekeeperQuestions.length > 0;
+    const quizQuestions = hasGatekeeperQuestions ? gatekeeperQuestions : questions;
+    const subjectName = appId ? getSubjectName(appId) : appName;
+    
     return (
       <section className="py-16 px-4 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-4xl mx-auto">
@@ -105,20 +119,34 @@ export default function LevelSelector({
             className="text-center mb-8"
           >
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              {selectedTier.emoji} {selectedTier.name} Tier Diagnostic
+              {selectedTier.emoji} {selectedTier.name} Tier {hasGatekeeperQuestions ? 'Gatekeeper' : 'Diagnostic'}
             </h2>
             <p className="text-lg text-gray-600">
-              Answer these 5 questions to verify you're ready for the {selectedTier.name} tier
+              {hasGatekeeperQuestions 
+                ? `Answer all 3 questions correctly to unlock the ${selectedTier.name} tier`
+                : `Answer these 5 questions to verify you're ready for the ${selectedTier.name} tier`
+              }
             </p>
           </motion.div>
 
-          <DiagnosticQuiz
-            tier={selectedTier.name}
-            appName={appName}
-            onPass={handleQuizPass}
-            onFail={handleQuizFail}
-            questions={questions}
-          />
+          {hasGatekeeperQuestions ? (
+            <GatekeeperQuiz
+              tier={selectedTier.name}
+              subject={subjectName}
+              appName={appName}
+              onPass={handleQuizPass}
+              onFail={handleQuizFail}
+              questions={quizQuestions}
+            />
+          ) : (
+            <DiagnosticQuiz
+              tier={selectedTier.name}
+              appName={appName}
+              onPass={handleQuizPass}
+              onFail={handleQuizFail}
+              questions={quizQuestions}
+            />
+          )}
         </div>
       </section>
     );
@@ -191,7 +219,7 @@ export default function LevelSelector({
                 {tier.id !== "basic" && (
                   <div className="mt-4 text-center">
                     <span className="inline-block bg-white px-3 py-1 rounded-full text-xs font-semibold text-gray-600 border border-gray-300">
-                      📝 Requires diagnostic quiz
+                      🔒 Requires gatekeeper test (100% accuracy)
                     </span>
                   </div>
                 )}
@@ -219,11 +247,11 @@ export default function LevelSelector({
               </p>
               <p className="flex items-start">
                 <span className="text-blue-500 mr-2 flex-shrink-0">🔵</span>
-                <span><strong>Intermediate:</strong> Take a 5-question diagnostic quiz (30% to pass)</span>
+                <span><strong>Intermediate:</strong> Take a 3-question gatekeeper test (100% accuracy required)</span>
               </p>
               <p className="flex items-start">
                 <span className="text-purple-500 mr-2 flex-shrink-0">🟣</span>
-                <span><strong>Advanced:</strong> Take a 5-question diagnostic quiz (30% to pass)</span>
+                <span><strong>Advanced:</strong> Take a 3-question gatekeeper test (100% accuracy required)</span>
               </p>
             </div>
           </div>
