@@ -342,6 +342,7 @@ export default function UniversalLandingPage({
         {/* UNIVERSAL DIAGNOSTIC FUNNEL: Where would you like to start? */}
         <LevelSelector
           appName={appName}
+          appId={appId}
           sampleModuleUrl={`/modules/${firstModuleId}/lesson/1`}
           intermediateUrl="/curriculum?level=intermediate"
           advancedUrl="/curriculum?level=advanced"

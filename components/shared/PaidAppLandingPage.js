@@ -188,6 +188,7 @@ export default function PaidAppLandingPage({
         {/* UNIVERSAL DIAGNOSTIC FUNNEL: Where would you like to start? */}
         <LevelSelector
           appName={appName}
+          appId={appId}
           sampleModuleUrl={`/modules/${sampleModuleId}/lesson/${sampleLessonId}`}
           intermediateUrl="/curriculum?level=intermediate"
           advancedUrl="/curriculum?level=advanced"
