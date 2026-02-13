@@ -1,258 +1,254 @@
 # MPA - My Personal Assistant
 
-A highly efficient, witty, and supportive AI personal assistant with a personality of a high-end digital butler, now integrated into the iiskills-cloud monorepo.
+A state-of-the-art conversational AI assistant with voice, skills, and memory - now fully upgraded with advanced AI capabilities!
 
-![MPA App Screenshot](https://github.com/user-attachments/assets/8de34512-f6ec-484c-80a0-9d6c96882994)
+![MPA AI Assistant](https://github.com/user-attachments/assets/40ff2b0a-c61e-4777-8015-1b2c5b1e7d9c)
 
-## Overview
+## 🌟 Overview
 
-MPA (My Personal Assistant) is a standalone app within the iiskills-cloud monorepo that provides personal assistant features including reminders, translations, WhatsApp messaging, and more.
+MPA (My Personal Assistant) is a sophisticated AI-powered personal assistant that combines the power of modern Large Language Models (GPT-4, Claude, Gemini) with voice interaction and real-world task execution. Think Google Assistant, Siri, or Alexa, but accessible from your browser on both desktop and mobile.
 
-## Features
+## ✨ Key Features
 
-### Core Capabilities
-- **User Recognition**: MPA recognizes and responds only to the registered user, ensuring privacy and exclusivity
-- **Gender Choice**: Select Male, Female, or Neutral assistant voice preference
-- **Name Customization**: Assign any name to your assistant (e.g., Nina, Alex, or keep MPA)
-- **Multi-Language Support**: All Indian languages plus foreign languages
-- **Translation**: Translate text between languages with oral pronunciation support
-- **Reminder Extraction**: Set reminders with natural language (e.g., "Remind me to call the dentist tomorrow at 10 AM")
-- **Daily Content**: Get clever jokes or deeply philosophical quotes
-- **WhatsApp Integration**: Draft messages and generate WhatsApp deep links
-- **Phone Calls**: Make calls with speaker mode (e.g., "Call mom")
-- **Entertainment**: Play songs and videos from public domain sources
-- **Proactive Suggestions**: Automatic motivational quotes for gym/fitness reminders
-- **Browser Notifications**: Get notified when reminders are due
-- **Obscenity Filter**: Automatically refuses inappropriate content requests
-- **Concise & Witty**: Responses limited to 3 sentences with butler-like personality
+### 🤖 Advanced Conversational Intelligence
+- **Powered by Leading LLMs**: Integration with OpenAI GPT-4, Anthropic Claude 3, or Google Gemini
+- **Natural Conversations**: Multi-turn conversations with context awareness
+- **Smart Function Calling**: Automatically detects and executes tasks from natural language
+- **Graceful Fallbacks**: Works with rule-based responses when LLM is unavailable
 
-## Setup
+### 🎙️ Voice Interaction
+- **Speech-to-Text**: Click the microphone button to speak your queries
+- **Text-to-Speech**: Automatic voice responses in 15+ languages
+- **Voice Customization**: Male, female, or neutral voice options
+- **Multi-Language Support**: English, Hindi, Tamil, Telugu, and 11+ more languages
+
+![Conversation Example](https://github.com/user-attachments/assets/5f45862d-2480-44e2-ac7f-b837509106fa)
+
+### 🛠️ Real-World Digital Skills
+- **Reminders & Notifications**: "Remind me to call John at 3 PM tomorrow"
+- **Weather Information**: "What's the weather in Mumbai?"
+- **Latest News**: "Show me technology news headlines"
+- **WhatsApp Messaging**: "Send a WhatsApp message to +91... saying Hello"
+- **Knowledge Search**: "Who is Albert Einstein?"
+- **And More**: Calendar integration, translations, music, videos
+
+### 🎨 Personalization & Memory
+- **Custom Assistant Name**: Nina, Alex, Jarvis, or keep it MPA
+- **Gender Preference**: Choose male, female, or neutral voice
+- **Language Options**: 15+ languages including all major Indian languages
+- **Conversation History**: Last 20 messages maintained for context
+- **Persistent Settings**: Your preferences saved locally
+
+![Settings Panel](https://github.com/user-attachments/assets/1fc53376-44b7-484b-9330-19981db1ac00)
+
+### 🎯 Modern UI/UX
+- **Microphone Button**: One-click voice input
+- **Visual Indicators**: Listening, speaking, and thinking animations
+- **Quick Actions**: Instant access to jokes, quotes, weather, news
+- **Responsive Design**: Works perfectly on mobile and desktop
+- **Accessibility**: Reduced motion support, keyboard navigation
+
+## 🚀 Quick Start
 
 ### Prerequisites
-- Node.js 18+ 
-- Yarn (package manager used by the monorepo)
+- Node.js 18+
+- Yarn package manager
 
 ### Installation
 
-From the monorepo root:
-
 ```bash
+# Navigate to MPA app
+cd apps/mpa
+
 # Install dependencies
 yarn install
 
-# Navigate to the mpa app
-cd apps/mpa
+# Copy environment variables
+cp .env.local.example .env.local
+
+# Edit .env.local and add your API keys (see Configuration below)
 ```
 
-### Environment Variables
+### Configuration
 
-Create a `.env.local` file in `apps/mpa/` if needed for any app-specific configuration.
+At minimum, add ONE LLM provider API key to `.env.local`:
 
-## Development
+```env
+# For OpenAI (recommended)
+LLM_PROVIDER=openai
+OPENAI_API_KEY=sk-...your-key-here
+OPENAI_MODEL=gpt-4
 
-### Running Locally
+# OR for Anthropic Claude
+LLM_PROVIDER=anthropic
+ANTHROPIC_API_KEY=sk-ant-...your-key-here
 
-From the monorepo root:
-
-```bash
-# Run all apps (including mpa)
-yarn dev
-
-# Or run just the mpa app
-cd apps/mpa
-yarn dev
+# OR for Google Gemini
+LLM_PROVIDER=gemini
+GEMINI_API_KEY=...your-key-here
 ```
 
-The app will be available at `http://localhost:3014`
+Optional - Add skills API keys for enhanced features:
 
-### Building
+```env
+# Weather (free tier available)
+OPENWEATHER_API_KEY=...your-key-here
+
+# News (free tier available)
+NEWS_API_KEY=...your-key-here
+```
+
+### Running
 
 ```bash
-# From the mpa directory
+# Development mode
+yarn dev
+
+# Production build
 yarn build
-
-# Start production server
 yarn start
 ```
 
-## Usage
+Visit http://localhost:3014
+
+## 📖 Usage
 
 ### First Time Setup
+1. Open the app
+2. Register your name in the welcome modal
+3. Start chatting with MPA!
 
-When you first open the app, you'll be prompted to register your name:
+### Voice Commands
+- Click the 🎤 microphone button
+- Speak your request
+- MPA will transcribe and respond
 
-1. Enter your name in the setup dialog
-2. Click "Register"
-3. MPA will now respond only to you
-
-Your registration is saved in browser localStorage, so you won't need to register again on the same device.
+### Text Interaction
+- Type your message in the input field
+- Press Enter or click Send
+- Use quick action buttons for common tasks
 
 ### Settings
+- Click the ⚙️ settings button
+- Customize assistant name, gender, and language
+- Enable/disable voice features
+- Toggle auto-speak responses
 
-Click the ⚙️ button to:
-- Change assistant name (e.g., "Nina", "Alex")
-- Select gender preference (Male, Female, Neutral)
-- Choose preferred language
-
-### Example Interactions
+## 🎯 Example Interactions
 
 **Reminders:**
 - "Remind me to call the dentist tomorrow at 10 AM"
-- "Remind me to workout today at 6 PM"
-- "Remind me to submit the report on Monday at 2 PM"
+- "Set a reminder for my meeting at 3 PM"
 
-**Getting Content:**
-- "Tell me a joke"
-- "Give me a quote"
-
-**Translation:**
-- "Translate 'Hello' to Tamil"
-- "Translate 'Thank you' to Hindi orally"
-
-**Phone Calls:**
-- "Call mom"
-- "Call John"
+**Information:**
+- "What's the weather in New York?"
+- "Show me the latest technology news"
+- "Who invented the telephone?"
 
 **Entertainment:**
-- "Play song 'Amazing Grace'"
-- "Play video 'Nature Documentary'"
+- "Tell me a joke"
+- "Give me a motivational quote"
 
-**WhatsApp Messages:**
-- "Message John at +1234567890 saying 'Hey, are we still on for lunch?'"
-- "Text Sarah at +44123456789 saying 'Meeting at 3 PM'"
+**Communication:**
+- "Send a WhatsApp message to +1234567890 saying 'Running late'"
 
-## Integration with Monorepo
+## 🔧 Technical Stack
 
-### Shared Infrastructure
-
-MPA integrates with the following shared monorepo infrastructure:
-
-1. **Authentication** - Uses Supabase authentication system (via shared components)
-2. **Supabase Database** - Shares the same Supabase instance for data storage
-3. **Registration/Sign-in** - Uses shared registration and sign-in components
-4. **Logs** - Uses shared logging infrastructure
-5. **Legends** - Uses shared legend/documentation components
-
-### What MPA Does NOT Use
-
-MPA is a standalone app and does **NOT** inherit:
-- Learn=* universal features (courses, lessons, curriculum)
-- Cross-app components not specifically listed above
-- Universal landing page templates
-- Course management features
-
-## Technical Details
-
-### File Structure
-
-```
-apps/mpa/
-├── components/
-│   └── MPAChat.js          # Main chat component
-├── lib/
-│   └── mpa.js              # Core MPA logic class
-├── pages/
-│   ├── _app.js             # App wrapper
-│   ├── index.js            # Main page
-│   └── api/                # API routes (if needed)
-├── public/                 # Static assets
-├── styles/
-│   └── globals.css         # Global styles
-├── .env.local.example      # Environment variables template
-├── .eslintrc.json          # ESLint configuration
-├── .gitignore              # Git ignore rules
-├── next.config.js          # Next.js configuration
-├── package.json            # Dependencies and scripts
-├── postcss.config.js       # PostCSS configuration
-├── README.md               # This file
-└── tailwind.config.js      # Tailwind CSS configuration
-```
-
-### Technology Stack
-
-- **Framework**: Next.js 16+
-- **React**: 19+
+- **Framework**: Next.js 16+ with Turbopack
+- **React**: 19+ with Hooks
 - **Styling**: Tailwind CSS
-- **Authentication**: Supabase (shared)
+- **APIs**: 
+  - OpenAI / Anthropic / Google Gemini for LLM
+  - Web Speech API for voice
+  - OpenWeatherMap for weather
+  - NewsAPI for news
+  - DuckDuckGo for knowledge search
+- **Storage**: Browser localStorage (with optional Supabase cloud sync)
 - **State Management**: React Hooks
-- **Storage**: Browser localStorage
 
-### Action Codes
+## 📚 Documentation
 
-The app uses hidden bracketed codes that are parsed but not shown to users:
+- **Setup Guide**: [MPA_AI_SETUP_GUIDE.md](./MPA_AI_SETUP_GUIDE.md) - Complete configuration guide
+- **API Documentation**: See setup guide for API integration details
+- **Adding Skills**: Instructions in setup guide for creating custom skills
 
-- `[SET_REMINDER: ISO_DATE_TIME]` - Triggers browser notification
-- `[WHATSAPP_LINK: phone|message]` - Generates WhatsApp deep link
-- `[TRANSLATE: language|text|oral?]` - Triggers translation
-- `[CALL: phone|contact]` - Initiates phone call with speaker mode
-- `[PLAY_VIDEO: video_name]` - Plays video from public domain
-- `[PLAY_SONG: song_name]` - Plays song from public domain
+## 🔒 Security & Privacy
 
-## Deployment
+- **Local-First**: All data stored locally by default
+- **API Keys**: Never committed to version control
+- **User Consent**: Recording indicators when voice is active
+- **Optional Cloud Sync**: Supabase integration available but not required
+- **No Tracking**: No third-party analytics or tracking
 
-### Local Deployment
+## 🌐 Browser Compatibility
 
-The app can be deployed locally as part of the monorepo:
+- **Voice Recognition**: Chrome, Edge, Safari (not Firefox)
+- **Voice Synthesis**: All modern browsers
+- **Required**: ES6 support, localStorage
+- **Recommended**: HTTPS for microphone access in production
 
-```bash
-# Build the app
-yarn build
+## 🎨 Customization
 
-# Start with PM2 (if configured)
-pm2 start ecosystem.config.js --only mpa
-```
+### Change Assistant Persona
+Edit `/pages/api/chat.js` to customize the system prompt and personality.
 
-### Production Deployment
+### Add New Skills
+See [MPA_AI_SETUP_GUIDE.md](./MPA_AI_SETUP_GUIDE.md) for detailed instructions on adding custom skills.
 
-Follow the monorepo deployment guide. The mpa app will be deployed alongside other apps in the ecosystem.
+### Modify Voice Settings
+Edit `/lib/voiceManager.js` to customize voice selection and synthesis.
 
-## Security Note
+## 🐛 Troubleshooting
 
-- User registration uses browser localStorage - suitable for personal use
-- No backend authentication required for basic features
-- Supabase integration provides secure data storage when needed
-- Obscenity filter prevents inappropriate content requests
+### Voice Recognition Not Working
+- Ensure you're using Chrome, Edge, or Safari
+- Allow microphone permissions
+- Use HTTPS in production
 
-## Browser Compatibility
+### LLM Not Responding
+- Check API key in `.env.local`
+- Verify `LLM_PROVIDER` matches your key
+- Check API quota/billing
+- App falls back to rule-based responses if LLM unavailable
 
-- Modern browsers with ES6 support
-- Notification API support for reminders
-- Local storage for persistence
+### Skills Not Working
+- Optional API keys needed for weather/news
+- App gracefully degrades without skills APIs
 
-## Customization
+## 🚀 Deployment
 
-You can customize MPA by editing:
+1. Set environment variables in hosting platform (Vercel, Netlify, etc.)
+2. Ensure HTTPS is enabled (required for microphone access)
+3. Configure CORS for API endpoints
+4. Deploy!
 
-- **Settings UI**: Click the ⚙️ button to change name, gender, and language
-- **Jokes**: Modify the `jokes` array in `lib/mpa.js`
-- **Quotes**: Modify the `quotes` array in `lib/mpa.js`
-- **Motivational Keywords**: Modify the `motivationalKeywords` array in `lib/mpa.js`
-- **Obscenity Filter**: Modify the `obsceneKeywords` array in `lib/mpa.js`
+## 📈 Future Enhancements
 
-## User Recognition & Privacy
-
-MPA includes a user recognition feature that ensures your privacy and exclusivity:
-
-- **Registration**: On first launch, you register your name with MPA
-- **Authentication**: MPA stores your username in browser localStorage
-- **Privacy**: If anyone else tries to use MPA, they'll receive the message: "Sorry, I am only available for [Your Name]."
-- **Reset**: To reset the user registration, clear browser localStorage or use developer console
-
-## Future Enhancements
-
-- Voice input/output with speaker identification
-- Biometric authentication (fingerprint/face unlock)
-- Multi-user profiles support
-- Calendar integration
-- Email drafting
+Potential additions (not yet implemented):
+- Calendar integration (Google/Microsoft/Apple)
+- Email drafting and sending
 - Task list management
+- Multi-user profiles
 - Mobile app version
-- AI model integration (OpenAI, Claude, etc.)
+- Biometric authentication
 
-## License
+## 📄 License
 
 Part of the iiskills-cloud monorepo. See the main repository LICENSE for details.
 
-## Support
+## 🤝 Support
 
-For issues or questions, please refer to the main iiskills-cloud repository documentation or contact the development team.
+For issues or questions:
+- Check browser console for errors
+- Review [MPA_AI_SETUP_GUIDE.md](./MPA_AI_SETUP_GUIDE.md)
+- Test with minimal configuration
+- Contact the development team
+
+## 🎉 Credits
+
+Developed as part of the iiskills-cloud ecosystem by AI Cloud Enterprises.
+
+---
+
+**Ready to get started?** Follow the Quick Start guide above and experience the future of personal AI assistants!
+

@@ -60,12 +60,27 @@ body {
   }
 }
 
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.mpa-pulse {
+  display: inline-block;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
 .mpa-user-message,
 .mpa-ai-message {
   padding: 12px 18px;
   border-radius: 18px;
   max-width: 80%;
   word-wrap: break-word;
+  white-space: pre-wrap;
 }
 
 .mpa-user-message {
@@ -81,6 +96,12 @@ body {
   border: 1px solid #e0e0e0;
 }
 
+.mpa-error-message {
+  background: #ffebee;
+  border-color: #ef5350;
+  color: #c62828;
+}
+
 .mpa-action-notification {
   background: #e8f5e9;
   color: #2e7d32;
@@ -91,8 +112,15 @@ body {
   border-left: 4px solid #4caf50;
 }
 
+.mpa-error-notification {
+  background: #ffebee;
+  color: #c62828;
+  border-left-color: #ef5350;
+}
+
 .mpa-input-container {
   display: flex;
+  gap: 10px;
   padding: 20px;
   background: white;
   border-top: 1px solid #e0e0e0;
@@ -103,24 +131,29 @@ body {
   gap: 10px;
   padding: 0 20px 20px;
   background: white;
+  flex-wrap: wrap;
 }
 
 .mpa-quick-btn {
   flex: 1;
+  min-width: 120px;
   padding: 10px;
   background: #f0f0f0;
   border: 1px solid #e0e0e0;
   border-radius: 15px;
   cursor: pointer;
   transition: all 0.2s;
+  font-size: 0.9em;
 }
 
 .mpa-quick-btn:hover {
   background: #667eea;
   color: white;
   border-color: #667eea;
+  transform: translateY(-2px);
 }
 
+.mpa-action-link,
 .mpa-whatsapp-link {
   display: inline-block;
   margin-top: 10px;
@@ -133,6 +166,34 @@ body {
   transition: background 0.3s;
 }
 
+.mpa-action-link:hover,
 .mpa-whatsapp-link:hover {
   background: #128c7e;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .mpa-container {
+    height: 100vh;
+    border-radius: 0;
+    max-width: 100%;
+  }
+
+  .mpa-quick-actions {
+    flex-wrap: wrap;
+  }
+
+  .mpa-quick-btn {
+    min-width: calc(50% - 5px);
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .mpa-message,
+  .mpa-pulse,
+  .mpa-quick-btn {
+    animation: none;
+    transition: none;
+  }
 }
