@@ -59,8 +59,7 @@ export default function LevelSelector({
   sampleModuleUrl = "/modules/1/lesson/1",
   intermediateUrl = "/curriculum?level=intermediate",
   advancedUrl = "/curriculum?level=advanced",
-  questions = [], // Optional: app-specific questions (legacy support)
-  useGatekeeper = true // Set to true to use new gatekeeper logic (100% accuracy)
+  questions = [] // Optional: app-specific questions (legacy support)
 }) {
   const router = useRouter();
   const [selectedTier, setSelectedTier] = useState(null);
@@ -100,14 +99,14 @@ export default function LevelSelector({
   };
 
   if (showQuiz && selectedTier) {
-    // Get gatekeeper questions if appId is provided and useGatekeeper is true
-    const gatekeeperQuestions = useGatekeeper && appId 
+    // Get gatekeeper questions if appId is provided
+    const gatekeeperQuestions = appId 
       ? getGatekeeperQuestions(appId, selectedTier.name)
       : [];
     
     // Determine which quiz component to use
     const hasGatekeeperQuestions = gatekeeperQuestions.length > 0;
-    const quizQuestions = hasGatekeeperQuestions ? gatekeeperQuestions : questions;
+    const questionsToUse = hasGatekeeperQuestions ? gatekeeperQuestions : questions;
     const subjectName = appId ? getSubjectName(appId) : appName;
     
     return (
@@ -136,7 +135,7 @@ export default function LevelSelector({
               appName={appName}
               onPass={handleQuizPass}
               onFail={handleQuizFail}
-              questions={quizQuestions}
+              questions={questionsToUse}
             />
           ) : (
             <DiagnosticQuiz
@@ -144,7 +143,7 @@ export default function LevelSelector({
               appName={appName}
               onPass={handleQuizPass}
               onFail={handleQuizFail}
-              questions={quizQuestions}
+              questions={questionsToUse}
             />
           )}
         </div>
