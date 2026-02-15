@@ -12,6 +12,12 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: 'Amount is required' });
     }
 
+    // Validate Razorpay credentials
+    if (!process.env.RAZORPAY_KEY_ID || !process.env.RAZORPAY_KEY_SECRET) {
+      console.error('Missing Razorpay credentials in environment variables');
+      return res.status(500).json({ error: 'Payment service not configured' });
+    }
+
     const razorpay = new Razorpay({
       key_id: process.env.RAZORPAY_KEY_ID,
       key_secret: process.env.RAZORPAY_KEY_SECRET,
@@ -33,7 +39,7 @@ export default async function handler(req, res) {
     console.error('Payment order creation error:', error);
     return res.status(500).json({ 
       error: 'Failed to create payment order',
-      message: error.message 
+      ...(process.env.NODE_ENV === 'development' && { details: error.message })
     });
   }
 }
