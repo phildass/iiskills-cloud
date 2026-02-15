@@ -64,6 +64,7 @@ data/*
 !data/squads/*.json
 !data/sync-platform/
 !data/sync-platform/**
+!data/gatekeeperQuestions.json
 
 # Generated images - DO NOT commit
 public/generated-images/*
