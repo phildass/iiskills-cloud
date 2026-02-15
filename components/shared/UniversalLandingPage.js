@@ -44,7 +44,7 @@ function getAppContextLabel(appId) {
     "learn-chemistry": "iiskills Chemistry",
     "learn-math": "iiskills Math",
     "learn-geography": "iiskills Geography",
-    "learn-govt-jobs": "iiskills Government Jobs",
+    // REMOVED per requirement #9: "learn-govt-jobs": "iiskills Government Jobs",
   };
   return labels[appId] || "iiskills";
 }
@@ -64,7 +64,7 @@ function getCourseLinks() {
     { name: "Learn Chemistry", icon: "🧪", url: "https://app7.learn-chemistry.iiskills.cloud" },
     { name: "Learn Math", icon: "📐", url: "https://app8.learn-math.iiskills.cloud" },
     { name: "Learn Geography", icon: "🌍", url: "https://app9.learn-geography.iiskills.cloud" },
-    { name: "Learn Govt Jobs", icon: "🏛️", url: "https://app10.learn-govt-jobs.iiskills.cloud" },
+    // REMOVED per requirement #9: { name: "Learn Govt Jobs", icon: "🏛️", url: "https://app10.learn-govt-jobs.iiskills.cloud" },
   ];
 }
 
@@ -82,6 +82,8 @@ function getAppSpecificLinks(appId) {
 
   // App-specific additional links
   const appSpecificMap = {
+    // REMOVED per requirement #9
+    /*
     "learn-govt-jobs": [
       { label: "Job Search", href: "/jobs" },
       { label: "Opportunities", href: "/opportunity-feed" },
@@ -89,6 +91,7 @@ function getAppSpecificLinks(appId) {
       { label: "Exam Alerts", href: "/exam-countdown" },
       { label: "News", href: "/news" },
     ],
+    */
     "learn-ai": [
       { label: "AI Playground", href: "/playground" },
       { label: "Projects", href: "/projects" },
@@ -146,7 +149,7 @@ export default function UniversalLandingPage({
       "learn-finesse": "finesse",
       "learn-management": "management",
       "learn-pr": "pr",
-      "learn-govt-jobs": "govt-jobs",
+      // REMOVED per requirement #9: "learn-govt-jobs": "govt-jobs",
     };
     return typeMap[appId] || "math";
   };

@@ -1465,6 +1465,8 @@ const coursesData = [
       { id: 10, title: "Exam Preparation and Strategy", isFree: false },
     ],
   },
+  // REMOVED per requirement #9: Learn Govt Jobs backed up to apps-backup
+  /*
   {
     id: 59,
     name: "Learn Govt. Jobs",
@@ -1488,6 +1490,7 @@ const coursesData = [
       { id: 10, title: "Interview & Personality Development", isFree: false },
     ],
   },
+  */
   {
     id: 60,
     name: "Learn IAS",

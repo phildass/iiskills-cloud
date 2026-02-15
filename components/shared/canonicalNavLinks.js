@@ -44,24 +44,16 @@ export function getCanonicalLinks(appId = "main", isFreeApp = false) {
     className: "hover:text-primary transition",
   });
 
-  // Payment logic: show Payments link for paid apps, "Free" label for free apps
+  // Payment logic: show Payments link for paid apps only
   // Free apps: learn-apt, learn-physics, learn-math, learn-chemistry, learn-geography
-  if (appId !== "main") {
-    if (isFreeApp) {
-      // Non-clickable "Free" label for free apps
-      baseLinks.push({
-        label: "Free",
-        className: "text-green-600 font-bold cursor-default",
-        isNonClickable: true, // Flag to indicate this should not be a link
-      });
-    } else {
-      // Payments link for paid apps
-      baseLinks.push({
-        href: "/payments",
-        label: "Payments",
-        className: "hover:text-primary transition",
-      });
-    }
+  // Per requirement: Remove "Free" label from universal nav bar
+  if (appId !== "main" && !isFreeApp) {
+    // Payments link for paid apps only
+    baseLinks.push({
+      href: "/payments",
+      label: "Payments",
+      className: "hover:text-primary transition",
+    });
   }
 
   baseLinks.push(
