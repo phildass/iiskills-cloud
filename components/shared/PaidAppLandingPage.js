@@ -168,6 +168,16 @@ export default function PaidAppLandingPage({
               </p>
             )}
 
+            {/* AI/Developer Bundle Notice - Two for One */}
+            {showAIDevBundle && (appId === "learn-ai" || appId === "learn-developer") && (
+              <div className="bg-gradient-to-r from-purple-500 to-pink-500 border-2 border-white rounded-lg p-4 max-w-2xl mx-auto shadow-2xl animate-pulse">
+                <p className="text-xl font-bold text-white">🎁 Two Apps for the Price of One!</p>
+                <p className="text-sm mt-2 text-white">
+                  Purchase Learn AI or Learn Developer for ₹99 (+GST) and get BOTH apps!
+                </p>
+              </div>
+            )}
+
             {/* Premium Course Notice */}
             <div className="bg-white/10 backdrop-blur-sm border-2 border-white/30 rounded-lg p-4 max-w-2xl mx-auto">
               <p className="text-lg font-semibold">💳 Premium Course</p>
