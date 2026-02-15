@@ -96,7 +96,7 @@ The application now uses Supabase for secure authentication, replacing the previ
    - Add your Google OAuth credentials:
      - Go to [Google Cloud Console](https://console.cloud.google.com/)
      - Create a new project or use existing
-     - Enable Google+ API
+     - **Note**: You do NOT need to enable "Google People API" for standard sign-in. OAuth with scopes `email profile openid` provides basic user info.
      - Create OAuth 2.0 credentials (Web application)
      - **CRITICAL**: Add the Supabase callback URL to Authorized redirect URIs:
        - Format: `https://YOUR-PROJECT-ID.supabase.co/auth/v1/callback`
@@ -490,7 +490,7 @@ Common Google OAuth errors:
 - **Fix**: 
   - Verify Google is enabled in Supabase → Authentication → Providers
   - Check Client ID and Secret are correct
-  - Ensure Google+ API is enabled in Google Cloud Console
+  - Verify OAuth 2.0 credentials are correctly configured in Google Cloud Console
 
 #### Google button doesn't appear
 - **Cause**: Component configuration or missing function

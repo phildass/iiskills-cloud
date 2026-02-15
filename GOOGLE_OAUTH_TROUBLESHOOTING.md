@@ -67,13 +67,9 @@ You need to get credentials from Google Cloud Console first (see Step 2), then a
    - Click **Select a project** → **New Project** to create a new one
    - Or select an existing project
 
-### 2.2 Enable Google+ API (If Not Already Enabled)
+### 2.2 Create OAuth 2.0 Credentials
 
-1. In the Google Cloud Console, go to **APIs & Services** → **Library**
-2. Search for "Google+ API" (or "Google People API")
-3. Click on it and click **Enable**
-
-### 2.3 Create OAuth 2.0 Credentials
+**Important Note**: You do **NOT** need to enable "Google People API" or any specific API in the API Library for standard profile sign-in. Google Identity Services (OAuth/OpenID Connect) with scopes `email profile openid` provides basic user info (name, email, avatar) without requiring additional APIs. The Google People API is only needed for extended profile data like contacts.
 
 1. Go to **APIs & Services** → **Credentials**
 2. Click **+ Create Credentials** → **OAuth client ID**
@@ -361,7 +357,7 @@ export function getCookieDomain() {
 **Fix**:
 1. Verify Google provider is enabled in Supabase
 2. Check Client ID and Client Secret are correct
-3. Ensure Google+ API is enabled in Google Cloud Console
+3. Verify OAuth 2.0 credentials are correctly configured in Google Cloud Console
 
 ### Error: "Session not persisting across subdomains"
 
