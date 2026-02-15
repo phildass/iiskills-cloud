@@ -208,13 +208,14 @@ export default function UniversalLandingPage({
 
         {/* Hero Section with Full-Size Background */}
         <Hero appId={appId} className="h-[70vh] md:h-[80vh] lg:h-[90vh] relative">
-          {/* FREE/PAID label in top-left */}
-          <div className={`absolute top-4 left-4 ${isFree ? 'bg-green-500' : 'bg-orange-500'} text-white px-4 py-2 rounded-lg text-sm font-bold z-10 shadow-lg`}>
-            {isFree ? 'FREE' : 'PAID'}
-          </div>
-          
-          {/* Syllabus link next to FREE/PAID label */}
-          <div className="absolute top-4 left-28 z-10">
+          {/* Labels and links in top-left corner */}
+          <div className="absolute top-4 left-4 flex items-center gap-3 z-10">
+            {/* FREE/PAID label */}
+            <div className={`${isFree ? 'bg-green-500' : 'bg-orange-500'} text-white px-4 py-2 rounded-lg text-sm font-bold shadow-lg`}>
+              {isFree ? 'FREE' : 'PAID'}
+            </div>
+            
+            {/* Syllabus link */}
             <Link
               href="/curriculum"
               className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-semibold shadow-lg transition"
