@@ -37,7 +37,7 @@ export default function Home() {
         {/* HERO SECTION */}
         <Hero appId="main" className="h-[70vh] md:h-[80vh] lg:h-[90vh]" noOverlay>
           <div className="text-center text-white space-y-6 max-w-5xl mx-auto">
-            <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold leading-tight tracking-tight drop-shadow-lg">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight tracking-tight drop-shadow-lg">
               AI Cloud Enterprises: Services that touch every Indian.
             </h1>
             <p className="text-lg sm:text-xl lg:text-2xl leading-relaxed max-w-4xl mx-auto px-4 drop-shadow-md">
@@ -45,24 +45,28 @@ export default function Home() {
               audiences to niche sectors, we deliver seamless solutions that empower every
               organization to thrive in India's digital future.
             </p>
+          </div>
+        </Hero>
 
-            {/* Corporate CTA */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
+        {/* CTA Buttons Below Hero */}
+        <section className="py-8 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <Link
                 href="/solutions"
-                className="inline-block bg-white text-blue-600 px-8 py-4 rounded-lg font-bold shadow-lg hover:bg-gray-100 hover:shadow-xl transition-all duration-200 text-center text-base sm:text-lg min-w-[240px]"
+                className="inline-block bg-white text-blue-600 border-2 border-blue-600 px-8 py-4 rounded-lg font-bold shadow-lg hover:bg-blue-50 hover:shadow-xl transition-all duration-200 text-center text-base sm:text-lg min-w-[240px]"
               >
                 Explore Our Solutions
               </Link>
               <Link
                 href="/contact"
-                className="inline-block bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-lg font-bold hover:from-blue-500 hover:to-purple-500 transition-all duration-200 text-center text-base sm:text-lg min-w-[240px] shadow-lg"
+                className="inline-block bg-blue-600 text-white px-8 py-4 rounded-lg font-bold hover:bg-blue-700 transition-all duration-200 text-center text-base sm:text-lg min-w-[240px] shadow-lg"
               >
                 Contact Us
               </Link>
             </div>
           </div>
-        </Hero>
+        </section>
 
         {/* SECTOR SOLUTIONS OVERVIEW */}
         <section className="py-16 bg-white">

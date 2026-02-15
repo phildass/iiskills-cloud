@@ -147,8 +147,8 @@ export default function PaidAppLandingPage({
             {displayAppContextLabel}
           </div>
 
-          <div className="text-center text-white space-y-6 max-w-4xl mx-auto">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight">
+          <div className="text-center text-white space-y-6 max-w-4xl mx-auto mt-20">
+            <h1 className={`text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight ${appId === 'learn-pr' ? 'text-white' : ''}`}>
               {headline || appName}
             </h1>
             {subheadline && (

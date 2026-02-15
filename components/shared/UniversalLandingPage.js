@@ -210,9 +210,9 @@ export default function UniversalLandingPage({
             {displayAppContextLabel}
           </div>
 
-          <div className="text-center text-white space-y-6 max-w-4xl mx-auto">
+          <div className="text-center text-white space-y-6 max-w-4xl mx-auto mt-20">
             {/* Main Headline */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight">
               {headline || appName}
             </h1>
             {/* Subheadline - if provided, show as normal text instead of description */}
