@@ -102,9 +102,16 @@ export default function Header({
           {shouldShowAuthButtons && (
             <>
               {user ? (
-                // User is logged in - show email and logout button
+                // User is logged in - show first name and logout button
                 <>
-                  <span className="text-sm text-gray-600">{user.email}</span>
+                  <span className="text-sm font-medium text-gray-700">
+                    {user.user_metadata?.first_name || user.email?.split('@')[0] || 'User'}
+                  </span>
+                  {user.app_metadata?.provider === 'google' && (
+                    <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">
+                      Google User
+                    </span>
+                  )}
                   <button
                     onClick={handleLogout}
                     className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition font-bold"
@@ -198,9 +205,18 @@ export default function Header({
           {shouldShowAuthButtons && (
             <>
               {user ? (
-                // User is logged in - show email and logout button
+                // User is logged in - show first name and logout button
                 <>
-                  <div className="text-sm text-gray-600 px-4 py-2">{user.email}</div>
+                  <div className="px-4 py-2 flex items-center gap-2">
+                    <span className="text-sm font-medium text-gray-700">
+                      {user.user_metadata?.first_name || user.email?.split('@')[0] || 'User'}
+                    </span>
+                    {user.app_metadata?.provider === 'google' && (
+                      <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">
+                        Google User
+                      </span>
+                    )}
+                  </div>
                   <button
                     onClick={handleLogout}
                     className="block w-full text-left bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition font-bold"
