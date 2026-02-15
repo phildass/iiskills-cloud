@@ -214,84 +214,16 @@ export const APP_REGISTRY = {
     ],
   },
   
-  'learn-govt-jobs': {
-    id: 'learn-govt-jobs',
-    name: 'learn-govt-jobs',
-    displayName: 'Government Jobs',
-    description: 'Government job listings with geographic and deadline data',
-    contentType: 'json',
-    dataPath: 'apps/learn-govt-jobs/data',
-    icon: '🏢',
-    fields: [
-      {
-        name: 'id',
-        label: 'Job ID',
-        type: 'text',
-        required: true,
-        placeholder: 'job-bihar-patna-clerk-001',
-      },
-      {
-        name: 'title',
-        label: 'Job Title',
-        type: 'text',
-        required: true,
-        placeholder: 'Junior Clerk',
-      },
-      {
-        name: 'state',
-        label: 'State',
-        type: 'select',
-        required: true,
-        options: [
-          { label: 'Bihar', value: 'bihar' },
-          { label: 'Maharashtra', value: 'maharashtra' },
-          { label: 'Delhi', value: 'delhi' },
-          { label: 'Karnataka', value: 'karnataka' },
-          { label: 'Tamil Nadu', value: 'tamil-nadu' },
-          { label: 'All India', value: 'all-india' },
-        ],
-      },
-      {
-        name: 'district',
-        label: 'District',
-        type: 'select',
-        options: [], // Will be populated dynamically based on state
-      },
-      {
-        name: 'deadline',
-        label: 'Application Deadline',
-        type: 'date',
-        required: true,
-      },
-      {
-        name: 'examDate',
-        label: 'Exam Date',
-        type: 'date',
-      },
-      {
-        name: 'status',
-        label: 'Status',
-        type: 'select',
-        required: true,
-        options: [
-          { label: 'Open', value: 'open' },
-          { label: 'Closed', value: 'closed' },
-          { label: 'Upcoming', value: 'upcoming' },
-        ],
-      },
-      {
-        name: 'description',
-        label: 'Description',
-        type: 'textarea',
-        required: true,
-      },
-      {
-        name: 'eligibility',
-        label: 'Eligibility',
-        type: 'nested',
-      },
-    ],
-  },
+  // MOVED TO apps-backup/apps-backup.A as per requirement 7
+  // 'learn-govt-jobs': {
+  //   id: 'learn-govt-jobs',
+  //   name: 'learn-govt-jobs',
+  //   displayName: 'Government Jobs',
+  //   description: 'Government job listings with geographic and deadline data',
+  //   contentType: 'json',
+  //   dataPath: 'apps-backup/apps-backup.A/learn-govt-jobs/data',
+  //   icon: '🏢',
+  // },
 
   'learn-ai': {
     id: 'learn-ai',
@@ -453,45 +385,16 @@ export const APP_REGISTRY = {
     ],
   },
 
-  'learn-finesse': {
-    id: 'learn-finesse',
-    name: 'learn-finesse',
-    displayName: 'Professional Skills',
-    description: 'Professional development and soft skills',
-    contentType: 'json',
-    dataPath: 'apps/learn-finesse/data',
-    icon: '🎯',
-    fields: [
-      {
-        name: 'id',
-        label: 'Content ID',
-        type: 'text',
-        required: true,
-      },
-      {
-        name: 'title',
-        label: 'Title',
-        type: 'text',
-        required: true,
-      },
-      {
-        name: 'description',
-        label: 'Description',
-        type: 'textarea',
-        required: true,
-      },
-      {
-        name: 'difficulty',
-        label: 'Difficulty',
-        type: 'select',
-        options: [
-          { label: 'Beginner', value: 'Beginner' },
-          { label: 'Intermediate', value: 'Intermediate' },
-          { label: 'Advanced', value: 'Advanced' },
-        ],
-      },
-    ],
-  },
+  // MOVED TO apps-backup/apps-backup.A as per requirement 7
+  // 'learn-finesse': {
+  //   id: 'learn-finesse',
+  //   name: 'learn-finesse',
+  //   displayName: 'Professional Skills',
+  //   description: 'Professional development and soft skills',
+  //   contentType: 'json',
+  //   dataPath: 'apps-backup/apps-backup.A/learn-finesse/data',
+  //   icon: '🎯',
+  // },
 
   'learn-geography': {
     id: 'learn-geography',
