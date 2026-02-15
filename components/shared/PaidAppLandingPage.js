@@ -143,8 +143,19 @@ export default function PaidAppLandingPage({
 
         {/* Hero Section */}
         <Hero appId={appId} className="h-[70vh] md:h-[80vh] lg:h-[90vh] relative">
-          <div className="absolute top-4 left-4 bg-black/50 backdrop-blur-sm text-white px-4 py-2 rounded-lg text-sm font-semibold z-10">
-            {displayAppContextLabel}
+          {/* PAID label in top-left */}
+          <div className="absolute top-4 left-4 bg-orange-500 text-white px-4 py-2 rounded-lg text-sm font-bold z-10 shadow-lg">
+            PAID
+          </div>
+          
+          {/* Syllabus link next to PAID label */}
+          <div className="absolute top-4 left-28 z-10">
+            <Link
+              href="/curriculum"
+              className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-semibold shadow-lg transition"
+            >
+              Syllabus
+            </Link>
           </div>
 
           <div className="text-center text-white space-y-6 max-w-4xl mx-auto mt-20">
@@ -157,7 +168,7 @@ export default function PaidAppLandingPage({
               </p>
             )}
 
-            {/* Paid Course Notice */}
+            {/* Premium Course Notice */}
             <div className="bg-white/10 backdrop-blur-sm border-2 border-white/30 rounded-lg p-4 max-w-2xl mx-auto">
               <p className="text-lg font-semibold">💳 Premium Course</p>
               <p className="text-sm mt-2">
@@ -165,7 +176,7 @@ export default function PaidAppLandingPage({
               </p>
             </div>
 
-            {/* CTA */}
+            {/* CTA Buttons */}
             {!loading && (
               <div className="flex flex-col sm:flex-row gap-4 pt-4 justify-center">
                 <a
@@ -175,7 +186,7 @@ export default function PaidAppLandingPage({
                   Try Sample Lesson Free
                 </a>
                 <Link
-                  href={appId === "learn-finesse" ? "/courses" : "/curriculum"}
+                  href="/curriculum"
                   className="inline-block bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-bold hover:bg-white hover:text-primary transition-all duration-200 text-center text-base sm:text-lg"
                 >
                   View Full Curriculum

@@ -208,9 +208,19 @@ export default function UniversalLandingPage({
 
         {/* Hero Section with Full-Size Background */}
         <Hero appId={appId} className="h-[70vh] md:h-[80vh] lg:h-[90vh] relative">
-          {/* App Context Label - Overlaid on top-left of hero image */}
-          <div className="absolute top-4 left-4 bg-black/50 backdrop-blur-sm text-white px-4 py-2 rounded-lg text-sm font-semibold z-10">
-            {displayAppContextLabel}
+          {/* FREE/PAID label in top-left */}
+          <div className={`absolute top-4 left-4 ${isFree ? 'bg-green-500' : 'bg-orange-500'} text-white px-4 py-2 rounded-lg text-sm font-bold z-10 shadow-lg`}>
+            {isFree ? 'FREE' : 'PAID'}
+          </div>
+          
+          {/* Syllabus link next to FREE/PAID label */}
+          <div className="absolute top-4 left-28 z-10">
+            <Link
+              href="/curriculum"
+              className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-semibold shadow-lg transition"
+            >
+              Syllabus
+            </Link>
           </div>
 
           <div className="text-center text-white space-y-6 max-w-4xl mx-auto mt-20">
@@ -246,6 +256,16 @@ export default function UniversalLandingPage({
                 </p>
               </div>
             )}
+            
+            {/* Free Course Notice */}
+            {isFree && (
+              <div className="bg-white/10 backdrop-blur-sm border-2 border-white/30 rounded-lg p-4 max-w-2xl mx-auto">
+                <p className="text-lg font-semibold">💳 Free Course</p>
+                <p className="text-sm mt-2">
+                  Try our sample lesson and Level 1 test FREE—no login required!
+                </p>
+              </div>
+            )}
 
             {/* Call to Action Buttons - OPEN ACCESS: Auth buttons removed */}
             {isFree && (
@@ -257,33 +277,14 @@ export default function UniversalLandingPage({
                       href="/learn"
                       className="inline-block bg-white text-primary px-8 py-4 rounded-lg font-bold shadow-lg hover:bg-gray-100 hover:shadow-xl transition-all duration-200 text-center text-base sm:text-lg"
                     >
-                      Start Learning
+                      Try Sample Lesson
                     </Link>
-                    {/* OPEN ACCESS: Register/Sign In buttons removed - all content is public
-                    {user ? (
-                      <Link
-                        href="/learn"
-                        className="inline-block bg-white text-primary px-8 py-4 rounded-lg font-bold shadow-lg hover:bg-gray-100 hover:shadow-xl transition-all duration-200 text-center text-base sm:text-lg"
-                      >
-                        Start Learning
-                      </Link>
-                    ) : (
-                      <>
-                        <Link
-                          href="/register"
-                          className="inline-block bg-white text-primary px-8 py-4 rounded-lg font-bold shadow-lg hover:bg-gray-100 hover:shadow-xl transition-all duration-200 text-center text-base sm:text-lg"
-                        >
-                          Register Free
-                        </Link>
-                        <Link
-                          href="/login"
-                          className="inline-block bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-bold hover:bg-white hover:text-primary transition-all duration-200 text-center text-base sm:text-lg"
-                        >
-                          Sign In
-                        </Link>
-                      </>
-                    )}
-                    */}
+                    <Link
+                      href="/curriculum"
+                      className="inline-block bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-bold hover:bg-white hover:text-primary transition-all duration-200 text-center text-base sm:text-lg"
+                    >
+                      View Full Curriculum
+                    </Link>
                   </>
                 )}
               </div>
