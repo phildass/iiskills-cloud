@@ -159,8 +159,8 @@ export default function PaidAppLandingPage({
             </Link>
           </div>
 
-          <div className="text-center text-white space-y-6 max-w-4xl mx-auto mt-20">
-            <h1 className={`text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight ${appId === 'learn-pr' ? 'text-white' : ''}`}>
+          <div className={`text-center space-y-6 max-w-4xl mx-auto mt-20 ${appId === 'learn-pr' ? 'text-white' : 'text-blue-600'}`}>
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight">
               {headline || appName}
             </h1>
             {subheadline && (
