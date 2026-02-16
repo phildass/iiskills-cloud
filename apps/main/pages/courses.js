@@ -4,6 +4,7 @@ import Link from "next/link";
 import { getPricingDisplay, getIntroOfferNotice } from "../utils/pricing";
 import { getCourseSubdomainLink, courseHasSubdomain } from "../utils/courseSubdomainMapperClient";
 import { getCurrentUser, isAdmin } from "../lib/supabaseClient";
+import { sortCoursesByDisplayOrder, getCourseAvailabilityText } from "../../../config/courseDisplayOrder";
 
 // List of courses hidden from public view (visible only to admins)
 const HIDDEN_COURSE_NAMES = [
@@ -1634,13 +1635,16 @@ export default function Courses() {
     }
   });
 
+  // Sort available courses using centralized configuration
+  sortCoursesByDisplayOrder(availableCourses);
+
   return (
     <>
       <Head>
         <title>Courses - iiskills.cloud</title>
         <meta
           name="description"
-          content="Courses available now: 10 | Five Free | Five Paid. Introductory price of Rs 99 (plus GST Rs 17.82) valid till Feb 28th. Professional and personal development courses."
+          content="Courses available now: 9 | Five Free | Four Paid. Introductory price of Rs 99 (plus GST Rs 17.82) valid till Feb 28th. Professional and personal development courses."
         />
       </Head>
 
@@ -1650,7 +1654,7 @@ export default function Courses() {
           <p className="text-xl text-charcoal mb-2">Professional Skills Development for Everyone</p>
           
           <p className="text-lg font-semibold text-primary mb-2">
-            Courses available now: 10 | Five Free | Five Paid
+            Courses available now: 9 | Five Free | Four Paid
           </p>
           <p className="text-sm text-orange-600 font-semibold mb-4">
             Introductory price of ₹99 (plus GST ₹17.82) valid till Feb 28th. Total ₹116.82
@@ -1673,7 +1677,7 @@ export default function Courses() {
 
         {/* Available Courses Display */}
         <div className="bg-gradient-to-r from-green-50 to-blue-50 rounded-lg shadow-lg p-6 mb-8 text-center border-2 border-green-200">
-          <h2 className="text-2xl font-bold text-primary mb-3">Available right now: 10 Courses</h2>
+          <h2 className="text-2xl font-bold text-primary mb-3">Available right now: 9 Courses</h2>
           <p className="text-lg text-charcoal">
             50+ Courses being developed and should be uploaded soon. Over the next few months you will have 100+ Courses to choose from.
           </p>

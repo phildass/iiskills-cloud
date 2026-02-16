@@ -1,14 +1,17 @@
 import Head from "next/head";
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 // import ProtectedRoute from "../../components/ProtectedRoute";
 import AdminNav from "../../components/AdminNav";
 import Footer from "../../components/Footer";
 
 export default function AdminModules() {
+  const router = useRouter();
   const [modules, setModules] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
+  const [selectedApp, setSelectedApp] = useState('all');
   const [formData, setFormData] = useState({
     title: '',
     description: '',
@@ -19,6 +22,13 @@ export default function AdminModules() {
   useEffect(() => {
     fetchModules();
   }, []);
+
+  useEffect(() => {
+    // Update selected app when URL changes or on initial mount
+    if (router.isReady && router.query.app) {
+      setSelectedApp(router.query.app);
+    }
+  }, [router.isReady, router.query.app]);
 
   const fetchModules = async () => {
     try {
@@ -48,6 +58,25 @@ export default function AdminModules() {
       setLoading(false);
     }
   };
+
+  const handleAppFilterChange = (e) => {
+    const app = e.target.value;
+    setSelectedApp(app);
+    // Update URL without reload
+    if (app === 'all') {
+      router.push('/admin/modules', undefined, { shallow: true });
+    } else {
+      router.push(`/admin/modules?app=${app}`, undefined, { shallow: true });
+    }
+  };
+
+  // Filter modules by selected app
+  const filteredModules = selectedApp === 'all' 
+    ? modules 
+    : modules.filter(module => module.sourceApp === selectedApp);
+
+  // Get unique apps for filter dropdown
+  const uniqueApps = [...new Set(modules.map(m => m.sourceApp))].sort();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -99,13 +128,42 @@ export default function AdminModules() {
           </div>
         </div>
 
+        {/* App Filter */}
+        <div className="bg-white rounded-lg shadow p-4 mb-6">
+          <div className="flex items-center gap-4">
+            <label htmlFor="appFilter" className="text-sm font-medium text-gray-700">
+              Filter by App:
+            </label>
+            <select
+              id="appFilter"
+              value={selectedApp}
+              onChange={handleAppFilterChange}
+              className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
+            >
+              <option value="all">All Apps ({modules.length} modules)</option>
+              {uniqueApps.map(app => (
+                <option key={app} value={app}>
+                  {app} ({modules.filter(m => m.sourceApp === app).length} modules)
+                </option>
+              ))}
+            </select>
+            {selectedApp !== 'all' && (
+              <span className="text-sm text-gray-600">
+                Showing {filteredModules.length} of {modules.length} modules
+              </span>
+            )}
+          </div>
+        </div>
+
         {/* Modules Table */}
         <div className="bg-white rounded-lg shadow overflow-hidden">
           {loading ? (
             <div className="p-8 text-center text-gray-500">Loading modules...</div>
-          ) : modules.length === 0 ? (
+          ) : filteredModules.length === 0 ? (
             <div className="p-8 text-center text-gray-500">
-              No modules found. Modules will appear here once content is aggregated from all sources.
+              {selectedApp === 'all' 
+                ? "No modules found. Modules will appear here once content is aggregated from all sources."
+                : `No modules found for ${selectedApp}.`}
             </div>
           ) : (
             <table className="min-w-full divide-y divide-gray-200">
@@ -132,7 +190,7 @@ export default function AdminModules() {
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
-                {modules.map((module) => (
+                {filteredModules.map((module) => (
                   <tr key={module.id} className="hover:bg-gray-50">
                     <td className="px-6 py-4 text-sm text-gray-700">
                       {module.order}

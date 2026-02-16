@@ -36,7 +36,7 @@ export default function Home() {
       <main>
         {/* HERO SECTION */}
         <Hero appId="main" className="h-[70vh] md:h-[80vh] lg:h-[90vh]" noOverlay>
-          <div className="text-center text-white space-y-6 max-w-5xl mx-auto">
+          <div className="text-center text-blue-600 space-y-6 max-w-5xl mx-auto mt-32">
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight tracking-tight drop-shadow-lg">
               AI Cloud Enterprises: Services that touch every Indian.
             </h1>
@@ -276,32 +276,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* FINAL CALL TO ACTION */}
-        <section className="py-20 bg-white">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-              Transform Your Organization
-            </h2>
-            <p className="text-xl text-gray-700 mb-8 max-w-2xl mx-auto">
-              Discover how AI Cloud Enterprises can help you deliver seamless digital experiences
-              and drive growth in the digital era.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                href="/solutions"
-                className="inline-block bg-gradient-to-r from-blue-600 to-purple-600 text-white px-10 py-4 rounded-lg font-bold hover:from-blue-500 hover:to-purple-500 transition-all duration-200 shadow-xl"
-              >
-                View Our Solutions
-              </Link>
-              <Link
-                href="/contact"
-                className="inline-block bg-white text-blue-600 border-2 border-blue-600 px-10 py-4 rounded-lg font-bold hover:bg-blue-50 transition-all duration-200"
-              >
-                Get in Touch
-              </Link>
-            </div>
-          </div>
-        </section>
+
       </main>
     </>
   );
