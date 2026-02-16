@@ -1,4 +1,4 @@
-<svg width="80" height="80" xmlns="http://www.w3.org/2000/svg">
+<svg width="80" height="80" xmlns="http://www.w3.org/2000/svg" aria-label="Chart trending up icon">
   <circle cx="40" cy="40" r="40" fill="#10B981"/>
   <text x="40" y="56" font-size="50" text-anchor="middle" fill="white">📈</text>
 </svg>
