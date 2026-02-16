@@ -120,7 +120,7 @@ export default function Home() {
         {randomImage1 && (
           <section className="relative h-[400px] md:h-[500px] overflow-hidden">
             <Image
-              src={`/images/iiskills-main-wm1.jpg`}
+              src={`/images/${randomImage1}`}
               alt="iiskills.cloud Learning Platform"
               fill
               className="object-cover"
@@ -169,7 +169,7 @@ export default function Home() {
         {randomImage2 && (
           <section className="relative h-[400px] md:h-[500px] overflow-hidden">
             <Image
-              src={`/images/iiskills-main.1.jpg`}
+              src={`/images/${randomImage2}`}
               alt="iiskills.cloud Professional Development"
               fill
               className="object-cover"
