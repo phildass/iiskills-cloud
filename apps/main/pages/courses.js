@@ -1634,13 +1634,52 @@ export default function Courses() {
     }
   });
 
+  // Sort available courses: Free courses first (Chemistry, Geography, Math, Physics, Aptitude), 
+  // then paid courses (PR, AI, Management, Developer)
+  const courseOrder = [
+    "Learn Chemistry",
+    "Learn Geography", 
+    "Learn Maths",
+    "Learn Physics",
+    "Learn Aptitude",
+    "Learn PR",
+    "Learn AI",
+    "Learn Management",
+    "Learn Developer",
+  ];
+  
+  availableCourses.sort((a, b) => {
+    // Clean course names for comparison
+    const cleanA = a.name.replace(/\s*[–-]\s*(Free|From the book)$/i, "").trim();
+    const cleanB = b.name.replace(/\s*[–-]\s*(Free|From the book)$/i, "").trim();
+    
+    const indexA = courseOrder.indexOf(cleanA);
+    const indexB = courseOrder.indexOf(cleanB);
+    
+    // If both are in the order list, sort by their position
+    if (indexA !== -1 && indexB !== -1) {
+      return indexA - indexB;
+    }
+    // If only one is in the list, prioritize it
+    if (indexA !== -1) return -1;
+    if (indexB !== -1) return 1;
+    
+    // If neither is in the list, sort free courses before paid
+    if (a.isFree !== b.isFree) {
+      return a.isFree ? -1 : 1;
+    }
+    
+    // Otherwise maintain original order
+    return 0;
+  });
+
   return (
     <>
       <Head>
         <title>Courses - iiskills.cloud</title>
         <meta
           name="description"
-          content="Courses available now: 10 | Five Free | Five Paid. Introductory price of Rs 99 (plus GST Rs 17.82) valid till Feb 28th. Professional and personal development courses."
+          content="Courses available now: 9 | Five Free | Four Paid. Introductory price of Rs 99 (plus GST Rs 17.82) valid till Feb 28th. Professional and personal development courses."
         />
       </Head>
 
@@ -1650,7 +1689,7 @@ export default function Courses() {
           <p className="text-xl text-charcoal mb-2">Professional Skills Development for Everyone</p>
           
           <p className="text-lg font-semibold text-primary mb-2">
-            Courses available now: 10 | Five Free | Five Paid
+            Courses available now: 9 | Five Free | Four Paid
           </p>
           <p className="text-sm text-orange-600 font-semibold mb-4">
             Introductory price of ₹99 (plus GST ₹17.82) valid till Feb 28th. Total ₹116.82
@@ -1673,7 +1712,7 @@ export default function Courses() {
 
         {/* Available Courses Display */}
         <div className="bg-gradient-to-r from-green-50 to-blue-50 rounded-lg shadow-lg p-6 mb-8 text-center border-2 border-green-200">
-          <h2 className="text-2xl font-bold text-primary mb-3">Available right now: 10 Courses</h2>
+          <h2 className="text-2xl font-bold text-primary mb-3">Available right now: 9 Courses</h2>
           <p className="text-lg text-charcoal">
             50+ Courses being developed and should be uploaded soon. Over the next few months you will have 100+ Courses to choose from.
           </p>
