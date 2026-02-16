@@ -135,7 +135,7 @@ export default function PremiumAccessPrompt({
         {/* Commitment Question */}
         <div className="text-center mb-6">
           <p className="text-lg font-semibold text-gray-800">
-            Proceed to secure payment hub
+            Ready to continue your learning journey?
           </p>
         </div>
 
@@ -153,7 +153,7 @@ export default function PremiumAccessPrompt({
             onClick={handleUnlock} 
             className={`${onCancel ? 'flex-1' : 'w-full'} px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-bold hover:from-purple-700 hover:to-blue-700 transition-all duration-200 shadow-lg hover:shadow-xl`}
           >
-            Continue to aienter.in/payments →
+            I am satisfied, I will pay for the course
           </button>
         </div>
 
