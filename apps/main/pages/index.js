@@ -3,6 +3,7 @@ import Image from "next/image";
 import Head from "next/head";
 import { useState, useEffect } from "react";
 import Hero, { getHeroImagesForApp } from "../../../components/shared/HeroManager";
+import { getPricingDisplay } from "../utils/pricing";
 
 export default function Home() {
   const [randomImage1, setRandomImage1] = useState("");
@@ -19,6 +20,8 @@ export default function Home() {
     setRandomImage1(shuffled[0] || images[0]);
     setRandomImage2(shuffled[1] || images[1] || images[0]);
   }, []);
+
+  const pricing = getPricingDisplay();
 
   // Course data: 5 free, 4 paid
   const freeCourses = [
@@ -39,21 +42,24 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>iiskills.cloud - Master Professional Skills</title>
+        <title>iiskills.cloud - Democratizing Education for Viksit Bharat</title>
         <meta
           name="description"
-          content="iiskills.cloud - Professional learning platform with 9 courses (5 free, 4 paid). Master AI, Development, Management, PR, Chemistry, Physics, Math, Geography, and Aptitude."
+          content="Affordable professional skills education platform for all Indians. Contributing to Viksit Bharat with 9 courses (5 free, 4 paid). No barriers, accessible online, focused on career growth."
         />
       </Head>
       <main>
-        {/* HERO SECTION */}
+        {/* HERO SECTION - Corrections 16.2.26: Blue font color, repositioned heading */}
         <Hero appId="main" className="h-[70vh] md:h-[80vh] lg:h-[90vh]" noOverlay>
           <div className="text-center text-blue-600 space-y-6 max-w-5xl mx-auto mt-20">
             <h1 className="text-5xl sm:text-5xl lg:text-5xl font-bold leading-tight tracking-tight drop-shadow-lg">
-              Master Professional Skills with iiskills.cloud
+              Democratizing Education for Every Indian
             </h1>
             <p className="text-lg sm:text-xl lg:text-2xl leading-relaxed max-w-4xl mx-auto px-4 drop-shadow-md">
-              India's premier online learning platform. Courses available now: 9 | Five Free | Four Paid
+              Affordable professional skills • No barriers • Accessible online • Contributing to Viksit Bharat
+            </p>
+            <p className="text-base sm:text-lg lg:text-xl max-w-3xl mx-auto px-4 drop-shadow-md">
+              9 Courses Available | 5 Free | 4 Paid (Only {pricing.totalPrice})
             </p>
           </div>
         </Hero>
@@ -173,7 +179,46 @@ export default function Home() {
           </section>
         )}
 
-        {/* FEATURES SECTION */}
+        {/* VIKSIT BHARAT VISION SECTION */}
+        <section className="py-16 bg-gradient-to-br from-blue-50 to-purple-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-12">
+              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+                🌟 Our Vision for Viksit Bharat
+              </h2>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-8 mb-8">
+              <div className="bg-gradient-to-br from-blue-500 to-blue-700 text-white rounded-xl shadow-lg p-8">
+                <h3 className="text-2xl font-bold mb-4">🎯 Our Mission</h3>
+                <p className="leading-relaxed mb-4">
+                  To empower every Indian with professional skills and technology-led learning platforms
+                  that enable career growth and personal development.
+                </p>
+                <p className="leading-relaxed">
+                  We believe in democratizing education by making it affordable ({pricing.totalPrice} per course
+                  {pricing.isIntroductory ? ", introductory offer until " + pricing.introEndDate : ""}),
+                  accessible online, and focused on immediately applicable skills.
+                </p>
+              </div>
+
+              <div className="bg-gradient-to-br from-purple-500 to-purple-700 text-white rounded-xl shadow-lg p-8">
+                <h3 className="text-2xl font-bold mb-4">🌟 Contributing to Viksit Bharat</h3>
+                <p className="leading-relaxed mb-4">
+                  To contribute to <strong>Viksit Bharat</strong> (Developed India) by bridging the
+                  skill gap and creating opportunities for millions of Indians to upgrade their
+                  abilities and achieve their potential.
+                </p>
+                <p className="leading-relaxed">
+                  We envision an India where quality education is a right, not a privilege, and where
+                  every individual has the tools to succeed in the modern economy.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* WHY IISKILLS.CLOUD SECTION */}
         <section className="py-16 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
@@ -184,26 +229,69 @@ export default function Home() {
 
             <div className="grid md:grid-cols-3 gap-8">
               <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow">
-                <div className="text-4xl mb-4">🎯</div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-3">Professional Quality</h3>
+                <div className="text-4xl mb-4">💰</div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-3">Affordable Education</h3>
                 <p className="text-gray-700">
-                  Industry-leading courses designed by experts to help you master real-world skills.
+                  Quality education at just {pricing.totalPrice} per paid course. 5 courses are completely free. No hidden costs, no barriers.
                 </p>
               </div>
 
               <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow">
-                <div className="text-4xl mb-4">📚</div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-3">Comprehensive Curriculum</h3>
+                <div className="text-4xl mb-4">🌍</div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-3">Accessible to All Indians</h3>
                 <p className="text-gray-700">
-                  From foundational concepts to advanced topics, our courses cover everything you need.
+                  Online platform accessible from anywhere in India. Learn in your language, at your own pace, on your schedule.
                 </p>
               </div>
 
               <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow">
-                <div className="text-4xl mb-4">⚡</div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-3">Learn at Your Pace</h3>
+                <div className="text-4xl mb-4">📈</div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-3">Career-Focused Skills</h3>
                 <p className="text-gray-700">
-                  Self-paced learning with lifetime access to course materials and updates.
+                  Immediately applicable professional skills designed for real career advancement and job market success.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* CORE VALUES SECTION */}
+        <section className="py-16 bg-gradient-to-br from-gray-50 to-blue-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-12">
+              <h2 className="text-4xl font-bold text-gray-900 mb-4">💎 Our Core Values</h2>
+            </div>
+            
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="bg-white rounded-xl p-6 shadow-lg">
+                <h3 className="font-bold text-xl text-blue-600 mb-2">Integrity & Excellence</h3>
+                <p className="text-gray-700">
+                  We maintain the highest standards in education delivery and never compromise on
+                  quality, even at affordable prices.
+                </p>
+              </div>
+              
+              <div className="bg-white rounded-xl p-6 shadow-lg">
+                <h3 className="font-bold text-xl text-blue-600 mb-2">Innovation & Lifelong Learning</h3>
+                <p className="text-gray-700">
+                  We continuously evolve our content and methods to stay relevant in a rapidly
+                  changing world.
+                </p>
+              </div>
+              
+              <div className="bg-white rounded-xl p-6 shadow-lg">
+                <h3 className="font-bold text-xl text-blue-600 mb-2">Diversity & Inclusion</h3>
+                <p className="text-gray-700">
+                  We celebrate India's diversity and ensure our platform is accessible to learners
+                  from all backgrounds and regions.
+                </p>
+              </div>
+              
+              <div className="bg-white rounded-xl p-6 shadow-lg">
+                <h3 className="font-bold text-xl text-blue-600 mb-2">Collaboration & Community</h3>
+                <p className="text-gray-700">
+                  We build a supportive learning community where students help each other grow and
+                  succeed together.
                 </p>
               </div>
             </div>
