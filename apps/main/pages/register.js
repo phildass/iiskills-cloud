@@ -29,7 +29,7 @@ export default function Register() {
       </Head>
 
       <EnhancedUniversalRegister
-        redirectAfterRegister="/login"
+        redirectAfterRegister="/sign-in"
         appName="iiskills.cloud"
         showGoogleAuth={true}
       />
