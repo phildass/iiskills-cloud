@@ -196,8 +196,7 @@ export default function Home() {
                   that enable career growth and personal development.
                 </p>
                 <p className="leading-relaxed">
-                  We believe in democratizing education by making it affordable ({pricing.totalPrice} per course
-                  {pricing.isIntroductory ? ", introductory offer until " + pricing.introEndDate : ""}),
+                  We believe in democratizing education by making it affordable ({pricing.totalPrice} per course{pricing.isIntroductory ? `, introductory offer until ${pricing.introEndDate}` : ''}),
                   accessible online, and focused on immediately applicable skills.
                 </p>
               </div>
@@ -205,7 +204,7 @@ export default function Home() {
               <div className="bg-gradient-to-br from-purple-500 to-purple-700 text-white rounded-xl shadow-lg p-8">
                 <h3 className="text-2xl font-bold mb-4">🌟 Contributing to Viksit Bharat</h3>
                 <p className="leading-relaxed mb-4">
-                  To contribute to <strong>Viksit Bharat</strong> (Developed India) by bridging the
+                  To contribute to <span className="font-bold">Viksit Bharat</span> (Developed India) by bridging the
                   skill gap and creating opportunities for millions of Indians to upgrade their
                   abilities and achieve their potential.
                 </p>
