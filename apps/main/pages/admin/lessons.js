@@ -1,14 +1,17 @@
 import Head from "next/head";
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 // import ProtectedRoute from "../../components/ProtectedRoute";
 import AdminNav from "../../components/AdminNav";
 import Footer from "../../components/Footer";
 
 export default function AdminLessons() {
+  const router = useRouter();
   const [lessons, setLessons] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
+  const [selectedApp, setSelectedApp] = useState(router.query.app || 'all');
   const [formData, setFormData] = useState({
     title: '',
     content: '',
@@ -20,6 +23,13 @@ export default function AdminLessons() {
   useEffect(() => {
     fetchLessons();
   }, []);
+
+  useEffect(() => {
+    // Update selected app when URL changes
+    if (router.query.app) {
+      setSelectedApp(router.query.app);
+    }
+  }, [router.query.app]);
 
   const fetchLessons = async () => {
     try {
@@ -49,6 +59,25 @@ export default function AdminLessons() {
       setLoading(false);
     }
   };
+
+  const handleAppFilterChange = (e) => {
+    const app = e.target.value;
+    setSelectedApp(app);
+    // Update URL without reload
+    if (app === 'all') {
+      router.push('/admin/lessons', undefined, { shallow: true });
+    } else {
+      router.push(`/admin/lessons?app=${app}`, undefined, { shallow: true });
+    }
+  };
+
+  // Filter lessons by selected app
+  const filteredLessons = selectedApp === 'all' 
+    ? lessons 
+    : lessons.filter(lesson => lesson.sourceApp === selectedApp);
+
+  // Get unique apps for filter dropdown
+  const uniqueApps = [...new Set(lessons.map(l => l.sourceApp))].sort();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -100,13 +129,42 @@ export default function AdminLessons() {
           </div>
         </div>
 
+        {/* App Filter */}
+        <div className="bg-white rounded-lg shadow p-4 mb-6">
+          <div className="flex items-center gap-4">
+            <label htmlFor="appFilter" className="text-sm font-medium text-gray-700">
+              Filter by App:
+            </label>
+            <select
+              id="appFilter"
+              value={selectedApp}
+              onChange={handleAppFilterChange}
+              className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
+            >
+              <option value="all">All Apps ({lessons.length} lessons)</option>
+              {uniqueApps.map(app => (
+                <option key={app} value={app}>
+                  {app} ({lessons.filter(l => l.sourceApp === app).length} lessons)
+                </option>
+              ))}
+            </select>
+            {selectedApp !== 'all' && (
+              <span className="text-sm text-gray-600">
+                Showing {filteredLessons.length} of {lessons.length} lessons
+              </span>
+            )}
+          </div>
+        </div>
+
         {/* Lessons Table */}
         <div className="bg-white rounded-lg shadow overflow-hidden">
           {loading ? (
             <div className="p-8 text-center text-gray-500">Loading lessons...</div>
-          ) : lessons.length === 0 ? (
+          ) : filteredLessons.length === 0 ? (
             <div className="p-8 text-center text-gray-500">
-              No lessons found. Lessons will appear here once content is aggregated from all sources.
+              {selectedApp === 'all' 
+                ? "No lessons found. Lessons will appear here once content is aggregated from all sources."
+                : `No lessons found for ${selectedApp}.`}
             </div>
           ) : (
             <table className="min-w-full divide-y divide-gray-200">
@@ -136,7 +194,7 @@ export default function AdminLessons() {
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
-                {lessons.map((lesson) => (
+                {filteredLessons.map((lesson) => (
                   <tr key={lesson.id} className="hover:bg-gray-50">
                     <td className="px-6 py-4 text-sm text-gray-700">
                       {lesson.order}
