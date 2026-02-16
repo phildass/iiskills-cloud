@@ -122,7 +122,7 @@ export default async function handler(req, res) {
     // Return success with delivery status
     return res.status(200).json({
       message: 'OTP generated successfully',
-      otp, // Include OTP in response for admin visibility
+      // OTP is not returned for security - only sent via email/SMS
       emailSent,
       smsSent,
       expiresAt: expiresAt.toISOString(),

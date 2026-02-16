@@ -86,17 +86,25 @@ export default function AdminOTP() {
         throw new Error(data.error || "Failed to generate OTP");
       }
 
-      setMessage(`✅ OTP generated and sent successfully! OTP: ${data.otp}`);
+      // Success message without exposing OTP
+      const deliveryStatus = [];
+      if (data.emailSent) deliveryStatus.push("email");
+      if (data.smsSent) deliveryStatus.push("SMS");
       
-      // Add to generated OTPs list
+      setMessage(
+        `✅ OTP generated and sent successfully via ${deliveryStatus.join(" and ")}!`
+      );
+      
+      // Add to generated OTPs list (without actual OTP value for security)
       setGeneratedOTPs((prev) => [
         {
           email: formData.email,
           phone: formData.phone,
           course: formData.course,
-          otp: data.otp,
           timestamp: new Date().toISOString(),
           reason: formData.reason,
+          emailSent: data.emailSent,
+          smsSent: data.smsSent,
         },
         ...prev.slice(0, 19), // Keep last 20 OTPs
       ]);
@@ -272,8 +280,8 @@ export default function AdminOTP() {
                     className="border border-gray-200 rounded p-4 hover:bg-gray-50"
                   >
                     <div className="flex justify-between items-start mb-2">
-                      <div className="font-mono text-2xl font-bold text-primary">
-                        {otp.otp}
+                      <div className="text-lg font-bold text-green-600">
+                        ✓ OTP Sent
                       </div>
                       <div className="text-xs text-gray-500">
                         {new Date(otp.timestamp).toLocaleTimeString()}
@@ -283,10 +291,20 @@ export default function AdminOTP() {
                       <div className="flex items-center gap-2">
                         <span className="font-semibold">Email:</span>
                         <span className="text-gray-700">{otp.email}</span>
+                        {otp.emailSent && (
+                          <span className="text-xs bg-green-100 text-green-800 px-2 py-0.5 rounded">
+                            Sent
+                          </span>
+                        )}
                       </div>
                       <div className="flex items-center gap-2">
                         <span className="font-semibold">Phone:</span>
                         <span className="text-gray-700">{otp.phone}</span>
+                        {otp.smsSent && (
+                          <span className="text-xs bg-green-100 text-green-800 px-2 py-0.5 rounded">
+                            Sent
+                          </span>
+                        )}
                       </div>
                       <div className="flex items-center gap-2">
                         <span className="font-semibold">Course:</span>
@@ -300,6 +318,9 @@ export default function AdminOTP() {
                           {reasons.find((r) => r.value === otp.reason)?.label || otp.reason}
                         </span>
                       </div>
+                    </div>
+                    <div className="mt-2 text-xs text-gray-500 italic">
+                      OTP was sent to user's email and phone. Check delivery status above.
                     </div>
                   </div>
                 ))}
