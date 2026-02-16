@@ -44,7 +44,7 @@ function getAppContextLabel(appId) {
     "learn-chemistry": "iiskills Chemistry",
     "learn-math": "iiskills Math",
     "learn-geography": "iiskills Geography",
-    "learn-govt-jobs": "iiskills Government Jobs",
+    // REMOVED per requirement #9: "learn-govt-jobs": "iiskills Government Jobs",
   };
   return labels[appId] || "iiskills";
 }
@@ -64,7 +64,7 @@ function getCourseLinks() {
     { name: "Learn Chemistry", icon: "🧪", url: "https://app7.learn-chemistry.iiskills.cloud" },
     { name: "Learn Math", icon: "📐", url: "https://app8.learn-math.iiskills.cloud" },
     { name: "Learn Geography", icon: "🌍", url: "https://app9.learn-geography.iiskills.cloud" },
-    { name: "Learn Govt Jobs", icon: "🏛️", url: "https://app10.learn-govt-jobs.iiskills.cloud" },
+    // REMOVED per requirement #9: { name: "Learn Govt Jobs", icon: "🏛️", url: "https://app10.learn-govt-jobs.iiskills.cloud" },
   ];
 }
 
@@ -82,6 +82,8 @@ function getAppSpecificLinks(appId) {
 
   // App-specific additional links
   const appSpecificMap = {
+    // REMOVED per requirement #9
+    /*
     "learn-govt-jobs": [
       { label: "Job Search", href: "/jobs" },
       { label: "Opportunities", href: "/opportunity-feed" },
@@ -89,6 +91,7 @@ function getAppSpecificLinks(appId) {
       { label: "Exam Alerts", href: "/exam-countdown" },
       { label: "News", href: "/news" },
     ],
+    */
     "learn-ai": [
       { label: "AI Playground", href: "/playground" },
       { label: "Projects", href: "/projects" },
@@ -146,7 +149,7 @@ export default function UniversalLandingPage({
       "learn-finesse": "finesse",
       "learn-management": "management",
       "learn-pr": "pr",
-      "learn-govt-jobs": "govt-jobs",
+      // REMOVED per requirement #9: "learn-govt-jobs": "govt-jobs",
     };
     return typeMap[appId] || "math";
   };
@@ -205,14 +208,25 @@ export default function UniversalLandingPage({
 
         {/* Hero Section with Full-Size Background */}
         <Hero appId={appId} className="h-[70vh] md:h-[80vh] lg:h-[90vh] relative">
-          {/* App Context Label - Overlaid on top-left of hero image */}
-          <div className="absolute top-4 left-4 bg-black/50 backdrop-blur-sm text-white px-4 py-2 rounded-lg text-sm font-semibold z-10">
-            {displayAppContextLabel}
+          {/* Labels and links in top-left corner */}
+          <div className="absolute top-4 left-4 flex items-center gap-3 z-10">
+            {/* FREE/PAID label */}
+            <div className={`${isFree ? 'bg-green-500' : 'bg-orange-500'} text-white px-4 py-2 rounded-lg text-sm font-bold shadow-lg`}>
+              {isFree ? 'FREE' : 'PAID'}
+            </div>
+            
+            {/* Syllabus link */}
+            <Link
+              href="/curriculum"
+              className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-semibold shadow-lg transition"
+            >
+              Syllabus
+            </Link>
           </div>
 
-          <div className="text-center text-white space-y-6 max-w-4xl mx-auto">
+          <div className="text-center text-white space-y-6 max-w-4xl mx-auto mt-20">
             {/* Main Headline */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight">
               {headline || appName}
             </h1>
             {/* Subheadline - if provided, show as normal text instead of description */}
@@ -243,6 +257,16 @@ export default function UniversalLandingPage({
                 </p>
               </div>
             )}
+            
+            {/* Free Course Notice */}
+            {isFree && (
+              <div className="bg-white/10 backdrop-blur-sm border-2 border-white/30 rounded-lg p-4 max-w-2xl mx-auto">
+                <p className="text-lg font-semibold">💳 Free Course</p>
+                <p className="text-sm mt-2">
+                  Try our sample lesson and Level 1 test FREE—no login required!
+                </p>
+              </div>
+            )}
 
             {/* Call to Action Buttons - OPEN ACCESS: Auth buttons removed */}
             {isFree && (
@@ -254,33 +278,14 @@ export default function UniversalLandingPage({
                       href="/learn"
                       className="inline-block bg-white text-primary px-8 py-4 rounded-lg font-bold shadow-lg hover:bg-gray-100 hover:shadow-xl transition-all duration-200 text-center text-base sm:text-lg"
                     >
-                      Start Learning
+                      Try Sample Lesson
                     </Link>
-                    {/* OPEN ACCESS: Register/Sign In buttons removed - all content is public
-                    {user ? (
-                      <Link
-                        href="/learn"
-                        className="inline-block bg-white text-primary px-8 py-4 rounded-lg font-bold shadow-lg hover:bg-gray-100 hover:shadow-xl transition-all duration-200 text-center text-base sm:text-lg"
-                      >
-                        Start Learning
-                      </Link>
-                    ) : (
-                      <>
-                        <Link
-                          href="/register"
-                          className="inline-block bg-white text-primary px-8 py-4 rounded-lg font-bold shadow-lg hover:bg-gray-100 hover:shadow-xl transition-all duration-200 text-center text-base sm:text-lg"
-                        >
-                          Register Free
-                        </Link>
-                        <Link
-                          href="/login"
-                          className="inline-block bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-bold hover:bg-white hover:text-primary transition-all duration-200 text-center text-base sm:text-lg"
-                        >
-                          Sign In
-                        </Link>
-                      </>
-                    )}
-                    */}
+                    <Link
+                      href="/curriculum"
+                      className="inline-block bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-bold hover:bg-white hover:text-primary transition-all duration-200 text-center text-base sm:text-lg"
+                    >
+                      View Full Curriculum
+                    </Link>
                   </>
                 )}
               </div>

@@ -143,12 +143,24 @@ export default function PaidAppLandingPage({
 
         {/* Hero Section */}
         <Hero appId={appId} className="h-[70vh] md:h-[80vh] lg:h-[90vh] relative">
-          <div className="absolute top-4 left-4 bg-black/50 backdrop-blur-sm text-white px-4 py-2 rounded-lg text-sm font-semibold z-10">
-            {displayAppContextLabel}
+          {/* Labels and links in top-left corner */}
+          <div className="absolute top-4 left-4 flex items-center gap-3 z-10">
+            {/* PAID label */}
+            <div className="bg-orange-500 text-white px-4 py-2 rounded-lg text-sm font-bold shadow-lg">
+              PAID
+            </div>
+            
+            {/* Syllabus link */}
+            <Link
+              href="/curriculum"
+              className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-semibold shadow-lg transition"
+            >
+              Syllabus
+            </Link>
           </div>
 
-          <div className="text-center text-white space-y-6 max-w-4xl mx-auto">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight">
+          <div className="text-center text-white space-y-6 max-w-4xl mx-auto mt-20">
+            <h1 className={`text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight ${appId === 'learn-pr' ? 'text-white' : ''}`}>
               {headline || appName}
             </h1>
             {subheadline && (
@@ -157,7 +169,17 @@ export default function PaidAppLandingPage({
               </p>
             )}
 
-            {/* Paid Course Notice */}
+            {/* AI/Developer Bundle Notice - Two for One */}
+            {showAIDevBundle && (appId === "learn-ai" || appId === "learn-developer") && (
+              <div className="bg-gradient-to-r from-purple-500 to-pink-500 border-2 border-white rounded-lg p-4 max-w-2xl mx-auto shadow-2xl">
+                <p className="text-xl font-bold text-white">🎁 Two Apps for the Price of One!</p>
+                <p className="text-sm mt-2 text-white">
+                  Purchase Learn AI or Learn Developer for ₹99 (+GST) and get BOTH apps!
+                </p>
+              </div>
+            )}
+
+            {/* Premium Course Notice */}
             <div className="bg-white/10 backdrop-blur-sm border-2 border-white/30 rounded-lg p-4 max-w-2xl mx-auto">
               <p className="text-lg font-semibold">💳 Premium Course</p>
               <p className="text-sm mt-2">
@@ -165,7 +187,7 @@ export default function PaidAppLandingPage({
               </p>
             </div>
 
-            {/* CTA */}
+            {/* CTA Buttons */}
             {!loading && (
               <div className="flex flex-col sm:flex-row gap-4 pt-4 justify-center">
                 <a
@@ -175,7 +197,7 @@ export default function PaidAppLandingPage({
                   Try Sample Lesson Free
                 </a>
                 <Link
-                  href={appId === "learn-finesse" ? "/courses" : "/curriculum"}
+                  href="/curriculum"
                   className="inline-block bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-bold hover:bg-white hover:text-primary transition-all duration-200 text-center text-base sm:text-lg"
                 >
                   View Full Curriculum
