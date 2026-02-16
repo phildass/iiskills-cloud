@@ -6,7 +6,7 @@ export default function Footer() {
         <div className="text-center mb-8">
           <h3 className="text-3xl font-bold mb-2">iiskills Learning Suite</h3>
           <p className="text-xl text-gray-300 italic">
-            "Education is a right, not a luxury. No paywalls. No barriers. Just Mastery."
+            "Master Professional Skills - Learn, Grow, Excel"
           </p>
         </div>
 

@@ -7,8 +7,6 @@ import Hero, { getHeroImagesForApp } from "../../../components/shared/HeroManage
 export default function Home() {
   const [randomImage1, setRandomImage1] = useState("");
   const [randomImage2, setRandomImage2] = useState("");
-  const [randomImage3, setRandomImage3] = useState("");
-  const [randomImage4, setRandomImage4] = useState("");
 
   useEffect(() => {
     // Set random images for the page
@@ -20,30 +18,42 @@ export default function Home() {
     }
     setRandomImage1(shuffled[0] || images[0]);
     setRandomImage2(shuffled[1] || images[1] || images[0]);
-    setRandomImage3(shuffled[2] || images[2] || images[0]);
-    setRandomImage4(shuffled[3] || images[3] || images[0]);
   }, []);
+
+  // Course data: 5 free, 4 paid
+  const freeCourses = [
+    { name: "Learn Chemistry", icon: "🧪", url: "https://app7.learn-chemistry.iiskills.cloud" },
+    { name: "Learn Geography", icon: "🌍", url: "https://app9.learn-geography.iiskills.cloud" },
+    { name: "Learn Math", icon: "📐", url: "https://app8.learn-math.iiskills.cloud" },
+    { name: "Learn Physics", icon: "⚛️", url: "https://app6.learn-physics.iiskills.cloud" },
+    { name: "Learn Aptitude", icon: "🧠", url: "https://app5.learn-apt.iiskills.cloud" },
+  ];
+
+  const paidCourses = [
+    { name: "Learn PR", icon: "📢", url: "https://app3.learn-pr.iiskills.cloud" },
+    { name: "Learn AI", icon: "🤖", url: "https://app1.learn-ai.iiskills.cloud" },
+    { name: "Learn Management", icon: "📊", url: "https://app2.learn-management.iiskills.cloud" },
+    { name: "Learn Developer", icon: "💻", url: "https://app4.learn-developer.iiskills.cloud" },
+  ];
 
   return (
     <>
       <Head>
-        <title>AI Cloud Enterprises - Services that touch every Indian</title>
+        <title>iiskills.cloud - Master Professional Skills</title>
         <meta
           name="description"
-          content="AI Cloud Enterprises delivers SaaS-enabled training and digital applications for every sector in India. From healthcare to education, our scalable solutions empower organizations to thrive in the digital era."
+          content="iiskills.cloud - Professional learning platform with 9 courses (5 free, 4 paid). Master AI, Development, Management, PR, Chemistry, Physics, Math, Geography, and Aptitude."
         />
       </Head>
       <main>
         {/* HERO SECTION */}
         <Hero appId="main" className="h-[70vh] md:h-[80vh] lg:h-[90vh]" noOverlay>
-          <div className="text-center text-blue-600 space-y-6 max-w-5xl mx-auto mt-32">
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight tracking-tight drop-shadow-lg">
-              AI Cloud Enterprises: Services that touch every Indian.
+          <div className="text-center text-blue-600 space-y-6 max-w-5xl mx-auto mt-20">
+            <h1 className="text-5xl sm:text-5xl lg:text-5xl font-bold leading-tight tracking-tight drop-shadow-lg">
+              Master Professional Skills with iiskills.cloud
             </h1>
             <p className="text-lg sm:text-xl lg:text-2xl leading-relaxed max-w-4xl mx-auto px-4 drop-shadow-md">
-              SaaS-enabled training and digital applications designed for universal reach. From mass
-              audiences to niche sectors, we deliver seamless solutions that empower every
-              organization to thrive in India's digital future.
+              India's premier online learning platform. Courses available now: 9 | Five Free | Four Paid
             </p>
           </div>
         </Hero>
@@ -53,64 +63,49 @@ export default function Home() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <Link
-                href="/solutions"
+                href="/register"
                 className="inline-block bg-white text-blue-600 border-2 border-blue-600 px-8 py-4 rounded-lg font-bold shadow-lg hover:bg-blue-50 hover:shadow-xl transition-all duration-200 text-center text-base sm:text-lg min-w-[240px]"
               >
-                Explore Our Solutions
+                Register
               </Link>
               <Link
-                href="/contact"
+                href="/login"
                 className="inline-block bg-blue-600 text-white px-8 py-4 rounded-lg font-bold hover:bg-blue-700 transition-all duration-200 text-center text-base sm:text-lg min-w-[240px] shadow-lg"
               >
-                Contact Us
+                Sign In
               </Link>
             </div>
           </div>
         </section>
 
-        {/* SECTOR SOLUTIONS OVERVIEW */}
-        <section className="py-16 bg-white">
+        {/* FREE COURSES SECTION */}
+        <section className="py-16 bg-gradient-to-br from-green-50 to-green-100">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
               <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-                Tailored Solutions for Every Sector
+                Free Courses
               </h2>
               <p className="text-xl text-gray-700 max-w-3xl mx-auto">
-                From healthcare to education, our apps are precisely tailored to address the unique
-                challenges of each industry.
+                Start learning today with our 5 free courses - no payment required!
               </p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-8">
-              {/* Sector Focus */}
-              <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow">
-                <div className="text-4xl mb-4">🏢</div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-3">Sector Focus</h3>
-                <p className="text-gray-700">
-                  Industry-specific solutions that address real challenges and deliver measurable
-                  results across healthcare, education, finance, and more.
-                </p>
-              </div>
-
-              {/* Scalable Platforms */}
-              <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow">
-                <div className="text-4xl mb-4">📈</div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-3">Scalable Solutions</h3>
-                <p className="text-gray-700">
-                  Subscription-based platforms that grow with your business, ensuring seamless
-                  digital experiences for both mass and niche audiences.
-                </p>
-              </div>
-
-              {/* Mobile & Web Apps */}
-              <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow">
-                <div className="text-4xl mb-4">📱</div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-3">Mobile & Web Apps</h3>
-                <p className="text-gray-700">
-                  Smart mobile solutions and robust web applications that bring India's digital
-                  future to your fingertips.
-                </p>
-              </div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {freeCourses.map((course) => (
+                <a
+                  key={course.name}
+                  href={course.url}
+                  className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-all hover:-translate-y-1 border-2 border-green-500"
+                >
+                  <div className="text-5xl mb-4 text-center">{course.icon}</div>
+                  <h3 className="text-xl font-bold text-gray-900 mb-2 text-center">{course.name}</h3>
+                  <div className="text-center">
+                    <span className="inline-block bg-green-500 text-white px-4 py-1 rounded-full text-sm font-semibold">
+                      FREE
+                    </span>
+                  </div>
+                </a>
+              ))}
             </div>
           </div>
         </section>
@@ -119,8 +114,8 @@ export default function Home() {
         {randomImage1 && (
           <section className="relative h-[400px] md:h-[500px] overflow-hidden">
             <Image
-              src={`/images/${randomImage1}`}
-              alt="AI Cloud Enterprises Solutions"
+              src={`/images/iiskills-main-wm1.jpg`}
+              alt="iiskills.cloud Learning Platform"
               fill
               className="object-cover"
               sizes="100vw"
@@ -129,109 +124,47 @@ export default function Home() {
           </section>
         )}
 
-        {/* SAAS-ENABLED TRAINING */}
-        <section className="py-16 bg-gradient-to-br from-gray-50 to-gray-100">
+        {/* PAID COURSES SECTION */}
+        <section className="py-16 bg-gradient-to-br from-orange-50 to-orange-100">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <div>
-                <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-                  SaaS-Enabled Training Solutions
-                </h2>
-                <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-                  Our cloud-based training platform delivers professional development at scale.
-                  Organizations can upskill their workforce with cutting-edge content, powered by
-                  advanced learning management and analytics.
-                </p>
-                <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-                  With subscription access to specialized content across AI, technology, management,
-                  and more, we enable continuous learning that drives real business outcomes.
-                </p>
-                <div className="bg-blue-50 border-l-4 border-blue-600 p-6 rounded-r-lg">
-                  <p className="text-blue-900 font-semibold">
-                    💡 Powered by iiskills.cloud infrastructure - one of our comprehensive digital
-                    solutions
-                  </p>
-                </div>
-              </div>
-              <div className="relative h-80 rounded-xl overflow-hidden shadow-2xl">
-                {randomImage2 && (
-                  <Image
-                    src={`/images/${randomImage2}`}
-                    alt="Professional training solutions"
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 1024px) 100vw, 50vw"
-                  />
-                )}
-              </div>
+            <div className="text-center mb-12">
+              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+                Premium Courses
+              </h2>
+              <p className="text-xl text-gray-700 max-w-3xl mx-auto">
+                Unlock professional mastery with our 4 premium courses
+              </p>
+              <p className="text-lg text-blue-600 font-semibold mt-4">
+                💡 Special Offer: Buy Learn AI OR Learn Developer → Get BOTH courses!
+              </p>
             </div>
-          </div>
-        </section>
 
-        {/* DIGITAL APPS FOR INDIA */}
-        <section className="py-16 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <div className="relative h-80 rounded-xl overflow-hidden shadow-2xl order-2 lg:order-1">
-                {randomImage3 && (
-                  <Image
-                    src={`/images/${randomImage3}`}
-                    alt="Digital applications for every Indian"
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 1024px) 100vw, 50vw"
-                  />
-                )}
-              </div>
-              <div className="order-1 lg:order-2">
-                <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-                  Digital Apps for Every Indian
-                </h2>
-                <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-                  We build applications that serve India's diverse population - from urban
-                  professionals to rural communities. Our solutions are designed for accessibility,
-                  scalability, and impact.
-                </p>
-                <div className="space-y-4">
-                  <div className="flex items-start gap-3">
-                    <div className="text-2xl">✓</div>
-                    <div>
-                      <h4 className="font-bold text-gray-900 mb-1">Universal Reach</h4>
-                      <p className="text-gray-600">
-                        Solutions designed for mass adoption across all demographics
-                      </p>
-                    </div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {paidCourses.map((course) => (
+                <a
+                  key={course.name}
+                  href={course.url}
+                  className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-all hover:-translate-y-1 border-2 border-orange-500"
+                >
+                  <div className="text-5xl mb-4 text-center">{course.icon}</div>
+                  <h3 className="text-xl font-bold text-gray-900 mb-2 text-center">{course.name}</h3>
+                  <div className="text-center">
+                    <span className="inline-block bg-orange-500 text-white px-4 py-1 rounded-full text-sm font-semibold">
+                      PAID
+                    </span>
                   </div>
-                  <div className="flex items-start gap-3">
-                    <div className="text-2xl">✓</div>
-                    <div>
-                      <h4 className="font-bold text-gray-900 mb-1">Niche Capabilities</h4>
-                      <p className="text-gray-600">
-                        Specialized features for specific industry requirements
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <div className="text-2xl">✓</div>
-                    <div>
-                      <h4 className="font-bold text-gray-900 mb-1">Cloud Infrastructure</h4>
-                      <p className="text-gray-600">
-                        Reliable, secure, and scalable platform architecture
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                </a>
+              ))}
             </div>
           </div>
         </section>
 
         {/* IMAGE ACCENT 2 */}
-        {randomImage4 && (
+        {randomImage2 && (
           <section className="relative h-[400px] md:h-[500px] overflow-hidden">
             <Image
-              src={`/images/${randomImage4}`}
-              alt="AI Cloud Enterprises Innovation"
+              src={`/images/iiskills-main.1.jpg`}
+              alt="iiskills.cloud Professional Development"
               fill
               className="object-cover"
               sizes="100vw"
@@ -240,43 +173,42 @@ export default function Home() {
           </section>
         )}
 
-        {/* OUR APPROACH */}
-        <section className="py-16 bg-gradient-to-br from-blue-600 to-purple-600 text-white">
+        {/* FEATURES SECTION */}
+        <section className="py-16 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
-              <h2 className="text-4xl md:text-5xl font-bold mb-4">Our Approach</h2>
-              <p className="text-xl max-w-3xl mx-auto opacity-90">
-                We combine cutting-edge technology with deep understanding of India's unique
-                challenges
-              </p>
+              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+                Why Choose iiskills.cloud?
+              </h2>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-center">
-                <div className="text-4xl mb-3">🎯</div>
-                <h3 className="text-xl font-bold mb-2">Industry Focus</h3>
-                <p className="text-sm opacity-90">Tailored solutions for specific sector needs</p>
+            <div className="grid md:grid-cols-3 gap-8">
+              <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow">
+                <div className="text-4xl mb-4">🎯</div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-3">Professional Quality</h3>
+                <p className="text-gray-700">
+                  Industry-leading courses designed by experts to help you master real-world skills.
+                </p>
               </div>
-              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-center">
-                <div className="text-4xl mb-3">⚡</div>
-                <h3 className="text-xl font-bold mb-2">Rapid Deployment</h3>
-                <p className="text-sm opacity-90">Quick implementation and time-to-value</p>
+
+              <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow">
+                <div className="text-4xl mb-4">📚</div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-3">Comprehensive Curriculum</h3>
+                <p className="text-gray-700">
+                  From foundational concepts to advanced topics, our courses cover everything you need.
+                </p>
               </div>
-              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-center">
-                <div className="text-4xl mb-3">🔒</div>
-                <h3 className="text-xl font-bold mb-2">Enterprise Security</h3>
-                <p className="text-sm opacity-90">Bank-grade security and data protection</p>
-              </div>
-              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-center">
-                <div className="text-4xl mb-3">📊</div>
-                <h3 className="text-xl font-bold mb-2">Analytics & Insights</h3>
-                <p className="text-sm opacity-90">Data-driven decision making capabilities</p>
+
+              <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow">
+                <div className="text-4xl mb-4">⚡</div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-3">Learn at Your Pace</h3>
+                <p className="text-gray-700">
+                  Self-paced learning with lifetime access to course materials and updates.
+                </p>
               </div>
             </div>
           </div>
         </section>
-
-
       </main>
     </>
   );
