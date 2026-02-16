@@ -11,7 +11,7 @@ export default function AdminLessons() {
   const [lessons, setLessons] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
-  const [selectedApp, setSelectedApp] = useState(router.query.app || 'all');
+  const [selectedApp, setSelectedApp] = useState('all');
   const [formData, setFormData] = useState({
     title: '',
     content: '',
@@ -25,11 +25,11 @@ export default function AdminLessons() {
   }, []);
 
   useEffect(() => {
-    // Update selected app when URL changes
-    if (router.query.app) {
+    // Update selected app when URL changes or on initial mount
+    if (router.isReady && router.query.app) {
       setSelectedApp(router.query.app);
     }
-  }, [router.query.app]);
+  }, [router.isReady, router.query.app]);
 
   const fetchLessons = async () => {
     try {

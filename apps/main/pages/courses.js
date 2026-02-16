@@ -4,6 +4,7 @@ import Link from "next/link";
 import { getPricingDisplay, getIntroOfferNotice } from "../utils/pricing";
 import { getCourseSubdomainLink, courseHasSubdomain } from "../utils/courseSubdomainMapperClient";
 import { getCurrentUser, isAdmin } from "../lib/supabaseClient";
+import { sortCoursesByDisplayOrder, getCourseAvailabilityText } from "../../../config/courseDisplayOrder";
 
 // List of courses hidden from public view (visible only to admins)
 const HIDDEN_COURSE_NAMES = [
@@ -1634,44 +1635,8 @@ export default function Courses() {
     }
   });
 
-  // Sort available courses: Free courses first (Chemistry, Geography, Math, Physics, Aptitude), 
-  // then paid courses (PR, AI, Management, Developer)
-  const courseOrder = [
-    "Learn Chemistry",
-    "Learn Geography", 
-    "Learn Maths",
-    "Learn Physics",
-    "Learn Aptitude",
-    "Learn PR",
-    "Learn AI",
-    "Learn Management",
-    "Learn Developer",
-  ];
-  
-  availableCourses.sort((a, b) => {
-    // Clean course names for comparison
-    const cleanA = a.name.replace(/\s*[–-]\s*(Free|From the book)$/i, "").trim();
-    const cleanB = b.name.replace(/\s*[–-]\s*(Free|From the book)$/i, "").trim();
-    
-    const indexA = courseOrder.indexOf(cleanA);
-    const indexB = courseOrder.indexOf(cleanB);
-    
-    // If both are in the order list, sort by their position
-    if (indexA !== -1 && indexB !== -1) {
-      return indexA - indexB;
-    }
-    // If only one is in the list, prioritize it
-    if (indexA !== -1) return -1;
-    if (indexB !== -1) return 1;
-    
-    // If neither is in the list, sort free courses before paid
-    if (a.isFree !== b.isFree) {
-      return a.isFree ? -1 : 1;
-    }
-    
-    // Otherwise maintain original order
-    return 0;
-  });
+  // Sort available courses using centralized configuration
+  sortCoursesByDisplayOrder(availableCourses);
 
   return (
     <>
