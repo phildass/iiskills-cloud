@@ -25,11 +25,11 @@ export default function Home() {
 
   // Course data: 5 free, 4 paid
   const freeCourses = [
-    { name: "Learn Chemistry", icon: "🧪", iconImage: "mini-course-chemistry.svg", url: "https://app7.learn-chemistry.iiskills.cloud" },
-    { name: "Learn Geography", icon: "🌍", iconImage: "mini-course-geography.svg", url: "https://app9.learn-geography.iiskills.cloud" },
-    { name: "Learn Math", icon: "📐", iconImage: "mini-course-math.svg", url: "https://app8.learn-math.iiskills.cloud" },
-    { name: "Learn Physics", icon: "⚛️", iconImage: "mini-course-physics.svg", url: "https://app6.learn-physics.iiskills.cloud" },
-    { name: "Learn Aptitude", icon: "🧠", iconImage: "mini-course-aptitude.svg", url: "https://app5.learn-apt.iiskills.cloud" },
+    { name: "Learn Chemistry", iconImage: "mini-course-chemistry.svg", url: "https://app7.learn-chemistry.iiskills.cloud" },
+    { name: "Learn Geography", iconImage: "mini-course-geography.svg", url: "https://app9.learn-geography.iiskills.cloud" },
+    { name: "Learn Math", iconImage: "mini-course-math.svg", url: "https://app8.learn-math.iiskills.cloud" },
+    { name: "Learn Physics", iconImage: "mini-course-physics.svg", url: "https://app6.learn-physics.iiskills.cloud" },
+    { name: "Learn Aptitude", iconImage: "mini-course-aptitude.svg", url: "https://app5.learn-apt.iiskills.cloud" },
   ];
 
   const paidCourses = [
