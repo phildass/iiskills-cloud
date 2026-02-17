@@ -11,13 +11,13 @@ import GoogleTranslate from "./GoogleTranslate";
  * - Dual logo display (AI Cloud + iiskills)
  * - Navigation links (supports canonicalLinks)
  * - Google Translate widget for 12+ Indian languages
- * - Auth buttons (Sign In / Register) - HIDDEN in open-access mode via showAuthButtons prop
+ * - Auth buttons (Login / Register) - HIDDEN in open-access mode via showAuthButtons prop
  * - Mobile responsive menu
  * - Sticky positioning with high z-index
  *
  * OPEN ACCESS REFACTOR:
  * By default, showAuthButtons is set to false in SiteHeader component,
- * hiding all authentication UI (Sign In/Register buttons) to provide
+ * hiding all authentication UI (Login/Register buttons) to provide
  * a fully open-access experience.
  */
 export default function Header({
@@ -30,7 +30,7 @@ export default function Header({
 }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // UNIVERSAL NAV UPDATE: Register and Sign In links must be visible to ALL users
+  // UNIVERSAL NAV UPDATE: Register and Login links must be visible to ALL users
   // Removed open access mode override to ensure auth buttons always show when prop is true
   const shouldShowAuthButtons = showAuthButtons;
 
@@ -120,10 +120,10 @@ export default function Header({
                   </button>
                 </>
               ) : (
-                // User is not logged in - show sign in and register
+                // User is not logged in - show Login and register
                 <>
                   <Link href="/login" className="hover:text-primary transition">
-                    Sign In
+                    Login
                   </Link>
                   <Link
                     href="/register"
@@ -225,10 +225,10 @@ export default function Header({
                   </button>
                 </>
               ) : (
-                // User is not logged in - show sign in and register
+                // User is not logged in - show Login and register
                 <>
                   <Link href="/login" className="block hover:text-primary transition">
-                    Sign In
+                    Login
                   </Link>
                   <Link
                     href="/register"
