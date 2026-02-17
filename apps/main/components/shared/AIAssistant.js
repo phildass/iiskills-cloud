@@ -155,7 +155,7 @@ export default function AIAssistant() {
       lowerQuestion.includes("log in")
     ) {
       setConsecutiveFailures(0);
-      return `You can log in by clicking the "Login" button in the navigation menu. We support multiple sign-in methods including email/password, Google OAuth, and other authentication providers. Your credentials work across all iiskills.cloud apps!`;
+      return `You can log in by clicking the "Login" button in the navigation menu. We support multiple login methods including email/password, Google OAuth, and other authentication providers. Your credentials work across all iiskills.cloud apps!`;
     }
 
     // Pricing and Payment

@@ -42,7 +42,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Foundation Apps */}
+          {/* Foundation Courses */}
           <div>
             <h4 className="text-white font-semibold mb-4">Foundation Suite</h4>
             <ul className="space-y-2 text-sm">
@@ -90,7 +90,7 @@ export default function Footer() {
                   href="https://iiskills.cloud"
                   className="hover:text-white transition-colors"
                 >
-                  All 12 iiskills Apps
+                  All iiskills Courses
                 </a>
               </li>
               <li>

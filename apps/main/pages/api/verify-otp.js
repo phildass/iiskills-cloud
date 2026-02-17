@@ -1,4 +1,4 @@
-import { verifyOTP } from '../../lib/otpService';
+import { verifyOTP } from '@lib/otpService';
 
 /**
  * OTP Verification Endpoint

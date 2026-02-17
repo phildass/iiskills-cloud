@@ -1,0 +1,199 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+/* MPA Custom Styles */
+.mpa-gradient {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.mpa-container {
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  max-width: 800px;
+  width: 100%;
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.mpa-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 30px;
+  text-align: center;
+  position: relative;
+}
+
+.mpa-chat-container {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  background: #f8f9fa;
+}
+
+.mpa-message {
+  margin-bottom: 15px;
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.mpa-pulse {
+  display: inline-block;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.mpa-user-message,
+.mpa-ai-message {
+  padding: 12px 18px;
+  border-radius: 18px;
+  max-width: 80%;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+.mpa-user-message {
+  background: #667eea;
+  color: white;
+  margin-left: auto;
+  text-align: right;
+}
+
+.mpa-ai-message {
+  background: white;
+  color: #333;
+  border: 1px solid #e0e0e0;
+}
+
+.mpa-error-message {
+  background: #ffebee;
+  border-color: #ef5350;
+  color: #c62828;
+}
+
+.mpa-action-notification {
+  background: #e8f5e9;
+  color: #2e7d32;
+  padding: 10px 15px;
+  border-radius: 8px;
+  margin: 10px 0;
+  font-size: 0.9em;
+  border-left: 4px solid #4caf50;
+}
+
+.mpa-error-notification {
+  background: #ffebee;
+  color: #c62828;
+  border-left-color: #ef5350;
+}
+
+.mpa-input-container {
+  display: flex;
+  gap: 10px;
+  padding: 20px;
+  background: white;
+  border-top: 1px solid #e0e0e0;
+}
+
+.mpa-quick-actions {
+  display: flex;
+  gap: 10px;
+  padding: 0 20px 20px;
+  background: white;
+  flex-wrap: wrap;
+}
+
+.mpa-quick-btn {
+  flex: 1;
+  min-width: 120px;
+  padding: 10px;
+  background: #f0f0f0;
+  border: 1px solid #e0e0e0;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 0.9em;
+}
+
+.mpa-quick-btn:hover {
+  background: #667eea;
+  color: white;
+  border-color: #667eea;
+  transform: translateY(-2px);
+}
+
+.mpa-action-link,
+.mpa-whatsapp-link {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 8px 16px;
+  background: #25d366;
+  color: white;
+  text-decoration: none;
+  border-radius: 15px;
+  font-size: 0.9em;
+  transition: background 0.3s;
+}
+
+.mpa-action-link:hover,
+.mpa-whatsapp-link:hover {
+  background: #128c7e;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .mpa-container {
+    height: 100vh;
+    border-radius: 0;
+    max-width: 100%;
+  }
+
+  .mpa-quick-actions {
+    flex-wrap: wrap;
+  }
+
+  .mpa-quick-btn {
+    min-width: calc(50% - 5px);
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .mpa-message,
+  .mpa-pulse,
+  .mpa-quick-btn {
+    animation: none;
+    transition: none;
+  }
+}

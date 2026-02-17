@@ -78,7 +78,7 @@ export default function Home() {
                 href="/login"
                 className="inline-block bg-blue-600 text-white px-8 py-4 rounded-lg font-bold hover:bg-blue-700 transition-all duration-200 text-center text-base sm:text-lg min-w-[240px] shadow-lg"
               >
-                Sign In
+                Login
               </Link>
             </div>
           </div>

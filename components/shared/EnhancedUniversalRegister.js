@@ -248,8 +248,8 @@ export default function EnhancedUniversalRegister({
       }
       // If successful, browser will redirect to Google
     } catch (error) {
-      console.error("Google sign-in error:", error);
-      setErrors({ general: "Failed to initiate Google sign-in. Please try again." });
+      console.error("Google login error:", error);
+      setErrors({ general: "Failed to initiate Google login. Please try again." });
       setIsGoogleLoading(false);
     }
   };
@@ -261,7 +261,7 @@ export default function EnhancedUniversalRegister({
         <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
           <p className="text-sm text-blue-800">
             We request you to use your real name if you wish to take certification courses. 
-            Though we have Google sign in, we suggest you register here for a more streamlined experience.
+            Though we have Google login, we suggest you register here for a more streamlined experience.
           </p>
         </div>
 
@@ -677,7 +677,7 @@ export default function EnhancedUniversalRegister({
                     d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
                   />
                 </svg>
-                {isGoogleLoading ? "Redirecting to Google..." : "Sign in with Google"}
+                {isGoogleLoading ? "Redirecting to Google..." : "Login with Google"}
               </button>
             </>
           )}
@@ -686,7 +686,7 @@ export default function EnhancedUniversalRegister({
           <p className="mt-6 text-center text-sm text-gray-600">
             Already have an account?{" "}
             <Link href="/login" className="text-primary font-semibold hover:underline">
-              Sign in
+              Login
             </Link>
           </p>
         </div>

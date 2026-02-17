@@ -15,10 +15,10 @@ export default function Login() {
   return (
     <>
       <Head>
-        <title>Sign In - iiskills.cloud</title>
+        <title>Login - iiskills.cloud</title>
         <meta
           name="description"
-          content="Sign in to iiskills.cloud - Universal access to all apps and learning modules"
+          content="Login to iiskills.cloud - Universal access to all apps and learning modules"
         />
       </Head>
 
@@ -27,7 +27,7 @@ export default function Login() {
           {/* Recommendation Message */}
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6 mx-4">
             <p className="text-sm text-blue-800">
-              Though we have Google sign in, we suggest you register here for a more streamlined experience.
+              Though we have Google login, we suggest you register here for a more streamlined experience.
             </p>
           </div>
 
