@@ -25,11 +25,11 @@ export default function Home() {
 
   // Course data: 5 free, 4 paid
   const freeCourses = [
-    { name: "Learn Chemistry", icon: "🧪", url: "https://app7.learn-chemistry.iiskills.cloud" },
-    { name: "Learn Geography", icon: "🌍", url: "https://app9.learn-geography.iiskills.cloud" },
-    { name: "Learn Math", icon: "📐", url: "https://app8.learn-math.iiskills.cloud" },
-    { name: "Learn Physics", icon: "⚛️", url: "https://app6.learn-physics.iiskills.cloud" },
-    { name: "Learn Aptitude", icon: "🧠", url: "https://app5.learn-apt.iiskills.cloud" },
+    { name: "Learn Chemistry", iconImage: "mini-course-chemistry.svg", url: "https://app7.learn-chemistry.iiskills.cloud" },
+    { name: "Learn Geography", iconImage: "mini-course-geography.svg", url: "https://app9.learn-geography.iiskills.cloud" },
+    { name: "Learn Math", iconImage: "mini-course-math.svg", url: "https://app8.learn-math.iiskills.cloud" },
+    { name: "Learn Physics", iconImage: "mini-course-physics.svg", url: "https://app6.learn-physics.iiskills.cloud" },
+    { name: "Learn Aptitude", iconImage: "mini-course-aptitude.svg", url: "https://app5.learn-apt.iiskills.cloud" },
   ];
 
   const paidCourses = [
@@ -103,7 +103,15 @@ export default function Home() {
                   href={course.url}
                   className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-all hover:-translate-y-1 border-2 border-green-500"
                 >
-                  <div className="text-5xl mb-4 text-center">{course.icon}</div>
+                  <div className="flex justify-center mb-4">
+                    <Image
+                      src={`/images/${course.iconImage}`}
+                      alt={`${course.name} icon`}
+                      width={100}
+                      height={100}
+                      className="rounded-full"
+                    />
+                  </div>
                   <h3 className="text-xl font-bold text-gray-900 mb-2 text-center">{course.name}</h3>
                   <div className="text-center">
                     <span className="inline-block bg-green-500 text-white px-4 py-1 rounded-full text-sm font-semibold">
@@ -214,6 +222,17 @@ export default function Home() {
                 </p>
               </div>
             </div>
+
+            {/* Large inspiring image for Vision section */}
+            <div className="relative h-[350px] md:h-[450px] overflow-hidden rounded-2xl shadow-xl">
+              <Image
+                src="/images/group-business-executives-smiling-camera.jpg"
+                alt="Diverse team of professionals representing Viksit Bharat vision"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 1200px"
+              />
+            </div>
           </div>
         </section>
 
@@ -228,7 +247,14 @@ export default function Home() {
 
             <div className="grid md:grid-cols-3 gap-8">
               <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow">
-                <div className="text-4xl mb-4">💰</div>
+                <div className="flex justify-center mb-4">
+                  <Image
+                    src="/images/mini-feature-affordable.svg"
+                    alt="Affordable education icon"
+                    width={80}
+                    height={80}
+                  />
+                </div>
                 <h3 className="text-2xl font-bold text-gray-900 mb-3">Affordable Education</h3>
                 <p className="text-gray-700">
                   Quality education at just {pricing.totalPrice} per paid course. 5 courses are completely free. No hidden costs, no barriers.
@@ -236,7 +262,14 @@ export default function Home() {
               </div>
 
               <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow">
-                <div className="text-4xl mb-4">🌍</div>
+                <div className="flex justify-center mb-4">
+                  <Image
+                    src="/images/mini-feature-accessible.svg"
+                    alt="Accessible to all icon"
+                    width={80}
+                    height={80}
+                  />
+                </div>
                 <h3 className="text-2xl font-bold text-gray-900 mb-3">Accessible to All Indians</h3>
                 <p className="text-gray-700">
                   Online platform accessible from anywhere in India. Learn in your language, at your own pace, on your schedule.
@@ -244,7 +277,14 @@ export default function Home() {
               </div>
 
               <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow">
-                <div className="text-4xl mb-4">📈</div>
+                <div className="flex justify-center mb-4">
+                  <Image
+                    src="/images/mini-feature-career.svg"
+                    alt="Career-focused skills icon"
+                    width={80}
+                    height={80}
+                  />
+                </div>
                 <h3 className="text-2xl font-bold text-gray-900 mb-3">Career-Focused Skills</h3>
                 <p className="text-gray-700">
                   Immediately applicable professional skills designed for real career advancement and job market success.
@@ -252,6 +292,18 @@ export default function Home() {
               </div>
             </div>
           </div>
+        </section>
+
+        {/* LARGE IMAGE ACCENT 3 - Learning Environment */}
+        <section className="relative h-[400px] md:h-[500px] overflow-hidden">
+          <Image
+            src="/images/focused-young-employees-waiting-meeting-beginning.jpg"
+            alt="Young professionals in learning environment"
+            fill
+            className="object-cover"
+            sizes="100vw"
+            priority={false}
+          />
         </section>
 
         {/* CORE VALUES SECTION */}
@@ -263,7 +315,15 @@ export default function Home() {
             
             <div className="grid md:grid-cols-2 gap-6">
               <div className="bg-white rounded-xl p-6 shadow-lg">
-                <h3 className="font-bold text-xl text-blue-600 mb-2">Integrity & Excellence</h3>
+                <div className="flex items-center gap-3 mb-3">
+                  <Image
+                    src="/images/mini-value-integrity.svg"
+                    alt="Integrity icon"
+                    width={70}
+                    height={70}
+                  />
+                  <h3 className="font-bold text-xl text-blue-600">Integrity & Excellence</h3>
+                </div>
                 <p className="text-gray-700">
                   We maintain the highest standards in education delivery and never compromise on
                   quality, even at affordable prices.
@@ -271,7 +331,15 @@ export default function Home() {
               </div>
               
               <div className="bg-white rounded-xl p-6 shadow-lg">
-                <h3 className="font-bold text-xl text-blue-600 mb-2">Innovation & Lifelong Learning</h3>
+                <div className="flex items-center gap-3 mb-3">
+                  <Image
+                    src="/images/mini-value-innovation.svg"
+                    alt="Innovation icon"
+                    width={70}
+                    height={70}
+                  />
+                  <h3 className="font-bold text-xl text-blue-600">Innovation & Lifelong Learning</h3>
+                </div>
                 <p className="text-gray-700">
                   We continuously evolve our content and methods to stay relevant in a rapidly
                   changing world.
@@ -279,7 +347,15 @@ export default function Home() {
               </div>
               
               <div className="bg-white rounded-xl p-6 shadow-lg">
-                <h3 className="font-bold text-xl text-blue-600 mb-2">Diversity & Inclusion</h3>
+                <div className="flex items-center gap-3 mb-3">
+                  <Image
+                    src="/images/mini-value-diversity.svg"
+                    alt="Diversity icon"
+                    width={70}
+                    height={70}
+                  />
+                  <h3 className="font-bold text-xl text-blue-600">Diversity & Inclusion</h3>
+                </div>
                 <p className="text-gray-700">
                   We celebrate India's diversity and ensure our platform is accessible to learners
                   from all backgrounds and regions.
@@ -287,7 +363,15 @@ export default function Home() {
               </div>
               
               <div className="bg-white rounded-xl p-6 shadow-lg">
-                <h3 className="font-bold text-xl text-blue-600 mb-2">Collaboration & Community</h3>
+                <div className="flex items-center gap-3 mb-3">
+                  <Image
+                    src="/images/mini-value-collaboration.svg"
+                    alt="Collaboration icon"
+                    width={70}
+                    height={70}
+                  />
+                  <h3 className="font-bold text-xl text-blue-600">Collaboration & Community</h3>
+                </div>
                 <p className="text-gray-700">
                   We build a supportive learning community where students help each other grow and
                   succeed together.
@@ -295,6 +379,18 @@ export default function Home() {
               </div>
             </div>
           </div>
+        </section>
+
+        {/* LARGE IMAGE ACCENT 4 - Diverse Community */}
+        <section className="relative h-[400px] md:h-[500px] overflow-hidden">
+          <Image
+            src="/images/multiracial-friends-using-smartphone-against-wall-university-college-backyard-young-people.jpg"
+            alt="Diverse community of learners collaborating"
+            fill
+            className="object-cover"
+            sizes="100vw"
+            priority={false}
+          />
         </section>
       </main>
     </>
