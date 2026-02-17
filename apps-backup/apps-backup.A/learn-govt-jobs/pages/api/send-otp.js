@@ -46,11 +46,21 @@ export default async function handler(req, res) {
 
   // Send OTP via SMS (Vonage)
   try {
-    await vonageClient.sms.send({
+    const response = await vonageClient.sms.send({
       to: phone,
       from: process.env.VONAGE_BRAND_NAME,
       text: `Your OTP is: ${otp}`,
     });
+    
+    // Validate Vonage response
+    if (!response || !response.messages || response.messages.length === 0) {
+      return res.status(500).json({ error: 'Vonage error: No response from SMS service' });
+    }
+    
+    const message = response.messages[0];
+    if (message.status !== '0') {
+      return res.status(500).json({ error: `Vonage error: ${message['error-text'] || 'SMS delivery failed'}` });
+    }
   } catch (smsErr) {
     return res.status(500).json({ error: `Vonage error: ${smsErr.message}` });
   }
