@@ -20,7 +20,7 @@ export default function SignIn() {
         <title>Sign In - iiskills.cloud</title>
         <meta
           name="description"
-          content="Sign in to iiskills.cloud - Universal access to all apps and learning modules"
+          content="Login to iiskills.cloud - Universal access to all apps and learning modules"
         />
       </Head>
 

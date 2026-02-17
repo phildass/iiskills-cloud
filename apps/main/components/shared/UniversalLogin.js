@@ -84,7 +84,7 @@ export default function UniversalLogin({
 
         if (magicLinkSuccess) {
           setSuccess(
-            "Check your email for a secure sign-in link! The link will sign you in automatically."
+            "Check your email for a secure login link! The link will log you in automatically."
           );
           setIsLoading(false);
           return;
@@ -159,7 +159,7 @@ export default function UniversalLogin({
       <div className="max-w-md w-full space-y-8 bg-white p-10 rounded-xl shadow-2xl">
         <div>
           <h2 className="text-center text-3xl font-extrabold text-gray-900">
-            Sign in to Your Account
+            Login to Your Account
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
             Access all {appName} apps with one account
@@ -306,7 +306,7 @@ export default function UniversalLogin({
 
           <div className="mt-4 p-4 bg-blue-50 rounded-lg">
             <p className="text-xs text-blue-800">
-              <strong>✓ Universal Login:</strong> Sign in once to access all iiskills.cloud apps.
+              <strong>✓ Universal Login:</strong> Login once to access all iiskills.cloud apps.
               Your session works across the main site and all learning modules.
             </p>
           </div>
