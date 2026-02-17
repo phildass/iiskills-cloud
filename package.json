@@ -53,8 +53,7 @@
     "qrcode": "^1.5.4",
     "razorpay": "^2.9.6",
     "react": "latest",
-    "react-dom": "latest",
-    "resend": "^4.0.1"
+    "react-dom": "latest"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.29.0",
