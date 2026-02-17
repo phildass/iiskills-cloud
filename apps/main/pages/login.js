@@ -1,19 +1,19 @@
 import Head from "next/head";
-import UniversalLogin from "../../../components/shared/UniversalLogin";
+import UniversalLogin from "../components/shared/UniversalLogin";
 
 /**
- * Sign-In Page - Main App
+ * Login Page - Main authentication page
  * 
- * Per Product Requirements: /sign-in must be a real page (no 404)
- * This provides an SEO-friendly alternative to /login in the main app
+ * Per Product Requirements: /login must be a real page (no 404)
+ * This is the primary login route for the main app.
  * 
  * Features:
  * - Regular Login (email/password)
- * - Google Sign-In
- * - Magic Link for Google users
+ * - Google OAuth
+ * - Magic Link for passwordless authentication
  * - Recommendation to register for better experience
  */
-export default function SignIn() {
+export default function Login() {
   return (
     <>
       <Head>

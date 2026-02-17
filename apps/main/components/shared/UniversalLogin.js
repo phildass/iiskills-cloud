@@ -288,10 +288,10 @@ export default function UniversalLogin({
               {isLoading
                 ? useMagicLink
                   ? "Sending Link..."
-                  : "Signing In..."
+                  : "Logging In..."
                 : useMagicLink
-                  ? "Send Me a Sign-In Link"
-                  : "Sign In with Password"}
+                  ? "Send Me a Login Link"
+                  : "Login with Password"}
             </button>
           </div>
 
