@@ -16,7 +16,7 @@ apps=(
   main
 )
 
-MONOREPO_ROOT="/mnt/c/users/pdake/cloud/iiskills-cloud"
+MONOREPO_ROOT="/root/iiskills-cloud"
 
 cd "$MONOREPO_ROOT"
 echo "📦 Installing root dependencies..."
