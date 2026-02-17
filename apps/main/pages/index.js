@@ -25,18 +25,18 @@ export default function Home() {
 
   // Course data: 5 free, 4 paid
   const freeCourses = [
-    { name: "Learn Chemistry", iconImage: "mini-course-chemistry.svg", url: "https://app7.learn-chemistry.iiskills.cloud" },
-    { name: "Learn Geography", iconImage: "mini-course-geography.svg", url: "https://app9.learn-geography.iiskills.cloud" },
-    { name: "Learn Math", iconImage: "mini-course-math.svg", url: "https://app8.learn-math.iiskills.cloud" },
-    { name: "Learn Physics", iconImage: "mini-course-physics.svg", url: "https://app6.learn-physics.iiskills.cloud" },
-    { name: "Learn Aptitude", iconImage: "mini-course-aptitude.svg", url: "https://app5.learn-apt.iiskills.cloud" },
+    { name: "Learn Chemistry", iconImage: "mini-course-chemistry.svg", url: "https://learn-chemistry.iiskills.cloud" },
+    { name: "Learn Geography", iconImage: "mini-course-geography.svg", url: "https://learn-geography.iiskills.cloud" },
+    { name: "Learn Math", iconImage: "mini-course-math.svg", url: "https://learn-math.iiskills.cloud" },
+    { name: "Learn Physics", iconImage: "mini-course-physics.svg", url: "https://learn-physics.iiskills.cloud" },
+    { name: "Learn Aptitude", iconImage: "mini-course-aptitude.svg", url: "https://learn-apt.iiskills.cloud" },
   ];
 
   const paidCourses = [
-    { name: "Learn PR", icon: "📢", url: "https://app3.learn-pr.iiskills.cloud" },
-    { name: "Learn AI", icon: "🤖", url: "https://app1.learn-ai.iiskills.cloud" },
-    { name: "Learn Management", icon: "📊", url: "https://app2.learn-management.iiskills.cloud" },
-    { name: "Learn Developer", icon: "💻", url: "https://app4.learn-developer.iiskills.cloud" },
+    { name: "Learn PR", icon: "📢", url: "https://learn-pr.iiskills.cloud" },
+    { name: "Learn AI", icon: "🤖", url: "https://learn-ai.iiskills.cloud" },
+    { name: "Learn Management", icon: "📊", url: "https://learn-management.iiskills.cloud" },
+    { name: "Learn Developer", icon: "💻", url: "https://learn-developer.iiskills.cloud" },
   ];
 
   return (
