@@ -110,7 +110,7 @@ const APP_IMAGE_ASSIGNMENTS = {
 /**
  * Get hero images for a specific app
  * @param {string} appId - The app identifier (e.g., "learn-developer")
- * @returns {Array<string>} Array of image filenames assigned to this app (15 for main, 9 for learn-ai, 7 for learn-biology, 3 for most apps)
+ * @returns {Array<string>} Array of image filenames assigned to this app (15 for main, 9 for learn-ai, 3 for most apps)
  */
 export function getHeroImagesForApp(appId) {
   // Return assigned images for the app, or fallback to a default set
