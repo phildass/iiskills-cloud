@@ -72,7 +72,7 @@ export default function Custom404() {
                 href="/login"
                 className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition shadow-md hover:shadow-lg"
               >
-                🔐 Sign In
+                🔐 Login
               </Link>
               <Link
                 href="/about"
