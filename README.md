@@ -559,13 +559,13 @@ The secret password feature is integrated into all protected route components:
 - AI-powered content generation using GPT-4o-mini
 - Millennial/Gen Z-focused tone with emojis and fun copy
 - Automatically triggered when courses are published
-- Sends to all newsletter subscribers via **Resend** (with domain authentication)
+- Sends to all newsletter subscribers via **SendGrid** (with domain authentication)
 - Public archive at `/newsletter/archive`
 - Admin management at `/admin/newsletters` and `/admin/courses-manage`
 
 📚 **Complete guide:** See [SKILLING_NEWSLETTER_README.md](SKILLING_NEWSLETTER_README.md)
 
-📧 **Email Setup:** See [RESEND_DOMAIN_SETUP.md](RESEND_DOMAIN_SETUP.md) for domain authentication
+📧 **Email Setup:** Configure SendGrid API key and sender identity in `.env.local`
 
 ### Universal reCAPTCHA Protection
 🔒 **Security across all subdomains!** A single reCAPTCHA configuration protects the entire platform:

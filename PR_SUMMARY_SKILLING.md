@@ -13,18 +13,13 @@ This PR implements a **fully automated, AI-powered newsletter system** called "S
    - AI generates engaging content using OpenAI GPT-4o-mini
    - No manual work required after course publish
 
-2. **Resend Email Integration** (Primary)
-   - Modern, developer-friendly email delivery
-   - Batch sending (100 emails per batch)
+2. **SendGrid Email Integration** (Primary)
+   - Enterprise-grade email delivery
+   - Batch sending (1000 emails per batch)
    - Personalized unsubscribe links
    - List-Unsubscribe headers for compliance
 
-3. **SendGrid Fallback**
-   - Automatic failover if Resend unavailable
-   - Enterprise-grade reliability
-   - Existing integration maintained
-
-4. **Supabase Integration**
+3. **Supabase Integration**
    - Newsletter subscription tracking in `profiles` table
    - Secure unsubscribe token system
    - Database triggers for automation
@@ -65,9 +60,9 @@ This PR implements a **fully automated, AI-powered newsletter system** called "S
 ```
 
 ### Files Modified
-- `package.json` - Added Resend and OpenAI packages
-- `.env.local.example` - Added Resend configuration
-- `lib/email-sender.js` - Implemented Resend with fallback logic
+- `package.json` - Added SendGrid and OpenAI packages
+- `.env.local.example` - Added SendGrid configuration
+- `lib/email-sender.js` - Implemented SendGrid email delivery
 
 ### New Documentation (4 comprehensive guides)
 - `SKILLING_DEPLOYMENT_GUIDE.md` - Step-by-step deployment instructions
@@ -92,11 +87,7 @@ Add to `.env.local`:
 # OpenAI for AI content generation
 OPENAI_API_KEY=sk-your-openai-key
 
-# Resend for email delivery (Primary - Recommended)
-EMAIL_PROVIDER=resend
-RESEND_API_KEY=re_your-resend-key
-
-# SendGrid for fallback
+# SendGrid for email delivery
 SENDGRID_API_KEY=SG.your-sendgrid-key
 SENDGRID_UNSUBSCRIBE_GROUP_ID=12345
 
@@ -127,7 +118,7 @@ Run these in Supabase SQL Editor (in order) if not already done.
    ↓
 5. Newsletter saved to database
    ↓
-6. Queue processor sends emails via Resend
+6. Queue processor sends emails via SendGrid
    ↓
 7. Newsletter appears in public archive
    ↓
@@ -153,9 +144,9 @@ Run these in Supabase SQL Editor (in order) if not already done.
 ## 📈 Performance & Costs
 
 - **Newsletter Generation**: ~30 seconds
-- **Email Sending**: 100 emails/second (Resend free tier)
+- **Email Sending**: 1000 emails/batch (SendGrid)
 - **AI Cost**: ~$0.002 per newsletter (GPT-4o-mini)
-- **Email Cost**: Free up to 3,000 emails/month (Resend)
+- **Email Cost**: SendGrid pricing
 - **Queue Processing**: Every 5 minutes via CRON
 
 ## 🔒 Security & Compliance
@@ -176,7 +167,7 @@ Run these in Supabase SQL Editor (in order) if not already done.
 
 2. **Get API Keys**
    - OpenAI: https://platform.openai.com/api-keys
-   - Resend: https://resend.com/api-keys
+   - SendGrid: https://app.sendgrid.com/settings/api_keys
    - reCAPTCHA: https://www.google.com/recaptcha/admin
 
 3. **Configure Environment**
@@ -190,7 +181,7 @@ Run these in Supabase SQL Editor (in order) if not already done.
    - Check triggers active
 
 5. **Verify Domain**
-   - Add and verify `newsletter@iiskills.cloud` in Resend
+   - Add and verify sender identity in SendGrid
    - Or configure SendGrid sender authentication
 
 6. **Set Up CRON**

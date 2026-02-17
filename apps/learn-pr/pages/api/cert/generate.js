@@ -26,9 +26,9 @@ export default async function handler(req, res) {
     // Save certificate to database
     await insertData('certificates', certificate);
 
-    // Send certificate via email (in production, use Resend)
-    if (process.env.RESEND_API_KEY) {
-      // TODO: Implement Resend email with certificate PDF
+    // Send certificate via email (in production, use SendGrid)
+    if (process.env.SENDGRID_API_KEY) {
+      // TODO: Implement SendGrid email with certificate PDF
       console.log(`Sending certificate ${certificate.certificate_id} to ${user_email}`);
     }
 
