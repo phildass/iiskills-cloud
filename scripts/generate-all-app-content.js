@@ -27,21 +27,22 @@ const APP_CONTENT = {
       { id: 10, title: 'Mock Tests & Practice', description: 'Full-length aptitude test simulations', difficulty: 'Advanced', order: 10, lesson_count: 10 }
     ]
   },
-  'learn-biology': {
-    appName: 'Biology',
-    modules: [
-      { id: 1, title: 'Cell Biology', description: 'Understanding the basic unit of life', difficulty: 'Beginner', order: 1, lesson_count: 10 },
-      { id: 2, title: 'Genetics & Heredity', description: 'DNA, genes, and inheritance patterns', difficulty: 'Beginner', order: 2, lesson_count: 10 },
-      { id: 3, title: 'Human Anatomy', description: 'Structure and organization of the human body', difficulty: 'Beginner', order: 3, lesson_count: 10 },
-      { id: 4, title: 'Human Physiology', description: 'How body systems function and interact', difficulty: 'Intermediate', order: 4, lesson_count: 10 },
-      { id: 5, title: 'Plant Biology', description: 'Plant structure, function, and life cycles', difficulty: 'Intermediate', order: 5, lesson_count: 10 },
-      { id: 6, title: 'Ecology & Environment', description: 'Ecosystems and environmental interactions', difficulty: 'Intermediate', order: 6, lesson_count: 10 },
-      { id: 7, title: 'Evolution & Biodiversity', description: 'Natural selection and species diversity', difficulty: 'Advanced', order: 7, lesson_count: 10 },
-      { id: 8, title: 'Molecular Biology', description: 'Biological processes at molecular level', difficulty: 'Advanced', order: 8, lesson_count: 10 },
-      { id: 9, title: 'Biotechnology', description: 'Applications of biology in technology', difficulty: 'Advanced', order: 9, lesson_count: 10 },
-      { id: 10, title: 'Medical Biology', description: 'Biology concepts for medical aspirants', difficulty: 'Advanced', order: 10, lesson_count: 10 }
-    ]
-  },
+  // MOVED TO apps-backup as per cleanup requirements
+  // 'learn-biology': {
+  //   appName: 'Biology',
+  //   modules: [
+  //     { id: 1, title: 'Cell Biology', description: 'Understanding the basic unit of life', difficulty: 'Beginner', order: 1, lesson_count: 10 },
+  //     { id: 2, title: 'Genetics & Heredity', description: 'DNA, genes, and inheritance patterns', difficulty: 'Beginner', order: 2, lesson_count: 10 },
+  //     { id: 3, title: 'Human Anatomy', description: 'Structure and organization of the human body', difficulty: 'Beginner', order: 3, lesson_count: 10 },
+  //     { id: 4, title: 'Human Physiology', description: 'How body systems function and interact', difficulty: 'Intermediate', order: 4, lesson_count: 10 },
+  //     { id: 5, title: 'Plant Biology', description: 'Plant structure, function, and life cycles', difficulty: 'Intermediate', order: 5, lesson_count: 10 },
+  //     { id: 6, title: 'Ecology & Environment', description: 'Ecosystems and environmental interactions', difficulty: 'Intermediate', order: 6, lesson_count: 10 },
+  //     { id: 7, title: 'Evolution & Biodiversity', description: 'Natural selection and species diversity', difficulty: 'Advanced', order: 7, lesson_count: 10 },
+  //     { id: 8, title: 'Molecular Biology', description: 'Biological processes at molecular level', difficulty: 'Advanced', order: 8, lesson_count: 10 },
+  //     { id: 9, title: 'Biotechnology', description: 'Applications of biology in technology', difficulty: 'Advanced', order: 9, lesson_count: 10 },
+  //     { id: 10, title: 'Medical Biology', description: 'Biology concepts for medical aspirants', difficulty: 'Advanced', order: 10, lesson_count: 10 }
+  //   ]
+  // },
   'learn-chemistry': {
     appName: 'Chemistry',
     modules: [

@@ -48,13 +48,14 @@ export const SITES = {
     subdomain: 'learn-geography',
     localhostPort: 3011
   },
-  'learn-govt-jobs': {
-    name: 'Learn Govt Jobs',
-    url: 'https://app1.learn-govt-jobs.iiskills.cloud',
-    slug: 'learn-govt-jobs',
-    subdomain: 'learn-govt-jobs',
-    localhostPort: 3013
-  },
+  // MOVED TO apps-backup as per cleanup requirements
+  // 'learn-govt-jobs': {
+  //   name: 'Learn Govt Jobs',
+  //   url: 'https://app1.learn-govt-jobs.iiskills.cloud',
+  //   slug: 'learn-govt-jobs',
+  //   subdomain: 'learn-govt-jobs',
+  //   localhostPort: 3013
+  // },
   'learn-management': {
     name: 'Learn Management',
     url: 'https://app1.learn-management.iiskills.cloud',
@@ -83,20 +84,21 @@ export const SITES = {
     subdomain: 'learn-pr',
     localhostPort: 3021
   },
-  'learn-finesse': {
-    name: 'Learn Finesse',
-    url: 'https://app11.learn-finesse.iiskills.cloud',
-    slug: 'learn-finesse',
-    subdomain: 'learn-finesse',
-    localhostPort: 3025
-  },
-  'learn-biology': {
-    name: 'Learn Biology',
-    url: 'https://app12.learn-biology.iiskills.cloud',
-    slug: 'learn-biology',
-    subdomain: 'learn-biology',
-    localhostPort: 3026
-  }
+  // MOVED TO apps-backup as per cleanup requirements
+  // 'learn-finesse': {
+  //   name: 'Learn Finesse',
+  //   url: 'https://app11.learn-finesse.iiskills.cloud',
+  //   slug: 'learn-finesse',
+  //   subdomain: 'learn-finesse',
+  //   localhostPort: 3025
+  // },
+  // 'learn-biology': {
+  //   name: 'Learn Biology',
+  //   url: 'https://app12.learn-biology.iiskills.cloud',
+  //   slug: 'learn-biology',
+  //   subdomain: 'learn-biology',
+  //   localhostPort: 3026
+  // }
 };
 
 // Array of all sites for easy iteration

@@ -5,6 +5,7 @@ import { useUserProgress } from "../../contexts/UserProgressContext";
 /**
  * Map app IDs to their subdomain numbers
  * Format: app{number}.{app-name}.iiskills.cloud
+ * Note: Commented out entries are for apps moved to apps-backup
  */
 const APP_SUBDOMAIN_MAP = {
   "learn-ai": 1,
@@ -16,9 +17,9 @@ const APP_SUBDOMAIN_MAP = {
   "learn-chemistry": 7,
   "learn-math": 8,
   "learn-geography": 9,
-  "learn-govt-jobs": 10,
-  "learn-finesse": 11,
-  "learn-biology": 12,
+  // "learn-govt-jobs": 10, // Moved to apps-backup
+  // "learn-finesse": 11, // Moved to apps-backup
+  // "learn-biology": 12, // Moved to apps-backup
 };
 
 /**
@@ -45,11 +46,11 @@ export default function BentoBoxGrid() {
     },
     leader: {
       name: "The Leader",
-      apps: ["learn-management", "learn-pr", "learn-finesse"],
+      apps: ["learn-management", "learn-pr"], // learn-finesse moved to apps-backup
     },
     scientist: {
       name: "The Scientist",
-      apps: ["learn-physics", "learn-chemistry", "learn-biology", "learn-math"],
+      apps: ["learn-physics", "learn-chemistry", "learn-math"], // learn-biology moved to apps-backup
     },
   };
 
