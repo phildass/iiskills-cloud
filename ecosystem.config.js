@@ -134,25 +134,26 @@ module.exports = {
       "log_file": path.join(__dirname, 'logs', 'learn-geography-combined.log'),
       "time": true
     },
-    {
-      "name": "iiskills-learn-govt-jobs",
-      "cwd": path.join(__dirname, 'apps/learn-govt-jobs'),
-      "script": "npx",
-      "args": "next start",
-      "interpreter": "none",
-      "env": {
-        "NODE_ENV": "production",
-        "PORT": 3013
-      },
-      "instances": 1,
-      "autorestart": true,
-      "watch": false,
-      "max_memory_restart": "1G",
-      "error_file": path.join(__dirname, 'logs', 'learn-govt-jobs-error.log'),
-      "out_file": path.join(__dirname, 'logs', 'learn-govt-jobs-out.log'),
-      "log_file": path.join(__dirname, 'logs', 'learn-govt-jobs-combined.log'),
-      "time": true
-    },
+    // MOVED TO apps-backup/apps-backup.A as per previous cleanup
+    // {
+    //   "name": "iiskills-learn-govt-jobs",
+    //   "cwd": path.join(__dirname, 'apps/learn-govt-jobs'),
+    //   "script": "npx",
+    //   "args": "next start",
+    //   "interpreter": "none",
+    //   "env": {
+    //     "NODE_ENV": "production",
+    //     "PORT": 3013
+    //   },
+    //   "instances": 1,
+    //   "autorestart": true,
+    //   "watch": false,
+    //   "max_memory_restart": "1G",
+    //   "error_file": path.join(__dirname, 'logs', 'learn-govt-jobs-error.log'),
+    //   "out_file": path.join(__dirname, 'logs', 'learn-govt-jobs-out.log'),
+    //   "log_file": path.join(__dirname, 'logs', 'learn-govt-jobs-combined.log'),
+    //   "time": true
+    // },
     {
       "name": "iiskills-learn-management",
       "cwd": path.join(__dirname, 'apps/learn-management'),
@@ -229,62 +230,65 @@ module.exports = {
       "log_file": path.join(__dirname, 'logs', 'learn-pr-combined.log'),
       "time": true
     },
-    {
-      "name": "iiskills-learn-finesse",
-      "cwd": path.join(__dirname, 'apps/learn-finesse'),
-      "script": "npx",
-      "args": "next start",
-      "interpreter": "none",
-      "env": {
-        "NODE_ENV": "production",
-        "PORT": 3025
-      },
-      "instances": 1,
-      "autorestart": true,
-      "watch": false,
-      "max_memory_restart": "1G",
-      "error_file": path.join(__dirname, 'logs', 'learn-finesse-error.log'),
-      "out_file": path.join(__dirname, 'logs', 'learn-finesse-out.log'),
-      "log_file": path.join(__dirname, 'logs', 'learn-finesse-combined.log'),
-      "time": true
-    },
-    {
-      "name": "iiskills-learn-biology",
-      "cwd": path.join(__dirname, 'apps/learn-biology'),
-      "script": "npx",
-      "args": "next start",
-      "interpreter": "none",
-      "env": {
-        "NODE_ENV": "production",
-        "PORT": 3026
-      },
-      "instances": 1,
-      "autorestart": true,
-      "watch": false,
-      "max_memory_restart": "1G",
-      "error_file": path.join(__dirname, 'logs', 'learn-biology-error.log'),
-      "out_file": path.join(__dirname, 'logs', 'learn-biology-out.log'),
-      "log_file": path.join(__dirname, 'logs', 'learn-biology-combined.log'),
-      "time": true
-    },
-    {
-      "name": "iiskills-mpa",
-      "cwd": path.join(__dirname, 'apps/mpa'),
-      "script": "npx",
-      "args": "next start",
-      "interpreter": "none",
-      "env": {
-        "NODE_ENV": "production",
-        "PORT": 3014
-      },
-      "instances": 1,
-      "autorestart": true,
-      "watch": false,
-      "max_memory_restart": "1G",
-      "error_file": path.join(__dirname, 'logs', 'mpa-error.log'),
-      "out_file": path.join(__dirname, 'logs', 'mpa-out.log'),
-      "log_file": path.join(__dirname, 'logs', 'mpa-combined.log'),
-      "time": true
-    }
+    // MOVED TO apps-backup/apps-backup.A as per previous cleanup
+    // {
+    //   "name": "iiskills-learn-finesse",
+    //   "cwd": path.join(__dirname, 'apps/learn-finesse'),
+    //   "script": "npx",
+    //   "args": "next start",
+    //   "interpreter": "none",
+    //   "env": {
+    //     "NODE_ENV": "production",
+    //     "PORT": 3025
+    //   },
+    //   "instances": 1,
+    //   "autorestart": true,
+    //   "watch": false,
+    //   "max_memory_restart": "1G",
+    //   "error_file": path.join(__dirname, 'logs', 'learn-finesse-error.log'),
+    //   "out_file": path.join(__dirname, 'logs', 'learn-finesse-out.log'),
+    //   "log_file": path.join(__dirname, 'logs', 'learn-finesse-combined.log'),
+    //   "time": true
+    // },
+    // MOVED TO apps-backup as per cleanup requirements
+    // {
+    //   "name": "iiskills-learn-biology",
+    //   "cwd": path.join(__dirname, 'apps/learn-biology'),
+    //   "script": "npx",
+    //   "args": "next start",
+    //   "interpreter": "none",
+    //   "env": {
+    //     "NODE_ENV": "production",
+    //     "PORT": 3026
+    //   },
+    //   "instances": 1,
+    //   "autorestart": true,
+    //   "watch": false,
+    //   "max_memory_restart": "1G",
+    //   "error_file": path.join(__dirname, 'logs', 'learn-biology-error.log'),
+    //   "out_file": path.join(__dirname, 'logs', 'learn-biology-out.log'),
+    //   "log_file": path.join(__dirname, 'logs', 'learn-biology-combined.log'),
+    //   "time": true
+    // },
+    // MOVED TO apps-backup as per previous cleanup
+    // {
+    //   "name": "iiskills-mpa",
+    //   "cwd": path.join(__dirname, 'apps/mpa'),
+    //   "script": "npx",
+    //   "args": "next start",
+    //   "interpreter": "none",
+    //   "env": {
+    //     "NODE_ENV": "production",
+    //     "PORT": 3014
+    //   },
+    //   "instances": 1,
+    //   "autorestart": true,
+    //   "watch": false,
+    //   "max_memory_restart": "1G",
+    //   "error_file": path.join(__dirname, 'logs', 'mpa-error.log'),
+    //   "out_file": path.join(__dirname, 'logs', 'mpa-out.log'),
+    //   "log_file": path.join(__dirname, 'logs', 'mpa-combined.log'),
+    //   "time": true
+    // }
   ]
 };
