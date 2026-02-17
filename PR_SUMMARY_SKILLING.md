@@ -88,10 +88,6 @@ Add to `.env.local`:
 OPENAI_API_KEY=sk-your-openai-key
 
 # SendGrid for email delivery
-EMAIL_PROVIDER=resend
-RESEND_API_KEY=re_your-resend-key
-
-# SendGrid for fallback
 SENDGRID_API_KEY=SG.your-sendgrid-key
 SENDGRID_UNSUBSCRIBE_GROUP_ID=12345
 
