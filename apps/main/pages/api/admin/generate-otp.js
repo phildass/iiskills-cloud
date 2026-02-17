@@ -9,12 +9,13 @@ import { APPS } from '../../../lib/appRegistry';
  * 
  * This endpoint allows admins to:
  * - Generate OTPs for any app/course
- * - Send OTPs via email and SMS
+ * - Send OTPs via email (required) and SMS (optional)
  * - Specify reason for generation (free access, error compensation, etc.)
  * - Track admin-generated OTPs in database
  * 
  * Note: This uses the centralized OTP service which ensures app-specific
- * OTP binding and proper security.
+ * OTP binding and proper security. Email is required as it's the primary
+ * delivery channel and used for user identification.
  */
 export default async function handler(req, res) {
   if (req.method !== 'POST') {

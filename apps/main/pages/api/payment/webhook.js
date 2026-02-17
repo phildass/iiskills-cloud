@@ -90,12 +90,12 @@ export default async function handler(req, res) {
       });
     }
 
-    // Validate contact information
-    if (!email && !phone) {
-      console.error('Payment missing user contact info:', paymentId);
+    // Validate contact information - email is required
+    if (!email) {
+      console.error('Payment missing user email:', paymentId);
       return res.status(400).json({ 
-        error: 'Payment missing user contact information',
-        message: 'Payment must include email or phone'
+        error: 'Payment missing user email',
+        message: 'Payment must include user email address for OTP delivery'
       });
     }
 
@@ -133,8 +133,8 @@ export default async function handler(req, res) {
     // Generate and dispatch app-specific OTP
     try {
       const otpResult = await generateAndDispatchOTP({
-        email: email || null,
-        phone: formattedPhone || null,
+        email, // Already validated - required
+        phone: formattedPhone || null, // Optional
         appId,
         appName: appConfig.name,
         paymentTransactionId: paymentId,
