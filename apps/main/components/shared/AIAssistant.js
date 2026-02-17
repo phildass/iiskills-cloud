@@ -279,14 +279,15 @@ export default function AIAssistant() {
 
   return (
     <>
-      {/* Floating Button */}
+      {/* Floating Button - Enhanced positioning */}
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="fixed bottom-6 right-6 bg-primary hover:bg-blue-700 text-white rounded-full p-4 shadow-lg transition-all hover:scale-110 z-40"
+          className="fixed bottom-8 right-8 bg-primary hover:bg-blue-700 text-white rounded-full p-5 shadow-2xl transition-all hover:scale-110 z-50 ring-4 ring-blue-100 hover:ring-blue-200"
           aria-label="Open AI Assistant"
+          style={{ backdropFilter: 'blur(10px)' }}
         >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -297,11 +298,11 @@ export default function AIAssistant() {
         </button>
       )}
 
-      {/* Chat Window */}
+      {/* Chat Window - Enhanced positioning and backdrop */}
       {isOpen && (
-        <div className="fixed bottom-6 right-6 w-96 h-[32rem] bg-white rounded-2xl shadow-2xl flex flex-col z-40 animate-slide-up">
+        <div className="fixed bottom-4 right-4 md:bottom-8 md:right-8 w-[calc(100vw-2rem)] md:w-96 h-[85vh] md:h-[32rem] bg-white rounded-2xl shadow-2xl flex flex-col z-50 animate-slide-up border-2 border-blue-200">
           {/* Header */}
-          <div className="bg-primary text-white px-6 py-4 rounded-t-2xl flex items-center justify-between">
+          <div className="bg-primary text-white px-6 py-4 rounded-t-2xl flex items-center justify-between shadow-lg">
             <div className="flex items-center space-x-2">
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
