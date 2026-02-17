@@ -24,21 +24,13 @@ const FALLBACK_WORKSPACES = [
   { workspaceName: 'main', workspacePath: 'apps/main' },
   { workspaceName: 'learn-ai', workspacePath: 'apps/learn-ai' },
   { workspaceName: 'learn-apt', workspacePath: 'apps/learn-apt' },
-  { workspaceName: 'learn-biology', workspacePath: 'apps/learn-biology' },
   { workspaceName: 'learn-chemistry', workspacePath: 'apps/learn-chemistry' },
-  { workspaceName: 'learn-companion', workspacePath: 'apps/learn-companion' },
-  { workspaceName: 'learn-cricket', workspacePath: 'apps/learn-cricket' },
   { workspaceName: 'learn-developer', workspacePath: 'apps/learn-developer' },
-  { workspaceName: 'learn-finesse', workspacePath: 'apps/learn-finesse' },
   { workspaceName: 'learn-geography', workspacePath: 'apps/learn-geography' },
-  { workspaceName: 'learn-govt-jobs', workspacePath: 'apps/learn-govt-jobs' },
-  { workspaceName: 'learn-leadership', workspacePath: 'apps/learn-leadership' },
   { workspaceName: 'learn-management', workspacePath: 'apps/learn-management' },
   { workspaceName: 'learn-math', workspacePath: 'apps/learn-math' },
   { workspaceName: 'learn-physics', workspacePath: 'apps/learn-physics' },
-  { workspaceName: 'learn-pr', workspacePath: 'apps/learn-pr' },
-  { workspaceName: 'learn-winning', workspacePath: 'apps/learn-winning' },
-  { workspaceName: 'mpa', workspacePath: 'apps/mpa' }
+  { workspaceName: 'learn-pr', workspacePath: 'apps/learn-pr' }
 ];
 
 function getWorkspaces() {
