@@ -13,10 +13,10 @@ Here is the complete port assignment for all active applications:
 | Port | Application | Notes |
 |------|-------------|-------|
 | 3000 | iiskills-main | Main website (app.iiskills.cloud) |
-| 3001 | learn-ai | Artificial Intelligence fundamentals |
+| 3024 | learn-ai | Artificial Intelligence fundamentals |
 | 3002 | learn-apt | Aptitude assessment |
 | 3005 | learn-chemistry | Chemistry mastery |
-| 3007 | learn-developer | Web Developer Bootcamp |
+| 3007 | learn-developer | Web Developer Bootcamp (CORRECTED) |
 | 3009 | learn-cricket | Cricket Know-All (Free) |
 | 3011 | learn-geography | Geography and world exploration |
 | 3013 | learn-govt-jobs | Government job exam preparation |
