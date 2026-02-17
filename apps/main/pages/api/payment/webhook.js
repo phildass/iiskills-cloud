@@ -1,7 +1,7 @@
 import crypto from 'crypto';
 import { createClient } from '@supabase/supabase-js';
-import { generateAndDispatchOTP } from '../../../lib/otpService';
-import { APPS } from '../../../lib/appRegistry';
+import { generateAndDispatchOTP } from '@lib/otpService';
+import { APPS } from '@lib/appRegistry';
 
 const supabase = createClient(
   process.env.SUPABASE_URL || '',
