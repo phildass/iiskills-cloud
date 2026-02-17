@@ -224,7 +224,7 @@ export default function UniversalLogin({
                 <div className="w-full border-t border-gray-300"></div>
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white text-gray-500">Or sign in with email</span>
+                <span className="px-2 bg-white text-gray-500">Or login with email</span>
               </div>
             </div>
           </div>
