@@ -47,6 +47,14 @@ for app in "${apps[@]}"; do
       ((fail_count++))
       failed_apps+=("$app")
     fi
+
+    # Echo intended URL for deployed app
+    if [ "$app" = "main" ]; then
+      echo "🌐 Intended URL: https://app.iiskill.cloud"
+    else
+      echo "🌐 Intended URL: https://app1.$app.iiskill.cloud"
+    fi
+
   else
     echo "❌ Build failed for $app!"
     ((fail_count++))
