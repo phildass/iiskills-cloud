@@ -49,7 +49,7 @@
 - [x] 6-digit random OTP
 - [x] 10-minute expiry
 - [x] Email delivery via SendGrid
-- [x] SMS delivery via Twilio
+- [x] SMS delivery via Vonage
 - [x] Course-specific OTP tracking
 - [x] OTP stored in Supabase `otps` table
 
@@ -184,7 +184,7 @@
 #### Notification Logic
 - [x] Registration emails: Via Supabase Auth
 - [x] OTP emails: Via SendGrid
-- [x] OTP SMS: Via Twilio
+- [x] OTP SMS: Via Vonage
 - [x] Error handling for email/SMS failures
 
 ---
@@ -281,10 +281,10 @@ SUPABASE_KEY=your-anon-key
 SENDGRID_API_KEY=SG.xxx
 SENDGRID_FROM_EMAIL=info@iiskills.cloud
 
-# Twilio
-TWILIO_ACCOUNT_SID=ACxxx
-TWILIO_AUTH_TOKEN=xxx
-TWILIO_PHONE_NUMBER=+1234567890
+# Vonage
+VONAGE_API_KEY=xxx
+VONAGE_API_SECRET=xxx
+VONAGE_BRAND_NAME=iiskills
 
 # Razorpay
 RAZORPAY_KEY_ID=rzp_xxx
@@ -320,7 +320,7 @@ RAZORPAY_KEY_SECRET=xxx
 
 3. **Email/SMS Delivery**: Depends on external services
    - SendGrid for email (requires API key)
-   - Twilio for SMS (requires credentials)
+   - Vonage for SMS (requires credentials)
    - Test in production environment for actual delivery
 
 ---

@@ -1,15 +1,15 @@
 import sgMail from '@sendgrid/mail';
 import { createClient } from '@supabase/supabase-js';
-import twilio from 'twilio';
+import { Vonage } from '@vonage/server-sdk';
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
 
-const twilioClient = twilio(
-  process.env.TWILIO_ACCOUNT_SID,
-  process.env.TWILIO_AUTH_TOKEN
-);
+const vonageClient = new Vonage({
+  apiKey: process.env.VONAGE_API_KEY,
+  apiSecret: process.env.VONAGE_API_SECRET,
+});
 
 export default async function handler(req, res) {
   // Get user info from request body
@@ -44,15 +44,25 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: `SendGrid error: ${emailErr.message}` });
   }
 
-  // Send OTP via SMS (Twilio)
+  // Send OTP via SMS (Vonage)
   try {
-    await twilioClient.messages.create({
-      body: `Your OTP is: ${otp}`,
-      from: process.env.TWILIO_PHONE_NUMBER,
+    const response = await vonageClient.sms.send({
       to: phone,
+      from: process.env.VONAGE_BRAND_NAME,
+      text: `Your OTP is: ${otp}`,
     });
+    
+    // Validate Vonage response
+    if (!response || !response.messages || response.messages.length === 0) {
+      return res.status(500).json({ error: 'Vonage error: No response from SMS service' });
+    }
+    
+    const message = response.messages[0];
+    if (message.status !== '0') {
+      return res.status(500).json({ error: `Vonage error: ${message['error-text'] || 'SMS delivery failed'}` });
+    }
   } catch (smsErr) {
-    return res.status(500).json({ error: `Twilio error: ${smsErr.message}` });
+    return res.status(500).json({ error: `Vonage error: ${smsErr.message}` });
   }
 
   return res.status(200).json({ message: "OTP sent via email and SMS!", otp }); // (remove otp in prod)
