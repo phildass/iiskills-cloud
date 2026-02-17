@@ -533,13 +533,13 @@ export default function DiagnosticTest() {
               </p>
               <div className="grid md:grid-cols-2 gap-4">
                 <Link
-                  href="https://app1.learn-ai.iiskills.cloud"
+                  href="https://learn-ai.iiskills.cloud"
                   className="block bg-gradient-to-r from-blue-500 to-cyan-500 text-white text-center py-4 rounded-xl font-bold hover:shadow-xl transition"
                 >
                   🤖 Learn AI
                 </Link>
                 <Link
-                  href="https://app2.learn-developer.iiskills.cloud"
+                  href="https://learn-developer.iiskills.cloud"
                   className="block bg-gradient-to-r from-purple-500 to-pink-500 text-white text-center py-4 rounded-xl font-bold hover:shadow-xl transition"
                 >
                   💻 Learn Developer
