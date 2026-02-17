@@ -44,6 +44,7 @@
   "dependencies": {
     "@sendgrid/mail": "^8.1.6",
     "@supabase/supabase-js": "^2.95.3",
+    "@vonage/server-sdk": "^3.26.0",
     "framer-motion": "^12.33.0",
     "html2canvas": "^1.4.1",
     "jspdf": "^4.0.0",
@@ -53,8 +54,7 @@
     "razorpay": "^2.9.6",
     "react": "latest",
     "react-dom": "latest",
-    "resend": "^4.0.1",
-    "twilio": "^5.12.1"
+    "resend": "^4.0.1"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.29.0",
