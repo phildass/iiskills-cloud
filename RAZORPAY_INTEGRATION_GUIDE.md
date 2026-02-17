@@ -276,10 +276,9 @@ crypto.randomInt(0, digits.length)
 
 3. **Email Service**
    - Replace mock email service with:
-     - Resend (recommended)
-     - SendGrid
+     - SendGrid (recommended)
      - AWS SES
-   - Configure SMTP/API credentials
+   - Configure API credentials
    - Test email delivery
 
 4. **Database**
@@ -381,25 +380,28 @@ export async function storePayment(paymentData) {
 Update `lib/membershipEmail.js`:
 
 ```javascript
-import { Resend } from "resend";
+import sgMail from '@sendgrid/mail';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 export async function sendMembershipEmail(params) {
   const htmlContent = generateMembershipEmailHTML(params);
   
-  const result = await resend.emails.send({
-    from: "iiskills <noreply@iiskills.cloud>",
+  const result = await sgMail.send({
     to: params.email,
+    from: {
+      email: process.env.SENDER_EMAIL || 'info@iiskills.cloud',
+      name: process.env.SENDER_NAME || 'iiskills'
+    },
     subject: `Membership Activated - Welcome to ${params.appName}`,
     html: htmlContent,
   });
   
   return {
     success: true,
-    provider: "resend",
+    provider: "sendgrid",
     email: params.email,
-    message_id: result.id,
+    message_id: result[0]?.messageId || 'sent',
     timestamp: new Date().toISOString(),
   };
 }
