@@ -9,9 +9,7 @@
  * - Error handling
  */
 
-import { generateAndDispatchOTP, verifyOTP, hasValidOTP } from '../lib/otpService';
-
-// Mock environment variables
+// Mock environment variables BEFORE importing the module
 process.env.SUPABASE_URL = 'https://test.supabase.co';
 process.env.SUPABASE_KEY = 'test-key';
 process.env.SENDGRID_API_KEY = 'test-sendgrid-key';
@@ -19,6 +17,8 @@ process.env.SENDGRID_FROM_EMAIL = 'test@iiskills.cloud';
 process.env.VONAGE_API_KEY = 'test-api-key';
 process.env.VONAGE_API_SECRET = 'test-api-secret';
 process.env.VONAGE_BRAND_NAME = 'iiskills';
+
+import { generateAndDispatchOTP, verifyOTP, hasValidOTP } from '../lib/otpService';
 
 describe('OTP Service', () => {
   describe('generateAndDispatchOTP', () => {

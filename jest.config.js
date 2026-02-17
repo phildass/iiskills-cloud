@@ -23,7 +23,7 @@ module.exports = {
     '^.+\\.js$': ['babel-jest', { configFile: './babel.config.test.js' }]
   },
   transformIgnorePatterns: [
-    'node_modules/(?!(some-esm-package)/)'
+    'node_modules/(?!(@vonage|node-fetch)/)'
   ],
   setupFilesAfterEnv: ['<rootDir>/tests/setup.js'],
   testTimeout: 10000
