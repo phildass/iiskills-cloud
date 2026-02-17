@@ -216,11 +216,11 @@ CREATE TABLE memberships (...);
 
 ```javascript
 // Replace in lib/membershipEmail.js
-import { Resend } from "resend";
-const resend = new Resend(process.env.RESEND_API_KEY);
+import sgMail from "@sendgrid/mail";
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 export async function sendMembershipEmail(params) {
-  const result = await resend.emails.send({
+  const result = await sgMail.send({
     from: "iiskills <noreply@iiskills.cloud>",
     to: params.email,
     subject: `Membership Activated - ${params.appName}`,
@@ -275,7 +275,7 @@ export async function sendMembershipEmail(params) {
 
 💡 **Tip 3:** OTP expires in 30 minutes - adjust in `lib/mockDatabase.js`
 
-💡 **Tip 4:** Check email service provider (Resend, SendGrid) for delivery logs
+💡 **Tip 4:** Check email service provider (SendGrid) for delivery logs
 
 💡 **Tip 5:** Use ngrok for local webhook testing
 

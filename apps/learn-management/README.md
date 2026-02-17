@@ -139,7 +139,7 @@ NEXT_PUBLIC_DISABLE_AUTH=false
 # External APIs
 NEWS_API_KEY=your-newsapi-key
 OPENAI_API_KEY=your-openai-key
-RESEND_API_KEY=your-resend-key
+SENDGRID_API_KEY=your-sendgrid-key
 
 # External Services
 JOBS_FEED_URL=https://example.com/api/jobs
@@ -226,7 +226,7 @@ Format as JSON array with fields: question, options, correct_answer, explanation
 1. User pays Rs 99 via external payment gateway
 2. Payment confirmed via `/api/payment/confirm`
 3. System generates unique access code (format: `XXXX-XXXX-XXXX`)
-4. Access code emailed to user via Resend
+4. Access code emailed to user via SendGrid
 5. User enters code to activate account
 
 ### Admin Panel
