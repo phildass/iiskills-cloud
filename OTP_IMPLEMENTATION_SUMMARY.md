@@ -92,11 +92,11 @@ Successfully implemented a secure, app/course-specific OTP system that automatic
 
 ## 🔧 Environment Variables Required
 
-### SMS (Twilio)
+### SMS (Vonage)
 ```bash
-TWILIO_ACCOUNT_SID=your_twilio_account_sid
-TWILIO_AUTH_TOKEN=your_twilio_auth_token
-TWILIO_PHONE_NUMBER=+1234567890
+VONAGE_API_KEY=your_vonage_api_key
+VONAGE_API_SECRET=your_vonage_api_secret
+VONAGE_BRAND_NAME=iiskills
 ```
 
 ### Email (SendGrid)
@@ -199,7 +199,7 @@ Body: { email, phone, course, reason }
 
 2. **Environment Variables**:
    - Set all required environment variables in production
-   - Ensure Twilio and SendGrid are configured
+   - Ensure Vonage and SendGrid are configured
    - Configure Razorpay webhook secret
 
 3. **Razorpay Configuration**:
@@ -256,7 +256,7 @@ const response = await fetch('/api/verify-otp', {
 
 ## 🎯 Next Steps (Optional Enhancements)
 
-- [ ] Add Vonage/Nexmo SMS support (currently Twilio only)
+- [x] Add Vonage SMS support (migrated from Twilio)
 - [ ] Implement admin authentication middleware
 - [ ] Add OTP resend functionality
 - [ ] Add webhook retry mechanism

@@ -15,10 +15,10 @@ export default function Footer() {
           <div>
             <h4 className="font-bold text-lg mb-3 text-accent">Learning Portals</h4>
             <ul className="space-y-2 text-gray-300">
-              <li><a href="https://app8.learn-math.iiskills.cloud" className="hover:text-white transition">Mathematics</a></li>
-              <li><a href="https://app6.learn-physics.iiskills.cloud" className="hover:text-white transition">Physics</a></li>
-              <li><a href="https://app7.learn-chemistry.iiskills.cloud" className="hover:text-white transition">Chemistry</a></li>
-              <li><a href="https://app9.learn-geography.iiskills.cloud" className="hover:text-white transition">Geography</a></li>
+              <li><a href="https://learn-math.iiskills.cloud" className="hover:text-white transition">Mathematics</a></li>
+              <li><a href="https://learn-physics.iiskills.cloud" className="hover:text-white transition">Physics</a></li>
+              <li><a href="https://learn-chemistry.iiskills.cloud" className="hover:text-white transition">Chemistry</a></li>
+              <li><a href="https://learn-geography.iiskills.cloud" className="hover:text-white transition">Geography</a></li>
             </ul>
           </div>
           <div>
@@ -26,7 +26,6 @@ export default function Footer() {
             <ul className="space-y-2 text-gray-300">
               <li><a href="/about" className="hover:text-white transition">Our Mission</a></li>
               <li><a href="/courses" className="hover:text-white transition">All Courses</a></li>
-              <li><a href="/apps" className="hover:text-white transition">All Apps</a></li>
             </ul>
           </div>
           <div>

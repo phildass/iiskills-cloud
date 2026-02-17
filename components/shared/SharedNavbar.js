@@ -124,7 +124,7 @@ export default function SharedNavbar({
                     href="/login"
                     className="hover:text-primary transition text-base whitespace-nowrap"
                   >
-                    Sign In
+                    Login
                   </Link>
                   <Link
                     href="/register"
@@ -214,7 +214,7 @@ export default function SharedNavbar({
                     className="block hover:text-primary transition text-base py-2"
                     onClick={() => setIsMenuOpen(false)}
                   >
-                    Sign In
+                    Login
                   </Link>
                   <Link
                     href="/register"

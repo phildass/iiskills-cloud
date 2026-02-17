@@ -55,16 +55,16 @@ function getAppContextLabel(appId) {
  */
 function getCourseLinks() {
   return [
-    { name: "Learn AI", icon: "🤖", url: "https://app1.learn-ai.iiskills.cloud" },
-    { name: "Learn Management", icon: "📊", url: "https://app2.learn-management.iiskills.cloud" },
-    { name: "Learn PR", icon: "📢", url: "https://app3.learn-pr.iiskills.cloud" },
-    { name: "Learn Developer", icon: "💻", url: "https://app4.learn-developer.iiskills.cloud" },
-    { name: "Learn Aptitude", icon: "🧠", url: "https://app5.learn-apt.iiskills.cloud" },
-    { name: "Learn Physics", icon: "⚛️", url: "https://app6.learn-physics.iiskills.cloud" },
-    { name: "Learn Chemistry", icon: "🧪", url: "https://app7.learn-chemistry.iiskills.cloud" },
-    { name: "Learn Math", icon: "📐", url: "https://app8.learn-math.iiskills.cloud" },
-    { name: "Learn Geography", icon: "🌍", url: "https://app9.learn-geography.iiskills.cloud" },
-    // REMOVED per requirement #9: { name: "Learn Govt Jobs", icon: "🏛️", url: "https://app10.learn-govt-jobs.iiskills.cloud" },
+    { name: "Learn AI", icon: "🤖", url: "https://learn-ai.iiskills.cloud" },
+    { name: "Learn Management", icon: "📊", url: "https://learn-management.iiskills.cloud" },
+    { name: "Learn PR", icon: "📢", url: "https://learn-pr.iiskills.cloud" },
+    { name: "Learn Developer", icon: "💻", url: "https://learn-developer.iiskills.cloud" },
+    { name: "Learn Aptitude", icon: "🧠", url: "https://learn-apt.iiskills.cloud" },
+    { name: "Learn Physics", icon: "⚛️", url: "https://learn-physics.iiskills.cloud" },
+    { name: "Learn Chemistry", icon: "🧪", url: "https://learn-chemistry.iiskills.cloud" },
+    { name: "Learn Math", icon: "📐", url: "https://learn-math.iiskills.cloud" },
+    { name: "Learn Geography", icon: "🌍", url: "https://learn-geography.iiskills.cloud" },
+    // REMOVED per requirement #9: { name: "Learn Govt Jobs", icon: "🏛️", url: "https://learn-govt-jobs.iiskills.cloud" },
   ];
 }
 
@@ -141,12 +141,14 @@ export default function UniversalLandingPage({
       "learn-math": "math",
       "learn-physics": "physics",
       "learn-chemistry": "chemistry",
-      "learn-biology": "biology",
+      // MOVED TO apps-backup as per cleanup requirements
+      // "learn-biology": "biology",
       "learn-geography": "geography",
       "learn-apt": "aptitude",
       "learn-ai": "ai",
       "learn-developer": "developer",
-      "learn-finesse": "finesse",
+      // MOVED TO apps-backup as per cleanup requirements
+      // "learn-finesse": "finesse",
       "learn-management": "management",
       "learn-pr": "pr",
       // REMOVED per requirement #9: "learn-govt-jobs": "govt-jobs",

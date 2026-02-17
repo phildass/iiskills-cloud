@@ -265,45 +265,46 @@ export const APP_REGISTRY = {
     ],
   },
 
-  'learn-biology': {
-    id: 'learn-biology',
-    name: 'learn-biology',
-    displayName: 'Biology',
-    description: 'Biology courses and content',
-    contentType: 'json',
-    dataPath: 'apps/learn-biology/data',
-    icon: '🧬',
-    fields: [
-      {
-        name: 'id',
-        label: 'Content ID',
-        type: 'text',
-        required: true,
-      },
-      {
-        name: 'title',
-        label: 'Title',
-        type: 'text',
-        required: true,
-      },
-      {
-        name: 'description',
-        label: 'Description',
-        type: 'textarea',
-        required: true,
-      },
-      {
-        name: 'difficulty',
-        label: 'Difficulty',
-        type: 'select',
-        options: [
-          { label: 'Beginner', value: 'Beginner' },
-          { label: 'Intermediate', value: 'Intermediate' },
-          { label: 'Advanced', value: 'Advanced' },
-        ],
-      },
-    ],
-  },
+  // MOVED TO apps-backup as per cleanup requirements
+  // 'learn-biology': {
+  //   id: 'learn-biology',
+  //   name: 'learn-biology',
+  //   displayName: 'Biology',
+  //   description: 'Biology courses and content',
+  //   contentType: 'json',
+  //   dataPath: 'apps/learn-biology/data',
+  //   icon: '🧬',
+  //   fields: [
+  //     {
+  //       name: 'id',
+  //       label: 'Content ID',
+  //       type: 'text',
+  //       required: true,
+  //     },
+  //     {
+  //       name: 'title',
+  //       label: 'Title',
+  //       type: 'text',
+  //       required: true,
+  //     },
+  //     {
+  //       name: 'description',
+  //       label: 'Description',
+  //       type: 'textarea',
+  //       required: true,
+  //     },
+  //     {
+  //       name: 'difficulty',
+  //       label: 'Difficulty',
+  //       type: 'select',
+  //       options: [
+  //         { label: 'Beginner', value: 'Beginner' },
+  //         { label: 'Intermediate', value: 'Intermediate' },
+  //         { label: 'Advanced', value: 'Advanced' },
+  //       ],
+  //     },
+  //   ],
+  // },
 
   'learn-chemistry': {
     id: 'learn-chemistry',

@@ -1,5 +1,5 @@
-import { generateAndDispatchOTP } from '../../../lib/otpService';
-import { APPS } from '../../../lib/appRegistry';
+import { generateAndDispatchOTP } from '@lib/otpService';
+import { APPS } from '@lib/appRegistry';
 
 /**
  * Admin OTP Generation API

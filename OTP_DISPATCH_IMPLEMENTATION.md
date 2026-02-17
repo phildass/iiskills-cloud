@@ -7,7 +7,7 @@ This implementation provides a secure, app/course-specific OTP (One-Time Passwor
 ## Key Features
 
 ✅ **App/Course-Specific OTP Binding**: Each OTP is uniquely tied to a specific app or course and cannot be used for other apps  
-✅ **Multi-Channel Delivery**: OTPs are sent via SMS (Twilio) and/or Email (SendGrid)  
+✅ **Multi-Channel Delivery**: OTPs are sent via SMS (Vonage) and/or Email (SendGrid)  
 ✅ **Secure Storage**: OTPs stored with expiration, verification tracking, and rate limiting  
 ✅ **Payment Integration**: Automatic OTP dispatch after successful payment via Razorpay webhook  
 ✅ **Verification Endpoint**: Strict validation of OTP, expiration, and app context  
@@ -240,11 +240,11 @@ Access granted to specific app only
 
 ## Environment Variables
 
-### Required for SMS (Twilio)
+### Required for SMS (Vonage)
 ```bash
-TWILIO_ACCOUNT_SID=your_twilio_account_sid
-TWILIO_AUTH_TOKEN=your_twilio_auth_token
-TWILIO_PHONE_NUMBER=+1234567890
+VONAGE_API_KEY=your_vonage_api_key
+VONAGE_API_SECRET=your_vonage_api_secret
+VONAGE_BRAND_NAME=iiskills
 ```
 
 ### Required for Email (SendGrid)
@@ -451,7 +451,7 @@ This deletes expired, unverified OTPs older than 24 hours to keep the database c
 
 ## Future Enhancements
 
-- [ ] Add Vonage/Nexmo SMS support (currently Twilio only)
+- [x] Add Vonage SMS support (migrated from Twilio)
 - [ ] Implement admin authentication middleware
 - [ ] Add OTP resend functionality with rate limiting
 - [ ] Add webhook retry mechanism for failed OTP deliveries
@@ -465,7 +465,7 @@ This deletes expired, unverified OTPs older than 24 hours to keep the database c
 For issues or questions:
 1. Check error messages in API responses
 2. Verify environment variables are set correctly
-3. Check Twilio/SendGrid dashboards for delivery status
+3. Check Vonage/SendGrid dashboards for delivery status
 4. Review server logs for detailed error information
 
 ## License

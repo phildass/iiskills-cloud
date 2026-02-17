@@ -61,7 +61,7 @@
                     ▼                         ▼
         ┌─────────────────────┐   ┌─────────────────────┐
         │  Send via Email      │   │   Send via SMS      │
-        │  (SendGrid)          │   │   (Twilio)          │
+        │  (SendGrid)          │   │   (Vonage)          │
         │                      │   │                     │
         │  To: user@example.com│   │  To: +91987654321  │
         │  Subject: OTP for    │   │  Body: Your OTP:   │

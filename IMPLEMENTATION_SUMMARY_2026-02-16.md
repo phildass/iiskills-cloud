@@ -63,7 +63,7 @@
    - API: `/apps/main/pages/api/admin/generate-otp.js`
    - Features:
      - Generate OTPs for any course
-     - Send via email (SendGrid) and SMS (Twilio)
+     - Send via email (SendGrid) and SMS (Vonage)
      - Specify reason (free access, error compensation, etc.)
      - View recently generated OTPs
      - 10-minute expiry
@@ -85,7 +85,7 @@
    - Locations: Per-app `/pages/api/send-otp.js` files
    - 6-digit OTP generation
    - Email via SendGrid
-   - SMS via Twilio
+   - SMS via Vonage
    - Stored in Supabase `otps` table with course info
 
 3. **Admin OTP Management** - NEW ✅
@@ -260,10 +260,10 @@ SUPABASE_KEY=
 SENDGRID_API_KEY=
 SENDGRID_FROM_EMAIL=
 
-# Twilio
-TWILIO_ACCOUNT_SID=
-TWILIO_AUTH_TOKEN=
-TWILIO_PHONE_NUMBER=
+# Vonage
+VONAGE_API_KEY=
+VONAGE_API_SECRET=
+VONAGE_BRAND_NAME=
 
 # Razorpay
 RAZORPAY_KEY_ID=

@@ -11,14 +11,13 @@ import { useState, useEffect } from "react";
  * - Each app uses only its own images
  * - Main app: 1 hero + 14 secondary images for maximum variety (15 total)
  * - Learn-ai app: 1 hero + 8 secondary images (9 total)
- * - Learn-biology app: 1 hero + 6 secondary images (7 total)
  * - Learn-geography app: 1 hero + 2 secondary images (3 total)
  * - Other apps: 1 hero + 2 secondary images each (3 total)
  * - Renders a full-size hero background with first image (hero image)
  * - Positions overlay text at the bottom of the hero area
  *
- * Note: Archived apps (learn-cricket, learn-companion, learn-leadership, learn-winning)
- * are in apps-backup/ and are not included in this configuration.
+ * Note: Archived apps (learn-biology, learn-cricket, learn-companion, learn-finesse, learn-govt-jobs, 
+ * learn-leadership, learn-winning, mpa) are in apps-backup/ and are not included in this configuration.
  */
 
 /**
@@ -29,13 +28,12 @@ import { useState, useEffect } from "react";
  *
  * Main app has 15 images total (1 hero + 14 secondary images for variety)
  * Learn-ai has 9 images total (1 hero + 8 secondary images)
- * Learn-biology has 7 images total (1 hero + 6 secondary images)
- * Learn-finesse has 6 images total (1 hero + 5 random images for premium styling)
  * Learn-geography has 3 images total (1 hero + 2 secondary images)
  * Other apps have 3 images each (1 hero + 2 random images)
  *
- * Note: Apps in apps-backup/ (learn-cricket, learn-companion, learn-leadership, learn-winning)
- * are archived and no longer have image assignments here.
+ * Note: Apps in apps-backup/ (learn-biology, learn-cricket, learn-companion, learn-finesse, 
+ * learn-govt-jobs, learn-leadership, learn-winning, mpa) are archived and no longer 
+ * have image assignments here.
  */
 const APP_IMAGE_ASSIGNMENTS = {
   main: [
@@ -79,37 +77,40 @@ const APP_IMAGE_ASSIGNMENTS = {
     "iiskills-chem-labman.jpg",
     "iiskills-chem-lwoman.jpg",
   ],
-  "learn-biology": [
-    "iiskills-bio-hero.jpg",
-    "iiskills-bio-student.jpg",
-    "iiskills-bio-researcher.jpg",
-    "iiskills-bio-lab.jpg",
-    "iiskills-bio-mn.jpg",
-    "iiskills-bio-mn1.jpg",
-    "iiskills-bio-mn2.jpg",
-  ],
+  // MOVED TO apps-backup as per cleanup requirements
+  // "learn-biology": [
+  //   "iiskills-bio-hero.jpg",
+  //   "iiskills-bio-student.jpg",
+  //   "iiskills-bio-researcher.jpg",
+  //   "iiskills-bio-lab.jpg",
+  //   "iiskills-bio-mn.jpg",
+  //   "iiskills-bio-mn1.jpg",
+  //   "iiskills-bio-mn2.jpg",
+  // ],
   "learn-geography": ["iiskills-geo-hero.jpg", "iiskills-geo-road.jpg", "iiskills-geo-tour.jpg"],
-  "learn-govt-jobs": [
-    "iiskills-govt-hero.jpg",
-    "iiskills-govt-staff.jpg",
-    "iiskills-govt-teacher.jpg",
-  ],
+  // MOVED TO apps-backup as per previous cleanup
+  // "learn-govt-jobs": [
+  //   "iiskills-govt-hero.jpg",
+  //   "iiskills-govt-staff.jpg",
+  //   "iiskills-govt-teacher.jpg",
+  // ],
   "learn-pr": ["iiskills-pr-hero.jpg", "iiskills-pr-girl.jpg", "iiskills-pr-media.jpg"],
   "learn-apt": ["iiskills-apt-heo.jpg", "iiskills-apt-boyu.jpg", "iiskills-apt-girl.jpg"],
-  "learn-finesse": [
-    "iiskills-finesse-hero.jpg",
-    "iiskills-finesse-bw.jpg",
-    "iiskills-finesse-grpm.jpg",
-    "iiskills-finesse-grpmw.jpg",
-    "iiskills-finesse-grpmwg.jpg",
-    "iiskills-finesse-grpw.jpg",
-  ],
+  // MOVED TO apps-backup as per previous cleanup
+  // "learn-finesse": [
+  //   "iiskills-finesse-hero.jpg",
+  //   "iiskills-finesse-bw.jpg",
+  //   "iiskills-finesse-grpm.jpg",
+  //   "iiskills-finesse-grpmw.jpg",
+  //   "iiskills-finesse-grpmwg.jpg",
+  //   "iiskills-finesse-grpw.jpg",
+  // ],
 };
 
 /**
  * Get hero images for a specific app
  * @param {string} appId - The app identifier (e.g., "learn-developer")
- * @returns {Array<string>} Array of image filenames assigned to this app (15 for main, 9 for learn-ai, 7 for learn-biology, 3 for most apps)
+ * @returns {Array<string>} Array of image filenames assigned to this app (15 for main, 9 for learn-ai, 3 for most apps)
  */
 export function getHeroImagesForApp(appId) {
   // Return assigned images for the app, or fallback to a default set

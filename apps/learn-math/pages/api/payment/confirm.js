@@ -32,9 +32,9 @@ export default async function handler(req, res) {
       status: 'active'
     });
 
-    // Send email with access code (in production, use Resend API)
-    if (process.env.RESEND_API_KEY) {
-      // TODO: Implement Resend email
+    // Send email with access code (in production, use SendGrid API)
+    if (process.env.SENDGRID_API_KEY) {
+      // TODO: Implement SendGrid email
       console.log(`Sending access code ${accessCode} to ${email}`);
     }
 

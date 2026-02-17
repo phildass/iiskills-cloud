@@ -60,7 +60,7 @@ export default function UniversalLogin({
   useEffect(() => {
     const registrationSuccess = sessionStorage.getItem("registrationSuccess");
     if (registrationSuccess) {
-      setSuccess("Registration successful! You can now sign in with your credentials.");
+      setSuccess("Registration successful! You can now login with your credentials.");
       sessionStorage.removeItem("registrationSuccess");
     }
   }, []);
@@ -95,7 +95,7 @@ export default function UniversalLogin({
 
         if (magicLinkSuccess) {
           setSuccess(
-            "Check your email for a secure sign-in link! The link will sign you in automatically."
+            "Check your email for a secure login link! The link will log you in automatically."
           );
           setIsLoading(false);
           return;
@@ -109,7 +109,7 @@ export default function UniversalLogin({
           if (signInError.includes("Invalid login credentials")) {
             setError("Invalid email or password. Please try again.");
           } else if (signInError.includes("Email not confirmed")) {
-            setError("Please confirm your email address before signing in.");
+            setError("Please confirm your email address before logging in.");
           } else {
             setError(signInError);
           }
@@ -235,7 +235,7 @@ export default function UniversalLogin({
                 <div className="w-full border-t border-gray-300"></div>
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white text-gray-500">Or sign in with email</span>
+                <span className="px-2 bg-white text-gray-500">Or login with email</span>
               </div>
             </div>
           </div>
@@ -299,10 +299,10 @@ export default function UniversalLogin({
               {isLoading
                 ? useMagicLink
                   ? "Sending Link..."
-                  : "Signing In..."
+                  : "Logging In..."
                 : useMagicLink
-                  ? "Send Me a Sign-In Link"
-                  : "Sign In with Password"}
+                  ? "Send Me a Login Link"
+                  : "Login with Password"}
             </button>
           </div>
 
@@ -317,7 +317,7 @@ export default function UniversalLogin({
 
           <div className="mt-4 p-4 bg-blue-50 rounded-lg">
             <p className="text-xs text-blue-800">
-              <strong>✓ Universal Login:</strong> Sign in once to access all iiskills.cloud apps.
+              <strong>✓ Universal Login:</strong> Login once to access all iiskills.cloud apps.
               Your session works across the main site and all learning modules.
             </p>
           </div>
