@@ -141,12 +141,14 @@ export default function UniversalLandingPage({
       "learn-math": "math",
       "learn-physics": "physics",
       "learn-chemistry": "chemistry",
-      "learn-biology": "biology",
+      // MOVED TO apps-backup as per cleanup requirements
+      // "learn-biology": "biology",
       "learn-geography": "geography",
       "learn-apt": "aptitude",
       "learn-ai": "ai",
       "learn-developer": "developer",
-      "learn-finesse": "finesse",
+      // MOVED TO apps-backup as per cleanup requirements
+      // "learn-finesse": "finesse",
       "learn-management": "management",
       "learn-pr": "pr",
       // REMOVED per requirement #9: "learn-govt-jobs": "govt-jobs",

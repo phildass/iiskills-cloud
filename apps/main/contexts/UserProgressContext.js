@@ -86,30 +86,31 @@ const INITIAL_APPS = [
       intermediate: 0,
       advanced: 0,
     },
-    connections: ["learn-physics", "learn-biology"],
+    connections: ["learn-physics"], // learn-biology moved to apps-backup
     microQuiz: {
       question: "What is H2O?",
       options: ["Oxygen", "Water", "Hydrogen"],
       correctAnswer: 1,
     },
   },
-  {
-    id: "learn-biology",
-    name: "Learn Biology",
-    category: "Science",
-    color: "#2E7D32",
-    progress: {
-      basics: 0,
-      intermediate: 0,
-      advanced: 0,
-    },
-    connections: ["learn-chemistry", "learn-physics"],
-    microQuiz: {
-      question: "Which organelle is the powerhouse of the cell?",
-      options: ["Nucleus", "Mitochondria", "Ribosome"],
-      correctAnswer: 1,
-    },
-  },
+  // MOVED TO apps-backup as per cleanup requirements
+  // {
+  //   id: "learn-biology",
+  //   name: "Learn Biology",
+  //   category: "Science",
+  //   color: "#2E7D32",
+  //   progress: {
+  //     basics: 0,
+  //     intermediate: 0,
+  //     advanced: 0,
+  //   },
+  //   connections: ["learn-chemistry", "learn-physics"],
+  //   microQuiz: {
+  //     question: "Which organelle is the powerhouse of the cell?",
+  //     options: ["Nucleus", "Mitochondria", "Ribosome"],
+  //     correctAnswer: 1,
+  //   },
+  // },
   {
     id: "learn-geography",
     name: "Learn Geography",
@@ -120,7 +121,7 @@ const INITIAL_APPS = [
       intermediate: 15,
       advanced: 0,
     },
-    connections: ["learn-govt-jobs"],
+    connections: [], // learn-govt-jobs moved to apps-backup
     microQuiz: {
       question: "Where is the Suez Canal?",
       options: ["Egypt", "Panama", "India"],
@@ -199,23 +200,24 @@ const INITIAL_APPS = [
       correctAnswer: 0,
     },
   },
-  {
-    id: "learn-govt-jobs",
-    name: "Learn Govt Jobs",
-    category: "Career",
-    color: "#DC2626",
-    progress: {
-      basics: 15,
-      intermediate: 0,
-      advanced: 0,
-    },
-    connections: ["learn-geography", "learn-apt"],
-    microQuiz: {
-      question: "Which exam is for civil services?",
-      options: ["UPSC", "SSC", "RRB"],
-      correctAnswer: 0,
-    },
-  },
+  // MOVED TO apps-backup as per cleanup requirements
+  // {
+  //   id: "learn-govt-jobs",
+  //   name: "Learn Govt Jobs",
+  //   category: "Career",
+  //   color: "#DC2626",
+  //   progress: {
+  //     basics: 15,
+  //     intermediate: 0,
+  //     advanced: 0,
+  //   },
+  //   connections: ["learn-geography", "learn-apt"],
+  //   microQuiz: {
+  //     question: "Which exam is for civil services?",
+  //     options: ["UPSC", "SSC", "RRB"],
+  //     correctAnswer: 0,
+  //   },
+  // },
 ];
 
 export function UserProgressProvider({ children }) {
