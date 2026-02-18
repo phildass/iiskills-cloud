@@ -103,7 +103,7 @@ export default function SharedNavbar({
             <GoogleTranslate />
           </div>
 
-          {/* Show Sign In/Register or User Info based on authentication */}
+          {/* Show Login/Register or User Info based on authentication */}
           {showAuthButtons && (
             <>
               {user ? (
@@ -190,7 +190,7 @@ export default function SharedNavbar({
             <GoogleTranslate />
           </div>
 
-          {/* Show Sign In/Register or User Info based on authentication */}
+          {/* Show Login/Register or User Info based on authentication */}
           {showAuthButtons && (
             <>
               {user ? (

@@ -212,8 +212,8 @@ export default function UniversalLandingPage({
         <Hero appId={appId} className="h-[70vh] md:h-[80vh] lg:h-[90vh] relative">
           {/* Labels and links in top-left corner */}
           <div className="absolute top-4 left-4 flex items-center gap-3 z-10">
-            {/* FREE/PAID label */}
-            <div className={`${isFree ? 'bg-green-500' : 'bg-orange-500'} text-white px-4 py-2 rounded-lg text-sm font-bold shadow-lg`}>
+            {/* FREE/PAID label - Color code: green for free, blue for paid */}
+            <div className={`${isFree ? 'bg-green-500' : 'bg-blue-600'} text-white px-4 py-2 rounded-lg text-sm font-bold shadow-lg`}>
               {isFree ? 'FREE' : 'PAID'}
             </div>
             

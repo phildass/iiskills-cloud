@@ -62,7 +62,7 @@ export default function Navbar() {
       onLogout={null} // OPEN ACCESS: No logout functionality
       appName="iiskills.cloud"
       homeUrl="/"
-      showAuthButtons={true} // UNIVERSAL NAV: Register and Sign In links visible to ALL users
+      showAuthButtons={true} // UNIVERSAL NAV: Register and Login links visible to ALL users
       customLinks={canonicalLinks}
     />
   );
