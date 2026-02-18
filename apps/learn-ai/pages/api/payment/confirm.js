@@ -1,7 +1,12 @@
 import { generateAccessCode } from '../../../lib/accessCode';
 import { createClient } from '@supabase/supabase-js';
-import { grantBundleAccess } from '../../../../../lib/accessManager';
-import { getAppsInBundle } from '../../../../../lib/bundleConfig';
+import { 
+  grantBundleAccess, 
+  updatePaymentBundleInfo,
+  getAppsToUnlock,
+  getBundleInfo,
+  getBundleAccessMessage,
+} from '../../../../../packages/access-control';
 
 // Initialize Supabase client with service role for server-side operations
 function getSupabaseClient() {
@@ -42,7 +47,8 @@ export default async function handler(req, res) {
     const appId = 'learn-ai';
     
     // Get all apps that should be unlocked (bundle logic)
-    const appsToUnlock = getAppsInBundle(appId);
+    const appsToUnlock = getAppsToUnlock(appId);
+    const bundleInfo = getBundleInfo(appId);
     
     // Generate access code for backwards compatibility
     const accessCode = generateAccessCode();
@@ -72,11 +78,16 @@ export default async function handler(req, res) {
     
     // Grant access to all apps in bundle (if user is authenticated)
     if (userId) {
-      await grantBundleAccess({
+      const result = await grantBundleAccess({
         userId,
         purchasedAppId: appId,
         paymentId: payment.id,
       });
+      
+      // Update payment record with complete bundle information
+      await updatePaymentBundleInfo(payment.id, result.bundledApps);
+      
+      console.log(`✅ Bundle access granted to user ${userId}:`, result.bundledApps);
     }
 
     // Legacy: Store in registrations table for access code support
@@ -101,10 +112,15 @@ export default async function handler(req, res) {
       success: true,
       access_code: accessCode,
       apps_unlocked: appsToUnlock,
-      message: `Payment confirmed! You now have access to ${appsToUnlock.length > 1 ? 'BOTH ' + appsToUnlock.join(' and ') : appsToUnlock[0]}.`,
-      bundle_info: appsToUnlock.length > 1 ? {
+      message: bundleInfo 
+        ? `🎉 ${bundleInfo.highlight} You now have access to ${appsToUnlock.join(' AND ')}!`
+        : `Payment confirmed! You now have access to ${appId}.`,
+      bundle_info: bundleInfo ? {
+        id: bundleInfo.id,
+        name: bundleInfo.name,
         apps: appsToUnlock,
-        description: 'Special bundle: Two apps for the price of one!',
+        description: bundleInfo.description,
+        features: bundleInfo.features,
       } : null,
     });
   } catch (error) {
