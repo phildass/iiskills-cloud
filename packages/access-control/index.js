@@ -61,7 +61,7 @@ export {
   getAccessStatus,
   hasAccessViaBundle,
   getBundleAccessMessage,
-} from './accessControl';
+} from './accessControl.js';
 
 // Database operations
 export {
@@ -73,7 +73,7 @@ export {
   revokeAppAccess,
   getAccessStats,
   updatePaymentBundleInfo,
-} from './dbAccessManager';
+} from './dbAccessManager.js';
 
 // Configuration and constants
 export {
@@ -84,4 +84,4 @@ export {
   getPaidApps,
   getAppConfig,
   getBundleConfig,
-} from './appConfig';
+} from './appConfig.js';

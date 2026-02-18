@@ -8,7 +8,7 @@
  */
 
 import { createClient } from '@supabase/supabase-js';
-import { isFreeApp, getAppsToUnlock, getAccessStatus } from './accessControl';
+import { isFreeApp, getAppsToUnlock, getAccessStatus } from './accessControl.js';
 
 /**
  * Initialize Supabase client for server-side operations

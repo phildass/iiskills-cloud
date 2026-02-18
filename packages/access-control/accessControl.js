@@ -8,7 +8,7 @@
  * @module accessControl
  */
 
-import { APPS, APP_TYPE, BUNDLES, getFreeApps, getAppConfig, getBundleConfig } from './appConfig';
+import { APPS, APP_TYPE, BUNDLES, getFreeApps, getAppConfig, getBundleConfig } from './appConfig.js';
 
 /**
  * Check if an app is free
