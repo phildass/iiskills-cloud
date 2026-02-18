@@ -78,7 +78,8 @@ else
     "iiskills-learn-chemistry"
     "iiskills-learn-cricket"
     "iiskills-learn-geography"
-    "iiskills-learn-govt-jobs"
+    # MOVED TO apps-backup as per cleanup requirements
+    # "iiskills-learn-govt-jobs"
     "iiskills-learn-leadership"
     "iiskills-learn-management"
     "iiskills-learn-math"

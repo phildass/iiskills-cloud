@@ -25,18 +25,19 @@ export function getCanonicalLinks(appId = "main", isFreeApp = false) {
     { href: "/certification", label: "Certification", className: "hover:text-primary transition" },
   ];
 
+  // MOVED TO apps-backup as per cleanup requirements
   // Add special links only for Learn-Govt-Jobs
-  if (appId === "learn-govt-jobs") {
-    baseLinks.push(
-      {
-        href: "/opportunity-feed",
-        label: "Opportunities",
-        className: "hover:text-primary transition",
-      },
-      { href: "/daily-brief", label: "Daily Brief", className: "hover:text-primary transition" },
-      { href: "/exam-countdown", label: "Exam Alerts", className: "hover:text-primary transition" }
-    );
-  }
+  // if (appId === "learn-govt-jobs") {
+  //   baseLinks.push(
+  //     {
+  //       href: "/opportunity-feed",
+  //       label: "Opportunities",
+  //       className: "hover:text-primary transition",
+  //     },
+  //     { href: "/daily-brief", label: "Daily Brief", className: "hover:text-primary transition" },
+  //     { href: "/exam-countdown", label: "Exam Alerts", className: "hover:text-primary transition" }
+  //   );
+  // }
 
   baseLinks.push({
     href: "/newsletter",

@@ -23,7 +23,8 @@ const SEARCH_DATA = [
   { id: 17, title: "Suez Canal", app: "learn-geography", type: "lesson" },
   { id: 18, title: "Chemical Bonds", app: "learn-chemistry", type: "module" },
   { id: 19, title: "Water Properties", app: "learn-chemistry", type: "lesson" },
-  { id: 20, title: "UPSC Preparation", app: "learn-govt-jobs", type: "module" },
+  // MOVED TO apps-backup as per cleanup requirements
+  // { id: 20, title: "UPSC Preparation", app: "learn-govt-jobs", type: "module" },
 ];
 
 export default function MagicSearchBar() {

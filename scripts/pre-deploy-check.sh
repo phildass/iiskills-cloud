@@ -21,7 +21,8 @@ apps=(
   "apps/learn-chemistry"
   "apps/learn-cricket"
   "apps/learn-geography"
-  "apps/learn-govt-jobs"
+  # MOVED TO apps-backup as per cleanup requirements
+  # "apps/learn-govt-jobs"
   "apps/learn-leadership"
   "apps/learn-management"
   "apps/learn-math"

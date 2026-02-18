@@ -93,22 +93,23 @@ export default function SampleLessonShowcase({
         level3: "The Architect: System design and scalable architecture"
       }
     },
-    "learn-govt-jobs": {
-      title: "High-Velocity Exam Preparation",
-      description: "High-velocity preparation for the nation's most competitive professional exams.",
-      keyPoints: [
-        "Comprehensive coverage of all major government exams",
-        "Strategic preparation techniques and time management",
-        "Current affairs and general knowledge mastery",
-        "Mock tests and performance analytics",
-        "Interview preparation and personality development"
-      ],
-      triLevelPreview: {
-        level1: "Building Intuition: Exam patterns and foundational concepts",
-        level2: "The Systems: Subject mastery and strategic preparation",
-        level3: "The Architect: Advanced problem-solving and interview excellence"
-      }
-    },
+    // MOVED TO apps-backup as per cleanup requirements
+    // "learn-govt-jobs": {
+    //   title: "High-Velocity Exam Preparation",
+    //   description: "High-velocity preparation for the nation's most competitive professional exams.",
+    //   keyPoints: [
+    //     "Comprehensive coverage of all major government exams",
+    //     "Strategic preparation techniques and time management",
+    //     "Current affairs and general knowledge mastery",
+    //     "Mock tests and performance analytics",
+    //     "Interview preparation and personality development"
+    //   ],
+    //   triLevelPreview: {
+    //     level1: "Building Intuition: Exam patterns and foundational concepts",
+    //     level2: "The Systems: Subject mastery and strategic preparation",
+    //     level3: "The Architect: Advanced problem-solving and interview excellence"
+    //   }
+    // },
     "learn-pr": {
       title: "Master the Science of Public Perception",
       description: "Master the science of public perception and brand influence.",

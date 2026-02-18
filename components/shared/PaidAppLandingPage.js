@@ -35,7 +35,8 @@ function getAppContextLabel(appId) {
     "learn-management": "iiskills Management",
     "learn-ai": "iiskills AI",
     "learn-developer": "iiskills Developer",
-    "learn-govt-jobs": "iiskills Government Jobs",
+    // MOVED TO apps-backup as per cleanup requirements
+    // "learn-govt-jobs": "iiskills Government Jobs",
   };
   return labels[appId] || "iiskills";
 }
@@ -50,10 +51,11 @@ function getAppSpecificLinks(appId) {
   ];
 
   const appSpecificMap = {
-    "learn-govt-jobs": [
-      { label: "Job Search", href: "/jobs" },
-      { label: "Exam Alerts", href: "/exam-countdown" },
-    ],
+    // MOVED TO apps-backup as per cleanup requirements
+    // "learn-govt-jobs": [
+    //   { label: "Job Search", href: "/jobs" },
+    //   { label: "Exam Alerts", href: "/exam-countdown" },
+    // ],
     "learn-ai": [
       { label: "AI Playground", href: "/playground" },
     ],
@@ -95,7 +97,8 @@ export default function PaidAppLandingPage({
       "learn-finesse": "finesse",
       "learn-management": "management",
       "learn-pr": "pr",
-      "learn-govt-jobs": "govt-jobs",
+      // MOVED TO apps-backup as per cleanup requirements
+      // "learn-govt-jobs": "govt-jobs",
     };
     return typeMap[appId] || "ai";
   };

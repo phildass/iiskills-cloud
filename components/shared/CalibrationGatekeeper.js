@@ -88,17 +88,18 @@ const CALIBRATION_QUESTIONS = {
     correctAnswer: 1,
     explanation: "Control Public Perception: The primary goal of PR is to earn Organic Authority through media relations, not to buy advertising space.",
   },
-  "govt-jobs": {
-    question: "Which pillar of the Constitution ensures the separation of Judiciary and Executive?",
-    options: ["Fundamental Rights (Part III)", "Directive Principles (Art 50)", "Emergency Provisions", "Amendment Procedure"],
-    correctAnswer: 1,
-    explanation: "Directive Principles of State Policy, specifically Article 50, mandates the separation of Judiciary from the Executive to ensure independent justice.",
-  },
+  // MOVED TO apps-backup as per cleanup requirements
+  // "govt-jobs": {
+  //   question: "Which pillar of the Constitution ensures the separation of Judiciary and Executive?",
+  //   options: ["Fundamental Rights (Part III)", "Directive Principles (Art 50)", "Emergency Provisions", "Amendment Procedure"],
+  //   correctAnswer: 1,
+  //   explanation: "Directive Principles of State Policy, specifically Article 50, mandates the separation of Judiciary from the Executive to ensure independent justice.",
+  // },
 };
 
 export default function CalibrationGatekeeper({
   appName = "this course",
-  appType = "math", // math, physics, chemistry, biology, geography, aptitude, ai, developer, govt-jobs, pr, management, finesse
+  appType = "math", // math, physics, chemistry, biology, geography, aptitude, ai, developer, pr, management, finesse
   tier = "intermediate",
   isPaid = false,
   onCalibrationSuccess,
