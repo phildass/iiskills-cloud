@@ -30,18 +30,19 @@ const HIDDEN_COURSE_NAMES = [
 
 // List of available subdomain courses (10 total for launch)
 // To add a new available course, simply add its subdomain name to this array
+// Only active apps (10 total) - deprecated apps moved to apps-backup/
 const AVAILABLE_SUBDOMAINS = [
   "learn-ai",
   "learn-apt",
   "learn-chemistry",
+  "learn-developer",
   "learn-geography",
-  "learn-leadership",
   "learn-management",
   "learn-math",
   "learn-physics",
   "learn-pr",
-  "learn-winning",
 ];
+// MOVED TO apps-backup: learn-leadership, learn-winning
 
 // Mapping for courses with names that don't directly match subdomain
 const COURSE_NAME_TO_SUBDOMAIN = {
