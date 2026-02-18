@@ -1,9 +1,7 @@
 // Content display components
-// To be migrated from /components/shared/:
-// - StandardizedLesson.js
-// - CurriculumTable.js
-// - LevelSelector.js
-// - DiagnosticQuiz.js
-// - GatekeeperQuiz.js
-
-// Placeholder exports (will be populated during migration)
+export { default as StandardizedLesson } from './StandardizedLesson';
+export { default as CurriculumTable } from './CurriculumTable';
+export { default as LevelSelector } from './LevelSelector';
+export { default as DiagnosticQuiz } from './DiagnosticQuiz';
+export { default as GatekeeperQuiz } from './GatekeeperQuiz';
+export { default as CalibrationGatekeeper } from './CalibrationGatekeeper';

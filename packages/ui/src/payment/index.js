@@ -1,8 +1,4 @@
 // Payment and access control components
-// To be migrated from /components/shared/:
-// - PremiumAccessPrompt.js
-// - AIDevBundlePitch.js
-// - TierSelection.js
-// - CalibrationGatekeeper.js
-
-// Placeholder exports (will be populated during migration)
+export { default as PremiumAccessPrompt } from './PremiumAccessPrompt';
+export { default as AIDevBundlePitch } from './AIDevBundlePitch';
+export { default as TierSelection } from './TierSelection';

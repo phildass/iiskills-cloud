@@ -1,8 +1,8 @@
 import "../styles/globals.css";
 
 import Head from "next/head";
-import SiteHeader from "../../../components/shared/SiteHeader";
-import Footer from "@iiskills/ui/src/Footer";
+import { SiteHeader } from "@iiskills/ui/navigation";
+import { Footer } from "@iiskills/ui/common";
 
 
 export default function App({ Component, pageProps }) {

@@ -1,8 +1,5 @@
 // Authentication components
-// To be migrated from /components/shared/:
-// - UniversalLogin.js
-// - UniversalRegister.js
-// - EnhancedUniversalRegister.js
-// - AuthenticationChecker.js
-
-// Placeholder exports (will be populated during migration)
+export { default as UniversalLogin } from './UniversalLogin';
+export { default as UniversalRegister } from './UniversalRegister';
+export { default as EnhancedUniversalRegister } from './EnhancedUniversalRegister';
+export { default as AuthenticationChecker } from './AuthenticationChecker';

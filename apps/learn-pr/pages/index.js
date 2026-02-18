@@ -1,6 +1,6 @@
 "use client";
 
-import PaidAppLandingPage from "../../../components/shared/PaidAppLandingPage";
+import { PaidAppLandingPage } from "@iiskills/ui/landing";
 
 export default function Home() {
   return (

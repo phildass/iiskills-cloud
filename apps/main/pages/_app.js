@@ -1,10 +1,10 @@
 import "../styles/globals.css";
 import Head from "next/head";
-import SiteHeader from "../../../components/shared/SiteHeader";
+import { SiteHeader } from "@iiskills/ui/navigation";
 import Footer from "../components/Footer";
 import ErrorBoundary from "../components/ErrorBoundary";
-import AIAssistant from "../components/shared/AIAssistant";
-import NewsletterSignup from "../components/shared/NewsletterSignup";
+import { AIAssistant } from "@iiskills/ui/ai";
+import { NewsletterSignup } from "@iiskills/ui/newsletter";
 import TestingModeBanner from "../components/TestingModeBanner";
 import { useNewsletterPopup } from "../utils/useNewsletterPopup";
 import { UserProgressProvider } from "../contexts/UserProgressContext";

@@ -1,5 +1,5 @@
-import Shared404 from "../../../components/shared/Shared404";
-import Footer from "@iiskills/ui/src/Footer";
+import { Shared404 } from "@iiskills/ui/common";
+import { Footer } from "@iiskills/ui/common";
 
 export default function Custom404() {
   return (
