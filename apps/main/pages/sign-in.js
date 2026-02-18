@@ -2,14 +2,14 @@ import Head from "next/head";
 import UniversalLogin from "../../../components/shared/UniversalLogin";
 
 /**
- * Sign-In Page - Main App
+ * Login Page - Main App (Route: /sign-in)
  * 
  * Per Product Requirements: /sign-in must be a real page (no 404)
  * This provides an SEO-friendly alternative to /login in the main app
  * 
  * Features:
  * - Regular Login (email/password)
- * - Google Sign-In
+ * - Google Login
  * - Magic Link for Google users
  * - Recommendation to register for better experience
  */

@@ -98,7 +98,7 @@ export default function Header({
             )
           )}
 
-          {/* Show Sign In/Register or User Info based on authentication */}
+          {/* Show Login/Register or User Info based on authentication */}
           {shouldShowAuthButtons && (
             <>
               {user ? (
@@ -201,7 +201,7 @@ export default function Header({
             <GoogleTranslate />
           </div>
 
-          {/* Show Sign In/Register or User Info based on authentication */}
+          {/* Show Login/Register or User Info based on authentication */}
           {shouldShowAuthButtons && (
             <>
               {user ? (

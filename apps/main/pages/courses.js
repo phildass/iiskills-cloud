@@ -1777,7 +1777,7 @@ export default function Courses() {
 
                     {/* Free Badge */}
                     {course.isFree && (
-                      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pastel-blue bg-opacity-90 backdrop-blur-sm text-white px-6 py-3 rounded-full text-2xl font-bold z-20 shadow-2xl blink-animation">
+                      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-green-500 bg-opacity-90 backdrop-blur-sm text-white px-6 py-3 rounded-full text-2xl font-bold z-20 shadow-2xl blink-animation">
                         FREE
                       </div>
                     )}
@@ -1885,7 +1885,7 @@ export default function Courses() {
 
                     {/* Free Badge */}
                     {course.isFree && (
-                      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pastel-blue bg-opacity-90 backdrop-blur-sm text-white px-6 py-3 rounded-full text-2xl font-bold z-20 shadow-2xl blink-animation">
+                      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-green-500 bg-opacity-90 backdrop-blur-sm text-white px-6 py-3 rounded-full text-2xl font-bold z-20 shadow-2xl blink-animation">
                         FREE
                       </div>
                     )}
