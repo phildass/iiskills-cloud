@@ -73,146 +73,149 @@ export const APP_REGISTRY = {
     ],
   },
   
-  'learn-jee': {
-    id: 'learn-jee',
-    name: 'learn-jee',
-    displayName: 'JEE Exam Prep',
-    description: 'JEE exam preparation content (Physics, Chemistry, Mathematics)',
-    contentType: 'json',
-    dataPath: 'apps/learn-jee/manifest.json',
-    icon: '📚',
-    fields: [
-      {
-        name: 'id',
-        label: 'Lesson ID',
-        type: 'text',
-        required: true,
-        placeholder: 'physics-mechanics-001',
-      },
-      {
-        name: 'title',
-        label: 'Lesson Title',
-        type: 'text',
-        required: true,
-        placeholder: 'Introduction to Mechanics',
-      },
-      {
-        name: 'subject',
-        label: 'Subject',
-        type: 'select',
-        required: true,
-        options: [
-          { label: 'Physics', value: 'physics' },
-          { label: 'Chemistry', value: 'chemistry' },
-          { label: 'Mathematics', value: 'mathematics' },
-        ],
-      },
-      {
-        name: 'description',
-        label: 'Description',
-        type: 'textarea',
-        required: true,
-      },
-      {
-        name: 'difficulty',
-        label: 'Difficulty',
-        type: 'select',
-        options: [
-          { label: 'Easy', value: 'easy' },
-          { label: 'Medium', value: 'medium' },
-          { label: 'Hard', value: 'hard' },
-        ],
-      },
-      {
-        name: 'objectives',
-        label: 'Learning Objectives',
-        type: 'array',
-      },
-    ],
-  },
+  // MOVED TO apps-backup as per cleanup requirements
+  // 'learn-jee': {
+  //   id: 'learn-jee',
+  //   name: 'learn-jee',
+  //   displayName: 'JEE Exam Prep',
+  //   description: 'JEE exam preparation content (Physics, Chemistry, Mathematics)',
+  //   contentType: 'json',
+  //   dataPath: 'apps/learn-jee/manifest.json',
+  //   icon: '📚',
+  //   fields: [
+  //     {
+  //       name: 'id',
+  //       label: 'Lesson ID',
+  //       type: 'text',
+  //       required: true,
+  //       placeholder: 'physics-mechanics-001',
+  //     },
+  //     {
+  //       name: 'title',
+  //       label: 'Lesson Title',
+  //       type: 'text',
+  //       required: true,
+  //       placeholder: 'Introduction to Mechanics',
+  //     },
+  //     {
+  //       name: 'subject',
+  //       label: 'Subject',
+  //       type: 'select',
+  //       required: true,
+  //       options: [
+  //         { label: 'Physics', value: 'physics' },
+  //         { label: 'Chemistry', value: 'chemistry' },
+  //         { label: 'Mathematics', value: 'mathematics' },
+  //       ],
+  //     },
+  //     {
+  //       name: 'description',
+  //       label: 'Description',
+  //       type: 'textarea',
+  //       required: true,
+  //     },
+  //     {
+  //       name: 'difficulty',
+  //       label: 'Difficulty',
+  //       type: 'select',
+  //       options: [
+  //         { label: 'Easy', value: 'easy' },
+  //         { label: 'Medium', value: 'medium' },
+  //         { label: 'Hard', value: 'hard' },
+  //       ],
+  //     },
+  //     {
+  //       name: 'objectives',
+  //       label: 'Learning Objectives',
+  //       type: 'array',
+  //     },
+  //   ],
+  // },
   
-  'learn-neet': {
-    id: 'learn-neet',
-    name: 'learn-neet',
-    displayName: 'NEET Exam Prep',
-    description: 'NEET exam preparation content (Biology, Physics, Chemistry)',
-    contentType: 'json',
-    dataPath: 'apps/learn-neet/manifest.json',
-    icon: '🔬',
-    fields: [
-      {
-        name: 'id',
-        label: 'Lesson ID',
-        type: 'text',
-        required: true,
-        placeholder: 'biology-cell-001',
-      },
-      {
-        name: 'title',
-        label: 'Lesson Title',
-        type: 'text',
-        required: true,
-      },
-      {
-        name: 'subject',
-        label: 'Subject',
-        type: 'select',
-        required: true,
-        options: [
-          { label: 'Biology', value: 'biology' },
-          { label: 'Physics', value: 'physics' },
-          { label: 'Chemistry', value: 'chemistry' },
-        ],
-      },
-      {
-        name: 'description',
-        label: 'Description',
-        type: 'textarea',
-        required: true,
-      },
-    ],
-  },
+  // MOVED TO apps-backup as per cleanup requirements
+  // 'learn-neet': {
+  //   id: 'learn-neet',
+  //   name: 'learn-neet',
+  //   displayName: 'NEET Exam Prep',
+  //   description: 'NEET exam preparation content (Biology, Physics, Chemistry)',
+  //   contentType: 'json',
+  //   dataPath: 'apps/learn-neet/manifest.json',
+  //   icon: '🔬',
+  //   fields: [
+  //     {
+  //       name: 'id',
+  //       label: 'Lesson ID',
+  //       type: 'text',
+  //       required: true,
+  //       placeholder: 'biology-cell-001',
+  //     },
+  //     {
+  //       name: 'title',
+  //       label: 'Lesson Title',
+  //       type: 'text',
+  //       required: true,
+  //     },
+  //     {
+  //       name: 'subject',
+  //       label: 'Subject',
+  //       type: 'select',
+  //       required: true,
+  //       options: [
+  //         { label: 'Biology', value: 'biology' },
+  //         { label: 'Physics', value: 'physics' },
+  //         { label: 'Chemistry', value: 'chemistry' },
+  //       ],
+  //     },
+  //     {
+  //       name: 'description',
+  //       label: 'Description',
+  //       type: 'textarea',
+  //       required: true,
+  //     },
+  //   ],
+  // },
   
-  'learn-ias': {
-    id: 'learn-ias',
-    name: 'learn-ias',
-    displayName: 'IAS Exam Prep',
-    description: 'IAS/UPSC exam preparation content',
-    contentType: 'json',
-    dataPath: 'apps/learn-ias/manifest.json',
-    icon: '🏛️',
-    fields: [
-      {
-        name: 'id',
-        label: 'Content ID',
-        type: 'text',
-        required: true,
-      },
-      {
-        name: 'title',
-        label: 'Title',
-        type: 'text',
-        required: true,
-      },
-      {
-        name: 'category',
-        label: 'Category',
-        type: 'select',
-        options: [
-          { label: 'General Studies', value: 'general-studies' },
-          { label: 'Current Affairs', value: 'current-affairs' },
-          { label: 'Essay', value: 'essay' },
-          { label: 'Optional Subject', value: 'optional' },
-        ],
-      },
-      {
-        name: 'description',
-        label: 'Description',
-        type: 'textarea',
-        required: true,
-      },
-    ],
-  },
+  // MOVED TO apps-backup as per cleanup requirements
+  // 'learn-ias': {
+  //   id: 'learn-ias',
+  //   name: 'learn-ias',
+  //   displayName: 'IAS Exam Prep',
+  //   description: 'IAS/UPSC exam preparation content',
+  //   contentType: 'json',
+  //   dataPath: 'apps/learn-ias/manifest.json',
+  //   icon: '🏛️',
+  //   fields: [
+  //     {
+  //       name: 'id',
+  //       label: 'Content ID',
+  //       type: 'text',
+  //       required: true,
+  //     },
+  //     {
+  //       name: 'title',
+  //       label: 'Title',
+  //       type: 'text',
+  //       required: true,
+  //     },
+  //     {
+  //       name: 'category',
+  //       label: 'Category',
+  //       type: 'select',
+  //       options: [
+  //         { label: 'General Studies', value: 'general-studies' },
+  //         { label: 'Current Affairs', value: 'current-affairs' },
+  //         { label: 'Essay', value: 'essay' },
+  //         { label: 'Optional Subject', value: 'optional' },
+  //       ],
+  //     },
+  //     {
+  //       name: 'description',
+  //       label: 'Description',
+  //       type: 'textarea',
+  //       required: true,
+  //     },
+  //   ],
+  // },
   
   // MOVED TO apps-backup/apps-backup.A as per requirement 7
   // 'learn-govt-jobs': {
