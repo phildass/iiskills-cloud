@@ -95,6 +95,26 @@ fi
 CHECKED_COUNT=$((CHECKED_COUNT + 1))
 echo ""
 
+# Check main app
+echo "Checking main app..."
+if [ -d "apps/main" ]; then
+  if ! check_env_vars "apps/main/.env.local" "main/.env.local"; then
+    if [ ! -f "apps/main/.env.local" ]; then
+      echo "   Creating main/.env.local from template..."
+      if [ -f "apps/main/.env.local.example" ]; then
+        create_env_file "apps/main" "apps/main/.env.local.example"
+      else
+        create_env_file "apps/main" ".env.local.example"
+      fi
+      MISSING_COUNT=$((MISSING_COUNT + 1))
+    else
+      INCOMPLETE_COUNT=$((INCOMPLETE_COUNT + 1))
+    fi
+  fi
+  CHECKED_COUNT=$((CHECKED_COUNT + 1))
+fi
+echo ""
+
 # Check all learning modules
 echo "Checking learning modules..."
 for dir in apps/learn-*/; do
