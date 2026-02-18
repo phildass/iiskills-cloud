@@ -20,7 +20,7 @@ export default function QuizComponent({ questions, onComplete }) {
       } else {
         calculateScore();
       }
-    }, 300); // Small delay for visual feedback
+    }, 400); // Small delay for visual feedback
   };
 
   const handleNext = () => {
