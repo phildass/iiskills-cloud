@@ -1,0 +1,22 @@
+{
+  "name": "@iiskills/access-control",
+  "version": "1.0.0",
+  "description": "Universal app access control system for iiskills-cloud with bundle logic",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint .",
+    "test": "jest"
+  },
+  "keywords": [
+    "access-control",
+    "authorization",
+    "payment",
+    "bundle",
+    "app-access"
+  ],
+  "author": "AI Cloud Enterprises",
+  "license": "MIT",
+  "peerDependencies": {
+    "@supabase/supabase-js": "^2.0.0"
+  }
+}
