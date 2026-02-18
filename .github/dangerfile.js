@@ -1,7 +1,10 @@
 // dangerfile.js - Automated PR Requirements Analysis
 // This file is executed by Danger.js during CI to analyze PRs and provide feedback
 
-import { danger, warn, fail, message, markdown } from 'danger';
+const { danger, warn, fail, message, markdown } = require('danger');
+
+// Wrap all async operations in an async IIFE
+(async () => {
 
 const pr = danger.github.pr;
 const modifiedFiles = danger.git.modified_files;
@@ -378,3 +381,8 @@ if (criticalIssues === 0) {
 } else {
   fail(`❌ **${criticalIssues} critical issue(s) found.** Please address them before merging.`);
 }
+
+})().catch(error => {
+  fail(`❌ Danger.js analysis failed: ${error.message}`);
+  console.error('Danger.js error:', error);
+});
