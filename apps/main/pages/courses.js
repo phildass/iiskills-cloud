@@ -90,6 +90,8 @@ const coursesData = [
     level: "Beginner",
     comingSoon: true,
     isFree: false,
+    isBundle: true,
+    bundleWith: "Learn Developer",
     modules: [
       { id: 1, title: "Introduction to AI", isFree: true },
       { id: 2, title: "Machine Learning Basics", isFree: false },
@@ -285,6 +287,31 @@ const coursesData = [
       { id: 8, title: "Change Management", isFree: false },
       { id: 9, title: "Time and Resource Management", isFree: false },
       { id: 10, title: "Leadership in Management", isFree: false },
+    ],
+  },
+  {
+    id: 62,
+    name: "Learn Developer",
+    category: "Technology",
+    description:
+      "Master full-stack web development, from frontend to backend. Learn modern frameworks, databases, APIs, and deployment strategies to build real-world applications.",
+    duration: "12 weeks",
+    level: "Beginner to Intermediate",
+    comingSoon: true,
+    isFree: false,
+    isBundle: true,
+    bundleWith: "Learn AI",
+    modules: [
+      { id: 1, title: "Introduction to Web Development", isFree: true },
+      { id: 2, title: "HTML, CSS & JavaScript Fundamentals", isFree: false },
+      { id: 3, title: "Frontend Frameworks (React/Vue)", isFree: false },
+      { id: 4, title: "Backend Development with Node.js", isFree: false },
+      { id: 5, title: "Database Design & SQL", isFree: false },
+      { id: 6, title: "RESTful APIs & GraphQL", isFree: false },
+      { id: 7, title: "Authentication & Security", isFree: false },
+      { id: 8, title: "Version Control with Git", isFree: false },
+      { id: 9, title: "Testing & Debugging", isFree: false },
+      { id: 10, title: "Deployment & DevOps Basics", isFree: false },
     ],
   },
   {
@@ -1776,6 +1803,21 @@ export default function Courses() {
                         </div>
                       )}
 
+                      {/* Bundle Offer Indicator - NEW */}
+                      {course.isBundle && course.bundleWith && (
+                        <div className="bg-gradient-to-r from-purple-50 to-pink-50 border-2 border-purple-300 rounded-lg p-4 mb-4 shadow-md">
+                          <p className="text-sm font-bold text-purple-900 mb-1 flex items-center">
+                            🎉 Special Bundle Offer!
+                          </p>
+                          <p className="text-xs text-purple-800 font-semibold">
+                            Pay for this course and get <strong>{course.bundleWith}</strong> FREE!
+                          </p>
+                          <p className="text-xs text-purple-700 mt-2">
+                            Both courses included for Rs 99 + GST
+                          </p>
+                        </div>
+                      )}
+
                       {/* Free sample module indicator - only show for paid courses */}
                       {freeModule && !course.isFree && (
                         <div className="bg-cyan-50 border border-cyan-200 rounded p-3 mb-4">
@@ -1864,6 +1906,21 @@ export default function Courses() {
                           Get notified when it launches!
                         </p>
                       </div>
+
+                      {/* Bundle Offer Indicator - NEW */}
+                      {course.isBundle && course.bundleWith && (
+                        <div className="bg-gradient-to-r from-purple-50 to-pink-50 border-2 border-purple-300 rounded-lg p-4 mb-4 shadow-md">
+                          <p className="text-sm font-bold text-purple-900 mb-1 flex items-center">
+                            🎉 Special Bundle Offer!
+                          </p>
+                          <p className="text-xs text-purple-800 font-semibold">
+                            Pay for this course and get <strong>{course.bundleWith}</strong> FREE!
+                          </p>
+                          <p className="text-xs text-purple-700 mt-2">
+                            Both courses included for Rs 99 + GST
+                          </p>
+                        </div>
+                      )}
 
                       {/* Free sample module indicator - only show for paid courses */}
                       {freeModule && !course.isFree && (
