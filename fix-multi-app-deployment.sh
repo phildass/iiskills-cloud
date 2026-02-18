@@ -77,12 +77,16 @@ for APP in "${APPS[@]}"; do
   # Ensure Supabase is suspended for build (can be changed for production)
   if grep -q "NEXT_PUBLIC_SUPABASE_SUSPENDED" "$APP_DIR/.env.local"; then
     # Set to suspended mode for builds to work without real credentials
-    sed -i 's/NEXT_PUBLIC_SUPABASE_SUSPENDED=false/NEXT_PUBLIC_SUPABASE_SUSPENDED=true/' "$APP_DIR/.env.local" 2>/dev/null || true
+    if sed -i 's/NEXT_PUBLIC_SUPABASE_SUSPENDED=false/NEXT_PUBLIC_SUPABASE_SUSPENDED=true/' "$APP_DIR/.env.local" 2>/dev/null; then
+      echo "   → Enabled Supabase suspended mode for $APP"
+    fi
   fi
   
   # Ensure valid Supabase URL format (even if dummy)
   if grep -q "NEXT_PUBLIC_SUPABASE_URL=your-project-url-here" "$APP_DIR/.env.local"; then
-    sed -i 's|NEXT_PUBLIC_SUPABASE_URL=your-project-url-here|NEXT_PUBLIC_SUPABASE_URL=https://dummy-project.supabase.co|' "$APP_DIR/.env.local" 2>/dev/null || true
+    if sed -i 's|NEXT_PUBLIC_SUPABASE_URL=your-project-url-here|NEXT_PUBLIC_SUPABASE_URL=https://dummy-project.supabase.co|' "$APP_DIR/.env.local" 2>/dev/null; then
+      echo "   → Set valid Supabase URL format for $APP"
+    fi
   fi
 done
 
@@ -143,9 +147,14 @@ for APP in "${APPS[@]}"; do
   
   if yarn build 2>&1 | tee "/tmp/build-$APP.log"; then
     if [ -d ".next" ]; then
-      # Count the number of pages built
-      PAGE_COUNT=$(find .next -name "*.html" -o -name "*.js" | wc -l)
-      echo -e "${GREEN}✓ $APP built successfully (.next directory created, $PAGE_COUNT files)${NC}"
+      # Count pages built (more accurate than all files)
+      if [ -d ".next/server/pages" ]; then
+        PAGE_COUNT=$(find .next/server/pages -type f | wc -l)
+      else
+        # Fallback to counting static pages
+        PAGE_COUNT=$(find .next/static -type f 2>/dev/null | wc -l)
+      fi
+      echo -e "${GREEN}✓ $APP built successfully (.next directory created with $PAGE_COUNT files)${NC}"
       BUILD_SUCCESS+=("$APP")
     else
       echo -e "${RED}✗ $APP build completed but .next directory not found!${NC}"

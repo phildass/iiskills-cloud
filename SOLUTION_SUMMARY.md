@@ -187,7 +187,7 @@ pm2 list
 pm2 logs --lines 20
 
 # Verify unique builds
-ls -la apps/*/next/BUILD_ID
+ls -la apps/*/.next/BUILD_ID
 cat apps/main/.next/BUILD_ID
 cat apps/learn-ai/.next/BUILD_ID
 
