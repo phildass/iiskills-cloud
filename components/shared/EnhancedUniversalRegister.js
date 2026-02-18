@@ -682,7 +682,7 @@ export default function EnhancedUniversalRegister({
               
               {/* Recommendation message for platform registration */}
               <p className="mt-3 text-center text-xs text-gray-500 italic">
-                💡 Google login is available, but we recommend registering with our platform for certifications and full access.
+                💡 Google login is available, but we recommend registering with our platform for certification eligibility, progress tracking, and full course access.
               </p>
             </>
           )}
