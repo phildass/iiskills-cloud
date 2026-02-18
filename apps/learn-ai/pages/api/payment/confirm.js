@@ -6,13 +6,17 @@ import { getAppsInBundle } from '../../../../../lib/bundleConfig';
 // Initialize Supabase client with service role for server-side operations
 function getSupabaseClient() {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
   
-  if (!supabaseUrl || !supabaseKey) {
-    throw new Error('Missing Supabase credentials');
+  if (!supabaseUrl) {
+    throw new Error('Missing NEXT_PUBLIC_SUPABASE_URL');
   }
   
-  return createClient(supabaseUrl, supabaseKey);
+  if (!supabaseServiceKey) {
+    throw new Error('Missing SUPABASE_SERVICE_ROLE_KEY - payment confirmation requires service role privileges');
+  }
+  
+  return createClient(supabaseUrl, supabaseServiceKey);
 }
 
 export default async function handler(req, res) {
