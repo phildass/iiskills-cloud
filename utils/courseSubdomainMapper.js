@@ -73,13 +73,13 @@ function createCourseToSubdomainMap() {
   const map = {};
 
   // Port assignments for local development (consistent with package.json)
+  // Deprecated apps removed: learn-govt-jobs (3013)
   const portMap = {
     "learn-ai": "3024",
     "learn-apt": "3002",
     "learn-chemistry": "3005",
-    "learn-developer": "3001",
+    "learn-developer": "3007",
     "learn-geography": "3011",
-    "learn-govt-jobs": "3013",
     "learn-management": "3016",
     "learn-math": "3017",
     "learn-physics": "3020",

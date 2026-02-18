@@ -13,6 +13,7 @@
 /**
  * List of all available subdomain apps
  * This should be updated when new subdomain apps are added
+ * Deprecated apps removed: learn-govt-jobs
  */
 const AVAILABLE_SUBDOMAINS = [
   "learn-ai",
@@ -20,7 +21,6 @@ const AVAILABLE_SUBDOMAINS = [
   "learn-chemistry",
   "learn-developer",
   "learn-geography",
-  "learn-govt-jobs",
   "learn-management",
   "learn-math",
   "learn-physics",
@@ -30,14 +30,14 @@ const AVAILABLE_SUBDOMAINS = [
 /**
  * Port assignments for local development
  * Matches the configuration in package.json
+ * Deprecated apps removed: learn-govt-jobs (3013)
  */
 const PORT_MAP = {
   "learn-ai": "3024",
   "learn-apt": "3002",
   "learn-chemistry": "3005",
-  "learn-developer": "3001",
+  "learn-developer": "3007",
   "learn-geography": "3011",
-  "learn-govt-jobs": "3013",
   "learn-management": "3016",
   "learn-math": "3017",
   "learn-physics": "3020",
