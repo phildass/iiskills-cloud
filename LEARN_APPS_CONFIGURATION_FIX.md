@@ -175,7 +175,7 @@ Use this script to verify all apps are configured correctly:
 #!/bin/bash
 # verify-learn-apps.sh
 
-cd /home/runner/work/iiskills-cloud/iiskills-cloud/apps
+cd "$(dirname "$0")/apps"
 
 APPS=(learn-ai learn-apt learn-chemistry learn-developer learn-geography learn-management learn-math learn-physics learn-pr)
 
