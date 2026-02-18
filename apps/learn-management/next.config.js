@@ -36,7 +36,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: '**.iiskills.cloud',
+        hostname: '*.iiskills.cloud',
       },
       {
         protocol: 'http',

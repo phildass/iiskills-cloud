@@ -187,7 +187,7 @@ for app in "${APPS[@]}"; do
     
     # Check files exist
     [ -f "$app/jsconfig.json" ] && echo "✅ jsconfig.json" || echo "❌ jsconfig.json MISSING"
-    [ -f "$app/next.config.js" ] && echo "✅ next.config.json" || echo "❌ next.config.js MISSING"
+    [ -f "$app/next.config.js" ] && echo "✅ next.config.js" || echo "❌ next.config.js MISSING"
     [ -f "$app/.env.local" ] && echo "✅ .env.local" || echo "❌ .env.local MISSING"
     [ -d "$app/.next" ] && echo "✅ .next build directory" || echo "❌ .next build MISSING"
     
