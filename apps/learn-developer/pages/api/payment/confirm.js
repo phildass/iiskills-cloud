@@ -35,7 +35,7 @@ export default async function handler(req, res) {
     }
     
     const supabase = getSupabaseClient();
-    const appId = 'learn-ai';
+    const appId = 'learn-developer';
     
     // Get all apps that should be unlocked (bundle logic)
     const appsToUnlock = getAppsInBundle(appId);
