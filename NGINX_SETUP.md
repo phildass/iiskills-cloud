@@ -75,12 +75,14 @@ This script will:
 
 ### 3. Obtain SSL Certificates
 
+**CRITICAL**: SSL certificate warnings must NEVER appear. All certificates must be valid, properly issued, and correctly installed.
+
 ```bash
 # Install Certbot if not already installed
 sudo apt-get update
 sudo apt-get install certbot python3-certbot-nginx
 
-# Obtain certificates for all subdomains at once
+# Obtain certificates for all subdomains at once (RECOMMENDED)
 sudo certbot --nginx \
   -d app.iiskills.cloud \
   -d learn-ai.iiskills.cloud \
@@ -91,26 +93,43 @@ sudo certbot --nginx \
   -d learn-management.iiskills.cloud \
   -d learn-math.iiskills.cloud \
   -d learn-physics.iiskills.cloud \
-  -d learn-pr.iiskills.cloud
+  -d learn-pr.iiskills.cloud \
+  --email admin@iiskills.cloud \
+  --agree-tos \
+  --no-eff-email \
+  --redirect
 ```
 
 Certbot will:
-- Obtain Let's Encrypt SSL certificates
-- Automatically configure NGINX for HTTPS
-- Set up automatic renewal
+- Obtain Let's Encrypt SSL certificates (trusted by all browsers)
+- Automatically configure NGINX for HTTPS with full certificate chain
+- Set up automatic renewal (certificates renew every 60 days)
+- Enable HTTPS redirects
 
 ### 4. Verify Setup
 
 ```bash
-# Run the verification script
+# Run the comprehensive verification script
 ./verify-nginx.sh
+
+# Verify SSL certificates specifically
+./verify-ssl-certificates.sh
 ```
 
 This will test:
 - ✓ All localhost ports are responding
 - ✓ HTTP redirects to HTTPS (301/302)
 - ✓ HTTPS serves content (200 OK)
+- ✓ SSL certificates are valid and not expired
+- ✓ Certificate chains are complete
+- ✓ TLS protocols and ciphers are secure
+- ✓ HSTS headers are present
 - ✓ No 502 Bad Gateway errors
+
+**Additional Verification**:
+- Test each subdomain with [SSL Labs](https://www.ssllabs.com/ssltest/) - should achieve **A+ rating**
+- Verify in multiple browsers (Chrome, Firefox, Safari) - should show **green padlock**
+- Ensure no warnings from security tools (Kaspersky, Avast, etc.)
 
 ## Manual Setup (Alternative)
 
@@ -199,25 +218,64 @@ Each config file includes:
 
 **Symptom**: HTTPS not working or certificate warnings
 
-**Solutions**:
+**Causes and Solutions**:
 
-1. **Certificate not found**
+1. **Certificate expired**
    ```bash
-   # Check if certificates exist
+   # Check certificate status
+   sudo certbot certificates
+   
+   # Renew expired certificates
+   sudo certbot renew --force-renewal
+   sudo systemctl reload nginx
+   ```
+
+2. **Certificate not found or incomplete chain**
+   ```bash
+   # Verify certificate files exist
    sudo ls -la /etc/letsencrypt/live/app.iiskills.cloud/
    
-   # Re-run Certbot
-   sudo certbot --nginx -d app.iiskills.cloud
+   # Should show: cert.pem, chain.pem, fullchain.pem, privkey.pem
+   
+   # If missing, re-obtain certificate
+   sudo certbot --nginx -d app.iiskills.cloud --email admin@iiskills.cloud --agree-tos --redirect
    ```
 
-2. **Certificate expired**
+3. **Wrong certificate or domain mismatch**
    ```bash
-   # Test renewal
-   sudo certbot renew --dry-run
+   # Check certificate details
+   echo | openssl s_client -servername learn-apt.iiskills.cloud -connect learn-apt.iiskills.cloud:443 2>/dev/null | openssl x509 -noout -text | grep DNS
    
-   # Force renewal
-   sudo certbot renew --force-renewal
+   # If domain not in SAN, reinstall certificate
+   sudo certbot delete --cert-name learn-apt.iiskills.cloud
+   sudo certbot --nginx -d learn-apt.iiskills.cloud --email admin@iiskills.cloud --agree-tos --redirect
    ```
+
+4. **Security tool warnings (Kaspersky, etc.)**
+   ```bash
+   # Run comprehensive SSL verification
+   ./verify-ssl-certificates.sh -d learn-apt.iiskills.cloud
+   
+   # Test with SSL Labs
+   # Visit: https://www.ssllabs.com/ssltest/analyze.html?d=learn-apt.iiskills.cloud
+   
+   # Should achieve A+ rating. If not, check:
+   # - Certificate is from trusted CA (Let's Encrypt)
+   # - Full certificate chain is installed
+   # - TLS 1.2+ is enabled
+   # - HSTS header is present
+   ```
+
+5. **Self-signed certificate warning**
+   ```bash
+   # Remove any self-signed certificates
+   sudo rm -rf /etc/letsencrypt/live/learn-apt.iiskills.cloud/
+   
+   # Obtain proper Let's Encrypt certificate
+   sudo certbot --nginx -d learn-apt.iiskills.cloud --email admin@iiskills.cloud --agree-tos --redirect
+   ```
+
+**For detailed SSL troubleshooting, see `SSL_CERTIFICATE_SETUP.md`**
 
 ### DNS Issues
 

@@ -52,13 +52,11 @@ sudo systemctl reload nginx
 
 ## SSL Certificates
 
-After deploying configs, obtain SSL certificates with Certbot:
+**CRITICAL**: SSL certificate warnings must NEVER appear on any subdomain. All certificates must be valid, properly issued, and correctly installed.
 
-```bash
-sudo certbot --nginx -d learn-ai.iiskills.cloud
-```
+### Quick Setup
 
-Or for all subdomains at once:
+Obtain SSL certificates for all subdomains at once:
 
 ```bash
 sudo certbot --nginx \
@@ -71,7 +69,71 @@ sudo certbot --nginx \
   -d learn-management.iiskills.cloud \
   -d learn-math.iiskills.cloud \
   -d learn-physics.iiskills.cloud \
-  -d learn-pr.iiskills.cloud
+  -d learn-pr.iiskills.cloud \
+  --email admin@iiskills.cloud \
+  --agree-tos \
+  --redirect
+```
+
+Or obtain certificate for a single subdomain:
+
+```bash
+sudo certbot --nginx -d learn-ai.iiskills.cloud --email admin@iiskills.cloud --agree-tos --redirect
+```
+
+### SSL/TLS Security Features
+
+All NGINX configurations include enhanced SSL/TLS security:
+
+- ✅ **HSTS (HTTP Strict Transport Security)** - Forces HTTPS for 1 year
+- ✅ **OCSP Stapling** - Improves SSL handshake performance and privacy
+- ✅ **Strong TLS protocols** - TLS 1.2+ only (via Let's Encrypt config)
+- ✅ **Full certificate chain** - Uses fullchain.pem (server + intermediate certs)
+- ✅ **Secure ciphers** - Modern cipher suites only
+- ✅ **Security headers** - X-Frame-Options, X-Content-Type-Options, X-XSS-Protection
+
+### Verification and Monitoring
+
+Verify all SSL certificates are properly configured:
+
+```bash
+# Run comprehensive SSL verification
+./verify-ssl-certificates.sh
+
+# Check specific subdomain
+./verify-ssl-certificates.sh -d learn-apt.iiskills.cloud
+
+# Test with SSL Labs (should achieve A+ rating)
+# Visit: https://www.ssllabs.com/ssltest/analyze.html?d=learn-apt.iiskills.cloud
+```
+
+### Automatic Renewal
+
+Certbot automatically sets up certificate renewal. Verify it's working:
+
+```bash
+# Test renewal (dry run)
+sudo certbot renew --dry-run
+
+# Check renewal timer
+sudo systemctl status certbot.timer
+
+# Manual renewal if needed
+sudo certbot renew
+sudo systemctl reload nginx
+```
+
+### Troubleshooting
+
+For SSL/TLS issues, consult the comprehensive guide:
+
+```bash
+# See SSL_CERTIFICATE_SETUP.md for:
+# - Certificate expiration issues
+# - Certificate chain problems
+# - Self-signed certificate removal
+# - HTTPS not working
+# - Security warnings from Kaspersky, etc.
 ```
 
 ## Configuration Format
