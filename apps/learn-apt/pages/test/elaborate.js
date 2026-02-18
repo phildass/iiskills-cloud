@@ -68,6 +68,14 @@ export default function ElaborateTest() {
 
   const handleAnswerSelect = (questionId, answerIndex) => {
     setAnswers({ ...answers, [questionId]: answerIndex });
+    
+    // Auto-advance to next question after a brief delay
+    setTimeout(() => {
+      if (currentQuestion < ELABORATE_TEST_QUESTIONS.length - 1) {
+        setCurrentQuestion(currentQuestion + 1);
+      }
+      // Don't auto-submit on elaborate test - too many questions
+    }, 400); // Small delay for visual feedback
   };
 
   const handleNext = () => {
@@ -229,11 +237,18 @@ export default function ElaborateTest() {
               </div>
               <div className="flex justify-between items-center">
                 <button onClick={handlePrevious} disabled={currentQuestion === 0} className="py-2 px-6 bg-gray-200 text-gray-800 rounded-lg font-semibold hover:bg-gray-300 transition-colors disabled:opacity-50">← Previous</button>
-                {currentQuestion === ELABORATE_TEST_QUESTIONS.length - 1 ? (
-                  <button onClick={handleSubmitTest} className="py-2 px-6 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700 transition-colors">Submit Test</button>
-                ) : (
-                  <button onClick={handleNext} className="py-2 px-6 bg-accent text-white rounded-lg font-semibold hover:bg-cyan-600 transition-colors">Next →</button>
-                )}
+                <div className="flex items-center gap-4">
+                  <div className="text-sm text-gray-500 italic">
+                    {answers[currentQ.id] === undefined 
+                      ? 'Select an answer to continue'
+                      : 'Auto-advancing...'}
+                  </div>
+                  {currentQuestion === ELABORATE_TEST_QUESTIONS.length - 1 && (
+                    <button onClick={handleSubmitTest} className="py-2 px-6 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700 transition-colors">
+                      Submit Test
+                    </button>
+                  )}
+                </div>
               </div>
             </div>
           )}

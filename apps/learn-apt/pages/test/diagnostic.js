@@ -244,6 +244,11 @@ export default function DiagnosticTest() {
       ...answers,
       [DIAGNOSTIC_QUESTIONS[currentQuestion].id]: answerIndex,
     });
+    
+    // Auto-advance to next question after a brief delay
+    setTimeout(() => {
+      handleNextQuestion();
+    }, 400);
   };
 
   const handleNextQuestion = () => {
@@ -669,16 +674,11 @@ export default function DiagnosticTest() {
             >
               {showExplanation ? "Hide" : "Show"} Explanation
             </button>
-            <button
-              onClick={handleNextQuestion}
-              className="flex-1 bg-gradient-to-r from-electric-violet-500 to-blue-500 text-white py-3 rounded-xl font-bold hover:shadow-xl transition disabled:opacity-50"
-              disabled={answers[currentQ.id] === undefined}
-            >
-              {currentQuestion === DIAGNOSTIC_QUESTIONS.length - 1
-                ? "Submit Test"
-                : "Next Question"}{" "}
-              →
-            </button>
+            <div className="flex-1 text-center text-white/70 italic py-3">
+              {answers[currentQ.id] === undefined 
+                ? 'Select an answer to continue'
+                : 'Auto-advancing...'}
+            </div>
           </div>
         </div>
       </main>

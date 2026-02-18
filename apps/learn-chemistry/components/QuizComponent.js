@@ -12,6 +12,15 @@ export default function QuizComponent({ questions, onComplete }) {
     const newAnswers = [...selectedAnswers];
     newAnswers[currentQuestion] = answerIndex;
     setSelectedAnswers(newAnswers);
+    
+    // Auto-advance to next question or submit quiz
+    setTimeout(() => {
+      if (currentQuestion < questions.length - 1) {
+        setCurrentQuestion(currentQuestion + 1);
+      } else {
+        calculateScore();
+      }
+    }, 400); // Small delay for visual feedback
   };
 
   const handleNext = () => {
@@ -127,13 +136,11 @@ export default function QuizComponent({ questions, onComplete }) {
           Previous
         </button>
 
-        <button
-          onClick={handleNext}
-          disabled={selectedAnswers[currentQuestion] === undefined}
-          className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          {currentQuestion === questions.length - 1 ? 'Submit Quiz' : 'Next'}
-        </button>
+        <div className="text-sm text-gray-500 italic">
+          {selectedAnswers[currentQuestion] === undefined 
+            ? 'Select an answer to continue'
+            : 'Auto-advancing...'}
+        </div>
       </div>
     </div>
   );
