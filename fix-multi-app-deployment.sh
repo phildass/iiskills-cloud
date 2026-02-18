@@ -68,9 +68,21 @@ for APP in "${APPS[@]}"; do
       echo -e "${GREEN}✓ Created $APP/.env.local${NC}"
     else
       echo -e "${YELLOW}⚠ No .env.local.example found for $APP${NC}"
+      continue
     fi
   else
     echo -e "${GREEN}✓ $APP/.env.local exists${NC}"
+  fi
+  
+  # Ensure Supabase is suspended for build (can be changed for production)
+  if grep -q "NEXT_PUBLIC_SUPABASE_SUSPENDED" "$APP_DIR/.env.local"; then
+    # Set to suspended mode for builds to work without real credentials
+    sed -i 's/NEXT_PUBLIC_SUPABASE_SUSPENDED=false/NEXT_PUBLIC_SUPABASE_SUSPENDED=true/' "$APP_DIR/.env.local" 2>/dev/null || true
+  fi
+  
+  # Ensure valid Supabase URL format (even if dummy)
+  if grep -q "NEXT_PUBLIC_SUPABASE_URL=your-project-url-here" "$APP_DIR/.env.local"; then
+    sed -i 's|NEXT_PUBLIC_SUPABASE_URL=your-project-url-here|NEXT_PUBLIC_SUPABASE_URL=https://dummy-project.supabase.co|' "$APP_DIR/.env.local" 2>/dev/null || true
   fi
 done
 

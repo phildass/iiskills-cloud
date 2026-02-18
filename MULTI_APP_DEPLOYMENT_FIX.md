@@ -424,3 +424,55 @@ If issues persist after following this guide:
 3. Verify disk space: `df -h`
 4. Check Node.js/yarn versions: `node --version && yarn --version`
 5. Review build logs in `/tmp/build-*.log`
+
+## Quick Reference Card
+
+### Emergency Fix (One Command)
+```bash
+./fix-multi-app-deployment.sh && pm2 restart all
+```
+
+### Manual Build Process
+```bash
+# 1. Enable Corepack for Yarn 4.12.0
+corepack enable
+
+# 2. Install dependencies
+yarn install
+
+# 3. Build each app
+cd apps/main && yarn build && cd ../..
+cd apps/learn-ai && yarn build && cd ../..
+# ... repeat for all apps
+
+# 4. Restart PM2
+pm2 restart all
+```
+
+### Verify Unique Content
+```bash
+# Check BUILD_IDs are different
+cat apps/main/.next/BUILD_ID
+cat apps/learn-ai/.next/BUILD_ID
+
+# Check page titles are different
+curl -s http://localhost:3000 | grep -o '<title>.*</title>'
+curl -s http://localhost:3024 | grep -o '<title>.*</title>'
+```
+
+### Production Deployment Checklist
+- [ ] `corepack enable` (for Yarn 4.12.0)
+- [ ] `./ensure-env-files.sh` (create/verify .env.local files)
+- [ ] `./fix-multi-app-deployment.sh` (clean, build all apps)
+- [ ] Verify all builds succeeded
+- [ ] `pm2 restart ecosystem.config.js`
+- [ ] `pm2 list` (check all apps running)
+- [ ] Test each subdomain via NGINX
+
+### Key Files
+- `fix-multi-app-deployment.sh` - Automated fix script
+- `ensure-env-files.sh` - Environment file setup
+- `ecosystem.config.js` - PM2 configuration
+- `nginx-configs/*.iiskills.cloud` - NGINX reverse proxy configs
+- `apps/*/pages/` - Unique pages per app
+- `apps/*/.next/` - Build output per app (must exist!)
