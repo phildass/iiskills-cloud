@@ -37,5 +37,4 @@ export * from './translation';
 export * from './ai';
 export * from './pwa';
 
-// Global CSS
-import './global.css';
+// Global CSS (imported by Layout component, no need to import here)

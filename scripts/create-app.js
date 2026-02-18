@@ -99,6 +99,14 @@ const appId = appName;
 
 console.log(`\n📝 Generating files (PORT: ${appPort}, ID: ${appId})...\n`);
 
+// NOTE: Component imports use @/components/shared/ paths for now
+// These will work immediately as components haven't been migrated yet
+// Once component migration to @iiskills/ui is complete (Phases 2-3),
+// update generated apps to use new import paths:
+//   From: import UniversalLogin from '@/components/shared/UniversalLogin';
+//   To: import { UniversalLogin } from '@iiskills/ui/authentication';
+// See COMPONENT_MIGRATION_PLAN.md for migration schedule
+
 // File templates
 const files = {
   // package.json
@@ -629,7 +637,8 @@ export default function AdminDashboard() {
   'next.config.js': `/** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  transpilePackages: ['@iiskills/ui', '@iiskills/core'],
+  // TODO: Add '@iiskills/core' when package is implemented
+  transpilePackages: ['@iiskills/ui'],
   
   // Enable standalone output for production
   output: 'standalone',
