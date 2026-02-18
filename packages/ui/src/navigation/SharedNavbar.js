@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import GoogleTranslate from "./GoogleTranslate";
+import GoogleTranslate from "../common/GoogleTranslate";
 
 /**
  * Shared Navigation Bar Component

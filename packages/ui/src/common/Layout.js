@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "./Header";
 import Footer from "./Footer";
-import "../global.css";
+// Note: global.css should be imported in _app.js, not here
 
 /**
  * Shared Layout Component

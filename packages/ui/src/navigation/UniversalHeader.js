@@ -20,7 +20,7 @@
  *   return (
  *     <>
  *       <UniversalHeader />
- *       {/* Rest of your page content */}
+ *       <div>Rest of your page content</div>
  *     </>
  *   )
  * }
@@ -34,7 +34,7 @@
  *   return (
  *     <>
  *       <UniversalHeader />
- *       {/* Your subdomain-specific navbar or content */}
+ *       <div>Your subdomain-specific navbar or content</div>
  *       <Component {...pageProps} />
  *     </>
  *   )
