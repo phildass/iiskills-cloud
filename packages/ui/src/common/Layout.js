@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "./Header";
 import Footer from "./Footer";
-import "./global.css";
+import "../global.css";
 
 /**
  * Shared Layout Component
