@@ -156,13 +156,15 @@ test.describe('Universal Access Control', () => {
 test.describe('Access Control Package Functions', () => {
   test('Package exports correct functions', async () => {
     // This is a Node.js test of the package itself
+    // Use dynamic import for ES modules
+    const accessControl = await import('../../../packages/access-control/index.js');
     const {
       isFreeApp,
       isBundleApp,
       requiresPayment,
       getBundleInfo,
       getAppsToUnlock,
-    } = require('../../../packages/access-control');
+    } = accessControl;
     
     // Test isFreeApp
     expect(isFreeApp('learn-math')).toBe(true);
@@ -193,7 +195,9 @@ test.describe('Access Control Package Functions', () => {
   });
   
   test('Bundle configuration is correct', async () => {
-    const { BUNDLES, APPS } = require('../../../packages/access-control');
+    // Use dynamic import for ES modules
+    const accessControl = await import('../../../packages/access-control/index.js');
+    const { BUNDLES, APPS } = accessControl;
     
     // Check bundle exists
     expect(BUNDLES['ai-developer-bundle']).toBeDefined();

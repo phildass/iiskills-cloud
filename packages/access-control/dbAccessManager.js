@@ -245,6 +245,8 @@ export async function getUserApps(userId) {
  * @param {string} appId - App identifier
  * @param {string} reason - Reason for revocation (e.g., 'expired', 'refund', 'manual')
  * @returns {Promise<void>}
+ * 
+ * Note: Field names follow database schema naming convention (snake_case)
  */
 export async function revokeAppAccess(userId, appId, reason = 'manual') {
   const supabase = getSupabaseClient();
