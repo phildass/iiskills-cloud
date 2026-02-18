@@ -24,10 +24,33 @@ This ensures continuity and knowledge transfer between different AI sessions and
 
 ### Import Paths for Shared Components
 
+**IMPORTANT: Use @iiskills/ui package for all shared components**
+
 **For apps in apps/ subdirectory** (apps/main, apps/learn-ai, etc.):
 ```javascript
-import Component from "../../../components/shared/Component"
+// ✅ CORRECT: Use @iiskills/ui package
+import { Button, Card, Layout } from '@iiskills/ui/common';
+import { LoginForm } from '@iiskills/ui/authentication';
+import { PaymentForm } from '@iiskills/ui/payment';
+
+// ❌ INCORRECT: Local imports (will fail automated checks)
+import Button from "../../../components/shared/Button"
+import Card from "../../components/shared/Card"
 ```
+
+**Available @iiskills/ui categories:**
+- `@iiskills/ui/authentication` - Login, Register, etc.
+- `@iiskills/ui/navigation` - Navbar, Footer, etc.
+- `@iiskills/ui/landing` - Landing page components
+- `@iiskills/ui/payment` - Payment forms and flows
+- `@iiskills/ui/content` - Content display components
+- `@iiskills/ui/common` - Buttons, Cards, Layouts, etc.
+- `@iiskills/ui/newsletter` - Newsletter components
+- `@iiskills/ui/translation` - Translation tools
+- `@iiskills/ui/ai` - AI assistant components
+- `@iiskills/ui/pwa` - PWA components
+
+**See:** [MONOREPO_ARCHITECTURE.md](MONOREPO_ARCHITECTURE.md) for complete package documentation.
 
 ### Testing Your Changes
 
@@ -120,8 +143,13 @@ See [ADDING_NEW_APP.md](ADDING_NEW_APP.md) for complete instructions. Quick chec
 
 ### Pull Request Checklist
 
+**IMPORTANT:** All PRs must use the provided PR template. See [PR Requirements Guide](docs/PR_REQUIREMENTS_GUIDE.md) for complete details.
+
 **Pre-Merge Requirements** (see [DEPLOYMENT_POLICY.md](DEPLOYMENT_POLICY.md) for details):
 
+- [ ] **PR template completed** with all sections filled out
+- [ ] **Issue linkage** provided (Closes #123 or Related to #456)
+- [ ] **Use shared packages** (@iiskills/ui, @iiskills/core) - no local component imports
 - [ ] All unit tests pass: `yarn test`
 - [ ] All E2E tests pass: `yarn test:e2e`
 - [ ] Config validation passes: `yarn validate-config`
@@ -130,13 +158,51 @@ See [ADDING_NEW_APP.md](ADDING_NEW_APP.md) for complete instructions. Quick chec
 - [ ] Content validation passes (if applicable): `npm run validate-content`
 - [ ] Orphan checker passes (if applicable): `npm run check-orphans`
 - [ ] App registry updated (if new app): `npm run generate:registry`
+- [ ] Code quality: `yarn lint:check` and `yarn format:check` pass
 - [ ] No console errors in browser
 - [ ] Tested on localhost
-- [ ] **Screenshots provided** (for UI changes - desktop/tablet/mobile)
+- [ ] **Screenshots provided** (for UI changes - desktop/tablet/mobile via `./capture-qa-screenshots.sh`)
 - [ ] Updated documentation if needed
 - [ ] Added/updated content follows schema (if applicable)
-- [ ] **Code review approved** by senior developer
+- [ ] **No .env files committed** (use .env.example)
+- [ ] **No hardcoded secrets** (use environment variables)
 - [ ] **Security scan passed** (if dependencies changed)
+- [ ] **Code review approved** by senior developer
+- [ ] **All automated checks green** (GitHub Actions + Danger.js)
+
+### Automated PR Requirements System
+
+Every PR is automatically analyzed by our comprehensive requirements system:
+
+1. **Automated Checks** - GitHub Actions runs:
+   - PR template validation
+   - Code quality (ESLint + Prettier)
+   - Import & pattern validation
+   - Unit tests
+   - E2E tests (all browsers)
+   - Configuration validation
+   - Security scan
+   - Build verification (all 10 apps)
+
+2. **Danger.js Analysis** - Sophisticated PR analysis:
+   - PR metadata checks
+   - Code quality analysis
+   - Import validation
+   - Security issues detection
+   - Testing requirements
+   - Visual changes detection
+   - Documentation checks
+
+3. **Auto-Generated Report** - Every PR receives:
+   - Requirements checklist status
+   - Change statistics
+   - Detailed analysis
+   - Recommendations
+   - Next steps
+
+**See:** [PR Requirements Guide](docs/PR_REQUIREMENTS_GUIDE.md) for complete documentation.
+
+**Example Reports:** [PR Report Examples](docs/PR_REPORT_EXAMPLES.md) shows passing and failing examples.
 
 ## GitHub Actions CI/CD
 

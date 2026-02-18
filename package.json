@@ -48,7 +48,8 @@
     "generate:registry": "node scripts/generate-app-registry.js",
     "seed:ai-content": "node scripts/seed_data.js",
     "ci:build:workspace": "bash scripts/workspace-install-build.sh",
-    "build:all-serial": "node .github/scripts/get-workspaces.js | node -e \"const fs=require('fs');const j=JSON.parse(fs.readFileSync(0,'utf8')); const cp=require('child_process'); for(const i of j.include){ console.log('Building', i.workspaceName); cp.execSync('bash scripts/workspace-install-build.sh '+i.workspaceName, { stdio:'inherit' }) }\""
+    "build:all-serial": "node .github/scripts/get-workspaces.js | node -e \"const fs=require('fs');const j=JSON.parse(fs.readFileSync(0,'utf8')); const cp=require('child_process'); for(const i of j.include){ console.log('Building', i.workspaceName); cp.execSync('bash scripts/workspace-install-build.sh '+i.workspaceName, { stdio:'inherit' }) }\"",
+    "danger": "danger ci"
   },
   "dependencies": {
     "@sendgrid/mail": "^8.1.6",
@@ -74,6 +75,7 @@
     "@typescript-eslint/parser": "^8.52.0",
     "autoprefixer": "^10.4.14",
     "babel-jest": "^30.2.0",
+    "danger": "^13.0.5",
     "eslint": "^9.39.2",
     "eslint-config-next": "^16.1.1",
     "eslint-config-prettier": "^10.1.8",
