@@ -224,23 +224,89 @@ verify_https() {
 setup_ssl() {
     print_header "SSL Certificate Setup"
     
-    print_msg "$YELLOW" "This script does not automatically run Certbot."
-    print_msg "$YELLOW" "To obtain SSL certificates, run certbot for each subdomain:"
+    print_msg "$YELLOW" "⚠ CRITICAL: SSL certificate warnings must NEVER appear on any subdomain."
+    print_msg "$YELLOW" "All certificates must be valid, properly issued, and correctly installed."
     echo
     
+    print_msg "$BLUE" "Checking for existing certificates..."
+    
+    local missing_certs=()
+    local expired_certs=()
+    local valid_certs=()
+    
     for subdomain in "${!SUBDOMAIN_PORTS[@]}"; do
-        echo "  sudo certbot --nginx -d ${subdomain}"
+        if [ -d "/etc/letsencrypt/live/$subdomain" ]; then
+            # Check if certificate is expired
+            local expiry_date=$(openssl x509 -in "/etc/letsencrypt/live/$subdomain/cert.pem" -noout -enddate 2>/dev/null | cut -d= -f2)
+            if [ -n "$expiry_date" ]; then
+                local expiry_epoch=$(date -d "$expiry_date" +%s 2>/dev/null || date -j -f "%b %d %T %Y %Z" "$expiry_date" +%s 2>/dev/null)
+                local current_epoch=$(date +%s)
+                local days_until_expiry=$(( ($expiry_epoch - $current_epoch) / 86400 ))
+                
+                if [ $days_until_expiry -lt 0 ]; then
+                    print_msg "$RED" "  ✗ $subdomain: Certificate EXPIRED ${days_until_expiry#-} days ago"
+                    expired_certs+=("$subdomain")
+                elif [ $days_until_expiry -lt 30 ]; then
+                    print_msg "$YELLOW" "  ⚠ $subdomain: Certificate expires in $days_until_expiry days"
+                    valid_certs+=("$subdomain")
+                else
+                    print_msg "$GREEN" "  ✓ $subdomain: Certificate valid for $days_until_expiry days"
+                    valid_certs+=("$subdomain")
+                fi
+            else
+                print_msg "$YELLOW" "  ⚠ $subdomain: Certificate exists but cannot verify expiry"
+                missing_certs+=("$subdomain")
+            fi
+        else
+            print_msg "$RED" "  ✗ $subdomain: No certificate found"
+            missing_certs+=("$subdomain")
+        fi
     done
     
     echo
-    print_msg "$YELLOW" "Or obtain all certificates at once:"
-    echo -n "  sudo certbot --nginx"
-    for subdomain in "${!SUBDOMAIN_PORTS[@]}"; do
-        echo -n " -d ${subdomain}"
-    done
+    print_msg "$BLUE" "Certificate Status Summary:"
+    print_msg "$GREEN" "  Valid: ${#valid_certs[@]}"
+    print_msg "$RED" "  Missing: ${#missing_certs[@]}"
+    print_msg "$RED" "  Expired: ${#expired_certs[@]}"
     echo
+    
+    if [ ${#missing_certs[@]} -gt 0 ] || [ ${#expired_certs[@]} -gt 0 ]; then
+        print_msg "$RED" "⚠ ACTION REQUIRED: SSL certificates must be obtained or renewed"
+        echo
+        
+        print_msg "$YELLOW" "To obtain/renew certificates for all subdomains at once:"
+        echo
+        echo "  sudo certbot --nginx \\"
+        for subdomain in "${!SUBDOMAIN_PORTS[@]}"; do
+            echo "    -d ${subdomain} \\"
+        done
+        echo "    --email admin@iiskills.cloud \\"
+        echo "    --agree-tos \\"
+        echo "    --no-eff-email \\"
+        echo "    --redirect"
+        echo
+        
+        print_msg "$YELLOW" "Or use our automated renewal script:"
+        echo "  sudo ./renew-ssl-certificates.sh --force"
+        echo
+        
+        if [ ${#expired_certs[@]} -gt 0 ]; then
+            print_msg "$RED" "CRITICAL: Expired certificates MUST be renewed immediately!"
+            print_msg "$RED" "Users will see security warnings until certificates are renewed."
+            echo
+        fi
+    else
+        print_msg "$GREEN" "✓ All SSL certificates are valid"
+        echo
+    fi
+    
+    print_msg "$YELLOW" "After obtaining/renewing certificates:"
+    print_msg "$YELLOW" "  1. Reload NGINX: sudo systemctl reload nginx"
+    print_msg "$YELLOW" "  2. Verify SSL: ./verify-ssl-certificates.sh"
+    print_msg "$YELLOW" "  3. Test with SSL Labs: https://www.ssllabs.com/ssltest/"
+    print_msg "$YELLOW" "  4. Check in multiple browsers (Chrome, Firefox, Safari)"
+    print_msg "$YELLOW" "  5. Ensure no warnings from security tools (Kaspersky, etc.)"
     echo
-    print_msg "$YELLOW" "Certbot will automatically configure NGINX for HTTPS."
 }
 
 # Print summary
@@ -256,9 +322,17 @@ print_summary() {
     echo
     print_msg "$YELLOW" "Next steps:"
     print_msg "$YELLOW" "1. Ensure DNS A records point to this server for all subdomains"
-    print_msg "$YELLOW" "2. Run Certbot to obtain SSL certificates (see instructions above)"
-    print_msg "$YELLOW" "3. Test all subdomains in a browser"
-    print_msg "$YELLOW" "4. Monitor logs: tail -f /var/log/nginx/*.log"
+    print_msg "$YELLOW" "2. Obtain/renew SSL certificates (CRITICAL - see instructions above)"
+    print_msg "$YELLOW" "3. Test all subdomains with ./verify-ssl-certificates.sh"
+    print_msg "$YELLOW" "4. Verify SSL with https://www.ssllabs.com/ssltest/ (should achieve A+)"
+    print_msg "$YELLOW" "5. Test in multiple browsers to ensure no security warnings"
+    print_msg "$YELLOW" "6. Monitor logs: tail -f /var/log/nginx/*.log"
+    echo
+    print_msg "$GREEN" "Documentation:"
+    print_msg "$GREEN" "  • SSL Setup Guide: SSL_CERTIFICATE_SETUP.md"
+    print_msg "$GREEN" "  • NGINX Setup: NGINX_SETUP.md"
+    print_msg "$GREEN" "  • Verification: ./verify-ssl-certificates.sh --help"
+    print_msg "$GREEN" "  • Renewal: ./renew-ssl-certificates.sh --help"
 }
 
 # Main execution
