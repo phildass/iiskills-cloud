@@ -20,12 +20,12 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import Hero, { getHeroImagesForApp, SecondaryImage } from "./HeroManager";
-import { getCurrentUser } from "../../lib/supabaseClient";
+import { getCurrentUser } from "@/lib/supabaseClient";
 
-import CalibrationGatekeeper from "./CalibrationGatekeeper";
-import PremiumAccessPrompt from "./PremiumAccessPrompt";
+import CalibrationGatekeeper from "../content/CalibrationGatekeeper";
+import PremiumAccessPrompt from "../payment/PremiumAccessPrompt";
 
-import LevelSelector from "./LevelSelector";
+import LevelSelector from "../content/LevelSelector";
 
 
 /**

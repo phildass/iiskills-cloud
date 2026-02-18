@@ -15,14 +15,14 @@ import Head from "next/head";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import Hero, { SecondaryImage } from "./HeroManager";
-import { getCurrentUser } from "../../lib/supabaseClient";
+import { getCurrentUser } from "@/lib/supabaseClient";
 import SampleLessonShowcase from "./SampleLessonShowcase";
-import AIDevBundlePitch from "./AIDevBundlePitch";
+import AIDevBundlePitch from "../payment/AIDevBundlePitch";
 
-import CalibrationGatekeeper from "./CalibrationGatekeeper";
-import PremiumAccessPrompt from "./PremiumAccessPrompt";
+import CalibrationGatekeeper from "../content/CalibrationGatekeeper";
+import PremiumAccessPrompt from "../payment/PremiumAccessPrompt";
 
-import LevelSelector from "./LevelSelector";
+import LevelSelector from "../content/LevelSelector";
 
 
 /**

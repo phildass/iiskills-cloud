@@ -1,5 +1,5 @@
 import Head from "next/head";
-import UniversalLogin from "../components/shared/UniversalLogin";
+import { UniversalLogin } from "@iiskills/ui/authentication";
 
 /**
  * Login Page - Main authentication page

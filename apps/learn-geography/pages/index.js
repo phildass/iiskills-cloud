@@ -1,6 +1,6 @@
 "use client";
 
-import UniversalLandingPage from "../../../components/shared/UniversalLandingPage";
+import { UniversalLandingPage } from "@iiskills/ui/landing";
 
 export default function Home() {
   return (

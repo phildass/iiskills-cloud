@@ -28,7 +28,7 @@
  * }
  *
  * Usage in subdomains:
- * import UniversalHeader from '../../components/shared/UniversalHeader'
+ * import { UniversalHeader } from "@iiskills/ui/navigation"
  */
  * 
  * Example - Including in _app.js for site-wide usage:

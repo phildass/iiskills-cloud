@@ -25,7 +25,7 @@
  * }
  *
  * Usage in subdomains (learn-management, learn-neet, etc.):
- * import UniversalHeader from '../../components/shared/UniversalHeader'
+ * import { UniversalHeader } from "@iiskills/ui/navigation"
  *
  * export default function App({ Component, pageProps }) {
  *   return (

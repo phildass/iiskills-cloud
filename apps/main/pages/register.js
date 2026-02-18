@@ -1,5 +1,5 @@
 import Head from "next/head";
-import EnhancedUniversalRegister from "../../../components/shared/EnhancedUniversalRegister";
+import { EnhancedUniversalRegister } from "@iiskills/ui/authentication";
 
 /**
  * Registration Page - Main App

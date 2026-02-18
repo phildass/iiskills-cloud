@@ -15,7 +15,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/router";
 import DiagnosticQuiz from "./DiagnosticQuiz";
 import GatekeeperQuiz from "./GatekeeperQuiz";
-import { getGatekeeperQuestions, getSubjectName } from "../../lib/gatekeeperUtils";
+import { getGatekeeperQuestions, getSubjectName } from "@/lib/gatekeeperUtils";
 
 const TIERS = [
   {
