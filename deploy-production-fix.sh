@@ -60,9 +60,9 @@ if [ -d "apps/main/.next" ]; then
 fi
 
 # Clean all active learning apps
-for app in learn-ai learn-apt learn-chemistry learn-cricket \
-           learn-geography learn-govt-jobs learn-leadership \
-           learn-management learn-math learn-physics learn-pr learn-winning; do
+# MOVED TO apps-backup: learn-cricket, learn-govt-jobs, learn-leadership, learn-winning
+for app in learn-ai learn-apt learn-chemistry learn-developer \
+           learn-geography learn-management learn-math learn-physics learn-pr; do
   if [ -d "apps/$app/.next" ]; then
     echo "Cleaning apps/$app/.next"
     rm -rf "apps/$app/.next"

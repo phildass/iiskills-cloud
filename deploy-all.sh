@@ -10,11 +10,12 @@ apps=(
   learn-physics
   learn-chemistry
   learn-geography
-  learn-govt-jobs
   learn-apt
   learn-developer
   main
 )
+# MOVED TO apps-backup as per cleanup requirements:
+# learn-govt-jobs, learn-finesse, learn-biology, mpa
 
 MONOREPO_ROOT="/root/iiskills-cloud"
 
