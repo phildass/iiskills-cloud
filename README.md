@@ -1229,6 +1229,9 @@ See [NAVIGATION_AUTH_GUIDE.md](NAVIGATION_AUTH_GUIDE.md) for complete navigation
 - **Google OAuth Verification Script**: Run `./google-oauth-check.sh` to verify Google sign-in configuration
 - **Comprehensive Troubleshooting**: See [GOOGLE_OAUTH_TROUBLESHOOTING.md](GOOGLE_OAUTH_TROUBLESHOOTING.md) for detailed debugging
 
+## 📚 Developer Docs
+- [Common Integration Plan for Monorepo Apps](./common-integration-plan.md)
+
 ## Questions/Support
 
 Contact: info@iiskills.cloud
