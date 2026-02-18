@@ -1,11 +1,12 @@
 {
   "name": "@iiskills/access-control",
   "version": "1.0.0",
+  "type": "module",
   "description": "Universal app access control system for iiskills-cloud with bundle logic",
   "main": "index.js",
   "scripts": {
     "lint": "eslint .",
-    "test": "jest"
+    "test": "node --experimental-vm-modules ../../node_modules/.bin/jest --testMatch='**/accessControl.test.js'"
   },
   "keywords": [
     "access-control",
