@@ -441,6 +441,7 @@ export default function Home() {
                 </Link> */}
                 <Link
                   href="/test/diagnostic"
+                  onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                   className="inline-block px-12 py-5 bg-white text-electric-violet-600 rounded-2xl font-bold text-xl hover:bg-gray-100 transition-all shadow-2xl transform hover:scale-105"
                 >
                   🚀 Start My Diagnostics

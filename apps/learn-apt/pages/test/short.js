@@ -96,6 +96,16 @@ export default function ShortTest() {
       ...answers,
       [questionId]: answerIndex,
     });
+    
+    // Auto-advance to next question after a brief delay
+    setTimeout(() => {
+      if (currentQuestion < SHORT_TEST_QUESTIONS.length - 1) {
+        setCurrentQuestion(currentQuestion + 1);
+      } else {
+        // On last question, auto-submit after selection
+        handleSubmitTest();
+      }
+    }, 400); // Small delay for visual feedback
   };
 
   const handleNext = () => {
@@ -249,15 +259,13 @@ export default function ShortTest() {
                 <button onClick={handlePrevious} disabled={currentQuestion === 0} className="py-2 px-6 bg-gray-200 text-gray-800 rounded-lg font-semibold hover:bg-gray-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
                   ← Previous
                 </button>
-                {currentQuestion === SHORT_TEST_QUESTIONS.length - 1 ? (
-                  <button onClick={handleSubmitTest} className="py-2 px-6 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700 transition-colors">
-                    Submit Test
-                  </button>
-                ) : (
-                  <button onClick={handleNext} className="py-2 px-6 bg-primary text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors">
-                    Next →
-                  </button>
-                )}
+                <div className="text-sm text-gray-500 italic">
+                  {answers[currentQ.id] === undefined 
+                    ? 'Select an answer to continue'
+                    : currentQuestion === SHORT_TEST_QUESTIONS.length - 1 
+                      ? 'Submitting test...'
+                      : 'Auto-advancing...'}
+                </div>
               </div>
             </div>
           )}
