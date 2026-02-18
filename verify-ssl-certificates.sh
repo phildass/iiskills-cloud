@@ -343,7 +343,7 @@ check_local_certificate() {
             print_msg "$GREEN" "  ✓ Local certificate files present"
             
             # Check file permissions
-            local perms=$(stat -c "%a" "$cert_path/privkey.pem" 2>/dev/null || stat -f "%A" "$cert_path/privkey.pem" 2>/dev/null)
+            local perms=$(stat -c "%a" "$cert_path/privkey.pem" 2>/dev/null || stat -f "%Lp" "$cert_path/privkey.pem" 2>/dev/null)
             if [ "$perms" = "600" ] || [ "$perms" = "400" ]; then
                 print_msg "$GREEN" "  ✓ Private key permissions secure ($perms)"
             else
