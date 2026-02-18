@@ -14,7 +14,8 @@ const APP_TAGLINES = {
   "learn-chemistry": "Welcome back, Element Explorer",
   "learn-geography": "Welcome back, World Navigator",
   "learn-developer": "Welcome back, Code Creator",
-  "learn-govt-jobs": "Welcome back, Future Civil Servant",
+  // MOVED TO apps-backup as per cleanup requirements
+  // "learn-govt-jobs": "Welcome back, Future Civil Servant",
 };
 
 export default function UniversalProgressDashboard() {

@@ -82,15 +82,16 @@ function getAppContent(appId) {
         { emoji: '🏛️', title: 'Cultural Geography', description: 'Learn about populations, cultures, and civilizations' },
       ]
     },
-    'learn-govt-jobs': {
-      title: 'Prepare for Government Jobs',
-      description: 'Comprehensive preparation for government job exams with practice tests, study materials, and expert guidance.',
-      features: [
-        { emoji: '📚', title: 'Exam Preparation', description: 'Structured content aligned with major govt exams' },
-        { emoji: '✍️', title: 'Practice Tests', description: 'Take mock tests and assess your readiness' },
-        { emoji: '🎓', title: 'Career Guidance', description: 'Navigate different govt job opportunities' },
-      ]
-    },
+    // MOVED TO apps-backup as per cleanup requirements
+    // 'learn-govt-jobs': {
+    //   title: 'Prepare for Government Jobs',
+    //   description: 'Comprehensive preparation for government job exams with practice tests, study materials, and expert guidance.',
+    //   features: [
+    //     { emoji: '📚', title: 'Exam Preparation', description: 'Structured content aligned with major govt exams' },
+    //     { emoji: '✍️', title: 'Practice Tests', description: 'Take mock tests and assess your readiness' },
+    //     { emoji: '🎓', title: 'Career Guidance', description: 'Navigate different govt job opportunities' },
+    //   ]
+    // },
     'learn-leadership': {
       title: 'Develop Leadership Skills',
       description: 'Build essential leadership capabilities to inspire teams, drive change, and achieve organizational success.',

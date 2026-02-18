@@ -206,7 +206,8 @@ declare -A ports=(
   ["learn-companion"]="3023"
   ["learn-cricket"]="3009"
   ["learn-geography"]="3011"
-  ["learn-govt-jobs"]="3013"
+  # MOVED TO apps-backup as per cleanup requirements
+  # ["learn-govt-jobs"]="3013"
   ["learn-leadership"]="3015"
   ["learn-management"]="3016"
   ["learn-math"]="3017"

@@ -42,7 +42,8 @@ APPS=(
     "apps/main"
     "apps/learn-developer"
     "apps/learn-ai"
-    "apps/learn-govt-jobs"
+    # MOVED TO apps-backup as per cleanup requirements
+    # "apps/learn-govt-jobs"
     "apps/learn-management"
     "apps/learn-pr"
     "apps/learn-physics"

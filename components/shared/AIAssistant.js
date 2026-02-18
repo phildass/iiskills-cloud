@@ -72,7 +72,8 @@ export default function AIAssistant() {
       "learn-management": "management and business skills",
       "learn-leadership": "leadership development",
       "learn-geography": "geography and world exploration",
-      "learn-govt-jobs": "government job exam preparation",
+      // MOVED TO apps-backup as per cleanup requirements
+      // "learn-govt-jobs": "government job exam preparation",
       "learn-pr": "public relations and communication",
       "learn-winning": "success strategies and mindset",
     };

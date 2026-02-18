@@ -29,7 +29,8 @@ declare -A APPS=(
   ["learn-winning"]=3009
   ["learn-companion"]=3023
   ["learn-cricket"]=3024
-  ["learn-govt-jobs"]=3025
+  # MOVED TO apps-backup as per cleanup requirements
+  # ["learn-govt-jobs"]=3025
   ["learn-pr"]=3026
 )
 

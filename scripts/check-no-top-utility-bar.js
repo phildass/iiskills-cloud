@@ -45,8 +45,9 @@ const FILES_TO_CHECK = [
   'apps/learn-cricket/pages/index.js',
   'apps/learn-geography/pages/_app.js',
   'apps/learn-geography/pages/index.js',
-  'apps/learn-govt-jobs/pages/_app.js',
-  'apps/learn-govt-jobs/pages/index.js',
+  // MOVED TO apps-backup as per cleanup requirements
+  // 'apps/learn-govt-jobs/pages/_app.js',
+  // 'apps/learn-govt-jobs/pages/index.js',
   'apps/learn-leadership/pages/_app.js',
   'apps/learn-leadership/pages/index.js',
   'apps/learn-management/pages/_app.js',

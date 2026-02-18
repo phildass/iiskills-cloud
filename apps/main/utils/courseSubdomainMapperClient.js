@@ -20,7 +20,8 @@ const AVAILABLE_SUBDOMAINS = [
   "learn-chemistry",
   "learn-developer",
   "learn-geography",
-  "learn-govt-jobs",
+  // MOVED TO apps-backup as per cleanup requirements
+  // "learn-govt-jobs",
   "learn-management",
   "learn-math",
   "learn-physics",
@@ -37,7 +38,8 @@ const PORT_MAP = {
   "learn-chemistry": "3005",
   "learn-developer": "3001",
   "learn-geography": "3011",
-  "learn-govt-jobs": "3013",
+  // MOVED TO apps-backup as per cleanup requirements
+  // "learn-govt-jobs": "3013",
   "learn-management": "3016",
   "learn-math": "3017",
   "learn-physics": "3020",
@@ -65,8 +67,9 @@ export function normalizeCourseNameToSubdomain(courseName) {
     .replace(/aptitude/g, "apt") // Special case: aptitude -> apt
     .replace(/mathematics/g, "math") // Special case: mathematics -> math
     .replace(/maths/g, "math") // Special case: maths -> math
-    .replace(/government-jobs/g, "govt-jobs") // Special case: government jobs -> govt jobs
-    .replace(/government/g, "govt") // Special case: government -> govt
+    // MOVED TO apps-backup as per cleanup requirements
+    // .replace(/government-jobs/g, "govt-jobs") // Special case: government jobs -> govt jobs
+    // .replace(/government/g, "govt") // Special case: government -> govt
     .replace(/^-|-$/g, "") // Remove leading/trailing hyphens
     .trim();
 }

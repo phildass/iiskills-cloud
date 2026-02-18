@@ -163,21 +163,22 @@ const APP_CONTENT = {
       { id: 10, title: 'PR Strategy', description: 'Developing comprehensive PR campaigns', difficulty: 'Advanced', order: 10, lesson_count: 10 }
     ]
   },
-  'learn-govt-jobs': {
-    appName: 'Government Jobs',
-    modules: [
-      { id: 1, title: 'SSC Exam Preparation', description: 'Staff Selection Commission exam guide', difficulty: 'Beginner', order: 1, lesson_count: 10 },
-      { id: 2, title: 'Banking Exams', description: 'IBPS, SBI, and RBI exam preparation', difficulty: 'Beginner', order: 2, lesson_count: 10 },
-      { id: 3, title: 'Railway Exams', description: 'RRB and Railway recruitment preparation', difficulty: 'Beginner', order: 3, lesson_count: 10 },
-      { id: 4, title: 'State PSC Exams', description: 'State Public Service Commission preparation', difficulty: 'Intermediate', order: 4, lesson_count: 10 },
-      { id: 5, title: 'Teaching Jobs', description: 'CTET, TET, and teaching exam preparation', difficulty: 'Intermediate', order: 5, lesson_count: 10 },
-      { id: 6, title: 'Police & Defense', description: 'Police and defense service exam prep', difficulty: 'Intermediate', order: 6, lesson_count: 10 },
-      { id: 7, title: 'General Awareness', description: 'Current affairs and general knowledge', difficulty: 'Advanced', order: 7, lesson_count: 10 },
-      { id: 8, title: 'Interview Skills', description: 'Preparing for government job interviews', difficulty: 'Advanced', order: 8, lesson_count: 10 },
-      { id: 9, title: 'Application Process', description: 'How to apply for government jobs', difficulty: 'Advanced', order: 9, lesson_count: 10 },
-      { id: 10, title: 'Job Alerts & Updates', description: 'Stay updated on latest vacancies', difficulty: 'Advanced', order: 10, lesson_count: 10 }
-    ]
-  }
+  // MOVED TO apps-backup as per cleanup requirements
+  // 'learn-govt-jobs': {
+  //   appName: 'Government Jobs',
+  //   modules: [
+  //     { id: 1, title: 'SSC Exam Preparation', description: 'Staff Selection Commission exam guide', difficulty: 'Beginner', order: 1, lesson_count: 10 },
+  //     { id: 2, title: 'Banking Exams', description: 'IBPS, SBI, and RBI exam preparation', difficulty: 'Beginner', order: 2, lesson_count: 10 },
+  //     { id: 3, title: 'Railway Exams', description: 'RRB and Railway recruitment preparation', difficulty: 'Beginner', order: 3, lesson_count: 10 },
+  //     { id: 4, title: 'State PSC Exams', description: 'State Public Service Commission preparation', difficulty: 'Intermediate', order: 4, lesson_count: 10 },
+  //     { id: 5, title: 'Teaching Jobs', description: 'CTET, TET, and teaching exam preparation', difficulty: 'Intermediate', order: 5, lesson_count: 10 },
+  //     { id: 6, title: 'Police & Defense', description: 'Police and defense service exam prep', difficulty: 'Intermediate', order: 6, lesson_count: 10 },
+  //     { id: 7, title: 'General Awareness', description: 'Current affairs and general knowledge', difficulty: 'Advanced', order: 7, lesson_count: 10 },
+  //     { id: 8, title: 'Interview Skills', description: 'Preparing for government job interviews', difficulty: 'Advanced', order: 8, lesson_count: 10 },
+  //     { id: 9, title: 'Application Process', description: 'How to apply for government jobs', difficulty: 'Advanced', order: 9, lesson_count: 10 },
+  //     { id: 10, title: 'Job Alerts & Updates', description: 'Stay updated on latest vacancies', difficulty: 'Advanced', order: 10, lesson_count: 10 }
+  //   ]
+  // }
 };
 
 // Generate lessons for a module

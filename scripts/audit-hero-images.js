@@ -48,7 +48,8 @@ const APPS = [
   'learn-companion',
   'learn-cricket',
   'learn-geography',
-  'learn-govt-jobs',
+  // MOVED TO apps-backup as per cleanup requirements
+  // 'learn-govt-jobs',
   'learn-leadership',
   'learn-management',
   'learn-math',
