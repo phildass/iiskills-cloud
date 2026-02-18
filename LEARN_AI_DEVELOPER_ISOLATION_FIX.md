@@ -234,9 +234,9 @@ curl https://learn-developer.iiskills.cloud
 
 ## Bundle Payment Logic
 
-Both apps are correctly configured as a bundle:
+Both apps are correctly configured as a bundle in the existing course configuration:
 
-**apps/main/pages/courses.js:**
+**apps/main/pages/courses.js (existing file, not modified in this PR):**
 - Learn AI: `isBundle: true`, `bundleWith: "Learn Developer"`
 - Learn Developer: `isBundle: true`, `bundleWith: "Learn AI"`
 

@@ -4,8 +4,11 @@
 # Tests build isolation, environment configuration, and deployment readiness
 # for learn-ai and learn-developer apps
 #
+# Usage: ./diagnose-app-isolation.sh
+# If permission denied, run: chmod +x diagnose-app-isolation.sh
+#
 
-set -e
+# Don't exit on errors - we want to run all checks and report all issues
 
 echo "=================================="
 echo "App Isolation Diagnostic Tool"
