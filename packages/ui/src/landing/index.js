@@ -1,10 +1,7 @@
 // Landing page components
-// To be migrated from /components/shared/:
-// - UniversalLandingPage.js
-// - PaidAppLandingPage.js
-// - SharedHero.js
-// - HeroManager.js
-// - SampleLessonShowcase.js
-// - imageManifest.js
-
-// Placeholder exports (will be populated during migration)
+export { default as UniversalLandingPage } from './UniversalLandingPage';
+export { default as PaidAppLandingPage } from './PaidAppLandingPage';
+export { default as SharedHero } from './SharedHero';
+export { default as HeroManager } from './HeroManager';
+export { default as SampleLessonShowcase } from './SampleLessonShowcase';
+export { default as imageManifest } from './imageManifest';

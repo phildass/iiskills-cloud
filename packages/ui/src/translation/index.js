@@ -1,6 +1,3 @@
 // Translation components
-// To be migrated from /components/shared/:
-// - TranslationDisclaimer.js
-// - TranslationFeatureBanner.js
-
-// Placeholder exports (will be populated during migration)
+export { default as TranslationDisclaimer } from './TranslationDisclaimer';
+export { default as TranslationFeatureBanner } from './TranslationFeatureBanner';

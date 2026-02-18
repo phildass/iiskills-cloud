@@ -1,10 +1,7 @@
 // Navigation components
-// To be migrated from /components/shared/:
-// - SharedNavbar.js
-// - SubdomainNavbar.js
-// - AppSwitcher.js
-// - SiteHeader.js
-// - UniversalHeader.js
-// - canonicalNavLinks.js
-
-// Placeholder exports (will be populated during migration)
+export { default as SharedNavbar } from './SharedNavbar';
+export { default as SubdomainNavbar } from './SubdomainNavbar';
+export { default as AppSwitcher } from './AppSwitcher';
+export { default as SiteHeader } from './SiteHeader';
+export { default as UniversalHeader } from './UniversalHeader';
+export { default as canonicalNavLinks } from './canonicalNavLinks';
