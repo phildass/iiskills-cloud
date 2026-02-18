@@ -85,3 +85,12 @@ export {
   getAppConfig,
   getBundleConfig,
 } from './appConfig.js';
+
+// Payment guards and validation
+export {
+  guardFreeAppPayment,
+  withFreeAppGuard,
+  validatePaymentMethod,
+  validatePaymentBody,
+  guardPaymentEndpoint,
+} from './paymentGuard.js';

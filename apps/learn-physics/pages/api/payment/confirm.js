@@ -5,7 +5,7 @@ import {
   updatePaymentBundleInfo,
   getAppsToUnlock,
   getBundleInfo,
-  isFreeApp,
+  guardPaymentEndpoint,
 } from '../../../../../packages/access-control';
 
 // Initialize Supabase client with service role for server-side operations
@@ -27,25 +27,13 @@ function getSupabaseClient() {
 export default async function handler(req, res) {
   const appId = 'learn-physics';
   
-  // Free apps should not have payment endpoints
-  if (isFreeApp(appId)) {
-    return res.status(400).json({ 
-      error: 'This app is free and does not require payment',
-      appId,
-      isFree: true,
-    });
-  }
-
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
+  // Guard: Check method, free app status, and validate body
+  if (guardPaymentEndpoint(appId, req, res)) {
+    return; // Response already sent
   }
 
   try {
     const { transactionId, email, amount, userId } = req.body;
-
-    if (!transactionId || !email || !amount) {
-      return res.status(400).json({ error: 'Missing required fields' });
-    }
 
     // Verify payment (in production, verify with payment gateway)
     const paymentVerified = true; // TODO: Implement actual payment gateway verification
