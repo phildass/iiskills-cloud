@@ -84,14 +84,47 @@ See [ADDING_NEW_APP.md](ADDING_NEW_APP.md) for complete instructions. Quick chec
 
 ### Shared Component Changes
 
-When modifying files in `/components/shared/`:
+**CRITICAL**: Shared components affect ALL apps. Follow this strict policy:
 
-1. Test import in multiple apps (e.g., apps/main, apps/learn-ai)
+1. **Impact Assessment**:
+   ```bash
+   # Find all apps using the component
+   grep -r "ComponentName" apps/*/
+   ```
 
-2. Verify with: `yarn build` in the tested apps
+2. **Testing Requirements**:
+   - [ ] Test in **at least 2 different apps** manually
+   - [ ] Run E2E tests: `yarn test:e2e`
+   - [ ] Run unit tests: `yarn test`
+   - [ ] Visual regression check (screenshots)
+   - [ ] Verify in desktop + mobile
+
+3. **Documentation**:
+   - [ ] Update `SHARED_COMPONENTS_LIBRARY.md`
+   - [ ] Update component JSDoc comments
+   - [ ] Document breaking changes (if any)
+   - [ ] Update migration guide (if needed)
+
+4. **Deployment**:
+   - Must deploy to **all apps simultaneously**
+   - Never leave apps in inconsistent state
+   - Have rollback plan ready
+
+5. **PR Requirements**:
+   - [ ] Before/after screenshots for **every affected app**
+   - [ ] List of all apps tested
+   - [ ] Confirmation that all apps still build
+   - [ ] E2E test results
+
+**See also**: [DEPLOYMENT_POLICY.md](DEPLOYMENT_POLICY.md) for full deployment requirements.
 
 ### Pull Request Checklist
 
+**Pre-Merge Requirements** (see [DEPLOYMENT_POLICY.md](DEPLOYMENT_POLICY.md) for details):
+
+- [ ] All unit tests pass: `yarn test`
+- [ ] All E2E tests pass: `yarn test:e2e`
+- [ ] Config validation passes: `yarn validate-config`
 - [ ] All apps build successfully locally
 - [ ] Pre-deployment check passes
 - [ ] Content validation passes (if applicable): `npm run validate-content`
@@ -99,8 +132,11 @@ When modifying files in `/components/shared/`:
 - [ ] App registry updated (if new app): `npm run generate:registry`
 - [ ] No console errors in browser
 - [ ] Tested on localhost
+- [ ] **Screenshots provided** (for UI changes - desktop/tablet/mobile)
 - [ ] Updated documentation if needed
 - [ ] Added/updated content follows schema (if applicable)
+- [ ] **Code review approved** by senior developer
+- [ ] **Security scan passed** (if dependencies changed)
 
 ## GitHub Actions CI/CD
 
