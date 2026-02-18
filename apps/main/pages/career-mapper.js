@@ -89,7 +89,8 @@ const CAREER_PATHS = [
       salaryRange: "₹8-15 LPA",
       avgSalary: 11,
       prerequisites: [
-        { app: "learn-govt-jobs", minProgress: 50, weight: 0.4 },
+        // MOVED TO apps-backup as per cleanup requirements
+        // { app: "learn-govt-jobs", minProgress: 50, weight: 0.4 },
         { app: "learn-geography", minProgress: 40, weight: 0.3 },
         { app: "learn-apt", minProgress: 60, weight: 0.3 },
       ],
@@ -540,7 +541,7 @@ export default function CareerMapper() {
                             {app.id === 'learn-pr' && '📣'}
                             {app.id === 'learn-management' && '💼'}
                             {app.id === 'learn-developer' && '💻'}
-                            {app.id === 'learn-govt-jobs' && '🏛️'}
+                            {/* MOVED TO apps-backup: {app.id === 'learn-govt-jobs' && '🏛️'} */}
                           </div>
                           <p className="text-white text-xs font-medium">
                             {app.name.replace('Learn ', '')}
