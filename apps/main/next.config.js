@@ -1,8 +1,12 @@
 /** @type {import('next').NextConfig} */
 const path = require('path');
+const { getHeadersConfig } = require('../../config/security-headers');
 
 const nextConfig = {
   reactStrictMode: true,
+  
+  // Disable source maps in production for security
+  productionBrowserSourceMaps: false,
 
   // Turbopack configuration for module resolution
   turbopack: {
@@ -27,6 +31,12 @@ const nextConfig = {
   // Expose OPEN_ACCESS env var to the client side
   env: {
     NEXT_PUBLIC_OPEN_ACCESS: process.env.OPEN_ACCESS || process.env.NEXT_PUBLIC_OPEN_ACCESS || 'false',
+  },
+
+  // Security headers
+  async headers() {
+    const isDev = process.env.NODE_ENV === 'development';
+    return getHeadersConfig(isDev);
   },
 
   async rewrites() {

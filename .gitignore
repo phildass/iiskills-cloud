@@ -80,3 +80,4 @@ smoke-test-report-*.md
 apps/**/.env.local
 .env.local
 *.bak.*
+*.bak
