@@ -4,6 +4,26 @@
   "type": "module",
   "description": "Universal app access control system for iiskills-cloud with bundle logic",
   "main": "index.js",
+
+  "types": "index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "import": "./index.js"
+    }
+  },
+  "files": [
+    "*.js",
+    "*.d.ts",
+    "*.md",
+    "!*.test.js"
+  ],
+  "scripts": {
+    "lint": "eslint .",
+    "test": "node --experimental-vm-modules ../../node_modules/.bin/jest --testMatch='**/accessControl.test.js'",
+    "typecheck": "tsc --noEmit",
+    "build:types": "tsc --emitDeclarationOnly"
+
   "types": "src/types/index.ts",
   "exports": {
     ".": {
@@ -18,6 +38,7 @@
     "lint": "eslint .",
     "test": "node --experimental-vm-modules ../../node_modules/.bin/jest --testMatch='**/accessControl.test.js'",
     "typecheck": "tsc --noEmit"
+
   },
   "keywords": [
     "access-control",

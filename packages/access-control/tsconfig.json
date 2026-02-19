@@ -4,6 +4,10 @@
     "module": "ESNext",
     "lib": ["ES2020"],
     "moduleResolution": "node",
+
+    
+    // Enable all strict type checking options
+    "strict": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
@@ -15,6 +19,7 @@
     "rootDir": "./src",
     
     // Strict type checking options
+
     "noImplicitAny": true,
     "strictNullChecks": true,
     "strictFunctionTypes": true,
@@ -29,6 +34,38 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedIndexedAccess": true,
+
+    "noImplicitOverride": true,
+    
+    // Type checking for JavaScript
+    "allowJs": true,
+    "checkJs": false, // Set to true to enable full type checking for JS files
+    "maxNodeModuleJsDepth": 1,
+    
+    // Module options
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    
+    // Declaration files
+    "declaration": true,
+    "declarationMap": true,
+    "emitDeclarationOnly": false,
+    
+    // Output
+    "outDir": "./dist",
+    "rootDir": ".",
+    
+    // Other options
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": [
+    "**/*.js",
+    "**/*.ts",
+    "index.d.ts"
+
     
     // Module resolution
     "resolveJsonModule": true,
@@ -36,11 +73,17 @@
   },
   "include": [
     "src/**/*"
+
   ],
   "exclude": [
     "node_modules",
     "dist",
+
+    "**/*.test.js",
+    "**/*.test.ts"
+
     "**/*.test.ts",
     "**/*.test.js"
+
   ]
 }
