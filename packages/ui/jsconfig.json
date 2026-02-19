@@ -2,18 +2,16 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["../../*"],
-      "@shared/*": ["components/shared/*"],
-      "@components/*": ["components/*"],
-      "@lib/*": ["../../lib/*"],
+      "@/lib/*": ["./lib/*"],
+      "@lib/*": ["./lib/*"],
+      "@/utils/*": ["../../utils/*"],
       "@utils/*": ["../../utils/*"],
+      "@/config/*": ["../../config/*"],
       "@config/*": ["../../config/*"]
     }
   },
   "exclude": [
     "node_modules",
-    ".next",
-    "dist",
-    "build"
+    "dist"
   ]
 }

@@ -11,6 +11,9 @@ const nextConfig = {
   // Turbopack configuration for module resolution
   turbopack: {
     resolveAlias: {
+      '@/lib': path.resolve(__dirname, '../../lib'),
+      '@/utils': path.resolve(__dirname, '../../utils'),
+      '@/config': path.resolve(__dirname, '../../config'),
       '@lib': path.resolve(__dirname, '../../lib'),
       '@utils': path.resolve(__dirname, '../../utils'),
       '@config': path.resolve(__dirname, '../../config'),
@@ -21,6 +24,9 @@ const nextConfig = {
   webpack: (config) => {
     config.resolve.alias = {
       ...config.resolve.alias,
+      '@/lib': path.resolve(__dirname, '../../lib'),
+      '@/utils': path.resolve(__dirname, '../../utils'),
+      '@/config': path.resolve(__dirname, '../../config'),
       '@lib': path.resolve(__dirname, '../../lib'),
       '@utils': path.resolve(__dirname, '../../utils'),
       '@config': path.resolve(__dirname, '../../config'),

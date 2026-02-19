@@ -2,6 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
+      "@/*": ["../../*"],
       "@shared/*": ["../../components/shared/*"],
       "@components/*": ["../../components/*"],
       "@lib/*": ["../../lib/*"],
