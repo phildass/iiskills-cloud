@@ -268,10 +268,19 @@ export function useProtection(options = {}) {
   if (typeof window === 'undefined') return;
 
   const React = require('react');
-  const { useEffect } = React;
+  const { useEffect, useRef } = React;
+
+  // Store stringified options to detect changes without causing unnecessary re-renders
+  const optionsRef = useRef(JSON.stringify(options));
+  const currentOptionsStr = JSON.stringify(options);
 
   useEffect(() => {
+    // Only re-enable protections if options actually changed
+    if (optionsRef.current !== currentOptionsStr) {
+      optionsRef.current = currentOptionsStr;
+    }
+
     const cleanup = enableProtections(options);
     return cleanup;
-  }, [JSON.stringify(options)]);
+  }, [currentOptionsStr]); // Depend on string comparison, not object reference
 }
