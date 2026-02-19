@@ -256,10 +256,23 @@ Subscribe to security updates:
 
 ## Additional Resources
 
+### Core Documentation
 - [ARCHITECTURE.md](ARCHITECTURE.md) - System architecture overview
 - [DEPLOYMENT.md](DEPLOYMENT.md) - Secure deployment guide
 - [CONTRIBUTING.md](CONTRIBUTING.md) - Contribution guidelines
 - [SECURITY_AUDIT_REPORT.md](SECURITY_AUDIT_REPORT.md) - Latest security audit
+
+### Pre-Launch Security Resources (NEW)
+- **[Production Security Checklist](PRODUCTION_SECURITY_CHECKLIST.md)** - Complete pre-launch security verification checklist
+- **[Security Hardening Guide](SECURITY_HARDENING_GUIDE.md)** - Comprehensive security implementation guide
+- **[Credential Rotation Policy](CREDENTIAL_ROTATION_POLICY.md)** - Credential management and rotation procedures
+- **[Anti-Copy & Legal Protection](ANTI_COPY_LEGAL_PROTECTION.md)** - Content protection and legal measures
+
+### Security Tools
+- **Security Audit Script:** `./scripts/security-audit.sh` - Run automated security checks
+- **Production Config:** `.env.production.example` - Production-ready environment template
+- **Security Headers:** `config/security-headers.js` - HTTP security headers configuration
+- **Client Protection:** `utils/client-protection.js` - Client-side content protection utilities
 
 ## Questions?
 
