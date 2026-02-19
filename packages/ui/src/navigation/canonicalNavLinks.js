@@ -21,6 +21,7 @@
 export function getCanonicalLinks(appId = "main", isFreeApp = false) {
   const baseLinks = [
     { href: "/", label: "Home", className: "hover:text-primary transition" },
+    { href: "/apps-dashboard", label: "📱 Apps", className: "hover:text-primary transition" },
     { href: "/courses", label: "Courses", className: "hover:text-primary transition" },
     { href: "/certification", label: "Certification", className: "hover:text-primary transition" },
   ];
