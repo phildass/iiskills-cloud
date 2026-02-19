@@ -4,6 +4,7 @@ import Head from "next/head";
 import { useState, useEffect } from "react";
 import Hero, { getHeroImagesForApp } from "../../../components/shared/HeroManager";
 import { getPricingDisplay } from "../utils/pricing";
+import { UniversalInstallPrompt } from "@iiskills/ui";
 
 export default function Home() {
   const [randomImage1, setRandomImage1] = useState("");
@@ -67,7 +68,7 @@ export default function Home() {
         {/* CTA Buttons Below Hero */}
         <section className="py-8 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center flex-wrap">
               <Link
                 href="/register"
                 className="inline-block bg-white text-blue-600 border-2 border-blue-600 px-8 py-4 rounded-lg font-bold shadow-lg hover:bg-blue-50 hover:shadow-xl transition-all duration-200 text-center text-base sm:text-lg min-w-[240px]"
@@ -80,6 +81,23 @@ export default function Home() {
               >
                 Login
               </Link>
+              <Link
+                href="/apps-dashboard"
+                className="inline-block bg-purple-600 text-white px-8 py-4 rounded-lg font-bold hover:bg-purple-700 transition-all duration-200 text-center text-base sm:text-lg min-w-[240px] shadow-lg"
+              >
+                📱 Browse All Apps
+              </Link>
+            </div>
+            
+            {/* Install App Prompt */}
+            <div className="mt-6 flex justify-center">
+              <UniversalInstallPrompt 
+                currentAppId="main"
+                currentAppName="iiskills.cloud"
+                variant="button"
+                size="lg"
+                showMotherAppPromo={false}
+              />
             </div>
           </div>
         </section>

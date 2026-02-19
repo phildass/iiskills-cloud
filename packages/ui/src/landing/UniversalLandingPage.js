@@ -26,6 +26,7 @@ import CalibrationGatekeeper from "../content/CalibrationGatekeeper";
 import PremiumAccessPrompt from "../payment/PremiumAccessPrompt";
 
 import LevelSelector from "../content/LevelSelector";
+import UniversalInstallPrompt from "../pwa/UniversalInstallPrompt";
 
 
 /**
@@ -292,6 +293,17 @@ export default function UniversalLandingPage({
                 )}
               </div>
             )}
+            
+            {/* Install App Prompt */}
+            <div className="mt-6 flex justify-center">
+              <UniversalInstallPrompt 
+                currentAppId={appId}
+                currentAppName={appName}
+                variant="button"
+                size="md"
+                showMotherAppPromo={appId !== "main"}
+              />
+            </div>
           </div>
 
           {/* OPEN ACCESS: Paid App registration boxes removed - show Start Learning for all */}
