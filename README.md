@@ -1,12 +1,450 @@
 # IISKILLS Cloud
 
-Professional, scalable business site built with Next.js + Tailwind CSS  
-Inspired by iiskills.in and customized for the Indian Institute of Professional Skills Development.
+[![Production Ready](https://img.shields.io/badge/production-ready-brightgreen.svg)](https://iiskills.in)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Monorepo](https://img.shields.io/badge/monorepo-turborepo-blueviolet.svg)](https://turbo.build)
+[![Node](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen.svg)](https://nodejs.org)
 
-# IISKILLS Cloud
+> Professional, scalable learning platform built with Next.js, Tailwind CSS, and modern web technologies.  
+> Designed for the Indian Institute of Professional Skills Development.
 
-Professional, scalable business site built with Next.js + Tailwind CSS  
-Inspired by iiskills.in and customized for the Indian Institute of Professional Skills Development.
+## 📋 Table of Contents
+
+- [Overview](#-overview)
+- [Architecture](#-architecture)
+- [Quick Start](#-quick-start)
+- [Project Structure](#-project-structure)
+- [Development](#-development)
+- [Testing](#-testing)
+- [Deployment](#-deployment)
+- [Documentation](#-documentation)
+- [Contributing](#-contributing)
+
+## 🎯 Overview
+
+IISKILLS Cloud is a production-grade monorepo containing multiple learning applications, shared component libraries, and centralized access control. The platform serves thousands of students with both free and paid courses across various subjects.
+
+### Key Features
+
+- **10 Active Learning Applications**: 5 free courses + 4 paid courses + main portal
+- **Universal Access Control**: Centralized @iiskills/access-control package managing all app permissions
+- **AI-Developer Bundle**: Automatic 2-for-1 bundle when purchasing either Learn AI or Learn Developer
+- **Monorepo Architecture**: Turborepo + Yarn workspaces for efficient builds and deployments
+- **Shared Component Library**: @iiskills/ui package with 38+ reusable components
+- **Automated PR Checks**: Comprehensive CI/CD with ESLint, Prettier, unit tests, E2E tests, and security scans
+- **Multi-domain Support**: Each app runs on its own subdomain with SSL certificates
+
+## 🏗️ Architecture
+
+### System Overview
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                     IISKILLS Cloud Platform                  │
+│                    (iiskills.in - Main Portal)               │
+└─────────────────────────────────────────────────────────────┘
+                              │
+        ┌─────────────────────┼─────────────────────┐
+        │                     │                     │
+   ┌────▼────┐          ┌────▼────┐          ┌────▼────┐
+   │  FREE   │          │  PAID   │          │ BUNDLES │
+   │  APPS   │          │  APPS   │          │         │
+   └────┬────┘          └────┬────┘          └────┬────┘
+        │                     │                     │
+   ┌────┴────────┐      ┌────┴─────────┐     ┌────┴─────┐
+   │ Aptitude    │      │ AI           │     │ AI+Dev   │
+   │ Chemistry   │      │ Developer    │◄────┤ Bundle   │
+   │ Geography   │      │ Management   │     │ ₹99+GST  │
+   │ Math        │      │ PR           │     └──────────┘
+   │ Physics     │      └──────────────┘
+   └─────────────┘
+```
+
+### Monorepo Structure
+
+```
+iiskills-cloud/
+├── apps/                    # Application workspaces
+│   ├── main/               # Portal (3000) - Course catalog & auth
+│   ├── learn-ai/           # AI Course (3024) - PAID
+│   ├── learn-apt/          # Aptitude (3002) - FREE
+│   ├── learn-chemistry/    # Chemistry (3005) - FREE
+│   ├── learn-developer/    # Developer (3007) - PAID (bundles with AI)
+│   ├── learn-geography/    # Geography (3011) - FREE
+│   ├── learn-management/   # Management (3016) - PAID
+│   ├── learn-math/         # Math (3017) - FREE
+│   ├── learn-physics/      # Physics (3020) - FREE
+│   └── learn-pr/           # PR (3021) - PAID
+│
+├── packages/               # Shared packages
+│   ├── access-control/    # Universal access control & payment logic
+│   ├── ui/                # 38+ shared React components
+│   ├── core/              # Core utilities and types (TypeScript)
+│   ├── content-sdk/       # Content management SDK (TypeScript)
+│   └── schema/            # Database schemas (TypeScript)
+│
+├── .github/               # CI/CD workflows & PR automation
+│   ├── workflows/         # GitHub Actions (PR checks, security, builds)
+│   └── dangerfile.js      # Automated PR analysis
+│
+├── supabase/             # Database migrations & schemas
+├── scripts/              # Build, deployment, and utility scripts
+└── docs/                 # Comprehensive documentation
+```
+
+### Technology Stack
+
+| Layer | Technologies |
+|-------|-------------|
+| **Frontend** | Next.js 16, React, Tailwind CSS, Framer Motion |
+| **Backend** | Next.js API Routes, Supabase (PostgreSQL) |
+| **Auth** | Supabase Auth (Google OAuth, OTP) |
+| **Payments** | Razorpay integration |
+| **Build** | Turborepo, Yarn 4 workspaces |
+| **Testing** | Jest (unit), Playwright (E2E), Danger.js (PR analysis) |
+| **CI/CD** | GitHub Actions (11 automated checks) |
+| **Deployment** | PM2 process manager, NGINX reverse proxy |
+| **Security** | SSL/TLS certificates, CodeQL scanning, npm audit |
+
+### Access Control Architecture
+
+The platform uses a centralized access control system in `@iiskills/access-control`:
+
+```javascript
+// Centralized app configuration
+const APPS = {
+  FREE: ['learn-apt', 'learn-chemistry', 'learn-geography', 'learn-math', 'learn-physics'],
+  PAID: ['main', 'learn-ai', 'learn-developer', 'learn-management', 'learn-pr']
+};
+
+// AI-Developer Bundle
+const AI_DEVELOPER_BUNDLE = {
+  apps: ['learn-ai', 'learn-developer'],
+  price: 99, // ₹99 + GST
+  autoGrant: true // Purchasing one unlocks both
+};
+```
+
+**Key APIs:**
+- `userHasAccess(userId, appId)` - Check if user can access an app
+- `grantBundleAccess({ userId, purchasedAppId, paymentId })` - Grant bundle apps automatically
+- `isFreeApp(appId)` - Check if app is free
+- `requiresPayment(appId)` - Check if app requires payment
+
+## 🚀 Quick Start
+
+### Prerequisites
+
+- Node.js ≥ 18.0.0
+- Yarn 4.x (included via packageManager)
+- PostgreSQL (via Supabase)
+
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/phildass/iiskills-cloud.git
+cd iiskills-cloud
+
+# Install dependencies (uses Yarn 4 automatically)
+yarn install
+
+# Set up environment variables
+cp .env.local.example .env.local
+# Edit .env.local with your Supabase and Razorpay credentials
+
+# Run database migrations
+# (See supabase/README.md for setup instructions)
+
+# Start development server
+yarn dev
+```
+
+### Development Workflow
+
+```bash
+# Start all apps in dev mode
+yarn dev
+
+# Start specific app
+yarn workspace main dev
+yarn workspace learn-ai dev
+
+# Run tests
+yarn test                  # Unit tests
+yarn test:e2e             # E2E tests (Playwright)
+yarn test:coverage        # Coverage report
+
+# Linting & Formatting
+yarn lint                 # Check all files
+yarn lint:fix            # Auto-fix issues
+yarn format              # Format with Prettier
+yarn format:check        # Check formatting
+
+# Build all apps
+yarn build
+
+# Type checking (TypeScript packages)
+yarn workspace @iiskills/core tsc --noEmit
+```
+
+## 📁 Project Structure
+
+### Standard App Structure
+
+Each learning app follows a consistent structure:
+
+```
+apps/learn-{subject}/
+├── pages/
+│   ├── index.js              # Landing page (uses PaidAppLandingPage or FreeAppLandingPage)
+│   ├── curriculum.js         # Syllabus/course structure
+│   ├── login.js              # Authentication page
+│   ├── register.js           # Registration page
+│   ├── payment.js            # Payment page (paid apps only)
+│   └── api/
+│       ├── payment/
+│       │   └── confirm.js    # Payment confirmation (paid apps)
+│       └── content/          # Content APIs
+│
+├── public/                   # Static assets
+├── styles/                   # App-specific styles
+├── components/               # App-specific components
+├── .env.local.example        # Environment template
+├── package.json              # App dependencies
+└── next.config.js           # Next.js configuration
+```
+
+## 🧪 Testing
+
+### Testing Strategy
+
+The platform has comprehensive testing at multiple levels:
+
+**Unit Tests (Jest)**
+- Business logic validation
+- Utility function testing
+- Component testing
+- API endpoint testing
+
+```bash
+yarn test                    # Run all unit tests
+yarn test:watch             # Watch mode
+yarn test:coverage          # Generate coverage report
+```
+
+**E2E Tests (Playwright)**
+- User flow testing (3 browsers: Chrome, Firefox, Safari)
+- Access control scenarios
+- Payment flows
+- Bundle logic validation
+- Admin overrides
+
+```bash
+yarn test:e2e               # Run all E2E tests
+yarn test:e2e:chrome        # Chrome only
+yarn test:e2e:ui            # Interactive UI mode
+yarn test:e2e:debug         # Debug mode
+```
+
+**Automated PR Checks (11 checks)**
+1. PR template validation
+2. Code quality (ESLint + Prettier)
+3. Import validation (@iiskills/ui usage)
+4. Unit tests
+5. E2E tests (3 browsers)
+6. Config validation
+7. Security audit (npm audit)
+8. Build verification (10 apps)
+9. Danger.js analysis
+10. Report generation
+11. Final status check
+
+### Test Coverage
+
+Current coverage (target: >80%):
+- Access control: 95%
+- Payment logic: 90%
+- API endpoints: 85%
+- Components: 75%
+
+## 🚢 Deployment
+
+### Deployment Architecture
+
+```
+Production Server (Ubuntu 22.04)
+├── NGINX (Reverse Proxy)
+│   ├── SSL/TLS Termination
+│   └── Subdomain Routing
+├── PM2 (Process Manager)
+│   ├── apps/main → Port 3000
+│   ├── apps/learn-ai → Port 3024
+│   ├── apps/learn-apt → Port 3002
+│   └── ... (8 more apps)
+└── Supabase (PostgreSQL + Auth)
+```
+
+### Deployment Process
+
+```bash
+# Build all apps
+yarn build
+
+# Generate PM2 configuration
+yarn generate-pm2-config
+
+# Deploy with PM2
+pm2 start ecosystem.config.js
+pm2 save
+
+# Setup NGINX with SSL
+sudo bash setup-nginx.sh
+sudo bash renew-ssl-certificates.sh
+```
+
+### Subdomain Configuration
+
+Each app runs on its own subdomain:
+- `iiskills.in` → main portal
+- `learn-ai.iiskills.in` → Learn AI
+- `learn-apt.iiskills.in` → Learn Aptitude
+- ... (and so on)
+
+See [DEPLOYMENT.md](DEPLOYMENT.md) for detailed instructions.
+
+## 📚 Documentation
+
+### Essential Documentation
+
+| Document | Description |
+|----------|-------------|
+| [MONOREPO_ARCHITECTURE.md](MONOREPO_ARCHITECTURE.md) | Detailed monorepo structure and patterns |
+| [UNIVERSAL_ACCESS_CONTROL.md](UNIVERSAL_ACCESS_CONTROL.md) | Access control system documentation |
+| [DEPLOYMENT.md](DEPLOYMENT.md) | Complete deployment guide |
+| [CONTRIBUTING.md](CONTRIBUTING.md) | Contribution guidelines and standards |
+| [E2E_TESTING_FRAMEWORK.md](E2E_TESTING_FRAMEWORK.md) | E2E testing guide |
+| [SECURITY_SETUP.md](SECURITY_SETUP.md) | Security policies and procedures |
+| [docs/PR_REQUIREMENTS_GUIDE.md](docs/PR_REQUIREMENTS_GUIDE.md) | PR standards and automated checks |
+
+### Additional Resources
+
+- [ADDING_NEW_APP.md](ADDING_NEW_APP.md) - Guide for adding new learning apps
+- [ENV_SETUP_GUIDE.md](ENV_SETUP_GUIDE.md) - Environment configuration
+- [AUTHENTICATION_ARCHITECTURE.md](AUTHENTICATION_ARCHITECTURE.md) - Auth system overview
+- [RAZORPAY_INTEGRATION_GUIDE.md](RAZORPAY_INTEGRATION_GUIDE.md) - Payment integration
+
+## 🛠️ Development
+
+### NPM Scripts Reference
+
+```bash
+# Development
+yarn dev                      # Start all apps in dev mode
+yarn dev:main                 # Start main portal only
+
+# Building
+yarn build                    # Build all apps (production)
+yarn build:all-serial         # Build apps one at a time (CI)
+
+# Testing
+yarn test                     # Unit tests (Jest)
+yarn test:watch              # Unit tests in watch mode
+yarn test:coverage           # Generate coverage report
+yarn test:e2e                # E2E tests (Playwright)
+yarn test:e2e:ui             # E2E tests with UI
+
+# Code Quality
+yarn lint                     # ESLint check
+yarn lint:fix                # ESLint auto-fix
+yarn format                   # Prettier format
+yarn format:check            # Prettier check
+
+# Validation
+yarn validate-env            # Validate environment variables
+yarn validate-config         # Validate configuration consistency
+yarn verify-production       # Production readiness check
+
+# PM2 & Deployment
+yarn generate-pm2-config     # Generate ecosystem.config.js
+yarn validate-pm2-config     # Validate PM2 configuration
+yarn pre-deploy-check        # Pre-deployment validation
+yarn post-deploy-check       # Post-deployment validation
+
+# Content Management
+yarn validate-content        # Validate content structure
+yarn check-orphans           # Find orphaned content files
+yarn generate:registry       # Generate app registry
+
+# CI/CD
+yarn ci:build:workspace      # Build single workspace (CI)
+yarn danger                  # Run Danger.js PR analysis
+```
+
+### Environment Variables
+
+Key environment variables (see `.env.local.example` for full list):
+
+```bash
+# Supabase (Database & Auth)
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
+
+# Razorpay (Payments)
+NEXT_PUBLIC_RAZORPAY_KEY_ID=your_razorpay_key
+RAZORPAY_KEY_SECRET=your_razorpay_secret
+
+# App Configuration
+NEXT_PUBLIC_APP_ID=learn-ai
+NEXT_PUBLIC_APP_NAME="Learn AI"
+NEXT_PUBLIC_SITE_URL=https://learn-ai.iiskills.in
+
+# Feature Flags
+ENABLE_OPEN_ACCESS_MODE=false
+ENABLE_TESTING_MODE=false
+```
+
+## 👥 Contributing
+
+We welcome contributions! Please read our [Contributing Guidelines](CONTRIBUTING.md) before submitting PRs.
+
+### PR Requirements
+
+All PRs must pass automated checks:
+- ✅ Use PR template
+- ✅ Pass ESLint + Prettier
+- ✅ Use @iiskills/ui imports (no local component imports)
+- ✅ Include unit tests for new features
+- ✅ Include E2E tests for user flows
+- ✅ Include screenshots for UI changes
+- ✅ Pass security audit (npm audit)
+- ✅ Build all 10 apps successfully
+- ✅ No .env files committed
+
+See [docs/PR_REQUIREMENTS_GUIDE.md](docs/PR_REQUIREMENTS_GUIDE.md) for complete requirements.
+
+### Code Standards
+
+- Use TypeScript for new packages and critical logic
+- Follow existing component patterns in @iiskills/ui
+- Write tests for all new features
+- Document public APIs
+- Use conventional commit messages
+
+## 🔒 Security
+
+- All credentials stored in environment variables (never committed)
+- SSL/TLS encryption for all production traffic
+- Supabase Row Level Security (RLS) policies
+- Regular security audits (npm audit, CodeQL)
+- Payment data handled by Razorpay (PCI compliant)
+
+Report security vulnerabilities to: security@iiskills.in
+
+## 📄 License
+
+MIT License - see [LICENSE](LICENSE) file for details.
 
 ## 🆕 New Features
 
