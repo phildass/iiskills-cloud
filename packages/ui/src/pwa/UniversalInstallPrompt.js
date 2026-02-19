@@ -106,8 +106,10 @@ export default function UniversalInstallPrompt({
 
   const handleMotherAppClick = () => {
     // Navigate to main app
+    // Uses environment variable or defaults to production URL
     if (typeof window !== "undefined") {
-      window.location.href = "https://iiskills.cloud";
+      const mainAppUrl = process.env.NEXT_PUBLIC_MAIN_APP_URL || "https://iiskills.cloud";
+      window.location.href = mainAppUrl;
     }
   };
 

@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
+// Import from @iiskills/access-control package for app configuration
+// This path is relative to the main app structure: apps/main → packages/access-control
 import { APPS } from "../../../../packages/access-control/appConfig";
 
 /**

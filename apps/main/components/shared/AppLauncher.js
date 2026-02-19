@@ -45,12 +45,18 @@ export default function AppLauncher({
       }
       
       // Check localStorage for installation tracking (apps should set this on first launch)
-      Object.keys(APPS).forEach(appId => {
-        const isInstalled = localStorage.getItem(`app_installed_${appId}`);
-        if (isInstalled === 'true') {
-          installed.add(appId);
-        }
-      });
+      // Wrap in try-catch to handle browsers with strict privacy settings or disabled storage
+      try {
+        Object.keys(APPS).forEach(appId => {
+          const isInstalled = localStorage.getItem(`app_installed_${appId}`);
+          if (isInstalled === 'true') {
+            installed.add(appId);
+          }
+        });
+      } catch (error) {
+        console.warn('localStorage access blocked or disabled:', error);
+        // Continue with just the standalone mode detection
+      }
       
       setInstalledApps(installed);
     };
