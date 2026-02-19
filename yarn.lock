@@ -1543,6 +1543,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@iiskills/access-control@workspace:packages/access-control":
+  version: 0.0.0-use.local
+  resolution: "@iiskills/access-control@workspace:packages/access-control"
+  dependencies:
+    typescript: "npm:^5.9.3"
+  peerDependencies:
+    "@supabase/supabase-js": ^2.0.0
+  languageName: unknown
+  linkType: soft
+
 "@iiskills/content-sdk@workspace:packages/content-sdk":
   version: 0.0.0-use.local
   resolution: "@iiskills/content-sdk@workspace:packages/content-sdk"
