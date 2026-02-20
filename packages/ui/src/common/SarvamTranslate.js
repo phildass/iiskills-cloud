@@ -3,23 +3,23 @@
 import { useState, useEffect } from "react";
 
 /**
- * Sarvam API Translation Component
+ * Translation Component
  *
  * Provides multi-language translation support across all iiskills learning apps
- * using the Sarvam AI translation API (https://sarvam.ai/).
+ * using the Google Cloud Translation API (https://cloud.google.com/translate).
  *
  * Supports 11 major Indian languages plus English:
- * - Hindi (hi-IN) - 528M speakers
- * - Tamil (ta-IN) - 79M speakers
- * - Telugu (te-IN) - 95M speakers
- * - Bengali (bn-IN) - 97M speakers
- * - Marathi (mr-IN) - 83M speakers
- * - Gujarati (gu-IN) - 56M speakers
- * - Kannada (kn-IN) - 44M speakers
- * - Malayalam (ml-IN) - 38M speakers
- * - Punjabi (pa-IN) - 33M speakers
- * - Odia (or-IN) - 38M speakers
- * - Urdu (ur-IN) - 51M speakers
+ * - Hindi (hi) - 528M speakers
+ * - Tamil (ta) - 79M speakers
+ * - Telugu (te) - 95M speakers
+ * - Bengali (bn) - 97M speakers
+ * - Marathi (mr) - 83M speakers
+ * - Gujarati (gu) - 56M speakers
+ * - Kannada (kn) - 44M speakers
+ * - Malayalam (ml) - 38M speakers
+ * - Punjabi (pa) - 33M speakers
+ * - Odia (or) - 38M speakers
+ * - Urdu (ur) - 51M speakers
  *
  * Usage: <SarvamTranslate />
  *
@@ -27,22 +27,22 @@ import { useState, useEffect } from "react";
  */
 
 const LANGUAGES = [
-  { code: "en-IN", label: "English" },
-  { code: "hi-IN", label: "हिंदी" },
-  { code: "ta-IN", label: "தமிழ்" },
-  { code: "te-IN", label: "తెలుగు" },
-  { code: "bn-IN", label: "বাংলা" },
-  { code: "mr-IN", label: "मराठी" },
-  { code: "gu-IN", label: "ગુજરાતી" },
-  { code: "kn-IN", label: "ಕನ್ನಡ" },
-  { code: "ml-IN", label: "മലയാളം" },
-  { code: "pa-IN", label: "ਪੰਜਾਬੀ" },
-  { code: "or-IN", label: "ଓଡ଼ିଆ" },
-  { code: "ur-IN", label: "اردو" },
+  { code: "en", label: "English" },
+  { code: "hi", label: "हिंदी" },
+  { code: "ta", label: "தமிழ்" },
+  { code: "te", label: "తెలుగు" },
+  { code: "bn", label: "বাংলা" },
+  { code: "mr", label: "मराठी" },
+  { code: "gu", label: "ગુજરાતી" },
+  { code: "kn", label: "ಕನ್ನಡ" },
+  { code: "ml", label: "മലയാളം" },
+  { code: "pa", label: "ਪੰਜਾਬੀ" },
+  { code: "or", label: "ଓଡ଼ିଆ" },
+  { code: "ur", label: "اردو" },
 ];
 
 export default function SarvamTranslate() {
-  const [selectedLang, setSelectedLang] = useState("en-IN");
+  const [selectedLang, setSelectedLang] = useState("en");
   const [isTranslating, setIsTranslating] = useState(false);
 
   useEffect(() => {
@@ -65,7 +65,7 @@ export default function SarvamTranslate() {
       // localStorage not available
     }
 
-    if (targetLang === "en-IN") {
+    if (targetLang === "en") {
       // Reset to English - reload to restore original content
       window.location.reload();
       return;
@@ -73,7 +73,7 @@ export default function SarvamTranslate() {
 
     setIsTranslating(true);
     try {
-      // Translate visible text nodes on the page via Sarvam API proxy
+      // Translate visible text nodes on the page via Google Translate API proxy
       const textNodes = [];
       const walker = document.createTreeWalker(
         document.body,
