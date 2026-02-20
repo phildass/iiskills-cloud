@@ -8,65 +8,65 @@ const SUPPORT_EMAIL = 'support@iiskills.cloud';
 
 const INTERMEDIATE_QUESTIONS = [
   {
-    question: "What is the solution to the equation 2x² - 8 = 0?",
+    question: "In JavaScript, what is the difference between `let` and `const`?",
     options: [
-      "x = 2 only",
-      "x = 2 or x = -2",
-      "x = 4 or x = -4",
-      "x = 8"
+      "There is no difference — both are identical",
+      "`let` allows reassignment while `const` creates a binding that cannot be reassigned",
+      "`const` allows reassignment while `let` does not",
+      "`let` is only used inside functions; `const` is used globally"
     ],
     correctAnswer: 1
   },
   {
-    question: "In a right-angled triangle, the sine of an angle θ is defined as:",
+    question: "What does a RESTful API use to indicate a resource was successfully created?",
     options: [
-      "Adjacent side / Hypotenuse",
-      "Opposite side / Hypotenuse",
-      "Opposite side / Adjacent side",
-      "Hypotenuse / Adjacent side"
+      "HTTP status code 200 OK",
+      "HTTP status code 201 Created",
+      "HTTP status code 204 No Content",
+      "HTTP status code 301 Moved Permanently"
     ],
     correctAnswer: 1
   },
   {
-    question: "What is the sum of interior angles of a hexagon?",
+    question: "Which of the following best describes a primary key in a relational database?",
     options: [
-      "360°",
-      "540°",
-      "720°",
-      "900°"
+      "A column that can contain duplicate and null values",
+      "A unique identifier for each row in a table that cannot be null",
+      "A foreign key linking two tables",
+      "An index created automatically on every column"
     ],
-    correctAnswer: 2
+    correctAnswer: 1
   }
 ];
 
 const ADVANCED_QUESTIONS = [
   {
-    question: "What does the derivative f′(x) represent geometrically?",
+    question: "In system design, what is the primary purpose of a load balancer?",
     options: [
-      "The area under the curve at point x",
-      "The slope of the tangent line to the curve y = f(x) at point x",
-      "The total length of the curve from 0 to x",
-      "The second-order rate of change"
+      "To store and cache database queries",
+      "To distribute incoming traffic across multiple servers to improve scalability and availability",
+      "To compress static assets for faster delivery",
+      "To handle database transactions"
     ],
     correctAnswer: 1
   },
   {
-    question: "In linear algebra, what does the determinant of a square matrix tell you?",
+    question: "Which pattern is commonly used to decouple microservices and enable asynchronous communication?",
     options: [
-      "The trace (sum of diagonal elements) of the matrix",
-      "Whether the matrix is invertible — a non-zero determinant means the matrix is invertible",
-      "The number of rows and columns in the matrix",
-      "The transpose of the matrix"
+      "Direct synchronous REST calls between services",
+      "Message queues or event buses such as Kafka or RabbitMQ",
+      "Shared database tables accessed by all services",
+      "Monolithic function calls"
     ],
     correctAnswer: 1
   },
   {
-    question: "What is the result of integrating f(x) = 3x² from x = 0 to x = 2?",
+    question: "What is the purpose of a CI/CD pipeline in full-stack development?",
     options: [
-      "6",
-      "8",
-      "12",
-      "24"
+      "To manually test each feature before release",
+      "To automate the building, testing, and deployment of code changes to production",
+      "To store secrets and environment variables securely",
+      "To manage DNS records and SSL certificates"
     ],
     correctAnswer: 1
   }
@@ -77,14 +77,14 @@ const LEARNING_PATHS = [
     id: 'basic',
     title: 'Basic',
     emoji: '🟢',
-    description: 'Start with maths fundamentals — numbers, fractions, basic algebra, and arithmetic.',
+    description: 'Start with developer fundamentals — HTML/CSS, Git, basic JavaScript, and web concepts.',
     requiresTest: false
   },
   {
     id: 'intermediate',
     title: 'Intermediate',
     emoji: '🔵',
-    description: 'Apply maths concepts — algebra, geometry, trigonometry, and probability.',
+    description: 'Apply developer skills — REST APIs, databases, JavaScript frameworks, and version control.',
     requiresTest: true,
     questions: INTERMEDIATE_QUESTIONS
   },
@@ -92,7 +92,7 @@ const LEARNING_PATHS = [
     id: 'advanced',
     title: 'Advanced',
     emoji: '🟣',
-    description: 'Master advanced maths — calculus, linear algebra, differential equations, and statistics.',
+    description: 'Master full-stack production — system design, microservices, CI/CD, and scalable architecture.',
     requiresTest: true,
     questions: ADVANCED_QUESTIONS
   }
@@ -157,7 +157,7 @@ export default function Onboarding() {
   };
 
   const handleProceedToPayment = () => {
-    window.open(`${PAYMENT_URL}?course=learn-math&level=${approvedLevel}`, '_blank');
+    window.open(`${PAYMENT_URL}?course=learn-developer&level=${approvedLevel}`, '_blank');
     setStep('otp');
   };
 
@@ -192,7 +192,7 @@ export default function Onboarding() {
     return (
       <>
         <Head>
-          <title>Welcome - Learn Math</title>
+          <title>Welcome - Learn Developer</title>
         </Head>
         <main className="min-h-screen bg-gray-50 py-12">
           <div className="container mx-auto px-4 max-w-2xl text-center">
@@ -200,11 +200,11 @@ export default function Onboarding() {
               <div className="text-7xl mb-4">🎉</div>
               <h1 className="text-3xl font-bold text-green-600 mb-4">Access Granted!</h1>
               <p className="text-lg text-gray-700 mb-6">
-                Welcome to the <strong>{approvedLevel ? approvedLevel.charAt(0).toUpperCase() + approvedLevel.slice(1) : ''}</strong> path. Your Maths journey begins now!
+                Welcome to the <strong>{approvedLevel ? approvedLevel.charAt(0).toUpperCase() + approvedLevel.slice(1) : ''}</strong> path. Your Developer journey begins now!
               </p>
               <a
                 href="/curriculum"
-                className="inline-block bg-gradient-to-r from-orange-600 to-amber-600 text-white px-8 py-4 rounded-lg font-bold text-lg hover:opacity-90 transition shadow-lg"
+                className="inline-block bg-gradient-to-r from-green-600 to-teal-600 text-white px-8 py-4 rounded-lg font-bold text-lg hover:opacity-90 transition shadow-lg"
               >
                 Go to Curriculum →
               </a>
@@ -219,7 +219,7 @@ export default function Onboarding() {
     return (
       <>
         <Head>
-          <title>Enter OTP - Learn Math</title>
+          <title>Enter OTP - Learn Developer</title>
         </Head>
         <main className="min-h-screen bg-gray-50 py-12">
           <div className="container mx-auto px-4 max-w-md">
@@ -244,7 +244,7 @@ export default function Onboarding() {
                     value={otp}
                     onChange={(e) => setOtp(e.target.value.replace(/\D/g, '').slice(0, 6))}
                     placeholder="000000"
-                    className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg text-center text-2xl font-bold tracking-widest focus:ring-2 focus:ring-orange-600 focus:border-orange-600"
+                    className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg text-center text-2xl font-bold tracking-widest focus:ring-2 focus:ring-green-600 focus:border-green-600"
                   />
                 </div>
                 {otpError && (
@@ -263,7 +263,7 @@ export default function Onboarding() {
                 <button
                   type="submit"
                   disabled={otpLoading || otp.length !== 6}
-                  className="w-full bg-gradient-to-r from-orange-600 to-amber-600 text-white py-3 rounded-lg font-bold text-lg disabled:opacity-50 disabled:cursor-not-allowed hover:opacity-90 transition"
+                  className="w-full bg-gradient-to-r from-green-600 to-teal-600 text-white py-3 rounded-lg font-bold text-lg disabled:opacity-50 disabled:cursor-not-allowed hover:opacity-90 transition"
                 >
                   {otpLoading ? 'Verifying...' : 'Verify & Unlock Access'}
                 </button>
@@ -271,7 +271,7 @@ export default function Onboarding() {
               <div className="mt-6 text-center text-sm text-gray-500">
                 <p>
                   Having problems?{' '}
-                  <a href={`mailto:${SUPPORT_EMAIL}`} className="text-orange-600 underline font-semibold">
+                  <a href={`mailto:${SUPPORT_EMAIL}`} className="text-green-600 underline font-semibold">
                     Contact {SUPPORT_EMAIL}
                   </a>
                 </p>
@@ -289,7 +289,7 @@ export default function Onboarding() {
     return (
       <>
         <Head>
-          <title>Proceed to Payment - Learn Math</title>
+          <title>Proceed to Payment - Learn Developer</title>
         </Head>
         <main className="min-h-screen bg-gray-50 py-12">
           <div className="container mx-auto px-4 max-w-md">
@@ -329,7 +329,7 @@ export default function Onboarding() {
               </div>
               <button
                 onClick={handleProceedToPayment}
-                className="w-full bg-gradient-to-r from-orange-600 to-amber-600 text-white py-4 rounded-lg font-bold text-lg hover:opacity-90 transition shadow-lg mb-3"
+                className="w-full bg-gradient-to-r from-green-600 to-teal-600 text-white py-4 rounded-lg font-bold text-lg hover:opacity-90 transition shadow-lg mb-3"
               >
                 💳 Proceed to Payment
               </button>
@@ -352,7 +352,7 @@ export default function Onboarding() {
     return (
       <>
         <Head>
-          <title>{selectedPath.title} Test - Learn Math</title>
+          <title>{selectedPath.title} Test - Learn Developer</title>
         </Head>
         <main className="min-h-screen bg-gray-50 py-12">
           <div className="container mx-auto px-4 max-w-2xl">
@@ -367,7 +367,7 @@ export default function Onboarding() {
               </div>
               <div className="w-full bg-gray-200 rounded-full h-2 mb-6">
                 <div
-                  className="bg-gradient-to-r from-orange-600 to-amber-600 h-2 rounded-full transition-all"
+                  className="bg-gradient-to-r from-green-600 to-teal-600 h-2 rounded-full transition-all"
                   style={{ width: `${((currentQuestion) / questions.length) * 100}%` }}
                 />
               </div>
@@ -381,11 +381,11 @@ export default function Onboarding() {
                     onClick={() => handleAnswerSelect(idx)}
                     className={`w-full text-left p-4 rounded-xl border-2 transition ${
                       selectedAnswer === idx
-                        ? 'bg-orange-50 border-orange-500 shadow-md'
+                        ? 'bg-green-50 border-green-500 shadow-md'
                         : 'bg-white border-gray-200 hover:border-gray-300'
                     }`}
                   >
-                    <span className="font-bold text-orange-600 mr-3">
+                    <span className="font-bold text-green-600 mr-3">
                       {String.fromCharCode(65 + idx)}.
                     </span>
                     <span className="text-gray-900">{option}</span>
@@ -402,7 +402,7 @@ export default function Onboarding() {
                 <button
                   onClick={handleNextQuestion}
                   disabled={selectedAnswer === null}
-                  className="flex-1 bg-gradient-to-r from-orange-600 to-amber-600 text-white py-3 rounded-lg font-bold disabled:opacity-50 disabled:cursor-not-allowed hover:opacity-90 transition"
+                  className="flex-1 bg-gradient-to-r from-green-600 to-teal-600 text-white py-3 rounded-lg font-bold disabled:opacity-50 disabled:cursor-not-allowed hover:opacity-90 transition"
                 >
                   {currentQuestion + 1 < questions.length ? 'Next Question →' : 'Submit Test'}
                 </button>
@@ -420,18 +420,18 @@ export default function Onboarding() {
   return (
     <>
       <Head>
-        <title>Start Your Journey - Learn Math</title>
-        <meta name="description" content="Choose your Math learning path and start your journey" />
+        <title>Start Your Journey - Learn Developer</title>
+        <meta name="description" content="Choose your Developer learning path and start your journey" />
       </Head>
 
       <main className="min-h-screen bg-gray-50 py-12">
         <div className="container mx-auto px-4 max-w-4xl">
           <div className="text-center mb-10">
             <h1 className="text-4xl font-bold text-gray-900 mb-4">
-              Start Your Maths Journey
+              Start Your Developer Journey
             </h1>
             <p className="text-xl text-gray-600">
-              Choose your learning path based on your current Mathematics knowledge
+              Choose your learning path based on your current programming and development knowledge
             </p>
           </div>
 
@@ -439,7 +439,7 @@ export default function Onboarding() {
             {LEARNING_PATHS.map((path) => (
               <div
                 key={path.id}
-                className="bg-white rounded-2xl shadow-md p-6 border-2 border-gray-200 hover:border-orange-400 hover:shadow-lg transition-all cursor-pointer"
+                className="bg-white rounded-2xl shadow-md p-6 border-2 border-gray-200 hover:border-green-400 hover:shadow-lg transition-all cursor-pointer"
                 onClick={() => handlePathSelect(path)}
               >
                 <div className="text-center mb-4">
@@ -456,7 +456,7 @@ export default function Onboarding() {
                     💳 No test required — go straight to payment
                   </div>
                 )}
-                <button className="w-full bg-gradient-to-r from-orange-600 to-amber-600 text-white py-3 rounded-lg font-bold hover:opacity-90 transition">
+                <button className="w-full bg-gradient-to-r from-green-600 to-teal-600 text-white py-3 rounded-lg font-bold hover:opacity-90 transition">
                   {path.requiresTest ? 'Take Test & Proceed' : 'Proceed to Payment →'}
                 </button>
               </div>

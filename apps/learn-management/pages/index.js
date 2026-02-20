@@ -43,7 +43,7 @@ export default function Home() {
     "description": "Lead organizational transformation, manage resistance, and drive innovation. Navigate complexity with confidence."
   }
 ]}
-      heroGradient="from-blue-600 to-purple-600"
+      heroGradient="from-purple-600 to-primary"
       sampleModuleId={1}
       sampleLessonId={1}
     />

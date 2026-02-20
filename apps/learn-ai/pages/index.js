@@ -58,7 +58,7 @@ export default function Home() {
     "description": "Learn how to build AI products, consulting services, automation tools, and turn AI skills into multiple income streams"
   }
 ]}
-      heroGradient="from-purple-500 via-fuchsia-600 to-purple-400"
+      heroGradient="from-blue-600 to-primary"
       showAIDevBundle={true}
       sampleModuleId={1}
       sampleLessonId={1}
