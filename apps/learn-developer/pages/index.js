@@ -58,7 +58,7 @@ export default function Home() {
     "description": "Build real applications with JWT auth, CI/CD pipelines, security best practices, and scalable architectures"
   }
 ]}
-      heroGradient="from-cyan-500 via-blue-600 to-cyan-400"
+      heroGradient="from-green-600 to-primary"
       showAIDevBundle={true}
       sampleModuleId={1}
       sampleLessonId={1}

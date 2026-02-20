@@ -44,7 +44,7 @@ export default function Home() {
   }
 ]}
       isFree={true}
-      heroGradient="from-purple-600 to-gray-800"
+      heroGradient="from-purple-700 to-primary"
     />
   );
 }
