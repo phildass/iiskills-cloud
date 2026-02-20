@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Head from 'next/head';
 
 const PAYMENT_URL = 'https://aienter.in/payments';
@@ -106,18 +106,29 @@ export default function Onboarding() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState([]);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const transitionTimerRef = useRef(null);
   const [approvedLevel, setApprovedLevel] = useState(null);
   const [testResult, setTestResult] = useState(null);
   const [otp, setOtp] = useState('');
   const [otpError, setOtpError] = useState('');
   const [otpLoading, setOtpLoading] = useState(false);
 
+  // Clean up any pending transition timer on unmount
+  useEffect(() => {
+    return () => {
+      if (transitionTimerRef.current) clearTimeout(transitionTimerRef.current);
+    };
+  }, []);
+
   const handlePathSelect = (path) => {
+    if (transitionTimerRef.current) clearTimeout(transitionTimerRef.current);
     setSelectedPath(path);
     if (path.requiresTest) {
       setCurrentQuestion(0);
       setAnswers([]);
       setSelectedAnswer(null);
+      setIsTransitioning(false);
       setStep('test');
     } else {
       setApprovedLevel('basic');
@@ -127,36 +138,39 @@ export default function Onboarding() {
   };
 
   const handleAnswerSelect = (idx) => {
+    if (isTransitioning) return;
     setSelectedAnswer(idx);
-  };
+    setIsTransitioning(true);
 
-  const handleNextQuestion = () => {
-    if (selectedAnswer === null) return;
-    const newAnswers = [...answers, selectedAnswer];
+    const newAnswers = [...answers, idx];
     setAnswers(newAnswers);
 
     const questions = selectedPath.questions;
-    if (currentQuestion + 1 < questions.length) {
-      setCurrentQuestion(currentQuestion + 1);
-      setSelectedAnswer(null);
-    } else {
-      // Calculate score — one attempt only, no retries
-      const correctCount = newAnswers.filter(
-        (ans, idx) => ans === questions[idx].correctAnswer
-      ).length;
-      const passed = correctCount === questions.length;
-      const level = passed ? selectedPath.id : 'basic';
-      setApprovedLevel(level);
-      setTestResult({
-        passed,
-        correctCount,
-        totalQuestions: questions.length,
-        message: passed
-          ? `✅ Great! You've qualified for ${selectedPath.title} level.`
-          : `❌ You didn't pass the test. You'll need to start from Basic level. Don't worry - all content is included!`
-      });
-      setStep('payment');
-    }
+    transitionTimerRef.current = setTimeout(() => {
+      if (currentQuestion + 1 < questions.length) {
+        setCurrentQuestion(currentQuestion + 1);
+        setSelectedAnswer(null);
+        setIsTransitioning(false);
+      } else {
+        // Calculate score — one attempt only, no retries
+        const correctCount = newAnswers.filter(
+          (ans, questionIndex) => ans === questions[questionIndex].correctAnswer
+        ).length;
+        const passed = correctCount === questions.length;
+        const level = passed ? selectedPath.id : 'basic';
+        setApprovedLevel(level);
+        setTestResult({
+          passed,
+          correctCount,
+          totalQuestions: questions.length,
+          message: passed
+            ? `✅ Great! You've qualified for ${selectedPath.title} level.`
+            : `❌ You didn't pass the test. You'll need to start from Basic level. Don't worry - all content is included!`
+        });
+        setIsTransitioning(false);
+        setStep('payment');
+      }
+    }, 400);
   };
 
   const handleProceedToPayment = () => {
@@ -382,11 +396,12 @@ export default function Onboarding() {
                   <button
                     key={idx}
                     onClick={() => handleAnswerSelect(idx)}
+                    disabled={isTransitioning}
                     className={`w-full text-left p-4 rounded-xl border-2 transition ${
                       selectedAnswer === idx
                         ? 'bg-pink-50 border-pink-500 shadow-md'
                         : 'bg-white border-gray-200 hover:border-gray-300'
-                    }`}
+                    } disabled:cursor-not-allowed disabled:opacity-60`}
                   >
                     <span className="font-bold text-pink-600 mr-3">
                       {String.fromCharCode(65 + idx)}.
@@ -402,13 +417,9 @@ export default function Onboarding() {
                 >
                   ← Back
                 </button>
-                <button
-                  onClick={handleNextQuestion}
-                  disabled={selectedAnswer === null}
-                  className="flex-1 bg-gradient-to-r from-pink-500 to-orange-500 text-white py-3 rounded-lg font-bold disabled:opacity-50 disabled:cursor-not-allowed hover:opacity-90 transition"
-                >
-                  {currentQuestion + 1 < questions.length ? 'Next Question →' : 'Submit Test'}
-                </button>
+                <div className="flex-1 text-center text-sm text-gray-500 italic py-3">
+                  {isTransitioning ? 'Auto-advancing...' : 'Select an answer to continue'}
+                </div>
               </div>
               <p className="text-center text-xs text-gray-500 mt-4">
                 One attempt only — answer all {questions.length} questions to see your result.
