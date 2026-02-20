@@ -1,7 +1,7 @@
 /**
- * Sarvam API Translation Proxy
+ * Google Translate API Proxy
  * 
- * Proxies translation requests to Sarvam AI API.
+ * Proxies translation requests to Google Cloud Translation API.
  * Keeps the API key server-side for security.
  * 
  * POST /api/translate
@@ -19,47 +19,46 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'texts (array) and targetLang are required.' });
   }
 
-  const apiKey = process.env.SARVAM_API_KEY;
+  const apiKey = process.env.GOOGLE_TRANSLATE_API_KEY;
   if (!apiKey) {
     // Return original texts if API key is not configured
+    console.warn('GOOGLE_TRANSLATE_API_KEY not set - returning original texts');
     return res.status(200).json({ translated: texts });
   }
 
   try {
     const translated = await Promise.all(
       texts.map(async (text) => {
-        if (!text || !text.trim() || targetLang === 'en-IN') {
+        if (!text || !text.trim() || targetLang === 'en') {
           return text;
         }
-        const response = await fetch('https://api.sarvam.ai/translate', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'api-subscription-key': apiKey,
-          },
-          body: JSON.stringify({
-            input: text,
-            source_language_code: 'en-IN',
-            target_language_code: targetLang,
-            speaker_gender: 'Male',
-            mode: 'formal',
-            model: 'mayura:v1',
-            enable_preprocessing: false,
-          }),
-        });
+
+        const response = await fetch(
+          `https://translation.googleapis.com/language/translate/v2?key=${apiKey}`,
+          {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              q: text,
+              target: targetLang,
+              format: 'text',
+            }),
+          }
+        );
 
         if (!response.ok) {
+          console.error(`Google Translate API error: ${response.status}`);
           return text; // Fall back to original text on error
         }
 
         const data = await response.json();
-        return data.translated_text || text;
+        return data.data.translations[0].translatedText || text;
       })
     );
 
     return res.status(200).json({ translated });
   } catch (err) {
-    console.error('Sarvam translation error:', err);
+    console.error('Google Translate error:', err);
     // Return original texts on error - graceful degradation
     return res.status(200).json({ translated: texts });
   }

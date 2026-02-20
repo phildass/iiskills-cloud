@@ -140,11 +140,40 @@ NEXT_PUBLIC_DISABLE_AUTH=false
 NEWS_API_KEY=your-newsapi-key
 OPENAI_API_KEY=your-openai-key
 SENDGRID_API_KEY=your-sendgrid-key
+GOOGLE_TRANSLATE_API_KEY=your-google-translate-key
 
 # External Services
 JOBS_FEED_URL=https://example.com/api/jobs
 PAYMENT_RETURN_URL=https://aienter.in/payments
 ```
+
+## Translation Support
+
+This app uses **Google Cloud Translation API** for multi-language support.
+
+### Setup:
+1. Get a Google Cloud Translation API key from [Google Cloud Console](https://console.cloud.google.com)
+2. Add to `.env.local`:
+   ```bash
+   GOOGLE_TRANSLATE_API_KEY=your-key-here
+   ```
+
+### Supported Languages:
+- English (en)
+- Hindi (hi)
+- Tamil (ta)
+- Telugu (te)
+- Bengali (bn)
+- Marathi (mr)
+- Gujarati (gu)
+- Kannada (kn)
+- Malayalam (ml)
+- Punjabi (pa)
+- Odia (or)
+- Urdu (ur)
+
+### Fallback Behavior:
+If API key is missing or API fails, original English text is displayed.
 
 ### SUSPENDED Mode
 
