@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from 'react';
-import { useRouter } from 'next/router';
 import Head from 'next/head';
 
 const PAYMENT_URL = 'https://aienter.in/payments';
@@ -102,12 +101,13 @@ const LEARNING_PATHS = [
 ];
 
 export default function Onboarding() {
-  const router = useRouter();
   const [step, setStep] = useState('select'); // select | test | payment | otp | success
   const [selectedPath, setSelectedPath] = useState(null);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState([]);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
+  const [approvedLevel, setApprovedLevel] = useState(null);
+  const [testResult, setTestResult] = useState(null);
   const [otp, setOtp] = useState('');
   const [otpError, setOtpError] = useState('');
   const [otpLoading, setOtpLoading] = useState(false);
@@ -120,7 +120,9 @@ export default function Onboarding() {
       setSelectedAnswer(null);
       setStep('test');
     } else {
-      router.push('/curriculum');
+      setApprovedLevel('basic');
+      setTestResult(null);
+      setStep('payment');
     }
   };
 
@@ -138,24 +140,27 @@ export default function Onboarding() {
       setCurrentQuestion(currentQuestion + 1);
       setSelectedAnswer(null);
     } else {
-      // Check all answers
-      const allCorrect = newAnswers.every(
+      // Calculate score — one attempt only, no retries
+      const correctCount = newAnswers.filter(
         (ans, idx) => ans === questions[idx].correctAnswer
-      );
-      if (allCorrect) {
-        setStep('payment');
-      } else {
-        // Failed - reset test
-        setCurrentQuestion(0);
-        setAnswers([]);
-        setSelectedAnswer(null);
-        alert('You must answer all 3 questions correctly to proceed. Please try again.');
-      }
+      ).length;
+      const passed = correctCount === questions.length;
+      const level = passed ? selectedPath.id : 'basic';
+      setApprovedLevel(level);
+      setTestResult({
+        passed,
+        correctCount,
+        totalQuestions: questions.length,
+        message: passed
+          ? `✅ Great! You've qualified for ${selectedPath.title} level.`
+          : `❌ You didn't pass the test. You'll need to start from Basic level. Don't worry - all content is included!`
+      });
+      setStep('payment');
     }
   };
 
   const handleProceedToPayment = () => {
-    window.open(PAYMENT_URL, '_blank');
+    window.open(`${PAYMENT_URL}?course=learn-pr&level=${approvedLevel}`, '_blank');
     setStep('otp');
   };
 
@@ -171,9 +176,10 @@ export default function Onboarding() {
       const response = await fetch('/api/otp/verify', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ otp, path: selectedPath?.id })
+        body: JSON.stringify({ otp, level: approvedLevel })
       });
       if (response.ok) {
+        localStorage.setItem('enrollmentLevel', approvedLevel);
         setStep('success');
       } else {
         setOtpError(`Invalid OTP. Please check and try again, or contact ${SUPPORT_EMAIL}`);
@@ -197,7 +203,7 @@ export default function Onboarding() {
               <div className="text-7xl mb-4">🎉</div>
               <h1 className="text-3xl font-bold text-green-600 mb-4">Access Granted!</h1>
               <p className="text-lg text-gray-700 mb-6">
-                Welcome to the <strong>{selectedPath?.title}</strong> path. Your PR journey begins now!
+                Welcome to the <strong>{approvedLevel ? approvedLevel.charAt(0).toUpperCase() + approvedLevel.slice(1) : ''}</strong> path. Your PR journey begins now!
               </p>
               <a
                 href="/curriculum"
@@ -281,6 +287,8 @@ export default function Onboarding() {
   }
 
   if (step === 'payment') {
+    const isPass = testResult?.passed;
+    const hasTest = testResult !== null;
     return (
       <>
         <Head>
@@ -289,14 +297,33 @@ export default function Onboarding() {
         <main className="min-h-screen bg-gray-50 py-12">
           <div className="container mx-auto px-4 max-w-md">
             <div className="bg-white rounded-2xl shadow-lg p-8 text-center">
-              <div className="text-6xl mb-4">✅</div>
-              <h1 className="text-2xl font-bold text-green-600 mb-2">Test Passed!</h1>
-              <p className="text-gray-700 mb-6">
-                Congratulations! You passed the <strong>{selectedPath?.title}</strong> gatekeeper test. Proceed to payment to unlock full course access.
-              </p>
+              {hasTest ? (
+                <>
+                  <div className="text-6xl mb-4">{isPass ? '✅' : '❌'}</div>
+                  <h1 className={`text-2xl font-bold mb-2 ${isPass ? 'text-green-600' : 'text-red-600'}`}>
+                    {isPass ? 'Test Passed!' : 'Test Not Passed'}
+                  </h1>
+                  <p className="text-gray-700 mb-6">{testResult.message}</p>
+                  {!isPass && (
+                    <p className="text-sm text-gray-500 mb-4">
+                      You scored {testResult.correctCount}/{testResult.totalQuestions}. You&apos;ll be enrolled at <strong>Basic</strong> level.
+                    </p>
+                  )}
+                </>
+              ) : (
+                <>
+                  <div className="text-6xl mb-4">🟢</div>
+                  <h1 className="text-2xl font-bold text-green-600 mb-2">Basic Level Selected!</h1>
+                  <p className="text-gray-700 mb-6">
+                    No test required. Proceed to payment to unlock your <strong>Basic</strong> level access.
+                  </p>
+                </>
+              )}
               <div className="bg-indigo-50 border border-indigo-200 rounded-lg p-4 mb-6 text-left">
-                <p className="text-sm font-semibold text-indigo-800 mb-1">What happens next:</p>
-                <ol className="text-sm text-indigo-700 space-y-1 list-decimal list-inside">
+                <p className="text-sm font-semibold text-indigo-800 mb-1">
+                  Approved level: <span className="capitalize">{approvedLevel}</span>
+                </p>
+                <ol className="text-sm text-indigo-700 space-y-1 list-decimal list-inside mt-2">
                   <li>Click &quot;Proceed to Payment&quot; below</li>
                   <li>Complete payment at {PAYMENT_URL}</li>
                   <li>Receive a 6-digit OTP via SMS/email</li>
@@ -384,7 +411,7 @@ export default function Onboarding() {
                 </button>
               </div>
               <p className="text-center text-xs text-gray-500 mt-4">
-                You must answer ALL {questions.length} questions correctly to proceed.
+                One attempt only — answer all {questions.length} questions to see your result.
               </p>
             </div>
           </div>
@@ -423,13 +450,17 @@ export default function Onboarding() {
                   <h2 className="text-2xl font-bold text-gray-900">{path.title}</h2>
                 </div>
                 <p className="text-gray-600 text-sm mb-4">{path.description}</p>
-                {path.requiresTest && (
+                {path.requiresTest ? (
                   <div className="bg-blue-50 border border-blue-200 rounded-lg p-2 text-xs text-blue-700 mb-4 text-center">
-                    🔒 Requires 3-question gatekeeper test (100% accuracy)
+                    🔒 3-question gatekeeper test (one attempt only)
+                  </div>
+                ) : (
+                  <div className="bg-green-50 border border-green-200 rounded-lg p-2 text-xs text-green-700 mb-4 text-center">
+                    💳 No test required — go straight to payment
                   </div>
                 )}
                 <button className="w-full bg-gradient-to-r from-pink-500 to-orange-500 text-white py-3 rounded-lg font-bold hover:opacity-90 transition">
-                  {path.requiresTest ? 'Take Test & Proceed' : 'Start Learning →'}
+                  {path.requiresTest ? 'Take Test & Proceed' : 'Proceed to Payment →'}
                 </button>
               </div>
             ))}
@@ -439,9 +470,9 @@ export default function Onboarding() {
             <div className="inline-block bg-white border-2 border-gray-200 rounded-xl p-6 max-w-2xl text-left">
               <h4 className="text-lg font-bold text-gray-900 mb-2">📊 How It Works</h4>
               <div className="space-y-2 text-gray-700 text-sm">
-                <p>🟢 <strong>Basic:</strong> Start learning immediately — no test required</p>
-                <p>🔵 <strong>Intermediate:</strong> Pass 3 questions about Basic PR concepts → Payment → OTP</p>
-                <p>🟣 <strong>Advanced:</strong> Pass 3 questions about Basic + Intermediate PR → Payment → OTP</p>
+                <p>🟢 <strong>Basic:</strong> No test required → Payment → OTP → Access</p>
+                <p>🔵 <strong>Intermediate:</strong> 3-question test (one attempt) → Payment → OTP → Access at approved level</p>
+                <p>🟣 <strong>Advanced:</strong> 3-question test (one attempt) → Payment → OTP → Access at approved level</p>
               </div>
             </div>
           </div>
