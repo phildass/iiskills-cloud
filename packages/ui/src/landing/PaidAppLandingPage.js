@@ -19,7 +19,6 @@ import { getCurrentUser } from "@/lib/supabaseClient";
 import SampleLessonShowcase from "./SampleLessonShowcase";
 import AIDevBundlePitch from "../payment/AIDevBundlePitch";
 
-import CalibrationGatekeeper from "../content/CalibrationGatekeeper";
 import PremiumAccessPrompt from "../payment/PremiumAccessPrompt";
 
 import LevelSelector from "../content/LevelSelector";
@@ -47,8 +46,9 @@ function getAppContextLabel(appId) {
  */
 function getAppSpecificLinks(appId) {
   const commonLinks = [
-    { label: "Courses", href: appId === "learn-finesse" ? "/courses" : "/curriculum" },
     { label: "Sample Lesson", href: "#sample" },
+    { label: "Paid", href: appId === "learn-finesse" ? "/courses" : "/curriculum" },
+    { label: "Syllabus", href: appId === "learn-finesse" ? "/courses" : "/curriculum" },
   ];
 
   const appSpecificMap = {
@@ -80,38 +80,13 @@ export default function PaidAppLandingPage({
   showAIDevBundle = false,
   sampleModuleId = 1,
   sampleLessonId = 1,
-  appType = null, // For gatekeeper questions
 }) {
-  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showPaymentPreview, setShowPaymentPreview] = useState(false);
 
-  const displayAppContextLabel = getAppContextLabel(appId);
-
-  // Map appId to appType for gatekeeper questions
-  const getAppType = () => {
-    if (appType) return appType;
-    
-    const typeMap = {
-      "learn-ai": "ai",
-      "learn-developer": "developer",
-      "learn-finesse": "finesse",
-      "learn-management": "management",
-      "learn-pr": "pr",
-      // MOVED TO apps-backup as per cleanup requirements
-      // "learn-govt-jobs": "govt-jobs",
-    };
-    return typeMap[appId] || "ai";
-  };
-
-  const handlePaymentRequired = () => {
-    setShowPaymentPreview(true);
-  };
-
   useEffect(() => {
     const checkUser = async () => {
-      const currentUser = await getCurrentUser();
-      setUser(currentUser);
+      await getCurrentUser();
       setLoading(false);
     };
     checkUser();
@@ -146,36 +121,21 @@ export default function PaidAppLandingPage({
         </section>
 
         {/* Hero Section */}
-        <Hero appId={appId} className="h-[70vh] md:h-[80vh] lg:h-[90vh] relative">
-          {/* Labels and links in top-left corner */}
-          <div className="absolute top-4 left-4 flex items-center gap-3 z-10">
-            {/* PAID label - Color code: blue for paid */}
-            <div className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-bold shadow-lg">
-              PAID
-            </div>
-            
-            {/* Syllabus link */}
-            <Link
-              href="/curriculum"
-              className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-semibold shadow-lg transition"
-            >
-              Syllabus
-            </Link>
-          </div>
-
-          <div className={`text-center space-y-6 max-w-4xl mx-auto mt-20 ${appId === 'learn-pr' ? 'text-white' : 'text-blue-600'}`}>
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight">
+        <Hero appId={appId} className="h-[70vh] md:h-[80vh] lg:h-[90vh]">
+          {/* Headline/Subheadline positioned at bottom by Hero's flex items-end */}
+          <div className="text-white">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight mb-3">
               {headline || appName}
             </h1>
             {subheadline && (
-              <p className="text-lg sm:text-xl lg:text-2xl leading-relaxed font-normal">
+              <p className="text-lg sm:text-xl leading-relaxed font-normal mb-4">
                 {subheadline}
               </p>
             )}
 
             {/* AI/Developer Bundle Notice - Two for One */}
             {showAIDevBundle && (appId === "learn-ai" || appId === "learn-developer") && (
-              <div className="bg-gradient-to-r from-purple-500 to-pink-500 border-2 border-white rounded-lg p-4 max-w-2xl mx-auto shadow-2xl">
+              <div className="bg-gradient-to-r from-purple-500 to-pink-500 border-2 border-white rounded-lg p-4 max-w-2xl shadow-2xl mb-4">
                 <p className="text-xl font-bold text-white">🎁 Two Apps for the Price of One!</p>
                 <p className="text-sm mt-2 text-white">
                   Purchase Learn AI or Learn Developer for ₹99 (+GST) and get BOTH apps!
@@ -183,44 +143,42 @@ export default function PaidAppLandingPage({
               </div>
             )}
 
-            {/* Premium Course Notice */}
-            <div className="bg-white/10 backdrop-blur-sm border-2 border-white/30 rounded-lg p-4 max-w-2xl mx-auto">
-              <p className="text-lg font-semibold">💳 Premium Course</p>
-              <p className="text-sm mt-2">
-                Try our sample lesson and Level 1 test FREE—no login required!
-              </p>
-            </div>
+            {/* Install App Prompt */}
+            <UniversalInstallPrompt 
+              currentAppId={appId}
+              currentAppName={appName}
+              variant="button"
+              size="md"
+              showMotherAppPromo={true}
+            />
+          </div>
+        </Hero>
 
-            {/* CTA Buttons */}
+        {/* Premium Course Section - Immediately under hero */}
+        <section className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-10 px-4">
+          <div className="max-w-4xl mx-auto text-center">
+            <p className="text-2xl font-bold mb-2">💳 Premium Course</p>
+            <p className="text-lg mb-6">
+              Try our sample lesson and Level 1 test FREE—no login required!
+            </p>
             {!loading && (
-              <div className="flex flex-col sm:flex-row gap-4 pt-4 justify-center">
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <a
                   href="#sample"
-                  className="inline-block bg-white text-primary px-8 py-4 rounded-lg font-bold shadow-lg hover:bg-gray-100 hover:shadow-xl transition-all duration-200 text-center text-base sm:text-lg"
+                  className="inline-block bg-white text-indigo-600 px-8 py-4 rounded-lg font-bold shadow-lg hover:bg-gray-100 hover:shadow-xl transition-all duration-200 text-center text-base sm:text-lg"
                 >
                   Try Sample Lesson Free
                 </a>
                 <Link
                   href="/curriculum"
-                  className="inline-block bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-bold hover:bg-white hover:text-primary transition-all duration-200 text-center text-base sm:text-lg"
+                  className="inline-block bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-bold hover:bg-white hover:text-indigo-600 transition-all duration-200 text-center text-base sm:text-lg"
                 >
                   View Full Curriculum
                 </Link>
               </div>
             )}
-            
-            {/* Install App Prompt */}
-            <div className="mt-6 flex justify-center">
-              <UniversalInstallPrompt 
-                currentAppId={appId}
-                currentAppName={appName}
-                variant="button"
-                size="md"
-                showMotherAppPromo={true}
-              />
-            </div>
           </div>
-        </Hero>
+        </section>
 
         {/* UNIVERSAL DIAGNOSTIC FUNNEL: Where would you like to start? */}
         <LevelSelector
@@ -253,15 +211,6 @@ export default function PaidAppLandingPage({
             </div>
           </section>
         )}
-
-        {/* Level 1 Qualifier (Gatekeeper) Section */}
-        <CalibrationGatekeeper
-          appName={appName}
-          appType={getAppType()}
-          tier="Level 1"
-          isPaid={true}
-          onPaymentRequired={handlePaymentRequired}
-        />
 
         {/* Payment Preview Modal */}
         {showPaymentPreview && (
@@ -307,12 +256,12 @@ export default function PaidAppLandingPage({
                 <p className="text-lg text-gray-600 mb-6">
                   Master skills through our proven Tri-Level system: Basic foundations, intermediate frameworks, and advanced mastery. Each level builds on the last.
                 </p>
-                <a
-                  href="#sample"
+                <Link
+                  href="/onboarding"
                   className="inline-block bg-gradient-to-r from-purple-600 to-blue-600 text-white px-8 py-4 rounded-lg font-bold shadow-lg hover:from-purple-700 hover:to-blue-700 transition-all duration-200"
                 >
                   Start Your Journey
-                </a>
+                </Link>
               </div>
             </div>
           </div>
