@@ -17,25 +17,20 @@ export default async function handler(req, res) {
   }
 
   try {
-    // Look up the OTP in the database
+    // Atomically find and mark the OTP as used in a single operation to prevent race conditions
     const { data, error } = await supabase
       .from('otps')
-      .select('*')
+      .update({ used: true })
       .eq('otp', otp)
+      .eq('used', false)
       .gt('expires_at', new Date().toISOString())
-      .order('created_at', { ascending: false })
+      .select()
       .limit(1)
       .single();
 
     if (error || !data) {
       return res.status(401).json({ error: 'Invalid or expired OTP.' });
     }
-
-    // Mark OTP as used
-    await supabase
-      .from('otps')
-      .update({ used: true })
-      .eq('id', data.id);
 
     return res.status(200).json({ success: true, path });
   } catch (err) {

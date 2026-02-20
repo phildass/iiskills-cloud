@@ -4,6 +4,9 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 
+const PAYMENT_URL = 'https://aienter.in/payments';
+const SUPPORT_EMAIL = 'support@iiskills.cloud';
+
 // PR-specific gatekeeper questions for Intermediate level (Basic PR concepts)
 const INTERMEDIATE_QUESTIONS = [
   {
@@ -152,7 +155,7 @@ export default function Onboarding() {
   };
 
   const handleProceedToPayment = () => {
-    window.open('https://aienter.in/payments', '_blank');
+    window.open(PAYMENT_URL, '_blank');
     setStep('otp');
   };
 
@@ -173,10 +176,10 @@ export default function Onboarding() {
       if (response.ok) {
         setStep('success');
       } else {
-        setOtpError('Invalid OTP. Please check and try again, or contact support@iiskills.cloud');
+        setOtpError(`Invalid OTP. Please check and try again, or contact ${SUPPORT_EMAIL}`);
       }
     } catch {
-      setOtpError('Unable to verify OTP. Having problems? Contact support@iiskills.cloud');
+      setOtpError(`Unable to verify OTP. Having problems? Contact ${SUPPORT_EMAIL}`);
     } finally {
       setOtpLoading(false);
     }
@@ -222,7 +225,7 @@ export default function Onboarding() {
                 <div className="text-5xl mb-3">🔐</div>
                 <h1 className="text-2xl font-bold text-gray-900">Enter Your OTP</h1>
                 <p className="text-gray-600 mt-2">
-                  After completing payment at <strong>aienter.in/payments</strong>, you will receive a 6-digit OTP. Enter it below to unlock your course access.
+                  After completing payment at <strong>{PAYMENT_URL}</strong>, you will receive a 6-digit OTP. Enter it below to unlock your course access.
                 </p>
               </div>
               <form onSubmit={handleOtpSubmit} className="space-y-4">
@@ -247,8 +250,8 @@ export default function Onboarding() {
                     {otpError.includes('problems') && (
                       <p className="mt-1">
                         Contact:{' '}
-                        <a href="mailto:support@iiskills.cloud" className="underline font-semibold">
-                          support@iiskills.cloud
+                        <a href={`mailto:${SUPPORT_EMAIL}`} className="underline font-semibold">
+                          {SUPPORT_EMAIL}
                         </a>
                       </p>
                     )}
@@ -265,8 +268,8 @@ export default function Onboarding() {
               <div className="mt-6 text-center text-sm text-gray-500">
                 <p>
                   Having problems?{' '}
-                  <a href="mailto:support@iiskills.cloud" className="text-pink-600 underline font-semibold">
-                    Contact support@iiskills.cloud
+                  <a href={`mailto:${SUPPORT_EMAIL}`} className="text-pink-600 underline font-semibold">
+                    Contact {SUPPORT_EMAIL}
                   </a>
                 </p>
               </div>
@@ -295,7 +298,7 @@ export default function Onboarding() {
                 <p className="text-sm font-semibold text-indigo-800 mb-1">What happens next:</p>
                 <ol className="text-sm text-indigo-700 space-y-1 list-decimal list-inside">
                   <li>Click &quot;Proceed to Payment&quot; below</li>
-                  <li>Complete payment at aienter.in/payments</li>
+                  <li>Complete payment at {PAYMENT_URL}</li>
                   <li>Receive a 6-digit OTP via SMS/email</li>
                   <li>Enter OTP here to unlock access</li>
                 </ol>
