@@ -55,71 +55,71 @@ export default function LessonPage() {
   const generateLessonContent = (modId, lessId) => {
     return `
       <h2>Module ${modId}, Lesson ${lessId}</h2>
-      <p>Welcome to this comprehensive lesson on AI fundamentals. In this session, we'll explore key concepts that form the foundation of artificial intelligence.</p>
+      <p>Welcome to this comprehensive lesson on Public Relations. In this session, we'll explore key concepts that form the foundation of effective PR practice.</p>
       
       <h3>Introduction</h3>
-      <p>Artificial Intelligence represents one of the most transformative technologies of our time. Understanding its principles is crucial for anyone looking to build a career in tech.</p>
+      <p>Public Relations is a strategic communication process that builds mutually beneficial relationships between organizations and their publics. Understanding its principles is crucial for anyone looking to build a career in communications.</p>
       
       <h3>Key Concepts</h3>
-      <p>This lesson covers essential topics including machine learning algorithms, data preprocessing, and model evaluation techniques. You'll learn practical approaches to solving real-world problems.</p>
+      <p>This lesson covers essential PR topics including media relations, brand messaging, stakeholder engagement, and campaign strategy. You'll learn practical approaches to managing public perception and organizational reputation.</p>
       
       <h3>Practical Applications</h3>
-      <p>We'll examine how these concepts apply in industry settings, from recommendation systems to predictive analytics. Understanding these applications helps bridge theory and practice.</p>
+      <p>We'll examine how these concepts apply in real-world settings, from crisis communication to product launches and corporate communications. Understanding these applications helps bridge theory and practice.</p>
       
       <h3>Summary</h3>
-      <p>By mastering these fundamentals, you're building a strong foundation for advanced AI topics. Continue practicing and exploring to deepen your understanding.</p>
+      <p>By mastering these fundamentals, you're building a strong foundation for advanced PR topics. Continue practicing and exploring to deepen your understanding of public relations.</p>
     `;
   };
 
   const generateQuiz = () => {
     return [
       {
-        question: "What is the primary goal of supervised learning?",
+        question: "What is the primary goal of public relations?",
         options: [
-          "To predict outcomes based on labeled data",
-          "To cluster unlabeled data",
-          "To reduce data dimensions",
-          "To generate new data"
+          "To build mutually beneficial relationships between an organization and its publics",
+          "To sell products directly to consumers",
+          "To manage internal employee communications only",
+          "To design advertising campaigns"
         ],
         correct_answer: 0
       },
       {
-        question: "Which algorithm is commonly used for classification tasks?",
+        question: "Which of the following is a key component of an effective press release?",
         options: [
-          "K-means clustering",
-          "Decision Trees",
-          "Principal Component Analysis",
-          "Autoencoder"
+          "Technical jargon and complex language",
+          "A compelling headline and clear news angle",
+          "Lengthy disclaimers and legal text",
+          "Personal opinions of the PR professional"
         ],
         correct_answer: 1
       },
       {
-        question: "What does overfitting mean in machine learning?",
+        question: "What is crisis communication in PR?",
         options: [
-          "Model performs well on all data",
-          "Model memorizes training data but performs poorly on new data",
-          "Model uses too few features",
-          "Model trains too quickly"
+          "Communicating only during natural disasters",
+          "Managing communications to protect an organization's reputation during challenging events",
+          "Avoiding all media contact during a crisis",
+          "Sending press releases every day"
         ],
         correct_answer: 1
       },
       {
-        question: "Which metric is best for imbalanced classification problems?",
+        question: "Which metric is most useful for measuring PR campaign success?",
         options: [
-          "Accuracy",
-          "F1 Score",
-          "Mean Squared Error",
-          "R-squared"
+          "Number of press releases sent",
+          "Media impressions and share of voice",
+          "Number of staff in the PR team",
+          "Office square footage"
         ],
         correct_answer: 1
       },
       {
-        question: "What is the purpose of a validation set?",
+        question: "What does 'earned media' mean in PR?",
         options: [
-          "To train the model",
-          "To test final performance",
-          "To tune hyperparameters during training",
-          "To store predictions"
+          "Paid advertising placements",
+          "Content your organization creates and publishes",
+          "Organic coverage and mentions achieved through PR efforts",
+          "Social media posts by employees"
         ],
         correct_answer: 2
       }
@@ -182,8 +182,8 @@ export default function LessonPage() {
   return (
     <>
       <Head>
-        <title>{lesson?.title} - Learn AI</title>
-        <meta name="description" content={`Learn AI - Module ${moduleId}, Lesson ${lessonId}`} />
+        <title>{lesson?.title} - Learn PR</title>
+        <meta name="description" content={`Learn PR - Module ${moduleId}, Lesson ${lessonId}`} />
       </Head>
 
       <main className="min-h-screen bg-gray-50 py-12">

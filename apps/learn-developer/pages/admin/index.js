@@ -28,7 +28,7 @@ export default function AdminPanel() {
 
     const currentUser = await getCurrentUser();
     if (!currentUser) {
-      router.push('/register');
+      router.push('/');
       return;
     }
 
@@ -39,10 +39,9 @@ export default function AdminPanel() {
 
   const loadData = async () => {
     try {
-      // Load mock data - in production, fetch from Supabase
-      const { getAllModules } = await import('../../lib/curriculumGenerator');
-      setModules(getAllModules());
-      
+      const { curriculumData } = await import('../../lib/curriculumData');
+      setModules(curriculumData.modules || []);
+
       setRegistrations([
         { id: 1, email: 'user1@example.com', date: '2024-01-15', status: 'active' },
         { id: 2, email: 'user2@example.com', date: '2024-01-20', status: 'active' },
@@ -71,8 +70,8 @@ export default function AdminPanel() {
   return (
     <>
       <Head>
-        <title>Admin Panel - Learn AI</title>
-        <meta name="description" content="Learn AI Admin Dashboard" />
+        <title>Admin Panel - Learn Developer</title>
+        <meta name="description" content="Learn Developer Admin Dashboard" />
       </Head>
 
       <main className="min-h-screen bg-gray-50 py-12">
@@ -123,8 +122,6 @@ export default function AdminPanel() {
                     <tr className="border-b border-gray-200">
                       <th className="text-left py-3 px-4">ID</th>
                       <th className="text-left py-3 px-4">Title</th>
-                      <th className="text-left py-3 px-4">Difficulty</th>
-                      <th className="text-left py-3 px-4">Lessons</th>
                       <th className="text-left py-3 px-4">Actions</th>
                     </tr>
                   </thead>
@@ -134,17 +131,7 @@ export default function AdminPanel() {
                         <td className="py-3 px-4">{module.id}</td>
                         <td className="py-3 px-4">{module.title}</td>
                         <td className="py-3 px-4">
-                          <span className={`px-2 py-1 rounded text-sm ${
-                            module.difficulty === 'Beginner' ? 'bg-green-100 text-green-800' :
-                            module.difficulty === 'Intermediate' ? 'bg-yellow-100 text-yellow-800' :
-                            'bg-red-100 text-red-800'
-                          }`}>
-                            {module.difficulty}
-                          </span>
-                        </td>
-                        <td className="py-3 px-4">10</td>
-                        <td className="py-3 px-4">
-                          <Link href={`/modules/${module.id}/lesson/1`} className="text-green-600 hover:text-green-800 mr-4">Preview</Link>
+                          <Link href={`/modules/${module.id}/lesson`} className="text-green-600 hover:text-green-800 mr-4">Preview</Link>
                           <button className="text-blue-600 hover:text-blue-800 mr-4">Edit</button>
                           <button className="text-red-600 hover:text-red-800">Delete</button>
                         </td>

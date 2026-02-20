@@ -53,71 +53,71 @@ export default function LessonPage() {
   const generateLessonContent = (modId, lessId) => {
     return `
       <h2>Module ${modId}, Lesson ${lessId}</h2>
-      <p>Welcome to this comprehensive lesson on AI fundamentals. In this session, we'll explore key concepts that form the foundation of artificial intelligence.</p>
+      <p>Welcome to this comprehensive lesson on Physics. In this session, we'll explore key concepts that form the foundation of understanding the physical world around us.</p>
       
       <h3>Introduction</h3>
-      <p>Artificial Intelligence represents one of the most transformative technologies of our time. Understanding its principles is crucial for anyone looking to build a career in tech.</p>
+      <p>Physics is the natural science that studies matter, energy, and the forces that shape our universe. Understanding its principles is crucial for anyone looking to build a career in science or engineering.</p>
       
       <h3>Key Concepts</h3>
-      <p>This lesson covers essential topics including machine learning algorithms, data preprocessing, and model evaluation techniques. You'll learn practical approaches to solving real-world problems.</p>
+      <p>This lesson covers essential physics topics including mechanics, thermodynamics, electromagnetism, and wave phenomena. You'll learn practical approaches to solving physical problems using mathematical reasoning.</p>
       
       <h3>Practical Applications</h3>
-      <p>We'll examine how these concepts apply in industry settings, from recommendation systems to predictive analytics. Understanding these applications helps bridge theory and practice.</p>
+      <p>We'll examine how these concepts apply in real-world settings, from engineering design to modern technology. Understanding these applications helps bridge physics theory and practical problem-solving.</p>
       
       <h3>Summary</h3>
-      <p>By mastering these fundamentals, you're building a strong foundation for advanced AI topics. Continue practicing and exploring to deepen your understanding.</p>
+      <p>By mastering these fundamentals, you're building a strong foundation for advanced physics topics. Continue practicing and exploring to deepen your understanding of the physical world.</p>
     `;
   };
 
   const generateQuiz = () => {
     return [
       {
-        question: "What is the primary goal of supervised learning?",
+        question: "What is Newton's First Law of Motion?",
         options: [
-          "To predict outcomes based on labeled data",
-          "To cluster unlabeled data",
-          "To reduce data dimensions",
-          "To generate new data"
-        ],
-        correct_answer: 0
-      },
-      {
-        question: "Which algorithm is commonly used for classification tasks?",
-        options: [
-          "K-means clustering",
-          "Decision Trees",
-          "Principal Component Analysis",
-          "Autoencoder"
+          "Force equals mass times acceleration",
+          "An object at rest stays at rest, and an object in motion stays in motion unless acted upon by an external force",
+          "For every action there is an equal and opposite reaction",
+          "Energy can neither be created nor destroyed"
         ],
         correct_answer: 1
       },
       {
-        question: "What does overfitting mean in machine learning?",
+        question: "What is the SI unit of force?",
         options: [
-          "Model performs well on all data",
-          "Model memorizes training data but performs poorly on new data",
-          "Model uses too few features",
-          "Model trains too quickly"
+          "Joule",
+          "Watt",
+          "Newton",
+          "Pascal"
+        ],
+        correct_answer: 2
+      },
+      {
+        question: "What does the Law of Conservation of Energy state?",
+        options: [
+          "Energy is always lost as heat",
+          "Energy can be created from nothing",
+          "The total energy of an isolated system remains constant",
+          "Kinetic energy always exceeds potential energy"
+        ],
+        correct_answer: 2
+      },
+      {
+        question: "What is the relationship between frequency and wavelength of a wave?",
+        options: [
+          "They are directly proportional",
+          "They are inversely proportional",
+          "They have no relationship",
+          "They are always equal"
         ],
         correct_answer: 1
       },
       {
-        question: "Which metric is best for imbalanced classification problems?",
+        question: "What is the formula for kinetic energy?",
         options: [
-          "Accuracy",
-          "F1 Score",
-          "Mean Squared Error",
-          "R-squared"
-        ],
-        correct_answer: 1
-      },
-      {
-        question: "What is the purpose of a validation set?",
-        options: [
-          "To train the model",
-          "To test final performance",
-          "To tune hyperparameters during training",
-          "To store predictions"
+          "KE = mgh",
+          "KE = Fd",
+          "KE = ½mv²",
+          "KE = mc²"
         ],
         correct_answer: 2
       }
@@ -175,8 +175,8 @@ export default function LessonPage() {
   return (
     <>
       <Head>
-        <title>{lesson?.title} - Learn AI</title>
-        <meta name="description" content={`Learn AI - Module ${moduleId}, Lesson ${lessonId}`} />
+        <title>{lesson?.title} - Learn Physics</title>
+        <meta name="description" content={`Learn Physics - Module ${moduleId}, Lesson ${lessonId}`} />
       </Head>
 
       <main className="min-h-screen bg-gray-50 py-12">

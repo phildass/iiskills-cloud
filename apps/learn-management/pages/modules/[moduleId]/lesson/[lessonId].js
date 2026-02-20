@@ -55,73 +55,73 @@ export default function LessonPage() {
   const generateLessonContent = (modId, lessId) => {
     return `
       <h2>Module ${modId}, Lesson ${lessId}</h2>
-      <p>Welcome to this comprehensive lesson on AI fundamentals. In this session, we'll explore key concepts that form the foundation of artificial intelligence.</p>
+      <p>Welcome to this comprehensive lesson on Business Management. In this session, we'll explore key concepts that form the foundation of effective organizational leadership and management.</p>
       
       <h3>Introduction</h3>
-      <p>Artificial Intelligence represents one of the most transformative technologies of our time. Understanding its principles is crucial for anyone looking to build a career in tech.</p>
+      <p>Management is the process of planning, organizing, leading, and controlling resources to achieve organizational goals. Understanding these principles is crucial for anyone looking to build a career in business leadership.</p>
       
       <h3>Key Concepts</h3>
-      <p>This lesson covers essential topics including machine learning algorithms, data preprocessing, and model evaluation techniques. You'll learn practical approaches to solving real-world problems.</p>
+      <p>This lesson covers essential management topics including strategic planning, team leadership, organizational behavior, and performance measurement. You'll learn practical approaches to managing people and achieving business outcomes.</p>
       
       <h3>Practical Applications</h3>
-      <p>We'll examine how these concepts apply in industry settings, from recommendation systems to predictive analytics. Understanding these applications helps bridge theory and practice.</p>
+      <p>We'll examine how these concepts apply in real-world business settings, from managing cross-functional teams to leading organizational change. Understanding these applications helps bridge management theory and practice.</p>
       
       <h3>Summary</h3>
-      <p>By mastering these fundamentals, you're building a strong foundation for advanced AI topics. Continue practicing and exploring to deepen your understanding.</p>
+      <p>By mastering these fundamentals, you're building a strong foundation for advanced management topics. Continue practicing and exploring to deepen your leadership and management skills.</p>
     `;
   };
 
   const generateQuiz = () => {
     return [
       {
-        question: "What is the primary goal of supervised learning?",
+        question: "What are the four core functions of management?",
         options: [
-          "To predict outcomes based on labeled data",
-          "To cluster unlabeled data",
-          "To reduce data dimensions",
-          "To generate new data"
+          "Planning, Organizing, Leading, and Controlling",
+          "Hiring, Firing, Promoting, and Demoting",
+          "Marketing, Sales, Finance, and Operations",
+          "Analyzing, Designing, Implementing, and Testing"
         ],
         correct_answer: 0
       },
       {
-        question: "Which algorithm is commonly used for classification tasks?",
+        question: "Which leadership style involves involving team members in decision-making?",
         options: [
-          "K-means clustering",
-          "Decision Trees",
-          "Principal Component Analysis",
-          "Autoencoder"
-        ],
-        correct_answer: 1
-      },
-      {
-        question: "What does overfitting mean in machine learning?",
-        options: [
-          "Model performs well on all data",
-          "Model memorizes training data but performs poorly on new data",
-          "Model uses too few features",
-          "Model trains too quickly"
-        ],
-        correct_answer: 1
-      },
-      {
-        question: "Which metric is best for imbalanced classification problems?",
-        options: [
-          "Accuracy",
-          "F1 Score",
-          "Mean Squared Error",
-          "R-squared"
-        ],
-        correct_answer: 1
-      },
-      {
-        question: "What is the purpose of a validation set?",
-        options: [
-          "To train the model",
-          "To test final performance",
-          "To tune hyperparameters during training",
-          "To store predictions"
+          "Autocratic leadership",
+          "Laissez-faire leadership",
+          "Democratic (participative) leadership",
+          "Transactional leadership"
         ],
         correct_answer: 2
+      },
+      {
+        question: "What does SMART stand for in goal-setting?",
+        options: [
+          "Simple, Manageable, Achievable, Realistic, Timely",
+          "Specific, Measurable, Achievable, Relevant, Time-bound",
+          "Strategic, Meaningful, Actionable, Responsible, Trackable",
+          "Structured, Motivated, Agile, Results-driven, Targeted"
+        ],
+        correct_answer: 1
+      },
+      {
+        question: "What is organizational behavior?",
+        options: [
+          "The study of how buildings are organized",
+          "The study of how individuals and groups act within organizations",
+          "The process of restructuring a company",
+          "A type of financial reporting"
+        ],
+        correct_answer: 1
+      },
+      {
+        question: "What is the primary purpose of change management?",
+        options: [
+          "To avoid any changes in the organization",
+          "To guide and support employees through organizational transitions",
+          "To automate business processes",
+          "To reduce the workforce"
+        ],
+        correct_answer: 1
       }
     ];
   };
@@ -182,8 +182,8 @@ export default function LessonPage() {
   return (
     <>
       <Head>
-        <title>{lesson?.title} - Learn AI</title>
-        <meta name="description" content={`Learn AI - Module ${moduleId}, Lesson ${lessonId}`} />
+        <title>{lesson?.title} - Learn Management</title>
+        <meta name="description" content={`Learn Management - Module ${moduleId}, Lesson ${lessonId}`} />
       </Head>
 
       <main className="min-h-screen bg-gray-50 py-12">

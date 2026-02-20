@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 import Head from 'next/head';
 import Footer from '../../components/Footer';
 import { getCurrentUser } from '../../lib/supabaseClient';
@@ -143,6 +144,7 @@ export default function AdminPanel() {
                         </td>
                         <td className="py-3 px-4">10</td>
                         <td className="py-3 px-4">
+                          <Link href={`/modules/${module.id}/lesson/1`} className="text-green-600 hover:text-green-800 mr-4">Preview</Link>
                           <button className="text-blue-600 hover:text-blue-800 mr-4">Edit</button>
                           <button className="text-red-600 hover:text-red-800">Delete</button>
                         </td>
