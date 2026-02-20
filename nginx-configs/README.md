@@ -54,32 +54,46 @@ sudo systemctl reload nginx
 
 **CRITICAL**: SSL certificate warnings must NEVER appear on any subdomain. All certificates must be valid, properly issued, and correctly installed.
 
-### Quick Setup
+All NGINX configurations use a **wildcard certificate** (`*.iiskills.cloud`) so that one certificate covers every subdomain. This eliminates per-subdomain certificate mismatches.
 
-Obtain SSL certificates for all subdomains at once:
+### Quick Setup — Wildcard Certificate
+
+Obtain a wildcard certificate using the DNS-01 challenge (required for wildcard certs):
 
 ```bash
-sudo certbot --nginx \
-  -d app.iiskills.cloud \
-  -d learn-ai.iiskills.cloud \
-  -d learn-apt.iiskills.cloud \
-  -d learn-chemistry.iiskills.cloud \
-  -d learn-developer.iiskills.cloud \
-  -d learn-geography.iiskills.cloud \
-  -d learn-management.iiskills.cloud \
-  -d learn-math.iiskills.cloud \
-  -d learn-physics.iiskills.cloud \
-  -d learn-pr.iiskills.cloud \
+sudo certbot certonly --manual --preferred-challenges dns-01 \
+  -d "*.iiskills.cloud" \
+  -d "iiskills.cloud" \
   --email admin@iiskills.cloud \
-  --agree-tos \
-  --redirect
+  --agree-tos
 ```
 
-Or obtain certificate for a single subdomain:
+Certbot will prompt you to create a DNS TXT record (`_acme-challenge.iiskills.cloud`) in your DNS provider. Once the record propagates, press Enter to complete the challenge.
+
+The certificate is stored at:
+- `/etc/letsencrypt/live/iiskills.cloud/fullchain.pem`
+- `/etc/letsencrypt/live/iiskills.cloud/privkey.pem`
+- `/etc/letsencrypt/live/iiskills.cloud/chain.pem`
+
+All NGINX configs in this directory already reference these paths.
+
+### Automated Wildcard Renewal
+
+For automated renewal, install a DNS plugin for your provider (e.g., Cloudflare):
 
 ```bash
-sudo certbot --nginx -d learn-ai.iiskills.cloud --email admin@iiskills.cloud --agree-tos --redirect
+# Install Cloudflare DNS plugin
+sudo pip install certbot-dns-cloudflare
+
+# Create credentials file
+echo "dns_cloudflare_api_token = YOUR_API_TOKEN" | sudo tee /etc/letsencrypt/cloudflare.ini
+sudo chmod 600 /etc/letsencrypt/cloudflare.ini
+
+# Renew with DNS plugin (can be automated)
+sudo certbot renew --dns-cloudflare --dns-cloudflare-credentials /etc/letsencrypt/cloudflare.ini
 ```
+
+Alternatively, manually update the DNS TXT record when certbot prompts during renewal.
 
 ### SSL/TLS Security Features
 
@@ -153,9 +167,9 @@ server {
     listen 443 ssl http2;
     server_name subdomain.iiskills.cloud;
     
-    # SSL certificates (managed by Certbot)
-    ssl_certificate /etc/letsencrypt/live/subdomain.iiskills.cloud/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/subdomain.iiskills.cloud/privkey.pem;
+    # SSL certificates - wildcard cert covers all *.iiskills.cloud subdomains
+    ssl_certificate /etc/letsencrypt/live/iiskills.cloud/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/iiskills.cloud/privkey.pem;
     include /etc/letsencrypt/options-ssl-nginx.conf;
     ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
     

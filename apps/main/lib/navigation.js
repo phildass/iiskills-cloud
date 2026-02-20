@@ -39,12 +39,23 @@ export const getAdminUrl = (siteSlug = null) => {
 /**
  * Get the course preview URL on a specific site
  * @param {string} siteSlug - The site slug
- * @param {string} courseSlug - The course slug
+ * @param {string} courseSlug - The course slug (only used for the 'main' site; learning apps
+ *   navigate to a fixed preview path defined in siteConfig, since each app covers one subject)
  * @returns {string} The course preview URL
  */
 export const getCoursePreviewUrl = (siteSlug, courseSlug) => {
   const siteUrl = getSiteUrl(siteSlug);
-  return `${siteUrl}/courses/${courseSlug}`;
+  const site = SITES[siteSlug];
+  if (!site) {
+    console.warn(`getCoursePreviewUrl: unknown siteSlug "${siteSlug}", falling back to main`);
+    return `${getSiteUrl('main')}/courses/${courseSlug}`;
+  }
+  // For main site, append the course slug to the courses listing path
+  if (siteSlug === 'main') {
+    return `${siteUrl}/courses/${courseSlug}`;
+  }
+  // Learning apps define a fixed coursePreviewPath in siteConfig
+  return `${siteUrl}${site.coursePreviewPath}`;
 };
 
 /**
