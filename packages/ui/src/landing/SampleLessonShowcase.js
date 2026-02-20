@@ -5,8 +5,7 @@
  * 
  * Universal access module structure for paid apps:
  * - Overview: High-impact highlights
- * - Sample Lesson: Demonstrate Tri-Level Logic
- * - The Test: Level 1 test accessible to ALL users
+ * - Sample Lesson: Choose Basic or Intermediate level (no test tab)
  * 
  * Zero-Barrier Sample for every paid app
  */
@@ -24,16 +23,6 @@ function getSampleLessonUrl(appId, moduleId, lessonId) {
   return `/modules/${moduleId}/lesson/${lessonId}`; // Standard module-based structure
 }
 
-/**
- * Helper function to get test/assessment URL based on app structure
- */
-function getTestUrl(appId, moduleId) {
-  if (appId === "learn-finesse") {
-    return "/lessons/day4"; // Learn Finesse uses interactive scenarios in lessons
-  }
-  return `/modules/${moduleId}/test`; // Standard test structure
-}
-
 export default function SampleLessonShowcase({ 
   appId,
   appName,
@@ -42,6 +31,7 @@ export default function SampleLessonShowcase({
   sampleLessonId = 1
 }) {
   const [activeTab, setActiveTab] = useState("overview");
+  const [sampleLevel, setSampleLevel] = useState(null);
 
   // App-specific highlights as per requirements
   const appHighlights = {
@@ -93,23 +83,6 @@ export default function SampleLessonShowcase({
         level3: "The Architect: System design and scalable architecture"
       }
     },
-    // MOVED TO apps-backup as per cleanup requirements
-    // "learn-govt-jobs": {
-    //   title: "High-Velocity Exam Preparation",
-    //   description: "High-velocity preparation for the nation's most competitive professional exams.",
-    //   keyPoints: [
-    //     "Comprehensive coverage of all major government exams",
-    //     "Strategic preparation techniques and time management",
-    //     "Current affairs and general knowledge mastery",
-    //     "Mock tests and performance analytics",
-    //     "Interview preparation and personality development"
-    //   ],
-    //   triLevelPreview: {
-    //     level1: "Building Intuition: Exam patterns and foundational concepts",
-    //     level2: "The Systems: Subject mastery and strategic preparation",
-    //     level3: "The Architect: Advanced problem-solving and interview excellence"
-    //   }
-    // },
     "learn-pr": {
       title: "Master the Science of Public Perception",
       description: "Master the science of public perception and brand influence.",
@@ -155,6 +128,10 @@ export default function SampleLessonShowcase({
     }
   };
 
+  // Intermediate lesson is module 2
+  const intermediateLessonUrl = getSampleLessonUrl(appId, 2, 1);
+  const basicLessonUrl = getSampleLessonUrl(appId, sampleModuleId, sampleLessonId);
+
   return (
     <div className="bg-white py-16">
       <div className="max-w-6xl mx-auto px-4">
@@ -164,7 +141,7 @@ export default function SampleLessonShowcase({
             Try Before You Enroll
           </h2>
           <p className="text-xl text-gray-600">
-            Experience our Tri-Level learning system with a complete sample lesson and test
+            Experience our Tri-Level learning system with a complete sample lesson
           </p>
         </div>
 
@@ -189,16 +166,6 @@ export default function SampleLessonShowcase({
             }`}
           >
             📚 Sample Lesson
-          </button>
-          <button
-            onClick={() => setActiveTab("test")}
-            className={`px-6 py-3 font-semibold transition-all ${
-              activeTab === "test"
-                ? "border-b-4 border-purple-600 text-purple-600"
-                : "text-gray-600 hover:text-gray-900"
-            }`}
-          >
-            ✅ Level 1 Test
           </button>
         </div>
 
@@ -245,68 +212,59 @@ export default function SampleLessonShowcase({
 
           {activeTab === "sample" && (
             <div>
-              <h3 className="text-3xl font-bold mb-4 text-gray-900">Sample Lesson: Experience Our Teaching Style</h3>
+              <h3 className="text-3xl font-bold mb-4 text-gray-900">Sample Lesson: Choose Your Level</h3>
               <p className="text-lg text-gray-700 mb-6">
-                This sample lesson demonstrates how we break down complex concepts into digestible, actionable insights.
+                Choose a sample lesson to experience our teaching style. Both are <strong>100% free</strong>—no login required!
               </p>
-              
-              <div className="bg-white rounded-xl p-6 mb-6 border-2 border-blue-200">
-                <p className="text-gray-700 mb-4">
-                  🎓 You're about to experience a complete lesson from Module {sampleModuleId}, Lesson {sampleLessonId}.
-                </p>
-                <p className="text-gray-700">
-                  This lesson is <strong>100% free</strong> and accessible to everyone—no login required!
-                </p>
-              </div>
 
-              <Link
-                href={getSampleLessonUrl(appId, sampleModuleId, sampleLessonId)}
-                className="inline-block bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-lg font-bold text-lg hover:from-blue-700 hover:to-purple-700 transition-all shadow-lg hover:shadow-xl"
-              >
-                Start Sample Lesson →
-              </Link>
-            </div>
-          )}
+              {!sampleLevel ? (
+                <div className="flex flex-col sm:flex-row gap-6 mb-6">
+                  <button
+                    onClick={() => setSampleLevel("basic")}
+                    className="flex-1 bg-white rounded-xl p-6 border-2 border-green-300 hover:border-green-500 hover:shadow-lg transition-all text-left"
+                  >
+                    <div className="text-3xl mb-2">🟢</div>
+                    <h4 className="text-xl font-bold text-gray-900 mb-1">Basic</h4>
+                    <p className="text-gray-600 text-sm">Foundations and core concepts — perfect for beginners</p>
+                    <span className="inline-block mt-3 bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">Choose Basic →</span>
+                  </button>
+                  <button
+                    onClick={() => setSampleLevel("intermediate")}
+                    className="flex-1 bg-white rounded-xl p-6 border-2 border-blue-300 hover:border-blue-500 hover:shadow-lg transition-all text-left"
+                  >
+                    <div className="text-3xl mb-2">🔵</div>
+                    <h4 className="text-xl font-bold text-gray-900 mb-1">Intermediate</h4>
+                    <p className="text-gray-600 text-sm">Apply concepts to real-world scenarios and complex patterns</p>
+                    <span className="inline-block mt-3 bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-semibold">Choose Intermediate →</span>
+                  </button>
+                </div>
+              ) : (
+                <div>
+                  <div className="bg-white rounded-xl p-6 mb-6 border-2 border-blue-200">
+                    <p className="text-gray-700 mb-2">
+                      🎓 You selected: <strong>{sampleLevel === "basic" ? "Basic" : "Intermediate"}</strong> sample lesson.
+                    </p>
+                    <p className="text-gray-700">
+                      This lesson is <strong>100% free</strong> and accessible to everyone—no login required!
+                    </p>
+                  </div>
 
-          {activeTab === "test" && (
-            <div>
-              <h3 className="text-3xl font-bold mb-4 text-gray-900">Level 1 Test: Prove Your Learning</h3>
-              <p className="text-lg text-gray-700 mb-6">
-                After completing the sample lesson, test your understanding with our Level 1 assessment.
-              </p>
-              
-              <div className="bg-white rounded-xl p-6 mb-6 border-2 border-green-200">
-                <h4 className="text-xl font-semibold mb-3 text-gray-900">Test Format:</h4>
-                <ul className="space-y-2 text-gray-700">
-                  <li className="flex items-start">
-                    <span className="mr-2">•</span>
-                    <span>5 multiple-choice questions</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="mr-2">•</span>
-                    <span>Pass with 3/5 correct answers</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="mr-2">•</span>
-                    <span>Immediate feedback and explanations</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="mr-2">•</span>
-                    <span>100% free access—no barriers</span>
-                  </li>
-                </ul>
-              </div>
-
-              <Link
-                href={getTestUrl(appId, sampleModuleId)}
-                className="inline-block bg-gradient-to-r from-green-600 to-teal-600 text-white px-8 py-4 rounded-lg font-bold text-lg hover:from-green-700 hover:to-teal-700 transition-all shadow-lg hover:shadow-xl"
-              >
-                {appId === "learn-finesse" ? "Experience Interactive Scenarios →" : "Take Level 1 Test →"}
-              </Link>
-
-              <p className="text-sm text-gray-600 mt-4">
-                Complete the sample lesson first for the best learning experience!
-              </p>
+                  <div className="flex gap-4 flex-wrap">
+                    <Link
+                      href={sampleLevel === "basic" ? basicLessonUrl : intermediateLessonUrl}
+                      className="inline-block bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-lg font-bold text-lg hover:from-blue-700 hover:to-purple-700 transition-all shadow-lg hover:shadow-xl"
+                    >
+                      Start {sampleLevel === "basic" ? "Basic" : "Intermediate"} Sample Lesson →
+                    </Link>
+                    <button
+                      onClick={() => setSampleLevel(null)}
+                      className="inline-block bg-gray-200 text-gray-700 px-6 py-4 rounded-lg font-semibold hover:bg-gray-300 transition-all"
+                    >
+                      ← Change Level
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
           )}
         </div>
@@ -314,3 +272,5 @@ export default function SampleLessonShowcase({
     </div>
   );
 }
+
+
