@@ -18,7 +18,9 @@ export default function App({ Component, pageProps }) {
       </Head>
 
       <SiteHeader />
-      <Component {...pageProps} />
+      <div className="pb-20">
+        <Component {...pageProps} />
+      </div>
       <Footer />
 
       {/* AI Assistant - always visible */}

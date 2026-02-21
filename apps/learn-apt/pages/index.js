@@ -142,32 +142,7 @@ export default function Home() {
         {/* Light Yellow Background Content Section */}
         <div className="bg-yellow-50">
 
-          {/* CTA Buttons below hero */}
-          {!user && (
-            <section className="py-10 px-4 sm:px-6 lg:px-8 bg-yellow-100">
-              <div className="max-w-4xl mx-auto">
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.5 }}
-                  className="flex flex-col sm:flex-row gap-4 justify-center"
-                >
-                  <Link
-                    href="/test/diagnostic"
-                    className="inline-block px-10 py-4 bg-yellow-600 text-white text-xl font-bold rounded-2xl hover:bg-yellow-700 transition-all shadow-lg transform hover:scale-105 text-center"
-                  >
-                    🚀 Start My Diagnostics
-                  </Link>
-                  <Link
-                    href="/tests"
-                    className="inline-block px-10 py-4 bg-white border-2 border-yellow-600 text-yellow-700 text-xl font-bold rounded-2xl hover:bg-yellow-50 transition-all transform hover:scale-105 text-center"
-                  >
-                    📊 Browse All Tests
-                  </Link>
-                </motion.div>
-              </div>
-            </section>
-          )}
+
 
           {user && (
             <section className="py-10 px-4 sm:px-6 lg:px-8 bg-yellow-100">
@@ -373,11 +348,10 @@ export default function Home() {
                     Join thousands discovering their cognitive strengths. Get your Brain-Print and career insights today — 100% free!
                   </p>
                   <Link
-                    href="/test/diagnostic"
-                    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                    href="/tests"
                     className="inline-block px-12 py-5 bg-white text-yellow-700 rounded-2xl font-bold text-xl hover:bg-yellow-50 transition-all shadow-2xl transform hover:scale-105"
                   >
-                    🚀 Start My Diagnostics
+                    📊 Explore All Tests
                   </Link>
                 </motion.div>
               </div>
