@@ -1,21 +1,15 @@
 "use client";
 
 /**
- * Level Selector Component with Diagnostic Gatekeeper
- * 
+ * Level Selector Component
+ *
  * Universal component for all app landing pages that:
  * 1. Displays "Where would you like to start?" with tier selection
- * 2. Shows diagnostic quiz for Intermediate/Advanced tiers
- * 3. Routes Basic tier users directly to sample module
- * 4. Enforces 30% passing threshold for higher tiers
+ * 2. Routes users directly to the selected level (no gatekeeper quiz)
  */
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { useRouter } from "next/router";
-import DiagnosticQuiz from "./DiagnosticQuiz";
-import GatekeeperQuiz from "./GatekeeperQuiz";
-import { getGatekeeperQuestions, getSubjectName } from "@/lib/gatekeeperUtils";
 
 const TIERS = [
   {
@@ -55,25 +49,19 @@ const TIERS = [
 
 export default function LevelSelector({ 
   appName = "this course",
-  appId = null, // App ID for gatekeeper questions (e.g., 'learn-math', 'learn-pr')
   sampleModuleUrl = "/modules/1/lesson/1",
   intermediateUrl = "/curriculum?level=intermediate",
   advancedUrl = "/curriculum?level=advanced",
-  questions = [] // Optional: app-specific questions (legacy support)
 }) {
   const router = useRouter();
-  const [selectedTier, setSelectedTier] = useState(null);
-  const [showQuiz, setShowQuiz] = useState(false);
 
   const handleTierSelect = (tier) => {
-    setSelectedTier(tier);
-
     if (tier.id === "basic") {
-      // Basic tier: go directly to sample module
       router.push(sampleModuleUrl);
-    } else {
-      // Intermediate or Advanced: show diagnostic quiz
-      setShowQuiz(true);
+    } else if (tier.id === "intermediate") {
+      router.push(intermediateUrl);
+    } else if (tier.id === "advanced") {
+      router.push(advancedUrl);
     }
   };
 
@@ -83,73 +71,6 @@ export default function LevelSelector({
       handleTierSelect(tier);
     }
   };
-
-  const handleQuizPass = () => {
-    // User passed the quiz, redirect to appropriate level
-    if (selectedTier.id === "intermediate") {
-      router.push(intermediateUrl);
-    } else if (selectedTier.id === "advanced") {
-      router.push(advancedUrl);
-    }
-  };
-
-  const handleQuizFail = () => {
-    // User failed, redirect to Basic tier (sample module)
-    router.push(sampleModuleUrl);
-  };
-
-  if (showQuiz && selectedTier) {
-    // Get gatekeeper questions if appId is provided
-    const gatekeeperQuestions = appId 
-      ? getGatekeeperQuestions(appId, selectedTier.name)
-      : [];
-    
-    // Determine which quiz component to use
-    const hasGatekeeperQuestions = gatekeeperQuestions.length > 0;
-    const questionsToUse = hasGatekeeperQuestions ? gatekeeperQuestions : questions;
-    const subjectName = appId ? getSubjectName(appId) : appName;
-    
-    return (
-      <section className="py-16 px-4 bg-gradient-to-b from-gray-50 to-white">
-        <div className="max-w-4xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-center mb-8"
-          >
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              {selectedTier.emoji} {selectedTier.name} Tier {hasGatekeeperQuestions ? 'Gatekeeper' : 'Diagnostic'}
-            </h2>
-            <p className="text-lg text-gray-600">
-              {hasGatekeeperQuestions 
-                ? `Answer all 3 questions correctly to unlock the ${selectedTier.name} tier`
-                : `Answer these 5 questions to verify you're ready for the ${selectedTier.name} tier`
-              }
-            </p>
-          </motion.div>
-
-          {hasGatekeeperQuestions ? (
-            <GatekeeperQuiz
-              tier={selectedTier.name}
-              subject={subjectName}
-              appName={appName}
-              onPass={handleQuizPass}
-              onFail={handleQuizFail}
-              questions={questionsToUse}
-            />
-          ) : (
-            <DiagnosticQuiz
-              tier={selectedTier.name}
-              appName={appName}
-              onPass={handleQuizPass}
-              onFail={handleQuizFail}
-              questions={questionsToUse}
-            />
-          )}
-        </div>
-      </section>
-    );
-  }
 
   return (
     <section className="py-16 px-4 bg-gradient-to-b from-white to-gray-50">
@@ -210,18 +131,9 @@ export default function LevelSelector({
                   <button
                     className={`w-full py-4 px-6 rounded-xl font-bold text-white text-lg shadow-lg hover:shadow-xl transition-all bg-gradient-to-r ${tier.color}`}
                   >
-                    {tier.id === "basic" ? "Start Learning →" : "Take Diagnostic →"}
+                    Start Learning →
                   </button>
                 </div>
-
-                {/* Info Badge */}
-                {tier.id !== "basic" && (
-                  <div className="mt-4 text-center">
-                    <span className="inline-block bg-white px-3 py-1 rounded-full text-xs font-semibold text-gray-600 border border-gray-300">
-                      🔒 Requires gatekeeper test (100% accuracy)
-                    </span>
-                  </div>
-                )}
               </div>
             </motion.div>
           ))}
@@ -246,11 +158,11 @@ export default function LevelSelector({
               </p>
               <p className="flex items-start">
                 <span className="text-blue-500 mr-2 flex-shrink-0">🔵</span>
-                <span><strong>Intermediate:</strong> Take a 3-question gatekeeper test (100% accuracy required)</span>
+                <span><strong>Intermediate:</strong> Apply concepts to real-world scenarios</span>
               </p>
               <p className="flex items-start">
                 <span className="text-purple-500 mr-2 flex-shrink-0">🟣</span>
-                <span><strong>Advanced:</strong> Take a 3-question gatekeeper test (100% accuracy required)</span>
+                <span><strong>Advanced:</strong> Master-level expertise and professional certification</span>
               </p>
             </div>
           </div>
