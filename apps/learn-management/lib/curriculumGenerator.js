@@ -7,71 +7,71 @@
 export const moduleTopics = [
   {
     id: 1,
-    title: "Introduction to AI",
-    description: "Understanding the fundamentals of Artificial Intelligence",
+    title: "Foundations of Management",
+    description: "Core principles and theories that underpin effective management practice",
     order: 1,
     difficulty: "Beginner"
   },
   {
     id: 2,
-    title: "Types of AI",
-    description: "Exploring different categories and applications of AI",
+    title: "Leadership Principles",
+    description: "Developing the mindset and skills of an effective modern leader",
     order: 2,
     difficulty: "Beginner"
   },
   {
     id: 3,
-    title: "Data Science Fundamentals",
-    description: "Building the foundation for AI with data science",
+    title: "Strategic Planning",
+    description: "Setting organizational direction through goal-setting and strategic frameworks",
     order: 3,
     difficulty: "Beginner"
   },
   {
     id: 4,
-    title: "Python for AI",
-    description: "Learning Python programming for AI applications",
+    title: "Organizational Behavior",
+    description: "Understanding how individuals and groups behave within organizations",
     order: 4,
     difficulty: "Beginner"
   },
   {
     id: 5,
-    title: "Supervised Learning",
-    description: "Understanding supervised machine learning algorithms",
+    title: "Team Building & Motivation",
+    description: "Building high-performing teams and fostering a culture of engagement",
     order: 5,
     difficulty: "Intermediate"
   },
   {
     id: 6,
-    title: "Unsupervised Learning",
-    description: "Exploring clustering and dimensionality reduction",
+    title: "Financial Management",
+    description: "Budgeting, financial analysis, and resource allocation for managers",
     order: 6,
     difficulty: "Intermediate"
   },
   {
     id: 7,
-    title: "Neural Networks",
-    description: "Deep dive into neural network architectures",
+    title: "Operations Management",
+    description: "Optimizing processes, workflows, and operational efficiency",
     order: 7,
     difficulty: "Intermediate"
   },
   {
     id: 8,
-    title: "AI Monetization",
-    description: "Turning AI skills into income streams",
+    title: "Change Management",
+    description: "Leading organizational change and managing resistance effectively",
     order: 8,
     difficulty: "Advanced"
   },
   {
     id: 9,
-    title: "AI Tools & Frameworks",
-    description: "Mastering popular AI tools and platforms",
+    title: "HR & Talent Management",
+    description: "Recruiting, developing, and retaining top talent in your organization",
     order: 9,
     difficulty: "Advanced"
   },
   {
     id: 10,
-    title: "Career Pathways in AI",
-    description: "Building a successful career in artificial intelligence",
+    title: "Project Management",
+    description: "Delivering projects on time, within scope and budget using proven methodologies",
     order: 10,
     difficulty: "Advanced"
   }

@@ -53,71 +53,71 @@ export default function LessonPage() {
   const generateLessonContent = (modId, lessId) => {
     return `
       <h2>Module ${modId}, Lesson ${lessId}</h2>
-      <p>Welcome to this comprehensive lesson on AI fundamentals. In this session, we'll explore key concepts that form the foundation of artificial intelligence.</p>
+      <p>Welcome to this comprehensive lesson on Chemistry. In this session, we'll explore key concepts that form the foundation of understanding matter and its transformations.</p>
       
       <h3>Introduction</h3>
-      <p>Artificial Intelligence represents one of the most transformative technologies of our time. Understanding its principles is crucial for anyone looking to build a career in tech.</p>
+      <p>Chemistry is the scientific study of matter, its properties, composition, structure, and the changes it undergoes. Understanding its principles is crucial for anyone pursuing a career in science, medicine, or engineering.</p>
       
       <h3>Key Concepts</h3>
-      <p>This lesson covers essential topics including machine learning algorithms, data preprocessing, and model evaluation techniques. You'll learn practical approaches to solving real-world problems.</p>
+      <p>This lesson covers essential chemistry topics including atomic structure, chemical bonding, reactions, stoichiometry, and thermochemistry. You'll learn practical approaches to analyzing substances and predicting chemical behavior.</p>
       
       <h3>Practical Applications</h3>
-      <p>We'll examine how these concepts apply in industry settings, from recommendation systems to predictive analytics. Understanding these applications helps bridge theory and practice.</p>
+      <p>We'll examine how these concepts apply in real-world settings, from pharmaceutical development to environmental science. Understanding these applications helps bridge chemistry theory and practical problem-solving.</p>
       
       <h3>Summary</h3>
-      <p>By mastering these fundamentals, you're building a strong foundation for advanced AI topics. Continue practicing and exploring to deepen your understanding.</p>
+      <p>By mastering these fundamentals, you're building a strong foundation for advanced chemistry topics. Continue practicing and exploring to deepen your understanding of chemical principles.</p>
     `;
   };
 
   const generateQuiz = () => {
     return [
       {
-        question: "What is the primary goal of supervised learning?",
+        question: "What is an atom?",
         options: [
-          "To predict outcomes based on labeled data",
-          "To cluster unlabeled data",
-          "To reduce data dimensions",
-          "To generate new data"
+          "The smallest unit of a chemical element that retains its chemical properties",
+          "A group of molecules bonded together",
+          "A type of chemical reaction",
+          "A unit of measurement for energy"
         ],
         correct_answer: 0
       },
       {
-        question: "Which algorithm is commonly used for classification tasks?",
+        question: "What type of bond involves the sharing of electrons between atoms?",
         options: [
-          "K-means clustering",
-          "Decision Trees",
-          "Principal Component Analysis",
-          "Autoencoder"
+          "Ionic bond",
+          "Metallic bond",
+          "Covalent bond",
+          "Hydrogen bond"
+        ],
+        correct_answer: 2
+      },
+      {
+        question: "What does the pH scale measure?",
+        options: [
+          "The temperature of a solution",
+          "The concentration of hydrogen ions (acidity or alkalinity)",
+          "The density of a liquid",
+          "The pressure of a gas"
         ],
         correct_answer: 1
       },
       {
-        question: "What does overfitting mean in machine learning?",
+        question: "What is a chemical reaction?",
         options: [
-          "Model performs well on all data",
-          "Model memorizes training data but performs poorly on new data",
-          "Model uses too few features",
-          "Model trains too quickly"
+          "A physical change in the state of matter",
+          "A process where substances are transformed into new substances with different properties",
+          "The mixing of two liquids",
+          "The boiling of water"
         ],
         correct_answer: 1
       },
       {
-        question: "Which metric is best for imbalanced classification problems?",
+        question: "What is the Periodic Table?",
         options: [
-          "Accuracy",
-          "F1 Score",
-          "Mean Squared Error",
-          "R-squared"
-        ],
-        correct_answer: 1
-      },
-      {
-        question: "What is the purpose of a validation set?",
-        options: [
-          "To train the model",
-          "To test final performance",
-          "To tune hyperparameters during training",
-          "To store predictions"
+          "A calendar of chemistry experiments",
+          "A table of chemical reactions",
+          "An organized arrangement of all known chemical elements by atomic number",
+          "A list of laboratory safety rules"
         ],
         correct_answer: 2
       }
@@ -175,8 +175,8 @@ export default function LessonPage() {
   return (
     <>
       <Head>
-        <title>{lesson?.title} - Learn AI</title>
-        <meta name="description" content={`Learn AI - Module ${moduleId}, Lesson ${lessonId}`} />
+        <title>{lesson?.title} - Learn Chemistry</title>
+        <meta name="description" content={`Learn Chemistry - Module ${moduleId}, Lesson ${lessonId}`} />
       </Head>
 
       <main className="min-h-screen bg-gray-50 py-12">

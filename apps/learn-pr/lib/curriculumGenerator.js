@@ -7,71 +7,71 @@
 export const moduleTopics = [
   {
     id: 1,
-    title: "Introduction to AI",
-    description: "Understanding the fundamentals of Artificial Intelligence",
+    title: "Introduction to Public Relations",
+    description: "Understanding the fundamentals of PR and its role in modern organizations",
     order: 1,
     difficulty: "Beginner"
   },
   {
     id: 2,
-    title: "Types of AI",
-    description: "Exploring different categories and applications of AI",
+    title: "Media Relations",
+    description: "Building and maintaining effective relationships with journalists and media",
     order: 2,
     difficulty: "Beginner"
   },
   {
     id: 3,
-    title: "Data Science Fundamentals",
-    description: "Building the foundation for AI with data science",
+    title: "Writing Press Releases",
+    description: "Crafting compelling press releases that capture media attention",
     order: 3,
     difficulty: "Beginner"
   },
   {
     id: 4,
-    title: "Python for AI",
-    description: "Learning Python programming for AI applications",
+    title: "Brand Management",
+    description: "Building and protecting a strong organizational brand identity",
     order: 4,
     difficulty: "Beginner"
   },
   {
     id: 5,
-    title: "Supervised Learning",
-    description: "Understanding supervised machine learning algorithms",
+    title: "Crisis Communication",
+    description: "Managing communications during organizational crises and emergencies",
     order: 5,
     difficulty: "Intermediate"
   },
   {
     id: 6,
-    title: "Unsupervised Learning",
-    description: "Exploring clustering and dimensionality reduction",
+    title: "Social Media PR",
+    description: "Leveraging social media platforms for effective public relations",
     order: 6,
     difficulty: "Intermediate"
   },
   {
     id: 7,
-    title: "Neural Networks",
-    description: "Deep dive into neural network architectures",
+    title: "Stakeholder Management",
+    description: "Identifying and engaging key stakeholders to build lasting relationships",
     order: 7,
     difficulty: "Intermediate"
   },
   {
     id: 8,
-    title: "AI Monetization",
-    description: "Turning AI skills into income streams",
+    title: "PR Campaign Strategy",
+    description: "Planning and executing strategic PR campaigns from concept to completion",
     order: 8,
     difficulty: "Advanced"
   },
   {
     id: 9,
-    title: "AI Tools & Frameworks",
-    description: "Mastering popular AI tools and platforms",
+    title: "Digital PR & SEO",
+    description: "Integrating digital strategies and SEO into modern PR practice",
     order: 9,
     difficulty: "Advanced"
   },
   {
     id: 10,
-    title: "Career Pathways in AI",
-    description: "Building a successful career in artificial intelligence",
+    title: "PR Measurement & Analytics",
+    description: "Measuring PR impact and demonstrating value through data and analytics",
     order: 10,
     difficulty: "Advanced"
   }

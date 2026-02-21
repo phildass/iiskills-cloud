@@ -53,71 +53,71 @@ export default function LessonPage() {
   const generateLessonContent = (modId, lessId) => {
     return `
       <h2>Module ${modId}, Lesson ${lessId}</h2>
-      <p>Welcome to this comprehensive lesson on AI fundamentals. In this session, we'll explore key concepts that form the foundation of artificial intelligence.</p>
+      <p>Welcome to this comprehensive lesson on Mathematics. In this session, we'll explore key concepts that form the foundation of mathematical reasoning and problem-solving.</p>
       
       <h3>Introduction</h3>
-      <p>Artificial Intelligence represents one of the most transformative technologies of our time. Understanding its principles is crucial for anyone looking to build a career in tech.</p>
+      <p>Mathematics is the science of numbers, quantities, shapes, and patterns. Understanding its principles is crucial for anyone pursuing a career in science, technology, engineering, or finance.</p>
       
       <h3>Key Concepts</h3>
-      <p>This lesson covers essential topics including machine learning algorithms, data preprocessing, and model evaluation techniques. You'll learn practical approaches to solving real-world problems.</p>
+      <p>This lesson covers essential mathematical topics including algebra, geometry, calculus, statistics, and number theory. You'll learn practical approaches to solving problems using logical and analytical reasoning.</p>
       
       <h3>Practical Applications</h3>
-      <p>We'll examine how these concepts apply in industry settings, from recommendation systems to predictive analytics. Understanding these applications helps bridge theory and practice.</p>
+      <p>We'll examine how these concepts apply in real-world settings, from financial modeling to engineering design and data analysis. Understanding these applications helps bridge mathematical theory and practical problem-solving.</p>
       
       <h3>Summary</h3>
-      <p>By mastering these fundamentals, you're building a strong foundation for advanced AI topics. Continue practicing and exploring to deepen your understanding.</p>
+      <p>By mastering these fundamentals, you're building a strong foundation for advanced mathematical topics. Continue practicing and exploring to develop your analytical and problem-solving skills.</p>
     `;
   };
 
   const generateQuiz = () => {
     return [
       {
-        question: "What is the primary goal of supervised learning?",
+        question: "What is the value of π (pi) approximately?",
         options: [
-          "To predict outcomes based on labeled data",
-          "To cluster unlabeled data",
-          "To reduce data dimensions",
-          "To generate new data"
-        ],
-        correct_answer: 0
-      },
-      {
-        question: "Which algorithm is commonly used for classification tasks?",
-        options: [
-          "K-means clustering",
-          "Decision Trees",
-          "Principal Component Analysis",
-          "Autoencoder"
+          "2.718",
+          "3.142",
+          "1.618",
+          "1.414"
         ],
         correct_answer: 1
       },
       {
-        question: "What does overfitting mean in machine learning?",
+        question: "What is the Pythagorean theorem?",
         options: [
-          "Model performs well on all data",
-          "Model memorizes training data but performs poorly on new data",
-          "Model uses too few features",
-          "Model trains too quickly"
+          "a + b = c",
+          "a² + b² = c²",
+          "a × b = c²",
+          "(a + b)² = c"
         ],
         correct_answer: 1
       },
       {
-        question: "Which metric is best for imbalanced classification problems?",
+        question: "What is the derivative of x²?",
         options: [
-          "Accuracy",
-          "F1 Score",
-          "Mean Squared Error",
-          "R-squared"
+          "x",
+          "2",
+          "2x",
+          "x³/3"
+        ],
+        correct_answer: 2
+      },
+      {
+        question: "What is the sum of interior angles of a triangle?",
+        options: [
+          "90 degrees",
+          "180 degrees",
+          "270 degrees",
+          "360 degrees"
         ],
         correct_answer: 1
       },
       {
-        question: "What is the purpose of a validation set?",
+        question: "What is a prime number?",
         options: [
-          "To train the model",
-          "To test final performance",
-          "To tune hyperparameters during training",
-          "To store predictions"
+          "A number divisible by 2",
+          "A number greater than 100",
+          "A number divisible only by 1 and itself",
+          "Any odd number"
         ],
         correct_answer: 2
       }
@@ -175,8 +175,8 @@ export default function LessonPage() {
   return (
     <>
       <Head>
-        <title>{lesson?.title} - Learn AI</title>
-        <meta name="description" content={`Learn AI - Module ${moduleId}, Lesson ${lessonId}`} />
+        <title>{lesson?.title} - Learn Math</title>
+        <meta name="description" content={`Learn Math - Module ${moduleId}, Lesson ${lessonId}`} />
       </Head>
 
       <main className="min-h-screen bg-gray-50 py-12">

@@ -4,16 +4,23 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Head from 'next/head';
-import Footer from '../../components/Footer';
 import { getCurrentUser } from '../../lib/supabaseClient';
+import { COGNITIVE_DOMAINS, QUESTION_BANK } from '../../lib/questionBank';
 
 export default function AdminPanel() {
   const router = useRouter();
   const [user, setUser] = useState(null);
-  const [activeTab, setActiveTab] = useState('modules');
-  const [modules, setModules] = useState([]);
+  const [activeTab, setActiveTab] = useState('tests');
   const [registrations, setRegistrations] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const testSections = [
+    { id: 'numerical', title: COGNITIVE_DOMAINS.NUMERICAL, questionCount: (QUESTION_BANK.numerical || []).length },
+    { id: 'logical', title: COGNITIVE_DOMAINS.LOGICAL, questionCount: (QUESTION_BANK.logical || []).length },
+    { id: 'verbal', title: COGNITIVE_DOMAINS.VERBAL, questionCount: (QUESTION_BANK.verbal || []).length },
+    { id: 'spatial', title: COGNITIVE_DOMAINS.SPATIAL, questionCount: (QUESTION_BANK.spatial || []).length },
+    { id: 'dataInterpretation', title: COGNITIVE_DOMAINS.DATA_INTERPRETATION, questionCount: (QUESTION_BANK.dataInterpretation || []).length },
+  ];
 
   useEffect(() => {
     checkAuth();
@@ -28,21 +35,16 @@ export default function AdminPanel() {
 
     const currentUser = await getCurrentUser();
     if (!currentUser) {
-      router.push('/register');
+      router.push('/');
       return;
     }
 
-    // In production, check if user is admin
     setUser(currentUser);
     loadData();
   };
 
   const loadData = async () => {
     try {
-      // Load mock data - in production, fetch from Supabase
-      const { getAllModules } = await import('../../lib/curriculumGenerator');
-      setModules(getAllModules());
-      
       setRegistrations([
         { id: 1, email: 'user1@example.com', date: '2024-01-15', status: 'active' },
         { id: 2, email: 'user2@example.com', date: '2024-01-20', status: 'active' },
@@ -56,23 +58,20 @@ export default function AdminPanel() {
 
   if (loading) {
     return (
-      <>
-        <div className="min-h-screen flex items-center justify-center">
-          <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-            <p className="mt-4 text-gray-600">Loading admin panel...</p>
-          </div>
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+          <p className="mt-4 text-gray-600">Loading admin panel...</p>
         </div>
-        <Footer />
-      </>
+      </div>
     );
   }
 
   return (
     <>
       <Head>
-        <title>Admin Panel - Learn AI</title>
-        <meta name="description" content="Learn AI Admin Dashboard" />
+        <title>Admin Panel - Learn APT</title>
+        <meta name="description" content="Learn APT Admin Dashboard" />
       </Head>
 
       <main className="min-h-screen bg-gray-50 py-12">
@@ -82,14 +81,14 @@ export default function AdminPanel() {
           <div className="mb-6">
             <div className="flex gap-4 border-b border-gray-200">
               <button
-                onClick={() => setActiveTab('modules')}
+                onClick={() => setActiveTab('tests')}
                 className={`px-4 py-2 font-semibold ${
-                  activeTab === 'modules'
+                  activeTab === 'tests'
                     ? 'text-blue-600 border-b-2 border-blue-600'
                     : 'text-gray-600 hover:text-gray-800'
                 }`}
               >
-                Modules & Lessons
+                Test Sections
               </button>
               <button
                 onClick={() => setActiveTab('registrations')}
@@ -101,52 +100,29 @@ export default function AdminPanel() {
               >
                 Registrations
               </button>
-              <button
-                onClick={() => setActiveTab('certificates')}
-                className={`px-4 py-2 font-semibold ${
-                  activeTab === 'certificates'
-                    ? 'text-blue-600 border-b-2 border-blue-600'
-                    : 'text-gray-600 hover:text-gray-800'
-                }`}
-              >
-                Certificates
-              </button>
             </div>
           </div>
 
-          {activeTab === 'modules' && (
+          {activeTab === 'tests' && (
             <div className="card">
-              <h2 className="text-2xl font-semibold mb-6">Course Modules</h2>
+              <h2 className="text-2xl font-semibold mb-6">Aptitude Test Sections</h2>
               <div className="overflow-x-auto">
                 <table className="w-full">
                   <thead>
                     <tr className="border-b border-gray-200">
-                      <th className="text-left py-3 px-4">ID</th>
-                      <th className="text-left py-3 px-4">Title</th>
-                      <th className="text-left py-3 px-4">Difficulty</th>
-                      <th className="text-left py-3 px-4">Lessons</th>
+                      <th className="text-left py-3 px-4">Section</th>
+                      <th className="text-left py-3 px-4">Questions</th>
                       <th className="text-left py-3 px-4">Actions</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {modules.map(module => (
-                      <tr key={module.id} className="border-b border-gray-100 hover:bg-gray-50">
-                        <td className="py-3 px-4">{module.id}</td>
-                        <td className="py-3 px-4">{module.title}</td>
+                    {testSections.map(section => (
+                      <tr key={section.id} className="border-b border-gray-100 hover:bg-gray-50">
+                        <td className="py-3 px-4">{section.title}</td>
+                        <td className="py-3 px-4">{section.questionCount}</td>
                         <td className="py-3 px-4">
-                          <span className={`px-2 py-1 rounded text-sm ${
-                            module.difficulty === 'Beginner' ? 'bg-green-100 text-green-800' :
-                            module.difficulty === 'Intermediate' ? 'bg-yellow-100 text-yellow-800' :
-                            'bg-red-100 text-red-800'
-                          }`}>
-                            {module.difficulty}
-                          </span>
-                        </td>
-                        <td className="py-3 px-4">10</td>
-                        <td className="py-3 px-4">
-                          <Link href={`/modules/${module.id}/lesson/1`} className="text-green-600 hover:text-green-800 mr-4">Preview</Link>
+                          <Link href="/test/diagnostic" className="text-green-600 hover:text-green-800 mr-4">Preview</Link>
                           <button className="text-blue-600 hover:text-blue-800 mr-4">Edit</button>
-                          <button className="text-red-600 hover:text-red-800">Delete</button>
                         </td>
                       </tr>
                     ))}
@@ -192,19 +168,8 @@ export default function AdminPanel() {
               </div>
             </div>
           )}
-
-          {activeTab === 'certificates' && (
-            <div className="card">
-              <h2 className="text-2xl font-semibold mb-6">Issued Certificates</h2>
-              <p className="text-gray-600">
-                Certificates will appear here when students complete the course and pass the final exam.
-              </p>
-            </div>
-          )}
         </div>
       </main>
-
-      <Footer />
     </>
   );
 }
