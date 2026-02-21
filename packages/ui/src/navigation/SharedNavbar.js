@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import SarvamTranslate from "../common/SarvamTranslate";
+import GoogleTranslate from "../common/GoogleTranslate";
 
 /**
  * Shared Navigation Bar Component
@@ -100,7 +100,7 @@ export default function SharedNavbar({
             <span className="text-sm text-gray-600 whitespace-nowrap hidden lg:inline" title="Language Selector">
               🌐 Language | भाषा
             </span>
-            <SarvamTranslate />
+            <GoogleTranslate />
           </div>
 
           {/* Show Login/Register or User Info based on authentication */}
@@ -187,7 +187,7 @@ export default function SharedNavbar({
             <span className="text-sm text-gray-600 whitespace-nowrap">
               🌐 Language | भाषा:
             </span>
-            <SarvamTranslate />
+            <GoogleTranslate />
           </div>
 
           {/* Show Login/Register or User Info based on authentication */}
