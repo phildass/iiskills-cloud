@@ -1,12 +1,24 @@
 # Learn Apt - Free Aptitude Testing Platform
 
-A comprehensive aptitude testing application built with Next.js, providing both quick assessments and elaborate testing options.
+A comprehensive aptitude testing application built with Next.js, providing 8 selectable tests across 5 cognitive domains plus general-purpose and mixed tests.
 
 ## Features
 
-### Test Types
-- **Short Test**: Quick 7-question assessment (~10 minutes)
-- **Elaborate Test**: Comprehensive 120-question assessment (~90 minutes)
+### Test Types (8 modules, 8 tests)
+
+#### Domain Tests
+- **Numerical Ability** (`/tests/numerical`): Arithmetic, percentages, ratios (~15 min, 8 questions)
+- **Logical Reasoning** (`/tests/logical`): Pattern recognition, syllogisms (~15 min, 8 questions)
+- **Verbal Ability** (`/tests/verbal`): Grammar, reading comprehension (~15 min, 8 questions)
+- **Spatial / Abstract** (`/tests/spatial`): 3D figures, rotations, spatial patterns (~15 min, 8 questions)
+- **Data Interpretation** (`/tests/data-interpretation`): Charts, tables, data insights (~15 min, 8 questions)
+
+#### Mixed / Rapid Test
+- **Quick-Fire** (`/tests/quick-fire`): 5-minute timed dash across all domains (15 questions)
+
+#### General Purpose Tests
+- **General Purpose – Short** (`/tests/general-short`): Quick 7-question mixed assessment (~10 min)
+- **General Purpose – Elaborate** (`/tests/general-elaborate`): Comprehensive 120-question assessment (~90 min)
 
 ### Key Features
 - 💯 100% Free - No subscriptions or hidden fees
@@ -69,15 +81,23 @@ NEXT_PUBLIC_APP_ID=learn-apt
 apps/learn-apt/
 ├── pages/
 │   ├── test/
-│   │   ├── short.js         # Short test (7 questions)
-│   │   └── elaborate.js     # Elaborate test (120 questions)
-│   ├── index.js             # Landing page
+│   │   ├── short.js         # General Purpose – Short (7 questions, backwards-compat route)
+│   │   ├── elaborate.js     # General Purpose – Elaborate (120 questions, backwards-compat route)
+│   │   ├── diagnostic.js    # 15-question diagnostic across 3 dimensions
+│   │   └── quick-fire.js    # Quick-Fire mixed test (15 questions)
+│   ├── tests/
+│   │   ├── [domain].js      # Dynamic domain test (numerical/logical/verbal/spatial/data-interpretation)
+│   │   ├── quick-fire.js    # Redirect → /test/quick-fire
+│   │   ├── general-short.js # Redirect → /test/short
+│   │   └── general-elaborate.js # Redirect → /test/elaborate
+│   ├── index.js             # Landing page (All 8 tests shown as cards)
 │   ├── login.js             # Login page
 │   ├── register.js          # Registration page
 │   ├── tests.js             # Test selection dashboard
 │   ├── terms.js             # Terms of service
 │   └── privacy.js           # Privacy policy
 ├── lib/
+│   ├── questionBank.js      # QUESTION_BANK with 5 cognitive domains (8 questions each)
 │   └── supabaseClient.js    # Supabase configuration
 ├── styles/
 │   └── globals.css          # Global styles
@@ -93,19 +113,30 @@ apps/learn-apt/
 
 ## Features in Detail
 
-### Short Test
+### General Purpose – Short
 - 7 carefully curated questions
 - 10-minute time limit
 - Covers basic aptitude skills
 - Instant results and scoring
 - Great for quick practice
 
-### Elaborate Test
+### General Purpose – Elaborate
 - 120 comprehensive questions
 - 90-minute time limit
 - Multiple categories: Math, Patterns, Logic
 - Detailed performance analysis
 - In-depth skill assessment
+
+### Domain Tests (Numerical / Logical / Verbal / Spatial / Data Interpretation)
+- 8 targeted questions per domain
+- 15-minute time limit
+- Domain-specific skill assessment
+- Instant scoring with career connections
+
+### Quick-Fire
+- 15 mixed questions across all domains
+- 5-minute rapid-fire format
+- Get your complete Aptitude Signature
 
 ### User Experience
 - Clean, modern interface

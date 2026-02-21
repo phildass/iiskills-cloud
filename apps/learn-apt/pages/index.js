@@ -6,7 +6,6 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { getCurrentUser } from "../lib/supabaseClient";
-import { COGNITIVE_DOMAINS } from "../lib/questionBank";
 
 export default function Home() {
   const [user, setUser] = useState(null);
@@ -21,47 +20,79 @@ export default function Home() {
     checkUser();
   }, []);
 
-  const cognitiveModules = [
+  const allTests = [
     {
-      domain: COGNITIVE_DOMAINS.NUMERICAL,
+      href: "/tests/numerical",
       emoji: "💰",
       title: "Numerical Ability",
       description: "Master arithmetic, percentages, ratios, and financial calculations",
+      meta: "8 questions · ~15 min",
       careers: ["Banking", "Finance", "Engineering"],
-      color: "from-blue-500 to-cyan-500"
+      color: "from-blue-500 to-cyan-500",
     },
     {
-      domain: COGNITIVE_DOMAINS.LOGICAL,
+      href: "/tests/logical",
       emoji: "🧩",
       title: "Logical Reasoning",
       description: "Sharpen pattern recognition, syllogisms, and coding-decoding",
+      meta: "8 questions · ~15 min",
       careers: ["Consulting", "Programming", "Strategy"],
-      color: "from-purple-500 to-pink-500"
+      color: "from-purple-500 to-pink-500",
     },
     {
-      domain: COGNITIVE_DOMAINS.VERBAL,
+      href: "/tests/verbal",
       emoji: "🎤",
       title: "Verbal Ability",
       description: "Excel in grammar, reading comprehension, and communication",
+      meta: "8 questions · ~15 min",
       careers: ["Marketing", "Management", "Sales"],
-      color: "from-green-500 to-emerald-500"
+      color: "from-green-500 to-emerald-500",
     },
     {
-      domain: COGNITIVE_DOMAINS.SPATIAL,
+      href: "/tests/spatial",
       emoji: "🏗️",
-      title: "Spatial/Abstract",
+      title: "Spatial / Abstract",
       description: "Visualize 3D figures, rotations, and spatial patterns",
+      meta: "8 questions · ~15 min",
       careers: ["Architecture", "Design", "UI/UX"],
-      color: "from-orange-500 to-red-500"
+      color: "from-orange-500 to-red-500",
     },
     {
-      domain: COGNITIVE_DOMAINS.DATA_INTERPRETATION,
+      href: "/tests/data-interpretation",
       emoji: "📊",
       title: "Data Interpretation",
       description: "Analyze charts, tables, and extract meaningful insights",
+      meta: "8 questions · ~15 min",
       careers: ["Analytics", "Research", "Data Science"],
-      color: "from-indigo-500 to-violet-500"
-    }
+      color: "from-indigo-500 to-violet-500",
+    },
+    {
+      href: "/tests/quick-fire",
+      emoji: "⚡",
+      title: "Quick-Fire",
+      description: "5-minute timed dash across all domains — get your complete Aptitude Signature!",
+      meta: "15 questions · ~5 min",
+      careers: ["All Domains"],
+      color: "from-yellow-500 to-orange-500",
+    },
+    {
+      href: "/tests/general-short",
+      emoji: "🚀",
+      title: "General Purpose – Short",
+      description: "Quick 7-question assessment covering mixed aptitude skills",
+      meta: "7 questions · ~10 min",
+      careers: ["Practice", "Warm-up"],
+      color: "from-teal-500 to-cyan-600",
+    },
+    {
+      href: "/tests/general-elaborate",
+      emoji: "🎯",
+      title: "General Purpose – Elaborate",
+      description: "Comprehensive 120-question deep-dive across all aptitude areas",
+      meta: "120 questions · ~90 min",
+      careers: ["Placement Prep", "Full Assessment"],
+      color: "from-rose-500 to-pink-600",
+    },
   ];
 
   return (
@@ -171,7 +202,7 @@ export default function Home() {
             </section>
           )}
 
-          {/* Cognitive Domains Section */}
+          {/* All Tests Section */}
           <section className="py-16 px-4 sm:px-6 lg:px-8">
             <div className="max-w-7xl mx-auto">
               <motion.div
@@ -181,84 +212,50 @@ export default function Home() {
                 className="text-center mb-12"
               >
                 <h2 className="text-4xl font-bold text-gray-900 mb-4">
-                  5 Cognitive Domains
+                  All Tests
                 </h2>
                 <p className="text-xl text-gray-600">
-                  Each module ends with an Addictive Superpower Reveal
+                  8 modules · 8 tests — pick any and start immediately
                 </p>
               </motion.div>
 
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {cognitiveModules.map((module, index) => (
+                {allTests.map((test, index) => (
                   <motion.div
-                    key={module.domain}
+                    key={test.href}
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ delay: index * 0.1 }}
-                    whileHover={{ scale: 1.05 }}
+                    transition={{ delay: index * 0.07 }}
+                    whileHover={{ scale: 1.03 }}
                     className="group"
                   >
-                    <div className="relative bg-white rounded-2xl p-6 border border-yellow-200 hover:border-yellow-500 transition-all shadow-md hover:shadow-yellow-200">
-                      <div className="text-5xl mb-4">{module.emoji}</div>
-                      <h3 className="text-2xl font-bold text-gray-900 mb-2">{module.title}</h3>
-                      <p className="text-gray-600 mb-4">{module.description}</p>
+                    <div className="relative bg-white rounded-2xl p-6 border border-yellow-200 hover:border-yellow-500 transition-all shadow-md hover:shadow-yellow-200 flex flex-col h-full">
+                      <div className="text-5xl mb-3">{test.emoji}</div>
+                      <h3 className="text-xl font-bold text-gray-900 mb-1">{test.title}</h3>
+                      <p className="text-sm text-yellow-800 font-medium mb-2">{test.meta}</p>
+                      <p className="text-gray-600 mb-4 flex-1">{test.description}</p>
 
                       <div className="flex flex-wrap gap-2 mb-4">
-                        {module.careers.map(career => (
+                        {test.careers.map(career => (
                           <span
                             key={career}
-                            className={`px-3 py-1 text-xs font-semibold rounded-full bg-gradient-to-r ${module.color} text-white`}
+                            className={`px-3 py-1 text-xs font-semibold rounded-full bg-gradient-to-r ${test.color} text-white`}
                           >
                             {career}
                           </span>
                         ))}
                       </div>
 
-                      {user && (
-                        <Link
-                          href={`/test/${module.domain.toLowerCase().replace(/\s+/g, '-')}`}
-                          className="block w-full text-center py-3 px-4 bg-yellow-600 text-white rounded-lg font-semibold hover:bg-yellow-700 transition-all"
-                        >
-                          Test This Domain
-                        </Link>
-                      )}
+                      <Link
+                        href={test.href}
+                        className="block w-full text-center py-3 px-4 bg-yellow-600 text-white rounded-lg font-semibold hover:bg-yellow-700 transition-all"
+                      >
+                        Start
+                      </Link>
                     </div>
                   </motion.div>
                 ))}
-
-                {/* Quick-Fire Module */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.5 }}
-                  whileHover={{ scale: 1.05 }}
-                  className="group"
-                >
-                  <div className="relative bg-gradient-to-br from-yellow-500 to-orange-500 rounded-2xl p-6 border-2 border-yellow-400 shadow-lg hover:shadow-yellow-300 transition-all">
-                    <div className="text-5xl mb-4">⚡</div>
-                    <h3 className="text-2xl font-bold text-white mb-2">Quick-Fire Module</h3>
-                    <p className="text-white/90 mb-4">
-                      5-minute timed dash across all domains. Get your complete Aptitude Signature!
-                    </p>
-
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      <span className="px-3 py-1 text-xs font-semibold rounded-full bg-white/20 text-white">All Domains</span>
-                      <span className="px-3 py-1 text-xs font-semibold rounded-full bg-white/20 text-white">5 Minutes</span>
-                      <span className="px-3 py-1 text-xs font-semibold rounded-full bg-white/20 text-white">15 Questions</span>
-                    </div>
-
-                    {user && (
-                      <Link
-                        href="/test/quick-fire"
-                        className="block w-full text-center py-3 px-4 bg-white text-yellow-700 rounded-lg font-bold hover:bg-yellow-50 transition-all"
-                      >
-                        🔥 Start Quick-Fire
-                      </Link>
-                    )}
-                  </div>
-                </motion.div>
               </div>
             </div>
           </section>

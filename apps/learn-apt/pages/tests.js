@@ -49,7 +49,7 @@ export default function Tests() {
           <div className="grid md:grid-cols-2 gap-6">
             <div className="bg-white rounded-2xl shadow-lg p-8">
               <div className="text-5xl mb-4">⚡</div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-3">Short Test</h3>
+              <h3 className="text-2xl font-bold text-gray-900 mb-3">General Purpose – Short</h3>
               <p className="text-gray-600 mb-6">
                 Quick 7-question assessment to test your basic aptitude skills. Perfect for a quick practice session.
               </p>
@@ -67,13 +67,13 @@ export default function Tests() {
                 href="/test/short"
                 className="block w-full text-center py-3 px-6 bg-primary text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors"
               >
-                Start Short Test
+                Start General Purpose – Short
               </Link>
             </div>
 
             <div className="bg-white rounded-2xl shadow-lg p-8">
               <div className="text-5xl mb-4">🎯</div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-3">Elaborate Test</h3>
+              <h3 className="text-2xl font-bold text-gray-900 mb-3">General Purpose – Elaborate</h3>
               <p className="text-gray-600 mb-6">
                 Comprehensive 120-question assessment covering all aspects of aptitude testing. Get detailed performance insights.
               </p>
@@ -91,7 +91,7 @@ export default function Tests() {
                 href="/test/elaborate"
                 className="block w-full text-center py-3 px-6 bg-accent text-white rounded-lg font-semibold hover:bg-cyan-600 transition-colors"
               >
-                Start Elaborate Test
+                Start General Purpose – Elaborate
               </Link>
             </div>
           </div>
