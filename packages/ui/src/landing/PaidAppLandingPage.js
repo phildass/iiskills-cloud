@@ -122,7 +122,7 @@ export default function PaidAppLandingPage({
 
         {/* Hero Section */}
         <Hero appId={appId} className="h-[70vh] md:h-[80vh] lg:h-[90vh]">
-          {/* Headline/Subheadline positioned at bottom by Hero's flex items-end */}
+          {/* Headline/Subheadline only - positioned at bottom by Hero's flex items-end */}
           <div className="text-white">
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight mb-3">
               {headline || appName}
@@ -132,25 +132,6 @@ export default function PaidAppLandingPage({
                 {subheadline}
               </p>
             )}
-
-            {/* AI/Developer Bundle Notice - Two for One */}
-            {showAIDevBundle && (appId === "learn-ai" || appId === "learn-developer") && (
-              <div className="bg-gradient-to-r from-purple-500 to-pink-500 border-2 border-white rounded-lg p-4 max-w-2xl shadow-2xl mb-4">
-                <p className="text-xl font-bold text-white">🎁 Two Apps for the Price of One!</p>
-                <p className="text-sm mt-2 text-white">
-                  Purchase Learn AI or Learn Developer for ₹99 (+GST) and get BOTH apps!
-                </p>
-              </div>
-            )}
-
-            {/* Install App Prompt */}
-            <UniversalInstallPrompt 
-              currentAppId={appId}
-              currentAppName={appName}
-              variant="button"
-              size="md"
-              showMotherAppPromo={true}
-            />
           </div>
         </Hero>
 
@@ -162,7 +143,7 @@ export default function PaidAppLandingPage({
               Try our sample lesson and Level 1 test FREE—no login required!
             </p>
             {!loading && (
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
                 <a
                   href="#sample"
                   className="inline-block bg-white text-indigo-600 px-8 py-4 rounded-lg font-bold shadow-lg hover:bg-gray-100 hover:shadow-xl transition-all duration-200 text-center text-base sm:text-lg"
@@ -177,6 +158,27 @@ export default function PaidAppLandingPage({
                 </Link>
               </div>
             )}
+
+            {/* AI/Developer Bundle Notice */}
+            {showAIDevBundle && (appId === "learn-ai" || appId === "learn-developer") && (
+              <div className="bg-gradient-to-r from-purple-500 to-pink-500 border-2 border-white rounded-lg p-4 max-w-2xl mx-auto mt-4 mb-4 shadow-2xl">
+                <p className="text-xl font-bold text-white">🎁 Two Apps for the Price of One!</p>
+                <p className="text-sm mt-2 text-white">
+                  Purchase Learn AI or Learn Developer for ₹99 (+GST) and get BOTH apps!
+                </p>
+              </div>
+            )}
+
+            {/* Install App Prompt */}
+            <div className="mt-4 flex justify-center">
+              <UniversalInstallPrompt
+                currentAppId={appId}
+                currentAppName={appName}
+                variant="button"
+                size="md"
+                showMotherAppPromo={true}
+              />
+            </div>
           </div>
         </section>
 
