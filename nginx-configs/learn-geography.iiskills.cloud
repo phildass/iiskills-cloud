@@ -13,16 +13,16 @@ server {
     listen 443 ssl http2;
     server_name learn-geography.iiskills.cloud;
 
-    # SSL certificate paths (managed by Certbot)
-    ssl_certificate /etc/letsencrypt/live/learn-geography.iiskills.cloud/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/learn-geography.iiskills.cloud/privkey.pem;
+    # SSL certificate paths - wildcard cert covers all *.iiskills.cloud subdomains
+    ssl_certificate /etc/letsencrypt/live/iiskills.cloud/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/iiskills.cloud/privkey.pem;
     include /etc/letsencrypt/options-ssl-nginx.conf;
     ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
     
     # OCSP Stapling - improves SSL/TLS handshake performance
     ssl_stapling on;
     ssl_stapling_verify on;
-    ssl_trusted_certificate /etc/letsencrypt/live/learn-geography.iiskills.cloud/chain.pem;
+    ssl_trusted_certificate /etc/letsencrypt/live/iiskills.cloud/chain.pem;
     resolver 8.8.8.8 8.8.4.4 valid=300s;
     resolver_timeout 5s;
 

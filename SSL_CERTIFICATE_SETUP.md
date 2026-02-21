@@ -45,60 +45,63 @@ nslookup learn-apt.iiskills.cloud
 
 ## Quick Start - Initial Certificate Setup
 
-### Option 1: All Certificates at Once (Recommended)
+### Recommended: Wildcard Certificate
+
+All NGINX configurations use a single wildcard certificate (`*.iiskills.cloud`) to cover every subdomain. This prevents per-subdomain certificate mismatches and SSL warnings.
+
+**Step 1**: Obtain the wildcard certificate via DNS-01 challenge:
 
 ```bash
-# Obtain certificates for all subdomains in a single command
-sudo certbot --nginx \
-  -d app.iiskills.cloud \
-  -d learn-ai.iiskills.cloud \
-  -d learn-apt.iiskills.cloud \
-  -d learn-chemistry.iiskills.cloud \
-  -d learn-developer.iiskills.cloud \
-  -d learn-geography.iiskills.cloud \
-  -d learn-management.iiskills.cloud \
-  -d learn-math.iiskills.cloud \
-  -d learn-physics.iiskills.cloud \
-  -d learn-pr.iiskills.cloud \
-  --email admin@iiskills.cloud \
-  --agree-tos \
-  --no-eff-email \
-  --redirect
-```
-
-### Option 2: Individual Certificates
-
-```bash
-# Obtain certificate for a single subdomain
-sudo certbot --nginx -d app.iiskills.cloud \
-  --email admin@iiskills.cloud \
-  --agree-tos \
-  --no-eff-email \
-  --redirect
-
-# Repeat for each subdomain
-sudo certbot --nginx -d learn-ai.iiskills.cloud --email admin@iiskills.cloud --agree-tos --no-eff-email --redirect
-sudo certbot --nginx -d learn-apt.iiskills.cloud --email admin@iiskills.cloud --agree-tos --no-eff-email --redirect
-# ... and so on
-```
-
-### Option 3: Wildcard Certificate (Advanced)
-
-**Note**: Wildcard certificates require DNS validation (not HTTP validation).
-
-```bash
-# Obtain wildcard certificate for *.iiskills.cloud
-sudo certbot certonly \
-  --manual \
-  --preferred-challenges dns \
-  -d '*.iiskills.cloud' \
-  -d iiskills.cloud \
+sudo certbot certonly --manual --preferred-challenges dns-01 \
+  -d "*.iiskills.cloud" \
+  -d "iiskills.cloud" \
   --email admin@iiskills.cloud \
   --agree-tos \
   --no-eff-email
 ```
 
-Follow the prompts to add TXT records to your DNS. Then update NGINX configs to use the wildcard certificate.
+**Step 2**: Follow certbot's prompts to add a `_acme-challenge.iiskills.cloud` DNS TXT record in your DNS provider (e.g., Cloudflare), then press Enter to validate.
+
+The certificate will be stored at:
+- `/etc/letsencrypt/live/iiskills.cloud/fullchain.pem`
+- `/etc/letsencrypt/live/iiskills.cloud/privkey.pem`
+- `/etc/letsencrypt/live/iiskills.cloud/chain.pem`
+
+All NGINX configs in `nginx-configs/` already reference these paths.
+
+### Option 2: Automated Wildcard Renewal (with Cloudflare DNS plugin)
+
+For non-interactive automated renewal:
+
+```bash
+# Install Cloudflare DNS plugin
+sudo pip install certbot-dns-cloudflare
+
+# Create credentials file (chmod 600 is required)
+sudo bash -c 'cat > /etc/letsencrypt/cloudflare.ini << EOF
+dns_cloudflare_api_token = YOUR_CLOUDFLARE_API_TOKEN
+EOF'
+sudo chmod 600 /etc/letsencrypt/cloudflare.ini
+
+# Obtain/renew with DNS plugin
+sudo certbot certonly --dns-cloudflare \
+  --dns-cloudflare-credentials /etc/letsencrypt/cloudflare.ini \
+  -d "*.iiskills.cloud" \
+  -d "iiskills.cloud" \
+  --email admin@iiskills.cloud \
+  --agree-tos \
+  --no-eff-email
+```
+
+### Legacy: Per-Subdomain Certificates (Not Recommended)
+
+**Warning**: Per-subdomain certificates require individual certificate files per subdomain. If certificates are missing for any subdomain, NGINX will fail to start for that server block, causing SSL errors. Use the wildcard cert approach above instead.
+
+```bash
+# Only use this if wildcard cert is not an option
+sudo certbot --nginx -d app.iiskills.cloud --email admin@iiskills.cloud --agree-tos --no-eff-email --redirect
+# Repeat for each subdomain
+```
 
 ## Certificate Management
 

@@ -39,11 +39,29 @@ export const getAdminUrl = (siteSlug = null) => {
 /**
  * Get the course preview URL on a specific site
  * @param {string} siteSlug - The site slug
+
+ * @param {string} courseSlug - The course slug (only used for the 'main' site; learning apps
+ *   navigate to a fixed preview path defined in siteConfig, since each app covers one subject)
+
  * @param {string|number} courseSlug - For learn-* apps: the module ID; for the main site: the course slug
+
  * @returns {string} The course preview URL
  */
 export const getCoursePreviewUrl = (siteSlug, courseSlug) => {
   const siteUrl = getSiteUrl(siteSlug);
+
+  const site = SITES[siteSlug];
+  if (!site) {
+    console.warn(`getCoursePreviewUrl: unknown siteSlug "${siteSlug}", falling back to main`);
+    return `${getSiteUrl('main')}/courses/${courseSlug}`;
+  }
+  // For main site, append the course slug to the courses listing path
+  if (siteSlug === 'main') {
+    return `${siteUrl}/courses/${courseSlug}`;
+  }
+  // Learning apps define a fixed coursePreviewPath in siteConfig
+  return `${siteUrl}${site.coursePreviewPath}`;
+
   // learn-apt uses a test-based structure (no modules)
   if (siteSlug === 'learn-apt') {
     return `${siteUrl}/tests`;
@@ -56,6 +74,7 @@ export const getCoursePreviewUrl = (siteSlug, courseSlug) => {
     return `${siteUrl}/curriculum`;
   }
   return `${siteUrl}/courses/${courseSlug}`;
+
 };
 
 /**
