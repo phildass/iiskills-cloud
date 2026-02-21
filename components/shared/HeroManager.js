@@ -56,7 +56,7 @@ const APP_IMAGE_ASSIGNMENTS = {
   "learn-developer": ["iiskills-dev-hero.jpg", "iiskills-dev-cman.jpg", "iiskills-dev-couple.jpg"],
   "learn-management": ["girl-hero.jpg", "iiskills-mgmt-mgrs.jpg", "iiskills-mgmt-mgrs2.jpg"],
   "learn-ai": [
-    "iiskills-aii-hero.png",
+    "aienter_hero5.jpg",
     "iiskills-ai-cafe.jpg",
     "iiskills-ai-sar.png",
     "iiskills-ai-fl.jpg",
