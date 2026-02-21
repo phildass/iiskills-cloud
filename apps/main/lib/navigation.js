@@ -39,12 +39,17 @@ export const getAdminUrl = (siteSlug = null) => {
 /**
  * Get the course preview URL on a specific site
  * @param {string} siteSlug - The site slug
+
  * @param {string} courseSlug - The course slug (only used for the 'main' site; learning apps
  *   navigate to a fixed preview path defined in siteConfig, since each app covers one subject)
+
+ * @param {string|number} courseSlug - For learn-* apps: the module ID; for the main site: the course slug
+
  * @returns {string} The course preview URL
  */
 export const getCoursePreviewUrl = (siteSlug, courseSlug) => {
   const siteUrl = getSiteUrl(siteSlug);
+
   const site = SITES[siteSlug];
   if (!site) {
     console.warn(`getCoursePreviewUrl: unknown siteSlug "${siteSlug}", falling back to main`);
@@ -56,31 +61,44 @@ export const getCoursePreviewUrl = (siteSlug, courseSlug) => {
   }
   // Learning apps define a fixed coursePreviewPath in siteConfig
   return `${siteUrl}${site.coursePreviewPath}`;
+
+  // learn-apt uses a test-based structure (no modules)
+  if (siteSlug === 'learn-apt') {
+    return `${siteUrl}/tests`;
+  }
+  // All other learn-* apps use a module-based structure
+  if (siteSlug && siteSlug.startsWith('learn-')) {
+    if (courseSlug) {
+      return `${siteUrl}/modules/${courseSlug}/lesson/1`;
+    }
+    return `${siteUrl}/curriculum`;
+  }
+  return `${siteUrl}/courses/${courseSlug}`;
+
 };
 
 /**
  * Get the module preview URL on a specific site
  * @param {string} siteSlug - The site slug
- * @param {string} courseSlug - The course slug
- * @param {string} moduleSlug - The module slug
+ * @param {string|number} moduleId - The module ID
+ * @param {string|number} lessonId - The starting lesson ID (defaults to 1)
  * @returns {string} The module preview URL
  */
-export const getModulePreviewUrl = (siteSlug, courseSlug, moduleSlug) => {
+export const getModulePreviewUrl = (siteSlug, moduleId, lessonId = 1) => {
   const siteUrl = getSiteUrl(siteSlug);
-  return `${siteUrl}/courses/${courseSlug}/modules/${moduleSlug}`;
+  return `${siteUrl}/modules/${moduleId}/lesson/${lessonId}`;
 };
 
 /**
  * Get the lesson preview URL on a specific site
  * @param {string} siteSlug - The site slug
- * @param {string} courseSlug - The course slug
- * @param {string} moduleSlug - The module slug
- * @param {string} lessonSlug - The lesson slug
+ * @param {string|number} moduleId - The module ID
+ * @param {string|number} lessonId - The lesson ID
  * @returns {string} The lesson preview URL
  */
-export const getLessonPreviewUrl = (siteSlug, courseSlug, moduleSlug, lessonSlug) => {
+export const getLessonPreviewUrl = (siteSlug, moduleId, lessonId) => {
   const siteUrl = getSiteUrl(siteSlug);
-  return `${siteUrl}/courses/${courseSlug}/modules/${moduleSlug}/lessons/${lessonSlug}`;
+  return `${siteUrl}/modules/${moduleId}/lesson/${lessonId}`;
 };
 
 /**

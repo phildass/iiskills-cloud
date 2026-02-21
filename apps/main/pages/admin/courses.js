@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 // import ProtectedRoute from "../../components/ProtectedRoute";
@@ -16,6 +16,7 @@ export default function AdminCourses() {
   const [showModal, setShowModal] = useState(false);
   const [editingCourse, setEditingCourse] = useState(null);
   const [filterSubdomain, setFilterSubdomain] = useState('all');
+  const fetchIdRef = useRef(0);
   const [formData, setFormData] = useState({
     title: '',
     slug: '',
@@ -43,11 +44,16 @@ export default function AdminCourses() {
   }, [filterSubdomain]);
 
   const fetchCourses = async () => {
+    const fetchId = ++fetchIdRef.current;
     try {
       setLoading(true);
       
       // Fetch courses from the aggregated content API
       const response = await fetch('/api/admin/content?type=courses');
+      
+      // Ignore result if a newer fetch has already started
+      if (fetchId !== fetchIdRef.current) return;
+      
       const data = await response.json();
       
       if (!response.ok) {
@@ -83,10 +89,11 @@ export default function AdminCourses() {
       
       setCourses(allCourses);
     } catch (error) {
+      if (fetchId !== fetchIdRef.current) return;
       console.error('Error fetching courses:', error);
       alert('Error loading courses. Check console for details.');
     } finally {
-      setLoading(false);
+      if (fetchId === fetchIdRef.current) setLoading(false);
     }
   };
 

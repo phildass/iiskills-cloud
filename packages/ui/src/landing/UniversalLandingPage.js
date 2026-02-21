@@ -211,23 +211,7 @@ export default function UniversalLandingPage({
 
         {/* Hero Section with Full-Size Background */}
         <Hero appId={appId} className="h-[70vh] md:h-[80vh] lg:h-[90vh] relative">
-          {/* Labels and links in top-left corner */}
-          <div className="absolute top-4 left-4 flex items-center gap-3 z-10">
-            {/* FREE/PAID label - Color code: green for free, blue for paid */}
-            <div className={`${isFree ? 'bg-green-500' : 'bg-blue-600'} text-white px-4 py-2 rounded-lg text-sm font-bold shadow-lg`}>
-              {isFree ? 'FREE' : 'PAID'}
-            </div>
-            
-            {/* Syllabus link */}
-            <Link
-              href="/curriculum"
-              className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-semibold shadow-lg transition"
-            >
-              Syllabus
-            </Link>
-          </div>
-
-          <div className="text-center text-blue-600 space-y-6 max-w-4xl mx-auto mt-20">
+          <div className="text-center text-white space-y-3 max-w-4xl mx-auto">
             {/* Main Headline */}
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight drop-shadow-lg">
               {headline || appName}
@@ -242,16 +226,34 @@ export default function UniversalLandingPage({
             {!subheadline && description && (
               <p className="text-lg sm:text-xl lg:text-2xl leading-relaxed">{description}</p>
             )}
+          </div>
+        </Hero>
 
-            {/* Paid Course Notice - Centered */}
+        {/* CTA & Info Section - below hero */}
+        <section className="py-8 px-4 sm:px-6 lg:px-8 bg-gray-100">
+          <div className="max-w-4xl mx-auto text-center">
+            {/* Labels */}
+            <div className="flex items-center gap-3 justify-center mb-6">
+              <div className={`${isFree ? 'bg-green-500' : 'bg-blue-600'} text-white px-4 py-2 rounded-lg text-sm font-bold shadow-lg`}>
+                {isFree ? 'FREE' : 'PAID'}
+              </div>
+              <Link
+                href="/curriculum"
+                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-semibold shadow-lg transition"
+              >
+                Syllabus
+              </Link>
+            </div>
+
+            {/* Paid Course Notice */}
             {!isFree && !user && (
-              <div className="bg-white/10 backdrop-blur-sm border-2 border-white/30 rounded-lg p-4 max-w-2xl mx-auto">
-                <p className="text-lg font-semibold">💳 Paid Course</p>
-                <p className="text-sm mt-2">
+              <div className="bg-blue-50 border-2 border-blue-200 rounded-lg p-4 max-w-2xl mx-auto mb-6">
+                <p className="text-lg font-semibold text-blue-700">💳 Paid Course</p>
+                <p className="text-sm mt-2 text-gray-700">
                   Sample One Module Free{" "}
                   <Link
                     href={`/modules/${firstModuleId}/lesson`}
-                    className="underline hover:text-blue-200 font-semibold"
+                    className="underline hover:text-blue-600 font-semibold text-blue-500"
                     aria-label={`Try Module ${firstModuleId} for free before purchasing`}
                   >
                     (Try Module {firstModuleId} Free)
@@ -260,43 +262,49 @@ export default function UniversalLandingPage({
                 </p>
               </div>
             )}
-            
+
             {/* Free Course Notice */}
             {isFree && (
-              <div className="bg-white/10 backdrop-blur-sm border-2 border-white/30 rounded-lg p-4 max-w-2xl mx-auto">
-                <p className="text-lg font-semibold">💳 Free Course</p>
-                <p className="text-sm mt-2">
+              <div className="bg-green-50 border-2 border-green-200 rounded-lg p-4 max-w-2xl mx-auto mb-6">
+                <p className="text-lg font-semibold text-green-700">💳 Free Course</p>
+                <p className="text-sm mt-2 text-gray-700">
                   Try our sample lesson and Level 1 test FREE—no login required!
                 </p>
               </div>
             )}
 
-            {/* Call to Action Buttons - OPEN ACCESS: Auth buttons removed */}
-            {isFree && (
-              <div className="flex flex-col sm:flex-row gap-4 pt-4 justify-center">
-                {!loading && (
-                  <>
-                    {/* OPEN ACCESS: Show "Start Learning" for everyone, no auth required */}
-                    <Link
-                      href="/learn"
-                      className="inline-block bg-white text-primary px-8 py-4 rounded-lg font-bold shadow-lg hover:bg-gray-100 hover:shadow-xl transition-all duration-200 text-center text-base sm:text-lg"
-                    >
-                      Try Sample Lesson
-                    </Link>
-                    <Link
-                      href="/curriculum"
-                      className="inline-block bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-bold hover:bg-white hover:text-primary transition-all duration-200 text-center text-base sm:text-lg"
-                    >
-                      View Full Curriculum
-                    </Link>
-                  </>
-                )}
+            {/* Call to Action Buttons */}
+            {isFree && !loading && (
+              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
+                <Link
+                  href="/learn"
+                  className="inline-block bg-white text-primary px-8 py-4 rounded-lg font-bold shadow-lg hover:bg-gray-100 hover:shadow-xl transition-all duration-200 text-center text-base sm:text-lg"
+                >
+                  Try Sample Lesson
+                </Link>
+                <Link
+                  href="/curriculum"
+                  className="inline-block bg-transparent border-2 border-primary text-primary px-8 py-4 rounded-lg font-bold hover:bg-primary hover:text-white transition-all duration-200 text-center text-base sm:text-lg"
+                >
+                  View Full Curriculum
+                </Link>
               </div>
             )}
-            
+
+            {!isFree && !loading && (
+              <div className="flex justify-center mb-6">
+                <Link
+                  href="/learn"
+                  className="inline-block bg-white text-primary px-8 py-4 rounded-lg font-bold shadow-lg hover:bg-gray-100 hover:shadow-xl transition-all duration-200 text-center text-base sm:text-lg"
+                >
+                  Start Learning
+                </Link>
+              </div>
+            )}
+
             {/* Install App Prompt */}
-            <div className="mt-6 flex justify-center">
-              <UniversalInstallPrompt 
+            <div className="mt-4 flex justify-center">
+              <UniversalInstallPrompt
                 currentAppId={appId}
                 currentAppName={appName}
                 variant="button"
@@ -305,58 +313,7 @@ export default function UniversalLandingPage({
               />
             </div>
           </div>
-
-          {/* OPEN ACCESS: Paid App registration boxes removed - show Start Learning for all */}
-          {!isFree && !loading && (
-            <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
-              <Link
-                href="/learn"
-                className="inline-block bg-white text-primary px-8 py-4 rounded-lg font-bold shadow-lg hover:bg-gray-100 hover:shadow-xl transition-all duration-200 text-center text-base sm:text-lg"
-              >
-                Start Learning
-              </Link>
-            </div>
-          )}
-          
-          {/* OPEN ACCESS: Original paid app registration UI removed
-          {!isFree && !user && !loading && (
-            <div className="absolute bottom-8 left-0 right-0 px-4 sm:px-8 lg:px-16 flex justify-between items-end gap-4">
-              <div
-                className="bg-white/10 backdrop-blur-sm border-2 border-white/30 rounded-lg p-3 sm:p-4 max-w-xs"
-                role="complementary"
-                aria-label="Free registration information"
-              >
-                <p className="text-sm sm:text-base font-semibold text-white">
-                  📝 Free Registration - Save Your Progress
-                </p>
-                <p className="text-xs sm:text-sm mt-1 text-white/90">
-                  Create a free account to save your scores, track progress, and personalize your
-                  experience. All features are free for registered users!
-                </p>
-              </div>
-
-              <Link
-                href="/register"
-                className="inline-block bg-white text-primary px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-bold shadow-lg hover:bg-gray-100 hover:shadow-xl transition-all duration-200 text-center text-sm sm:text-base whitespace-nowrap"
-                aria-label="Get started by creating an account"
-              >
-                Get Started
-              </Link>
-            </div>
-          )}
-
-          {!isFree && user && !loading && (
-            <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
-              <Link
-                href="/learn"
-                className="inline-block bg-white text-primary px-8 py-4 rounded-lg font-bold shadow-lg hover:bg-gray-100 hover:shadow-xl transition-all duration-200 text-center text-base sm:text-lg"
-              >
-                Start Learning
-              </Link>
-            </div>
-          )}
-          */}
-        </Hero>
+        </section>
 
         {/* UNIVERSAL DIAGNOSTIC FUNNEL: Where would you like to start? */}
         <LevelSelector

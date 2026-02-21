@@ -53,73 +53,73 @@ export default function LessonPage() {
   const generateLessonContent = (modId, lessId) => {
     return `
       <h2>Module ${modId}, Lesson ${lessId}</h2>
-      <p>Welcome to this comprehensive lesson on AI fundamentals. In this session, we'll explore key concepts that form the foundation of artificial intelligence.</p>
+      <p>Welcome to this comprehensive lesson on Geography. In this session, we'll explore key concepts that form the foundation of understanding our world's physical and human landscapes.</p>
       
       <h3>Introduction</h3>
-      <p>Artificial Intelligence represents one of the most transformative technologies of our time. Understanding its principles is crucial for anyone looking to build a career in tech.</p>
+      <p>Geography is the study of Earth's landscapes, peoples, places, and environments. Understanding its principles is crucial for anyone pursuing a career in environmental science, urban planning, or international studies.</p>
       
       <h3>Key Concepts</h3>
-      <p>This lesson covers essential topics including machine learning algorithms, data preprocessing, and model evaluation techniques. You'll learn practical approaches to solving real-world problems.</p>
+      <p>This lesson covers essential geography topics including physical geography, climate systems, human settlements, geopolitics, and environmental issues. You'll learn practical approaches to analyzing spatial patterns and global systems.</p>
       
       <h3>Practical Applications</h3>
-      <p>We'll examine how these concepts apply in industry settings, from recommendation systems to predictive analytics. Understanding these applications helps bridge theory and practice.</p>
+      <p>We'll examine how these concepts apply in real-world settings, from climate change analysis to urban development and geopolitical strategy. Understanding these applications helps bridge geographical theory and real-world problem-solving.</p>
       
       <h3>Summary</h3>
-      <p>By mastering these fundamentals, you're building a strong foundation for advanced AI topics. Continue practicing and exploring to deepen your understanding.</p>
+      <p>By mastering these fundamentals, you're building a strong foundation for advanced geography topics. Continue practicing and exploring to deepen your understanding of our planet's complex systems.</p>
     `;
   };
 
   const generateQuiz = () => {
     return [
       {
-        question: "What is the primary goal of supervised learning?",
+        question: "What is the largest continent by area?",
         options: [
-          "To predict outcomes based on labeled data",
-          "To cluster unlabeled data",
-          "To reduce data dimensions",
-          "To generate new data"
+          "Africa",
+          "North America",
+          "Asia",
+          "Europe"
+        ],
+        correct_answer: 2
+      },
+      {
+        question: "What is the difference between weather and climate?",
+        options: [
+          "They are the same thing",
+          "Weather refers to short-term atmospheric conditions; climate refers to long-term patterns",
+          "Climate is measured daily; weather is measured annually",
+          "Weather only occurs in cold regions"
+        ],
+        correct_answer: 1
+      },
+      {
+        question: "What is a tectonic plate?",
+        options: [
+          "A type of rock formation",
+          "A large segment of Earth's lithosphere that moves over geological time",
+          "A mountain range",
+          "An ocean current pattern"
+        ],
+        correct_answer: 1
+      },
+      {
+        question: "What is the equator?",
+        options: [
+          "The line separating the northern and southern hemispheres at 0° latitude",
+          "The line at 45° north latitude",
+          "The boundary between continents",
+          "The prime meridian"
         ],
         correct_answer: 0
       },
       {
-        question: "Which algorithm is commonly used for classification tasks?",
+        question: "What is urbanization?",
         options: [
-          "K-means clustering",
-          "Decision Trees",
-          "Principal Component Analysis",
-          "Autoencoder"
+          "The process of converting farmland to forest",
+          "The movement of populations from rural to urban areas",
+          "Building highways between cities",
+          "The study of city architecture"
         ],
         correct_answer: 1
-      },
-      {
-        question: "What does overfitting mean in machine learning?",
-        options: [
-          "Model performs well on all data",
-          "Model memorizes training data but performs poorly on new data",
-          "Model uses too few features",
-          "Model trains too quickly"
-        ],
-        correct_answer: 1
-      },
-      {
-        question: "Which metric is best for imbalanced classification problems?",
-        options: [
-          "Accuracy",
-          "F1 Score",
-          "Mean Squared Error",
-          "R-squared"
-        ],
-        correct_answer: 1
-      },
-      {
-        question: "What is the purpose of a validation set?",
-        options: [
-          "To train the model",
-          "To test final performance",
-          "To tune hyperparameters during training",
-          "To store predictions"
-        ],
-        correct_answer: 2
       }
     ];
   };
@@ -175,8 +175,8 @@ export default function LessonPage() {
   return (
     <>
       <Head>
-        <title>{lesson?.title} - Learn AI</title>
-        <meta name="description" content={`Learn AI - Module ${moduleId}, Lesson ${lessonId}`} />
+        <title>{lesson?.title} - Learn Geography</title>
+        <meta name="description" content={`Learn Geography - Module ${moduleId}, Lesson ${lessonId}`} />
       </Head>
 
       <main className="min-h-screen bg-gray-50 py-12">
