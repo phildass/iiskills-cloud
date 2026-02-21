@@ -285,7 +285,7 @@ export default function AIAssistant() {
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="fixed bottom-6 right-6 bg-primary hover:bg-blue-700 text-white rounded-full p-4 shadow-lg transition-all hover:scale-110 z-40"
+          className="fixed bottom-6 right-6 bg-primary hover:bg-blue-700 text-white rounded-full p-4 shadow-lg transition-all hover:scale-110 z-50"
           aria-label="Open AI Assistant"
         >
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -301,7 +301,7 @@ export default function AIAssistant() {
 
       {/* Chat Window */}
       {isOpen && (
-        <div className="fixed bottom-6 right-6 w-96 h-[32rem] bg-white rounded-2xl shadow-2xl flex flex-col z-40 animate-slide-up">
+        <div className="fixed bottom-6 right-6 w-96 max-h-[calc(100vh-5rem)] h-[32rem] bg-white rounded-2xl shadow-2xl flex flex-col z-50 overflow-hidden animate-slide-up">
           {/* Header */}
           <div className="bg-primary text-white px-6 py-4 rounded-t-2xl flex items-center justify-between">
             <div className="flex items-center space-x-2">
