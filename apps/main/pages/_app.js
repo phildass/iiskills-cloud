@@ -4,14 +4,10 @@ import { SiteHeader } from "@iiskills/ui/navigation";
 import Footer from "../components/Footer";
 import ErrorBoundary from "../components/ErrorBoundary";
 import { AIAssistant } from "@iiskills/ui/ai";
-import { NewsletterSignup } from "@iiskills/ui/newsletter";
 import TestingModeBanner from "../components/TestingModeBanner";
-import { useNewsletterPopup } from "../utils/useNewsletterPopup";
 import { UserProgressProvider } from "../contexts/UserProgressContext";
 
 export default function App({ Component, pageProps }) {
-  const { showPopup, closePopup, isClosing } = useNewsletterPopup(30); // Show for 30 seconds on each page load
-
   return (
     <ErrorBoundary>
       <UserProgressProvider>
@@ -27,16 +23,6 @@ export default function App({ Component, pageProps }) {
 
       {/* AI Assistant - always visible */}
       <AIAssistant />
-
-      {/* Newsletter Popup - shows based on timing */}
-      {showPopup && (
-        <NewsletterSignup
-          mode="modal"
-          onClose={() => closePopup(false)}
-          onSuccess={() => closePopup(true)}
-          isClosing={isClosing}
-        />
-      )}
 
       {/* Testing Mode Banner - shows when feature flags are enabled */}
       <TestingModeBanner />

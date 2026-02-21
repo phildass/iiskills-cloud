@@ -19,6 +19,9 @@
   --spacing-sm: 0.5rem;
   --spacing-md: 1rem;
   --spacing-lg: 2rem;
+
+  /* Chatbot clearance - space reserved so content is not obscured by fixed chat widget */
+  --chatbot-clearance: 5rem;
 }
 
 /* Ensure consistent font rendering
@@ -47,4 +50,9 @@ nav[class*="sticky"] {
 main {
   position: relative;
   z-index: 1;
+}
+
+/* Reserve space at the bottom so content is not obscured by fixed chatbot/AI widgets */
+body {
+  padding-bottom: var(--chatbot-clearance);
 }
