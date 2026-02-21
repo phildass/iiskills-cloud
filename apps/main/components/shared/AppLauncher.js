@@ -117,7 +117,6 @@ export default function AppLauncher({
   // Get app icon/emoji
   const getAppIcon = (appId) => {
     const icons = {
-      'main': '🏠',
       'learn-ai': '🤖',
       'learn-apt': '🧮',
       'learn-chemistry': '⚗️',
@@ -225,7 +224,6 @@ export default function AppLauncher({
 
   const getAppDescription = (appId) => {
     const descriptions = {
-      'main': 'Central hub for all your learning needs',
       'learn-ai': 'Master Artificial Intelligence fundamentals',
       'learn-apt': 'Develop aptitude & logical reasoning skills',
       'learn-chemistry': 'Explore the world of chemistry',

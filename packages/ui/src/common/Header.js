@@ -1,7 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
-import GoogleTranslate from "./GoogleTranslate";
 
 /**
  * Shared Header Component
@@ -136,16 +135,6 @@ export default function Header({
             </>
           )}
 
-          {/* Google Translate Widget - Multi-language support - Moved to far right */}
-          <div className="flex items-center gap-2 px-2 py-1 border-l border-gray-200">
-            <span
-              className="text-sm text-gray-600 whitespace-nowrap hidden lg:inline"
-              aria-label="Language Selector"
-            >
-              🌐 Language | भाषा
-            </span>
-            <GoogleTranslate />
-          </div>
         </div>
 
         {/* Mobile Menu Button */}
@@ -194,12 +183,6 @@ export default function Header({
               </Link>
             )
           )}
-
-          {/* Google Translate Widget for Mobile */}
-          <div className="flex items-center gap-2 px-2 py-2 border-t border-gray-200 mt-2 pt-4">
-            <span className="text-sm text-gray-600 whitespace-nowrap">🌐 Language | भाषा:</span>
-            <GoogleTranslate />
-          </div>
 
           {/* Show Login/Register or User Info based on authentication */}
           {shouldShowAuthButtons && (
