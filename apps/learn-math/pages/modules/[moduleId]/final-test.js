@@ -3,9 +3,9 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import Footer from '../../../../components/Footer';
-import ModuleFinalTestComponent from '../../../../components/ModuleFinalTestComponent';
-import { getCurrentUser } from '../../../../lib/supabaseClient';
+import Footer from '../../../components/Footer';
+import ModuleFinalTestComponent from '../../../components/ModuleFinalTestComponent';
+import { getCurrentUser } from '../../../lib/supabaseClient';
 
 const APP_KEY = 'learn-math';
 const APP_DISPLAY = 'Learn Math';
