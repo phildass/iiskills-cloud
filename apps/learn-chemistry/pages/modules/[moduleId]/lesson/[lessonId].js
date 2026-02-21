@@ -151,7 +151,7 @@ export default function LessonPage() {
     } else {
       const nextModuleId = parseInt(moduleId) + 1;
       if (nextModuleId <= 10) {
-        router.push(`/modules/${nextModuleId}/lesson/1`);
+        router.push(`/modules/${moduleId}/final-test`);
       } else {
         router.push('/curriculum');
       }

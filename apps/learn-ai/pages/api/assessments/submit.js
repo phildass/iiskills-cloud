@@ -12,8 +12,8 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: 'Missing required fields' });
     }
 
-    // Passing score is 3 out of 5
-    const passed = score >= 3;
+    // Passing score is 4 out of 5
+    const passed = score >= 4;
 
     // Save progress to database
     await insertData('lesson_progress', {
@@ -30,7 +30,7 @@ export default async function handler(req, res) {
       score,
       message: passed 
         ? 'Congratulations! You passed the quiz.' 
-        : 'You need at least 3 correct answers to pass. Please try again.'
+        : 'You need at least 4 correct answers to pass. Please try again.'
     });
   } catch (error) {
     console.error('Assessment submission error:', error);

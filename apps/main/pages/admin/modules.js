@@ -49,6 +49,7 @@ export default function AdminModules() {
         sourceApp: item.sourceApp,
         sourceBackend: item.sourceBackend,
         order: item.data.order || 0,
+        level: item.data.level || item.level || null,
       }));
       
       setModules(transformedModules);
@@ -128,9 +129,30 @@ export default function AdminModules() {
           </div>
         </div>
 
+        {/* Content Integrity Warnings */}
+        {!loading && modules.length > 0 && (
+          <div className="bg-amber-50 border-l-4 border-amber-400 p-4 mb-6">
+            <h3 className="text-sm font-bold text-amber-800 mb-1">⚠️ Content Integrity Checks</h3>
+            <ul className="text-sm text-amber-700 list-disc ml-4 space-y-1">
+              <li>
+                Modules without a level (basic/intermediate/advanced): <strong>{modules.filter(m => !m.level).length}</strong>
+                {' '}— assign a level via Supabase or the local content generator.
+              </li>
+              <li>
+                Each module should have a <strong>Final Test (20 questions)</strong> at{' '}
+                <code>/modules/[id]/final-test</code>. Verify via the app routes.
+              </li>
+              <li>
+                Each lesson should have a <strong>Lesson Quiz (5 questions, pass ≥ 4/5)</strong>. Missing quizzes
+                will show as empty in the lesson page.
+              </li>
+            </ul>
+          </div>
+        )}
+
         {/* App Filter */}
         <div className="bg-white rounded-lg shadow p-4 mb-6">
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 flex-wrap">
             <label htmlFor="appFilter" className="text-sm font-medium text-gray-700">
               Filter by App:
             </label>
