@@ -1,10 +1,10 @@
 "use client";
 
-import { PaidAppLandingPage } from "@iiskills/ui/landing";
+import { TriLevelLandingPage } from "@iiskills/ui/landing";
 
 export default function Home() {
   return (
-    <PaidAppLandingPage
+    <TriLevelLandingPage
       appId="learn-ai"
       appName="Learn AI"
       headline="Train the Machine. Master the Intelligence."

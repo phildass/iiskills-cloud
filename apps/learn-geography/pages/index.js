@@ -1,10 +1,10 @@
 "use client";
 
-import { UniversalLandingPage } from "@iiskills/ui/landing";
+import { TriLevelLandingPage } from "@iiskills/ui/landing";
 
 export default function Home() {
   return (
-    <UniversalLandingPage
+    <TriLevelLandingPage
       appId="learn-geography"
       appName="Explore Our Interconnected World 🌍"
       headline="Command the Systems of Earth"

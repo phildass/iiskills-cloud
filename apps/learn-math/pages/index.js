@@ -1,10 +1,10 @@
 "use client";
 
-import { UniversalLandingPage } from "@iiskills/ui/landing";
+import { TriLevelLandingPage } from "@iiskills/ui/landing";
 
 export default function Home() {
   return (
-    <UniversalLandingPage
+    <TriLevelLandingPage
       appId="learn-math"
       appName="Master the Language of Mathematics 📐"
       headline="Unlock the Language of Logic"
