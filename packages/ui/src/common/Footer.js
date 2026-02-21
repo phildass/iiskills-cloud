@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import GoogleTranslate from "./GoogleTranslate";
 
 /**
  * Shared Footer Component
@@ -91,6 +92,11 @@ export default function Footer() {
               AI Cloud Enterprises (AIEnter. in)
             </a>
           </p>
+          {/* Language / Translation */}
+          <div className="flex justify-center items-center gap-2 mt-4 pt-4 border-t border-gray-200">
+            <span className="text-sm text-gray-600">🌐 Language | भाषा:</span>
+            <GoogleTranslate />
+          </div>
         </div>
       </div>
     </footer>

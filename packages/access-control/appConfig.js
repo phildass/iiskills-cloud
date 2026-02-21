@@ -51,16 +51,6 @@ export const BUNDLES = {
  * - price: Default pricing if not in a bundle
  */
 export const APPS = {
-  main: {
-    id: 'main',
-    name: 'iiskills.cloud',
-    type: APP_TYPE.PAID,
-    bundleId: null,
-    price: {
-      introductory: 11682,
-      regular: 35282,
-    },
-  },
   'learn-ai': {
     id: 'learn-ai',
     name: 'Learn-AI',
