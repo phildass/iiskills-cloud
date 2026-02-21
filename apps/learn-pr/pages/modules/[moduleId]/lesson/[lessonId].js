@@ -54,20 +54,43 @@ export default function LessonPage() {
 
   const generateLessonContent = (modId, lessId) => {
     return `
-      <h2>Module ${modId}, Lesson ${lessId}</h2>
-      <p>Welcome to this comprehensive lesson on Public Relations. In this session, we'll explore key concepts that form the foundation of effective PR practice.</p>
-      
+      <h2>Module ${modId}, Lesson ${lessId}: Foundations of Public Relations</h2>
+
       <h3>Introduction</h3>
-      <p>Public Relations is a strategic communication process that builds mutually beneficial relationships between organizations and their publics. Understanding its principles is crucial for anyone looking to build a career in communications.</p>
-      
+      <p>Public Relations (PR) is the strategic art and science of managing the spread of information between an individual or organisation and the public. At its core, PR is about crafting and sustaining a positive image, building trust, and fostering meaningful relationships with diverse audiences — from customers and investors to journalists and the broader community.</p>
+      <p>Unlike advertising, which is paid promotion, PR earns its credibility through third-party endorsement. A glowing review in a respected newspaper, a viral social post from an influential voice, or a well-placed feature story in an industry journal — these are the currency of PR. That earned trust is far more powerful than any paid placement, because audiences know it was not purchased.</p>
+      <p>In this lesson, we examine the strategic foundations that every PR professional must master: how to define publics, how to craft messages that resonate, and how to plan and execute campaigns that achieve measurable results.</p>
+
       <h3>Key Concepts</h3>
-      <p>This lesson covers essential PR topics including media relations, brand messaging, stakeholder engagement, and campaign strategy. You'll learn practical approaches to managing public perception and organizational reputation.</p>
-      
+      <h4>1. Defining Your Publics</h4>
+      <p>A "public" in PR is any group of people who share a common interest with respect to your organisation. Every organisation has multiple publics: employees, investors, customers, regulators, media, local communities, and the general public. The first step in any PR strategy is to identify and segment these groups, understand their concerns, and tailor communication accordingly.</p>
+      <p>For example, a pharmaceutical company might need to communicate clinical trial data to healthcare professionals using precise, technical language, while simultaneously communicating the human benefits of the same drug to patients and caregivers in warm, accessible language. The message adapts; the commitment to accuracy and integrity does not.</p>
+
+      <h4>2. Media Relations and the Press Release</h4>
+      <p>Media relations is the pillar of traditional PR. Building relationships with editors, reporters, and broadcasters takes time and consistency. Journalists value PR professionals who understand their beat, deliver relevant stories, and never waste their time with irrelevant pitches.</p>
+      <p>A well-crafted press release follows a strict structure: a compelling headline that answers "why does this matter now?", a strong opening paragraph with the five Ws (Who, What, When, Where, Why), two or three paragraphs of supporting detail, a quote from a senior spokesperson, a brief background section ("boilerplate"), and clear contact information. Mastering this format is non-negotiable.</p>
+
+      <h4>3. Brand Messaging and Reputation Management</h4>
+      <p>Reputation is built over years and destroyed in moments. Effective PR professionals develop brand messaging frameworks that define the organisation's core values, tone of voice, key messages, and positioning statements. These frameworks ensure consistency across every channel — press releases, social media, speaking engagements, and employee communications.</p>
+      <p>Reputation management also involves monitoring what is being said about your organisation across media and social platforms, responding to inaccuracies swiftly, and continuously reinforcing positive narratives through proactive storytelling.</p>
+
+      <h4>4. Crisis Communication</h4>
+      <p>No organisation is immune to crises — product recalls, data breaches, executive misconduct, environmental incidents. The difference between a crisis that destroys a brand and one that actually strengthens it lies almost entirely in the quality of the communication response.</p>
+      <p>The golden rules of crisis communication: acknowledge quickly, be transparent about what you know and what you are doing to find out more, take responsibility where appropriate, communicate through the most credible spokespeople available, and never speculate or minimise. Speed matters, but accuracy matters more. Organisations that try to hide information consistently suffer more lasting damage than those that get ahead of the story.</p>
+
+      <h4>5. Stakeholder Engagement</h4>
+      <p>Modern PR extends well beyond media relations. Stakeholder engagement encompasses investor relations, community affairs, government relations (lobbying and policy engagement), employee communications, and partnerships with NGOs or advocacy groups. Each stakeholder relationship requires dedicated attention, regular dialogue, and genuine responsiveness to concerns.</p>
+
       <h3>Practical Applications</h3>
-      <p>We'll examine how these concepts apply in real-world settings, from crisis communication to product launches and corporate communications. Understanding these applications helps bridge theory and practice.</p>
-      
+      <p><strong>Campaign Planning:</strong> A PR campaign begins with clear objectives (what behaviour, attitude, or awareness shift do you want?), moves through audience research and message development, into channel selection and tactic execution, and ends with measurement and evaluation. SMART objectives (Specific, Measurable, Achievable, Relevant, Time-bound) ensure campaigns stay focused and accountable.</p>
+      <p><strong>Product Launch PR:</strong> When launching a product, PR generates pre-launch buzz through media exclusives and influencer seeding, sustains momentum through launch-day coverage and live events, and extends the story through customer testimonials and case studies in the months that follow. The best launches are news in their own right — they tell a story that matters to the target audience.</p>
+      <p><strong>Thought Leadership:</strong> Placing opinion articles and expert commentary in relevant publications positions senior leaders as authoritative voices in their field. This earns trust, attracts talent and partnerships, and differentiates the organisation from competitors who only speak when they have something to sell.</p>
+      <p><strong>Social Media PR:</strong> Social platforms have blurred the lines between PR and marketing. Real-time engagement, community management, and authentic storytelling are now central PR competencies. A brand that handles a customer complaint with empathy and speed on Twitter — where thousands can watch — builds more goodwill than any press release.</p>
+
       <h3>Summary</h3>
-      <p>By mastering these fundamentals, you're building a strong foundation for advanced PR topics. Continue practicing and exploring to deepen your understanding of public relations.</p>
+      <p>Public Relations is a sophisticated discipline that goes far beyond press releases and media lunches. It is the strategic management of reputation, relationships, and narratives across every stakeholder group that matters to an organisation. Great PR professionals are part strategist, part journalist, part diplomat, and part storyteller.</p>
+      <p>In this lesson you have covered: the definition and scope of PR; how to identify and segment publics; the mechanics of media relations and press release writing; brand messaging and reputation management; crisis communication principles; and multi-stakeholder engagement strategies. Each of these skill areas will be developed further throughout this course, giving you a robust and practical toolkit for a career in communications.</p>
+      <p>As you progress, remember that all PR — at its best — is about truth told compellingly. The most sustainable reputations are built on genuine performance, genuine care for stakeholders, and genuine transparency. Spin may win a news cycle; integrity wins decades.</p>
     `;
   };
 
