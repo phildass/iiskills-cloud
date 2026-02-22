@@ -6,7 +6,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { userId, appKey, isEligible } = req.body;
+    const { userId, appKey, isEligible, skippedToLevel } = req.body;
 
     if (!userId || !appKey || isEligible === undefined) {
       return res.status(400).json({ error: 'Missing required fields' });
@@ -21,7 +21,7 @@ export default async function handler(req, res) {
     const { error } = await supabase
       .from('certificate_eligibility')
       .upsert(
-        { user_id: userId, app_key: appKey, is_eligible: isEligible, updated_at: new Date().toISOString() },
+        { user_id: userId, app_key: appKey, is_eligible: isEligible, skipped_to_level: skippedToLevel || null, updated_at: new Date().toISOString() },
         { onConflict: 'user_id,app_key' }
       );
 
