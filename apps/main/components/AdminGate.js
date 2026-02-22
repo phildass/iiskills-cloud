@@ -33,7 +33,12 @@ export function useAdminGate() {
         if (res.status === 401) {
           router.replace(`/admin/login?redirect=${encodeURIComponent(router.asPath)}`);
         } else {
-          setReady(true);
+          const data = await res.json().catch(() => ({}));
+          if (data.needs_setup) {
+            router.replace('/admin/setup');
+          } else {
+            setReady(true);
+          }
         }
       } catch {
         if (!cancelled) {
