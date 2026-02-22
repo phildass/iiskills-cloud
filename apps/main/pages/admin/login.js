@@ -8,6 +8,11 @@ import { useRouter } from 'next/router';
  * Accepts the admin passphrase and exchanges it for a signed HttpOnly
  * admin_session cookie via POST /api/admin/bootstrap-or-login.
  *
+ * TEST_ADMIN_MODE=true:
+ * - Shows a friendly banner with the default test passphrase hint.
+ * - Never redirects to /admin/setup.
+ *
+ * Production:
  * - If no passphrase has been set yet, accepts the bootstrap passphrase
  *   `iiskills123` and redirects to /admin/setup to force a real passphrase.
  * - Otherwise performs a normal login and redirects to /admin.
@@ -20,6 +25,7 @@ export default function AdminLogin() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [isBootstrap, setIsBootstrap] = useState(false);
+  const [testMode, setTestMode] = useState(false);
   const [statusLoaded, setStatusLoaded] = useState(false);
 
   useEffect(() => {
@@ -27,6 +33,7 @@ export default function AdminLogin() {
       .then((r) => r.json())
       .then((data) => {
         setIsBootstrap(!data.configured);
+        setTestMode(!!data.testMode);
         setStatusLoaded(true);
       })
       .catch(() => setStatusLoaded(true));
@@ -77,7 +84,12 @@ export default function AdminLogin() {
           <div className="text-center mb-6">
             <div className="text-4xl mb-3">🔐</div>
             <h1 className="text-2xl font-bold text-gray-800">Admin Access</h1>
-            {statusLoaded && isBootstrap ? (
+            {statusLoaded && testMode ? (
+              <p className="text-sm text-amber-600 mt-2 font-medium bg-amber-50 border border-amber-200 rounded-lg px-3 py-2">
+                Testing mode — default passphrase is <code className="font-mono">iiskills123</code>
+                {' '}(set <code className="font-mono">ADMIN_PANEL_SECRET</code> to override).
+              </p>
+            ) : statusLoaded && isBootstrap ? (
               <p className="text-sm text-amber-600 mt-2 font-medium">
                 First-time setup: enter bootstrap passphrase
               </p>

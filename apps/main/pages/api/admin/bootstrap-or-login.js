@@ -3,11 +3,19 @@
  *
  * Handles both the first-run bootstrap login and regular passphrase login.
  *
+
+ * TEST_ADMIN_MODE=true (testing):
+ * - Passphrase checked against ADMIN_PANEL_SECRET → ADMIN_SECRET → "iiskills123"
+ * - No DB interaction; always returns needs_setup=false
+ *
+ * TEST_ADMIN_MODE=false (production, default):
+
  * TEST_ADMIN_MODE=true (env-only, no Supabase writes):
  * - Accepts ADMIN_PANEL_SECRET env var as passphrase; falls back to `iiskills123`.
  * - Never touches Supabase; always returns needs_setup=false.
  *
  * TEST_ADMIN_MODE=false / unset (production path):
+
  * - If no admin passphrase is stored in DB AND no ADMIN_PANEL_SECRET is set:
  *   accept ONLY the bootstrap passphrase `iiskills123`, then return needs_setup=true
  *   so the UI forces the admin to set a real passphrase.
@@ -25,6 +33,8 @@ import {
   createAdminToken,
   setAdminSessionCookie,
   createServiceRoleClient,
+  isTestAdminMode,
+  getTestPassphrase,
 } from '../../../lib/adminAuth';
 
 const BOOTSTRAP_PASSPHRASE = 'iiskills123';
@@ -60,9 +70,17 @@ export default async function handler(req, res) {
     });
   }
 
+
+  // ── TEST MODE ──────────────────────────────────────────────────────────────
+  // When TEST_ADMIN_MODE=true, check only against the env-var passphrase.
+  // No DB / Supabase access; no bootstrap setup flow.
+  if (isTestAdminMode()) {
+    const expected = getTestPassphrase();
+
   // ── TEST_ADMIN_MODE: env-only passphrase, no Supabase writes ──────────────
   if (process.env.TEST_ADMIN_MODE === 'true') {
     const expected = process.env.ADMIN_PANEL_SECRET || BOOTSTRAP_PASSPHRASE;
+
     const a = Buffer.from(passphrase);
     const b = Buffer.from(expected);
     const match = a.length === b.length && crypto.timingSafeEqual(a, b);
@@ -73,7 +91,12 @@ export default async function handler(req, res) {
     setAdminSessionCookie(res, token);
     return res.status(200).json({ ok: true, needs_setup: false });
   }
+
+
+  // ── PRODUCTION MODE ────────────────────────────────────────────────────────
+
   // ──────────────────────────────────────────────────────────────────────────
+
 
   // Emergency override: ADMIN_PANEL_SECRET env var
   const masterSecret = process.env.ADMIN_PANEL_SECRET;

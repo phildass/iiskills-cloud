@@ -4,6 +4,9 @@
  * Sets (or changes) the admin passphrase stored as a bcrypt hash in Supabase.
  * Requires a valid admin_session cookie (needs_setup=true or a full session).
  *
+ * TEST_ADMIN_MODE=true: this endpoint is disabled — passphrase must be set via
+ * the ADMIN_PANEL_SECRET server environment variable.
+ *
  * Body: { newPassphrase: string }
  * On success: rotates cookie to needs_setup=false, returns { ok: true }
  *
@@ -19,6 +22,7 @@ import {
   createAdminToken,
   setAdminSessionCookie,
   createServiceRoleClient,
+  isTestAdminMode,
 } from '../../../lib/adminAuth';
 
 const BCRYPT_ROUNDS = 12;
@@ -29,10 +33,19 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method Not Allowed' });
   }
 
+
+  // In test mode, passphrase storage is disabled.
+  if (isTestAdminMode()) {
+    return res.status(400).json({
+      error:
+        'Testing mode: set passphrase using server env var ADMIN_PANEL_SECRET and restart.',
+      testMode: true,
+
   // TEST_ADMIN_MODE: passphrase management is handled via env var only
   if (process.env.TEST_ADMIN_MODE === 'true') {
     return res.status(403).json({
       error: 'Set ADMIN_PANEL_SECRET in server env and restart.',
+
     });
   }
 

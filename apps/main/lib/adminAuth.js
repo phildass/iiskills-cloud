@@ -9,6 +9,11 @@
  *
  * Cookie: admin_session (HttpOnly; Secure; SameSite=Lax) signed with ADMIN_SESSION_SIGNING_KEY
  * Session expiry: 12 hours
+ *
+ * TEST MODE (TEST_ADMIN_MODE=true):
+ * - Passphrase checked against ADMIN_PANEL_SECRET → ADMIN_SECRET → "iiskills123"
+ * - No Supabase / DB interaction required
+ * - set-passphrase endpoint is disabled
  */
 
 import crypto from 'crypto';
@@ -18,6 +23,22 @@ import { createClient } from '@supabase/supabase-js';
 
 export const ADMIN_COOKIE_NAME = 'admin_session';
 const SESSION_EXPIRY_SECONDS = 12 * 60 * 60; // 12 hours
+
+/**
+ * Returns true when TEST_ADMIN_MODE=true is set in the server environment.
+ * In this mode, the admin passphrase is read from env vars only (no Supabase).
+ */
+export function isTestAdminMode() {
+  return process.env.TEST_ADMIN_MODE === 'true';
+}
+
+/**
+ * Returns the effective admin passphrase for test mode (server-side only).
+ * Priority: ADMIN_PANEL_SECRET → ADMIN_SECRET → "iiskills123"
+ */
+export function getTestPassphrase() {
+  return process.env.ADMIN_PANEL_SECRET || process.env.ADMIN_SECRET || 'iiskills123';
+}
 
 function getSigningKey() {
   const key = process.env.ADMIN_SESSION_SIGNING_KEY || process.env.ADMIN_JWT_SECRET;

@@ -4,10 +4,18 @@
  * Forces the admin to set a new passphrase after a bootstrap login.
  * Also accessible by an already-authenticated admin who wants to change their passphrase.
  *
+
+ * TEST_ADMIN_MODE=true:
+ * - Redirects to /admin with an informational message instead of showing the form.
+ * - No passphrase write to DB is attempted.
+ *
+ * Calls POST /api/admin/set-passphrase on submit (production only).
+
  * When TEST_ADMIN_MODE=true the form is replaced with an informational message
  * directing the operator to set ADMIN_PANEL_SECRET in the server environment.
  *
  * Calls POST /api/admin/set-passphrase on submit (production path only).
+
  * On success redirects to /admin.
  */
 
@@ -25,10 +33,17 @@ export default function AdminSetupPage() {
   const [success, setSuccess] = useState(false);
 
   useEffect(() => {
-    // Verify the user has a valid session before showing the form
     fetch('/api/admin/status')
       .then((r) => r.json())
       .then((data) => {
+
+        if (data.testMode) {
+          setTestMode(true);
+          setIsLoading(false);
+        } else {
+          setIsLoading(false);
+        }
+
         setTestMode(!!data.test_mode);
         setIsLoading(false);
       })
@@ -85,7 +100,11 @@ export default function AdminSetupPage() {
     );
   }
 
+
+  // In test mode, passphrase storage is disabled — show info and redirect to /admin.
+
   // In TEST_ADMIN_MODE the passphrase is managed via the server environment, not this UI.
+
   if (testMode) {
     return (
       <>
@@ -94,6 +113,23 @@ export default function AdminSetupPage() {
           <meta name="robots" content="noindex, nofollow" />
         </Head>
         <div className="min-h-screen flex items-center justify-center bg-gray-50">
+
+          <div className="bg-white rounded-xl shadow-lg p-8 w-full max-w-md text-center">
+            <div className="text-5xl mb-4">🧪</div>
+            <h1 className="text-2xl font-bold text-gray-800 mb-3">Testing Mode Active</h1>
+            <p className="text-amber-700 bg-amber-50 border border-amber-200 rounded-lg px-4 py-3 text-sm mb-4">
+              Testing mode: set passphrase using server env var{' '}
+              <code className="font-mono">ADMIN_PANEL_SECRET</code> and restart.
+            </p>
+            <p className="text-gray-500 text-sm mb-6">
+              Passphrase storage is disabled in test mode. To change the admin passphrase,
+              update <code className="font-mono">ADMIN_PANEL_SECRET</code> in your PM2 environment
+              and restart the <code className="font-mono">iiskills-main</code> process.
+            </p>
+            <button
+              onClick={() => router.replace('/admin')}
+              className="bg-blue-600 text-white py-2 px-6 rounded-lg font-semibold hover:bg-blue-700 transition"
+
           <div className="bg-white rounded-xl shadow-lg p-8 w-full max-w-sm text-center">
             <div className="text-5xl mb-4">🔧</div>
             <h1 className="text-2xl font-bold text-gray-800 mb-2">Test Admin Mode</h1>
@@ -109,6 +145,7 @@ export default function AdminSetupPage() {
             <button
               onClick={() => router.replace('/admin')}
               className="mt-6 w-full bg-blue-600 text-white py-2 px-4 rounded-lg font-semibold hover:bg-blue-700 transition"
+
             >
               Go to Admin Dashboard
             </button>
@@ -211,3 +248,4 @@ export default function AdminSetupPage() {
     </>
   );
 }
+
