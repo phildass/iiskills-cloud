@@ -4,7 +4,10 @@
  * Forces the admin to set a new passphrase after a bootstrap login.
  * Also accessible by an already-authenticated admin who wants to change their passphrase.
  *
- * Calls POST /api/admin/set-passphrase on submit.
+ * When TEST_ADMIN_MODE=true the form is replaced with an informational message
+ * directing the operator to set ADMIN_PANEL_SECRET in the server environment.
+ *
+ * Calls POST /api/admin/set-passphrase on submit (production path only).
  * On success redirects to /admin.
  */
 
@@ -15,6 +18,7 @@ import { useRouter } from 'next/router';
 export default function AdminSetupPage() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
+  const [testMode, setTestMode] = useState(false);
   const [newPassphrase, setNewPassphrase] = useState('');
   const [confirmPassphrase, setConfirmPassphrase] = useState('');
   const [error, setError] = useState('');
@@ -25,8 +29,7 @@ export default function AdminSetupPage() {
     fetch('/api/admin/status')
       .then((r) => r.json())
       .then((data) => {
-        // If we have a session that's NOT needs_setup and IS configured,
-        // the user is already fully set up — still allow them to change passphrase
+        setTestMode(!!data.test_mode);
         setIsLoading(false);
       })
       .catch(() => {
@@ -79,6 +82,39 @@ export default function AdminSetupPage() {
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600" />
       </div>
+    );
+  }
+
+  // In TEST_ADMIN_MODE the passphrase is managed via the server environment, not this UI.
+  if (testMode) {
+    return (
+      <>
+        <Head>
+          <title>Admin Setup — iiskills.cloud</title>
+          <meta name="robots" content="noindex, nofollow" />
+        </Head>
+        <div className="min-h-screen flex items-center justify-center bg-gray-50">
+          <div className="bg-white rounded-xl shadow-lg p-8 w-full max-w-sm text-center">
+            <div className="text-5xl mb-4">🔧</div>
+            <h1 className="text-2xl font-bold text-gray-800 mb-2">Test Admin Mode</h1>
+            <p className="text-gray-600 text-sm mb-4">
+              Passphrase management is disabled while{' '}
+              <code className="bg-gray-100 px-1 rounded">TEST_ADMIN_MODE=true</code>.
+            </p>
+            <p className="text-gray-500 text-sm">
+              Set <code className="bg-gray-100 px-1 rounded">ADMIN_PANEL_SECRET</code> in
+              the server environment and restart to use a custom passphrase, or leave it
+              unset to use the testing default.
+            </p>
+            <button
+              onClick={() => router.replace('/admin')}
+              className="mt-6 w-full bg-blue-600 text-white py-2 px-4 rounded-lg font-semibold hover:bg-blue-700 transition"
+            >
+              Go to Admin Dashboard
+            </button>
+          </div>
+        </div>
+      </>
     );
   }
 

@@ -6,6 +6,9 @@
  *
  * Body: { newPassphrase: string }
  * On success: rotates cookie to needs_setup=false, returns { ok: true }
+ *
+ * When TEST_ADMIN_MODE=true this endpoint is disabled — the passphrase must be
+ * set via the ADMIN_PANEL_SECRET environment variable instead.
  */
 
 import bcrypt from 'bcrypt';
@@ -24,6 +27,13 @@ export default async function handler(req, res) {
   if (req.method !== 'POST') {
     res.setHeader('Allow', ['POST']);
     return res.status(405).json({ error: 'Method Not Allowed' });
+  }
+
+  // TEST_ADMIN_MODE: passphrase management is handled via env var only
+  if (process.env.TEST_ADMIN_MODE === 'true') {
+    return res.status(403).json({
+      error: 'Set ADMIN_PANEL_SECRET in server env and restart.',
+    });
   }
 
   // Require a valid admin session (needs_setup or full)
