@@ -131,6 +131,35 @@ const AI_DEVELOPER_BUNDLE = {
 - `isFreeApp(appId)` - Check if app is free
 - `requiresPayment(appId)` - Check if app requires payment
 
+## 🔐 Admin Access — Testing Mode
+
+For local development or CI testing **without** a Supabase database, enable
+`TEST_ADMIN_MODE` in your `.env.local`:
+
+```bash
+# apps/main/.env.local  (or root .env.local)
+
+# Enable env-only admin auth — no Supabase writes/reads required
+TEST_ADMIN_MODE=true
+
+# Optional: override the default passphrase (default: iiskills123)
+ADMIN_PANEL_SECRET=my-test-secret
+
+# Required for signing the session cookie
+ADMIN_SESSION_SIGNING_KEY=some-32-char-random-string-here
+```
+
+When `TEST_ADMIN_MODE=true`:
+- Admin login at `/admin/login` checks the passphrase against `ADMIN_PANEL_SECRET`
+  (falls back to `iiskills123` when the env var is absent).
+- No Supabase reads or writes are attempted.
+- The "Set Passphrase" setup page is replaced with an env-var instruction banner.
+
+Set `TEST_ADMIN_MODE=false` (or remove it) to restore the production Supabase
+authentication path.
+
+---
+
 ## 🚀 Quick Start
 
 ### Prerequisites

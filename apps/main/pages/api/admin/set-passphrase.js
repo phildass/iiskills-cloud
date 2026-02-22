@@ -9,6 +9,9 @@
  *
  * Body: { newPassphrase: string }
  * On success: rotates cookie to needs_setup=false, returns { ok: true }
+ *
+ * When TEST_ADMIN_MODE=true this endpoint is disabled — the passphrase must be
+ * set via the ADMIN_PANEL_SECRET environment variable instead.
  */
 
 import bcrypt from 'bcrypt';
@@ -30,12 +33,19 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method Not Allowed' });
   }
 
+
   // In test mode, passphrase storage is disabled.
   if (isTestAdminMode()) {
     return res.status(400).json({
       error:
         'Testing mode: set passphrase using server env var ADMIN_PANEL_SECRET and restart.',
       testMode: true,
+
+  // TEST_ADMIN_MODE: passphrase management is handled via env var only
+  if (process.env.TEST_ADMIN_MODE === 'true') {
+    return res.status(403).json({
+      error: 'Set ADMIN_PANEL_SECRET in server env and restart.',
+
     });
   }
 
