@@ -1,0 +1,44 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2026-02-22",
+  "apps": [
+    {
+      "appSlug": "learn-physics",
+      "title": "Learn Physics",
+      "courseUrl": "/curriculum",
+      "modules": [
+        { "id": 1, "slug": "classical-mechanics", "title": "Classical Mechanics", "level": "basic", "lessonCount": 10, "staticLessons": [1, 2] },
+        { "id": 2, "slug": "newtons-laws", "title": "Newton's Laws", "level": "basic", "lessonCount": 10, "staticLessons": [] },
+        { "id": 3, "slug": "work-and-energy", "title": "Work and Energy", "level": "basic", "lessonCount": 10, "staticLessons": [] },
+        { "id": 4, "slug": "thermodynamics", "title": "Thermodynamics", "level": "intermediate", "lessonCount": 10, "staticLessons": [] },
+        { "id": 5, "slug": "electricity-magnetism", "title": "Electricity and Magnetism", "level": "intermediate", "lessonCount": 10, "staticLessons": [] },
+        { "id": 6, "slug": "waves-optics", "title": "Waves and Optics", "level": "intermediate", "lessonCount": 10, "staticLessons": [] },
+        { "id": 7, "slug": "modern-physics", "title": "Modern Physics", "level": "advanced", "lessonCount": 10, "staticLessons": [] },
+        { "id": 8, "slug": "nuclear-physics", "title": "Nuclear Physics", "level": "advanced", "lessonCount": 10, "staticLessons": [] },
+        { "id": 9, "slug": "astrophysics", "title": "Astrophysics", "level": "advanced", "lessonCount": 10, "staticLessons": [] },
+        { "id": 10, "slug": "advanced-topics", "title": "Advanced Topics", "level": "advanced", "lessonCount": 10, "staticLessons": [] }
+      ],
+      "lessonUrlPattern": "/modules/[moduleId]/lesson/[lessonId]",
+      "staticPagesCount": 100
+    },
+    {
+      "appSlug": "learn-pr",
+      "title": "Learn PR",
+      "courseUrl": "/curriculum",
+      "modules": [
+        { "id": 1, "slug": "intro-to-pr", "title": "Introduction to Public Relations", "level": "basic", "lessonCount": 10, "staticLessons": [1] },
+        { "id": 2, "slug": "media-relations", "title": "Media Relations", "level": "basic", "lessonCount": 10, "staticLessons": [] },
+        { "id": 3, "slug": "writing-press-releases", "title": "Writing Press Releases", "level": "basic", "lessonCount": 10, "staticLessons": [] },
+        { "id": 4, "slug": "brand-management", "title": "Brand Management", "level": "basic", "lessonCount": 10, "staticLessons": [] },
+        { "id": 5, "slug": "crisis-communication", "title": "Crisis Communication", "level": "intermediate", "lessonCount": 10, "staticLessons": [] },
+        { "id": 6, "slug": "social-media-pr", "title": "Social Media PR", "level": "intermediate", "lessonCount": 10, "staticLessons": [] },
+        { "id": 7, "slug": "stakeholder-management", "title": "Stakeholder Management", "level": "intermediate", "lessonCount": 10, "staticLessons": [] },
+        { "id": 8, "slug": "pr-campaign-strategy", "title": "PR Campaign Strategy", "level": "advanced", "lessonCount": 10, "staticLessons": [] },
+        { "id": 9, "slug": "digital-pr-seo", "title": "Digital PR & SEO", "level": "advanced", "lessonCount": 10, "staticLessons": [] },
+        { "id": 10, "slug": "pr-measurement", "title": "PR Measurement & Analytics", "level": "advanced", "lessonCount": 10, "staticLessons": [] }
+      ],
+      "lessonUrlPattern": "/modules/[moduleId]/lesson/[lessonId]",
+      "staticPagesCount": 100
+    }
+  ]
+}

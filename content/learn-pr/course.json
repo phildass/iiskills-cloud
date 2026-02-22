@@ -1,0 +1,17 @@
+{
+  "appSlug": "learn-pr",
+  "title": "Learn PR",
+  "description": "Master public relations, media strategy, and crisis communications",
+  "modules": [
+    { "id": 1, "slug": "intro-to-pr", "title": "Introduction to Public Relations", "level": "basic", "order": 1, "lessonCount": 10 },
+    { "id": 2, "slug": "media-relations", "title": "Media Relations", "level": "basic", "order": 2, "lessonCount": 10 },
+    { "id": 3, "slug": "writing-press-releases", "title": "Writing Press Releases", "level": "basic", "order": 3, "lessonCount": 10 },
+    { "id": 4, "slug": "brand-management", "title": "Brand Management", "level": "basic", "order": 4, "lessonCount": 10 },
+    { "id": 5, "slug": "crisis-communication", "title": "Crisis Communication", "level": "intermediate", "order": 5, "lessonCount": 10 },
+    { "id": 6, "slug": "social-media-pr", "title": "Social Media PR", "level": "intermediate", "order": 6, "lessonCount": 10 },
+    { "id": 7, "slug": "stakeholder-management", "title": "Stakeholder Management", "level": "intermediate", "order": 7, "lessonCount": 10 },
+    { "id": 8, "slug": "pr-campaign-strategy", "title": "PR Campaign Strategy", "level": "advanced", "order": 8, "lessonCount": 10 },
+    { "id": 9, "slug": "digital-pr-seo", "title": "Digital PR & SEO", "level": "advanced", "order": 9, "lessonCount": 10 },
+    { "id": 10, "slug": "pr-measurement", "title": "PR Measurement & Analytics", "level": "advanced", "order": 10, "lessonCount": 10 }
+  ]
+}
