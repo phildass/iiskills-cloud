@@ -132,6 +132,7 @@ export default function TriLevelLandingPage({
             userId: user.id,
             appKey: appId,
             isEligible: false,
+            skippedToLevel: confirmLevel.id,
           }),
         });
       } catch {

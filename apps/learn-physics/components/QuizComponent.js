@@ -48,7 +48,7 @@ export default function QuizComponent({ questions, onComplete }) {
     setScore(correctCount);
     setShowResults(true);
     
-    const passed = correctCount >= 4;
+    const passed = correctCount >= 3;
     onComplete(passed, correctCount);
   };
 
@@ -60,7 +60,7 @@ export default function QuizComponent({ questions, onComplete }) {
   };
 
   if (showResults) {
-    const passed = score >= 4;
+    const passed = score >= 3;
     return (
       <div className={`card ${passed ? 'bg-green-50 border-2 border-green-500' : 'bg-red-50 border-2 border-red-500'}`}>
         <h3 className={`text-2xl font-bold mb-4 ${passed ? 'text-green-800' : 'text-red-800'}`}>
@@ -71,8 +71,8 @@ export default function QuizComponent({ questions, onComplete }) {
         </p>
         <p className="text-gray-700 mb-6">
           {passed
-            ? 'Congratulations! You scored 4 or more correct answers to pass — well done!'
-            : 'You need at least 4 correct answers to pass. Please review the material and try again.'}
+            ? 'Congratulations! You scored 3 or more correct answers to pass — well done!'
+            : 'You need at least 3 correct answers to pass. Please review the material and try again.'}
         </p>
         {!passed && (
           <button onClick={resetQuiz} className="btn-primary">
