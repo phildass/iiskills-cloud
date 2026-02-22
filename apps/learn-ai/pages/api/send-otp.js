@@ -1,17 +1,33 @@
-import sgMail from '@sendgrid/mail';
 import { createClient } from '@supabase/supabase-js';
-import { Vonage } from '@vonage/server-sdk';
-
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
 
-const vonageClient = new Vonage({
-  apiKey: process.env.VONAGE_API_KEY,
-  apiSecret: process.env.VONAGE_API_SECRET,
-});
+let _sgMail = null;
+let _vonageClient = null;
 
 export default async function handler(req, res) {
+  if (!process.env.SENDGRID_API_KEY) {
+    return res.status(503).json({ error: 'Email service not configured (SENDGRID_API_KEY missing)' });
+  }
+  if (!process.env.VONAGE_API_KEY || !process.env.VONAGE_API_SECRET) {
+    return res.status(503).json({ error: 'SMS service not configured (VONAGE credentials missing)' });
+  }
+
+  if (!_sgMail) {
+    const mod = await import('@sendgrid/mail');
+    _sgMail = mod.default;
+    _sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+  }
+  if (!_vonageClient) {
+    const { Vonage } = await import('@vonage/server-sdk');
+    _vonageClient = new Vonage({
+      apiKey: process.env.VONAGE_API_KEY,
+      apiSecret: process.env.VONAGE_API_SECRET,
+    });
+  }
+  const sgMail = _sgMail;
+  const vonageClient = _vonageClient;
+
   // Get user info from request body
   const { email, phone } = req.body;
 
