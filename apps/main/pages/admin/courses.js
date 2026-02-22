@@ -2,14 +2,14 @@ import Head from "next/head";
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
-// import ProtectedRoute from "../../components/ProtectedRoute";
 import AdminNav from "../../components/AdminNav";
 import Footer from "../../components/Footer";
-import { supabase } from "../../lib/supabaseClient";
 import { SUBDOMAIN_OPTIONS } from "../../lib/siteConfig";
 import { getCoursePreviewUrl } from "../../lib/navigation";
+import { useAdminGate } from "../../components/AdminGate";
 
 export default function AdminCourses() {
+  const { ready } = useAdminGate();
   const router = useRouter();
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -101,19 +101,24 @@ export default function AdminCourses() {
     e.preventDefault();
     try {
       if (editingCourse) {
-        // Update existing course
-        const { error } = await supabase
-          .from('courses')
-          .update(formData)
-          .eq('id', editingCourse.id);
-        
-        if (error) throw error;
+        // Update existing course via admin API (uses service role)
+        const res = await fetch(`/api/admin/courses/${editingCourse.id}`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData),
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Failed to update course');
         alert('Course updated successfully!');
       } else {
-        // Create new course
-        const { error } = await supabase.from('courses').insert([formData]);
-        
-        if (error) throw error;
+        // Create new course via admin API (uses service role)
+        const res = await fetch('/api/admin/courses', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData),
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Failed to create course');
         alert('Course created successfully!');
       }
       
@@ -148,9 +153,9 @@ export default function AdminCourses() {
     if (!confirm(`Are you sure you want to delete "${title}"?`)) return;
     
     try {
-      const { error } = await supabase.from('courses').delete().eq('id', id);
-      
-      if (error) throw error;
+      const res = await fetch(`/api/admin/courses/${id}`, { method: 'DELETE' });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Failed to delete course');
       alert('Course deleted successfully!');
       fetchCourses();
     } catch (error) {
@@ -179,6 +184,14 @@ export default function AdminCourses() {
     setEditingCourse(null);
     setShowModal(true);
   };
+
+  if (!ready) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-lg">Loading...</div>
+      </div>
+    );
+  }
 
   return (
     <>
