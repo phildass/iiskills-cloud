@@ -2,8 +2,14 @@
  * GET /api/admin/status
  *
  * Returns the current admin configuration state:
- *   { configured: boolean, needs_setup: boolean }
+ *   { configured: boolean, needs_setup: boolean, testMode: boolean }
  *
+ * TEST_ADMIN_MODE=true:
+ * - Always returns configured=true (passphrase comes from env / default)
+ * - testMode=true is included so the UI can show appropriate messaging
+ * - No DB access
+ *
+ * Production (TEST_ADMIN_MODE=false):
  * - configured: true if a passphrase hash exists in DB OR ADMIN_PANEL_SECRET is set
  * - needs_setup: true if the current session cookie has needs_setup=true
  *
@@ -16,6 +22,7 @@ import {
   ADMIN_COOKIE_NAME,
   verifyAdminToken,
   createServiceRoleClient,
+  isTestAdminMode,
 } from '../../../lib/adminAuth';
 
 async function isPassphraseConfigured() {
@@ -38,8 +45,16 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method Not Allowed' });
   }
 
-  const dbConfigured = await isPassphraseConfigured();
-  const configured = dbConfigured || !!process.env.ADMIN_PANEL_SECRET;
+  const testMode = isTestAdminMode();
+
+  let configured;
+  if (testMode) {
+    // In test mode the passphrase always comes from env (or default); always configured.
+    configured = true;
+  } else {
+    const dbConfigured = await isPassphraseConfigured();
+    configured = dbConfigured || !!process.env.ADMIN_PANEL_SECRET;
+  }
 
   // Check current session for needs_setup flag
   const cookies = parse(req.headers.cookie || '');
@@ -52,5 +67,5 @@ export default async function handler(req, res) {
     }
   }
 
-  return res.status(200).json({ configured, needs_setup: needsSetup });
+  return res.status(200).json({ configured, needs_setup: needsSetup, testMode });
 }

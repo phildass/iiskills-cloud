@@ -3,6 +3,11 @@
  *
  * Handles both the first-run bootstrap login and regular passphrase login.
  *
+ * TEST_ADMIN_MODE=true (testing):
+ * - Passphrase checked against ADMIN_PANEL_SECRET → ADMIN_SECRET → "iiskills123"
+ * - No DB interaction; always returns needs_setup=false
+ *
+ * TEST_ADMIN_MODE=false (production, default):
  * - If no admin passphrase is stored in DB AND no ADMIN_PANEL_SECRET is set:
  *   accept ONLY the bootstrap passphrase `iiskills123`, then return needs_setup=true
  *   so the UI forces the admin to set a real passphrase.
@@ -20,6 +25,8 @@ import {
   createAdminToken,
   setAdminSessionCookie,
   createServiceRoleClient,
+  isTestAdminMode,
+  getTestPassphrase,
 } from '../../../lib/adminAuth';
 
 const BOOTSTRAP_PASSPHRASE = 'iiskills123';
@@ -54,6 +61,24 @@ export default async function handler(req, res) {
       error: 'ADMIN_SESSION_SIGNING_KEY is not configured on the server',
     });
   }
+
+  // ── TEST MODE ──────────────────────────────────────────────────────────────
+  // When TEST_ADMIN_MODE=true, check only against the env-var passphrase.
+  // No DB / Supabase access; no bootstrap setup flow.
+  if (isTestAdminMode()) {
+    const expected = getTestPassphrase();
+    const a = Buffer.from(passphrase);
+    const b = Buffer.from(expected);
+    const match = a.length === b.length && crypto.timingSafeEqual(a, b);
+    if (!match) {
+      return res.status(401).json({ error: 'Invalid passphrase' });
+    }
+    const token = createAdminToken(false);
+    setAdminSessionCookie(res, token);
+    return res.status(200).json({ ok: true, needs_setup: false });
+  }
+
+  // ── PRODUCTION MODE ────────────────────────────────────────────────────────
 
   // Emergency override: ADMIN_PANEL_SECRET env var
   const masterSecret = process.env.ADMIN_PANEL_SECRET;
