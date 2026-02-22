@@ -1,0 +1,50 @@
+{
+  "moduleId": 1,
+  "lessonId": 1,
+  "slug": "foundations-of-physics",
+  "title": "Foundations of Physics",
+  "isFree": true,
+  "content": "<h2>Module 1, Lesson 1: Foundations of Physics</h2>\n\n<h3>Introduction</h3>\n<p>Physics is the most fundamental of the natural sciences. It seeks to understand the basic laws governing matter, energy, space, and time — the very fabric of reality. From the subatomic world of quarks and leptons to the cosmological scale of galaxies and black holes, physics provides the language and tools to describe, predict, and ultimately harness the behaviour of the universe.</p>\n<p>Every technology you use today has physics at its core. The smartphone in your pocket relies on quantum mechanics (semiconductor physics), electromagnetism (wireless transmission), and materials science (glass, silicon). The car you drive uses classical mechanics, thermodynamics, and fluid dynamics. Even the food you eat was grown using physics principles — from solar energy conversion by photosynthesis to the engineering of irrigation systems.</p>\n<p>This lesson introduces four grand domains of classical physics: mechanics, thermodynamics, electromagnetism, and waves.</p>\n\n<h3>Key Concepts</h3>\n<h4>1. Mechanics: Forces, Motion, and Energy</h4>\n<p>Classical mechanics, built on Newton's three laws, describes how objects move under the influence of forces. <strong>Newton's First Law</strong> (Law of Inertia) states that an object remains at rest or in uniform motion unless acted upon by an external net force.</p>\n<p><strong>Newton's Second Law</strong> quantifies this: F = ma (Force = mass × acceleration). <strong>Newton's Third Law</strong> states that for every action there is an equal and opposite reaction — the principle behind jet propulsion, rocket launches, and even walking.</p>\n<p>Energy is the capacity to do work. Kinetic energy (KE = ½mv²) is the energy of motion; potential energy is stored energy (gravitational PE = mgh). The conservation of energy principle states that the total energy in an isolated system remains constant.</p>\n\n<h4>2. Thermodynamics: Heat, Temperature, and Entropy</h4>\n<p>Thermodynamics studies energy in the form of heat and its transformations. The <strong>First Law of Thermodynamics</strong> is the energy conservation law applied to thermal systems: the change in internal energy of a system equals heat added minus work done by the system.</p>\n<p>The <strong>Second Law of Thermodynamics</strong> introduces entropy — a measure of disorder in a system. The law states that the total entropy of an isolated system can never decrease over time.</p>\n\n<h4>3. Electromagnetism: Electric and Magnetic Fields</h4>\n<p>Electricity and magnetism were unified by James Clerk Maxwell into a single theory described by four differential equations (Maxwell's equations). Coulomb's Law describes the force between electric charges. Ohm's Law (V = IR) relates voltage, current, and resistance in electrical circuits.</p>\n\n<h4>4. Waves: Oscillations and Wave Phenomena</h4>\n<p>A wave is a disturbance that transfers energy through a medium without transferring matter. Waves are characterised by amplitude, wavelength, frequency, and speed. Wave phenomena include reflection, refraction, diffraction, and interference.</p>\n\n<h3>Summary</h3>\n<p>Physics is the foundation upon which all other natural sciences and much of engineering is built. In this lesson you covered: classical mechanics and Newton's laws; the laws of thermodynamics; the unification of electricity and magnetism; and wave motion. As you progress, you will develop both conceptual understanding and quantitative problem-solving skills to apply these ideas with confidence.</p>",
+  "quiz": [
+    {
+      "question": "What is Newton's First Law of Motion?",
+      "options": [
+        "Force equals mass times acceleration",
+        "An object at rest stays at rest, and an object in motion stays in motion unless acted upon by an external force",
+        "For every action there is an equal and opposite reaction",
+        "Energy can neither be created nor destroyed"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is the SI unit of force?",
+      "options": ["Joule", "Watt", "Newton", "Pascal"],
+      "correct_answer": 2
+    },
+    {
+      "question": "What does the Law of Conservation of Energy state?",
+      "options": [
+        "Energy is always lost as heat",
+        "Energy can be created from nothing",
+        "The total energy of an isolated system remains constant",
+        "Kinetic energy always exceeds potential energy"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "What is the relationship between frequency and wavelength of a wave?",
+      "options": [
+        "They are directly proportional",
+        "They are inversely proportional",
+        "They have no relationship",
+        "They are always equal"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is the formula for kinetic energy?",
+      "options": ["KE = mgh", "KE = Fd", "KE = ½mv²", "KE = mc²"],
+      "correct_answer": 2
+    }
+  ]
+}
