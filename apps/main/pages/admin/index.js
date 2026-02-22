@@ -1,19 +1,14 @@
 import Head from "next/head";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
-import { getCurrentUser, isAdmin } from "../../lib/supabaseClient";
-import { supabase } from "../../lib/supabaseClient";
 import AdminNav from "../../components/AdminNav";
 import Footer from "../../components/Footer";
 import { ALL_SITES } from "../../lib/siteConfig";
 import { getSiteUrl } from "../../lib/navigation";
-import SecretPasswordPrompt, { hasSecretAdminAccess } from "../../components/SecretPasswordPrompt";
+import { useAdminGate } from "../../components/AdminGate";
 
 export default function AdminDashboard() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-  const [showPasswordPrompt, setShowPasswordPrompt] = useState(false);
+  const { ready } = useAdminGate();
   const [stats, setStats] = useState({
     totalCourses: 0,
     totalUsers: 0,
@@ -21,74 +16,22 @@ export default function AdminDashboard() {
     totalLessons: 0,
   });
   const [siteCounts, setSiteCounts] = useState({});
-  const router = useRouter();
 
   useEffect(() => {
-    checkAdminAuth();
-    fetchStats();
-    fetchSiteCounts();
+    if (ready) {
+      fetchStats();
+      fetchSiteCounts();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const checkAdminAuth = async () => {
-    // Mode 1: Local Dev - Check for DISABLE_AUTH flag
-    const BYPASS_AUTH = process.env.NEXT_PUBLIC_DISABLE_AUTH === 'true';
-    
-    if (BYPASS_AUTH) {
-      console.warn('⚠️ SECURITY WARNING: Admin authentication is bypassed!');
-      console.warn('⚠️ This should NEVER be enabled in production!');
-      console.warn('⚠️ Set NEXT_PUBLIC_DISABLE_AUTH=false to re-enable authentication');
-      setIsAuthenticated(true);
-      setIsLoading(false);
-      return;
-    }
-
-    // Mode 2: Secret Password - Check if user has entered secret password
-    if (hasSecretAdminAccess()) {
-      console.log('✅ Secret password verified - admin access granted');
-      setIsAuthenticated(true);
-      setIsLoading(false);
-      return;
-    }
-
-    // Mode 3: Standard Authentication - Check Supabase auth
-    const user = await getCurrentUser();
-
-    if (!user) {
-      // Not logged in - show secret password prompt instead of redirecting
-      console.log('🔐 No authentication found - showing secret password prompt');
-      setShowPasswordPrompt(true);
-      setIsLoading(false);
-      return;
-    }
-
-    const hasAdminAccess = await isAdmin(user);
-    if (!hasAdminAccess) {
-      // Logged in but not admin - show secret password prompt
-      console.log('❌ User is not admin - showing secret password prompt');
-      setShowPasswordPrompt(true);
-      setIsLoading(false);
-      return;
-    }
-
-    // User is authenticated and has admin role
-    setIsAuthenticated(true);
-    setIsLoading(false);
-  };
-
-  const handlePasswordSuccess = () => {
-    setShowPasswordPrompt(false);
-    setIsAuthenticated(true);
-  };
+  }, [ready]);
 
   const fetchStats = async () => {
     try {
       // Fetch aggregated content from all sources
-      const [coursesRes, modulesRes, lessonsRes, usersRes] = await Promise.all([
+      const [coursesRes, modulesRes, lessonsRes] = await Promise.all([
         fetch('/api/admin/content?type=courses').catch(() => ({ ok: false })),
         fetch('/api/admin/content?type=modules').catch(() => ({ ok: false })),
         fetch('/api/admin/content?type=lessons').catch(() => ({ ok: false })),
-        supabase.from('profiles').select('*', { count: 'exact', head: true }),
       ]);
 
       let courseCount = 0;
@@ -112,7 +55,7 @@ export default function AdminDashboard() {
 
       setStats({
         totalCourses: courseCount,
-        totalUsers: usersRes.count || 0,
+        totalUsers: 0, // Users count not fetched here (requires service role endpoint)
         totalModules: moduleCount,
         totalLessons: lessonCount,
       });
@@ -140,20 +83,12 @@ export default function AdminDashboard() {
     }
   };
 
-  if (isLoading) {
+  if (!ready) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-neutral">
         <div className="text-lg">Loading...</div>
       </div>
     );
-  }
-
-  if (showPasswordPrompt) {
-    return <SecretPasswordPrompt onSuccess={handlePasswordSuccess} />;
-  }
-
-  if (!isAuthenticated) {
-    return null;
   }
 
   return (
@@ -164,25 +99,6 @@ export default function AdminDashboard() {
       </Head>
       <AdminNav />
       <main className="max-w-7xl mx-auto px-4 py-12">
-        {/* Warning Banner */}
-        {process.env.NEXT_PUBLIC_DISABLE_AUTH === 'true' && (
-          <div className="bg-red-100 border-l-4 border-red-500 p-4 mb-8">
-            <div className="flex">
-              <div className="flex-shrink-0">
-                <svg className="h-5 w-5 text-red-500" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
-                </svg>
-              </div>
-              <div className="ml-3">
-                <p className="text-sm text-red-700">
-                  <strong>🚨 SECURITY WARNING:</strong> Admin authentication is currently BYPASSED! This mode should NEVER be enabled in production. 
-                  All administrative functions are available without authentication. Set <code className="bg-red-200 px-1">NEXT_PUBLIC_DISABLE_AUTH=false</code> to re-enable authentication.
-                </p>
-              </div>
-            </div>
-          </div>
-        )}
-
         <h1 className="text-4xl font-bold text-primary mb-2">Universal Admin Dashboard</h1>
         <p className="text-gray-600 mb-8">Manage all iiskills.cloud sites and content from one central location</p>
 

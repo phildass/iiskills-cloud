@@ -2,11 +2,12 @@ import Head from "next/head";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-// import ProtectedRoute from "../../components/ProtectedRoute";
 import AdminNav from "../../components/AdminNav";
 import Footer from "../../components/Footer";
+import { useAdminGate } from "../../components/AdminGate";
 
 export default function AdminModules() {
+  const { ready } = useAdminGate();
   const router = useRouter();
   const [modules, setModules] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -85,6 +86,14 @@ export default function AdminModules() {
     alert('Module management will be fully functional once the database schema is set up.');
     setShowModal(false);
   };
+
+  if (!ready) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-lg">Loading...</div>
+      </div>
+    );
+  }
 
   return (
     <>
