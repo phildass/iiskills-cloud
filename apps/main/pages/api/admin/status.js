@@ -2,10 +2,13 @@
  * GET /api/admin/status
  *
  * Returns the current admin configuration state:
- *   { configured: boolean, needs_setup: boolean }
+ *   { configured: boolean, needs_setup: boolean, test_mode: boolean }
  *
  * - configured: true if a passphrase hash exists in DB OR ADMIN_PANEL_SECRET is set
+ *               (always true when TEST_ADMIN_MODE=true)
  * - needs_setup: true if the current session cookie has needs_setup=true
+ * - test_mode:   true when TEST_ADMIN_MODE=true; safe to expose to the client
+ *               (it is not a secret — it just controls UI messaging)
  *
  * This endpoint does NOT require authentication so the login page can display
  * the correct message (bootstrap vs. normal login) before any session exists.
@@ -38,8 +41,16 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method Not Allowed' });
   }
 
-  const dbConfigured = await isPassphraseConfigured();
-  const configured = dbConfigured || !!process.env.ADMIN_PANEL_SECRET;
+  const testMode = process.env.TEST_ADMIN_MODE === 'true';
+
+  // In TEST_ADMIN_MODE we are always "configured" — no DB check needed.
+  let configured;
+  if (testMode) {
+    configured = true;
+  } else {
+    const dbConfigured = await isPassphraseConfigured();
+    configured = dbConfigured || !!process.env.ADMIN_PANEL_SECRET;
+  }
 
   // Check current session for needs_setup flag
   const cookies = parse(req.headers.cookie || '');
@@ -52,5 +63,5 @@ export default async function handler(req, res) {
     }
   }
 
-  return res.status(200).json({ configured, needs_setup: needsSetup });
+  return res.status(200).json({ configured, needs_setup: needsSetup, test_mode: testMode });
 }
