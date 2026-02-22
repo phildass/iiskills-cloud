@@ -48,7 +48,7 @@ export default function handler(req, res) {
         .json({ error: 'ADMIN_SESSION_SIGNING_KEY is not configured on the server' });
     }
 
-    const token = createAdminToken();
+    const token = createAdminToken(false);
     setAdminSessionCookie(res, token);
     return res.status(200).json({ success: true });
   }

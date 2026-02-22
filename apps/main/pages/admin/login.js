@@ -1,20 +1,36 @@
 import Head from 'next/head';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 
 /**
  * Admin Login Page — /admin/login
  *
- * Accepts the ADMIN_PANEL_SECRET passphrase and exchanges it for a signed
- * HttpOnly admin_session cookie via POST /api/admin/login.
+ * Accepts the admin passphrase and exchanges it for a signed HttpOnly
+ * admin_session cookie via POST /api/admin/bootstrap-or-login.
+ *
+ * - If no passphrase has been set yet, accepts the bootstrap passphrase
+ *   `iiskills123` and redirects to /admin/setup to force a real passphrase.
+ * - Otherwise performs a normal login and redirects to /admin.
  *
  * No Supabase user accounts, profiles, or roles are used.
  */
 export default function AdminLogin() {
   const router = useRouter();
-  const [secret, setSecret] = useState('');
+  const [passphrase, setPassphrase] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [isBootstrap, setIsBootstrap] = useState(false);
+  const [statusLoaded, setStatusLoaded] = useState(false);
+
+  useEffect(() => {
+    fetch('/api/admin/status')
+      .then((r) => r.json())
+      .then((data) => {
+        setIsBootstrap(!data.configured);
+        setStatusLoaded(true);
+      })
+      .catch(() => setStatusLoaded(true));
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,19 +38,24 @@ export default function AdminLogin() {
     setLoading(true);
 
     try {
-      const res = await fetch('/api/admin/login', {
+      const res = await fetch('/api/admin/bootstrap-or-login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ secret }),
+        body: JSON.stringify({ passphrase }),
       });
 
-      if (res.ok) {
-        const redirectTo =
-          (typeof router.query.redirect === 'string' && router.query.redirect) ||
-          '/admin';
-        router.replace(redirectTo);
+      const data = await res.json();
+
+      if (res.ok && data.ok) {
+        if (data.needs_setup) {
+          router.replace('/admin/setup');
+        } else {
+          const redirectTo =
+            (typeof router.query.redirect === 'string' && router.query.redirect) ||
+            '/admin';
+          router.replace(redirectTo);
+        }
       } else {
-        const data = await res.json();
         setError(data.error || 'Login failed');
       }
     } catch {
@@ -56,22 +77,28 @@ export default function AdminLogin() {
           <div className="text-center mb-6">
             <div className="text-4xl mb-3">🔐</div>
             <h1 className="text-2xl font-bold text-gray-800">Admin Access</h1>
-            <p className="text-sm text-gray-500 mt-1">Enter the admin passphrase to continue</p>
+            {statusLoaded && isBootstrap ? (
+              <p className="text-sm text-amber-600 mt-2 font-medium">
+                First-time setup: enter bootstrap passphrase
+              </p>
+            ) : (
+              <p className="text-sm text-gray-500 mt-1">Enter the admin passphrase to continue</p>
+            )}
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label
-                htmlFor="secret"
+                htmlFor="passphrase"
                 className="block text-sm font-medium text-gray-700 mb-1"
               >
                 Passphrase
               </label>
               <input
-                id="secret"
+                id="passphrase"
                 type="password"
-                value={secret}
-                onChange={(e) => setSecret(e.target.value)}
+                value={passphrase}
+                onChange={(e) => setPassphrase(e.target.value)}
                 required
                 autoFocus
                 autoComplete="current-password"

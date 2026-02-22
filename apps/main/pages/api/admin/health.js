@@ -53,5 +53,5 @@ export default async function handler(req, res) {
     .filter(([k]) => k !== 'dbError')
     .every(([, v]) => v === true);
 
-  return res.status(allOk ? 200 : 500).json({ ok: allOk, checks });
+  return res.status(allOk ? 200 : 500).json({ ok: allOk, needs_setup: auth.needsSetup || false, checks });
 }

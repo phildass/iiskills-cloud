@@ -25,20 +25,27 @@ function getSigningKey() {
   return key;
 }
 
-/** Create a signed admin session JWT */
-export function createAdminToken() {
-  return jwt.sign({ admin: true }, getSigningKey(), {
+/**
+ * Create a signed admin session JWT.
+ * @param {boolean} needsSetup - true if the admin must set a passphrase before proceeding
+ */
+export function createAdminToken(needsSetup = false) {
+  return jwt.sign({ admin: true, needs_setup: needsSetup }, getSigningKey(), {
     expiresIn: SESSION_EXPIRY_SECONDS,
   });
 }
 
-/** Verify a signed admin session JWT; returns true if valid */
+/**
+ * Verify a signed admin session JWT.
+ * @returns {{ valid: boolean, needsSetup: boolean }}
+ */
 export function verifyAdminToken(token) {
   try {
     const decoded = jwt.verify(token, getSigningKey());
-    return decoded.admin === true;
+    if (decoded.admin !== true) return { valid: false, needsSetup: false };
+    return { valid: true, needsSetup: !!decoded.needs_setup };
   } catch {
-    return false;
+    return { valid: false, needsSetup: false };
   }
 }
 
@@ -123,8 +130,11 @@ export function validateAdminRequest(req) {
   // Accept signed session cookie
   const cookies = parse(req.headers.cookie || '');
   const sessionToken = cookies[ADMIN_COOKIE_NAME];
-  if (sessionToken && verifyAdminToken(sessionToken)) {
-    return { valid: true };
+  if (sessionToken) {
+    const result = verifyAdminToken(sessionToken);
+    if (result.valid) {
+      return { valid: true, needsSetup: result.needsSetup };
+    }
   }
 
   return { valid: false, reason: 'Unauthorized' };
