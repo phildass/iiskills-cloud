@@ -79,19 +79,19 @@ else
 fi
 echo ""
 
-# Step 4: Stop production PM2 processes (same ports — cannot run simultaneously)
-echo -e "${CYAN}Step 4: Stopping production PM2 processes${NC}"
+# Step 4: Delete existing PM2 processes (same ports — cannot run simultaneously)
+echo -e "${CYAN}Step 4: Deleting existing PM2 processes${NC}"
 if pm2 list 2>/dev/null | grep -qE "iiskills-main|iiskills-learn"; then
-  pm2 stop ecosystem.newapps.config.js || true
-  echo -e "${GREEN}Production processes stopped.${NC}"
+  pm2 delete ecosystem.newapps.config.js || true
+  echo -e "${GREEN}Existing processes deleted.${NC}"
 else
-  echo -e "${YELLOW}No production PM2 processes found (already stopped).${NC}"
+  echo -e "${YELLOW}No PM2 processes found (already gone).${NC}"
 fi
 echo ""
 
 # Step 5: Start sandbox via PM2
 echo -e "${CYAN}Step 5: Starting sandbox apps via PM2${NC}"
-pm2 start ecosystem.newapps.config.js --update-env
+pm2 startOrRestart ecosystem.newapps.config.js --update-env
 pm2 save
 echo ""
 
