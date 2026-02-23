@@ -8,7 +8,8 @@
   "description": "iiskills-cloud monorepo. Note: apps-backup/* is intentionally excluded from workspaces - these apps are preserved but not built/deployed.",
   "workspaces": [
     "apps/*",
-    "packages/*"
+    "packages/*",
+    "newapps/*"
   ],
   "scripts": {
     "dev": "turbo run dev",
@@ -33,6 +34,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "dev:main": "cd apps/main && npm run dev",
+    "sandbox:build": "for app in newapps/main newapps/learn-ai newapps/learn-apt newapps/learn-chemistry newapps/learn-developer newapps/learn-geography newapps/learn-management newapps/learn-math newapps/learn-physics newapps/learn-pr; do echo \"Building $app...\"; (cd $app && npx next build) || exit 1; done",
     "generate-pm2-config": "node generate-ecosystem.js",
     "validate-pm2-config": "node validate-ecosystem.js",
     "test-pm2-config": "node test-ecosystem.js",

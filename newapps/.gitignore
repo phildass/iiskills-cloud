@@ -1,0 +1,10 @@
+# Build artifacts — do not commit
+*/.next/
+*/out/
+*/build/
+*/node_modules/
+
+# Un-ignore sandbox .env.local files.
+# These files contain only placeholder values (no real secrets)
+# and are intentionally committed so the sandbox is immediately runnable.
+!**/.env.local
