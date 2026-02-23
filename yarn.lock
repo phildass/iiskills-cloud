@@ -7588,6 +7588,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "learn-chemistry@workspace:apps/learn-chemistry"
   dependencies:
+    "@iiskills/ui": "workspace:*"
     "@supabase/supabase-js": "npm:^2.89.0"
     autoprefixer: "npm:^10.4.14"
     eslint: "npm:^9.39.2"
@@ -7603,6 +7604,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "learn-developer@workspace:apps/learn-developer"
   dependencies:
+    "@iiskills/ui": "workspace:*"
     "@supabase/supabase-js": "npm:^2.89.0"
     autoprefixer: "npm:^10.4.14"
     eslint: "npm:^9.39.2"
@@ -7618,6 +7620,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "learn-geography@workspace:apps/learn-geography"
   dependencies:
+    "@iiskills/ui": "workspace:*"
     "@supabase/supabase-js": "npm:^2.89.0"
     autoprefixer: "npm:^10.4.14"
     eslint: "npm:^9.39.2"
@@ -7633,6 +7636,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "learn-management@workspace:apps/learn-management"
   dependencies:
+    "@iiskills/ui": "workspace:*"
     "@supabase/supabase-js": "npm:^2.89.0"
     autoprefixer: "npm:^10.4.14"
     eslint: "npm:^9.39.2"
@@ -7648,6 +7652,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "learn-math@workspace:apps/learn-math"
   dependencies:
+    "@iiskills/ui": "workspace:*"
     "@supabase/supabase-js": "npm:^2.89.0"
     autoprefixer: "npm:^10.4.14"
     eslint: "npm:^9.39.2"
@@ -7664,6 +7669,7 @@ __metadata:
   resolution: "learn-physics@workspace:apps/learn-physics"
   dependencies:
     "@iiskills/content-loader": "npm:*"
+    "@iiskills/ui": "workspace:*"
     "@supabase/supabase-js": "npm:^2.89.0"
     autoprefixer: "npm:^10.4.14"
     eslint: "npm:^9.39.2"
@@ -7680,6 +7686,7 @@ __metadata:
   resolution: "learn-pr@workspace:apps/learn-pr"
   dependencies:
     "@iiskills/content-loader": "npm:*"
+    "@iiskills/ui": "workspace:*"
     "@supabase/supabase-js": "npm:^2.89.0"
     autoprefixer: "npm:^10.4.14"
     eslint: "npm:^9.39.2"
