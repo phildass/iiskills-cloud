@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
+import GoogleTranslate from "./GoogleTranslate";
 
 /**
  * Shared Header Component
@@ -96,6 +97,9 @@ export default function Header({
               </Link>
             )
           )}
+
+          {/* Google Translate Widget */}
+          <GoogleTranslate />
 
           {/* Show Login/Register or User Info based on authentication */}
           {shouldShowAuthButtons && (

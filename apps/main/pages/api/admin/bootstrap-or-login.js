@@ -3,23 +3,15 @@
  *
  * Handles both the first-run bootstrap login and regular passphrase login.
  *
-
- * TEST_ADMIN_MODE=true (testing):
- * - Passphrase checked against ADMIN_PANEL_SECRET → ADMIN_SECRET → "iiskills123"
- * - No DB interaction; always returns needs_setup=false
- *
- * TEST_ADMIN_MODE=false (production, default):
-
- * TEST_ADMIN_MODE=true (env-only, no Supabase writes):
- * - Accepts ADMIN_PANEL_SECRET env var as passphrase; falls back to `iiskills123`.
- * - Never touches Supabase; always returns needs_setup=false.
+ * TEST_ADMIN_MODE=true (env-only, no file writes):
+ * - Accepts ADMIN_PANEL_SECRET env var as passphrase; falls back to "iiskills123".
+ * - Never touches the local data file; always returns needs_setup=false.
  *
  * TEST_ADMIN_MODE=false / unset (production path):
-
- * - If no admin passphrase is stored in DB AND no ADMIN_PANEL_SECRET is set:
- *   accept ONLY the bootstrap passphrase `iiskills123`, then return needs_setup=true
+ * - If no admin passphrase is stored in the local file AND no ADMIN_PANEL_SECRET is set:
+ *   accept ONLY the bootstrap passphrase "iiskills123", then return needs_setup=true
  *   so the UI forces the admin to set a real passphrase.
- * - If a passphrase hash is stored in DB:
+ * - If a passphrase hash is stored in the local file:
  *   verify against bcrypt hash; if correct, return needs_setup=false.
  * - If ADMIN_PANEL_SECRET env var is set:
  *   accept it as an emergency override (needs_setup=false).
@@ -29,26 +21,28 @@
 
 import crypto from 'crypto';
 import bcrypt from 'bcrypt';
+import fs from 'fs';
 import {
   createAdminToken,
   setAdminSessionCookie,
-  createServiceRoleClient,
   isTestAdminMode,
   getTestPassphrase,
 } from '../../../lib/adminAuth';
 
 const BOOTSTRAP_PASSPHRASE = 'iiskills123';
 
-async function getAdminPassphraseHash() {
+function getAdminDataFile() {
+  return process.env.ADMIN_DATA_FILE || '/var/lib/iiskills/admin.json';
+}
+
+function getAdminPassphraseHash() {
   try {
-    const supabase = createServiceRoleClient();
-    const { data } = await supabase
-      .from('admin_settings')
-      .select('value')
-      .eq('key', 'admin_passphrase_hash')
-      .single();
-    return data?.value || null;
-  } catch {
+    const data = JSON.parse(fs.readFileSync(getAdminDataFile(), 'utf8'));
+    return data?.admin_passphrase_hash || null;
+  } catch (err) {
+    if (err.code !== 'ENOENT') {
+      console.error('[adminAuth] Error reading admin data file:', err.message);
+    }
     return null;
   }
 }
@@ -70,17 +64,9 @@ export default async function handler(req, res) {
     });
   }
 
-
-  // ── TEST MODE ──────────────────────────────────────────────────────────────
-  // When TEST_ADMIN_MODE=true, check only against the env-var passphrase.
-  // No DB / Supabase access; no bootstrap setup flow.
+  // -- TEST MODE --
   if (isTestAdminMode()) {
     const expected = getTestPassphrase();
-
-  // ── TEST_ADMIN_MODE: env-only passphrase, no Supabase writes ──────────────
-  if (process.env.TEST_ADMIN_MODE === 'true') {
-    const expected = process.env.ADMIN_PANEL_SECRET || BOOTSTRAP_PASSPHRASE;
-
     const a = Buffer.from(passphrase);
     const b = Buffer.from(expected);
     const match = a.length === b.length && crypto.timingSafeEqual(a, b);
@@ -92,11 +78,7 @@ export default async function handler(req, res) {
     return res.status(200).json({ ok: true, needs_setup: false });
   }
 
-
-  // ── PRODUCTION MODE ────────────────────────────────────────────────────────
-
-  // ──────────────────────────────────────────────────────────────────────────
-
+  // -- PRODUCTION MODE --
 
   // Emergency override: ADMIN_PANEL_SECRET env var
   const masterSecret = process.env.ADMIN_PANEL_SECRET;
@@ -110,8 +92,8 @@ export default async function handler(req, res) {
     }
   }
 
-  // Check DB for a stored passphrase hash
-  const storedHash = await getAdminPassphraseHash();
+  // Check local file for a stored passphrase hash
+  const storedHash = getAdminPassphraseHash();
 
   if (storedHash) {
     // Normal login: verify passphrase against bcrypt hash

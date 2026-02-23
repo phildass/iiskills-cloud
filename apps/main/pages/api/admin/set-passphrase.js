@@ -1,31 +1,34 @@
 /**
  * POST /api/admin/set-passphrase
  *
- * Sets (or changes) the admin passphrase stored as a bcrypt hash in Supabase.
- * Requires a valid admin_session cookie (needs_setup=true or a full session).
- *
- * TEST_ADMIN_MODE=true: this endpoint is disabled — passphrase must be set via
- * the ADMIN_PANEL_SECRET server environment variable.
- *
- * Body: { newPassphrase: string }
- * On success: rotates cookie to needs_setup=false, returns { ok: true }
+ * Sets (or changes) the admin passphrase, stored as a bcrypt hash in a local
+ * JSON file (ADMIN_DATA_FILE env var, default /var/lib/iiskills/admin.json).
+ * Does NOT require Supabase.
  *
  * When TEST_ADMIN_MODE=true this endpoint is disabled — the passphrase must be
  * set via the ADMIN_PANEL_SECRET environment variable instead.
+ *
+ * Body: { newPassphrase: string }
+ * On success: rotates cookie to needs_setup=false, returns { ok: true }
  */
 
 import bcrypt from 'bcrypt';
+import fs from 'fs';
+import path from 'path';
 import { parse } from 'cookie';
 import {
   ADMIN_COOKIE_NAME,
   verifyAdminToken,
   createAdminToken,
   setAdminSessionCookie,
-  createServiceRoleClient,
   isTestAdminMode,
 } from '../../../lib/adminAuth';
 
 const BCRYPT_ROUNDS = 12;
+
+function getAdminDataFile() {
+  return process.env.ADMIN_DATA_FILE || '/var/lib/iiskills/admin.json';
+}
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -33,19 +36,11 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method Not Allowed' });
   }
 
-
-  // In test mode, passphrase storage is disabled.
+  // In test mode, passphrase management is via env var only.
   if (isTestAdminMode()) {
     return res.status(400).json({
-      error:
-        'Testing mode: set passphrase using server env var ADMIN_PANEL_SECRET and restart.',
-      testMode: true,
-
-  // TEST_ADMIN_MODE: passphrase management is handled via env var only
-  if (process.env.TEST_ADMIN_MODE === 'true') {
-    return res.status(403).json({
       error: 'Set ADMIN_PANEL_SECRET in server env and restart.',
-
+      testMode: true,
     });
   }
 
@@ -68,21 +63,19 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Passphrase must be at least 8 characters' });
   }
 
-  // Hash and upsert into admin_settings
-  let supabase;
-  try {
-    supabase = createServiceRoleClient();
-  } catch (err) {
-    return res.status(500).json({ error: err.message || 'Database not configured' });
-  }
-
   const hash = await bcrypt.hash(newPassphrase, BCRYPT_ROUNDS);
-  const { error } = await supabase
-    .from('admin_settings')
-    .upsert({ key: 'admin_passphrase_hash', value: hash }, { onConflict: 'key' });
-
-  if (error) {
-    return res.status(500).json({ error: 'Failed to store passphrase' });
+  const dataFile = getAdminDataFile();
+  try {
+    const dir = path.dirname(dataFile);
+    fs.mkdirSync(dir, { recursive: true });
+    const data = { admin_passphrase_hash: hash, updated_at: new Date().toISOString() };
+    fs.writeFileSync(dataFile, JSON.stringify(data, null, 2), { mode: 0o600 });
+    // Ensure restricted permissions even if file already existed
+    fs.chmodSync(dataFile, 0o600);
+  } catch (err) {
+    return res.status(500).json({
+      error: `Failed to store passphrase: ${err.message}. Ensure ${dataFile} is writable or set ADMIN_DATA_FILE env var.`,
+    });
   }
 
   // Rotate session: mark needs_setup=false
