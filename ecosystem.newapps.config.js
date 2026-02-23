@@ -38,7 +38,7 @@ const sandboxRoot = path.join(__dirname, 'newapps');
 module.exports = {
   apps: [
     {
-      name: 'sandbox-main',
+      name: 'iiskills-main',
       cwd: path.join(sandboxRoot, 'main'),
       script: 'npx',
       args: 'next start',
@@ -60,7 +60,7 @@ module.exports = {
       time: true,
     },
     {
-      name: 'sandbox-learn-ai',
+      name: 'iiskills-learn-ai',
       cwd: path.join(sandboxRoot, 'learn-ai'),
       script: 'npx',
       args: 'next start',
@@ -82,7 +82,7 @@ module.exports = {
       time: true,
     },
     {
-      name: 'sandbox-learn-apt',
+      name: 'iiskills-learn-apt',
       cwd: path.join(sandboxRoot, 'learn-apt'),
       script: 'npx',
       args: 'next start',
@@ -104,7 +104,7 @@ module.exports = {
       time: true,
     },
     {
-      name: 'sandbox-learn-chemistry',
+      name: 'iiskills-learn-chemistry',
       cwd: path.join(sandboxRoot, 'learn-chemistry'),
       script: 'npx',
       args: 'next start',
@@ -126,7 +126,7 @@ module.exports = {
       time: true,
     },
     {
-      name: 'sandbox-learn-developer',
+      name: 'iiskills-learn-developer',
       cwd: path.join(sandboxRoot, 'learn-developer'),
       script: 'npx',
       args: 'next start',
@@ -148,7 +148,7 @@ module.exports = {
       time: true,
     },
     {
-      name: 'sandbox-learn-geography',
+      name: 'iiskills-learn-geography',
       cwd: path.join(sandboxRoot, 'learn-geography'),
       script: 'npx',
       args: 'next start',
@@ -170,7 +170,7 @@ module.exports = {
       time: true,
     },
     {
-      name: 'sandbox-learn-management',
+      name: 'iiskills-learn-management',
       cwd: path.join(sandboxRoot, 'learn-management'),
       script: 'npx',
       args: 'next start',
@@ -192,7 +192,7 @@ module.exports = {
       time: true,
     },
     {
-      name: 'sandbox-learn-math',
+      name: 'iiskills-learn-math',
       cwd: path.join(sandboxRoot, 'learn-math'),
       script: 'npx',
       args: 'next start',
@@ -214,7 +214,7 @@ module.exports = {
       time: true,
     },
     {
-      name: 'sandbox-learn-physics',
+      name: 'iiskills-learn-physics',
       cwd: path.join(sandboxRoot, 'learn-physics'),
       script: 'npx',
       args: 'next start',
@@ -236,7 +236,7 @@ module.exports = {
       time: true,
     },
     {
-      name: 'sandbox-learn-pr',
+      name: 'iiskills-learn-pr',
       cwd: path.join(sandboxRoot, 'learn-pr'),
       script: 'npx',
       args: 'next start',

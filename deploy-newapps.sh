@@ -82,7 +82,7 @@ echo ""
 # Step 4: Stop production PM2 processes (same ports — cannot run simultaneously)
 echo -e "${CYAN}Step 4: Stopping production PM2 processes${NC}"
 if pm2 list 2>/dev/null | grep -qE "iiskills-main|iiskills-learn"; then
-  pm2 stop ecosystem.config.js || true
+  pm2 stop ecosystem.newapps.config.js || true
   echo -e "${GREEN}Production processes stopped.${NC}"
 else
   echo -e "${YELLOW}No production PM2 processes found (already stopped).${NC}"
