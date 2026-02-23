@@ -1,0 +1,1 @@
+../../apps/learn-math/tailwind.config.js

@@ -1,0 +1,1 @@
+../../apps/learn-developer/tailwind.config.js
