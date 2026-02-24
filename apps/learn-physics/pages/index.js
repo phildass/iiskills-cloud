@@ -1,50 +1,32 @@
-"use client";
+import React from 'react';
+import { Layout } from '@iiskills/ui';
+import Link from 'next/link';
+import { getCourseMetadata } from '@iiskills/content';
 
-import { TriLevelLandingPage } from "@iiskills/ui/landing";
+export async function getStaticProps() {
+  const course = getCourseMetadata('learn-physics');
+  return { props: { course } };
+}
 
-export default function Home() {
+export default function PhysicsHome({ course }) {
   return (
-    <TriLevelLandingPage
-      appId="learn-physics"
-      appName="Unlock the Universe of Physics 🌟"
-      headline="Master the Laws of the Universe"
-      subheadline="Explore the fundamental forces that govern reality. The Force Path begins here."
-      title="iiskills-physics - Master Physics"
-      description="Explore the fundamental laws that govern our universe through interactive lessons, real-world applications, and cutting-edge physics concepts. From classical mechanics to quantum theory."
-      features={[
-  {
-    "emoji": "⚛️",
-    "title": "Classical Mechanics",
-    "description": "Master motion, forces, energy principles, and Newton's laws through interactive simulations and real-world problem solving"
-  },
-  {
-    "emoji": "💡",
-    "title": "Electricity & Magnetism",
-    "description": "Understand electromagnetic phenomena, circuits, fields, and the forces that power our modern world"
-  },
-  {
-    "emoji": "🌌",
-    "title": "Modern Physics",
-    "description": "Explore quantum mechanics, relativity, particle physics, and the cutting edge of scientific discovery"
-  },
-  {
-    "emoji": "🔬",
-    "title": "Thermodynamics & Energy",
-    "description": "Learn heat transfer, energy conservation, entropy, and the laws that govern energy transformation"
-  },
-  {
-    "emoji": "🌊",
-    "title": "Waves & Optics",
-    "description": "Study wave behavior, light phenomena, interference, diffraction, and electromagnetic radiation"
-  },
-  {
-    "emoji": "🎯",
-    "title": "Applied Physics",
-    "description": "Bridge theory and practice with engineering applications, experimental design, and problem-solving techniques"
-  }
-]}
-      isFree={true}
-      heroGradient="from-blue-700 to-primary"
-    />
+    <Layout appName="Physics">
+      <div style={{ maxWidth: '960px', margin: '0 auto' }}>
+        <h1 style={{ fontSize: '2.5rem', fontWeight: 700, marginBottom: '0.5rem' }}>{course.title}</h1>
+        <p style={{ fontSize: '1.125rem', color: '#555', marginBottom: '0.5rem' }}>{course.description}</p>
+        <p style={{ color: '#888', marginBottom: '2rem' }}>Syllabus: {course.syllabusHours} hours</p>
+
+        <h2 style={{ fontSize: '1.5rem', fontWeight: 600, marginBottom: '1rem' }}>Modules</h2>
+        <div style={{ display: 'grid', gap: '1rem' }}>
+          {course.modules.map((mod) => (
+            <Link key={mod.id} href={`/modules/${mod.id}`} style={{ textDecoration: 'none' }}>
+              <div style={{ border: '1px solid #e0e0e0', borderRadius: '8px', padding: '1.25rem', background: '#fff', cursor: 'pointer' }}>
+                <h3 style={{ fontSize: '1.125rem', fontWeight: 600, color: '#1a1a2e' }}>{mod.title}</h3>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </Layout>
   );
 }
