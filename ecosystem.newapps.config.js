@@ -49,6 +49,7 @@ module.exports = {
         NEXT_PUBLIC_DISABLE_AUTH: 'true',
         NEXT_PUBLIC_SUPABASE_SUSPENDED: 'true',
         NEXT_PUBLIC_TESTING_MODE: 'true',
+        NEXT_PUBLIC_DISABLE_ADMIN_GATE: 'true',
       },
       instances: 1,
       autorestart: true,

@@ -8,7 +8,8 @@
  *   if (!ready) return null; // or a loading spinner
  *
  * Behaviour:
- * - Calls GET /api/admin/health to validate the admin_session cookie.
+ * - When NEXT_PUBLIC_DISABLE_ADMIN_GATE=true, always allows access (sandbox mode).
+ * - Otherwise, calls GET /api/admin/health to validate the admin_session cookie.
  * - If the response is 401, redirects to /admin/login.
  * - If the response is ok (200 or even 500/env issues), the session is valid
  *   and the page is allowed to render.
@@ -19,11 +20,18 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
+// NEXT_PUBLIC_* vars are baked in at build time — identical on server and client.
+const GATE_DISABLED = process.env.NEXT_PUBLIC_DISABLE_ADMIN_GATE === 'true';
+
 export function useAdminGate() {
   const router = useRouter();
-  const [ready, setReady] = useState(false);
+  const [ready, setReady] = useState(GATE_DISABLED);
 
   useEffect(() => {
+    if (GATE_DISABLED) {
+      return;
+    }
+
     let cancelled = false;
 
     async function checkSession() {
