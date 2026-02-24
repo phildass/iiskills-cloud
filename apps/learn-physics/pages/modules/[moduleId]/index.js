@@ -5,6 +5,7 @@ import { getCourseMetadata, getLessonsForModule } from '@iiskills/content';
 
 export async function getStaticPaths() {
   const course = getCourseMetadata('learn-physics');
+  if (!course) return { paths: [], fallback: false };
   const paths = course.modules.map((m) => ({ params: { moduleId: m.id } }));
   return { paths, fallback: false };
 }

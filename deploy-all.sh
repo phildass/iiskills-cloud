@@ -26,9 +26,15 @@ corepack enable || true
 yarn install
 yarn turbo run build
 
-echo "==> Start MAIN on :3000 from apps/main"
-cd "$REPO_DIR/apps/main"
-PORT=3000 pm2 start "npx next start -p 3000" --name iiskills-main
+echo "==> Start WEB on :3000 from apps/web"
+cd "$REPO_DIR/apps/web"
+PORT=3000 pm2 start "npx next start -p 3000" --name iiskills-web
+
+echo "==> Start ADMIN on :3001 from apps/admin"
+if [ -d "$REPO_DIR/apps/admin" ]; then
+  cd "$REPO_DIR/apps/admin"
+  PORT=3001 pm2 start "npx next start -p 3001" --name iiskills-admin
+fi
 
 echo "==> Start learn apps if present (ports hardcoded to match your current nginx/pm2 layout)"
 declare -A PORTS=(
@@ -59,7 +65,7 @@ pm2 save
 pm2 ls
 
 echo "==> Quick curl checks"
-curl -fsS "http://localhost:3000" >/dev/null && echo "OK main :3000"
+curl -fsS "http://localhost:3000" >/dev/null && echo "OK web :3000"
 echo "DONE. Test in browser:"
 echo " - https://app.iiskills.cloud/"
 echo " - https://app.iiskills.cloud/admin"
