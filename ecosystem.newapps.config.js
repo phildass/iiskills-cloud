@@ -29,11 +29,66 @@
  *   sandbox-learn-physics    → :3020
  *   sandbox-learn-pr         → :3021
  *   sandbox-learn-ai         → :3024
+ *
+ * ─── Sandbox Supabase (optional) ───────────────────────────────────────────────
+ * To point the sandbox at a dedicated (non-production) Supabase project, export
+ * the following variables in the server environment BEFORE running pm2 start and
+ * BEFORE running `yarn sandbox:build`:
+ *
+ *   export SANDBOX_SUPABASE_URL=https://<sandbox-project-ref>.supabase.co
+ *   export SANDBOX_SUPABASE_ANON_KEY=<sandbox-anon-key>
+ *   export SANDBOX_SUPABASE_SERVICE_ROLE_KEY=<sandbox-service-role-key>  # server-only
+ *
+ * When these are set:
+ *   • NEXT_PUBLIC_SUPABASE_URL / ANON_KEY are forwarded to every sandbox app
+ *   • NEXT_PUBLIC_SUPABASE_SUSPENDED is set to "false" (live Supabase used)
+ *   • SUPABASE_SERVICE_ROLE_KEY is forwarded for server-side API routes
+ *
+ * When they are NOT set (default):
+ *   • Apps run fully offline — NEXT_PUBLIC_SUPABASE_SUSPENDED stays "true"
+ *   • A mock Supabase client is used; no real credentials are needed
+ *
+ * Recommended: add them to /etc/profile.d/sandbox-supabase.sh on the server
+ * so they survive reboots and are picked up by the deploy script.
+ * See newapps/README.md for full setup instructions.
+ * ───────────────────────────────────────────────────────────────────────────────
  */
 
 const path = require('path');
 
 const sandboxRoot = path.join(__dirname, 'newapps');
+
+// ---------------------------------------------------------------------------
+// Sandbox Supabase env vars — read from the server environment at PM2 start
+// time.  No secrets are hardcoded here; they must be exported in the shell.
+// ---------------------------------------------------------------------------
+const SANDBOX_SUPABASE_URL = process.env.SANDBOX_SUPABASE_URL || '';
+const SANDBOX_SUPABASE_ANON_KEY = process.env.SANDBOX_SUPABASE_ANON_KEY || '';
+const SANDBOX_SUPABASE_SERVICE_ROLE_KEY = process.env.SANDBOX_SUPABASE_SERVICE_ROLE_KEY || '';
+
+// True only when both public credentials are provided
+const useLiveSupabase = !!(SANDBOX_SUPABASE_URL && SANDBOX_SUPABASE_ANON_KEY);
+
+/**
+ * Returns the Supabase-related env vars to inject into each PM2 app.
+ * When sandbox credentials are present they override the placeholder defaults
+ * baked into each app's .env.local at build time (Next.js respects process.env
+ * over .env.local for variables already set in the environment).
+ */
+function sandboxSupabaseEnv() {
+  if (useLiveSupabase) {
+    return {
+      NEXT_PUBLIC_SUPABASE_URL: SANDBOX_SUPABASE_URL,
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: SANDBOX_SUPABASE_ANON_KEY,
+      NEXT_PUBLIC_SUPABASE_SUSPENDED: 'false',
+      ...(SANDBOX_SUPABASE_SERVICE_ROLE_KEY && {
+        SUPABASE_SERVICE_ROLE_KEY: SANDBOX_SUPABASE_SERVICE_ROLE_KEY,
+      }),
+    };
+  }
+  // Default: keep Supabase suspended (mock client, no real credentials needed)
+  return { NEXT_PUBLIC_SUPABASE_SUSPENDED: 'true' };
+}
 
 module.exports = {
   apps: [
@@ -47,9 +102,9 @@ module.exports = {
         NODE_ENV: 'production',
         PORT: 3000,
         NEXT_PUBLIC_DISABLE_AUTH: 'true',
-        NEXT_PUBLIC_SUPABASE_SUSPENDED: 'true',
         NEXT_PUBLIC_TESTING_MODE: 'true',
         NEXT_PUBLIC_DISABLE_ADMIN_GATE: 'true',
+        ...sandboxSupabaseEnv(),
       },
       instances: 1,
       autorestart: true,
@@ -70,8 +125,8 @@ module.exports = {
         NODE_ENV: 'production',
         PORT: 3024,
         NEXT_PUBLIC_DISABLE_AUTH: 'true',
-        NEXT_PUBLIC_SUPABASE_SUSPENDED: 'true',
         NEXT_PUBLIC_TESTING_MODE: 'true',
+        ...sandboxSupabaseEnv(),
       },
       instances: 1,
       autorestart: true,
@@ -92,8 +147,8 @@ module.exports = {
         NODE_ENV: 'production',
         PORT: 3002,
         NEXT_PUBLIC_DISABLE_AUTH: 'true',
-        NEXT_PUBLIC_SUPABASE_SUSPENDED: 'true',
         NEXT_PUBLIC_TESTING_MODE: 'true',
+        ...sandboxSupabaseEnv(),
       },
       instances: 1,
       autorestart: true,
@@ -114,8 +169,8 @@ module.exports = {
         NODE_ENV: 'production',
         PORT: 3005,
         NEXT_PUBLIC_DISABLE_AUTH: 'true',
-        NEXT_PUBLIC_SUPABASE_SUSPENDED: 'true',
         NEXT_PUBLIC_TESTING_MODE: 'true',
+        ...sandboxSupabaseEnv(),
       },
       instances: 1,
       autorestart: true,
@@ -136,8 +191,8 @@ module.exports = {
         NODE_ENV: 'production',
         PORT: 3007,
         NEXT_PUBLIC_DISABLE_AUTH: 'true',
-        NEXT_PUBLIC_SUPABASE_SUSPENDED: 'true',
         NEXT_PUBLIC_TESTING_MODE: 'true',
+        ...sandboxSupabaseEnv(),
       },
       instances: 1,
       autorestart: true,
@@ -158,8 +213,8 @@ module.exports = {
         NODE_ENV: 'production',
         PORT: 3011,
         NEXT_PUBLIC_DISABLE_AUTH: 'true',
-        NEXT_PUBLIC_SUPABASE_SUSPENDED: 'true',
         NEXT_PUBLIC_TESTING_MODE: 'true',
+        ...sandboxSupabaseEnv(),
       },
       instances: 1,
       autorestart: true,
@@ -180,8 +235,8 @@ module.exports = {
         NODE_ENV: 'production',
         PORT: 3016,
         NEXT_PUBLIC_DISABLE_AUTH: 'true',
-        NEXT_PUBLIC_SUPABASE_SUSPENDED: 'true',
         NEXT_PUBLIC_TESTING_MODE: 'true',
+        ...sandboxSupabaseEnv(),
       },
       instances: 1,
       autorestart: true,
@@ -202,8 +257,8 @@ module.exports = {
         NODE_ENV: 'production',
         PORT: 3017,
         NEXT_PUBLIC_DISABLE_AUTH: 'true',
-        NEXT_PUBLIC_SUPABASE_SUSPENDED: 'true',
         NEXT_PUBLIC_TESTING_MODE: 'true',
+        ...sandboxSupabaseEnv(),
       },
       instances: 1,
       autorestart: true,
@@ -224,8 +279,8 @@ module.exports = {
         NODE_ENV: 'production',
         PORT: 3020,
         NEXT_PUBLIC_DISABLE_AUTH: 'true',
-        NEXT_PUBLIC_SUPABASE_SUSPENDED: 'true',
         NEXT_PUBLIC_TESTING_MODE: 'true',
+        ...sandboxSupabaseEnv(),
       },
       instances: 1,
       autorestart: true,
@@ -246,8 +301,8 @@ module.exports = {
         NODE_ENV: 'production',
         PORT: 3021,
         NEXT_PUBLIC_DISABLE_AUTH: 'true',
-        NEXT_PUBLIC_SUPABASE_SUSPENDED: 'true',
         NEXT_PUBLIC_TESTING_MODE: 'true',
+        ...sandboxSupabaseEnv(),
       },
       instances: 1,
       autorestart: true,
