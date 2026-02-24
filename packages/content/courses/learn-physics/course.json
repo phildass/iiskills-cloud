@@ -1,0 +1,14 @@
+{
+  "id": "learn-physics",
+  "title": "Physics Foundations",
+  "description": "A foundational physics course covering mechanics, thermodynamics, and optics.",
+  "syllabusHours": 40,
+  "tags": ["physics", "science", "JEE"],
+  "modules": [
+    {
+      "id": "mechanics",
+      "title": "Mechanics",
+      "order": 1
+    }
+  ]
+}
