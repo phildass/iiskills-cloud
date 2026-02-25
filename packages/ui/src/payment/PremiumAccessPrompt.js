@@ -1,6 +1,6 @@
 "use client";
 
-import { getEffectivePricingBreakdown, formatINR } from "../pricing/pricing";
+import { getEffectivePricingBreakdown, formatINR, isBundleOfferActive } from "../pricing/pricing";
 
 /**
  * Premium Access Prompt Component
@@ -18,14 +18,15 @@ export default function PremiumAccessPrompt({
   onCancel 
 }) {
   const pricing = getEffectivePricingBreakdown();
+  const bundleActive = showAIDevBundle && (new Date() <= new Date("2026-03-31T23:59:59"));
+
   const handleUnlock = () => {
-    // Redirect to unified payment hub
-    window.location.href = "https://aienter.in/payments";
+    window.location.href = "https://aienter.in/payments/iiskills";
   };
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 p-4 backdrop-blur-sm">
-      <div className="bg-white rounded-2xl max-w-xl w-full p-8 shadow-2xl">
+      <div className="bg-white rounded-2xl max-w-xl w-full p-8 shadow-2xl overflow-y-auto max-h-screen">
         {/* Premium Calibration Header */}
         <div className="text-center mb-6">
           <div className="inline-block bg-gradient-to-r from-purple-100 to-blue-100 px-4 py-2 rounded-full mb-3">
@@ -46,20 +47,19 @@ export default function PremiumAccessPrompt({
           </p>
         </div>
 
-        {/* AI-Dev Bundle Special Offer */}
-        {showAIDevBundle && (
-          <div className="bg-gradient-to-r from-yellow-50 to-amber-50 border-2 border-yellow-400 p-5 rounded-xl mb-6">
+        {/* AI-Dev Bundle Special Offer — vivid banner, valid till Mar 31 2026 */}
+        {bundleActive && (
+          <div className="bg-gradient-to-r from-yellow-400 to-amber-400 border-4 border-yellow-600 p-5 rounded-xl mb-6 shadow-lg">
             <div className="text-center">
-              <div className="text-2xl font-bold text-yellow-800 mb-2">
-                🎁 Special AI-Dev Bundle
+              <div className="text-3xl font-extrabold text-yellow-900 mb-2 animate-pulse">
+                🎁 BUY ONE, GET ONE FREE!
               </div>
-              <p className="text-yellow-900 font-semibold mb-2">
-                Pay for one, get BOTH courses!
-              </p>
-              <p className="text-sm text-yellow-800">
+              <p className="text-yellow-950 font-bold text-lg mb-1">
                 Purchase {appName} and get{" "}
-                {appName.includes("AI") ? "Learn Developer" : "Learn AI"} included at no extra
-                cost
+                {appName.toLowerCase().includes("ai") ? "Learn Developer" : "Learn AI"} included at NO EXTRA COST
+              </p>
+              <p className="text-yellow-900 font-semibold text-sm">
+                ⏰ Exclusive offer — valid until <strong>31 March 2026 only</strong>. Don't miss out!
               </p>
             </div>
           </div>
@@ -82,19 +82,22 @@ export default function PremiumAccessPrompt({
               <span>Total:</span>
               <span className="text-green-600">{formatINR(pricing.total)}</span>
             </div>
-            {showAIDevBundle && (
+            {bundleActive && (
               <div className="text-center pt-2">
                 <span className="text-sm text-purple-600 font-semibold">
-                  ✓ Includes AI-Dev bundle (2 courses for price of 1)
+                  ✓ Includes AI-Dev bundle — 2 courses for the price of 1 (till 31 Mar 2026)
                 </span>
               </div>
             )}
           </div>
-          
-          {/* Price Validity Notice */}
-          <div className="bg-yellow-50 border-l-4 border-yellow-400 p-3 rounded">
-            <p className="text-sm text-yellow-800 font-medium">
-              ⚡ {pricing.messages[0]}
+          <div className="bg-blue-50 border-l-4 border-blue-400 p-3 rounded">
+            <p className="text-sm text-blue-800 font-medium">
+              🔒 Payment to <strong>AI Cloud Enterprises</strong> through secure Razorpay gateway
+            </p>
+          </div>
+          <div className="mt-2 bg-green-50 border-l-4 border-green-400 p-3 rounded">
+            <p className="text-sm text-green-800 font-medium">
+              ✅ Valid for <strong>1 year</strong> from date of enrollment
             </p>
           </div>
         </div>
@@ -125,7 +128,7 @@ export default function PremiumAccessPrompt({
               <svg className="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
               </svg>
-              <span>Lifetime access to all course materials</span>
+              <span>1-year access to all course materials</span>
             </li>
           </ul>
         </div>
@@ -151,13 +154,13 @@ export default function PremiumAccessPrompt({
             onClick={handleUnlock} 
             className={`${onCancel ? 'flex-1' : 'w-full'} px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-bold hover:from-purple-700 hover:to-blue-700 transition-all duration-200 shadow-lg hover:shadow-xl`}
           >
-            I am satisfied, I will pay for the course
+            Enrol Now — Pay Securely
           </button>
         </div>
 
         {/* Footer Note */}
         <p className="text-xs text-gray-500 text-center mt-4">
-          Secure payment powered by aienter.in • 100% money-back guarantee
+          Secure payment via Razorpay • AI Cloud Enterprises • 100% money-back guarantee
         </p>
       </div>
     </div>

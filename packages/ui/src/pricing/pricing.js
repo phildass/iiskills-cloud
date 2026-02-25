@@ -178,3 +178,28 @@ export default {
   REGULAR_GST_AMOUNT:  NEW_GST,
   REGULAR_TOTAL_PRICE: NEW_TOTAL,
 };
+
+// AI + Developer bundle offer: Buy one, get one free — valid until March 31, 2026
+const BUNDLE_OFFER_END_DATE_STR = "2026-03-31";
+const BUNDLE_APPS = ["learn-ai", "learn-developer"];
+
+/**
+ * Check if the AI + Developer bundle buy-one-get-one offer is still active
+ * @param {Date} [currentDate] - Date to check (defaults to now)
+ * @returns {boolean}
+ */
+export function isBundleOfferActive(currentDate = new Date()) {
+  const dateStr = currentDate.toISOString().slice(0, 10);
+  return dateStr <= BUNDLE_OFFER_END_DATE_STR;
+}
+
+/**
+ * Get the bundle offer notice text
+ * @returns {string|null} Notice text or null if offer is not active
+ */
+export function getBundleOfferNotice() {
+  if (!isBundleOfferActive()) return null;
+  return `🎁 LIMITED OFFER: Buy Learn AI OR Learn Developer — get BOTH for the price of ONE! Offer valid until 31 March 2026.`;
+}
+
+export { BUNDLE_APPS };

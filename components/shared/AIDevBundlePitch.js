@@ -1,6 +1,6 @@
 "use client";
 
-import { getEffectivePricingBreakdown, formatINR } from "@iiskills/ui/pricing";
+import { getEffectivePricingBreakdown, formatINR, isBundleOfferActive } from "@iiskills/ui/pricing";
 
 /**
  * AI-Developer Bundle Pitch Component
@@ -14,6 +14,7 @@ import { getEffectivePricingBreakdown, formatINR } from "@iiskills/ui/pricing";
 
 export default function AIDevBundlePitch({ currentApp = "learn-ai" }) {
   const pricing = getEffectivePricingBreakdown();
+  const bundleActive = isBundleOfferActive();
   const bundleInfo = {
     "learn-ai": {
       otherApp: "Learn Developer",
