@@ -1,24 +1,33 @@
+import { createClient } from '@supabase/supabase-js';
 import { verifyOTP } from '@lib/otpService';
 
 /**
  * OTP Verification Endpoint
- * 
- * This endpoint verifies that an OTP is:
- * 1. Correct (matches stored OTP)
- * 2. Not expired (within 10-minute validity window)
- * 3. App-specific (matches the app/course for which it was issued)
- * 
- * An OTP issued for one app cannot be used to access another app.
- * This ensures strict app/course isolation and prevents misuse.
- * 
+ *
+ * Verifies a 6-digit OTP issued after payment (via ai-enter callback) or by admin.
+ *
+ * On success the endpoint also attempts to grant a paid entitlement to the
+ * authenticated user (identified by email).  This makes the upgrade fully
+ * self-serve: verify OTP → immediately become a PAID Learner.
+ *
  * Usage:
- * POST /api/verify-otp
- * Body: { email, otp, appId }
- * 
+ *   POST /api/verify-otp
+ *   Body: { email, otp, appId }
+ *
  * Returns:
- * - success: true if OTP is valid
- * - error: description of why verification failed
+ *   { success, message, appId, email, entitlementGranted }
  */
+
+function getSupabaseAdmin() {
+  const url = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key =
+    process.env.SUPABASE_SERVICE_ROLE_KEY ||
+    process.env.SUPABASE_KEY ||
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  if (!url || !key) return null;
+  return createClient(url, key);
+}
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
@@ -36,30 +45,86 @@ export default async function handler(req, res) {
     }
 
     // Verify OTP
-    const result = await verifyOTP({
-      email,
-      otp,
-      appId,
-    });
+    const result = await verifyOTP({ email, otp, appId });
 
-    if (result.success) {
-      // OTP verified successfully
-      return res.status(200).json({
-        success: true,
-        message: 'OTP verified successfully',
-        appId: result.appId,
-        email: result.email,
-        // Additional data can be added here if needed
-      });
-    } else {
-      // Verification failed
-      return res.status(400).json({
-        success: false,
-        error: result.error,
-      });
+    if (!result.success) {
+      return res.status(400).json({ success: false, error: result.error });
     }
+
+    // ── Grant entitlement ────────────────────────────────────────────────────
+    let entitlementGranted = false;
+
+    const supabase = getSupabaseAdmin();
+    if (supabase) {
+      try {
+        // Find user by email (service-role bypasses RLS)
+        const { data: users, error: lookupErr } = await supabase
+          .from('auth.users')
+          .select('id')
+          .eq('email', email)
+          .limit(1);
+
+        // auth.users is not directly queryable via PostgREST in most setups;
+        // fall back to the admin auth API
+        let userId = users?.[0]?.id;
+        if (!userId || lookupErr) {
+          const { data: authData } = await supabase.auth.admin.listUsers();
+          const match = authData?.users?.find(
+            (u) => u.email?.toLowerCase() === email.toLowerCase()
+          );
+          userId = match?.id;
+        }
+
+        if (userId) {
+          const { error: entErr } = await supabase.from('entitlements').insert([
+            {
+              user_id: userId,
+              app_id: appId,
+              status: 'active',
+              source: 'razorpay',
+              expires_at: new Date(
+                Date.now() + 365 * 24 * 60 * 60 * 1000
+              ).toISOString(),
+            },
+          ]);
+
+          if (entErr) {
+            // Ignore duplicate entitlement (idempotent)
+            if (
+              entErr.code !== '23505' &&
+              !entErr.message?.includes('duplicate') &&
+              !entErr.message?.includes('unique')
+            ) {
+              console.error('[verify-otp] Failed to insert entitlement:', entErr);
+            } else {
+              entitlementGranted = true; // already granted
+            }
+          } else {
+            entitlementGranted = true;
+            console.log(
+              `[verify-otp] Entitlement granted: user=${userId} app=${appId}`
+            );
+          }
+        } else {
+          console.warn(
+            `[verify-otp] No registered user found for email ${email}; entitlement skipped`
+          );
+        }
+      } catch (entGrantErr) {
+        // Non-fatal – OTP was still valid
+        console.error('[verify-otp] Entitlement grant error:', entGrantErr);
+      }
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: 'OTP verified successfully',
+      appId: result.appId,
+      email: result.email,
+      entitlementGranted,
+    });
   } catch (error) {
-    console.error('OTP verification endpoint error:', error);
+    console.error('[verify-otp] endpoint error:', error);
     return res.status(500).json({
       success: false,
       error: 'An error occurred during verification',

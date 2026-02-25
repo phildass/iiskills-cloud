@@ -163,12 +163,10 @@ export default async function handler(req, res) {
     } catch (otpError) {
       console.error('Failed to generate/dispatch OTP:', otpError);
       
-      // Payment was captured but OTP failed
-      // This is a critical error - admin should be notified
+      // Payment was captured but OTP failed — log for manual follow-up
       return res.status(500).json({
         success: false,
         error: 'Payment received but OTP dispatch failed',
-        message: 'Please contact support with your payment ID',
         paymentId,
         appId,
       });
