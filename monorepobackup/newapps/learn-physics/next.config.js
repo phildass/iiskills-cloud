@@ -1,0 +1,1 @@
+../../apps/learn-physics/next.config.js

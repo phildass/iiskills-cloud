@@ -1,0 +1,1 @@
+../../apps/learn-physics/tailwind.config.js

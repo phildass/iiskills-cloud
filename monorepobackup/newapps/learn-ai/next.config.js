@@ -1,0 +1,1 @@
+../../apps/learn-ai/next.config.js
