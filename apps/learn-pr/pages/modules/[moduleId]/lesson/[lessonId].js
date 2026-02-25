@@ -118,6 +118,7 @@ import Footer from '../../../../components/Footer';
 import QuizComponent from '../../../../components/QuizComponent';
 import PremiumAccessPrompt from '@shared/PremiumAccessPrompt';
 import { getCurrentUser } from '../../../../lib/supabaseClient';
+import { LessonContent } from '@iiskills/ui/content';
 
 export default function LessonPage({ lesson, moduleId, lessonId }) {
   const router = useRouter();
@@ -227,7 +228,7 @@ export default function LessonPage({ lesson, moduleId, lessonId }) {
               <h1 className="text-3xl font-bold mt-2">{lesson.title}</h1>
             </div>
 
-            <div className="prose max-w-none" dangerouslySetInnerHTML={{ __html: lesson.content }} />
+            <LessonContent html={lesson.content} />
           </div>
 
           {lesson.quiz && (

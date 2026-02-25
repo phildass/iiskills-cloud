@@ -2,6 +2,7 @@ import React from 'react';
 import { Layout } from '@iiskills/ui/common';
 import ReactMarkdown from 'react-markdown';
 import { getCourseMetadata, getLessonsForModule, getLesson } from '@iiskills/content';
+import { LessonContent } from '@iiskills/ui/content';
 
 export async function getStaticPaths() {
   const course = getCourseMetadata('learn-physics');
@@ -34,7 +35,9 @@ export default function LessonPage({ lesson, moduleId }) {
           )}
         </div>
         <div style={{ background: '#fff', padding: '2rem', borderRadius: '8px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
-          <ReactMarkdown>{lesson.content}</ReactMarkdown>
+          <LessonContent>
+            <ReactMarkdown>{lesson.content}</ReactMarkdown>
+          </LessonContent>
         </div>
       </div>
     </Layout>

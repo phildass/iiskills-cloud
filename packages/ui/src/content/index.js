@@ -1,4 +1,5 @@
 // Content display components
+export { default as LessonContent } from './LessonContent';
 export { default as StandardizedLesson } from './StandardizedLesson';
 export { default as CurriculumTable } from './CurriculumTable';
 export { default as LevelSelector } from './LevelSelector';
