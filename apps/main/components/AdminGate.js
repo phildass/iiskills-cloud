@@ -21,7 +21,9 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
 // NEXT_PUBLIC_* vars are baked in at build time — identical on server and client.
-const GATE_DISABLED = process.env.NEXT_PUBLIC_DISABLE_ADMIN_GATE === 'true';
+const GATE_DISABLED =
+  process.env.NEXT_PUBLIC_DISABLE_ADMIN_GATE === 'true' ||
+  process.env.NEXT_PUBLIC_ADMIN_AUTH_DISABLED === 'true';
 
 export function useAdminGate() {
   const router = useRouter();

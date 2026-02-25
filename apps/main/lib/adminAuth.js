@@ -33,6 +33,15 @@ export function isTestAdminMode() {
 }
 
 /**
+ * Returns true when ADMIN_AUTH_DISABLED=true is set in the server environment.
+ * In this mode, ALL admin routes are accessible without any authentication.
+ * ⚠️ TESTING ONLY — never enable this in production with real data.
+ */
+export function isAdminAuthDisabled() {
+  return process.env.ADMIN_AUTH_DISABLED === 'true';
+}
+
+/**
  * Returns the effective admin passphrase for test mode (server-side only).
  * Priority: ADMIN_PANEL_SECRET → ADMIN_SECRET → "iiskills123"
  */
@@ -120,14 +129,21 @@ function checkIpAllowlist(req) {
 /**
  * Validate an incoming admin API request.
  *
+ * When ADMIN_AUTH_DISABLED=true, all requests are allowed unconditionally.
+ *
  * Checks (in order):
- * 1. Optional IP allowlist (ADMIN_IP_ALLOWLIST)
- * 2. x-admin-secret header matching ADMIN_PANEL_SECRET
- * 3. Signed admin_session cookie
+ * 1. ADMIN_AUTH_DISABLED bypass
+ * 2. Optional IP allowlist (ADMIN_IP_ALLOWLIST)
+ * 3. x-admin-secret header matching ADMIN_PANEL_SECRET
+ * 4. Signed admin_session cookie
  *
  * @returns {{ valid: boolean, reason?: string }}
  */
 export function validateAdminRequest(req) {
+  if (isAdminAuthDisabled()) {
+    return { valid: true };
+  }
+
   if (!checkIpAllowlist(req)) {
     return { valid: false, reason: 'IP not in allowlist' };
   }

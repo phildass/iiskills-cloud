@@ -13,7 +13,7 @@
  *   500 — server misconfiguration
  */
 
-import { validateAdminRequest, createServiceRoleClient, isTestAdminMode } from '../../../lib/adminAuth';
+import { validateAdminRequest, createServiceRoleClient, isTestAdminMode, isAdminAuthDisabled } from '../../../lib/adminAuth';
 
 export default async function handler(req, res) {
   if (req.method !== 'GET') {
@@ -24,6 +24,11 @@ export default async function handler(req, res) {
   const auth = validateAdminRequest(req);
   if (!auth.valid) {
     return res.status(401).json({ error: auth.reason || 'Unauthorized' });
+  }
+
+  // When auth is completely disabled, skip all credential checks.
+  if (isAdminAuthDisabled()) {
+    return res.status(200).json({ ok: true, authDisabled: true, needs_setup: false });
   }
 
   const testMode = isTestAdminMode();

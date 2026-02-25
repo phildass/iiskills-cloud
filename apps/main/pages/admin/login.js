@@ -3,6 +3,17 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 
 /**
+ * When ADMIN_AUTH_DISABLED=true, /admin/login redirects to /admin immediately.
+ * This keeps the file in place so auth can be re-enabled later.
+ */
+export async function getServerSideProps() {
+  if (process.env.ADMIN_AUTH_DISABLED === 'true') {
+    return { redirect: { destination: '/admin', permanent: false } };
+  }
+  return { props: {} };
+}
+
+/**
  * Admin Login Page — /admin/login
  *
  * Accepts the admin passphrase and exchanges it for a signed HttpOnly
