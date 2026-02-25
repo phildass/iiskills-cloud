@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Layout } from '@iiskills/ui';
+import { Layout } from '@iiskills/ui/common';
 import { useRouter } from 'next/router';
 
 export default function EditLesson() {

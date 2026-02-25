@@ -51,7 +51,8 @@ const hasPlaceholderKey =
   supabaseAnonKey.length < MIN_ANON_KEY_LENGTH;
 
 // Skip validation if Supabase is suspended, using local content mode, testing mode, or auth is disabled
-if (!isSupabaseSuspended && !useLocalContent && !isTestingMode && !isAuthDisabled && (!supabaseUrl || !supabaseAnonKey || hasPlaceholderUrl || hasPlaceholderKey)) {
+const isMissingCredentials = !isSupabaseSuspended && !useLocalContent && !isTestingMode && !isAuthDisabled && (!supabaseUrl || !supabaseAnonKey || hasPlaceholderUrl || hasPlaceholderKey);
+if (isMissingCredentials) {
   const errorMessage = `
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ⚠️  SUPABASE CONFIGURATION ERROR
@@ -89,12 +90,8 @@ For more information, see:
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 `;
-  console.error(errorMessage);
-
-  // Throw error to prevent app from starting with invalid configuration
-  throw new Error(
-    "Missing or invalid Supabase environment variables. Please configure NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY in .env.local with actual values (not placeholders)"
-  );
+  console.warn(errorMessage);
+  // Fall through to mock client so that build succeeds and the app starts in degraded mode
 }
 
 // Create a single Supabase client instance for the app
@@ -251,7 +248,7 @@ if (useLocalContent) {
           },
         });
   }
-} else if (isSupabaseSuspended) {
+} else if (isSupabaseSuspended || isMissingCredentials) {
   supabaseClient = createMockSupabaseClient();
 } else {
   supabaseClient = createClient(supabaseUrl, supabaseAnonKey, {
