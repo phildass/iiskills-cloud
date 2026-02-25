@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Link from 'next/link';
 import RapidFireQuiz from '../../../components/RapidFireQuiz';
-import PremiumAccessPrompt from '@shared/PremiumAccessPrompt';
+import EnrollmentLandingPage from '@shared/EnrollmentLandingPage';
 import { curriculumData } from '../../../lib/curriculumData';
 import { getCurrentUser } from '../../../lib/supabaseClient';
 import { LessonContent } from '@iiskills/ui/content';
@@ -19,7 +19,7 @@ export default function LessonPage() {
   const [showQuiz, setShowQuiz] = useState(false);
   const [quizCompleted, setQuizCompleted] = useState(false);
   const [quizScore, setQuizScore] = useState(null);
-  const [showPremiumPrompt, setShowPremiumPrompt] = useState(false);
+  const [showEnrollment, setShowEnrollment] = useState(false);
 
   useEffect(() => {
     checkAuth();
@@ -65,7 +65,7 @@ export default function LessonPage() {
     
     // Show Premium Access Prompt after completing sample lesson (Module 1)
     if (passed && moduleId === '1') {
-      setShowPremiumPrompt(true);
+      setShowEnrollment(true);
     }
     
     // Save progress (you can integrate with Supabase here)
@@ -238,12 +238,14 @@ export default function LessonPage() {
         </div>
       </main>
 
-      {/* Premium Access Prompt - shown after sample lesson completion */}
-      {showPremiumPrompt && (
-        <PremiumAccessPrompt
+            {/* Enrollment Landing — shown after sample lesson quiz completion */}
+      {showEnrollment && (
+        <EnrollmentLandingPage
+          appId="learn-developer"
           appName="Learn Developer"
           appHighlight="Standardize your coding logic and master full-stack system architecture. Unlock the complete developer curriculum with exclusive Learn AI bundle access."
-          onCancel={() => setShowPremiumPrompt(false)}
+          showAIDevBundle={true}
+          onClose={() => setShowEnrollment(false)}
         />
       )}
     </>

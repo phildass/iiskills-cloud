@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import QuizComponent from '../../../../components/QuizComponent';
-import PremiumAccessPrompt from '@shared/PremiumAccessPrompt';
+import EnrollmentLandingPage from '@shared/EnrollmentLandingPage';
 import { getCurrentUser } from '../../../../lib/supabaseClient';
 import { LessonContent } from '@iiskills/ui/content';
 
@@ -15,7 +15,8 @@ export default function LessonPage() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [quizCompleted, setQuizCompleted] = useState(false);
-  const [showPremiumPrompt, setShowPremiumPrompt] = useState(false);
+  const [showEnrollment, setShowEnrollment] = useState(false);
+  const [entitled, setEntitled] = useState(null); // null = checking, true/false = result
 
   useEffect(() => {
     checkAuth();
@@ -24,8 +25,40 @@ export default function LessonPage() {
   useEffect(() => {
     if (moduleId && lessonId) {
       fetchLesson();
+      // Gate: modules beyond the sample (module 1, lesson 1) require entitlement
+      const isSampleLesson = moduleId === '1' && lessonId === '1';
+      if (!isSampleLesson) {
+        checkEntitlement();
+      } else {
+        setEntitled(true); // sample lesson is always accessible
+      }
     }
   }, [moduleId, lessonId]);
+
+  const checkEntitlement = async () => {
+    try {
+      const { supabase } = await import('../../../../lib/supabaseClient');
+      const { data: { session } } = await supabase.auth.getSession();
+      const headers = {};
+      if (session?.access_token) headers['Authorization'] = `Bearer ${session.access_token}`;
+      // Entitlement API lives on the main app (iiskills.cloud)
+      const apiBase = typeof window !== 'undefined'
+        ? `${window.location.protocol}//iiskills.cloud`
+        : 'https://iiskills.cloud';
+      const res = await fetch(`${apiBase}/api/entitlement?appId=learn-ai`, { headers });
+      if (res.ok) {
+        const data = await res.json();
+        setEntitled(data.entitled);
+        if (!data.entitled) setShowEnrollment(true);
+      } else {
+        setEntitled(false);
+        setShowEnrollment(true);
+      }
+    } catch {
+      setEntitled(false);
+      setShowEnrollment(true);
+    }
+  };
 
   const checkAuth = async () => {
     const currentUser = await getCurrentUser();
@@ -150,7 +183,7 @@ export default function LessonPage() {
     
     // Show Premium Access Prompt after completing sample lesson (Module 1, Lesson 1)
     if (passed && moduleId === '1' && lessonId === '1') {
-      setShowPremiumPrompt(true);
+      setShowEnrollment(true);
     }
     
     if (passed) {
@@ -251,12 +284,14 @@ export default function LessonPage() {
         </div>
       </main>
 
-      {/* Premium Access Prompt - shown after sample lesson completion */}
-      {showPremiumPrompt && (
-        <PremiumAccessPrompt
+            {/* Enrollment Landing — shown after sample lesson quiz completion */}
+      {showEnrollment && (
+        <EnrollmentLandingPage
+          appId="learn-ai"
           appName="Learn AI"
           appHighlight="Move from user to architect. Understand neural logic and AI business models. Master the complete AI curriculum with exclusive Learn Developer bundle access."
-          onCancel={() => setShowPremiumPrompt(false)}
+          showAIDevBundle={true}
+          onClose={() => setShowEnrollment(false)}
         />
       )}
     </>
