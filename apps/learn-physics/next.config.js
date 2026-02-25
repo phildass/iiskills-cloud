@@ -5,7 +5,7 @@ const nextConfig = {
   reactStrictMode: true,
   transpilePackages: ['@iiskills/ui'],
 
-  // Webpack configuration for module resolution and server externals
+  // Webpack configuration for module resolution
   webpack: (config, { isServer }) => {
     config.resolve.alias = {
       ...config.resolve.alias,
@@ -14,7 +14,9 @@ const nextConfig = {
       '@utils': path.resolve(__dirname, '../../utils'),
       '@config': path.resolve(__dirname, '../../config'),
     };
-    // Prevent webpack from bundling @iiskills/content so __dirname resolves correctly
+    // Keep @iiskills/content external so __dirname resolves to the source
+    // directory (packages/content/src/) rather than the webpack output directory.
+    // This is required for the fs-based content loading to find course files.
     if (isServer) {
       config.externals = [
         ...(Array.isArray(config.externals) ? config.externals : [config.externals].filter(Boolean)),

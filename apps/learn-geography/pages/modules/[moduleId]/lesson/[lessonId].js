@@ -6,6 +6,7 @@ import Head from 'next/head';
 import QuizComponent from '../../../../components/QuizComponent';
 import { getCurrentUser } from '../../../../lib/supabaseClient';
 import { LessonContent } from '@iiskills/ui/content';
+import GeographyMedia from '../../../../components/GeographyMedia';
 
 export default function LessonPage() {
   const router = useRouter();
@@ -214,6 +215,9 @@ export default function LessonPage() {
               <span className="text-sm text-gray-500">Module {moduleId}</span>
               <h1 className="text-3xl font-bold mt-2">{lesson?.title}</h1>
             </div>
+
+            {/* Geography Media Panel – maps and photos for this module */}
+            <GeographyMedia moduleId={moduleId} />
 
             <LessonContent html={lesson?.content} />
           </div>

@@ -1,174 +1,83 @@
 "use client"; // This component uses React hooks and browser APIs
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 /**
- * Google Translate Widget Component
- * 
- * Provides multi-language translation support across all iiskills learning apps.
- * Supports 12 major Indian languages plus English.
- * 
- * Supported Languages:
- * - Hindi (hi) - 528M speakers
- * - Tamil (ta) - 79M speakers
- * - Telugu (te) - 95M speakers
- * - Bengali (bn) - 97M speakers
- * - Marathi (mr) - 83M speakers
- * - Gujarati (gu) - 56M speakers
- * - Kannada (kn) - 44M speakers
- * - Malayalam (ml) - 38M speakers
- * - Punjabi (pa) - 33M speakers
- * - Odia (or) - 38M speakers
- * - Assamese (as) - 15M speakers
- * - Urdu (ur) - 51M speakers
- * 
- * Usage: <GoogleTranslate />
- * 
- * The widget automatically saves user language preference in cookies.
+ * Google Translate Widget – legacy shared components wrapper.
+ * Delegates to the same canonical logic as packages/ui/src/common/GoogleTranslate.js.
+ * Styles are injected once via a <style> tag (no styled-jsx dependency).
  */
-export default function GoogleTranslate() {
-  const [isLoaded, setIsLoaded] = useState(false);
 
+const TRANSLATE_SCRIPT_ID = 'google-translate-script';
+const TRANSLATE_ELEMENT_ID = 'google_translate_element';
+const TRANSLATE_STYLE_ID = 'google-translate-styles';
+const INCLUDED_LANGUAGES = 'hi,ta,te,bn,mr,gu,kn,ml,pa,or,as,ur';
+
+const TRANSLATE_CSS = `
+.google-translate-widget{display:inline-flex;align-items:center;min-width:80px;min-height:28px}
+.goog-te-banner-frame{display:none!important}
+.goog-te-gadget{font-size:.875rem!important;line-height:1!important}
+.goog-te-gadget-simple{background:transparent!important;border:1px solid rgba(0,0,0,.25)!important;border-radius:.375rem!important;padding:.35rem .6rem!important;font-size:.8125rem!important;cursor:pointer!important;white-space:nowrap}
+.goog-te-gadget-simple:hover{background:rgba(0,82,204,.08)!important;border-color:#0052cc!important}
+.goog-te-gadget-icon{display:inline-block!important;margin-right:.25rem!important}
+.goog-te-menu-frame{max-height:400px!important;overflow-y:auto!important;z-index:99999!important}
+.goog-te-menu2-item-selected{background:#0052cc!important}
+.goog-te-menu2-item-selected div{color:#fff!important}
+@media(max-width:640px){.goog-te-gadget-simple{padding:.25rem .4rem!important;font-size:.75rem!important}}
+`;
+
+export default function GoogleTranslate() {
   useEffect(() => {
-    // Prevent loading script multiple times
-    if (window.google?.translate || document.getElementById('google-translate-script')) {
-      setIsLoaded(true);
+    if (!document.getElementById(TRANSLATE_STYLE_ID)) {
+      const style = document.createElement('style');
+      style.id = TRANSLATE_STYLE_ID;
+      style.textContent = TRANSLATE_CSS;
+      document.head.appendChild(style);
+    }
+
+    function initWidget() {
+      if (!window.google?.translate?.TranslateElement) return;
+      const container = document.getElementById(TRANSLATE_ELEMENT_ID);
+      if (!container) return;
+      if (container.childElementCount > 0) return;
+      new window.google.translate.TranslateElement(
+        {
+          pageLanguage: 'en',
+          includedLanguages: INCLUDED_LANGUAGES,
+          layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE,
+          autoDisplay: false,
+          multilanguagePage: true,
+        },
+        TRANSLATE_ELEMENT_ID
+      );
+    }
+
+    if (window.google?.translate?.TranslateElement) {
+      initWidget();
       return;
     }
 
-    // Define the initialization function globally
-    window.googleTranslateElementInit = function() {
-      if (window.google?.translate?.TranslateElement) {
-        new window.google.translate.TranslateElement(
-          {
-            pageLanguage: 'en',
-            includedLanguages: 'hi,ta,te,bn,mr,gu,kn,ml,pa,or,as,ur',
-            layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE,
-            autoDisplay: false,
-            multilanguagePage: true
-          },
-          'google_translate_element'
-        );
-        setIsLoaded(true);
-      }
-    };
+    if (document.getElementById(TRANSLATE_SCRIPT_ID)) {
+      window.googleTranslateElementInit = initWidget;
+      return;
+    }
 
-    // Add Google Translate script
+    window.googleTranslateElementInit = initWidget;
     const script = document.createElement('script');
-    script.id = 'google-translate-script';
-    script.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+    script.id = TRANSLATE_SCRIPT_ID;
+    script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
     script.async = true;
-    script.onerror = () => {
-      console.warn('Google Translate failed to load');
-      setIsLoaded(false);
-    };
-    
+    script.onerror = () => console.warn('[iiskills] Google Translate script failed to load');
     document.head.appendChild(script);
-
-    // Cleanup function
-    return () => {
-      // Note: We don't remove the script on unmount as it's meant to persist
-      // across navigation within the app
-    };
   }, []);
 
   return (
-    <div className="google-translate-wrapper">
-      {/* Translation Widget Container */}
-      <div 
-        id="google_translate_element"
-        className="inline-flex items-center"
-        aria-label="Language Selector"
-      />
-      
-      {/* Bilingual Label for discoverability */}
-      <style jsx global>{`
-        /* Google Translate Custom Styling */
-        .google-translate-wrapper {
-          display: inline-flex;
-          align-items: center;
-          gap: 0.5rem;
-        }
-
-        /* Hide Google branding banner */
-        .goog-te-banner-frame {
-          display: none !important;
-        }
-
-        /* Prevent Google bar from pushing content down */
-        body {
-          top: 0 !important;
-          position: static !important;
-        }
-
-        /* Style the translate gadget */
-        .goog-te-gadget {
-          font-family: inherit !important;
-          font-size: 0.875rem !important;
-          color: inherit !important;
-        }
-
-        /* Style the dropdown select */
-        .goog-te-gadget-simple {
-          background-color: transparent !important;
-          border: 1px solid #e5e7eb !important;
-          border-radius: 0.375rem !important;
-          padding: 0.5rem 0.75rem !important;
-          font-size: 0.875rem !important;
-          cursor: pointer !important;
-          transition: all 0.2s ease !important;
-        }
-
-        .goog-te-gadget-simple:hover {
-          border-color: #0052cc !important;
-          background-color: #f8f9fa !important;
-        }
-
-        /* Style the dropdown icon */
-        .goog-te-gadget-icon {
-          margin-right: 0.25rem !important;
-        }
-
-        /* Hide "Powered by Google" text but keep functionality */
-        .goog-te-gadget-simple .goog-te-menu-value span:first-child {
-          display: none;
-        }
-
-        /* Mobile responsiveness */
-        @media (max-width: 640px) {
-          .goog-te-gadget-simple {
-            padding: 0.375rem 0.5rem !important;
-            font-size: 0.8125rem !important;
-          }
-        }
-
-        /* Ensure dropdown menu appears properly */
-        .goog-te-menu-frame {
-          max-height: 400px !important;
-          overflow-y: auto !important;
-        }
-
-        /* Style the language options in dropdown */
-        .goog-te-menu2 {
-          max-width: 100% !important;
-        }
-
-        .goog-te-menu2-item div,
-        .goog-te-menu2-item:link div,
-        .goog-te-menu2-item:visited div,
-        .goog-te-menu2-item:active div {
-          color: #1f2937 !important;
-          font-family: inherit !important;
-        }
-
-        .goog-te-menu2-item-selected {
-          background-color: #0052cc !important;
-        }
-
-        .goog-te-menu2-item-selected div {
-          color: white !important;
-        }
-      `}</style>
-    </div>
+    <div
+      id={TRANSLATE_ELEMENT_ID}
+      className="google-translate-widget"
+      aria-label="Select language"
+      title="Translate this page"
+    />
   );
 }
+

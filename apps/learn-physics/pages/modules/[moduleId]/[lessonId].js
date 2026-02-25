@@ -18,11 +18,26 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const lesson = getLesson('learn-physics', params.moduleId, params.lessonId + '.md');
-  return { props: { lesson, moduleId: params.moduleId } };
+  try {
+    const lesson = getLesson('learn-physics', params.moduleId, params.lessonId + '.md');
+    return { props: { lesson: lesson || null, moduleId: params.moduleId } };
+  } catch (err) {
+    console.error('[learn-physics] getStaticProps error:', err.message);
+    return { props: { lesson: null, moduleId: params.moduleId } };
+  }
 }
 
 export default function LessonPage({ lesson, moduleId }) {
+  if (!lesson) {
+    return (
+      <Layout appName="Physics">
+        <div style={{ maxWidth: '800px', margin: '0 auto', padding: '2rem' }}>
+          <h1 style={{ color: '#c53030' }}>Lesson not found</h1>
+          <p>This lesson could not be loaded. Please try another lesson.</p>
+        </div>
+      </Layout>
+    );
+  }
   return (
     <Layout appName="Physics">
       <div style={{ maxWidth: '800px', margin: '0 auto' }}>
