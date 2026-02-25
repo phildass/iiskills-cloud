@@ -2,18 +2,21 @@
  * Centralized pricing logic for iiskills.cloud
  *
  * Pricing structure:
- * - Introductory price: Rs 99 + GST (17.82) = 116.82 (until end of February 14, 2026)
- * - Regular price: Rs 299 + GST (53.82) = 352.82 (from midnight of February 15, 2026 onwards)
+ * - Introductory price: Rs 99 + GST (17.82) = 116.82 (until March 31, 2026 inclusive)
+ * - Regular price: Rs 299 + GST (53.82) = 352.82 (from April 01, 2026 onwards)
+ *
+ * NOTE: This module is used by root-level utilities and tests.
+ * For React components, import from @iiskills/ui/pricing instead.
  */
 
-// Introductory pricing (until end of February 14, 2026)
+// Introductory pricing (until end of March 31, 2026)
 const INTRO_BASE_PRICE = 99;
 const INTRO_GST_RATE = 0.18; // 18%
 const INTRO_GST_AMOUNT = 17.82; // Pre-calculated for accuracy
 const INTRO_TOTAL_PRICE = 116.82;
-const INTRO_END_DATE = new Date("2026-02-14T23:59:59");
+const INTRO_END_DATE = new Date("2026-03-31T23:59:59");
 
-// Regular pricing (from midnight of February 15, 2026 onwards)
+// Regular pricing (from April 01, 2026 onwards)
 const REGULAR_BASE_PRICE = 299;
 const REGULAR_GST_AMOUNT = 53.82; // Pre-calculated for accuracy
 const REGULAR_TOTAL_PRICE = 352.82;
@@ -34,7 +37,7 @@ export function getCurrentPricing(currentDate = new Date()) {
     isIntroductory: isIntroductoryPeriod,
     introEndDate: INTRO_END_DATE,
     currency: "INR",
-    currencySymbol: "₹",
+    currencySymbol: "Rs",
   };
 }
 
@@ -46,7 +49,7 @@ export function getCurrentPricing(currentDate = new Date()) {
  */
 export function formatPrice(amount, includeSymbol = true) {
   const formatted = amount.toFixed(2);
-  return includeSymbol ? `₹${formatted}` : formatted;
+  return includeSymbol ? `Rs ${formatted}` : formatted;
 }
 
 /**
@@ -81,7 +84,7 @@ export function getIntroOfferNotice() {
     return null;
   }
 
-  return `🎉 Introductory fee only till February 15. New fees will be applicable from midnight of February 15. Enroll now at ₹${INTRO_TOTAL_PRICE.toFixed(2)}!`;
+  return `🎉 Introductory fee Rs ${INTRO_TOTAL_PRICE.toFixed(2)} effective till March 31, 2026. New prices Rs ${REGULAR_TOTAL_PRICE.toFixed(2)} effective from April 01, 2026. Enroll now!`;
 }
 
 export default {

@@ -18,6 +18,7 @@ import Hero, { SecondaryImage } from "./HeroManager";
 import { getCurrentUser } from "../../lib/supabaseClient";
 import SampleLessonShowcase from "./SampleLessonShowcase";
 import AIDevBundlePitch from "./AIDevBundlePitch";
+import { getEffectivePricingBreakdown, formatINR } from "@iiskills/ui/pricing";
 
 import CalibrationGatekeeper from "./CalibrationGatekeeper";
 import PremiumAccessPrompt from "./PremiumAccessPrompt";
@@ -84,6 +85,7 @@ export default function PaidAppLandingPage({
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showPaymentPreview, setShowPaymentPreview] = useState(false);
+  const pricing = getEffectivePricingBreakdown();
 
   const displayAppContextLabel = getAppContextLabel(appId);
 
@@ -177,7 +179,7 @@ export default function PaidAppLandingPage({
               <div className="bg-gradient-to-r from-purple-500 to-pink-500 border-2 border-white rounded-lg p-4 max-w-2xl mx-auto shadow-2xl">
                 <p className="text-xl font-bold text-white">🎁 Two Apps for the Price of One!</p>
                 <p className="text-sm mt-2 text-white">
-                  Purchase Learn AI or Learn Developer for ₹99 (+GST) and get BOTH apps!
+                  Purchase Learn AI or Learn Developer for {formatINR(pricing.base)} (+GST) and get BOTH apps!
                 </p>
               </div>
             )}

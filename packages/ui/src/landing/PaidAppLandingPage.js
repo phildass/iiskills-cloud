@@ -20,6 +20,7 @@ import SampleLessonShowcase from "./SampleLessonShowcase";
 import AIDevBundlePitch from "../payment/AIDevBundlePitch";
 
 import PremiumAccessPrompt from "../payment/PremiumAccessPrompt";
+import { getEffectivePricingBreakdown, formatINR } from "../pricing/pricing";
 
 import LevelSelector from "../content/LevelSelector";
 import UniversalInstallPrompt from "../pwa/UniversalInstallPrompt";
@@ -83,6 +84,7 @@ export default function PaidAppLandingPage({
 }) {
   const [loading, setLoading] = useState(true);
   const [showPaymentPreview, setShowPaymentPreview] = useState(false);
+  const pricing = getEffectivePricingBreakdown();
 
   useEffect(() => {
     const checkUser = async () => {
@@ -164,7 +166,7 @@ export default function PaidAppLandingPage({
               <div className="bg-gradient-to-r from-purple-500 to-pink-500 border-2 border-white rounded-lg p-4 max-w-2xl mx-auto mt-4 mb-4 shadow-2xl">
                 <p className="text-xl font-bold text-white">🎁 Two Apps for the Price of One!</p>
                 <p className="text-sm mt-2 text-white">
-                  Purchase Learn AI or Learn Developer for ₹99 (+GST) and get BOTH apps!
+                  Purchase Learn AI or Learn Developer for {formatINR(pricing.base)} (+GST) and get BOTH apps!
                 </p>
               </div>
             )}
