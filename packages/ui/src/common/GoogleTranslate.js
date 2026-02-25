@@ -30,17 +30,7 @@ export default function GoogleTranslate() {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    // Prevent loading script multiple times
-    if (window.google?.translate?.TranslateElement || document.getElementById('google-translate-script')) {
-      // Check if TranslateElement is actually available
-      if (window.google?.translate?.TranslateElement) {
-        setIsLoaded(true);
-      }
-      return;
-    }
-
-    // Define the initialization function globally
-    window.googleTranslateElementInit = function() {
+    const initWidget = () => {
       if (window.google?.translate?.TranslateElement) {
         new window.google.translate.TranslateElement(
           {
@@ -56,23 +46,30 @@ export default function GoogleTranslate() {
       }
     };
 
-    // Add Google Translate script
+    // If API already loaded (e.g. on remount or page navigation), reinitialize directly
+    if (window.google?.translate?.TranslateElement) {
+      initWidget();
+      return;
+    }
+
+    // If script already being loaded, just update the callback so this instance gets initialized
+    if (document.getElementById('google-translate-script')) {
+      window.googleTranslateElementInit = initWidget;
+      return;
+    }
+
+    // First load: define callback and inject script
+    window.googleTranslateElementInit = initWidget;
+
     const script = document.createElement('script');
     script.id = 'google-translate-script';
     script.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
     script.async = true;
     script.onerror = () => {
       console.warn('Google Translate failed to load');
-      setIsLoaded(false);
     };
-    
-    document.head.appendChild(script);
 
-    // Cleanup function
-    return () => {
-      // Note: We don't remove the script on unmount as it's meant to persist
-      // across navigation within the app
-    };
+    document.head.appendChild(script);
   }, []);
 
   return (

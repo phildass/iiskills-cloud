@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import Footer from '../../../../components/Footer';
 import QuizComponent from '../../../../components/QuizComponent';
 import { getCurrentUser } from '../../../../lib/supabaseClient';
 
@@ -27,10 +26,6 @@ export default function LessonPage() {
 
   const checkAuth = async () => {
     const currentUser = await getCurrentUser();
-    if (!currentUser && process.env.NEXT_PUBLIC_DISABLE_AUTH !== 'true') {
-      router.push('/register');
-      return;
-    }
     setUser(currentUser);
   };
 
@@ -186,15 +181,12 @@ export default function LessonPage() {
 
   if (loading) {
     return (
-      <>
         <div className="min-h-screen flex items-center justify-center">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
             <p className="mt-4 text-gray-600">Loading lesson...</p>
           </div>
         </div>
-        <Footer />
-      </>
     );
   }
 
@@ -253,8 +245,6 @@ export default function LessonPage() {
           )}
         </div>
       </main>
-
-      <Footer />
     </>
   );
 }

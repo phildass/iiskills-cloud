@@ -248,7 +248,7 @@ if (useLocalContent) {
           },
         });
   }
-} else if (isSupabaseSuspended || isMissingCredentials) {
+} else if (isSupabaseSuspended || isMissingCredentials || !supabaseUrl || !supabaseAnonKey) {
   supabaseClient = createMockSupabaseClient();
 } else {
   supabaseClient = createClient(supabaseUrl, supabaseAnonKey, {
