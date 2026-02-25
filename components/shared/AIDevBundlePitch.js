@@ -1,17 +1,19 @@
 "use client";
 
+import { getEffectivePricingBreakdown, formatINR } from "@iiskills/ui/pricing";
+
 /**
  * AI-Developer Bundle Pitch Component
- * 
+ *
  * Special bundle offer:
  * - Purchase Learn AI → Unlock Learn Developer
  * - Purchase Learn Developer → Unlock Learn AI
- * - Pay for one, get both for Rs 116.82
- * 
- * "AI and Development are two sides of the same coin"
+ *
+ * Pricing is derived from the canonical @iiskills/ui/pricing module.
  */
 
 export default function AIDevBundlePitch({ currentApp = "learn-ai" }) {
+  const pricing = getEffectivePricingBreakdown();
   const bundleInfo = {
     "learn-ai": {
       otherApp: "Learn Developer",
@@ -108,7 +110,7 @@ export default function AIDevBundlePitch({ currentApp = "learn-ai" }) {
           <div className="text-center">
             <div className="inline-block bg-white/10 rounded-xl p-4 mb-4">
               <p className="text-sm text-purple-200 mb-1">One-Time Investment</p>
-              <p className="text-4xl font-bold">Rs 116.82</p>
+              <p className="text-4xl font-bold">{formatINR(pricing.total)}</p>
               <p className="text-sm text-purple-300 mt-1">(Incl. GST)</p>
             </div>
             <p className="text-lg">

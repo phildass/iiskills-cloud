@@ -211,7 +211,7 @@ export default function AdminSettings() {
                     })}
                   </p>
                   <p className="text-blue-700 text-xs mt-1">
-                    New fees will be effective from Feb 29, 2026 midnight. Regular pricing (₹352.82)
+                    New fees will be effective from April 01, 2026. Regular pricing (Rs 352.82)
                     will apply.
                   </p>
                 </div>
@@ -224,14 +224,14 @@ export default function AdminSettings() {
                 <h3 className="font-semibold text-gray-900 mb-3">Automated Pricing Schedule</h3>
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between py-2 border-b border-gray-200">
-                    <span className="text-gray-700">Introductory Period (Until Feb 28, 2026):</span>
-                    <span className="font-bold">₹116.82</span>
+                    <span className="text-gray-700">Introductory Period (Until March 31, 2026):</span>
+                    <span className="font-bold">Rs 116.82</span>
                   </div>
                   <div className="flex justify-between py-2">
                     <span className="text-gray-700">
-                      Regular Pricing (From Feb 29, 2026 midnight):
+                      Regular Pricing (From April 01, 2026):
                     </span>
-                    <span className="font-bold">₹352.82</span>
+                    <span className="font-bold">Rs 352.82</span>
                   </div>
                 </div>
                 <p className="text-xs text-gray-600 mt-3">

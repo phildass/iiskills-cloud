@@ -1,16 +1,14 @@
 "use client";
 
+import { getEffectivePricingBreakdown, formatINR } from "@iiskills/ui/pricing";
+
 /**
  * Premium Access Prompt Component
- * 
+ *
  * Post-sample conversion flow for paid apps
  * Shows pricing breakdown with GST and redirects to aienter.in/payments
- * 
- * Features:
- * - Transparent pricing: Rs 99 + 18% GST = Rs 116.82
- * - Scarcity messaging: Valid until Feb 28, 2026
- * - Hook message customization per app
- * - Direct redirect to aienter.in/payments
+ *
+ * Pricing is derived from the canonical @iiskills/ui/pricing module.
  */
 
 export default function PremiumAccessPrompt({ 
@@ -18,6 +16,7 @@ export default function PremiumAccessPrompt({
   appHighlight = "Master the complete curriculum and unlock your potential.",
   onCancel 
 }) {
+  const pricing = getEffectivePricingBreakdown();
   const handleUnlock = () => {
     // Redirect to unified payment hub
     window.location.href = "https://aienter.in/payments";
@@ -49,23 +48,23 @@ export default function PremiumAccessPrompt({
           <div className="space-y-2 mb-4">
             <div className="flex justify-between items-center text-gray-700">
               <span>Base Price:</span>
-              <span className="font-semibold">Rs 99.00</span>
+              <span className="font-semibold">{formatINR(pricing.base)}</span>
             </div>
             <div className="flex justify-between items-center text-gray-600 text-sm">
-              <span>Tax (GST 18%):</span>
-              <span>Rs 17.82</span>
+              <span>Tax (GST {(pricing.gstRate * 100).toFixed(0)}%):</span>
+              <span>{formatINR(pricing.gst)}</span>
             </div>
             <div className="border-t border-gray-300 pt-2 mt-2"></div>
             <div className="flex justify-between items-center text-lg font-bold text-gray-900">
               <span>Total Payable:</span>
-              <span className="text-green-600">Rs 116.82</span>
+              <span className="text-green-600">{formatINR(pricing.total)}</span>
             </div>
           </div>
           
           {/* Scarcity Tactic */}
           <div className="bg-yellow-50 border-l-4 border-yellow-400 p-3 rounded">
             <p className="text-sm text-yellow-800 font-medium">
-              ⚡ This specialized pricing is effective only until <strong>Feb 28, 2026</strong>
+              ⚡ {pricing.messages[0]}
             </p>
           </div>
         </div>
@@ -132,3 +131,4 @@ export default function PremiumAccessPrompt({
     </div>
   );
 }
+

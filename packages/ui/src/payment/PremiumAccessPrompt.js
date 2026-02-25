@@ -1,17 +1,14 @@
 "use client";
 
+import { getEffectivePricingBreakdown, formatINR } from "../pricing/pricing";
+
 /**
  * Premium Access Prompt Component
- * 
+ *
  * Internal Payment Preview UI for paid apps
  * Shows after successful calibration qualifier
- * 
- * Features:
- * - Header: "iiskills Premium Calibration"
- * - Transparent pricing: Rs 99 + 18% GST = Rs 116.82
- * - AI-Dev bundle offer (pay for one, get both)
- * - Scarcity messaging: Valid until Feb 28, 2026
- * - Direct redirect to aienter.in/payments
+ *
+ * Pricing is derived from the canonical @iiskills/ui/pricing module.
  */
 
 export default function PremiumAccessPrompt({ 
@@ -20,6 +17,7 @@ export default function PremiumAccessPrompt({
   showAIDevBundle = false, // Set to true for Learn AI or Learn Developer apps
   onCancel 
 }) {
+  const pricing = getEffectivePricingBreakdown();
   const handleUnlock = () => {
     // Redirect to unified payment hub
     window.location.href = "https://aienter.in/payments";
@@ -73,16 +71,16 @@ export default function PremiumAccessPrompt({
           <div className="space-y-2 mb-4">
             <div className="flex justify-between items-center text-gray-700">
               <span>Professional Access:</span>
-              <span className="font-semibold">Rs 99.00</span>
+              <span className="font-semibold">{formatINR(pricing.base)}</span>
             </div>
             <div className="flex justify-between items-center text-gray-600 text-sm">
-              <span>GST (18%):</span>
-              <span>Rs 17.82</span>
+              <span>GST ({(pricing.gstRate * 100).toFixed(0)}%):</span>
+              <span>{formatINR(pricing.gst)}</span>
             </div>
             <div className="border-t border-gray-300 pt-2 mt-2"></div>
             <div className="flex justify-between items-center text-lg font-bold text-gray-900">
               <span>Total:</span>
-              <span className="text-green-600">Rs 116.82</span>
+              <span className="text-green-600">{formatINR(pricing.total)}</span>
             </div>
             {showAIDevBundle && (
               <div className="text-center pt-2">
@@ -96,7 +94,7 @@ export default function PremiumAccessPrompt({
           {/* Price Validity Notice */}
           <div className="bg-yellow-50 border-l-4 border-yellow-400 p-3 rounded">
             <p className="text-sm text-yellow-800 font-medium">
-              ⚡ Price valid till <strong>Feb 28, 2026</strong>
+              ⚡ {pricing.messages[0]}
             </p>
           </div>
         </div>

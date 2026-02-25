@@ -1672,7 +1672,7 @@ export default function Courses() {
         <title>Courses - iiskills.cloud</title>
         <meta
           name="description"
-          content="Courses available now: 9 | Five Free | Four Paid. Introductory price of Rs 99 (plus GST Rs 17.82) valid till Feb 28th. Professional and personal development courses."
+          content="Courses available now: 9 | Five Free | Four Paid. Introductory price of Rs 99 (plus GST Rs 17.82) effective till March 31, 2026. Professional and personal development courses."
         />
       </Head>
 
@@ -1685,10 +1685,10 @@ export default function Courses() {
             Courses available now: 9 | Five Free | Four Paid
           </p>
           <p className="text-sm text-orange-600 font-semibold mb-4">
-            Introductory price of ₹99 (plus GST ₹17.82) valid till Feb 28th. Total ₹116.82
+            Introductory price of Rs 99 (plus GST Rs 17.82) effective till March 31, 2026. Total Rs 116.82
           </p>
           <p className="text-sm text-gray-700 font-semibold mb-4">
-            New prices ₹299 + GST of ₹53.82 (Total ₹352.82) will be effective from March 01, 2026
+            New prices Rs 299 + GST of Rs 53.82 (Total Rs 352.82) will be effective from April 01, 2026
           </p>
           <div className="mt-4 text-lg font-semibold text-accent">
             Paid courses: {pricing.totalPrice} per course
@@ -1814,7 +1814,7 @@ export default function Courses() {
                             Pay for this course and get <strong>{course.bundleWith}</strong> FREE!
                           </p>
                           <p className="text-xs text-purple-700 mt-2">
-                            Both courses included for Rs 99 + GST
+                            Both courses included for {pricing.basePrice} + GST
                           </p>
                         </div>
                       )}
@@ -1918,7 +1918,7 @@ export default function Courses() {
                             Pay for this course and get <strong>{course.bundleWith}</strong> FREE!
                           </p>
                           <p className="text-xs text-purple-700 mt-2">
-                            Both courses included for Rs 99 + GST
+                            Both courses included for {pricing.basePrice} + GST
                           </p>
                         </div>
                       )}

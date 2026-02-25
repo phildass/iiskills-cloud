@@ -1,4 +1,8 @@
+import { getEffectivePricingBreakdown, formatINR } from "@iiskills/ui/pricing";
+
 export default function PaymentPrompt({ onProceed, onCancel }) {
+  const pricing = getEffectivePricingBreakdown();
+
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-lg max-w-md w-full p-6">
@@ -6,8 +10,8 @@ export default function PaymentPrompt({ onProceed, onCancel }) {
         
         <div className="mb-6">
           <div className="bg-blue-50 p-4 rounded-lg mb-4">
-            <p className="text-xl font-semibold text-blue-900">Only Rs 99</p>
-            <p className="text-gray-700 text-sm">Get full course access for a limited free period</p>
+            <p className="text-xl font-semibold text-blue-900">Only {formatINR(pricing.base)}</p>
+            <p className="text-gray-700 text-sm">{pricing.messages[0]}</p>
           </div>
 
           <ul className="space-y-2 text-gray-700">

@@ -811,12 +811,14 @@ if (!isFree) {
 import { useState } from 'react';
 import SharedNavbar from '@/components/shared/SharedNavbar';
 import { useRouter } from 'next/router';
+import { getEffectivePricingBreakdown, formatINR } from '@iiskills/ui/pricing';
 
 export default function Payment() {
   const router = useRouter();
   const [otpCode, setOtpCode] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const pricing = getEffectivePricingBreakdown();
 
   const handleRazorpayPayment = async () => {
     setLoading(true);
@@ -879,7 +881,7 @@ export default function Payment() {
             {/* Option 1: Razorpay */}
             <div className="mb-8 p-6 border-2 border-blue-200 rounded-lg">
               <h3 className="text-xl font-semibold mb-2">Pay with Card/UPI</h3>
-              <p className="text-3xl font-bold text-blue-600 mb-4">₹99 + GST</p>
+              <p className="text-3xl font-bold text-blue-600 mb-4">{formatINR(pricing.base)} + GST</p>
               <button
                 onClick={handleRazorpayPayment}
                 disabled={loading}
