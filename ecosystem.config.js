@@ -5,11 +5,12 @@
  * 
  * Domain mapping:
  *   iiskills-main  → https://iiskills.cloud (production main domain, port 3000)
- *   iiskills-admin → admin panel (port 3001, basePath /admin)
+ *                     /admin route handled within iiskills-main (no separate process)
  *   iiskills-learn-* → https://<name>.iiskills.cloud (learn apps)
  *
  * Note: apps/main is the authoritative production app on port 3000.
  * apps/web is a placeholder skeleton and is NOT deployed.
+ * apps/admin is NOT deployed as a separate process; admin is served at /admin in apps/main.
  * 
  * Prerequisites:
  *   1. Build all apps: yarn build (from root)
@@ -47,27 +48,9 @@ module.exports = {
       "log_file": path.join(__dirname, 'logs', 'main-combined.log'),
       "time": true
     },
-    {
-      "name": "iiskills-admin",
-      "cwd": path.join(__dirname, 'apps/admin'),
-      "script": "npx",
-      "args": "next start",
-      "interpreter": "none",
-      "env": {
-        "NODE_ENV": "production",
-        "PORT": 3001
-      },
-      "instances": 1,
-      "autorestart": true,
-      "watch": false,
-      "max_memory_restart": "1G",
-      "error_file": path.join(__dirname, 'logs', 'admin-error.log'),
-      "out_file": path.join(__dirname, 'logs', 'admin-out.log'),
-      "log_file": path.join(__dirname, 'logs', 'admin-combined.log'),
-      "time": true
-    },
-    // apps/web is a placeholder skeleton app and is NOT deployed.
-    // If it needs a port/subdomain in the future, add it here explicitly.
+    // apps/web and apps/admin are NOT deployed.
+    // admin is served under /admin routes in apps/main.
+    // apps/web is a placeholder skeleton and is NOT deployed.
     {
       "name": "iiskills-learn-ai",
       "cwd": path.join(__dirname, 'apps/learn-ai'),

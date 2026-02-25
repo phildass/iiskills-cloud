@@ -41,16 +41,6 @@ fi
 cd "$REPO_DIR/apps/main"
 PORT=3000 pm2 start "npx next start -p 3000" --name iiskills-main
 
-echo "==> Start ADMIN on :3001 from apps/admin"
-if [ -d "$REPO_DIR/apps/admin" ]; then
-  if [ ! -f "$REPO_DIR/apps/admin/.next/BUILD_ID" ]; then
-    echo "WARNING: apps/admin/.next/BUILD_ID not found — skipping admin start."
-  else
-    cd "$REPO_DIR/apps/admin"
-    PORT=3001 pm2 start "npx next start -p 3001" --name iiskills-admin
-  fi
-fi
-
 echo "==> Start learn apps if present (ports hardcoded to match your current nginx/pm2 layout)"
 declare -A PORTS=(
   ["learn-apt"]=3002
@@ -83,8 +73,15 @@ done
 pm2 save
 pm2 ls
 
-echo "==> Quick curl checks"
-curl -fsS "http://localhost:3000" >/dev/null && echo "OK main :3000"
+echo "==> Verify iiskills-main is responding on :3000"
+sleep 4
+if ! curl -fsS "http://localhost:3000" >/dev/null 2>&1; then
+  echo "ERROR: http://localhost:3000 not responding. PM2 logs:"
+  pm2 logs iiskills-main --lines 200 --nostream
+  exit 1
+fi
+echo "OK: main :3000"
+
 echo "DONE. Test in browser:"
 echo " - https://iiskills.cloud/"
 echo " - https://app.iiskills.cloud/ (test/sandbox)"
