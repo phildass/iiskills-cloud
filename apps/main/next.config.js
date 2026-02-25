@@ -4,7 +4,8 @@ const { getHeadersConfig } = require('../../config/security-headers');
 
 const nextConfig = {
   reactStrictMode: true,
-  
+  transpilePackages: ['@iiskills/ui'],
+
   // Disable source maps in production for security
   productionBrowserSourceMaps: false,
 

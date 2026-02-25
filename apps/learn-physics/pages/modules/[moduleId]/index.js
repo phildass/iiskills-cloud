@@ -18,6 +18,15 @@ export async function getStaticProps({ params }) {
 }
 
 export default function ModulePage({ module, lessons }) {
+  if (!module) {
+    return (
+      <Layout appName="Physics">
+        <div style={{ maxWidth: '960px', margin: '0 auto', padding: '2rem' }}>
+          <h1 style={{ color: '#c53030' }}>Module not found</h1>
+        </div>
+      </Layout>
+    );
+  }
   return (
     <Layout appName="Physics">
       <div style={{ maxWidth: '960px', margin: '0 auto' }}>

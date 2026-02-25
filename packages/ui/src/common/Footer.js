@@ -1,6 +1,5 @@
 import Link from "next/link";
 import Image from "next/image";
-import GoogleTranslate from "./GoogleTranslate";
 
 /**
  * Shared Footer Component
@@ -11,6 +10,9 @@ import GoogleTranslate from "./GoogleTranslate";
  * - Quick links
  * - Contact information
  * - AI Cloud branding
+ *
+ * NOTE: Google Translate widget is mounted once in Header (navbar).
+ * The footer only shows a static label pointing users to the header widget.
  */
 export default function Footer() {
   return (
@@ -92,10 +94,9 @@ export default function Footer() {
               AI Cloud Enterprises (AIEnter. in)
             </a>
           </p>
-          {/* Language / Translation */}
+          {/* Language / Translation - widget lives in the navbar (Header) */}
           <div className="flex justify-center items-center gap-2 mt-4 pt-4 border-t border-gray-200">
-            <span className="text-sm text-gray-600">🌐 Language | भाषा:</span>
-            <GoogleTranslate />
+            <span className="text-sm text-gray-600">🌐 Use the language selector in the navigation bar above to translate this page.</span>
           </div>
         </div>
       </div>

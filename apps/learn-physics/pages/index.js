@@ -4,8 +4,13 @@ import Link from 'next/link';
 import { getCourseMetadata } from '@iiskills/content';
 
 export async function getStaticProps() {
-  const course = getCourseMetadata('learn-physics');
-  return { props: { course } };
+  try {
+    const course = getCourseMetadata('learn-physics');
+    return { props: { course: course || null } };
+  } catch (err) {
+    console.error('[learn-physics] getStaticProps error:', err.message);
+    return { props: { course: null } };
+  }
 }
 
 export default function PhysicsHome({ course }) {
