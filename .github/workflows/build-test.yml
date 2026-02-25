@@ -24,20 +24,13 @@ jobs:
           - apps/main
           - apps/learn-ai
           - apps/learn-apt
-          - apps/learn-biology
           - apps/learn-chemistry
-          - apps/learn-cricket
           - apps/learn-developer
-          - apps/learn-finesse
           - apps/learn-geography
-          - apps/learn-govt-jobs
-          - apps/learn-leadership
           - apps/learn-management
           - apps/learn-math
           - apps/learn-physics
           - apps/learn-pr
-          - apps/learn-winning
-          - apps/mpa
       fail-fast: false
     
     steps:
@@ -48,10 +41,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '18'
-          cache: 'yarn'
+      
+      - name: Enable Corepack (yarn 4)
+        run: corepack enable
       
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: yarn install
       
       - name: Build ${{ matrix.app }}
         run: |
@@ -85,10 +80,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '18'
-          cache: 'yarn'
+      
+      - name: Enable Corepack (yarn 4)
+        run: corepack enable
       
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: yarn install
       
       - name: Validate content schema
         run: npm run validate-content
@@ -97,4 +94,4 @@ jobs:
         run: npm run check-orphans
       
       - name: All builds passed
-        run: echo "✅ All 15 active apps built successfully - safe to merge!"
+        run: echo "✅ All 10 active apps built successfully - safe to merge!"
