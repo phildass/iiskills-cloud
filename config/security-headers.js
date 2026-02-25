@@ -54,7 +54,7 @@ const securityHeaders = [
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://checkout.razorpay.com",
       "font-src 'self' https://fonts.gstatic.com data:",
       "img-src 'self' data: https: blob:",
-      "connect-src 'self' https://*.supabase.co https://api.razorpay.com https://lumberjack.razorpay.com wss://*.supabase.co",
+      "connect-src 'self' https://*.supabase.co https://api.razorpay.com https://lumberjack.razorpay.com wss://*.supabase.co https://translate.googleapis.com",
       "frame-src 'self' https://api.razorpay.com https://www.google.com https://translate.google.com https://translate.googleapis.com",
       "object-src 'none'",
       "base-uri 'self'",
