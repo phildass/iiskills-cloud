@@ -1,6 +1,6 @@
 "use client";
 
-import { getPricingDisplay, getBundleOfferNotice, isBundleOfferActive } from '../../../utils/pricing';
+import { getPricingDisplay, getBundleOfferNotice, isBundleOfferActive } from '../pricing/pricing';
 
 /**
  * EnrollmentLandingPage Component

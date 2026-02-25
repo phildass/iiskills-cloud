@@ -1,6 +1,15 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# Load credentials from /etc/iiskills.env if present (makes env vars available
+# for both build-time Turbo/Next and runtime pm2 start).
+if [ -f /etc/iiskills.env ]; then
+  echo "==> Loading credentials from /etc/iiskills.env"
+  set -a; source /etc/iiskills.env; set +a
+else
+  echo "WARNING: /etc/iiskills.env not found — Supabase/env vars may be missing."
+fi
+
 REPO_DIR="/root/iiskills-cloud-apps"
 REPO_URL="https://github.com/phildass/iiskills-cloud.git"
 BRANCH="main"
