@@ -1,1 +1,0 @@
-../../apps/learn-pr/next.config.js

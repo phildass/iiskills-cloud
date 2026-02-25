@@ -1,0 +1,46 @@
+{
+  "name": "@iiskills/access-control",
+  "version": "1.1.0",
+  "type": "module",
+  "description": "Universal app access control system for iiskills-cloud with bundle logic",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "import": "./index.js"
+    },
+    "./types": {
+      "types": "./src/types/index.ts"
+    }
+  },
+  "files": [
+    "*.js",
+    "*.d.ts",
+    "*.md",
+    "src/types/**/*.ts",
+    "!*.test.js"
+  ],
+  "scripts": {
+    "lint": "eslint .",
+    "test": "node --experimental-vm-modules ../../node_modules/.bin/jest --testMatch='**/accessControl.test.js'",
+    "typecheck": "tsc --noEmit",
+    "build:types": "tsc --emitDeclarationOnly"
+  },
+  "keywords": [
+    "access-control",
+    "authorization",
+    "payment",
+    "bundle",
+    "app-access",
+    "typescript"
+  ],
+  "author": "AI Cloud Enterprises",
+  "license": "MIT",
+  "peerDependencies": {
+    "@supabase/supabase-js": "^2.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "bannedKeywords": [
+    "political party",
+    "religion",
+    "religious",
+    "defamatory",
+    "offensive",
+    "hate speech",
+    "discrimination",
+    "racist",
+    "sexist"
+  ],
+  "bannedPhrases": [
+    "vote for",
+    "support party",
+    "religious belief",
+    "god said",
+    "fake news"
+  ],
+  "controversialTopics": [
+    "politics",
+    "religion",
+    "race",
+    "gender discrimination",
+    "offensive content"
+  ],
+  "moderationRules": {
+    "autoReject": true,
+    "requireManualReview": false,
+    "logAllFlags": true
+  }
+}

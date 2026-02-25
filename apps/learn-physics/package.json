@@ -8,11 +8,16 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@iiskills/ui": "*",
     "@iiskills/content": "*",
+    "@iiskills/ui": "*",
     "next": "^13.5.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-markdown": "^8.0.7"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.14",
+    "postcss": "^8.4.31",
+    "tailwindcss": "^3.4.1"
   }
 }

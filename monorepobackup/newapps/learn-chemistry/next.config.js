@@ -1,1 +1,0 @@
-../../apps/learn-chemistry/next.config.js

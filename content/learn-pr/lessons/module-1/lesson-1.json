@@ -1,0 +1,60 @@
+{
+  "moduleId": 1,
+  "lessonId": 1,
+  "slug": "foundations-of-public-relations",
+  "title": "Foundations of Public Relations",
+  "isFree": true,
+  "content": "<h2>Module 1, Lesson 1: Foundations of Public Relations</h2>\n\n<h3>Introduction</h3>\n<p>Public Relations (PR) is the strategic art and science of managing the spread of information between an individual or organisation and the public. At its core, PR is about crafting and sustaining a positive image, building trust, and fostering meaningful relationships with diverse audiences — from customers and investors to journalists and the broader community.</p>\n<p>Unlike advertising, which is paid promotion, PR earns its credibility through third-party endorsement. A glowing review in a respected newspaper, a viral social post from an influential voice, or a well-placed feature story in an industry journal — these are the currency of PR. That earned trust is far more powerful than any paid placement, because audiences know it was not purchased.</p>\n<p>In this lesson, we examine the strategic foundations that every PR professional must master: how to define publics, how to craft messages that resonate, and how to plan and execute campaigns that achieve measurable results.</p>\n\n<h3>Key Concepts</h3>\n<h4>1. Defining Your Publics</h4>\n<p>A \"public\" in PR is any group of people who share a common interest with respect to your organisation. Every organisation has multiple publics: employees, investors, customers, regulators, media, local communities, and the general public. The first step in any PR strategy is to identify and segment these groups, understand their concerns, and tailor communication accordingly.</p>\n\n<h4>2. Media Relations and the Press Release</h4>\n<p>Media relations is the pillar of traditional PR. Building relationships with editors, reporters, and broadcasters takes time and consistency. A well-crafted press release follows a strict structure: a compelling headline, a strong opening paragraph with the five Ws, supporting detail, a quote from a senior spokesperson, and a boilerplate.</p>\n\n<h4>3. Brand Messaging and Reputation Management</h4>\n<p>Reputation is built over years and destroyed in moments. Effective PR professionals develop brand messaging frameworks that define the organisation's core values, tone of voice, key messages, and positioning statements. Reputation management also involves monitoring media coverage and responding swiftly to inaccuracies.</p>\n\n<h4>4. Crisis Communication</h4>\n<p>No organisation is immune to crises. The golden rules of crisis communication: acknowledge quickly, be transparent about what you know, take responsibility where appropriate, communicate through credible spokespeople, and never speculate or minimise. Speed matters, but accuracy matters more.</p>\n\n<h4>5. Stakeholder Engagement</h4>\n<p>Modern PR extends well beyond media relations. Stakeholder engagement encompasses investor relations, community affairs, government relations, employee communications, and partnerships with NGOs or advocacy groups.</p>\n\n<h3>Summary</h3>\n<p>Public Relations is the strategic management of reputation, relationships, and narratives across every stakeholder group. In this lesson you covered: the definition and scope of PR; how to identify and segment publics; the mechanics of media relations; brand messaging; crisis communication; and stakeholder engagement. All PR — at its best — is about truth told compellingly.</p>",
+  "quiz": [
+    {
+      "question": "What is the primary goal of public relations?",
+      "options": [
+        "To build mutually beneficial relationships between an organization and its publics",
+        "To sell products directly to consumers",
+        "To manage internal employee communications only",
+        "To design advertising campaigns"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "question": "Which of the following is a key component of an effective press release?",
+      "options": [
+        "Technical jargon and complex language",
+        "A compelling headline and clear news angle",
+        "Lengthy disclaimers and legal text",
+        "Personal opinions of the PR professional"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is crisis communication in PR?",
+      "options": [
+        "Communicating only during natural disasters",
+        "Managing communications to protect an organization's reputation during challenging events",
+        "Avoiding all media contact during a crisis",
+        "Sending press releases every day"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "Which metric is most useful for measuring PR campaign success?",
+      "options": [
+        "Number of press releases sent",
+        "Media impressions and share of voice",
+        "Number of staff in the PR team",
+        "Office square footage"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What does 'earned media' mean in PR?",
+      "options": [
+        "Paid advertising placements",
+        "Content your organization creates and publishes",
+        "Organic coverage and mentions achieved through PR efforts",
+        "Social media posts by employees"
+      ],
+      "correct_answer": 2
+    }
+  ]
+}

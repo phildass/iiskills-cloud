@@ -1,0 +1,42 @@
+{
+  "team": "India",
+  "captain": "Rohit Sharma",
+  "coach": "Rahul Dravid",
+  "players": [
+    {
+      "id": "player_ind_001",
+      "name": "Rohit Sharma",
+      "role": "Batsman",
+      "battingStyle": "Right-handed",
+      "bowlingStyle": "Right-arm off-break"
+    },
+    {
+      "id": "player_ind_002",
+      "name": "Virat Kohli",
+      "role": "Batsman",
+      "battingStyle": "Right-handed",
+      "bowlingStyle": "Right-arm medium"
+    },
+    {
+      "id": "player_ind_003",
+      "name": "Jasprit Bumrah",
+      "role": "Bowler",
+      "battingStyle": "Right-handed",
+      "bowlingStyle": "Right-arm fast"
+    },
+    {
+      "id": "player_ind_004",
+      "name": "Ravindra Jadeja",
+      "role": "All-rounder",
+      "battingStyle": "Left-handed",
+      "bowlingStyle": "Left-arm orthodox"
+    },
+    {
+      "id": "player_ind_005",
+      "name": "KL Rahul",
+      "role": "Wicket-keeper Batsman",
+      "battingStyle": "Right-handed",
+      "bowlingStyle": null
+    }
+  ]
+}

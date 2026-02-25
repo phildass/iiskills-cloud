@@ -1,9 +1,39 @@
 {
   "name": "@iiskills/ui",
   "version": "1.0.0",
+  "private": true,
+  "description": "Shared UI component library for iiskills.cloud applications",
   "main": "src/index.js",
+  "license": "MIT",
+  "author": "iiskills.cloud Development Team",
+  "keywords": [
+    "react",
+    "components",
+    "ui",
+    "iiskills",
+    "monorepo"
+  ],
   "peerDependencies": {
-    "react": ">=17",
-    "next": ">=12"
+    "next": ">=13.0.0",
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0"
+  },
+  "dependencies": {
+    "@supabase/auth-helpers-nextjs": "^0.8.0",
+    "@supabase/supabase-js": "^2.38.4",
+    "framer-motion": ">=10.0.0"
+  },
+  "exports": {
+    ".": "./src/index.js",
+    "./authentication": "./src/authentication/index.js",
+    "./navigation": "./src/navigation/index.js",
+    "./landing": "./src/landing/index.js",
+    "./payment": "./src/payment/index.js",
+    "./content": "./src/content/index.js",
+    "./common": "./src/common/index.js",
+    "./newsletter": "./src/newsletter/index.js",
+    "./translation": "./src/translation/index.js",
+    "./ai": "./src/ai/index.js",
+    "./pwa": "./src/pwa/index.js"
   }
 }

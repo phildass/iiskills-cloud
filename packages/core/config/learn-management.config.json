@@ -1,0 +1,84 @@
+{
+  "id": "learn-management",
+  "name": "Learn Management",
+  "version": "1.0.0",
+  "environment": "production",
+  "features": {
+    "isSearchable": true,
+    "hasProgressTracking": true,
+    "hasCertificates": true,
+    "hasAIAssistant": true,
+    "hasNewsletterPopup": true,
+    "enablePaywall": true,
+    "enableSocialSharing": true,
+    "enableComments": true,
+    "enableBookmarks": true
+  },
+  "navigation": {
+    "depth": 3,
+    "showBreadcrumbs": true,
+    "enableSearch": true,
+    "menuItems": [
+      {
+        "label": "Dashboard",
+        "path": "/",
+        "icon": "home"
+      },
+      {
+        "label": "Courses",
+        "path": "/learn",
+        "icon": "book"
+      },
+      {
+        "label": "My Learning",
+        "path": "/my-learning",
+        "icon": "academic-cap"
+      },
+      {
+        "label": "Certificates",
+        "path": "/certificates",
+        "icon": "badge"
+      }
+    ]
+  },
+  "content": {
+    "supportedTypes": ["lesson", "article", "video"],
+    "defaultType": "lesson",
+    "enableUserGenerated": false,
+    "moderationRequired": true
+  },
+  "branding": {
+    "appName": "Learn Management",
+    "appDescription": "Master management and business skills",
+    "appSlogan": "Lead with confidence",
+    "primaryColor": "#7c3aed",
+    "secondaryColor": "#ec4899"
+  },
+  "api": {
+    "baseUrl": "/api",
+    "endpoints": {
+      "modules": "/modules",
+      "auth": "/auth",
+      "user": "/user",
+      "courses": "/courses",
+      "certificates": "/certificates"
+    },
+    "timeout": 30000,
+    "retryAttempts": 3
+  },
+  "analytics": {
+    "enabled": true,
+    "provider": "google",
+    "events": {
+      "pageView": true,
+      "moduleView": true,
+      "moduleComplete": true,
+      "testSubmit": false
+    }
+  },
+  "custom": {
+    "courseCategories": ["Leadership", "Strategy", "Finance", "Operations", "HR"],
+    "showCourseProgress": true,
+    "enableDiscussions": true
+  }
+}

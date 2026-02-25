@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/lib/*": ["./lib/*"],
+      "@lib/*": ["./lib/*"],
+      "@/utils/*": ["../../utils/*"],
+      "@utils/*": ["../../utils/*"],
+      "@/config/*": ["../../config/*"],
+      "@config/*": ["../../config/*"]
+    }
+  },
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
+}
