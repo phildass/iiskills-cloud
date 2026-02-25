@@ -1,0 +1,139 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Lesson Schema",
+  "description": "Schema for individual lessons in the Sync Learning Platform",
+  "type": "object",
+  "required": ["lessonId", "moduleId", "lessonNumber", "title", "textBody"],
+  "properties": {
+    "lessonId": {
+      "type": "string",
+      "description": "Unique identifier for the lesson",
+      "pattern": "^[a-z0-9-]+$"
+    },
+    "moduleId": {
+      "type": "string",
+      "description": "Parent module ID"
+    },
+    "lessonNumber": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 8,
+      "description": "Lesson number within the module"
+    },
+    "title": {
+      "type": "string",
+      "description": "Lesson title",
+      "minLength": 5,
+      "maxLength": 150
+    },
+    "videoUrl": {
+      "type": "string",
+      "format": "uri",
+      "description": "Optional video URL for the lesson"
+    },
+    "textBody": {
+      "type": "string",
+      "description": "Main lesson content in HTML format",
+      "minLength": 500,
+      "maxLength": 5000
+    },
+    "interactiveCodeSnippet": {
+      "type": "object",
+      "properties": {
+        "language": {
+          "type": "string",
+          "enum": ["javascript", "python", "html", "css", "json", "sql"]
+        },
+        "code": {
+          "type": "string",
+          "description": "Code snippet content"
+        },
+        "editable": {
+          "type": "boolean",
+          "description": "Whether user can edit the code"
+        },
+        "hasTests": {
+          "type": "boolean",
+          "description": "Whether there are automated tests"
+        },
+        "testCases": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "input": {
+                "type": "string"
+              },
+              "expectedOutput": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "duration": {
+      "type": "integer",
+      "minimum": 5,
+      "maximum": 60,
+      "description": "Estimated reading time in minutes"
+    },
+    "proTips": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["dev-sync", "ai-shortcut", "best-practice", "warning"]
+          },
+          "content": {
+            "type": "string"
+          }
+        }
+      },
+      "description": "Callout boxes with tips and best practices"
+    },
+    "crossAppReferences": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["appId", "moduleId", "context"],
+        "properties": {
+          "appId": {
+            "type": "string",
+            "enum": ["learn-ai", "learn-developer"]
+          },
+          "moduleId": {
+            "type": "string"
+          },
+          "lessonId": {
+            "type": "string"
+          },
+          "context": {
+            "type": "string",
+            "description": "Explanation of why this reference is relevant"
+          }
+        }
+      }
+    },
+    "exercises": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "difficulty": {
+            "type": "string",
+            "enum": ["easy", "medium", "hard"]
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "moduleId": 1,
+  "lessonId": 2,
+  "slug": "measurement-and-units",
+  "title": "Measurement and Units",
+  "isFree": false,
+  "content": "<h2>Module 1, Lesson 2: Measurement and Units</h2>\n\n<h3>Introduction</h3>\n<p>Physics is fundamentally a quantitative science — it describes the world in numbers and relationships. Before we can measure anything, we need a shared system of units so that scientists around the world can compare and replicate results. The International System of Units (SI) provides exactly this: a coherent, globally accepted framework built on seven base units from which all other physical quantities are derived.</p>\n<p>Precision in measurement is not merely an administrative concern. Every experimental result carries uncertainty. Understanding how to express, propagate, and minimise that uncertainty is essential to doing physics well — and to engineering safe structures, reliable machines, and accurate instruments.</p>\n\n<h3>Key Concepts</h3>\n<h4>1. The Seven SI Base Units</h4>\n<p>The SI system defines seven base units: the <strong>metre</strong> (length), <strong>kilogram</strong> (mass), <strong>second</strong> (time), <strong>ampere</strong> (electric current), <strong>kelvin</strong> (temperature), <strong>mole</strong> (amount of substance), and <strong>candela</strong> (luminous intensity). Every other unit — from newtons to joules to pascals — is derived from these seven.</p>\n\n<h4>2. Dimensional Analysis</h4>\n<p>Dimensional analysis is a powerful tool for checking equations and deriving relationships. Every term in a physics equation must have the same dimensions. For example, kinetic energy (KE = ½mv²) has dimensions of mass × (length/time)² = ML²T⁻², which matches the SI unit of joules (kg·m²·s⁻²).</p>\n\n<h4>3. Significant Figures and Uncertainty</h4>\n<p>No measurement is exact. Significant figures convey the precision of a measurement. When multiplying or dividing, the result should have as many significant figures as the least precise measurement. When adding or subtracting, the result is limited by the least number of decimal places.</p>\n<p>Uncertainty can be expressed as absolute uncertainty (±0.5 cm), relative uncertainty (±1%), or percentage uncertainty. Proper reporting of experimental results always includes both the measured value and its uncertainty.</p>\n\n<h4>4. Scientific Notation and Prefixes</h4>\n<p>Physics spans an enormous range of scales. The nucleus of an atom is roughly 10⁻¹⁵ m across; the observable universe is about 10²⁶ m in diameter. Scientific notation (e.g., 6.022 × 10²³) allows us to work with these extreme values conveniently. SI prefixes (nano-, micro-, milli-, kilo-, mega-, giga-, tera-) provide shorthand for common powers of ten.</p>\n\n<h3>Summary</h3>\n<p>Precise, reproducible measurement is the bedrock of physics. In this lesson you learned the seven SI base units, how dimensional analysis can validate equations and uncover hidden relationships, how significant figures communicate precision, and how scientific notation handles the enormous range of scales in physics. These skills will underpin every quantitative calculation you perform throughout this course.</p>",
+  "quiz": [
+    {
+      "question": "Which of the following is an SI base unit?",
+      "options": ["Newton", "Joule", "Kilogram", "Watt"],
+      "correct_answer": 2
+    },
+    {
+      "question": "What does dimensional analysis allow physicists to do?",
+      "options": [
+        "Measure physical quantities directly",
+        "Check the consistency of equations by comparing units",
+        "Convert between imperial and metric systems",
+        "Calculate the number of significant figures"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "How many significant figures does the number 0.00420 have?",
+      "options": ["2", "3", "5", "6"],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is the SI prefix for 10⁻⁹?",
+      "options": ["Micro (μ)", "Nano (n)", "Pico (p)", "Milli (m)"],
+      "correct_answer": 1
+    },
+    {
+      "question": "A measurement is reported as 5.4 ± 0.2 cm. What does ±0.2 represent?",
+      "options": [
+        "The number of significant figures",
+        "The absolute uncertainty of the measurement",
+        "The percentage error",
+        "The precision of the instrument in millimetres"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

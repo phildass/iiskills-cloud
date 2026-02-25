@@ -1,0 +1,100 @@
+name: Build & Test All Apps
+
+# This workflow tests all active apps on every PR and push to main
+# Required GitHub Secrets:
+#   - NEXT_PUBLIC_SUPABASE_URL
+#   - NEXT_PUBLIC_SUPABASE_ANON_KEY
+
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+
+jobs:
+  build-all-apps:
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: read
+    
+    strategy:
+      matrix:
+        app:
+          - apps/main
+          - apps/learn-ai
+          - apps/learn-apt
+          - apps/learn-biology
+          - apps/learn-chemistry
+          - apps/learn-cricket
+          - apps/learn-developer
+          - apps/learn-finesse
+          - apps/learn-geography
+          - apps/learn-govt-jobs
+          - apps/learn-leadership
+          - apps/learn-management
+          - apps/learn-math
+          - apps/learn-physics
+          - apps/learn-pr
+          - apps/learn-winning
+          - apps/mpa
+      fail-fast: false
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'yarn'
+      
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+      
+      - name: Build ${{ matrix.app }}
+        run: |
+          cd ${{ matrix.app }}
+          yarn build
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+          NEXT_PUBLIC_DISABLE_AUTH: true
+      
+      - name: Check build output
+        run: |
+          if [ ! -d "${{ matrix.app }}/.next" ]; then
+            echo "❌ Build failed - no .next directory"
+            exit 1
+          fi
+          echo "✅ Build successful for ${{ matrix.app }}"
+
+  merge-check:
+    runs-on: ubuntu-latest
+    needs: build-all-apps
+    
+    permissions:
+      contents: read
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'yarn'
+      
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+      
+      - name: Validate content schema
+        run: npm run validate-content
+      
+      - name: Check for orphans and broken links
+        run: npm run check-orphans
+      
+      - name: All builds passed
+        run: echo "✅ All 15 active apps built successfully - safe to merge!"

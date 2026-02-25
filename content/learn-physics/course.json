@@ -1,0 +1,17 @@
+{
+  "appSlug": "learn-physics",
+  "title": "Learn Physics",
+  "description": "Master physics from classical mechanics to quantum theory",
+  "modules": [
+    { "id": 1, "slug": "classical-mechanics", "title": "Classical Mechanics", "level": "basic", "order": 1, "lessonCount": 10 },
+    { "id": 2, "slug": "newtons-laws", "title": "Newton's Laws", "level": "basic", "order": 2, "lessonCount": 10 },
+    { "id": 3, "slug": "work-and-energy", "title": "Work and Energy", "level": "basic", "order": 3, "lessonCount": 10 },
+    { "id": 4, "slug": "thermodynamics", "title": "Thermodynamics", "level": "intermediate", "order": 4, "lessonCount": 10 },
+    { "id": 5, "slug": "electricity-magnetism", "title": "Electricity and Magnetism", "level": "intermediate", "order": 5, "lessonCount": 10 },
+    { "id": 6, "slug": "waves-optics", "title": "Waves and Optics", "level": "intermediate", "order": 6, "lessonCount": 10 },
+    { "id": 7, "slug": "modern-physics", "title": "Modern Physics", "level": "advanced", "order": 7, "lessonCount": 10 },
+    { "id": 8, "slug": "nuclear-physics", "title": "Nuclear Physics", "level": "advanced", "order": 8, "lessonCount": 10 },
+    { "id": 9, "slug": "astrophysics", "title": "Astrophysics", "level": "advanced", "order": 9, "lessonCount": 10 },
+    { "id": 10, "slug": "advanced-topics", "title": "Advanced Topics", "level": "advanced", "order": 10, "lessonCount": 10 }
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "main": {
+    "preferredRemoteUrl": "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1920&q=80",
+    "credit": {
+      "sourceName": "Unsplash",
+      "sourceUrl": "https://unsplash.com/photos/people-sitting-on-chair-in-front-of-table-while-holding-pens-during-daytime-66273c2fd55f"
+    },
+    "description": "Professional business meeting"
+  },
+  "learn-cricket": {
+    "preferredRemoteUrl": "https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=1920&q=80",
+    "credit": {
+      "sourceName": "Unsplash",
+      "sourceUrl": "https://unsplash.com/photos/cricket-players-on-field-during-daytime-036ba1b575da"
+    },
+    "description": "Cricket match in action"
+  },
+  "learn-apt": {
+    "preferredRemoteUrl": "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=1920&q=80",
+    "credit": {
+      "sourceName": "Unsplash",
+      "sourceUrl": "https://unsplash.com/photos/girl-in-pink-and-white-crew-neck-shirt-1c00da094a0b"
+    },
+    "description": "Student learning"
+  },
+  "learn-management": {
+    "preferredRemoteUrl": "https://images.unsplash.com/photo-1552664730-d307ca884978?w=1920&q=80",
+    "credit": {
+      "sourceName": "Unsplash",
+      "sourceUrl": "https://unsplash.com/photos/people-sitting-near-table-with-laptop-computer-d307ca884978"
+    },
+    "description": "Business management team"
+  },
+  "learn-math": {
+    "preferredRemoteUrl": "https://images.unsplash.com/photo-1509228627152-72ae9ae6848d?w=1920&q=80",
+    "credit": {
+      "sourceName": "Unsplash",
+      "sourceUrl": "https://unsplash.com/photos/person-holding-white-chalk-72ae9ae6848d"
+    },
+    "description": "Mathematics education"
+  },
+  "learn-physics": {
+    "preferredRemoteUrl": "https://images.unsplash.com/photo-1636466497217-26a8cbeaf0aa?w=1920&q=80",
+    "credit": {
+      "sourceName": "Unsplash",
+      "sourceUrl": "https://unsplash.com/photos/physics-books-on-brown-wooden-shelf-26a8cbeaf0aa"
+    },
+    "description": "Physics books and learning"
+  },
+  "learn-chemistry": {
+    "preferredRemoteUrl": "https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=1920&q=80",
+    "credit": {
+      "sourceName": "Unsplash",
+      "sourceUrl": "https://unsplash.com/photos/assorted-color-laboratory-glassware-lot-543bc11b234d"
+    },
+    "description": "Chemistry laboratory"
+  },
+  "learn-ai": {
+    "generationPrompt": "A futuristic classroom with AI robots teaching students, modern technology, educational setting, professional photography style, bright and inspiring",
+    "description": "AI learning environment (will be generated via Gemini)"
+  },
+  "learn-companion": {
+    "preferredRemoteUrl": null,
+    "credit": null,
+    "description": "No hero image for companion app"
+  },
+  "world-cup-hero": {
+    "generationPrompt": "Cricket World Cup 2026 stadium celebration, crowded cricket ground, trophy presentation, vibrant atmosphere, professional sports photography, ultra high quality",
+    "description": "World Cup celebration (will be generated via Gemini)"
+  }
+}

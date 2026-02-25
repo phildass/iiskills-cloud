@@ -1,1 +1,0 @@
-../../apps/learn-chemistry/tailwind.config.js

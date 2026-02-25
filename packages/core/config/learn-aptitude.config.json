@@ -1,0 +1,89 @@
+{
+  "id": "learn-aptitude",
+  "name": "Learn Aptitude",
+  "version": "1.0.0",
+  "environment": "production",
+  "features": {
+    "isSearchable": true,
+    "hasProgressTracking": true,
+    "hasCertificates": true,
+    "hasAIAssistant": true,
+    "hasNewsletterPopup": true,
+    "enablePaywall": true,
+    "enableSocialSharing": true,
+    "enableComments": false,
+    "enableBookmarks": true
+  },
+  "navigation": {
+    "depth": 3,
+    "showBreadcrumbs": true,
+    "enableSearch": true,
+    "menuItems": [
+      {
+        "label": "Dashboard",
+        "path": "/",
+        "icon": "home"
+      },
+      {
+        "label": "Learn",
+        "path": "/learn",
+        "icon": "book"
+      },
+      {
+        "label": "Tests",
+        "path": "/test",
+        "icon": "clipboard"
+      },
+      {
+        "label": "Progress",
+        "path": "/progress",
+        "icon": "chart"
+      }
+    ]
+  },
+  "content": {
+    "supportedTypes": ["lesson", "test", "quiz"],
+    "defaultType": "test",
+    "enableUserGenerated": false,
+    "moderationRequired": true
+  },
+  "branding": {
+    "appName": "Learn Aptitude",
+    "appDescription": "Master aptitude tests with AI-powered career guidance",
+    "appSlogan": "Your path to success starts here",
+    "logo": {
+      "light": "/logo-light.png",
+      "dark": "/logo-dark.png"
+    },
+    "primaryColor": "#3b82f6",
+    "secondaryColor": "#8b5cf6"
+  },
+  "api": {
+    "baseUrl": "/api",
+    "endpoints": {
+      "modules": "/modules",
+      "auth": "/auth",
+      "user": "/user",
+      "tests": "/tests",
+      "progress": "/progress"
+    },
+    "timeout": 30000,
+    "retryAttempts": 3
+  },
+  "analytics": {
+    "enabled": true,
+    "provider": "google",
+    "trackingId": "GA-XXXXXXXXX",
+    "events": {
+      "pageView": true,
+      "moduleView": true,
+      "moduleComplete": true,
+      "testSubmit": true
+    }
+  },
+  "custom": {
+    "testModes": ["short", "elaborate"],
+    "defaultTestMode": "short",
+    "showCareerGuidance": true
+  }
+}

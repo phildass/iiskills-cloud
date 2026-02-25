@@ -1,1 +1,0 @@
-../../apps/learn-geography/tailwind.config.js

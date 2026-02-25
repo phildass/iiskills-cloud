@@ -1,0 +1,10 @@
+{
+  "name": "@iiskills/content-loader",
+  "version": "1.0.0",
+  "description": "Static-first filesystem content loader for iiskills learning apps",
+  "main": "src/index.js",
+  "private": true,
+  "scripts": {
+    "validate": "node src/validate.js"
+  }
+}

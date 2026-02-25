@@ -9,6 +9,9 @@ export async function getStaticProps() {
 }
 
 export default function PhysicsHome({ course }) {
+  if (!course) {
+    return <Layout appName="Physics"><div style={{ padding: '2rem' }}>Course content unavailable.</div></Layout>;
+  }
   return (
     <Layout appName="Physics">
       <div style={{ maxWidth: '960px', margin: '0 auto' }}>

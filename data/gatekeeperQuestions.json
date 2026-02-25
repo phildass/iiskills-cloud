@@ -1,0 +1,212 @@
+[
+  {
+    "tier": "Intermediate",
+    "subject": "Learn Mathematics",
+    "questions": [
+      {
+        "question": "In a right-angled triangle, if the length of the hypotenuse is 13 units and one side is 5 units, what is the length of the third side?",
+        "options": ["8 units", "10 units", "12 units", "14 units"],
+        "answer": "12 units"
+      },
+      {
+        "question": "What is the value of $\\log_{10}(1000)$?",
+        "options": ["2", "3", "10", "100"],
+        "answer": "3"
+      },
+      {
+        "question": "If the slope ($m$) of a line is 0, what is the orientation of the line on a Cartesian plane?",
+        "options": ["Vertical", "Horizontal", "Diagonal at 45°", "It passes through the origin only"],
+        "answer": "Horizontal"
+      }
+    ]
+  },
+  {
+    "tier": "Advanced",
+    "subject": "Learn Mathematics",
+    "questions": [
+      {
+        "question": "What is the derivative of $f(x) = x^3 + 2x^2 - 5x + 1$ with respect to $x$?",
+        "options": ["$3x^2 + 4x - 5$", "$3x^2 + 2x - 5$", "$x^2 + 4x - 5$", "$3x^2 + 4x + 5$"],
+        "answer": "$3x^2 + 4x - 5$"
+      },
+      {
+        "question": "What is the integral of $\\int 2x \\, dx$?",
+        "options": ["$x^2 + C$", "$2x^2 + C$", "$x + C$", "$2x + C$"],
+        "answer": "$x^2 + C$"
+      },
+      {
+        "question": "In linear algebra, what is the determinant of the matrix $\\begin{bmatrix} 2 & 3 \\\\ 1 & 4 \\end{bmatrix}$?",
+        "options": ["5", "8", "11", "2"],
+        "answer": "5"
+      }
+    ]
+  },
+  {
+    "tier": "Intermediate",
+    "subject": "Public Relations",
+    "questions": [
+      {
+        "question": "What is the primary objective of public relations?",
+        "options": ["Selling products directly", "Building and maintaining positive relationships with stakeholders", "Advertising products", "Managing employee payroll"],
+        "answer": "Building and maintaining positive relationships with stakeholders"
+      },
+      {
+        "question": "Which of the following is a key component of a crisis management plan?",
+        "options": ["Ignoring the media", "Having a designated spokesperson", "Delaying response until all facts are known", "Blaming others publicly"],
+        "answer": "Having a designated spokesperson"
+      },
+      {
+        "question": "What does 'media relations' primarily involve?",
+        "options": ["Buying advertising space", "Building relationships with journalists and media outlets", "Creating social media content", "Designing company logos"],
+        "answer": "Building relationships with journalists and media outlets"
+      }
+    ]
+  },
+  {
+    "tier": "Advanced",
+    "subject": "Public Relations",
+    "questions": [
+      {
+        "question": "What is the PESO model in public relations?",
+        "options": ["Paid, Earned, Shared, Owned media", "Public, Executive, Stakeholder, Operations", "Planning, Execution, Strategy, Outcomes", "Press, Events, Social, Outreach"],
+        "answer": "Paid, Earned, Shared, Owned media"
+      },
+      {
+        "question": "In crisis communication, what does the term 'dark site' refer to?",
+        "options": ["A backup website ready to launch during a crisis", "Social media monitoring tools", "Negative press coverage", "Internal communication channels"],
+        "answer": "A backup website ready to launch during a crisis"
+      },
+      {
+        "question": "What is the primary purpose of a stakeholder analysis in PR strategy?",
+        "options": ["To identify competitors", "To understand and prioritize key audiences and their interests", "To calculate media budgets", "To design marketing campaigns"],
+        "answer": "To understand and prioritize key audiences and their interests"
+      }
+    ]
+  },
+  {
+    "tier": "Intermediate",
+    "subject": "Management",
+    "questions": [
+      {
+        "question": "What is the primary function of management?",
+        "options": ["To maximize profits only", "To plan, organize, lead, and control organizational resources", "To hire employees", "To create products"],
+        "answer": "To plan, organize, lead, and control organizational resources"
+      },
+      {
+        "question": "Which leadership style involves giving employees complete freedom to make decisions?",
+        "options": ["Autocratic", "Democratic", "Laissez-faire", "Transformational"],
+        "answer": "Laissez-faire"
+      },
+      {
+        "question": "What does SWOT analysis stand for?",
+        "options": ["Strengths, Weaknesses, Opportunities, Threats", "Strategy, Workforce, Operations, Technology", "Sales, Workforce, Outputs, Targets", "Systems, Work, Organization, Training"],
+        "answer": "Strengths, Weaknesses, Opportunities, Threats"
+      }
+    ]
+  },
+  {
+    "tier": "Advanced",
+    "subject": "Management",
+    "questions": [
+      {
+        "question": "What is the Balanced Scorecard framework primarily used for?",
+        "options": ["Financial accounting only", "Strategic planning and performance measurement across multiple perspectives", "Employee performance reviews", "Product pricing strategies"],
+        "answer": "Strategic planning and performance measurement across multiple perspectives"
+      },
+      {
+        "question": "In change management, what does Kotter's 8-Step Process emphasize as the first step?",
+        "options": ["Implementing changes quickly", "Creating a sense of urgency", "Hiring consultants", "Restructuring the organization"],
+        "answer": "Creating a sense of urgency"
+      },
+      {
+        "question": "What is the primary characteristic of a matrix organizational structure?",
+        "options": ["Single chain of command", "Dual reporting relationships with both functional and project managers", "Flat hierarchy with no managers", "Geographic division only"],
+        "answer": "Dual reporting relationships with both functional and project managers"
+      }
+    ]
+  },
+  {
+    "tier": "Intermediate",
+    "subject": "Developer",
+    "questions": [
+      {
+        "question": "What does API stand for in software development?",
+        "options": ["Application Programming Interface", "Advanced Programming Integration", "Automated Process Interaction", "Application Process Interface"],
+        "answer": "Application Programming Interface"
+      },
+      {
+        "question": "Which of the following is a version control system?",
+        "options": ["MySQL", "Git", "React", "Docker"],
+        "answer": "Git"
+      },
+      {
+        "question": "What is the purpose of a 'for loop' in programming?",
+        "options": ["To declare variables", "To repeat a block of code a specific number of times", "To define functions", "To handle errors"],
+        "answer": "To repeat a block of code a specific number of times"
+      }
+    ]
+  },
+  {
+    "tier": "Advanced",
+    "subject": "Developer",
+    "questions": [
+      {
+        "question": "What is the time complexity of binary search in a sorted array?",
+        "options": ["O(n)", "O(log n)", "O(n log n)", "O(n^2)"],
+        "answer": "O(log n)"
+      },
+      {
+        "question": "In software architecture, what does the SOLID principle 'D' stand for?",
+        "options": ["Data abstraction", "Dependency Inversion Principle", "Dynamic loading", "Database design"],
+        "answer": "Dependency Inversion Principle"
+      },
+      {
+        "question": "What is the main advantage of using microservices architecture over monolithic architecture?",
+        "options": ["Simpler deployment", "Independent scaling and deployment of services", "Faster development time initially", "Reduced infrastructure costs"],
+        "answer": "Independent scaling and deployment of services"
+      }
+    ]
+  },
+  {
+    "tier": "Intermediate",
+    "subject": "Artificial Intelligence",
+    "questions": [
+      {
+        "question": "What is machine learning?",
+        "options": ["A type of computer hardware", "A subset of AI that enables systems to learn from data", "A programming language", "A database management system"],
+        "answer": "A subset of AI that enables systems to learn from data"
+      },
+      {
+        "question": "Which of the following is an example of supervised learning?",
+        "options": ["Clustering customer data", "Predicting house prices based on historical data", "Reinforcement learning in games", "Dimensionality reduction"],
+        "answer": "Predicting house prices based on historical data"
+      },
+      {
+        "question": "What does NLP stand for in AI?",
+        "options": ["Neural Learning Process", "Natural Language Processing", "Network Layer Protocol", "Numerical Linear Programming"],
+        "answer": "Natural Language Processing"
+      }
+    ]
+  },
+  {
+    "tier": "Advanced",
+    "subject": "Artificial Intelligence",
+    "questions": [
+      {
+        "question": "What is the vanishing gradient problem in deep neural networks?",
+        "options": ["When gradients become too small during backpropagation, preventing effective learning", "When the model overfits the training data", "When the learning rate is too high", "When the network has too few layers"],
+        "answer": "When gradients become too small during backpropagation, preventing effective learning"
+      },
+      {
+        "question": "What is the purpose of attention mechanisms in transformer models?",
+        "options": ["To reduce model size", "To allow the model to focus on relevant parts of the input sequence", "To speed up training", "To prevent overfitting"],
+        "answer": "To allow the model to focus on relevant parts of the input sequence"
+      },
+      {
+        "question": "In reinforcement learning, what does the Q-value represent?",
+        "options": ["The quality of the dataset", "The expected cumulative reward for taking an action in a given state", "The number of training epochs", "The model's accuracy"],
+        "answer": "The expected cumulative reward for taking an action in a given state"
+      }
+    ]
+  }
+]

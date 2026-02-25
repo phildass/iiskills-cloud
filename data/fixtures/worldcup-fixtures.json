@@ -1,0 +1,85 @@
+{
+  "tournament": "ICC Cricket World Cup 2026",
+  "startDate": "2026-02-07",
+  "endDate": "2026-03-15",
+  "venues": [
+    {
+      "id": "venue_1",
+      "name": "Melbourne Cricket Ground",
+      "city": "Melbourne",
+      "country": "Australia",
+      "capacity": 100024
+    },
+    {
+      "id": "venue_2",
+      "name": "Sydney Cricket Ground",
+      "city": "Sydney",
+      "country": "Australia",
+      "capacity": 48000
+    },
+    {
+      "id": "venue_3",
+      "name": "Eden Park",
+      "city": "Auckland",
+      "country": "New Zealand",
+      "capacity": 50000
+    }
+  ],
+  "fixtures": [
+    {
+      "matchId": "wc2026_001",
+      "matchNumber": 1,
+      "date": "2026-02-07",
+      "time": "14:00",
+      "venue": "venue_1",
+      "teamA": "India",
+      "teamB": "Pakistan",
+      "stage": "Group",
+      "group": "A"
+    },
+    {
+      "matchId": "wc2026_002",
+      "matchNumber": 2,
+      "date": "2026-02-08",
+      "time": "14:00",
+      "venue": "venue_2",
+      "teamA": "Australia",
+      "teamB": "England",
+      "stage": "Group",
+      "group": "A"
+    },
+    {
+      "matchId": "wc2026_003",
+      "matchNumber": 3,
+      "date": "2026-02-09",
+      "time": "19:00",
+      "venue": "venue_3",
+      "teamA": "New Zealand",
+      "teamB": "South Africa",
+      "stage": "Group",
+      "group": "B"
+    },
+    {
+      "matchId": "wc2026_004",
+      "matchNumber": 4,
+      "date": "2026-02-10",
+      "time": "14:00",
+      "venue": "venue_1",
+      "teamA": "Sri Lanka",
+      "teamB": "Bangladesh",
+      "stage": "Group",
+      "group": "B"
+    },
+    {
+      "matchId": "wc2026_005",
+      "matchNumber": 5,
+      "date": "2026-02-11",
+      "time": "14:00",
+      "venue": "venue_2",
+      "teamA": "West Indies",
+      "teamB": "Afghanistan",
+      "stage": "Group",
+      "group": "A"
+    }
+  ]
+}

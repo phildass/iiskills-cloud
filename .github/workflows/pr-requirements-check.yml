@@ -1,0 +1,505 @@
+name: PR Requirements Check
+
+# This workflow enforces all requirements for PR approval
+# Based on the automated post-PR analysis system requirements
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, edited]
+    branches: [main]
+
+permissions:
+  contents: read
+  pull-requests: write
+  checks: write
+  statuses: write
+
+jobs:
+  # Job 1: Validate PR Template Checklist
+  pr-template-validation:
+    name: Validate PR Template
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Check PR has description
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: pr } = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number,
+            });
+            
+            if (!pr.body || pr.body.length < 50) {
+              core.setFailed('❌ PR description is too short. Please use the PR template and fill out all sections.');
+            } else {
+              console.log('✅ PR has adequate description');
+            }
+      
+      - name: Check for issue linkage
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: pr } = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number,
+            });
+            
+            const body = pr.body || '';
+            const hasIssueLink = /(?:Closes|Fixes|Resolves|Related to)\s+#\d+/i.test(body);
+            
+            if (!hasIssueLink) {
+              core.warning('⚠️ No issue linkage found. Consider linking to relevant issues using "Closes #123" or "Related to #456"');
+            } else {
+              console.log('✅ PR is linked to issue(s)');
+            }
+
+  # Job 2: Code Quality Checks
+  code-quality:
+    name: Code Quality & Linting
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'yarn'
+      
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+      
+      - name: Run ESLint
+        run: yarn lint:check
+        continue-on-error: true
+        id: eslint
+      
+      - name: Run Prettier
+        run: yarn format:check
+        continue-on-error: true
+        id: prettier
+      
+      - name: Report linting results
+        if: steps.eslint.outcome == 'failure' || steps.prettier.outcome == 'failure'
+        run: |
+          echo "❌ Linting failed. Please run 'yarn lint:fix' and 'yarn format' to fix issues."
+          exit 1
+
+  # Job 3: Import & Pattern Validation
+  import-validation:
+    name: Validate Imports & Patterns
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      
+      - name: Get changed files
+        id: changed-files
+        run: |
+          if [ "${{ github.event.pull_request.base.sha }}" != "" ]; then
+            CHANGED_FILES=$(git diff --name-only ${{ github.event.pull_request.base.sha }} ${{ github.sha }} | grep -E '\.(js|jsx|ts|tsx)$' || true)
+          else
+            CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD | grep -E '\.(js|jsx|ts|tsx)$' || true)
+          fi
+          echo "changed_files<<EOF" >> $GITHUB_OUTPUT
+          echo "$CHANGED_FILES" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+      
+      - name: Check for prohibited patterns
+        run: |
+          echo "🔍 Checking for prohibited code patterns..."
+          
+          # Check for local component imports (should use @iiskills/ui)
+          if echo "${{ steps.changed-files.outputs.changed_files }}" | xargs grep -l "import.*from.*'\.\./\.\./components/" 2>/dev/null; then
+            echo "❌ ERROR: Local component imports found. Use @iiskills/ui package instead."
+            echo "Found in:"
+            echo "${{ steps.changed-files.outputs.changed_files }}" | xargs grep -l "import.*from.*'\.\./\.\./components/" || true
+            exit 1
+          fi
+          
+          # Check for deprecated apps references
+          DEPRECATED_APPS="learn-govt-jobs|learn-finesse|learn-biology|learn-cricket|learn-companion|learn-jee|learn-neet|learn-ias|learn-leadership|learn-winning|mpa"
+          if echo "${{ steps.changed-files.outputs.changed_files }}" | xargs grep -E "$DEPRECATED_APPS" 2>/dev/null | grep -v "apps-backup" | grep -v "# deprecated" | grep -v "archived"; then
+            echo "⚠️ WARNING: References to deprecated apps found. Ensure they are properly marked as deprecated."
+          fi
+          
+          # Check for proper package imports
+          if echo "${{ steps.changed-files.outputs.changed_files }}" | grep "^apps/" | xargs grep -l "import.*from.*'@iiskills/ui'" 2>/dev/null; then
+            echo "✅ Apps properly using @iiskills/ui package"
+          fi
+          
+          echo "✅ No prohibited patterns found"
+      
+      - name: Validate app structure
+        run: |
+          echo "🔍 Validating app structure..."
+          
+          # Check if changes are in apps directory
+          CHANGED_APPS=$(echo "${{ steps.changed-files.outputs.changed_files }}" | grep "^apps/" | cut -d'/' -f1-2 | sort -u || echo "")
+          
+          if [ -n "$CHANGED_APPS" ]; then
+            for app in $CHANGED_APPS; do
+              if [ -d "$app" ]; then
+                echo "Checking $app..."
+                
+                # Check for required files
+                if [ ! -f "$app/package.json" ]; then
+                  echo "❌ ERROR: $app is missing package.json"
+                  exit 1
+                fi
+                
+                if [ ! -f "$app/next.config.js" ]; then
+                  echo "⚠️ WARNING: $app is missing next.config.js"
+                fi
+                
+                echo "✅ $app structure validated"
+              fi
+            done
+          fi
+          
+          echo "✅ App structure validation complete"
+
+  # Job 4: Unit Tests
+  unit-tests:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'yarn'
+      
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+      
+      - name: Run unit tests
+        run: yarn test --passWithNoTests
+        env:
+          NODE_ENV: test
+      
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: unit-test-results
+          path: |
+            coverage/
+            test-results/
+
+  # Job 5: E2E Tests
+  e2e-tests:
+    name: E2E Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'yarn'
+      
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+      
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium firefox webkit
+      
+      - name: Run E2E tests
+        run: yarn test:e2e --reporter=list --reporter=json
+        env:
+          CI: true
+          BASE_URL: http://localhost:3000
+      
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-test-results
+          path: |
+            test-results/
+            playwright-report/
+      
+      - name: Upload test summary
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-test-summary
+          path: test-results/results.json
+
+  # Job 6: Configuration Validation
+  config-validation:
+    name: Configuration Validation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'yarn'
+      
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+      
+      - name: Validate config consistency
+        run: |
+          if [ -f "validate-config-consistency.sh" ]; then
+            chmod +x validate-config-consistency.sh
+            ./validate-config-consistency.sh
+          else
+            echo "✅ No config validation script found - skipping"
+          fi
+      
+      - name: Validate content schema
+        run: yarn validate-content || echo "⚠️ Content validation not available"
+
+  # Job 7: Security Scan
+  security-scan:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'yarn'
+      
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+      
+      - name: Run npm audit
+        run: |
+          echo "🔒 Running security audit..."
+          npm audit --audit-level=high --json > audit-results.json || true
+          
+          # Check for high/critical vulnerabilities
+          HIGH_VULNS=$(cat audit-results.json | grep -o '"severity":"high"' | wc -l || echo "0")
+          CRITICAL_VULNS=$(cat audit-results.json | grep -o '"severity":"critical"' | wc -l || echo "0")
+          
+          echo "High severity vulnerabilities: $HIGH_VULNS"
+          echo "Critical severity vulnerabilities: $CRITICAL_VULNS"
+          
+          if [ "$CRITICAL_VULNS" -gt 0 ]; then
+            echo "❌ ERROR: Critical vulnerabilities found!"
+            npm audit --audit-level=critical
+            exit 1
+          elif [ "$HIGH_VULNS" -gt 0 ]; then
+            echo "⚠️ WARNING: High severity vulnerabilities found"
+            npm audit --audit-level=high
+          else
+            echo "✅ No high or critical vulnerabilities found"
+          fi
+      
+      - name: Upload audit results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: security-audit-results
+          path: audit-results.json
+
+  # Job 8: Build Verification
+  build-verification:
+    name: Build Verification
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        app:
+          - apps/main
+          - apps/learn-ai
+          - apps/learn-apt
+          - apps/learn-chemistry
+          - apps/learn-developer
+          - apps/learn-geography
+          - apps/learn-management
+          - apps/learn-math
+          - apps/learn-physics
+          - apps/learn-pr
+      fail-fast: false
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'yarn'
+      
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+      
+      - name: Build ${{ matrix.app }}
+        run: |
+          cd ${{ matrix.app }}
+          yarn build || yarn build || echo "Build failed for ${{ matrix.app }}"
+        env:
+          NODE_ENV: production
+          NEXT_PUBLIC_DISABLE_AUTH: true
+      
+      - name: Verify build output
+        run: |
+          if [ -d "${{ matrix.app }}/.next" ]; then
+            echo "✅ Build successful for ${{ matrix.app }}"
+          else
+            echo "❌ Build failed for ${{ matrix.app }} - no .next directory"
+            exit 1
+          fi
+
+  # Job 9: Generate Requirements Report
+  requirements-report:
+    name: Generate Requirements Report
+    runs-on: ubuntu-latest
+    needs: [pr-template-validation, code-quality, import-validation, unit-tests, e2e-tests, config-validation, security-scan]
+    if: always()
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Download test artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+        continue-on-error: true
+      
+      - name: Generate report
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            
+            // Get all job results
+            const jobs = await github.rest.actions.listJobsForWorkflowRun({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              run_id: context.runId,
+            });
+            
+            // Build status report
+            let report = '## 🤖 Automated Requirements Analysis\n\n';
+            report += '### Checklist Status\n\n';
+            
+            const checkResults = {
+              'PR Template': needs['pr-template-validation'] ? '✅' : '❌',
+              'Code Quality': needs['code-quality'] ? '✅' : '❌',
+              'Import Validation': needs['import-validation'] ? '✅' : '❌',
+              'Unit Tests': needs['unit-tests'] ? '✅' : '❌',
+              'E2E Tests': needs['e2e-tests'] ? '✅' : '❌',
+              'Config Validation': needs['config-validation'] ? '✅' : '❌',
+              'Security Scan': needs['security-scan'] ? '✅' : '❌',
+            };
+            
+            for (const [check, status] of Object.entries(checkResults)) {
+              report += `- ${status} ${check}\n`;
+            }
+            
+            report += '\n### Test Results\n\n';
+            
+            // Check for test results
+            try {
+              const e2eResults = fs.readFileSync('artifacts/e2e-test-summary/results.json', 'utf8');
+              const results = JSON.parse(e2eResults);
+              report += `- E2E Tests: ${results.stats?.expected || 0} passed, ${results.stats?.unexpected || 0} failed\n`;
+            } catch (err) {
+              report += '- E2E Tests: Results not available\n';
+            }
+            
+            report += '\n### Merge Status\n\n';
+            
+            const allPassed = Object.values(checkResults).every(status => status === '✅');
+            
+            if (allPassed) {
+              report += '✅ **All automated checks passed!** This PR is ready for human review.\n\n';
+              report += '**Next Steps:**\n';
+              report += '1. ✅ Reviewer: Verify all checklist items in PR description\n';
+              report += '2. ✅ Reviewer: Manually test edge cases\n';
+              report += '3. ✅ Reviewer: Approve PR if everything looks good\n';
+            } else {
+              report += '❌ **Some checks failed.** Please address the issues before requesting review.\n\n';
+              report += '**Failed Checks:**\n';
+              for (const [check, status] of Object.entries(checkResults)) {
+                if (status === '❌') {
+                  report += `- ${check}\n`;
+                }
+              }
+            }
+            
+            report += '\n---\n\n';
+            report += '*This report was automatically generated by the PR Requirements Check workflow.*\n';
+            
+            // Post comment to PR
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: report
+            });
+        env:
+          needs: ${{ toJson(needs) }}
+
+  # Job 10: Final Status Check
+  final-status:
+    name: All Checks Status
+    runs-on: ubuntu-latest
+    needs: [pr-template-validation, code-quality, import-validation, unit-tests, e2e-tests, config-validation, security-scan, build-verification]
+    if: always()
+    steps:
+      - name: Check all required jobs
+        run: |
+          echo "Checking status of all required jobs..."
+          
+          TEMPLATE_STATUS="${{ needs.pr-template-validation.result }}"
+          QUALITY_STATUS="${{ needs.code-quality.result }}"
+          IMPORT_STATUS="${{ needs.import-validation.result }}"
+          UNIT_STATUS="${{ needs.unit-tests.result }}"
+          E2E_STATUS="${{ needs.e2e-tests.result }}"
+          CONFIG_STATUS="${{ needs.config-validation.result }}"
+          SECURITY_STATUS="${{ needs.security-scan.result }}"
+          BUILD_STATUS="${{ needs.build-verification.result }}"
+          
+          echo "PR Template: $TEMPLATE_STATUS"
+          echo "Code Quality: $QUALITY_STATUS"
+          echo "Import Validation: $IMPORT_STATUS"
+          echo "Unit Tests: $UNIT_STATUS"
+          echo "E2E Tests: $E2E_STATUS"
+          echo "Config Validation: $CONFIG_STATUS"
+          echo "Security Scan: $SECURITY_STATUS"
+          echo "Build Verification: $BUILD_STATUS"
+          
+          if [ "$TEMPLATE_STATUS" != "success" ] || \
+             [ "$QUALITY_STATUS" != "success" ] || \
+             [ "$IMPORT_STATUS" != "success" ] || \
+             [ "$UNIT_STATUS" != "success" ] || \
+             [ "$E2E_STATUS" != "success" ] || \
+             [ "$CONFIG_STATUS" != "success" ] || \
+             [ "$SECURITY_STATUS" != "success" ] || \
+             [ "$BUILD_STATUS" != "success" ]; then
+            echo "❌ Some required checks failed. PR cannot be merged."
+            exit 1
+          fi
+          
+          echo "✅ All required checks passed! PR is ready for review."

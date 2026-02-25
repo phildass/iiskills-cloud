@@ -1,5 +1,83 @@
-node_modules
-.next
-dist
-.turbo
-*.local
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+.yarn/install-state.gz
+
+# Testing
+coverage/
+test-results/
+playwright-report/
+playwright/.cache/
+
+# Next.js
+.next/
+out/
+build/
+dist/
+
+# Production
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build logs
+logs/
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# PM2
+.pm2/
+*.pm2
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Misc
+*.tsbuildinfo
+.turbo/
+*.bak
+*.bak.*
+
+# Documentation Archive
+docs-archive/
+package-lock.json
+
+# Audit files
+apps_audit.txt
+
+# Generated seed data (ALLOW fixtures and squads for WC launch, and sync-platform content)
+data/*
+!data/fixtures/
+!data/fixtures/*.json
+!data/squads/
+!data/squads/*.json
+!data/sync-platform/
+!data/sync-platform/**
+!data/gatekeeperQuestions.json
+
+# Generated images - DO NOT commit
+public/generated-images/*
+
+# Build validation reports
+build-validation-reports/
+smoke-test-report-*.md
+
+# Environment files (prevent committing secrets)
+apps/**/.env.local
+.env.local
+*.bak.*
+*.bak

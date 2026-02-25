@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["../../*"],
+      "@shared/*": ["components/shared/*"],
+      "@components/*": ["components/*"],
+      "@lib/*": ["../../lib/*"],
+      "@utils/*": ["../../utils/*"],
+      "@config/*": ["../../config/*"]
+    }
+  },
+  "exclude": [
+    "node_modules",
+    ".next",
+    "dist",
+    "build"
+  ]
+}
