@@ -4,13 +4,12 @@
  * This configuration uses `npx next start` for Next.js 16+ apps.
  * 
  * Domain mapping:
- *   iiskills-web   → https://iiskills.cloud (production main domain, port 3000)
+ *   iiskills-main  → https://iiskills.cloud (production main domain, port 3000)
  *   iiskills-admin → admin panel (port 3001, basePath /admin)
  *   iiskills-learn-* → https://<name>.iiskills.cloud (learn apps)
  *
- * Note: iiskills-web and iiskills-admin are the new architecture apps (apps/web,
- * apps/admin). The legacy apps/main entry is retained below but should not be
- * started simultaneously with iiskills-web since both bind port 3000.
+ * Note: apps/main is the authoritative production app on port 3000.
+ * apps/web is a placeholder skeleton and is NOT deployed.
  * 
  * Prerequisites:
  *   1. Build all apps: yarn build (from root)
@@ -30,8 +29,8 @@ const path = require('path');
 module.exports = {
   "apps": [
     {
-      "name": "iiskills-web",
-      "cwd": path.join(__dirname, 'apps/web'),
+      "name": "iiskills-main",
+      "cwd": path.join(__dirname, 'apps/main'),
       "script": "npx",
       "args": "next start",
       "interpreter": "none",
@@ -43,9 +42,9 @@ module.exports = {
       "autorestart": true,
       "watch": false,
       "max_memory_restart": "1G",
-      "error_file": path.join(__dirname, 'logs', 'web-error.log'),
-      "out_file": path.join(__dirname, 'logs', 'web-out.log'),
-      "log_file": path.join(__dirname, 'logs', 'web-combined.log'),
+      "error_file": path.join(__dirname, 'logs', 'main-error.log'),
+      "out_file": path.join(__dirname, 'logs', 'main-out.log'),
+      "log_file": path.join(__dirname, 'logs', 'main-combined.log'),
       "time": true
     },
     {
@@ -67,27 +66,8 @@ module.exports = {
       "log_file": path.join(__dirname, 'logs', 'admin-combined.log'),
       "time": true
     },
-    // Legacy apps/main entry — shares port 3000 with iiskills-web.
-    // Do NOT start simultaneously with iiskills-web.
-    // {
-    //   "name": "iiskills-main",
-    //   "cwd": path.join(__dirname, 'apps/main'),
-    //   "script": "npx",
-    //   "args": "next start",
-    //   "interpreter": "none",
-    //   "env": {
-    //     "NODE_ENV": "production",
-    //     "PORT": 3000
-    //   },
-    //   "instances": 1,
-    //   "autorestart": true,
-    //   "watch": false,
-    //   "max_memory_restart": "1G",
-    //   "error_file": path.join(__dirname, 'logs', 'main-error.log'),
-    //   "out_file": path.join(__dirname, 'logs', 'main-out.log'),
-    //   "log_file": path.join(__dirname, 'logs', 'main-combined.log'),
-    //   "time": true
-    // },
+    // apps/web is a placeholder skeleton app and is NOT deployed.
+    // If it needs a port/subdomain in the future, add it here explicitly.
     {
       "name": "iiskills-learn-ai",
       "cwd": path.join(__dirname, 'apps/learn-ai'),
