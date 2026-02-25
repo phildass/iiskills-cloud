@@ -188,6 +188,9 @@ export default function Header({
             )
           )}
 
+          {/* Google Translate Widget */}
+          <GoogleTranslate />
+
           {/* Show Login/Register or User Info based on authentication */}
           {shouldShowAuthButtons && (
             <>
