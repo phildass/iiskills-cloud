@@ -8,6 +8,7 @@ import RapidFireQuiz from '../../../components/RapidFireQuiz';
 import PremiumAccessPrompt from '@shared/PremiumAccessPrompt';
 import { curriculumData } from '../../../lib/curriculumData';
 import { getCurrentUser } from '../../../lib/supabaseClient';
+import { LessonContent } from '@iiskills/ui/content';
 
 export default function LessonPage() {
   const router = useRouter();
@@ -154,13 +155,13 @@ export default function LessonPage() {
               <span className="mr-2">📚</span>
               The Lesson: Deep Dive
             </h2>
-            <div className="prose max-w-none">
+            <LessonContent>
               {(module.lesson || module.deepDive || '').split('\n\n').map((paragraph, index) => (
                 <p key={index} className="mb-4 text-gray-700 leading-relaxed">
                   {paragraph}
                 </p>
               ))}
-            </div>
+            </LessonContent>
           </div>
 
           {/* The Code Lab */}

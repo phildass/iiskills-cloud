@@ -1,0 +1,167 @@
+/**
+ * Lesson Content Styles – CSS Module
+ *
+ * Provides rich, readable typography for lesson body HTML.
+ * Used by LessonContent component (packages/ui/src/content/LessonContent.js).
+ */
+
+.container {
+  max-width: 72ch;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  color: #1e293b;
+}
+
+/* ── Headings ─────────────────────────────────────────── */
+.container h1,
+.container h2,
+.container h3,
+.container h4,
+.container h5,
+.container h6 {
+  font-weight: 700;
+  line-height: 1.25;
+  color: #0f172a;
+  margin-top: 2em;
+  margin-bottom: 0.6em;
+}
+
+.container h1 { font-size: 2rem; }
+.container h2 {
+  font-size: 1.5rem;
+  padding-bottom: 0.3em;
+  border-bottom: 2px solid #e2e8f0;
+}
+.container h3 { font-size: 1.25rem; color: #1e40af; }
+.container h4 { font-size: 1.1rem; color: #2563eb; }
+.container h5,
+.container h6 { font-size: 1rem; }
+
+/* First child — no top margin */
+.container > :first-child { margin-top: 0; }
+.container > :last-child  { margin-bottom: 0; }
+
+/* ── Paragraphs ───────────────────────────────────────── */
+.container p {
+  margin-top: 0;
+  margin-bottom: 1.25em;
+}
+
+/* ── Bold / Italic ────────────────────────────────────── */
+.container strong {
+  font-weight: 700;
+  color: #0f172a;
+}
+.container em {
+  font-style: italic;
+  color: #334155;
+}
+
+/* ── Lists ────────────────────────────────────────────── */
+.container ul,
+.container ol {
+  margin-top: 0;
+  margin-bottom: 1.25em;
+  padding-left: 1.75em;
+}
+.container ul { list-style-type: disc; }
+.container ol { list-style-type: decimal; }
+.container li {
+  margin-bottom: 0.4em;
+  line-height: 1.65;
+}
+.container li::marker { color: #2563eb; }
+
+/* ── Blockquotes ──────────────────────────────────────── */
+.container blockquote {
+  margin: 1.5em 0;
+  padding: 1em 1.25em;
+  border-left: 4px solid #3b82f6;
+  background: #eff6ff;
+  border-radius: 0 6px 6px 0;
+  color: #1e3a8a;
+  font-style: italic;
+}
+.container blockquote p { margin-bottom: 0; }
+
+/* ── Inline code ──────────────────────────────────────── */
+.container code:not(pre > code) {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.875em;
+  background: #f1f5f9;
+  color: #be185d;
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+  border: 1px solid #e2e8f0;
+}
+
+/* ── Code blocks ──────────────────────────────────────── */
+.container pre {
+  background: #1e293b;
+  color: #e2e8f0;
+  padding: 1.25em 1.5em;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin: 1.5em 0;
+  font-size: 0.875em;
+  line-height: 1.6;
+}
+.container pre code {
+  background: transparent;
+  color: inherit;
+  padding: 0;
+  border: none;
+  font-size: 1em;
+}
+
+/* ── Links ────────────────────────────────────────────── */
+.container a {
+  color: #2563eb;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: #bfdbfe;
+  transition: color 0.15s, text-decoration-color 0.15s;
+}
+.container a:hover {
+  color: #1d4ed8;
+  text-decoration-color: #2563eb;
+}
+
+/* ── Tables ───────────────────────────────────────────── */
+.container table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5em 0;
+  font-size: 0.9375em;
+}
+.container thead th {
+  background: #f8fafc;
+  color: #475569;
+  font-weight: 600;
+  text-align: left;
+  padding: 0.6em 1em;
+  border-bottom: 2px solid #e2e8f0;
+}
+.container tbody td {
+  padding: 0.6em 1em;
+  border-bottom: 1px solid #f1f5f9;
+  vertical-align: top;
+}
+.container tbody tr:last-child td { border-bottom: none; }
+
+/* ── Images ───────────────────────────────────────────── */
+.container img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin: 1.5em 0;
+}
+
+/* ── Horizontal rule ──────────────────────────────────── */
+.container hr {
+  border: none;
+  border-top: 2px solid #e2e8f0;
+  margin: 2em 0;
+}
