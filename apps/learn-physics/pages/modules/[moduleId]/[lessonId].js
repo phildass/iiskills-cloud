@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout } from '@iiskills/ui';
+import { Layout } from '@iiskills/ui/common';
 import ReactMarkdown from 'react-markdown';
 import { getCourseMetadata, getLessonsForModule, getLesson } from '@iiskills/content';
 

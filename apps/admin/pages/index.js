@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout } from '@iiskills/ui';
+import { Layout } from '@iiskills/ui/common';
 import Link from 'next/link';
 
 // Mock data for Master Grid

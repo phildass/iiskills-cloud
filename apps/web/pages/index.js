@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout } from '@iiskills/ui';
+import { Layout } from '@iiskills/ui/common';
 
 export default function Home() {
   return (
