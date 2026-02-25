@@ -73,5 +73,13 @@ Content lives in `packages/content/courses/<course-id>/`:
 
 ## Google Translate
 
-The universal navbar in `packages/ui` includes a Google Translate integration hook.  
-Enable it by setting `NEXT_PUBLIC_GOOGLE_TRANSLATE_ENABLED=true` in your app's `.env.local`.
+The universal navbar (`packages/ui/src/common/Header.js`) includes a Google Translate widget
+rendered **once** in the always-visible part of the header (desktop and mobile).
+
+- **Default: enabled** – the widget shows automatically in every app.
+- **To disable** in a specific app, set `NEXT_PUBLIC_DISABLE_GOOGLE_TRANSLATE=true` in that
+  app's `.env.local`.
+
+> **Troubleshooting:** If the translate widget is missing, check that the element
+> `#google_translate_element` exists in the DOM (it should appear inside the `<nav>` element)
+> and that `NEXT_PUBLIC_DISABLE_GOOGLE_TRANSLATE` is not `true`.

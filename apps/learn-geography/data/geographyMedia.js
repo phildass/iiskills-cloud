@@ -11,6 +11,9 @@
  *     photos:    [{ url, alt, caption }]  – 1-3 illustrative photos
  *   }
  *
+ * Per-lesson overrides live under `lessonMedia`:
+ *   lessonMedia[`${moduleId}_${lessonId}`] = { mapUrl, mapAlt, photos }
+ *
  * To add more visuals: extend the relevant module entry or add a new one.
  */
 
@@ -177,12 +180,132 @@ const geographyMedia = {
 };
 
 /**
+ * Per-lesson media overrides for Module 1 (Physical Geography), Lessons 1–4.
+ * Key format: `${moduleId}_${lessonId}` (e.g. "1_1").
+ * These are placed inline within the lesson body rather than as a top panel.
+ * Each lesson gets its own distinct set of images.
+ */
+const lessonMedia = {
+  // Module 1, Lesson 1 – Introduction to Geography
+  '1_1': {
+    mapUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/World_map_-_low_resolution.svg/1280px-World_map_-_low_resolution.svg.png',
+    mapAlt: 'Blank political world map showing all continents and countries',
+    photos: [
+      {
+        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/The_Earth_seen_from_Apollo_17.jpg/480px-The_Earth_seen_from_Apollo_17.jpg',
+        alt: 'The Blue Marble – Earth photographed from Apollo 17',
+        caption: 'Earth from space (Apollo 17) — the starting point of all geography',
+        // Insert after the introductory section (after 3rd paragraph)
+        insertAfterSection: 'introduction',
+      },
+      {
+        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/24701-nature-natural-beauty.jpg/480px-24701-nature-natural-beauty.jpg',
+        alt: 'Mountain landscape with river valley',
+        caption: 'Landforms shaped by erosion and tectonic forces',
+        insertAfterSection: 'landforms',
+      },
+      {
+        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Koppen_climate_map.png/800px-Koppen_climate_map.png',
+        alt: 'Köppen climate classification world map',
+        caption: "Köppen climate zones — one of geography's most-used frameworks",
+        insertAfterSection: 'climate',
+      },
+    ],
+  },
+  // Module 1, Lesson 2 – Landforms and Earth Processes
+  '1_2': {
+    mapUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Plate_tectonic_map.gif/800px-Plate_tectonic_map.gif',
+    mapAlt: "Map of Earth's tectonic plates and their boundaries",
+    photos: [
+      {
+        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/PikiWiki_Israel_18102_Mount_Hermon_-_Tectonic_activity.jpg/480px-PikiWiki_Israel_18102_Mount_Hermon_-_Tectonic_activity.jpg',
+        alt: 'Rocky cliff face showing folded rock strata from tectonic activity',
+        caption: 'Folded rock strata — evidence of past tectonic forces',
+        insertAfterSection: 'introduction',
+      },
+      {
+        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Himalaya_composite.jpg/480px-Himalaya_composite.jpg',
+        alt: 'Panoramic view of the Himalayan mountain range',
+        caption: 'The Himalayas — formed by the collision of the Indian and Eurasian plates',
+        insertAfterSection: 'landforms',
+      },
+      {
+        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Nile_River_Delta_from_orbit.jpg/480px-Nile_River_Delta_from_orbit.jpg',
+        alt: 'Satellite view of the Nile River Delta from orbit',
+        caption: 'The Nile Delta — a classic fluvial depositional landform',
+        insertAfterSection: 'rivers',
+      },
+    ],
+  },
+  // Module 1, Lesson 3 – Climate Systems
+  '1_3': {
+    mapUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Whole_world_-_land_and_oceans.jpg/1280px-Whole_world_-_land_and_oceans.jpg',
+    mapAlt: 'World map showing continents and oceans',
+    photos: [
+      {
+        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Itcz_new.jpg/480px-Itcz_new.jpg',
+        alt: 'Satellite image showing the Intertropical Convergence Zone cloud band',
+        caption: 'The ITCZ — the belt of cloud and rain near the equator',
+        insertAfterSection: 'introduction',
+      },
+      {
+        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Atlantic_hurricane_graphic.jpg/480px-Atlantic_hurricane_graphic.jpg',
+        alt: 'Satellite image of a hurricane from space',
+        caption: 'Tropical cyclones (hurricanes) — driven by warm ocean temperatures',
+        insertAfterSection: 'climate',
+      },
+      {
+        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Global_ocean_currents.jpg/480px-Global_ocean_currents.jpg',
+        alt: 'World map showing major ocean current systems',
+        caption: 'Global ocean currents redistribute heat around the planet',
+        insertAfterSection: 'ocean',
+      },
+    ],
+  },
+  // Module 1, Lesson 4 – Human Settlement and Urbanisation
+  '1_4': {
+    mapUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Earthlights_dmsp.jpg/1280px-Earthlights_dmsp.jpg',
+    mapAlt: 'Earth at night from space showing city lights and settlement patterns',
+    photos: [
+      {
+        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/VancouverBC_from_air_2004.jpg/480px-VancouverBC_from_air_2004.jpg',
+        alt: 'Aerial view of Vancouver urban area',
+        caption: 'Modern urban sprawl — cities now house over half the world\'s population',
+        insertAfterSection: 'introduction',
+      },
+      {
+        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Dharavi_Mumbai_India.jpg/480px-Dharavi_Mumbai_India.jpg',
+        alt: 'Aerial view of Dharavi informal settlement in Mumbai',
+        caption: 'Informal settlements house over 1 billion people globally',
+        insertAfterSection: 'settlements',
+      },
+      {
+        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/New_York_City_at_night_HDR_desat.jpg/480px-New_York_City_at_night_HDR_desat.jpg',
+        alt: 'New York City skyline at night',
+        caption: 'World cities concentrate capital, culture and commerce',
+        insertAfterSection: 'cities',
+      },
+    ],
+  },
+};
+
+/**
  * Returns media for a given module ID (integer or string).
  * Falls back to module 1 defaults if the module has no dedicated entry.
  */
 export function getModuleMedia(moduleId) {
   const id = parseInt(moduleId, 10);
   return geographyMedia[id] || geographyMedia[1] || null;
+}
+
+/**
+ * Returns lesson-specific media when available, otherwise falls back to module media.
+ * @param {string|number} moduleId
+ * @param {string|number} lessonId
+ */
+export function getLessonMedia(moduleId, lessonId) {
+  const key = `${moduleId}_${lessonId}`;
+  return lessonMedia[key] || getModuleMedia(moduleId);
 }
 
 export default geographyMedia;

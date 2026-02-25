@@ -2,6 +2,8 @@
 
 import { useEffect } from "react";
 
+// Set NEXT_PUBLIC_DISABLE_GOOGLE_TRANSLATE=true to hide the widget in any app.
+
 /**
  * Google Translate Widget Component
  *
@@ -34,7 +36,12 @@ const TRANSLATE_CSS = `
 `;
 
 export default function GoogleTranslate() {
+  const disabled = process.env.NEXT_PUBLIC_DISABLE_GOOGLE_TRANSLATE === 'true';
+
   useEffect(() => {
+    // Do nothing if explicitly disabled
+    if (disabled) return;
+
     // Inject styles once
     if (!document.getElementById(TRANSLATE_STYLE_ID)) {
       const style = document.createElement('style');
@@ -81,7 +88,10 @@ export default function GoogleTranslate() {
     script.async = true;
     script.onerror = () => console.warn('[iiskills] Google Translate script failed to load');
     document.head.appendChild(script);
-  }, []);
+  }, [disabled]);
+
+  // Hidden (not removed) when disabled so the DOM element stays stable
+  if (disabled) return null;
 
   return (
     <div
