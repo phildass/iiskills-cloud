@@ -13,6 +13,7 @@ const nextConfig = {
   turbopack: {
     resolveAlias: {
       '@': path.resolve(__dirname, '../..'),
+      '@shared': path.resolve(__dirname, '../../components/shared'),
       '@lib': path.resolve(__dirname, '../../lib'),
       '@utils': path.resolve(__dirname, '../../utils'),
       '@config': path.resolve(__dirname, '../../config'),
@@ -24,6 +25,7 @@ const nextConfig = {
     config.resolve.alias = {
       ...config.resolve.alias,
       '@': path.resolve(__dirname, '../..'),
+      '@shared': path.resolve(__dirname, '../../components/shared'),
       '@lib': path.resolve(__dirname, '../../lib'),
       '@utils': path.resolve(__dirname, '../../utils'),
       '@config': path.resolve(__dirname, '../../config'),

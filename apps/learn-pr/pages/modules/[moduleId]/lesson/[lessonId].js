@@ -115,7 +115,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import QuizComponent from '../../../../components/QuizComponent';
-import PremiumAccessPrompt from '@shared/PremiumAccessPrompt';
+import EnrollmentLandingPage from '@shared/EnrollmentLandingPage';
 import { getCurrentUser } from '../../../../lib/supabaseClient';
 import { LessonContent } from '@iiskills/ui/content';
 
@@ -123,7 +123,7 @@ export default function LessonPage({ lesson, moduleId, lessonId }) {
   const router = useRouter();
   const [user, setUser] = useState(null);
   const [quizCompleted, setQuizCompleted] = useState(false);
-  const [showPremiumPrompt, setShowPremiumPrompt] = useState(false);
+  const [showEnrollment, setShowEnrollment] = useState(false);
   const [showPaywall, setShowPaywall] = useState(false);
 
   // Auth check runs in background; never blocks page render.
@@ -142,7 +142,7 @@ export default function LessonPage({ lesson, moduleId, lessonId }) {
     
     // Show Premium Access Prompt after completing sample lesson (Module 1, Lesson 1)
     if (passed && moduleId === '1' && lessonId === '1') {
-      setShowPremiumPrompt(true);
+      setShowEnrollment(true);
     }
     
     if (passed) {
@@ -256,12 +256,14 @@ export default function LessonPage({ lesson, moduleId, lessonId }) {
         </div>
       </main>
 
-      {/* Premium Access Prompt - shown after sample lesson completion */}
-      {showPremiumPrompt && (
-        <PremiumAccessPrompt
+            {/* Enrollment Landing — shown after sample lesson quiz completion */}
+      {showEnrollment && (
+        <EnrollmentLandingPage
+          appId="learn-pr"
           appName="Learn PR"
           appHighlight="Master the science of public perception and brand influence. Build strategic PR campaigns and manage crisis communications."
-          onCancel={() => setShowPremiumPrompt(false)}
+          showAIDevBundle={false}
+          onClose={() => setShowEnrollment(false)}
         />
       )}
     </>

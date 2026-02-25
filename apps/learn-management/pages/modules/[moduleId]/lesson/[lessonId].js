@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import QuizComponent from '../../../../components/QuizComponent';
-import PremiumAccessPrompt from '@shared/PremiumAccessPrompt';
+import EnrollmentLandingPage from '@shared/EnrollmentLandingPage';
 import { getCurrentUser } from '../../../../lib/supabaseClient';
 import { LessonContent } from '@iiskills/ui/content';
 
@@ -15,7 +15,7 @@ export default function LessonPage() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [quizCompleted, setQuizCompleted] = useState(false);
-  const [showPremiumPrompt, setShowPremiumPrompt] = useState(false);
+  const [showEnrollment, setShowEnrollment] = useState(false);
 
   useEffect(() => {
     checkAuth();
@@ -152,7 +152,7 @@ export default function LessonPage() {
     
     // Show Premium Access Prompt after completing sample lesson (Module 1, Lesson 1)
     if (passed && moduleId === '1' && lessonId === '1') {
-      setShowPremiumPrompt(true);
+      setShowEnrollment(true);
     }
     
     if (passed) {
@@ -253,12 +253,14 @@ export default function LessonPage() {
         </div>
       </main>
 
-      {/* Premium Access Prompt - shown after sample lesson completion */}
-      {showPremiumPrompt && (
-        <PremiumAccessPrompt
+            {/* Enrollment Landing — shown after sample lesson quiz completion */}
+      {showEnrollment && (
+        <EnrollmentLandingPage
+          appId="learn-management"
           appName="Learn Management"
           appHighlight="Standardize your leadership systems and optimize team efficiency. Master strategic business management frameworks."
-          onCancel={() => setShowPremiumPrompt(false)}
+          showAIDevBundle={false}
+          onClose={() => setShowEnrollment(false)}
         />
       )}
     </>

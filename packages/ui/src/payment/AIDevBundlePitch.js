@@ -1,5 +1,7 @@
 "use client";
 
+import { getPricingDisplay, isBundleOfferActive } from '../../../utils/pricing';
+
 /**
  * AI-Developer Bundle Pitch Component
  * 
@@ -12,6 +14,8 @@
  */
 
 export default function AIDevBundlePitch({ currentApp = "learn-ai" }) {
+  const pricing = getPricingDisplay();
+  const bundleActive = isBundleOfferActive();
   const bundleInfo = {
     "learn-ai": {
       otherApp: "Learn Developer",
@@ -108,7 +112,7 @@ export default function AIDevBundlePitch({ currentApp = "learn-ai" }) {
           <div className="text-center">
             <div className="inline-block bg-white/10 rounded-xl p-4 mb-4">
               <p className="text-sm text-purple-200 mb-1">One-Time Investment</p>
-              <p className="text-4xl font-bold">Rs 116.82</p>
+              <p className="text-4xl font-bold">{pricing.totalPrice}</p>
               <p className="text-sm text-purple-300 mt-1">(Incl. GST)</p>
             </div>
             <p className="text-lg">
