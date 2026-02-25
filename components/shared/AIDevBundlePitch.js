@@ -8,7 +8,7 @@ import { getPricingDisplay, getBundleOfferNotice, isBundleOfferActive } from '..
  * Special bundle offer:
  * - Purchase Learn AI → Unlock Learn Developer
  * - Purchase Learn Developer → Unlock Learn AI
- * - Pay for one, get both for Rs 116.82
+ * - Pay for one, get both (price from centralized pricing module)
  * 
  * "AI and Development are two sides of the same coin"
  */
