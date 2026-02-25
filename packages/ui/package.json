@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "src/index.js",
   "peerDependencies": {
-    "react": ">=17",
-    "next": ">=12"
+    "next": ">=12",
+    "react": ">=17"
   }
 }
