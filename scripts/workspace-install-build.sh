@@ -83,7 +83,10 @@ if [ "$SUPPORTS_FOCUS" = true ]; then
   echo "Using Yarn workspaces focus (efficient workspace-only install)"
   # Note: Always install all dependencies (including devDependencies) for builds
   # The --production flag would skip devDependencies which are needed for building
-  yarn workspaces focus "$WORKSPACE_NAME"
+  # Use the package name from package.json (may differ from directory name, e.g. @iiskills/main)
+  PKG_NAME=$(node -e "try { const p = require('./${WORKSPACE_PATH}/package.json'); console.log(p.name); } catch(e) { console.log('${WORKSPACE_NAME}'); }" 2>/dev/null || echo "$WORKSPACE_NAME")
+  echo "Package name: $PKG_NAME"
+  yarn workspaces focus "$PKG_NAME"
 else
   echo "Using Yarn v1 fallback (root install)"
   yarn install --frozen-lockfile

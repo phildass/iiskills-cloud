@@ -1623,7 +1623,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@iiskills/main@workspace:apps/main"
   dependencies:
+    "@iiskills/ui": "workspace:*"
+    "@sendgrid/mail": "npm:^8.1.6"
     "@supabase/supabase-js": "npm:^2.89.0"
+    "@vonage/server-sdk": "npm:^3.26.0"
     autoprefixer: "npm:^10.4.14"
     bcrypt: "npm:^6.0.0"
     cookie: "npm:^1.1.1"
@@ -1660,6 +1663,7 @@ __metadata:
   dependencies:
     "@supabase/auth-helpers-nextjs": "npm:^0.8.0"
     "@supabase/supabase-js": "npm:^2.38.4"
+    framer-motion: "npm:>=10.0.0"
   peerDependencies:
     next: ">=13.0.0"
     react: ">=18.0.0"
@@ -6096,7 +6100,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:^12.33.0":
+"framer-motion@npm:>=10.0.0, framer-motion@npm:^12.33.0":
   version: 12.34.3
   resolution: "framer-motion@npm:12.34.3"
   dependencies:
@@ -7894,6 +7898,7 @@ __metadata:
     eslint: "npm:^9.39.2"
     next: "npm:^16.1.1"
     postcss: "npm:^8.4.31"
+    razorpay: "npm:^2.9.6"
     react: "npm:^19.2.3"
     react-dom: "npm:^19.2.3"
     tailwindcss: "npm:^3.4.18"
@@ -7905,11 +7910,14 @@ __metadata:
   resolution: "learn-developer@workspace:apps/learn-developer"
   dependencies:
     "@iiskills/ui": "workspace:*"
+    "@sendgrid/mail": "npm:^8.1.6"
     "@supabase/supabase-js": "npm:^2.89.0"
+    "@vonage/server-sdk": "npm:^3.26.0"
     autoprefixer: "npm:^10.4.14"
     eslint: "npm:^9.39.2"
     next: "npm:^16.1.1"
     postcss: "npm:^8.4.31"
+    razorpay: "npm:^2.9.6"
     react: "npm:^19.2.3"
     react-dom: "npm:^19.2.3"
     tailwindcss: "npm:^3.4.18"
@@ -7926,6 +7934,7 @@ __metadata:
     eslint: "npm:^9.39.2"
     next: "npm:^16.1.1"
     postcss: "npm:^8.4.31"
+    razorpay: "npm:^2.9.6"
     react: "npm:^19.2.3"
     react-dom: "npm:^19.2.3"
     tailwindcss: "npm:^3.4.18"
@@ -7937,11 +7946,14 @@ __metadata:
   resolution: "learn-management@workspace:apps/learn-management"
   dependencies:
     "@iiskills/ui": "workspace:*"
+    "@sendgrid/mail": "npm:^8.1.6"
     "@supabase/supabase-js": "npm:^2.89.0"
+    "@vonage/server-sdk": "npm:^3.26.0"
     autoprefixer: "npm:^10.4.14"
     eslint: "npm:^9.39.2"
     next: "npm:^16.1.1"
     postcss: "npm:^8.4.31"
+    razorpay: "npm:^2.9.6"
     react: "npm:^19.2.3"
     react-dom: "npm:^19.2.3"
     tailwindcss: "npm:^3.4.18"
@@ -7958,6 +7970,7 @@ __metadata:
     eslint: "npm:^9.39.2"
     next: "npm:^16.1.1"
     postcss: "npm:^8.4.31"
+    razorpay: "npm:^2.9.6"
     react: "npm:^19.2.3"
     react-dom: "npm:^19.2.3"
     tailwindcss: "npm:^3.4.18"
@@ -7970,11 +7983,14 @@ __metadata:
   dependencies:
     "@iiskills/content-loader": "npm:*"
     "@iiskills/ui": "workspace:*"
+    "@sendgrid/mail": "npm:^8.1.6"
     "@supabase/supabase-js": "npm:^2.89.0"
+    "@vonage/server-sdk": "npm:^3.26.0"
     autoprefixer: "npm:^10.4.14"
     eslint: "npm:^9.39.2"
     next: "npm:^16.1.1"
     postcss: "npm:^8.4.31"
+    razorpay: "npm:^2.9.6"
     react: "npm:^19.2.3"
     react-dom: "npm:^19.2.3"
     tailwindcss: "npm:^3.4.18"
