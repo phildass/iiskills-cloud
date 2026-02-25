@@ -91,7 +91,7 @@ echo ""
 
 # Step 5: Start sandbox via PM2
 echo -e "${CYAN}Step 5: Starting sandbox apps via PM2${NC}"
-pm2 startOrRestart ecosystem.newapps.config.js --update-env
+pm2 start ecosystem.newapps.config.js --update-env
 pm2 save
 echo ""
 

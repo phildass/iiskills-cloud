@@ -15,7 +15,9 @@ Each file corresponds to a subdomain and contains:
 
 | Config File | Subdomain | Backend Port | PM2 App Name |
 |-------------|-----------|--------------|--------------|
-| `app.iiskills.cloud` | app.iiskills.cloud | 3000 | iiskills-main |
+| `iiskills.cloud` | iiskills.cloud, www.iiskills.cloud | 3000 | iiskills-web |
+| `app.iiskills.cloud` | app.iiskills.cloud | 3000 | iiskills-web |
+| `app1.iiskills.cloud` | app1.iiskills.cloud | 3002 | iiskills-learn-apt |
 | `learn-ai.iiskills.cloud` | learn-ai.iiskills.cloud | 3024 | iiskills-learn-ai |
 | `learn-apt.iiskills.cloud` | learn-apt.iiskills.cloud | 3002 | iiskills-learn-apt |
 | `learn-chemistry.iiskills.cloud` | learn-chemistry.iiskills.cloud | 3005 | iiskills-learn-chemistry |
