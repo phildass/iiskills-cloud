@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import Footer from '../../../components/Footer';
 import ModuleFinalTestComponent from '../../../components/ModuleFinalTestComponent';
 import { getCurrentUser } from '../../../lib/supabaseClient';
 
@@ -47,10 +46,6 @@ export default function ModuleFinalTestPage() {
   useEffect(() => {
     const checkAuth = async () => {
       const currentUser = await getCurrentUser();
-      if (!currentUser && process.env.NEXT_PUBLIC_DISABLE_AUTH !== 'true') {
-        router.push('/register');
-        return;
-      }
       setUser(currentUser);
       setLoading(false);
     };
@@ -129,7 +124,6 @@ export default function ModuleFinalTestPage() {
           )}
         </div>
       </main>
-      <Footer />
     </>
   );
 }
