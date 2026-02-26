@@ -1,0 +1,40 @@
+{
+  "moduleId": 1,
+  "lessonId": 1,
+  "slug": "http-dns-request-response",
+  "title": "HTTP, DNS, and Request/Response",
+  "isFree": true,
+  "content": "<h2>Module 1, Lesson 1: The Web's DNA — HTTP, DNS, and Request/Response</h2>\n\n<h3>Introduction</h3>\n<p>Think of the internet as a massive city. DNS (Domain Name System) is the phone book — you don't memorise everyone's address; you look up \"Google\" and it translates to 142.250.80.46. When you type a URL, your browser is like a tourist asking for directions.</p>\n<p>HTTP (HyperText Transfer Protocol) is the language spoken between your browser (the client) and the server. You send a polite REQUEST: \"GET me the homepage, please.\" The server responds with a RESPONSE: \"Here's your HTML. Status: 200 OK!\"</p>\n\n<h3>Key Concepts</h3>\n<h4>HTTP Methods</h4>\n<p>Request methods are like ordering at a drive-thru. <strong>GET</strong> means \"show me the menu\" (retrieve data). <strong>POST</strong> is \"here's my order\" (send data). <strong>PUT</strong> updates your order, <strong>DELETE</strong> cancels it.</p>\n<h4>Status Codes</h4>\n<p>Status codes are the server's mood: 200s are happy (\"OK!\"), 300s are indecisive (\"Try over there\"), 400s blame you (\"Bad Request\"), and 500s blame themselves (\"Internal Server Error\").</p>\n<h4>Headers and Body</h4>\n<p>Headers carry metadata: cookies (your VIP pass), content-type (is this JSON or HTML?), and authorisation tokens. The body is the actual payload — the data you're sending or receiving.</p>\n\n<h3>Summary</h3>\n<p>Mastering HTTP isn't just about memorising codes; it's about understanding the conversation. Every click, every form submission, every API call is a request-response tango. When you grasp this flow, debugging becomes intuitive.</p>",
+  "quiz": [
+    {
+      "question": "What does DNS stand for and what is its primary function?",
+      "options": [
+        "Domain Network System — manages network traffic",
+        "Domain Name System — translates domain names to IP addresses",
+        "Digital Name Service — encrypts domain requests",
+        "Data Navigation System — routes packets efficiently"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What HTTP status code indicates a successful request?",
+      "options": ["404 Not Found", "500 Internal Server Error", "200 OK", "301 Moved Permanently"],
+      "correct_answer": 2
+    },
+    {
+      "question": "Which HTTP method is used to retrieve data from a server?",
+      "options": ["POST", "GET", "PUT", "DELETE"],
+      "correct_answer": 1
+    },
+    {
+      "question": "What header specifies the format of data being sent?",
+      "options": ["Accept", "Authorization", "Content-Type", "User-Agent"],
+      "correct_answer": 2
+    },
+    {
+      "question": "What does a 404 status code indicate?",
+      "options": ["Server error", "Successful request", "Resource not found", "Unauthorized access"],
+      "correct_answer": 2
+    }
+  ]
+}

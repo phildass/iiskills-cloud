@@ -1,0 +1,60 @@
+{
+  "moduleId": 9,
+  "lessonId": 1,
+  "slug": "performance-optimisation",
+  "title": "Performance Optimisation",
+  "isFree": true,
+  "content": "<h2>Module 9, Lesson 1: Performance Optimisation</h2>\n\n<h3>Introduction</h3>\n<p>Performance is a feature. A 100ms delay reduces conversion rates; a 1-second delay on mobile increases bounce rates by 32%. Optimisation should be data-driven: measure first, identify the bottleneck, fix the bottleneck, measure again. Premature optimisation is the root of much unnecessary complexity.</p>\n\n<h3>Key Concepts</h3>\n<h4>Frontend Performance</h4>\n<p>The browser rendering pipeline: network → parse HTML → build DOM → CSSOM → render tree → layout → paint → composite. Minimise render-blocking resources. Lazy-load images and off-screen components. Code-split JavaScript bundles so users only download what they need for the current page. Use a CDN to serve static assets from the edge.</p>\n<h4>Backend Performance</h4>\n<p>N+1 queries are the most common database performance killer: loading a list of users and then querying each user's profile separately. Fix with joins or eager loading. Add database indexes on frequently queried columns. Cache expensive computations with Redis. Use connection pooling to avoid the overhead of creating a new database connection per request.</p>\n<h4>Profiling and Measurement</h4>\n<p>You can't optimise what you don't measure. Use browser DevTools (Lighthouse, Network tab, Performance tab) for frontend. Use APM tools (Datadog, New Relic) or query logs for backend. Set performance budgets and include performance tests in CI to prevent regression.</p>\n\n<h3>Summary</h3>\n<p>Performance optimisation is an iterative process: profile → identify bottleneck → fix → measure. Caching, lazy loading, efficient queries, and CDNs cover the majority of real-world wins.</p>",
+  "quiz": [
+    {
+      "question": "What is an N+1 query problem?",
+      "options": [
+        "A query that returns N+1 rows instead of N",
+        "Running N separate queries for each item in a list instead of one batched query",
+        "A database index that requires N+1 lookups",
+        "An ORM bug that duplicates query results"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What does code splitting do in a JavaScript application?",
+      "options": [
+        "Splits code across multiple development teams",
+        "Divides a large JavaScript bundle into smaller chunks loaded on demand",
+        "Separates client-side and server-side code",
+        "Minifies JavaScript files for production"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is a CDN used for in web performance?",
+      "options": [
+        "Compressing database queries",
+        "Caching and serving static assets from servers geographically close to users",
+        "Managing server-side sessions",
+        "Encrypting API responses"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "Why is measuring before optimising important?",
+      "options": [
+        "Measurement is only required for legal compliance",
+        "Optimising without data leads to wasted effort on non-bottlenecks and unnecessary complexity",
+        "You must document performance before any code changes",
+        "Measurement tools are built into all modern frameworks"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is connection pooling in database access?",
+      "options": [
+        "Encrypting all database connections",
+        "Reusing a pool of established database connections instead of creating a new one per request",
+        "Load balancing across multiple database servers",
+        "Caching query results in memory"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

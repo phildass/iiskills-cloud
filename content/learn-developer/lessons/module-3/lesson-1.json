@@ -1,0 +1,60 @@
+{
+  "moduleId": 3,
+  "lessonId": 1,
+  "slug": "react-component-architecture",
+  "title": "React Component Architecture",
+  "isFree": true,
+  "content": "<h2>Module 3, Lesson 1: React Component Architecture</h2>\n\n<h3>Introduction</h3>\n<p>React's component model is a paradigm shift: instead of manipulating the DOM directly, you declare what the UI should look like given a state, and React figures out the minimal set of DOM updates required. This declarative approach scales from a single button to a complex dashboard.</p>\n\n<h3>Key Concepts</h3>\n<h4>Components and Props</h4>\n<p>A React component is a function that takes <strong>props</strong> (inputs) and returns JSX (a description of the UI). Props flow downward — parent to child — creating a clear data hierarchy. Keep components small and single-purpose: if a component does more than one thing, split it.</p>\n<h4>State and the useState Hook</h4>\n<p><strong>State</strong> is private data managed inside a component that, when changed, triggers a re-render. <code>useState</code> returns the current value and a setter function. Never mutate state directly — always use the setter to ensure React tracks the change.</p>\n<h4>useEffect and Side Effects</h4>\n<p><code>useEffect</code> runs after every render by default. With a dependency array it runs only when specified values change. An empty array <code>[]</code> runs it once on mount. Return a cleanup function to prevent memory leaks (e.g., clearing timers or unsubscribing from events).</p>\n\n<h3>Summary</h3>\n<p>React components are pure, composable, and predictable. Props carry data down, events bubble up. State lives where it's needed. Side effects are declared, not scattered. Master this mental model and building complex UIs becomes a systematic exercise.</p>",
+  "quiz": [
+    {
+      "question": "What are React props?",
+      "options": [
+        "Internal state variables managed by a component",
+        "Read-only inputs passed from a parent component to a child",
+        "Special HTML attributes for styling",
+        "Functions that handle events in React"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What does the useState hook return?",
+      "options": [
+        "The current state value only",
+        "A setter function only",
+        "The current state value and a setter function",
+        "A boolean indicating whether state has changed"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "When does useEffect with an empty dependency array [] run?",
+      "options": [
+        "After every render",
+        "Only when state changes",
+        "Only once, after the component first mounts",
+        "Only when props change"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "What is the virtual DOM in React?",
+      "options": [
+        "A browser API for accessing the real DOM faster",
+        "A lightweight in-memory representation of the real DOM used for efficient updates",
+        "A special HTML element created by React",
+        "A database storing component state"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "Why should you never mutate React state directly?",
+      "options": [
+        "It causes a syntax error",
+        "It is slower than using setState",
+        "React won't detect the change and won't re-render the component",
+        "Direct mutation is only allowed in class components"
+      ],
+      "correct_answer": 2
+    }
+  ]
+}
