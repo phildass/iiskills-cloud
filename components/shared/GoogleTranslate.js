@@ -3,6 +3,10 @@
 import { useEffect } from "react";
 
 /**
+ * @deprecated Do not use. Use packages/ui/src/common/GoogleTranslate (via @iiskills/ui/common)
+ * instead. This legacy wrapper is no longer imported anywhere; kept only to avoid breaking
+ * any future stale imports.
+ *
  * Google Translate Widget – legacy shared components wrapper.
  * Delegates to the same canonical logic as packages/ui/src/common/GoogleTranslate.js.
  * Styles are injected once via a <style> tag (no styled-jsx dependency).
