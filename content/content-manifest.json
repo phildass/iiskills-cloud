@@ -643,5 +643,24 @@
       "lessonUrlPattern": "/modules/[moduleId]/lesson/[lessonId]",
       "staticPagesCount": 100
     }
+    {
+      "appSlug": "learn-developer",
+      "title": "Web Developer Bootcamp",
+      "courseUrl": "/curriculum",
+      "modules": [
+        { "id": 1, "slug": "http-dns-fundamentals", "title": "The Web's DNA: HTTP, DNS, and Request/Response", "level": "basic", "lessonCount": 10, "staticLessons": [1] },
+        { "id": 2, "slug": "javascript-mastery", "title": "JavaScript Mastery: Async, Closures & Prototypes", "level": "basic", "lessonCount": 10, "staticLessons": [1] },
+        { "id": 3, "slug": "react-component-architecture", "title": "React Component Architecture", "level": "basic", "lessonCount": 10, "staticLessons": [1] },
+        { "id": 4, "slug": "nodejs-express-backend", "title": "Node.js & Express: Backend Fundamentals", "level": "intermediate", "lessonCount": 10, "staticLessons": [1] },
+        { "id": 5, "slug": "database-design", "title": "Database Design: SQL vs NoSQL", "level": "intermediate", "lessonCount": 10, "staticLessons": [1] },
+        { "id": 6, "slug": "authentication-security", "title": "Authentication & Security", "level": "intermediate", "lessonCount": 10, "staticLessons": [1] },
+        { "id": 7, "slug": "system-design", "title": "System Design & Architecture", "level": "advanced", "lessonCount": 10, "staticLessons": [1] },
+        { "id": 8, "slug": "devops-deployment", "title": "DevOps & Deployment", "level": "advanced", "lessonCount": 10, "staticLessons": [1] },
+        { "id": 9, "slug": "performance-optimization", "title": "Performance Optimisation", "level": "advanced", "lessonCount": 10, "staticLessons": [1] },
+        { "id": 10, "slug": "advanced-patterns", "title": "Advanced Patterns & Clean Code", "level": "advanced", "lessonCount": 10, "staticLessons": [1] }
+      ],
+      "lessonUrlPattern": "/modules/[moduleId]/lesson/[lessonId]",
+      "staticPagesCount": 100
+    }
   ]
 }
