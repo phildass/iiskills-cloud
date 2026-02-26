@@ -544,7 +544,7 @@ export default function Home() {
         {/* LARGE IMAGE ACCENT 4 - Diverse Community */}
         <section className="relative h-[400px] md:h-[500px] overflow-hidden">
           <Image
-            src="/images/multiracial-friends-using-smartphone-against-wall-university-college-backyard-young-people.jpg"
+            src="/images/iiskills-main3.jpg"
             alt="Diverse community of learners collaborating"
             fill
             className="object-cover"
