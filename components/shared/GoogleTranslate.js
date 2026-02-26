@@ -44,16 +44,22 @@ export default function GoogleTranslate() {
       const container = document.getElementById(TRANSLATE_ELEMENT_ID);
       if (!container) return;
       if (container.childElementCount > 0) return;
-      new window.google.translate.TranslateElement(
-        {
-          pageLanguage: 'en',
-          includedLanguages: INCLUDED_LANGUAGES,
-          layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE,
-          autoDisplay: false,
-          multilanguagePage: true,
-        },
-        TRANSLATE_ELEMENT_ID
-      );
+      try {
+        const InlineLayout = window.google.translate.TranslateElement.InlineLayout;
+        new window.google.translate.TranslateElement(
+          {
+            pageLanguage: 'en',
+            includedLanguages: INCLUDED_LANGUAGES,
+            // Only set layout when the InlineLayout enum is available
+            ...(InlineLayout != null ? { layout: InlineLayout.SIMPLE } : {}),
+            autoDisplay: false,
+            multilanguagePage: true,
+          },
+          TRANSLATE_ELEMENT_ID
+        );
+      } catch (e) {
+        console.warn('[iiskills] Google Translate initialization failed:', e);
+      }
     }
 
     if (window.google?.translate?.TranslateElement) {

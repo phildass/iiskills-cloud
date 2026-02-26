@@ -1,4 +1,4 @@
-import Header from "@iiskills/ui/src/Header";
+import { Header } from "@iiskills/ui/common";
 
 /**
  * Shared Navigation Bar Component
