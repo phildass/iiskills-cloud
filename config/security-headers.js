@@ -50,8 +50,8 @@ const securityHeaders = [
     key: 'Content-Security-Policy',
     value: [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.google.com https://www.gstatic.com https://translate.google.com https://checkout.razorpay.com",
-      "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://checkout.razorpay.com",
+      "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.google.com https://www.gstatic.com https://translate.google.com https://translate.googleapis.com https://checkout.razorpay.com",
+      "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://www.gstatic.com https://ssl.gstatic.com https://checkout.razorpay.com",
       "font-src 'self' https://fonts.gstatic.com data:",
       "img-src 'self' data: https: blob:",
       "connect-src 'self' https://*.supabase.co https://api.razorpay.com https://lumberjack.razorpay.com wss://*.supabase.co https://translate.googleapis.com",
