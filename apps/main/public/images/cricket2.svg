@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="600" fill="#C77DDB"/>
+  <text x="50%" y="40%" font-family="Arial, sans-serif" font-size="72" font-weight="bold" 
+        fill="#ffffff" text-anchor="middle" dominant-baseline="middle">
+    Cricket 2
+  </text>
+  <text x="50%" y="55%" font-family="Arial, sans-serif" font-size="32" 
+        fill="#ffffff" text-anchor="middle" dominant-baseline="middle" opacity="0.8">
+    🏏 Cricket Knowledge Portal
+  </text>
+</svg>
