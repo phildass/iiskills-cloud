@@ -1,0 +1,25 @@
+{
+  "id": "sim-2",
+  "title": "Reaction Rate Investigation",
+  "instructions": "Investigate how temperature affects the decomposition rate of hydrogen peroxide (H₂O₂) using MnO₂ as a catalyst. Measure the volume of O₂ gas produced per minute at different temperatures.",
+  "steps": [
+    "Prepare 50 mL of 3% H₂O₂ solution. Set up a gas collection apparatus (inverted measuring cylinder over water).",
+    "At 10°C (ice bath): add 0.5 g MnO₂ to H₂O₂. Record volume of O₂ collected every 30 seconds for 3 minutes.",
+    "Repeat at 20°C, 30°C, 40°C, and 50°C. Keep MnO₂ mass constant.",
+    "Plot volume of O₂ vs time for each temperature. Calculate initial rate (steepest gradient).",
+    "Plot ln(rate) vs 1/T to determine activation energy using the Arrhenius equation.",
+    "Confirm MnO₂ is unchanged at the end (weigh it) — verify it is a catalyst."
+  ],
+  "expected_outcome": "Rate approximately doubles for every 10°C rise. The ln(rate) vs 1/T graph is linear with slope −Eₐ/R. MnO₂ mass is unchanged, confirming catalytic behaviour.",
+  "self_check_rubric": [
+    "Did rate approximately double with each 10°C increase in temperature?",
+    "Is your Arrhenius plot (ln k vs 1/T) linear?",
+    "Is the estimated activation energy in the range 40–80 kJ/mol?",
+    "Did you verify that MnO₂ mass was unchanged (confirming catalysis)?",
+    "Did you control all variables except temperature throughout the experiment?"
+  ],
+  "images": [
+    "/images/learn-chemistry/chem213.png",
+    "/images/learn-chemistry/chem214.png"
+  ]
+}

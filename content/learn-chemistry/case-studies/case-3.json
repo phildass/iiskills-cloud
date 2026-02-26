@@ -1,0 +1,16 @@
+{
+  "id": "case-3",
+  "title": "Fuel Cells and Clean Energy",
+  "scenario": "An engineering team is developing a hydrogen fuel cell for electric vehicles. They need to understand the electrochemistry and optimise efficiency.",
+  "content": "<p>A hydrogen fuel cell is a galvanic cell that converts chemical energy directly to electrical energy with high efficiency. At the anode: H₂ → 2H⁺ + 2e⁻ (oxidation). At the cathode: O₂ + 4H⁺ + 4e⁻ → 2H₂O (reduction). Overall: 2H₂ + O₂ → 2H₂O, E°cell = +1.23 V.</p><p>Unlike combustion engines (~25% efficiency), fuel cells achieve 40–60% electrical efficiency. The Nernst equation describes how actual cell potential varies with hydrogen and oxygen concentrations (partial pressures).</p>",
+  "guided_questions": [
+    "Write the half-reactions at the anode and cathode of a hydrogen fuel cell.",
+    "Using ΔG = −nFE°, calculate the maximum work extractable from the reaction 2H₂ + O₂ → 2H₂O at standard conditions.",
+    "How does the Nernst equation predict cell voltage when H₂ partial pressure is reduced to 0.5 atm?"
+  ],
+  "what_you_learned": "Fuel cells demonstrate electrochemistry in action — galvanic cell principles, the Nernst equation, and Gibbs free energy calculations describe clean energy conversion with higher efficiency than combustion.",
+  "images": [
+    "/images/learn-chemistry/chem205.png",
+    "/images/learn-chemistry/chem206.png"
+  ]
+}

@@ -1,0 +1,442 @@
+{
+  "module-1/lesson-1": [
+    "/images/learn-chemistry/chem1.png",
+    "/images/learn-chemistry/chem2.png"
+  ],
+  "module-1/lesson-2": [
+    "/images/learn-chemistry/chem3.png",
+    "/images/learn-chemistry/chem4.png"
+  ],
+  "module-1/lesson-3": [
+    "/images/learn-chemistry/chem5.png",
+    "/images/learn-chemistry/chem6.png"
+  ],
+  "module-1/lesson-4": [
+    "/images/learn-chemistry/chem7.png",
+    "/images/learn-chemistry/chem8.png"
+  ],
+  "module-1/lesson-5": [
+    "/images/learn-chemistry/chem9.png",
+    "/images/learn-chemistry/chem10.png"
+  ],
+  "module-1/lesson-6": [
+    "/images/learn-chemistry/chem11.png",
+    "/images/learn-chemistry/chem12.png"
+  ],
+  "module-1/lesson-7": [
+    "/images/learn-chemistry/chem13.png",
+    "/images/learn-chemistry/chem14.png"
+  ],
+  "module-1/lesson-8": [
+    "/images/learn-chemistry/chem15.png",
+    "/images/learn-chemistry/chem16.png"
+  ],
+  "module-1/lesson-9": [
+    "/images/learn-chemistry/chem17.png",
+    "/images/learn-chemistry/chem18.png"
+  ],
+  "module-1/lesson-10": [
+    "/images/learn-chemistry/chem19.png",
+    "/images/learn-chemistry/chem20.png"
+  ],
+  "module-2/lesson-1": [
+    "/images/learn-chemistry/chem21.png",
+    "/images/learn-chemistry/chem22.png"
+  ],
+  "module-2/lesson-2": [
+    "/images/learn-chemistry/chem23.png",
+    "/images/learn-chemistry/chem24.png"
+  ],
+  "module-2/lesson-3": [
+    "/images/learn-chemistry/chem25.png",
+    "/images/learn-chemistry/chem26.png"
+  ],
+  "module-2/lesson-4": [
+    "/images/learn-chemistry/chem27.png",
+    "/images/learn-chemistry/chem28.png"
+  ],
+  "module-2/lesson-5": [
+    "/images/learn-chemistry/chem29.png",
+    "/images/learn-chemistry/chem30.png"
+  ],
+  "module-2/lesson-6": [
+    "/images/learn-chemistry/chem31.png",
+    "/images/learn-chemistry/chem32.png"
+  ],
+  "module-2/lesson-7": [
+    "/images/learn-chemistry/chem33.png",
+    "/images/learn-chemistry/chem34.png"
+  ],
+  "module-2/lesson-8": [
+    "/images/learn-chemistry/chem35.png",
+    "/images/learn-chemistry/chem36.png"
+  ],
+  "module-2/lesson-9": [
+    "/images/learn-chemistry/chem37.png",
+    "/images/learn-chemistry/chem38.png"
+  ],
+  "module-2/lesson-10": [
+    "/images/learn-chemistry/chem39.png",
+    "/images/learn-chemistry/chem40.png"
+  ],
+  "module-3/lesson-1": [
+    "/images/learn-chemistry/chem41.png",
+    "/images/learn-chemistry/chem42.png"
+  ],
+  "module-3/lesson-2": [
+    "/images/learn-chemistry/chem43.png",
+    "/images/learn-chemistry/chem44.png"
+  ],
+  "module-3/lesson-3": [
+    "/images/learn-chemistry/chem45.png",
+    "/images/learn-chemistry/chem46.png"
+  ],
+  "module-3/lesson-4": [
+    "/images/learn-chemistry/chem47.png",
+    "/images/learn-chemistry/chem48.png"
+  ],
+  "module-3/lesson-5": [
+    "/images/learn-chemistry/chem49.png",
+    "/images/learn-chemistry/chem50.png"
+  ],
+  "module-3/lesson-6": [
+    "/images/learn-chemistry/chem51.png",
+    "/images/learn-chemistry/chem52.png"
+  ],
+  "module-3/lesson-7": [
+    "/images/learn-chemistry/chem53.png",
+    "/images/learn-chemistry/chem54.png"
+  ],
+  "module-3/lesson-8": [
+    "/images/learn-chemistry/chem55.png",
+    "/images/learn-chemistry/chem56.png"
+  ],
+  "module-3/lesson-9": [
+    "/images/learn-chemistry/chem57.png",
+    "/images/learn-chemistry/chem58.png"
+  ],
+  "module-3/lesson-10": [
+    "/images/learn-chemistry/chem59.png",
+    "/images/learn-chemistry/chem60.png"
+  ],
+  "module-4/lesson-1": [
+    "/images/learn-chemistry/chem61.png",
+    "/images/learn-chemistry/chem62.png"
+  ],
+  "module-4/lesson-2": [
+    "/images/learn-chemistry/chem63.png",
+    "/images/learn-chemistry/chem64.png"
+  ],
+  "module-4/lesson-3": [
+    "/images/learn-chemistry/chem65.png",
+    "/images/learn-chemistry/chem66.png"
+  ],
+  "module-4/lesson-4": [
+    "/images/learn-chemistry/chem67.png",
+    "/images/learn-chemistry/chem68.png"
+  ],
+  "module-4/lesson-5": [
+    "/images/learn-chemistry/chem69.png",
+    "/images/learn-chemistry/chem70.png"
+  ],
+  "module-4/lesson-6": [
+    "/images/learn-chemistry/chem71.png",
+    "/images/learn-chemistry/chem72.png"
+  ],
+  "module-4/lesson-7": [
+    "/images/learn-chemistry/chem73.png",
+    "/images/learn-chemistry/chem74.png"
+  ],
+  "module-4/lesson-8": [
+    "/images/learn-chemistry/chem75.png",
+    "/images/learn-chemistry/chem76.png"
+  ],
+  "module-4/lesson-9": [
+    "/images/learn-chemistry/chem77.png",
+    "/images/learn-chemistry/chem78.png"
+  ],
+  "module-4/lesson-10": [
+    "/images/learn-chemistry/chem79.png",
+    "/images/learn-chemistry/chem80.png"
+  ],
+  "module-5/lesson-1": [
+    "/images/learn-chemistry/chem81.png",
+    "/images/learn-chemistry/chem82.png"
+  ],
+  "module-5/lesson-2": [
+    "/images/learn-chemistry/chem83.png",
+    "/images/learn-chemistry/chem84.png"
+  ],
+  "module-5/lesson-3": [
+    "/images/learn-chemistry/chem85.png",
+    "/images/learn-chemistry/chem86.png"
+  ],
+  "module-5/lesson-4": [
+    "/images/learn-chemistry/chem87.png",
+    "/images/learn-chemistry/chem88.png"
+  ],
+  "module-5/lesson-5": [
+    "/images/learn-chemistry/chem89.png",
+    "/images/learn-chemistry/chem90.png"
+  ],
+  "module-5/lesson-6": [
+    "/images/learn-chemistry/chem91.png",
+    "/images/learn-chemistry/chem92.png"
+  ],
+  "module-5/lesson-7": [
+    "/images/learn-chemistry/chem93.png",
+    "/images/learn-chemistry/chem94.png"
+  ],
+  "module-5/lesson-8": [
+    "/images/learn-chemistry/chem95.png",
+    "/images/learn-chemistry/chem96.png"
+  ],
+  "module-5/lesson-9": [
+    "/images/learn-chemistry/chem97.png",
+    "/images/learn-chemistry/chem98.png"
+  ],
+  "module-5/lesson-10": [
+    "/images/learn-chemistry/chem99.png",
+    "/images/learn-chemistry/chem100.png"
+  ],
+  "module-6/lesson-1": [
+    "/images/learn-chemistry/chem101.png",
+    "/images/learn-chemistry/chem102.png"
+  ],
+  "module-6/lesson-2": [
+    "/images/learn-chemistry/chem103.png",
+    "/images/learn-chemistry/chem104.png"
+  ],
+  "module-6/lesson-3": [
+    "/images/learn-chemistry/chem105.png",
+    "/images/learn-chemistry/chem106.png"
+  ],
+  "module-6/lesson-4": [
+    "/images/learn-chemistry/chem107.png",
+    "/images/learn-chemistry/chem108.png"
+  ],
+  "module-6/lesson-5": [
+    "/images/learn-chemistry/chem109.png",
+    "/images/learn-chemistry/chem110.png"
+  ],
+  "module-6/lesson-6": [
+    "/images/learn-chemistry/chem111.png",
+    "/images/learn-chemistry/chem112.png"
+  ],
+  "module-6/lesson-7": [
+    "/images/learn-chemistry/chem113.png",
+    "/images/learn-chemistry/chem114.png"
+  ],
+  "module-6/lesson-8": [
+    "/images/learn-chemistry/chem115.png",
+    "/images/learn-chemistry/chem116.png"
+  ],
+  "module-6/lesson-9": [
+    "/images/learn-chemistry/chem117.png",
+    "/images/learn-chemistry/chem118.png"
+  ],
+  "module-6/lesson-10": [
+    "/images/learn-chemistry/chem119.png",
+    "/images/learn-chemistry/chem120.png"
+  ],
+  "module-7/lesson-1": [
+    "/images/learn-chemistry/chem121.png",
+    "/images/learn-chemistry/chem122.png"
+  ],
+  "module-7/lesson-2": [
+    "/images/learn-chemistry/chem123.png",
+    "/images/learn-chemistry/chem124.png"
+  ],
+  "module-7/lesson-3": [
+    "/images/learn-chemistry/chem125.png",
+    "/images/learn-chemistry/chem126.png"
+  ],
+  "module-7/lesson-4": [
+    "/images/learn-chemistry/chem127.png",
+    "/images/learn-chemistry/chem128.png"
+  ],
+  "module-7/lesson-5": [
+    "/images/learn-chemistry/chem129.png",
+    "/images/learn-chemistry/chem130.png"
+  ],
+  "module-7/lesson-6": [
+    "/images/learn-chemistry/chem131.png",
+    "/images/learn-chemistry/chem132.png"
+  ],
+  "module-7/lesson-7": [
+    "/images/learn-chemistry/chem133.png",
+    "/images/learn-chemistry/chem134.png"
+  ],
+  "module-7/lesson-8": [
+    "/images/learn-chemistry/chem135.png",
+    "/images/learn-chemistry/chem136.png"
+  ],
+  "module-7/lesson-9": [
+    "/images/learn-chemistry/chem137.png",
+    "/images/learn-chemistry/chem138.png"
+  ],
+  "module-7/lesson-10": [
+    "/images/learn-chemistry/chem139.png",
+    "/images/learn-chemistry/chem140.png"
+  ],
+  "module-8/lesson-1": [
+    "/images/learn-chemistry/chem141.png",
+    "/images/learn-chemistry/chem142.png"
+  ],
+  "module-8/lesson-2": [
+    "/images/learn-chemistry/chem143.png",
+    "/images/learn-chemistry/chem144.png"
+  ],
+  "module-8/lesson-3": [
+    "/images/learn-chemistry/chem145.png",
+    "/images/learn-chemistry/chem146.png"
+  ],
+  "module-8/lesson-4": [
+    "/images/learn-chemistry/chem147.png",
+    "/images/learn-chemistry/chem148.png"
+  ],
+  "module-8/lesson-5": [
+    "/images/learn-chemistry/chem149.png",
+    "/images/learn-chemistry/chem150.png"
+  ],
+  "module-8/lesson-6": [
+    "/images/learn-chemistry/chem151.png",
+    "/images/learn-chemistry/chem152.png"
+  ],
+  "module-8/lesson-7": [
+    "/images/learn-chemistry/chem153.png",
+    "/images/learn-chemistry/chem154.png"
+  ],
+  "module-8/lesson-8": [
+    "/images/learn-chemistry/chem155.png",
+    "/images/learn-chemistry/chem156.png"
+  ],
+  "module-8/lesson-9": [
+    "/images/learn-chemistry/chem157.png",
+    "/images/learn-chemistry/chem158.png"
+  ],
+  "module-8/lesson-10": [
+    "/images/learn-chemistry/chem159.png",
+    "/images/learn-chemistry/chem160.png"
+  ],
+  "module-9/lesson-1": [
+    "/images/learn-chemistry/chem161.png",
+    "/images/learn-chemistry/chem162.png"
+  ],
+  "module-9/lesson-2": [
+    "/images/learn-chemistry/chem163.png",
+    "/images/learn-chemistry/chem164.png"
+  ],
+  "module-9/lesson-3": [
+    "/images/learn-chemistry/chem165.png",
+    "/images/learn-chemistry/chem166.png"
+  ],
+  "module-9/lesson-4": [
+    "/images/learn-chemistry/chem167.png",
+    "/images/learn-chemistry/chem168.png"
+  ],
+  "module-9/lesson-5": [
+    "/images/learn-chemistry/chem169.png",
+    "/images/learn-chemistry/chem170.png"
+  ],
+  "module-9/lesson-6": [
+    "/images/learn-chemistry/chem171.png",
+    "/images/learn-chemistry/chem172.png"
+  ],
+  "module-9/lesson-7": [
+    "/images/learn-chemistry/chem173.png",
+    "/images/learn-chemistry/chem174.png"
+  ],
+  "module-9/lesson-8": [
+    "/images/learn-chemistry/chem175.png",
+    "/images/learn-chemistry/chem176.png"
+  ],
+  "module-9/lesson-9": [
+    "/images/learn-chemistry/chem177.png",
+    "/images/learn-chemistry/chem178.png"
+  ],
+  "module-9/lesson-10": [
+    "/images/learn-chemistry/chem179.png",
+    "/images/learn-chemistry/chem180.png"
+  ],
+  "module-10/lesson-1": [
+    "/images/learn-chemistry/chem181.png",
+    "/images/learn-chemistry/chem182.png"
+  ],
+  "module-10/lesson-2": [
+    "/images/learn-chemistry/chem183.png",
+    "/images/learn-chemistry/chem184.png"
+  ],
+  "module-10/lesson-3": [
+    "/images/learn-chemistry/chem185.png",
+    "/images/learn-chemistry/chem186.png"
+  ],
+  "module-10/lesson-4": [
+    "/images/learn-chemistry/chem187.png",
+    "/images/learn-chemistry/chem188.png"
+  ],
+  "module-10/lesson-5": [
+    "/images/learn-chemistry/chem189.png",
+    "/images/learn-chemistry/chem190.png"
+  ],
+  "module-10/lesson-6": [
+    "/images/learn-chemistry/chem191.png",
+    "/images/learn-chemistry/chem192.png"
+  ],
+  "module-10/lesson-7": [
+    "/images/learn-chemistry/chem193.png",
+    "/images/learn-chemistry/chem194.png"
+  ],
+  "module-10/lesson-8": [
+    "/images/learn-chemistry/chem195.png",
+    "/images/learn-chemistry/chem196.png"
+  ],
+  "module-10/lesson-9": [
+    "/images/learn-chemistry/chem197.png",
+    "/images/learn-chemistry/chem198.png"
+  ],
+  "module-10/lesson-10": [
+    "/images/learn-chemistry/chem199.png",
+    "/images/learn-chemistry/chem200.png"
+  ],
+  "case-studies/case-1": [
+    "/images/learn-chemistry/chem201.png",
+    "/images/learn-chemistry/chem202.png"
+  ],
+  "case-studies/case-2": [
+    "/images/learn-chemistry/chem203.png",
+    "/images/learn-chemistry/chem204.png"
+  ],
+  "case-studies/case-3": [
+    "/images/learn-chemistry/chem205.png",
+    "/images/learn-chemistry/chem206.png"
+  ],
+  "case-studies/case-4": [
+    "/images/learn-chemistry/chem207.png",
+    "/images/learn-chemistry/chem208.png"
+  ],
+  "case-studies/case-5": [
+    "/images/learn-chemistry/chem209.png",
+    "/images/learn-chemistry/chem210.png"
+  ],
+  "simulators/sim-1": [
+    "/images/learn-chemistry/chem211.png",
+    "/images/learn-chemistry/chem212.png"
+  ],
+  "simulators/sim-2": [
+    "/images/learn-chemistry/chem213.png",
+    "/images/learn-chemistry/chem214.png"
+  ],
+  "simulators/sim-3": [
+    "/images/learn-chemistry/chem215.png",
+    "/images/learn-chemistry/chem216.png"
+  ],
+  "simulators/sim-4": [
+    "/images/learn-chemistry/chem217.png",
+    "/images/learn-chemistry/chem218.png"
+  ],
+  "simulators/sim-5": [
+    "/images/learn-chemistry/chem219.png",
+    "/images/learn-chemistry/chem220.png"
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "id": "sim-4",
+  "title": "Le Chatelier's Principle — Equilibrium Shifts",
+  "instructions": "Use a reversible reaction system to observe how changes in concentration, temperature, and pressure affect chemical equilibrium. Recommended system: N₂O₄(g) ⇌ 2NO₂(g) (colourless ⇌ brown).",
+  "steps": [
+    "Seal an N₂O₄/NO₂ mixture in two identical syringes at room temperature. Note the brown colour intensity (proportional to [NO₂]).",
+    "Compress syringe A to half its volume (increase pressure). Observe colour change and compare to syringe B.",
+    "Cool syringe B in ice water (lower temperature). Compare colour to syringe A at room temperature.",
+    "Heat syringe A in warm water (40°C). Observe and record colour intensity change.",
+    "Add a small amount of NO₂ gas to a third syringe (increase [NO₂]). Observe equilibrium shift.",
+    "For each perturbation, predict the shift direction using Le Chatelier's principle, then verify with observation."
+  ],
+  "expected_outcome": "Increased pressure → lighter colour (equilibrium shifts left to fewer moles of gas). Lower temperature → lighter colour (exothermic forward reaction shifts right, producing more N₂O₄). Increased [NO₂] → initially darker, then equilibrium shifts left.",
+  "self_check_rubric": [
+    "Did you correctly predict the direction of equilibrium shift for each perturbation?",
+    "Did compressing the syringe reduce the brown colour (shift toward N₂O₄)?",
+    "Did cooling produce a lighter colour (more N₂O₄ formed)?",
+    "Can you explain each observation using Le Chatelier's principle?",
+    "Did you record quantitative colour intensity estimates for comparison?"
+  ],
+  "images": [
+    "/images/learn-chemistry/chem217.png",
+    "/images/learn-chemistry/chem218.png"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "id": "case-1",
+  "title": "Water Purification Chemistry",
+  "scenario": "A city's water supply is contaminated with dissolved lead (Pb²⁺), bacteria, and organic pollutants. The water authority must design a multi-stage purification system.",
+  "content": "<p>Water purification applies multiple chemistry concepts: coagulation (adding Al₂(SO₄)₃ causes suspended particles to aggregate), filtration (physical separation), chlorination (Cl₂ kills bacteria via oxidation), and activated carbon adsorption (removes organic contaminants). Lead removal requires precipitation: adding Na₂SO₄ precipitates PbSO₄ (Ksp = 2.53 × 10⁻⁸).</p><p>Each stage demonstrates different chemical principles: ionic reactions, redox chemistry, and solubility equilibria all work together in a real-world system protecting public health.</p>",
+  "guided_questions": [
+    "What type of reaction is chlorination of water, and why does it kill bacteria?",
+    "Why does adding aluminium sulphate cause suspended particles to clump together?",
+    "Calculate the maximum [Pb²⁺] in water if [SO₄²⁻] = 0.01 mol/L and Ksp(PbSO₄) = 2.53 × 10⁻⁸."
+  ],
+  "what_you_learned": "Water treatment integrates ionic reactions, precipitation equilibria, redox chemistry, and physical separation — demonstrating how chemistry protects public health at scale.",
+  "images": [
+    "/images/learn-chemistry/chem201.png",
+    "/images/learn-chemistry/chem202.png"
+  ]
+}

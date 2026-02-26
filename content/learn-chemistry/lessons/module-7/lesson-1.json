@@ -1,0 +1,74 @@
+{
+  "moduleId": 7,
+  "lessonId": 1,
+  "slug": "intro-organic-chemistry",
+  "title": "Introduction to Organic Chemistry",
+  "isFree": true,
+  "content": "<h2>Module 7, Lesson 1: Introduction to Organic Chemistry</h2><h3>Introduction</h3><p>This lesson covers <strong>Introduction to Organic Chemistry</strong>, a key topic in chemistry. Understanding this concept builds on previous lessons and prepares you for more advanced material.</p><h3>Key Concepts</h3><p><strong>Core Idea:</strong> Introduction to Organic Chemistry involves fundamental principles that explain how matter behaves at atomic and molecular levels. Scientists use these principles to predict chemical behaviour, design reactions, and develop new materials.</p><p><strong>Practical Importance:</strong> These concepts appear in industrial processes, medical applications, environmental science, and everyday products from medicines to materials.</p><p><strong>Mathematical Framework:</strong> Where applicable, relationships are expressed quantitatively, allowing precise prediction and measurement of chemical phenomena.</p><h3>Summary</h3><p>You have completed the overview of Introduction to Organic Chemistry. Review the key concepts, work through the examples, complete the exercise, and pass the quiz to advance to the next lesson.</p>",
+  "examples": [
+    "Example 1: Introduction to Organic Chemistry can be observed when matter undergoes specific transformations in controlled laboratory conditions.",
+    "Example 2: In industrial applications, Introduction to Organic Chemistry principles guide the design of efficient chemical processes."
+  ],
+  "exercise": "Apply your understanding of Introduction to Organic Chemistry: write a short explanation of how this concept relates to a real-world chemical process you are familiar with. Then answer the quiz questions below.",
+  "images": [
+    "/images/learn-chemistry/chem121.png",
+    "/images/learn-chemistry/chem122.png"
+  ],
+  "quiz": [
+    {
+      "question": "Organic chemistry is primarily the study of:",
+      "options": [
+        "All inorganic salts and metals",
+        "Carbon-containing compounds and their reactions",
+        "Noble gases and their properties",
+        "Radioactive isotopes"
+      ],
+      "correct_answer": 1,
+      "explanation": "Organic chemistry focuses on carbon-based compounds — carbon's unique ability to form 4 bonds and long chains creates enormous molecular diversity."
+    },
+    {
+      "question": "Why is carbon able to form such a vast array of compounds?",
+      "options": [
+        "It has an atomic number of 6",
+        "It forms 4 covalent bonds and can chain together to form rings and long chains",
+        "It is the most abundant element in the universe",
+        "It dissolves in water easily"
+      ],
+      "correct_answer": 1,
+      "explanation": "Carbon's 4 valence electrons allow it to form 4 covalent bonds, creating chains, rings, and branches — the basis of ~10 million known organic compounds."
+    },
+    {
+      "question": "What is a functional group?",
+      "options": [
+        "The most abundant element in a compound",
+        "A specific atom or group of atoms that determines the chemical behaviour of the molecule",
+        "The product of an organic reaction",
+        "A synonym for a polymer"
+      ],
+      "correct_answer": 1,
+      "explanation": "Functional groups (e.g., −OH, −COOH, −NH₂) are reactive parts of organic molecules that determine their chemical properties and reactions."
+    },
+    {
+      "question": "Which of the following is NOT an organic compound?",
+      "options": [
+        "Methane (CH₄)",
+        "Glucose (C₆H₁₂O₆)",
+        "Sodium chloride (NaCl)",
+        "Ethanol (C₂H₅OH)"
+      ],
+      "correct_answer": 2,
+      "explanation": "NaCl is an ionic compound — no carbon atoms. Methane, glucose, and ethanol all contain carbon and are organic compounds."
+    },
+    {
+      "question": "What is the general formula for alkanes?",
+      "options": [
+        "CₙH₂ₙ",
+        "CₙH₂ₙ₋₂",
+        "CₙH₂ₙ₊₂",
+        "CₙHₙ"
+      ],
+      "correct_answer": 2,
+      "explanation": "Alkanes (saturated hydrocarbons with only C−C single bonds) have the general formula CₙH₂ₙ₊₂. Example: methane CH₄ (n=1: 2×1+2=4 H atoms)."
+    }
+  ]
+}

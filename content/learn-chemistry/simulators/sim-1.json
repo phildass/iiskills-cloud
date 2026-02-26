@@ -1,0 +1,25 @@
+{
+  "id": "sim-1",
+  "title": "Acid-Base Titration Simulator",
+  "instructions": "Simulate a titration of 25.00 mL of 0.100 mol/L NaOH with 0.100 mol/L HCl. Track the pH as HCl is added from a burette. Record the volume at the equivalence point and sketch the titration curve.",
+  "steps": [
+    "Set up: 25.00 mL of 0.100 mol/L NaOH in a conical flask with 3 drops of phenolphthalein indicator (pink in base).",
+    "Fill burette with 0.100 mol/L HCl. Record the initial volume.",
+    "Add HCl in 1 mL increments, swirling and recording pH after each addition.",
+    "Near the equivalence point, add HCl drop-by-drop. Note the colour change from pink to colourless.",
+    "Record the exact volume of HCl at the equivalence point. Plot pH vs volume of HCl added.",
+    "Calculate: moles HCl at equivalence point = moles NaOH. Verify concentration of NaOH."
+  ],
+  "expected_outcome": "The titration curve shows a sigmoid shape with a sharp jump at pH 7 (equivalence point). Volume of HCl at equivalence point = 25.00 mL. The indicator changes from pink to colourless at the endpoint.",
+  "self_check_rubric": [
+    "Did the volume of HCl at equivalence point equal 25.00 mL (±0.20 mL)?",
+    "Is the titration curve sigmoid-shaped with the steepest rise at pH 7?",
+    "Did you identify the equivalence point correctly using the indicator colour change?",
+    "Can you calculate the moles of NaOH from the volume and concentration of HCl used?",
+    "Did you record at least 10 data points to accurately draw the titration curve?"
+  ],
+  "images": [
+    "/images/learn-chemistry/chem211.png",
+    "/images/learn-chemistry/chem212.png"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "id": "case-4",
+  "title": "Industrial Ammonia Synthesis (Haber Process)",
+  "scenario": "A chemical engineer must optimise the Haber Process for ammonia (NH₃) production, balancing yield and reaction rate under industrial conditions.",
+  "content": "<p>The Haber Process: N₂(g) + 3H₂(g) ⇌ 2NH₃(g), ΔH = −92 kJ/mol. This equilibrium is governed by Le Chatelier's principle. Increasing pressure (200–300 atm) shifts equilibrium right (fewer moles of gas on product side). However, higher temperature speeds reaction rate but shifts equilibrium left (exothermic reaction). Compromise temperature: 400–500°C. An iron catalyst (with K₂O and Al₂O₃ promoters) lowers activation energy.</p><p>Ammonia is essential for fertilisers (feeding ~50% of the world's population) and explosives. Optimising yield vs rate vs cost is a real-world application of chemical equilibrium, kinetics, and thermodynamics.</p>",
+  "guided_questions": [
+    "Using Le Chatelier's principle, explain the effect of increasing pressure on NH₃ yield.",
+    "Why is 400–500°C used rather than lower temperatures that would give higher equilibrium yield?",
+    "How does the iron catalyst affect the equilibrium position? How does it affect the rate?"
+  ],
+  "what_you_learned": "The Haber Process illustrates the interplay of thermodynamics (equilibrium, ΔH), kinetics (rate, activation energy), and catalysis — showing how competing factors are balanced in industrial chemistry.",
+  "images": [
+    "/images/learn-chemistry/chem207.png",
+    "/images/learn-chemistry/chem208.png"
+  ]
+}

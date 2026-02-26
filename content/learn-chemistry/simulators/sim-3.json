@@ -1,0 +1,25 @@
+{
+  "id": "sim-3",
+  "title": "Electroplating a Copper Coin",
+  "instructions": "Simulate electroplating a metal object (zinc coin) with copper using a simple electrolytic cell. Apply principles of electrolysis, electrode reactions, and Faraday's laws.",
+  "steps": [
+    "Set up: copper sulphate (CuSO₄) electrolyte solution (0.5 mol/L), copper anode, zinc coin as cathode, 6V DC power supply.",
+    "Calculate: using Faraday's law (m = MIt/nF), predict the mass of copper deposited in 10 minutes at 0.5 A.",
+    "Connect the circuit. Run electrolysis for 10 minutes at 0.5 A.",
+    "Disconnect, dry, and weigh the coin. Compare actual mass gain to Faraday's law prediction.",
+    "Examine the anode — measure its mass loss. Compare anode mass loss to cathode mass gain.",
+    "Calculate current efficiency = (actual mass / theoretical mass) × 100%."
+  ],
+  "expected_outcome": "The coin gains a shiny copper coating. Mass of copper deposited ≈ MIt/nF = 64×0.5×600/(2×96485) ≈ 0.10 g. Anode loses approximately equal mass.",
+  "self_check_rubric": [
+    "Did the zinc coin develop a visible copper coating?",
+    "Is your calculated Faraday's law prediction within 20% of the actual mass gained?",
+    "Did the anode lose mass approximately equal to cathode gain?",
+    "Can you write the half-reactions at anode and cathode?",
+    "Did you calculate current efficiency correctly?"
+  ],
+  "images": [
+    "/images/learn-chemistry/chem215.png",
+    "/images/learn-chemistry/chem216.png"
+  ]
+}

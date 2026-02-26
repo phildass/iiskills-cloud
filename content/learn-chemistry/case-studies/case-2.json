@@ -1,0 +1,16 @@
+{
+  "id": "case-2",
+  "title": "Pharmaceutical Drug Design",
+  "scenario": "A chemist is designing a new analgesic (painkiller). The drug must cross the blood-brain barrier, bind to pain receptors, and be metabolised safely.",
+  "content": "<p>Drug design relies heavily on organic chemistry. The blood-brain barrier is crossed by lipophilic (non-polar) molecules. Functional groups determine receptor binding: amine groups (−NH₂) interact with receptor proteins via hydrogen bonding and ionic interactions. Metabolism occurs in the liver where cytochrome P450 enzymes oxidise organic compounds.</p><p>Aspirin (acetylsalicylic acid) is a classic example: the acetyl group makes it less irritating than salicylic acid; hydrolysis in the body releases salicylate, which inhibits COX enzymes, reducing prostaglandin synthesis and inflammation.</p>",
+  "guided_questions": [
+    "Why must a drug crossing the blood-brain barrier be relatively non-polar?",
+    "What functional groups in aspirin make it acidic? What is its approximate pKₐ?",
+    "Describe the hydrolysis reaction of aspirin in the body and identify the products."
+  ],
+  "what_you_learned": "Pharmaceutical chemistry applies organic functional group chemistry, acid-base theory, and biochemical reaction mechanisms to design molecules that interact precisely with biological targets.",
+  "images": [
+    "/images/learn-chemistry/chem203.png",
+    "/images/learn-chemistry/chem204.png"
+  ]
+}

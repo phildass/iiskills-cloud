@@ -1,0 +1,74 @@
+{
+  "moduleId": 9,
+  "lessonId": 2,
+  "slug": "enthalpy-changes",
+  "title": "Enthalpy Changes",
+  "isFree": false,
+  "content": "<h2>Module 9, Lesson 2: Enthalpy Changes</h2><h3>Introduction</h3><p>This lesson covers <strong>Enthalpy Changes</strong>, a key topic in chemistry. Understanding this concept builds on previous lessons and prepares you for more advanced material.</p><h3>Key Concepts</h3><p><strong>Core Idea:</strong> Enthalpy Changes involves fundamental principles that explain how matter behaves at atomic and molecular levels. Scientists use these principles to predict chemical behaviour, design reactions, and develop new materials.</p><p><strong>Practical Importance:</strong> These concepts appear in industrial processes, medical applications, environmental science, and everyday products from medicines to materials.</p><p><strong>Mathematical Framework:</strong> Where applicable, relationships are expressed quantitatively, allowing precise prediction and measurement of chemical phenomena.</p><h3>Summary</h3><p>You have completed the overview of Enthalpy Changes. Review the key concepts, work through the examples, complete the exercise, and pass the quiz to advance to the next lesson.</p>",
+  "examples": [
+    "Example 1: Enthalpy Changes can be observed when matter undergoes specific transformations in controlled laboratory conditions.",
+    "Example 2: In industrial applications, Enthalpy Changes principles guide the design of efficient chemical processes."
+  ],
+  "exercise": "Apply your understanding of Enthalpy Changes: write a short explanation of how this concept relates to a real-world chemical process you are familiar with. Then answer the quiz questions below.",
+  "images": [
+    "/images/learn-chemistry/chem163.png",
+    "/images/learn-chemistry/chem164.png"
+  ],
+  "quiz": [
+    {
+      "question": "Enthalpy (H) is defined as:",
+      "options": [
+        "The total kinetic energy of a system",
+        "The heat content of a system at constant pressure",
+        "The entropy change divided by temperature",
+        "The work done by a system"
+      ],
+      "correct_answer": 1,
+      "explanation": "Enthalpy H = internal energy + PV work. At constant pressure, ΔH equals the heat exchanged — this is why ΔH is called the heat of reaction."
+    },
+    {
+      "question": "A reaction with ΔH = −286 kJ/mol is:",
+      "options": [
+        "Endothermic — absorbs 286 kJ",
+        "Exothermic — releases 286 kJ",
+        "Neutral — no energy change",
+        "Endothermic — releases 286 kJ"
+      ],
+      "correct_answer": 1,
+      "explanation": "Negative ΔH indicates exothermic reaction — energy is released to surroundings. Example: H₂ + ½O₂ → H₂O, ΔH = −286 kJ."
+    },
+    {
+      "question": "Hess's Law states that:",
+      "options": [
+        "The enthalpy of a reaction depends on the pathway taken",
+        "The enthalpy change of a reaction is the same regardless of the route taken",
+        "Exothermic reactions always proceed faster",
+        "Entropy determines the enthalpy of formation"
+      ],
+      "correct_answer": 1,
+      "explanation": "Hess's Law: ΔH is a state function — the total enthalpy change depends only on initial and final states, not on the intermediate steps."
+    },
+    {
+      "question": "The standard enthalpy of formation of an element in its standard state is:",
+      "options": [
+        "Always positive",
+        "Equal to its atomic mass",
+        "Zero by definition",
+        "Determined experimentally"
+      ],
+      "correct_answer": 2,
+      "explanation": "By definition, the standard enthalpy of formation (ΔHf°) of any element in its standard state (e.g., O₂(g), C(graphite)) is zero."
+    },
+    {
+      "question": "Which process is endothermic?",
+      "options": [
+        "Combustion of propane",
+        "Neutralisation of an acid with a base",
+        "Thermal decomposition of calcium carbonate (CaCO₃ → CaO + CO₂)",
+        "Rusting of iron"
+      ],
+      "correct_answer": 2,
+      "explanation": "Thermal decomposition requires energy input to break bonds (CaCO₃ → CaO + CO₂, ΔH = +178 kJ/mol) — endothermic."
+    }
+  ]
+}

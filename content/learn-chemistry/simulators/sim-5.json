@@ -1,0 +1,25 @@
+{
+  "id": "sim-5",
+  "title": "Organic Structure and Functional Group Identification",
+  "instructions": "Given a set of unknown organic compounds, use chemical tests and physical properties to identify their functional groups and classify them. Apply organic chemistry knowledge to real identification problems.",
+  "steps": [
+    "Record physical properties (state, colour, odour carefully) for five unknown compounds labelled A–E.",
+    "Test each with universal indicator paper — acids turn it red; measure approximate pH.",
+    "Add Na₂CO₃ solution to each — carboxylic acids produce CO₂ bubbles.",
+    "Add Fehling's solution and heat — aldehydes produce a brick-red precipitate (reduction of Cu²⁺).",
+    "Add bromine water — alkenes decolourise it (addition reaction across C=C double bond).",
+    "Compile results in a table and assign functional group to each unknown: carboxylic acid, aldehyde, alcohol, alkene, or alkane."
+  ],
+  "expected_outcome": "Compound A (carboxylic acid): pH<5, CO₂ with Na₂CO₃. Compound B (aldehyde): positive Fehling's test. Compound C (alcohol): neutral pH, no CO₂, no Fehling's. Compound D (alkene): decolourises bromine water. Compound E (alkane): no reactions with any reagent.",
+  "self_check_rubric": [
+    "Did you correctly assign all five functional groups?",
+    "Did you record the observations from each test systematically?",
+    "Can you write the equation for the Fehling's test reaction with an aldehyde?",
+    "Did you explain why alkanes do not react with bromine water without UV light?",
+    "Can you draw the structural formula for at least one compound from each class?"
+  ],
+  "images": [
+    "/images/learn-chemistry/chem219.png",
+    "/images/learn-chemistry/chem220.png"
+  ]
+}

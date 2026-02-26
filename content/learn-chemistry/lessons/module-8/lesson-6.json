@@ -1,0 +1,74 @@
+{
+  "moduleId": 8,
+  "lessonId": 6,
+  "slug": "collision-theory",
+  "title": "Collision Theory",
+  "isFree": false,
+  "content": "<h2>Module 8, Lesson 6: Collision Theory</h2><h3>Introduction</h3><p>This lesson covers <strong>Collision Theory</strong>, a key topic in chemistry. Understanding this concept builds on previous lessons and prepares you for more advanced material.</p><h3>Key Concepts</h3><p><strong>Core Idea:</strong> Collision Theory involves fundamental principles that explain how matter behaves at atomic and molecular levels. Scientists use these principles to predict chemical behaviour, design reactions, and develop new materials.</p><p><strong>Practical Importance:</strong> These concepts appear in industrial processes, medical applications, environmental science, and everyday products from medicines to materials.</p><p><strong>Mathematical Framework:</strong> Where applicable, relationships are expressed quantitatively, allowing precise prediction and measurement of chemical phenomena.</p><h3>Summary</h3><p>You have completed the overview of Collision Theory. Review the key concepts, work through the examples, complete the exercise, and pass the quiz to advance to the next lesson.</p>",
+  "examples": [
+    "Example 1: Collision Theory can be observed when matter undergoes specific transformations in controlled laboratory conditions.",
+    "Example 2: In industrial applications, Collision Theory principles guide the design of efficient chemical processes."
+  ],
+  "exercise": "Apply your understanding of Collision Theory: write a short explanation of how this concept relates to a real-world chemical process you are familiar with. Then answer the quiz questions below.",
+  "images": [
+    "/images/learn-chemistry/chem151.png",
+    "/images/learn-chemistry/chem152.png"
+  ],
+  "quiz": [
+    {
+      "question": "Which statement best describes Collision Theory?",
+      "options": [
+        "It involves only physical changes with no new substances formed",
+        "It is a fundamental chemical concept explaining specific behaviour of matter",
+        "It applies only to gases and has no relevance to solids",
+        "It was disproved in the 20th century and is no longer used"
+      ],
+      "correct_answer": 1,
+      "explanation": "Collision Theory is a core chemistry concept that explains specific, observable behaviour of matter."
+    },
+    {
+      "question": "What is the primary purpose of studying chemistry?",
+      "options": [
+        "To memorise the periodic table",
+        "To understand the composition, structure, and transformation of matter",
+        "To perform experiments without any theory",
+        "To study only living organisms"
+      ],
+      "correct_answer": 1,
+      "explanation": "Chemistry studies matter — its composition, properties, and transformations — enabling us to explain and control the world around us."
+    },
+    {
+      "question": "Which tool do chemists use to represent the number of particles in a substance?",
+      "options": [
+        "Litre",
+        "Mole",
+        "Kelvin",
+        "Pascal"
+      ],
+      "correct_answer": 1,
+      "explanation": "The mole (6.022×10²³ particles) bridges atomic-scale chemistry with laboratory-scale measurements."
+    },
+    {
+      "question": "A student performing an experiment related to Collision Theory should first:",
+      "options": [
+        "Begin mixing all available chemicals",
+        "Read the safety data sheet and wear appropriate PPE",
+        "Heat all reagents to maximum temperature",
+        "Skip the procedure and guess the result"
+      ],
+      "correct_answer": 1,
+      "explanation": "Safety first: always read hazard information and wear PPE before any laboratory procedure."
+    },
+    {
+      "question": "Conservation of mass in a chemical reaction means:",
+      "options": [
+        "Mass is lost as energy during the reaction",
+        "The total mass of products equals the total mass of reactants",
+        "Mass increases because new bonds form",
+        "Only applies to combustion reactions"
+      ],
+      "correct_answer": 1,
+      "explanation": "Lavoisier's Law: atoms are rearranged in reactions — total mass is conserved because no atoms are created or destroyed."
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "moduleId": 2,
+  "lessonId": 3,
+  "slug": "electron-configuration",
+  "title": "Electron Configuration",
+  "isFree": false,
+  "content": "<h2>Module 2, Lesson 3: Electron Configuration</h2><h3>Introduction</h3><p>This lesson covers <strong>Electron Configuration</strong>, a key topic in chemistry. Understanding this concept builds on previous lessons and prepares you for more advanced material.</p><h3>Key Concepts</h3><p><strong>Core Idea:</strong> Electron Configuration involves fundamental principles that explain how matter behaves at atomic and molecular levels. Scientists use these principles to predict chemical behaviour, design reactions, and develop new materials.</p><p><strong>Practical Importance:</strong> These concepts appear in industrial processes, medical applications, environmental science, and everyday products from medicines to materials.</p><p><strong>Mathematical Framework:</strong> Where applicable, relationships are expressed quantitatively, allowing precise prediction and measurement of chemical phenomena.</p><h3>Summary</h3><p>You have completed the overview of Electron Configuration. Review the key concepts, work through the examples, complete the exercise, and pass the quiz to advance to the next lesson.</p>",
+  "examples": [
+    "Example 1: Electron Configuration can be observed when matter undergoes specific transformations in controlled laboratory conditions.",
+    "Example 2: In industrial applications, Electron Configuration principles guide the design of efficient chemical processes."
+  ],
+  "exercise": "Apply your understanding of Electron Configuration: write a short explanation of how this concept relates to a real-world chemical process you are familiar with. Then answer the quiz questions below.",
+  "images": [
+    "/images/learn-chemistry/chem25.png",
+    "/images/learn-chemistry/chem26.png"
+  ],
+  "quiz": [
+    {
+      "question": "What rule states electrons fill the lowest available energy orbitals first?",
+      "options": [
+        "Pauli Exclusion Principle",
+        "Hund's Rule",
+        "Aufbau Principle",
+        "Heisenberg Uncertainty Principle"
+      ],
+      "correct_answer": 2,
+      "explanation": "The Aufbau principle (from German 'building up') states electrons fill orbitals starting from the lowest energy level upward."
+    },
+    {
+      "question": "What is the electron configuration of sodium (Z=11)?",
+      "options": [
+        "1s²2s²2p⁶3s¹",
+        "1s²2s²2p⁵3s²",
+        "1s²2s²2p⁶",
+        "1s²2s²2p⁴3s²3p¹"
+      ],
+      "correct_answer": 0,
+      "explanation": "Sodium: 1s²2s²2p⁶3s¹. It has 11 electrons filled in order: 2 in 1s, 2 in 2s, 6 in 2p, 1 in 3s."
+    },
+    {
+      "question": "How many electrons can a 2p subshell hold?",
+      "options": [
+        "2",
+        "4",
+        "6",
+        "8"
+      ],
+      "correct_answer": 2,
+      "explanation": "A p subshell has 3 orbitals, each holding 2 electrons: 3 × 2 = 6 electrons maximum."
+    },
+    {
+      "question": "Hund's rule states that in degenerate orbitals, electrons:",
+      "options": [
+        "Pair up in the same orbital before occupying separate orbitals",
+        "Occupy separate orbitals singly before any pairing occurs",
+        "Fill from the highest energy orbital",
+        "Cannot exist with the same spin"
+      ],
+      "correct_answer": 1,
+      "explanation": "Hund's rule maximises unpaired electrons in degenerate (equal energy) orbitals before pairing, minimising electron repulsion."
+    },
+    {
+      "question": "What are valence electrons?",
+      "options": [
+        "Electrons in the nucleus",
+        "Electrons in the innermost shell",
+        "Electrons in the outermost shell that determine chemical behaviour",
+        "All electrons except the first two"
+      ],
+      "correct_answer": 2,
+      "explanation": "Valence electrons (outermost shell) determine how atoms bond and react — they are the key to understanding chemical properties."
+    }
+  ]
+}

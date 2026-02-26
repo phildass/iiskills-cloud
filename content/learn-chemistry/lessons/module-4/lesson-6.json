@@ -1,0 +1,74 @@
+{
+  "moduleId": 4,
+  "lessonId": 6,
+  "slug": "ideal-gas-law",
+  "title": "Ideal Gas Law",
+  "isFree": false,
+  "content": "<h2>Module 4, Lesson 6: Ideal Gas Law</h2><h3>Introduction</h3><p>This lesson covers <strong>Ideal Gas Law</strong>, a key topic in chemistry. Understanding this concept builds on previous lessons and prepares you for more advanced material.</p><h3>Key Concepts</h3><p><strong>Core Idea:</strong> Ideal Gas Law involves fundamental principles that explain how matter behaves at atomic and molecular levels. Scientists use these principles to predict chemical behaviour, design reactions, and develop new materials.</p><p><strong>Practical Importance:</strong> These concepts appear in industrial processes, medical applications, environmental science, and everyday products from medicines to materials.</p><p><strong>Mathematical Framework:</strong> Where applicable, relationships are expressed quantitatively, allowing precise prediction and measurement of chemical phenomena.</p><h3>Summary</h3><p>You have completed the overview of Ideal Gas Law. Review the key concepts, work through the examples, complete the exercise, and pass the quiz to advance to the next lesson.</p>",
+  "examples": [
+    "Example 1: Ideal Gas Law can be observed when matter undergoes specific transformations in controlled laboratory conditions.",
+    "Example 2: In industrial applications, Ideal Gas Law principles guide the design of efficient chemical processes."
+  ],
+  "exercise": "Apply your understanding of Ideal Gas Law: write a short explanation of how this concept relates to a real-world chemical process you are familiar with. Then answer the quiz questions below.",
+  "images": [
+    "/images/learn-chemistry/chem71.png",
+    "/images/learn-chemistry/chem72.png"
+  ],
+  "quiz": [
+    {
+      "question": "What does the ideal gas law combine?",
+      "options": [
+        "Boyle's and Graham's laws only",
+        "Boyle's, Charles's, and Avogadro's laws",
+        "Dalton's and Henry's laws",
+        "Charles's and Gay-Lussac's laws only"
+      ],
+      "correct_answer": 1,
+      "explanation": "PV = nRT combines Boyle's law (P∝1/V), Charles's law (V∝T), and Avogadro's law (V∝n)."
+    },
+    {
+      "question": "In PV = nRT, what does 'n' represent?",
+      "options": [
+        "Number of atoms",
+        "Number of moles of gas",
+        "Pressure in pascals",
+        "Temperature in Celsius"
+      ],
+      "correct_answer": 1,
+      "explanation": "n is the number of moles of gas. R = 8.314 J/mol·K is the universal gas constant."
+    },
+    {
+      "question": "At constant temperature and pressure, doubling the moles of gas will:",
+      "options": [
+        "Halve the volume",
+        "Have no effect on volume",
+        "Double the volume",
+        "Quarter the volume"
+      ],
+      "correct_answer": 2,
+      "explanation": "Avogadro's law (part of ideal gas law): V ∝ n at constant T and P — doubling moles doubles volume."
+    },
+    {
+      "question": "An ideal gas assumes:",
+      "options": [
+        "Gas molecules have significant volume and strong intermolecular forces",
+        "Gas molecules have negligible volume and no intermolecular forces",
+        "All collisions between molecules are inelastic",
+        "Temperature has no effect on molecular motion"
+      ],
+      "correct_answer": 1,
+      "explanation": "The ideal gas model assumes point particles with no volume and no intermolecular attractions — real gases deviate from this especially at high pressure/low temperature."
+    },
+    {
+      "question": "What is the pressure of 2 mol of ideal gas in a 10 L container at 300 K? (R = 8.314 J/mol·K)",
+      "options": [
+        "0.5 atm",
+        "49.9 Pa × 10³",
+        "499 kPa",
+        "5 atm"
+      ],
+      "correct_answer": 2,
+      "explanation": "P = nRT/V = 2 × 8.314 × 300 / 10 = 498.84 ≈ 499 kPa (using SI units: L→m³ needs care, but the ratio gives ≈499 kPa)."
+    }
+  ]
+}

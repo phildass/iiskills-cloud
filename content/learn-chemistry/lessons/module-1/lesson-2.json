@@ -4,7 +4,7 @@
   "slug": "atomic-structure",
   "title": "Atomic Structure",
   "isFree": false,
-  "content": "<h2>Module 1, Lesson 2: Atomic Structure</h2>\n\n      <h3>Introduction</h3>\n      <p>Atomic structure is the study of the internal organisation of atoms \u2014 the fundamental building blocks of all matter. Understanding how atoms are constructed and how their components determine chemical behaviour is the essential second step in chemistry, building directly on the foundational overview introduced in Lesson 1.</p>\n      <p>The modern atomic model has evolved dramatically over the past two centuries, from Dalton's solid-sphere model through Thomson's plum-pudding model and Rutherford's nuclear model to the quantum mechanical model we use today. Each refinement was driven by experimental evidence that the previous model could not explain.</p>\n\n      <h3>Key Concepts</h3>\n      <h4>1. Subatomic Particles</h4>\n      <p>Three key subatomic particles define every atom: protons (positive charge, mass \u2248 1 amu, located in nucleus), neutrons (no charge, mass \u2248 1 amu, located in nucleus), and electrons (negative charge, mass \u2248 1/1836 amu, located in electron shells). The atomic number (Z) equals the number of protons; it uniquely identifies the element. The mass number (A) equals protons plus neutrons.</p>\n\n      <h4>2. Isotopes and Relative Atomic Mass</h4>\n      <p>Isotopes are atoms of the same element with different numbers of neutrons (and therefore different mass numbers). Carbon-12 and Carbon-14 are both carbon atoms but C-14 has two extra neutrons. The relative atomic mass on the periodic table is the weighted average of all naturally occurring isotopes. Isotopes have identical chemical properties but different nuclear properties \u2014 the basis of radiocarbon dating and nuclear medicine.</p>\n\n      <h4>3. Electron Configuration</h4>\n      <p>Electrons occupy discrete energy levels (shells) described by quantum numbers. The four quantum numbers \u2014 principal (n), azimuthal (l), magnetic (ml), and spin (ms) \u2014 uniquely describe every electron in an atom. Electron configuration follows the Aufbau principle (fill lowest energy orbitals first), Hund's rule (maximise unpaired electrons in degenerate orbitals), and the Pauli exclusion principle (no two electrons share all four quantum numbers).</p>\n\n      <h4>4. The Quantum Mechanical Model</h4>\n      <p>Heisenberg's uncertainty principle states that the precise position and momentum of an electron cannot be simultaneously known. Electron \"orbits\" are replaced by probability distributions called orbitals \u2014 regions of space where electrons are most likely to be found. s-orbitals are spherical; p-orbitals are dumbbell-shaped; d and f orbitals have more complex shapes.</p>\n\n      <h3>Summary</h3>\n      <p>Atomic structure determines chemical identity and behaviour. In this lesson you have examined: subatomic particles and their properties; isotopes and atomic mass; electron configuration rules; and the quantum mechanical orbital model. These concepts directly underpin chemical bonding (Lesson 3) and the organisation of the periodic table.</p>",
+  "content": "<h2>Module 1, Lesson 2: Atomic Structure</h2>\n\n      <h3>Introduction</h3>\n      <p>Atomic structure is the study of the internal organisation of atoms — the fundamental building blocks of all matter. Understanding how atoms are constructed and how their components determine chemical behaviour is the essential second step in chemistry, building directly on the foundational overview introduced in Lesson 1.</p>\n      <p>The modern atomic model has evolved dramatically over the past two centuries, from Dalton's solid-sphere model through Thomson's plum-pudding model and Rutherford's nuclear model to the quantum mechanical model we use today. Each refinement was driven by experimental evidence that the previous model could not explain.</p>\n\n      <h3>Key Concepts</h3>\n      <h4>1. Subatomic Particles</h4>\n      <p>Three key subatomic particles define every atom: protons (positive charge, mass ≈ 1 amu, located in nucleus), neutrons (no charge, mass ≈ 1 amu, located in nucleus), and electrons (negative charge, mass ≈ 1/1836 amu, located in electron shells). The atomic number (Z) equals the number of protons; it uniquely identifies the element. The mass number (A) equals protons plus neutrons.</p>\n\n      <h4>2. Isotopes and Relative Atomic Mass</h4>\n      <p>Isotopes are atoms of the same element with different numbers of neutrons (and therefore different mass numbers). Carbon-12 and Carbon-14 are both carbon atoms but C-14 has two extra neutrons. The relative atomic mass on the periodic table is the weighted average of all naturally occurring isotopes. Isotopes have identical chemical properties but different nuclear properties — the basis of radiocarbon dating and nuclear medicine.</p>\n\n      <h4>3. Electron Configuration</h4>\n      <p>Electrons occupy discrete energy levels (shells) described by quantum numbers. The four quantum numbers — principal (n), azimuthal (l), magnetic (ml), and spin (ms) — uniquely describe every electron in an atom. Electron configuration follows the Aufbau principle (fill lowest energy orbitals first), Hund's rule (maximise unpaired electrons in degenerate orbitals), and the Pauli exclusion principle (no two electrons share all four quantum numbers).</p>\n\n      <h4>4. The Quantum Mechanical Model</h4>\n      <p>Heisenberg's uncertainty principle states that the precise position and momentum of an electron cannot be simultaneously known. Electron \"orbits\" are replaced by probability distributions called orbitals — regions of space where electrons are most likely to be found. s-orbitals are spherical; p-orbitals are dumbbell-shaped; d and f orbitals have more complex shapes.</p>\n\n      <h3>Summary</h3>\n      <p>Atomic structure determines chemical identity and behaviour. In this lesson you have examined: subatomic particles and their properties; isotopes and atomic mass; electron configuration rules; and the quantum mechanical orbital model. These concepts directly underpin chemical bonding (Lesson 3) and the organisation of the periodic table.</p>",
   "quiz": [
     {
       "question": "What does the atomic number of an element represent?",
@@ -14,7 +14,8 @@
         "The total mass of the atom",
         "The number of electrons in the outermost shell"
       ],
-      "correct_answer": 1
+      "correct_answer": 1,
+      "explanation": "Review the lesson content for a detailed explanation of this answer."
     },
     {
       "question": "What are isotopes?",
@@ -24,7 +25,8 @@
         "Ions with opposite charges",
         "Molecules with the same formula but different structures"
       ],
-      "correct_answer": 1
+      "correct_answer": 1,
+      "explanation": "Review the lesson content for a detailed explanation of this answer."
     },
     {
       "question": "Which subatomic particle has a negative charge?",
@@ -34,7 +36,8 @@
         "Electron",
         "Nucleus"
       ],
-      "correct_answer": 2
+      "correct_answer": 2,
+      "explanation": "Review the lesson content for a detailed explanation of this answer."
     },
     {
       "question": "What does the Aufbau principle state?",
@@ -44,7 +47,8 @@
         "Electrons fill the lowest available energy orbitals first",
         "Electrons in degenerate orbitals pair before occupying separate orbitals"
       ],
-      "correct_answer": 2
+      "correct_answer": 2,
+      "explanation": "Review the lesson content for a detailed explanation of this answer."
     },
     {
       "question": "What shape is an s-orbital?",
@@ -54,7 +58,17 @@
         "Toroidal",
         "Clover-shaped"
       ],
-      "correct_answer": 1
+      "correct_answer": 1,
+      "explanation": "Review the lesson content for a detailed explanation of this answer."
     }
+  ],
+  "images": [
+    "/images/learn-chemistry/chem3.png",
+    "/images/learn-chemistry/chem4.png"
+  ],
+  "exercise": "Reflect on the key concepts of Atomic Structure Overview and write a brief summary in your own words. Then solve: apply these concepts to a real-world example you encounter in daily life.",
+  "examples": [
+    "Example 1: A practical application of Atomic Structure Overview in chemistry.",
+    "Example 2: Another everyday example illustrating Atomic Structure Overview."
   ]
 }

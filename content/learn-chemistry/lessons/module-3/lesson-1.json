@@ -1,0 +1,74 @@
+{
+  "moduleId": 3,
+  "lessonId": 1,
+  "slug": "ionic-bonding",
+  "title": "Ionic Bonding",
+  "isFree": true,
+  "content": "<h2>Module 3, Lesson 1: Ionic Bonding</h2><h3>Introduction</h3><p>This lesson covers <strong>Ionic Bonding</strong>, a key topic in chemistry. Understanding this concept builds on previous lessons and prepares you for more advanced material.</p><h3>Key Concepts</h3><p><strong>Core Idea:</strong> Ionic Bonding involves fundamental principles that explain how matter behaves at atomic and molecular levels. Scientists use these principles to predict chemical behaviour, design reactions, and develop new materials.</p><p><strong>Practical Importance:</strong> These concepts appear in industrial processes, medical applications, environmental science, and everyday products from medicines to materials.</p><p><strong>Mathematical Framework:</strong> Where applicable, relationships are expressed quantitatively, allowing precise prediction and measurement of chemical phenomena.</p><h3>Summary</h3><p>You have completed the overview of Ionic Bonding. Review the key concepts, work through the examples, complete the exercise, and pass the quiz to advance to the next lesson.</p>",
+  "examples": [
+    "Example 1: Ionic Bonding can be observed when matter undergoes specific transformations in controlled laboratory conditions.",
+    "Example 2: In industrial applications, Ionic Bonding principles guide the design of efficient chemical processes."
+  ],
+  "exercise": "Apply your understanding of Ionic Bonding: write a short explanation of how this concept relates to a real-world chemical process you are familiar with. Then answer the quiz questions below.",
+  "images": [
+    "/images/learn-chemistry/chem41.png",
+    "/images/learn-chemistry/chem42.png"
+  ],
+  "quiz": [
+    {
+      "question": "Ionic bonds form between:",
+      "options": [
+        "Two non-metal atoms",
+        "A metal and a non-metal",
+        "Two metal atoms",
+        "Carbon atoms only"
+      ],
+      "correct_answer": 1,
+      "explanation": "Ionic bonds result from electrostatic attraction between a metal cation (lost electrons) and a non-metal anion (gained electrons)."
+    },
+    {
+      "question": "What type of ion does sodium form?",
+      "options": [
+        "Na⁻ (anion)",
+        "Na⁺ (cation)",
+        "Na²⁺ (cation)",
+        "Na²⁻ (anion)"
+      ],
+      "correct_answer": 1,
+      "explanation": "Sodium (Group 1) loses 1 electron to form Na⁺, achieving a stable noble gas configuration."
+    },
+    {
+      "question": "Which property is characteristic of ionic compounds?",
+      "options": [
+        "Low melting points",
+        "Good electrical conductors when solid",
+        "Brittle crystalline structures with high melting points",
+        "Do not dissolve in water"
+      ],
+      "correct_answer": 2,
+      "explanation": "Ionic compounds form crystal lattices with strong electrostatic forces — giving them high melting points and brittle (but not flexible) structures."
+    },
+    {
+      "question": "NaCl dissolves in water because:",
+      "options": [
+        "NaCl is a covalent compound",
+        "Water molecules (polar) attract and surround Na⁺ and Cl⁻ ions",
+        "NaCl reacts chemically with water",
+        "Salt has lower density than water"
+      ],
+      "correct_answer": 1,
+      "explanation": "Polar water molecules orient around ions (O toward Na⁺, H toward Cl⁻) in hydration shells, dissociating the lattice — this is the 'like dissolves like' principle."
+    },
+    {
+      "question": "What is the octet rule?",
+      "options": [
+        "Atoms always have 8 neutrons",
+        "Atoms tend to gain/lose/share electrons to achieve 8 valence electrons (full outer shell)",
+        "Only the 8 most reactive elements form ions",
+        "Groups 1–8 are the only reactive elements"
+      ],
+      "correct_answer": 1,
+      "explanation": "The octet rule states atoms achieve stability with 8 valence electrons (like noble gases). Hydrogen and lithium follow the 'duet rule' (2 electrons)."
+    }
+  ]
+}

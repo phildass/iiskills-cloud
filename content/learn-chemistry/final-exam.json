@@ -1,0 +1,227 @@
+{
+  "title": "Chemistry Final Certification Exam",
+  "passThreshold": 13,
+  "totalQuestions": 20,
+  "questions": [
+    {
+      "question": "What does the atomic number of an element represent?",
+      "options": [
+        "Mass of the atom",
+        "Number of protons",
+        "Number of neutrons",
+        "Number of electrons in outer shell"
+      ],
+      "correct_answer": 1,
+      "explanation": "Atomic number Z = number of protons — it uniquely identifies each element."
+    },
+    {
+      "question": "Which type of bond involves the complete transfer of electrons?",
+      "options": [
+        "Covalent bond",
+        "Metallic bond",
+        "Ionic bond",
+        "Hydrogen bond"
+      ],
+      "correct_answer": 2,
+      "explanation": "Ionic bonds form when a metal transfers electrons to a non-metal, creating oppositely charged ions attracted electrostatically."
+    },
+    {
+      "question": "Avogadro's number is approximately:",
+      "options": [
+        "6.022 × 10²⁰",
+        "6.022 × 10²³",
+        "6.022 × 10²⁶",
+        "6.022 × 10¹⁸"
+      ],
+      "correct_answer": 1,
+      "explanation": "Avogadro's number Nₐ = 6.022 × 10²³ particles per mole."
+    },
+    {
+      "question": "The Ideal Gas Law is expressed as:",
+      "options": [
+        "PV = nRT",
+        "PV = mRT",
+        "P = nRT/m",
+        "PV² = nRT"
+      ],
+      "correct_answer": 0,
+      "explanation": "PV = nRT: P = pressure, V = volume, n = moles, R = 8.314 J/mol·K, T = temperature in Kelvin."
+    },
+    {
+      "question": "In an exothermic reaction:",
+      "options": [
+        "Products have higher energy than reactants",
+        "ΔH is positive",
+        "Energy is released to the surroundings",
+        "The reaction requires constant heating"
+      ],
+      "correct_answer": 2,
+      "explanation": "Exothermic reactions release energy (ΔH < 0), raising the temperature of the surroundings."
+    },
+    {
+      "question": "What is the limiting reagent?",
+      "options": [
+        "The reactant present in excess",
+        "The product formed in smallest amount",
+        "The reactant fully consumed first, limiting product yield",
+        "The catalyst used in the reaction"
+      ],
+      "correct_answer": 2,
+      "explanation": "The limiting reagent is the reactant that is completely consumed first, determining the maximum possible yield."
+    },
+    {
+      "question": "Organic compounds must contain:",
+      "options": [
+        "Oxygen",
+        "Nitrogen",
+        "Carbon",
+        "Hydrogen"
+      ],
+      "correct_answer": 2,
+      "explanation": "By definition, organic compounds contain carbon. Carbon's ability to form 4 bonds creates the vast diversity of organic chemistry."
+    },
+    {
+      "question": "Reaction rate increases with temperature because:",
+      "options": [
+        "Bonds become stronger",
+        "More particles have kinetic energy ≥ activation energy",
+        "The activation energy increases",
+        "Products become more stable"
+      ],
+      "correct_answer": 1,
+      "explanation": "Higher temperature → higher average kinetic energy → more molecular collisions with sufficient energy to overcome the activation energy barrier."
+    },
+    {
+      "question": "Hess's Law allows calculation of enthalpy changes because ΔH:",
+      "options": [
+        "Is always positive",
+        "Depends on reaction pathway",
+        "Is a state function (path-independent)",
+        "Is zero for all reactions"
+      ],
+      "correct_answer": 2,
+      "explanation": "ΔH is a state function — it depends only on initial and final states, allowing combination of known ΔH values to find unknown ones."
+    },
+    {
+      "question": "The VSEPR theory predicts:",
+      "options": [
+        "Bond energies in molecules",
+        "The 3D geometry of molecules based on electron pair repulsion",
+        "The reactivity of functional groups",
+        "The rate of chemical reactions"
+      ],
+      "correct_answer": 1,
+      "explanation": "VSEPR (Valence Shell Electron Pair Repulsion): electron pairs arrange to minimise repulsion, determining molecular geometry."
+    },
+    {
+      "question": "A catalyst:",
+      "options": [
+        "Is consumed in the reaction",
+        "Shifts equilibrium towards products",
+        "Lowers activation energy without being consumed",
+        "Increases the enthalpy of reaction"
+      ],
+      "correct_answer": 2,
+      "explanation": "Catalysts provide an alternative lower-activation-energy pathway and are regenerated — not consumed — in the reaction."
+    },
+    {
+      "question": "In electrolysis, reduction occurs at:",
+      "options": [
+        "The anode",
+        "The salt bridge",
+        "The power supply",
+        "The cathode"
+      ],
+      "correct_answer": 3,
+      "explanation": "At the cathode (negative electrode), cations receive electrons — this is reduction (gain of electrons)."
+    },
+    {
+      "question": "The molar mass of CO₂ is approximately:",
+      "options": [
+        "28 g/mol",
+        "44 g/mol",
+        "32 g/mol",
+        "12 g/mol"
+      ],
+      "correct_answer": 1,
+      "explanation": "CO₂: C=12, O=16×2=32; total = 44 g/mol."
+    },
+    {
+      "question": "Which process separates two miscible liquids by boiling point?",
+      "options": [
+        "Filtration",
+        "Chromatography",
+        "Distillation",
+        "Magnetic separation"
+      ],
+      "correct_answer": 2,
+      "explanation": "Distillation separates liquids with different boiling points by selective evaporation and condensation."
+    },
+    {
+      "question": "Electronegativity generally increases:",
+      "options": [
+        "Down a group and left across a period",
+        "Down a group and right across a period",
+        "Up a group and left across a period",
+        "Up a group and right across a period"
+      ],
+      "correct_answer": 3,
+      "explanation": "Electronegativity increases up a group (fewer shells, greater nuclear pull) and across a period left-to-right (more protons, same shell)."
+    },
+    {
+      "question": "What is percent yield?",
+      "options": [
+        "(Actual yield / Molar mass) × 100",
+        "(Theoretical yield / Actual yield) × 100",
+        "(Actual yield / Theoretical yield) × 100",
+        "(Moles of product / Moles of reactant) × 100"
+      ],
+      "correct_answer": 2,
+      "explanation": "% yield = (actual yield / theoretical yield) × 100. It measures reaction efficiency."
+    },
+    {
+      "question": "Entropy (S) is a measure of:",
+      "options": [
+        "Heat content of a system",
+        "Disorder or randomness in a system",
+        "Electrical potential",
+        "Concentration of ions"
+      ],
+      "correct_answer": 1,
+      "explanation": "Entropy measures the degree of disorder or randomness. The Second Law states the total entropy of the universe always increases in spontaneous processes."
+    },
+    {
+      "question": "An ionic compound dissolves in water because:",
+      "options": [
+        "Covalent bonds break easily",
+        "Polar water molecules attract and hydrate the ions",
+        "The compound is non-polar",
+        "Heat is always absorbed"
+      ],
+      "correct_answer": 1,
+      "explanation": "Polar water molecules (δ+ H, δ- O) attract oppositely charged ions, surrounding and stabilising them in solution (hydration)."
+    },
+    {
+      "question": "The Arrhenius equation relates reaction rate constant to:",
+      "options": [
+        "Concentration and volume",
+        "Temperature and activation energy",
+        "Pressure and moles",
+        "Bond length and energy"
+      ],
+      "correct_answer": 1,
+      "explanation": "k = Ae^(-Eₐ/RT): the rate constant k increases exponentially with temperature (T) and decreases with higher activation energy (Eₐ)."
+    },
+    {
+      "question": "Which functional group characterises carboxylic acids?",
+      "options": [
+        "−OH",
+        "−CHO",
+        "−COOH",
+        "−NH₂"
+      ],
+      "correct_answer": 2,
+      "explanation": "Carboxylic acids contain the −COOH (carboxyl) group, which makes them acidic (donate H⁺). Example: acetic acid CH₃COOH."
+    }
+  ]
+}

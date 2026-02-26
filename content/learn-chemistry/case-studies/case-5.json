@@ -1,0 +1,16 @@
+{
+  "id": "case-5",
+  "title": "Polymer Chemistry in Plastics",
+  "scenario": "A materials scientist must choose between polyethylene (PE) and polylactic acid (PLA) for a packaging application, considering mechanical properties, production, and biodegradability.",
+  "content": "<p>Polyethylene is formed by addition polymerisation of ethylene (CH₂=CH₂ → [−CH₂−CH₂−]ₙ) using Ziegler-Natta catalysts. It is non-polar, hydrophobic, and highly resistant to degradation — a key environmental problem. HDPE (high-density PE) has straight chains and high tensile strength; LDPE has branched chains and is more flexible.</p><p>PLA is a biodegradable polyester made from lactic acid (from corn starch fermentation). The ester linkages (−COO−) can be hydrolysed by bacteria and water, breaking PLA into CO₂ and H₂O. The trade-off: PLA costs more and has lower heat resistance than PE.</p>",
+  "guided_questions": [
+    "Write the addition polymerisation reaction for ethylene (with n monomers).",
+    "Why is polyethylene resistant to degradation? What chemical property makes PLA biodegradable?",
+    "Compare the intermolecular forces in HDPE vs LDPE and predict which has a higher melting point."
+  ],
+  "what_you_learned": "Polymer chemistry illustrates addition and condensation polymerisation, structure-property relationships, intermolecular forces, and the chemistry of biodegradation — all critical for sustainable materials design.",
+  "images": [
+    "/images/learn-chemistry/chem209.png",
+    "/images/learn-chemistry/chem210.png"
+  ]
+}
