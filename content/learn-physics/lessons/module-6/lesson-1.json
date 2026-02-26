@@ -1,0 +1,60 @@
+{
+  "moduleId": 6,
+  "lessonId": 1,
+  "slug": "what-is-a-wave",
+  "title": "What is a Wave?",
+  "isFree": true,
+  "content": "<h2>What is a Wave?</h2><h3>🔥 The Spark</h3><p>Did you know that the physics of <strong>what is a wave?</strong> is at work all around you — even in a simple pressure cooker? In this lesson we uncover the science behind it.</p><h3>💡 The Simple Core</h3><p><strong>What is a Wave?</strong> is a fundamental topic in Waves and Optics. Understanding it helps explain everyday phenomena and forms the basis of many engineering applications. The key idea is that physical quantities follow predictable mathematical relationships that scientists have verified through careful experiments in labs just like your school lab.</p><h3>🎯 The Show</h3><p>Consider a pressure cooker: the physics of <strong>what is a wave?</strong> governs its behaviour directly. Engineers and scientists across India — from ISRO scientists in Bengaluru to factory engineers in Pune — apply these principles daily. By mastering this concept, you are building the same mental toolkit they use. Practice the five quiz questions below to test your understanding!</p>",
+  "quiz": [
+    {
+      "question": "Temperature measures:",
+      "options": [
+        "Amount of heat",
+        "Hotness or coldness on a scale",
+        "Energy stored",
+        "Radiation emitted"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What does °C stand for?",
+      "options": [
+        "Celsius",
+        "Coulomb",
+        "Centimetre",
+        "Candela"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "question": "Water boils at:",
+      "options": [
+        "0°C",
+        "37°C",
+        "100°C",
+        "212°C"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "Heat flows from:",
+      "options": [
+        "Cold to hot",
+        "Hot to cold",
+        "Both directions equally",
+        "Neither direction"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "Which material is a good thermal conductor?",
+      "options": [
+        "Wood",
+        "Plastic",
+        "Copper",
+        "Rubber"
+      ],
+      "correct_answer": 2
+    }
+  ]
+}

@@ -1,0 +1,107 @@
+{
+  "appSlug": "learn-physics",
+  "title": "Learn Physics — Final Exam",
+  "passThreshold": 13,
+  "questions": [
+    {
+      "question": "What is Newton's Second Law of Motion?",
+      "options": ["An object at rest stays at rest","F = ma","For every action there is an equal and opposite reaction","Energy is conserved"],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is the SI unit of energy?",
+      "options": ["Newton","Watt","Joule","Pascal"],
+      "correct_answer": 2
+    },
+    {
+      "question": "Which formula correctly expresses kinetic energy?",
+      "options": ["KE = mgh","KE = ½mv²","KE = Fd","KE = mc²"],
+      "correct_answer": 1
+    },
+    {
+      "question": "Ohm's Law relates voltage (V), current (I) and resistance (R) as:",
+      "options": ["V = IR","V = I/R","V = R/I","V = I + R"],
+      "correct_answer": 0
+    },
+    {
+      "question": "What does a voltmeter measure?",
+      "options": ["Current","Resistance","Voltage","Power"],
+      "correct_answer": 2
+    },
+    {
+      "question": "Sound travels fastest in which medium?",
+      "options": ["Air","Water","Vacuum","Solid steel"],
+      "correct_answer": 3
+    },
+    {
+      "question": "What is the approximate value of acceleration due to gravity (g)?",
+      "options": ["5 m/s²","9.8 m/s²","15 m/s²","20 m/s²"],
+      "correct_answer": 1
+    },
+    {
+      "question": "The Law of Conservation of Momentum states that in a closed system:",
+      "options": ["Momentum always increases","Momentum always decreases","Total momentum remains constant","Momentum equals energy"],
+      "correct_answer": 2
+    },
+    {
+      "question": "Which type of heat transfer does not need a medium?",
+      "options": ["Conduction","Convection","Radiation","Conduction and convection"],
+      "correct_answer": 2
+    },
+    {
+      "question": "What is the speed of light in vacuum?",
+      "options": ["3×10⁶ m/s","3×10⁸ m/s","3×10¹⁰ m/s","300 m/s"],
+      "correct_answer": 1
+    },
+    {
+      "question": "In a series circuit, what is the same throughout?",
+      "options": ["Voltage","Resistance","Current","Power"],
+      "correct_answer": 2
+    },
+    {
+      "question": "What is the phenomenon when a magnet moving near a coil produces electricity?",
+      "options": ["Electric discharge","Electromagnetic induction","Photoelectric effect","Nuclear fission"],
+      "correct_answer": 1
+    },
+    {
+      "question": "Which particle has a positive charge in the nucleus?",
+      "options": ["Electron","Neutron","Proton","Photon"],
+      "correct_answer": 2
+    },
+    {
+      "question": "What is the half-life of a radioactive substance?",
+      "options": ["Time for all atoms to decay","Time for half the atoms to decay","Time for the substance to cool","Time for radiation to stop"],
+      "correct_answer": 1
+    },
+    {
+      "question": "Archimedes' Principle states that the buoyant force equals:",
+      "options": ["Weight of the object","Weight of fluid displaced","Volume of the object","Pressure at the surface"],
+      "correct_answer": 1
+    },
+    {
+      "question": "Which equation represents Einstein's mass-energy equivalence?",
+      "options": ["F = ma","E = ½mv²","E = mc²","P = mv"],
+      "correct_answer": 2
+    },
+    {
+      "question": "What is the path of a projectile?",
+      "options": ["Circle","Straight line","Parabola","Ellipse"],
+      "correct_answer": 2
+    },
+    {
+      "question": "A pressure cooker cooks food faster because:",
+      "options": ["It uses electricity","Higher pressure raises the boiling point of water","It uses microwave radiation","It reduces friction"],
+      "correct_answer": 1
+    },
+    {
+      "question": "Which organisation operates India's space programme?",
+      "options": ["NASA","ESA","ISRO","DRDO"],
+      "correct_answer": 2
+    },
+    {
+      "question": "The Bohr model of the atom describes electrons as:",
+      "options": ["Moving in random paths","Moving in fixed circular orbits around the nucleus","Stationary inside the nucleus","Spread uniformly through the atom"],
+      "correct_answer": 1
+    }
+  ]
+}

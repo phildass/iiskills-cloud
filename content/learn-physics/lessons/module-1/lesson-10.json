@@ -1,0 +1,60 @@
+{
+  "moduleId": 1,
+  "lessonId": 10,
+  "slug": "simple-machines",
+  "title": "Simple Machines",
+  "isFree": false,
+  "content": "<h2>Simple Machines</h2><h3>🔥 The Spark</h3><p>Did you know that the pulley system on a well in a village, the inclined ramp at a loading dock, and the bottle opener in your kitchen drawer are all <strong>simple machines</strong>? They all multiply force to make work easier!</p><h3>💡 The Simple Core</h3><p>A <strong>simple machine</strong> is a device that changes the magnitude or direction of a force. Six types: lever, pulley, wheel and axle, inclined plane, wedge, screw. Key concept: <strong>Mechanical Advantage</strong> (MA) = Load ÷ Effort. MA > 1 means you apply less force to lift more. But energy is conserved — you gain force but lose distance (or vice versa). Efficiency = (useful output work ÷ input work) × 100%.</p><h3>🎯 The Show</h3><p>A lever (like a see-saw or a crowbar) uses a fulcrum. Placing the fulcrum near the load gives high MA — the dhobi uses a wooden stick as a lever to wring clothes. An inclined plane (ramp) lets you move a heavy gas cylinder onto a truck without lifting it straight up. Pulleys are used in construction cranes across Indian cities!</p>",
+  "quiz": [
+    {
+      "question": "What is mechanical advantage?",
+      "options": [
+        "Work output ÷ Work input",
+        "Load ÷ Effort",
+        "Effort ÷ Load",
+        "Power ÷ Time"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "Which of these is NOT a simple machine?",
+      "options": [
+        "Lever",
+        "Pulley",
+        "Battery",
+        "Inclined plane"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "A lever has load = 200 N and effort = 50 N. What is its MA?",
+      "options": [
+        "0.25",
+        "4",
+        "10",
+        "150"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is conserved in every simple machine?",
+      "options": [
+        "Force",
+        "Speed",
+        "Energy",
+        "Distance"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "Which simple machine is essentially a wrapped inclined plane?",
+      "options": [
+        "Lever",
+        "Pulley",
+        "Wedge",
+        "Screw"
+      ],
+      "correct_answer": 3
+    }
+  ]
+}

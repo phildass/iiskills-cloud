@@ -1,0 +1,9 @@
+{
+  "id": "case-2",
+  "title": "The Physics of a Cricket Ball",
+  "module": "Classical Mechanics",
+  "summary": "How swing bowling, spin, and batting use Newton's Laws and fluid dynamics.",
+  "content": "<h2>Case Study: Cricket Ball Physics</h2><p>Cricket is India's most popular sport, and the physics behind it is fascinating! From a fast bowler's swing to a spinner's turn, physics is always in play.</p><h3>Swing Bowling</h3><p>A cricket ball has a seam. When bowled with the seam at an angle and one side polished, air flows differently on the two sides — creating a pressure difference (Bernoulli's Principle) that curves the ball in the air.</p><h3>Batting and Momentum</h3><p>When a batsman hits the ball, momentum is transferred. A straight drive follows projectile motion — the ball travels in a parabolic arc. The timing of the follow-through increases impulse, maximising distance.</p><h3>Spin Bowling</h3><p>A spinner puts backspin or topspin on the ball. This creates a <em>Magnus effect</em> — the rotating ball deflects due to pressure differences around it, causing it to dip or curve after bouncing.</p><h3>Key Formulas</h3><ul><li>Momentum: p = mv</li><li>Impulse: J = FΔt = Δp</li><li>Projectile range: R = v²sin(2θ)/g</li></ul>",
+  "image": "phys-case-2.png",
+  "tags": ["mechanics","momentum","projectile","India","cricket"]
+}

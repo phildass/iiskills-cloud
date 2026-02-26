@@ -1,0 +1,9 @@
+{
+  "id": "case-4",
+  "title": "Solar Energy in India",
+  "module": "Work and Energy",
+  "summary": "How photovoltaic cells convert sunlight to electricity — and why India is a solar superpower.",
+  "content": "<h2>Case Study: Solar Energy in India</h2><p>India receives an average of 300 sunny days per year. The government's National Solar Mission aims for 500 GW of solar capacity by 2030. Let's understand the physics.</p><h3>The Photoelectric Effect</h3><p>Einstein's 1905 discovery: photons of light knock electrons out of a material. A solar cell (photovoltaic cell) uses this effect — photons from sunlight free electrons in silicon, creating an electric current.</p><h3>Energy Conversion Chain</h3><ol><li>Solar radiation (electromagnetic energy) hits the silicon panel</li><li>Photoelectric effect creates DC electricity</li><li>Inverter converts DC to AC for household use</li><li>Excess energy can charge an inverter battery for night-time use</li></ol><h3>Efficiency</h3><p>Commercial solar panels convert about 15–22% of sunlight into electricity. The rest is reflected or converted to heat. Research into perovskite cells aims to push efficiency beyond 30%.</p><h3>India's Numbers</h3><p>A 1 kW rooftop solar system in Rajasthan generates about 5–6 units (kWh) per day. At ₹8 per unit, this saves ₹40–48 per day — roughly ₹15,000 per year!</p>",
+  "image": "phys-case-4.png",
+  "tags": ["energy","solar","photoelectric","India"]
+}

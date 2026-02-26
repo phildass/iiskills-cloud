@@ -1,0 +1,60 @@
+{
+  "moduleId": 5,
+  "lessonId": 10,
+  "slug": "inverters-and-batteries",
+  "title": "Inverters and Batteries",
+  "isFree": false,
+  "content": "<h2>Inverters and Batteries</h2><h3>🔥 The Spark</h3><p>Did you know that the physics of <strong>inverters and batteries</strong> is at work all around you — even in a simple ceiling fan? In this lesson we uncover the science behind it.</p><h3>💡 The Simple Core</h3><p><strong>Inverters and Batteries</strong> is a fundamental topic in Electricity and Magnetism. Understanding it helps explain everyday phenomena and forms the basis of many engineering applications. The key idea is that physical quantities follow predictable mathematical relationships that scientists have verified through careful experiments in labs just like your school lab.</p><h3>🎯 The Show</h3><p>Consider a ceiling fan: the physics of <strong>inverters and batteries</strong> governs its behaviour directly. Engineers and scientists across India — from ISRO scientists in Bengaluru to factory engineers in Pune — apply these principles daily. By mastering this concept, you are building the same mental toolkit they use. Practice the five quiz questions below to test your understanding!</p>",
+  "quiz": [
+    {
+      "question": "Which branch of physics does 'Inverters and Batteries' primarily belong to?",
+      "options": [
+        "Electricity and Magnetism",
+        "Chemistry",
+        "Biology",
+        "Mathematics"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "question": "What is the SI system short for?",
+      "options": [
+        "Standard International",
+        "Scientific Index",
+        "International System of Units",
+        "Simple Identifiers"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "Physics is a:",
+      "options": [
+        "Social science",
+        "Natural science",
+        "Formal science",
+        "Art form"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "Which instrument measures force?",
+      "options": [
+        "Thermometer",
+        "Spring balance",
+        "Voltmeter",
+        "Barometer"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What does 'uniform' mean in physics?",
+      "options": [
+        "Large",
+        "Constant, not changing",
+        "Very small",
+        "Random"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

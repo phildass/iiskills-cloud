@@ -1,0 +1,60 @@
+{
+  "moduleId": 1,
+  "lessonId": 7,
+  "slug": "circular-motion",
+  "title": "Circular Motion",
+  "isFree": false,
+  "content": "<h2>Circular Motion</h2><h3>🔥 The Spark</h3><p>Did you know that even when a ceiling fan blade spins at constant speed, it is constantly <em>accelerating</em>? How can that be? Because in <strong>circular motion</strong>, the direction keeps changing — and changing direction means changing velocity — which means acceleration!</p><h3>💡 The Simple Core</h3><p>In uniform circular motion, speed is constant but velocity changes direction continuously. This requires a <strong>centripetal force</strong> directed towards the centre of the circle. Formula: F = mv²/r, where m is mass, v is speed, r is radius. Examples: Earth orbiting the Sun, a bike turning a corner, a stone tied to a string swung in a circle.</p><h3>🎯 The Show</h3><p>When you swing a stone tied to a string, the string provides the centripetal force pulling the stone inward. If the string breaks, the stone flies off in a straight line (tangent). On India's highway curves, banked roads are designed so that vehicles can safely turn using the component of the normal force as centripetal force — this is why mountain roads are tilted!</p>",
+  "quiz": [
+    {
+      "question": "In uniform circular motion, what remains constant?",
+      "options": [
+        "Velocity",
+        "Acceleration",
+        "Speed",
+        "Displacement"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "Centripetal force is directed:",
+      "options": [
+        "Away from the centre",
+        "Tangent to the circle",
+        "Towards the centre",
+        "Upward"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "What is the formula for centripetal force?",
+      "options": [
+        "F = ma",
+        "F = mv²/r",
+        "F = mgh",
+        "F = mv/t"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "If you spin a stone on a string and the string breaks, the stone moves:",
+      "options": [
+        "In a circle",
+        "Towards the centre",
+        "In a straight line tangent to the circle",
+        "Downward immediately"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "Which of these is an example of circular motion?",
+      "options": [
+        "A ball rolling down a ramp",
+        "A ceiling fan blade rotating",
+        "A car moving on a straight highway",
+        "A book resting on a table"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "notes": "Each image is referenced by exactly one lesson, case study, or simulator. No duplicates allowed.",
+  "images": [
+    {"image": "phys-case-1.png", "usedBy": "case-studies/case-1.json", "description": "Pressure cooker on a gas stove"},
+    {"image": "phys-case-2.png", "usedBy": "case-studies/case-2.json", "description": "Cricket ball mid-swing"},
+    {"image": "phys-case-3.png", "usedBy": "case-studies/case-3.json", "description": "Chandrayaan-3 lunar landing illustration"},
+    {"image": "phys-case-4.png", "usedBy": "case-studies/case-4.json", "description": "Rooftop solar panels in India"},
+    {"image": "phys-case-5.png", "usedBy": "case-studies/case-5.json", "description": "Indian Railways train braking illustration"},
+    {"image": "phys-sim-1.png", "usedBy": "simulators/sim-1.json", "description": "Projectile motion parabola diagram"},
+    {"image": "phys-sim-2.png", "usedBy": "simulators/sim-2.json", "description": "Series and parallel circuit diagram"},
+    {"image": "phys-sim-3.png", "usedBy": "simulators/sim-3.json", "description": "Wave properties — crests and troughs"},
+    {"image": "phys-sim-4.png", "usedBy": "simulators/sim-4.json", "description": "Free body diagram with forces"},
+    {"image": "phys-sim-5.png", "usedBy": "simulators/sim-5.json", "description": "Radioactive decay curve"}
+  ]
+}

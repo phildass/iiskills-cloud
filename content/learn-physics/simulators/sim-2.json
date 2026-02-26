@@ -1,0 +1,16 @@
+{
+  "id": "sim-2",
+  "title": "Ohm's Law Circuit Simulator",
+  "module": "Electricity and Magnetism",
+  "description": "Build simple series and parallel circuits. Change voltage and resistance values and watch current change in real-time using V=IR.",
+  "type": "interactive",
+  "parameters": [
+    {"name": "voltage", "label": "Voltage (V)", "min": 1, "max": 24, "default": 12, "unit": "V"},
+    {"name": "resistance1", "label": "Resistance R1 (Ω)", "min": 1, "max": 100, "default": 10, "unit": "Ω"},
+    {"name": "resistance2", "label": "Resistance R2 (Ω)", "min": 1, "max": 100, "default": 20, "unit": "Ω"},
+    {"name": "circuitType", "label": "Circuit Type", "options": ["series", "parallel"], "default": "series"}
+  ],
+  "outputs": ["Total current", "Voltage across each resistor", "Total power dissipated"],
+  "image": "phys-sim-2.png",
+  "tags": ["electricity","circuit","ohm","resistance"]
+}

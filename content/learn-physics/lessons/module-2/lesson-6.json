@@ -1,0 +1,60 @@
+{
+  "moduleId": 2,
+  "lessonId": 6,
+  "slug": "applied-forces-tension",
+  "title": "Applied Forces and Tension",
+  "isFree": false,
+  "content": "<h2>Applied Forces and Tension</h2><h3>🔥 The Spark</h3><p>Did you know that the physics of <strong>applied forces and tension</strong> is at work all around you — even in a simple local train? In this lesson we uncover the science behind it.</p><h3>💡 The Simple Core</h3><p><strong>Applied Forces and Tension</strong> is a fundamental topic in Newton's Laws. Understanding it helps explain everyday phenomena and forms the basis of many engineering applications. The key idea is that physical quantities follow predictable mathematical relationships that scientists have verified through careful experiments in labs just like your school lab.</p><h3>🎯 The Show</h3><p>Consider a local train: the physics of <strong>applied forces and tension</strong> governs its behaviour directly. Engineers and scientists across India — from ISRO scientists in Bengaluru to factory engineers in Pune — apply these principles daily. By mastering this concept, you are building the same mental toolkit they use. Practice the five quiz questions below to test your understanding!</p>",
+  "quiz": [
+    {
+      "question": "Electric current is measured in:",
+      "options": [
+        "Volts",
+        "Ohms",
+        "Amperes",
+        "Watts"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "Voltage is measured using a:",
+      "options": [
+        "Ammeter",
+        "Voltmeter",
+        "Galvanometer",
+        "Barometer"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "Resistance is measured in:",
+      "options": [
+        "Amperes",
+        "Volts",
+        "Watts",
+        "Ohms"
+      ],
+      "correct_answer": 3
+    },
+    {
+      "question": "Which is a good electrical conductor?",
+      "options": [
+        "Glass",
+        "Rubber",
+        "Copper wire",
+        "Plastic"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "In a series circuit, current:",
+      "options": [
+        "Splits at each component",
+        "Is the same through all components",
+        "Increases at each component",
+        "Decreases at each component"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

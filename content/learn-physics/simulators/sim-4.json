@@ -1,0 +1,15 @@
+{
+  "id": "sim-4",
+  "title": "Newton's Laws Force Table",
+  "module": "Newton's Laws",
+  "description": "Apply forces to an object and observe acceleration. Adjust mass and friction to understand F=ma in action.",
+  "type": "interactive",
+  "parameters": [
+    {"name": "appliedForce", "label": "Applied Force (N)", "min": 0, "max": 200, "default": 50, "unit": "N"},
+    {"name": "mass", "label": "Mass (kg)", "min": 1, "max": 100, "default": 10, "unit": "kg"},
+    {"name": "frictionCoeff", "label": "Coefficient of Friction (μ)", "min": 0, "max": 1, "default": 0.3, "unit": ""}
+  ],
+  "outputs": ["Net force", "Acceleration", "Friction force", "Motion status"],
+  "image": "phys-sim-4.png",
+  "tags": ["newton","force","friction","acceleration"]
+}
