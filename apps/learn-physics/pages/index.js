@@ -1,40 +1,57 @@
-import React from 'react';
-import { Layout } from '@iiskills/ui/common';
-import Link from 'next/link';
-import { getCourseMetadata } from '@iiskills/content';
+import path from "path";
+import { createLoader } from "@iiskills/content-loader";
+import Link from "next/link";
+import Head from "next/head";
 
 export async function getStaticProps() {
   try {
-    const course = getCourseMetadata('learn-physics');
+    const contentRoot = path.resolve(process.cwd(), "../../content");
+    const loader = createLoader(contentRoot);
+    const course = loader.getCourse("learn-physics");
     return { props: { course: course || null } };
   } catch (err) {
-    console.error('[learn-physics] getStaticProps error:', err.message);
+    console.error("[learn-physics] getStaticProps error:", err.message);
     return { props: { course: null } };
   }
 }
 
 export default function PhysicsHome({ course }) {
   if (!course) {
-    return <Layout appName="Physics"><div style={{ padding: '2rem' }}>Course content unavailable.</div></Layout>;
-  }
-  return (
-    <Layout appName="Physics">
-      <div style={{ maxWidth: '960px', margin: '0 auto' }}>
-        <h1 style={{ fontSize: '2.5rem', fontWeight: 700, marginBottom: '0.5rem' }}>{course.title}</h1>
-        <p style={{ fontSize: '1.125rem', color: '#555', marginBottom: '0.5rem' }}>{course.description}</p>
-        <p style={{ color: '#888', marginBottom: '2rem' }}>Syllabus: {course.syllabusHours} hours</p>
-
-        <h2 style={{ fontSize: '1.5rem', fontWeight: 600, marginBottom: '1rem' }}>Modules</h2>
-        <div style={{ display: 'grid', gap: '1rem' }}>
-          {course.modules.map((mod) => (
-            <Link key={mod.id} href={`/modules/${mod.id}`} style={{ textDecoration: 'none' }}>
-              <div style={{ border: '1px solid #e0e0e0', borderRadius: '8px', padding: '1.25rem', background: '#fff', cursor: 'pointer' }}>
-                <h3 style={{ fontSize: '1.125rem', fontWeight: 600, color: '#1a1a2e' }}>{mod.title}</h3>
-              </div>
-            </Link>
-          ))}
+    return (
+      <main className="min-h-screen bg-gray-50 py-12">
+        <div className="container mx-auto px-4 max-w-4xl">
+          <p className="text-gray-600">Course content unavailable.</p>
         </div>
-      </div>
-    </Layout>
+      </main>
+    );
+  }
+
+  return (
+    <>
+      <Head>
+        <title>{course.title}</title>
+        <meta name="description" content={course.description} />
+      </Head>
+      <main className="min-h-screen bg-gray-50 py-12">
+        <div className="container mx-auto px-4 max-w-4xl">
+          <h1 className="text-4xl font-bold mb-2">{course.title}</h1>
+          <p className="text-lg text-gray-600 mb-8">{course.description}</p>
+
+          <h2 className="text-2xl font-semibold mb-4">Modules</h2>
+          <div className="grid gap-4">
+            {course.modules.map((mod) => (
+              <Link
+                key={mod.id}
+                href={`/modules/${mod.id}`}
+                className="block border border-gray-200 rounded-lg p-5 bg-white hover:border-blue-400 hover:shadow-sm transition-all"
+              >
+                <h3 className="text-lg font-semibold text-gray-900">{mod.title}</h3>
+                {mod.level && <span className="text-sm text-blue-600 capitalize">{mod.level}</span>}
+              </Link>
+            ))}
+          </div>
+        </div>
+      </main>
+    </>
   );
 }

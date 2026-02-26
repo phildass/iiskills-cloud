@@ -1,0 +1,60 @@
+{
+  "moduleId": 2,
+  "lessonId": 1,
+  "slug": "async-closures-prototypes",
+  "title": "Async, Closures & Prototypes",
+  "isFree": true,
+  "content": "<h2>Module 2, Lesson 1: JavaScript Mastery — Async, Closures &amp; Prototypes</h2>\n\n<h3>Introduction</h3>\n<p>JavaScript's single-threaded, event-driven nature is its greatest strength and the source of its most notorious bugs. Understanding closures, the prototype chain, and asynchronous patterns is the difference between a developer who fights the language and one who works with it.</p>\n\n<h3>Key Concepts</h3>\n<h4>Closures</h4>\n<p>A closure is a function that captures variables from its surrounding lexical scope. This enables data privacy, factory functions, and the module pattern. Every time you write a callback that references an outer variable, you're using a closure.</p>\n<h4>The Prototype Chain</h4>\n<p>JavaScript uses prototypal inheritance. Every object has an internal <code>[[Prototype]]</code> link to another object. When you access a property, JS walks up the chain until it finds it or reaches <code>null</code>. Understanding this prevents subtle bugs when adding methods to built-in types.</p>\n<h4>Async Patterns</h4>\n<p>JavaScript handles I/O asynchronously via the event loop. The evolution: callbacks → Promises → async/await. <strong>Promises</strong> represent future values and can be chained. <strong>async/await</strong> is syntactic sugar that makes asynchronous code read like synchronous code while remaining non-blocking.</p>\n\n<h3>Summary</h3>\n<p>Closures give you private state. Prototypes give you inheritance without classes. Async patterns let you handle network and disk I/O without blocking the UI thread. Master these three and JavaScript becomes predictable.</p>",
+  "quiz": [
+    {
+      "question": "What is a closure in JavaScript?",
+      "options": [
+        "A way to terminate a function early",
+        "A function that captures variables from its surrounding lexical scope",
+        "A method for closing browser windows",
+        "A design pattern for hiding classes"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is the purpose of the prototype chain?",
+      "options": [
+        "To encrypt JavaScript code",
+        "To enable prototypal inheritance by linking objects together",
+        "To manage asynchronous operations",
+        "To define strict typing in JavaScript"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What does async/await syntax do?",
+      "options": [
+        "It makes JavaScript multi-threaded",
+        "It blocks the event loop until a Promise resolves",
+        "It provides syntactic sugar over Promises for readable async code",
+        "It replaces callbacks with synchronous functions"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "What does Promise.all() do?",
+      "options": [
+        "Runs promises sequentially one after another",
+        "Cancels all pending promises",
+        "Runs promises concurrently and resolves when all complete",
+        "Converts callbacks to promises automatically"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "What is the event loop in JavaScript?",
+      "options": [
+        "A for-loop that iterates over DOM events",
+        "A mechanism that allows JavaScript to perform non-blocking I/O despite being single-threaded",
+        "A library for handling user input events",
+        "A syntax for listening to keyboard events"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

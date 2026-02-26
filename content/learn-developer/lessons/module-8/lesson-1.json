@@ -1,0 +1,60 @@
+{
+  "moduleId": 8,
+  "lessonId": 1,
+  "slug": "devops-deployment",
+  "title": "DevOps & Deployment",
+  "isFree": true,
+  "content": "<h2>Module 8, Lesson 1: DevOps &amp; Deployment</h2>\n\n<h3>Introduction</h3>\n<p>DevOps bridges development and operations, automating the path from code commit to production. CI/CD pipelines catch bugs before they reach users, containerisation makes deployments reproducible, and infrastructure-as-code ensures environments are consistent. Modern developers own their code in production.</p>\n\n<h3>Key Concepts</h3>\n<h4>CI/CD Pipelines</h4>\n<p><strong>Continuous Integration (CI)</strong>: every code push triggers automated build and test runs. Merge only green builds. This prevents integration hell. <strong>Continuous Delivery (CD)</strong>: every merge to main is automatically deployed to a staging environment. <strong>Continuous Deployment</strong>: every green build is deployed directly to production with no human gate.</p>\n<h4>Docker and Containers</h4>\n<p>Containers package an application with its dependencies into a portable, isolated unit. <strong>Docker</strong> builds images from a Dockerfile and runs them as containers. Unlike virtual machines, containers share the host OS kernel, making them lightweight. <strong>Docker Compose</strong> orchestrates multi-container development environments.</p>\n<h4>Environment Variables and Secrets</h4>\n<p>Never hardcode credentials in source code. Use environment variables for configuration that varies between environments (dev, staging, prod). Use a secrets manager (AWS Secrets Manager, HashiCorp Vault) for sensitive values. Rotate secrets regularly and audit access.</p>\n\n<h3>Summary</h3>\n<p>DevOps is a culture as much as a toolset: small, frequent releases, automated testing, infrastructure as code, and shared ownership of production. These practices reduce deployment risk and accelerate iteration.</p>",
+  "quiz": [
+    {
+      "question": "What is Continuous Integration (CI)?",
+      "options": [
+        "Manually deploying code to production",
+        "Automatically building and testing code on every commit to catch integration issues early",
+        "A method for integrating third-party APIs",
+        "A strategy for database migrations"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is a Docker container?",
+      "options": [
+        "A virtual machine with its own operating system",
+        "A portable, isolated unit packaging an app with its dependencies",
+        "A cloud storage bucket",
+        "A type of database cluster"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "Why should you never hardcode credentials in source code?",
+      "options": [
+        "It causes syntax errors",
+        "Source code is often version-controlled and accessible, exposing credentials to anyone with repo access",
+        "Credentials are too long to hardcode",
+        "Hardcoded credentials break CI/CD pipelines"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is the difference between a Docker image and a container?",
+      "options": [
+        "They are the same thing",
+        "An image is a read-only template; a container is a running instance of an image",
+        "A container is built once; an image can be run multiple times",
+        "Images are for production; containers are for development"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What does infrastructure as code (IaC) mean?",
+      "options": [
+        "Writing application code that directly controls hardware",
+        "Managing and provisioning infrastructure through machine-readable configuration files",
+        "Using code comments to document server configurations",
+        "Automating code reviews with AI tools"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

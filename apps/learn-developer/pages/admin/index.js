@@ -1,16 +1,16 @@
 "use client";
 
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
-import Link from 'next/link';
-import Head from 'next/head';
-import Footer from '../../components/Footer';
-import { getCurrentUser } from '../../lib/supabaseClient';
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import Link from "next/link";
+import Head from "next/head";
+import Footer from "../../components/Footer";
+import { getCurrentUser } from "../../lib/supabaseClient";
 
 export default function AdminPanel() {
   const router = useRouter();
   const [user, setUser] = useState(null);
-  const [activeTab, setActiveTab] = useState('modules');
+  const [activeTab, setActiveTab] = useState("modules");
   const [modules, setModules] = useState([]);
   const [registrations, setRegistrations] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -20,15 +20,15 @@ export default function AdminPanel() {
   }, []);
 
   const checkAuth = async () => {
-    if (process.env.NEXT_PUBLIC_DISABLE_AUTH === 'true') {
-      setUser({ email: 'admin@example.com' });
+    if (process.env.NEXT_PUBLIC_DISABLE_AUTH === "true") {
+      setUser({ email: "admin@example.com" });
       loadData();
       return;
     }
 
     const currentUser = await getCurrentUser();
     if (!currentUser) {
-      router.push('/');
+      router.push("/");
       return;
     }
 
@@ -39,15 +39,15 @@ export default function AdminPanel() {
 
   const loadData = async () => {
     try {
-      const { curriculumData } = await import('../../lib/curriculumData');
+      const { curriculumData } = await import("../../lib/curriculumData");
       setModules(curriculumData.modules || []);
 
       setRegistrations([
-        { id: 1, email: 'user1@example.com', date: '2024-01-15', status: 'active' },
-        { id: 2, email: 'user2@example.com', date: '2024-01-20', status: 'active' },
+        { id: 1, email: "user1@example.com", date: "2024-01-15", status: "active" },
+        { id: 2, email: "user2@example.com", date: "2024-01-20", status: "active" },
       ]);
     } catch (error) {
-      console.error('Error loading data:', error);
+      console.error("Error loading data:", error);
     } finally {
       setLoading(false);
     }
@@ -81,31 +81,31 @@ export default function AdminPanel() {
           <div className="mb-6">
             <div className="flex gap-4 border-b border-gray-200">
               <button
-                onClick={() => setActiveTab('modules')}
+                onClick={() => setActiveTab("modules")}
                 className={`px-4 py-2 font-semibold ${
-                  activeTab === 'modules'
-                    ? 'text-blue-600 border-b-2 border-blue-600'
-                    : 'text-gray-600 hover:text-gray-800'
+                  activeTab === "modules"
+                    ? "text-blue-600 border-b-2 border-blue-600"
+                    : "text-gray-600 hover:text-gray-800"
                 }`}
               >
                 Modules & Lessons
               </button>
               <button
-                onClick={() => setActiveTab('registrations')}
+                onClick={() => setActiveTab("registrations")}
                 className={`px-4 py-2 font-semibold ${
-                  activeTab === 'registrations'
-                    ? 'text-blue-600 border-b-2 border-blue-600'
-                    : 'text-gray-600 hover:text-gray-800'
+                  activeTab === "registrations"
+                    ? "text-blue-600 border-b-2 border-blue-600"
+                    : "text-gray-600 hover:text-gray-800"
                 }`}
               >
                 Registrations
               </button>
               <button
-                onClick={() => setActiveTab('certificates')}
+                onClick={() => setActiveTab("certificates")}
                 className={`px-4 py-2 font-semibold ${
-                  activeTab === 'certificates'
-                    ? 'text-blue-600 border-b-2 border-blue-600'
-                    : 'text-gray-600 hover:text-gray-800'
+                  activeTab === "certificates"
+                    ? "text-blue-600 border-b-2 border-blue-600"
+                    : "text-gray-600 hover:text-gray-800"
                 }`}
               >
                 Certificates
@@ -113,7 +113,7 @@ export default function AdminPanel() {
             </div>
           </div>
 
-          {activeTab === 'modules' && (
+          {activeTab === "modules" && (
             <div className="card">
               <h2 className="text-2xl font-semibold mb-6">Course Modules</h2>
               <div className="overflow-x-auto">
@@ -126,12 +126,17 @@ export default function AdminPanel() {
                     </tr>
                   </thead>
                   <tbody>
-                    {modules.map(module => (
+                    {modules.map((module) => (
                       <tr key={module.id} className="border-b border-gray-100 hover:bg-gray-50">
                         <td className="py-3 px-4">{module.id}</td>
                         <td className="py-3 px-4">{module.title}</td>
                         <td className="py-3 px-4">
-                          <Link href={`/modules/${module.id}/lesson`} className="text-green-600 hover:text-green-800 mr-4">Preview</Link>
+                          <Link
+                            href={`/modules/${module.id}/lesson/1`}
+                            className="text-green-600 hover:text-green-800 mr-4"
+                          >
+                            Preview
+                          </Link>
                           <button className="text-blue-600 hover:text-blue-800 mr-4">Edit</button>
                           <button className="text-red-600 hover:text-red-800">Delete</button>
                         </td>
@@ -143,7 +148,7 @@ export default function AdminPanel() {
             </div>
           )}
 
-          {activeTab === 'registrations' && (
+          {activeTab === "registrations" && (
             <div className="card">
               <h2 className="text-2xl font-semibold mb-6">User Registrations</h2>
               <div className="overflow-x-auto">
@@ -158,7 +163,7 @@ export default function AdminPanel() {
                     </tr>
                   </thead>
                   <tbody>
-                    {registrations.map(reg => (
+                    {registrations.map((reg) => (
                       <tr key={reg.id} className="border-b border-gray-100 hover:bg-gray-50">
                         <td className="py-3 px-4">{reg.id}</td>
                         <td className="py-3 px-4">{reg.email}</td>
@@ -180,11 +185,12 @@ export default function AdminPanel() {
             </div>
           )}
 
-          {activeTab === 'certificates' && (
+          {activeTab === "certificates" && (
             <div className="card">
               <h2 className="text-2xl font-semibold mb-6">Issued Certificates</h2>
               <p className="text-gray-600">
-                Certificates will appear here when students complete the course and pass the final exam.
+                Certificates will appear here when students complete the course and pass the final
+                exam.
               </p>
             </div>
           )}

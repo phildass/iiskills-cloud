@@ -1,0 +1,55 @@
+{
+  "moduleId": 4,
+  "lessonId": 1,
+  "slug": "nodejs-express-backend",
+  "title": "Node.js & Express: Backend Fundamentals",
+  "isFree": true,
+  "content": "<h2>Module 4, Lesson 1: Node.js &amp; Express — Backend Fundamentals</h2>\n\n<h3>Introduction</h3>\n<p>Node.js brought JavaScript to the server, enabling full-stack development in a single language. Its non-blocking, event-driven architecture makes it excellent for I/O-heavy workloads — APIs, real-time apps, microservices. Express is the minimal, unopinionated framework that wraps Node's HTTP module with a clean API for routing and middleware.</p>\n\n<h3>Key Concepts</h3>\n<h4>The Request-Response Cycle</h4>\n<p>Every Express app revolves around request (<code>req</code>) and response (<code>res</code>) objects. Middleware functions are executed in order, each calling <code>next()</code> to pass control to the next function. This pipeline pattern enables logging, authentication, body parsing, and error handling to be composed modularly.</p>\n<h4>Routing</h4>\n<p>Routes map HTTP methods and URL patterns to handler functions. Express supports route parameters (<code>/users/:id</code>), query strings, and nested routers. Organise routes by resource in separate files and mount them on the main app with <code>app.use()</code>.</p>\n<h4>Error Handling</h4>\n<p>Express identifies error-handling middleware by its four-parameter signature: <code>(err, req, res, next)</code>. Always define a global error handler at the end of your middleware chain. Never expose raw error messages to clients in production.</p>\n\n<h3>Summary</h3>\n<p>Node.js + Express is the most widely deployed JavaScript backend stack. Its middleware pipeline is composable and testable. Understanding request flow, routing, and error handling gives you the foundation to build any REST API.</p>",
+  "quiz": [
+    {
+      "question": "What is Node.js?",
+      "options": [
+        "A frontend JavaScript framework",
+        "A JavaScript runtime built on Chrome's V8 engine that runs on the server",
+        "A database management system",
+        "A package manager for JavaScript"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is middleware in Express?",
+      "options": [
+        "A database connection layer",
+        "A function that has access to req, res, and next in the request-response cycle",
+        "A type of HTTP response",
+        "An authentication library"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What does app.use() do in Express?",
+      "options": [
+        "Starts the HTTP server",
+        "Sends a response to the client",
+        "Mounts middleware or a router at a specified path",
+        "Connects to a database"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "How many parameters does an Express error-handling middleware have?",
+      "options": ["2 (req, res)", "3 (req, res, next)", "4 (err, req, res, next)", "1 (err)"],
+      "correct_answer": 2
+    },
+    {
+      "question": "What makes Node.js suitable for I/O-heavy workloads?",
+      "options": [
+        "It uses multiple CPU cores by default",
+        "Its non-blocking, event-driven architecture handles I/O without blocking the thread",
+        "It has built-in database support",
+        "It compiles JavaScript to native code"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}
