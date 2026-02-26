@@ -118,6 +118,9 @@ import QuizComponent from '../../../../components/QuizComponent';
 import EnrollmentLandingPage from '@shared/EnrollmentLandingPage';
 import { getCurrentUser } from '../../../../lib/supabaseClient';
 import { LessonContent } from '@iiskills/ui/content';
+import { isFreeAccessEnabled } from '@lib/freeAccess';
+
+const FREE_ACCESS = isFreeAccessEnabled();
 
 export default function LessonPage({ lesson, moduleId, lessonId }) {
   const router = useRouter();
@@ -131,7 +134,8 @@ export default function LessonPage({ lesson, moduleId, lessonId }) {
     getCurrentUser().then((currentUser) => {
       setUser(currentUser);
       // Show paywall for premium lessons when user is not authenticated.
-      if (!currentUser && !lesson.isFree && process.env.NEXT_PUBLIC_DISABLE_AUTH !== 'true') {
+      // Suppressed in free-access mode.
+      if (!currentUser && !lesson.isFree && !FREE_ACCESS && process.env.NEXT_PUBLIC_DISABLE_AUTH !== 'true') {
         setShowPaywall(true);
       }
     });
@@ -141,7 +145,8 @@ export default function LessonPage({ lesson, moduleId, lessonId }) {
     setQuizCompleted(passed);
     
     // Show Premium Access Prompt after completing sample lesson (Module 1, Lesson 1)
-    if (passed && moduleId === '1' && lessonId === '1') {
+    // Suppressed in free-access mode.
+    if (passed && moduleId === '1' && lessonId === '1' && !FREE_ACCESS) {
       setShowEnrollment(true);
     }
     

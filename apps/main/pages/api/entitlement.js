@@ -11,6 +11,7 @@
  */
 
 import { createClient } from '@supabase/supabase-js';
+import { isFreeAccessEnabled } from '../../../../lib/freeAccess';
 
 function getSupabaseServer() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -28,6 +29,11 @@ export default async function handler(req, res) {
   const { appId } = req.query;
   if (!appId) {
     return res.status(400).json({ error: 'appId query parameter is required' });
+  }
+
+  // Free-access mode: treat all paid content as accessible.
+  if (isFreeAccessEnabled()) {
+    return res.status(200).json({ authenticated: true, entitled: true, expiresAt: null, freeAccess: true });
   }
 
   const supabase = getSupabaseServer();

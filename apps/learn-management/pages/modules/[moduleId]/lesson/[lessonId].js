@@ -7,6 +7,9 @@ import QuizComponent from '../../../../components/QuizComponent';
 import EnrollmentLandingPage from '@shared/EnrollmentLandingPage';
 import { getCurrentUser } from '../../../../lib/supabaseClient';
 import { LessonContent } from '@iiskills/ui/content';
+import { isFreeAccessEnabled } from '@lib/freeAccess';
+
+const FREE_ACCESS = isFreeAccessEnabled();
 
 export default function LessonPage() {
   const router = useRouter();
@@ -151,7 +154,8 @@ export default function LessonPage() {
     setQuizCompleted(passed);
     
     // Show Premium Access Prompt after completing sample lesson (Module 1, Lesson 1)
-    if (passed && moduleId === '1' && lessonId === '1') {
+    // Suppressed in free-access mode.
+    if (passed && moduleId === '1' && lessonId === '1' && !FREE_ACCESS) {
       setShowEnrollment(true);
     }
     

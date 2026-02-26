@@ -7,6 +7,9 @@ import QuizComponent from '../../../../components/QuizComponent';
 import EnrollmentLandingPage from '@shared/EnrollmentLandingPage';
 import { getCurrentUser } from '../../../../lib/supabaseClient';
 import { LessonContent } from '@iiskills/ui/content';
+import { isFreeAccessEnabled } from '@lib/freeAccess';
+
+const FREE_ACCESS = isFreeAccessEnabled();
 
 export default function LessonPage() {
   const router = useRouter();
@@ -25,9 +28,12 @@ export default function LessonPage() {
   useEffect(() => {
     if (moduleId && lessonId) {
       fetchLesson();
-      // Gate: modules beyond the sample (module 1, lesson 1) require entitlement
+      // Gate: modules beyond the sample (module 1, lesson 1) require entitlement.
+      // Free-access mode bypasses the gate entirely.
       const isSampleLesson = moduleId === '1' && lessonId === '1';
-      if (!isSampleLesson) {
+      if (FREE_ACCESS) {
+        setEntitled(true); // free-access mode: all lessons accessible
+      } else if (!isSampleLesson) {
         checkEntitlement();
       } else {
         setEntitled(true); // sample lesson is always accessible
@@ -182,7 +188,8 @@ export default function LessonPage() {
     setQuizCompleted(passed);
     
     // Show Premium Access Prompt after completing sample lesson (Module 1, Lesson 1)
-    if (passed && moduleId === '1' && lessonId === '1') {
+    // Suppressed in free-access mode — no paywall prompt needed.
+    if (passed && moduleId === '1' && lessonId === '1' && !FREE_ACCESS) {
       setShowEnrollment(true);
     }
     
