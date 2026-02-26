@@ -126,6 +126,12 @@ export default function LessonPage({ lesson, moduleId, lessonId }) {
   const [showEnrollment, setShowEnrollment] = useState(false);
   const [showPaywall, setShowPaywall] = useState(false);
 
+  // Reset quiz completion whenever the lesson changes (prevents SPA state bleed
+  // when Next.js reuses the same page component without full unmount)
+  useEffect(() => {
+    setQuizCompleted(false);
+  }, [moduleId, lessonId]);
+
   // Auth check runs in background; never blocks page render.
   useEffect(() => {
     getCurrentUser().then((currentUser) => {
@@ -232,6 +238,7 @@ export default function LessonPage({ lesson, moduleId, lessonId }) {
 
           {lesson.quiz && (
             <QuizComponent 
+              key={`${moduleId}-${lessonId}`}
               questions={lesson.quiz}
               onComplete={handleQuizComplete}
             />

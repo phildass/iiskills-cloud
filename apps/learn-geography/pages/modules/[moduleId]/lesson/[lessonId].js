@@ -541,6 +541,7 @@ export default function LessonPage() {
 
           {lesson?.quiz && (
             <QuizComponent 
+              key={`${moduleId}-${lessonId}`}
               questions={lesson.quiz}
               onComplete={handleQuizComplete}
             />

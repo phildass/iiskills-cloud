@@ -27,6 +27,11 @@ export default function LessonPage() {
 
   useEffect(() => {
     if (moduleId) {
+      // Reset quiz state whenever the module changes (prevents SPA state bleed
+      // when Next.js reuses the same page component without full unmount)
+      setQuizCompleted(false);
+      setShowQuiz(false);
+      setQuizScore(null);
       fetchModule();
     }
   }, [moduleId]);
@@ -202,6 +207,7 @@ export default function LessonPage() {
           {showQuiz && !quizCompleted && (
             <div id="quiz-section">
               <RapidFireQuiz
+                key={moduleId}
                 questions={module.test}
                 onComplete={handleQuizComplete}
                 moduleTitle={module.title}
