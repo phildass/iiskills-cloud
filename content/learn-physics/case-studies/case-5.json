@@ -1,0 +1,9 @@
+{
+  "id": "case-5",
+  "title": "The Indian Railways Braking System",
+  "module": "Newton's Laws",
+  "summary": "How friction, momentum, and force engineering stop a 5000-tonne train safely.",
+  "content": "<h2>Case Study: Indian Railways Braking System</h2><p>Indian Railways is one of the largest rail networks in the world, carrying millions of passengers daily. Stopping these massive trains safely is a masterclass in applied Newton's Laws.</p><h3>The Challenge</h3><p>A fully loaded express train can weigh over 5,000 tonnes and travel at 130 km/h. Its kinetic energy is enormous: KE = ½mv² ≈ 3.3 × 10⁹ J. This energy must be safely dissipated to stop the train.</p><h3>How Brakes Work</h3><p>Braking systems press brake pads against wheels. Friction converts kinetic energy to heat. The braking force must be carefully calculated: too much causes wheels to lock (skidding), too little means the train won't stop in time.</p><h3>Impulse-Momentum Theorem</h3><p>Braking force × braking time = change in momentum. To stop in 1 km, engineers calculate the minimum braking force needed. Modern trains use disc brakes and regenerative braking (which recovers energy as electricity).</p><h3>Safety Systems</h3><p>Anti-lock Braking Systems (ABS) prevent wheel lock-up. The Train Protection Warning System (TPWS) automatically applies brakes if the driver misses a signal. These are all based on physics!</p>",
+  "image": "phys-case-5.png",
+  "tags": ["mechanics","friction","momentum","India","railways"]
+}

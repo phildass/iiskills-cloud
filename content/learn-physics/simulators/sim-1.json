@@ -1,0 +1,15 @@
+{
+  "id": "sim-1",
+  "title": "Projectile Motion Simulator",
+  "module": "Classical Mechanics",
+  "description": "Adjust launch angle and initial speed to visualise the parabolic path of a projectile. See how range and height change.",
+  "type": "interactive",
+  "parameters": [
+    {"name": "initialSpeed", "label": "Initial Speed (m/s)", "min": 1, "max": 100, "default": 20, "unit": "m/s"},
+    {"name": "launchAngle", "label": "Launch Angle (°)", "min": 0, "max": 90, "default": 45, "unit": "degrees"},
+    {"name": "gravity", "label": "Gravity (m/s²)", "min": 1, "max": 25, "default": 9.8, "unit": "m/s²"}
+  ],
+  "outputs": ["Maximum height", "Range", "Time of flight"],
+  "image": "phys-sim-1.png",
+  "tags": ["projectile","motion","kinematics"]
+}

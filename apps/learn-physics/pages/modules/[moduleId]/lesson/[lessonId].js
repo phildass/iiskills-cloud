@@ -106,9 +106,22 @@ import Head from "next/head";
 import QuizComponent from "../../../../../components/QuizComponent";
 import { LessonContent } from "@iiskills/ui/content";
 
+const NO_BADGES_KEY = "learn-physics-noBadges";
+
 export default function LessonPage({ lesson, moduleId, lessonId }) {
   const router = useRouter();
   const [quizCompleted, setQuizCompleted] = useState(false);
+  const [noBadges, setNoBadges] = useState(false);
+  const [showSkipDialog, setShowSkipDialog] = useState(false);
+
+  // Load noBadges flag from localStorage on mount
+  useEffect(() => {
+    try {
+      setNoBadges(localStorage.getItem(NO_BADGES_KEY) === "true");
+    } catch {
+      // localStorage unavailable (SSR or private mode)
+    }
+  }, []);
 
   // Reset quiz completion whenever the lesson changes (prevents SPA state bleed
   // when Next.js reuses the same page component without full unmount)
@@ -129,6 +142,17 @@ export default function LessonPage({ lesson, moduleId, lessonId }) {
     }
   };
 
+  const confirmSkip = () => {
+    try {
+      localStorage.setItem(NO_BADGES_KEY, "true");
+    } catch {
+      // localStorage unavailable
+    }
+    setNoBadges(true);
+    setShowSkipDialog(false);
+    goToNextLesson();
+  };
+
   return (
     <>
       <Head>
@@ -141,6 +165,17 @@ export default function LessonPage({ lesson, moduleId, lessonId }) {
 
       <main className="min-h-screen bg-gray-50 py-12">
         <div className="container mx-auto px-4 max-w-4xl">
+          {/* Skip-mode banner */}
+          {noBadges && (
+            <div
+              role="alert"
+              className="mb-6 rounded-lg border border-yellow-400 bg-yellow-50 px-4 py-3 text-yellow-800 text-sm"
+            >
+              ⚠️ <strong>You&apos;re in Skip mode.</strong> You can continue without quizzes, but
+              you won&apos;t earn badges for this course.
+            </div>
+          )}
+
           <div className="mb-6">
             <button
               onClick={() => router.push("/")}
@@ -167,23 +202,71 @@ export default function LessonPage({ lesson, moduleId, lessonId }) {
             <LessonContent html={lesson.content} />
           </div>
 
-          {lesson.quiz && (
-            <QuizComponent
-              key={`${moduleId}-${lessonId}`}
-              questions={lesson.quiz}
-              onComplete={handleQuizComplete}
-            />
+          {lesson.quiz && !quizCompleted && (
+            <>
+              <QuizComponent
+                key={`${moduleId}-${lessonId}`}
+                questions={lesson.quiz}
+                onComplete={handleQuizComplete}
+              />
+
+              {/* Skip quiz button — shown below quiz */}
+              <div className="mt-4 text-center">
+                <button
+                  onClick={() => setShowSkipDialog(true)}
+                  className="text-sm text-gray-500 underline hover:text-gray-700"
+                >
+                  Skip quiz and continue
+                </button>
+              </div>
+            </>
           )}
 
-          {quizCompleted && (
-            <div className="card bg-green-50 border-2 border-green-500">
-              <h3 className="text-xl font-semibold text-green-800 mb-4">🎉 Quiz Passed!</h3>
-              <p className="text-gray-700 mb-4">
-                Congratulations! You&apos;ve successfully completed this lesson.
-              </p>
+          {(quizCompleted || noBadges) && (
+            <div
+              className={`card border-2 ${quizCompleted && !noBadges ? "bg-green-50 border-green-500" : "bg-yellow-50 border-yellow-400"}`}
+            >
+              {quizCompleted && !noBadges ? (
+                <>
+                  <h3 className="text-xl font-semibold text-green-800 mb-4">🎉 Quiz Passed!</h3>
+                  <p className="text-gray-700 mb-4">
+                    Congratulations! You&apos;ve successfully completed this lesson.
+                  </p>
+                </>
+              ) : (
+                <p className="text-gray-700 mb-4">Continue to the next lesson.</p>
+              )}
               <button onClick={goToNextLesson} className="btn-primary">
                 Continue to Next Lesson
               </button>
+            </div>
+          )}
+
+          {/* Skip confirmation dialog */}
+          {showSkipDialog && (
+            <div
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="skip-dialog-title"
+              className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+            >
+              <div className="bg-white rounded-xl shadow-xl max-w-sm w-full mx-4 p-6">
+                <h2 id="skip-dialog-title" className="text-xl font-semibold mb-3">
+                  Skip quizzes?
+                </h2>
+                <p className="text-gray-700 mb-6">
+                  You can continue to the next lesson, but you won&apos;t earn badges for this
+                  course. <strong>This cannot be undone.</strong>
+                </p>
+                <div className="flex gap-3 justify-end">
+                  <button onClick={() => setShowSkipDialog(false)} className="btn-secondary">
+                    Cancel
+                  </button>
+                  <button onClick={confirmSkip} className="btn-primary">
+                    Skip
+                  </button>
+                </div>
+              </div>
             </div>
           )}
         </div>

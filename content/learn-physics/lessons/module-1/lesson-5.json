@@ -1,0 +1,60 @@
+{
+  "moduleId": 1,
+  "lessonId": 5,
+  "slug": "equations-of-motion",
+  "title": "Equations of Motion",
+  "isFree": false,
+  "content": "<h2>Equations of Motion</h2><h3>🔥 The Spark</h3><p>How does a ISRO rocket scientist calculate exactly how fast a rocket moves after a 10-second burn? They use the <strong>equations of motion</strong> — three simple formulas that describe any object moving with constant acceleration!</p><h3>💡 The Simple Core</h3><p>The three equations of motion are: (1) <strong>v = u + at</strong>, (2) <strong>s = ut + ½at²</strong>, (3) <strong>v² = u² + 2as</strong>. Here u = initial velocity, v = final velocity, a = acceleration, t = time, s = displacement. These only work when acceleration is constant (uniform).</p><h3>🎯 The Show</h3><p>A cyclist starts from rest (u=0) and accelerates at 2 m/s² for 5 seconds. Using v = u + at: v = 0 + 2×5 = <strong>10 m/s</strong>. Distance covered: s = 0×5 + ½×2×25 = <strong>25 m</strong>. These same equations help engineers design safe stopping distances for Chennai's metro trains!</p>",
+  "quiz": [
+    {
+      "question": "Which equation of motion directly relates velocity, acceleration, and displacement (without time)?",
+      "options": [
+        "v = u + at",
+        "s = ut + ½at²",
+        "v² = u² + 2as",
+        "s = (u+v)÷2 × t"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "What does 'u' represent in the equations of motion?",
+      "options": [
+        "Final velocity",
+        "Displacement",
+        "Initial velocity",
+        "Acceleration"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "A ball starts from rest and accelerates at 4 m/s² for 3 s. What is its final velocity?",
+      "options": [
+        "7 m/s",
+        "12 m/s",
+        "16 m/s",
+        "1.3 m/s"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "The equations of motion apply when acceleration is:",
+      "options": [
+        "Zero",
+        "Increasing",
+        "Decreasing",
+        "Constant"
+      ],
+      "correct_answer": 3
+    },
+    {
+      "question": "A car at 20 m/s decelerates at 5 m/s². How long to stop?",
+      "options": [
+        "2 s",
+        "4 s",
+        "10 s",
+        "100 s"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

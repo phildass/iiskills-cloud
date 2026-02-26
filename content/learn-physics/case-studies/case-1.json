@@ -1,0 +1,9 @@
+{
+  "id": "case-1",
+  "title": "How a Pressure Cooker Works",
+  "module": "Thermodynamics",
+  "summary": "An India-classic device that demonstrates Boyle's law, vapour pressure, and heat transfer.",
+  "content": "<h2>Case Study: The Pressure Cooker</h2><p>A pressure cooker is found in virtually every Indian kitchen. It cooks food in a fraction of the normal time — dal in 10 minutes instead of 45 minutes. How?</p><h3>The Physics</h3><p>Water normally boils at 100°C. But inside a sealed pressure cooker, steam cannot escape, so pressure builds up above atmospheric pressure. At higher pressure, the boiling point of water rises — typically to about 120°C. Food cooks faster at higher temperature.</p><h3>Key Concepts Applied</h3><ul><li><strong>Boyle's Law</strong>: Pressure × Volume = constant (for fixed temperature and amount of gas)</li><li><strong>Phase Transition</strong>: Steam formation depends on both temperature and pressure</li><li><strong>Heat Conduction</strong>: Aluminium body conducts heat from gas stove to water efficiently</li></ul><h3>Safety Note</h3><p>The safety valve releases excess steam if pressure gets too high — an excellent example of pressure relief engineering. Never force open a hot pressure cooker!</p>",
+  "image": "phys-case-1.png",
+  "tags": ["thermodynamics","pressure","boiling","India"]
+}

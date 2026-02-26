@@ -1,0 +1,60 @@
+{
+  "moduleId": 1,
+  "lessonId": 9,
+  "slug": "momentum-and-impulse",
+  "title": "Momentum and Impulse",
+  "isFree": false,
+  "content": "<h2>Momentum and Impulse</h2><h3>🔥 The Spark</h3><p>Why does a cricket ball hurt more when caught at high speed than when it barely reaches the fielder? The answer lies in <strong>momentum</strong> — the quantity of motion an object carries!</p><h3>💡 The Simple Core</h3><p><strong>Momentum</strong> (p) = mass × velocity (p = mv). SI unit: kg·m/s. The greater the mass or velocity, the greater the momentum. <strong>Impulse</strong> = Force × Time = Change in momentum (J = FΔt = Δp). <strong>Law of Conservation of Momentum</strong>: In a closed system with no external forces, total momentum before = total momentum after a collision.</p><h3>🎯 The Show</h3><p>A cricket batsman follows through after hitting the ball — this increases contact time, which reduces the average force (impulse = same, but spread over longer time). Crumple zones in cars work the same way. Two billiard balls colliding: total momentum before = total momentum after. Even India's Chandrayaan missions use momentum conservation for orbital manoeuvres!</p>",
+  "quiz": [
+    {
+      "question": "What is the formula for momentum?",
+      "options": [
+        "p = Ft",
+        "p = mv",
+        "p = mgh",
+        "p = ma"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is the SI unit of momentum?",
+      "options": [
+        "N·m",
+        "J",
+        "kg·m/s",
+        "W"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "Impulse equals:",
+      "options": [
+        "Force ÷ Time",
+        "Force × Distance",
+        "Change in momentum",
+        "Mass × Acceleration"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "The law of conservation of momentum applies when:",
+      "options": [
+        "External forces are present",
+        "No external forces act on the system",
+        "Friction is present",
+        "Objects are at rest"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "Why does a cricket batsman follow through after hitting?",
+      "options": [
+        "To look stylish",
+        "To increase contact time and reduce peak force on the bat",
+        "To increase the ball's momentum",
+        "To decrease the ball's momentum"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

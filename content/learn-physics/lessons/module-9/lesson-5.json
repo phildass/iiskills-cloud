@@ -1,0 +1,60 @@
+{
+  "moduleId": 9,
+  "lessonId": 5,
+  "slug": "stars-life-cycle",
+  "title": "Stars and their Life Cycle",
+  "isFree": false,
+  "content": "<h2>Stars and their Life Cycle</h2><h3>🔥 The Spark</h3><p>Did you know that the physics of <strong>stars and their life cycle</strong> is at work all around you — even in a simple monsoon rain? In this lesson we uncover the science behind it.</p><h3>💡 The Simple Core</h3><p><strong>Stars and their Life Cycle</strong> is a fundamental topic in Astrophysics. Understanding it helps explain everyday phenomena and forms the basis of many engineering applications. The key idea is that physical quantities follow predictable mathematical relationships that scientists have verified through careful experiments in labs just like your school lab.</p><h3>🎯 The Show</h3><p>Consider a monsoon rain: the physics of <strong>stars and their life cycle</strong> governs its behaviour directly. Engineers and scientists across India — from ISRO scientists in Bengaluru to factory engineers in Pune — apply these principles daily. By mastering this concept, you are building the same mental toolkit they use. Practice the five quiz questions below to test your understanding!</p>",
+  "quiz": [
+    {
+      "question": "Sound travels fastest through:",
+      "options": [
+        "Vacuum",
+        "Air",
+        "Water",
+        "Solid steel"
+      ],
+      "correct_answer": 3
+    },
+    {
+      "question": "The frequency of sound is measured in:",
+      "options": [
+        "Metres",
+        "Newtons",
+        "Hertz",
+        "Decibels"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "Which type of wave is sound?",
+      "options": [
+        "Transverse",
+        "Longitudinal",
+        "Electromagnetic",
+        "Standing"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "Light travels at approximately:",
+      "options": [
+        "3×10⁶ m/s",
+        "3×10⁸ m/s",
+        "3×10¹⁰ m/s",
+        "300 m/s"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "Reflection of light follows:",
+      "options": [
+        "Snell's law",
+        "Law of reflection",
+        "Newton's law",
+        "Ohm's law"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

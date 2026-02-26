@@ -1,0 +1,9 @@
+{
+  "id": "case-3",
+  "title": "ISRO's Chandrayaan Mission",
+  "module": "Astrophysics",
+  "summary": "How orbital mechanics, rocket propulsion, and gravity help India reach the Moon.",
+  "content": "<h2>Case Study: ISRO's Chandrayaan Mission</h2><p>On 23 August 2023, Chandrayaan-3's Vikram lander touched down near the lunar south pole — making India the first country to do so. This remarkable achievement is pure applied physics.</p><h3>Rocket Propulsion</h3><p>Newton's Third Law: exhaust gases pushed backward propel the rocket forward. The GSLV rocket burns thousands of kilograms of propellant to build enough velocity to escape Earth's gravity.</p><h3>Orbital Mechanics</h3><p>After launch, ISRO scientists use small engine burns to gradually raise the orbit. Kepler's laws describe how planets and spacecraft move — a higher orbit means slower orbital speed.</p><h3>Escape Velocity</h3><p>Earth's escape velocity is ~11.2 km/s. Chandrayaan-3 was placed in a trans-lunar injection — an elliptical orbit that reaches the Moon's orbit. The Moon's gravity then captures the spacecraft.</p><h3>Landing</h3><p>The powered descent used retro-rockets to decelerate from ~1.68 km/s to near zero — a perfect application of the impulse-momentum theorem. Sensor data updated the onboard computer 100s of times per second!</p>",
+  "image": "phys-case-3.png",
+  "tags": ["astrophysics","ISRO","gravity","orbits","India"]
+}

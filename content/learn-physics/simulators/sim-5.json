@@ -1,0 +1,14 @@
+{
+  "id": "sim-5",
+  "title": "Radioactive Decay Half-Life Simulator",
+  "module": "Nuclear Physics",
+  "description": "Watch a collection of radioactive atoms decay over time. Adjust half-life and see how the decay curve changes. Understand why half-life is constant regardless of sample size.",
+  "type": "interactive",
+  "parameters": [
+    {"name": "halfLife", "label": "Half-Life (years)", "min": 1, "max": 10000, "default": 100, "unit": "years"},
+    {"name": "initialAtoms", "label": "Initial Atoms", "min": 100, "max": 10000, "default": 1000, "unit": "atoms"}
+  ],
+  "outputs": ["Atoms remaining at time t", "Activity (decays/second)", "Decay constant λ"],
+  "image": "phys-sim-5.png",
+  "tags": ["nuclear","radioactivity","half-life","decay"]
+}
