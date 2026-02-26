@@ -26,6 +26,9 @@ export default function LessonPage() {
 
   useEffect(() => {
     if (moduleId && lessonId) {
+      // Reset quiz completion whenever the lesson changes (prevents SPA state bleed
+      // when Next.js reuses the same page component without full unmount)
+      setQuizCompleted(false);
       fetchLesson();
     }
   }, [moduleId, lessonId]);
@@ -233,6 +236,7 @@ export default function LessonPage() {
 
           {lesson?.quiz && (
             <QuizComponent 
+              key={`${moduleId}-${lessonId}`}
               questions={lesson.quiz}
               onComplete={handleQuizComplete}
             />
