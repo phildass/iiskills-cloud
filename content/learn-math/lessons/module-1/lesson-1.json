@@ -1,0 +1,60 @@
+{
+  "moduleId": 1,
+  "lessonId": 1,
+  "slug": "foundations-of-mathematical-thinking",
+  "title": "Foundations of Mathematical Thinking",
+  "isFree": true,
+  "content": "<h2>Module 1, Lesson 1: Foundations of Mathematical Thinking</h2>\n\n      <h3>Introduction</h3>\n      <p>Mathematics is the universal language of logic, structure, and quantitative reasoning. It underpins every field of human endeavour \u2014 from the algorithms that run the internet to the structural calculations behind a skyscraper, from the statistical models that guide medical decisions to the financial instruments traded on global markets. At its heart, mathematics is about identifying patterns, constructing rigorous arguments, and solving problems with precision.</p>\n      <p>Many people approach mathematics with anxiety, shaped by experiences of rote memorisation and speed drills that divorced the subject from meaning. This course takes the opposite approach. We begin with understanding \u2014 why rules work, not just how to apply them.</p>\n      <p>This lesson covers five fundamental domains of mathematics that recur throughout this course: algebra, geometry, calculus, statistics, and number theory.</p>\n\n      <h3>Key Concepts</h3>\n      <h4>1. Algebra: The Language of Relationships</h4>\n      <p>Algebra generalises arithmetic by replacing specific numbers with symbols (variables), enabling us to express and solve general relationships. Linear equations describe constant-rate relationships and graph as straight lines. Quadratic equations (ax\u00b2 + bx + c = 0) model parabolic relationships. The quadratic formula x = (-b \u00b1 \u221a(b\u00b2-4ac)) / 2a gives exact solutions to any quadratic equation.</p>\n\n      <h4>2. Geometry: Space, Shape, and Measurement</h4>\n      <p>Geometry is the study of spatial relationships. The Pythagorean theorem (a\u00b2 + b\u00b2 = c\u00b2 for right triangles) is the foundation of the distance formula in coordinate geometry, which underlies everything from GPS calculations to machine learning algorithms.</p>\n\n      <h4>3. Calculus: The Mathematics of Change</h4>\n      <p>Calculus has two main branches. Differential calculus studies rates of change: the derivative f'(x) gives the instantaneous rate at which f(x) changes. Integral calculus studies accumulation: the integral \u222bf(x)dx gives the area under a curve. The Fundamental Theorem of Calculus states that differentiation and integration are inverse operations.</p>\n\n      <h4>4. Statistics: Reasoning Under Uncertainty</h4>\n      <p>Statistics is the science of collecting, analysing, and drawing inferences from data. Descriptive statistics summarise data through mean, median, mode, variance, and standard deviation. Inferential statistics uses samples to draw conclusions about populations.</p>\n\n      <h4>5. Number Theory: The Pure Mathematics of Integers</h4>\n      <p>Number theory studies the integers and their properties. Prime numbers are the atoms of the integers: every integer can be uniquely factored into primes (Fundamental Theorem of Arithmetic). This underpins RSA cryptography, which secures the internet.</p>\n\n      <h3>Summary</h3>\n      <p>Mathematics is an interconnected edifice of ideas. In this lesson you have been introduced to: algebra as the language of general relationships; geometry as the study of spatial structure; calculus as the mathematics of change; statistics as reasoning under uncertainty; and number theory as the pure study of integers.</p>",
+  "quiz": [
+    {
+      "question": "What is the value of \u03c0 (pi) approximately?",
+      "options": [
+        "2.718",
+        "3.142",
+        "1.618",
+        "1.414"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is the Pythagorean theorem?",
+      "options": [
+        "a + b = c",
+        "a\u00b2 + b\u00b2 = c\u00b2",
+        "a \u00d7 b = c\u00b2",
+        "(a + b)\u00b2 = c"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is the derivative of x\u00b2?",
+      "options": [
+        "x",
+        "2",
+        "2x",
+        "x\u00b3/3"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "What is the sum of interior angles of a triangle?",
+      "options": [
+        "90 degrees",
+        "180 degrees",
+        "270 degrees",
+        "360 degrees"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is a prime number?",
+      "options": [
+        "A number divisible by 2",
+        "A number greater than 100",
+        "A number divisible only by 1 and itself",
+        "Any odd number"
+      ],
+      "correct_answer": 2
+    }
+  ]
+}

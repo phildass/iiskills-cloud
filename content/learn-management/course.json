@@ -1,0 +1,87 @@
+{
+  "appSlug": "learn-management",
+  "title": "Learn Management",
+  "description": "Develop strategic leadership and management excellence",
+  "modules": [
+    {
+      "id": 1,
+      "slug": "foundations-of-management",
+      "title": "Foundations of Management",
+      "level": "basic",
+      "order": 1,
+      "lessonCount": 10
+    },
+    {
+      "id": 2,
+      "slug": "leadership-principles",
+      "title": "Leadership Principles",
+      "level": "basic",
+      "order": 2,
+      "lessonCount": 10
+    },
+    {
+      "id": 3,
+      "slug": "strategic-planning",
+      "title": "Strategic Planning",
+      "level": "basic",
+      "order": 3,
+      "lessonCount": 10
+    },
+    {
+      "id": 4,
+      "slug": "organizational-behavior",
+      "title": "Organizational Behavior",
+      "level": "basic",
+      "order": 4,
+      "lessonCount": 10
+    },
+    {
+      "id": 5,
+      "slug": "team-building-and-motivation",
+      "title": "Team Building & Motivation",
+      "level": "intermediate",
+      "order": 5,
+      "lessonCount": 10
+    },
+    {
+      "id": 6,
+      "slug": "financial-management",
+      "title": "Financial Management",
+      "level": "intermediate",
+      "order": 6,
+      "lessonCount": 10
+    },
+    {
+      "id": 7,
+      "slug": "operations-management",
+      "title": "Operations Management",
+      "level": "intermediate",
+      "order": 7,
+      "lessonCount": 10
+    },
+    {
+      "id": 8,
+      "slug": "change-management",
+      "title": "Change Management",
+      "level": "advanced",
+      "order": 8,
+      "lessonCount": 10
+    },
+    {
+      "id": 9,
+      "slug": "hr-and-talent-management",
+      "title": "HR & Talent Management",
+      "level": "advanced",
+      "order": 9,
+      "lessonCount": 10
+    },
+    {
+      "id": 10,
+      "slug": "project-management",
+      "title": "Project Management",
+      "level": "advanced",
+      "order": 10,
+      "lessonCount": 10
+    }
+  ]
+}

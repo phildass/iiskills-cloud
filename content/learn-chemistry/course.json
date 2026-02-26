@@ -1,0 +1,87 @@
+{
+  "appSlug": "learn-chemistry",
+  "title": "Learn Chemistry",
+  "description": "Master chemical principles from atomic structure to organic reactions",
+  "modules": [
+    {
+      "id": 1,
+      "slug": "introduction-to-chemistry",
+      "title": "Introduction to Chemistry",
+      "level": "basic",
+      "order": 1,
+      "lessonCount": 10
+    },
+    {
+      "id": 2,
+      "slug": "atomic-structure",
+      "title": "Atomic Structure",
+      "level": "basic",
+      "order": 2,
+      "lessonCount": 10
+    },
+    {
+      "id": 3,
+      "slug": "chemical-bonding",
+      "title": "Chemical Bonding",
+      "level": "basic",
+      "order": 3,
+      "lessonCount": 10
+    },
+    {
+      "id": 4,
+      "slug": "states-of-matter",
+      "title": "States of Matter",
+      "level": "basic",
+      "order": 4,
+      "lessonCount": 10
+    },
+    {
+      "id": 5,
+      "slug": "chemical-reactions",
+      "title": "Chemical Reactions",
+      "level": "intermediate",
+      "order": 5,
+      "lessonCount": 10
+    },
+    {
+      "id": 6,
+      "slug": "stoichiometry",
+      "title": "Stoichiometry",
+      "level": "intermediate",
+      "order": 6,
+      "lessonCount": 10
+    },
+    {
+      "id": 7,
+      "slug": "organic-chemistry",
+      "title": "Organic Chemistry",
+      "level": "intermediate",
+      "order": 7,
+      "lessonCount": 10
+    },
+    {
+      "id": 8,
+      "slug": "chemical-kinetics",
+      "title": "Chemical Kinetics",
+      "level": "advanced",
+      "order": 8,
+      "lessonCount": 10
+    },
+    {
+      "id": 9,
+      "slug": "thermochemistry",
+      "title": "Thermochemistry",
+      "level": "advanced",
+      "order": 9,
+      "lessonCount": 10
+    },
+    {
+      "id": 10,
+      "slug": "advanced-topics",
+      "title": "Advanced Topics",
+      "level": "advanced",
+      "order": 10,
+      "lessonCount": 10
+    }
+  ]
+}
