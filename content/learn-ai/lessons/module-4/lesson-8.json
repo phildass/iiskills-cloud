@@ -1,0 +1,60 @@
+{
+  "moduleId": 4,
+  "lessonId": 8,
+  "slug": "jupyter-notebooks-colab",
+  "title": "Jupyter Notebooks and Google Colab",
+  "isFree": false,
+  "content": "<h2>Module 4, Lesson 8: Jupyter Notebooks and Google Colab</h2>\n<h3>Introduction</h3>\n<p>Jupyter Notebooks are the standard interactive computing environment for data science, allowing code, visualisations, and narrative text in a single document. In India, Indian data science students widely use Google Colab for free GPU access; companies like Razorpay and Myntra use JupyterHub for team data science.</p>\n<p>This lesson covers the essential concepts, practical tools, and India-specific applications you need to master jupyter notebooks and google colab.</p>\n<h3>Key Concepts</h3>\n<h4>1. Jupyter Notebook Architecture</h4>\n<p>Understanding jupyter notebook architecture is foundational to jupyter notebooks and google colab. Practitioners apply these principles daily in building robust AI systems for India's growing tech ecosystem.</p>\n<h4>2. Essential Keyboard Shortcuts</h4>\n<p>Essential Keyboard Shortcuts provides the theoretical and practical framework for implementing effective solutions. India's technology sector widely adopts these approaches in production systems.</p>\n<h4>3. Google Colab: Free GPU Access</h4>\n<p>The application of google colab: free gpu access is critical for production-grade AI systems. Leading Indian companies rely on these techniques to build scalable, reliable AI products.</p>\n<h4>4. Best Practices for Notebook Organisation</h4>\n<p>Best Practices for Notebook Organisation represents advanced practice in jupyter notebooks and google colab. Mastering this concept is what distinguishes expert AI practitioners building cutting-edge systems.</p>\n<h3>Summary</h3>\n<p>In this lesson you covered Jupyter Notebook Architecture, Essential Keyboard Shortcuts, Google Colab: Free GPU Access, and Best Practices for Notebook Organisation \u2014 all essential aspects of jupyter notebooks and google colab. Apply these concepts in your projects using India-specific datasets to build real-world experience and a strong portfolio.</p>",
+  "quiz": [
+    {
+      "question": "What is the primary purpose of a Jupyter Notebook?",
+      "options": [
+        "Running production servers",
+        "Combining executable code, visualisations, and narrative text in a single document",
+        "Building web APIs",
+        "Managing databases"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What does Shift+Enter do in a Jupyter Notebook?",
+      "options": [
+        "Opens a new notebook",
+        "Executes the current cell and moves to the next",
+        "Saves the notebook",
+        "Deletes the current cell"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What type of GPU does Google Colab provide for free?",
+      "options": [
+        "No GPU \u2014 only CPU",
+        "NVIDIA T4 or better",
+        "AMD Radeon",
+        "Intel GPU"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What does %matplotlib inline do in Jupyter?",
+      "options": [
+        "Installs Matplotlib",
+        "Renders Matplotlib charts inline in the notebook output",
+        "Enables interactive charts",
+        "Downloads sample datasets"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is the file extension for a Jupyter Notebook?",
+      "options": [
+        ".jpy",
+        ".notebook",
+        ".ipynb",
+        ".jnb"
+      ],
+      "correct_answer": 2
+    }
+  ]
+}

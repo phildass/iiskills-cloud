@@ -1,0 +1,60 @@
+{
+  "moduleId": 4,
+  "lessonId": 5,
+  "slug": "scikit-learn-basics",
+  "title": "Scikit-learn Basics",
+  "isFree": false,
+  "content": "<h2>Module 4, Lesson 5: Scikit-learn Basics</h2>\n<h3>Introduction</h3>\n<p>Scikit-learn is the most widely used Python library for classical machine learning, providing a consistent API for dozens of algorithms. In India, Scikit-learn powers fraud detection models at Indian banks, churn models at telcos, and price prediction tools at PropTiger.</p>\n<p>This lesson covers the essential concepts, practical tools, and India-specific applications you need to master scikit-learn basics.</p>\n<h3>Key Concepts</h3>\n<h4>1. The Scikit-learn API: fit(), predict(), transform()</h4>\n<p>Understanding the scikit-learn api: fit(), predict(), transform() is foundational to scikit-learn basics. Practitioners apply these principles daily in building robust AI systems for India's growing tech ecosystem.</p>\n<h4>2. Model Selection: Train-Test Split and Cross-Validation</h4>\n<p>Model Selection: Train-Test Split and Cross-Validation provides the theoretical and practical framework for implementing effective solutions. India's technology sector widely adopts these approaches in production systems.</p>\n<h4>3. Pipeline: Chaining Preprocessing and Modelling</h4>\n<p>The application of pipeline: chaining preprocessing and modelling is critical for production-grade AI systems. Leading Indian companies rely on these techniques to build scalable, reliable AI products.</p>\n<h4>4. Metrics: Evaluating Model Performance</h4>\n<p>Metrics: Evaluating Model Performance represents advanced practice in scikit-learn basics. Mastering this concept is what distinguishes expert AI practitioners building cutting-edge systems.</p>\n<h3>Summary</h3>\n<p>In this lesson you covered The Scikit-learn API: fit(), predict(), transform(), Model Selection: Train-Test Split and Cross-Validation, Pipeline: Chaining Preprocessing and Modelling, and Metrics: Evaluating Model Performance \u2014 all essential aspects of scikit-learn basics. Apply these concepts in your projects using India-specific datasets to build real-world experience and a strong portfolio.</p>",
+  "quiz": [
+    {
+      "question": "What method trains (fits) a Scikit-learn model on data?",
+      "options": [
+        "model.train()",
+        "model.fit(X_train, y_train)",
+        "model.learn()",
+        "model.run()"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What does train_test_split() do?",
+      "options": [
+        "Trains and tests a model automatically",
+        "Splits a dataset into training and test sets",
+        "Splits features from the target variable",
+        "Creates cross-validation folds"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is the purpose of Scikit-learn Pipeline?",
+      "options": [
+        "To create data pipelines to Kafka",
+        "To chain preprocessing steps and a model to prevent data leakage",
+        "To deploy models to production",
+        "To parallelize training"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "Which metric is most appropriate for an imbalanced classification problem (e.g., fraud detection)?",
+      "options": [
+        "Accuracy",
+        "F1-score or AUC-ROC",
+        "Mean Squared Error",
+        "R-squared"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What does model.predict_proba() return?",
+      "options": [
+        "Class labels",
+        "Probability estimates for each class",
+        "Model weights",
+        "Feature importance scores"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "moduleId": 3,
+  "lessonId": 3,
+  "slug": "data-collection-indian-datasets",
+  "title": "Data Collection and Indian Open Datasets",
+  "isFree": false,
+  "content": "<h2>Module 3, Lesson 3: Data Collection and Indian Open Datasets</h2>\n<h3>Introduction</h3>\n<p>Data collection is the foundation of any AI project. India has an expanding ecosystem of open datasets across government, research, and commercial sources.</p>\n<h3>Key Concepts</h3>\n<h4>1. Primary vs secondary data collection</h4>\n<p>Understanding Primary vs secondary data collection is foundational to this topic. Indian companies and research institutions apply these principles in production AI systems every day.</p>\n<h4>2. data.gov.in: India's Open Government Data portal</h4>\n<p>data.gov.in: India's Open Government Data portal forms the core methodology for practitioners. India's tech ecosystem from Bengaluru to Hyderabad deploys these approaches at scale.</p>\n<h4>3. ISRO Bhuvan satellite imagery</h4>\n<p>ISRO Bhuvan satellite imagery is critical for building reliable AI solutions. Top Indian firms like TCS, Wipro, Infosys, and startups like Razorpay all leverage these techniques.</p>\n<h4>4. Web scraping and APIs</h4>\n<p>Mastering Web scraping and APIs separates good practitioners from great ones. Apply these concepts on Indian open datasets from data.gov.in to build hands-on expertise.</p>\n<h3>Summary</h3>\n<p>This lesson covered Primary vs secondary data collection, data.gov.in: India's Open Government Data portal, ISRO Bhuvan satellite imagery, and Web scraping and APIs. These are the building blocks of data collection and indian open datasets \u2014 master them through practice on real Indian datasets.</p>",
+  "quiz": [
+    {
+      "question": "How many datasets does data.gov.in host?",
+      "options": [
+        "10,000+",
+        "50,000+",
+        "600,000+",
+        "5 million+"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "What does ISRO Bhuvan provide?",
+      "options": [
+        "AI model benchmarks",
+        "Free Indian satellite imagery for geospatial analysis",
+        "Government scheme info",
+        "App development resources"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is the difference between primary and secondary data?",
+      "options": [
+        "Primary is digital; secondary is paper",
+        "Primary is collected directly for the project; secondary is existing data repurposed",
+        "Primary is government; secondary is private",
+        "Primary is real-time; secondary is historical"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "Which Python library is used for web scraping?",
+      "options": [
+        "NumPy and Pandas",
+        "TensorFlow",
+        "BeautifulSoup / Scrapy / Selenium",
+        "Matplotlib"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "Which organisation provides macroeconomic data (India inflation, interest rates)?",
+      "options": [
+        "SEBI",
+        "NSE",
+        "Reserve Bank of India (RBI)",
+        "NASSCOM"
+      ],
+      "correct_answer": 2
+    }
+  ]
+}

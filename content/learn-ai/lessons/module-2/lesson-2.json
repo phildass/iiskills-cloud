@@ -1,0 +1,60 @@
+{
+  "moduleId": 2,
+  "lessonId": 2,
+  "slug": "reactive-machines",
+  "title": "Reactive Machines and Limited Memory AI",
+  "isFree": false,
+  "content": "<h2>Module 2, Lesson 2: Reactive Machines and Limited Memory AI</h2>\n<h3>Introduction</h3>\n<p>Arend Hintze's classification framework distinguishes AI by memory and self-awareness. Understanding these categories clarifies what today's AI can and cannot do.</p>\n<h3>Key Concepts</h3>\n<h4>1. Reactive machines (stateless AI)</h4>\n<p>Understanding Reactive machines (stateless AI) is foundational to this topic. Indian companies and research institutions apply these principles in production AI systems every day.</p>\n<h4>2. Limited memory AI</h4>\n<p>Limited memory AI forms the core methodology for practitioners. India's tech ecosystem from Bengaluru to Hyderabad deploys these approaches at scale.</p>\n<h4>3. How ML models use training-time memory</h4>\n<p>How ML models use training-time memory is critical for building reliable AI solutions. Top Indian firms like TCS, Wipro, Infosys, and startups like Razorpay all leverage these techniques.</p>\n<h4>4. Real-time limited memory in Indian apps</h4>\n<p>Mastering Real-time limited memory in Indian apps separates good practitioners from great ones. Apply these concepts on Indian open datasets from data.gov.in to build hands-on expertise.</p>\n<h3>Summary</h3>\n<p>This lesson covered Reactive machines (stateless AI), Limited memory AI, How ML models use training-time memory, and Real-time limited memory in Indian apps. These are the building blocks of reactive machines and limited memory ai \u2014 master them through practice on real Indian datasets.</p>",
+  "quiz": [
+    {
+      "question": "What distinguishes Reactive Machine AI from Limited Memory AI?",
+      "options": [
+        "Speed",
+        "Reactive machines have no memory of past interactions",
+        "Data requirements",
+        "Cost"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "Which famous chess computer is a classic Reactive Machine?",
+      "options": [
+        "AlphaGo",
+        "Deep Blue",
+        "Stockfish",
+        "Leela Chess Zero"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "How does Ola surge pricing use Limited Memory AI?",
+      "options": [
+        "It memorises all historical trip data",
+        "It reacts to last-hour demand patterns",
+        "It uses only static rules",
+        "It never changes price"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "Where is memory \"stored\" in a trained ML model?",
+      "options": [
+        "A database",
+        "The cloud",
+        "Model parameters (weights)",
+        "RAM"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "What is Retrieval-Augmented Generation (RAG) used for?",
+      "options": [
+        "Making models faster",
+        "Providing selective memory by fetching relevant stored context",
+        "Training new models",
+        "Reducing model size"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "moduleId": 2,
+  "lessonId": 6,
+  "slug": "computer-vision",
+  "title": "Computer Vision",
+  "isFree": false,
+  "content": "<h2>Module 2, Lesson 6: Computer Vision</h2>\n<h3>Introduction</h3>\n<p>Computer Vision enables machines to interpret visual information. India's radiologist shortage makes medical imaging AI one of the highest-impact CV applications.</p>\n<h3>Key Concepts</h3>\n<h4>1. Core CV tasks (classification, detection, segmentation)</h4>\n<p>Understanding Core CV tasks (classification, detection, segmentation) is foundational to this topic. Indian companies and research institutions apply these principles in production AI systems every day.</p>\n<h4>2. Convolutional Neural Networks (CNNs)</h4>\n<p>Convolutional Neural Networks (CNNs) forms the core methodology for practitioners. India's tech ecosystem from Bengaluru to Hyderabad deploys these approaches at scale.</p>\n<h4>3. Medical imaging AI in India (Qure.ai, Niramai)</h4>\n<p>Medical imaging AI in India (Qure.ai, Niramai) is critical for building reliable AI solutions. Top Indian firms like TCS, Wipro, Infosys, and startups like Razorpay all leverage these techniques.</p>\n<h4>4. Agriculture and satellite image analysis</h4>\n<p>Mastering Agriculture and satellite image analysis separates good practitioners from great ones. Apply these concepts on Indian open datasets from data.gov.in to build hands-on expertise.</p>\n<h3>Summary</h3>\n<p>This lesson covered Core CV tasks (classification, detection, segmentation), Convolutional Neural Networks (CNNs), Medical imaging AI in India (Qure.ai, Niramai), and Agriculture and satellite image analysis. These are the building blocks of computer vision \u2014 master them through practice on real Indian datasets.</p>",
+  "quiz": [
+    {
+      "question": "What is the primary architecture for computer vision?",
+      "options": [
+        "RNNs",
+        "Transformers",
+        "Convolutional Neural Networks (CNNs)",
+        "GANs"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "Which Indian startup uses CV for breast cancer screening?",
+      "options": [
+        "Practo",
+        "Niramai",
+        "Healthifyme",
+        "1mg"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What CV task labels every pixel with a class?",
+      "options": [
+        "Object detection",
+        "Image classification",
+        "Semantic segmentation",
+        "Instance detection"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "What is a documented CV bias problem in India?",
+      "options": [
+        "CNNs are slow on Indian hardware",
+        "Models trained on Western datasets perform poorly on Indian faces",
+        "No satellite imagery of India",
+        "Indian OCR is unsupported"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "Which ISRO platform uses CV on satellite imagery for crop mapping?",
+      "options": [
+        "ISRO National Remote Sensing Centre (NRSC)",
+        "IIT Delhi CV Lab",
+        "Infosys AI Research",
+        "NASSCOM"
+      ],
+      "correct_answer": 0
+    }
+  ]
+}

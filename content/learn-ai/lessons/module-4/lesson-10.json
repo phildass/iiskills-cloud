@@ -1,0 +1,60 @@
+{
+  "moduleId": 4,
+  "lessonId": 10,
+  "slug": "first-ai-model-python",
+  "title": "Building Your First AI Model in Python",
+  "isFree": false,
+  "content": "<h2>Module 4, Lesson 10: Building Your First AI Model in Python</h2>\n<h3>Introduction</h3>\n<p>This lesson guides you through building a complete end-to-end AI model in Python using a real Indian dataset. In India, Using the UCI Indian Liver Patient dataset or Kaggle's Indian crop yield dataset, build a model from scratch.</p>\n<p>This lesson covers the essential concepts, practical tools, and India-specific applications you need to master building your first ai model in python.</p>\n<h3>Key Concepts</h3>\n<h4>1. Problem Definition and Dataset Selection</h4>\n<p>Understanding problem definition and dataset selection is foundational to building your first ai model in python. Practitioners apply these principles daily in building robust AI systems for India's growing tech ecosystem.</p>\n<h4>2. Data Loading and EDA with Pandas</h4>\n<p>Data Loading and EDA with Pandas provides the theoretical and practical framework for implementing effective solutions. India's technology sector widely adopts these approaches in production systems.</p>\n<h4>3. Model Training with Scikit-learn</h4>\n<p>The application of model training with scikit-learn is critical for production-grade AI systems. Leading Indian companies rely on these techniques to build scalable, reliable AI products.</p>\n<h4>4. Evaluation and Iteration</h4>\n<p>Evaluation and Iteration represents advanced practice in building your first ai model in python. Mastering this concept is what distinguishes expert AI practitioners building cutting-edge systems.</p>\n<h3>Summary</h3>\n<p>In this lesson you covered Problem Definition and Dataset Selection, Data Loading and EDA with Pandas, Model Training with Scikit-learn, and Evaluation and Iteration \u2014 all essential aspects of building your first ai model in python. Apply these concepts in your projects using India-specific datasets to build real-world experience and a strong portfolio.</p>",
+  "quiz": [
+    {
+      "question": "What is the first step in building an AI model?",
+      "options": [
+        "Start training immediately",
+        "Define the problem clearly and identify an appropriate dataset",
+        "Choose the most complex algorithm",
+        "Tune hyperparameters"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What does train_test_split(X, y, test_size=0.2) mean?",
+      "options": [
+        "Use 20% for training, 80% for testing",
+        "Use 80% for training, 20% for testing",
+        "Split data into 20 equal parts",
+        "Remove 20% of the data"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "Why is a baseline model important?",
+      "options": [
+        "To immediately get the best results",
+        "To establish a simple benchmark that more complex models must beat",
+        "To avoid writing complex code",
+        "To speed up training"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What does cross_val_score() provide?",
+      "options": [
+        "Training speed metrics",
+        "Model performance estimates across multiple train/test splits for more reliable evaluation",
+        "A single test set score",
+        "Hyperparameter suggestions"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What should you do after training a model to ensure it generalises?",
+      "options": [
+        "Deploy it immediately",
+        "Only evaluate on training data",
+        "Evaluate on a held-out test set that was never seen during training",
+        "Increase model complexity"
+      ],
+      "correct_answer": 2
+    }
+  ]
+}

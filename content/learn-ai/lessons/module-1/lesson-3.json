@@ -1,0 +1,60 @@
+{
+  "moduleId": 1,
+  "lessonId": 3,
+  "isFree": false,
+  "slug": "ai-applications-in-real-life",
+  "title": "AI Applications in Real Life",
+  "content": "<h2>Module 1, Lesson 3: AI Applications in Real Life</h2>\n<h3>Introduction</h3>\n<p>AI is not a future technology — it is the invisible engine powering the apps and services you use every day. From the moment you wake up and check Zomato for breakfast delivery recommendations to the UPI transaction you make at the sabzi market, AI is at work.</p>\n<p>India is one of the world's most exciting AI adoption stories. With over 800 million internet users, a mobile-first population, and a government committed to digital infrastructure, Indian companies are deploying AI at a scale that rivals Silicon Valley. This lesson maps AI onto everyday Indian life.</p>\n<h3>Key Concepts</h3>\n<h4>1. AI in Financial Services: PhonePe and Paytm</h4>\n<p>UPI-based apps process hundreds of millions of transactions daily. AI powers real-time fraud detection — flagging suspicious patterns in milliseconds. PhonePe's AI models analyse transaction velocity, device fingerprint, and merchant category to block fraud before it happens. Credit scoring startup CreditMantri uses ML to assess creditworthiness for thin-file borrowers.</p>\n<h4>2. AI in Food Delivery: Zomato and Swiggy</h4>\n<p>Zomato uses ML to optimise delivery routing (ETA prediction), personalise restaurant recommendations, and forecast demand for restaurant kitchens. Swiggy's Hyperlocal AI dynamically adjusts pricing and delivery partner allocation. Both companies rely on reinforcement learning to continuously improve decision-making.</p>\n<h4>3. AI in Transportation: Indian Railways and Ola</h4>\n<p>IRCTC's Tatkal booking system uses AI to manage millions of concurrent connections. Indian Railways uses predictive maintenance AI to detect wheel and track defects, reducing derailment risk. Ola uses ML for dynamic pricing (surge pricing), driver matching, and ETA calculation across thousands of Indian cities.</p>\n<h4>4. AI in Healthcare: AIIMS and HealthTech Startups</h4>\n<p>AIIMS Delhi uses AI for early TB detection from chest X-rays (accuracy surpassing radiologists in controlled trials). Healthtech startups like Niramai use thermal imaging and AI for breast cancer screening. Practo's AI matches patients to the right specialist based on symptom description.</p>\n<h4>5. AI in Agriculture: Kisan Suvidha and AgriBazaar</h4>\n<p>India has 140 million farm holdings. AI is transforming farming: soil health cards use ML to recommend fertilisers; satellite imagery combined with weather AI predicts crop yields; pest detection apps identify diseases from smartphone photos. The government's Digital Agriculture Mission aims to give every farmer an AI-powered digital profile.</p>\n<h3>Summary</h3>\n<p>AI in India is not theoretical — it is live, deployed, and growing. Financial fraud prevention, food delivery optimisation, smart transportation, AI-assisted healthcare, and precision agriculture are just a few sectors where AI creates daily value. As you learn AI, think about how each technique you study is already powering systems that serve billions of people.</p>",
+  "quiz": [
+    {
+      "question": "What AI technique does PhonePe use to block fraudulent UPI transactions?",
+      "options": [
+        "Expert systems",
+        "Real-time fraud detection ML models",
+        "Rule-based filters only",
+        "Manual review by agents"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "How does Zomato's AI improve delivery operations?",
+      "options": [
+        "By using GPS tracking only",
+        "By optimising routing, personalising recommendations, and forecasting demand",
+        "By manually assigning delivery partners",
+        "By using static pricing models"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What does AIIMS Delhi use AI for?",
+      "options": [
+        "Hospital billing",
+        "Early TB detection from chest X-rays",
+        "Patient scheduling only",
+        "Medicine dispensing"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "Which Indian government initiative aims to give every farmer a digital AI-powered profile?",
+      "options": [
+        "PM Kisan",
+        "Digital Agriculture Mission",
+        "e-NAM",
+        "Soil Health Card Scheme"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What type of learning does Ola use for dynamic pricing?",
+      "options": [
+        "Supervised learning only",
+        "Reinforcement learning",
+        "Unsupervised clustering",
+        "Expert systems"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

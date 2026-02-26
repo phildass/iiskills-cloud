@@ -1,0 +1,60 @@
+{
+  "moduleId": 3,
+  "lessonId": 7,
+  "slug": "feature-engineering",
+  "title": "Feature Engineering",
+  "isFree": false,
+  "content": "<h2>Module 3, Lesson 7: Feature Engineering</h2>\n<h3>Introduction</h3>\n<p>Feature engineering \u2014 creating and transforming input variables \u2014 is often the highest-leverage skill in applied data science. Well-engineered features can make a simple model beat a complex one.</p>\n<h3>Key Concepts</h3>\n<h4>1. Feature creation (interaction, ratio, date-time features)</h4>\n<p>Understanding Feature creation (interaction, ratio, date-time features) is foundational to this topic. Indian companies and research institutions apply these principles in production AI systems every day.</p>\n<h4>2. Text feature engineering (TF-IDF, word embeddings)</h4>\n<p>Text feature engineering (TF-IDF, word embeddings) forms the core methodology for practitioners. India's tech ecosystem from Bengaluru to Hyderabad deploys these approaches at scale.</p>\n<h4>3. Target encoding and frequency encoding</h4>\n<p>Target encoding and frequency encoding is critical for building reliable AI solutions. Top Indian firms like TCS, Wipro, Infosys, and startups like Razorpay all leverage these techniques.</p>\n<h4>4. Feature selection (filter, wrapper, embedded methods)</h4>\n<p>Mastering Feature selection (filter, wrapper, embedded methods) separates good practitioners from great ones. Apply these concepts on Indian open datasets from data.gov.in to build hands-on expertise.</p>\n<h3>Summary</h3>\n<p>This lesson covered Feature creation (interaction, ratio, date-time features), Text feature engineering (TF-IDF, word embeddings), Target encoding and frequency encoding, and Feature selection (filter, wrapper, embedded methods). These are the building blocks of feature engineering \u2014 master them through practice on real Indian datasets.</p>",
+  "quiz": [
+    {
+      "question": "What is feature engineering?",
+      "options": [
+        "Choosing the best ML algorithm",
+        "Creating informative input variables from raw data for ML models",
+        "Deploying models to production",
+        "Optimising GPU usage"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What does TF-IDF stand for?",
+      "options": [
+        "Total Feature \u2014 Inverse Document Function",
+        "Term Frequency \u2014 Inverse Document Frequency",
+        "Text Feature \u2014 Input Data Format",
+        "True Feature \u2014 Inference Detection Function"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is the risk of target encoding?",
+      "options": [
+        "Makes features too large",
+        "Data leakage if not done with cross-validation",
+        "Only works for binary targets",
+        "Requires GPU"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "Which feature is most useful for Indian e-commerce demand forecasting?",
+      "options": [
+        "Transaction ID",
+        "Product weight",
+        "Is_Diwali_season flag from date",
+        "Customer email domain"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "What does Lasso regularisation do for feature selection?",
+      "options": [
+        "Adds features automatically",
+        "Shrinks irrelevant feature coefficients to zero",
+        "Increases model complexity",
+        "Doubles the learning rate"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

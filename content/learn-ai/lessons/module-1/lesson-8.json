@@ -1,0 +1,60 @@
+{
+  "moduleId": 1,
+  "lessonId": 8,
+  "isFree": false,
+  "slug": "computing-power-and-hardware",
+  "title": "Computing Power and Hardware for AI",
+  "content": "<h2>Module 1, Lesson 8: Computing Power and Hardware for AI</h2>\n<h3>Introduction</h3>\n<p>Modern AI, particularly deep learning, is computationally intensive. Training a large language model from scratch costs millions of dollars in compute. Understanding the hardware landscape — CPUs, GPUs, TPUs, and cloud services — helps you make cost-effective decisions about where and how to train your models.</p>\n<p>India faces a compute gap: few Indian organisations own GPU clusters, making cloud compute essential. The India AI Mission's ₹10,372 crore budget includes significant investment in shared GPU infrastructure through C-DAC and public cloud partnerships, aiming to democratise AI compute for Indian researchers and startups.</p>\n<h3>Key Concepts</h3>\n<h4>1. CPU vs GPU: Why AI Loves GPUs</h4>\n<p>A CPU (Central Processing Unit) has a few powerful cores optimised for sequential tasks. A GPU (Graphics Processing Unit) has thousands of smaller cores designed for parallel computation. Deep learning involves millions of matrix multiplications — a perfectly parallel task. NVIDIA GPUs (A100, H100) are the dominant AI training hardware. A single H100 GPU performs quadrillions of floating-point operations per second.</p>\n<h4>2. TPUs: Google's AI Accelerators</h4>\n<p>Tensor Processing Units (TPUs), developed by Google, are custom chips designed specifically for neural network training and inference. Google uses TPUs internally for all major AI workloads (Search, Translate, DeepMind). TPUs are available via Google Cloud and are up to 10x more energy-efficient than GPUs for specific workloads.</p>\n<h4>3. Cloud Computing for AI: AWS, GCP, Azure</h4>\n<p>Cloud platforms eliminate the need to purchase expensive hardware. AWS SageMaker, Google Cloud AI Platform, and Azure ML provide managed ML services. Indian startups typically start on cloud (lower upfront cost) and migrate to on-premise as workloads scale. C-DAC's Param Siddhi AI supercomputer is India's publicly available HPC resource.</p>\n<h4>4. Google Colab and Free AI Compute</h4>\n<p>Google Colab provides free GPU access (Tesla T4, A100 on Colab Pro) in a Jupyter notebook environment. It is the primary learning tool for AI students worldwide, including India where personal GPU ownership is rare. Kaggle also provides free GPU compute for competitions and learning.</p>\n<h4>5. Memory and Storage Considerations</h4>\n<p>AI training requires fast memory (VRAM on GPU) and fast storage (SSD, NVMe). Training a model larger than VRAM requires gradient checkpointing or model parallelism. For production inference, model quantisation (int8, fp16) reduces memory requirements 2-4x, enabling deployment on smaller hardware including edge devices and smartphones.</p>\n<h3>Summary</h3>\n<p>AI hardware has evolved from CPUs to specialized GPUs and TPUs. Cloud platforms democratise access to powerful compute. India's AI Mission is investing in shared infrastructure to close the compute gap. As a practitioner, understanding hardware helps you choose the right platform for your project budget and scale requirements.</p>",
+  "quiz": [
+    {
+      "question": "Why do deep learning workloads prefer GPUs over CPUs?",
+      "options": [
+        "GPUs have larger storage",
+        "GPUs are designed for parallel computation (matrix multiplications)",
+        "GPUs use less electricity",
+        "GPUs are cheaper to purchase"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What are TPUs?",
+      "options": [
+        "A type of RAM memory",
+        "Google's custom AI accelerator chips",
+        "A cloud computing service",
+        "A type of Python library"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "Which Indian supercomputer provides publicly available HPC resources for AI?",
+      "options": [
+        "ISRO-AI",
+        "Param Siddhi AI",
+        "Aadhaar Compute",
+        "BharatHPC"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What does model quantisation achieve?",
+      "options": [
+        "Improves model accuracy",
+        "Reduces memory requirements for inference",
+        "Increases training speed",
+        "Adds more layers to a model"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "Which platform provides free GPU access for AI learning?",
+      "options": [
+        "AWS Free Tier",
+        "Google Colab",
+        "Azure Dev Sandbox",
+        "Heroku"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

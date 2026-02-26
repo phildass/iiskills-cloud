@@ -1,0 +1,60 @@
+{
+  "moduleId": 2,
+  "lessonId": 4,
+  "slug": "ml-vs-deep-learning",
+  "title": "Machine Learning vs Deep Learning vs AI",
+  "isFree": false,
+  "content": "<h2>Module 2, Lesson 4: Machine Learning vs Deep Learning vs AI</h2>\n<h3>Introduction</h3>\n<p>Understanding the hierarchy AI \u2283 ML \u2283 Deep Learning is essential for choosing the right approach for any problem.</p>\n<h3>Key Concepts</h3>\n<h4>1. AI: the broadest category</h4>\n<p>Understanding AI: the broadest category is foundational to this topic. Indian companies and research institutions apply these principles in production AI systems every day.</p>\n<h4>2. Machine Learning: data-driven subset of AI</h4>\n<p>Machine Learning: data-driven subset of AI forms the core methodology for practitioners. India's tech ecosystem from Bengaluru to Hyderabad deploys these approaches at scale.</p>\n<h4>3. Deep Learning: neural-network subset of ML</h4>\n<p>Deep Learning: neural-network subset of ML is critical for building reliable AI solutions. Top Indian firms like TCS, Wipro, Infosys, and startups like Razorpay all leverage these techniques.</p>\n<h4>4. When to use traditional ML vs deep learning</h4>\n<p>Mastering When to use traditional ML vs deep learning separates good practitioners from great ones. Apply these concepts on Indian open datasets from data.gov.in to build hands-on expertise.</p>\n<h3>Summary</h3>\n<p>This lesson covered AI: the broadest category, Machine Learning: data-driven subset of AI, Deep Learning: neural-network subset of ML, and When to use traditional ML vs deep learning. These are the building blocks of machine learning vs deep learning vs ai \u2014 master them through practice on real Indian datasets.</p>",
+  "quiz": [
+    {
+      "question": "What is the correct hierarchy?",
+      "options": [
+        "They are the same thing",
+        "AI \u2283 ML \u2283 Deep Learning",
+        "Deep Learning \u2283 ML \u2283 AI",
+        "ML \u2283 AI \u2283 Deep Learning"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What does deep learning automate that traditional ML requires manually?",
+      "options": [
+        "Model deployment",
+        "Feature engineering",
+        "Data collection",
+        "Code writing"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "When should traditional ML be preferred over deep learning?",
+      "options": [
+        "When data is unstructured and very large",
+        "When working on image recognition",
+        "When data is tabular, small, and interpretability is required",
+        "When building language models"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "For which problem is deep learning the BEST choice?",
+      "options": [
+        "Predicting churn from a 10-column spreadsheet",
+        "Detecting disease from chest X-ray images",
+        "Monthly sales forecasting from structured data",
+        "Classifying loan applications from form fields"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What do traditional ML algorithms require that deep learning does not?",
+      "options": [
+        "Large datasets",
+        "Human-engineered features",
+        "GPUs",
+        "Cloud compute"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "moduleId": 4,
+  "lessonId": 1,
+  "slug": "python-fundamentals-for-ai",
+  "title": "Python Fundamentals for AI",
+  "isFree": false,
+  "content": "<h2>Module 4, Lesson 1: Python Fundamentals for AI</h2>\n<h3>Introduction</h3>\n<p>Python is the dominant programming language for AI and machine learning worldwide. In India, Python powers Aadhaar biometric APIs, UPI transaction analytics, and ISRO satellite data pipelines.</p>\n<p>This lesson covers the essential concepts, practical tools, and India-specific applications you need to master python fundamentals for ai.</p>\n<h3>Key Concepts</h3>\n<h4>1. Variables, Data Types, and Collections</h4>\n<p>Understanding variables, data types, and collections is foundational to python fundamentals for ai. Practitioners apply these principles daily in building robust AI systems for India's growing tech ecosystem.</p>\n<h4>2. Control Flow: Loops and Conditionals</h4>\n<p>Control Flow: Loops and Conditionals provides the theoretical and practical framework for implementing effective solutions. India's technology sector widely adopts these approaches in production systems.</p>\n<h4>3. Functions and Modules</h4>\n<p>The application of functions and modules is critical for production-grade AI systems. Leading Indian companies rely on these techniques to build scalable, reliable AI products.</p>\n<h4>4. Error Handling and Debugging</h4>\n<p>Error Handling and Debugging represents advanced practice in python fundamentals for ai. Mastering this concept is what distinguishes expert AI practitioners building cutting-edge systems.</p>\n<h3>Summary</h3>\n<p>In this lesson you covered Variables, Data Types, and Collections, Control Flow: Loops and Conditionals, Functions and Modules, and Error Handling and Debugging \u2014 all essential aspects of python fundamentals for ai. Apply these concepts in your projects using India-specific datasets to build real-world experience and a strong portfolio.</p>",
+  "quiz": [
+    {
+      "question": "What is the primary reason Python is the dominant language for AI?",
+      "options": [
+        "It is the fastest language",
+        "Its rich ecosystem of libraries (NumPy, Pandas, TensorFlow) and simplicity",
+        "It was developed by Google",
+        "It runs natively on GPUs"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "Which Python data structure provides O(1) key-value lookup?",
+      "options": [
+        "List",
+        "Tuple",
+        "Dictionary",
+        "Set"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "What does PEP 8 define?",
+      "options": [
+        "Python performance benchmarks",
+        "Python's official style guide for code formatting",
+        "Python Enhancement Protocols for AI",
+        "Python Educational Practices"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is the purpose of a virtual environment in Python?",
+      "options": [
+        "To run Python faster",
+        "To isolate project dependencies and avoid version conflicts",
+        "To enable GPU acceleration",
+        "To encrypt Python code"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "Which command installs a Python package in Jupyter Notebook?",
+      "options": [
+        "import package",
+        "run install package",
+        "!pip install package",
+        "pkg install package"
+      ],
+      "correct_answer": 2
+    }
+  ]
+}

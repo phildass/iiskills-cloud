@@ -1,0 +1,60 @@
+{
+  "moduleId": 1,
+  "lessonId": 4,
+  "isFree": false,
+  "slug": "ai-in-india",
+  "title": "AI in India — ISRO, Aadhaar, DigiYatra, UPI",
+  "content": "<h2>Module 1, Lesson 4: AI in India — ISRO, Aadhaar, DigiYatra, UPI</h2>\n<h3>Introduction</h3>\n<p>India has built some of the world's most ambitious digital infrastructure at unprecedented scale. The \"India Stack\" — a set of open APIs and digital public goods — is the backbone of AI-powered services reaching over a billion people. No other country has deployed digital systems at India's scale, speed, and cost-efficiency.</p>\n<p>Understanding how India's large-scale AI deployments work is essential for any AI practitioner who wants to build for Bharat. These systems are not just technically impressive — they represent a model for how developing nations can leapfrog traditional technology phases using AI.</p>\n<h3>Key Concepts</h3>\n<h4>1. ISRO: AI in Space Technology</h4>\n<p>The Indian Space Research Organisation uses AI in satellite image analysis (identifying agricultural patterns, urban growth, flood mapping), autonomous fault detection in spacecraft systems, and trajectory optimisation. Chandrayaan-3's soft landing used AI-based navigation algorithms. ISRO processes terabytes of remote sensing data daily using ML pipelines.</p>\n<h4>2. Aadhaar: Biometric AI at Billion Scale</h4>\n<p>Aadhaar's biometric authentication system is the world's largest biometric database — over 1.3 billion people. AI powers fingerprint and iris matching at sub-second speed with 99.9% accuracy. The system handles over 60 million authentications per day, enabling banking (Jan Dhan), subsidies (DBT), and SIM verification.</p>\n<h4>3. DigiYatra: AI at Indian Airports</h4>\n<p>DigiYatra enables paperless airport entry using facial recognition AI. Passengers register once; thereafter, face recognition replaces boarding passes. The system is deployed at 24+ Indian airports. The AI model maps facial geometry and matches against the DGCA database in under 3 seconds.</p>\n<h4>4. UPI: AI-Powered Payments Ecosystem</h4>\n<p>India's Unified Payments Interface processed over 10 billion transactions per month in 2024. AI enables real-time fraud detection at NPCI, intelligent dispute resolution, and merchant analytics. The RBI's AI-based regulatory sandbox allows fintech companies to test AI-powered financial products safely.</p>\n<h4>5. NITI Aayog and India AI Mission</h4>\n<p>NITI Aayog's National Strategy for AI identified healthcare, agriculture, education, smart cities, and mobility as priority sectors. The India AI Mission (2024, ₹10,372 crore) funds GPU compute infrastructure, AI startups, and research centres. IndiaAI.gov.in is the central hub for AI governance and datasets.</p>\n<h3>Summary</h3>\n<p>India's AI story is unique: billion-scale deployment, government-led digital infrastructure, and a thriving private sector. ISRO, Aadhaar, DigiYatra, and UPI demonstrate that India is not just an AI consumer but a global innovator. As an AI practitioner in India, you are building on the strongest digital foundation in the developing world.</p>",
+  "quiz": [
+    {
+      "question": "What does Aadhaar use AI for?",
+      "options": [
+        "Tax filing automation",
+        "Biometric fingerprint and iris authentication at scale",
+        "Driver's licence verification",
+        "Passport issuance"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "How many airports had DigiYatra deployed as of 2024?",
+      "options": [
+        "5",
+        "10",
+        "24+",
+        "50+"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "What is the India AI Mission budget announced in 2024?",
+      "options": [
+        "₹500 crore",
+        "₹2,000 crore",
+        "₹10,372 crore",
+        "₹50,000 crore"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "What technology does Chandrayaan-3's soft landing use for navigation?",
+      "options": [
+        "Manual ground control only",
+        "AI-based autonomous navigation algorithms",
+        "GPS triangulation",
+        "Radio frequency guidance"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "How many UPI transactions per month did India process in 2024?",
+      "options": [
+        "100 million",
+        "500 million",
+        "2 billion",
+        "Over 10 billion"
+      ],
+      "correct_answer": 3
+    }
+  ]
+}
