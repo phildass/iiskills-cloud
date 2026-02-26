@@ -1,12 +1,22 @@
 #!/bin/bash
-# deploy-newapps.sh — Deploy the sandbox (newapps/) environment
+# deploy-newapps.sh — HISTORICAL / DEPRECATED
 #
-# This script builds and starts the sandbox apps from newapps/ using PM2.
-# The sandbox runs on the same ports as production; stop production first.
+# ⚠️  This script built and deployed apps from the old newapps/ sandbox
+# environment.  It is NO LONGER the active staging deployment.
 #
-# Usage:
-#   ./deploy-newapps.sh            # Build all sandbox apps and restart PM2
-#   ./deploy-newapps.sh --no-build # Skip build, just restart PM2
+# Current staging environment:
+#   • Host:   https://app.iiskills.cloud  (staging)
+#   • Source: apps/  (monorepo main build)
+#   • Script: deploy-all.sh
+#
+# Production cutover (future):
+#   • Host:   https://iiskills.cloud
+#   • Action: Update DNS + Nginx to point iiskills.cloud → :3000
+#
+# This file is kept for historical reference only.  The newapps/ directory
+# and its PM2 config (ecosystem.newapps.config.js) represent the old
+# "sandbox" concept that pre-dated the current staging setup.
+#
 
 set -e
 

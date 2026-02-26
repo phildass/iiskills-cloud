@@ -92,6 +92,6 @@ fi
 echo "OK: main :3000"
 
 echo "DONE. Test in browser:"
-echo " - https://iiskills.cloud/"
-echo " - https://app.iiskills.cloud/ (test/sandbox)"
-echo " - https://app1.iiskills.cloud/ (learn-apt)"
+echo " - https://app.iiskills.cloud/ (staging)"
+echo " - https://iiskills.cloud/ (production target — DNS/Nginx flip when ready)"
+echo " - https://learn-apt.iiskills.cloud/ (learn-apt subdomain)"

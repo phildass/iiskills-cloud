@@ -40,14 +40,14 @@ yarn build
 yarn lint
 ```
 
-## Subdomain Testing Convention
+## Environments
 
-Subdomain testing uses the pattern: `app1.<APPNAME>.iiskills.cloud`
+| Environment | URL | Notes |
+|-------------|-----|-------|
+| Staging (current) | https://app.iiskills.cloud | Served from `apps/` via `deploy-all.sh` |
+| Production (future) | https://iiskills.cloud | DNS + Nginx flip when ready to cut over |
 
-Examples:
-- `app1.web.iiskills.cloud` → apps/web
-- `app1.admin.iiskills.cloud` → apps/admin
-- `app1.learn-physics.iiskills.cloud` → apps/learn-physics
+Learn apps are served at their own subdomains (e.g. `https://learn-apt.iiskills.cloud`).
 
 ## Apps
 
