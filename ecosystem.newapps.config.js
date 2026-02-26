@@ -1,9 +1,15 @@
 /**
- * PM2 Ecosystem Configuration — Sandbox (newapps/)
+ * PM2 Ecosystem Configuration — Historical Sandbox (newapps/)
  *
- * Root-level alias for newapps/ecosystem.config.js.
- * Runs the same Next.js apps as production but with Supabase/auth/paywall DISABLED.
- * Each app builds from newapps/<app>/ which holds a sandbox-specific .env.local.
+ * ⚠️  HISTORICAL / DEPRECATED — This config is kept for reference only.
+ *
+ * The active staging environment is now served from apps/ via ecosystem.config.js
+ * and is accessible at https://app.iiskills.cloud (staging).
+ * Production cutover to https://iiskills.cloud is a DNS + Nginx flip.
+ *
+ * This file previously pointed at the newapps/ sandbox directory.  The
+ * "sandbox" / newapps concept has been superseded by the apps/ monorepo
+ * build as the current staging environment.
  *
  * Usage:
  *   # Build sandbox apps first (from repo root):
