@@ -1,0 +1,60 @@
+{
+  "moduleId": 1,
+  "lessonId": 1,
+  "slug": "foundations-of-chemistry",
+  "title": "Foundations of Chemistry",
+  "isFree": true,
+  "content": "<h2>Module 1, Lesson 1: Foundations of Chemistry</h2>\n\n      <h3>Introduction</h3>\n      <p>Chemistry is the central science \u2014 a bridge between physics and biology, between the pure mathematical description of particles and the complex self-organising systems of life. It is the study of matter: what it is made of, how it is structured, how it behaves, and how it transforms. Every material object you encounter \u2014 the food you eat, the medicines you take, the plastics, metals, and composites that form your environment \u2014 is a product of chemical processes.</p>\n      <p>The history of chemistry is a history of humanity learning to manipulate matter. From ancient alchemists seeking to transmute lead into gold, to the 18th-century discovery of oxygen by Lavoisier, to 20th-century developments in polymer chemistry, pharmaceuticals, and nuclear chemistry, the field has continually expanded the boundaries of what is possible. Today, chemistry is at the forefront of addressing humanity's greatest challenges: designing drugs to fight emerging diseases, developing new battery materials for clean energy storage, creating biodegradable plastics to reduce environmental impact.</p>\n      <p>This lesson introduces the five foundational pillars of chemistry: atomic structure, chemical bonding, chemical reactions, stoichiometry, and thermochemistry. Together these provide the conceptual scaffolding for everything that follows in this course.</p>\n\n      <h3>Key Concepts</h3>\n      <h4>1. Atomic Structure: The Architecture of Matter</h4>\n      <p>All matter is composed of atoms \u2014 the smallest units of a chemical element that retain that element's chemical identity. An atom consists of a dense nucleus containing protons (positively charged) and neutrons (no charge), surrounded by electrons (negatively charged) arranged in shells or energy levels. The number of protons defines the element; the number of electrons determines its chemical behaviour.</p>\n      <p>The periodic table organises all known elements by atomic number (number of protons) and by chemical properties. Elements in the same vertical column (group) share similar valence electron configurations and therefore similar chemical behaviours. Metals, non-metals, and metalloids occupy characteristic regions. Understanding the periodic table is not about memorisation \u2014 it is about recognising patterns: ionisation energies increase across a period; atomic radii decrease across a period; reactivity of alkali metals increases down Group 1.</p>\n\n      <h4>2. Chemical Bonding: How Atoms Connect</h4>\n      <p>Atoms form bonds to achieve more stable electron configurations \u2014 typically a complete outer shell (octet rule for most elements; duet for hydrogen and helium). The three main bond types have fundamentally different characters: ionic bonds involve complete electron transfer; covalent bonds involve electron sharing; metallic bonds consist of a lattice of positive ions in a sea of delocalised electrons.</p>\n\n      <h4>3. Chemical Reactions: Transformation of Matter</h4>\n      <p>A chemical reaction involves the breaking of bonds in reactants and the formation of new bonds in products. Matter is conserved (Lavoisier's Law of Conservation of Mass); atoms are rearranged, not created or destroyed. Reactions are classified by type: synthesis, decomposition, single displacement, double displacement, and combustion.</p>\n\n      <h4>4. Stoichiometry: The Quantitative Language of Reactions</h4>\n      <p>Stoichiometry is the calculation of the relative quantities of reactants and products in chemical reactions. The mole (approximately 6.022 \u00d7 10\u00b2\u00b3 particles \u2014 Avogadro's number) is the bridge between the atomic scale and the laboratory scale.</p>\n\n      <h4>5. Thermochemistry: Energy in Chemical Reactions</h4>\n      <p>Chemical reactions absorb or release energy, primarily as heat. Exothermic reactions release heat; endothermic reactions absorb heat. Enthalpy (H) measures heat content at constant pressure. Hess's Law allows calculation of enthalpy changes by combining known values for related reactions.</p>\n\n      <h3>Summary</h3>\n      <p>Chemistry is the science of transformation. In this lesson you have covered: atomic structure and the periodic table; chemical bonding; reaction types and kinetics; stoichiometry; and thermochemistry. These foundational concepts recur throughout every branch of chemistry.</p>",
+  "quiz": [
+    {
+      "question": "What is an atom?",
+      "options": [
+        "The smallest unit of a chemical element that retains its chemical properties",
+        "A group of molecules bonded together",
+        "A type of chemical reaction",
+        "A unit of measurement for energy"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "question": "What type of bond involves the sharing of electrons between atoms?",
+      "options": [
+        "Ionic bond",
+        "Metallic bond",
+        "Covalent bond",
+        "Hydrogen bond"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "What does the pH scale measure?",
+      "options": [
+        "The temperature of a solution",
+        "The concentration of hydrogen ions (acidity or alkalinity)",
+        "The density of a liquid",
+        "The pressure of a gas"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is a chemical reaction?",
+      "options": [
+        "A physical change in the state of matter",
+        "A process where substances are transformed into new substances with different properties",
+        "The mixing of two liquids",
+        "The boiling of water"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is the Periodic Table?",
+      "options": [
+        "A calendar of chemistry experiments",
+        "A table of chemical reactions",
+        "An organized arrangement of all known chemical elements by atomic number",
+        "A list of laboratory safety rules"
+      ],
+      "correct_answer": 2
+    }
+  ]
+}

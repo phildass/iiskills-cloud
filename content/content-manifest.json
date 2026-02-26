@@ -1,22 +1,95 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-22",
+  "lastUpdated": "2026-02-26",
   "apps": [
     {
       "appSlug": "learn-physics",
       "title": "Learn Physics",
       "courseUrl": "/curriculum",
       "modules": [
-        { "id": 1, "slug": "classical-mechanics", "title": "Classical Mechanics", "level": "basic", "lessonCount": 10, "staticLessons": [1, 2] },
-        { "id": 2, "slug": "newtons-laws", "title": "Newton's Laws", "level": "basic", "lessonCount": 10, "staticLessons": [] },
-        { "id": 3, "slug": "work-and-energy", "title": "Work and Energy", "level": "basic", "lessonCount": 10, "staticLessons": [] },
-        { "id": 4, "slug": "thermodynamics", "title": "Thermodynamics", "level": "intermediate", "lessonCount": 10, "staticLessons": [] },
-        { "id": 5, "slug": "electricity-magnetism", "title": "Electricity and Magnetism", "level": "intermediate", "lessonCount": 10, "staticLessons": [] },
-        { "id": 6, "slug": "waves-optics", "title": "Waves and Optics", "level": "intermediate", "lessonCount": 10, "staticLessons": [] },
-        { "id": 7, "slug": "modern-physics", "title": "Modern Physics", "level": "advanced", "lessonCount": 10, "staticLessons": [] },
-        { "id": 8, "slug": "nuclear-physics", "title": "Nuclear Physics", "level": "advanced", "lessonCount": 10, "staticLessons": [] },
-        { "id": 9, "slug": "astrophysics", "title": "Astrophysics", "level": "advanced", "lessonCount": 10, "staticLessons": [] },
-        { "id": 10, "slug": "advanced-topics", "title": "Advanced Topics", "level": "advanced", "lessonCount": 10, "staticLessons": [] }
+        {
+          "id": 1,
+          "slug": "classical-mechanics",
+          "title": "Classical Mechanics",
+          "level": "basic",
+          "lessonCount": 10,
+          "staticLessons": [
+            1,
+            2
+          ]
+        },
+        {
+          "id": 2,
+          "slug": "newtons-laws",
+          "title": "Newton's Laws",
+          "level": "basic",
+          "lessonCount": 10,
+          "staticLessons": []
+        },
+        {
+          "id": 3,
+          "slug": "work-and-energy",
+          "title": "Work and Energy",
+          "level": "basic",
+          "lessonCount": 10,
+          "staticLessons": []
+        },
+        {
+          "id": 4,
+          "slug": "thermodynamics",
+          "title": "Thermodynamics",
+          "level": "intermediate",
+          "lessonCount": 10,
+          "staticLessons": []
+        },
+        {
+          "id": 5,
+          "slug": "electricity-magnetism",
+          "title": "Electricity and Magnetism",
+          "level": "intermediate",
+          "lessonCount": 10,
+          "staticLessons": []
+        },
+        {
+          "id": 6,
+          "slug": "waves-optics",
+          "title": "Waves and Optics",
+          "level": "intermediate",
+          "lessonCount": 10,
+          "staticLessons": []
+        },
+        {
+          "id": 7,
+          "slug": "modern-physics",
+          "title": "Modern Physics",
+          "level": "advanced",
+          "lessonCount": 10,
+          "staticLessons": []
+        },
+        {
+          "id": 8,
+          "slug": "nuclear-physics",
+          "title": "Nuclear Physics",
+          "level": "advanced",
+          "lessonCount": 10,
+          "staticLessons": []
+        },
+        {
+          "id": 9,
+          "slug": "astrophysics",
+          "title": "Astrophysics",
+          "level": "advanced",
+          "lessonCount": 10,
+          "staticLessons": []
+        },
+        {
+          "id": 10,
+          "slug": "advanced-topics",
+          "title": "Advanced Topics",
+          "level": "advanced",
+          "lessonCount": 10,
+          "staticLessons": []
+        }
       ],
       "lessonUrlPattern": "/modules/[moduleId]/lesson/[lessonId]",
       "staticPagesCount": 100
@@ -26,16 +99,546 @@
       "title": "Learn PR",
       "courseUrl": "/curriculum",
       "modules": [
-        { "id": 1, "slug": "intro-to-pr", "title": "Introduction to Public Relations", "level": "basic", "lessonCount": 10, "staticLessons": [1] },
-        { "id": 2, "slug": "media-relations", "title": "Media Relations", "level": "basic", "lessonCount": 10, "staticLessons": [] },
-        { "id": 3, "slug": "writing-press-releases", "title": "Writing Press Releases", "level": "basic", "lessonCount": 10, "staticLessons": [] },
-        { "id": 4, "slug": "brand-management", "title": "Brand Management", "level": "basic", "lessonCount": 10, "staticLessons": [] },
-        { "id": 5, "slug": "crisis-communication", "title": "Crisis Communication", "level": "intermediate", "lessonCount": 10, "staticLessons": [] },
-        { "id": 6, "slug": "social-media-pr", "title": "Social Media PR", "level": "intermediate", "lessonCount": 10, "staticLessons": [] },
-        { "id": 7, "slug": "stakeholder-management", "title": "Stakeholder Management", "level": "intermediate", "lessonCount": 10, "staticLessons": [] },
-        { "id": 8, "slug": "pr-campaign-strategy", "title": "PR Campaign Strategy", "level": "advanced", "lessonCount": 10, "staticLessons": [] },
-        { "id": 9, "slug": "digital-pr-seo", "title": "Digital PR & SEO", "level": "advanced", "lessonCount": 10, "staticLessons": [] },
-        { "id": 10, "slug": "pr-measurement", "title": "PR Measurement & Analytics", "level": "advanced", "lessonCount": 10, "staticLessons": [] }
+        {
+          "id": 1,
+          "slug": "intro-to-pr",
+          "title": "Introduction to Public Relations",
+          "level": "basic",
+          "lessonCount": 10,
+          "staticLessons": [
+            1
+          ]
+        },
+        {
+          "id": 2,
+          "slug": "media-relations",
+          "title": "Media Relations",
+          "level": "basic",
+          "lessonCount": 10,
+          "staticLessons": []
+        },
+        {
+          "id": 3,
+          "slug": "writing-press-releases",
+          "title": "Writing Press Releases",
+          "level": "basic",
+          "lessonCount": 10,
+          "staticLessons": []
+        },
+        {
+          "id": 4,
+          "slug": "brand-management",
+          "title": "Brand Management",
+          "level": "basic",
+          "lessonCount": 10,
+          "staticLessons": []
+        },
+        {
+          "id": 5,
+          "slug": "crisis-communication",
+          "title": "Crisis Communication",
+          "level": "intermediate",
+          "lessonCount": 10,
+          "staticLessons": []
+        },
+        {
+          "id": 6,
+          "slug": "social-media-pr",
+          "title": "Social Media PR",
+          "level": "intermediate",
+          "lessonCount": 10,
+          "staticLessons": []
+        },
+        {
+          "id": 7,
+          "slug": "stakeholder-management",
+          "title": "Stakeholder Management",
+          "level": "intermediate",
+          "lessonCount": 10,
+          "staticLessons": []
+        },
+        {
+          "id": 8,
+          "slug": "pr-campaign-strategy",
+          "title": "PR Campaign Strategy",
+          "level": "advanced",
+          "lessonCount": 10,
+          "staticLessons": []
+        },
+        {
+          "id": 9,
+          "slug": "digital-pr-seo",
+          "title": "Digital PR & SEO",
+          "level": "advanced",
+          "lessonCount": 10,
+          "staticLessons": []
+        },
+        {
+          "id": 10,
+          "slug": "pr-measurement",
+          "title": "PR Measurement & Analytics",
+          "level": "advanced",
+          "lessonCount": 10,
+          "staticLessons": []
+        }
+      ],
+      "lessonUrlPattern": "/modules/[moduleId]/lesson/[lessonId]",
+      "staticPagesCount": 100
+    },
+    {
+      "appSlug": "learn-chemistry",
+      "title": "Learn Chemistry",
+      "courseUrl": "/curriculum",
+      "modules": [
+        {
+          "id": 1,
+          "slug": "introduction-to-chemistry",
+          "title": "Introduction to Chemistry",
+          "level": "basic",
+          "lessonCount": 10,
+          "staticLessons": [
+            1,
+            2
+          ]
+        },
+        {
+          "id": 2,
+          "slug": "atomic-structure",
+          "title": "Atomic Structure",
+          "level": "basic",
+          "lessonCount": 10,
+          "staticLessons": [
+            1
+          ]
+        },
+        {
+          "id": 3,
+          "slug": "chemical-bonding",
+          "title": "Chemical Bonding",
+          "level": "basic",
+          "lessonCount": 10,
+          "staticLessons": []
+        },
+        {
+          "id": 4,
+          "slug": "states-of-matter",
+          "title": "States of Matter",
+          "level": "basic",
+          "lessonCount": 10,
+          "staticLessons": []
+        },
+        {
+          "id": 5,
+          "slug": "chemical-reactions",
+          "title": "Chemical Reactions",
+          "level": "intermediate",
+          "lessonCount": 10,
+          "staticLessons": []
+        },
+        {
+          "id": 6,
+          "slug": "stoichiometry",
+          "title": "Stoichiometry",
+          "level": "intermediate",
+          "lessonCount": 10,
+          "staticLessons": []
+        },
+        {
+          "id": 7,
+          "slug": "organic-chemistry",
+          "title": "Organic Chemistry",
+          "level": "intermediate",
+          "lessonCount": 10,
+          "staticLessons": []
+        },
+        {
+          "id": 8,
+          "slug": "chemical-kinetics",
+          "title": "Chemical Kinetics",
+          "level": "advanced",
+          "lessonCount": 10,
+          "staticLessons": []
+        },
+        {
+          "id": 9,
+          "slug": "thermochemistry",
+          "title": "Thermochemistry",
+          "level": "advanced",
+          "lessonCount": 10,
+          "staticLessons": []
+        },
+        {
+          "id": 10,
+          "slug": "advanced-topics",
+          "title": "Advanced Topics",
+          "level": "advanced",
+          "lessonCount": 10,
+          "staticLessons": []
+        }
+      ],
+      "lessonUrlPattern": "/modules/[moduleId]/lesson/[lessonId]",
+      "staticPagesCount": 100
+    },
+    {
+      "appSlug": "learn-math",
+      "title": "Learn Math",
+      "courseUrl": "/curriculum",
+      "modules": [
+        {
+          "id": 1,
+          "slug": "number-systems",
+          "title": "Number Systems",
+          "level": "basic",
+          "lessonCount": 10,
+          "staticLessons": [
+            1
+          ]
+        },
+        {
+          "id": 2,
+          "slug": "basic-algebra",
+          "title": "Basic Algebra",
+          "level": "basic",
+          "lessonCount": 10,
+          "staticLessons": []
+        },
+        {
+          "id": 3,
+          "slug": "geometry-fundamentals",
+          "title": "Geometry Fundamentals",
+          "level": "basic",
+          "lessonCount": 10,
+          "staticLessons": []
+        },
+        {
+          "id": 4,
+          "slug": "trigonometry",
+          "title": "Trigonometry",
+          "level": "basic",
+          "lessonCount": 10,
+          "staticLessons": []
+        },
+        {
+          "id": 5,
+          "slug": "advanced-algebra",
+          "title": "Advanced Algebra",
+          "level": "intermediate",
+          "lessonCount": 10,
+          "staticLessons": []
+        },
+        {
+          "id": 6,
+          "slug": "calculus-i",
+          "title": "Calculus I",
+          "level": "intermediate",
+          "lessonCount": 10,
+          "staticLessons": []
+        },
+        {
+          "id": 7,
+          "slug": "calculus-ii",
+          "title": "Calculus II",
+          "level": "intermediate",
+          "lessonCount": 10,
+          "staticLessons": []
+        },
+        {
+          "id": 8,
+          "slug": "statistics",
+          "title": "Statistics",
+          "level": "advanced",
+          "lessonCount": 10,
+          "staticLessons": []
+        },
+        {
+          "id": 9,
+          "slug": "linear-algebra",
+          "title": "Linear Algebra",
+          "level": "advanced",
+          "lessonCount": 10,
+          "staticLessons": []
+        },
+        {
+          "id": 10,
+          "slug": "advanced-topics",
+          "title": "Advanced Topics",
+          "level": "advanced",
+          "lessonCount": 10,
+          "staticLessons": []
+        }
+      ],
+      "lessonUrlPattern": "/modules/[moduleId]/lesson/[lessonId]",
+      "staticPagesCount": 100
+    },
+    {
+      "appSlug": "learn-ai",
+      "title": "Learn AI",
+      "courseUrl": "/curriculum",
+      "modules": [
+        {
+          "id": 1,
+          "slug": "introduction-to-ai",
+          "title": "Introduction to AI",
+          "level": "basic",
+          "lessonCount": 10,
+          "staticLessons": [
+            1
+          ]
+        },
+        {
+          "id": 2,
+          "slug": "types-of-ai",
+          "title": "Types of AI",
+          "level": "basic",
+          "lessonCount": 10,
+          "staticLessons": []
+        },
+        {
+          "id": 3,
+          "slug": "data-science-fundamentals",
+          "title": "Data Science Fundamentals",
+          "level": "basic",
+          "lessonCount": 10,
+          "staticLessons": []
+        },
+        {
+          "id": 4,
+          "slug": "python-for-ai",
+          "title": "Python for AI",
+          "level": "basic",
+          "lessonCount": 10,
+          "staticLessons": []
+        },
+        {
+          "id": 5,
+          "slug": "supervised-learning",
+          "title": "Supervised Learning",
+          "level": "intermediate",
+          "lessonCount": 10,
+          "staticLessons": []
+        },
+        {
+          "id": 6,
+          "slug": "unsupervised-learning",
+          "title": "Unsupervised Learning",
+          "level": "intermediate",
+          "lessonCount": 10,
+          "staticLessons": []
+        },
+        {
+          "id": 7,
+          "slug": "neural-networks",
+          "title": "Neural Networks",
+          "level": "intermediate",
+          "lessonCount": 10,
+          "staticLessons": []
+        },
+        {
+          "id": 8,
+          "slug": "ai-monetization",
+          "title": "AI Monetization",
+          "level": "advanced",
+          "lessonCount": 10,
+          "staticLessons": []
+        },
+        {
+          "id": 9,
+          "slug": "ai-tools-and-frameworks",
+          "title": "AI Tools & Frameworks",
+          "level": "advanced",
+          "lessonCount": 10,
+          "staticLessons": []
+        },
+        {
+          "id": 10,
+          "slug": "career-pathways-in-ai",
+          "title": "Career Pathways in AI",
+          "level": "advanced",
+          "lessonCount": 10,
+          "staticLessons": []
+        }
+      ],
+      "lessonUrlPattern": "/modules/[moduleId]/lesson/[lessonId]",
+      "staticPagesCount": 100
+    },
+    {
+      "appSlug": "learn-management",
+      "title": "Learn Management",
+      "courseUrl": "/curriculum",
+      "modules": [
+        {
+          "id": 1,
+          "slug": "foundations-of-management",
+          "title": "Foundations of Management",
+          "level": "basic",
+          "lessonCount": 10,
+          "staticLessons": [
+            1
+          ]
+        },
+        {
+          "id": 2,
+          "slug": "leadership-principles",
+          "title": "Leadership Principles",
+          "level": "basic",
+          "lessonCount": 10,
+          "staticLessons": []
+        },
+        {
+          "id": 3,
+          "slug": "strategic-planning",
+          "title": "Strategic Planning",
+          "level": "basic",
+          "lessonCount": 10,
+          "staticLessons": []
+        },
+        {
+          "id": 4,
+          "slug": "organizational-behavior",
+          "title": "Organizational Behavior",
+          "level": "basic",
+          "lessonCount": 10,
+          "staticLessons": []
+        },
+        {
+          "id": 5,
+          "slug": "team-building-and-motivation",
+          "title": "Team Building & Motivation",
+          "level": "intermediate",
+          "lessonCount": 10,
+          "staticLessons": []
+        },
+        {
+          "id": 6,
+          "slug": "financial-management",
+          "title": "Financial Management",
+          "level": "intermediate",
+          "lessonCount": 10,
+          "staticLessons": []
+        },
+        {
+          "id": 7,
+          "slug": "operations-management",
+          "title": "Operations Management",
+          "level": "intermediate",
+          "lessonCount": 10,
+          "staticLessons": []
+        },
+        {
+          "id": 8,
+          "slug": "change-management",
+          "title": "Change Management",
+          "level": "advanced",
+          "lessonCount": 10,
+          "staticLessons": []
+        },
+        {
+          "id": 9,
+          "slug": "hr-and-talent-management",
+          "title": "HR & Talent Management",
+          "level": "advanced",
+          "lessonCount": 10,
+          "staticLessons": []
+        },
+        {
+          "id": 10,
+          "slug": "project-management",
+          "title": "Project Management",
+          "level": "advanced",
+          "lessonCount": 10,
+          "staticLessons": []
+        }
+      ],
+      "lessonUrlPattern": "/modules/[moduleId]/lesson/[lessonId]",
+      "staticPagesCount": 100
+    },
+    {
+      "appSlug": "learn-geography",
+      "title": "Learn Geography",
+      "courseUrl": "/curriculum",
+      "modules": [
+        {
+          "id": 1,
+          "slug": "physical-geography",
+          "title": "Physical Geography",
+          "level": "basic",
+          "lessonCount": 10,
+          "staticLessons": [
+            1
+          ]
+        },
+        {
+          "id": 2,
+          "slug": "world-continents",
+          "title": "World Continents",
+          "level": "basic",
+          "lessonCount": 10,
+          "staticLessons": []
+        },
+        {
+          "id": 3,
+          "slug": "oceans-and-seas",
+          "title": "Oceans and Seas",
+          "level": "basic",
+          "lessonCount": 10,
+          "staticLessons": []
+        },
+        {
+          "id": 4,
+          "slug": "climate-zones",
+          "title": "Climate Zones",
+          "level": "basic",
+          "lessonCount": 10,
+          "staticLessons": []
+        },
+        {
+          "id": 5,
+          "slug": "human-geography",
+          "title": "Human Geography",
+          "level": "intermediate",
+          "lessonCount": 10,
+          "staticLessons": []
+        },
+        {
+          "id": 6,
+          "slug": "economic-geography",
+          "title": "Economic Geography",
+          "level": "intermediate",
+          "lessonCount": 10,
+          "staticLessons": []
+        },
+        {
+          "id": 7,
+          "slug": "environmental-issues",
+          "title": "Environmental Issues",
+          "level": "intermediate",
+          "lessonCount": 10,
+          "staticLessons": []
+        },
+        {
+          "id": 8,
+          "slug": "geopolitics",
+          "title": "Geopolitics",
+          "level": "advanced",
+          "lessonCount": 10,
+          "staticLessons": []
+        },
+        {
+          "id": 9,
+          "slug": "geographic-information-systems",
+          "title": "Geographic Information Systems",
+          "level": "advanced",
+          "lessonCount": 10,
+          "staticLessons": []
+        },
+        {
+          "id": 10,
+          "slug": "advanced-topics",
+          "title": "Advanced Topics",
+          "level": "advanced",
+          "lessonCount": 10,
+          "staticLessons": []
+        }
       ],
       "lessonUrlPattern": "/modules/[moduleId]/lesson/[lessonId]",
       "staticPagesCount": 100

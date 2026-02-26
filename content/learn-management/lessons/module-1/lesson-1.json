@@ -1,0 +1,60 @@
+{
+  "moduleId": 1,
+  "lessonId": 1,
+  "slug": "foundations-of-business-management",
+  "title": "Foundations of Business Management",
+  "isFree": true,
+  "content": "<h2>Module 1, Lesson 1: Foundations of Business Management</h2>\n\n      <h3>Introduction</h3>\n      <p>Management is the discipline of getting things done through people. At its core, management is the process of planning, organising, leading, and controlling resources \u2014 human, financial, technological, and informational \u2014 to achieve organisational goals efficiently and effectively. Every business, government agency, non-profit, and even family operates through some form of management.</p>\n      <p>The study of management has evolved from the purely mechanistic scientific management of Frederick Taylor to today's humanistic, adaptive approaches that recognise people as the primary source of competitive advantage.</p>\n      <p>This lesson covers the four core management functions, leadership theory, organisational behaviour, strategic planning, and performance management \u2014 the five pillars that every effective manager must master.</p>\n\n      <h3>Key Concepts</h3>\n      <h4>1. The Four Core Functions of Management</h4>\n      <p><strong>Planning</strong> defines objectives and selects strategies. <strong>Organising</strong> designs the structure for executing work. <strong>Leading</strong> motivates and directs people. <strong>Controlling</strong> monitors performance and takes corrective action.</p>\n\n      <h4>2. Leadership Theory and Practice</h4>\n      <p>Trait theory identifies characteristics of effective leaders. Situational Leadership (Hersey and Blanchard) adapts style to follower readiness. Transformational Leadership \u2014 inspiring followers to transcend self-interest for the collective good \u2014 is consistently associated with highest organisational performance.</p>\n\n      <h4>3. Organisational Behaviour</h4>\n      <p>Maslow's Hierarchy of Needs, Herzberg's Two-Factor Theory, and Vroom's Expectancy Theory explain motivation. Tuckman's team development model (Forming, Storming, Norming, Performing) guides team management.</p>\n\n      <h4>4. Strategic Planning</h4>\n      <p>PESTEL analysis examines the macro-environment. Porter's Five Forces analyses industry competition. SWOT analysis integrates internal and external factors. Porter's three generic strategies (Cost Leadership, Differentiation, Focus) guide competitive positioning.</p>\n\n      <h4>5. Performance Management</h4>\n      <p>The Balanced Scorecard measures performance across Financial, Customer, Internal Processes, and Learning perspectives. OKRs (Objectives and Key Results) provide a flexible goal-setting framework used by high-performing organisations.</p>\n\n      <h3>Summary</h3>\n      <p>Management is the practice of achieving goals through people and systems. In this lesson you have covered: the four management functions; leadership theory; organisational behaviour and motivation; strategic planning; and performance management frameworks. These foundations support every topic in this course.</p>",
+  "quiz": [
+    {
+      "question": "What are the four core functions of management?",
+      "options": [
+        "Planning, Organizing, Leading, and Controlling",
+        "Hiring, Firing, Promoting, and Demoting",
+        "Marketing, Sales, Finance, and Operations",
+        "Analyzing, Designing, Implementing, and Testing"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "question": "Which leadership style involves involving team members in decision-making?",
+      "options": [
+        "Autocratic leadership",
+        "Laissez-faire leadership",
+        "Democratic (participative) leadership",
+        "Transactional leadership"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "What does SMART stand for in goal-setting?",
+      "options": [
+        "Simple, Manageable, Achievable, Realistic, Timely",
+        "Specific, Measurable, Achievable, Relevant, Time-bound",
+        "Strategic, Meaningful, Actionable, Responsible, Trackable",
+        "Structured, Motivated, Agile, Results-driven, Targeted"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is organisational behaviour?",
+      "options": [
+        "The study of how buildings are organized",
+        "The study of how individuals and groups act within organizations",
+        "The process of restructuring a company",
+        "A type of financial reporting"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is the primary purpose of change management?",
+      "options": [
+        "To avoid any changes in the organization",
+        "To guide and support employees through organizational transitions",
+        "To automate business processes",
+        "To reduce the workforce"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}
