@@ -39,7 +39,7 @@ export default function Solutions() {
             </div>
             <div className="relative h-80 rounded-xl overflow-hidden shadow-2xl">
               <Image
-                src="/images/group-business-executives-smiling-camera.jpg"
+                src="/images/iiskills-main3.jpg"
                 alt="Business executives collaborating"
                 fill
                 className="object-cover"
