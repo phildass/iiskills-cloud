@@ -10,6 +10,8 @@ import { curriculumData } from '../../../lib/curriculumData';
 import { getCurrentUser } from '../../../lib/supabaseClient';
 import { LessonContent } from '@iiskills/ui/content';
 
+const FREE_ACCESS = process.env.NEXT_PUBLIC_FREE_ACCESS === 'true';
+
 export default function LessonPage() {
   const router = useRouter();
   const { moduleId } = router.query;
@@ -64,7 +66,8 @@ export default function LessonPage() {
     setQuizScore({ score, total: module?.test.length || 5, percentage });
     
     // Show Premium Access Prompt after completing sample lesson (Module 1)
-    if (passed && moduleId === '1') {
+    // Suppressed in free-access mode.
+    if (passed && moduleId === '1' && !FREE_ACCESS) {
       setShowEnrollment(true);
     }
     
