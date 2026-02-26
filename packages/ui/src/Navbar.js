@@ -1,49 +1,20 @@
-import React, { useEffect, useState } from 'react';
+/**
+ * @deprecated Use packages/ui/src/navigation/SiteHeader.js (via @iiskills/ui/navigation) instead.
+ * This legacy Navbar is not used by any deployed app; kept only for backward compatibility.
+ */
+import React, { useState } from 'react';
 import Link from 'next/link';
+import GoogleTranslate from './common/GoogleTranslate';
 
 /**
  * Universal Navbar shared across all IISkills apps.
  * - Sticky white header with shadow (matches old site look/feel)
  * - Canonical nav links: Home, Courses, Certification, Newsletter, About, Terms, Login, Register
- * - Google Translate widget (idempotent: loads script at most once per page)
+ * - Google Translate widget via canonical GoogleTranslate component (always visible)
  * - Mobile-responsive hamburger menu
  */
 export function Navbar({ appName = 'IISkills' }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  // Google Translate: idempotent initialization (no duplicate script injection)
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-
-    // Guard: already loaded
-    if (
-      window.google?.translate?.TranslateElement ||
-      document.getElementById('google-translate-script')
-    ) {
-      return;
-    }
-
-    window.googleTranslateElementInit = function () {
-      if (window.google?.translate?.TranslateElement) {
-        new window.google.translate.TranslateElement(
-          {
-            pageLanguage: 'en',
-            includedLanguages: 'hi,ta,te,bn,mr,gu,kn,ml,pa,or,as,ur',
-            layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE,
-            autoDisplay: false,
-          },
-          'google_translate_element'
-        );
-      }
-    };
-
-    const script = document.createElement('script');
-    script.id = 'google-translate-script';
-    script.src =
-      '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
-    script.async = true;
-    document.head.appendChild(script);
-  }, []);
 
   const navLinks = [
     { href: '/', label: 'Home' },
@@ -124,9 +95,6 @@ export function Navbar({ appName = 'IISkills' }) {
             </Link>
           ))}
 
-          {/* Google Translate widget */}
-          <div id="google_translate_element" style={{ minWidth: '70px' }} />
-
           <Link href="/login" style={linkStyle}>
             Login
           </Link>
@@ -135,27 +103,33 @@ export function Navbar({ appName = 'IISkills' }) {
           </Link>
         </div>
 
-        {/* Mobile hamburger */}
-        <button
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          style={{
-            display: 'none',
-            background: 'none',
-            border: 'none',
-            cursor: 'pointer',
-            padding: '0.25rem',
-          }}
-          className="iiskills-mobile-menu-btn"
-          aria-label="Toggle menu"
-        >
-          <svg width="24" height="24" fill="none" stroke="#374151" strokeWidth="2" viewBox="0 0 24 24">
-            {isMenuOpen ? (
-              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-            ) : (
-              <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-            )}
-          </svg>
-        </button>
+        {/* Right side: Google Translate (always visible) + Mobile hamburger */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+          {/* Google Translate widget – rendered once here, visible on both desktop and mobile */}
+          <GoogleTranslate />
+
+          {/* Mobile hamburger */}
+          <button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            style={{
+              display: 'none',
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              padding: '0.25rem',
+            }}
+            className="iiskills-mobile-menu-btn"
+            aria-label="Toggle menu"
+          >
+            <svg width="24" height="24" fill="none" stroke="#374151" strokeWidth="2" viewBox="0 0 24 24">
+              {isMenuOpen ? (
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+              ) : (
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+              )}
+            </svg>
+          </button>
+        </div>
       </div>
 
       {/* Mobile dropdown */}
@@ -194,18 +168,6 @@ export function Navbar({ appName = 'IISkills' }) {
         @media (max-width: 768px) {
           .iiskills-desktop-nav { display: none !important; }
           .iiskills-mobile-menu-btn { display: block !important; }
-        }
-        /* Suppress Google Translate top bar */
-        .goog-te-banner-frame { display: none !important; }
-        body { top: 0 !important; position: static !important; }
-        .goog-te-gadget { font-family: inherit !important; font-size: 0.85rem !important; }
-        .goog-te-gadget-simple {
-          background: transparent !important;
-          border: 1px solid #d1d5db !important;
-          border-radius: 4px !important;
-          padding: 0.3rem 0.5rem !important;
-          font-size: 0.85rem !important;
-          cursor: pointer !important;
         }
       `}</style>
     </nav>

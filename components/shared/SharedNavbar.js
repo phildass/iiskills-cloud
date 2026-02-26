@@ -2,9 +2,9 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/router";
-import GoogleTranslate from "./GoogleTranslate";
+import { GoogleTranslate } from "@iiskills/ui/common";
 
 /**
  * Shared Navigation Bar Component
@@ -95,14 +95,6 @@ export default function SharedNavbar({
             </Link>
           ))}
 
-          {/* Google Translate Widget - Multi-language support */}
-          <div className="flex items-center gap-2 px-2 py-1 border-l border-gray-200">
-            <span className="text-sm text-gray-600 whitespace-nowrap hidden lg:inline" title="Language Selector">
-              🌐 Language | भाषा
-            </span>
-            <GoogleTranslate />
-          </div>
-
           {/* Show Login/Register or User Info based on authentication */}
           {showAuthButtons && (
             <>
@@ -138,30 +130,36 @@ export default function SharedNavbar({
           )}
         </div>
 
-        {/* Mobile Menu Button */}
-        <button
-          className="md:hidden text-gray-800 focus:outline-none p-2"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          aria-label="Toggle navigation menu"
-        >
-          <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            {isMenuOpen ? (
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M6 18L18 6M6 6l12 12"
-              />
-            ) : (
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            )}
-          </svg>
-        </button>
+        {/* Right side: Google Translate (always visible) + Mobile Menu Button */}
+        <div className="flex items-center gap-2">
+          {/* Google Translate widget – rendered once here, visible on both desktop and mobile */}
+          <GoogleTranslate />
+
+          {/* Mobile Menu Button */}
+          <button
+            className="md:hidden text-gray-800 focus:outline-none p-2"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label="Toggle navigation menu"
+          >
+            <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              {isMenuOpen ? (
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              ) : (
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              )}
+            </svg>
+          </button>
+        </div>
       </div>
 
       {/* Mobile Menu */}
@@ -181,14 +179,6 @@ export default function SharedNavbar({
               {link.label}
             </Link>
           ))}
-
-          {/* Google Translate Widget for Mobile */}
-          <div className="flex items-center gap-2 px-2 py-2 border-t border-gray-200 mt-2 pt-4">
-            <span className="text-sm text-gray-600 whitespace-nowrap">
-              🌐 Language | भाषा:
-            </span>
-            <GoogleTranslate />
-          </div>
 
           {/* Show Login/Register or User Info based on authentication */}
           {showAuthButtons && (
