@@ -1,103 +1,90 @@
 /**
  * GeographyMedia Component
  *
- * Displays a relevant map image and 1–3 illustrative photos alongside
- * geography lesson content.  Designed to be "fun" – visuals are prominent,
- * responsive, and lazy-loaded.
+ * Renders lesson-specific geography images inline within lesson content.
+ * When a per-lesson media entry exists (Module 1, Lessons 1–4) it uses that;
+ * otherwise it falls back to module-level media.
+ *
+ * Images are rendered inline between content sections rather than as a
+ * separate top panel.
  *
  * Usage:
- *   <GeographyMedia moduleId={moduleId} />
- *
- * On desktop the panel appears to the right of the lesson text.
- * On mobile it collapses inline below the lesson content.
+ *   <GeographyMedia moduleId={moduleId} lessonId={lessonId} />
  */
 
-import Image from 'next/image';
-import { getModuleMedia } from '../data/geographyMedia';
+import { getLessonMedia } from '../data/geographyMedia';
 
-export default function GeographyMedia({ moduleId }) {
-  const media = getModuleMedia(moduleId);
+export default function GeographyMedia({ moduleId, lessonId }) {
+  const media = getLessonMedia(moduleId, lessonId);
   if (!media) return null;
 
   return (
-    <aside className="geography-media-panel">
+    <div className="geography-media-inline">
       {/* Map */}
-      <div className="geography-media-map">
-        <div className="geography-media-map-label">🗺️ Map</div>
+      <figure className="geography-media-figure">
         <div className="geography-media-img-wrap">
           <Image
             src={media.mapUrl}
             alt={media.mapAlt}
-            width={480}
-            height={300}
+            width={640}
+            height={360}
             className="geography-media-img"
             style={{ objectFit: 'cover', borderRadius: '8px' }}
             unoptimized
           />
         </div>
-        <p className="geography-media-caption">{media.mapAlt}</p>
-      </div>
+        <figcaption className="geography-media-caption">🗺️ {media.mapAlt}</figcaption>
+      </figure>
 
       {/* Photos */}
       {media.photos && media.photos.length > 0 && (
         <div className="geography-media-photos">
-          <div className="geography-media-map-label">📷 Visuals</div>
           {media.photos.map((photo, i) => (
-            <div key={i} className="geography-media-photo-item">
+            <figure key={i} className="geography-media-figure">
               <div className="geography-media-img-wrap">
                 <Image
                   src={photo.url}
                   alt={photo.alt}
-                  width={480}
-                  height={280}
+                  width={640}
+                  height={360}
                   className="geography-media-img"
                   style={{ objectFit: 'cover', borderRadius: '8px' }}
                   unoptimized
                 />
               </div>
               {photo.caption && (
-                <p className="geography-media-caption">{photo.caption}</p>
+                <figcaption className="geography-media-caption">📷 {photo.caption}</figcaption>
               )}
-            </div>
+            </figure>
           ))}
         </div>
       )}
 
       <style jsx>{`
-        .geography-media-panel {
-          background: #f0f9f0;
-          border: 1px solid #c3e6c3;
-          border-radius: 12px;
-          padding: 1rem;
-          margin-bottom: 1.5rem;
-        }
-        .geography-media-map-label {
-          font-weight: 700;
-          font-size: 0.875rem;
-          color: #1a5c1a;
-          margin-bottom: 0.5rem;
-          text-transform: uppercase;
-          letter-spacing: 0.05em;
-        }
-        .geography-media-map {
-          margin-bottom: 1.25rem;
+        .geography-media-inline {
+          margin: 2rem 0;
+          display: flex;
+          flex-direction: column;
+          gap: 1.5rem;
         }
         .geography-media-photos {
           display: flex;
           flex-direction: column;
-          gap: 1rem;
+          gap: 1.5rem;
         }
-        .geography-media-photo-item {
+        .geography-media-figure {
+          margin: 0;
           display: flex;
           flex-direction: column;
-          gap: 0.25rem;
+          gap: 0.375rem;
         }
         .geography-media-img-wrap {
           position: relative;
           width: 100%;
           overflow: hidden;
           border-radius: 8px;
-          background: #e0e0e0;
+          background: #e8f5e9;
+          border: 1px solid #c8e6c9;
         }
         .geography-media-img {
           width: 100% !important;
@@ -105,13 +92,22 @@ export default function GeographyMedia({ moduleId }) {
           display: block;
         }
         .geography-media-caption {
-          font-size: 0.75rem;
+          font-size: 0.8125rem;
           color: #4a6741;
-          margin: 0.25rem 0 0;
           font-style: italic;
           line-height: 1.4;
+          padding: 0 0.25rem;
+        }
+        @media (min-width: 640px) {
+          .geography-media-photos {
+            flex-direction: row;
+            flex-wrap: wrap;
+          }
+          .geography-media-photos .geography-media-figure {
+            flex: 1 1 45%;
+          }
         }
       `}</style>
-    </aside>
+    </div>
   );
 }
