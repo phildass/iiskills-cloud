@@ -11,6 +11,7 @@
     "seed": "node scripts/seed_data.js"
   },
   "dependencies": {
+    "@iiskills/content-loader": "*",
     "@iiskills/ui": "workspace:*",
     "@sendgrid/mail": "^8.1.6",
     "@supabase/supabase-js": "^2.89.0",
@@ -18,8 +19,7 @@
     "next": "^16.1.1",
     "razorpay": "^2.9.6",
     "react": "^19.2.3",
-    "react-dom": "^19.2.3",
-    "@iiskills/content-loader": "*"
+    "react-dom": "^19.2.3"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.14",
