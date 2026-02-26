@@ -33,12 +33,10 @@ export function isTestAdminMode() {
 }
 
 /**
- * Returns true when ADMIN_AUTH_DISABLED=true is set in the server environment.
- * In this mode, ALL admin routes are accessible without any authentication.
- * ⚠️ TESTING ONLY — never enable this in production with real data.
+ * Admin authentication is disabled by design — all admin routes are open-access.
  */
 export function isAdminAuthDisabled() {
-  return process.env.ADMIN_AUTH_DISABLED === 'true';
+  return true;
 }
 
 /**
