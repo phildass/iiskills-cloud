@@ -24,6 +24,9 @@ export default function LessonPage() {
 
   useEffect(() => {
     if (moduleId && lessonId) {
+      // Reset quiz completion whenever the lesson changes (prevents SPA state bleed
+      // when Next.js reuses the same page component without full unmount)
+      setQuizCompleted(false);
       fetchLesson();
       // Gate: modules beyond the sample (module 1, lesson 1) require entitlement
       const isSampleLesson = moduleId === '1' && lessonId === '1';
