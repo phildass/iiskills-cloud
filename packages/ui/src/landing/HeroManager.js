@@ -6,10 +6,10 @@ import { useState, useEffect } from "react";
 /**
  * HeroManager:
  * - Uses images from each app's own public/images folder
- * - Image with "hero" suffix in the name is used as the hero image (first in array)
+ * - Image at index 0 is used as the hero background image (has "hero" in name for most apps)
  * - Other images from the folder are used randomly for secondary images
  * - Each app uses only its own images
- * - Main app: 1 hero + 14 secondary images for maximum variety (15 total)
+ * - Main app: 8 images (iiskills-main1.jpg through iiskills-main8.jpg)
  * - Learn-ai app: 1 hero + 8 secondary images (9 total)
  * - Learn-geography app: 1 hero + 2 secondary images (3 total)
  * - Other apps: 1 hero + 2 secondary images each (3 total)
@@ -23,10 +23,12 @@ import { useState, useEffect } from "react";
 /**
  * Image assignments for each app
  * Images are sourced from each app's public/images folder.
- * First image in array is the hero image (has "hero" in filename).
+ * First image in array is used as the hero background image.
+ * For most apps, the first image has "hero" in its filename.
+ * Main app uses iiskills-main1.jpg as the hero (first in array).
  * Other images are used for secondary display.
  *
- * Main app has 15 images total (1 hero + 14 secondary images for variety)
+ * Main app has 8 images total (iiskills-main1.jpg through iiskills-main8.jpg)
  * Learn-ai has 9 images total (1 hero + 8 secondary images)
  * Learn-geography has 3 images total (1 hero + 2 secondary images)
  * Other apps have 3 images each (1 hero + 2 random images)
@@ -37,21 +39,14 @@ import { useState, useEffect } from "react";
  */
 const APP_IMAGE_ASSIGNMENTS = {
   main: [
-    "iiskills-main-hero.jpg",
-    "iiskills-main.1.jpg",
-    "iiskils.main.2.jpg",
-    "iiskills.main.3..jpg",
-    "iiskills.main.4..jpg",
-    "iiskills.main.5..jpg",
-    "iiskills.main.6..jpg",
-    "iiskills.main.7..jpg",
-    "iiskills.main.8..jpg",
-    "iiskills-main-wm1.jpg",
-    "iiskills-main-wm2.jpg",
-    "iiskills-image1.jpg",
-    "iiskills-image2.jpg",
-    "iiskills-image3.jpg",
-    "iiskills-image4.jpg",
+    "iiskills-main1.jpg",
+    "iiskills-main2.jpg",
+    "iiskills-main3.jpg",
+    "iiskills-main4.jpg",
+    "iiskills-main5.jpg",
+    "iiskills-main6.jpg",
+    "iiskills-main7.jpg",
+    "iiskills-main8.jpg",
   ],
   "learn-developer": ["iiskills-dev-hero.jpg", "iiskills-dev-cman.jpg", "iiskills-dev-couple.jpg"],
   "learn-management": ["girl-hero.jpg", "iiskills-mgmt-mgrs.jpg", "iiskills-mgmt-mgrs2.jpg"],

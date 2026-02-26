@@ -386,7 +386,7 @@ export default function Home() {
             {/* Large inspiring image for Vision section */}
             <div className="relative h-[350px] md:h-[450px] overflow-hidden rounded-2xl shadow-xl">
               <Image
-                src="/images/group-business-executives-smiling-camera.jpg"
+                src="/images/iiskills-main2.jpg"
                 alt="Diverse team of professionals representing Viksit Bharat vision"
                 fill
                 className="object-cover"
