@@ -1,5 +1,5 @@
 /**
- * Tests for learn-chemistry content integrity.
+ * Tests for learn-geography content integrity.
  *
  * Validates:
  *  - Exactly 100 lessons (10 modules × 10 lessons)
@@ -16,7 +16,7 @@
 const path = require('path');
 const fs = require('fs');
 
-const CONTENT_ROOT = path.resolve(__dirname, '../content/learn-chemistry');
+const CONTENT_ROOT = path.resolve(__dirname, '../content/learn-geography');
 const LESSONS_ROOT = path.join(CONTENT_ROOT, 'lessons');
 const REQUIRED_LESSON_FIELDS = ['moduleId', 'lessonId', 'title', 'content', 'quiz'];
 
@@ -42,7 +42,7 @@ function getAllLessonFiles() {
 // Tests
 // ---------------------------------------------------------------------------
 
-describe('learn-chemistry content integrity', () => {
+describe('learn-geography content integrity', () => {
   describe('lesson files', () => {
     it('has exactly 100 lesson files (10 modules × 10 lessons)', () => {
       const files = getAllLessonFiles();
@@ -193,7 +193,7 @@ describe('learn-chemistry content integrity', () => {
       const alloc = readJson(allocPath);
       expect(typeof alloc.notes).toBe('string');
       expect(Array.isArray(alloc.images)).toBe(true);
-      alloc.images.forEach((entry, i) => {
+      alloc.images.forEach((entry) => {
         expect(typeof entry.image).toBe('string');
         expect(typeof entry.usedBy).toBe('string');
         expect(typeof entry.description).toBe('string');
