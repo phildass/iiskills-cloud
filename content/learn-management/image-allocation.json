@@ -1,0 +1,55 @@
+{
+  "notes": "Each image is referenced by exactly one lesson, case study, or simulator. No duplicates allowed.",
+  "images": [
+    {
+      "image": "mgmt-case-1.png",
+      "usedBy": "case-studies/case-1.json",
+      "description": "Tata Group headquarters"
+    },
+    {
+      "image": "mgmt-case-2.png",
+      "usedBy": "case-studies/case-2.json",
+      "description": "Infosys campus Bangalore"
+    },
+    {
+      "image": "mgmt-case-3.png",
+      "usedBy": "case-studies/case-3.json",
+      "description": "Flipkart warehouse operations"
+    },
+    {
+      "image": "mgmt-case-4.png",
+      "usedBy": "case-studies/case-4.json",
+      "description": "Maruti Suzuki assembly line"
+    },
+    {
+      "image": "mgmt-case-5.png",
+      "usedBy": "case-studies/case-5.json",
+      "description": "Yes Bank branch facade"
+    },
+    {
+      "image": "mgmt-sim-1.png",
+      "usedBy": "simulators/sim-1.json",
+      "description": "Budget allocation pie chart"
+    },
+    {
+      "image": "mgmt-sim-2.png",
+      "usedBy": "simulators/sim-2.json",
+      "description": "Team performance dashboard"
+    },
+    {
+      "image": "mgmt-sim-3.png",
+      "usedBy": "simulators/sim-3.json",
+      "description": "BCG matrix illustration"
+    },
+    {
+      "image": "mgmt-sim-4.png",
+      "usedBy": "simulators/sim-4.json",
+      "description": "Change readiness radar chart"
+    },
+    {
+      "image": "mgmt-sim-5.png",
+      "usedBy": "simulators/sim-5.json",
+      "description": "Project Gantt chart"
+    }
+  ]
+}

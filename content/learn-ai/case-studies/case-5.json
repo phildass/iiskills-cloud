@@ -1,0 +1,15 @@
+{
+  "id": "case-5",
+  "title": "AI for Healthcare: Diabetic Retinopathy Detection in India",
+  "module": "Supervised Learning",
+  "summary": "Google and AIIMS Delhi collaborated to deploy a CNN model detecting diabetic retinopathy from retinal scans, addressing a critical ophthalmology shortage in India.",
+  "content": "<h2>Case Study: AI Diabetic Retinopathy Screening</h2><p>India has over 77 million diabetic patients — the second highest in the world. Diabetic retinopathy (damage to the retina from diabetes) is a leading cause of preventable blindness. There are fewer than 10,000 ophthalmologists in India, creating an enormous screening gap.</p><h3>The AI Solution</h3><p>Google Research partnered with AIIMS Delhi and Aravind Eye Hospital to develop and validate a deep learning model that analyses retinal photographs for signs of diabetic retinopathy. The CNN was trained on 128,000 retinal images and validated in clinical settings.</p><h3>Results</h3><p>The model achieved over 90% sensitivity and specificity — comparable to specialist ophthalmologists. Deployed in community health centres in rural India, it allows screening by trained technicians without specialist oversight.</p><h3>Key Learning</h3><p>AI in healthcare requires rigorous clinical validation, regulatory approval, and careful deployment planning. The India-specific context — local language interfaces, offline capability, low-cost hardware — shaped every design decision.</p>",
+  "image": "ai-case-5.png",
+  "tags": [
+    "healthcare",
+    "computer vision",
+    "CNN",
+    "India",
+    "medical AI"
+  ]
+}

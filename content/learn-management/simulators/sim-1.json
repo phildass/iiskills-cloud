@@ -1,0 +1,44 @@
+{
+  "id": "sim-1",
+  "title": "Budget Planning Simulator",
+  "module": "Financial Management",
+  "description": "Allocate a department budget across personnel, operations, and capital expenditure. See how different allocation strategies affect projected ROI and team capacity.",
+  "type": "interactive",
+  "parameters": [
+    {
+      "name": "totalBudget",
+      "label": "Total Budget (₹ Lakhs)",
+      "min": 10,
+      "max": 500,
+      "default": 100,
+      "unit": "₹L"
+    },
+    {
+      "name": "personnelPct",
+      "label": "Personnel (%)",
+      "min": 20,
+      "max": 80,
+      "default": 60,
+      "unit": "%"
+    },
+    {
+      "name": "operationsPct",
+      "label": "Operations (%)",
+      "min": 10,
+      "max": 50,
+      "default": 25,
+      "unit": "%"
+    }
+  ],
+  "outputs": [
+    "Budget breakdown",
+    "Projected ROI",
+    "Remaining contingency"
+  ],
+  "image": "mgmt-sim-1.png",
+  "tags": [
+    "budgeting",
+    "financial management",
+    "resource allocation"
+  ]
+}

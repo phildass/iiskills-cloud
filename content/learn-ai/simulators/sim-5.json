@@ -1,0 +1,44 @@
+{
+  "id": "sim-5",
+  "title": "Word Embedding Visualiser",
+  "module": "Neural Networks",
+  "description": "Explore how word2vec embeddings represent semantic relationships in 2D space. See how similar words cluster and how analogies like king - man + woman = queen are encoded.",
+  "type": "interactive",
+  "parameters": [
+    {
+      "name": "embeddingDimension",
+      "label": "Embedding Dimension",
+      "min": 50,
+      "max": 300,
+      "default": 100,
+      "unit": ""
+    },
+    {
+      "name": "windowSize",
+      "label": "Context Window Size",
+      "min": 2,
+      "max": 10,
+      "default": 5,
+      "unit": "words"
+    },
+    {
+      "name": "vocabularySize",
+      "label": "Vocabulary Size",
+      "min": 1000,
+      "max": 50000,
+      "default": 10000,
+      "unit": "words"
+    }
+  ],
+  "outputs": [
+    "2D embedding visualisation",
+    "Nearest neighbours",
+    "Analogy results"
+  ],
+  "image": "ai-sim-5.png",
+  "tags": [
+    "word embeddings",
+    "NLP",
+    "word2vec"
+  ]
+}

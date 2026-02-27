@@ -1,0 +1,60 @@
+{
+  "moduleId": 1,
+  "lessonId": 10,
+  "slug": "manager-as-coach",
+  "title": "The Manager as a Coach",
+  "isFree": false,
+  "content": "<h2>Module 1, Lesson 10: The Manager as a Coach</h2>\n<h3>Introduction</h3>\n<p>This lesson covers <strong>The Manager as a Coach</strong> as part of the Foundations of Management module in the Learn Management course. Mastery of this topic is essential for building a comprehensive understanding of the subject area.</p>\n<h3>Key Concepts</h3>\n<p>In <strong>The Manager as a Coach</strong>, you will explore the foundational ideas, practical techniques, and real-world applications that make this area of study both relevant and actionable. Each concept has been carefully selected to build on prior knowledge and prepare you for more advanced topics.</p>\n<h3>Practical Application</h3>\n<p>Understanding The Manager as a Coach means being able to apply these principles in professional contexts. You will encounter scenarios, case studies, and examples drawn from real industry practice, helping you translate theory into competence.</p>\n<h3>Summary</h3>\n<p>You have completed <strong>The Manager as a Coach</strong> (Foundations of Management, Lesson 10). Proceed to the quiz to test your understanding, then continue to the next lesson to build further expertise.</p>",
+  "quiz": [
+    {
+      "question": "What is organisational behaviour?",
+      "options": [
+        "The study of how buildings are organized",
+        "The study of how individuals and groups act within organizations",
+        "The process of restructuring a company",
+        "A type of financial reporting"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What are the four core functions of management?",
+      "options": [
+        "Planning, Organizing, Leading, and Controlling",
+        "Hiring, Firing, Promoting, and Demoting",
+        "Marketing, Sales, Finance, and Operations",
+        "Analyzing, Designing, Implementing, and Testing"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "question": "Which management theorist introduced Scientific Management?",
+      "options": [
+        "Peter Drucker",
+        "Frederick Taylor",
+        "Henri Fayol",
+        "Abraham Maslow"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is the primary purpose of the controlling function in management?",
+      "options": [
+        "Setting goals",
+        "Monitoring performance and taking corrective action",
+        "Allocating resources",
+        "Hiring employees"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What does SMART stand for in goal-setting?",
+      "options": [
+        "Simple, Manageable, Achievable, Realistic, Timely",
+        "Specific, Measurable, Achievable, Relevant, Time-bound",
+        "Strategic, Meaningful, Actionable, Responsible, Trackable",
+        "Structured, Motivated, Agile, Results-driven, Targeted"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "moduleId": 6,
+  "lessonId": 8,
+  "slug": "investment-appraisal",
+  "title": "Investment Appraisal",
+  "isFree": false,
+  "content": "<h2>Module 6, Lesson 8: Investment Appraisal</h2>\n<h3>Introduction</h3>\n<p>This lesson covers <strong>Investment Appraisal</strong> as part of the Financial Management module in the Learn Management course. Mastery of this topic is essential for building a comprehensive understanding of the subject area.</p>\n<h3>Key Concepts</h3>\n<p>In <strong>Investment Appraisal</strong>, you will explore the foundational ideas, practical techniques, and real-world applications that make this area of study both relevant and actionable. Each concept has been carefully selected to build on prior knowledge and prepare you for more advanced topics.</p>\n<h3>Practical Application</h3>\n<p>Understanding Investment Appraisal means being able to apply these principles in professional contexts. You will encounter scenarios, case studies, and examples drawn from real industry practice, helping you translate theory into competence.</p>\n<h3>Summary</h3>\n<p>You have completed <strong>Investment Appraisal</strong> (Financial Management, Lesson 8). Proceed to the quiz to test your understanding, then continue to the next lesson to build further expertise.</p>",
+  "quiz": [
+    {
+      "question": "What is NPV used for?",
+      "options": [
+        "Measuring employee performance",
+        "Evaluating the profitability of an investment",
+        "Tracking inventory",
+        "Calculating tax"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is a budget?",
+      "options": [
+        "A past financial statement",
+        "A financial plan expressing expected revenues and expenditures",
+        "A profit-sharing scheme",
+        "A loan agreement"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What does ROI stand for?",
+      "options": [
+        "Rate of Interest",
+        "Return on Investment",
+        "Revenue over Income",
+        "Risk of Inefficiency"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What does a balance sheet show?",
+      "options": [
+        "Revenue and expenses over a period",
+        "Assets, liabilities, and equity at a point in time",
+        "Cash flows in and out",
+        "Sales forecast"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is working capital?",
+      "options": [
+        "Total assets minus total liabilities",
+        "Current assets minus current liabilities",
+        "Long-term investments",
+        "Annual revenue"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

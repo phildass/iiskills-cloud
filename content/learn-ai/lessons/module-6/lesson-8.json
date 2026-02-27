@@ -1,0 +1,60 @@
+{
+  "moduleId": 6,
+  "lessonId": 8,
+  "slug": "anomaly-detection",
+  "title": "Anomaly Detection",
+  "isFree": false,
+  "content": "<h2>Module 6, Lesson 8: Anomaly Detection</h2>\n<h3>Introduction</h3>\n<p>This lesson covers <strong>Anomaly Detection</strong> as part of the Unsupervised Learning module in the Learn AI course. Mastery of this topic is essential for building a comprehensive understanding of the subject area.</p>\n<h3>Key Concepts</h3>\n<p>In <strong>Anomaly Detection</strong>, you will explore the foundational ideas, practical techniques, and real-world applications that make this area of study both relevant and actionable. Each concept has been carefully selected to build on prior knowledge and prepare you for more advanced topics.</p>\n<h3>Practical Application</h3>\n<p>Understanding Anomaly Detection means being able to apply these principles in professional contexts. You will encounter scenarios, case studies, and examples drawn from real industry practice, helping you translate theory into competence.</p>\n<h3>Summary</h3>\n<p>You have completed <strong>Anomaly Detection</strong> (Unsupervised Learning, Lesson 8). Proceed to the quiz to test your understanding, then continue to the next lesson to build further expertise.</p>",
+  "quiz": [
+    {
+      "question": "Which technique reduces the number of features while retaining variance?",
+      "options": [
+        "Logistic Regression",
+        "PCA",
+        "k-Nearest Neighbours",
+        "Gradient Boosting"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What type of learning does an autoencoder perform?",
+      "options": [
+        "Supervised",
+        "Reinforcement",
+        "Unsupervised",
+        "Semi-supervised only"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "What is anomaly detection used for?",
+      "options": [
+        "Image classification",
+        "Finding unusual patterns in data",
+        "Sorting datasets",
+        "Building chatbots"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is the primary goal of clustering in unsupervised learning?",
+      "options": [
+        "Predict a continuous output",
+        "Group similar data points together",
+        "Label training data",
+        "Optimise a loss function"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What does k in k-Means represent?",
+      "options": [
+        "The number of features",
+        "The number of data points",
+        "The number of clusters",
+        "The number of epochs"
+      ],
+      "correct_answer": 2
+    }
+  ]
+}

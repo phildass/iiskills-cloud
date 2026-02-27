@@ -1,0 +1,55 @@
+{
+  "notes": "Each image is referenced by exactly one lesson, case study, or simulator. No duplicates allowed.",
+  "images": [
+    {
+      "image": "ai-case-1.png",
+      "usedBy": "case-studies/case-1.json",
+      "description": "Netflix recommendation interface"
+    },
+    {
+      "image": "ai-case-2.png",
+      "usedBy": "case-studies/case-2.json",
+      "description": "Indian bank chatbot interface"
+    },
+    {
+      "image": "ai-case-3.png",
+      "usedBy": "case-studies/case-3.json",
+      "description": "Crop disease detection on smartphone"
+    },
+    {
+      "image": "ai-case-4.png",
+      "usedBy": "case-studies/case-4.json",
+      "description": "Autonomous vehicle sensor diagram"
+    },
+    {
+      "image": "ai-case-5.png",
+      "usedBy": "case-studies/case-5.json",
+      "description": "Retinal scan AI diagnosis"
+    },
+    {
+      "image": "ai-sim-1.png",
+      "usedBy": "simulators/sim-1.json",
+      "description": "Gradient descent loss curve"
+    },
+    {
+      "image": "ai-sim-2.png",
+      "usedBy": "simulators/sim-2.json",
+      "description": "Neural network architecture diagram"
+    },
+    {
+      "image": "ai-sim-3.png",
+      "usedBy": "simulators/sim-3.json",
+      "description": "k-Means cluster visualisation"
+    },
+    {
+      "image": "ai-sim-4.png",
+      "usedBy": "simulators/sim-4.json",
+      "description": "Confusion matrix diagram"
+    },
+    {
+      "image": "ai-sim-5.png",
+      "usedBy": "simulators/sim-5.json",
+      "description": "Word embedding 2D plot"
+    }
+  ]
+}

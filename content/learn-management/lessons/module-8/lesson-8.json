@@ -1,0 +1,60 @@
+{
+  "moduleId": 8,
+  "lessonId": 8,
+  "slug": "agile-change-management",
+  "title": "Agile Change Management",
+  "isFree": false,
+  "content": "<h2>Module 8, Lesson 8: Agile Change Management</h2>\n<h3>Introduction</h3>\n<p>This lesson covers <strong>Agile Change Management</strong> as part of the Change Management module in the Learn Management course. Mastery of this topic is essential for building a comprehensive understanding of the subject area.</p>\n<h3>Key Concepts</h3>\n<p>In <strong>Agile Change Management</strong>, you will explore the foundational ideas, practical techniques, and real-world applications that make this area of study both relevant and actionable. Each concept has been carefully selected to build on prior knowledge and prepare you for more advanced topics.</p>\n<h3>Practical Application</h3>\n<p>Understanding Agile Change Management means being able to apply these principles in professional contexts. You will encounter scenarios, case studies, and examples drawn from real industry practice, helping you translate theory into competence.</p>\n<h3>Summary</h3>\n<p>You have completed <strong>Agile Change Management</strong> (Change Management, Lesson 8). Proceed to the quiz to test your understanding, then continue to the next lesson to build further expertise.</p>",
+  "quiz": [
+    {
+      "question": "What is resistance to change?",
+      "options": [
+        "Enthusiastic adoption of change",
+        "Employee behaviours that hinder change implementation",
+        "Regulatory compliance",
+        "Budget constraints"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is stakeholder analysis used for?",
+      "options": [
+        "Financial reporting",
+        "Identifying and assessing those affected by a change",
+        "Product development",
+        "HR recruitment"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What characterises agile change management?",
+      "options": [
+        "Rigid sequential steps",
+        "Iterative, flexible approach to change",
+        "Avoiding stakeholder input",
+        "Top-down command only"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is Kotter's first step in change management?",
+      "options": [
+        "Form a guiding coalition",
+        "Create a sense of urgency",
+        "Develop a vision",
+        "Communicate the vision"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is the Change Curve based on?",
+      "options": [
+        "Kotter's model",
+        "Kübler-Ross grief model adapted to organisational change",
+        "SWOT analysis",
+        "Balanced Scorecard"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

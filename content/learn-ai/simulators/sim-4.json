@@ -1,0 +1,46 @@
+{
+  "id": "sim-4",
+  "title": "Confusion Matrix Builder",
+  "module": "Supervised Learning",
+  "description": "Adjust model threshold and class balance to see how precision, recall, F1-score, and accuracy change. Understand the trade-offs between false positives and false negatives.",
+  "type": "interactive",
+  "parameters": [
+    {
+      "name": "threshold",
+      "label": "Decision Threshold",
+      "min": 0.1,
+      "max": 0.9,
+      "default": 0.5,
+      "unit": ""
+    },
+    {
+      "name": "classBalance",
+      "label": "Class Balance (%)",
+      "min": 10,
+      "max": 90,
+      "default": 50,
+      "unit": "%"
+    },
+    {
+      "name": "sampleSize",
+      "label": "Sample Size",
+      "min": 100,
+      "max": 10000,
+      "default": 1000,
+      "unit": "samples"
+    }
+  ],
+  "outputs": [
+    "Confusion matrix",
+    "Precision",
+    "Recall",
+    "F1-score",
+    "Accuracy"
+  ],
+  "image": "ai-sim-4.png",
+  "tags": [
+    "evaluation metrics",
+    "confusion matrix",
+    "precision recall"
+  ]
+}

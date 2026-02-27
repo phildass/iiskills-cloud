@@ -1,0 +1,60 @@
+{
+  "moduleId": 7,
+  "lessonId": 5,
+  "slug": "supply-chain-management",
+  "title": "Supply Chain Management",
+  "isFree": false,
+  "content": "<h2>Module 7, Lesson 5: Supply Chain Management</h2>\n<h3>Introduction</h3>\n<p>This lesson covers <strong>Supply Chain Management</strong> as part of the Operations Management module in the Learn Management course. Mastery of this topic is essential for building a comprehensive understanding of the subject area.</p>\n<h3>Key Concepts</h3>\n<p>In <strong>Supply Chain Management</strong>, you will explore the foundational ideas, practical techniques, and real-world applications that make this area of study both relevant and actionable. Each concept has been carefully selected to build on prior knowledge and prepare you for more advanced topics.</p>\n<h3>Practical Application</h3>\n<p>Understanding Supply Chain Management means being able to apply these principles in professional contexts. You will encounter scenarios, case studies, and examples drawn from real industry practice, helping you translate theory into competence.</p>\n<h3>Summary</h3>\n<p>You have completed <strong>Supply Chain Management</strong> (Operations Management, Lesson 5). Proceed to the quiz to test your understanding, then continue to the next lesson to build further expertise.</p>",
+  "quiz": [
+    {
+      "question": "What does a Gantt chart show?",
+      "options": [
+        "Financial projections",
+        "Project tasks and their timelines",
+        "Employee hierarchy",
+        "Market share"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is the primary goal of lean management?",
+      "options": [
+        "Increasing bureaucracy",
+        "Eliminating waste and maximising value",
+        "Expanding headcount",
+        "Reducing quality controls"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What does Six Sigma aim to reduce?",
+      "options": [
+        "Employee satisfaction",
+        "Defects and process variation",
+        "Product features",
+        "Management layers"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is supply chain management?",
+      "options": [
+        "Managing social media supply",
+        "Overseeing the flow of goods from suppliers to customers",
+        "Internal HR processes",
+        "Financial auditing"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is capacity planning?",
+      "options": [
+        "Measuring employee capacity",
+        "Determining production capacity needed to meet demand",
+        "Setting salary bands",
+        "Planning office space"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

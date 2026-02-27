@@ -1,0 +1,44 @@
+{
+  "id": "sim-1",
+  "title": "Gradient Descent Visualiser",
+  "module": "Supervised Learning",
+  "description": "Adjust learning rate and starting point to visualise how gradient descent finds the minimum of a loss function. See how learning rate affects convergence speed and stability.",
+  "type": "interactive",
+  "parameters": [
+    {
+      "name": "learningRate",
+      "label": "Learning Rate",
+      "min": 0.001,
+      "max": 1,
+      "default": 0.1,
+      "unit": ""
+    },
+    {
+      "name": "startX",
+      "label": "Starting Point (x)",
+      "min": -5,
+      "max": 5,
+      "default": 3,
+      "unit": ""
+    },
+    {
+      "name": "iterations",
+      "label": "Iterations",
+      "min": 10,
+      "max": 500,
+      "default": 100,
+      "unit": "steps"
+    }
+  ],
+  "outputs": [
+    "Convergence path",
+    "Loss at each step",
+    "Final minimum value"
+  ],
+  "image": "ai-sim-1.png",
+  "tags": [
+    "gradient descent",
+    "optimisation",
+    "supervised learning"
+  ]
+}

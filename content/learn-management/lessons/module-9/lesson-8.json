@@ -1,0 +1,60 @@
+{
+  "moduleId": 9,
+  "lessonId": 8,
+  "slug": "compensation-and-benefits",
+  "title": "Compensation and Benefits",
+  "isFree": false,
+  "content": "<h2>Module 9, Lesson 8: Compensation and Benefits</h2>\n<h3>Introduction</h3>\n<p>This lesson covers <strong>Compensation and Benefits</strong> as part of the HR & Talent Management module in the Learn Management course. Mastery of this topic is essential for building a comprehensive understanding of the subject area.</p>\n<h3>Key Concepts</h3>\n<p>In <strong>Compensation and Benefits</strong>, you will explore the foundational ideas, practical techniques, and real-world applications that make this area of study both relevant and actionable. Each concept has been carefully selected to build on prior knowledge and prepare you for more advanced topics.</p>\n<h3>Practical Application</h3>\n<p>Understanding Compensation and Benefits means being able to apply these principles in professional contexts. You will encounter scenarios, case studies, and examples drawn from real industry practice, helping you translate theory into competence.</p>\n<h3>Summary</h3>\n<p>You have completed <strong>Compensation and Benefits</strong> (HR & Talent Management, Lesson 8). Proceed to the quiz to test your understanding, then continue to the next lesson to build further expertise.</p>",
+  "quiz": [
+    {
+      "question": "What is succession planning?",
+      "options": [
+        "Planning company events",
+        "Identifying and developing future leaders for key roles",
+        "Reducing headcount",
+        "Automating HR processes"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What does DEI stand for in HR?",
+      "options": [
+        "Data, Engineering, and Intelligence",
+        "Diversity, Equity, and Inclusion",
+        "Department, Employment, and Initiatives",
+        "Digital, Enterprise, and Integration"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is HR analytics used for?",
+      "options": [
+        "Creating financial statements",
+        "Using data to make evidence-based HR decisions",
+        "Network security",
+        "Product design"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is talent acquisition?",
+      "options": [
+        "Employee termination process",
+        "The process of finding and attracting skilled candidates",
+        "Training existing staff",
+        "Financial compensation planning"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What does employee onboarding involve?",
+      "options": [
+        "Exiting employees",
+        "Integrating new hires into the organisation and its culture",
+        "Annual performance reviews",
+        "Salary negotiations only"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

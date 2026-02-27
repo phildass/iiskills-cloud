@@ -1,0 +1,60 @@
+{
+  "moduleId": 5,
+  "lessonId": 8,
+  "slug": "model-evaluation-metrics",
+  "title": "Model Evaluation Metrics",
+  "isFree": false,
+  "content": "<h2>Module 5, Lesson 8: Model Evaluation Metrics</h2>\n<h3>Introduction</h3>\n<p>This lesson covers <strong>Model Evaluation Metrics</strong> as part of the Supervised Learning module in the Learn AI course. Mastery of this topic is essential for building a comprehensive understanding of the subject area.</p>\n<h3>Key Concepts</h3>\n<p>In <strong>Model Evaluation Metrics</strong>, you will explore the foundational ideas, practical techniques, and real-world applications that make this area of study both relevant and actionable. Each concept has been carefully selected to build on prior knowledge and prepare you for more advanced topics.</p>\n<h3>Practical Application</h3>\n<p>Understanding Model Evaluation Metrics means being able to apply these principles in professional contexts. You will encounter scenarios, case studies, and examples drawn from real industry practice, helping you translate theory into competence.</p>\n<h3>Summary</h3>\n<p>You have completed <strong>Model Evaluation Metrics</strong> (Supervised Learning, Lesson 8). Proceed to the quiz to test your understanding, then continue to the next lesson to build further expertise.</p>",
+  "quiz": [
+    {
+      "question": "What is the purpose of a train-test split?",
+      "options": [
+        "To speed up training",
+        "To evaluate model performance on unseen data",
+        "To reduce dataset size",
+        "To normalise features"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What does overfitting mean in a supervised learning model?",
+      "options": [
+        "The model is too simple",
+        "The model performs well on training data but poorly on new data",
+        "The model takes too long to train",
+        "The dataset is too large"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "Which metric is commonly used to evaluate classification models?",
+      "options": [
+        "RMSE",
+        "R-squared",
+        "F1-score",
+        "Gradient"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "What distinguishes supervised learning from unsupervised learning?",
+      "options": [
+        "Supervised learning uses labelled training data",
+        "Supervised learning requires no data",
+        "Supervised learning clusters similar data points",
+        "Supervised learning uses rewards"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "question": "Which algorithm is best suited for predicting a continuous value?",
+      "options": [
+        "K-Means",
+        "Linear Regression",
+        "DBSCAN",
+        "PCA"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

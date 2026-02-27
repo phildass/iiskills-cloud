@@ -1,0 +1,14 @@
+{
+  "id": "case-4",
+  "title": "Autonomous Vehicles and Reinforcement Learning",
+  "module": "Reinforcement Learning",
+  "summary": "Tesla and Waymo use reinforcement learning alongside supervised learning to train autonomous vehicles — illustrating the limits and possibilities of current AI.",
+  "content": "<h2>Case Study: Autonomous Vehicle AI</h2><p>Self-driving cars represent one of the most ambitious AI engineering challenges. Tesla's Autopilot system processes data from cameras, radar, and ultrasonic sensors to make real-time driving decisions.</p><h3>The AI Stack</h3><p>Autonomous vehicles combine multiple AI techniques: CNNs for object recognition, SLAM (Simultaneous Localisation and Mapping) for spatial awareness, and reinforcement learning for decision-making in complex traffic scenarios. Tesla uses a \"shadow mode\" where human drivers make decisions while the AI trains in parallel.</p><h3>Current Limitations</h3><p>Despite billions in investment, Level 5 (fully autonomous) vehicles remain elusive. Edge cases — unusual road markings, construction zones, unexpected pedestrian behaviour — remain challenging. The safety implications mean extensive regulatory oversight.</p><h3>Key Learning</h3><p>Real-world AI deployment requires understanding both capabilities and limitations. Responsible AI deployment in safety-critical domains demands extreme care, interpretability, and extensive testing.</p>",
+  "image": "ai-case-4.png",
+  "tags": [
+    "autonomous vehicles",
+    "reinforcement learning",
+    "computer vision",
+    "safety"
+  ]
+}

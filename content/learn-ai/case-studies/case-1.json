@@ -1,0 +1,14 @@
+{
+  "id": "case-1",
+  "title": "How Netflix Uses AI for Content Recommendations",
+  "module": "Supervised Learning",
+  "summary": "Netflix's recommendation engine demonstrates real-world supervised learning at scale, saving the company over $1 billion annually through personalisation.",
+  "content": "<h2>Case Study: Netflix Recommendation Engine</h2><p>Netflix serves over 230 million subscribers globally. With a library of thousands of titles, the challenge is not availability — it is discovery. Netflix's recommendation system ensures that 80% of what users watch is discovered through recommendations, not search.</p><h3>The AI Approach</h3><p>Netflix uses a multi-stage recommendation pipeline combining collaborative filtering, content-based filtering, and deep learning models. Collaborative filtering identifies users with similar taste profiles. Content-based models analyse metadata, subtitles, and visual features of titles.</p><h3>Business Impact</h3><p>The recommendation engine contributes to subscriber retention worth over $1 billion per year. Without it, subscribers would spend more time browsing and less time watching, increasing churn risk.</p><h3>Key Learning</h3><p>Supervised learning and recommendation systems are not abstract mathematics — they are the invisible hand guiding what billions of people watch every evening.</p>",
+  "image": "ai-case-1.png",
+  "tags": [
+    "recommendation systems",
+    "supervised learning",
+    "personalisation",
+    "Netflix"
+  ]
+}

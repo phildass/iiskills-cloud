@@ -1,0 +1,44 @@
+{
+  "id": "sim-3",
+  "title": "k-Means Clustering Playground",
+  "module": "Unsupervised Learning",
+  "description": "Generate data clusters and watch k-Means iteratively assign centroids and refine cluster boundaries. Explore how k and initialisation affect results.",
+  "type": "interactive",
+  "parameters": [
+    {
+      "name": "k",
+      "label": "Number of Clusters (k)",
+      "min": 2,
+      "max": 10,
+      "default": 3,
+      "unit": "clusters"
+    },
+    {
+      "name": "dataPoints",
+      "label": "Data Points",
+      "min": 50,
+      "max": 500,
+      "default": 200,
+      "unit": "points"
+    },
+    {
+      "name": "spread",
+      "label": "Cluster Spread",
+      "min": 0.5,
+      "max": 5,
+      "default": 1.5,
+      "unit": ""
+    }
+  ],
+  "outputs": [
+    "Cluster assignments",
+    "Inertia (within-cluster variance)",
+    "Centroid positions"
+  ],
+  "image": "ai-sim-3.png",
+  "tags": [
+    "k-means",
+    "clustering",
+    "unsupervised learning"
+  ]
+}
