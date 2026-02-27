@@ -19,9 +19,25 @@ for cmd in node yarn pm2 git; do
   command -v "$cmd" >/dev/null 2>&1 || { echo "ERROR: '$cmd' not found in PATH. Aborting."; exit 1; }
 done
 
-echo "==> Stop existing PM2 processes (keep nginx as-is)"
-pm2 stop all || true
-pm2 delete all || true
+echo "==> Stop existing IISkills PM2 processes only (do NOT delete all PM2 processes on the host)"
+# Only manage our own processes. Never run `pm2 delete all`.
+IISKILLS_PROCS=(
+  "iiskills-main"
+  "iiskills-learn-apt"
+  "iiskills-learn-chemistry"
+  "iiskills-learn-developer"
+  "iiskills-learn-geography"
+  "iiskills-learn-management"
+  "iiskills-learn-math"
+  "iiskills-learn-physics"
+  "iiskills-learn-pr"
+  "iiskills-learn-ai"
+)
+
+for p in "${IISKILLS_PROCS[@]}"; do
+  pm2 stop "$p" >/dev/null 2>&1 || true
+  pm2 delete "$p" >/dev/null 2>&1 || true
+done
 
 echo "==> Backup previous checkout (if exists)"
 if [ -d "$REPO_DIR" ]; then
@@ -55,43 +71,4 @@ declare -A PORTS=(
   ["learn-apt"]=3002
   ["learn-chemistry"]=3005
   ["learn-developer"]=3007
-  ["learn-geography"]=3011
-  ["learn-management"]=3016
-  ["learn-math"]=3017
-  ["learn-physics"]=3020
-  ["learn-pr"]=3021
-  ["learn-ai"]=3024
-)
 
-for app in "${!PORTS[@]}"; do
-  app_dir="$REPO_DIR/apps/$app"
-  port="${PORTS[$app]}"
-  if [ -d "$app_dir" ]; then
-    if [ ! -f "$app_dir/.next/BUILD_ID" ]; then
-      echo "==> Skipping $app (no .next/BUILD_ID — build may have failed)"
-    else
-      echo "==> Starting $app on :$port"
-      cd "$app_dir"
-      PORT="$port" pm2 start "npx next start -p $port" --name "iiskills-$app"
-    fi
-  else
-    echo "==> Skipping $app (missing: $app_dir)"
-  fi
-done
-
-pm2 save
-pm2 ls
-
-echo "==> Verify iiskills-main is responding on :3000"
-sleep 4
-if ! curl -fsS "http://localhost:3000" >/dev/null 2>&1; then
-  echo "ERROR: http://localhost:3000 not responding. PM2 logs:"
-  pm2 logs iiskills-main --lines 200 --nostream
-  exit 1
-fi
-echo "OK: main :3000"
-
-echo "DONE. Test in browser:"
-echo " - https://app.iiskills.cloud/ (staging)"
-echo " - https://iiskills.cloud/ (production target — DNS/Nginx flip when ready)"
-echo " - https://learn-apt.iiskills.cloud/ (learn-apt subdomain)"
