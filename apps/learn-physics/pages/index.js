@@ -1,57 +1,50 @@
-import path from "path";
-import { createLoader } from "@iiskills/content-loader";
-import Link from "next/link";
-import Head from "next/head";
+"use client";
 
-export async function getStaticProps() {
-  try {
-    const contentRoot = path.resolve(process.cwd(), "../../content");
-    const loader = createLoader(contentRoot);
-    const course = loader.getCourse("learn-physics");
-    return { props: { course: course || null } };
-  } catch (err) {
-    console.error("[learn-physics] getStaticProps error:", err.message);
-    return { props: { course: null } };
-  }
-}
+import { TriLevelLandingPage } from "@iiskills/ui/landing";
 
-export default function PhysicsHome({ course }) {
-  if (!course) {
-    return (
-      <main className="min-h-screen bg-gray-50 py-12">
-        <div className="container mx-auto px-4 max-w-4xl">
-          <p className="text-gray-600">Course content unavailable.</p>
-        </div>
-      </main>
-    );
-  }
-
+export default function Home() {
   return (
-    <>
-      <Head>
-        <title>{course.title}</title>
-        <meta name="description" content={course.description} />
-      </Head>
-      <main className="min-h-screen bg-gray-50 py-12">
-        <div className="container mx-auto px-4 max-w-4xl">
-          <h1 className="text-4xl font-bold mb-2">{course.title}</h1>
-          <p className="text-lg text-gray-600 mb-8">{course.description}</p>
-
-          <h2 className="text-2xl font-semibold mb-4">Modules</h2>
-          <div className="grid gap-4">
-            {course.modules.map((mod) => (
-              <Link
-                key={mod.id}
-                href={`/modules/${mod.id}`}
-                className="block border border-gray-200 rounded-lg p-5 bg-white hover:border-blue-400 hover:shadow-sm transition-all"
-              >
-                <h3 className="text-lg font-semibold text-gray-900">{mod.title}</h3>
-                {mod.level && <span className="text-sm text-blue-600 capitalize">{mod.level}</span>}
-              </Link>
-            ))}
-          </div>
-        </div>
-      </main>
-    </>
+    <TriLevelLandingPage
+      appId="learn-physics"
+      appName="Unlock the Universe of Physics 🌟"
+      headline="Master the Laws of the Universe"
+      subheadline="Explore the fundamental forces that govern reality. The Force Path begins here."
+      title="iiskills-physics - Master Physics"
+      description="Explore the fundamental laws that govern our universe through interactive lessons, real-world applications, and cutting-edge physics concepts. From classical mechanics to quantum theory."
+      features={[
+  {
+    "emoji": "⚛️",
+    "title": "Classical Mechanics",
+    "description": "Master motion, forces, energy principles, and Newton's laws through interactive simulations and real-world problem solving"
+  },
+  {
+    "emoji": "💡",
+    "title": "Electricity & Magnetism",
+    "description": "Understand electromagnetic phenomena, circuits, fields, and the forces that power our modern world"
+  },
+  {
+    "emoji": "🌌",
+    "title": "Modern Physics",
+    "description": "Explore quantum mechanics, relativity, particle physics, and the cutting edge of scientific discovery"
+  },
+  {
+    "emoji": "🔬",
+    "title": "Thermodynamics & Energy",
+    "description": "Learn heat transfer, energy conservation, entropy, and the laws that govern energy transformation"
+  },
+  {
+    "emoji": "🌊",
+    "title": "Waves & Optics",
+    "description": "Study wave behavior, light phenomena, interference, diffraction, and electromagnetic radiation"
+  },
+  {
+    "emoji": "🎯",
+    "title": "Applied Physics",
+    "description": "Bridge theory and practice with engineering applications, experimental design, and problem-solving techniques"
+  }
+]}
+      isFree={true}
+      heroGradient="from-blue-700 to-primary"
+    />
   );
 }
