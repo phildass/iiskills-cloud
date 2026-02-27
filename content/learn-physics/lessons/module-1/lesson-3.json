@@ -3,7 +3,7 @@
   "lessonId": 3,
   "slug": "speed-velocity-distance",
   "title": "Speed, Velocity and Distance",
-  "isFree": false,
+  "isFree": true,
   "content": "<h2>Speed, Velocity and Distance</h2><h3>🔥 The Spark</h3><p>Did you know that a local train in Mumbai travels at around 80 km/h, but an express train on the Delhi–Mumbai route can reach 130 km/h? Both travel a <em>distance</em>, but at very different <em>speeds</em>. What if the train reverses? That's where <strong>velocity</strong> comes in!</p><h3>💡 The Simple Core</h3><p><strong>Speed</strong> tells you how fast an object moves: Speed = Distance ÷ Time. <strong>Velocity</strong> is speed with a direction — for example, 60 km/h towards Chennai. An object's velocity changes if its speed changes <em>or</em> if its direction changes. Distance is the total path covered; <strong>displacement</strong> is the shortest straight-line distance from start to finish.</p><h3>🎯 The Show</h3><p>Imagine you walk 4 km to school and 4 km back home. Your total distance is 8 km — but your displacement is <strong>zero</strong>, because you're back where you started. The school bus travels at a speed of 40 km/h, but its velocity is 40 km/h towards the north gate.</p>",
   "quiz": [
     {

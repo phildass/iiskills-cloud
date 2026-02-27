@@ -3,32 +3,57 @@
   "lessonId": 7,
   "slug": "nuclear-power-plants",
   "title": "Nuclear Power Plants",
-  "isFree": false,
+  "isFree": true,
   "content": "<h2>Nuclear Power Plants</h2><h3>🔥 The Spark</h3><p>Did you know that a single uranium fuel pellet the size of a pencil eraser contains as much energy as 600 litres of oil? India operates several nuclear power stations — and they produce electricity without burning coal or releasing CO₂!</p><h3>💡 The Simple Core</h3><p>A <strong>nuclear power plant</strong> uses controlled fission of uranium-235 or plutonium-239 to produce heat. This heat converts water into steam, which drives a turbine connected to a generator. The key components are: the reactor core (where fission happens), control rods (absorb neutrons to regulate the reaction), coolant (water or heavy water), and the steam turbine-generator.</p><h3>🎯 The Show</h3><p>India's nuclear power programme is led by the Nuclear Power Corporation of India (NPCIL). Key plants include Tarapur (Maharashtra), Rawatbhata (Rajasthan), Kudankulam (Tamil Nadu), and Kaiga (Karnataka). Together they produce about 7,000 MW of electricity — enough to power millions of homes. The Kudankulam plant, built with Russian collaboration, uses modern VVER pressurised water reactors.</p>",
   "quiz": [
     {
       "question": "What is the main energy process in a nuclear power plant?",
-      "options": ["Nuclear fusion","Controlled nuclear fission","Chemical combustion","Solar absorption"],
+      "options": [
+        "Nuclear fusion",
+        "Controlled nuclear fission",
+        "Chemical combustion",
+        "Solar absorption"
+      ],
       "correct_answer": 1
     },
     {
       "question": "What is the role of control rods in a nuclear reactor?",
-      "options": ["Generate electricity","Cool the reactor","Absorb neutrons to regulate the fission rate","Contain radioactive waste"],
+      "options": [
+        "Generate electricity",
+        "Cool the reactor",
+        "Absorb neutrons to regulate the fission rate",
+        "Contain radioactive waste"
+      ],
       "correct_answer": 2
     },
     {
       "question": "Which Indian organisation operates nuclear power plants?",
-      "options": ["ISRO","DRDO","NPCIL","BARC"],
+      "options": [
+        "ISRO",
+        "DRDO",
+        "NPCIL",
+        "BARC"
+      ],
       "correct_answer": 2
     },
     {
       "question": "In a nuclear power plant, what drives the electrical generator?",
-      "options": ["Direct nuclear radiation","A steam turbine","A diesel engine","Solar panels"],
+      "options": [
+        "Direct nuclear radiation",
+        "A steam turbine",
+        "A diesel engine",
+        "Solar panels"
+      ],
       "correct_answer": 1
     },
     {
       "question": "Which fuel is most commonly used in nuclear power plants?",
-      "options": ["Hydrogen","Carbon","Uranium-235","Thorium-90"],
+      "options": [
+        "Hydrogen",
+        "Carbon",
+        "Uranium-235",
+        "Thorium-90"
+      ],
       "correct_answer": 2
     }
   ]

@@ -3,7 +3,7 @@
   "lessonId": 8,
   "slug": "friction-and-its-types",
   "title": "Friction and Its Types",
-  "isFree": false,
+  "isFree": true,
   "content": "<h2>Friction and Its Types</h2><h3>🔥 The Spark</h3><p>Why can you walk without slipping? Why does a rubber chappal grip better than a leather sole on a wet floor? The answer is <strong>friction</strong> — the force that opposes relative motion between two surfaces in contact.</p><h3>💡 The Simple Core</h3><p>Friction acts opposite to the direction of motion or attempted motion. It depends on the <strong>normal force</strong> (how hard the surfaces press together) and the <strong>coefficient of friction</strong> (μ). Formula: f = μN. Types: <em>Static friction</em> prevents an object from starting to move; <em>Kinetic friction</em> acts on moving objects; <em>Rolling friction</em> acts on rolling objects (smallest of the three).</p><h3>🎯 The Show</h3><p>Pushing a heavy almirah: you need to overcome static friction first (it's large!), then kinetic friction keeps it moving. A bicycle wheel has rolling friction — that's why cycling is easier than pushing. Oiling a door hinge reduces friction between metal surfaces. On railway tracks, a thin layer of oil reduces wear — but <em>not</em> at the braking surfaces, where friction is essential for stopping safely!</p>",
   "quiz": [
     {

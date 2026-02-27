@@ -3,7 +3,7 @@
   "lessonId": 4,
   "slug": "acceleration-deceleration",
   "title": "Acceleration and Deceleration",
-  "isFree": false,
+  "isFree": true,
   "content": "<h2>Acceleration and Deceleration</h2><h3>🔥 The Spark</h3><p>Ever felt pushed back into your seat when a bus suddenly speeds up, or lurched forward when it brakes suddenly? Your body experiences <strong>acceleration</strong> and <strong>deceleration</strong> every day!</p><h3>💡 The Simple Core</h3><p><strong>Acceleration</strong> is the rate of change of velocity. Formula: a = (v − u) ÷ t, where v is final velocity, u is initial velocity, and t is time. If velocity increases, acceleration is positive. If velocity decreases, it is called <strong>deceleration</strong> (negative acceleration). The SI unit of acceleration is m/s².</p><h3>🎯 The Show</h3><p>A cricket ball is bowled at 0 m/s and reaches 30 m/s in 0.5 s. Acceleration = (30−0)÷0.5 = <strong>60 m/s²</strong>. When your father brakes the car from 60 km/h to 0 in 5 seconds, the car is decelerating. Lorry drivers on NH highways must manage acceleration carefully to save fuel!</p>",
   "quiz": [
     {

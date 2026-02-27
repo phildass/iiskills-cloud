@@ -76,6 +76,18 @@ describe('learn-physics content integrity', () => {
       expect(errors).toHaveLength(0);
     });
 
+    it('every lesson has isFree set to true', () => {
+      const files = getAllLessonFiles();
+      const errors = [];
+      for (const file of files) {
+        const lesson = readJson(file);
+        if (lesson.isFree !== true) {
+          errors.push(`${path.relative(CONTENT_ROOT, file)}: isFree is not true (got ${lesson.isFree})`);
+        }
+      }
+      expect(errors).toHaveLength(0);
+    });
+
     it('every quiz question uses correct_answer (not correctAnswerIndex)', () => {
       const files = getAllLessonFiles();
       const errors = [];
