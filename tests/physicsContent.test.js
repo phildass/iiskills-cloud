@@ -6,7 +6,8 @@
  *  - Every lesson has exactly 5 quiz questions with correct_answer field
  *  - Every lesson has all required fields
  *  - final-exam.json has 20 questions and passThreshold of 13
- *  - No duplicate images across physics content
+ *  - 5 case studies and 5 simulators exist and parse
+ *  - image-allocation.json has no duplicates and all usedBy paths resolve
  */
 
 'use strict';
@@ -144,6 +145,42 @@ describe('learn-physics content integrity', () => {
     });
   });
 
+  describe('case studies', () => {
+    it('has exactly 5 case study files', () => {
+      const missing = [];
+      for (let i = 1; i <= 5; i++) {
+        const p = path.join(CONTENT_ROOT, 'case-studies', `case-${i}.json`);
+        if (!fs.existsSync(p)) missing.push(`case-${i}.json`);
+      }
+      expect(missing).toHaveLength(0);
+    });
+
+    it('all case study files parse as valid JSON', () => {
+      for (let i = 1; i <= 5; i++) {
+        const p = path.join(CONTENT_ROOT, 'case-studies', `case-${i}.json`);
+        expect(() => readJson(p)).not.toThrow();
+      }
+    });
+  });
+
+  describe('simulators', () => {
+    it('has exactly 5 simulator files', () => {
+      const missing = [];
+      for (let i = 1; i <= 5; i++) {
+        const p = path.join(CONTENT_ROOT, 'simulators', `sim-${i}.json`);
+        if (!fs.existsSync(p)) missing.push(`sim-${i}.json`);
+      }
+      expect(missing).toHaveLength(0);
+    });
+
+    it('all simulator files parse as valid JSON', () => {
+      for (let i = 1; i <= 5; i++) {
+        const p = path.join(CONTENT_ROOT, 'simulators', `sim-${i}.json`);
+        expect(() => readJson(p)).not.toThrow();
+      }
+    });
+  });
+
   describe('image-allocation.json — no duplicate images', () => {
     const allocPath = path.join(CONTENT_ROOT, 'image-allocation.json');
 
@@ -163,6 +200,12 @@ describe('learn-physics content integrity', () => {
       const refs = alloc.images.map((e) => e.usedBy);
       const duplicates = refs.filter((ref, idx) => refs.indexOf(ref) !== idx);
       expect(duplicates).toHaveLength(0);
+    });
+
+    it('every usedBy path points to an existing file', () => {
+      const alloc = readJson(allocPath);
+      const missing = alloc.images.filter((e) => !fs.existsSync(path.join(CONTENT_ROOT, e.usedBy)));
+      expect(missing.map((e) => e.usedBy)).toHaveLength(0);
     });
   });
 });

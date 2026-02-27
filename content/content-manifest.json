@@ -642,7 +642,7 @@
       ],
       "lessonUrlPattern": "/modules/[moduleId]/lesson/[lessonId]",
       "staticPagesCount": 100
-    }
+    },
     {
       "appSlug": "learn-developer",
       "title": "Web Developer Bootcamp",
