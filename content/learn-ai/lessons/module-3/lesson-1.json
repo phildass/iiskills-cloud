@@ -4,7 +4,7 @@
   "slug": "intro-data-science",
   "title": "Introduction to Data Science",
   "isFree": false,
-  "content": "<h2>Module 3, Lesson 1: Introduction to Data Science</h2>\n<h3>Introduction</h3>\n<p>Data Science extracts knowledge from data using statistics, programming, and domain expertise. India has a rapidly growing data science job market with 100,000+ roles advertised in 2024.</p>\n<h3>Key Concepts</h3>\n<h4>1. Statistics and Mathematics fundamentals</h4>\n<p>Understanding Statistics and Mathematics fundamentals is foundational to this topic. Indian companies and research institutions apply these principles in production AI systems every day.</p>\n<h4>2. Programming and Engineering (Python, SQL)</h4>\n<p>Programming and Engineering (Python, SQL) forms the core methodology for practitioners. India's tech ecosystem from Bengaluru to Hyderabad deploys these approaches at scale.</p>\n<h4>3. Domain expertise and business understanding</h4>\n<p>Domain expertise and business understanding is critical for building reliable AI solutions. Top Indian firms like TCS, Wipro, Infosys, and startups like Razorpay all leverage these techniques.</p>\n<h4>4. CRISP-DM workflow</h4>\n<p>Mastering CRISP-DM workflow separates good practitioners from great ones. Apply these concepts on Indian open datasets from data.gov.in to build hands-on expertise.</p>\n<h3>Summary</h3>\n<p>This lesson covered Statistics and Mathematics fundamentals, Programming and Engineering (Python, SQL), Domain expertise and business understanding, and CRISP-DM workflow. These are the building blocks of introduction to data science \u2014 master them through practice on real Indian datasets.</p>",
+  "content": "<h2>Module 3, Lesson 1: Introduction to Data Science</h2>\n<h3>The Hook</h3>\n<p>Data Science extracts knowledge from data using statistics, programming, and domain expertise. India has a rapidly growing data science job market with 100,000+ roles advertised in 2024.</p>\n<h3>The Concept</h3>\n<h4>1. Statistics and Mathematics fundamentals</h4>\n<p>Understanding Statistics and Mathematics fundamentals is foundational to this topic. Indian companies and research institutions apply these principles in production AI systems every day.</p>\n<h4>2. Programming and Engineering (Python, SQL)</h4>\n<p>Programming and Engineering (Python, SQL) forms the core methodology for practitioners. India's tech ecosystem from Bengaluru to Hyderabad deploys these approaches at scale.</p>\n<h4>3. Domain expertise and business understanding</h4>\n<p>Domain expertise and business understanding is critical for building reliable AI solutions. Top Indian firms like TCS, Wipro, Infosys, and startups like Razorpay all leverage these techniques.</p>\n<h4>4. CRISP-DM workflow</h4>\n<p>Mastering CRISP-DM workflow separates good practitioners from great ones. Apply these concepts on Indian open datasets from data.gov.in to build hands-on expertise.</p>\n<h3>The Illustration</h3>\n<p>This lesson covered Statistics and Mathematics fundamentals, Programming and Engineering (Python, SQL), Domain expertise and business understanding, and CRISP-DM workflow. These are the building blocks of introduction to data science — master them through practice on real Indian datasets.</p>",
   "quiz": [
     {
       "question": "What three skills define the Data Science Venn Diagram?",
@@ -19,7 +19,7 @@
     {
       "question": "What does CRISP-DM stand for?",
       "options": [
-        "Critical Risk Statistical Process \u2014 Data Mining",
+        "Critical Risk Statistical Process — Data Mining",
         "Cross-Industry Standard Process for Data Mining",
         "Comprehensive Risk Index for Statistical Process",
         "Computer Rationalised Integration for Statistical Design"
@@ -49,10 +49,10 @@
     {
       "question": "What is the approximate fresher data science salary in India?",
       "options": [
-        "\u20b92-3 LPA",
-        "\u20b96 LPA",
-        "\u20b920 LPA",
-        "\u20b950 LPA"
+        "₹2-3 LPA",
+        "₹6 LPA",
+        "₹20 LPA",
+        "₹50 LPA"
       ],
       "correct_answer": 1
     }
