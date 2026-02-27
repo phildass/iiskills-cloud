@@ -1,34 +1,17 @@
 {
   "id": "sim-1",
-  "title": "HTTP Request Builder",
-  "module": "The Web's DNA",
-  "description": "Construct HTTP requests with different methods, headers, and bodies. See how the server responds based on your configuration.",
-  "type": "interactive",
-  "parameters": [
-    {
-      "name": "method",
-      "label": "HTTP Method",
-      "options": [
-        "GET",
-        "POST",
-        "PUT",
-        "DELETE",
-        "PATCH"
-      ],
-      "default": "GET"
-    },
-    {
-      "name": "statusCode",
-      "label": "Expected Status Code",
-      "options": [
-        "200",
-        "201",
-        "400",
-        "401",
-        "404",
-        "500"
-      ],
-      "default": "200"
-    }
+  "title": "System Design: Design a URL Shortener",
+  "module": "System Design & Architecture",
+  "description": "Walk through designing a URL shortener like bit.ly. Make architectural decisions: data storage, hashing strategy, caching layer, and scaling approach. Each decision updates your system's estimated throughput and availability scores.",
+  "variables": [
+    "storage_choice",
+    "hash_algorithm",
+    "cache_strategy",
+    "scale_approach"
+  ],
+  "outcomes": [
+    "Production-ready design (score > 80)",
+    "Functional but unscalable (score 60-80)",
+    "Critical gaps in design (score < 60)"
   ]
 }

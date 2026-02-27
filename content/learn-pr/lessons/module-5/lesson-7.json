@@ -1,60 +1,60 @@
 {
   "moduleId": 5,
   "lessonId": 7,
-  "slug": "managing-media-during-a-crisis",
-  "title": "Managing Media During a Crisis",
+  "slug": "dark-sites-and-holding-statements",
+  "title": "Dark Sites and Holding Statements",
   "isFree": false,
-  "content": "<h2>Module 5, Lesson 7: Managing Media During a Crisis</h2>\n\n<h3>Introduction</h3>\n<p>In this lesson we explore <strong>Managing Media During a Crisis</strong>, a key topic within Crisis Communication. Public relations practitioners must master this area to build and sustain meaningful relationships with all stakeholders.</p>\n\n<h3>Key Concepts</h3>\n<h4>1. Strategic Communication</h4>\n<p>Effective PR relies on clearly defined objectives, well-researched audiences, and messages that resonate. Every piece of communication should serve the overarching strategy.</p>\n<h4>2. Audience Insight</h4>\n<p>Understanding the motivations, concerns, and media habits of your target publics is fundamental. Research underpins every successful campaign in <strong>Crisis Communication</strong>.</p>\n<h4>3. Channel Selection</h4>\n<p>The right message through the wrong channel achieves little. PR professionals must select media and platforms that genuinely reach and influence their intended audiences.</p>\n<h4>4. Measurement and Evaluation</h4>\n<p>Setting measurable objectives and evaluating outcomes closes the loop. Without measurement, it is impossible to demonstrate PR value or improve future campaigns.</p>\n\n<h3>Summary</h3>\n<p>You have completed Managing Media During a Crisis in Module 5. Continue to the next lesson to deepen your expertise in <strong>Crisis Communication</strong>.</p>",
+  "content": "<h2>Module 5, Lesson 7: Dark Sites and Holding Statements</h2>\n\n<h3>Introduction</h3>\n<p>A dark site is a pre-built crisis microsite activated in emergencies. A holding statement acknowledges an issue while investigations are ongoing.</p>\n<p>In this lesson, we explore how <strong>Dark Sites and Holding Statements</strong> fits into the broader discipline of <strong>Crisis Communication</strong> and equip you with practical tools for immediate application.</p>\n\n<h3>Key Concepts</h3>\n<h4>1. Strategic Context</h4>\n<p>Every PR activity exists within a strategic context. For <strong>Dark Sites and Holding Statements</strong>, this means understanding the organisation's overall communications objectives and how this area contributes to them. Without strategic alignment, tactical activities lack direction and measurable value.</p>\n\n<h4>2. Core Principles</h4>\n<p>The core principles governing <strong>Dark Sites and Holding Statements</strong> draw from decades of professional practice and academic research. These principles \u2014 transparency, consistency, audience-centricity, and evidence-based decision-making \u2014 provide a reliable foundation regardless of context.</p>\n\n<h4>3. Tools and Techniques</h4>\n<p>Practitioners in <strong>Crisis Communication</strong> use a range of tools: stakeholder mapping matrices, message development frameworks, channel selection models, and measurement dashboards. Understanding which tool to deploy \u2014 and when \u2014 is a hallmark of professional expertise.</p>\n\n<h4>4. Common Challenges</h4>\n<p>Challenges in <strong>Dark Sites and Holding Statements</strong> typically include: aligning multiple stakeholders, adapting messages across different audiences, navigating time pressure, and demonstrating measurable impact. Anticipating these challenges and building contingency plans distinguishes excellent practitioners.</p>\n\n<h4>5. Professional Standards</h4>\n<p>The CIPR, PRCA, and PRSA provide ethical codes and professional standards that govern all PR practice including <strong>Dark Sites and Holding Statements</strong>. Adhering to these standards protects practitioners, clients, and the credibility of the profession as a whole.</p>\n\n<h3>Summary</h3>\n<p>You have completed <strong>Dark Sites and Holding Statements</strong> within the <strong>Crisis Communication</strong> module. The key takeaways are: the strategic importance of this area; the core principles that guide best practice; the practical tools and techniques available; the common challenges and how to overcome them; and the professional standards that must be upheld. Continue to the next lesson to build on these foundations.</p>",
   "quiz": [
     {
-      "question": "What is the primary focus of 'Managing Media During a Crisis' in PR?",
+      "question": "What is a key objective of 'Dark Sites and Holding Statements' in PR practice?",
       "options": [
-        "Managing internal employee schedules",
-        "Building strategic communication to achieve measurable outcomes",
-        "Designing product packaging",
-        "Writing software documentation"
+        "To apply Crisis Communication principles strategically",
+        "To maximise advertising spend",
+        "To avoid engaging with media",
+        "To reduce stakeholder communications"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "question": "Which approach is most effective in Crisis Communication?",
+      "options": [
+        "Using a structured, evidence-based strategy",
+        "Reacting to events without preparation",
+        "Limiting communications to one channel",
+        "Ignoring audience segmentation"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "question": "In the context of Dark Sites and Holding Statements, what does 'earned media' primarily refer to?",
+      "options": [
+        "Paid advertising placements",
+        "Internal company newsletters",
+        "Organic coverage achieved through PR efforts",
+        "Owned social media channels"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "Which measurement approach is recommended by the Barcelona Principles?",
+      "options": [
+        "Advertising Value Equivalents (AVE)",
+        "Counting press release distributions",
+        "Outcome-based metrics tied to objectives",
+        "Social follower counts only"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "What is a primary risk when managing Crisis Communication activities?",
+      "options": [
+        "Over-communicating positive news",
+        "Misalignment between messages and stakeholder expectations",
+        "Generating too much media coverage",
+        "Having too many distribution channels"
       ],
       "correct_answer": 1
-    },
-    {
-      "question": "Which approach best supports 'Managing Media During a Crisis'?",
-      "options": [
-        "Ignoring audience feedback",
-        "Reacting only after issues arise",
-        "Proactively planning and tailoring communication to target publics",
-        "Using only paid media placements"
-      ],
-      "correct_answer": 2
-    },
-    {
-      "question": "In the context of Crisis Communication, which skill is most essential?",
-      "options": [
-        "Spreadsheet data entry",
-        "Strong written and verbal communication",
-        "Hardware installation",
-        "Chemical analysis"
-      ],
-      "correct_answer": 1
-    },
-    {
-      "question": "How is success typically measured in PR efforts related to Crisis Communication?",
-      "options": [
-        "Number of office visitors",
-        "Cost of office supplies",
-        "Media coverage quality, audience reach, and stakeholder sentiment",
-        "Number of internal meetings held"
-      ],
-      "correct_answer": 2
-    },
-    {
-      "question": "Which statement about 'Managing Media During a Crisis' is most accurate?",
-      "options": [
-        "It applies only to large multinational corporations",
-        "It is unrelated to strategic communication",
-        "It requires both creativity and analytical thinking",
-        "It is a one-time activity with no ongoing maintenance"
-      ],
-      "correct_answer": 2
     }
   ]
 }

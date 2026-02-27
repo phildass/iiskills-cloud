@@ -1,60 +1,60 @@
 {
   "moduleId": 2,
   "lessonId": 2,
-  "slug": "building-journalist-relationships",
-  "title": "Building Journalist Relationships",
+  "slug": "identifying-the-right-journalists",
+  "title": "Identifying the Right Journalists",
   "isFree": false,
-  "content": "<h2>Module 2, Lesson 2: Building Journalist Relationships</h2>\n\n<h3>Introduction</h3>\n<p>In this lesson we explore <strong>Building Journalist Relationships</strong>, a key topic within Media Relations. Public relations practitioners must master this area to build and sustain meaningful relationships with all stakeholders.</p>\n\n<h3>Key Concepts</h3>\n<h4>1. Strategic Communication</h4>\n<p>Effective PR relies on clearly defined objectives, well-researched audiences, and messages that resonate. Every piece of communication should serve the overarching strategy.</p>\n<h4>2. Audience Insight</h4>\n<p>Understanding the motivations, concerns, and media habits of your target publics is fundamental. Research underpins every successful campaign in <strong>Media Relations</strong>.</p>\n<h4>3. Channel Selection</h4>\n<p>The right message through the wrong channel achieves little. PR professionals must select media and platforms that genuinely reach and influence their intended audiences.</p>\n<h4>4. Measurement and Evaluation</h4>\n<p>Setting measurable objectives and evaluating outcomes closes the loop. Without measurement, it is impossible to demonstrate PR value or improve future campaigns.</p>\n\n<h3>Summary</h3>\n<p>You have completed Building Journalist Relationships in Module 2. Continue to the next lesson to deepen your expertise in <strong>Media Relations</strong>.</p>",
+  "content": "<h2>Module 2, Lesson 2: Identifying the Right Journalists</h2>\n\n<h3>Introduction</h3>\n<p>Mapping media contacts by outlet, beat, and audience helps PR professionals target pitches effectively and avoid irrelevant approaches.</p>\n<p>In this lesson, we explore how <strong>Identifying the Right Journalists</strong> fits into the broader discipline of <strong>Media Relations</strong> and equip you with practical tools for immediate application.</p>\n\n<h3>Key Concepts</h3>\n<h4>1. Strategic Context</h4>\n<p>Every PR activity exists within a strategic context. For <strong>Identifying the Right Journalists</strong>, this means understanding the organisation's overall communications objectives and how this area contributes to them. Without strategic alignment, tactical activities lack direction and measurable value.</p>\n\n<h4>2. Core Principles</h4>\n<p>The core principles governing <strong>Identifying the Right Journalists</strong> draw from decades of professional practice and academic research. These principles \u2014 transparency, consistency, audience-centricity, and evidence-based decision-making \u2014 provide a reliable foundation regardless of context.</p>\n\n<h4>3. Tools and Techniques</h4>\n<p>Practitioners in <strong>Media Relations</strong> use a range of tools: stakeholder mapping matrices, message development frameworks, channel selection models, and measurement dashboards. Understanding which tool to deploy \u2014 and when \u2014 is a hallmark of professional expertise.</p>\n\n<h4>4. Common Challenges</h4>\n<p>Challenges in <strong>Identifying the Right Journalists</strong> typically include: aligning multiple stakeholders, adapting messages across different audiences, navigating time pressure, and demonstrating measurable impact. Anticipating these challenges and building contingency plans distinguishes excellent practitioners.</p>\n\n<h4>5. Professional Standards</h4>\n<p>The CIPR, PRCA, and PRSA provide ethical codes and professional standards that govern all PR practice including <strong>Identifying the Right Journalists</strong>. Adhering to these standards protects practitioners, clients, and the credibility of the profession as a whole.</p>\n\n<h3>Summary</h3>\n<p>You have completed <strong>Identifying the Right Journalists</strong> within the <strong>Media Relations</strong> module. The key takeaways are: the strategic importance of this area; the core principles that guide best practice; the practical tools and techniques available; the common challenges and how to overcome them; and the professional standards that must be upheld. Continue to the next lesson to build on these foundations.</p>",
   "quiz": [
     {
-      "question": "What is the primary focus of 'Building Journalist Relationships' in PR?",
+      "question": "What is a key objective of 'Identifying the Right Journalists' in PR practice?",
       "options": [
-        "Managing internal employee schedules",
-        "Building strategic communication to achieve measurable outcomes",
-        "Designing product packaging",
-        "Writing software documentation"
+        "To apply Media Relations principles strategically",
+        "To maximise advertising spend",
+        "To avoid engaging with media",
+        "To reduce stakeholder communications"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "question": "Which approach is most effective in Media Relations?",
+      "options": [
+        "Using a structured, evidence-based strategy",
+        "Reacting to events without preparation",
+        "Limiting communications to one channel",
+        "Ignoring audience segmentation"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "question": "In the context of Identifying the Right Journalists, what does 'earned media' primarily refer to?",
+      "options": [
+        "Paid advertising placements",
+        "Internal company newsletters",
+        "Organic coverage achieved through PR efforts",
+        "Owned social media channels"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "Which measurement approach is recommended by the Barcelona Principles?",
+      "options": [
+        "Advertising Value Equivalents (AVE)",
+        "Counting press release distributions",
+        "Outcome-based metrics tied to objectives",
+        "Social follower counts only"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "What is a primary risk when managing Media Relations activities?",
+      "options": [
+        "Over-communicating positive news",
+        "Misalignment between messages and stakeholder expectations",
+        "Generating too much media coverage",
+        "Having too many distribution channels"
       ],
       "correct_answer": 1
-    },
-    {
-      "question": "Which approach best supports 'Building Journalist Relationships'?",
-      "options": [
-        "Ignoring audience feedback",
-        "Reacting only after issues arise",
-        "Proactively planning and tailoring communication to target publics",
-        "Using only paid media placements"
-      ],
-      "correct_answer": 2
-    },
-    {
-      "question": "In the context of Media Relations, which skill is most essential?",
-      "options": [
-        "Spreadsheet data entry",
-        "Strong written and verbal communication",
-        "Hardware installation",
-        "Chemical analysis"
-      ],
-      "correct_answer": 1
-    },
-    {
-      "question": "How is success typically measured in PR efforts related to Media Relations?",
-      "options": [
-        "Number of office visitors",
-        "Cost of office supplies",
-        "Media coverage quality, audience reach, and stakeholder sentiment",
-        "Number of internal meetings held"
-      ],
-      "correct_answer": 2
-    },
-    {
-      "question": "Which statement about 'Building Journalist Relationships' is most accurate?",
-      "options": [
-        "It applies only to large multinational corporations",
-        "It is unrelated to strategic communication",
-        "It requires both creativity and analytical thinking",
-        "It is a one-time activity with no ongoing maintenance"
-      ],
-      "correct_answer": 2
     }
   ]
 }

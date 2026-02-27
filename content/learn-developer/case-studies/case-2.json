@@ -1,14 +1,19 @@
 {
   "id": "case-2",
-  "title": "GitHub's Move to MySQL Row-Based Replication",
-  "module": "Database Design: SQL vs NoSQL",
-  "summary": "How GitHub scaled MySQL to handle billions of queries daily while maintaining 99.99% uptime.",
-  "content": "<h2>Case Study: GitHub and MySQL Scale</h2><p>GitHub powers one of the world's largest code collaboration platforms, serving tens of millions of developers. Despite NoSQL alternatives, GitHub chose to scale MySQL to meet its needs.</p><h3>Engineering Approach</h3><p>GitHub invested heavily in MySQL tooling: Vitess for horizontal sharding, ProxySQL for connection pooling, and GitHub-Backup for reliable backups. They contributed extensively to the MySQL community.</p><h3>Results</h3><p>GitHub's MySQL cluster handles billions of queries per day with sub-millisecond query times. Their investment in operational expertise allowed them to squeeze extraordinary performance from a relational database.</p><h3>Key Learnings</h3><p>The 'right' database is the one your team understands deeply. Operational excellence often beats architectural novelty. Invest in tooling around your chosen database.</p>",
-  "image": "dev-case-2.png",
-  "tags": [
-    "databases",
-    "SQL",
-    "MySQL",
-    "scalability"
+  "title": "The GitHub Actions Developer Experience",
+  "module": "DevOps & Deployment",
+  "summary": "GitHub Actions transformed CI/CD by embedding automation directly into the repository, making workflows accessible to developers who previously required dedicated DevOps engineers.",
+  "background": "Before GitHub Actions, most CI/CD systems required external services, complex configuration, and DevOps specialists. This created friction that slowed developer velocity.",
+  "response": "GitHub designed Actions as YAML workflows checked into the repository itself. A marketplace of community-built actions enabled complex pipelines without custom scripting.",
+  "outcome": "GitHub Actions became the most widely adopted CI/CD platform within two years of launch, with millions of workflows running daily.",
+  "lessons": [
+    "Developer experience is a competitive advantage",
+    "YAML-based configuration reduces barriers to adoption",
+    "Marketplace ecosystems accelerate growth",
+    "Convention over configuration increases productivity"
+  ],
+  "discussion_questions": [
+    "How did GitHub's distribution advantage accelerate Actions adoption?",
+    "What security considerations arise from a shared action marketplace?"
   ]
 }

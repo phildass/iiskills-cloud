@@ -1,14 +1,19 @@
 {
   "id": "case-5",
-  "title": "Heartbleed: The OpenSSL Vulnerability",
-  "module": "Authentication & Security",
-  "summary": "How a single buffer over-read in OpenSSL exposed private keys for half the internet.",
-  "content": "<h2>Case Study: Heartbleed</h2><p>In 2014, security researchers disclosed Heartbleed \u2014 a critical vulnerability in OpenSSL that allowed attackers to read up to 64KB of server memory per request, potentially exposing private keys, passwords, and session tokens.</p><h3>The Bug</h3><p>The Heartbeat extension in TLS/DTLS failed to validate the length of a request. An attacker could request a response much larger than the sent payload, causing the server to return adjacent memory contents.</p><h3>Impact</h3><p>An estimated 17% of the internet's secure servers were vulnerable. Major companies including Yahoo, LastPass, and many cloud providers were affected. Mass certificate revocation and reissuance followed.</p><h3>Key Learnings</h3><p>Input validation is non-negotiable. Security audits of critical dependencies are essential. Developers must treat third-party libraries as potential attack surfaces.</p>",
-  "image": "dev-case-5.png",
-  "tags": [
-    "security",
-    "OpenSSL",
-    "vulnerability",
-    "OWASP"
+  "title": "Stripe's API Design \u2014 Developer Experience as a Product",
+  "module": "Node.js & Express: Backend Fundamentals",
+  "summary": "Stripe's API became the gold standard for developer experience, demonstrating that API design is a product decision with profound business consequences.",
+  "background": "In 2010, accepting payments online required integrating complex, poorly documented legacy systems. Stripe was built on the insight that developers were the customer.",
+  "response": "Stripe invested obsessively in documentation, SDKs in every major language, a live test mode, clear error messages, and a versioned API that never broke existing integrations.",
+  "outcome": "Stripe grew from zero to a $95 billion valuation, primarily through word-of-mouth among developers. Its API design principles are studied in developer experience (DX) courses worldwide.",
+  "lessons": [
+    "Developer experience is a competitive moat",
+    "Clear error messages dramatically reduce support burden",
+    "API versioning enables evolution without breaking existing clients",
+    "Comprehensive documentation is product investment, not overhead"
+  ],
+  "discussion_questions": [
+    "How did Stripe's developer focus create a sustainable competitive advantage?",
+    "What API design principles from Stripe should every developer apply?"
   ]
 }

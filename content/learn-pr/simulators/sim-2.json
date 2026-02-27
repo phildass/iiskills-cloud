@@ -1,23 +1,17 @@
 {
   "id": "sim-2",
-  "title": "Crisis Response Simulator",
-  "module": "Crisis Communication",
-  "description": "Navigate a simulated corporate crisis. Choose response tactics and see how media sentiment evolves based on your decisions.",
-  "type": "scenario",
-  "parameters": [
-    {
-      "name": "responseSpeed",
-      "label": "Response Speed (hours)",
-      "min": 1,
-      "max": 72,
-      "default": 4
-    },
-    {
-      "name": "transparency",
-      "label": "Transparency Level (1-10)",
-      "min": 1,
-      "max": 10,
-      "default": 8
-    }
+  "title": "Press Release Builder",
+  "module": "Writing Press Releases",
+  "description": "Build a press release from scratch by selecting the correct structural elements in order. Receive feedback on your headline, lead paragraph, quote selection, and boilerplate. Score based on structure, clarity, and news value.",
+  "variables": [
+    "headline_choice",
+    "lead_paragraph",
+    "quote_selection",
+    "boilerplate_accuracy"
+  ],
+  "outcomes": [
+    "Publication-ready release (score > 80)",
+    "Needs revision (score 60-80)",
+    "Structural errors (score < 60)"
   ]
 }

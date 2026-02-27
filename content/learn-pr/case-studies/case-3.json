@@ -1,13 +1,19 @@
 {
   "id": "case-3",
-  "title": "ALS Ice Bucket Challenge",
-  "module": "Social Media PR",
-  "summary": "How a grassroots social media campaign raised over $220 million for ALS research.",
-  "content": "<h2>Case Study: ALS Ice Bucket Challenge</h2><p>In 2014, the ALS Association's Ice Bucket Challenge became one of the most successful social media PR campaigns in history, raising $220 million globally.</p><h3>Mechanics of Success</h3><p>The challenge was simple, participatory, and shareable. It leveraged peer-to-peer nomination, celebrity participation, and genuine emotional storytelling about ALS sufferers.</p><h3>PR Lessons</h3><p>Earned media amplified far beyond paid placements. The campaign succeeded because it empowered participants to become brand advocates. Authenticity and simplicity drove virality.</p><h3>Key Learnings</h3><p>Social media PR thrives on participatory mechanics, emotional resonance, and clear calls to action. Celebrity endorsement can amplify, but grassroots authenticity is the foundation.</p>",
-  "image": "pr-case-3.png",
-  "tags": [
-    "social media PR",
-    "non-profit PR",
-    "viral campaigns"
+  "title": "Airbnb's Reputational Recovery Post-Discrimination",
+  "module": "PR Campaign Strategy",
+  "summary": "After high-profile racial discrimination cases by hosts in 2016, Airbnb launched a comprehensive PR and policy campaign \u2014 'Project Lighthouse' \u2014 to rebuild trust with diverse communities.",
+  "background": "Reports of hosts declining bookings based on race and the viral #AirbnbWhileBlack hashtag threatened Airbnb's community-centred brand identity before its planned IPO.",
+  "response": "Airbnb hired a former attorney general to review policies, introduced anti-discrimination training, launched a 'Project Lighthouse' initiative to measure and reduce bias, and communicated progress transparently.",
+  "outcome": "The campaign restored stakeholder confidence ahead of Airbnb's 2020 IPO. It is cited as an example of how authentic policy change \u2014 communicated effectively \u2014 can rebuild trust.",
+  "lessons": [
+    "Acknowledging systemic issues requires systemic solutions",
+    "Third-party credibility (external review) builds trust",
+    "Transparency about progress maintains credibility",
+    "PR and policy change must be aligned"
+  ],
+  "discussion_questions": [
+    "Could Airbnb have prevented this crisis?",
+    "How important was third-party involvement in the recovery?"
   ]
 }

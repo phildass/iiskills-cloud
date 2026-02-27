@@ -4,57 +4,57 @@
   "slug": "image-optimisation",
   "title": "Image Optimisation",
   "isFree": false,
-  "content": "<h2>Module 9, Lesson 4: Image Optimisation</h2>\n\n<h3>Introduction</h3>\n<p>This lesson covers <strong>Image Optimisation</strong>, a core topic in <em>Performance Optimisation</em>. Mastering this area will help you build reliable, scalable, and maintainable web applications.</p>\n\n<h3>Key Concepts</h3>\n<h4>1. Fundamentals</h4>\n<p>Understanding the foundational principles of Image Optimisation ensures you can apply them correctly in a variety of real-world scenarios. Always prefer clarity over cleverness.</p>\n<h4>2. Practical Application</h4>\n<p>Theory must translate into working code. In Performance Optimisation, every concept has direct practical implications for how you architect, test, and deploy applications.</p>\n<h4>3. Common Pitfalls</h4>\n<p>Awareness of common mistakes in Image Optimisation helps you avoid costly bugs and security vulnerabilities. Review real-world examples and practise defensive coding techniques.</p>\n<h4>4. Best Practices</h4>\n<p>Industry best practices evolve constantly. Keep up with community standards, read production post-mortems, and participate in code reviews to sharpen your skills in Performance Optimisation.</p>\n\n<h3>Summary</h3>\n<p>You have completed <strong>Image Optimisation</strong> in Module 9. Continue to the next lesson to build further expertise in <strong>Performance Optimisation</strong>.</p>",
+  "content": "<h2>Module 9, Lesson 4: Image Optimisation</h2>\n\n<h3>Introduction</h3>\n<p>Images often account for 50-80% of page weight. Use WebP/AVIF formats, responsive images with srcset, lazy loading, and appropriate compression to dramatically reduce transfer sizes.</p>\n<p>In this lesson, we explore how <strong>Image Optimisation</strong> fits within the broader context of <strong>Performance Optimisation</strong>. Building a solid understanding of these concepts will make you a more effective and confident full-stack developer.</p>\n\n<h3>Key Concepts</h3>\n<h4>1. Core Principles</h4>\n<p>The core principles behind <strong>Image Optimisation</strong> are grounded in decades of software engineering practice. These principles \u2014 separation of concerns, single responsibility, and fail-fast design \u2014 provide a reliable foundation for production-quality code.</p>\n\n<h4>2. Implementation Patterns</h4>\n<p>Experienced developers recognise patterns for <strong>Image Optimisation</strong> that solve common problems efficiently. Understanding when to apply each pattern \u2014 and knowing the trade-offs \u2014 separates good developers from great ones.</p>\n\n<h4>3. Performance Implications</h4>\n<p>Every technical decision in <strong>Image Optimisation</strong> has performance implications. Understanding the performance characteristics of different approaches helps you make informed choices that scale well under real-world loads.</p>\n\n<h4>4. Security Considerations</h4>\n<p>Security must be considered from the first line of code, not bolted on at the end. The security considerations relevant to <strong>Image Optimisation</strong> are concrete and actionable: if you understand them, you can prevent the most common vulnerabilities.</p>\n\n<h4>5. Testing and Debugging</h4>\n<p>Effective testing of <strong>Image Optimisation</strong> components ensures reliability and enables confident refactoring. Debugging skills \u2014 knowing how to isolate, reproduce, and fix issues \u2014 are equally important and developed only through practice.</p>\n\n<h3>Summary</h3>\n<p>You have completed <strong>Image Optimisation</strong> within the <strong>Performance Optimisation</strong> module. The key takeaways are: the core principles; common implementation patterns and their trade-offs; performance characteristics; security considerations; and testing approaches. Apply these insights in your next project and notice the difference in code quality and confidence. Continue to the next lesson to deepen your expertise.</p>",
   "quiz": [
     {
-      "question": "What is the primary purpose of 'Image Optimisation' in full-stack development?",
+      "question": "What is the primary purpose of 'Image Optimisation' in web development?",
       "options": [
-        "Styling the user interface with CSS",
-        "Building and maintaining robust, scalable applications",
-        "Managing server hardware configurations",
-        "Writing marketing copy for websites"
+        "To apply Performance Optimisation principles effectively",
+        "To manage cloud infrastructure budgets",
+        "To design user interfaces only",
+        "To write database schemas exclusively"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "question": "Which approach best demonstrates mastery of Image Optimisation?",
+      "options": [
+        "Using proven patterns and understanding their trade-offs",
+        "Always using the newest framework regardless of fit",
+        "Avoiding all abstractions in favour of raw code",
+        "Copying code from Stack Overflow without understanding it"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "question": "In the context of Image Optimisation, what does 'separation of concerns' primarily mean?",
+      "options": [
+        "Each module handles a single, well-defined responsibility",
+        "Security and performance concerns should be handled separately",
+        "Front-end and back-end must always be different codebases",
+        "Tests and application code live in separate repositories"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "question": "What is the main benefit of writing automated tests?",
+      "options": [
+        "They replace the need for code reviews",
+        "They catch regressions and enable confident refactoring",
+        "They eliminate the need for manual QA entirely",
+        "They make code run faster in production"
       ],
       "correct_answer": 1
     },
     {
-      "question": "Which concept is most closely associated with 'Image Optimisation'?",
+      "question": "What is a common pitfall when working with Performance Optimisation?",
       "options": [
-        "Manual file transfer via FTP",
-        "Structured problem-solving and engineering best practices",
-        "Ignoring performance considerations",
-        "Hard-coding credentials in source code"
+        "Writing too many unit tests",
+        "Over-engineering early rather than iterating from simple solutions",
+        "Using version control for all changes",
+        "Documenting code thoroughly"
       ],
       "correct_answer": 1
-    },
-    {
-      "question": "In the context of Performance Optimisation, which approach leads to more maintainable code?",
-      "options": [
-        "Copy-pasting code without abstraction",
-        "Applying clear patterns, separation of concerns, and thorough testing",
-        "Avoiding version control to keep things simple",
-        "Writing all logic in a single file"
-      ],
-      "correct_answer": 1
-    },
-    {
-      "question": "How is success typically measured when applying Image Optimisation?",
-      "options": [
-        "Number of lines of code written",
-        "Number of frameworks installed",
-        "Reliability, performance, and maintainability of the system",
-        "Speed of typing"
-      ],
-      "correct_answer": 2
-    },
-    {
-      "question": "Which statement about 'Image Optimisation' in web development is most accurate?",
-      "options": [
-        "It is only relevant for senior engineers",
-        "It can be skipped if deadlines are tight",
-        "It forms a fundamental building block for production-quality applications",
-        "It only applies to front-end development"
-      ],
-      "correct_answer": 2
     }
   ]
 }

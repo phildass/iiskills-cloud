@@ -1,14 +1,19 @@
 {
   "id": "case-5",
-  "title": "Airbnb: Belong Anywhere",
-  "module": "Digital PR & SEO",
-  "summary": "Airbnb's integrated digital PR strategy that built a globally trusted sharing economy brand.",
-  "content": "<h2>Case Study: Airbnb Digital PR</h2><p>Airbnb built its brand through a masterful integration of earned media, content marketing, and SEO-driven PR. The 'Belong Anywhere' platform transformed how media perceived the sharing economy.</p><h3>Digital PR Tactics</h3><p>Airbnb created compelling content hubs featuring host stories, city guides, and travel data. Its PR team regularly published proprietary research reports that generated significant media coverage and backlinks.</p><h3>SEO Integration</h3><p>By creating press-worthy content optimised for search, Airbnb built domain authority while earning tier-1 media mentions. Data-driven press releases generated hundreds of high-quality backlinks.</p><h3>Key Learnings</h3><p>Integrating PR and SEO amplifies earned media impact. Data-led stories outperform product announcements. Authentic community storytelling builds trust more effectively than corporate messaging.</p>",
-  "image": "pr-case-5.png",
-  "tags": [
-    "digital PR",
-    "SEO",
-    "content marketing",
-    "community PR"
+  "title": "Nike's Colin Kaepernick Campaign",
+  "module": "Brand Management",
+  "summary": "Nike's 'Dream Crazy' campaign featuring Colin Kaepernick was a high-stakes brand stand on racial justice that generated massive controversy, earned media, and ultimately record sales.",
+  "background": "In 2018, Nike chose to feature Colin Kaepernick \u2014 the NFL quarterback who had been effectively blacklisted for kneeling during the national anthem \u2014 as the face of its 30th anniversary Just Do It campaign.",
+  "response": "Nike's PR strategy combined a bold advertising launch with earned media management, social listening, and spokesperson coordination \u2014 accepting that significant backlash was inevitable and factoring it into the strategy.",
+  "outcome": "While some consumers publicly burned Nike products, online sales increased 31% immediately after the campaign launched. Nike's brand value grew by $6 billion in the following months.",
+  "lessons": [
+    "Brand values must be demonstrated, not just declared",
+    "Some audiences will reject bold stands \u2014 accept this",
+    "Controversy, managed well, generates disproportionate earned media",
+    "Consistency between brand values and actions builds long-term equity"
+  ],
+  "discussion_questions": [
+    "Was Nike's risk calculated or reckless?",
+    "What does this campaign say about the role of PR in brand management?"
   ]
 }

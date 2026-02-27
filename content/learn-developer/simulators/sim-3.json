@@ -1,27 +1,17 @@
 {
   "id": "sim-3",
-  "title": "Database Schema Designer",
-  "module": "Database Design",
-  "description": "Design a relational schema for a sample e-commerce platform. Add tables, define relationships, and see normalisation scores.",
-  "type": "interactive",
-  "parameters": [
-    {
-      "name": "tableCount",
-      "label": "Number of Tables",
-      "min": 2,
-      "max": 10,
-      "default": 5
-    },
-    {
-      "name": "normalisationLevel",
-      "label": "Normalisation Level",
-      "options": [
-        "1NF",
-        "2NF",
-        "3NF",
-        "BCNF"
-      ],
-      "default": "3NF"
-    }
+  "title": "Security Vulnerability Scanner",
+  "module": "Authentication & Security",
+  "description": "Review a Node.js/Express application for security vulnerabilities. Identify SQL injection vectors, missing security headers, improper authentication, and dependency vulnerabilities. Patch each issue to improve the security score.",
+  "variables": [
+    "injection_detection",
+    "header_configuration",
+    "auth_review",
+    "dependency_audit"
+  ],
+  "outcomes": [
+    "Secure application (score > 90)",
+    "Key vulnerabilities fixed (score 70-90)",
+    "Critical issues remain (score < 70)"
   ]
 }

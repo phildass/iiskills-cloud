@@ -1,23 +1,17 @@
 {
   "id": "sim-5",
-  "title": "Sentiment Dashboard",
+  "title": "PR Measurement Dashboard",
   "module": "PR Measurement & Analytics",
-  "description": "Analyse media coverage sentiment across positive, neutral, and negative mentions. Track share of voice over a simulated campaign period.",
-  "type": "analytics",
-  "parameters": [
-    {
-      "name": "positivePct",
-      "label": "Positive Coverage (%)",
-      "min": 0,
-      "max": 100,
-      "default": 60
-    },
-    {
-      "name": "neutralPct",
-      "label": "Neutral Coverage (%)",
-      "min": 0,
-      "max": 100,
-      "default": 30
-    }
+  "description": "Given a completed PR campaign, select the most appropriate KPIs, build a measurement dashboard, and write an executive summary. Assess output, outcome, and impact metrics.",
+  "variables": [
+    "kpi_selection",
+    "metric_weighting",
+    "data_visualisation",
+    "executive_summary"
+  ],
+  "outcomes": [
+    "Board-level reporting achieved (score > 85)",
+    "Management reporting achieved (score 65-85)",
+    "Metrics insufficient (score < 65)"
   ]
 }

@@ -1,13 +1,19 @@
 {
   "id": "case-2",
-  "title": "Johnson & Johnson Tylenol Crisis",
-  "module": "Crisis Communication",
-  "summary": "The 1982 Tylenol poisoning crisis and how Johnson & Johnson's transparent response became a gold standard in crisis PR.",
-  "content": "<h2>Case Study: J&J Tylenol Crisis</h2><p>In 1982, seven people died after taking cyanide-laced Tylenol capsules in Chicago. Johnson & Johnson faced a catastrophic crisis that threatened to destroy the brand.</p><h3>Crisis Response</h3><p>J&J immediately recalled 31 million bottles of Tylenol, cooperated fully with authorities, and communicated openly with the media and public. CEO James Burke held press conferences and prioritised consumer safety over profits.</p><h3>Results</h3><p>Despite the initial devastation, J&J's transparent handling of the crisis is credited with saving the brand. Tylenol recovered its market share within a year. The case set the global standard for crisis communications.</p><h3>Key Learnings</h3><p>Speed, transparency, and placing public safety above profits are the cornerstones of effective crisis communication. Never minimise or deflect when lives are at risk.</p>",
-  "image": "pr-case-2.png",
-  "tags": [
-    "crisis communication",
-    "corporate PR",
-    "consumer safety"
+  "title": "Dove Real Beauty Campaign",
+  "module": "Brand Management",
+  "summary": "Dove's 'Real Beauty' campaign challenged conventional beauty standards and used PR storytelling to build deep emotional connections with consumers, transforming a commodity soap brand into a purpose-driven movement.",
+  "background": "In 2004, Dove was a mid-range soap brand struggling to differentiate in a crowded market. Research found that only 2% of women considered themselves beautiful.",
+  "response": "Dove launched a campaign featuring real women of diverse ages, sizes, and ethnicities. The PR strategy combined advertising, earned media, social sharing, and grassroots advocacy to amplify the message.",
+  "outcome": "Sales increased from $2.5 billion to $4 billion in the campaign's first three years. The campaign won multiple Cannes Lions and is credited with pioneering purpose-driven brand communications.",
+  "lessons": [
+    "Authentic insight drives powerful campaigns",
+    "Challenging conventions creates earned media",
+    "Long-term commitment amplifies impact",
+    "PR and advertising work best when integrated"
+  ],
+  "discussion_questions": [
+    "Why did the Real Beauty concept resonate globally?",
+    "What risks did Dove take and how were they managed?"
   ]
 }

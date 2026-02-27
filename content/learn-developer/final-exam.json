@@ -1,40 +1,40 @@
 {
   "appSlug": "learn-developer",
-  "title": "Learn Developer \u2014 Final Exam",
+  "title": "Web Developer Bootcamp \u2014 Final Exam",
   "passThreshold": 13,
   "questions": [
     {
-      "question": "What does HTTP stand for?",
+      "question": "What does DNS stand for and what is its function?",
       "options": [
-        "HyperText Transfer Protocol",
-        "High Traffic Transfer Platform",
-        "Hyper Terminal Text Processor",
-        "Host Transfer Technology Platform"
-      ],
-      "correct_answer": 0
-    },
-    {
-      "question": "What HTTP status code means 'Not Found'?",
-      "options": [
-        "200",
-        "301",
-        "404",
-        "500"
-      ],
-      "correct_answer": 2
-    },
-    {
-      "question": "What is a closure in JavaScript?",
-      "options": [
-        "A way to close a browser tab",
-        "A function that retains access to its outer scope after the outer function returns",
-        "A CSS technique",
-        "A database transaction"
+        "Dynamic Name System \u2014 manages IP addresses dynamically",
+        "Domain Name System \u2014 translates domain names to IP addresses",
+        "Digital Network Service \u2014 encrypts domain requests",
+        "Data Navigation System \u2014 routes network packets"
       ],
       "correct_answer": 1
     },
     {
-      "question": "What does REST stand for?",
+      "question": "What HTTP status code indicates a successful GET request?",
+      "options": [
+        "201 Created",
+        "404 Not Found",
+        "200 OK",
+        "301 Moved Permanently"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "What is a JavaScript closure?",
+      "options": [
+        "A function that throws an error when called",
+        "A function that retains access to its enclosing scope after that scope has exited",
+        "A method for closing browser windows",
+        "An ES6 class with private properties"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What does REST stand for in web development?",
       "options": [
         "Remote Execution State Transfer",
         "Representational State Transfer",
@@ -44,164 +44,164 @@
       "correct_answer": 1
     },
     {
-      "question": "What is the event loop in Node.js?",
+      "question": "What is the purpose of React's useEffect hook?",
       "options": [
-        "A loop that runs forever",
-        "A mechanism that handles asynchronous operations by deferring callbacks to the call stack when it is empty",
-        "A type of for loop",
-        "A database polling mechanism"
+        "To define component styles",
+        "To perform side effects in function components (data fetching, subscriptions, DOM mutations)",
+        "To replace Redux for state management",
+        "To create reusable CSS animations"
       ],
       "correct_answer": 1
     },
     {
-      "question": "What is JSX?",
+      "question": "What does ACID stand for in database transactions?",
       "options": [
-        "A JavaScript testing framework",
-        "A syntax extension that allows HTML-like code inside JavaScript",
-        "A CSS preprocessor",
-        "A database query language"
+        "Atomicity, Consistency, Isolation, Durability",
+        "Automated, Consistent, Indexed, Distributed",
+        "Asynchronous, Committed, Integrated, Durable",
+        "Atomic, Concurrent, Isolated, Dynamic"
       ],
-      "correct_answer": 1
+      "correct_answer": 0
     },
     {
-      "question": "What is database normalisation?",
+      "question": "What is the primary defence against SQL injection attacks?",
       "options": [
-        "Converting a database to MySQL",
-        "Organising data to reduce redundancy and improve integrity",
-        "Backing up a database",
-        "Importing CSV files"
-      ],
-      "correct_answer": 1
-    },
-    {
-      "question": "What does JWT stand for?",
-      "options": [
-        "JavaScript Web Token",
-        "Java Web Technology",
-        "JSON Web Token",
-        "JavaScript Widget Toolkit"
-      ],
-      "correct_answer": 2
-    },
-    {
-      "question": "What is a microservice?",
-      "options": [
-        "A very small computer",
-        "An independently deployable service that handles a single business capability",
-        "A JavaScript micro-library",
-        "A type of database"
-      ],
-      "correct_answer": 1
-    },
-    {
-      "question": "What is Docker used for?",
-      "options": [
-        "Database management",
-        "Containerising applications for consistent deployment",
-        "Designing user interfaces",
-        "Managing DNS records"
-      ],
-      "correct_answer": 1
-    },
-    {
-      "question": "What is the difference between == and === in JavaScript?",
-      "options": [
-        "They are identical",
-        "== compares value only; === compares value and type",
-        "=== is faster than ==",
-        "== is used for objects only"
-      ],
-      "correct_answer": 1
-    },
-    {
-      "question": "What is SQL injection?",
-      "options": [
-        "Adding SQL databases to an application",
-        "A security attack that inserts malicious SQL into queries",
-        "A way to speed up SQL queries",
-        "A database backup technique"
-      ],
-      "correct_answer": 1
-    },
-    {
-      "question": "What does CI/CD stand for?",
-      "options": [
-        "Code Integration / Code Deployment",
-        "Continuous Integration / Continuous Deployment",
-        "Central Infrastructure / Cloud Deployment",
-        "Compiled Interface / Coded Design"
-      ],
-      "correct_answer": 1
-    },
-    {
-      "question": "What is React's virtual DOM?",
-      "options": [
-        "A DOM stored in a database",
-        "A lightweight in-memory representation of the real DOM used to optimise updates",
-        "A browser extension",
-        "A React plugin"
+        "Encrypting the database",
+        "Using parameterised queries / prepared statements",
+        "Storing passwords as MD5 hashes",
+        "Blocking all POST requests"
       ],
       "correct_answer": 1
     },
     {
       "question": "What is the CAP theorem?",
       "options": [
-        "A JavaScript design pattern",
-        "A theorem stating a distributed system can only guarantee two of Consistency, Availability, and Partition tolerance",
-        "A CSS animation rule",
-        "A database indexing strategy"
+        "A theorem about CPU capacity planning",
+        "A distributed system can guarantee at most two of: Consistency, Availability, and Partition Tolerance",
+        "A security principle for API design",
+        "A CSS naming convention framework"
       ],
       "correct_answer": 1
     },
     {
-      "question": "What is the SOLID principle 'Single Responsibility'?",
+      "question": "What does 'containerisation' with Docker primarily solve?",
       "options": [
-        "A class should do everything",
-        "A class should have only one reason to change",
-        "Only senior developers write SOLID code",
-        "Single responsibility means one file per project"
+        "JavaScript memory leaks",
+        "Ensuring consistent environments across development, staging, and production",
+        "Real-time database synchronisation",
+        "Browser compatibility issues"
       ],
       "correct_answer": 1
     },
     {
-      "question": "What is code splitting in web development?",
+      "question": "What are Core Web Vitals?",
       "options": [
-        "Dividing a codebase between multiple teams",
-        "Breaking a JavaScript bundle into smaller chunks loaded on demand",
-        "Splitting CSS from JavaScript",
-        "Separating frontend from backend"
+        "Vital signs of a server's CPU usage",
+        "Google's metrics for measuring user experience: LCP, FID/INP, and CLS",
+        "Security headers for web applications",
+        "Database performance benchmarks"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is the SOLID principle of 'Single Responsibility'?",
+      "options": [
+        "Every database table has a single primary key",
+        "A class or module should have only one reason to change",
+        "All API endpoints handle a single HTTP method",
+        "Functions should have a single return statement"
       ],
       "correct_answer": 1
     },
     {
       "question": "What is OAuth 2.0?",
       "options": [
-        "A database protocol",
-        "An authorisation framework for delegated access to resources",
-        "A JavaScript library",
-        "A CSS framework"
+        "A database encryption protocol",
+        "An authorisation framework enabling third-party applications to obtain limited access to user accounts",
+        "A JavaScript testing framework",
+        "A CSS preprocessor standard"
       ],
       "correct_answer": 1
     },
     {
-      "question": "What is a CDN?",
+      "question": "What does 'lifting state up' mean in React?",
       "options": [
-        "Central Database Network",
-        "Content Delivery Network \u2014 a distributed system of servers that serves content from locations closest to users",
-        "Code Development Node",
-        "Compiled Design Network"
+        "Moving component state to a Redux store",
+        "Moving shared state to the nearest common ancestor component",
+        "Upgrading a class component to a function component",
+        "Using React.memo to optimise rendering"
       ],
       "correct_answer": 1
     },
     {
-      "question": "What does TDD stand for?",
+      "question": "What is the primary benefit of database indexing?",
       "options": [
-        "Test-Driven Design",
-        "Technical Documentation Draft",
-        "Type-Defined Development",
-        "Test-Driven Development"
+        "Reducing storage space",
+        "Speeding up data retrieval queries",
+        "Enforcing data validation rules",
+        "Enabling full-text search in all databases"
       ],
-      "correct_answer": 3
+      "correct_answer": 1
+    },
+    {
+      "question": "What is continuous integration (CI)?",
+      "options": [
+        "Running integration tests manually before each deployment",
+        "Frequently merging code into a shared repository with automated builds and tests",
+        "Continuously monitoring production servers",
+        "Integrating multiple databases into one"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What does the Express middleware chain execute when 'next()' is called?",
+      "options": [
+        "It terminates the request-response cycle",
+        "It passes control to the next middleware function in the stack",
+        "It sends a 200 OK response",
+        "It logs the request to the console"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is prototypal inheritance in JavaScript?",
+      "options": [
+        "A Java-style class inheritance system",
+        "Every object has a [[Prototype]] chain and inherits properties from it",
+        "A TypeScript feature for interface implementation",
+        "The way ES6 classes extend base classes"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is test-driven development (TDD)?",
+      "options": [
+        "Writing all tests after the feature is complete",
+        "Writing a failing test first, then minimal code to pass it, then refactoring",
+        "A testing methodology that only uses integration tests",
+        "Automated performance testing in production"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is an API gateway in microservices architecture?",
+      "options": [
+        "A database that stores API tokens",
+        "A single entry point for all clients that handles routing, authentication, and rate limiting",
+        "A tool for automatically generating API documentation",
+        "A message queue for async service communication"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is the Event Loop in Node.js?",
+      "options": [
+        "A loop that runs all JavaScript code synchronously",
+        "A mechanism that processes a call stack, web APIs, microtask queue, and macrotask queue to handle async operations",
+        "A built-in module for creating web servers",
+        "A pattern for managing database connections"
+      ],
+      "correct_answer": 1
     }
   ]
 }
