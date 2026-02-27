@@ -152,6 +152,37 @@ export default function LessonPage({ lesson, moduleId, lessonId }) {
     });
   }, []);
 
+  // Entitlement check: non-free lessons require authentication (client-side only).
+  useEffect(() => {
+    if (FREE_ACCESS || lesson.isFree) return;
+    const isSampleLesson = moduleId === '1' && lessonId === '1';
+    if (!isSampleLesson) {
+      checkEntitlement();
+    }
+  }, [moduleId, lessonId, lesson.isFree]);
+
+  const checkEntitlement = async () => {
+    try {
+      const { supabase } = await import('../../../../lib/supabaseClient');
+      const { data: { session } } = await supabase.auth.getSession();
+      const headers = {};
+      if (session?.access_token) headers['Authorization'] = `Bearer ${session.access_token}`;
+      // Entitlement API lives on the main app (iiskills.cloud)
+      const apiBase = typeof window !== 'undefined'
+        ? `${window.location.protocol}//iiskills.cloud`
+        : 'https://iiskills.cloud';
+      const res = await fetch(`${apiBase}/api/entitlement?appId=learn-management`, { headers });
+      if (res.ok) {
+        const data = await res.json();
+        if (!data.entitled) setShowEnrollment(true);
+      } else {
+        setShowEnrollment(true);
+      }
+    } catch {
+      setShowEnrollment(true);
+    }
+  };
+
   const handleQuizComplete = async (passed, score) => {
     setQuizCompleted(passed);
 
