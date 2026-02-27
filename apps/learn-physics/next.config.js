@@ -6,12 +6,6 @@ const nextConfig = {
   reactStrictMode: true,
   transpilePackages: ["@iiskills/ui"],
 
-  // ESLint v9 removed useEslintrc/extensions options that Next.js uses internally.
-  // Run `yarn lint` separately; do not lint during next build.
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
-
   // Disable source maps in production for security
   productionBrowserSourceMaps: false,
 
