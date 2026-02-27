@@ -9,47 +9,47 @@
     {
       "image": "dev-case-2.png",
       "usedBy": "case-studies/case-2.json",
-      "description": "GitHub MySQL cluster overview"
+      "description": "GitHub Actions workflow YAML"
     },
     {
       "image": "dev-case-3.png",
       "usedBy": "case-studies/case-3.json",
-      "description": "Airbnb React Native timeline"
+      "description": "React component tree diagram"
     },
     {
       "image": "dev-case-4.png",
       "usedBy": "case-studies/case-4.json",
-      "description": "Shopify storefront architecture"
+      "description": "Airbnb code style guide screenshot"
     },
     {
       "image": "dev-case-5.png",
       "usedBy": "case-studies/case-5.json",
-      "description": "Heartbleed vulnerability diagram"
+      "description": "Stripe API documentation"
     },
     {
       "image": "dev-sim-1.png",
       "usedBy": "simulators/sim-1.json",
-      "description": "HTTP request/response visualiser"
+      "description": "URL shortener system design whiteboard"
     },
     {
       "image": "dev-sim-2.png",
       "usedBy": "simulators/sim-2.json",
-      "description": "Event loop animation"
+      "description": "React DevTools Profiler screenshot"
     },
     {
       "image": "dev-sim-3.png",
       "usedBy": "simulators/sim-3.json",
-      "description": "Database schema ERD diagram"
+      "description": "Security vulnerability scan results"
     },
     {
       "image": "dev-sim-4.png",
       "usedBy": "simulators/sim-4.json",
-      "description": "CI/CD pipeline flowchart"
+      "description": "CI/CD pipeline diagram"
     },
     {
       "image": "dev-sim-5.png",
       "usedBy": "simulators/sim-5.json",
-      "description": "Core Web Vitals dashboard"
+      "description": "Database EXPLAIN query output"
     }
   ]
 }

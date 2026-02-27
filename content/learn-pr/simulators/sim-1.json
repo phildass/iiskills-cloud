@@ -1,30 +1,17 @@
 {
   "id": "sim-1",
-  "title": "Press Release Scorer",
-  "module": "Writing Press Releases",
-  "description": "Draft a press release and receive a score based on headline clarity, news angle, quote quality, and boilerplate completeness.",
-  "type": "interactive",
-  "parameters": [
-    {
-      "name": "headlineScore",
-      "label": "Headline Clarity (1-10)",
-      "min": 1,
-      "max": 10,
-      "default": 7
-    },
-    {
-      "name": "newsAngle",
-      "label": "News Angle Strength (1-10)",
-      "min": 1,
-      "max": 10,
-      "default": 7
-    },
-    {
-      "name": "quoteQuality",
-      "label": "Quote Quality (1-10)",
-      "min": 1,
-      "max": 10,
-      "default": 7
-    }
+  "title": "Crisis Response Simulator",
+  "module": "Crisis Communication",
+  "description": "You receive breaking news that a product linked to your brand has caused harm. Navigate the first 24 hours: choose your initial response, manage media enquiries, and brief your CEO. Each decision updates your reputation score.",
+  "variables": [
+    "response_speed",
+    "transparency_level",
+    "spokesperson_choice",
+    "media_access"
+  ],
+  "outcomes": [
+    "Reputation recovered (score > 70)",
+    "Partial recovery (score 40-70)",
+    "Reputational damage (score < 40)"
   ]
 }

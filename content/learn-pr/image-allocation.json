@@ -4,52 +4,52 @@
     {
       "image": "pr-case-1.png",
       "usedBy": "case-studies/case-1.json",
-      "description": "Dove Real Beauty campaign"
+      "description": "Johnson & Johnson Tylenol crisis newsroom"
     },
     {
       "image": "pr-case-2.png",
       "usedBy": "case-studies/case-2.json",
-      "description": "Tylenol crisis press conference"
+      "description": "Dove Real Beauty billboard"
     },
     {
       "image": "pr-case-3.png",
       "usedBy": "case-studies/case-3.json",
-      "description": "ALS Ice Bucket Challenge"
+      "description": "Airbnb mobile app interface"
     },
     {
       "image": "pr-case-4.png",
       "usedBy": "case-studies/case-4.json",
-      "description": "Nike Kaepernick campaign"
+      "description": "Ice Bucket Challenge participants"
     },
     {
       "image": "pr-case-5.png",
       "usedBy": "case-studies/case-5.json",
-      "description": "Airbnb Belong Anywhere"
+      "description": "Nike Just Do It billboard"
     },
     {
       "image": "pr-sim-1.png",
       "usedBy": "simulators/sim-1.json",
-      "description": "Press release scoring dashboard"
+      "description": "Crisis response team meeting"
     },
     {
       "image": "pr-sim-2.png",
       "usedBy": "simulators/sim-2.json",
-      "description": "Crisis response timeline"
+      "description": "Press release document on screen"
     },
     {
       "image": "pr-sim-3.png",
       "usedBy": "simulators/sim-3.json",
-      "description": "Media pitch metrics"
+      "description": "Journalist receiving a pitch"
     },
     {
       "image": "pr-sim-4.png",
       "usedBy": "simulators/sim-4.json",
-      "description": "Campaign budget pie chart"
+      "description": "Stakeholder power-interest matrix"
     },
     {
       "image": "pr-sim-5.png",
       "usedBy": "simulators/sim-5.json",
-      "description": "Sentiment analysis dashboard"
+      "description": "PR analytics dashboard"
     }
   ]
 }
