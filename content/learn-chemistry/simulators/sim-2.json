@@ -1,0 +1,18 @@
+{
+  "id": "sim-2",
+  "title": "Reaction Rate Simulator",
+  "module": "Chemical Kinetics",
+  "description": "Explore how temperature, concentration, and the presence of a catalyst affect the rate of a chemical reaction. The simulator models first- and second-order reactions using the Arrhenius equation and plots concentration vs. time profiles.",
+  "type": "interactive",
+  "parameters": [
+    {"name": "reactionOrder", "label": "Reaction Order", "options": ["First Order", "Second Order"], "default": "First Order"},
+    {"name": "initialConcentration", "label": "Initial Concentration [A]₀ (mol/L)", "min": 0.01, "max": 5.0, "default": 1.0, "unit": "mol/L"},
+    {"name": "temperature", "label": "Temperature (K)", "min": 200, "max": 1000, "default": 298, "unit": "K"},
+    {"name": "activationEnergy", "label": "Activation Energy Ea (kJ/mol)", "min": 10, "max": 200, "default": 50, "unit": "kJ/mol"},
+    {"name": "catalystPresent", "label": "Catalyst Present", "options": ["No", "Yes"], "default": "No"},
+    {"name": "catalystReduction", "label": "Catalyst Ea Reduction (kJ/mol)", "min": 5, "max": 80, "default": 20, "unit": "kJ/mol"}
+  ],
+  "outputs": ["Rate constant k", "Half-life t½", "Concentration vs. time graph", "Arrhenius plot (ln k vs. 1/T)"],
+  "image": "chem-sim-2.png",
+  "tags": ["kinetics", "reaction rate", "Arrhenius", "activation energy", "catalyst", "half-life"]
+}

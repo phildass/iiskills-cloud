@@ -1,4 +1,15 @@
 {
-  "appSlug": "learn-chemistry",
-  "images": []
+  "notes": "Each image is referenced by exactly one lesson, case study, or simulator. No duplicates allowed.",
+  "images": [
+    {"image": "chem-case-1.png", "usedBy": "case-studies/case-1.json", "description": "Diagram showing acid rain formation from SO₂ and NOₓ emissions reacting with atmospheric water"},
+    {"image": "chem-case-2.png", "usedBy": "case-studies/case-2.json", "description": "Historical reproduction of Mendeleev's 1869 periodic table with annotated predicted element gaps"},
+    {"image": "chem-case-3.png", "usedBy": "case-studies/case-3.json", "description": "Structural formula diagram showing the esterification of salicylic acid to acetylsalicylic acid (aspirin)"},
+    {"image": "chem-case-4.png", "usedBy": "case-studies/case-4.json", "description": "Cross-section diagram of a lithium-ion battery cell showing anode, cathode, and electrolyte layers"},
+    {"image": "chem-case-5.png", "usedBy": "case-studies/case-5.json", "description": "Industrial Haber-Bosch reactor schematic with temperature, pressure, and catalyst conditions annotated"},
+    {"image": "chem-sim-1.png", "usedBy": "simulators/sim-1.json", "description": "Interactive pH calculator interface showing concentration sliders and pH scale colour gradient"},
+    {"image": "chem-sim-2.png", "usedBy": "simulators/sim-2.json", "description": "Reaction rate simulator displaying concentration vs. time graph with Arrhenius equation parameters"},
+    {"image": "chem-sim-3.png", "usedBy": "simulators/sim-3.json", "description": "Periodic table heatmap visualising atomic radius trends with element selection controls"},
+    {"image": "chem-sim-4.png", "usedBy": "simulators/sim-4.json", "description": "Titration simulator showing pH vs. volume curve with equivalence point marker and indicator colours"},
+    {"image": "chem-sim-5.png", "usedBy": "simulators/sim-5.json", "description": "Gas laws simulator with pressure-volume-temperature sliders and interactive PV=nRT calculator"}
+  ]
 }

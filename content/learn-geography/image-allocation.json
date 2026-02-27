@@ -1,0 +1,15 @@
+{
+  "notes": "Each image is referenced by exactly one lesson, case study, or simulator. No duplicates allowed.",
+  "images": [
+    {"image": "geo-case-1.png", "usedBy": "case-studies/case-1.json", "description": "Satellite image of the Nile Delta showing distributary channels, coastal erosion, and the Aswan Dam reservoir (Lake Nasser)"},
+    {"image": "geo-case-2.png", "usedBy": "case-studies/case-2.json", "description": "Arctic sea ice extent comparison map showing September minimum extent in 1979 vs. recent decades with annotated albedo values"},
+    {"image": "geo-case-3.png", "usedBy": "case-studies/case-3.json", "description": "Aerial photograph of Lagos metropolis showing density gradient from central business district to informal settlements and coastal reclamation"},
+    {"image": "geo-case-4.png", "usedBy": "case-studies/case-4.json", "description": "Map of the 2011 Tōhoku earthquake and tsunami showing epicentre, plate boundary, inundation zone extent, and wave travel times"},
+    {"image": "geo-case-5.png", "usedBy": "case-studies/case-5.json", "description": "PRODES deforestation map of the Brazilian Amazon showing cleared areas by decade from 1970 to present with biome boundaries"},
+    {"image": "geo-sim-1.png", "usedBy": "simulators/sim-1.json", "description": "Plate tectonic movement simulator interface showing cross-section diagram of an oceanic-continental convergent boundary with controls"},
+    {"image": "geo-sim-2.png", "usedBy": "simulators/sim-2.json", "description": "World map displaying Köppen climate zone boundaries with colour-coded regions and CO₂ concentration slider control"},
+    {"image": "geo-sim-3.png", "usedBy": "simulators/sim-3.json", "description": "Population growth simulator showing demographic transition model graph alongside a population pyramid for a selected country"},
+    {"image": "geo-sim-4.png", "usedBy": "simulators/sim-4.json", "description": "Water cycle simulator diagram illustrating precipitation, evapotranspiration, runoff, and groundwater flow with land cover controls"},
+    {"image": "geo-sim-5.png", "usedBy": "simulators/sim-5.json", "description": "Animated synoptic weather chart simulator showing frontal system development with pressure gradient and sea surface temperature inputs"}
+  ]
+}
