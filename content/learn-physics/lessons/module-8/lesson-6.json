@@ -3,32 +3,57 @@
   "lessonId": 6,
   "slug": "nuclear-fusion",
   "title": "Nuclear Fusion",
-  "isFree": false,
+  "isFree": true,
   "content": "<h2>Nuclear Fusion</h2><h3>🔥 The Spark</h3><p>Did you know that the Sun produces energy by fusing hydrogen atoms together — the same process scientists are trying to replicate on Earth to create unlimited clean energy? This is <strong>nuclear fusion</strong>!</p><h3>💡 The Simple Core</h3><p><strong>Nuclear fusion</strong> is the process of combining two light atomic nuclei (like hydrogen isotopes deuterium and tritium) to form a heavier nucleus, releasing enormous energy. This is the opposite of fission. Fusion releases even more energy per unit mass than fission, and produces no long-lived radioactive waste. The fuel (hydrogen isotopes) is found in seawater — nearly unlimited supply!</p><h3>🎯 The Show</h3><p>The Sun fuses about 620 million tonnes of hydrogen every second, converting about 4 million tonnes into pure energy (E=mc²). The temperature required is over 15 million °C — hotter than anything on Earth. Scientists at ITER (International Thermonuclear Experimental Reactor) in France are building the world's largest fusion reactor. India is a partner in ITER through its nuclear research programmes!</p>",
   "quiz": [
     {
       "question": "Nuclear fusion combines two light nuclei to form a:",
-      "options": ["Lighter nucleus with energy released","Heavier nucleus with energy released","Heavier nucleus absorbing energy","Two separate neutrons"],
+      "options": [
+        "Lighter nucleus with energy released",
+        "Heavier nucleus with energy released",
+        "Heavier nucleus absorbing energy",
+        "Two separate neutrons"
+      ],
       "correct_answer": 1
     },
     {
       "question": "Which elements are typically fused in a fusion reactor?",
-      "options": ["Uranium and plutonium","Carbon and oxygen","Deuterium and tritium (hydrogen isotopes)","Iron and nickel"],
+      "options": [
+        "Uranium and plutonium",
+        "Carbon and oxygen",
+        "Deuterium and tritium (hydrogen isotopes)",
+        "Iron and nickel"
+      ],
       "correct_answer": 2
     },
     {
       "question": "What is the main energy source of the Sun?",
-      "options": ["Nuclear fission","Chemical combustion","Nuclear fusion","Gravitational potential energy"],
+      "options": [
+        "Nuclear fission",
+        "Chemical combustion",
+        "Nuclear fusion",
+        "Gravitational potential energy"
+      ],
       "correct_answer": 2
     },
     {
       "question": "Compared to fission, fusion produces:",
-      "options": ["More long-lived radioactive waste","Less energy per unit mass","More energy per unit mass and less radioactive waste","Less energy and more waste"],
+      "options": [
+        "More long-lived radioactive waste",
+        "Less energy per unit mass",
+        "More energy per unit mass and less radioactive waste",
+        "Less energy and more waste"
+      ],
       "correct_answer": 2
     },
     {
       "question": "What is ITER?",
-      "options": ["An Indian satellite","An international fusion research reactor","A type of radioactive decay","A nuclear fission power station"],
+      "options": [
+        "An Indian satellite",
+        "An international fusion research reactor",
+        "A type of radioactive decay",
+        "A nuclear fission power station"
+      ],
       "correct_answer": 1
     }
   ]
