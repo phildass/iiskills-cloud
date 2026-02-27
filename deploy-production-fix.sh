@@ -87,27 +87,50 @@ echo -e "${GREEN}✓ Build completed${NC}"
 echo ""
 echo -e "${YELLOW}Step 6: Updating PM2 processes...${NC}"
 
+# Known IISkills process names — the ONLY processes this script manages.
+# NEVER use 'pm2 delete all' or 'pm2 restart all' — those would affect unrelated host processes.
+IISKILLS_PROCS=(
+  "iiskills-main"
+  "iiskills-learn-ai"
+  "iiskills-learn-apt"
+  "iiskills-learn-chemistry"
+  "iiskills-learn-developer"
+  "iiskills-learn-geography"
+  "iiskills-learn-management"
+  "iiskills-learn-math"
+  "iiskills-learn-physics"
+  "iiskills-learn-pr"
+)
+
+# Safeguard: refuse to proceed if the process list is somehow empty.
+if [ "${#IISKILLS_PROCS[@]}" -eq 0 ]; then
+  echo -e "${RED}ERROR: IISKILLS_PROCS list is empty — refusing to manage PM2 processes to avoid affecting unrelated host processes.${NC}"
+  exit 1
+fi
+
 # Ask user which method to use
 echo "Choose PM2 update method:"
-echo "1) Restart all apps (recommended - faster)"
-echo "2) Stop, delete, and restart all apps (clean slate)"
+echo "1) Reload IISkills apps (recommended - zero-downtime)"
+echo "2) Stop, delete, and restart IISkills apps (clean slate)"
 read -p "Enter choice [1 or 2]: " -r PM2_CHOICE
 
 if [[ "$PM2_CHOICE" == "2" ]]; then
-  echo "Stopping all PM2 processes..."
-  pm2 stop all
-  
-  echo "Deleting all PM2 processes..."
-  pm2 delete all
-  
-  echo "Starting apps with new configuration..."
+  echo "Stopping and deleting IISkills PM2 processes..."
+  for p in "${IISKILLS_PROCS[@]}"; do
+    pm2 stop "$p" >/dev/null 2>&1 || true
+    pm2 delete "$p" >/dev/null 2>&1 || true
+  done
+
+  echo "Starting IISkills apps with new configuration..."
   pm2 start ecosystem.config.js
-elif [[ "$PM2_CHOICE" == "1" ]]; then
-  echo "Restarting all PM2 processes..."
-  pm2 restart all
 else
-  echo -e "${YELLOW}Invalid choice. Defaulting to restart (option 1)...${NC}"
-  pm2 restart all
+  if [[ "$PM2_CHOICE" != "1" ]]; then
+    echo -e "${YELLOW}Invalid choice. Defaulting to reload (option 1)...${NC}"
+  fi
+  echo "Reloading IISkills PM2 processes..."
+  for p in "${IISKILLS_PROCS[@]}"; do
+    pm2 reload "$p" 2>/dev/null || pm2 restart "$p" 2>/dev/null || true
+  done
 fi
 
 echo "Saving PM2 configuration..."

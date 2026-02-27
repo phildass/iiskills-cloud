@@ -351,9 +351,32 @@ deploy_with_pm2() {
     log_section "Deploying with PM2"
     
     if [ "$DRY_RUN" = false ]; then
-        # Stop all existing PM2 processes
-        log_info "Stopping existing PM2 processes..."
-        pm2 delete all 2>/dev/null || true
+        # Only stop/delete this repo's own known processes.
+        # NEVER use 'pm2 delete all' — that would affect unrelated host processes.
+        log_info "Stopping existing IISkills PM2 processes..."
+        IISKILLS_PROCS=(
+          "iiskills-main"
+          "iiskills-learn-ai"
+          "iiskills-learn-apt"
+          "iiskills-learn-chemistry"
+          "iiskills-learn-developer"
+          "iiskills-learn-geography"
+          "iiskills-learn-management"
+          "iiskills-learn-math"
+          "iiskills-learn-physics"
+          "iiskills-learn-pr"
+        )
+
+        # Safeguard: refuse to proceed if the process list is somehow empty.
+        if [ "${#IISKILLS_PROCS[@]}" -eq 0 ]; then
+            log_error "IISKILLS_PROCS list is empty — refusing to manage PM2 processes to avoid affecting unrelated host processes."
+            exit 1
+        fi
+
+        for p in "${IISKILLS_PROCS[@]}"; do
+            pm2 stop "$p" 2>/dev/null || true
+            pm2 delete "$p" 2>/dev/null || true
+        done
         
         # Start all apps using ecosystem file
         log_info "Starting all apps with PM2..."
