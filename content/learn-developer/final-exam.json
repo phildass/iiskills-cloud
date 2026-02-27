@@ -1,0 +1,207 @@
+{
+  "appSlug": "learn-developer",
+  "title": "Learn Developer \u2014 Final Exam",
+  "passThreshold": 13,
+  "questions": [
+    {
+      "question": "What does HTTP stand for?",
+      "options": [
+        "HyperText Transfer Protocol",
+        "High Traffic Transfer Platform",
+        "Hyper Terminal Text Processor",
+        "Host Transfer Technology Platform"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "question": "What HTTP status code means 'Not Found'?",
+      "options": [
+        "200",
+        "301",
+        "404",
+        "500"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "What is a closure in JavaScript?",
+      "options": [
+        "A way to close a browser tab",
+        "A function that retains access to its outer scope after the outer function returns",
+        "A CSS technique",
+        "A database transaction"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What does REST stand for?",
+      "options": [
+        "Remote Execution State Transfer",
+        "Representational State Transfer",
+        "Reliable Endpoint Service Technology",
+        "Request-Response System Template"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is the event loop in Node.js?",
+      "options": [
+        "A loop that runs forever",
+        "A mechanism that handles asynchronous operations by deferring callbacks to the call stack when it is empty",
+        "A type of for loop",
+        "A database polling mechanism"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is JSX?",
+      "options": [
+        "A JavaScript testing framework",
+        "A syntax extension that allows HTML-like code inside JavaScript",
+        "A CSS preprocessor",
+        "A database query language"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is database normalisation?",
+      "options": [
+        "Converting a database to MySQL",
+        "Organising data to reduce redundancy and improve integrity",
+        "Backing up a database",
+        "Importing CSV files"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What does JWT stand for?",
+      "options": [
+        "JavaScript Web Token",
+        "Java Web Technology",
+        "JSON Web Token",
+        "JavaScript Widget Toolkit"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "What is a microservice?",
+      "options": [
+        "A very small computer",
+        "An independently deployable service that handles a single business capability",
+        "A JavaScript micro-library",
+        "A type of database"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is Docker used for?",
+      "options": [
+        "Database management",
+        "Containerising applications for consistent deployment",
+        "Designing user interfaces",
+        "Managing DNS records"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is the difference between == and === in JavaScript?",
+      "options": [
+        "They are identical",
+        "== compares value only; === compares value and type",
+        "=== is faster than ==",
+        "== is used for objects only"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is SQL injection?",
+      "options": [
+        "Adding SQL databases to an application",
+        "A security attack that inserts malicious SQL into queries",
+        "A way to speed up SQL queries",
+        "A database backup technique"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What does CI/CD stand for?",
+      "options": [
+        "Code Integration / Code Deployment",
+        "Continuous Integration / Continuous Deployment",
+        "Central Infrastructure / Cloud Deployment",
+        "Compiled Interface / Coded Design"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is React's virtual DOM?",
+      "options": [
+        "A DOM stored in a database",
+        "A lightweight in-memory representation of the real DOM used to optimise updates",
+        "A browser extension",
+        "A React plugin"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is the CAP theorem?",
+      "options": [
+        "A JavaScript design pattern",
+        "A theorem stating a distributed system can only guarantee two of Consistency, Availability, and Partition tolerance",
+        "A CSS animation rule",
+        "A database indexing strategy"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is the SOLID principle 'Single Responsibility'?",
+      "options": [
+        "A class should do everything",
+        "A class should have only one reason to change",
+        "Only senior developers write SOLID code",
+        "Single responsibility means one file per project"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is code splitting in web development?",
+      "options": [
+        "Dividing a codebase between multiple teams",
+        "Breaking a JavaScript bundle into smaller chunks loaded on demand",
+        "Splitting CSS from JavaScript",
+        "Separating frontend from backend"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is OAuth 2.0?",
+      "options": [
+        "A database protocol",
+        "An authorisation framework for delegated access to resources",
+        "A JavaScript library",
+        "A CSS framework"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is a CDN?",
+      "options": [
+        "Central Database Network",
+        "Content Delivery Network \u2014 a distributed system of servers that serves content from locations closest to users",
+        "Code Development Node",
+        "Compiled Design Network"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What does TDD stand for?",
+      "options": [
+        "Test-Driven Design",
+        "Technical Documentation Draft",
+        "Type-Defined Development",
+        "Test-Driven Development"
+      ],
+      "correct_answer": 3
+    }
+  ]
+}

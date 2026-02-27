@@ -1,0 +1,27 @@
+{
+  "id": "sim-3",
+  "title": "Database Schema Designer",
+  "module": "Database Design",
+  "description": "Design a relational schema for a sample e-commerce platform. Add tables, define relationships, and see normalisation scores.",
+  "type": "interactive",
+  "parameters": [
+    {
+      "name": "tableCount",
+      "label": "Number of Tables",
+      "min": 2,
+      "max": 10,
+      "default": 5
+    },
+    {
+      "name": "normalisationLevel",
+      "label": "Normalisation Level",
+      "options": [
+        "1NF",
+        "2NF",
+        "3NF",
+        "BCNF"
+      ],
+      "default": "3NF"
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "id": "sim-4",
+  "title": "Campaign Budget Allocator",
+  "module": "PR Campaign Strategy",
+  "description": "Allocate a PR campaign budget across earned, owned, and paid channels and project reach and ROI.",
+  "type": "interactive",
+  "parameters": [
+    {
+      "name": "totalBudget",
+      "label": "Total Budget (\u00a3000s)",
+      "min": 5,
+      "max": 500,
+      "default": 50
+    },
+    {
+      "name": "earnedPct",
+      "label": "Earned Media (%)",
+      "min": 10,
+      "max": 80,
+      "default": 40
+    },
+    {
+      "name": "ownedPct",
+      "label": "Owned Media (%)",
+      "min": 10,
+      "max": 60,
+      "default": 30
+    }
+  ]
+}

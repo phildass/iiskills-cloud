@@ -1,0 +1,13 @@
+{
+  "id": "case-3",
+  "title": "Airbnb's React Native Adoption and Retreat",
+  "module": "React Component Architecture",
+  "summary": "Airbnb adopted React Native for mobile, then deprecated it \u2014 a case study in technology trade-offs.",
+  "content": "<h2>Case Study: Airbnb and React Native</h2><p>In 2016, Airbnb began using React Native to build their mobile apps, attracted by code sharing between iOS and Android. By 2018, they announced they were sunsetting React Native.</p><h3>The Promise</h3><p>React Native promised write-once, run-everywhere mobile development. For smaller teams it delivered, but Airbnb's complex app requirements exposed performance bottlenecks and deep platform integration challenges.</p><h3>The Reality</h3><p>Bridging between JavaScript and native code introduced performance overhead. Keeping up with React Native releases required significant maintenance. Native engineers found the bridge abstraction frustrating.</p><h3>Key Learnings</h3><p>Technology decisions must account for team expertise, app complexity, and long-term maintenance. Code sharing is appealing but not free. Write detailed post-mortems when deprecating technology.</p>",
+  "image": "dev-case-3.png",
+  "tags": [
+    "React",
+    "mobile development",
+    "technology decisions"
+  ]
+}

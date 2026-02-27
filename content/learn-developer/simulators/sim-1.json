@@ -1,0 +1,34 @@
+{
+  "id": "sim-1",
+  "title": "HTTP Request Builder",
+  "module": "The Web's DNA",
+  "description": "Construct HTTP requests with different methods, headers, and bodies. See how the server responds based on your configuration.",
+  "type": "interactive",
+  "parameters": [
+    {
+      "name": "method",
+      "label": "HTTP Method",
+      "options": [
+        "GET",
+        "POST",
+        "PUT",
+        "DELETE",
+        "PATCH"
+      ],
+      "default": "GET"
+    },
+    {
+      "name": "statusCode",
+      "label": "Expected Status Code",
+      "options": [
+        "200",
+        "201",
+        "400",
+        "401",
+        "404",
+        "500"
+      ],
+      "default": "200"
+    }
+  ]
+}

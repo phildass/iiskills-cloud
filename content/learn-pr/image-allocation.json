@@ -1,0 +1,55 @@
+{
+  "notes": "Each image is referenced by exactly one lesson, case study, or simulator. No duplicates allowed.",
+  "images": [
+    {
+      "image": "pr-case-1.png",
+      "usedBy": "case-studies/case-1.json",
+      "description": "Dove Real Beauty campaign"
+    },
+    {
+      "image": "pr-case-2.png",
+      "usedBy": "case-studies/case-2.json",
+      "description": "Tylenol crisis press conference"
+    },
+    {
+      "image": "pr-case-3.png",
+      "usedBy": "case-studies/case-3.json",
+      "description": "ALS Ice Bucket Challenge"
+    },
+    {
+      "image": "pr-case-4.png",
+      "usedBy": "case-studies/case-4.json",
+      "description": "Nike Kaepernick campaign"
+    },
+    {
+      "image": "pr-case-5.png",
+      "usedBy": "case-studies/case-5.json",
+      "description": "Airbnb Belong Anywhere"
+    },
+    {
+      "image": "pr-sim-1.png",
+      "usedBy": "simulators/sim-1.json",
+      "description": "Press release scoring dashboard"
+    },
+    {
+      "image": "pr-sim-2.png",
+      "usedBy": "simulators/sim-2.json",
+      "description": "Crisis response timeline"
+    },
+    {
+      "image": "pr-sim-3.png",
+      "usedBy": "simulators/sim-3.json",
+      "description": "Media pitch metrics"
+    },
+    {
+      "image": "pr-sim-4.png",
+      "usedBy": "simulators/sim-4.json",
+      "description": "Campaign budget pie chart"
+    },
+    {
+      "image": "pr-sim-5.png",
+      "usedBy": "simulators/sim-5.json",
+      "description": "Sentiment analysis dashboard"
+    }
+  ]
+}

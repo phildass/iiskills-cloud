@@ -1,0 +1,60 @@
+{
+  "moduleId": 8,
+  "lessonId": 4,
+  "slug": "campaign-tactics-and-channels",
+  "title": "Campaign Tactics and Channels",
+  "isFree": false,
+  "content": "<h2>Module 8, Lesson 4: Campaign Tactics and Channels</h2>\n\n<h3>Introduction</h3>\n<p>In this lesson we explore <strong>Campaign Tactics and Channels</strong>, a key topic within PR Campaign Strategy. Public relations practitioners must master this area to build and sustain meaningful relationships with all stakeholders.</p>\n\n<h3>Key Concepts</h3>\n<h4>1. Strategic Communication</h4>\n<p>Effective PR relies on clearly defined objectives, well-researched audiences, and messages that resonate. Every piece of communication should serve the overarching strategy.</p>\n<h4>2. Audience Insight</h4>\n<p>Understanding the motivations, concerns, and media habits of your target publics is fundamental. Research underpins every successful campaign in <strong>PR Campaign Strategy</strong>.</p>\n<h4>3. Channel Selection</h4>\n<p>The right message through the wrong channel achieves little. PR professionals must select media and platforms that genuinely reach and influence their intended audiences.</p>\n<h4>4. Measurement and Evaluation</h4>\n<p>Setting measurable objectives and evaluating outcomes closes the loop. Without measurement, it is impossible to demonstrate PR value or improve future campaigns.</p>\n\n<h3>Summary</h3>\n<p>You have completed Campaign Tactics and Channels in Module 8. Continue to the next lesson to deepen your expertise in <strong>PR Campaign Strategy</strong>.</p>",
+  "quiz": [
+    {
+      "question": "What is the primary focus of 'Campaign Tactics and Channels' in PR?",
+      "options": [
+        "Managing internal employee schedules",
+        "Building strategic communication to achieve measurable outcomes",
+        "Designing product packaging",
+        "Writing software documentation"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "Which approach best supports 'Campaign Tactics and Channels'?",
+      "options": [
+        "Ignoring audience feedback",
+        "Reacting only after issues arise",
+        "Proactively planning and tailoring communication to target publics",
+        "Using only paid media placements"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "In the context of PR Campaign Strategy, which skill is most essential?",
+      "options": [
+        "Spreadsheet data entry",
+        "Strong written and verbal communication",
+        "Hardware installation",
+        "Chemical analysis"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "How is success typically measured in PR efforts related to PR Campaign Strategy?",
+      "options": [
+        "Number of office visitors",
+        "Cost of office supplies",
+        "Media coverage quality, audience reach, and stakeholder sentiment",
+        "Number of internal meetings held"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "Which statement about 'Campaign Tactics and Channels' is most accurate?",
+      "options": [
+        "It applies only to large multinational corporations",
+        "It is unrelated to strategic communication",
+        "It requires both creativity and analytical thinking",
+        "It is a one-time activity with no ongoing maintenance"
+      ],
+      "correct_answer": 2
+    }
+  ]
+}

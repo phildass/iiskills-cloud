@@ -1,0 +1,23 @@
+{
+  "id": "sim-5",
+  "title": "Sentiment Dashboard",
+  "module": "PR Measurement & Analytics",
+  "description": "Analyse media coverage sentiment across positive, neutral, and negative mentions. Track share of voice over a simulated campaign period.",
+  "type": "analytics",
+  "parameters": [
+    {
+      "name": "positivePct",
+      "label": "Positive Coverage (%)",
+      "min": 0,
+      "max": 100,
+      "default": 60
+    },
+    {
+      "name": "neutralPct",
+      "label": "Neutral Coverage (%)",
+      "min": 0,
+      "max": 100,
+      "default": 30
+    }
+  ]
+}

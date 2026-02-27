@@ -1,0 +1,14 @@
+{
+  "id": "case-1",
+  "title": "Netflix's Migration to Microservices",
+  "module": "System Design & Architecture",
+  "summary": "How Netflix migrated from a monolithic architecture to microservices to achieve massive scale.",
+  "content": "<h2>Case Study: Netflix Microservices</h2><p>By 2008, Netflix had grown to millions of subscribers but their monolithic architecture struggled to scale. A database corruption incident prompted a complete rethink of their infrastructure strategy.</p><h3>The Migration</h3><p>Netflix gradually decomposed their monolith into hundreds of independent microservices. Each team owned their service end-to-end, enabling independent deployment and scaling. They also moved entirely to AWS.</p><h3>Engineering Innovations</h3><p>Netflix developed tools like Hystrix (circuit breaker), Zuul (API gateway), and Eureka (service discovery) \u2014 many of which they open-sourced. Chaos Monkey proactively tested resilience by randomly terminating production instances.</p><h3>Key Learnings</h3><p>Microservices enable scale but add operational complexity. Strong DevOps culture and tooling are prerequisites. Incremental migration is safer than a big-bang rewrite.</p>",
+  "image": "dev-case-1.png",
+  "tags": [
+    "microservices",
+    "system design",
+    "AWS",
+    "scalability"
+  ]
+}

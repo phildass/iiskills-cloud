@@ -1,0 +1,55 @@
+{
+  "notes": "Each image is referenced by exactly one lesson, case study, or simulator. No duplicates allowed.",
+  "images": [
+    {
+      "image": "dev-case-1.png",
+      "usedBy": "case-studies/case-1.json",
+      "description": "Netflix microservices architecture diagram"
+    },
+    {
+      "image": "dev-case-2.png",
+      "usedBy": "case-studies/case-2.json",
+      "description": "GitHub MySQL cluster overview"
+    },
+    {
+      "image": "dev-case-3.png",
+      "usedBy": "case-studies/case-3.json",
+      "description": "Airbnb React Native timeline"
+    },
+    {
+      "image": "dev-case-4.png",
+      "usedBy": "case-studies/case-4.json",
+      "description": "Shopify storefront architecture"
+    },
+    {
+      "image": "dev-case-5.png",
+      "usedBy": "case-studies/case-5.json",
+      "description": "Heartbleed vulnerability diagram"
+    },
+    {
+      "image": "dev-sim-1.png",
+      "usedBy": "simulators/sim-1.json",
+      "description": "HTTP request/response visualiser"
+    },
+    {
+      "image": "dev-sim-2.png",
+      "usedBy": "simulators/sim-2.json",
+      "description": "Event loop animation"
+    },
+    {
+      "image": "dev-sim-3.png",
+      "usedBy": "simulators/sim-3.json",
+      "description": "Database schema ERD diagram"
+    },
+    {
+      "image": "dev-sim-4.png",
+      "usedBy": "simulators/sim-4.json",
+      "description": "CI/CD pipeline flowchart"
+    },
+    {
+      "image": "dev-sim-5.png",
+      "usedBy": "simulators/sim-5.json",
+      "description": "Core Web Vitals dashboard"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "id": "sim-5",
+  "title": "Performance Budget Analyser",
+  "module": "Performance Optimisation",
+  "description": "Set a web performance budget and analyse how bundle sizes, image weights, and third-party scripts affect Core Web Vitals.",
+  "type": "analytics",
+  "parameters": [
+    {
+      "name": "bundleSize",
+      "label": "JavaScript Bundle Size (KB)",
+      "min": 50,
+      "max": 5000,
+      "default": 250
+    },
+    {
+      "name": "imageTotal",
+      "label": "Total Image Weight (KB)",
+      "min": 50,
+      "max": 10000,
+      "default": 500
+    }
+  ]
+}

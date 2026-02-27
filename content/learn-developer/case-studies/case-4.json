@@ -1,0 +1,14 @@
+{
+  "id": "case-4",
+  "title": "Shopify's Storefront Renderer: Rails at Scale",
+  "module": "Node.js & Express: Backend Fundamentals",
+  "summary": "How Shopify reengineered their storefront rendering to handle Flash Sales and viral traffic spikes.",
+  "content": "<h2>Case Study: Shopify Storefront Renderer</h2><p>Shopify's merchant storefronts must handle extraordinary traffic spikes \u2014 a single Flash Sale can send millions of requests in seconds. Shopify rebuilt their storefront rendering infrastructure to handle this reliably.</p><h3>Engineering Challenges</h3><p>Ruby on Rails, Shopify's original framework, struggled at extreme scale. Shopify built a new Storefront Renderer in a way that separates rendering concerns from business logic, using aggressive caching and worker pools.</p><h3>Results</h3><p>The new infrastructure handles millions of requests per second with sub-100ms response times. Merchants can now sell during viral moments without worrying about downtime.</p><h3>Key Learnings</h3><p>Caching is the single most impactful performance optimisation. Separate reads from writes. Design your system for the peak load, not the average.</p>",
+  "image": "dev-case-4.png",
+  "tags": [
+    "backend",
+    "performance",
+    "Rails",
+    "caching"
+  ]
+}

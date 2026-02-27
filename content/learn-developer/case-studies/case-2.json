@@ -1,0 +1,14 @@
+{
+  "id": "case-2",
+  "title": "GitHub's Move to MySQL Row-Based Replication",
+  "module": "Database Design: SQL vs NoSQL",
+  "summary": "How GitHub scaled MySQL to handle billions of queries daily while maintaining 99.99% uptime.",
+  "content": "<h2>Case Study: GitHub and MySQL Scale</h2><p>GitHub powers one of the world's largest code collaboration platforms, serving tens of millions of developers. Despite NoSQL alternatives, GitHub chose to scale MySQL to meet its needs.</p><h3>Engineering Approach</h3><p>GitHub invested heavily in MySQL tooling: Vitess for horizontal sharding, ProxySQL for connection pooling, and GitHub-Backup for reliable backups. They contributed extensively to the MySQL community.</p><h3>Results</h3><p>GitHub's MySQL cluster handles billions of queries per day with sub-millisecond query times. Their investment in operational expertise allowed them to squeeze extraordinary performance from a relational database.</p><h3>Key Learnings</h3><p>The 'right' database is the one your team understands deeply. Operational excellence often beats architectural novelty. Invest in tooling around your chosen database.</p>",
+  "image": "dev-case-2.png",
+  "tags": [
+    "databases",
+    "SQL",
+    "MySQL",
+    "scalability"
+  ]
+}
