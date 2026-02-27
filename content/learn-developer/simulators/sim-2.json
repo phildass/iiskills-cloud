@@ -1,0 +1,17 @@
+{
+  "id": "sim-2",
+  "title": "React Performance Audit",
+  "module": "React Component Architecture",
+  "description": "Given a slow React application with unnecessary re-renders, identify the root causes using React DevTools Profiler data and apply the correct optimisations: React.memo, useMemo, useCallback, or code-splitting.",
+  "variables": [
+    "profiler_analysis",
+    "memo_application",
+    "hook_optimization",
+    "bundle_splitting"
+  ],
+  "outcomes": [
+    "80% render time reduction (score > 85)",
+    "Significant improvement (score 65-85)",
+    "No measurable improvement (score < 65)"
+  ]
+}

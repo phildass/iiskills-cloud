@@ -1,0 +1,19 @@
+{
+  "id": "case-2",
+  "title": "The GitHub Actions Developer Experience",
+  "module": "DevOps & Deployment",
+  "summary": "GitHub Actions transformed CI/CD by embedding automation directly into the repository, making workflows accessible to developers who previously required dedicated DevOps engineers.",
+  "background": "Before GitHub Actions, most CI/CD systems required external services, complex configuration, and DevOps specialists. This created friction that slowed developer velocity.",
+  "response": "GitHub designed Actions as YAML workflows checked into the repository itself. A marketplace of community-built actions enabled complex pipelines without custom scripting.",
+  "outcome": "GitHub Actions became the most widely adopted CI/CD platform within two years of launch, with millions of workflows running daily.",
+  "lessons": [
+    "Developer experience is a competitive advantage",
+    "YAML-based configuration reduces barriers to adoption",
+    "Marketplace ecosystems accelerate growth",
+    "Convention over configuration increases productivity"
+  ],
+  "discussion_questions": [
+    "How did GitHub's distribution advantage accelerate Actions adoption?",
+    "What security considerations arise from a shared action marketplace?"
+  ]
+}

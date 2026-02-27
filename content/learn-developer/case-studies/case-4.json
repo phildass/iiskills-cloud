@@ -1,0 +1,19 @@
+{
+  "id": "case-4",
+  "title": "Airbnb's JavaScript Style Guide and ESLint",
+  "module": "Advanced Patterns & Clean Code",
+  "summary": "Airbnb's open-source JavaScript Style Guide became the industry standard for ES6+ code style, adopted by millions of developers and projects worldwide.",
+  "background": "As Airbnb's engineering team grew, inconsistent code style created friction in code reviews and made onboarding new engineers harder. Manual style enforcement was unscalable.",
+  "response": "Airbnb formalised their JavaScript conventions in a detailed style guide and released a custom ESLint configuration (eslint-config-airbnb) to enforce rules automatically.",
+  "outcome": "The Airbnb ESLint config became the most popular npm package of its type, with tens of millions of weekly downloads. The style guide has shaped how a generation of developers writes JavaScript.",
+  "lessons": [
+    "Automated enforcement scales where manual review cannot",
+    "Open-sourcing internal tools creates community goodwill",
+    "Shared conventions reduce cognitive load in code review",
+    "Opinionated defaults enable focus on business logic"
+  ],
+  "discussion_questions": [
+    "What are the trade-offs of adopting an opinionated style guide?",
+    "How should teams decide when to deviate from a community standard?"
+  ]
+}

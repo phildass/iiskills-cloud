@@ -1,0 +1,17 @@
+{
+  "id": "sim-3",
+  "title": "Security Vulnerability Scanner",
+  "module": "Authentication & Security",
+  "description": "Review a Node.js/Express application for security vulnerabilities. Identify SQL injection vectors, missing security headers, improper authentication, and dependency vulnerabilities. Patch each issue to improve the security score.",
+  "variables": [
+    "injection_detection",
+    "header_configuration",
+    "auth_review",
+    "dependency_audit"
+  ],
+  "outcomes": [
+    "Secure application (score > 90)",
+    "Key vulnerabilities fixed (score 70-90)",
+    "Critical issues remain (score < 70)"
+  ]
+}

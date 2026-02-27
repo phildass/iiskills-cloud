@@ -1,0 +1,17 @@
+{
+  "id": "sim-5",
+  "title": "Database Query Optimiser",
+  "module": "Database Design: SQL vs NoSQL",
+  "description": "Given a set of slow database queries and EXPLAIN output, identify missing indexes, N+1 problems, and inefficient joins. Apply optimisations and observe the impact on query execution time.",
+  "variables": [
+    "index_identification",
+    "n_plus_one_detection",
+    "join_optimization",
+    "query_rewriting"
+  ],
+  "outcomes": [
+    "10x query speedup achieved (score > 90)",
+    "Significant improvement (score 70-90)",
+    "Performance unchanged (score < 70)"
+  ]
+}

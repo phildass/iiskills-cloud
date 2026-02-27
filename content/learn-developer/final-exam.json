@@ -1,0 +1,207 @@
+{
+  "appSlug": "learn-developer",
+  "title": "Web Developer Bootcamp \u2014 Final Exam",
+  "passThreshold": 13,
+  "questions": [
+    {
+      "question": "What does DNS stand for and what is its function?",
+      "options": [
+        "Dynamic Name System \u2014 manages IP addresses dynamically",
+        "Domain Name System \u2014 translates domain names to IP addresses",
+        "Digital Network Service \u2014 encrypts domain requests",
+        "Data Navigation System \u2014 routes network packets"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What HTTP status code indicates a successful GET request?",
+      "options": [
+        "201 Created",
+        "404 Not Found",
+        "200 OK",
+        "301 Moved Permanently"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "What is a JavaScript closure?",
+      "options": [
+        "A function that throws an error when called",
+        "A function that retains access to its enclosing scope after that scope has exited",
+        "A method for closing browser windows",
+        "An ES6 class with private properties"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What does REST stand for in web development?",
+      "options": [
+        "Remote Execution State Transfer",
+        "Representational State Transfer",
+        "Reliable Endpoint Service Technology",
+        "Request-Response System Template"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is the purpose of React's useEffect hook?",
+      "options": [
+        "To define component styles",
+        "To perform side effects in function components (data fetching, subscriptions, DOM mutations)",
+        "To replace Redux for state management",
+        "To create reusable CSS animations"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What does ACID stand for in database transactions?",
+      "options": [
+        "Atomicity, Consistency, Isolation, Durability",
+        "Automated, Consistent, Indexed, Distributed",
+        "Asynchronous, Committed, Integrated, Durable",
+        "Atomic, Concurrent, Isolated, Dynamic"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "question": "What is the primary defence against SQL injection attacks?",
+      "options": [
+        "Encrypting the database",
+        "Using parameterised queries / prepared statements",
+        "Storing passwords as MD5 hashes",
+        "Blocking all POST requests"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is the CAP theorem?",
+      "options": [
+        "A theorem about CPU capacity planning",
+        "A distributed system can guarantee at most two of: Consistency, Availability, and Partition Tolerance",
+        "A security principle for API design",
+        "A CSS naming convention framework"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What does 'containerisation' with Docker primarily solve?",
+      "options": [
+        "JavaScript memory leaks",
+        "Ensuring consistent environments across development, staging, and production",
+        "Real-time database synchronisation",
+        "Browser compatibility issues"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What are Core Web Vitals?",
+      "options": [
+        "Vital signs of a server's CPU usage",
+        "Google's metrics for measuring user experience: LCP, FID/INP, and CLS",
+        "Security headers for web applications",
+        "Database performance benchmarks"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is the SOLID principle of 'Single Responsibility'?",
+      "options": [
+        "Every database table has a single primary key",
+        "A class or module should have only one reason to change",
+        "All API endpoints handle a single HTTP method",
+        "Functions should have a single return statement"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is OAuth 2.0?",
+      "options": [
+        "A database encryption protocol",
+        "An authorisation framework enabling third-party applications to obtain limited access to user accounts",
+        "A JavaScript testing framework",
+        "A CSS preprocessor standard"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What does 'lifting state up' mean in React?",
+      "options": [
+        "Moving component state to a Redux store",
+        "Moving shared state to the nearest common ancestor component",
+        "Upgrading a class component to a function component",
+        "Using React.memo to optimise rendering"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is the primary benefit of database indexing?",
+      "options": [
+        "Reducing storage space",
+        "Speeding up data retrieval queries",
+        "Enforcing data validation rules",
+        "Enabling full-text search in all databases"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is continuous integration (CI)?",
+      "options": [
+        "Running integration tests manually before each deployment",
+        "Frequently merging code into a shared repository with automated builds and tests",
+        "Continuously monitoring production servers",
+        "Integrating multiple databases into one"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What does the Express middleware chain execute when 'next()' is called?",
+      "options": [
+        "It terminates the request-response cycle",
+        "It passes control to the next middleware function in the stack",
+        "It sends a 200 OK response",
+        "It logs the request to the console"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is prototypal inheritance in JavaScript?",
+      "options": [
+        "A Java-style class inheritance system",
+        "Every object has a [[Prototype]] chain and inherits properties from it",
+        "A TypeScript feature for interface implementation",
+        "The way ES6 classes extend base classes"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is test-driven development (TDD)?",
+      "options": [
+        "Writing all tests after the feature is complete",
+        "Writing a failing test first, then minimal code to pass it, then refactoring",
+        "A testing methodology that only uses integration tests",
+        "Automated performance testing in production"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is an API gateway in microservices architecture?",
+      "options": [
+        "A database that stores API tokens",
+        "A single entry point for all clients that handles routing, authentication, and rate limiting",
+        "A tool for automatically generating API documentation",
+        "A message queue for async service communication"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is the Event Loop in Node.js?",
+      "options": [
+        "A loop that runs all JavaScript code synchronously",
+        "A mechanism that processes a call stack, web APIs, microtask queue, and macrotask queue to handle async operations",
+        "A built-in module for creating web servers",
+        "A pattern for managing database connections"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

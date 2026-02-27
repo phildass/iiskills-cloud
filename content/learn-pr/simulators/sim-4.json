@@ -1,0 +1,17 @@
+{
+  "id": "sim-4",
+  "title": "Stakeholder Mapping Exercise",
+  "module": "Stakeholder Management",
+  "description": "Given an organisation facing a major policy change, map all stakeholders by power and interest. Develop appropriate engagement strategies for each quadrant and allocate communications budget efficiently.",
+  "variables": [
+    "stakeholder_identification",
+    "power_interest_mapping",
+    "engagement_strategy",
+    "budget_allocation"
+  ],
+  "outcomes": [
+    "All stakeholders engaged effectively (score > 80)",
+    "Key stakeholders managed (score 60-80)",
+    "Critical gaps in engagement (score < 60)"
+  ]
+}

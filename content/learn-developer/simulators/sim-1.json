@@ -1,0 +1,17 @@
+{
+  "id": "sim-1",
+  "title": "System Design: Design a URL Shortener",
+  "module": "System Design & Architecture",
+  "description": "Walk through designing a URL shortener like bit.ly. Make architectural decisions: data storage, hashing strategy, caching layer, and scaling approach. Each decision updates your system's estimated throughput and availability scores.",
+  "variables": [
+    "storage_choice",
+    "hash_algorithm",
+    "cache_strategy",
+    "scale_approach"
+  ],
+  "outcomes": [
+    "Production-ready design (score > 80)",
+    "Functional but unscalable (score 60-80)",
+    "Critical gaps in design (score < 60)"
+  ]
+}

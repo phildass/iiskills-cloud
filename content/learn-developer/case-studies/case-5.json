@@ -1,0 +1,19 @@
+{
+  "id": "case-5",
+  "title": "Stripe's API Design \u2014 Developer Experience as a Product",
+  "module": "Node.js & Express: Backend Fundamentals",
+  "summary": "Stripe's API became the gold standard for developer experience, demonstrating that API design is a product decision with profound business consequences.",
+  "background": "In 2010, accepting payments online required integrating complex, poorly documented legacy systems. Stripe was built on the insight that developers were the customer.",
+  "response": "Stripe invested obsessively in documentation, SDKs in every major language, a live test mode, clear error messages, and a versioned API that never broke existing integrations.",
+  "outcome": "Stripe grew from zero to a $95 billion valuation, primarily through word-of-mouth among developers. Its API design principles are studied in developer experience (DX) courses worldwide.",
+  "lessons": [
+    "Developer experience is a competitive moat",
+    "Clear error messages dramatically reduce support burden",
+    "API versioning enables evolution without breaking existing clients",
+    "Comprehensive documentation is product investment, not overhead"
+  ],
+  "discussion_questions": [
+    "How did Stripe's developer focus create a sustainable competitive advantage?",
+    "What API design principles from Stripe should every developer apply?"
+  ]
+}

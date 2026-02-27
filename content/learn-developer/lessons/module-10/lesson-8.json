@@ -1,0 +1,60 @@
+{
+  "moduleId": 10,
+  "lessonId": 8,
+  "slug": "refactoring-techniques",
+  "title": "Refactoring Techniques",
+  "isFree": false,
+  "content": "<h2>Module 10, Lesson 8: Refactoring Techniques</h2>\n\n<h3>Introduction</h3>\n<p>Refactoring improves internal code structure without changing external behaviour. Extract Function, Rename Variable, Move Method, and Replace Conditional with Polymorphism are foundational refactors.</p>\n<p>In this lesson, we explore how <strong>Refactoring Techniques</strong> fits within the broader context of <strong>Advanced Patterns & Clean Code</strong>. Building a solid understanding of these concepts will make you a more effective and confident full-stack developer.</p>\n\n<h3>Key Concepts</h3>\n<h4>1. Core Principles</h4>\n<p>The core principles behind <strong>Refactoring Techniques</strong> are grounded in decades of software engineering practice. These principles \u2014 separation of concerns, single responsibility, and fail-fast design \u2014 provide a reliable foundation for production-quality code.</p>\n\n<h4>2. Implementation Patterns</h4>\n<p>Experienced developers recognise patterns for <strong>Refactoring Techniques</strong> that solve common problems efficiently. Understanding when to apply each pattern \u2014 and knowing the trade-offs \u2014 separates good developers from great ones.</p>\n\n<h4>3. Performance Implications</h4>\n<p>Every technical decision in <strong>Refactoring Techniques</strong> has performance implications. Understanding the performance characteristics of different approaches helps you make informed choices that scale well under real-world loads.</p>\n\n<h4>4. Security Considerations</h4>\n<p>Security must be considered from the first line of code, not bolted on at the end. The security considerations relevant to <strong>Refactoring Techniques</strong> are concrete and actionable: if you understand them, you can prevent the most common vulnerabilities.</p>\n\n<h4>5. Testing and Debugging</h4>\n<p>Effective testing of <strong>Refactoring Techniques</strong> components ensures reliability and enables confident refactoring. Debugging skills \u2014 knowing how to isolate, reproduce, and fix issues \u2014 are equally important and developed only through practice.</p>\n\n<h3>Summary</h3>\n<p>You have completed <strong>Refactoring Techniques</strong> within the <strong>Advanced Patterns & Clean Code</strong> module. The key takeaways are: the core principles; common implementation patterns and their trade-offs; performance characteristics; security considerations; and testing approaches. Apply these insights in your next project and notice the difference in code quality and confidence. Continue to the next lesson to deepen your expertise.</p>",
+  "quiz": [
+    {
+      "question": "What is the primary purpose of 'Refactoring Techniques' in web development?",
+      "options": [
+        "To apply Advanced Patterns & Clean Code principles effectively",
+        "To manage cloud infrastructure budgets",
+        "To design user interfaces only",
+        "To write database schemas exclusively"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "question": "Which approach best demonstrates mastery of Refactoring Techniques?",
+      "options": [
+        "Using proven patterns and understanding their trade-offs",
+        "Always using the newest framework regardless of fit",
+        "Avoiding all abstractions in favour of raw code",
+        "Copying code from Stack Overflow without understanding it"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "question": "In the context of Refactoring Techniques, what does 'separation of concerns' primarily mean?",
+      "options": [
+        "Each module handles a single, well-defined responsibility",
+        "Security and performance concerns should be handled separately",
+        "Front-end and back-end must always be different codebases",
+        "Tests and application code live in separate repositories"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "question": "What is the main benefit of writing automated tests?",
+      "options": [
+        "They replace the need for code reviews",
+        "They catch regressions and enable confident refactoring",
+        "They eliminate the need for manual QA entirely",
+        "They make code run faster in production"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is a common pitfall when working with Advanced Patterns & Clean Code?",
+      "options": [
+        "Writing too many unit tests",
+        "Over-engineering early rather than iterating from simple solutions",
+        "Using version control for all changes",
+        "Documenting code thoroughly"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

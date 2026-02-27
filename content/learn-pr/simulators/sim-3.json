@@ -1,0 +1,17 @@
+{
+  "id": "sim-3",
+  "title": "Media Pitch Simulator",
+  "module": "Media Relations",
+  "description": "Select the right journalist for a product launch story, craft a targeted pitch, and respond to a request for additional information. Your choices affect pickup rate and media coverage quality.",
+  "variables": [
+    "journalist_selection",
+    "pitch_length",
+    "hook_strength",
+    "follow_up_timing"
+  ],
+  "outcomes": [
+    "Story placed in target outlet (score > 75)",
+    "Alternative placement secured (score 50-75)",
+    "Story not placed (score < 50)"
+  ]
+}

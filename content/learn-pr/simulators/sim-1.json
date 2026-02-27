@@ -1,0 +1,17 @@
+{
+  "id": "sim-1",
+  "title": "Crisis Response Simulator",
+  "module": "Crisis Communication",
+  "description": "You receive breaking news that a product linked to your brand has caused harm. Navigate the first 24 hours: choose your initial response, manage media enquiries, and brief your CEO. Each decision updates your reputation score.",
+  "variables": [
+    "response_speed",
+    "transparency_level",
+    "spokesperson_choice",
+    "media_access"
+  ],
+  "outcomes": [
+    "Reputation recovered (score > 70)",
+    "Partial recovery (score 40-70)",
+    "Reputational damage (score < 40)"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "id": "case-1",
+  "title": "How Netflix Rebuilt Its Tech Stack for 100M+ Users",
+  "module": "System Design & Architecture",
+  "summary": "Netflix migrated from a monolithic architecture to hundreds of microservices over seven years, enabling it to scale to 100+ million subscribers while achieving 99.99% availability.",
+  "background": "In 2008, Netflix suffered a major database corruption. This crisis prompted a complete architectural rethink \u2014 moving from a monolith to AWS-hosted microservices.",
+  "response": "Netflix built a Chaos Engineering practice (Chaos Monkey), invested in circuit breakers (Hystrix), and adopted a decentralised team model where each team owned its services end-to-end.",
+  "outcome": "Netflix now operates hundreds of microservices, deploys thousands of times per day, and handles 500,000+ streaming requests per second during peak.",
+  "lessons": [
+    "Design for failure from the start",
+    "Microservices enable independent scaling and deployment",
+    "Chaos engineering builds resilience through deliberate failure",
+    "Observability is a first-class concern"
+  ],
+  "discussion_questions": [
+    "What were the key trade-offs in moving from monolith to microservices?",
+    "How does Chaos Engineering change the culture of an engineering team?"
+  ]
+}

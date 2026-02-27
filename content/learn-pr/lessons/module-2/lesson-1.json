@@ -1,0 +1,60 @@
+{
+  "moduleId": 2,
+  "lessonId": 1,
+  "slug": "building-media-relationships",
+  "title": "Building Media Relationships",
+  "isFree": false,
+  "content": "<h2>Module 2, Lesson 1: Building Media Relationships</h2>\n\n<h3>Introduction</h3>\n<p>Successful media relations starts with understanding journalists' needs. Research their beat, pitch relevant stories, and build trust through accuracy and reliability.</p>\n<p>In this lesson, we explore how <strong>Building Media Relationships</strong> fits into the broader discipline of <strong>Media Relations</strong> and equip you with practical tools for immediate application.</p>\n\n<h3>Key Concepts</h3>\n<h4>1. Strategic Context</h4>\n<p>Every PR activity exists within a strategic context. For <strong>Building Media Relationships</strong>, this means understanding the organisation's overall communications objectives and how this area contributes to them. Without strategic alignment, tactical activities lack direction and measurable value.</p>\n\n<h4>2. Core Principles</h4>\n<p>The core principles governing <strong>Building Media Relationships</strong> draw from decades of professional practice and academic research. These principles \u2014 transparency, consistency, audience-centricity, and evidence-based decision-making \u2014 provide a reliable foundation regardless of context.</p>\n\n<h4>3. Tools and Techniques</h4>\n<p>Practitioners in <strong>Media Relations</strong> use a range of tools: stakeholder mapping matrices, message development frameworks, channel selection models, and measurement dashboards. Understanding which tool to deploy \u2014 and when \u2014 is a hallmark of professional expertise.</p>\n\n<h4>4. Common Challenges</h4>\n<p>Challenges in <strong>Building Media Relationships</strong> typically include: aligning multiple stakeholders, adapting messages across different audiences, navigating time pressure, and demonstrating measurable impact. Anticipating these challenges and building contingency plans distinguishes excellent practitioners.</p>\n\n<h4>5. Professional Standards</h4>\n<p>The CIPR, PRCA, and PRSA provide ethical codes and professional standards that govern all PR practice including <strong>Building Media Relationships</strong>. Adhering to these standards protects practitioners, clients, and the credibility of the profession as a whole.</p>\n\n<h3>Summary</h3>\n<p>You have completed <strong>Building Media Relationships</strong> within the <strong>Media Relations</strong> module. The key takeaways are: the strategic importance of this area; the core principles that guide best practice; the practical tools and techniques available; the common challenges and how to overcome them; and the professional standards that must be upheld. Continue to the next lesson to build on these foundations.</p>",
+  "quiz": [
+    {
+      "question": "What is a key objective of 'Building Media Relationships' in PR practice?",
+      "options": [
+        "To apply Media Relations principles strategically",
+        "To maximise advertising spend",
+        "To avoid engaging with media",
+        "To reduce stakeholder communications"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "question": "Which approach is most effective in Media Relations?",
+      "options": [
+        "Using a structured, evidence-based strategy",
+        "Reacting to events without preparation",
+        "Limiting communications to one channel",
+        "Ignoring audience segmentation"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "question": "In the context of Building Media Relationships, what does 'earned media' primarily refer to?",
+      "options": [
+        "Paid advertising placements",
+        "Internal company newsletters",
+        "Organic coverage achieved through PR efforts",
+        "Owned social media channels"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "Which measurement approach is recommended by the Barcelona Principles?",
+      "options": [
+        "Advertising Value Equivalents (AVE)",
+        "Counting press release distributions",
+        "Outcome-based metrics tied to objectives",
+        "Social follower counts only"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "What is a primary risk when managing Media Relations activities?",
+      "options": [
+        "Over-communicating positive news",
+        "Misalignment between messages and stakeholder expectations",
+        "Generating too much media coverage",
+        "Having too many distribution channels"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

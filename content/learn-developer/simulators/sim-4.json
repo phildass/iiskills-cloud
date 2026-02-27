@@ -1,0 +1,17 @@
+{
+  "id": "sim-4",
+  "title": "CI/CD Pipeline Builder",
+  "module": "DevOps & Deployment",
+  "description": "Build a CI/CD pipeline for a Node.js application. Select the right stages (lint, test, build, security scan, deploy to staging, smoke test, deploy to production) and configure the trigger conditions.",
+  "variables": [
+    "stage_selection",
+    "trigger_conditions",
+    "security_gates",
+    "rollback_strategy"
+  ],
+  "outcomes": [
+    "Production-grade pipeline (score > 85)",
+    "Functional pipeline with gaps (score 65-85)",
+    "Pipeline not fit for production (score < 65)"
+  ]
+}
