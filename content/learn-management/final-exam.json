@@ -1,0 +1,207 @@
+{
+  "appSlug": "learn-management",
+  "title": "Learn Management — Final Exam",
+  "passThreshold": 13,
+  "questions": [
+    {
+      "question": "What are the four core functions of management?",
+      "options": [
+        "Planning, Organising, Leading, Controlling",
+        "Hiring, Training, Motivating, Firing",
+        "Budgeting, Reporting, Auditing, Reviewing",
+        "Analysing, Designing, Testing, Deploying"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "question": "Which leadership style adapts to follower readiness?",
+      "options": [
+        "Autocratic",
+        "Laissez-faire",
+        "Situational Leadership",
+        "Bureaucratic"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "What does PESTEL analyse?",
+      "options": [
+        "Internal strengths and weaknesses",
+        "Macro-environmental factors affecting an organisation",
+        "Financial statements",
+        "Project timelines"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is transformational leadership?",
+      "options": [
+        "Managing by exception",
+        "Inspiring followers to transcend self-interest for collective good",
+        "Exchanging rewards for performance",
+        "Directing work through authority alone"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What does the Balanced Scorecard measure performance across?",
+      "options": [
+        "Financial metrics only",
+        "Financial, Customer, Internal Processes, and Learning perspectives",
+        "Employee satisfaction only",
+        "Market share only"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is Tuckman's final team development stage?",
+      "options": [
+        "Storming",
+        "Norming",
+        "Forming",
+        "Performing"
+      ],
+      "correct_answer": 3
+    },
+    {
+      "question": "What is working capital?",
+      "options": [
+        "Total assets minus total liabilities",
+        "Current assets minus current liabilities",
+        "Annual revenue",
+        "Net profit"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is the critical path in project management?",
+      "options": [
+        "The cheapest route",
+        "The longest sequence of dependent tasks determining project duration",
+        "The first completed task",
+        "The most expensive activities"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is Kotter's first step in his 8-step change model?",
+      "options": [
+        "Form a guiding coalition",
+        "Develop a vision",
+        "Create a sense of urgency",
+        "Communicate the vision"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "What does Porter's Five Forces framework analyse?",
+      "options": [
+        "Employee motivation",
+        "Competitive forces within an industry",
+        "Financial ratios",
+        "Project risks"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is succession planning?",
+      "options": [
+        "Planning company events",
+        "Identifying and developing future leaders for key roles",
+        "Reducing headcount",
+        "Outsourcing HR functions"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is the primary goal of lean management?",
+      "options": [
+        "Increasing headcount",
+        "Eliminating waste and maximising value",
+        "Adding complexity to processes",
+        "Maximising inventory"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What does Six Sigma aim to achieve?",
+      "options": [
+        "Maximum employee satisfaction",
+        "Reduction of defects and process variation to near zero",
+        "Maximum revenue growth",
+        "Minimum investment in technology"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is psychological safety in teams?",
+      "options": [
+        "Physical health and safety",
+        "A climate where team members feel safe to speak up without fear of negative consequences",
+        "A legal compliance requirement",
+        "A management audit framework"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is HR analytics?",
+      "options": [
+        "Accounting for HR budgets",
+        "Using data to make evidence-based HR decisions",
+        "Creating job descriptions",
+        "Scheduling interviews only"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What does delegation involve?",
+      "options": [
+        "Doing all work yourself",
+        "Transferring responsibility and authority for a task to a team member",
+        "Micromanaging employees",
+        "Reducing team size"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is a WBS in project management?",
+      "options": [
+        "Work Breakdown Structure — a hierarchical decomposition of project deliverables",
+        "Weekly Budget Summary",
+        "Workforce Balance Sheet",
+        "Weighted Benefit Score"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "question": "What is change resistance?",
+      "options": [
+        "Enthusiastic adoption of change",
+        "Employee behaviours and attitudes that hinder change implementation",
+        "A change management framework",
+        "A financial constraint"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What does ROI measure?",
+      "options": [
+        "Rate of inflation",
+        "Return on Investment",
+        "Risk of Insolvency",
+        "Revenue over Income"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is the primary focus of strategic planning?",
+      "options": [
+        "Day-to-day operations",
+        "Setting long-term direction and allocating resources to achieve organisational goals",
+        "Employee recruitment",
+        "Financial record-keeping"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

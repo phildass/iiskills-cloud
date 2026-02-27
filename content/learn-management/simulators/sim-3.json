@@ -1,0 +1,44 @@
+{
+  "id": "sim-3",
+  "title": "Strategic Portfolio Matrix",
+  "module": "Strategic Planning",
+  "description": "Plot business units on a BCG Growth-Share Matrix by entering their market share and market growth rate. Get strategic recommendations for each unit.",
+  "type": "interactive",
+  "parameters": [
+    {
+      "name": "marketShare",
+      "label": "Relative Market Share",
+      "min": 0.1,
+      "max": 10,
+      "default": 1,
+      "unit": "x"
+    },
+    {
+      "name": "marketGrowth",
+      "label": "Market Growth Rate (%)",
+      "min": -5,
+      "max": 30,
+      "default": 10,
+      "unit": "%"
+    },
+    {
+      "name": "businessUnits",
+      "label": "Number of Business Units",
+      "min": 2,
+      "max": 8,
+      "default": 4,
+      "unit": ""
+    }
+  ],
+  "outputs": [
+    "BCG Matrix plot",
+    "Strategic classification (Star/Cash Cow/Question Mark/Dog)",
+    "Recommended strategy"
+  ],
+  "image": "mgmt-sim-3.png",
+  "tags": [
+    "BCG matrix",
+    "strategic planning",
+    "portfolio management"
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "moduleId": 3,
+  "lessonId": 5,
+  "slug": "vision-mission-values",
+  "title": "Vision, Mission, and Values",
+  "isFree": false,
+  "content": "<h2>Module 3, Lesson 5: Vision, Mission, and Values</h2>\n<h3>Introduction</h3>\n<p>This lesson covers <strong>Vision, Mission, and Values</strong> as part of the Strategic Planning module in the Learn Management course. Mastery of this topic is essential for building a comprehensive understanding of the subject area.</p>\n<h3>Key Concepts</h3>\n<p>In <strong>Vision, Mission, and Values</strong>, you will explore the foundational ideas, practical techniques, and real-world applications that make this area of study both relevant and actionable. Each concept has been carefully selected to build on prior knowledge and prepare you for more advanced topics.</p>\n<h3>Practical Application</h3>\n<p>Understanding Vision, Mission, and Values means being able to apply these principles in professional contexts. You will encounter scenarios, case studies, and examples drawn from real industry practice, helping you translate theory into competence.</p>\n<h3>Summary</h3>\n<p>You have completed <strong>Vision, Mission, and Values</strong> (Strategic Planning, Lesson 5). Proceed to the quiz to test your understanding, then continue to the next lesson to build further expertise.</p>",
+  "quiz": [
+    {
+      "question": "What is competitive strategy according to Porter?",
+      "options": [
+        "Ignoring competitors",
+        "Choosing cost leadership, differentiation, or focus",
+        "Copying competitor products",
+        "Reducing prices always"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What does PESTEL stand for?",
+      "options": [
+        "Political, Economic, Social, Technological, Environmental, Legal",
+        "People, Events, Systems, Technology, Enterprises, Logistics",
+        "Planning, Executing, Sustaining, Tracking, Evaluating, Learning",
+        "None of the above"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "question": "What is a SWOT analysis?",
+      "options": [
+        "A financial ratio",
+        "Assessment of Strengths, Weaknesses, Opportunities, Threats",
+        "A project plan",
+        "A market share calculation"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "Porter's Five Forces analyses which of the following?",
+      "options": [
+        "Employee satisfaction",
+        "Industry competitive forces",
+        "Financial performance",
+        "Supply chain logistics"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is the Balanced Scorecard?",
+      "options": [
+        "A financial accounting method",
+        "A performance measurement framework across four perspectives",
+        "A leadership style",
+        "A project management tool"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

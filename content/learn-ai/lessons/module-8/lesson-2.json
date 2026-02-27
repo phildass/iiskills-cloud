@@ -1,0 +1,60 @@
+{
+  "moduleId": 8,
+  "lessonId": 2,
+  "slug": "freelancing-in-ai",
+  "title": "Freelancing in AI",
+  "isFree": false,
+  "content": "<h2>Module 8, Lesson 2: Freelancing in AI</h2>\n<h3>Introduction</h3>\n<p>This lesson covers <strong>Freelancing in AI</strong> as part of the AI Monetization module in the Learn AI course. Mastery of this topic is essential for building a comprehensive understanding of the subject area.</p>\n<h3>Key Concepts</h3>\n<p>In <strong>Freelancing in AI</strong>, you will explore the foundational ideas, practical techniques, and real-world applications that make this area of study both relevant and actionable. Each concept has been carefully selected to build on prior knowledge and prepare you for more advanced topics.</p>\n<h3>Practical Application</h3>\n<p>Understanding Freelancing in AI means being able to apply these principles in professional contexts. You will encounter scenarios, case studies, and examples drawn from real industry practice, helping you translate theory into competence.</p>\n<h3>Summary</h3>\n<p>You have completed <strong>Freelancing in AI</strong> (AI Monetization, Lesson 2). Proceed to the quiz to test your understanding, then continue to the next lesson to build further expertise.</p>",
+  "quiz": [
+    {
+      "question": "What is a SaaS AI product?",
+      "options": [
+        "A one-time software purchase",
+        "A subscription-based AI service delivered over the internet",
+        "A self-hosted application only",
+        "A government AI programme"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What does no-code AI mean?",
+      "options": [
+        "AI that writes no code",
+        "AI platforms allowing non-programmers to build AI without writing code",
+        "AI that has no rules",
+        "Closed-source AI"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "Which business model charges per API call?",
+      "options": [
+        "Subscription",
+        "Freemium",
+        "Pay-per-use",
+        "Licensing"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "What is an AI consulting role primarily focused on?",
+      "options": [
+        "Writing low-level code",
+        "Advising businesses on AI strategy and implementation",
+        "Hardware procurement",
+        "Data entry"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "Which is a common way to monetise AI skills as a freelancer?",
+      "options": [
+        "Selling hardware",
+        "Offering model training and deployment services",
+        "Creating physical products",
+        "Teaching offline only"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

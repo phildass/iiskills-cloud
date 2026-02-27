@@ -1,0 +1,44 @@
+{
+  "id": "sim-4",
+  "title": "Change Readiness Assessor",
+  "module": "Change Management",
+  "description": "Rate your organisation across eight dimensions of change readiness (leadership support, culture, communication, resources) and receive a readiness score with recommendations.",
+  "type": "interactive",
+  "parameters": [
+    {
+      "name": "leadershipSupport",
+      "label": "Leadership Support (1–5)",
+      "min": 1,
+      "max": 5,
+      "default": 3,
+      "unit": ""
+    },
+    {
+      "name": "cultureFlexibility",
+      "label": "Culture Flexibility (1–5)",
+      "min": 1,
+      "max": 5,
+      "default": 3,
+      "unit": ""
+    },
+    {
+      "name": "resourceAvailability",
+      "label": "Resource Availability (1–5)",
+      "min": 1,
+      "max": 5,
+      "default": 3,
+      "unit": ""
+    }
+  ],
+  "outputs": [
+    "Overall readiness score",
+    "Dimension breakdown",
+    "Priority actions for improvement"
+  ],
+  "image": "mgmt-sim-4.png",
+  "tags": [
+    "change management",
+    "organisational readiness",
+    "assessment"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "id": "case-4",
+  "title": "Maruti Suzuki: Operations Management Excellence",
+  "module": "Operations Management",
+  "summary": "Maruti Suzuki's manufacturing operations in Gurugram and Manesar demonstrate world-class lean manufacturing, supply chain management, and quality systems adapted for the Indian context.",
+  "content": "<h2>Case Study: Maruti Suzuki Operations Excellence</h2><p>Maruti Suzuki produces over 1.5 million vehicles annually from its plants in Gurugram and Manesar, making it India's largest passenger vehicle manufacturer. This output requires exceptional operations management — from supplier relationships to assembly line efficiency.</p><h3>Lean Manufacturing at Maruti</h3><p>Maruti adopted Toyota Production System (TPS) principles from its earliest days as a Suzuki joint venture. The company implemented Just-in-Time (JIT) inventory, Kaizen continuous improvement, and 5S workplace organisation — lean tools that eliminated waste across the production cycle.</p><h3>Supply Chain Management</h3><p>Maruti manages over 400 tier-1 suppliers, many of which have co-located near the Gurugram plant to enable JIT delivery. Vendor development programs — teaching suppliers quality standards and lean practices — strengthened the entire supply chain.</p><h3>Manesar Labour Challenge</h3><p>The 2012 Manesar plant violence highlighted the human dimensions of operations management. Industrial relations failures — communication breakdowns, worker alienation, HR process gaps — had operational consequences that shut down production for months.</p><h3>Key Learnings</h3><p>Operational excellence integrates lean processes, supply chain partnerships, and quality systems. The Manesar episode underscores that operations management is inseparable from human resource management and organisational behaviour.</p>",
+  "image": "mgmt-case-4.png",
+  "tags": [
+    "operations management",
+    "lean manufacturing",
+    "supply chain",
+    "India",
+    "Maruti"
+  ]
+}

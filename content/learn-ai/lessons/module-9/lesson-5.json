@@ -1,0 +1,60 @@
+{
+  "moduleId": 9,
+  "lessonId": 5,
+  "slug": "hugging-face-transformers",
+  "title": "Hugging Face Transformers",
+  "isFree": false,
+  "content": "<h2>Module 9, Lesson 5: Hugging Face Transformers</h2>\n<h3>Introduction</h3>\n<p>This lesson covers <strong>Hugging Face Transformers</strong> as part of the AI Tools & Frameworks module in the Learn AI course. Mastery of this topic is essential for building a comprehensive understanding of the subject area.</p>\n<h3>Key Concepts</h3>\n<p>In <strong>Hugging Face Transformers</strong>, you will explore the foundational ideas, practical techniques, and real-world applications that make this area of study both relevant and actionable. Each concept has been carefully selected to build on prior knowledge and prepare you for more advanced topics.</p>\n<h3>Practical Application</h3>\n<p>Understanding Hugging Face Transformers means being able to apply these principles in professional contexts. You will encounter scenarios, case studies, and examples drawn from real industry practice, helping you translate theory into competence.</p>\n<h3>Summary</h3>\n<p>You have completed <strong>Hugging Face Transformers</strong> (AI Tools & Frameworks, Lesson 5). Proceed to the quiz to test your understanding, then continue to the next lesson to build further expertise.</p>",
+  "quiz": [
+    {
+      "question": "What is LangChain primarily used for?",
+      "options": [
+        "Image processing",
+        "Building applications with large language models",
+        "Database indexing",
+        "Neural network training from scratch"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "Which framework is primarily developed by Google for deep learning?",
+      "options": [
+        "PyTorch",
+        "TensorFlow",
+        "Scikit-learn",
+        "Keras standalone"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is Hugging Face best known for?",
+      "options": [
+        "Cloud storage",
+        "Pre-trained NLP and vision transformer models",
+        "Database management",
+        "Network security"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What does MLflow do?",
+      "options": [
+        "Automates database migrations",
+        "Tracks machine learning experiments and model versions",
+        "Generates synthetic data",
+        "Provides internet access to models"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is a vector database used for in AI applications?",
+      "options": [
+        "Storing traditional relational data",
+        "Efficient similarity search for embeddings",
+        "Hosting websites",
+        "Managing user accounts"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

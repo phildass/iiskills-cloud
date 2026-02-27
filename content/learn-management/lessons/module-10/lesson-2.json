@@ -1,0 +1,60 @@
+{
+  "moduleId": 10,
+  "lessonId": 2,
+  "slug": "project-lifecycle",
+  "title": "Project Lifecycle",
+  "isFree": false,
+  "content": "<h2>Module 10, Lesson 2: Project Lifecycle</h2>\n<h3>Introduction</h3>\n<p>This lesson covers <strong>Project Lifecycle</strong> as part of the Project Management module in the Learn Management course. Mastery of this topic is essential for building a comprehensive understanding of the subject area.</p>\n<h3>Key Concepts</h3>\n<p>In <strong>Project Lifecycle</strong>, you will explore the foundational ideas, practical techniques, and real-world applications that make this area of study both relevant and actionable. Each concept has been carefully selected to build on prior knowledge and prepare you for more advanced topics.</p>\n<h3>Practical Application</h3>\n<p>Understanding Project Lifecycle means being able to apply these principles in professional contexts. You will encounter scenarios, case studies, and examples drawn from real industry practice, helping you translate theory into competence.</p>\n<h3>Summary</h3>\n<p>You have completed <strong>Project Lifecycle</strong> (Project Management, Lesson 2). Proceed to the quiz to test your understanding, then continue to the next lesson to build further expertise.</p>",
+  "quiz": [
+    {
+      "question": "What does WBS stand for?",
+      "options": [
+        "Work Breakdown Structure",
+        "Weighted Benefit Score",
+        "Workforce Balance Sheet",
+        "Work Budget Summary"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "question": "What is the critical path in project management?",
+      "options": [
+        "The shortest sequence of tasks",
+        "The longest sequence of dependent tasks that determines project duration",
+        "The budget allocation path",
+        "The communication plan"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is Agile project management?",
+      "options": [
+        "A rigid waterfall approach",
+        "An iterative and flexible approach to project delivery",
+        "A financial management method",
+        "A type of risk assessment"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is risk management in projects?",
+      "options": [
+        "Avoiding all project risks",
+        "Identifying, assessing, and responding to potential project risks",
+        "Reducing project scope",
+        "Increasing project budget"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is a project charter?",
+      "options": [
+        "A financial statement",
+        "A document that formally authorises a project and outlines its objectives",
+        "An employee contract",
+        "A marketing plan"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

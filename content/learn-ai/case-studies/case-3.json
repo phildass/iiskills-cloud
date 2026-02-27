@@ -1,0 +1,14 @@
+{
+  "id": "case-3",
+  "title": "Computer Vision in Indian Agriculture",
+  "module": "Neural Networks",
+  "summary": "Startups and ICAR are using CNN-powered apps to diagnose crop diseases from smartphone photos, helping smallholder farmers across India.",
+  "content": "<h2>Case Study: AI-Powered Crop Disease Detection</h2><p>India has over 120 million smallholder farmers, many without access to agricultural extension services. Crop disease can wipe out a season's income — and delayed diagnosis worsens outcomes.</p><h3>The AI System</h3><p>Convolutional Neural Networks (CNNs) trained on hundreds of thousands of plant leaf images can identify diseases with accuracy matching or exceeding agronomists. Apps like Plantix and ICAR-backed platforms let farmers photograph affected leaves and receive instant diagnoses with treatment recommendations.</p><h3>Impact</h3><p>Early pilots in Maharashtra and Punjab showed 30-40% reduction in unnecessary pesticide use when farmers received accurate AI diagnoses. NITI Aayog has highlighted AI agriculture as a priority for India's 2047 vision.</p><h3>Key Learning</h3><p>Transfer learning allows CNNs trained on ImageNet to be fine-tuned on agricultural datasets with limited labelled data — making this technology accessible to resource-constrained organisations.</p>",
+  "image": "ai-case-3.png",
+  "tags": [
+    "computer vision",
+    "agriculture",
+    "CNN",
+    "India"
+  ]
+}

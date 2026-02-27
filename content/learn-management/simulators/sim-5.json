@@ -1,0 +1,45 @@
+{
+  "id": "sim-5",
+  "title": "Project Timeline Planner",
+  "module": "Project Management",
+  "description": "Enter project tasks with durations and dependencies. The simulator calculates the critical path, identifies slack time, and generates a Gantt chart view.",
+  "type": "interactive",
+  "parameters": [
+    {
+      "name": "taskCount",
+      "label": "Number of Tasks",
+      "min": 3,
+      "max": 20,
+      "default": 8,
+      "unit": "tasks"
+    },
+    {
+      "name": "resourceCount",
+      "label": "Team Members",
+      "min": 1,
+      "max": 10,
+      "default": 4,
+      "unit": "people"
+    },
+    {
+      "name": "bufferDays",
+      "label": "Buffer Days",
+      "min": 0,
+      "max": 30,
+      "default": 5,
+      "unit": "days"
+    }
+  ],
+  "outputs": [
+    "Gantt chart",
+    "Critical path",
+    "Project duration",
+    "Resource utilisation"
+  ],
+  "image": "mgmt-sim-5.png",
+  "tags": [
+    "project management",
+    "critical path",
+    "Gantt chart"
+  ]
+}

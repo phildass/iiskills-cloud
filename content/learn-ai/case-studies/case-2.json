@@ -1,0 +1,14 @@
+{
+  "id": "case-2",
+  "title": "GPT and Large Language Models in Indian Banking",
+  "module": "Neural Networks",
+  "summary": "Indian banks are deploying LLMs to power customer service chatbots, fraud detection, and document processing — transforming operations at scale.",
+  "content": "<h2>Case Study: LLMs in Indian Banking</h2><p>HDFC Bank, ICICI Bank, and SBI are among India's leading financial institutions exploring AI-powered customer service. With millions of customers and limited branch capacity, these banks need to handle high query volumes efficiently.</p><h3>The AI Solution</h3><p>Large Language Models (LLMs) based on transformer architectures power conversational AI systems that can answer customer queries in English, Hindi, and regional languages. The models are fine-tuned on banking-specific data.</p><h3>Results</h3><p>HDFC's AI system handles millions of customer interactions monthly, reducing call centre volume and improving first-response resolution rates. Fraud detection models analyse transaction patterns in real-time to flag anomalies.</p><h3>Key Learning</h3><p>LLMs require significant fine-tuning and safety guardrails for financial applications. Data privacy (RBI guidelines) adds regulatory constraints that shape model design.</p>",
+  "image": "ai-case-2.png",
+  "tags": [
+    "LLMs",
+    "banking",
+    "NLP",
+    "India"
+  ]
+}

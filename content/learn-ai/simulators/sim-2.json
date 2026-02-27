@@ -1,0 +1,44 @@
+{
+  "id": "sim-2",
+  "title": "Neural Network Layer Explorer",
+  "module": "Neural Networks",
+  "description": "Configure the number of layers and neurons to see how a neural network's decision boundary changes on a 2D classification problem.",
+  "type": "interactive",
+  "parameters": [
+    {
+      "name": "hiddenLayers",
+      "label": "Hidden Layers",
+      "min": 1,
+      "max": 5,
+      "default": 2,
+      "unit": "layers"
+    },
+    {
+      "name": "neuronsPerLayer",
+      "label": "Neurons per Layer",
+      "min": 2,
+      "max": 32,
+      "default": 8,
+      "unit": "neurons"
+    },
+    {
+      "name": "activationFunction",
+      "label": "Activation Function",
+      "min": 0,
+      "max": 2,
+      "default": 0,
+      "unit": ""
+    }
+  ],
+  "outputs": [
+    "Decision boundary visualisation",
+    "Training accuracy",
+    "Test accuracy"
+  ],
+  "image": "ai-sim-2.png",
+  "tags": [
+    "neural network",
+    "classification",
+    "decision boundary"
+  ]
+}

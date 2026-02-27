@@ -1,0 +1,60 @@
+{
+  "moduleId": 4,
+  "lessonId": 1,
+  "slug": "introduction-organisational-behaviour",
+  "title": "Introduction to Organisational Behaviour",
+  "isFree": false,
+  "content": "<h2>Module 4, Lesson 1: Introduction to Organisational Behaviour</h2>\n<h3>Introduction</h3>\n<p>This lesson covers <strong>Introduction to Organisational Behaviour</strong> as part of the Organizational Behavior module in the Learn Management course. Mastery of this topic is essential for building a comprehensive understanding of the subject area.</p>\n<h3>Key Concepts</h3>\n<p>In <strong>Introduction to Organisational Behaviour</strong>, you will explore the foundational ideas, practical techniques, and real-world applications that make this area of study both relevant and actionable. Each concept has been carefully selected to build on prior knowledge and prepare you for more advanced topics.</p>\n<h3>Practical Application</h3>\n<p>Understanding Introduction to Organisational Behaviour means being able to apply these principles in professional contexts. You will encounter scenarios, case studies, and examples drawn from real industry practice, helping you translate theory into competence.</p>\n<h3>Summary</h3>\n<p>You have completed <strong>Introduction to Organisational Behaviour</strong> (Organizational Behavior, Lesson 1). Proceed to the quiz to test your understanding, then continue to the next lesson to build further expertise.</p>",
+  "quiz": [
+    {
+      "question": "What is Maslow's Hierarchy of Needs?",
+      "options": [
+        "A project management framework",
+        "A motivational theory ordering human needs from basic to self-actualisation",
+        "A financial reporting standard",
+        "A type of organisational structure"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What does Tuckman's model describe?",
+      "options": [
+        "Budget cycles",
+        "Team development stages: Forming, Storming, Norming, Performing",
+        "Financial planning",
+        "Strategic analysis"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is organisational culture?",
+      "options": [
+        "The physical layout of an office",
+        "Shared values, beliefs, and behaviours within an organisation",
+        "Employee salary structure",
+        "Company share price"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is group dynamics?",
+      "options": [
+        "Physical movement of employees",
+        "How people interact and behave in groups",
+        "Financial group performance",
+        "Team salary benchmarking"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is conflict management?",
+      "options": [
+        "Avoiding all disagreements",
+        "Process of resolving disputes constructively",
+        "Terminating employees",
+        "Reorganising departments"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

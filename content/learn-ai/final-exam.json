@@ -1,0 +1,207 @@
+{
+  "appSlug": "learn-ai",
+  "title": "Learn AI — Final Exam",
+  "passThreshold": 13,
+  "questions": [
+    {
+      "question": "What is supervised learning?",
+      "options": [
+        "Learning without data",
+        "Learning from labelled training data",
+        "Learning through trial and error",
+        "Learning by clustering data"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is the main purpose of a neural network?",
+      "options": [
+        "Store data",
+        "Model complex patterns by learning from data",
+        "Replace databases",
+        "Perform calculations only"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What does CNN stand for in deep learning?",
+      "options": [
+        "Computed Numerical Network",
+        "Convolutional Neural Network",
+        "Central Node Network",
+        "Compressed Neuron Node"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is the vanishing gradient problem?",
+      "options": [
+        "Gradients become too large during training",
+        "Gradients become too small, making early layers learn very slowly",
+        "A problem with data preprocessing",
+        "An issue with hardware memory"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is the primary advantage of deep learning over traditional ML?",
+      "options": [
+        "Requires less data",
+        "Automatically learns feature representations from raw data",
+        "Always faster to train",
+        "Requires no computational resources"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is a transformer model primarily used for?",
+      "options": [
+        "Image segmentation only",
+        "Natural language processing and sequence modelling",
+        "Network routing",
+        "Database queries"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is regularisation in machine learning?",
+      "options": [
+        "A technique to increase model complexity",
+        "A technique to prevent overfitting by penalising model complexity",
+        "A data augmentation method",
+        "A type of neural activation"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What does k-Means clustering produce?",
+      "options": [
+        "A regression line",
+        "k groups of similar data points",
+        "A decision boundary",
+        "A probability distribution"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is the purpose of the softmax function?",
+      "options": [
+        "Normalise input data",
+        "Convert logits to a probability distribution for classification",
+        "Compute mean squared error",
+        "Increase neural network depth"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is Principal Component Analysis used for?",
+      "options": [
+        "Supervised classification",
+        "Dimensionality reduction",
+        "Reinforcement learning",
+        "Text generation"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What does the ROC curve measure?",
+      "options": [
+        "Training loss over epochs",
+        "Trade-off between true positive rate and false positive rate",
+        "Model compression ratio",
+        "Data preprocessing quality"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is the purpose of dropout in neural networks?",
+      "options": [
+        "Speeds up inference",
+        "Prevents overfitting by randomly zeroing out neurons during training",
+        "Reduces dataset size",
+        "Increases model depth"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is reinforcement learning?",
+      "options": [
+        "Learning from labelled data",
+        "Learning through trial and error using rewards and penalties",
+        "Clustering unlabelled data",
+        "Compressing neural network weights"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is a learning rate in gradient descent?",
+      "options": [
+        "The number of epochs",
+        "The step size at each iteration while moving toward a minimum",
+        "The batch size",
+        "The number of layers"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is hyperparameter tuning?",
+      "options": [
+        "Adjusting model weights during training",
+        "Searching for the best configuration settings that are set before training",
+        "Removing features from the dataset",
+        "Cleaning training data"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What does NLP stand for?",
+      "options": [
+        "Neural Learning Protocol",
+        "Natural Language Processing",
+        "Numerical Logic Processing",
+        "Network Layer Protocol"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is the difference between precision and recall?",
+      "options": [
+        "They are the same metric",
+        "Precision measures positive predictions correctness; recall measures how many positives were found",
+        "Precision is for regression; recall for classification",
+        "Recall is always higher than precision"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is a GAN?",
+      "options": [
+        "A type of database",
+        "Generative Adversarial Network — two networks competing to generate realistic data",
+        "A graph analysis network",
+        "A GPU acceleration node"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is fine-tuning in the context of large language models?",
+      "options": [
+        "Adjusting the temperature parameter only",
+        "Further training a pre-trained model on domain-specific data",
+        "Quantising model weights",
+        "Removing layers from the model"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is the purpose of cross-validation?",
+      "options": [
+        "To speed up model training",
+        "To provide a robust estimate of model performance on unseen data",
+        "To increase training data size",
+        "To simplify the model architecture"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

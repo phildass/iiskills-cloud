@@ -1,0 +1,60 @@
+{
+  "moduleId": 7,
+  "lessonId": 8,
+  "slug": "transfer-learning",
+  "title": "Transfer Learning",
+  "isFree": false,
+  "content": "<h2>Module 7, Lesson 8: Transfer Learning</h2>\n<h3>Introduction</h3>\n<p>This lesson covers <strong>Transfer Learning</strong> as part of the Neural Networks module in the Learn AI course. Mastery of this topic is essential for building a comprehensive understanding of the subject area.</p>\n<h3>Key Concepts</h3>\n<p>In <strong>Transfer Learning</strong>, you will explore the foundational ideas, practical techniques, and real-world applications that make this area of study both relevant and actionable. Each concept has been carefully selected to build on prior knowledge and prepare you for more advanced topics.</p>\n<h3>Practical Application</h3>\n<p>Understanding Transfer Learning means being able to apply these principles in professional contexts. You will encounter scenarios, case studies, and examples drawn from real industry practice, helping you translate theory into competence.</p>\n<h3>Summary</h3>\n<p>You have completed <strong>Transfer Learning</strong> (Neural Networks, Lesson 8). Proceed to the quiz to test your understanding, then continue to the next lesson to build further expertise.</p>",
+  "quiz": [
+    {
+      "question": "Which neural network architecture is best for image recognition?",
+      "options": [
+        "RNN",
+        "LSTM",
+        "CNN",
+        "Transformer"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "What does the Transformer architecture primarily rely on?",
+      "options": [
+        "Convolution layers",
+        "Recurrent connections",
+        "Self-attention mechanism",
+        "Random forests"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "What is transfer learning?",
+      "options": [
+        "Moving data between servers",
+        "Using a pre-trained model on a new related task",
+        "Training two models simultaneously",
+        "Transferring weights between GPUs"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is a perceptron?",
+      "options": [
+        "A type of database",
+        "The simplest neural network unit",
+        "A GPU model",
+        "A data preprocessing step"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is backpropagation used for?",
+      "options": [
+        "Forward pass through layers",
+        "Computing gradients to update weights",
+        "Data augmentation",
+        "Hyperparameter tuning"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}
