@@ -1,0 +1,207 @@
+{
+  "appSlug": "learn-pr",
+  "title": "Learn PR \u2014 Final Exam",
+  "passThreshold": 13,
+  "questions": [
+    {
+      "question": "What does PR stand for?",
+      "options": [
+        "Public Revenue",
+        "Public Relations",
+        "Press Reporting",
+        "Promotional Reach"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is earned media?",
+      "options": [
+        "Paid advertisements",
+        "Sponsored content",
+        "Organic coverage achieved through PR efforts",
+        "Company-owned websites"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "Which metric measures total potential audience exposure?",
+      "options": [
+        "AVE",
+        "Impressions",
+        "Click-through rate",
+        "Bounce rate"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is the golden rule of crisis communication?",
+      "options": [
+        "Deny all allegations",
+        "Avoid all media",
+        "Acknowledge quickly and be transparent",
+        "Wait until all facts are confirmed"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "What is a press release?",
+      "options": [
+        "An internal memo",
+        "A formal written statement distributed to media",
+        "A social media post",
+        "A legal disclaimer"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What does 'share of voice' measure in PR?",
+      "options": [
+        "Volume of paid advertising",
+        "Your brand's coverage relative to competitors",
+        "Number of press releases issued",
+        "Social media follower count"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "Which writing style is standard for press releases?",
+      "options": [
+        "Stream of consciousness",
+        "Inverted pyramid",
+        "Chronological narrative",
+        "Technical specification"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is stakeholder mapping?",
+      "options": [
+        "Drawing office floor plans",
+        "Identifying and categorising key audiences by influence and interest",
+        "Mapping social media followers",
+        "Creating a website sitemap"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is newsjacking?",
+      "options": [
+        "Hacking news websites",
+        "Capitalising on trending news stories to insert your brand",
+        "Buying newspaper advertising",
+        "Leaking confidential stories to media"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "Which Barcelona Principle states PR should not use AVE?",
+      "options": [
+        "Principle 1",
+        "Principle 3",
+        "Principle 5",
+        "Principle 7"
+      ],
+      "correct_answer": 3
+    },
+    {
+      "question": "What is an embargo in PR?",
+      "options": [
+        "A trade restriction",
+        "An agreement to withhold news until a specified date/time",
+        "A press release template",
+        "A crisis communication plan"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What does ORM stand for in digital PR?",
+      "options": [
+        "Online Revenue Management",
+        "Organic Reach Marketing",
+        "Online Reputation Management",
+        "Outbound Relationship Marketing"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "What is the primary purpose of a media kit?",
+      "options": [
+        "To entertain journalists",
+        "To provide background information about an organisation for media use",
+        "To sell advertising space",
+        "To recruit new employees"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "Which social platform is most used for professional B2B PR?",
+      "options": [
+        "TikTok",
+        "Snapchat",
+        "LinkedIn",
+        "Pinterest"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "What is a spokesperson?",
+      "options": [
+        "A PR agency",
+        "A designated individual authorised to speak on behalf of an organisation",
+        "A social media influencer",
+        "A government regulator"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What does sentiment analysis measure?",
+      "options": [
+        "Volume of media coverage",
+        "Tone and emotion of media mentions",
+        "Cost of PR campaigns",
+        "Number of press releases sent"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is influencer marketing in PR?",
+      "options": [
+        "Paying celebrities for product endorsements only",
+        "Partnering with individuals who have audience trust to amplify messages",
+        "Buying social media followers",
+        "Running TV commercials"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is a key message in PR?",
+      "options": [
+        "A private memo to leadership",
+        "A core statement that communicates the most important information about your brand",
+        "A legal contract",
+        "A financial report"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "Which PR activity is most effective for building third-party credibility?",
+      "options": [
+        "Paid advertising",
+        "Earned media coverage through effective media relations",
+        "Owned content on company website",
+        "Promotional email newsletters"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is the RACE model in PR planning?",
+      "options": [
+        "Research, Action, Communication, Evaluation",
+        "React, Analyse, Create, Execute",
+        "Research, Audience, Campaign, Engagement",
+        "Reach, Awareness, Conversion, Engagement"
+      ],
+      "correct_answer": 0
+    }
+  ]
+}

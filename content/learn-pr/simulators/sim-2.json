@@ -1,0 +1,23 @@
+{
+  "id": "sim-2",
+  "title": "Crisis Response Simulator",
+  "module": "Crisis Communication",
+  "description": "Navigate a simulated corporate crisis. Choose response tactics and see how media sentiment evolves based on your decisions.",
+  "type": "scenario",
+  "parameters": [
+    {
+      "name": "responseSpeed",
+      "label": "Response Speed (hours)",
+      "min": 1,
+      "max": 72,
+      "default": 4
+    },
+    {
+      "name": "transparency",
+      "label": "Transparency Level (1-10)",
+      "min": 1,
+      "max": 10,
+      "default": 8
+    }
+  ]
+}

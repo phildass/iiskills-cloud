@@ -1,0 +1,60 @@
+{
+  "moduleId": 5,
+  "lessonId": 5,
+  "slug": "transactions-and-acid-properties",
+  "title": "Transactions and ACID Properties",
+  "isFree": false,
+  "content": "<h2>Module 5, Lesson 5: Transactions and ACID Properties</h2>\n\n<h3>Introduction</h3>\n<p>This lesson covers <strong>Transactions and ACID Properties</strong>, a core topic in <em>Database Design: SQL vs NoSQL</em>. Mastering this area will help you build reliable, scalable, and maintainable web applications.</p>\n\n<h3>Key Concepts</h3>\n<h4>1. Fundamentals</h4>\n<p>Understanding the foundational principles of Transactions and ACID Properties ensures you can apply them correctly in a variety of real-world scenarios. Always prefer clarity over cleverness.</p>\n<h4>2. Practical Application</h4>\n<p>Theory must translate into working code. In Database Design: SQL vs NoSQL, every concept has direct practical implications for how you architect, test, and deploy applications.</p>\n<h4>3. Common Pitfalls</h4>\n<p>Awareness of common mistakes in Transactions and ACID Properties helps you avoid costly bugs and security vulnerabilities. Review real-world examples and practise defensive coding techniques.</p>\n<h4>4. Best Practices</h4>\n<p>Industry best practices evolve constantly. Keep up with community standards, read production post-mortems, and participate in code reviews to sharpen your skills in Database Design: SQL vs NoSQL.</p>\n\n<h3>Summary</h3>\n<p>You have completed <strong>Transactions and ACID Properties</strong> in Module 5. Continue to the next lesson to build further expertise in <strong>Database Design: SQL vs NoSQL</strong>.</p>",
+  "quiz": [
+    {
+      "question": "What is the primary purpose of 'Transactions and ACID Properties' in full-stack development?",
+      "options": [
+        "Styling the user interface with CSS",
+        "Building and maintaining robust, scalable applications",
+        "Managing server hardware configurations",
+        "Writing marketing copy for websites"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "Which concept is most closely associated with 'Transactions and ACID Properties'?",
+      "options": [
+        "Manual file transfer via FTP",
+        "Structured problem-solving and engineering best practices",
+        "Ignoring performance considerations",
+        "Hard-coding credentials in source code"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "In the context of Database Design: SQL vs NoSQL, which approach leads to more maintainable code?",
+      "options": [
+        "Copy-pasting code without abstraction",
+        "Applying clear patterns, separation of concerns, and thorough testing",
+        "Avoiding version control to keep things simple",
+        "Writing all logic in a single file"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "How is success typically measured when applying Transactions and ACID Properties?",
+      "options": [
+        "Number of lines of code written",
+        "Number of frameworks installed",
+        "Reliability, performance, and maintainability of the system",
+        "Speed of typing"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "Which statement about 'Transactions and ACID Properties' in web development is most accurate?",
+      "options": [
+        "It is only relevant for senior engineers",
+        "It can be skipped if deadlines are tight",
+        "It forms a fundamental building block for production-quality applications",
+        "It only applies to front-end development"
+      ],
+      "correct_answer": 2
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "id": "sim-1",
+  "title": "Press Release Scorer",
+  "module": "Writing Press Releases",
+  "description": "Draft a press release and receive a score based on headline clarity, news angle, quote quality, and boilerplate completeness.",
+  "type": "interactive",
+  "parameters": [
+    {
+      "name": "headlineScore",
+      "label": "Headline Clarity (1-10)",
+      "min": 1,
+      "max": 10,
+      "default": 7
+    },
+    {
+      "name": "newsAngle",
+      "label": "News Angle Strength (1-10)",
+      "min": 1,
+      "max": 10,
+      "default": 7
+    },
+    {
+      "name": "quoteQuality",
+      "label": "Quote Quality (1-10)",
+      "min": 1,
+      "max": 10,
+      "default": 7
+    }
+  ]
+}

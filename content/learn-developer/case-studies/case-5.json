@@ -1,0 +1,14 @@
+{
+  "id": "case-5",
+  "title": "Heartbleed: The OpenSSL Vulnerability",
+  "module": "Authentication & Security",
+  "summary": "How a single buffer over-read in OpenSSL exposed private keys for half the internet.",
+  "content": "<h2>Case Study: Heartbleed</h2><p>In 2014, security researchers disclosed Heartbleed \u2014 a critical vulnerability in OpenSSL that allowed attackers to read up to 64KB of server memory per request, potentially exposing private keys, passwords, and session tokens.</p><h3>The Bug</h3><p>The Heartbeat extension in TLS/DTLS failed to validate the length of a request. An attacker could request a response much larger than the sent payload, causing the server to return adjacent memory contents.</p><h3>Impact</h3><p>An estimated 17% of the internet's secure servers were vulnerable. Major companies including Yahoo, LastPass, and many cloud providers were affected. Mass certificate revocation and reissuance followed.</p><h3>Key Learnings</h3><p>Input validation is non-negotiable. Security audits of critical dependencies are essential. Developers must treat third-party libraries as potential attack surfaces.</p>",
+  "image": "dev-case-5.png",
+  "tags": [
+    "security",
+    "OpenSSL",
+    "vulnerability",
+    "OWASP"
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "id": "sim-4",
+  "title": "CI/CD Pipeline Builder",
+  "module": "DevOps & Deployment",
+  "description": "Configure a CI/CD pipeline with test, build, and deploy stages. See how configuration choices affect deployment speed and reliability.",
+  "type": "interactive",
+  "parameters": [
+    {
+      "name": "testCoverage",
+      "label": "Test Coverage (%)",
+      "min": 0,
+      "max": 100,
+      "default": 80
+    },
+    {
+      "name": "deployStrategy",
+      "label": "Deploy Strategy",
+      "options": [
+        "Rolling",
+        "Blue-Green",
+        "Canary"
+      ],
+      "default": "Blue-Green"
+    }
+  ]
+}

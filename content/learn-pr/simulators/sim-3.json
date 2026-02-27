@@ -1,0 +1,23 @@
+{
+  "id": "sim-3",
+  "title": "Media Pitch Optimiser",
+  "module": "Media Relations",
+  "description": "Build a media pitch and test different angles, journalists, and timing to see projected open and response rates.",
+  "type": "interactive",
+  "parameters": [
+    {
+      "name": "pitchLength",
+      "label": "Pitch Length (words)",
+      "min": 50,
+      "max": 500,
+      "default": 150
+    },
+    {
+      "name": "personalisation",
+      "label": "Personalisation Score (1-10)",
+      "min": 1,
+      "max": 10,
+      "default": 7
+    }
+  ]
+}

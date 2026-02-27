@@ -1,0 +1,23 @@
+{
+  "id": "sim-2",
+  "title": "Async JavaScript Playground",
+  "module": "JavaScript Mastery",
+  "description": "Visualise the event loop, call stack, and callback queue. See how Promises, async/await, and setTimeout interact in real time.",
+  "type": "visualisation",
+  "parameters": [
+    {
+      "name": "callbackDepth",
+      "label": "Callback Nesting Depth",
+      "min": 1,
+      "max": 5,
+      "default": 2
+    },
+    {
+      "name": "asyncOps",
+      "label": "Number of Async Operations",
+      "min": 1,
+      "max": 10,
+      "default": 3
+    }
+  ]
+}
