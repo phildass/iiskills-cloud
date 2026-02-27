@@ -1,0 +1,16 @@
+{
+  "id": "sim-2",
+  "title": "Climate Zone Explorer",
+  "module": "Climate Change",
+  "description": "Explore the world's major climate zones using the Köppen climate classification system. Adjust global average temperature and CO₂ concentration to see how climate zone boundaries shift. Compare historical climate distributions with projected future scenarios.",
+  "type": "interactive",
+  "parameters": [
+    {"name": "temperatureAnomaly", "label": "Global Temperature Anomaly (°C above pre-industrial)", "min": 0, "max": 5, "default": 1.1, "unit": "°C"},
+    {"name": "co2Concentration", "label": "Atmospheric CO₂ (ppm)", "min": 280, "max": 800, "default": 420, "unit": "ppm"},
+    {"name": "scenario", "label": "IPCC Emissions Scenario", "options": ["SSP1-1.9 (Best case)", "SSP2-4.5 (Intermediate)", "SSP5-8.5 (Worst case)", "Pre-industrial baseline"], "default": "SSP2-4.5 (Intermediate)"},
+    {"name": "year", "label": "Projected Year", "min": 1900, "max": 2100, "default": 2050, "unit": "year"}
+  ],
+  "outputs": ["World map with climate zone boundaries", "Area of each climate zone (km²)", "Zone boundary shifts compared to baseline", "Affected population estimate"],
+  "image": "geo-sim-2.png",
+  "tags": ["climate zones", "Köppen", "climate change", "IPCC", "global warming", "biomes"]
+}

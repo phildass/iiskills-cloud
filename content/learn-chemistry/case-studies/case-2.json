@@ -1,0 +1,9 @@
+{
+  "id": "case-2",
+  "title": "The Discovery of Mendeleev's Periodic Table",
+  "module": "Periodic Table",
+  "summary": "How Dmitri Mendeleev organized the elements by atomic mass and periodic properties, and how his bold predictions of undiscovered elements validated the periodic law.",
+  "content": "<h2>Case Study: The Discovery of Mendeleev's Periodic Table</h2><p>In 1869, Russian chemist Dmitri Mendeleev published his periodic table, arranging the 63 known elements by increasing atomic mass and grouping those with similar chemical properties in the same column. What set Mendeleev apart from contemporaries was his willingness to leave gaps for undiscovered elements and to predict their properties.</p><h3>The Periodic Law</h3><p>Mendeleev's periodic law stated: <em>The properties of the elements are a periodic function of their atomic masses.</em> This meant that as atomic mass increases, chemical and physical properties repeat in a predictable pattern. Modern chemistry refines this to atomic number (number of protons), but the core insight remains unchanged.</p><h3>Predicting Eka-Silicon (Germanium)</h3><p>Mendeleev left a gap below silicon and predicted the properties of 'eka-silicon': atomic mass ~72, density ~5.5 g/cm³, forms an oxide EX₂O₃ and a chloride ECl₄. When germanium was discovered in 1886 by Clemens Winkler, its properties matched Mendeleev's predictions almost exactly — atomic mass 72.6, density 5.35 g/cm³.</p><h3>Modern Implications</h3><p>Today the periodic table contains 118 confirmed elements. Its organization reveals trends in atomic radius, ionization energy, electronegativity, and reactivity. The case of Mendeleev demonstrates how a powerful organizing principle can generate testable predictions — a hallmark of good science.</p>",
+  "image": "chem-case-2.png",
+  "tags": ["periodic table", "elements", "atomic structure", "periodic trends", "history of chemistry"]
+}

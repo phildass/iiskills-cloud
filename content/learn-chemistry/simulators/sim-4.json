@@ -1,0 +1,17 @@
+{
+  "id": "sim-4",
+  "title": "Titration Simulator",
+  "module": "Acid-Base Reactions",
+  "description": "Simulate acid-base titrations step by step. Choose strong acid/base or weak acid/strong base combinations, set concentrations and volumes, and watch the titration curve build in real time. Identify the equivalence point, buffer region, and indicator colour changes.",
+  "type": "interactive",
+  "parameters": [
+    {"name": "analyteType", "label": "Analyte (in flask)", "options": ["Strong Acid", "Weak Acid (acetic acid)", "Strong Base", "Weak Base (ammonia)"], "default": "Weak Acid (acetic acid)"},
+    {"name": "analyteConcentration", "label": "Analyte Concentration (mol/L)", "min": 0.01, "max": 2.0, "default": 0.1, "unit": "mol/L"},
+    {"name": "analyteVolume", "label": "Analyte Volume (mL)", "min": 10, "max": 100, "default": 25, "unit": "mL"},
+    {"name": "titrantConcentration", "label": "Titrant Concentration (mol/L)", "min": 0.01, "max": 2.0, "default": 0.1, "unit": "mol/L"},
+    {"name": "indicator", "label": "Indicator", "options": ["Phenolphthalein", "Methyl Orange", "Bromothymol Blue", "Universal Indicator"], "default": "Phenolphthalein"}
+  ],
+  "outputs": ["Titration curve (pH vs. volume added)", "Equivalence point volume", "Equivalence point pH", "Buffer region range", "Indicator colour at current pH"],
+  "image": "chem-sim-4.png",
+  "tags": ["titration", "acid-base", "equivalence point", "indicator", "pH curve"]
+}

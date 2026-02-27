@@ -86,11 +86,11 @@ describe('Lesson content deduplication — learn-chemistry', () => {
     expect(Number(lesson2_1.moduleId)).toBe(2);
   });
 
-  it('lesson (1,1) is free and lesson (1,2) is not free', () => {
+  it('lesson (1,1) is free and lesson (1,2) is also free (chemistry is a free app)', () => {
     const lesson1_1 = loader.getLesson('learn-chemistry', 1, 1);
     const lesson1_2 = loader.getLesson('learn-chemistry', 1, 2);
     expect(lesson1_1.isFree).toBe(true);
-    expect(lesson1_2.isFree).toBe(false);
+    expect(lesson1_2.isFree).toBe(true);
   });
 
   it('all three lessons have valid quiz arrays', () => {

@@ -1,0 +1,16 @@
+{
+  "id": "sim-1",
+  "title": "Plate Tectonic Movement Simulator",
+  "module": "Tectonic Plates",
+  "description": "Simulate the movement of Earth's tectonic plates over geological time. Observe the formation of mountain ranges, ocean trenches, volcanoes, and rift valleys as plates converge, diverge, or slide past each other. Adjust plate speed and type to explore different boundary interactions.",
+  "type": "interactive",
+  "parameters": [
+    {"name": "boundaryType", "label": "Plate Boundary Type", "options": ["Convergent (continent-continent)", "Convergent (oceanic-continental)", "Divergent", "Transform"], "default": "Convergent (oceanic-continental)"},
+    {"name": "plateSpeed", "label": "Plate Speed (cm/year)", "min": 1, "max": 20, "default": 7, "unit": "cm/year"},
+    {"name": "simulationTime", "label": "Simulation Time (million years)", "min": 1, "max": 100, "default": 10, "unit": "Ma"},
+    {"name": "crustalDensity", "label": "Oceanic Crust Density (g/cm³)", "min": 2.7, "max": 3.3, "default": 3.0, "unit": "g/cm³"}
+  ],
+  "outputs": ["Cross-section diagram of boundary", "Features formed (trench, mountain range, rift valley)", "Earthquake and volcano risk zones", "Displacement distance over time"],
+  "image": "geo-sim-1.png",
+  "tags": ["plate tectonics", "convergent boundary", "subduction", "geological time", "natural hazards"]
+}

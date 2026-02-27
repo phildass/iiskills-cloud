@@ -1,0 +1,17 @@
+{
+  "id": "sim-5",
+  "title": "Gas Laws Simulator",
+  "module": "Thermochemistry",
+  "description": "Explore the behaviour of ideal gases through interactive simulations of Boyle's Law, Charles's Law, Gay-Lussac's Law, and the Ideal Gas Law (PV = nRT). Adjust pressure, volume, temperature, and moles to observe how gas properties interrelate at the molecular level.",
+  "type": "interactive",
+  "parameters": [
+    {"name": "gasLaw", "label": "Gas Law", "options": ["Boyle's Law (P-V)", "Charles's Law (V-T)", "Gay-Lussac's Law (P-T)", "Ideal Gas Law (PVnRT)", "Combined Gas Law"], "default": "Ideal Gas Law (PVnRT)"},
+    {"name": "pressure", "label": "Pressure (atm)", "min": 0.1, "max": 50, "default": 1.0, "unit": "atm"},
+    {"name": "volume", "label": "Volume (L)", "min": 0.1, "max": 100, "default": 22.4, "unit": "L"},
+    {"name": "temperature", "label": "Temperature (K)", "min": 10, "max": 1000, "default": 273, "unit": "K"},
+    {"name": "moles", "label": "Moles of Gas (n)", "min": 0.01, "max": 10, "default": 1.0, "unit": "mol"}
+  ],
+  "outputs": ["Calculated unknown variable", "PV/nRT ratio (ideality check)", "Molecular speed distribution (Maxwell-Boltzmann)", "P-V or V-T graph for selected law"],
+  "image": "chem-sim-5.png",
+  "tags": ["gas laws", "ideal gas", "Boyle", "Charles", "thermochemistry", "PV=nRT"]
+}

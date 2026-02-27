@@ -1,0 +1,18 @@
+{
+  "id": "sim-3",
+  "title": "Population Growth Simulator",
+  "module": "Urbanization",
+  "description": "Model population growth for countries at different stages of the Demographic Transition Model (DTM). Adjust birth rate, death rate, net migration, and total fertility rate to project future population size, age structure, and dependency ratios.",
+  "type": "interactive",
+  "parameters": [
+    {"name": "dtmStage", "label": "DTM Stage", "options": ["Stage 1 (Pre-industrial)", "Stage 2 (Early transition)", "Stage 3 (Late transition)", "Stage 4 (Post-industrial)", "Stage 5 (Declining)"], "default": "Stage 3 (Late transition)"},
+    {"name": "initialPopulation", "label": "Initial Population (millions)", "min": 0.1, "max": 2000, "default": 50, "unit": "million"},
+    {"name": "totalFertilityRate", "label": "Total Fertility Rate (TFR)", "min": 1.0, "max": 8.0, "default": 2.5, "unit": "births per woman"},
+    {"name": "lifeExpectancy", "label": "Life Expectancy at Birth (years)", "min": 40, "max": 90, "default": 70, "unit": "years"},
+    {"name": "netMigration", "label": "Net Migration Rate (per 1,000)", "min": -20, "max": 20, "default": 0, "unit": "per 1,000"},
+    {"name": "projectionYears", "label": "Projection Horizon (years)", "min": 10, "max": 100, "default": 50, "unit": "years"}
+  ],
+  "outputs": ["Population projection graph", "Population pyramid at end year", "Dependency ratio", "Natural increase rate", "Doubling time"],
+  "image": "geo-sim-3.png",
+  "tags": ["population growth", "demographic transition", "fertility rate", "urbanization", "human geography"]
+}

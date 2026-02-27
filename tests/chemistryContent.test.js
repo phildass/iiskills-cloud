@@ -7,7 +7,8 @@
  *  - Every lesson has all required fields
  *  - ALL lessons have isFree: true (free app — no paywall)
  *  - final-exam.json has 20 questions and passThreshold of 13
- *  - image-allocation.json has no duplicates
+ *  - 5 case studies and 5 simulators exist and parse
+ *  - image-allocation.json has no duplicates and follows canonical schema
  */
 
 'use strict';
@@ -145,11 +146,58 @@ describe('learn-chemistry content integrity', () => {
     });
   });
 
-  describe('image-allocation.json — no duplicate images', () => {
+  describe('case studies', () => {
+    it('has exactly 5 case study files', () => {
+      const missing = [];
+      for (let i = 1; i <= 5; i++) {
+        const p = path.join(CONTENT_ROOT, 'case-studies', `case-${i}.json`);
+        if (!fs.existsSync(p)) missing.push(`case-${i}.json`);
+      }
+      expect(missing).toHaveLength(0);
+    });
+
+    it('all case study files parse as valid JSON', () => {
+      for (let i = 1; i <= 5; i++) {
+        const p = path.join(CONTENT_ROOT, 'case-studies', `case-${i}.json`);
+        expect(() => readJson(p)).not.toThrow();
+      }
+    });
+  });
+
+  describe('simulators', () => {
+    it('has exactly 5 simulator files', () => {
+      const missing = [];
+      for (let i = 1; i <= 5; i++) {
+        const p = path.join(CONTENT_ROOT, 'simulators', `sim-${i}.json`);
+        if (!fs.existsSync(p)) missing.push(`sim-${i}.json`);
+      }
+      expect(missing).toHaveLength(0);
+    });
+
+    it('all simulator files parse as valid JSON', () => {
+      for (let i = 1; i <= 5; i++) {
+        const p = path.join(CONTENT_ROOT, 'simulators', `sim-${i}.json`);
+        expect(() => readJson(p)).not.toThrow();
+      }
+    });
+  });
+
+  describe('image-allocation.json — canonical schema, no duplicates', () => {
     const allocPath = path.join(CONTENT_ROOT, 'image-allocation.json');
 
     it('image-allocation.json exists', () => {
       expect(fs.existsSync(allocPath)).toBe(true);
+    });
+
+    it('follows canonical schema (has notes field and images array with usedBy/description)', () => {
+      const alloc = readJson(allocPath);
+      expect(typeof alloc.notes).toBe('string');
+      expect(Array.isArray(alloc.images)).toBe(true);
+      alloc.images.forEach((entry, i) => {
+        expect(typeof entry.image).toBe('string');
+        expect(typeof entry.usedBy).toBe('string');
+        expect(typeof entry.description).toBe('string');
+      });
     });
 
     it('no duplicate image filenames in image-allocation', () => {
@@ -164,6 +212,12 @@ describe('learn-chemistry content integrity', () => {
       const refs = alloc.images.map((e) => e.usedBy);
       const duplicates = refs.filter((ref, idx) => refs.indexOf(ref) !== idx);
       expect(duplicates).toHaveLength(0);
+    });
+
+    it('every usedBy path points to an existing file', () => {
+      const alloc = readJson(allocPath);
+      const missing = alloc.images.filter((e) => !fs.existsSync(path.join(CONTENT_ROOT, e.usedBy)));
+      expect(missing.map((e) => e.usedBy)).toHaveLength(0);
     });
   });
 });

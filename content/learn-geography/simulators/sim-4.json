@@ -1,0 +1,16 @@
+{
+  "id": "sim-4",
+  "title": "Water Cycle Simulator",
+  "module": "River Deltas",
+  "description": "Visualise and interact with the global water cycle (hydrological cycle). Adjust precipitation rates, land cover type, and temperature to observe changes in evapotranspiration, surface runoff, groundwater recharge, and river discharge. Explore the impact of deforestation and urbanisation on catchment hydrology.",
+  "type": "interactive",
+  "parameters": [
+    {"name": "landCoverType", "label": "Land Cover Type", "options": ["Tropical Rainforest", "Temperate Woodland", "Grassland", "Urban (high impermeability)", "Desert", "Agricultural (arable)"], "default": "Temperate Woodland"},
+    {"name": "annualPrecipitation", "label": "Annual Precipitation (mm)", "min": 50, "max": 3000, "default": 800, "unit": "mm/year"},
+    {"name": "meanTemperature", "label": "Mean Annual Temperature (°C)", "min": -20, "max": 40, "default": 12, "unit": "°C"},
+    {"name": "soilPermeability", "label": "Soil Permeability", "options": ["Very Low (clay)", "Low", "Medium", "High (sandy)", "Very High (fractured rock)"], "default": "Medium"}
+  ],
+  "outputs": ["Water balance diagram (inputs vs. outputs)", "Evapotranspiration (mm/year)", "Surface runoff (mm/year)", "Groundwater recharge (mm/year)", "River discharge (m³/s)", "Flood risk rating"],
+  "image": "geo-sim-4.png",
+  "tags": ["water cycle", "hydrology", "evapotranspiration", "runoff", "catchment", "river systems"]
+}

@@ -1,0 +1,9 @@
+{
+  "id": "case-1",
+  "title": "Acid Rain and Its Environmental Impact",
+  "module": "Acid-Base Reactions",
+  "summary": "An exploration of how acid-base chemistry drives the formation of acid rain and its devastating effects on ecosystems, buildings, and human health.",
+  "content": "<h2>Case Study: Acid Rain and Its Environmental Impact</h2><p>Acid rain is a direct consequence of acid-base chemistry occurring in the atmosphere. When sulfur dioxide (SO₂) and nitrogen oxides (NOₓ) — released primarily from burning fossil fuels — react with water vapor, they form sulfuric acid (H₂SO₄) and nitric acid (HNO₃).</p><h3>The Chemistry</h3><p>The key reactions are:</p><ul><li>SO₂ + H₂O → H₂SO₃ (sulfurous acid)</li><li>2SO₂ + O₂ + 2H₂O → 2H₂SO₄ (sulfuric acid)</li><li>4NO₂ + O₂ + 2H₂O → 4HNO₃ (nitric acid)</li></ul><p>Normal rainwater has a pH of about 5.6 due to dissolved CO₂ forming carbonic acid. Acid rain can have a pH as low as 4.2 — roughly 25 times more acidic than normal rain.</p><h3>Environmental Consequences</h3><p>Acid rain leaches essential nutrients like calcium and magnesium from soils, weakening trees and reducing their resistance to disease. Lakes and rivers that receive acid rain suffer reduced biodiversity; many fish species cannot survive below pH 5. Marble and limestone structures — including historic monuments — dissolve when exposed to acidic precipitation through the reaction: CaCO₃ + H₂SO₄ → CaSO₄ + H₂O + CO₂.</p><h3>Mitigation Strategies</h3><p>Liming lakes (adding calcium carbonate) temporarily neutralizes acidity. Long-term solutions require reducing SO₂ and NOₓ emissions through cleaner fuels and catalytic converters. This case study illustrates how industrial acid-base chemistry has far-reaching environmental consequences.</p>",
+  "image": "chem-case-1.png",
+  "tags": ["acid-base", "pH", "environmental chemistry", "acid rain", "neutralization"]
+}

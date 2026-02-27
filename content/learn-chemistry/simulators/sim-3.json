@@ -1,0 +1,15 @@
+{
+  "id": "sim-3",
+  "title": "Periodic Trends Explorer",
+  "module": "Periodic Table",
+  "description": "Interactively explore periodic trends across the elements — atomic radius, ionization energy, electron affinity, and electronegativity. Select any element on the interactive periodic table and compare it to its neighbours to understand how nuclear charge and electron shielding drive these trends.",
+  "type": "interactive",
+  "parameters": [
+    {"name": "selectedElement", "label": "Selected Element (atomic number)", "min": 1, "max": 118, "default": 11, "unit": "dimensionless"},
+    {"name": "trend", "label": "Trend to Display", "options": ["Atomic Radius", "First Ionization Energy", "Electronegativity", "Electron Affinity"], "default": "Atomic Radius"},
+    {"name": "displayMode", "label": "Display Mode", "options": ["Periodic Table Heatmap", "Period Graph", "Group Graph"], "default": "Periodic Table Heatmap"}
+  ],
+  "outputs": ["Trend value for selected element", "Trend heatmap across periodic table", "Comparison graph for period or group", "Explanation of underlying factors"],
+  "image": "chem-sim-3.png",
+  "tags": ["periodic trends", "atomic radius", "ionization energy", "electronegativity", "periodic table"]
+}

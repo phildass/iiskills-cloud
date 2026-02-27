@@ -1,0 +1,17 @@
+{
+  "id": "sim-5",
+  "title": "Weather Pattern Simulator",
+  "module": "Climate Change",
+  "description": "Explore the formation and movement of weather systems — high and low pressure systems, frontal zones, and cyclones. Adjust sea surface temperatures, atmospheric pressure gradients, and Coriolis effect parameters to see how weather patterns develop, intensify, and move across a regional map.",
+  "type": "interactive",
+  "parameters": [
+    {"name": "systemType", "label": "Weather System", "options": ["Mid-latitude depression (frontal)", "Anticyclone (high pressure)", "Tropical cyclone (hurricane)", "Monsoon"], "default": "Mid-latitude depression (frontal)"},
+    {"name": "seaSurfaceTemperature", "label": "Sea Surface Temperature (°C)", "min": 10, "max": 32, "default": 26, "unit": "°C"},
+    {"name": "pressureGradient", "label": "Pressure Gradient (hPa/100 km)", "min": 0.5, "max": 10, "default": 3, "unit": "hPa/100 km"},
+    {"name": "latitude", "label": "Latitude (°N)", "min": 5, "max": 70, "default": 50, "unit": "degrees N"},
+    {"name": "simulationHours", "label": "Simulation Duration (hours)", "min": 6, "max": 120, "default": 48, "unit": "hours"}
+  ],
+  "outputs": ["Animated synoptic chart", "Wind speed and direction", "Precipitation intensity map", "System track and speed", "Central pressure over time"],
+  "image": "geo-sim-5.png",
+  "tags": ["weather", "pressure systems", "fronts", "cyclone", "meteorology", "atmospheric geography"]
+}

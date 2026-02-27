@@ -1,13 +1,14 @@
 /**
- * Tests for learn-physics content integrity.
+ * Tests for learn-geography content integrity.
  *
  * Validates:
  *  - Exactly 100 lessons (10 modules × 10 lessons)
  *  - Every lesson has exactly 5 quiz questions with correct_answer field
  *  - Every lesson has all required fields
+ *  - ALL lessons have isFree: true (free app — no paywall)
  *  - final-exam.json has 20 questions and passThreshold of 13
  *  - 5 case studies and 5 simulators exist and parse
- *  - image-allocation.json has no duplicates and all usedBy paths resolve
+ *  - image-allocation.json has no duplicates and follows canonical schema
  */
 
 'use strict';
@@ -15,7 +16,7 @@
 const path = require('path');
 const fs = require('fs');
 
-const CONTENT_ROOT = path.resolve(__dirname, '../content/learn-physics');
+const CONTENT_ROOT = path.resolve(__dirname, '../content/learn-geography');
 const LESSONS_ROOT = path.join(CONTENT_ROOT, 'lessons');
 const REQUIRED_LESSON_FIELDS = ['moduleId', 'lessonId', 'title', 'content', 'quiz'];
 
@@ -41,7 +42,7 @@ function getAllLessonFiles() {
 // Tests
 // ---------------------------------------------------------------------------
 
-describe('learn-physics content integrity', () => {
+describe('learn-geography content integrity', () => {
   describe('lesson files', () => {
     it('has exactly 100 lesson files (10 modules × 10 lessons)', () => {
       const files = getAllLessonFiles();
@@ -77,18 +78,6 @@ describe('learn-physics content integrity', () => {
       expect(errors).toHaveLength(0);
     });
 
-    it('every lesson has isFree set to true', () => {
-      const files = getAllLessonFiles();
-      const errors = [];
-      for (const file of files) {
-        const lesson = readJson(file);
-        if (lesson.isFree !== true) {
-          errors.push(`${path.relative(CONTENT_ROOT, file)}: isFree is not true (got ${lesson.isFree})`);
-        }
-      }
-      expect(errors).toHaveLength(0);
-    });
-
     it('every quiz question uses correct_answer (not correctAnswerIndex)', () => {
       const files = getAllLessonFiles();
       const errors = [];
@@ -107,6 +96,18 @@ describe('learn-physics content integrity', () => {
             );
           }
         });
+      }
+      expect(errors).toHaveLength(0);
+    });
+
+    it('all lessons have isFree: true (free app — no paywall)', () => {
+      const files = getAllLessonFiles();
+      const errors = [];
+      for (const file of files) {
+        const lesson = readJson(file);
+        if (lesson.isFree !== true) {
+          errors.push(`${path.relative(CONTENT_ROOT, file)}: expected isFree: true, got ${lesson.isFree}`);
+        }
       }
       expect(errors).toHaveLength(0);
     });
@@ -181,11 +182,22 @@ describe('learn-physics content integrity', () => {
     });
   });
 
-  describe('image-allocation.json — no duplicate images', () => {
+  describe('image-allocation.json — canonical schema, no duplicates', () => {
     const allocPath = path.join(CONTENT_ROOT, 'image-allocation.json');
 
     it('image-allocation.json exists', () => {
       expect(fs.existsSync(allocPath)).toBe(true);
+    });
+
+    it('follows canonical schema (has notes field and images array with usedBy/description)', () => {
+      const alloc = readJson(allocPath);
+      expect(typeof alloc.notes).toBe('string');
+      expect(Array.isArray(alloc.images)).toBe(true);
+      alloc.images.forEach((entry) => {
+        expect(typeof entry.image).toBe('string');
+        expect(typeof entry.usedBy).toBe('string');
+        expect(typeof entry.description).toBe('string');
+      });
     });
 
     it('no duplicate image filenames in image-allocation', () => {

@@ -1,0 +1,107 @@
+{
+  "appSlug": "learn-geography",
+  "title": "Learn Geography — Final Exam",
+  "passThreshold": 13,
+  "questions": [
+    {
+      "question": "Which type of tectonic plate boundary is formed when two plates move toward each other and one subducts beneath the other?",
+      "options": ["Transform boundary", "Divergent boundary", "Convergent boundary", "Passive margin"],
+      "correct_answer": 2
+    },
+    {
+      "question": "What term describes the process by which rivers deposit sediment at their mouth to form a fan-shaped landform?",
+      "options": ["Erosion", "Delta formation", "Longshore drift", "Meandering"],
+      "correct_answer": 1
+    },
+    {
+      "question": "Which of the following is a direct consequence of deforestation in the Amazon Basin?",
+      "options": ["Increased atmospheric oxygen", "Reduced surface runoff", "Increased regional rainfall", "Loss of biodiversity"],
+      "correct_answer": 3
+    },
+    {
+      "question": "The Demographic Transition Model (DTM) Stage 2 is characterised by:",
+      "options": ["High birth rate and high death rate", "High birth rate and falling death rate", "Low birth rate and low death rate", "Falling birth rate and low death rate"],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is the name of the feedback loop that accelerates Arctic warming as sea ice melts?",
+      "options": ["Greenhouse effect", "Ice-albedo feedback", "Thermohaline circulation", "Polar vortex"],
+      "correct_answer": 1
+    },
+    {
+      "question": "Which ocean current system moves warm water from the tropics to the North Atlantic and is crucial to European climate?",
+      "options": ["Antarctic Circumpolar Current", "California Current", "Atlantic Meridional Overturning Circulation (AMOC)", "El Niño–Southern Oscillation"],
+      "correct_answer": 2
+    },
+    {
+      "question": "The Pacific Ring of Fire is primarily associated with which geological phenomenon?",
+      "options": ["Mid-ocean ridge divergence", "Subduction zones and associated earthquakes and volcanoes", "Transform fault systems only", "Continental collision mountain building"],
+      "correct_answer": 1
+    },
+    {
+      "question": "Which climate classification system divides the world's climates into five major groups (A–E) based on temperature and precipitation?",
+      "options": ["Thornthwaite classification", "Bergeron classification", "Köppen climate classification", "Strahler climate system"],
+      "correct_answer": 2
+    },
+    {
+      "question": "What geographic term describes the movement of people from rural areas to cities?",
+      "options": ["Counter-urbanisation", "Rural-urban migration", "Suburbanisation", "Transmigration"],
+      "correct_answer": 1
+    },
+    {
+      "question": "Which of the following gases is approximately 80 times more potent than CO₂ as a greenhouse gas over a 20-year timescale?",
+      "options": ["Nitrous oxide (N₂O)", "Water vapour (H₂O)", "Methane (CH₄)", "Ozone (O₃)"],
+      "correct_answer": 2
+    },
+    {
+      "question": "A landform created where a river erodes the outside of a bend and deposits material on the inside is called a:",
+      "options": ["Waterfall and plunge pool", "Meander with slip-off slope and river cliff", "Delta and estuary", "Gorge and canyon"],
+      "correct_answer": 1
+    },
+    {
+      "question": "The Richter scale (and its successor the Moment Magnitude Scale) measures which property of an earthquake?",
+      "options": ["Duration of shaking", "Depth of the focus", "Magnitude (energy released)", "Intensity of ground motion at a specific location"],
+      "correct_answer": 2
+    },
+    {
+      "question": "Which term describes an area of frozen subsoil that remains at or below 0°C for at least two consecutive years?",
+      "options": ["Tundra", "Permafrost", "Talik", "Cryosphere"],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is the main cause of the 'heat island effect' in cities?",
+      "options": ["Increased vegetation cover", "Dark impermeable surfaces absorbing more solar radiation", "Higher elevation compared to surrounding countryside", "Greater wind speeds in urban areas"],
+      "correct_answer": 1
+    },
+    {
+      "question": "Which type of wave erosion occurs when compressed air is forced into cracks in a cliff face by breaking waves?",
+      "options": ["Abrasion", "Attrition", "Hydraulic action", "Solution"],
+      "correct_answer": 2
+    },
+    {
+      "question": "The concept of 'overpopulation' is best defined as a situation where:",
+      "options": ["A country has more than 100 persons per km²", "Population exceeds the carrying capacity of available resources", "Birth rate exceeds death rate", "Urban population outnumbers rural population"],
+      "correct_answer": 1
+    },
+    {
+      "question": "Which IPCC emissions scenario represents the worst-case outcome if fossil fuel use continues to increase throughout the 21st century?",
+      "options": ["SSP1-1.9", "SSP2-4.5", "SSP3-7.0", "SSP5-8.5"],
+      "correct_answer": 3
+    },
+    {
+      "question": "A 'primate city' is defined as an urban area that:",
+      "options": ["Has the most diverse ethnic population in a country", "Is at least twice as large as the second-largest city and dominates the national economy", "Was the first city established in a country", "Has a population exceeding 10 million (a megacity)"],
+      "correct_answer": 1
+    },
+    {
+      "question": "Which process drives the movement of tectonic plates according to the most widely accepted scientific model?",
+      "options": ["Tidal forces from the Moon", "Mantle convection currents and slab pull", "Centrifugal force from Earth's rotation", "Magnetic polarity reversals"],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is the name for the point on Earth's surface directly above the focus (hypocentre) of an earthquake?",
+      "options": ["Seismic shadow zone", "Epicentre", "Isoseismal", "P-wave origin"],
+      "correct_answer": 1
+    }
+  ]
+}
