@@ -1,6 +1,6 @@
 import path from "path";
 import { createLoader } from "@iiskills/content-loader";
-import { moduleTopics } from "../../../../../lib/curriculumGenerator";
+import { moduleTopics } from "../../../../lib/curriculumGenerator";
 
 // ---------------------------------------------------------------------------
 // Static generation: pre-render all 10×10 lesson pages at build time.
@@ -103,7 +103,7 @@ export async function getStaticProps({ params }) {
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
-import QuizComponent from "../../../../../components/QuizComponent";
+import QuizComponent from "../../../../components/QuizComponent";
 import { LessonContent } from "@iiskills/ui/content";
 
 const NO_BADGES_KEY = "learn-physics-noBadges";
