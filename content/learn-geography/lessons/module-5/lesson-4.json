@@ -1,0 +1,60 @@
+{
+  "moduleId": 5,
+  "lessonId": 4,
+  "slug": "urbanisation-and-urban-systems",
+  "title": "Urbanisation and Urban Systems",
+  "isFree": true,
+  "content": "<h2>Module 5, Lesson 4: Urbanisation and Urban Systems</h2>\n\n      <h3>Introduction</h3>\n      <p>Geography is the study of places and the relationships between people and their environments. This lesson explores <strong>Urbanisation and Urban Systems</strong>, a key area within Human Geography. Understanding this topic deepens our appreciation of the spatial patterns that shape the natural world and human societies.</p>\n      <p>Geographers examine urbanisation and urban systems through multiple lenses — physical, human, and environmental — combining fieldwork, data analysis, and geospatial technologies to build a comprehensive picture of our world.</p>\n\n      <h3>Key Concepts</h3>\n      <h4>1. Foundations of Urbanisation and Urban Systems</h4>\n      <p>At its core, urbanisation and urban systems addresses fundamental questions about how and why geographic patterns emerge. Physical processes, human decisions, and environmental feedback loops interact to produce the landscapes and systems we observe today.</p>\n\n      <h4>2. Spatial Patterns and Processes</h4>\n      <p>Geographers map and analyse the distribution of phenomena related to urbanisation and urban systems. Spatial analysis reveals clusters, gradients, and boundaries that reflect underlying processes. Remote sensing and GIS tools allow scientists to track changes over time at local, regional, and global scales.</p>\n\n      <h4>3. Causes and Consequences</h4>\n      <p>Every geographic pattern has causes — natural, historical, or human — and consequences. In the context of human geography, understanding urbanisation and urban systems requires examining how processes interact across scales, from individual locations to global systems.</p>\n\n      <h4>4. Human-Environment Interactions</h4>\n      <p>Human societies both shape and are shaped by their geographic environments. Urbanisation and Urban Systems illustrates how people adapt to, modify, and sometimes degrade natural systems. Sustainable management requires understanding these interactions.</p>\n\n      <h3>Summary</h3>\n      <p>This lesson has introduced key ideas in <strong>Urbanisation and Urban Systems</strong> within the context of Human Geography. You have explored the spatial patterns, underlying processes, and human-environment interactions that define this topic. Continue to the next lesson to build further understanding of Human Geography.</p>",
+  "quiz": [
+    {
+      "question": "Which of the following best describes \"Urbanisation and Urban Systems\"?",
+      "options": [
+        "A topic unrelated to Human Geography",
+        "A core concept in Human Geography geography",
+        "A historical event",
+        "A political concept only"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "In which module does \"Urbanisation and Urban Systems\" appear?",
+      "options": [
+        "Human Geography",
+        "Physical Geography",
+        "Human Geography",
+        "Climate Zones"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "Why is Human Geography important to study in geography?",
+      "options": [
+        "It is only relevant to historians",
+        "It helps us understand spatial patterns and processes on Earth",
+        "It has no practical applications",
+        "It only applies to one country"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What approach does geography use to study topics like \"Urbanisation and Urban Systems\"?",
+      "options": [
+        "Only quantitative methods",
+        "Only qualitative methods",
+        "Both spatial analysis and case studies",
+        "Only historical analysis"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "How does understanding Human Geography help in everyday life?",
+      "options": [
+        "It has no real-world application",
+        "It helps with decision-making about environment, travel, and resources",
+        "It is only useful for academics",
+        "It only helps with map-reading"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

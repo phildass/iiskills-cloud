@@ -1,0 +1,60 @@
+{
+  "moduleId": 1,
+  "lessonId": 9,
+  "slug": "soil-formation-and-types",
+  "title": "Soil Formation and Types",
+  "isFree": true,
+  "content": "<h2>Module 1, Lesson 9: Soil Formation and Types</h2>\n\n      <h3>Introduction</h3>\n      <p>Geography is the study of places and the relationships between people and their environments. This lesson explores <strong>Soil Formation and Types</strong>, a key area within Physical Geography. Understanding this topic deepens our appreciation of the spatial patterns that shape the natural world and human societies.</p>\n      <p>Geographers examine soil formation and types through multiple lenses — physical, human, and environmental — combining fieldwork, data analysis, and geospatial technologies to build a comprehensive picture of our world.</p>\n\n      <h3>Key Concepts</h3>\n      <h4>1. Foundations of Soil Formation and Types</h4>\n      <p>At its core, soil formation and types addresses fundamental questions about how and why geographic patterns emerge. Physical processes, human decisions, and environmental feedback loops interact to produce the landscapes and systems we observe today.</p>\n\n      <h4>2. Spatial Patterns and Processes</h4>\n      <p>Geographers map and analyse the distribution of phenomena related to soil formation and types. Spatial analysis reveals clusters, gradients, and boundaries that reflect underlying processes. Remote sensing and GIS tools allow scientists to track changes over time at local, regional, and global scales.</p>\n\n      <h4>3. Causes and Consequences</h4>\n      <p>Every geographic pattern has causes — natural, historical, or human — and consequences. In the context of physical geography, understanding soil formation and types requires examining how processes interact across scales, from individual locations to global systems.</p>\n\n      <h4>4. Human-Environment Interactions</h4>\n      <p>Human societies both shape and are shaped by their geographic environments. Soil Formation and Types illustrates how people adapt to, modify, and sometimes degrade natural systems. Sustainable management requires understanding these interactions.</p>\n\n      <h3>Summary</h3>\n      <p>This lesson has introduced key ideas in <strong>Soil Formation and Types</strong> within the context of Physical Geography. You have explored the spatial patterns, underlying processes, and human-environment interactions that define this topic. Continue to the next lesson to build further understanding of Physical Geography.</p>",
+  "quiz": [
+    {
+      "question": "What is soil made up of?",
+      "options": [
+        "Only minerals",
+        "Only organic matter",
+        "Minerals, organic matter, water, air, and organisms",
+        "Only water and sand"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "What is humus?",
+      "options": [
+        "A type of clay mineral",
+        "Decomposed organic matter in soil",
+        "Sandy soil with low fertility",
+        "A type of bedrock"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "Which soil type is most fertile for agriculture?",
+      "options": [
+        "Sandy soil",
+        "Laterite soil",
+        "Loam soil",
+        "Clay soil"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "What is soil erosion?",
+      "options": [
+        "The addition of nutrients to soil",
+        "The removal of topsoil by wind or water",
+        "The compaction of soil by machinery",
+        "The formation of new soil"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is the O horizon in a soil profile?",
+      "options": [
+        "The bedrock layer",
+        "The organic layer at the surface",
+        "The subsoil layer",
+        "The parent material layer"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

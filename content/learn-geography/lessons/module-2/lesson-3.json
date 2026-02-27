@@ -1,0 +1,60 @@
+{
+  "moduleId": 2,
+  "lessonId": 3,
+  "slug": "africa-human-geography",
+  "title": "Africa — Human Geography",
+  "isFree": true,
+  "content": "<h2>Module 2, Lesson 3: Africa — Human Geography</h2>\n\n      <h3>Introduction</h3>\n      <p>Geography is the study of places and the relationships between people and their environments. This lesson explores <strong>Africa — Human Geography</strong>, a key area within World Continents. Understanding this topic deepens our appreciation of the spatial patterns that shape the natural world and human societies.</p>\n      <p>Geographers examine africa — human geography through multiple lenses — physical, human, and environmental — combining fieldwork, data analysis, and geospatial technologies to build a comprehensive picture of our world.</p>\n\n      <h3>Key Concepts</h3>\n      <h4>1. Foundations of Africa — Human Geography</h4>\n      <p>At its core, africa — human geography addresses fundamental questions about how and why geographic patterns emerge. Physical processes, human decisions, and environmental feedback loops interact to produce the landscapes and systems we observe today.</p>\n\n      <h4>2. Spatial Patterns and Processes</h4>\n      <p>Geographers map and analyse the distribution of phenomena related to africa — human geography. Spatial analysis reveals clusters, gradients, and boundaries that reflect underlying processes. Remote sensing and GIS tools allow scientists to track changes over time at local, regional, and global scales.</p>\n\n      <h4>3. Causes and Consequences</h4>\n      <p>Every geographic pattern has causes — natural, historical, or human — and consequences. In the context of world continents, understanding africa — human geography requires examining how processes interact across scales, from individual locations to global systems.</p>\n\n      <h4>4. Human-Environment Interactions</h4>\n      <p>Human societies both shape and are shaped by their geographic environments. Africa — Human Geography illustrates how people adapt to, modify, and sometimes degrade natural systems. Sustainable management requires understanding these interactions.</p>\n\n      <h3>Summary</h3>\n      <p>This lesson has introduced key ideas in <strong>Africa — Human Geography</strong> within the context of World Continents. You have explored the spatial patterns, underlying processes, and human-environment interactions that define this topic. Continue to the next lesson to build further understanding of World Continents.</p>",
+  "quiz": [
+    {
+      "question": "What is the most populous country in Africa?",
+      "options": [
+        "Ethiopia",
+        "Egypt",
+        "Nigeria",
+        "South Africa"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "What language family covers most of sub-Saharan Africa?",
+      "options": [
+        "Afroasiatic",
+        "Niger-Congo (Bantu)",
+        "Nilo-Saharan",
+        "Khoisan"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "Which African city is the largest by population?",
+      "options": [
+        "Cairo",
+        "Lagos",
+        "Kinshasa",
+        "Nairobi"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What percentage of the world's population lives in Africa?",
+      "options": [
+        "About 10%",
+        "About 17%",
+        "About 25%",
+        "About 30%"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is the African Union?",
+      "options": [
+        "A colonial trade organisation",
+        "A continental political and economic union of African states",
+        "A military alliance",
+        "A UN regional body"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

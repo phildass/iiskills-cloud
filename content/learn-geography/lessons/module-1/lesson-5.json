@@ -1,0 +1,60 @@
+{
+  "moduleId": 1,
+  "lessonId": 5,
+  "slug": "biomes-and-ecosystems",
+  "title": "Biomes and Ecosystems",
+  "isFree": true,
+  "content": "<h2>Module 1, Lesson 5: Biomes and Ecosystems</h2>\n\n      <h3>Introduction</h3>\n      <p>Geography is the study of places and the relationships between people and their environments. This lesson explores <strong>Biomes and Ecosystems</strong>, a key area within Physical Geography. Understanding this topic deepens our appreciation of the spatial patterns that shape the natural world and human societies.</p>\n      <p>Geographers examine biomes and ecosystems through multiple lenses — physical, human, and environmental — combining fieldwork, data analysis, and geospatial technologies to build a comprehensive picture of our world.</p>\n\n      <h3>Key Concepts</h3>\n      <h4>1. Foundations of Biomes and Ecosystems</h4>\n      <p>At its core, biomes and ecosystems addresses fundamental questions about how and why geographic patterns emerge. Physical processes, human decisions, and environmental feedback loops interact to produce the landscapes and systems we observe today.</p>\n\n      <h4>2. Spatial Patterns and Processes</h4>\n      <p>Geographers map and analyse the distribution of phenomena related to biomes and ecosystems. Spatial analysis reveals clusters, gradients, and boundaries that reflect underlying processes. Remote sensing and GIS tools allow scientists to track changes over time at local, regional, and global scales.</p>\n\n      <h4>3. Causes and Consequences</h4>\n      <p>Every geographic pattern has causes — natural, historical, or human — and consequences. In the context of physical geography, understanding biomes and ecosystems requires examining how processes interact across scales, from individual locations to global systems.</p>\n\n      <h4>4. Human-Environment Interactions</h4>\n      <p>Human societies both shape and are shaped by their geographic environments. Biomes and Ecosystems illustrates how people adapt to, modify, and sometimes degrade natural systems. Sustainable management requires understanding these interactions.</p>\n\n      <h3>Summary</h3>\n      <p>This lesson has introduced key ideas in <strong>Biomes and Ecosystems</strong> within the context of Physical Geography. You have explored the spatial patterns, underlying processes, and human-environment interactions that define this topic. Continue to the next lesson to build further understanding of Physical Geography.</p>",
+  "quiz": [
+    {
+      "question": "What is a biome?",
+      "options": [
+        "A type of rock",
+        "A large community of plants and animals adapted to a climate",
+        "An ocean zone",
+        "A tectonic region"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "Which biome has the greatest biodiversity?",
+      "options": [
+        "Desert",
+        "Tundra",
+        "Tropical rainforest",
+        "Boreal forest"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "What characterises the tundra biome?",
+      "options": [
+        "Dense forest and high rainfall",
+        "Permafrost and very short growing seasons",
+        "Hot dry summers and mild winters",
+        "Constant high temperatures"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is an ecosystem?",
+      "options": [
+        "A group of similar animals",
+        "The community of living organisms interacting with their environment",
+        "A type of soil",
+        "A climate pattern"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "Which biome covers approximately one-third of Earths land surface?",
+      "options": [
+        "Grasslands",
+        "Wetlands",
+        "Forests",
+        "Deserts"
+      ],
+      "correct_answer": 2
+    }
+  ]
+}

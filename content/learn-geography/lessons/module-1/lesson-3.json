@@ -1,0 +1,60 @@
+{
+  "moduleId": 1,
+  "lessonId": 3,
+  "slug": "climate-systems-and-atmospheric-circulation",
+  "title": "Climate Systems and Atmospheric Circulation",
+  "isFree": true,
+  "content": "<h2>Module 1, Lesson 3: Climate Systems and Atmospheric Circulation</h2>\n\n      <h3>Introduction</h3>\n      <p>Geography is the study of places and the relationships between people and their environments. This lesson explores <strong>Climate Systems and Atmospheric Circulation</strong>, a key area within Physical Geography. Understanding this topic deepens our appreciation of the spatial patterns that shape the natural world and human societies.</p>\n      <p>Geographers examine climate systems and atmospheric circulation through multiple lenses — physical, human, and environmental — combining fieldwork, data analysis, and geospatial technologies to build a comprehensive picture of our world.</p>\n\n      <h3>Key Concepts</h3>\n      <h4>1. Foundations of Climate Systems and Atmospheric Circulation</h4>\n      <p>At its core, climate systems and atmospheric circulation addresses fundamental questions about how and why geographic patterns emerge. Physical processes, human decisions, and environmental feedback loops interact to produce the landscapes and systems we observe today.</p>\n\n      <h4>2. Spatial Patterns and Processes</h4>\n      <p>Geographers map and analyse the distribution of phenomena related to climate systems and atmospheric circulation. Spatial analysis reveals clusters, gradients, and boundaries that reflect underlying processes. Remote sensing and GIS tools allow scientists to track changes over time at local, regional, and global scales.</p>\n\n      <h4>3. Causes and Consequences</h4>\n      <p>Every geographic pattern has causes — natural, historical, or human — and consequences. In the context of physical geography, understanding climate systems and atmospheric circulation requires examining how processes interact across scales, from individual locations to global systems.</p>\n\n      <h4>4. Human-Environment Interactions</h4>\n      <p>Human societies both shape and are shaped by their geographic environments. Climate Systems and Atmospheric Circulation illustrates how people adapt to, modify, and sometimes degrade natural systems. Sustainable management requires understanding these interactions.</p>\n\n      <h3>Summary</h3>\n      <p>This lesson has introduced key ideas in <strong>Climate Systems and Atmospheric Circulation</strong> within the context of Physical Geography. You have explored the spatial patterns, underlying processes, and human-environment interactions that define this topic. Continue to the next lesson to build further understanding of Physical Geography.</p>",
+  "quiz": [
+    {
+      "question": "What drives global atmospheric circulation?",
+      "options": [
+        "Ocean tides",
+        "Differential solar heating between equator and poles",
+        "Earths magnetic field",
+        "Volcanic activity"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is the Hadley Cell?",
+      "options": [
+        "A pressure system at the poles",
+        "A circulation cell between the equator and 30° latitude",
+        "A type of thunderstorm",
+        "An ocean current pattern"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What causes the trade winds?",
+      "options": [
+        "Rotation of the Earth combined with pressure gradients",
+        "Ocean temperature differences",
+        "Mountain ranges blocking wind",
+        "Volcanic eruptions"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "question": "Where does the ITCZ (Intertropical Convergence Zone) lie?",
+      "options": [
+        "Near the poles",
+        "Along the equator",
+        "At 45° latitude",
+        "Along the tropics"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is a jet stream?",
+      "options": [
+        "A fast-moving river",
+        "A narrow band of fast-moving air in the upper atmosphere",
+        "A type of tropical storm",
+        "An ocean current"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

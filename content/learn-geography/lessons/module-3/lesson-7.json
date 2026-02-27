@@ -1,0 +1,60 @@
+{
+  "moduleId": 3,
+  "lessonId": 7,
+  "slug": "ocean-floor-and-seafloor-spreading",
+  "title": "Ocean Floor and Seafloor Spreading",
+  "isFree": true,
+  "content": "<h2>Module 3, Lesson 7: Ocean Floor and Seafloor Spreading</h2>\n\n      <h3>Introduction</h3>\n      <p>Geography is the study of places and the relationships between people and their environments. This lesson explores <strong>Ocean Floor and Seafloor Spreading</strong>, a key area within Oceans and Seas. Understanding this topic deepens our appreciation of the spatial patterns that shape the natural world and human societies.</p>\n      <p>Geographers examine ocean floor and seafloor spreading through multiple lenses — physical, human, and environmental — combining fieldwork, data analysis, and geospatial technologies to build a comprehensive picture of our world.</p>\n\n      <h3>Key Concepts</h3>\n      <h4>1. Foundations of Ocean Floor and Seafloor Spreading</h4>\n      <p>At its core, ocean floor and seafloor spreading addresses fundamental questions about how and why geographic patterns emerge. Physical processes, human decisions, and environmental feedback loops interact to produce the landscapes and systems we observe today.</p>\n\n      <h4>2. Spatial Patterns and Processes</h4>\n      <p>Geographers map and analyse the distribution of phenomena related to ocean floor and seafloor spreading. Spatial analysis reveals clusters, gradients, and boundaries that reflect underlying processes. Remote sensing and GIS tools allow scientists to track changes over time at local, regional, and global scales.</p>\n\n      <h4>3. Causes and Consequences</h4>\n      <p>Every geographic pattern has causes — natural, historical, or human — and consequences. In the context of oceans and seas, understanding ocean floor and seafloor spreading requires examining how processes interact across scales, from individual locations to global systems.</p>\n\n      <h4>4. Human-Environment Interactions</h4>\n      <p>Human societies both shape and are shaped by their geographic environments. Ocean Floor and Seafloor Spreading illustrates how people adapt to, modify, and sometimes degrade natural systems. Sustainable management requires understanding these interactions.</p>\n\n      <h3>Summary</h3>\n      <p>This lesson has introduced key ideas in <strong>Ocean Floor and Seafloor Spreading</strong> within the context of Oceans and Seas. You have explored the spatial patterns, underlying processes, and human-environment interactions that define this topic. Continue to the next lesson to build further understanding of Oceans and Seas.</p>",
+  "quiz": [
+    {
+      "question": "What is seafloor spreading?",
+      "options": [
+        "The erosion of the sea floor",
+        "The creation of new oceanic crust at mid-ocean ridges",
+        "The deepening of ocean trenches",
+        "The movement of sediment on the seabed"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What are hydrothermal vents?",
+      "options": [
+        "Underwater geysers at mid-ocean ridges where heated water erupts",
+        "Cold seeps of methane",
+        "Deep ocean trenches",
+        "Submarine canyons"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "question": "What is an abyssal plain?",
+      "options": [
+        "A shallow sea shelf",
+        "A flat region of the deep ocean floor",
+        "A type of coral reef",
+        "An underwater mountain range"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What are seamounts?",
+      "options": [
+        "Underwater volcanoes that do not reach the surface",
+        "Shallow reef structures",
+        "Deep ocean trenches",
+        "Continental shelf extensions"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "question": "Where is new oceanic crust formed?",
+      "options": [
+        "At subduction zones",
+        "At transform faults",
+        "At mid-ocean ridges",
+        "At continental shelves"
+      ],
+      "correct_answer": 2
+    }
+  ]
+}

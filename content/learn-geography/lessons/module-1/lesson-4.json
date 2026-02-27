@@ -1,0 +1,60 @@
+{
+  "moduleId": 1,
+  "lessonId": 4,
+  "slug": "hydrological-cycle-and-river-systems",
+  "title": "Hydrological Cycle and River Systems",
+  "isFree": true,
+  "content": "<h2>Module 1, Lesson 4: Hydrological Cycle and River Systems</h2>\n\n      <h3>Introduction</h3>\n      <p>Geography is the study of places and the relationships between people and their environments. This lesson explores <strong>Hydrological Cycle and River Systems</strong>, a key area within Physical Geography. Understanding this topic deepens our appreciation of the spatial patterns that shape the natural world and human societies.</p>\n      <p>Geographers examine hydrological cycle and river systems through multiple lenses — physical, human, and environmental — combining fieldwork, data analysis, and geospatial technologies to build a comprehensive picture of our world.</p>\n\n      <h3>Key Concepts</h3>\n      <h4>1. Foundations of Hydrological Cycle and River Systems</h4>\n      <p>At its core, hydrological cycle and river systems addresses fundamental questions about how and why geographic patterns emerge. Physical processes, human decisions, and environmental feedback loops interact to produce the landscapes and systems we observe today.</p>\n\n      <h4>2. Spatial Patterns and Processes</h4>\n      <p>Geographers map and analyse the distribution of phenomena related to hydrological cycle and river systems. Spatial analysis reveals clusters, gradients, and boundaries that reflect underlying processes. Remote sensing and GIS tools allow scientists to track changes over time at local, regional, and global scales.</p>\n\n      <h4>3. Causes and Consequences</h4>\n      <p>Every geographic pattern has causes — natural, historical, or human — and consequences. In the context of physical geography, understanding hydrological cycle and river systems requires examining how processes interact across scales, from individual locations to global systems.</p>\n\n      <h4>4. Human-Environment Interactions</h4>\n      <p>Human societies both shape and are shaped by their geographic environments. Hydrological Cycle and River Systems illustrates how people adapt to, modify, and sometimes degrade natural systems. Sustainable management requires understanding these interactions.</p>\n\n      <h3>Summary</h3>\n      <p>This lesson has introduced key ideas in <strong>Hydrological Cycle and River Systems</strong> within the context of Physical Geography. You have explored the spatial patterns, underlying processes, and human-environment interactions that define this topic. Continue to the next lesson to build further understanding of Physical Geography.</p>",
+  "quiz": [
+    {
+      "question": "What is the hydrological cycle?",
+      "options": [
+        "The study of ocean chemistry",
+        "The continuous movement of water through Earths systems",
+        "The formation of river deltas",
+        "The freezing of polar ice caps"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What process converts liquid water to water vapour?",
+      "options": [
+        "Condensation",
+        "Precipitation",
+        "Evaporation",
+        "Infiltration"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "What is a watershed?",
+      "options": [
+        "An area of land draining into a common water body",
+        "A type of dam",
+        "A coastal flooding event",
+        "An underground aquifer"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "question": "Which type of erosion is most common in the upper course of a river?",
+      "options": [
+        "Lateral erosion",
+        "Deposition",
+        "Vertical erosion",
+        "Attrition only"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "What forms at the mouth of a river where it meets the sea?",
+      "options": [
+        "A waterfall",
+        "A delta or estuary",
+        "A meander",
+        "A gorge"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}
