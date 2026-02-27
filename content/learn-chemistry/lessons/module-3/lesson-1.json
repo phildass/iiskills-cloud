@@ -1,0 +1,60 @@
+{
+  "moduleId": 3,
+  "lessonId": 1,
+  "slug": "ionic-bonding",
+  "title": "Ionic Bonding",
+  "isFree": true,
+  "content": "<h2>Module 3, Lesson 1: Ionic Bonding</h2>\n\n      <h3>Introduction</h3>\n      <p>This lesson covers <strong>Ionic Bonding</strong> as part of the <strong>Chemical Bonding</strong> module. Chemistry is the science of matter and its transformations, and mastering these concepts provides the foundation for understanding the world at a molecular level.</p>\n      <p>By the end of this lesson you will understand the key principles of ionic bonding and be able to apply them to solve problems and analyse chemical phenomena.</p>\n\n      <h3>Key Concepts</h3>\n      <h4>1. Foundations of Ionic Bonding</h4>\n      <p>The study of ionic bonding begins with understanding the fundamental principles that govern this area of chemistry. These principles have been developed through systematic observation, experimentation, and theoretical development over centuries of scientific progress.</p>\n\n      <h4>2. Core Principles and Applications</h4>\n      <p>The core principles of ionic bonding can be applied to a wide range of chemical problems. Understanding these applications helps chemists design new materials, develop pharmaceuticals, improve industrial processes, and address environmental challenges.</p>\n\n      <h4>3. Quantitative Aspects</h4>\n      <p>Like all branches of chemistry, ionic bonding has important quantitative aspects. Numerical problem-solving skills are essential: you must be able to perform calculations, interpret data, and express results with appropriate units and significant figures.</p>\n\n      <h3>Summary</h3>\n      <p>In this lesson you have covered the key concepts of ionic bonding within the context of Chemical Bonding. These ideas build on previous lessons and prepare you for the topics ahead. Work through the quiz to consolidate your understanding before proceeding.</p>",
+  "quiz": [
+    {
+      "question": "What is an ionic bond?",
+      "options": [
+        "Sharing of electrons between two atoms",
+        "Transfer of electrons from one atom to another",
+        "Attraction between two metal atoms",
+        "Attraction between hydrogen and electronegative atoms"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is electronegativity?",
+      "options": [
+        "The ability of an atom to lose electrons",
+        "The ability of an atom to attract shared electrons in a covalent bond",
+        "The charge of an ion",
+        "The number of bonds an atom can form"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What shape does a molecule with 2 bonding pairs and 0 lone pairs have?",
+      "options": [
+        "Bent",
+        "Trigonal planar",
+        "Linear",
+        "Tetrahedral"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "What type of bond forms between two non-metal atoms?",
+      "options": [
+        "Ionic bond",
+        "Metallic bond",
+        "Covalent bond",
+        "Van der Waals bond"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "What does VSEPR stand for?",
+      "options": [
+        "Valence Shell Electron Pair Repulsion",
+        "Variable Shell Electron Pair Resonance",
+        "Valence Structural Electron Pair Rules",
+        "Variable Structural Electron Pair Repulsion"
+      ],
+      "correct_answer": 0
+    }
+  ]
+}

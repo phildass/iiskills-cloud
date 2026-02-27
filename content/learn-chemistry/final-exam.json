@@ -1,0 +1,207 @@
+{
+  "appSlug": "learn-chemistry",
+  "title": "Learn Chemistry — Final Exam",
+  "passThreshold": 13,
+  "questions": [
+    {
+      "question": "What is an atom?",
+      "options": [
+        "The smallest unit of a chemical element that retains its chemical properties",
+        "A group of molecules bonded together",
+        "A type of chemical reaction",
+        "A unit of measurement for energy"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "question": "What does the atomic number of an element represent?",
+      "options": [
+        "The number of neutrons in the nucleus",
+        "The number of protons in the nucleus",
+        "The total mass of the atom",
+        "The number of electrons in the outermost shell"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What type of bond involves the sharing of electrons between atoms?",
+      "options": [
+        "Ionic bond",
+        "Metallic bond",
+        "Covalent bond",
+        "Hydrogen bond"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "Which state of matter has a definite volume but no definite shape?",
+      "options": [
+        "Solid",
+        "Liquid",
+        "Gas",
+        "Plasma"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is the law of conservation of mass?",
+      "options": [
+        "Mass can be created in chemical reactions",
+        "Mass can be destroyed in chemical reactions",
+        "The total mass of reactants equals the total mass of products",
+        "Atoms combine in fixed mass ratios"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "What is one mole of a substance?",
+      "options": [
+        "1 gram of the substance",
+        "6.022 × 10²³ particles of the substance",
+        "1 litre of the substance",
+        "The molecular weight in kilograms"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is the general formula for an alkane?",
+      "options": [
+        "CnH2n",
+        "CnH2n+2",
+        "CnH2n-2",
+        "CnHn"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is the rate of reaction?",
+      "options": [
+        "The energy released by a reaction",
+        "The change in concentration of a reactant or product per unit time",
+        "The temperature at which a reaction starts",
+        "The equilibrium constant of a reaction"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is enthalpy (H)?",
+      "options": [
+        "The total kinetic energy of a system",
+        "A thermodynamic quantity that represents the heat content of a system at constant pressure",
+        "The entropy of a reaction",
+        "The free energy available for work"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What does the pH scale measure?",
+      "options": [
+        "The temperature of a solution",
+        "The concentration of hydrogen ions (acidity or alkalinity)",
+        "The density of a liquid",
+        "The pressure of a gas"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is the ideal gas law?",
+      "options": [
+        "PV = nRT",
+        "P/V = nR/T",
+        "PV = RT",
+        "P = nRT/V²"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "question": "What is a limiting reagent?",
+      "options": [
+        "The reactant present in the greatest amount",
+        "The reactant that is completely consumed first and limits the amount of product",
+        "A substance that speeds up the reaction",
+        "A reactant with the highest molecular mass"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is electronegativity?",
+      "options": [
+        "The ability of an atom to lose electrons",
+        "The ability of an atom to attract shared electrons in a covalent bond",
+        "The charge of an ion",
+        "The number of bonds an atom can form"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What does Hess's Law state?",
+      "options": [
+        "The enthalpy change of a reaction depends on the path taken",
+        "The total enthalpy change is the same regardless of which route the reaction takes",
+        "Entropy always increases in spontaneous reactions",
+        "Enthalpy and entropy are always equal at equilibrium"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is a catalyst?",
+      "options": [
+        "A substance that increases activation energy",
+        "A substance that lowers the activation energy and speeds up a reaction without being consumed",
+        "A substance that changes the products of a reaction",
+        "A substance consumed in the rate-determining step"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is entropy (S)?",
+      "options": [
+        "The energy content of a system",
+        "A measure of the disorder or randomness of a system",
+        "The temperature of a chemical reaction",
+        "The equilibrium constant of a reaction"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is a precipitation reaction?",
+      "options": [
+        "A reaction that produces a gas",
+        "A reaction where an insoluble solid forms from two solutions",
+        "A reaction that releases heat",
+        "A reaction involving acids and metals"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is nuclear fission?",
+      "options": [
+        "The fusion of two small nuclei",
+        "The splitting of a large nucleus into smaller nuclei, releasing energy",
+        "The emission of electrons from a nucleus",
+        "The capture of a neutron by a stable nucleus"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What functional group is present in alcohols?",
+      "options": [
+        "Carbonyl group (C=O)",
+        "Hydroxyl group (-OH)",
+        "Carboxyl group (-COOH)",
+        "Amino group (-NH2)"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "When is Gibbs free energy negative (ΔG < 0)?",
+      "options": [
+        "When the reaction is non-spontaneous",
+        "When the reaction is spontaneous",
+        "When the reaction is at equilibrium",
+        "When the activation energy is high"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

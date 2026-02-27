@@ -1,0 +1,60 @@
+{
+  "moduleId": 5,
+  "lessonId": 6,
+  "slug": "combustion-reactions",
+  "title": "Combustion Reactions",
+  "isFree": true,
+  "content": "<h2>Module 5, Lesson 6: Combustion Reactions</h2>\n\n      <h3>Introduction</h3>\n      <p>This lesson covers <strong>Combustion Reactions</strong> as part of the <strong>Chemical Reactions</strong> module. Chemistry is the science of matter and its transformations, and mastering these concepts provides the foundation for understanding the world at a molecular level.</p>\n      <p>By the end of this lesson you will understand the key principles of combustion reactions and be able to apply them to solve problems and analyse chemical phenomena.</p>\n\n      <h3>Key Concepts</h3>\n      <h4>1. Foundations of Combustion Reactions</h4>\n      <p>The study of combustion reactions begins with understanding the fundamental principles that govern this area of chemistry. These principles have been developed through systematic observation, experimentation, and theoretical development over centuries of scientific progress.</p>\n\n      <h4>2. Core Principles and Applications</h4>\n      <p>The core principles of combustion reactions can be applied to a wide range of chemical problems. Understanding these applications helps chemists design new materials, develop pharmaceuticals, improve industrial processes, and address environmental challenges.</p>\n\n      <h4>3. Quantitative Aspects</h4>\n      <p>Like all branches of chemistry, combustion reactions has important quantitative aspects. Numerical problem-solving skills are essential: you must be able to perform calculations, interpret data, and express results with appropriate units and significant figures.</p>\n\n      <h3>Summary</h3>\n      <p>In this lesson you have covered the key concepts of combustion reactions within the context of Chemical Reactions. These ideas build on previous lessons and prepare you for the topics ahead. Work through the quiz to consolidate your understanding before proceeding.</p>",
+  "quiz": [
+    {
+      "question": "What is an oxidising agent?",
+      "options": [
+        "A substance that loses electrons and is reduced",
+        "A substance that gains electrons and causes another substance to be oxidised",
+        "A substance that increases reaction rate",
+        "A substance that forms acids"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is the equilibrium constant (K)?",
+      "options": [
+        "The rate at which equilibrium is reached",
+        "The ratio of product concentrations to reactant concentrations at equilibrium",
+        "The temperature at which a reaction starts",
+        "The energy required for a reaction"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What type of reaction produces water and a salt from an acid and a base?",
+      "options": [
+        "Oxidation reaction",
+        "Neutralisation reaction",
+        "Combustion reaction",
+        "Synthesis reaction"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "Which factor does NOT affect reaction rate?",
+      "options": [
+        "Temperature",
+        "Concentration of reactants",
+        "Colour of reactants",
+        "Surface area"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "What is a half-reaction?",
+      "options": [
+        "A reaction that is only 50% complete",
+        "Either the oxidation or the reduction component of a redox reaction",
+        "A reaction occurring in acidic conditions only",
+        "The reverse of a forward reaction"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

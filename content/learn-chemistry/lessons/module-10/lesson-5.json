@@ -1,0 +1,60 @@
+{
+  "moduleId": 10,
+  "lessonId": 5,
+  "slug": "nanotechnology-and-materials",
+  "title": "Nanotechnology and Materials Science",
+  "isFree": true,
+  "content": "<h2>Module 10, Lesson 5: Nanotechnology and Materials Science</h2>\n\n      <h3>Introduction</h3>\n      <p>This lesson covers <strong>Nanotechnology and Materials Science</strong> as part of the <strong>Advanced Topics</strong> module. Chemistry is the science of matter and its transformations, and mastering these concepts provides the foundation for understanding the world at a molecular level.</p>\n      <p>By the end of this lesson you will understand the key principles of nanotechnology and materials science and be able to apply them to solve problems and analyse chemical phenomena.</p>\n\n      <h3>Key Concepts</h3>\n      <h4>1. Foundations of Nanotechnology and Materials Science</h4>\n      <p>The study of nanotechnology and materials science begins with understanding the fundamental principles that govern this area of chemistry. These principles have been developed through systematic observation, experimentation, and theoretical development over centuries of scientific progress.</p>\n\n      <h4>2. Core Principles and Applications</h4>\n      <p>The core principles of nanotechnology and materials science can be applied to a wide range of chemical problems. Understanding these applications helps chemists design new materials, develop pharmaceuticals, improve industrial processes, and address environmental challenges.</p>\n\n      <h4>3. Quantitative Aspects</h4>\n      <p>Like all branches of chemistry, nanotechnology and materials science has important quantitative aspects. Numerical problem-solving skills are essential: you must be able to perform calculations, interpret data, and express results with appropriate units and significant figures.</p>\n\n      <h3>Summary</h3>\n      <p>In this lesson you have covered the key concepts of nanotechnology and materials science within the context of Advanced Topics. These ideas build on previous lessons and prepare you for the topics ahead. Work through the quiz to consolidate your understanding before proceeding.</p>",
+  "quiz": [
+    {
+      "question": "What are nanomaterials?",
+      "options": [
+        "Materials larger than 1 millimetre",
+        "Materials with at least one dimension in the 1-100 nanometre range, with novel properties",
+        "Materials used in nuclear reactors",
+        "Materials made from natural sources only"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is radioactive decay?",
+      "options": [
+        "The breakdown of molecules at high temperature",
+        "The spontaneous emission of radiation from an unstable nucleus",
+        "The loss of electrons from an atom in solution",
+        "A type of exothermic chemical reaction"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is the ozone layer and why is it important?",
+      "options": [
+        "A layer of oxygen molecules that absorbs heat",
+        "A layer of ozone (O3) in the stratosphere that absorbs harmful UV radiation",
+        "A layer of carbon dioxide that reflects infrared radiation",
+        "A layer of nitrogen compounds that prevents acid rain"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is computational chemistry used for?",
+      "options": [
+        "Running chemistry experiments faster",
+        "Using computer simulations and calculations to predict molecular properties and reaction outcomes",
+        "Programming laboratory instruments",
+        "Recording and storing chemical data"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is a ligand in coordination chemistry?",
+      "options": [
+        "A type of metallic bond",
+        "A molecule or ion that donates electron pairs to the central metal ion",
+        "A type of organic functional group",
+        "An energy level in the metal atom"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

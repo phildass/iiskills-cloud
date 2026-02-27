@@ -1,0 +1,60 @@
+{
+  "moduleId": 6,
+  "lessonId": 3,
+  "slug": "empirical-and-molecular-formulas",
+  "title": "Empirical and Molecular Formulas",
+  "isFree": true,
+  "content": "<h2>Module 6, Lesson 3: Empirical and Molecular Formulas</h2>\n\n      <h3>Introduction</h3>\n      <p>This lesson covers <strong>Empirical and Molecular Formulas</strong> as part of the <strong>Stoichiometry</strong> module. Chemistry is the science of matter and its transformations, and mastering these concepts provides the foundation for understanding the world at a molecular level.</p>\n      <p>By the end of this lesson you will understand the key principles of empirical and molecular formulas and be able to apply them to solve problems and analyse chemical phenomena.</p>\n\n      <h3>Key Concepts</h3>\n      <h4>1. Foundations of Empirical and Molecular Formulas</h4>\n      <p>The study of empirical and molecular formulas begins with understanding the fundamental principles that govern this area of chemistry. These principles have been developed through systematic observation, experimentation, and theoretical development over centuries of scientific progress.</p>\n\n      <h4>2. Core Principles and Applications</h4>\n      <p>The core principles of empirical and molecular formulas can be applied to a wide range of chemical problems. Understanding these applications helps chemists design new materials, develop pharmaceuticals, improve industrial processes, and address environmental challenges.</p>\n\n      <h4>3. Quantitative Aspects</h4>\n      <p>Like all branches of chemistry, empirical and molecular formulas has important quantitative aspects. Numerical problem-solving skills are essential: you must be able to perform calculations, interpret data, and express results with appropriate units and significant figures.</p>\n\n      <h3>Summary</h3>\n      <p>In this lesson you have covered the key concepts of empirical and molecular formulas within the context of Stoichiometry. These ideas build on previous lessons and prepare you for the topics ahead. Work through the quiz to consolidate your understanding before proceeding.</p>",
+  "quiz": [
+    {
+      "question": "What is molar mass?",
+      "options": [
+        "The number of moles in 1 kg",
+        "The mass of one mole of a substance in grams",
+        "The volume occupied by one mole of gas",
+        "The number of atoms in a molecule"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is a limiting reagent?",
+      "options": [
+        "The reactant present in the greatest amount",
+        "The reactant that is completely consumed first and limits the amount of product",
+        "A substance that speeds up the reaction",
+        "A reactant with the highest molecular mass"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is percent yield?",
+      "options": [
+        "The percentage of reactant used",
+        "The ratio of actual yield to theoretical yield, expressed as a percentage",
+        "The purity of a chemical product",
+        "The percentage of moles converted to products"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is an empirical formula?",
+      "options": [
+        "The actual number of each type of atom in a molecule",
+        "The simplest whole-number ratio of atoms in a compound",
+        "A formula that includes structural information",
+        "The formula for one mole of a compound"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is molarity?",
+      "options": [
+        "The mass of solute per litre of solution",
+        "The number of moles of solute per litre of solution",
+        "The number of moles of solute per kilogram of solvent",
+        "The volume of solute per litre of solution"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

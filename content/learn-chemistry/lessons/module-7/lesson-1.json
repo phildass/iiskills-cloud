@@ -1,0 +1,60 @@
+{
+  "moduleId": 7,
+  "lessonId": 1,
+  "slug": "introduction-to-organic-chemistry",
+  "title": "Introduction to Organic Chemistry",
+  "isFree": true,
+  "content": "<h2>Module 7, Lesson 1: Introduction to Organic Chemistry</h2>\n\n      <h3>Introduction</h3>\n      <p>This lesson covers <strong>Introduction to Organic Chemistry</strong> as part of the <strong>Organic Chemistry</strong> module. Chemistry is the science of matter and its transformations, and mastering these concepts provides the foundation for understanding the world at a molecular level.</p>\n      <p>By the end of this lesson you will understand the key principles of introduction to organic chemistry and be able to apply them to solve problems and analyse chemical phenomena.</p>\n\n      <h3>Key Concepts</h3>\n      <h4>1. Foundations of Introduction to Organic Chemistry</h4>\n      <p>The study of introduction to organic chemistry begins with understanding the fundamental principles that govern this area of chemistry. These principles have been developed through systematic observation, experimentation, and theoretical development over centuries of scientific progress.</p>\n\n      <h4>2. Core Principles and Applications</h4>\n      <p>The core principles of introduction to organic chemistry can be applied to a wide range of chemical problems. Understanding these applications helps chemists design new materials, develop pharmaceuticals, improve industrial processes, and address environmental challenges.</p>\n\n      <h4>3. Quantitative Aspects</h4>\n      <p>Like all branches of chemistry, introduction to organic chemistry has important quantitative aspects. Numerical problem-solving skills are essential: you must be able to perform calculations, interpret data, and express results with appropriate units and significant figures.</p>\n\n      <h3>Summary</h3>\n      <p>In this lesson you have covered the key concepts of introduction to organic chemistry within the context of Organic Chemistry. These ideas build on previous lessons and prepare you for the topics ahead. Work through the quiz to consolidate your understanding before proceeding.</p>",
+  "quiz": [
+    {
+      "question": "What is the general formula for an alkane?",
+      "options": [
+        "CnH2n",
+        "CnH2n+2",
+        "CnH2n-2",
+        "CnHn"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What functional group is present in alcohols?",
+      "options": [
+        "Carbonyl group (C=O)",
+        "Hydroxyl group (-OH)",
+        "Carboxyl group (-COOH)",
+        "Amino group (-NH2)"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is an isomer?",
+      "options": [
+        "A different element with the same symbol",
+        "A compound with the same molecular formula but different structural arrangement",
+        "Two molecules with the same 3D shape",
+        "A radioactive form of a molecule"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is a monomer?",
+      "options": [
+        "A small molecule that can bond to form a polymer chain",
+        "A very large molecule with repeating units",
+        "A molecule with only one atom",
+        "A single-stranded molecule"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "question": "What is the IUPAC suffix for a ketone?",
+      "options": [
+        "-ol",
+        "-al",
+        "-one",
+        "-oic acid"
+      ],
+      "correct_answer": 2
+    }
+  ]
+}
