@@ -1,0 +1,60 @@
+{
+  "moduleId": 8,
+  "lessonId": 10,
+  "slug": "industrial-applications-of-kinetics",
+  "title": "Industrial Applications of Kinetics",
+  "isFree": true,
+  "content": "<h2>Module 8, Lesson 10: Industrial Applications of Kinetics</h2>\n\n      <h3>Introduction</h3>\n      <p>This lesson covers <strong>Industrial Applications of Kinetics</strong> as part of the <strong>Chemical Kinetics</strong> module. Chemistry is the science of matter and its transformations, and mastering these concepts provides the foundation for understanding the world at a molecular level.</p>\n      <p>By the end of this lesson you will understand the key principles of industrial applications of kinetics and be able to apply them to solve problems and analyse chemical phenomena.</p>\n\n      <h3>Key Concepts</h3>\n      <h4>1. Foundations of Industrial Applications of Kinetics</h4>\n      <p>The study of industrial applications of kinetics begins with understanding the fundamental principles that govern this area of chemistry. These principles have been developed through systematic observation, experimentation, and theoretical development over centuries of scientific progress.</p>\n\n      <h4>2. Core Principles and Applications</h4>\n      <p>The core principles of industrial applications of kinetics can be applied to a wide range of chemical problems. Understanding these applications helps chemists design new materials, develop pharmaceuticals, improve industrial processes, and address environmental challenges.</p>\n\n      <h4>3. Quantitative Aspects</h4>\n      <p>Like all branches of chemistry, industrial applications of kinetics has important quantitative aspects. Numerical problem-solving skills are essential: you must be able to perform calculations, interpret data, and express results with appropriate units and significant figures.</p>\n\n      <h3>Summary</h3>\n      <p>In this lesson you have covered the key concepts of industrial applications of kinetics within the context of Chemical Kinetics. These ideas build on previous lessons and prepare you for the topics ahead. Work through the quiz to consolidate your understanding before proceeding.</p>",
+  "quiz": [
+    {
+      "question": "What is the Arrhenius equation used for?",
+      "options": [
+        "Calculating equilibrium constants",
+        "Relating reaction rate constant to temperature and activation energy",
+        "Determining molar mass from reaction rates",
+        "Calculating the enthalpy of a reaction"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is a catalyst?",
+      "options": [
+        "A substance that increases activation energy",
+        "A substance that lowers the activation energy and speeds up a reaction without being consumed",
+        "A substance that changes the products of a reaction",
+        "A substance consumed in the rate-determining step"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is the rate-determining step?",
+      "options": [
+        "The fastest step in a reaction mechanism",
+        "The slowest step in a reaction mechanism that limits the overall rate",
+        "The last step in a reaction mechanism",
+        "The step with the lowest activation energy"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is enzyme kinetics concerned with?",
+      "options": [
+        "The rate of industrial reactions",
+        "The study of the rates of enzyme-catalysed reactions and how they are affected by conditions",
+        "The thermodynamics of biological reactions",
+        "The structure of enzymes"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What does a large activation energy indicate?",
+      "options": [
+        "The reaction is very fast",
+        "The reaction is very slow at room temperature",
+        "The reaction is spontaneous",
+        "The reaction releases a lot of energy"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

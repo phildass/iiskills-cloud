@@ -1,0 +1,60 @@
+{
+  "moduleId": 7,
+  "lessonId": 6,
+  "slug": "carbonyl-compounds",
+  "title": "Carbonyl Compounds",
+  "isFree": true,
+  "content": "<h2>Module 7, Lesson 6: Carbonyl Compounds</h2>\n\n      <h3>Introduction</h3>\n      <p>This lesson covers <strong>Carbonyl Compounds</strong> as part of the <strong>Organic Chemistry</strong> module. Chemistry is the science of matter and its transformations, and mastering these concepts provides the foundation for understanding the world at a molecular level.</p>\n      <p>By the end of this lesson you will understand the key principles of carbonyl compounds and be able to apply them to solve problems and analyse chemical phenomena.</p>\n\n      <h3>Key Concepts</h3>\n      <h4>1. Foundations of Carbonyl Compounds</h4>\n      <p>The study of carbonyl compounds begins with understanding the fundamental principles that govern this area of chemistry. These principles have been developed through systematic observation, experimentation, and theoretical development over centuries of scientific progress.</p>\n\n      <h4>2. Core Principles and Applications</h4>\n      <p>The core principles of carbonyl compounds can be applied to a wide range of chemical problems. Understanding these applications helps chemists design new materials, develop pharmaceuticals, improve industrial processes, and address environmental challenges.</p>\n\n      <h4>3. Quantitative Aspects</h4>\n      <p>Like all branches of chemistry, carbonyl compounds has important quantitative aspects. Numerical problem-solving skills are essential: you must be able to perform calculations, interpret data, and express results with appropriate units and significant figures.</p>\n\n      <h3>Summary</h3>\n      <p>In this lesson you have covered the key concepts of carbonyl compounds within the context of Organic Chemistry. These ideas build on previous lessons and prepare you for the topics ahead. Work through the quiz to consolidate your understanding before proceeding.</p>",
+  "quiz": [
+    {
+      "question": "Which biomolecule contains the peptide bond?",
+      "options": [
+        "Carbohydrates",
+        "Lipids",
+        "Proteins",
+        "Nucleic acids"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "What is an ester?",
+      "options": [
+        "An alcohol reacted with an acid, losing water",
+        "A compound with an amino group",
+        "A compound with a double bond",
+        "A ring-shaped organic molecule"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "question": "What is addition polymerisation?",
+      "options": [
+        "Adding a catalyst to start a reaction",
+        "Monomers with double bonds opening to link into a chain without losing atoms",
+        "Monomers joining with elimination of small molecules like water",
+        "Adding initiators to stop a chain reaction"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is an aromatic compound?",
+      "options": [
+        "A compound with a pleasant smell",
+        "A compound containing a benzene ring with delocalized π electrons",
+        "A compound containing an aldehyde group",
+        "A compound with more than 10 carbon atoms"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is saponification?",
+      "options": [
+        "The production of soap by hydrolysis of esters (fats) with alkali",
+        "The synthesis of an ester from an acid and alcohol",
+        "The polymerisation of fatty acids",
+        "The oxidation of alcohols to carboxylic acids"
+      ],
+      "correct_answer": 0
+    }
+  ]
+}

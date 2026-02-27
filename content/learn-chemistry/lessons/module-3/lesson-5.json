@@ -1,0 +1,60 @@
+{
+  "moduleId": 3,
+  "lessonId": 5,
+  "slug": "vsepr-theory",
+  "title": "VSEPR Theory and Molecular Geometry",
+  "isFree": true,
+  "content": "<h2>Module 3, Lesson 5: VSEPR Theory and Molecular Geometry</h2>\n\n      <h3>Introduction</h3>\n      <p>This lesson covers <strong>VSEPR Theory and Molecular Geometry</strong> as part of the <strong>Chemical Bonding</strong> module. Chemistry is the science of matter and its transformations, and mastering these concepts provides the foundation for understanding the world at a molecular level.</p>\n      <p>By the end of this lesson you will understand the key principles of vsepr theory and molecular geometry and be able to apply them to solve problems and analyse chemical phenomena.</p>\n\n      <h3>Key Concepts</h3>\n      <h4>1. Foundations of VSEPR Theory and Molecular Geometry</h4>\n      <p>The study of vsepr theory and molecular geometry begins with understanding the fundamental principles that govern this area of chemistry. These principles have been developed through systematic observation, experimentation, and theoretical development over centuries of scientific progress.</p>\n\n      <h4>2. Core Principles and Applications</h4>\n      <p>The core principles of vsepr theory and molecular geometry can be applied to a wide range of chemical problems. Understanding these applications helps chemists design new materials, develop pharmaceuticals, improve industrial processes, and address environmental challenges.</p>\n\n      <h4>3. Quantitative Aspects</h4>\n      <p>Like all branches of chemistry, vsepr theory and molecular geometry has important quantitative aspects. Numerical problem-solving skills are essential: you must be able to perform calculations, interpret data, and express results with appropriate units and significant figures.</p>\n\n      <h3>Summary</h3>\n      <p>In this lesson you have covered the key concepts of vsepr theory and molecular geometry within the context of Chemical Bonding. These ideas build on previous lessons and prepare you for the topics ahead. Work through the quiz to consolidate your understanding before proceeding.</p>",
+  "quiz": [
+    {
+      "question": "What does VSEPR stand for?",
+      "options": [
+        "Valence Shell Electron Pair Repulsion",
+        "Variable Shell Electron Pair Resonance",
+        "Valence Structural Electron Pair Rules",
+        "Variable Structural Electron Pair Repulsion"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "question": "What is a polar covalent bond?",
+      "options": [
+        "A bond where electrons are shared equally",
+        "A bond where electrons are shared unequally due to electronegativity difference",
+        "A bond between a metal and non-metal",
+        "A bond involving three electron pairs"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "Which of these is an example of a hydrogen bond?",
+      "options": [
+        "C-H bond in methane",
+        "Na-Cl bond in salt",
+        "H-F interaction between HF molecules",
+        "C=C bond in ethene"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "What is a Lewis structure?",
+      "options": [
+        "A diagram showing electron shells around an atom",
+        "A diagram showing the sharing or transfer of valence electrons in molecules",
+        "A 3D model of molecular geometry",
+        "A graph of bond energies"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "Which type of solid has the highest melting point?",
+      "options": [
+        "Molecular solid",
+        "Metallic solid",
+        "Ionic solid",
+        "Network covalent solid"
+      ],
+      "correct_answer": 3
+    }
+  ]
+}

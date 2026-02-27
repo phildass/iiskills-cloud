@@ -1,0 +1,60 @@
+{
+  "moduleId": 10,
+  "lessonId": 8,
+  "slug": "industrial-chemistry",
+  "title": "Industrial Chemistry",
+  "isFree": true,
+  "content": "<h2>Module 10, Lesson 8: Industrial Chemistry</h2>\n\n      <h3>Introduction</h3>\n      <p>This lesson covers <strong>Industrial Chemistry</strong> as part of the <strong>Advanced Topics</strong> module. Chemistry is the science of matter and its transformations, and mastering these concepts provides the foundation for understanding the world at a molecular level.</p>\n      <p>By the end of this lesson you will understand the key principles of industrial chemistry and be able to apply them to solve problems and analyse chemical phenomena.</p>\n\n      <h3>Key Concepts</h3>\n      <h4>1. Foundations of Industrial Chemistry</h4>\n      <p>The study of industrial chemistry begins with understanding the fundamental principles that govern this area of chemistry. These principles have been developed through systematic observation, experimentation, and theoretical development over centuries of scientific progress.</p>\n\n      <h4>2. Core Principles and Applications</h4>\n      <p>The core principles of industrial chemistry can be applied to a wide range of chemical problems. Understanding these applications helps chemists design new materials, develop pharmaceuticals, improve industrial processes, and address environmental challenges.</p>\n\n      <h4>3. Quantitative Aspects</h4>\n      <p>Like all branches of chemistry, industrial chemistry has important quantitative aspects. Numerical problem-solving skills are essential: you must be able to perform calculations, interpret data, and express results with appropriate units and significant figures.</p>\n\n      <h3>Summary</h3>\n      <p>In this lesson you have covered the key concepts of industrial chemistry within the context of Advanced Topics. These ideas build on previous lessons and prepare you for the topics ahead. Work through the quiz to consolidate your understanding before proceeding.</p>",
+  "quiz": [
+    {
+      "question": "What is spectroscopy used for in chemistry?",
+      "options": [
+        "Measuring the mass of molecules",
+        "Identifying substances and determining their structure by interaction with electromagnetic radiation",
+        "Measuring the rate of reactions",
+        "Determining the pH of solutions"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is a coordination compound?",
+      "options": [
+        "A compound formed by covalent bonds only",
+        "A compound in which a central metal ion is bonded to surrounding ligands",
+        "A compound that coordinates two chemical reactions",
+        "A compound formed by acid-base reactions"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is green chemistry?",
+      "options": [
+        "The study of plants and photosynthesis",
+        "The design of chemical processes to reduce or eliminate hazardous substances",
+        "The chemistry of chlorophyll",
+        "Environmental monitoring chemistry"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What are nanomaterials?",
+      "options": [
+        "Materials larger than 1 millimetre",
+        "Materials with at least one dimension in the 1-100 nanometre range, with novel properties",
+        "Materials used in nuclear reactors",
+        "Materials made from natural sources only"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is radioactive decay?",
+      "options": [
+        "The breakdown of molecules at high temperature",
+        "The spontaneous emission of radiation from an unstable nucleus",
+        "The loss of electrons from an atom in solution",
+        "A type of exothermic chemical reaction"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

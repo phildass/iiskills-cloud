@@ -1,0 +1,60 @@
+{
+  "moduleId": 8,
+  "lessonId": 6,
+  "slug": "collision-theory",
+  "title": "Collision Theory",
+  "isFree": true,
+  "content": "<h2>Module 8, Lesson 6: Collision Theory</h2>\n\n      <h3>Introduction</h3>\n      <p>This lesson covers <strong>Collision Theory</strong> as part of the <strong>Chemical Kinetics</strong> module. Chemistry is the science of matter and its transformations, and mastering these concepts provides the foundation for understanding the world at a molecular level.</p>\n      <p>By the end of this lesson you will understand the key principles of collision theory and be able to apply them to solve problems and analyse chemical phenomena.</p>\n\n      <h3>Key Concepts</h3>\n      <h4>1. Foundations of Collision Theory</h4>\n      <p>The study of collision theory begins with understanding the fundamental principles that govern this area of chemistry. These principles have been developed through systematic observation, experimentation, and theoretical development over centuries of scientific progress.</p>\n\n      <h4>2. Core Principles and Applications</h4>\n      <p>The core principles of collision theory can be applied to a wide range of chemical problems. Understanding these applications helps chemists design new materials, develop pharmaceuticals, improve industrial processes, and address environmental challenges.</p>\n\n      <h4>3. Quantitative Aspects</h4>\n      <p>Like all branches of chemistry, collision theory has important quantitative aspects. Numerical problem-solving skills are essential: you must be able to perform calculations, interpret data, and express results with appropriate units and significant figures.</p>\n\n      <h3>Summary</h3>\n      <p>In this lesson you have covered the key concepts of collision theory within the context of Chemical Kinetics. These ideas build on previous lessons and prepare you for the topics ahead. Work through the quiz to consolidate your understanding before proceeding.</p>",
+  "quiz": [
+    {
+      "question": "What is the rate-determining step?",
+      "options": [
+        "The fastest step in a reaction mechanism",
+        "The slowest step in a reaction mechanism that limits the overall rate",
+        "The last step in a reaction mechanism",
+        "The step with the lowest activation energy"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is enzyme kinetics concerned with?",
+      "options": [
+        "The rate of industrial reactions",
+        "The study of the rates of enzyme-catalysed reactions and how they are affected by conditions",
+        "The thermodynamics of biological reactions",
+        "The structure of enzymes"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What does a large activation energy indicate?",
+      "options": [
+        "The reaction is very fast",
+        "The reaction is very slow at room temperature",
+        "The reaction is spontaneous",
+        "The reaction releases a lot of energy"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is a heterogeneous catalyst?",
+      "options": [
+        "A catalyst in the same phase as the reactants",
+        "A catalyst in a different phase from the reactants",
+        "A biological catalyst",
+        "A catalyst that changes during the reaction"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is the collision theory of reactions?",
+      "options": [
+        "All collisions between molecules lead to reaction",
+        "Molecules must collide with sufficient energy and correct orientation for reaction to occur",
+        "Reactions occur when molecules are at rest",
+        "Only identical molecules can react with each other"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}
