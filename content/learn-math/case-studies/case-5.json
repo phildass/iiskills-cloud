@@ -1,0 +1,15 @@
+{
+  "id": "case-5",
+  "title": "Cryptography — Keeping Your UPI Payment Secure",
+  "module": "Advanced Topics",
+  "summary": "How RSA public-key cryptography, built on prime number theory and modular arithmetic, secures every UPI transaction in India.",
+  "content": "<h2>Case Study: UPI and RSA Cryptography</h2><p>India's Unified Payments Interface (UPI) processed over 10 billion transactions per month in 2024. Every payment is encrypted using RSA (Rivest–Shamir–Adleman) cryptography, which rests entirely on elementary number theory — specifically, the difficulty of factoring large composite numbers.</p><h3>Key Mathematical Concepts</h3><ul><li><strong>Prime Numbers</strong>: Choose two large primes p and q (each ~2048 bits). Compute n = p × q.</li><li><strong>Euler's Totient Function</strong>: φ(n) = (p–1)(q–1) gives the number of integers coprime to n.</li><li><strong>Modular Arithmetic</strong>: Encryption: C = Mᵉ mod n; Decryption: M = Cᵈ mod n, where ed ≡ 1 (mod φ(n)).</li><li><strong>Fermat's Little Theorem</strong>: Guarantees correctness of decryption.</li></ul><h3>Real-World Impact</h3><p>Without the mathematics of prime numbers and modular arithmetic, secure digital payments would be impossible. Every time you pay using PhonePe, Google Pay, or Paytm, you are relying on number theory developed by Fermat and Euler centuries before computers existed.</p>",
+  "image": "math-case-5.png",
+  "tags": [
+    "cryptography",
+    "number theory",
+    "primes",
+    "UPI",
+    "India"
+  ]
+}

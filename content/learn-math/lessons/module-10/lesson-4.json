@@ -1,0 +1,60 @@
+{
+  "moduleId": 10,
+  "lessonId": 4,
+  "slug": "fourier-series",
+  "title": "Fourier Series",
+  "isFree": true,
+  "content": "<h2>Module 10, Lesson 4: Fourier Series</h2>\n\n<h3>Introduction</h3>\n<p>This lesson covers <strong>Fourier Series</strong> within the broader study of <strong>Advanced Topics</strong>. Mastering these concepts will give you a solid foundation for subsequent lessons and real-world applications.</p>\n\n<h3>Key Concepts</h3>\n<h4>1. Core Definitions</h4>\n<p>We begin with precise definitions that form the bedrock of <strong>Fourier Series</strong>. A rigorous understanding of terminology prevents ambiguity and enables exact communication and proof.</p>\n\n<h4>2. Fundamental Theorems and Results</h4>\n<p>The central theorems of <strong>Fourier Series</strong> provide powerful tools for solving problems. We state each result clearly, explain the intuition behind it, and work through representative examples.</p>\n\n<h4>3. Worked Examples</h4>\n<p>Each concept is illustrated with step-by-step worked examples. Pay close attention to the reasoning at each step — it is as important as the final answer.</p>\n\n<h4>4. Common Misconceptions</h4>\n<p>Students often confuse closely related ideas in <strong>Fourier Series</strong>. We highlight these distinctions explicitly so you can avoid common errors in exams and practical work.</p>\n\n<h3>Summary</h3>\n<p>You have completed the study of <strong>Fourier Series</strong> in Module 10 (Advanced Topics). The key ideas covered in this lesson will be built upon in subsequent lessons. Attempt the quiz to consolidate your understanding before moving on.</p>",
+  "quiz": [
+    {
+      "question": "The Laplace transform converts:",
+      "options": [
+        "Geometry to algebra",
+        "Differential equations to algebraic equations in s",
+        "Functions to vectors",
+        "Integration to differentiation"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "ℒ{eˢᵗ} = :",
+      "options": [
+        "1/(s–a)",
+        "s/(s²+a²)",
+        "a/(s²+a²)",
+        "1/s"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "question": "ℒ{1} = :",
+      "options": [
+        "s",
+        "1/s",
+        "s²",
+        "1/s²"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "The inverse Laplace transform converts back from:",
+      "options": [
+        "Time domain to frequency domain",
+        "s-domain to time domain",
+        "Geometry to calculus",
+        "Vectors to scalars"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "The Laplace transform of a derivative f'(t) is:",
+      "options": [
+        "sF(s)",
+        "sF(s) – f(0)",
+        "F(s)/s",
+        "F(s) + f(0)"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

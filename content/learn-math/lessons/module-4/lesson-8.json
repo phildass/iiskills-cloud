@@ -1,0 +1,60 @@
+{
+  "moduleId": 4,
+  "lessonId": 8,
+  "slug": "solving-trigonometric-equations",
+  "title": "Solving Trigonometric Equations",
+  "isFree": true,
+  "content": "<h2>Module 4, Lesson 8: Solving Trigonometric Equations</h2>\n\n<h3>Introduction</h3>\n<p>This lesson covers <strong>Solving Trigonometric Equations</strong> within the broader study of <strong>Trigonometry</strong>. Mastering these concepts will give you a solid foundation for subsequent lessons and real-world applications.</p>\n\n<h3>Key Concepts</h3>\n<h4>1. Core Definitions</h4>\n<p>We begin with precise definitions that form the bedrock of <strong>Solving Trigonometric Equations</strong>. A rigorous understanding of terminology prevents ambiguity and enables exact communication and proof.</p>\n\n<h4>2. Fundamental Theorems and Results</h4>\n<p>The central theorems of <strong>Solving Trigonometric Equations</strong> provide powerful tools for solving problems. We state each result clearly, explain the intuition behind it, and work through representative examples.</p>\n\n<h4>3. Worked Examples</h4>\n<p>Each concept is illustrated with step-by-step worked examples. Pay close attention to the reasoning at each step — it is as important as the final answer.</p>\n\n<h4>4. Common Misconceptions</h4>\n<p>Students often confuse closely related ideas in <strong>Solving Trigonometric Equations</strong>. We highlight these distinctions explicitly so you can avoid common errors in exams and practical work.</p>\n\n<h3>Summary</h3>\n<p>You have completed the study of <strong>Solving Trigonometric Equations</strong> in Module 4 (Trigonometry). The key ideas covered in this lesson will be built upon in subsequent lessons. Attempt the quiz to consolidate your understanding before moving on.</p>",
+  "quiz": [
+    {
+      "question": "How many solutions does sin(x) = 0.5 have in [0°, 360°]?",
+      "options": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "The general solution of sin(x) = 1/2 includes:",
+      "options": [
+        "30° only",
+        "30° + 360°n only",
+        "30° + 360°n and 150° + 360°n",
+        "30° + 180°n"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "To solve cos(2x) = 1 for x in [0°, 360°], first solve for:",
+      "options": [
+        "x directly",
+        "2x then halve",
+        "x² then take square root",
+        "cos x = 0.5"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "tan(x) = –1 in [0°, 360°] has solutions at:",
+      "options": [
+        "45° and 225°",
+        "135° and 315°",
+        "135° and 225°",
+        "45° and 315°"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "The period used when listing all solutions of a trig equation determines:",
+      "options": [
+        "The amplitude",
+        "How far to extend the solution set",
+        "The phase shift",
+        "The domain restriction"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

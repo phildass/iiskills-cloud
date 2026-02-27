@@ -1,0 +1,60 @@
+{
+  "moduleId": 10,
+  "lessonId": 6,
+  "slug": "multivariable-calculus-partial-derivatives",
+  "title": "Multivariable Calculus — Partial Derivatives",
+  "isFree": true,
+  "content": "<h2>Module 10, Lesson 6: Multivariable Calculus — Partial Derivatives</h2>\n\n<h3>Introduction</h3>\n<p>This lesson covers <strong>Multivariable Calculus — Partial Derivatives</strong> within the broader study of <strong>Advanced Topics</strong>. Mastering these concepts will give you a solid foundation for subsequent lessons and real-world applications.</p>\n\n<h3>Key Concepts</h3>\n<h4>1. Core Definitions</h4>\n<p>We begin with precise definitions that form the bedrock of <strong>Multivariable Calculus — Partial Derivatives</strong>. A rigorous understanding of terminology prevents ambiguity and enables exact communication and proof.</p>\n\n<h4>2. Fundamental Theorems and Results</h4>\n<p>The central theorems of <strong>Multivariable Calculus — Partial Derivatives</strong> provide powerful tools for solving problems. We state each result clearly, explain the intuition behind it, and work through representative examples.</p>\n\n<h4>3. Worked Examples</h4>\n<p>Each concept is illustrated with step-by-step worked examples. Pay close attention to the reasoning at each step — it is as important as the final answer.</p>\n\n<h4>4. Common Misconceptions</h4>\n<p>Students often confuse closely related ideas in <strong>Multivariable Calculus — Partial Derivatives</strong>. We highlight these distinctions explicitly so you can avoid common errors in exams and practical work.</p>\n\n<h3>Summary</h3>\n<p>You have completed the study of <strong>Multivariable Calculus — Partial Derivatives</strong> in Module 10 (Advanced Topics). The key ideas covered in this lesson will be built upon in subsequent lessons. Attempt the quiz to consolidate your understanding before moving on.</p>",
+  "quiz": [
+    {
+      "question": "The imaginary unit i satisfies:",
+      "options": [
+        "i = √1",
+        "i² = –1",
+        "i² = 1",
+        "i = –1"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "The modulus of z = 3 + 4i is:",
+      "options": [
+        "3",
+        "4",
+        "5",
+        "7"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "Euler's formula states e^(iθ) = :",
+      "options": [
+        "cos θ + i sin θ",
+        "cos θ – i sin θ",
+        "sin θ + i cos θ",
+        "i(cos θ + sin θ)"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "question": "The argument of a complex number is its:",
+      "options": [
+        "Modulus",
+        "Angle in the complex plane",
+        "Real part",
+        "Imaginary part"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "De Moivre's theorem states (cos θ + i sin θ)ⁿ = :",
+      "options": [
+        "cos(nθ) + i sin(nθ)",
+        "n(cos θ + i sin θ)",
+        "cos(θ/n) + i sin(θ/n)",
+        "n cos θ + ni sin θ"
+      ],
+      "correct_answer": 0
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "moduleId": 1,
+  "lessonId": 5,
+  "slug": "number-bases-and-representation",
+  "title": "Number Bases and Representation",
+  "isFree": true,
+  "content": "<h2>Module 1, Lesson 5: Number Bases and Representation</h2>\n<h3>Introduction</h3>\n<p>We ordinarily write numbers in base 10 (decimal), using digits 0–9. But computers use base 2 (binary), digital systems use base 16 (hexadecimal), and some historical cultures used base 60 (still seen in time and angles). Understanding positional notation and base conversion is fundamental to computer science and digital mathematics.</p>\n<h3>Key Concepts</h3>\n<h4>1. Positional Notation</h4>\n<p>In base b, each digit position represents a power of b. The number 345 in base 10 means 3×10² + 4×10¹ + 5×10⁰ = 300 + 40 + 5 = 345. In binary, 1011₂ = 1×2³ + 0×2² + 1×2¹ + 1×2⁰ = 8 + 0 + 2 + 1 = 11₁₀.</p>\n<h4>2. Binary (Base 2)</h4>\n<p>Binary uses only digits 0 and 1. Every decimal integer can be converted to binary by repeated division by 2, recording remainders. Binary is the foundation of all digital computation.</p>\n<h4>3. Hexadecimal (Base 16)</h4>\n<p>Hexadecimal uses digits 0–9 and letters A–F (representing 10–15). One hex digit represents exactly four binary bits. This makes hex a compact notation for binary data (e.g., memory addresses, colour codes like #FF5733).</p>\n<h4>4. Base Conversion</h4>\n<p>To convert from base 10 to base b: repeatedly divide by b and collect remainders bottom-up. To convert from base b to base 10: multiply each digit by the corresponding power of b and sum.</p>\n<h3>Summary</h3>\n<p>You learned positional notation in arbitrary bases, practised binary and hexadecimal representation, and mastered base conversion algorithms. These skills are essential for programming and computer architecture.</p>",
+  "quiz": [
+    {
+      "question": "What is 1011₂ in decimal?",
+      "options": [
+        "9",
+        "10",
+        "11",
+        "13"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "How many digits does binary use?",
+      "options": [
+        "2",
+        "8",
+        "10",
+        "16"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "question": "What is 15 in hexadecimal?",
+      "options": [
+        "E",
+        "F",
+        "G",
+        "10"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "In base 10, the number 345 means:",
+      "options": [
+        "3+4+5",
+        "3×100+4×10+5",
+        "3×10+4×10+5",
+        "34×5"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "Which base does the binary number system use?",
+      "options": [
+        "2",
+        "8",
+        "10",
+        "16"
+      ],
+      "correct_answer": 0
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "moduleId": 5,
+  "lessonId": 5,
+  "slug": "logarithmic-functions",
+  "title": "Logarithmic Functions",
+  "isFree": true,
+  "content": "<h2>Module 5, Lesson 5: Logarithmic Functions</h2>\n\n<h3>Introduction</h3>\n<p>This lesson covers <strong>Logarithmic Functions</strong> within the broader study of <strong>Advanced Algebra</strong>. Mastering these concepts will give you a solid foundation for subsequent lessons and real-world applications.</p>\n\n<h3>Key Concepts</h3>\n<h4>1. Core Definitions</h4>\n<p>We begin with precise definitions that form the bedrock of <strong>Logarithmic Functions</strong>. A rigorous understanding of terminology prevents ambiguity and enables exact communication and proof.</p>\n\n<h4>2. Fundamental Theorems and Results</h4>\n<p>The central theorems of <strong>Logarithmic Functions</strong> provide powerful tools for solving problems. We state each result clearly, explain the intuition behind it, and work through representative examples.</p>\n\n<h4>3. Worked Examples</h4>\n<p>Each concept is illustrated with step-by-step worked examples. Pay close attention to the reasoning at each step — it is as important as the final answer.</p>\n\n<h4>4. Common Misconceptions</h4>\n<p>Students often confuse closely related ideas in <strong>Logarithmic Functions</strong>. We highlight these distinctions explicitly so you can avoid common errors in exams and practical work.</p>\n\n<h3>Summary</h3>\n<p>You have completed the study of <strong>Logarithmic Functions</strong> in Module 5 (Advanced Algebra). The key ideas covered in this lesson will be built upon in subsequent lessons. Attempt the quiz to consolidate your understanding before moving on.</p>",
+  "quiz": [
+    {
+      "question": "The graph of y = 2ˣ passes through:",
+      "options": [
+        "(0, 0)",
+        "(1, 0)",
+        "(0, 1)",
+        "(–1, 2)"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "For y = aˣ with a > 1, as x → –∞, y approaches:",
+      "options": [
+        "∞",
+        "1",
+        "0",
+        "–∞"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "The exponential function e^x is its own:",
+      "options": [
+        "Integral only",
+        "Derivative only",
+        "Derivative and integral",
+        "Second derivative only"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "Which describes exponential growth?",
+      "options": [
+        "y = 2x + 1",
+        "y = x²",
+        "y = 3ˣ",
+        "y = log(x)"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "Continuous compounding uses the formula:",
+      "options": [
+        "A = P(1+r/n)^(nt)",
+        "A = Pt",
+        "A = Peʳᵗ",
+        "A = P + rt"
+      ],
+      "correct_answer": 2
+    }
+  ]
+}

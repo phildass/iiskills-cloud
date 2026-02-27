@@ -1,0 +1,60 @@
+{
+  "moduleId": 10,
+  "lessonId": 10,
+  "slug": "mathematical-modelling",
+  "title": "Mathematical Modelling",
+  "isFree": true,
+  "content": "<h2>Module 10, Lesson 10: Mathematical Modelling</h2>\n\n<h3>Introduction</h3>\n<p>This lesson covers <strong>Mathematical Modelling</strong> within the broader study of <strong>Advanced Topics</strong>. Mastering these concepts will give you a solid foundation for subsequent lessons and real-world applications.</p>\n\n<h3>Key Concepts</h3>\n<h4>1. Core Definitions</h4>\n<p>We begin with precise definitions that form the bedrock of <strong>Mathematical Modelling</strong>. A rigorous understanding of terminology prevents ambiguity and enables exact communication and proof.</p>\n\n<h4>2. Fundamental Theorems and Results</h4>\n<p>The central theorems of <strong>Mathematical Modelling</strong> provide powerful tools for solving problems. We state each result clearly, explain the intuition behind it, and work through representative examples.</p>\n\n<h4>3. Worked Examples</h4>\n<p>Each concept is illustrated with step-by-step worked examples. Pay close attention to the reasoning at each step — it is as important as the final answer.</p>\n\n<h4>4. Common Misconceptions</h4>\n<p>Students often confuse closely related ideas in <strong>Mathematical Modelling</strong>. We highlight these distinctions explicitly so you can avoid common errors in exams and practical work.</p>\n\n<h3>Summary</h3>\n<p>You have completed the study of <strong>Mathematical Modelling</strong> in Module 10 (Advanced Topics). The key ideas covered in this lesson will be built upon in subsequent lessons. Attempt the quiz to consolidate your understanding before moving on.</p>",
+  "quiz": [
+    {
+      "question": "A mathematical model is:",
+      "options": [
+        "Always an exact representation of reality",
+        "A simplified mathematical representation of a real system",
+        "A guaranteed prediction",
+        "A perfect simulation"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "Exponential growth models use which equation?",
+      "options": [
+        "y = mx + b",
+        "y = ax²",
+        "y = Aeˢᵗ",
+        "y = A sin(bt)"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "Logistic growth is used when:",
+      "options": [
+        "There is no upper limit",
+        "Growth is constant",
+        "Growth is limited by a carrying capacity",
+        "Decay is modelled"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "A key step in mathematical modelling is:",
+      "options": [
+        "Ignoring data",
+        "Validating the model against real data",
+        "Always using differential equations",
+        "Avoiding assumptions"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "The SIR model in epidemiology uses differential equations to model:",
+      "options": [
+        "Stock prices",
+        "Spread of infectious diseases",
+        "Weather patterns",
+        "Economic growth"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "id": "sim-2",
+  "title": "Trigonometric Function Grapher",
+  "module": "Trigonometry",
+  "description": "Plot y = A·sin(Bx + C) + D and y = A·cos(Bx + C) + D. Adjust amplitude, frequency, phase shift, and vertical shift to explore wave behaviour.",
+  "type": "interactive",
+  "parameters": [
+    {
+      "name": "A",
+      "label": "Amplitude A",
+      "min": 0.1,
+      "max": 5,
+      "default": 1,
+      "unit": ""
+    },
+    {
+      "name": "B",
+      "label": "Frequency multiplier B",
+      "min": 0.1,
+      "max": 5,
+      "default": 1,
+      "unit": ""
+    },
+    {
+      "name": "C",
+      "label": "Phase shift C (radians)",
+      "min": -3.14,
+      "max": 3.14,
+      "default": 0,
+      "unit": "rad"
+    },
+    {
+      "name": "D",
+      "label": "Vertical shift D",
+      "min": -5,
+      "max": 5,
+      "default": 0,
+      "unit": ""
+    }
+  ],
+  "outputs": [
+    "Amplitude",
+    "Period = 2π/B",
+    "Phase shift = –C/B",
+    "Vertical shift"
+  ],
+  "image": "math-sim-2.png",
+  "tags": [
+    "trigonometry",
+    "sine",
+    "cosine",
+    "waves"
+  ]
+}

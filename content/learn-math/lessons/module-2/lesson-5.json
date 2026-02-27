@@ -1,0 +1,60 @@
+{
+  "moduleId": 2,
+  "lessonId": 5,
+  "slug": "functions-and-graphs",
+  "title": "Functions and Graphs",
+  "isFree": true,
+  "content": "<h2>Module 2, Lesson 5: Functions and Graphs</h2>\n<h3>Introduction</h3>\n<p>A function f: A → B assigns to each element of the domain A exactly one element of the codomain B. Functions are the central objects of analysis. Their graphs — curves in the xy-plane — visualise relationships between quantities and reveal properties like intercepts, symmetry, maxima, and minima.</p>\n<h3>Key Concepts</h3>\n<h4>1. Definition of a Function</h4>\n<p>The vertical line test: a curve represents a function iff every vertical line intersects it at most once. The domain is the set of valid inputs; the range is the set of actual outputs.</p>\n<h4>2. Types of Functions</h4>\n<p>Linear (degree 1), quadratic (degree 2), polynomial (degree n), rational (ratio of polynomials), exponential (bˣ), logarithmic (log x), trigonometric (sin, cos), and piecewise functions are the main types.</p>\n<h4>3. Function Transformations</h4>\n<p>Starting from y = f(x): vertical shift y = f(x) + c (up c); horizontal shift y = f(x – c) (right c); reflection y = –f(x) (about x-axis); vertical stretch y = cf(x). Combining these transforms any base function.</p>\n<h4>4. Composition and Inverse</h4>\n<p>Composition (f ∘ g)(x) = f(g(x)) — apply g first, then f. The inverse function f⁻¹ satisfies f(f⁻¹(x)) = x. Its graph is the reflection of f across y = x. f⁻¹ exists iff f is one-to-one (bijective).</p>\n<h3>Summary</h3>\n<p>Functions formalise input-output relationships. You learned the vertical line test, types of functions, transformations, and composition/inverse operations. Functions are the main language of calculus and mathematical analysis.</p>",
+  "quiz": [
+    {
+      "question": "The vertical line test determines whether a curve is:",
+      "options": [
+        "A polynomial",
+        "A function",
+        "Symmetric",
+        "Bounded"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "y = f(x) + 3 shifts the graph of f:",
+      "options": [
+        "Right 3",
+        "Left 3",
+        "Up 3",
+        "Down 3"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "(f ∘ g)(x) means:",
+      "options": [
+        "f(x) + g(x)",
+        "f(x) × g(x)",
+        "f(g(x))",
+        "g(f(x)) only"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "The graph of f⁻¹(x) is the reflection of f(x) about:",
+      "options": [
+        "The x-axis",
+        "The y-axis",
+        "y = x",
+        "y = –x"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "Which transformation gives y = –f(x)?",
+      "options": [
+        "Vertical shift",
+        "Horizontal shift",
+        "Reflection about x-axis",
+        "Vertical stretch"
+      ],
+      "correct_answer": 2
+    }
+  ]
+}

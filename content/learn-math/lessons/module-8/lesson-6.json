@@ -1,0 +1,60 @@
+{
+  "moduleId": 8,
+  "lessonId": 6,
+  "slug": "the-binomial-distribution",
+  "title": "The Binomial Distribution",
+  "isFree": true,
+  "content": "<h2>Module 8, Lesson 6: The Binomial Distribution</h2>\n\n<h3>Introduction</h3>\n<p>This lesson covers <strong>The Binomial Distribution</strong> within the broader study of <strong>Statistics</strong>. Mastering these concepts will give you a solid foundation for subsequent lessons and real-world applications.</p>\n\n<h3>Key Concepts</h3>\n<h4>1. Core Definitions</h4>\n<p>We begin with precise definitions that form the bedrock of <strong>The Binomial Distribution</strong>. A rigorous understanding of terminology prevents ambiguity and enables exact communication and proof.</p>\n\n<h4>2. Fundamental Theorems and Results</h4>\n<p>The central theorems of <strong>The Binomial Distribution</strong> provide powerful tools for solving problems. We state each result clearly, explain the intuition behind it, and work through representative examples.</p>\n\n<h4>3. Worked Examples</h4>\n<p>Each concept is illustrated with step-by-step worked examples. Pay close attention to the reasoning at each step — it is as important as the final answer.</p>\n\n<h4>4. Common Misconceptions</h4>\n<p>Students often confuse closely related ideas in <strong>The Binomial Distribution</strong>. We highlight these distinctions explicitly so you can avoid common errors in exams and practical work.</p>\n\n<h3>Summary</h3>\n<p>You have completed the study of <strong>The Binomial Distribution</strong> in Module 8 (Statistics). The key ideas covered in this lesson will be built upon in subsequent lessons. Attempt the quiz to consolidate your understanding before moving on.</p>",
+  "quiz": [
+    {
+      "question": "For a discrete probability distribution, the sum of all P(X = x) must equal:",
+      "options": [
+        "0",
+        "0.5",
+        "1",
+        "n"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "The expected value E(X) = :",
+      "options": [
+        "Most probable value",
+        "Σ x·P(X=x)",
+        "Maximum value",
+        "Median value"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "Var(X) = E(X²) – [E(X)]² is the formula for:",
+      "options": [
+        "Standard deviation",
+        "Variance",
+        "Covariance",
+        "Skewness"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "If X takes values {0, 1, 2} with equal probability, E(X) = :",
+      "options": [
+        "0",
+        "0.5",
+        "1",
+        "2"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "A random variable assigns:",
+      "options": [
+        "A name to each outcome",
+        "A number to each outcome",
+        "A probability to each number",
+        "An event to each sample"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "moduleId": 1,
+  "lessonId": 10,
+  "slug": "modular-arithmetic",
+  "title": "Modular Arithmetic",
+  "isFree": true,
+  "content": "<h2>Module 1, Lesson 10: Modular Arithmetic</h2>\n<h3>Introduction</h3>\n<p>Modular arithmetic is arithmetic on a \"clock\" — numbers wrap around after reaching a modulus m. We write a ≡ b (mod m) if m divides (a – b). Clock arithmetic (mod 12), weekday calculations (mod 7), and cryptographic algorithms all rely on modular arithmetic.</p>\n<h3>Key Concepts</h3>\n<h4>1. Congruence</h4>\n<p>a ≡ b (mod m) means a and b have the same remainder when divided by m. For example, 17 ≡ 5 (mod 12) because 17 – 5 = 12. Congruence is an equivalence relation: reflexive, symmetric, and transitive.</p>\n<h4>2. Arithmetic Operations mod m</h4>\n<p>If a ≡ a' and b ≡ b' (mod m), then a + b ≡ a' + b', a – b ≡ a' – b', and a × b ≡ a' × b' (all mod m). This makes modular arithmetic a valid algebraic structure (a ring).</p>\n<h4>3. Modular Inverses</h4>\n<p>The modular inverse of a (mod m) is the integer x such that ax ≡ 1 (mod m). It exists if and only if GCD(a, m) = 1. The extended Euclidean algorithm finds it. Modular inverses are essential in RSA cryptography.</p>\n<h4>4. Fermat's Little Theorem</h4>\n<p>If p is prime and GCD(a, p) = 1, then aᵖ⁻¹ ≡ 1 (mod p). This theorem is used to compute modular exponentiation efficiently and forms the basis of primality testing algorithms.</p>\n<h3>Summary</h3>\n<p>Modular arithmetic provides a powerful framework for clock-like calculations. You learned congruence, modular operations, modular inverses, and Fermat's Little Theorem, all of which are central to modern cryptography.</p>",
+  "quiz": [
+    {
+      "question": "What is 17 mod 5?",
+      "options": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "17 ≡ ? (mod 12)",
+      "options": [
+        "4",
+        "5",
+        "6",
+        "7"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "The modular inverse of a mod m exists if and only if:",
+      "options": [
+        "a > m",
+        "GCD(a,m) = 1",
+        "a is prime",
+        "m is even"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "Fermat's Little Theorem applies when p is:",
+      "options": [
+        "Even",
+        "Composite",
+        "Prime",
+        "Any integer"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "In clock arithmetic (mod 12), what is 10 + 5?",
+      "options": [
+        "15",
+        "3",
+        "2",
+        "1"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

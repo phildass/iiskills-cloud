@@ -1,0 +1,60 @@
+{
+  "moduleId": 9,
+  "lessonId": 1,
+  "slug": "vectors-in-two-and-three-dimensions",
+  "title": "Vectors in Two and Three Dimensions",
+  "isFree": true,
+  "content": "<h2>Module 9, Lesson 1: Vectors in Two and Three Dimensions</h2>\n\n<h3>Introduction</h3>\n<p>This lesson covers <strong>Vectors in Two and Three Dimensions</strong> within the broader study of <strong>Linear Algebra</strong>. Mastering these concepts will give you a solid foundation for subsequent lessons and real-world applications.</p>\n\n<h3>Key Concepts</h3>\n<h4>1. Core Definitions</h4>\n<p>We begin with precise definitions that form the bedrock of <strong>Vectors in Two and Three Dimensions</strong>. A rigorous understanding of terminology prevents ambiguity and enables exact communication and proof.</p>\n\n<h4>2. Fundamental Theorems and Results</h4>\n<p>The central theorems of <strong>Vectors in Two and Three Dimensions</strong> provide powerful tools for solving problems. We state each result clearly, explain the intuition behind it, and work through representative examples.</p>\n\n<h4>3. Worked Examples</h4>\n<p>Each concept is illustrated with step-by-step worked examples. Pay close attention to the reasoning at each step — it is as important as the final answer.</p>\n\n<h4>4. Common Misconceptions</h4>\n<p>Students often confuse closely related ideas in <strong>Vectors in Two and Three Dimensions</strong>. We highlight these distinctions explicitly so you can avoid common errors in exams and practical work.</p>\n\n<h3>Summary</h3>\n<p>You have completed the study of <strong>Vectors in Two and Three Dimensions</strong> in Module 9 (Linear Algebra). The key ideas covered in this lesson will be built upon in subsequent lessons. Attempt the quiz to consolidate your understanding before moving on.</p>",
+  "quiz": [
+    {
+      "question": "A vector in ℝ² has:",
+      "options": [
+        "One component",
+        "Two components",
+        "Three components",
+        "n components"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "A matrix is a:",
+      "options": [
+        "Single number",
+        "Rectangular array of numbers",
+        "Vector of vectors only",
+        "Set of equations"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "Linear algebra studies:",
+      "options": [
+        "Non-linear curves",
+        "Vectors, matrices, and linear transformations",
+        "Only polynomials",
+        "Transcendental functions"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "A system of linear equations can be represented as:",
+      "options": [
+        "A single equation",
+        "Matrix equation Ax = b",
+        "Quadratic formula",
+        "Differential equation"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "The zero vector has:",
+      "options": [
+        "Magnitude 1",
+        "Undefined direction",
+        "All components equal to zero",
+        "Negative magnitude"
+      ],
+      "correct_answer": 2
+    }
+  ]
+}

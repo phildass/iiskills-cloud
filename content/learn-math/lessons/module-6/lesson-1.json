@@ -1,0 +1,60 @@
+{
+  "moduleId": 6,
+  "lessonId": 1,
+  "slug": "limits-and-continuity",
+  "title": "Limits and Continuity",
+  "isFree": true,
+  "content": "<h2>Module 6, Lesson 1: Limits and Continuity</h2>\n\n<h3>Introduction</h3>\n<p>This lesson covers <strong>Limits and Continuity</strong> within the broader study of <strong>Calculus I</strong>. Mastering these concepts will give you a solid foundation for subsequent lessons and real-world applications.</p>\n\n<h3>Key Concepts</h3>\n<h4>1. Core Definitions</h4>\n<p>We begin with precise definitions that form the bedrock of <strong>Limits and Continuity</strong>. A rigorous understanding of terminology prevents ambiguity and enables exact communication and proof.</p>\n\n<h4>2. Fundamental Theorems and Results</h4>\n<p>The central theorems of <strong>Limits and Continuity</strong> provide powerful tools for solving problems. We state each result clearly, explain the intuition behind it, and work through representative examples.</p>\n\n<h4>3. Worked Examples</h4>\n<p>Each concept is illustrated with step-by-step worked examples. Pay close attention to the reasoning at each step — it is as important as the final answer.</p>\n\n<h4>4. Common Misconceptions</h4>\n<p>Students often confuse closely related ideas in <strong>Limits and Continuity</strong>. We highlight these distinctions explicitly so you can avoid common errors in exams and practical work.</p>\n\n<h3>Summary</h3>\n<p>You have completed the study of <strong>Limits and Continuity</strong> in Module 6 (Calculus I). The key ideas covered in this lesson will be built upon in subsequent lessons. Attempt the quiz to consolidate your understanding before moving on.</p>",
+  "quiz": [
+    {
+      "question": "Calculus has two main branches:",
+      "options": [
+        "Algebra and geometry",
+        "Differentiation and integration",
+        "Statistics and probability",
+        "Linear and quadratic"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "The derivative measures:",
+      "options": [
+        "Area under a curve",
+        "Instantaneous rate of change",
+        "Total accumulation",
+        "Average value"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "The integral measures:",
+      "options": [
+        "Slope of tangent",
+        "Rate of change",
+        "Accumulation or area",
+        "Maximum value"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "Sir Isaac Newton and Gottfried Wilhelm Leibniz are credited with developing:",
+      "options": [
+        "Algebra",
+        "Statistics",
+        "Calculus",
+        "Geometry"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "The Fundamental Theorem of Calculus states that differentiation and integration are:",
+      "options": [
+        "Identical",
+        "Unrelated",
+        "Inverse operations",
+        "Both linear"
+      ],
+      "correct_answer": 2
+    }
+  ]
+}

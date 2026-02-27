@@ -1,0 +1,60 @@
+{
+  "moduleId": 8,
+  "lessonId": 8,
+  "slug": "sampling-and-the-central-limit-theorem",
+  "title": "Sampling and the Central Limit Theorem",
+  "isFree": true,
+  "content": "<h2>Module 8, Lesson 8: Sampling and the Central Limit Theorem</h2>\n\n<h3>Introduction</h3>\n<p>This lesson covers <strong>Sampling and the Central Limit Theorem</strong> within the broader study of <strong>Statistics</strong>. Mastering these concepts will give you a solid foundation for subsequent lessons and real-world applications.</p>\n\n<h3>Key Concepts</h3>\n<h4>1. Core Definitions</h4>\n<p>We begin with precise definitions that form the bedrock of <strong>Sampling and the Central Limit Theorem</strong>. A rigorous understanding of terminology prevents ambiguity and enables exact communication and proof.</p>\n\n<h4>2. Fundamental Theorems and Results</h4>\n<p>The central theorems of <strong>Sampling and the Central Limit Theorem</strong> provide powerful tools for solving problems. We state each result clearly, explain the intuition behind it, and work through representative examples.</p>\n\n<h4>3. Worked Examples</h4>\n<p>Each concept is illustrated with step-by-step worked examples. Pay close attention to the reasoning at each step — it is as important as the final answer.</p>\n\n<h4>4. Common Misconceptions</h4>\n<p>Students often confuse closely related ideas in <strong>Sampling and the Central Limit Theorem</strong>. We highlight these distinctions explicitly so you can avoid common errors in exams and practical work.</p>\n\n<h3>Summary</h3>\n<p>You have completed the study of <strong>Sampling and the Central Limit Theorem</strong> in Module 8 (Statistics). The key ideas covered in this lesson will be built upon in subsequent lessons. Attempt the quiz to consolidate your understanding before moving on.</p>",
+  "quiz": [
+    {
+      "question": "The normal distribution is characterised by:",
+      "options": [
+        "Mean and median only",
+        "Mean μ and standard deviation σ",
+        "Median and mode only",
+        "Range and variance"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "The area under the entire normal curve equals:",
+      "options": [
+        "0",
+        "0.5",
+        "σ",
+        "1"
+      ],
+      "correct_answer": 3
+    },
+    {
+      "question": "Approximately what percentage of data lies within 1 standard deviation of the mean?",
+      "options": [
+        "50%",
+        "68%",
+        "95%",
+        "99.7%"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "A z-score is calculated as:",
+      "options": [
+        "x – μ",
+        "(x – μ)/σ",
+        "(x – σ)/μ",
+        "x/σ"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "The standard normal distribution has μ = 0 and σ = :",
+      "options": [
+        "0",
+        "0.5",
+        "1",
+        "2"
+      ],
+      "correct_answer": 2
+    }
+  ]
+}

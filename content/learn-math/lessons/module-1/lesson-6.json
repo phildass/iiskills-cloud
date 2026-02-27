@@ -1,0 +1,60 @@
+{
+  "moduleId": 1,
+  "lessonId": 6,
+  "slug": "prime-numbers-and-factorisation",
+  "title": "Prime Numbers and Factorisation",
+  "isFree": true,
+  "content": "<h2>Module 1, Lesson 6: Prime Numbers and Factorisation</h2>\n<h3>Introduction</h3>\n<p>A prime number is a natural number greater than 1 whose only divisors are 1 and itself. Primes are the building blocks of the integers: by the Fundamental Theorem of Arithmetic, every integer greater than 1 has a unique prime factorisation. This underpins number theory and cryptographic systems like RSA that secure internet communication.</p>\n<h3>Key Concepts</h3>\n<h4>1. Sieve of Eratosthenes</h4>\n<p>To find all primes up to n: list 2 to n, then for each prime p starting at 2, cross out all multiples of p. The remaining numbers are prime. This algorithm has time complexity O(n log log n).</p>\n<h4>2. Fundamental Theorem of Arithmetic</h4>\n<p>Every integer n > 1 can be written uniquely as a product of primes: e.g., 360 = 2³ × 3² × 5. This factorisation is unique up to the order of factors.</p>\n<h4>3. GCD and LCM via Prime Factorisation</h4>\n<p>GCD(a,b) = product of primes with minimum exponents shared by both. LCM(a,b) = product of primes with maximum exponents. Also, GCD(a,b) × LCM(a,b) = a × b.</p>\n<h4>4. Applications of Primes</h4>\n<p>RSA cryptography relies on the computational difficulty of factoring large composite numbers. Primes also appear in hashing algorithms, random number generators, and elliptic curve cryptography.</p>\n<h3>Summary</h3>\n<p>Primes are the atoms of arithmetic. You learned the Sieve of Eratosthenes, the Fundamental Theorem of Arithmetic, and how prime factorisations give GCD and LCM. Their cryptographic applications make them indispensable in modern computing.</p>",
+  "quiz": [
+    {
+      "question": "Which of the following is a prime number?",
+      "options": [
+        "1",
+        "4",
+        "9",
+        "7"
+      ],
+      "correct_answer": 3
+    },
+    {
+      "question": "What does the Fundamental Theorem of Arithmetic state?",
+      "options": [
+        "Every prime has a unique square root",
+        "Every integer > 1 has a unique prime factorisation",
+        "All primes are odd",
+        "Every even number is composite"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "The Sieve of Eratosthenes is used to find:",
+      "options": [
+        "Perfect squares",
+        "Fibonacci numbers",
+        "Prime numbers",
+        "Composite numbers only"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "GCD(12, 18) using prime factorisation is:",
+      "options": [
+        "2",
+        "3",
+        "6",
+        "36"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "What is the prime factorisation of 12?",
+      "options": [
+        "2×6",
+        "3×4",
+        "2²×3",
+        "2×2×3"
+      ],
+      "correct_answer": 2
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "moduleId": 5,
+  "lessonId": 8,
+  "slug": "binomial-theorem",
+  "title": "Binomial Theorem",
+  "isFree": true,
+  "content": "<h2>Module 5, Lesson 8: Binomial Theorem</h2>\n\n<h3>Introduction</h3>\n<p>This lesson covers <strong>Binomial Theorem</strong> within the broader study of <strong>Advanced Algebra</strong>. Mastering these concepts will give you a solid foundation for subsequent lessons and real-world applications.</p>\n\n<h3>Key Concepts</h3>\n<h4>1. Core Definitions</h4>\n<p>We begin with precise definitions that form the bedrock of <strong>Binomial Theorem</strong>. A rigorous understanding of terminology prevents ambiguity and enables exact communication and proof.</p>\n\n<h4>2. Fundamental Theorems and Results</h4>\n<p>The central theorems of <strong>Binomial Theorem</strong> provide powerful tools for solving problems. We state each result clearly, explain the intuition behind it, and work through representative examples.</p>\n\n<h4>3. Worked Examples</h4>\n<p>Each concept is illustrated with step-by-step worked examples. Pay close attention to the reasoning at each step — it is as important as the final answer.</p>\n\n<h4>4. Common Misconceptions</h4>\n<p>Students often confuse closely related ideas in <strong>Binomial Theorem</strong>. We highlight these distinctions explicitly so you can avoid common errors in exams and practical work.</p>\n\n<h3>Summary</h3>\n<p>You have completed the study of <strong>Binomial Theorem</strong> in Module 5 (Advanced Algebra). The key ideas covered in this lesson will be built upon in subsequent lessons. Attempt the quiz to consolidate your understanding before moving on.</p>",
+  "quiz": [
+    {
+      "question": "Partial fractions decompose a rational function into:",
+      "options": [
+        "A product of simpler fractions",
+        "A sum of simpler fractions",
+        "A difference of polynomials",
+        "An exponential series"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "To decompose 1/((x–1)(x–2)), we write:",
+      "options": [
+        "A/(x–1)(x–2)",
+        "A/(x–1) + B/(x–2)",
+        "(Ax+B)/(x–1) + C/(x–2)",
+        "A/(x–1) × B/(x–2)"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "For a repeated linear factor (x–a)², the partial fraction terms include:",
+      "options": [
+        "A/(x–a)",
+        "A/(x–a)²",
+        "A/(x–a) + B/(x–a)²",
+        "A/(x–a)³"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "For an irreducible quadratic factor (x²+1), the numerator is:",
+      "options": [
+        "A",
+        "A/(x²+1)",
+        "Ax + B",
+        "x + A"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "Partial fractions are primarily useful for:",
+      "options": [
+        "Finding roots",
+        "Integration of rational functions",
+        "Solving linear equations",
+        "Factoring polynomials"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

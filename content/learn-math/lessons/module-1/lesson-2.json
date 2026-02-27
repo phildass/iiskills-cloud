@@ -1,0 +1,60 @@
+{
+  "moduleId": 1,
+  "lessonId": 2,
+  "slug": "natural-numbers-and-integers",
+  "title": "Natural Numbers and Integers",
+  "isFree": true,
+  "content": "<h2>Module 1, Lesson 2: Natural Numbers and Integers</h2>\n<h3>Introduction</h3>\n<p>The natural numbers (ℕ = {1, 2, 3, ...}) are the counting numbers that humans have used since prehistoric times. Extending them with zero gives the whole numbers, and adding negatives gives the integers (ℤ = {..., -2, -1, 0, 1, 2, ...}). Understanding these foundational sets is essential before tackling fractions, real numbers, and beyond.</p>\n<h3>Key Concepts</h3>\n<h4>1. Properties of Integers</h4>\n<p>Integers obey the commutative law (a + b = b + a), associative law ((a + b) + c = a + (b + c)), and distributive law (a(b + c) = ab + ac). These algebraic identities hold for all real numbers and underpin every calculation you will ever perform.</p>\n<h4>2. Absolute Value</h4>\n<p>The absolute value |x| gives the distance of x from zero on the number line. |–7| = 7, |5| = 5. It satisfies the triangle inequality: |a + b| ≤ |a| + |b|.</p>\n<h4>3. Divisibility and Factors</h4>\n<p>An integer a divides b (written a | b) if there exists an integer k such that b = ak. The greatest common divisor (GCD) of two integers is the largest integer dividing both. The Euclidean algorithm computes GCD efficiently.</p>\n<h4>4. Odd and Even Numbers</h4>\n<p>An even integer satisfies n = 2k for some integer k. An odd integer satisfies n = 2k + 1. The sum of two even numbers is even; the sum of two odd numbers is even; the sum of an odd and an even is odd.</p>\n<h3>Summary</h3>\n<p>You have reviewed the structure of natural numbers and integers, key properties including divisibility and absolute value, and important parity rules. These foundations will be used throughout every module of this course.</p>",
+  "quiz": [
+    {
+      "question": "Which set symbol denotes the integers?",
+      "options": [
+        "ℕ",
+        "ℚ",
+        "ℤ",
+        "ℝ"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "What is |–15|?",
+      "options": [
+        "–15",
+        "0",
+        "15",
+        "1"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "Which property states a + b = b + a?",
+      "options": [
+        "Associative",
+        "Commutative",
+        "Distributive",
+        "Identity"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "The GCD of 12 and 18 is:",
+      "options": [
+        "2",
+        "3",
+        "6",
+        "9"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "The sum of two odd numbers is always:",
+      "options": [
+        "Odd",
+        "Even",
+        "Prime",
+        "Zero"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

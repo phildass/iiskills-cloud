@@ -1,0 +1,60 @@
+{
+  "moduleId": 8,
+  "lessonId": 4,
+  "slug": "conditional-probability-and-bayes-theorem",
+  "title": "Conditional Probability and Bayes' Theorem",
+  "isFree": true,
+  "content": "<h2>Module 8, Lesson 4: Conditional Probability and Bayes' Theorem</h2>\n\n<h3>Introduction</h3>\n<p>This lesson covers <strong>Conditional Probability and Bayes' Theorem</strong> within the broader study of <strong>Statistics</strong>. Mastering these concepts will give you a solid foundation for subsequent lessons and real-world applications.</p>\n\n<h3>Key Concepts</h3>\n<h4>1. Core Definitions</h4>\n<p>We begin with precise definitions that form the bedrock of <strong>Conditional Probability and Bayes' Theorem</strong>. A rigorous understanding of terminology prevents ambiguity and enables exact communication and proof.</p>\n\n<h4>2. Fundamental Theorems and Results</h4>\n<p>The central theorems of <strong>Conditional Probability and Bayes' Theorem</strong> provide powerful tools for solving problems. We state each result clearly, explain the intuition behind it, and work through representative examples.</p>\n\n<h4>3. Worked Examples</h4>\n<p>Each concept is illustrated with step-by-step worked examples. Pay close attention to the reasoning at each step — it is as important as the final answer.</p>\n\n<h4>4. Common Misconceptions</h4>\n<p>Students often confuse closely related ideas in <strong>Conditional Probability and Bayes' Theorem</strong>. We highlight these distinctions explicitly so you can avoid common errors in exams and practical work.</p>\n\n<h3>Summary</h3>\n<p>You have completed the study of <strong>Conditional Probability and Bayes' Theorem</strong> in Module 8 (Statistics). The key ideas covered in this lesson will be built upon in subsequent lessons. Attempt the quiz to consolidate your understanding before moving on.</p>",
+  "quiz": [
+    {
+      "question": "The probability of an impossible event is:",
+      "options": [
+        "1",
+        "0.5",
+        "–1",
+        "0"
+      ],
+      "correct_answer": 3
+    },
+    {
+      "question": "For mutually exclusive events A and B: P(A ∪ B) = :",
+      "options": [
+        "P(A) × P(B)",
+        "P(A) + P(B) – P(A∩B)",
+        "P(A) + P(B)",
+        "P(A) – P(B)"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "The complement of event A has probability:",
+      "options": [
+        "P(A) + 1",
+        "1 – P(A)",
+        "1/P(A)",
+        "P(A)²"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "For independent events A and B: P(A ∩ B) = :",
+      "options": [
+        "P(A) + P(B)",
+        "P(A) – P(B)",
+        "P(A) × P(B)",
+        "P(A) / P(B)"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "A sample space is:",
+      "options": [
+        "A single outcome",
+        "The set of all possible outcomes",
+        "A subset of outcomes",
+        "The most probable outcome"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

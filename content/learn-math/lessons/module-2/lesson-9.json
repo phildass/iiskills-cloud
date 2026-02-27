@@ -1,0 +1,60 @@
+{
+  "moduleId": 2,
+  "lessonId": 9,
+  "slug": "ratio-proportion-and-variation",
+  "title": "Ratio, Proportion, and Variation",
+  "isFree": true,
+  "content": "<h2>Module 2, Lesson 9: Ratio, Proportion, and Variation</h2>\n<h3>Introduction</h3>\n<p>Ratios compare two quantities; proportions are equations stating two ratios are equal. Variation describes how one variable changes with another. These concepts arise constantly in scaling, recipe calculation, map reading, physics (Hooke's law, Ohm's law), and engineering design.</p>\n<h3>Key Concepts</h3>\n<h4>1. Ratios and Simplification</h4>\n<p>A ratio a:b is equivalent to a/b. Simplify by dividing both terms by their GCD. Share 120 in the ratio 3:2:1: total parts = 6; shares are 60, 40, 20.</p>\n<h4>2. Direct Proportion</h4>\n<p>y is directly proportional to x (y ∝ x) if y = kx for some constant k. The graph is a straight line through the origin. Double x, double y. k is the constant of proportionality.</p>\n<h4>3. Inverse Proportion</h4>\n<p>y is inversely proportional to x (y ∝ 1/x) if y = k/x. Double x, halve y. This models speed–time relationships (at constant distance) and Boyle's law (PV = constant at fixed temperature).</p>\n<h4>4. Joint and Combined Variation</h4>\n<p>y ∝ xz means y = kxz (joint). y ∝ x/z means y = kx/z (combined). These appear in physics (F = ma), fluid mechanics, and gravity (F ∝ m₁m₂/r²).</p>\n<h3>Summary</h3>\n<p>Ratios and proportions scale quantities; variation equations model physical relationships. You practised simplifying ratios, sharing in ratios, and setting up direct, inverse, and joint variation equations.</p>",
+  "quiz": [
+    {
+      "question": "Share 120 in the ratio 3:2:1. The largest share is:",
+      "options": [
+        "40",
+        "60",
+        "80",
+        "30"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "y ∝ x and y = 15 when x = 3. When x = 7, y = ?",
+      "options": [
+        "21",
+        "28",
+        "35",
+        "14"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "y is inversely proportional to x. If y = 4 when x = 6, then y when x = 3 is:",
+      "options": [
+        "2",
+        "6",
+        "8",
+        "12"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "Which law follows inverse proportion: PV = constant?",
+      "options": [
+        "Newton's Second Law",
+        "Ohm's Law",
+        "Boyle's Law",
+        "Hooke's Law"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "The constant of proportionality k in y = kx represents:",
+      "options": [
+        "The y-intercept",
+        "The gradient (slope)",
+        "The x-intercept",
+        "The area under curve"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

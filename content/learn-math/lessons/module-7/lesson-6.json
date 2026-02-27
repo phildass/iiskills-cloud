@@ -1,0 +1,60 @@
+{
+  "moduleId": 7,
+  "lessonId": 6,
+  "slug": "improper-integrals",
+  "title": "Improper Integrals",
+  "isFree": true,
+  "content": "<h2>Module 7, Lesson 6: Improper Integrals</h2>\n\n<h3>Introduction</h3>\n<p>This lesson covers <strong>Improper Integrals</strong> within the broader study of <strong>Calculus II</strong>. Mastering these concepts will give you a solid foundation for subsequent lessons and real-world applications.</p>\n\n<h3>Key Concepts</h3>\n<h4>1. Core Definitions</h4>\n<p>We begin with precise definitions that form the bedrock of <strong>Improper Integrals</strong>. A rigorous understanding of terminology prevents ambiguity and enables exact communication and proof.</p>\n\n<h4>2. Fundamental Theorems and Results</h4>\n<p>The central theorems of <strong>Improper Integrals</strong> provide powerful tools for solving problems. We state each result clearly, explain the intuition behind it, and work through representative examples.</p>\n\n<h4>3. Worked Examples</h4>\n<p>Each concept is illustrated with step-by-step worked examples. Pay close attention to the reasoning at each step — it is as important as the final answer.</p>\n\n<h4>4. Common Misconceptions</h4>\n<p>Students often confuse closely related ideas in <strong>Improper Integrals</strong>. We highlight these distinctions explicitly so you can avoid common errors in exams and practical work.</p>\n\n<h3>Summary</h3>\n<p>You have completed the study of <strong>Improper Integrals</strong> in Module 7 (Calculus II). The key ideas covered in this lesson will be built upon in subsequent lessons. Attempt the quiz to consolidate your understanding before moving on.</p>",
+  "quiz": [
+    {
+      "question": "∫ 1/((x–1)(x–2)) dx is evaluated using:",
+      "options": [
+        "Substitution",
+        "Integration by parts",
+        "Partial fractions",
+        "Trigonometric substitution"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "Decomposing 1/((x–1)(x–2)) as A/(x–1) + B/(x–2): A equals:",
+      "options": [
+        "1",
+        "–1",
+        "2",
+        "–2"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "∫ A/(x–a) dx = :",
+      "options": [
+        "A·ln|x–a| + C",
+        "A/(x–a)² + C",
+        "A·e^(x–a) + C",
+        "A·(x–a) + C"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "question": "Before applying partial fractions, the degree of numerator must be:",
+      "options": [
+        "Greater than denominator",
+        "Equal to denominator",
+        "Less than denominator",
+        "Zero"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "An irreducible quadratic in the denominator leads to an integral involving:",
+      "options": [
+        "ln only",
+        "arctan",
+        "arcsin",
+        "Partial derivatives"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

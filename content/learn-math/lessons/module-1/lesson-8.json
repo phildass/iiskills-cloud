@@ -1,0 +1,60 @@
+{
+  "moduleId": 1,
+  "lessonId": 8,
+  "slug": "sets-and-set-operations",
+  "title": "Sets and Set Operations",
+  "isFree": true,
+  "content": "<h2>Module 1, Lesson 8: Sets and Set Operations</h2>\n<h3>Introduction</h3>\n<p>A set is a well-defined collection of distinct objects, called elements. Set theory, developed by Georg Cantor in the 19th century, provides the logical foundation for all of modern mathematics. The language of sets pervades every branch — from probability to topology to computer science.</p>\n<h3>Key Concepts</h3>\n<h4>1. Set Notation</h4>\n<p>A set is written as {a, b, c, ...}. The empty set ∅ contains no elements. Membership is denoted x ∈ A (x is an element of A) or x ∉ A. Two sets are equal if they contain exactly the same elements.</p>\n<h4>2. Subsets and Power Sets</h4>\n<p>A is a subset of B (A ⊆ B) if every element of A is also in B. The power set P(A) contains all subsets of A. If |A| = n, then |P(A)| = 2ⁿ.</p>\n<h4>3. Set Operations</h4>\n<p>Union A ∪ B contains elements in A or B (or both). Intersection A ∩ B contains elements in both A and B. Complement Aᶜ contains elements not in A. Difference A \\ B contains elements in A but not B. De Morgan's laws: (A ∪ B)ᶜ = Aᶜ ∩ Bᶜ and (A ∩ B)ᶜ = Aᶜ ∪ Bᶜ.</p>\n<h4>4. Venn Diagrams</h4>\n<p>Venn diagrams represent sets as overlapping circles within a universal set rectangle. They visualise intersections, unions, and complements intuitively and are widely used in probability and logic.</p>\n<h3>Summary</h3>\n<p>Sets are the language of mathematics. You learned set notation, subsets and power sets, the four fundamental operations (union, intersection, complement, difference), and De Morgan's laws. These concepts recur throughout all later modules.</p>",
+  "quiz": [
+    {
+      "question": "What does A ∪ B represent?",
+      "options": [
+        "Elements in A and B",
+        "Elements only in A",
+        "Elements in A or B or both",
+        "Elements not in A or B"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "The empty set is denoted:",
+      "options": [
+        "{}",
+        "0",
+        "∅",
+        "Ø and ∅ only"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "If |A| = 3, how many elements does the power set P(A) have?",
+      "options": [
+        "3",
+        "6",
+        "8",
+        "9"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "De Morgan's first law states (A ∪ B)ᶜ equals:",
+      "options": [
+        "Aᶜ ∪ Bᶜ",
+        "Aᶜ ∩ Bᶜ",
+        "A ∩ B",
+        "A ∪ Bᶜ"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "A ∩ B contains:",
+      "options": [
+        "Elements in A or B",
+        "Elements in both A and B",
+        "Elements in A but not B",
+        "All elements"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

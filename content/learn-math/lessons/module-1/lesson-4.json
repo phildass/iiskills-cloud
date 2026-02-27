@@ -1,0 +1,60 @@
+{
+  "moduleId": 1,
+  "lessonId": 4,
+  "slug": "irrational-and-real-numbers",
+  "title": "Irrational and Real Numbers",
+  "isFree": true,
+  "content": "<h2>Module 1, Lesson 4: Irrational and Real Numbers</h2>\n<h3>Introduction</h3>\n<p>Not all numbers are rational. Numbers like √2, √3, π, and e cannot be expressed as fractions of integers — they are irrational. The real numbers ℝ = ℚ ∪ {irrationals} form a complete ordered field that corresponds exactly to points on the number line.</p>\n<h3>Key Concepts</h3>\n<h4>1. Proving Irrationality</h4>\n<p>The classic proof that √2 is irrational uses proof by contradiction. Assume √2 = p/q in lowest terms. Then 2q² = p², so p is even (p = 2m). Substituting gives 2q² = 4m², so q² = 2m², meaning q is also even — contradicting p/q being in lowest terms.</p>\n<h4>2. Properties of Real Numbers</h4>\n<p>The reals form a complete ordered field: between any two real numbers there exists another real number (density), and every non-empty set bounded above has a least upper bound (completeness). These properties are what make calculus work.</p>\n<h4>3. Number Line Representation</h4>\n<p>Every real number corresponds to a unique point on the number line, and every point corresponds to a unique real number. This one-to-one correspondence is essential for geometry and analysis.</p>\n<h4>4. Special Constants</h4>\n<p>π ≈ 3.14159 (ratio of circle circumference to diameter) and e ≈ 2.71828 (base of natural logarithm) are transcendental — not only irrational but also not roots of any polynomial with rational coefficients.</p>\n<h3>Summary</h3>\n<p>You explored irrational and real numbers, learned to prove irrationality by contradiction, and understood the completeness property that distinguishes ℝ from ℚ.</p>",
+  "quiz": [
+    {
+      "question": "Which number is irrational?",
+      "options": [
+        "1/3",
+        "0.5",
+        "√2",
+        "7/4"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "The value of π is approximately:",
+      "options": [
+        "2.718",
+        "3.142",
+        "1.618",
+        "1.414"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "Which property says every bounded set of reals has a least upper bound?",
+      "options": [
+        "Density",
+        "Commutativity",
+        "Completeness",
+        "Transitivity"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "The proof that √2 is irrational uses:",
+      "options": [
+        "Direct proof",
+        "Induction",
+        "Proof by contradiction",
+        "Exhaustion"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "The set of real numbers is denoted by:",
+      "options": [
+        "ℕ",
+        "ℤ",
+        "ℚ",
+        "ℝ"
+      ],
+      "correct_answer": 3
+    }
+  ]
+}

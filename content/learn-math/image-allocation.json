@@ -1,0 +1,55 @@
+{
+  "notes": "Each image is referenced by exactly one lesson, case study, or simulator. No duplicates allowed.",
+  "images": [
+    {
+      "image": "math-case-1.png",
+      "usedBy": "case-studies/case-1.json",
+      "description": "Bank with compound interest chart illustrating EMI calculation"
+    },
+    {
+      "image": "math-case-2.png",
+      "usedBy": "case-studies/case-2.json",
+      "description": "GPS satellite constellation and coordinate grid overlay"
+    },
+    {
+      "image": "math-case-3.png",
+      "usedBy": "case-studies/case-3.json",
+      "description": "Cricket scoreboard with statistical comparison chart"
+    },
+    {
+      "image": "math-case-4.png",
+      "usedBy": "case-studies/case-4.json",
+      "description": "Indian city traffic intersection with signal timing diagram"
+    },
+    {
+      "image": "math-case-5.png",
+      "usedBy": "case-studies/case-5.json",
+      "description": "UPI payment QR code with RSA encryption key diagram"
+    },
+    {
+      "image": "math-sim-1.png",
+      "usedBy": "simulators/sim-1.json",
+      "description": "Parabola graph with adjustable coefficients and labelled vertex"
+    },
+    {
+      "image": "math-sim-2.png",
+      "usedBy": "simulators/sim-2.json",
+      "description": "Sine and cosine wave graphs with amplitude and phase labels"
+    },
+    {
+      "image": "math-sim-3.png",
+      "usedBy": "simulators/sim-3.json",
+      "description": "Curve with tangent line at a movable point"
+    },
+    {
+      "image": "math-sim-4.png",
+      "usedBy": "simulators/sim-4.json",
+      "description": "Normal distribution bell curve with σ regions shaded"
+    },
+    {
+      "image": "math-sim-5.png",
+      "usedBy": "simulators/sim-5.json",
+      "description": "Unit square being transformed by a 2×2 matrix in the plane"
+    }
+  ]
+}

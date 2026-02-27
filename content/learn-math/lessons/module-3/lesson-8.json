@@ -1,0 +1,60 @@
+{
+  "moduleId": 3,
+  "lessonId": 8,
+  "slug": "solid-geometry-prisms-and-cylinders",
+  "title": "Solid Geometry — Prisms and Cylinders",
+  "isFree": true,
+  "content": "<h2>Module 3, Lesson 8: Solid Geometry — Prisms and Cylinders</h2>\n\n<h3>Introduction</h3>\n<p>This lesson covers <strong>Solid Geometry — Prisms and Cylinders</strong> within the broader study of <strong>Geometry Fundamentals</strong>. Mastering these concepts will give you a solid foundation for subsequent lessons and real-world applications.</p>\n\n<h3>Key Concepts</h3>\n<h4>1. Core Definitions</h4>\n<p>We begin with precise definitions that form the bedrock of <strong>Solid Geometry — Prisms and Cylinders</strong>. A rigorous understanding of terminology prevents ambiguity and enables exact communication and proof.</p>\n\n<h4>2. Fundamental Theorems and Results</h4>\n<p>The central theorems of <strong>Solid Geometry — Prisms and Cylinders</strong> provide powerful tools for solving problems. We state each result clearly, explain the intuition behind it, and work through representative examples.</p>\n\n<h4>3. Worked Examples</h4>\n<p>Each concept is illustrated with step-by-step worked examples. Pay close attention to the reasoning at each step — it is as important as the final answer.</p>\n\n<h4>4. Common Misconceptions</h4>\n<p>Students often confuse closely related ideas in <strong>Solid Geometry — Prisms and Cylinders</strong>. We highlight these distinctions explicitly so you can avoid common errors in exams and practical work.</p>\n\n<h3>Summary</h3>\n<p>You have completed the study of <strong>Solid Geometry — Prisms and Cylinders</strong> in Module 3 (Geometry Fundamentals). The key ideas covered in this lesson will be built upon in subsequent lessons. Attempt the quiz to consolidate your understanding before moving on.</p>",
+  "quiz": [
+    {
+      "question": "The volume of a cuboid l × w × h is:",
+      "options": [
+        "l + w + h",
+        "2(lw + lh + wh)",
+        "lwh",
+        "(l + w + h)³"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "The volume of a cylinder with radius r and height h is:",
+      "options": [
+        "2πrh",
+        "πr²h",
+        "πrh",
+        "2πr²h"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "The surface area of a sphere with radius r is:",
+      "options": [
+        "4πr²",
+        "4πr³/3",
+        "2πr²",
+        "πr²"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "question": "The volume of a cone is:",
+      "options": [
+        "πr²h",
+        "2πrh",
+        "πr²h/3",
+        "πrh/3"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "A prism's volume equals:",
+      "options": [
+        "Perimeter × height",
+        "Base area × height",
+        "Surface area × height",
+        "Base × width"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}
