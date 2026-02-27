@@ -27,7 +27,7 @@ function buildFallbackLesson(moduleId, lessonId) {
     moduleId: Number(moduleId),
     lessonId: Number(lessonId),
     title: `${moduleName} — Lesson ${lessonId}`,
-    isFree: Number(lessonId) === 1,
+    isFree: true,
     content: `
       <h2>Module ${moduleId}, Lesson ${lessonId}: ${moduleName}</h2>
       <h3>Introduction</h3>
@@ -104,12 +104,14 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import QuizComponent from "../../../../components/QuizComponent";
+import { getCurrentUser } from "../../../../lib/supabaseClient";
 import { LessonContent } from "@iiskills/ui/content";
 
 const NO_BADGES_KEY = "learn-physics-noBadges";
 
 export default function LessonPage({ lesson, moduleId, lessonId }) {
   const router = useRouter();
+  const [user, setUser] = useState(null);
   const [quizCompleted, setQuizCompleted] = useState(false);
   const [noBadges, setNoBadges] = useState(false);
   const [showSkipDialog, setShowSkipDialog] = useState(false);
@@ -128,6 +130,13 @@ export default function LessonPage({ lesson, moduleId, lessonId }) {
   useEffect(() => {
     setQuizCompleted(false);
   }, [moduleId, lessonId]);
+
+  // Auth check runs in background; never blocks page render.
+  useEffect(() => {
+    getCurrentUser().then((currentUser) => {
+      setUser(currentUser);
+    });
+  }, []);
 
   const handleQuizComplete = (passed) => {
     setQuizCompleted(passed);
