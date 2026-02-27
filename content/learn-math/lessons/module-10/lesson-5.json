@@ -1,0 +1,60 @@
+{
+  "moduleId": 10,
+  "lessonId": 5,
+  "slug": "complex-numbers-and-functions",
+  "title": "Complex Numbers and Functions",
+  "isFree": true,
+  "content": "<h2>Module 10, Lesson 5: Complex Numbers and Functions</h2>\n\n<h3>Introduction</h3>\n<p>This lesson covers <strong>Complex Numbers and Functions</strong> within the broader study of <strong>Advanced Topics</strong>. Mastering these concepts will give you a solid foundation for subsequent lessons and real-world applications.</p>\n\n<h3>Key Concepts</h3>\n<h4>1. Core Definitions</h4>\n<p>We begin with precise definitions that form the bedrock of <strong>Complex Numbers and Functions</strong>. A rigorous understanding of terminology prevents ambiguity and enables exact communication and proof.</p>\n\n<h4>2. Fundamental Theorems and Results</h4>\n<p>The central theorems of <strong>Complex Numbers and Functions</strong> provide powerful tools for solving problems. We state each result clearly, explain the intuition behind it, and work through representative examples.</p>\n\n<h4>3. Worked Examples</h4>\n<p>Each concept is illustrated with step-by-step worked examples. Pay close attention to the reasoning at each step — it is as important as the final answer.</p>\n\n<h4>4. Common Misconceptions</h4>\n<p>Students often confuse closely related ideas in <strong>Complex Numbers and Functions</strong>. We highlight these distinctions explicitly so you can avoid common errors in exams and practical work.</p>\n\n<h3>Summary</h3>\n<p>You have completed the study of <strong>Complex Numbers and Functions</strong> in Module 10 (Advanced Topics). The key ideas covered in this lesson will be built upon in subsequent lessons. Attempt the quiz to consolidate your understanding before moving on.</p>",
+  "quiz": [
+    {
+      "question": "A Fourier series represents a periodic function as a sum of:",
+      "options": [
+        "Polynomials",
+        "Exponentials",
+        "Sines and cosines",
+        "Logarithms"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "The Fourier coefficient aₙ is found by:",
+      "options": [
+        "Differentiating f(x)",
+        "Integrating f(x)cos(nx) over one period",
+        "Solving algebraically",
+        "Evaluating at endpoints"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "Parseval's theorem relates the energy of a function to:",
+      "options": [
+        "Its maximum value",
+        "The sum of squares of its Fourier coefficients",
+        "Its period",
+        "Its derivative"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "An odd function's Fourier series contains only:",
+      "options": [
+        "Cosine terms",
+        "Sine terms",
+        "Constant term",
+        "Both sine and cosine"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "An even function's Fourier series contains only:",
+      "options": [
+        "Sine terms",
+        "Cosine terms and constant",
+        "Exponential terms",
+        "Polynomial terms"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "id": "sim-5",
+  "title": "Matrix Transformation Visualiser",
+  "module": "Linear Algebra",
+  "description": "Enter a 2×2 matrix and see how it transforms vectors and geometric shapes in the plane. Visualise rotations, reflections, shears, and scaling.",
+  "type": "interactive",
+  "parameters": [
+    {
+      "name": "a11",
+      "label": "Matrix entry [1,1]",
+      "min": -5,
+      "max": 5,
+      "default": 1,
+      "unit": ""
+    },
+    {
+      "name": "a12",
+      "label": "Matrix entry [1,2]",
+      "min": -5,
+      "max": 5,
+      "default": 0,
+      "unit": ""
+    },
+    {
+      "name": "a21",
+      "label": "Matrix entry [2,1]",
+      "min": -5,
+      "max": 5,
+      "default": 0,
+      "unit": ""
+    },
+    {
+      "name": "a22",
+      "label": "Matrix entry [2,2]",
+      "min": -5,
+      "max": 5,
+      "default": 1,
+      "unit": ""
+    }
+  ],
+  "outputs": [
+    "Determinant",
+    "Transformed unit square",
+    "Eigenvalues (if real)"
+  ],
+  "image": "math-sim-5.png",
+  "tags": [
+    "linear algebra",
+    "matrices",
+    "transformations",
+    "eigenvectors"
+  ]
+}

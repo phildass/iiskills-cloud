@@ -1,0 +1,15 @@
+{
+  "id": "case-4",
+  "title": "Optimising Traffic Flow with Calculus",
+  "module": "Calculus I",
+  "summary": "How traffic engineers use differential calculus to find optimal signal timings that minimise average waiting times at Indian intersections.",
+  "content": "<h2>Case Study: Traffic Flow Optimisation</h2><p>Indian cities like Mumbai, Delhi, and Bengaluru have some of the world's most congested traffic. Traffic engineers model vehicle flow using differential equations and optimisation — a direct application of calculus. The goal: find signal cycle times that minimise average delay per vehicle.</p><h3>Key Mathematical Concepts</h3><ul><li><strong>Objective Function</strong>: Total average delay D(t) as a function of green-phase duration t.</li><li><strong>Differentiation</strong>: Find dD/dt = 0 to locate the minimum delay point.</li><li><strong>Second Derivative Test</strong>: Confirm d²D/dt² > 0 to verify it is a minimum, not a maximum.</li><li><strong>Constraints</strong>: The optimisation is subject to constraints (minimum safe crossing time, maximum cycle length).</li></ul><h3>Real-World Impact</h3><p>Adaptive signal control systems, now deployed in several Indian cities, continuously recompute optimal timings using real-time traffic data. The mathematics of constrained optimisation saves millions of person-hours of waiting time daily.</p>",
+  "image": "math-case-4.png",
+  "tags": [
+    "calculus",
+    "optimisation",
+    "traffic",
+    "India",
+    "engineering"
+  ]
+}

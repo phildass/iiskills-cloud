@@ -1,0 +1,60 @@
+{
+  "moduleId": 4,
+  "lessonId": 6,
+  "slug": "the-sine-rule",
+  "title": "The Sine Rule",
+  "isFree": true,
+  "content": "<h2>Module 4, Lesson 6: The Sine Rule</h2>\n\n<h3>Introduction</h3>\n<p>This lesson covers <strong>The Sine Rule</strong> within the broader study of <strong>Trigonometry</strong>. Mastering these concepts will give you a solid foundation for subsequent lessons and real-world applications.</p>\n\n<h3>Key Concepts</h3>\n<h4>1. Core Definitions</h4>\n<p>We begin with precise definitions that form the bedrock of <strong>The Sine Rule</strong>. A rigorous understanding of terminology prevents ambiguity and enables exact communication and proof.</p>\n\n<h4>2. Fundamental Theorems and Results</h4>\n<p>The central theorems of <strong>The Sine Rule</strong> provide powerful tools for solving problems. We state each result clearly, explain the intuition behind it, and work through representative examples.</p>\n\n<h4>3. Worked Examples</h4>\n<p>Each concept is illustrated with step-by-step worked examples. Pay close attention to the reasoning at each step — it is as important as the final answer.</p>\n\n<h4>4. Common Misconceptions</h4>\n<p>Students often confuse closely related ideas in <strong>The Sine Rule</strong>. We highlight these distinctions explicitly so you can avoid common errors in exams and practical work.</p>\n\n<h3>Summary</h3>\n<p>You have completed the study of <strong>The Sine Rule</strong> in Module 4 (Trigonometry). The key ideas covered in this lesson will be built upon in subsequent lessons. Attempt the quiz to consolidate your understanding before moving on.</p>",
+  "quiz": [
+    {
+      "question": "The Sine Rule states a/sin A = b/sin B = c/sin C. This applies to:",
+      "options": [
+        "Right triangles only",
+        "All triangles",
+        "Equilateral triangles only",
+        "Isosceles triangles only"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "In triangle ABC, if a = 5, A = 30°, B = 45°, find b using the Sine Rule. The key ratio used is:",
+      "options": [
+        "a/sin A",
+        "a × sin A",
+        "sin A/a",
+        "a + sin A"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "question": "The Sine Rule can be rearranged to find an angle when:",
+      "options": [
+        "All three sides are known",
+        "Two angles are known",
+        "Two sides and one opposite angle are known",
+        "All angles are known"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "The ambiguous case (two possible triangles) can arise with:",
+      "options": [
+        "SSS",
+        "ASA",
+        "AAS",
+        "SSA"
+      ],
+      "correct_answer": 3
+    },
+    {
+      "question": "In a triangle, the larger angle is always opposite the:",
+      "options": [
+        "Shorter side",
+        "Longer side",
+        "Right angle",
+        "Equal side"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

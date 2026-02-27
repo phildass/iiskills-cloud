@@ -1,0 +1,60 @@
+{
+  "moduleId": 6,
+  "lessonId": 4,
+  "slug": "the-chain-rule",
+  "title": "The Chain Rule",
+  "isFree": true,
+  "content": "<h2>Module 6, Lesson 4: The Chain Rule</h2>\n\n<h3>Introduction</h3>\n<p>This lesson covers <strong>The Chain Rule</strong> within the broader study of <strong>Calculus I</strong>. Mastering these concepts will give you a solid foundation for subsequent lessons and real-world applications.</p>\n\n<h3>Key Concepts</h3>\n<h4>1. Core Definitions</h4>\n<p>We begin with precise definitions that form the bedrock of <strong>The Chain Rule</strong>. A rigorous understanding of terminology prevents ambiguity and enables exact communication and proof.</p>\n\n<h4>2. Fundamental Theorems and Results</h4>\n<p>The central theorems of <strong>The Chain Rule</strong> provide powerful tools for solving problems. We state each result clearly, explain the intuition behind it, and work through representative examples.</p>\n\n<h4>3. Worked Examples</h4>\n<p>Each concept is illustrated with step-by-step worked examples. Pay close attention to the reasoning at each step — it is as important as the final answer.</p>\n\n<h4>4. Common Misconceptions</h4>\n<p>Students often confuse closely related ideas in <strong>The Chain Rule</strong>. We highlight these distinctions explicitly so you can avoid common errors in exams and practical work.</p>\n\n<h3>Summary</h3>\n<p>You have completed the study of <strong>The Chain Rule</strong> in Module 6 (Calculus I). The key ideas covered in this lesson will be built upon in subsequent lessons. Attempt the quiz to consolidate your understanding before moving on.</p>",
+  "quiz": [
+    {
+      "question": "The power rule states d/dx(xⁿ) = :",
+      "options": [
+        "xⁿ⁻¹",
+        "nxⁿ",
+        "nxⁿ⁻¹",
+        "xⁿ⁺¹/n"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "d/dx(sin x) = :",
+      "options": [
+        "–sin x",
+        "cos x",
+        "–cos x",
+        "tan x"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "d/dx(eˣ) = :",
+      "options": [
+        "eˣ⁻¹",
+        "xeˣ⁻¹",
+        "eˣ",
+        "e"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "d/dx(ln x) = :",
+      "options": [
+        "1",
+        "ln x",
+        "1/x",
+        "x"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "d/dx(cos x) = :",
+      "options": [
+        "sin x",
+        "–sin x",
+        "cos x",
+        "–cos x"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "moduleId": 10,
+  "lessonId": 8,
+  "slug": "introduction-to-topology",
+  "title": "Introduction to Topology",
+  "isFree": true,
+  "content": "<h2>Module 10, Lesson 8: Introduction to Topology</h2>\n\n<h3>Introduction</h3>\n<p>This lesson covers <strong>Introduction to Topology</strong> within the broader study of <strong>Advanced Topics</strong>. Mastering these concepts will give you a solid foundation for subsequent lessons and real-world applications.</p>\n\n<h3>Key Concepts</h3>\n<h4>1. Core Definitions</h4>\n<p>We begin with precise definitions that form the bedrock of <strong>Introduction to Topology</strong>. A rigorous understanding of terminology prevents ambiguity and enables exact communication and proof.</p>\n\n<h4>2. Fundamental Theorems and Results</h4>\n<p>The central theorems of <strong>Introduction to Topology</strong> provide powerful tools for solving problems. We state each result clearly, explain the intuition behind it, and work through representative examples.</p>\n\n<h4>3. Worked Examples</h4>\n<p>Each concept is illustrated with step-by-step worked examples. Pay close attention to the reasoning at each step — it is as important as the final answer.</p>\n\n<h4>4. Common Misconceptions</h4>\n<p>Students often confuse closely related ideas in <strong>Introduction to Topology</strong>. We highlight these distinctions explicitly so you can avoid common errors in exams and practical work.</p>\n\n<h3>Summary</h3>\n<p>You have completed the study of <strong>Introduction to Topology</strong> in Module 10 (Advanced Topics). The key ideas covered in this lesson will be built upon in subsequent lessons. Attempt the quiz to consolidate your understanding before moving on.</p>",
+  "quiz": [
+    {
+      "question": "A double integral ∬f(x,y) dA computes:",
+      "options": [
+        "Length of curve",
+        "Volume under surface z = f(x,y)",
+        "Gradient of f",
+        "Surface area only"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "Fubini's theorem allows us to:",
+      "options": [
+        "Swap limits of integration always",
+        "Evaluate double integrals as iterated single integrals",
+        "Find eigenvalues",
+        "Differentiate under the integral"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "A triple integral ∭f dV is used to find:",
+      "options": [
+        "Area",
+        "Surface area only",
+        "Volume or mass of a 3D solid",
+        "Length"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "In polar coordinates, dA = :",
+      "options": [
+        "dr dθ",
+        "r dr dθ",
+        "r² dr dθ",
+        "dr / r dθ"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "The Jacobian in change of variables accounts for:",
+      "options": [
+        "Direction of gradient",
+        "Change in area element under transformation",
+        "Second derivatives",
+        "Boundary conditions"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

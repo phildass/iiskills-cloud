@@ -1,0 +1,60 @@
+{
+  "moduleId": 1,
+  "lessonId": 9,
+  "slug": "logarithms-and-exponents",
+  "title": "Logarithms and Exponents",
+  "isFree": true,
+  "content": "<h2>Module 1, Lesson 9: Logarithms and Exponents</h2>\n<h3>Introduction</h3>\n<p>Exponentiation is repeated multiplication: bⁿ means multiply b by itself n times. Logarithms are the inverse: logb(x) asks \"to what power must we raise b to get x?\" These two operations are ubiquitous in science, engineering, finance, and computer science.</p>\n<h3>Key Concepts</h3>\n<h4>1. Laws of Exponents</h4>\n<p>bᵐ × bⁿ = bᵐ⁺ⁿ; (bᵐ)ⁿ = bᵐⁿ; bᵐ/bⁿ = bᵐ⁻ⁿ; b⁰ = 1; b⁻ⁿ = 1/bⁿ; b^(1/n) = ⁿ√b. These identities simplify complex computations.</p>\n<h4>2. Logarithm Definition and Laws</h4>\n<p>logb(x) = y ⟺ bʸ = x. Laws: logb(xy) = logb(x) + logb(y); logb(x/y) = logb(x) – logb(y); logb(xⁿ) = n·logb(x). Change of base: loga(x) = logb(x)/logb(a).</p>\n<h4>3. Natural Logarithm and e</h4>\n<p>The natural logarithm ln(x) = loge(x) where e ≈ 2.718 is Euler's number. ln is the integral of 1/t from 1 to x, and it appears naturally in calculus, probability, and growth models.</p>\n<h4>4. Applications</h4>\n<p>Compound interest: A = P(1 + r/n)^(nt). Continuous growth: A = Peʳᵗ. The Richter scale for earthquakes and the decibel scale for sound are both logarithmic. Big-O notation in algorithms often involves log₂.</p>\n<h3>Summary</h3>\n<p>Exponents and logarithms are inverse operations. You mastered the laws of exponents and logarithms, the natural logarithm, and key applications in finance, science, and computing.</p>",
+  "quiz": [
+    {
+      "question": "What is log₂(8)?",
+      "options": [
+        "2",
+        "3",
+        "4",
+        "8"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "The natural logarithm uses base:",
+      "options": [
+        "2",
+        "10",
+        "e",
+        "π"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "Which law states log(xy) = log(x) + log(y)?",
+      "options": [
+        "Product rule",
+        "Quotient rule",
+        "Power rule",
+        "Change of base"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "question": "What is 2⁻³?",
+      "options": [
+        "–8",
+        "–6",
+        "1/8",
+        "1/6"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "The formula A = Peʳᵗ models:",
+      "options": [
+        "Simple interest",
+        "Compound interest (periodic)",
+        "Continuous growth",
+        "Geometric sequences"
+      ],
+      "correct_answer": 2
+    }
+  ]
+}

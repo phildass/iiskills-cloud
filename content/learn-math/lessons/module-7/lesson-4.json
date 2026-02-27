@@ -1,0 +1,60 @@
+{
+  "moduleId": 7,
+  "lessonId": 4,
+  "slug": "integration-by-parts",
+  "title": "Integration by Parts",
+  "isFree": true,
+  "content": "<h2>Module 7, Lesson 4: Integration by Parts</h2>\n\n<h3>Introduction</h3>\n<p>This lesson covers <strong>Integration by Parts</strong> within the broader study of <strong>Calculus II</strong>. Mastering these concepts will give you a solid foundation for subsequent lessons and real-world applications.</p>\n\n<h3>Key Concepts</h3>\n<h4>1. Core Definitions</h4>\n<p>We begin with precise definitions that form the bedrock of <strong>Integration by Parts</strong>. A rigorous understanding of terminology prevents ambiguity and enables exact communication and proof.</p>\n\n<h4>2. Fundamental Theorems and Results</h4>\n<p>The central theorems of <strong>Integration by Parts</strong> provide powerful tools for solving problems. We state each result clearly, explain the intuition behind it, and work through representative examples.</p>\n\n<h4>3. Worked Examples</h4>\n<p>Each concept is illustrated with step-by-step worked examples. Pay close attention to the reasoning at each step — it is as important as the final answer.</p>\n\n<h4>4. Common Misconceptions</h4>\n<p>Students often confuse closely related ideas in <strong>Integration by Parts</strong>. We highlight these distinctions explicitly so you can avoid common errors in exams and practical work.</p>\n\n<h3>Summary</h3>\n<p>You have completed the study of <strong>Integration by Parts</strong> in Module 7 (Calculus II). The key ideas covered in this lesson will be built upon in subsequent lessons. Attempt the quiz to consolidate your understanding before moving on.</p>",
+  "quiz": [
+    {
+      "question": "In the substitution u = g(x), du = :",
+      "options": [
+        "g(x)dx",
+        "g'(x)dx",
+        "dx/g'(x)",
+        "g''(x)dx"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "To integrate ∫2x(x²+1)⁵ dx, set u = :",
+      "options": [
+        "2x",
+        "x²",
+        "x² + 1",
+        "(x²+1)⁵"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "After substituting u = x², du = 2x dx. So x dx = :",
+      "options": [
+        "du",
+        "2du",
+        "du/2",
+        "du/x"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "∫cos(3x)dx using u = 3x gives:",
+      "options": [
+        "sin(3x) + C",
+        "sin(3x)/3 + C",
+        "3sin(3x) + C",
+        "–cos(3x)/3 + C"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "When using substitution for a definite integral, you should:",
+      "options": [
+        "Keep original limits",
+        "Change the limits to match u",
+        "Always revert to x before evaluating",
+        "Double the limits"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

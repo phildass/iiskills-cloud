@@ -1,0 +1,15 @@
+{
+  "id": "case-3",
+  "title": "Cricket Statistics — Who is the Best Batsman?",
+  "module": "Statistics",
+  "summary": "Using descriptive statistics and probability to compare cricketers' performances across different conditions — a quintessentially Indian application of data analysis.",
+  "content": "<h2>Case Study: Cricket Statistics</h2><p>Cricket is India's most popular sport, and it generates enormous amounts of data. Comparing two batsmen — say, Virat Kohli and Rohit Sharma — requires more than just looking at batting averages. We need measures of consistency (standard deviation), performance under pressure (conditional probability), and trend analysis (regression).</p><h3>Key Mathematical Concepts</h3><ul><li><strong>Batting Average</strong>: Total runs / number of dismissals — the mean of a dataset.</li><li><strong>Standard Deviation</strong>: Measures consistency; a low σ means the batsman scores similarly each time.</li><li><strong>Conditional Probability</strong>: P(scoring 50+ | away match) captures performance under difficult conditions.</li><li><strong>Regression Analysis</strong>: Identifying trends in a player's form over time.</li></ul><h3>Real-World Impact</h3><p>Modern cricket teams use sophisticated analytics to make selection decisions, set batting orders, and develop bowling strategies. The mathematics of statistics directly translates to competitive advantage on the field.</p>",
+  "image": "math-case-3.png",
+  "tags": [
+    "statistics",
+    "probability",
+    "cricket",
+    "India",
+    "data"
+  ]
+}

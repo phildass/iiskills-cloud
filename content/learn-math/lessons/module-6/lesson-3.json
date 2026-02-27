@@ -1,0 +1,60 @@
+{
+  "moduleId": 6,
+  "lessonId": 3,
+  "slug": "rules-of-differentiation",
+  "title": "Rules of Differentiation",
+  "isFree": true,
+  "content": "<h2>Module 6, Lesson 3: Rules of Differentiation</h2>\n\n<h3>Introduction</h3>\n<p>This lesson covers <strong>Rules of Differentiation</strong> within the broader study of <strong>Calculus I</strong>. Mastering these concepts will give you a solid foundation for subsequent lessons and real-world applications.</p>\n\n<h3>Key Concepts</h3>\n<h4>1. Core Definitions</h4>\n<p>We begin with precise definitions that form the bedrock of <strong>Rules of Differentiation</strong>. A rigorous understanding of terminology prevents ambiguity and enables exact communication and proof.</p>\n\n<h4>2. Fundamental Theorems and Results</h4>\n<p>The central theorems of <strong>Rules of Differentiation</strong> provide powerful tools for solving problems. We state each result clearly, explain the intuition behind it, and work through representative examples.</p>\n\n<h4>3. Worked Examples</h4>\n<p>Each concept is illustrated with step-by-step worked examples. Pay close attention to the reasoning at each step — it is as important as the final answer.</p>\n\n<h4>4. Common Misconceptions</h4>\n<p>Students often confuse closely related ideas in <strong>Rules of Differentiation</strong>. We highlight these distinctions explicitly so you can avoid common errors in exams and practical work.</p>\n\n<h3>Summary</h3>\n<p>You have completed the study of <strong>Rules of Differentiation</strong> in Module 6 (Calculus I). The key ideas covered in this lesson will be built upon in subsequent lessons. Attempt the quiz to consolidate your understanding before moving on.</p>",
+  "quiz": [
+    {
+      "question": "The derivative f'(x) is defined as:",
+      "options": [
+        "f(x+h) – f(x)",
+        "lim(h→0) [f(x+h)–f(x)]/h",
+        "f(x)/h",
+        "∫f(x)dx"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "The derivative of a constant c is:",
+      "options": [
+        "c",
+        "1",
+        "0",
+        "–c"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "d/dx(x³) equals:",
+      "options": [
+        "x²",
+        "3x",
+        "3x²",
+        "x⁴/4"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "The derivative of f(x) = 5 is:",
+      "options": [
+        "5",
+        "5x",
+        "1",
+        "0"
+      ],
+      "correct_answer": 3
+    },
+    {
+      "question": "If f'(x) > 0 on an interval, f is:",
+      "options": [
+        "Decreasing",
+        "Constant",
+        "Increasing",
+        "Concave up"
+      ],
+      "correct_answer": 2
+    }
+  ]
+}

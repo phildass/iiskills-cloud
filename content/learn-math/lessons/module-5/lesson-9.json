@@ -1,0 +1,60 @@
+{
+  "moduleId": 5,
+  "lessonId": 9,
+  "slug": "conic-sections",
+  "title": "Conic Sections",
+  "isFree": true,
+  "content": "<h2>Module 5, Lesson 9: Conic Sections</h2>\n\n<h3>Introduction</h3>\n<p>This lesson covers <strong>Conic Sections</strong> within the broader study of <strong>Advanced Algebra</strong>. Mastering these concepts will give you a solid foundation for subsequent lessons and real-world applications.</p>\n\n<h3>Key Concepts</h3>\n<h4>1. Core Definitions</h4>\n<p>We begin with precise definitions that form the bedrock of <strong>Conic Sections</strong>. A rigorous understanding of terminology prevents ambiguity and enables exact communication and proof.</p>\n\n<h4>2. Fundamental Theorems and Results</h4>\n<p>The central theorems of <strong>Conic Sections</strong> provide powerful tools for solving problems. We state each result clearly, explain the intuition behind it, and work through representative examples.</p>\n\n<h4>3. Worked Examples</h4>\n<p>Each concept is illustrated with step-by-step worked examples. Pay close attention to the reasoning at each step — it is as important as the final answer.</p>\n\n<h4>4. Common Misconceptions</h4>\n<p>Students often confuse closely related ideas in <strong>Conic Sections</strong>. We highlight these distinctions explicitly so you can avoid common errors in exams and practical work.</p>\n\n<h3>Summary</h3>\n<p>You have completed the study of <strong>Conic Sections</strong> in Module 5 (Advanced Algebra). The key ideas covered in this lesson will be built upon in subsequent lessons. Attempt the quiz to consolidate your understanding before moving on.</p>",
+  "quiz": [
+    {
+      "question": "The binomial coefficient C(n, r) = n!/(r!(n–r)!). C(5,2) equals:",
+      "options": [
+        "5",
+        "10",
+        "20",
+        "15"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "The binomial theorem expands (a + b)ⁿ as a sum of how many terms?",
+      "options": [
+        "n",
+        "n–1",
+        "n+1",
+        "2n"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "The general term in the expansion of (a+b)ⁿ is:",
+      "options": [
+        "C(n,r)aⁿbʳ",
+        "C(n,r)aⁿ⁻ʳbʳ",
+        "C(n,r)aʳbⁿ",
+        "n!aⁿ⁻ʳbʳ"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "Pascal's triangle gives which values?",
+      "options": [
+        "Fibonacci numbers",
+        "Binomial coefficients",
+        "Prime numbers",
+        "Square numbers"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "(1 + x)ⁿ ≈ 1 + nx for small x is called:",
+      "options": [
+        "Maclaurin series",
+        "Binomial approximation",
+        "Taylor expansion",
+        "Exponential approximation"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

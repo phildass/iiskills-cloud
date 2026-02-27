@@ -1,0 +1,60 @@
+{
+  "moduleId": 9,
+  "lessonId": 2,
+  "slug": "dot-product-and-cross-product",
+  "title": "Dot Product and Cross Product",
+  "isFree": true,
+  "content": "<h2>Module 9, Lesson 2: Dot Product and Cross Product</h2>\n\n<h3>Introduction</h3>\n<p>This lesson covers <strong>Dot Product and Cross Product</strong> within the broader study of <strong>Linear Algebra</strong>. Mastering these concepts will give you a solid foundation for subsequent lessons and real-world applications.</p>\n\n<h3>Key Concepts</h3>\n<h4>1. Core Definitions</h4>\n<p>We begin with precise definitions that form the bedrock of <strong>Dot Product and Cross Product</strong>. A rigorous understanding of terminology prevents ambiguity and enables exact communication and proof.</p>\n\n<h4>2. Fundamental Theorems and Results</h4>\n<p>The central theorems of <strong>Dot Product and Cross Product</strong> provide powerful tools for solving problems. We state each result clearly, explain the intuition behind it, and work through representative examples.</p>\n\n<h4>3. Worked Examples</h4>\n<p>Each concept is illustrated with step-by-step worked examples. Pay close attention to the reasoning at each step — it is as important as the final answer.</p>\n\n<h4>4. Common Misconceptions</h4>\n<p>Students often confuse closely related ideas in <strong>Dot Product and Cross Product</strong>. We highlight these distinctions explicitly so you can avoid common errors in exams and practical work.</p>\n\n<h3>Summary</h3>\n<p>You have completed the study of <strong>Dot Product and Cross Product</strong> in Module 9 (Linear Algebra). The key ideas covered in this lesson will be built upon in subsequent lessons. Attempt the quiz to consolidate your understanding before moving on.</p>",
+  "quiz": [
+    {
+      "question": "The magnitude of vector (3, 4) is:",
+      "options": [
+        "3",
+        "4",
+        "5",
+        "7"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "The unit vector in the direction of v is:",
+      "options": [
+        "v + |v|",
+        "v / |v|",
+        "v × |v|",
+        "|v| – v"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "Vector addition (2,3) + (1,–1) = :",
+      "options": [
+        "(3,2)",
+        "(1,4)",
+        "(2,2)",
+        "(3,4)"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "question": "Scalar multiplication 3·(2,1) = :",
+      "options": [
+        "(5,4)",
+        "(6,3)",
+        "(2,3)",
+        "(23,13)"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "The position vector from A(1,2) to B(4,6) is:",
+      "options": [
+        "(3,4)",
+        "(5,8)",
+        "(–3,–4)",
+        "(4,6)"
+      ],
+      "correct_answer": 0
+    }
+  ]
+}

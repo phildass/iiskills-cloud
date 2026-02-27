@@ -1,0 +1,60 @@
+{
+  "moduleId": 9,
+  "lessonId": 5,
+  "slug": "determinants",
+  "title": "Determinants",
+  "isFree": true,
+  "content": "<h2>Module 9, Lesson 5: Determinants</h2>\n\n<h3>Introduction</h3>\n<p>This lesson covers <strong>Determinants</strong> within the broader study of <strong>Linear Algebra</strong>. Mastering these concepts will give you a solid foundation for subsequent lessons and real-world applications.</p>\n\n<h3>Key Concepts</h3>\n<h4>1. Core Definitions</h4>\n<p>We begin with precise definitions that form the bedrock of <strong>Determinants</strong>. A rigorous understanding of terminology prevents ambiguity and enables exact communication and proof.</p>\n\n<h4>2. Fundamental Theorems and Results</h4>\n<p>The central theorems of <strong>Determinants</strong> provide powerful tools for solving problems. We state each result clearly, explain the intuition behind it, and work through representative examples.</p>\n\n<h4>3. Worked Examples</h4>\n<p>Each concept is illustrated with step-by-step worked examples. Pay close attention to the reasoning at each step — it is as important as the final answer.</p>\n\n<h4>4. Common Misconceptions</h4>\n<p>Students often confuse closely related ideas in <strong>Determinants</strong>. We highlight these distinctions explicitly so you can avoid common errors in exams and practical work.</p>\n\n<h3>Summary</h3>\n<p>You have completed the study of <strong>Determinants</strong> in Module 9 (Linear Algebra). The key ideas covered in this lesson will be built upon in subsequent lessons. Attempt the quiz to consolidate your understanding before moving on.</p>",
+  "quiz": [
+    {
+      "question": "To multiply A (m×n) by B (n×p), the result has dimensions:",
+      "options": [
+        "m×n",
+        "n×p",
+        "m×p",
+        "n×n"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "Matrix multiplication is:",
+      "options": [
+        "Commutative",
+        "Not commutative in general",
+        "Always associative only",
+        "Distributive only"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "The (i,j) entry of AB is:",
+      "options": [
+        "Aᵢⱼ × Bᵢⱼ",
+        "Row i of A dotted with column j of B",
+        "Aᵢⱼ + Bᵢⱼ",
+        "Sum of row i of A"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "For 2×2 matrices, AB ≠ BA in general. This means multiplication is:",
+      "options": [
+        "Associative",
+        "Distributive",
+        "Non-commutative",
+        "Invertible"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "(AB)C = A(BC) demonstrates:",
+      "options": [
+        "Commutativity",
+        "Associativity of matrix multiplication",
+        "Distributivity",
+        "Invertibility"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

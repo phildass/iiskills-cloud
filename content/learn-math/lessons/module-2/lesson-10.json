@@ -1,0 +1,60 @@
+{
+  "moduleId": 2,
+  "lessonId": 10,
+  "slug": "algebraic-proofs",
+  "title": "Algebraic Proofs",
+  "isFree": true,
+  "content": "<h2>Module 2, Lesson 10: Algebraic Proofs</h2>\n<h3>Introduction</h3>\n<p>Mathematical proof is the gold standard of certainty. Unlike empirical evidence, a proof shows that something is true for all cases, not just the ones we have checked. Algebraic proof uses algebraic manipulation to establish identities and general results. This lesson introduces direct proof, proof by counterexample, and proof by induction.</p>\n<h3>Key Concepts</h3>\n<h4>1. Direct Proof</h4>\n<p>Assume the hypothesis, manipulate algebraically, arrive at the conclusion. Example: prove the sum of two consecutive integers is odd. Let the integers be n and n+1. Sum = 2n + 1, which is odd by definition.</p>\n<h4>2. Proof by Counterexample</h4>\n<p>To disprove \"all even numbers are prime\", find one counterexample: 4 is even but not prime. One counterexample suffices to disprove a universal statement.</p>\n<h4>3. Proof by Mathematical Induction</h4>\n<p>To prove P(n) is true for all positive integers n: (1) Base case: show P(1) is true. (2) Inductive step: assume P(k) is true, prove P(k+1) is true. Example: prove Σᵢ₌₁ⁿ i = n(n+1)/2.</p>\n<h4>4. Algebraic Identities</h4>\n<p>Common identities to know: (a+b)² = a² + 2ab + b²; (a–b)² = a² – 2ab + b²; (a+b)(a–b) = a² – b²; (a+b)³ = a³ + 3a²b + 3ab² + b³. These are proved by direct expansion and used throughout mathematics.</p>\n<h3>Summary</h3>\n<p>Mathematical proof establishes truth rigorously. You practised direct proof, counterexample, and induction, and revisited key algebraic identities. Proof literacy is essential for further study in mathematics, computer science, and logic.</p>",
+  "quiz": [
+    {
+      "question": "The sum of two consecutive integers n and n+1 is always:",
+      "options": [
+        "Even",
+        "Odd",
+        "Prime",
+        "Divisible by 4"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "One counterexample is sufficient to:",
+      "options": [
+        "Prove a theorem",
+        "Disprove a universal statement",
+        "Prove an identity",
+        "Support a conjecture"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "In proof by induction, after the base case, you prove:",
+      "options": [
+        "P(1) again",
+        "P(n) for all n directly",
+        "If P(k) then P(k+1)",
+        "P(n+1) without assumption"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "(a + b)² expands to:",
+      "options": [
+        "a² + b²",
+        "a² + ab + b²",
+        "a² + 2ab + b²",
+        "2a + 2b"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "(a + b)(a – b) equals:",
+      "options": [
+        "a² + b²",
+        "a² – b²",
+        "2a",
+        "2ab"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

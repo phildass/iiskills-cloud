@@ -1,0 +1,60 @@
+{
+  "moduleId": 9,
+  "lessonId": 4,
+  "slug": "matrix-multiplication",
+  "title": "Matrix Multiplication",
+  "isFree": true,
+  "content": "<h2>Module 9, Lesson 4: Matrix Multiplication</h2>\n\n<h3>Introduction</h3>\n<p>This lesson covers <strong>Matrix Multiplication</strong> within the broader study of <strong>Linear Algebra</strong>. Mastering these concepts will give you a solid foundation for subsequent lessons and real-world applications.</p>\n\n<h3>Key Concepts</h3>\n<h4>1. Core Definitions</h4>\n<p>We begin with precise definitions that form the bedrock of <strong>Matrix Multiplication</strong>. A rigorous understanding of terminology prevents ambiguity and enables exact communication and proof.</p>\n\n<h4>2. Fundamental Theorems and Results</h4>\n<p>The central theorems of <strong>Matrix Multiplication</strong> provide powerful tools for solving problems. We state each result clearly, explain the intuition behind it, and work through representative examples.</p>\n\n<h4>3. Worked Examples</h4>\n<p>Each concept is illustrated with step-by-step worked examples. Pay close attention to the reasoning at each step — it is as important as the final answer.</p>\n\n<h4>4. Common Misconceptions</h4>\n<p>Students often confuse closely related ideas in <strong>Matrix Multiplication</strong>. We highlight these distinctions explicitly so you can avoid common errors in exams and practical work.</p>\n\n<h3>Summary</h3>\n<p>You have completed the study of <strong>Matrix Multiplication</strong> in Module 9 (Linear Algebra). The key ideas covered in this lesson will be built upon in subsequent lessons. Attempt the quiz to consolidate your understanding before moving on.</p>",
+  "quiz": [
+    {
+      "question": "A 2×3 matrix has:",
+      "options": [
+        "2 columns and 3 rows",
+        "2 rows and 3 columns",
+        "6 diagonal entries",
+        "3 rows and 2 columns only"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "Matrix addition requires both matrices to have:",
+      "options": [
+        "The same determinant",
+        "The same dimensions",
+        "Square shapes",
+        "Identical entries"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "The transpose of a matrix swaps its:",
+      "options": [
+        "Determinant and trace",
+        "Rows and columns",
+        "Diagonals",
+        "Eigenvalues"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "Scalar multiplication of matrix A by k multiplies:",
+      "options": [
+        "Only diagonal entries by k",
+        "All entries by k",
+        "Determinant by k²",
+        "Trace by k only"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "The identity matrix I satisfies:",
+      "options": [
+        "AI = 0",
+        "AI = A",
+        "AI = I",
+        "A + I = A"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

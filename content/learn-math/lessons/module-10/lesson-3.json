@@ -1,0 +1,60 @@
+{
+  "moduleId": 10,
+  "lessonId": 3,
+  "slug": "laplace-transforms",
+  "title": "Laplace Transforms",
+  "isFree": true,
+  "content": "<h2>Module 10, Lesson 3: Laplace Transforms</h2>\n\n<h3>Introduction</h3>\n<p>This lesson covers <strong>Laplace Transforms</strong> within the broader study of <strong>Advanced Topics</strong>. Mastering these concepts will give you a solid foundation for subsequent lessons and real-world applications.</p>\n\n<h3>Key Concepts</h3>\n<h4>1. Core Definitions</h4>\n<p>We begin with precise definitions that form the bedrock of <strong>Laplace Transforms</strong>. A rigorous understanding of terminology prevents ambiguity and enables exact communication and proof.</p>\n\n<h4>2. Fundamental Theorems and Results</h4>\n<p>The central theorems of <strong>Laplace Transforms</strong> provide powerful tools for solving problems. We state each result clearly, explain the intuition behind it, and work through representative examples.</p>\n\n<h4>3. Worked Examples</h4>\n<p>Each concept is illustrated with step-by-step worked examples. Pay close attention to the reasoning at each step — it is as important as the final answer.</p>\n\n<h4>4. Common Misconceptions</h4>\n<p>Students often confuse closely related ideas in <strong>Laplace Transforms</strong>. We highlight these distinctions explicitly so you can avoid common errors in exams and practical work.</p>\n\n<h3>Summary</h3>\n<p>You have completed the study of <strong>Laplace Transforms</strong> in Module 10 (Advanced Topics). The key ideas covered in this lesson will be built upon in subsequent lessons. Attempt the quiz to consolidate your understanding before moving on.</p>",
+  "quiz": [
+    {
+      "question": "A second-order linear ODE with constant coefficients has the form:",
+      "options": [
+        "ay'' + by' + cy = f(x)",
+        "ay' + by = f(x)",
+        "y'' = f(x) only",
+        "ay³ + by = 0"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "question": "The characteristic equation of ay'' + by' + cy = 0 is:",
+      "options": [
+        "ar + b = 0",
+        "ar² + br + c = 0",
+        "ar² + c = 0",
+        "br + c = 0"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "If characteristic roots are complex (α ± βi), the general solution involves:",
+      "options": [
+        "Only exponentials",
+        "Only polynomials",
+        "e^(αx)(A cos βx + B sin βx)",
+        "A + Bx"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "Hooke's law applied to a mass-spring system gives which type of ODE?",
+      "options": [
+        "First-order separable",
+        "Second-order linear with constant coefficients",
+        "Non-linear",
+        "Partial differential equation"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "The Wronskian is used to check:",
+      "options": [
+        "Convergence of series",
+        "Linear independence of solutions",
+        "Existence of eigenvalues",
+        "Continuity of functions"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

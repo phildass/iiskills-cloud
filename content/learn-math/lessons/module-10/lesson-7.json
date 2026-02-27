@@ -1,0 +1,60 @@
+{
+  "moduleId": 10,
+  "lessonId": 7,
+  "slug": "multivariable-calculus-multiple-integrals",
+  "title": "Multivariable Calculus — Multiple Integrals",
+  "isFree": true,
+  "content": "<h2>Module 10, Lesson 7: Multivariable Calculus — Multiple Integrals</h2>\n\n<h3>Introduction</h3>\n<p>This lesson covers <strong>Multivariable Calculus — Multiple Integrals</strong> within the broader study of <strong>Advanced Topics</strong>. Mastering these concepts will give you a solid foundation for subsequent lessons and real-world applications.</p>\n\n<h3>Key Concepts</h3>\n<h4>1. Core Definitions</h4>\n<p>We begin with precise definitions that form the bedrock of <strong>Multivariable Calculus — Multiple Integrals</strong>. A rigorous understanding of terminology prevents ambiguity and enables exact communication and proof.</p>\n\n<h4>2. Fundamental Theorems and Results</h4>\n<p>The central theorems of <strong>Multivariable Calculus — Multiple Integrals</strong> provide powerful tools for solving problems. We state each result clearly, explain the intuition behind it, and work through representative examples.</p>\n\n<h4>3. Worked Examples</h4>\n<p>Each concept is illustrated with step-by-step worked examples. Pay close attention to the reasoning at each step — it is as important as the final answer.</p>\n\n<h4>4. Common Misconceptions</h4>\n<p>Students often confuse closely related ideas in <strong>Multivariable Calculus — Multiple Integrals</strong>. We highlight these distinctions explicitly so you can avoid common errors in exams and practical work.</p>\n\n<h3>Summary</h3>\n<p>You have completed the study of <strong>Multivariable Calculus — Multiple Integrals</strong> in Module 10 (Advanced Topics). The key ideas covered in this lesson will be built upon in subsequent lessons. Attempt the quiz to consolidate your understanding before moving on.</p>",
+  "quiz": [
+    {
+      "question": "The partial derivative ∂f/∂x treats all other variables as:",
+      "options": [
+        "Variables",
+        "Constants",
+        "Zero",
+        "Infinity"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "For f(x,y) = x²y + y³, ∂f/∂x = :",
+      "options": [
+        "x² + 3y²",
+        "2xy + y³",
+        "2xy",
+        "x²"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "The gradient ∇f of f(x,y) is:",
+      "options": [
+        "∂f/∂x + ∂f/∂y",
+        "(∂f/∂x, ∂f/∂y)",
+        "∂²f/∂x∂y",
+        "f(x)·f(y)"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "The gradient vector points in the direction of:",
+      "options": [
+        "Steepest descent",
+        "Steepest ascent",
+        "Zero change",
+        "The x-axis"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "For f(x,y), a critical point is where:",
+      "options": [
+        "f = 0",
+        "∇f = 0",
+        "∂²f/∂x² = 0",
+        "f is maximum"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

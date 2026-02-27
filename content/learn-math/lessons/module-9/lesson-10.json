@@ -1,0 +1,60 @@
+{
+  "moduleId": 9,
+  "lessonId": 10,
+  "slug": "applications-of-linear-algebra",
+  "title": "Applications of Linear Algebra",
+  "isFree": true,
+  "content": "<h2>Module 9, Lesson 10: Applications of Linear Algebra</h2>\n\n<h3>Introduction</h3>\n<p>This lesson covers <strong>Applications of Linear Algebra</strong> within the broader study of <strong>Linear Algebra</strong>. Mastering these concepts will give you a solid foundation for subsequent lessons and real-world applications.</p>\n\n<h3>Key Concepts</h3>\n<h4>1. Core Definitions</h4>\n<p>We begin with precise definitions that form the bedrock of <strong>Applications of Linear Algebra</strong>. A rigorous understanding of terminology prevents ambiguity and enables exact communication and proof.</p>\n\n<h4>2. Fundamental Theorems and Results</h4>\n<p>The central theorems of <strong>Applications of Linear Algebra</strong> provide powerful tools for solving problems. We state each result clearly, explain the intuition behind it, and work through representative examples.</p>\n\n<h4>3. Worked Examples</h4>\n<p>Each concept is illustrated with step-by-step worked examples. Pay close attention to the reasoning at each step — it is as important as the final answer.</p>\n\n<h4>4. Common Misconceptions</h4>\n<p>Students often confuse closely related ideas in <strong>Applications of Linear Algebra</strong>. We highlight these distinctions explicitly so you can avoid common errors in exams and practical work.</p>\n\n<h3>Summary</h3>\n<p>You have completed the study of <strong>Applications of Linear Algebra</strong> in Module 9 (Linear Algebra). The key ideas covered in this lesson will be built upon in subsequent lessons. Attempt the quiz to consolidate your understanding before moving on.</p>",
+  "quiz": [
+    {
+      "question": "In computer graphics, transformations (rotation, scaling) are performed using:",
+      "options": [
+        "Scalar operations",
+        "Matrix multiplication",
+        "Integration",
+        "Polynomial evaluation"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "Google's PageRank algorithm uses:",
+      "options": [
+        "Fourier series",
+        "Principal eigenvector of a link matrix",
+        "Bayesian inference",
+        "Differential equations"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "Least-squares regression finds the best-fit line by solving:",
+      "options": [
+        "Ax = b exactly",
+        "AᵀAx = Aᵀb (normal equations)",
+        "A⁻¹x = b",
+        "Ax = 0"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "Principal Component Analysis (PCA) uses:",
+      "options": [
+        "Eigenvalues and eigenvectors",
+        "Definite integrals",
+        "Prime factorisation",
+        "Bayesian statistics"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "question": "Cryptographic systems like Hill cipher use:",
+      "options": [
+        "Calculus",
+        "Matrix multiplication modulo n",
+        "Integration",
+        "Logarithms only"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

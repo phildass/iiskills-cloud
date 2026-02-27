@@ -1,0 +1,45 @@
+{
+  "id": "sim-1",
+  "title": "Quadratic Function Explorer",
+  "module": "Advanced Algebra",
+  "description": "Adjust the coefficients a, b, and c of y = ax² + bx + c to see how the parabola changes. Visualise roots, vertex, and axis of symmetry.",
+  "type": "interactive",
+  "parameters": [
+    {
+      "name": "a",
+      "label": "Coefficient a",
+      "min": -5,
+      "max": 5,
+      "default": 1,
+      "unit": ""
+    },
+    {
+      "name": "b",
+      "label": "Coefficient b",
+      "min": -10,
+      "max": 10,
+      "default": 0,
+      "unit": ""
+    },
+    {
+      "name": "c",
+      "label": "Coefficient c",
+      "min": -10,
+      "max": 10,
+      "default": 0,
+      "unit": ""
+    }
+  ],
+  "outputs": [
+    "Vertex (h, k)",
+    "Discriminant Δ = b² – 4ac",
+    "Roots (if real)"
+  ],
+  "image": "math-sim-1.png",
+  "tags": [
+    "quadratic",
+    "parabola",
+    "algebra",
+    "roots"
+  ]
+}

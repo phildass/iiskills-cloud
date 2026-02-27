@@ -1,0 +1,60 @@
+{
+  "moduleId": 5,
+  "lessonId": 6,
+  "slug": "function-composition-and-inverses",
+  "title": "Function Composition and Inverses",
+  "isFree": true,
+  "content": "<h2>Module 5, Lesson 6: Function Composition and Inverses</h2>\n\n<h3>Introduction</h3>\n<p>This lesson covers <strong>Function Composition and Inverses</strong> within the broader study of <strong>Advanced Algebra</strong>. Mastering these concepts will give you a solid foundation for subsequent lessons and real-world applications.</p>\n\n<h3>Key Concepts</h3>\n<h4>1. Core Definitions</h4>\n<p>We begin with precise definitions that form the bedrock of <strong>Function Composition and Inverses</strong>. A rigorous understanding of terminology prevents ambiguity and enables exact communication and proof.</p>\n\n<h4>2. Fundamental Theorems and Results</h4>\n<p>The central theorems of <strong>Function Composition and Inverses</strong> provide powerful tools for solving problems. We state each result clearly, explain the intuition behind it, and work through representative examples.</p>\n\n<h4>3. Worked Examples</h4>\n<p>Each concept is illustrated with step-by-step worked examples. Pay close attention to the reasoning at each step — it is as important as the final answer.</p>\n\n<h4>4. Common Misconceptions</h4>\n<p>Students often confuse closely related ideas in <strong>Function Composition and Inverses</strong>. We highlight these distinctions explicitly so you can avoid common errors in exams and practical work.</p>\n\n<h3>Summary</h3>\n<p>You have completed the study of <strong>Function Composition and Inverses</strong> in Module 5 (Advanced Algebra). The key ideas covered in this lesson will be built upon in subsequent lessons. Attempt the quiz to consolidate your understanding before moving on.</p>",
+  "quiz": [
+    {
+      "question": "log₁₀(1000) equals:",
+      "options": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "ln(e²) equals:",
+      "options": [
+        "1",
+        "2",
+        "e",
+        "e²"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "The inverse of y = eˣ is:",
+      "options": [
+        "y = e^(–x)",
+        "y = ln(x)",
+        "y = log₁₀(x)",
+        "y = x/e"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "log(a/b) equals:",
+      "options": [
+        "log(a) × log(b)",
+        "log(a) + log(b)",
+        "log(a) – log(b)",
+        "log(a)/log(b)"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "The domain of y = ln(x) is:",
+      "options": [
+        "All real numbers",
+        "x ≥ 0",
+        "x > 0",
+        "x > 1"
+      ],
+      "correct_answer": 2
+    }
+  ]
+}

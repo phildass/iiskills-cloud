@@ -1,0 +1,37 @@
+{
+  "id": "sim-4",
+  "title": "Normal Distribution Explorer",
+  "module": "Statistics",
+  "description": "Adjust mean μ and standard deviation σ to explore the normal distribution. See the probability within 1σ, 2σ, and 3σ of the mean (the 68-95-99.7 rule).",
+  "type": "interactive",
+  "parameters": [
+    {
+      "name": "mu",
+      "label": "Mean μ",
+      "min": -10,
+      "max": 10,
+      "default": 0,
+      "unit": ""
+    },
+    {
+      "name": "sigma",
+      "label": "Standard deviation σ",
+      "min": 0.1,
+      "max": 5,
+      "default": 1,
+      "unit": ""
+    }
+  ],
+  "outputs": [
+    "P(μ–σ < X < μ+σ) ≈ 68.27%",
+    "P(μ–2σ < X < μ+2σ) ≈ 95.45%",
+    "P(μ–3σ < X < μ+3σ) ≈ 99.73%"
+  ],
+  "image": "math-sim-4.png",
+  "tags": [
+    "statistics",
+    "normal distribution",
+    "probability",
+    "bell curve"
+  ]
+}

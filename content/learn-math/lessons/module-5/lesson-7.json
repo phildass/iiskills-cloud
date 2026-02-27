@@ -1,0 +1,60 @@
+{
+  "moduleId": 5,
+  "lessonId": 7,
+  "slug": "partial-fractions",
+  "title": "Partial Fractions",
+  "isFree": true,
+  "content": "<h2>Module 5, Lesson 7: Partial Fractions</h2>\n\n<h3>Introduction</h3>\n<p>This lesson covers <strong>Partial Fractions</strong> within the broader study of <strong>Advanced Algebra</strong>. Mastering these concepts will give you a solid foundation for subsequent lessons and real-world applications.</p>\n\n<h3>Key Concepts</h3>\n<h4>1. Core Definitions</h4>\n<p>We begin with precise definitions that form the bedrock of <strong>Partial Fractions</strong>. A rigorous understanding of terminology prevents ambiguity and enables exact communication and proof.</p>\n\n<h4>2. Fundamental Theorems and Results</h4>\n<p>The central theorems of <strong>Partial Fractions</strong> provide powerful tools for solving problems. We state each result clearly, explain the intuition behind it, and work through representative examples.</p>\n\n<h4>3. Worked Examples</h4>\n<p>Each concept is illustrated with step-by-step worked examples. Pay close attention to the reasoning at each step — it is as important as the final answer.</p>\n\n<h4>4. Common Misconceptions</h4>\n<p>Students often confuse closely related ideas in <strong>Partial Fractions</strong>. We highlight these distinctions explicitly so you can avoid common errors in exams and practical work.</p>\n\n<h3>Summary</h3>\n<p>You have completed the study of <strong>Partial Fractions</strong> in Module 5 (Advanced Algebra). The key ideas covered in this lesson will be built upon in subsequent lessons. Attempt the quiz to consolidate your understanding before moving on.</p>",
+  "quiz": [
+    {
+      "question": "(f ∘ g)(x) means:",
+      "options": [
+        "f(x) × g(x)",
+        "f(x) + g(x)",
+        "f(g(x))",
+        "g(f(x)) only"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "If f(x) = 2x and g(x) = x + 3, then (f ∘ g)(x) is:",
+      "options": [
+        "2x + 3",
+        "2x + 6",
+        "2(x + 3)",
+        "2x + 3"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "The inverse function f⁻¹(x) is found by:",
+      "options": [
+        "Differentiating f(x)",
+        "Swapping x and y and solving for y",
+        "Negating f(x)",
+        "Dividing 1 by f(x)"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "The graph of f⁻¹ is the reflection of f about:",
+      "options": [
+        "x-axis",
+        "y-axis",
+        "y = x",
+        "y = –x"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "A function has an inverse iff it is:",
+      "options": [
+        "Continuous",
+        "Differentiable",
+        "One-to-one (bijective)",
+        "Increasing"
+      ],
+      "correct_answer": 2
+    }
+  ]
+}

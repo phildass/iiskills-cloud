@@ -1,0 +1,14 @@
+{
+  "id": "case-2",
+  "title": "GPS Navigation and Coordinate Geometry",
+  "module": "Geometry Fundamentals",
+  "summary": "How GPS systems use coordinate geometry and the distance formula to locate positions and plan routes anywhere on Earth.",
+  "content": "<h2>Case Study: GPS Navigation</h2><p>Your smartphone's GPS receiver calculates your position by measuring the time delay of signals from at least four satellites. Each satellite defines a sphere of possible positions; the intersection of three spheres gives a unique location in 3D space — a direct application of coordinate geometry and the distance formula.</p><h3>Key Mathematical Concepts</h3><ul><li><strong>Distance Formula</strong>: d = √((x₂–x₁)² + (y₂–y₁)² + (z₂–z₁)²) in 3D.</li><li><strong>Trilateration</strong>: Solving simultaneous equations of spheres to find the unique intersection point.</li><li><strong>Map Projections</strong>: Converting spherical Earth coordinates (latitude/longitude) to a flat 2D map using geometric transformations.</li></ul><h3>Real-World Impact</h3><p>From Ola and Uber rides to India's Indian Regional Navigation Satellite System (NavIC), coordinate geometry underpins modern navigation. Understanding the mathematics demystifies how a device in your pocket knows exactly where you are on Earth.</p>",
+  "image": "math-case-2.png",
+  "tags": [
+    "geometry",
+    "coordinate geometry",
+    "GPS",
+    "technology"
+  ]
+}

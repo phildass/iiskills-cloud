@@ -1,0 +1,60 @@
+{
+  "moduleId": 3,
+  "lessonId": 2,
+  "slug": "triangles-and-congruence",
+  "title": "Triangles and Congruence",
+  "isFree": true,
+  "content": "<h2>Module 3, Lesson 2: Triangles and Congruence</h2>\n\n<h3>Introduction</h3>\n<p>This lesson covers <strong>Triangles and Congruence</strong> within the broader study of <strong>Geometry Fundamentals</strong>. Mastering these concepts will give you a solid foundation for subsequent lessons and real-world applications.</p>\n\n<h3>Key Concepts</h3>\n<h4>1. Core Definitions</h4>\n<p>We begin with precise definitions that form the bedrock of <strong>Triangles and Congruence</strong>. A rigorous understanding of terminology prevents ambiguity and enables exact communication and proof.</p>\n\n<h4>2. Fundamental Theorems and Results</h4>\n<p>The central theorems of <strong>Triangles and Congruence</strong> provide powerful tools for solving problems. We state each result clearly, explain the intuition behind it, and work through representative examples.</p>\n\n<h4>3. Worked Examples</h4>\n<p>Each concept is illustrated with step-by-step worked examples. Pay close attention to the reasoning at each step — it is as important as the final answer.</p>\n\n<h4>4. Common Misconceptions</h4>\n<p>Students often confuse closely related ideas in <strong>Triangles and Congruence</strong>. We highlight these distinctions explicitly so you can avoid common errors in exams and practical work.</p>\n\n<h3>Summary</h3>\n<p>You have completed the study of <strong>Triangles and Congruence</strong> in Module 3 (Geometry Fundamentals). The key ideas covered in this lesson will be built upon in subsequent lessons. Attempt the quiz to consolidate your understanding before moving on.</p>",
+  "quiz": [
+    {
+      "question": "An equilateral triangle has all interior angles equal to:",
+      "options": [
+        "45°",
+        "60°",
+        "90°",
+        "120°"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "Two triangles are congruent by SAS when they have:",
+      "options": [
+        "Two equal angles",
+        "Two sides and the included angle equal",
+        "Three equal sides",
+        "Two equal sides"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "The sum of interior angles of a triangle is:",
+      "options": [
+        "90°",
+        "180°",
+        "270°",
+        "360°"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "An isosceles triangle has:",
+      "options": [
+        "All sides equal",
+        "No sides equal",
+        "Two equal sides",
+        "One right angle"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "Which congruence condition uses two angles and the included side?",
+      "options": [
+        "SSS",
+        "SAS",
+        "ASA",
+        "AAS"
+      ],
+      "correct_answer": 2
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "moduleId": 9,
+  "lessonId": 7,
+  "slug": "eigenvalues-and-eigenvectors",
+  "title": "Eigenvalues and Eigenvectors",
+  "isFree": true,
+  "content": "<h2>Module 9, Lesson 7: Eigenvalues and Eigenvectors</h2>\n\n<h3>Introduction</h3>\n<p>This lesson covers <strong>Eigenvalues and Eigenvectors</strong> within the broader study of <strong>Linear Algebra</strong>. Mastering these concepts will give you a solid foundation for subsequent lessons and real-world applications.</p>\n\n<h3>Key Concepts</h3>\n<h4>1. Core Definitions</h4>\n<p>We begin with precise definitions that form the bedrock of <strong>Eigenvalues and Eigenvectors</strong>. A rigorous understanding of terminology prevents ambiguity and enables exact communication and proof.</p>\n\n<h4>2. Fundamental Theorems and Results</h4>\n<p>The central theorems of <strong>Eigenvalues and Eigenvectors</strong> provide powerful tools for solving problems. We state each result clearly, explain the intuition behind it, and work through representative examples.</p>\n\n<h4>3. Worked Examples</h4>\n<p>Each concept is illustrated with step-by-step worked examples. Pay close attention to the reasoning at each step — it is as important as the final answer.</p>\n\n<h4>4. Common Misconceptions</h4>\n<p>Students often confuse closely related ideas in <strong>Eigenvalues and Eigenvectors</strong>. We highlight these distinctions explicitly so you can avoid common errors in exams and practical work.</p>\n\n<h3>Summary</h3>\n<p>You have completed the study of <strong>Eigenvalues and Eigenvectors</strong> in Module 9 (Linear Algebra). The key ideas covered in this lesson will be built upon in subsequent lessons. Attempt the quiz to consolidate your understanding before moving on.</p>",
+  "quiz": [
+    {
+      "question": "The inverse A⁻¹ satisfies:",
+      "options": [
+        "A⁻¹A = 0",
+        "A⁻¹A = I",
+        "A⁻¹ = –A",
+        "A⁻¹A = A²"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "A matrix has an inverse iff:",
+      "options": [
+        "It is square and det ≠ 0",
+        "It is square only",
+        "det = 1",
+        "All entries are positive"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "question": "To solve Ax = b using the inverse: x = :",
+      "options": [
+        "A⁻¹ + b",
+        "A⁻¹b",
+        "b⁻¹A",
+        "bA⁻¹"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "Gaussian elimination transforms a matrix to:",
+      "options": [
+        "Diagonal form",
+        "Row echelon form",
+        "Identity matrix",
+        "Transpose form"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "A consistent system of equations has:",
+      "options": [
+        "No solution",
+        "At least one solution",
+        "Exactly one solution",
+        "Infinite solutions only"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

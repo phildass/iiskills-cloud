@@ -1,0 +1,14 @@
+{
+  "id": "case-1",
+  "title": "How EMI and Compound Interest Work",
+  "module": "Number Systems",
+  "summary": "Explore how banks calculate equated monthly instalments (EMI) using compound interest — a real-world application of exponential growth.",
+  "content": "<h2>Case Study: EMI and Compound Interest</h2><p>Every home loan, car loan, and credit card in India uses compound interest. When you borrow ₹10 lakh at 8% per annum for 10 years, the bank calculates your EMI using the formula EMI = P·r(1+r)ⁿ/((1+r)ⁿ–1), where P is principal, r is monthly rate, and n is number of payments.</p><h3>Key Mathematical Concepts</h3><ul><li><strong>Compound Interest</strong>: A = P(1 + r/n)^(nt) — interest accrues on interest.</li><li><strong>Geometric Series</strong>: The EMI formula emerges from summing a geometric series of present values.</li><li><strong>Exponential Growth</strong>: Small interest rates over long periods produce surprisingly large totals.</li></ul><h3>Real-World Impact</h3><p>Understanding this formula helps borrowers compare loan offers, evaluate prepayment benefits, and make informed financial decisions. India's financial literacy depends on citizens understanding compound interest.</p>",
+  "image": "math-case-1.png",
+  "tags": [
+    "finance",
+    "compound interest",
+    "exponential",
+    "India"
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "moduleId": 7,
+  "lessonId": 7,
+  "slug": "applications-area-between-curves",
+  "title": "Applications — Area Between Curves",
+  "isFree": true,
+  "content": "<h2>Module 7, Lesson 7: Applications — Area Between Curves</h2>\n\n<h3>Introduction</h3>\n<p>This lesson covers <strong>Applications — Area Between Curves</strong> within the broader study of <strong>Calculus II</strong>. Mastering these concepts will give you a solid foundation for subsequent lessons and real-world applications.</p>\n\n<h3>Key Concepts</h3>\n<h4>1. Core Definitions</h4>\n<p>We begin with precise definitions that form the bedrock of <strong>Applications — Area Between Curves</strong>. A rigorous understanding of terminology prevents ambiguity and enables exact communication and proof.</p>\n\n<h4>2. Fundamental Theorems and Results</h4>\n<p>The central theorems of <strong>Applications — Area Between Curves</strong> provide powerful tools for solving problems. We state each result clearly, explain the intuition behind it, and work through representative examples.</p>\n\n<h4>3. Worked Examples</h4>\n<p>Each concept is illustrated with step-by-step worked examples. Pay close attention to the reasoning at each step — it is as important as the final answer.</p>\n\n<h4>4. Common Misconceptions</h4>\n<p>Students often confuse closely related ideas in <strong>Applications — Area Between Curves</strong>. We highlight these distinctions explicitly so you can avoid common errors in exams and practical work.</p>\n\n<h3>Summary</h3>\n<p>You have completed the study of <strong>Applications — Area Between Curves</strong> in Module 7 (Calculus II). The key ideas covered in this lesson will be built upon in subsequent lessons. Attempt the quiz to consolidate your understanding before moving on.</p>",
+  "quiz": [
+    {
+      "question": "An improper integral has:",
+      "options": [
+        "A negative value",
+        "An infinite limit or unbounded integrand",
+        "A zero result",
+        "Only imaginary values"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "∫₁^∞ 1/x² dx evaluates to:",
+      "options": [
+        "∞",
+        "0",
+        "1",
+        "2"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "∫₁^∞ 1/x dx is:",
+      "options": [
+        "1",
+        "–1",
+        "0",
+        "Divergent"
+      ],
+      "correct_answer": 3
+    },
+    {
+      "question": "A convergent improper integral has:",
+      "options": [
+        "An infinite value",
+        "A finite value",
+        "No value",
+        "A complex value"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "To evaluate ∫₀^∞ e^(–x) dx, use:",
+      "options": [
+        "A limit as the upper bound → ∞",
+        "Substitution only",
+        "Integration by parts always",
+        "The Fundamental Theorem directly"
+      ],
+      "correct_answer": 0
+    }
+  ]
+}

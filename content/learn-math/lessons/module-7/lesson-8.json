@@ -1,0 +1,60 @@
+{
+  "moduleId": 7,
+  "lessonId": 8,
+  "slug": "applications-volumes-of-revolution",
+  "title": "Applications — Volumes of Revolution",
+  "isFree": true,
+  "content": "<h2>Module 7, Lesson 8: Applications — Volumes of Revolution</h2>\n\n<h3>Introduction</h3>\n<p>This lesson covers <strong>Applications — Volumes of Revolution</strong> within the broader study of <strong>Calculus II</strong>. Mastering these concepts will give you a solid foundation for subsequent lessons and real-world applications.</p>\n\n<h3>Key Concepts</h3>\n<h4>1. Core Definitions</h4>\n<p>We begin with precise definitions that form the bedrock of <strong>Applications — Volumes of Revolution</strong>. A rigorous understanding of terminology prevents ambiguity and enables exact communication and proof.</p>\n\n<h4>2. Fundamental Theorems and Results</h4>\n<p>The central theorems of <strong>Applications — Volumes of Revolution</strong> provide powerful tools for solving problems. We state each result clearly, explain the intuition behind it, and work through representative examples.</p>\n\n<h4>3. Worked Examples</h4>\n<p>Each concept is illustrated with step-by-step worked examples. Pay close attention to the reasoning at each step — it is as important as the final answer.</p>\n\n<h4>4. Common Misconceptions</h4>\n<p>Students often confuse closely related ideas in <strong>Applications — Volumes of Revolution</strong>. We highlight these distinctions explicitly so you can avoid common errors in exams and practical work.</p>\n\n<h3>Summary</h3>\n<p>You have completed the study of <strong>Applications — Volumes of Revolution</strong> in Module 7 (Calculus II). The key ideas covered in this lesson will be built upon in subsequent lessons. Attempt the quiz to consolidate your understanding before moving on.</p>",
+  "quiz": [
+    {
+      "question": "The area between y = f(x) and y = g(x) from a to b (f ≥ g) is:",
+      "options": [
+        "∫[f(x)+g(x)]dx",
+        "∫[f(x)–g(x)]dx",
+        "∫f(x)dx × ∫g(x)dx",
+        "[∫f(x)dx]²"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "First step in finding area between two curves:",
+      "options": [
+        "Differentiate both",
+        "Find the intersection points",
+        "Integrate immediately",
+        "Find maxima"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "The area between y = x and y = x² from 0 to 1 is:",
+      "options": [
+        "1/6",
+        "1/3",
+        "1/2",
+        "1"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "question": "If curves cross at interior points, you must:",
+      "options": [
+        "Ignore the crossing",
+        "Split into sub-intervals and take absolute values",
+        "Add extra constant",
+        "Use complex numbers"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "For horizontal strips (integrating along y), you integrate with respect to:",
+      "options": [
+        "x",
+        "y",
+        "t",
+        "Both x and y"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

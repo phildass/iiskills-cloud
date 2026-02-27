@@ -1,0 +1,60 @@
+{
+  "moduleId": 6,
+  "lessonId": 2,
+  "slug": "introduction-to-derivatives",
+  "title": "Introduction to Derivatives",
+  "isFree": true,
+  "content": "<h2>Module 6, Lesson 2: Introduction to Derivatives</h2>\n\n<h3>Introduction</h3>\n<p>This lesson covers <strong>Introduction to Derivatives</strong> within the broader study of <strong>Calculus I</strong>. Mastering these concepts will give you a solid foundation for subsequent lessons and real-world applications.</p>\n\n<h3>Key Concepts</h3>\n<h4>1. Core Definitions</h4>\n<p>We begin with precise definitions that form the bedrock of <strong>Introduction to Derivatives</strong>. A rigorous understanding of terminology prevents ambiguity and enables exact communication and proof.</p>\n\n<h4>2. Fundamental Theorems and Results</h4>\n<p>The central theorems of <strong>Introduction to Derivatives</strong> provide powerful tools for solving problems. We state each result clearly, explain the intuition behind it, and work through representative examples.</p>\n\n<h4>3. Worked Examples</h4>\n<p>Each concept is illustrated with step-by-step worked examples. Pay close attention to the reasoning at each step — it is as important as the final answer.</p>\n\n<h4>4. Common Misconceptions</h4>\n<p>Students often confuse closely related ideas in <strong>Introduction to Derivatives</strong>. We highlight these distinctions explicitly so you can avoid common errors in exams and practical work.</p>\n\n<h3>Summary</h3>\n<p>You have completed the study of <strong>Introduction to Derivatives</strong> in Module 6 (Calculus I). The key ideas covered in this lesson will be built upon in subsequent lessons. Attempt the quiz to consolidate your understanding before moving on.</p>",
+  "quiz": [
+    {
+      "question": "lim(x→2) (x² – 4)/(x – 2) equals:",
+      "options": [
+        "0",
+        "2",
+        "4",
+        "Undefined"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "A function f is continuous at x = a if:",
+      "options": [
+        "f(a) is defined only",
+        "lim(x→a) f(x) = f(a)",
+        "f(a) = 0",
+        "f'(a) exists"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "lim(x→0) sin(x)/x equals:",
+      "options": [
+        "0",
+        "∞",
+        "1",
+        "–1"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "If lim(x→a⁺) f(x) ≠ lim(x→a⁻) f(x), the limit:",
+      "options": [
+        "Equals the average",
+        "Does not exist",
+        "Is 0",
+        "Is infinity"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "A removable discontinuity is also called:",
+      "options": [
+        "A jump discontinuity",
+        "An infinite discontinuity",
+        "A hole",
+        "An asymptote"
+      ],
+      "correct_answer": 2
+    }
+  ]
+}

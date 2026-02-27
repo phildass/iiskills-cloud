@@ -1,0 +1,60 @@
+{
+  "moduleId": 4,
+  "lessonId": 7,
+  "slug": "the-cosine-rule",
+  "title": "The Cosine Rule",
+  "isFree": true,
+  "content": "<h2>Module 4, Lesson 7: The Cosine Rule</h2>\n\n<h3>Introduction</h3>\n<p>This lesson covers <strong>The Cosine Rule</strong> within the broader study of <strong>Trigonometry</strong>. Mastering these concepts will give you a solid foundation for subsequent lessons and real-world applications.</p>\n\n<h3>Key Concepts</h3>\n<h4>1. Core Definitions</h4>\n<p>We begin with precise definitions that form the bedrock of <strong>The Cosine Rule</strong>. A rigorous understanding of terminology prevents ambiguity and enables exact communication and proof.</p>\n\n<h4>2. Fundamental Theorems and Results</h4>\n<p>The central theorems of <strong>The Cosine Rule</strong> provide powerful tools for solving problems. We state each result clearly, explain the intuition behind it, and work through representative examples.</p>\n\n<h4>3. Worked Examples</h4>\n<p>Each concept is illustrated with step-by-step worked examples. Pay close attention to the reasoning at each step — it is as important as the final answer.</p>\n\n<h4>4. Common Misconceptions</h4>\n<p>Students often confuse closely related ideas in <strong>The Cosine Rule</strong>. We highlight these distinctions explicitly so you can avoid common errors in exams and practical work.</p>\n\n<h3>Summary</h3>\n<p>You have completed the study of <strong>The Cosine Rule</strong> in Module 4 (Trigonometry). The key ideas covered in this lesson will be built upon in subsequent lessons. Attempt the quiz to consolidate your understanding before moving on.</p>",
+  "quiz": [
+    {
+      "question": "The Cosine Rule states c² = a² + b² – 2ab·cos(C). When C = 90°, this reduces to:",
+      "options": [
+        "c² = a² – b²",
+        "c² = a² + b² + 2ab",
+        "c² = a² + b²",
+        "c = a + b"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "The Cosine Rule is used to find a side when you know:",
+      "options": [
+        "All three angles",
+        "Two sides and the included angle",
+        "Two angles and one side",
+        "One side and one angle"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "To find angle C using the Cosine Rule from sides a, b, c:",
+      "options": [
+        "cos C = (a²+b²+c²)/2ab",
+        "cos C = (a²+b²–c²)/2ab",
+        "cos C = (c²–a²–b²)/2ab",
+        "cos C = 2ab/(a²+b²–c²)"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "The Cosine Rule reduces to the Pythagorean theorem when:",
+      "options": [
+        "The triangle is equilateral",
+        "One angle is 90°",
+        "The triangle is isosceles",
+        "Two sides are equal"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "For which combination does the Cosine Rule apply but Sine Rule is less direct?",
+      "options": [
+        "AAS",
+        "ASA",
+        "SSS",
+        "AAA"
+      ],
+      "correct_answer": 2
+    }
+  ]
+}

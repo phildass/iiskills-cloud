@@ -1,0 +1,60 @@
+{
+  "moduleId": 6,
+  "lessonId": 9,
+  "slug": "related-rates",
+  "title": "Related Rates",
+  "isFree": true,
+  "content": "<h2>Module 6, Lesson 9: Related Rates</h2>\n\n<h3>Introduction</h3>\n<p>This lesson covers <strong>Related Rates</strong> within the broader study of <strong>Calculus I</strong>. Mastering these concepts will give you a solid foundation for subsequent lessons and real-world applications.</p>\n\n<h3>Key Concepts</h3>\n<h4>1. Core Definitions</h4>\n<p>We begin with precise definitions that form the bedrock of <strong>Related Rates</strong>. A rigorous understanding of terminology prevents ambiguity and enables exact communication and proof.</p>\n\n<h4>2. Fundamental Theorems and Results</h4>\n<p>The central theorems of <strong>Related Rates</strong> provide powerful tools for solving problems. We state each result clearly, explain the intuition behind it, and work through representative examples.</p>\n\n<h4>3. Worked Examples</h4>\n<p>Each concept is illustrated with step-by-step worked examples. Pay close attention to the reasoning at each step — it is as important as the final answer.</p>\n\n<h4>4. Common Misconceptions</h4>\n<p>Students often confuse closely related ideas in <strong>Related Rates</strong>. We highlight these distinctions explicitly so you can avoid common errors in exams and practical work.</p>\n\n<h3>Summary</h3>\n<p>You have completed the study of <strong>Related Rates</strong> in Module 6 (Calculus I). The key ideas covered in this lesson will be built upon in subsequent lessons. Attempt the quiz to consolidate your understanding before moving on.</p>",
+  "quiz": [
+    {
+      "question": "A critical point of f(x) satisfies:",
+      "options": [
+        "f(x) = 0",
+        "f'(x) = 0 or undefined",
+        "f''(x) = 0",
+        "f(x) = f'(x)"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "If f'(a) = 0 and f''(a) > 0, then x = a is a:",
+      "options": [
+        "Maximum",
+        "Minimum",
+        "Inflection point",
+        "Saddle point"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "If f'(a) = 0 and f''(a) < 0, then x = a is a:",
+      "options": [
+        "Minimum",
+        "Maximum",
+        "Inflection point",
+        "Undefined"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "The first derivative test checks the sign of f' on either side of a critical point to determine:",
+      "options": [
+        "Concavity",
+        "Max or min",
+        "The domain",
+        "Continuity"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "Optimisation problems in calculus look for values that maximise or minimise:",
+      "options": [
+        "The derivative",
+        "An objective function",
+        "The domain",
+        "The range"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}
