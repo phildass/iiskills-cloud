@@ -1,0 +1,60 @@
+{
+  "moduleId": 3,
+  "lessonId": 9,
+  "slug": "big-data-concepts",
+  "title": "Big Data Concepts",
+  "isFree": false,
+  "content": "<h2>Module 3, Lesson 9: Big Data Concepts</h2>\n<h3>Introduction</h3>\n<p>Big Data \u2014 too large for traditional tools \u2014 requires distributed computing. India generates enormous big data volumes through UPI, Aadhaar, and mobile usage.</p>\n<h3>Key Concepts</h3>\n<h4>1. The 5 Vs of Big Data</h4>\n<p>Understanding The 5 Vs of Big Data is foundational to this topic. Indian companies and research institutions apply these principles in production AI systems every day.</p>\n<h4>2. Apache Hadoop: distributed storage and batch processing</h4>\n<p>Apache Hadoop: distributed storage and batch processing forms the core methodology for practitioners. India's tech ecosystem from Bengaluru to Hyderabad deploys these approaches at scale.</p>\n<h4>3. Apache Spark: fast in-memory processing</h4>\n<p>Apache Spark: fast in-memory processing is critical for building reliable AI solutions. Top Indian firms like TCS, Wipro, Infosys, and startups like Razorpay all leverage these techniques.</p>\n<h4>4. Data lakes, data warehouses, and Kafka streaming</h4>\n<p>Mastering Data lakes, data warehouses, and Kafka streaming separates good practitioners from great ones. Apply these concepts on Indian open datasets from data.gov.in to build hands-on expertise.</p>\n<h3>Summary</h3>\n<p>This lesson covered The 5 Vs of Big Data, Apache Hadoop: distributed storage and batch processing, Apache Spark: fast in-memory processing, and Data lakes, data warehouses, and Kafka streaming. These are the building blocks of big data concepts \u2014 master them through practice on real Indian datasets.</p>",
+  "quiz": [
+    {
+      "question": "What are the 5 Vs of Big Data?",
+      "options": [
+        "Volume, Value, Velocity, Vision, Variety",
+        "Volume, Velocity, Variety, Veracity, Value",
+        "Volume, Version, Velocity, Validity, Value",
+        "Vision, Volume, Velocity, Variance, Value"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is the key advantage of Apache Spark over Hadoop MapReduce?",
+      "options": [
+        "Uses more servers",
+        "100x faster for iterative workloads by processing data in memory",
+        "Better programming interface",
+        "Uses less storage"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is the difference between a data lake and a data warehouse?",
+      "options": [
+        "They are the same",
+        "Data lake stores raw data; data warehouse stores processed structured analytical data",
+        "Data lake is for small data; warehouse for big data",
+        "Data lake uses SQL; warehouse uses Python"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What does Apache Kafka do?",
+      "options": [
+        "Trains ML models",
+        "Acts as a distributed message queue for real-time data pipelines",
+        "Visualises big data",
+        "Stores files in HDFS"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What does HDFS stand for?",
+      "options": [
+        "High-Definition File Storage",
+        "Hadoop Distributed File System",
+        "Horizontal Data File Server",
+        "High-Data Feature Space"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

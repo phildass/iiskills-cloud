@@ -1,0 +1,60 @@
+{
+  "moduleId": 3,
+  "lessonId": 2,
+  "slug": "statistics-essentials",
+  "title": "Statistics Essentials for Data Science",
+  "isFree": false,
+  "content": "<h2>Module 3, Lesson 2: Statistics Essentials for Data Science</h2>\n<h3>Introduction</h3>\n<p>Statistics is the mathematical language of data science. Without statistical foundations, a data scientist cannot validate whether patterns are real or random noise.</p>\n<h3>Key Concepts</h3>\n<h4>1. Descriptive statistics (mean, median, std dev)</h4>\n<p>Understanding Descriptive statistics (mean, median, std dev) is foundational to this topic. Indian companies and research institutions apply these principles in production AI systems every day.</p>\n<h4>2. Probability distributions (normal, Poisson, binomial)</h4>\n<p>Probability distributions (normal, Poisson, binomial) forms the core methodology for practitioners. India's tech ecosystem from Bengaluru to Hyderabad deploys these approaches at scale.</p>\n<h4>3. Hypothesis testing and p-values</h4>\n<p>Hypothesis testing and p-values is critical for building reliable AI solutions. Top Indian firms like TCS, Wipro, Infosys, and startups like Razorpay all leverage these techniques.</p>\n<h4>4. Correlation vs causation and sampling bias</h4>\n<p>Mastering Correlation vs causation and sampling bias separates good practitioners from great ones. Apply these concepts on Indian open datasets from data.gov.in to build hands-on expertise.</p>\n<h3>Summary</h3>\n<p>This lesson covered Descriptive statistics (mean, median, std dev), Probability distributions (normal, Poisson, binomial), Hypothesis testing and p-values, and Correlation vs causation and sampling bias. These are the building blocks of statistics essentials for data science \u2014 master them through practice on real Indian datasets.</p>",
+  "quiz": [
+    {
+      "question": "Which measure of central tendency is most robust to outliers?",
+      "options": [
+        "Mean",
+        "Variance",
+        "Median",
+        "Standard deviation"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "What does a p-value represent?",
+      "options": [
+        "Model accuracy",
+        "The probability of observing the data if the null hypothesis were true",
+        "Correlation coefficient",
+        "Feature significance"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What does \"correlation does not imply causation\" mean?",
+      "options": [
+        "Correlated variables cannot be predicted from each other",
+        "Two variables can be correlated without one causing the other",
+        "Causation always produces high correlation",
+        "Negative correlation implies reverse causation"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "Which distribution models rare events over time?",
+      "options": [
+        "Normal",
+        "Binomial",
+        "Poisson",
+        "Uniform"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "What is survivorship bias?",
+      "options": [
+        "Bias from selecting only surviving entities while ignoring failures",
+        "Bias from small samples",
+        "Bias from incorrect labelling",
+        "Bias from too many features"
+      ],
+      "correct_answer": 0
+    }
+  ]
+}

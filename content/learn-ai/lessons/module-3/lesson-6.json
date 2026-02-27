@@ -1,0 +1,60 @@
+{
+  "moduleId": 3,
+  "lessonId": 6,
+  "slug": "data-visualisation",
+  "title": "Data Visualisation with Python",
+  "isFree": false,
+  "content": "<h2>Module 3, Lesson 6: Data Visualisation with Python</h2>\n<h3>Introduction</h3>\n<p>Data visualisation transforms numbers into visual insights. Python's Matplotlib, Seaborn, and Plotly ecosystem is the global standard for data scientists.</p>\n<h3>Key Concepts</h3>\n<h4>1. Matplotlib: the foundation of Python visualisation</h4>\n<p>Understanding Matplotlib: the foundation of Python visualisation is foundational to this topic. Indian companies and research institutions apply these principles in production AI systems every day.</p>\n<h4>2. Seaborn: statistical visualisation made easy</h4>\n<p>Seaborn: statistical visualisation made easy forms the core methodology for practitioners. India's tech ecosystem from Bengaluru to Hyderabad deploys these approaches at scale.</p>\n<h4>3. Plotly: interactive web charts</h4>\n<p>Plotly: interactive web charts is critical for building reliable AI solutions. Top Indian firms like TCS, Wipro, Infosys, and startups like Razorpay all leverage these techniques.</p>\n<h4>4. Choosing the right chart type</h4>\n<p>Mastering Choosing the right chart type separates good practitioners from great ones. Apply these concepts on Indian open datasets from data.gov.in to build hands-on expertise.</p>\n<h3>Summary</h3>\n<p>This lesson covered Matplotlib: the foundation of Python visualisation, Seaborn: statistical visualisation made easy, Plotly: interactive web charts, and Choosing the right chart type. These are the building blocks of data visualisation with python \u2014 master them through practice on real Indian datasets.</p>",
+  "quiz": [
+    {
+      "question": "Which library is the foundation for all Python visualisation libraries?",
+      "options": [
+        "Seaborn",
+        "Plotly",
+        "Matplotlib",
+        "Bokeh"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "What does Plotly specialise in?",
+      "options": [
+        "Faster chart rendering",
+        "Interactive charts for web dashboards",
+        "Statistical visualisations",
+        "3D plotting only"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is Edward Tufte's key visualisation principle?",
+      "options": [
+        "Maximise colour diversity",
+        "Maximise data-ink ratio by removing non-essential elements",
+        "Always use pie charts",
+        "Use as many chart types as possible"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What chart type is best for visualising the distribution of a continuous variable?",
+      "options": [
+        "Pie chart",
+        "Histogram or box plot",
+        "Line chart",
+        "Bar chart"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "Which library creates choropleth maps of Indian states?",
+      "options": [
+        "Seaborn",
+        "NumPy",
+        "Folium with Geopandas",
+        "Plotly Express only"
+      ],
+      "correct_answer": 2
+    }
+  ]
+}

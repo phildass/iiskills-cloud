@@ -1,0 +1,60 @@
+{
+  "moduleId": 3,
+  "lessonId": 10,
+  "slug": "data-science-indian-business",
+  "title": "Data Science in Indian Business",
+  "isFree": false,
+  "content": "<h2>Module 3, Lesson 10: Data Science in Indian Business</h2>\n<h3>Introduction</h3>\n<p>Data science is transforming India's economy. Understanding how it is applied at Flipkart, HDFC Bank, HUL, and Indian Railways bridges academic knowledge with professional practice.</p>\n<h3>Key Concepts</h3>\n<h4>1. Flipkart: demand forecasting and personalisation</h4>\n<p>Understanding Flipkart: demand forecasting and personalisation is foundational to this topic. Indian companies and research institutions apply these principles in production AI systems every day.</p>\n<h4>2. HDFC Bank: credit scoring and fraud detection</h4>\n<p>HDFC Bank: credit scoring and fraud detection forms the core methodology for practitioners. India's tech ecosystem from Bengaluru to Hyderabad deploys these approaches at scale.</p>\n<h4>3. Hindustan Unilever: consumer insights at village level</h4>\n<p>Hindustan Unilever: consumer insights at village level is critical for building reliable AI solutions. Top Indian firms like TCS, Wipro, Infosys, and startups like Razorpay all leverage these techniques.</p>\n<h4>4. Indian Railways: predictive maintenance</h4>\n<p>Mastering Indian Railways: predictive maintenance separates good practitioners from great ones. Apply these concepts on Indian open datasets from data.gov.in to build hands-on expertise.</p>\n<h3>Summary</h3>\n<p>This lesson covered Flipkart: demand forecasting and personalisation, HDFC Bank: credit scoring and fraud detection, Hindustan Unilever: consumer insights at village level, and Indian Railways: predictive maintenance. These are the building blocks of data science in indian business \u2014 master them through practice on real Indian datasets.</p>",
+  "quiz": [
+    {
+      "question": "What does Flipkart use ML demand forecasting for?",
+      "options": [
+        "Hiring employees",
+        "Predicting which SKUs to stock at which warehouses",
+        "Designing new products",
+        "Forecasting stock prices"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What does thin-file borrower mean in credit scoring?",
+      "options": [
+        "A borrower with little money",
+        "A borrower with no formal credit history",
+        "A borrower with multiple loans",
+        "A borrower who repays quickly"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What does HiPPO stand for in data-driven decision making?",
+      "options": [
+        "High Performance Processing Operations",
+        "Highest Paid Person's Opinion",
+        "Hierarchical Information Protocol Process Optimisation",
+        "High Impact Predictive Pattern Operations"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What app does HUL use to gather rural retail outlet data?",
+      "options": [
+        "Shikhar app",
+        "Udaan app",
+        "BigBasket Rural",
+        "Meesho Rural"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "question": "What improvement has predictive maintenance brought to Indian Railways?",
+      "options": [
+        "50% speed increase",
+        "15-20% reduction in maintenance costs and improved on-time performance",
+        "100% accident elimination",
+        "30% capacity increase"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

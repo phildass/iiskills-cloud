@@ -1,0 +1,60 @@
+{
+  "moduleId": 2,
+  "lessonId": 9,
+  "slug": "generative-ai",
+  "title": "Generative AI",
+  "isFree": false,
+  "content": "<h2>Module 2, Lesson 9: Generative AI</h2>\n<h3>Introduction</h3>\n<p>Generative AI \u2014 LLMs, diffusion models \u2014 is the most visible AI breakthrough of the 2020s. India is the second largest ChatGPT user base globally.</p>\n<h3>Key Concepts</h3>\n<h4>1. Large Language Models (GPT-4, Gemini, Llama)</h4>\n<p>Understanding Large Language Models (GPT-4, Gemini, Llama) is foundational to this topic. Indian companies and research institutions apply these principles in production AI systems every day.</p>\n<h4>2. Diffusion models (Stable Diffusion, DALL-E)</h4>\n<p>Diffusion models (Stable Diffusion, DALL-E) forms the core methodology for practitioners. India's tech ecosystem from Bengaluru to Hyderabad deploys these approaches at scale.</p>\n<h4>3. Prompt engineering for Indian contexts</h4>\n<p>Prompt engineering for Indian contexts is critical for building reliable AI solutions. Top Indian firms like TCS, Wipro, Infosys, and startups like Razorpay all leverage these techniques.</p>\n<h4>4. Risks: hallucinations, deepfakes, misinformation</h4>\n<p>Mastering Risks: hallucinations, deepfakes, misinformation separates good practitioners from great ones. Apply these concepts on Indian open datasets from data.gov.in to build hands-on expertise.</p>\n<h3>Summary</h3>\n<p>This lesson covered Large Language Models (GPT-4, Gemini, Llama), Diffusion models (Stable Diffusion, DALL-E), Prompt engineering for Indian contexts, and Risks: hallucinations, deepfakes, misinformation. These are the building blocks of generative ai \u2014 master them through practice on real Indian datasets.</p>",
+  "quiz": [
+    {
+      "question": "Which Indian company built Sarvam-1, an LLM for Indian languages?",
+      "options": [
+        "Infosys",
+        "Sarvam AI",
+        "TCS",
+        "Wipro"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What technique does Stable Diffusion use?",
+      "options": [
+        "GANs",
+        "CNNs",
+        "Diffusion models (noise addition and reversal)",
+        "RNNs"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "What is \"hallucination\" in LLMs?",
+      "options": [
+        "Very creative text generation",
+        "The model confidently stating false information",
+        "Slow processing",
+        "Generating images instead of text"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is prompt engineering?",
+      "options": [
+        "Engineering AI hardware",
+        "Crafting inputs to LLMs to elicit desired outputs",
+        "Writing Python code for AI",
+        "Designing UI for AI products"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "India has the ___ largest ChatGPT user base worldwide.",
+      "options": [
+        "First",
+        "Second",
+        "Third",
+        "Fifth"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

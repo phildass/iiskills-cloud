@@ -1,0 +1,60 @@
+{
+  "moduleId": 1,
+  "lessonId": 7,
+  "isFree": false,
+  "slug": "data-the-fuel-of-ai",
+  "title": "Data — The Fuel of AI",
+  "content": "<h2>Module 1, Lesson 7: Data — The Fuel of AI</h2>\n<h3>Introduction</h3>\n<p>Without data, AI models cannot learn. Data is to AI what fuel is to an engine — the quality and quantity of your data determines the upper bound of your model's performance. No algorithm, however sophisticated, can overcome fundamentally bad data. \"Garbage in, garbage out\" is the most important principle in applied AI.</p>\n<p>India has a unique data advantage: a population of 1.4 billion generating enormous volumes of digital data through Aadhaar, UPI, IRCTC, and mobile apps. The challenge is making this data accessible, labelled, and usable for AI while respecting privacy and data sovereignty.</p>\n<h3>Key Concepts</h3>\n<h4>1. Data Types: Structured vs Unstructured</h4>\n<p>Structured data is organised in rows and columns (databases, Excel). Examples: bank transaction records, IRCTC passenger data. Unstructured data has no predefined schema: text (Hindi/English tweets), images (satellite photos), audio (call centre recordings), video. AI must handle both types. Deep learning excels at unstructured data.</p>\n<h4>2. Data Quality Dimensions</h4>\n<p>Five dimensions of data quality: <strong>Accuracy</strong> (is the value correct?), <strong>Completeness</strong> (are all fields filled?), <strong>Consistency</strong> (do values match across sources?), <strong>Timeliness</strong> (is the data current?), <strong>Uniqueness</strong> (no duplicates?). Auditing data quality before training prevents wasted effort and biased models.</p>\n<h4>3. Data Labelling and Annotation</h4>\n<p>Supervised learning requires labelled data — examples paired with correct answers. Labelling is expensive and time-consuming. Active learning reduces labelling effort by selecting the most informative samples to label. Synthetic data generation creates artificial training examples, reducing dependence on real-world labelled data.</p>\n<h4>4. Indian Open Datasets and Data.gov.in</h4>\n<p>India's Open Government Data platform (data.gov.in) hosts 600,000+ datasets across agriculture, health, transport, and finance. ISRO's Bhuvan platform offers satellite imagery. AIIMS' de-identified medical datasets are available for research. NSE and BSE provide financial data. Using these datasets, Indian AI practitioners can build models without starting from scratch.</p>\n<h4>5. Privacy, Consent, and the Digital Personal Data Protection Act</h4>\n<p>India's Digital Personal Data Protection Act (DPDPA, 2023) regulates how personal data is collected, processed, and stored. AI practitioners must ensure: explicit consent for data collection, data minimisation (collect only what is needed), purpose limitation (use data only for stated purpose), and the right to erasure. Non-compliance carries significant penalties.</p>\n<h3>Summary</h3>\n<p>Data is the foundation of AI. Understanding data types, quality dimensions, labelling processes, available Indian datasets, and data privacy regulations equips you to build AI responsibly. Before building any model, invest in understanding your data deeply — it is the most important investment you can make in any AI project.</p>",
+  "quiz": [
+    {
+      "question": "What principle captures the idea that poor quality data leads to poor AI outcomes?",
+      "options": [
+        "Moore's Law",
+        "Garbage in, garbage out",
+        "Occam's Razor",
+        "The No Free Lunch theorem"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is the name of India's Open Government Data platform?",
+      "options": [
+        "IndiaData.gov",
+        "data.gov.in",
+        "NITI.ai",
+        "DataIndia.org"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What does 'active learning' do in the context of data labelling?",
+      "options": [
+        "Trains models automatically",
+        "Selects the most informative samples to label",
+        "Removes duplicate data",
+        "Labels data using other models"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is India's 2023 data privacy law called?",
+      "options": [
+        "GDPR India",
+        "Digital Personal Data Protection Act",
+        "Information Technology Act Amendment",
+        "Privacy Shield India"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "Which type of data has no predefined schema (e.g., images, text)?",
+      "options": [
+        "Structured data",
+        "Relational data",
+        "Unstructured data",
+        "Normalised data"
+      ],
+      "correct_answer": 2
+    }
+  ]
+}

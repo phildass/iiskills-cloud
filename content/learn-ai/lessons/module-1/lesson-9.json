@@ -1,0 +1,60 @@
+{
+  "moduleId": 1,
+  "lessonId": 9,
+  "isFree": false,
+  "slug": "ai-ethics-and-responsible-development",
+  "title": "AI Ethics and Responsible Development",
+  "content": "<h2>Module 1, Lesson 9: AI Ethics and Responsible Development</h2>\n<h3>Introduction</h3>\n<p>AI systems make decisions that affect people's lives — loan approvals, medical diagnoses, job applications, and bail decisions. When these systems are biased, opaque, or misused, the consequences can be severe. AI ethics is not a philosophical luxury; it is an engineering and legal requirement.</p>\n<p>India's diverse population — spanning multiple languages, religions, castes, geographies, and economic strata — presents unique fairness challenges. An AI model trained predominantly on urban, English-language data will systematically disadvantage rural, vernacular-speaking populations. Responsible AI in India means building systems that work fairly for all 1.4 billion people.</p>\n<h3>Key Concepts</h3>\n<h4>1. Algorithmic Bias and Fairness</h4>\n<p>Bias enters AI through biased training data, biased feature selection, or biased problem framing. Historical bias (past discrimination reflected in data) is especially problematic. Fairness metrics — demographic parity, equalised odds, individual fairness — help quantify and mitigate bias. India-specific concern: caste and gender bias in hiring AI systems.</p>\n<h4>2. Transparency and Explainability (XAI)</h4>\n<p>Black-box models (deep neural networks) make decisions that are difficult to explain. Explainable AI (XAI) techniques — LIME, SHAP, attention visualisation — provide post-hoc explanations. Transparency is required by RBI for credit scoring models in India. The principle: those affected by an AI decision deserve an explanation.</p>\n<h4>3. Privacy and Data Protection</h4>\n<p>AI models trained on personal data must comply with India's DPDPA. Differential privacy adds mathematical noise to training data to prevent individual re-identification. Federated learning trains models on decentralised data without centralising personal information — critical for health and finance applications where data cannot leave the source institution.</p>\n<h4>4. Accountability and Human Oversight</h4>\n<p>AI must remain under human control. High-stakes decisions (medical diagnosis, judicial sentencing, police surveillance) require human review of AI outputs. Accountability means knowing who is responsible when an AI system causes harm. Audit trails, model documentation (Model Cards), and governance policies establish accountability.</p>\n<h4>5. AI for Social Good: India's Opportunity</h4>\n<p>Used responsibly, AI can accelerate India's development goals. AI for agriculture helps smallholder farmers; AI for education enables personalised learning at scale; AI for healthcare extends specialist medical care to rural areas. The key is ensuring that the benefits are distributed equitably, not captured only by urban elites.</p>\n<h3>Summary</h3>\n<p>Responsible AI requires actively addressing bias, ensuring explainability, protecting privacy, maintaining human oversight, and distributing benefits equitably. In India, these principles take on special importance given the scale and diversity of the population. Building ethical AI is not optional — it is what separates enduring AI products from harmful ones.</p>",
+  "quiz": [
+    {
+      "question": "What is algorithmic bias?",
+      "options": [
+        "A bug in the algorithm code",
+        "Systematic unfairness in AI outputs due to biased data or design",
+        "When an algorithm runs too slowly",
+        "A preference for certain programming languages"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What does XAI stand for?",
+      "options": [
+        "Extreme AI",
+        "Explainable AI",
+        "Extended AI Interface",
+        "External AI"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What technique trains models on decentralised data without centralising personal information?",
+      "options": [
+        "Transfer learning",
+        "Federated learning",
+        "Differential privacy",
+        "Model distillation"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "Why is India's population diversity especially important for AI fairness?",
+      "options": [
+        "Because India has more data than other countries",
+        "Because models trained on urban/English data may disadvantage rural/vernacular populations",
+        "Because India's laws require diverse datasets",
+        "Because diverse datasets train faster"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is the purpose of 'Model Cards'?",
+      "options": [
+        "A type of neural network layer",
+        "Documentation establishing transparency and accountability for AI models",
+        "A credit card for buying AI compute",
+        "A visualisation tool"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

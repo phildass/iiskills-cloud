@@ -1,0 +1,60 @@
+{
+  "moduleId": 2,
+  "lessonId": 5,
+  "slug": "nlp-overview",
+  "title": "Natural Language Processing Overview",
+  "isFree": false,
+  "content": "<h2>Module 2, Lesson 5: Natural Language Processing Overview</h2>\n<h3>Introduction</h3>\n<p>NLP enables computers to understand human language. India's 22 official languages make multilingual NLP both a critical need and a unique challenge.</p>\n<h3>Key Concepts</h3>\n<h4>1. Core NLP tasks (classification, translation, generation)</h4>\n<p>Understanding Core NLP tasks (classification, translation, generation) is foundational to this topic. Indian companies and research institutions apply these principles in production AI systems every day.</p>\n<h4>2. The Transformer architecture (BERT, GPT)</h4>\n<p>The Transformer architecture (BERT, GPT) forms the core methodology for practitioners. India's tech ecosystem from Bengaluru to Hyderabad deploys these approaches at scale.</p>\n<h4>3. AI4Bharat and IndicBERT for Indian languages</h4>\n<p>AI4Bharat and IndicBERT for Indian languages is critical for building reliable AI solutions. Top Indian firms like TCS, Wipro, Infosys, and startups like Razorpay all leverage these techniques.</p>\n<h4>4. Challenges of multilingual Indian NLP</h4>\n<p>Mastering Challenges of multilingual Indian NLP separates good practitioners from great ones. Apply these concepts on Indian open datasets from data.gov.in to build hands-on expertise.</p>\n<h3>Summary</h3>\n<p>This lesson covered Core NLP tasks (classification, translation, generation), The Transformer architecture (BERT, GPT), AI4Bharat and IndicBERT for Indian languages, and Challenges of multilingual Indian NLP. These are the building blocks of natural language processing overview \u2014 master them through practice on real Indian datasets.</p>",
+  "quiz": [
+    {
+      "question": "What architecture revolutionised NLP in 2017?",
+      "options": [
+        "CNNs",
+        "LSTMs",
+        "The Transformer",
+        "GRUs"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "What is AI4Bharat?",
+      "options": [
+        "A government AI agency",
+        "An IIT Madras initiative building NLP resources for 22 Indian languages",
+        "An AI product company",
+        "A cloud platform"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is code-switching in Indian NLP?",
+      "options": [
+        "Switching programming languages",
+        "Mixing two languages (e.g., Hindi and English) in one sentence",
+        "Changing NLP model versions",
+        "Switching between datasets"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What does BERT stand for?",
+      "options": [
+        "Bidirectional Encoder Representations from Transformers",
+        "Binary Encoding Regression Transformer",
+        "Batch Encoding Response Tool",
+        "Basic English Recurrent Transformer"
+      ],
+      "correct_answer": 0
+    },
+    {
+      "question": "Which task does Inshorts use NLP for?",
+      "options": [
+        "Named entity recognition",
+        "Translation",
+        "News summarisation",
+        "Sentiment analysis"
+      ],
+      "correct_answer": 2
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "moduleId": 4,
+  "lessonId": 9,
+  "slug": "python-best-practices-ai",
+  "title": "Python Best Practices for AI Projects",
+  "isFree": false,
+  "content": "<h2>Module 4, Lesson 9: Python Best Practices for AI Projects</h2>\n<h3>Introduction</h3>\n<p>Professional Python development for AI requires code quality practices: modularity, testing, documentation, version control, and reproducibility. In India, Indian tech companies including Razorpay, Meesho, and Dunzo enforce Python best practices through code review, linting, and CI/CD pipelines.</p>\n<p>This lesson covers the essential concepts, practical tools, and India-specific applications you need to master python best practices for ai projects.</p>\n<h3>Key Concepts</h3>\n<h4>1. Project Structure and Modularity</h4>\n<p>Understanding project structure and modularity is foundational to python best practices for ai projects. Practitioners apply these principles daily in building robust AI systems for India's growing tech ecosystem.</p>\n<h4>2. Version Control: Git for AI Projects</h4>\n<p>Version Control: Git for AI Projects provides the theoretical and practical framework for implementing effective solutions. India's technology sector widely adopts these approaches in production systems.</p>\n<h4>3. Dependency Management: requirements.txt and conda.yml</h4>\n<p>The application of dependency management: requirements.txt and conda.yml is critical for production-grade AI systems. Leading Indian companies rely on these techniques to build scalable, reliable AI products.</p>\n<h4>4. Reproducibility: Seeds, Config Files, and MLflow</h4>\n<p>Reproducibility: Seeds, Config Files, and MLflow represents advanced practice in python best practices for ai projects. Mastering this concept is what distinguishes expert AI practitioners building cutting-edge systems.</p>\n<h3>Summary</h3>\n<p>In this lesson you covered Project Structure and Modularity, Version Control: Git for AI Projects, Dependency Management: requirements.txt and conda.yml, and Reproducibility: Seeds, Config Files, and MLflow \u2014 all essential aspects of python best practices for ai projects. Apply these concepts in your projects using India-specific datasets to build real-world experience and a strong portfolio.</p>",
+  "quiz": [
+    {
+      "question": "What tool enforces Python code style automatically?",
+      "options": [
+        "Pandas",
+        "flake8 or black (code linters/formatters)",
+        "NumPy",
+        "TensorFlow"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "Why is setting a random seed important in AI experiments?",
+      "options": [
+        "To make training faster",
+        "To ensure reproducibility \u2014 same seed produces same random numbers",
+        "To improve model accuracy",
+        "To prevent GPU memory errors"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What does a requirements.txt file contain?",
+      "options": [
+        "Python source code",
+        "Model weights",
+        "Project dependencies and their versions",
+        "API keys"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is the DRY principle in Python?",
+      "options": [
+        "Data Reduction Yields results",
+        "Don't Repeat Yourself \u2014 avoid code duplication through functions and classes",
+        "Design Rules for Your project",
+        "Dynamic Runtime Yielding"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What does type hinting in Python provide?",
+      "options": [
+        "Automatically enforces type checking at runtime",
+        "Improves code readability and IDE support by documenting expected types",
+        "Makes Python run faster",
+        "Converts Python to a compiled language"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

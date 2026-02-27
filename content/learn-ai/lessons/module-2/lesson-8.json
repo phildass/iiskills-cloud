@@ -1,0 +1,60 @@
+{
+  "moduleId": 2,
+  "lessonId": 8,
+  "slug": "expert-systems",
+  "title": "Expert Systems and Knowledge-Based AI",
+  "isFree": false,
+  "content": "<h2>Module 2, Lesson 8: Expert Systems and Knowledge-Based AI</h2>\n<h3>Introduction</h3>\n<p>Expert systems encode human expertise as if-then rules. Although superseded by ML, knowledge-based AI survives in knowledge graphs and hybrid systems.</p>\n<h3>Key Concepts</h3>\n<h4>1. Architecture: knowledge base, inference engine, user interface</h4>\n<p>Understanding Architecture: knowledge base, inference engine, user interface is foundational to this topic. Indian companies and research institutions apply these principles in production AI systems every day.</p>\n<h4>2. Forward vs backward chaining</h4>\n<p>Forward vs backward chaining forms the core methodology for practitioners. India's tech ecosystem from Bengaluru to Hyderabad deploys these approaches at scale.</p>\n<h4>3. Knowledge graphs: Google Knowledge Graph, Wikidata</h4>\n<p>Knowledge graphs: Google Knowledge Graph, Wikidata is critical for building reliable AI solutions. Top Indian firms like TCS, Wipro, Infosys, and startups like Razorpay all leverage these techniques.</p>\n<h4>4. Limitations and modern alternatives</h4>\n<p>Mastering Limitations and modern alternatives separates good practitioners from great ones. Apply these concepts on Indian open datasets from data.gov.in to build hands-on expertise.</p>\n<h3>Summary</h3>\n<p>This lesson covered Architecture: knowledge base, inference engine, user interface, Forward vs backward chaining, Knowledge graphs: Google Knowledge Graph, Wikidata, and Limitations and modern alternatives. These are the building blocks of expert systems and knowledge-based ai \u2014 master them through practice on real Indian datasets.</p>",
+  "quiz": [
+    {
+      "question": "What are the three components of an expert system?",
+      "options": [
+        "Data, Model, API",
+        "Knowledge Base, Inference Engine, User Interface",
+        "Input, Processing, Output",
+        "Rules, Trees, Clusters"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What does forward chaining do?",
+      "options": [
+        "Works backward from a hypothesis",
+        "Starts from known facts and applies rules to reach conclusions",
+        "Chains multiple models together",
+        "Predicts future events"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "Why did expert systems fall out of favour?",
+      "options": [
+        "They were too expensive to run",
+        "They are brittle outside their knowledge domain and cannot learn from data",
+        "They were too accurate",
+        "Governments banned them"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is a knowledge graph?",
+      "options": [
+        "A performance chart",
+        "A graph structure representing entities and their relationships",
+        "A type of neural network",
+        "A database index"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What does RAG stand for?",
+      "options": [
+        "Rapid Automated Generation",
+        "Retrieval-Augmented Generation",
+        "Regularised Attention Graph",
+        "Recurrent Adaptive Gradient"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

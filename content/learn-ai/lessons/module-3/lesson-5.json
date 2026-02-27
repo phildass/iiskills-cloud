@@ -1,0 +1,60 @@
+{
+  "moduleId": 3,
+  "lessonId": 5,
+  "slug": "eda-exploratory-data-analysis",
+  "title": "Exploratory Data Analysis (EDA)",
+  "isFree": false,
+  "content": "<h2>Module 3, Lesson 5: Exploratory Data Analysis (EDA)</h2>\n<h3>Introduction</h3>\n<p>EDA is the critical first step in understanding a dataset before building models \u2014 using statistical summaries and visualisations to discover patterns and spot anomalies.</p>\n<h3>Key Concepts</h3>\n<h4>1. Univariate analysis (histograms, box plots)</h4>\n<p>Understanding Univariate analysis (histograms, box plots) is foundational to this topic. Indian companies and research institutions apply these principles in production AI systems every day.</p>\n<h4>2. Bivariate and multivariate analysis</h4>\n<p>Bivariate and multivariate analysis forms the core methodology for practitioners. India's tech ecosystem from Bengaluru to Hyderabad deploys these approaches at scale.</p>\n<h4>3. Pandas Profiling for automated EDA</h4>\n<p>Pandas Profiling for automated EDA is critical for building reliable AI solutions. Top Indian firms like TCS, Wipro, Infosys, and startups like Razorpay all leverage these techniques.</p>\n<h4>4. Domain-guided EDA for Indian datasets</h4>\n<p>Mastering Domain-guided EDA for Indian datasets separates good practitioners from great ones. Apply these concepts on Indian open datasets from data.gov.in to build hands-on expertise.</p>\n<h3>Summary</h3>\n<p>This lesson covered Univariate analysis (histograms, box plots), Bivariate and multivariate analysis, Pandas Profiling for automated EDA, and Domain-guided EDA for Indian datasets. These are the building blocks of exploratory data analysis (eda) \u2014 master them through practice on real Indian datasets.</p>",
+  "quiz": [
+    {
+      "question": "Who formalised EDA in the 1970s?",
+      "options": [
+        "Claude Shannon",
+        "Andrey Kolmogorov",
+        "John Tukey",
+        "Ronald Fisher"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "What does a box plot primarily show?",
+      "options": [
+        "Exact values of all data points",
+        "Data spread, median, and outliers (IQR)",
+        "Correlation between two variables",
+        "Frequency distribution of categories"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What does the ydata-profiling library do?",
+      "options": [
+        "Profiles CPU performance",
+        "Automates EDA \u2014 generates a comprehensive dataset report",
+        "Profiles memory usage",
+        "Checks library compatibility"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What type of analysis examines exactly two variables?",
+      "options": [
+        "Univariate",
+        "Bivariate",
+        "Multivariate",
+        "Dimensionality"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "Why should EDA be guided by domain knowledge?",
+      "options": [
+        "Makes EDA faster",
+        "Ensures the right patterns and anomalies are investigated for the specific business context",
+        "Algorithms require it",
+        "Automated tools cannot handle domain data"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}

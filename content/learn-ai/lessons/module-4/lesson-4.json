@@ -1,0 +1,60 @@
+{
+  "moduleId": 4,
+  "lessonId": 4,
+  "slug": "matplotlib-seaborn-visualisation",
+  "title": "Matplotlib and Seaborn for Visualisation",
+  "isFree": false,
+  "content": "<h2>Module 4, Lesson 4: Matplotlib and Seaborn for Visualisation</h2>\n<h3>Introduction</h3>\n<p>Visualisation is an essential data science skill. Matplotlib and Seaborn are the standard Python libraries for creating publication-quality charts. In India, Data scientists at Zomato and Flipkart use Matplotlib/Seaborn for daily analytics dashboards and A/B test reporting.</p>\n<p>This lesson covers the essential concepts, practical tools, and India-specific applications you need to master matplotlib and seaborn for visualisation.</p>\n<h3>Key Concepts</h3>\n<h4>1. Matplotlib Figure and Axes Architecture</h4>\n<p>Understanding matplotlib figure and axes architecture is foundational to matplotlib and seaborn for visualisation. Practitioners apply these principles daily in building robust AI systems for India's growing tech ecosystem.</p>\n<h4>2. Seaborn Statistical Plots</h4>\n<p>Seaborn Statistical Plots provides the theoretical and practical framework for implementing effective solutions. India's technology sector widely adopts these approaches in production systems.</p>\n<h4>3. Customising Charts (Titles, Labels, Colours)</h4>\n<p>The application of customising charts (titles, labels, colours) is critical for production-grade AI systems. Leading Indian companies rely on these techniques to build scalable, reliable AI products.</p>\n<h4>4. Saving and Exporting Visualisations</h4>\n<p>Saving and Exporting Visualisations represents advanced practice in matplotlib and seaborn for visualisation. Mastering this concept is what distinguishes expert AI practitioners building cutting-edge systems.</p>\n<h3>Summary</h3>\n<p>In this lesson you covered Matplotlib Figure and Axes Architecture, Seaborn Statistical Plots, Customising Charts (Titles, Labels, Colours), and Saving and Exporting Visualisations \u2014 all essential aspects of matplotlib and seaborn for visualisation. Apply these concepts in your projects using India-specific datasets to build real-world experience and a strong portfolio.</p>",
+  "quiz": [
+    {
+      "question": "Which function creates a new Matplotlib figure and axes?",
+      "options": [
+        "plt.show()",
+        "plt.figure(); plt.axes()",
+        "fig, ax = plt.subplots()",
+        "plt.create()"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "What does sns.heatmap() visualise?",
+      "options": [
+        "Geographic maps",
+        "Correlation matrices or 2D data as colour-coded grids",
+        "Temperature data only",
+        "Network connections"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What should you call to display a Matplotlib plot in a regular Python script?",
+      "options": [
+        "plt.render()",
+        "plt.display()",
+        "plt.show()",
+        "plt.output()"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "What is the purpose of plt.tight_layout()?",
+      "options": [
+        "Increases chart size",
+        "Adjusts spacing to prevent overlap between subplots",
+        "Compresses images",
+        "Exports to PDF"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "In Seaborn, what does the \"hue\" parameter do?",
+      "options": [
+        "Changes the colour palette",
+        "Adds a third variable shown through colour differentiation",
+        "Sets the figure height",
+        "Rotates axis labels"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}
