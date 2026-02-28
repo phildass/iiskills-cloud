@@ -17,8 +17,9 @@ process.env.SENDGRID_FROM_EMAIL = 'test@iiskills.cloud';
 process.env.VONAGE_API_KEY = 'test-api-key';
 process.env.VONAGE_API_SECRET = 'test-api-secret';
 process.env.VONAGE_BRAND_NAME = 'iiskills';
+process.env.OTP_SECRET = 'test-otp-secret-for-unit-tests';
 
-import { generateAndDispatchOTP, verifyOTP, hasValidOTP } from '../lib/otpService';
+import { generateAndDispatchOTP, verifyOTP, hasValidOTP, hashOtp } from '../lib/otpService';
 
 describe('OTP Service', () => {
   describe('generateAndDispatchOTP', () => {
@@ -354,6 +355,50 @@ describe('Security Validations', () => {
     invalidEmails.forEach(email => {
       expect(emailRegex.test(email)).toBe(false);
     });
+  });
+});
+
+describe('hashOtp', () => {
+  test('should return a hex string of 64 characters (SHA-256)', () => {
+    const hash = hashOtp({ otp: '123456', appId: 'learn-ai' });
+    expect(typeof hash).toBe('string');
+    expect(hash).toHaveLength(64);
+    expect(hash).toMatch(/^[0-9a-f]{64}$/);
+  });
+
+  test('same inputs always produce the same hash', () => {
+    const params = { otp: '654321', appId: 'learn-pr', email: 'test@example.com' };
+    const hash1 = hashOtp(params);
+    const hash2 = hashOtp(params);
+    expect(hash1).toBe(hash2);
+  });
+
+  test('different OTPs produce different hashes', () => {
+    const base = { appId: 'learn-ai', email: 'a@b.com' };
+    expect(hashOtp({ ...base, otp: '111111' })).not.toBe(hashOtp({ ...base, otp: '111112' }));
+  });
+
+  test('different appIds produce different hashes', () => {
+    const base = { otp: '123456', email: 'a@b.com' };
+    expect(hashOtp({ ...base, appId: 'learn-ai' })).not.toBe(hashOtp({ ...base, appId: 'learn-pr' }));
+  });
+
+  test('email is normalised to lowercase before hashing', () => {
+    const lower = hashOtp({ otp: '123456', appId: 'learn-ai', email: 'user@example.com' });
+    const upper = hashOtp({ otp: '123456', appId: 'learn-ai', email: 'USER@EXAMPLE.COM' });
+    expect(lower).toBe(upper);
+  });
+
+  test('paymentTransactionId is included in hash when provided', () => {
+    const withTxn = hashOtp({ otp: '123456', appId: 'learn-ai', paymentTransactionId: 'pay_abc' });
+    const withoutTxn = hashOtp({ otp: '123456', appId: 'learn-ai' });
+    expect(withTxn).not.toBe(withoutTxn);
+  });
+
+  test('null/undefined optional fields treated as empty string', () => {
+    const withNull = hashOtp({ otp: '123456', appId: 'learn-ai', email: null, phone: null });
+    const withUndefined = hashOtp({ otp: '123456', appId: 'learn-ai' });
+    expect(withNull).toBe(withUndefined);
   });
 });
 

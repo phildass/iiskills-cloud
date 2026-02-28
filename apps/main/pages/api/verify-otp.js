@@ -34,7 +34,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { email, otp, appId } = req.body;
+    const { email, otp, appId, paymentTransactionId } = req.body;
 
     // Validate required fields
     if (!email || !otp || !appId) {
@@ -45,7 +45,7 @@ export default async function handler(req, res) {
     }
 
     // Verify OTP
-    const result = await verifyOTP({ email, otp, appId });
+    const result = await verifyOTP({ email, otp, appId, paymentTransactionId });
 
     if (!result.success) {
       return res.status(400).json({ success: false, error: result.error });
