@@ -1,6 +1,6 @@
 import crypto from 'crypto';
 import { createClient } from '@supabase/supabase-js';
-import { generateAndDispatchOTP } from '@lib/otpService';
+import { generateAndDispatchOTP, sendThankYouEmail } from '@lib/otpService';
 import { APPS } from '@lib/appRegistry';
 
 /**
@@ -173,6 +173,17 @@ export default async function handler(req, res) {
       }
       // Non-duplicate DB error — log but continue to OTP dispatch
       console.error('[ai-enter callback] Failed to store payment record:', insertError);
+    } else {
+      // Newly stored payment — send thank-you email (fire-and-forget)
+      const thankYouEmail = email || null;
+      if (thankYouEmail) {
+        sendThankYouEmail({
+          email: thankYouEmail,
+          appId: effectiveAppId,
+          appName,
+          paymentTransactionId: razorpay_payment_id,
+        }).catch((err) => console.error('[ai-enter callback] Thank-you email error:', err));
+      }
     }
   } else {
     console.warn('[ai-enter callback] Supabase not configured – skipping payment storage');
