@@ -71,4 +71,32 @@ declare -A PORTS=(
   ["learn-apt"]=3002
   ["learn-chemistry"]=3005
   ["learn-developer"]=3007
+  ["learn-geography"]=3011
+  ["learn-management"]=3016
+  ["learn-math"]=3017
+  ["learn-physics"]=3020
+  ["learn-pr"]=3021
+  ["learn-ai"]=3024
+)
 
+for app in "${!PORTS[@]}"; do
+  port="${PORTS[$app]}"
+  app_dir="$REPO_DIR/apps/$app"
+  if [ ! -d "$app_dir" ]; then
+    echo "WARNING: $app_dir not found — skipping $app"
+    continue
+  fi
+  if [ ! -f "$app_dir/.next/BUILD_ID" ]; then
+    echo "WARNING: $app_dir/.next/BUILD_ID not found — build may have failed, skipping $app"
+    continue
+  fi
+  cd "$app_dir"
+  pm2 delete "iiskills-$app" 2>/dev/null || true
+  PORT=$port pm2 start "npx next start -p $port" --name "iiskills-$app"
+  echo "  Started iiskills-$app on :$port"
+done
+
+echo "==> Save PM2 process list"
+pm2 save
+
+echo "==> Deployment complete. Run 'pm2 status' to verify."
