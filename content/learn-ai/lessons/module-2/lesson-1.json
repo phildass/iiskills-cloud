@@ -4,7 +4,7 @@
   "slug": "narrow-ai",
   "title": "Narrow AI vs General AI vs Superintelligence",
   "isFree": false,
-  "content": "<h2>Module 2, Lesson 1: Narrow AI vs General AI vs Superintelligence</h2>\n<h3>Introduction</h3>\n<p>All AI systems deployed today are Narrow AI. Understanding the AI capability spectrum is essential for career planning and setting realistic expectations about what AI can do today.</p>\n<h3>Key Concepts</h3>\n<h4>1. Narrow AI (weak AI)</h4>\n<p>Understanding Narrow AI (weak AI) is foundational to this topic. Indian companies and research institutions apply these principles in production AI systems every day.</p>\n<h4>2. Artificial General Intelligence (AGI)</h4>\n<p>Artificial General Intelligence (AGI) forms the core methodology for practitioners. India's tech ecosystem from Bengaluru to Hyderabad deploys these approaches at scale.</p>\n<h4>3. Superintelligence and AI safety</h4>\n<p>Superintelligence and AI safety is critical for building reliable AI solutions. Top Indian firms like TCS, Wipro, Infosys, and startups like Razorpay all leverage these techniques.</p>\n<h4>4. The AI capability spectrum in practice</h4>\n<p>Mastering The AI capability spectrum in practice separates good practitioners from great ones. Apply these concepts on Indian open datasets from data.gov.in to build hands-on expertise.</p>\n<h3>Summary</h3>\n<p>This lesson covered Narrow AI (weak AI), Artificial General Intelligence (AGI), Superintelligence and AI safety, and The AI capability spectrum in practice. These are the building blocks of narrow ai vs general ai vs superintelligence \u2014 master them through practice on real Indian datasets.</p>",
+  "content": "<h2>Module 2, Lesson 1: Narrow AI vs General AI vs Superintelligence</h2>\n<h3>The Hook</h3>\n<p>All AI systems deployed today are Narrow AI. Understanding the AI capability spectrum is essential for career planning and setting realistic expectations about what AI can do today.</p>\n<h3>The Concept</h3>\n<h4>1. Narrow AI (weak AI)</h4>\n<p>Understanding Narrow AI (weak AI) is foundational to this topic. Indian companies and research institutions apply these principles in production AI systems every day.</p>\n<h4>2. Artificial General Intelligence (AGI)</h4>\n<p>Artificial General Intelligence (AGI) forms the core methodology for practitioners. India's tech ecosystem from Bengaluru to Hyderabad deploys these approaches at scale.</p>\n<h4>3. Superintelligence and AI safety</h4>\n<p>Superintelligence and AI safety is critical for building reliable AI solutions. Top Indian firms like TCS, Wipro, Infosys, and startups like Razorpay all leverage these techniques.</p>\n<h4>4. The AI capability spectrum in practice</h4>\n<p>Mastering The AI capability spectrum in practice separates good practitioners from great ones. Apply these concepts on Indian open datasets from data.gov.in to build hands-on expertise.</p>\n<h3>The Illustration</h3>\n<p>This lesson covered Narrow AI (weak AI), Artificial General Intelligence (AGI), Superintelligence and AI safety, and The AI capability spectrum in practice. These are the building blocks of narrow ai vs general ai vs superintelligence — master them through practice on real Indian datasets.</p>",
   "quiz": [
     {
       "question": "What type of AI are ALL currently deployed AI systems?",
@@ -41,7 +41,7 @@
       "options": [
         "Yes, GPT-4 can",
         "Yes, Gemini can",
-        "No \u2014 no AGI exists yet",
+        "No — no AGI exists yet",
         "Yes, DeepMind systems can"
       ],
       "correct_answer": 2
