@@ -1,6 +1,6 @@
 import crypto from 'crypto';
 import { createClient } from '@supabase/supabase-js';
-import { generateAndDispatchOTP } from '@lib/otpService';
+import { generateAndDispatchOTP, sendThankYouEmail } from '@lib/otpService';
 import { APPS } from '@lib/appRegistry';
 
 const supabase = createClient(
@@ -106,8 +106,8 @@ export default async function handler(req, res) {
       formattedPhone = `+91${phone}`;
     }
 
-    // Store payment record in database
-    const { data: paymentRecord, error: paymentError } = await supabase
+    // Store payment record in database (idempotent — UNIQUE constraint on payment_id)
+    const { error: paymentError } = await supabase
       .from('payments')
       .insert([
         {
@@ -121,13 +121,32 @@ export default async function handler(req, res) {
           payment_notes: notes,
           created_at: new Date().toISOString(),
         },
-      ])
-      .select()
-      .single();
+      ]);
 
     if (paymentError) {
+      // Duplicate payment — already processed; respond idempotently
+      if (
+        paymentError.code === '23505' ||
+        paymentError.message?.includes('duplicate') ||
+        paymentError.message?.includes('unique')
+      ) {
+        console.log(`[webhook] Duplicate payment_id ${paymentId} — already processed`);
+        return res.status(200).json({
+          success: true,
+          message: 'Payment already processed (idempotent)',
+          paymentId,
+        });
+      }
       console.error('Failed to store payment record:', paymentError);
-      // Continue with OTP dispatch even if storage fails
+      // Continue with OTP dispatch even if storage fails for other reasons
+    } else {
+      // Newly stored payment — send thank-you email (fire-and-forget)
+      sendThankYouEmail({
+        email,
+        appId,
+        appName: appConfig.name,
+        paymentTransactionId: paymentId,
+      }).catch((err) => console.error('[webhook] Thank-you email error:', err));
     }
 
     // Generate and dispatch app-specific OTP

@@ -1,5 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
-import { verifyOTP } from '@lib/otpService';
+import { verifyOTP, sendWelcomeEmail } from '@lib/otpService';
+import { APPS } from '@lib/appRegistry';
 
 /**
  * OTP Verification Endpoint
@@ -104,6 +105,18 @@ export default async function handler(req, res) {
             console.log(
               `[verify-otp] Entitlement granted: user=${userId} app=${appId}`
             );
+
+            // Send welcome email on first-time grant
+            const appConfig = APPS[appId];
+            if (appConfig) {
+              sendWelcomeEmail({
+                email: email.toLowerCase().trim(),
+                appId,
+                appName: appConfig.name,
+              }).catch((err) =>
+                console.error('[verify-otp] Welcome email error:', err)
+              );
+            }
           }
         } else {
           console.warn(

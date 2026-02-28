@@ -358,6 +358,109 @@ describe('Security Validations', () => {
   });
 });
 
+describe('verifyOTP — attempt counting', () => {
+  let mockFrom;
+
+  beforeEach(() => {
+    // Get the supabase instance created at module-load time and reset its `from` mock
+    const { createClient } = require('@supabase/supabase-js');
+    const supabaseMock = createClient.mock.results[0]?.value;
+    if (supabaseMock) {
+      mockFrom = supabaseMock.from;
+      mockFrom.mockReset();
+    }
+  });
+
+  test('failed verification increments verification_attempts', async () => {
+    const otpRecord = {
+      id: 'test-id',
+      otp_hash: 'wrong-stored-hash',
+      payment_transaction_id: null,
+      email: 'test@example.com',
+      phone: null,
+      app_id: 'learn-ai',
+      verification_attempts: 0,
+    };
+
+    const updateEqMock = jest.fn().mockResolvedValue({ data: [], error: null });
+    const updateMock = jest.fn().mockReturnValue({ eq: updateEqMock });
+
+    mockFrom.mockReturnValue({
+      select: jest.fn().mockReturnThis(),
+      eq: jest.fn().mockReturnThis(),
+      is: jest.fn().mockReturnThis(),
+      gt: jest.fn().mockReturnThis(),
+      lt: jest.fn().mockReturnThis(),
+      order: jest.fn().mockReturnThis(),
+      limit: jest.fn().mockResolvedValue({ data: [otpRecord], error: null }),
+      update: updateMock,
+    });
+
+    const result = await verifyOTP({
+      email: 'test@example.com',
+      otp: '000000', // Wrong OTP → hash mismatch
+      appId: 'learn-ai',
+    });
+
+    expect(result.success).toBe(false);
+    expect(result.error).toBe('Invalid OTP');
+    // update was called to increment attempts
+    expect(updateMock).toHaveBeenCalled();
+    const updateArg = updateMock.mock.calls[0][0];
+    expect(updateArg.verification_attempts).toBe(otpRecord.verification_attempts + 1);
+  });
+
+  test('successful verification does NOT increment verification_attempts', async () => {
+    const rawOtp = '123456';
+    const correctHash = hashOtp({
+      otp: rawOtp,
+      appId: 'learn-ai',
+      paymentTransactionId: null,
+      email: 'test@example.com',
+      phone: null,
+    });
+
+    const otpRecord = {
+      id: 'test-id',
+      otp_hash: correctHash,
+      payment_transaction_id: null,
+      email: 'test@example.com',
+      phone: null,
+      app_id: 'learn-ai',
+      verification_attempts: 2,
+    };
+
+    const updateIsMock = jest.fn().mockResolvedValue({ data: [otpRecord], error: null });
+    const updateEqMock = jest.fn().mockReturnValue({ is: updateIsMock });
+    const updateMock = jest.fn().mockReturnValue({ eq: updateEqMock });
+
+    mockFrom.mockReturnValue({
+      select: jest.fn().mockReturnThis(),
+      eq: jest.fn().mockReturnThis(),
+      is: jest.fn().mockReturnThis(),
+      gt: jest.fn().mockReturnThis(),
+      lt: jest.fn().mockReturnThis(),
+      order: jest.fn().mockReturnThis(),
+      limit: jest.fn().mockResolvedValue({ data: [otpRecord], error: null }),
+      update: updateMock,
+    });
+
+    const result = await verifyOTP({
+      email: 'test@example.com',
+      otp: rawOtp,
+      appId: 'learn-ai',
+    });
+
+    expect(result.success).toBe(true);
+
+    // Verify that the update call did NOT include verification_attempts
+    expect(updateMock).toHaveBeenCalled();
+    const updateArg = updateMock.mock.calls[0][0];
+    expect(updateArg).not.toHaveProperty('verification_attempts');
+    expect(updateArg).toHaveProperty('verified_at');
+  });
+});
+
 describe('hashOtp', () => {
   test('should return a hex string of 64 characters (SHA-256)', () => {
     const hash = hashOtp({ otp: '123456', appId: 'learn-ai' });
