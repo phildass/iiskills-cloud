@@ -57,7 +57,7 @@ function isIntroPeriod(date) {
  * Format an amount as INR with 2 decimal places, e.g. "Rs 116.82".
  */
 export function formatINR(amount) {
-  return `Rs ${amount.toFixed(2)}`;
+  return `Rs ${Number(amount ?? 0).toFixed(2)}`;
 }
 
 /**
