@@ -106,15 +106,19 @@ export default async function handler(req, res) {
               `[verify-otp] Entitlement granted: user=${userId} app=${appId}`
             );
 
-            // Mark user as paid in profiles table (idempotent upsert)
+            // Mark user as paid in profiles table (idempotent)
+            // Always set is_paid_user=true; only set paid_at on first grant
             await supabase
               .from('profiles')
-              .update({
-                is_paid_user: true,
-                paid_at: new Date().toISOString(),
-              })
+              .update({ is_paid_user: true })
               .eq('id', userId)
-              .is('paid_at', null); // only set paid_at once (first-time)
+              .eq('is_paid_user', false);
+
+            await supabase
+              .from('profiles')
+              .update({ paid_at: new Date().toISOString() })
+              .eq('id', userId)
+              .is('paid_at', null);
 
             // Send welcome email on first-time grant
             const appConfig = APPS[appId];

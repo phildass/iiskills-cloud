@@ -84,15 +84,19 @@ export default async function handler(req, res) {
 
     if (entitlement) {
       profile.is_paid_user = true;
-      // Sync the flag for future fast lookups (idempotent)
+      // Sync flags for future fast lookups (idempotent):
+      // Always set is_paid_user; only set paid_at once (first grant)
       await supabase
         .from("profiles")
-        .update({
-          is_paid_user: true,
-          paid_at: entitlement.purchased_at || new Date().toISOString(),
-        })
+        .update({ is_paid_user: true })
         .eq("id", user.id)
         .eq("is_paid_user", false);
+
+      await supabase
+        .from("profiles")
+        .update({ paid_at: entitlement.purchased_at || new Date().toISOString() })
+        .eq("id", user.id)
+        .is("paid_at", null);
     }
   }
 

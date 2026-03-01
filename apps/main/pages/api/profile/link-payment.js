@@ -102,13 +102,18 @@ export default async function handler(req, res) {
   }
 
   if (linked) {
+    // Always set is_paid_user; only set paid_at on first linking (idempotent)
     await supabase
       .from('profiles')
-      .update({
-        is_paid_user: true,
-        paid_at: paidAt || new Date().toISOString(),
-      })
-      .eq('id', user.id);
+      .update({ is_paid_user: true })
+      .eq('id', user.id)
+      .eq('is_paid_user', false);
+
+    await supabase
+      .from('profiles')
+      .update({ paid_at: paidAt || new Date().toISOString() })
+      .eq('id', user.id)
+      .is('paid_at', null);
 
     console.log(`[link-payment] Linked paid status for user=${user.id} email=${email}`);
     return res.status(200).json({ linked: true, message: 'Paid status linked to profile' });
