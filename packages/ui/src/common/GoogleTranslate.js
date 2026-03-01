@@ -28,7 +28,7 @@ const TRANSLATE_CSS = `
 .goog-te-gadget{font-size:.875rem!important;line-height:1!important}
 .goog-te-gadget-simple{background:transparent!important;border:1px solid rgba(0,0,0,.25)!important;border-radius:.375rem!important;padding:.35rem .6rem!important;font-size:.8125rem!important;cursor:pointer!important;white-space:nowrap}
 .goog-te-gadget-simple:hover{background:rgba(0,82,204,.08)!important;border-color:#0052cc!important}
-.goog-te-gadget-icon{display:inline-block!important;margin-right:.25rem!important}
+.goog-te-gadget-icon{display:inline-block!important;width:16px!important;height:16px!important;margin-right:.25rem!important;vertical-align:middle!important}
 .goog-te-menu-frame{max-height:400px!important;overflow-y:auto!important;z-index:99999!important}
 .goog-te-menu2-item-selected{background:#0052cc!important}
 .goog-te-menu2-item-selected div{color:#fff!important}
