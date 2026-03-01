@@ -1,0 +1,17 @@
+server {
+  listen 80;
+  listen [::]:80;
+  server_name app.iiskills.cloud;
+  return 404;
+}
+
+server {
+  listen 443 ssl;
+  listen [::]:443 ssl;
+  server_name app.iiskills.cloud;
+
+  ssl_certificate     /etc/ssl/iiskills/fullchain.pem;
+  ssl_certificate_key /etc/ssl/iiskills/privkey.pem;
+
+  return 404;
+}

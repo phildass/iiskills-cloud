@@ -1,0 +1,17 @@
+server {
+    listen 443 ssl;
+    server_name app11.learn-apt.iiskills.cloud;
+
+    ssl_certificate     /etc/letsencrypt/live/app11.learn-apt.iiskills.cloud/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/app11.learn-apt.iiskills.cloud/privkey.pem;
+
+    location / {
+        proxy_pass http://localhost:3002;  # ← Changed!
+        proxy_http_version 1.1;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
