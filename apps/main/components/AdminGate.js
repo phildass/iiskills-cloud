@@ -20,8 +20,9 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
-// Admin gate is disabled — all /admin routes are open-access by design.
-const GATE_DISABLED = true;
+// Admin gate is disabled when NEXT_PUBLIC_DISABLE_ADMIN_GATE=true (dev/staging sandbox).
+// In production, leave NEXT_PUBLIC_DISABLE_ADMIN_GATE unset (or set to 'false').
+const GATE_DISABLED = process.env.NEXT_PUBLIC_DISABLE_ADMIN_GATE === 'true';
 
 export function useAdminGate() {
   const router = useRouter();
