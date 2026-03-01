@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 
 const PAID_APPS = [
@@ -23,6 +23,21 @@ export default function OtpGateway() {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(null);
   const [error, setError] = useState('');
+  const [isAuthenticated, setIsAuthenticated] = useState(null); // null = unknown
+
+  // Check if user is already logged in
+  useEffect(() => {
+    async function checkAuth() {
+      try {
+        const { getCurrentUser } = await import('../lib/supabaseClient');
+        const user = await getCurrentUser();
+        setIsAuthenticated(!!user);
+      } catch {
+        setIsAuthenticated(false);
+      }
+    }
+    checkAuth();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -109,7 +124,45 @@ export default function OtpGateway() {
                 Your OTP has been verified and paid access is{' '}
                 {success.entitlementGranted ? 'active' : 'being activated'} for your account.
               </p>
-              {!success.entitlementGranted && (
+
+              {/* Prompt unauthenticated users to register / login */}
+              {isAuthenticated === false && (
+                <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-4 text-left">
+                  <p className="text-amber-800 font-semibold text-sm mb-1">
+                    📋 Payment received — complete your profile
+                  </p>
+                  <p className="text-amber-700 text-sm mb-3">
+                    Register or login with the email used during payment to access your Profile page and course dashboard.
+                  </p>
+                  <div className="flex gap-2">
+                    <Link
+                      href={`/register?next=/profile`}
+                      className="flex-1 text-center bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-blue-700 transition"
+                    >
+                      Register
+                    </Link>
+                    <Link
+                      href={`/sign-in?next=/profile`}
+                      className="flex-1 text-center bg-white border border-blue-600 text-blue-600 px-4 py-2 rounded-lg text-sm font-bold hover:bg-blue-50 transition"
+                    >
+                      Login
+                    </Link>
+                  </div>
+                </div>
+              )}
+
+              {isAuthenticated && success.entitlementGranted && (
+                <div className="bg-green-50 border border-green-200 rounded-xl p-3 mb-4">
+                  <p className="text-green-800 text-sm font-medium">
+                    ✅ Your profile has been updated.{' '}
+                    <Link href="/profile" className="underline font-bold">
+                      View Profile
+                    </Link>
+                  </p>
+                </div>
+              )}
+
+              {!success.entitlementGranted && isAuthenticated !== false && (
                 <p className="text-amber-600 text-sm mb-4">
                   ⚠️ Could not auto-link your account. If you are not registered, please{' '}
                   <Link href="/register" className="underline font-medium">
