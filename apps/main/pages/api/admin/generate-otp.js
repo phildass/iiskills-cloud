@@ -1,5 +1,6 @@
 import { generateAndDispatchOTP } from '@lib/otpService';
 import { APPS } from '@lib/appRegistry';
+import { validateAdminRequest } from '../../../lib/adminAuth';
 
 /**
  * Admin OTP Generation API
@@ -8,33 +9,39 @@ import { APPS } from '@lib/appRegistry';
  * of OTP codes for any course.
  * 
  * This endpoint allows admins to:
- * - Generate OTPs for any app/course
- * - Send OTPs via email (required) and SMS (optional)
+ * - Generate OTPs for any app/course using name + phone (email optional)
+ * - Send OTPs via SMS always; email only when provided
  * - Specify reason for generation (free access, error compensation, etc.)
- * - Track admin-generated OTPs in database
+ * - Track admin-generated OTPs in database (including lead_name for auditability)
  * 
- * Note: This uses the centralized OTP service which ensures app-specific
- * OTP binding and proper security. Email is required as it's the primary
- * delivery channel and used for user identification.
+ * Security: Requires a valid admin session (admin_session cookie or x-admin-secret header).
  */
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { email, phone, course, reason, adminGenerated } = req.body;
+  // Server-side admin authentication
+  const authResult = validateAdminRequest(req);
+  if (!authResult.valid) {
+    return res.status(401).json({ error: 'Unauthorized' });
+  }
+
+  const { name, email, phone, course, reason, adminGenerated } = req.body;
 
   // Validate required fields
-  if (!email || !course) {
+  if (!name || !phone || !course) {
     return res.status(400).json({ 
-      error: 'Email and course are required!' 
+      error: 'Name, phone, and course are required!' 
     });
   }
 
-  // Validate email format
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRegex.test(email)) {
-    return res.status(400).json({ error: 'Invalid email format' });
+  // Validate email format if provided
+  if (email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({ error: 'Invalid email format' });
+    }
   }
 
   // Validate course exists
@@ -46,28 +53,28 @@ export default async function handler(req, res) {
     });
   }
 
-  // Format phone to E.164 if provided
-  let formattedPhone = phone;
-  if (phone && !phone.startsWith('+')) {
-    // Assume Indian number if no country code
-    formattedPhone = `+91${phone}`;
+  // Normalize phone to E.164 — assume India (+91) if no country code
+  let formattedPhone = phone.trim();
+  if (!formattedPhone.startsWith('+')) {
+    formattedPhone = `+91${formattedPhone}`;
   }
 
   try {
     // Generate and dispatch OTP using centralized service
     const result = await generateAndDispatchOTP({
-      email,
-      phone: formattedPhone || null,
+      email: email || null,
+      phone: formattedPhone,
       appId: course,
       appName: appConfig.name,
-      reason: reason || 'admin_generated',
+      reason: reason || 'admin_free_access',
       adminGenerated: adminGenerated !== false, // Default to true for admin generation
+      leadName: name,
     });
 
     // Return success with delivery status
     return res.status(200).json({
       message: 'OTP generated successfully',
-      // OTP is not returned for security - only sent via email/SMS
+      // OTP is not returned for security - only sent via SMS/email
       emailSent: result.emailSent,
       smsSent: result.smsSent,
       deliveryChannel: result.deliveryChannel,
