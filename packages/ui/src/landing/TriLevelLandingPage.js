@@ -218,7 +218,7 @@ export default function TriLevelLandingPage({
               {isPaid ? (
                 <>
                   <a
-                    href={`https://aienter.in/payments?course=${appId}`}
+                    href={`https://aienter.in/payments/iiskills?course=${appId}`}
                     className="inline-block bg-yellow-400 text-yellow-900 px-8 py-4 rounded-lg font-bold shadow-lg hover:bg-yellow-300 transition-all duration-200 text-base sm:text-lg"
                   >
                     💳 Pay Now
