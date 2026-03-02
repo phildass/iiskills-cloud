@@ -23,7 +23,7 @@ export default function Payments() {
 
     const { course: courseParam, ...otherParams } = router.query;
     if (courseParam) {
-      // Forward all query params to the IIS Skills checkout page
+      // Forward all query params to the iiskills checkout page
       router.replace({ pathname: '/payments/iiskills', query: { course: courseParam, ...otherParams } });
     }
   }, [router.isReady]); // router.isReady changes once; query is read inside the effect
