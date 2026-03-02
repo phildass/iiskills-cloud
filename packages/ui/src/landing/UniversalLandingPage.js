@@ -363,6 +363,7 @@ export default function UniversalLandingPage({
             appName={appName}
             appHighlight={description}
             showAIDevBundle={appId === "learn-ai" || appId === "learn-developer"}
+            appId={appId}
             onCancel={() => setShowPaymentPreview(false)}
           />
         )}

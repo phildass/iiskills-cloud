@@ -14,12 +14,16 @@ import { getEffectivePricingBreakdown, formatINR } from "@iiskills/ui/pricing";
 export default function PremiumAccessPrompt({ 
   appName = "this course",
   appHighlight = "Master the complete curriculum and unlock your potential.",
+  appId = "",
   onCancel 
 }) {
   const pricing = getEffectivePricingBreakdown();
   const handleUnlock = () => {
-    // Redirect to unified payment hub
-    window.location.href = "https://aienter.in/payments";
+    const params = new URLSearchParams({
+      ...(appId && { course: appId }),
+      returnTo: "https://iiskills.cloud/otp-gateway",
+    });
+    window.location.href = `https://aienter.in/payments/iiskills?${params.toString()}`;
   };
 
   return (

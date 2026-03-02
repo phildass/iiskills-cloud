@@ -259,6 +259,7 @@ export default function PaidAppLandingPage({
             appName={appName}
             appHighlight={description}
             showAIDevBundle={showAIDevBundle}
+            appId={appId}
             onCancel={() => setShowPaymentPreview(false)}
           />
         )}
