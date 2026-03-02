@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Script from 'next/script';
-import { getEffectivePricingBreakdown, formatINR } from '../../utils/pricing';
+import { getCurrentPricing, formatINR } from '../../utils/pricing';
 
 const COURSE_LABELS = {
   'learn-ai': 'Learn AI',
@@ -36,7 +36,7 @@ export default function IiskillsCheckout() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const pricing = getEffectivePricingBreakdown();
+  const pricing = getCurrentPricing();
   const courseLabel = COURSE_LABELS[course] || course || 'iiskills Course';
 
   // Ensure Razorpay script is available before attempting checkout

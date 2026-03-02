@@ -33,6 +33,23 @@ describe('iiskills checkout: pricing', () => {
     const paise = Math.round(pricing.totalPrice * 100);
     expect(paise).toBe(11682);
   });
+
+  test('getCurrentPricing always returns defined numeric fields (SSR safety)', () => {
+    // Regression guard: these fields must be numbers so formatINR never receives undefined
+    const dates = [new Date('2026-01-01'), new Date('2026-03-31'), new Date('2026-04-01'), new Date('2027-01-01')];
+    dates.forEach((date) => {
+      const p = getCurrentPricing(date);
+      expect(typeof p.basePrice).toBe('number');
+      expect(typeof p.gstAmount).toBe('number');
+      expect(typeof p.totalPrice).toBe('number');
+      expect(typeof p.gstRate).toBe('number');
+      expect(typeof p.isIntroductory).toBe('boolean');
+      // Verify toFixed does not throw (the SSR crash scenario)
+      expect(() => p.totalPrice.toFixed(2)).not.toThrow();
+      expect(() => p.basePrice.toFixed(2)).not.toThrow();
+      expect(() => p.gstAmount.toFixed(2)).not.toThrow();
+    });
+  });
 });
 
 // ─── /payments redirect logic ─────────────────────────────────────────────────
