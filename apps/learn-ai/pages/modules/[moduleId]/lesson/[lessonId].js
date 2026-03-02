@@ -118,6 +118,7 @@ import EnrollmentLandingPage from '@shared/EnrollmentLandingPage';
 import { getCurrentUser } from '../../../../lib/supabaseClient';
 import { LessonContent } from '@iiskills/ui/content';
 import { isFreeAccessEnabled } from '@lib/freeAccess';
+import { useEntitlement } from '@lib/hooks/useEntitlement';
 
 const FREE_ACCESS = isFreeAccessEnabled();
 const NO_BADGES_KEY = 'learn-ai-noBadges';
@@ -129,6 +130,13 @@ export default function LessonPage({ lesson, moduleId, lessonId }) {
   const [showEnrollment, setShowEnrollment] = useState(false);
   const [noBadges, setNoBadges] = useState(false);
   const [showSkipDialog, setShowSkipDialog] = useState(false);
+
+  // Universal entitlement check — skipped for free/sample lessons.
+  const isSampleLesson = moduleId === '1' && lessonId === '1';
+  const { entitled } = useEntitlement({
+    appId: 'learn-ai',
+    skip: FREE_ACCESS || lesson.isFree || isSampleLesson,
+  });
 
   // Load noBadges flag from localStorage on mount
   useEffect(() => {
@@ -152,36 +160,10 @@ export default function LessonPage({ lesson, moduleId, lessonId }) {
     });
   }, []);
 
-  // Entitlement check: non-free lessons require authentication (client-side only).
+  // Show enrollment overlay when entitlement check determines no access.
   useEffect(() => {
-    if (FREE_ACCESS || lesson.isFree) return;
-    const isSampleLesson = moduleId === '1' && lessonId === '1';
-    if (!isSampleLesson) {
-      checkEntitlement();
-    }
-  }, [moduleId, lessonId, lesson.isFree]);
-
-  const checkEntitlement = async () => {
-    try {
-      const { supabase } = await import('../../../../lib/supabaseClient');
-      const { data: { session } } = await supabase.auth.getSession();
-      const headers = {};
-      if (session?.access_token) headers['Authorization'] = `Bearer ${session.access_token}`;
-      // Entitlement API lives on the main app (iiskills.cloud)
-      const apiBase = typeof window !== 'undefined'
-        ? `${window.location.protocol}//iiskills.cloud`
-        : 'https://iiskills.cloud';
-      const res = await fetch(`${apiBase}/api/entitlement?appId=learn-ai`, { headers });
-      if (res.ok) {
-        const data = await res.json();
-        if (!data.entitled) setShowEnrollment(true);
-      } else {
-        setShowEnrollment(true);
-      }
-    } catch {
-      setShowEnrollment(true);
-    }
-  };
+    if (entitled === false) setShowEnrollment(true);
+  }, [entitled]);
 
   const handleQuizComplete = async (passed, score) => {
     setQuizCompleted(passed);
