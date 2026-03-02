@@ -23,14 +23,14 @@ import { generateAndDispatchOTP, verifyOTP, hasValidOTP, hashOtp } from '../lib/
 
 describe('OTP Service', () => {
   describe('generateAndDispatchOTP', () => {
-    test('should require email, appId, and appName', async () => {
+    test('should require email or phone, plus appId and appName', async () => {
       await expect(
         generateAndDispatchOTP({
           email: '',
           appId: 'learn-ai',
           appName: 'Learn-AI',
         })
-      ).rejects.toThrow('Email, appId, and appName are required');
+      ).rejects.toThrow('Either email or phone is required');
 
       await expect(
         generateAndDispatchOTP({
@@ -38,7 +38,7 @@ describe('OTP Service', () => {
           appId: '',
           appName: 'Learn-AI',
         })
-      ).rejects.toThrow('Email, appId, and appName are required');
+      ).rejects.toThrow('appId and appName are required');
 
       await expect(
         generateAndDispatchOTP({
@@ -46,7 +46,7 @@ describe('OTP Service', () => {
           appId: 'learn-ai',
           appName: '',
         })
-      ).rejects.toThrow('Email, appId, and appName are required');
+      ).rejects.toThrow('appId and appName are required');
     });
 
     test('should validate email format', async () => {

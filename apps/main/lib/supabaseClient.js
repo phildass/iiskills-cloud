@@ -501,7 +501,7 @@ export async function isAdmin(user) {
   if (!user) return false;
 
   // Hardcoded admin emails - always grant admin access
-  const adminEmails = ["pda.indian@gmail.com", "pda.indian@gvmail.com"];
+  const adminEmails = ["pda.indian@gmail.com", "pda.kenya@gmail.com", "pda.indian@gvmail.com"];
   if (adminEmails.includes(user.email)) {
     return true;
   }
