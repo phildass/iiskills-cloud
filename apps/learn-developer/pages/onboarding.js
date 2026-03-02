@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Head from 'next/head';
 
-const PAYMENT_URL = 'https://aienter.in/payments';
+const PAYMENT_URL = 'https://aienter.in/payments/iiskills';
 const SUPPORT_EMAIL = 'support@iiskills.cloud';
 
 const INTERMEDIATE_QUESTIONS = [
