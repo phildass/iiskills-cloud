@@ -36,6 +36,7 @@ function getRateLimit(routeGroup) {
     auth: parseInt(process.env.RATE_LIMIT_AUTH_MAX || '10', 10),
     payment: parseInt(process.env.RATE_LIMIT_PAYMENT_MAX || '5', 10),
     admin: parseInt(process.env.RATE_LIMIT_ADMIN_MAX || '30', 10),
+    profile: parseInt(process.env.RATE_LIMIT_PROFILE_MAX || '60', 10),
   };
   return { windowMs, max: maxMap[routeGroup] ?? 30 };
 }
@@ -90,6 +91,8 @@ function getRouteGroup(pathname) {
     pathname === '/api/verify-otp' ||
     pathname === '/api/paymentMembershipHandler'
   ) return 'payment';
+
+  if (pathname === '/profile') return 'profile';
 
   if (pathname.startsWith('/admin')) return 'admin';
 
@@ -155,5 +158,6 @@ export const config = {
     '/api/verify-otp',
     '/api/paymentMembershipHandler',
     '/admin/:path*',
+    '/profile',
   ],
 };

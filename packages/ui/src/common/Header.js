@@ -118,6 +118,11 @@ export default function Header({
                       Google User
                     </span>
                   )}
+                  {isPaid && (
+                    <Link href="/profile" className="hover:text-primary transition font-medium">
+                      Profile
+                    </Link>
+                  )}
                   <button
                     onClick={handleLogout}
                     className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition font-bold"
@@ -219,6 +224,11 @@ export default function Header({
                       </span>
                     )}
                   </div>
+                  {isPaid && (
+                    <Link href="/profile" className="block hover:text-primary transition font-medium px-4 py-2">
+                      Profile
+                    </Link>
+                  )}
                   <button
                     onClick={handleLogout}
                     className="block w-full text-left bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition font-bold"
