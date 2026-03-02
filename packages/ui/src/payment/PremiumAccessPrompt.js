@@ -15,13 +15,18 @@ export default function PremiumAccessPrompt({
   appName = "this course",
   appHighlight = "Master the complete curriculum and unlock your potential.",
   showAIDevBundle = false, // Set to true for Learn AI or Learn Developer apps
+  appId = "",
   onCancel 
 }) {
   const pricing = getEffectivePricingBreakdown();
   const bundleActive = showAIDevBundle && (new Date() <= new Date("2026-03-31T23:59:59"));
 
   const handleUnlock = () => {
-    window.location.href = "https://aienter.in/payments/iiskills";
+    const params = new URLSearchParams({
+      ...(appId && { course: appId }),
+      returnTo: "https://iiskills.cloud/otp-gateway",
+    });
+    window.location.href = `https://aienter.in/payments/iiskills?${params.toString()}`;
   };
 
   return (
