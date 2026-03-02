@@ -4,12 +4,16 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import { motion } from "framer-motion";
 import { getCurrentUser } from "../lib/supabaseClient";
 
 export default function Home() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [showModal, setShowModal] = useState(false);
+  const [pendingTestHref, setPendingTestHref] = useState(null);
+  const router = useRouter();
 
   useEffect(() => {
     const checkUser = async () => {
@@ -19,6 +23,16 @@ export default function Home() {
     };
     checkUser();
   }, []);
+
+  const handleStart = async (testHref) => {
+    const currentUser = await getCurrentUser();
+    if (currentUser) {
+      router.push(testHref);
+    } else {
+      setPendingTestHref(testHref);
+      setShowModal(true);
+    }
+  };
 
   const allTests = [
     {
@@ -222,12 +236,12 @@ export default function Home() {
                         ))}
                       </div>
 
-                      <Link
-                        href={test.href}
-                        className="block w-full text-center py-3 px-4 bg-yellow-600 text-white rounded-lg font-semibold hover:bg-yellow-700 transition-all"
+                      <button
+                        onClick={() => handleStart(test.href)}
+                        className="block w-full text-center py-3 px-4 bg-yellow-600 text-white rounded-lg font-semibold hover:bg-yellow-700 transition-all cursor-pointer"
                       >
                         Start
-                      </Link>
+                      </button>
                     </div>
                   </motion.div>
                 ))}
@@ -360,6 +374,34 @@ export default function Home() {
 
         </div>
       </main>
+
+      {/* Registration modal */}
+      {showModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+          <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-sm w-full mx-4">
+            <p className="text-lg font-semibold text-gray-900 mb-6 text-center">
+              You have to register to take the test. Do you want to register?
+            </p>
+            <div className="flex gap-4 justify-center">
+              <button
+                onClick={() => {
+                  setShowModal(false);
+                  router.push(`/register?redirect=${encodeURIComponent(pendingTestHref)}`);
+                }}
+                className="px-6 py-3 bg-yellow-600 text-white rounded-xl font-semibold hover:bg-yellow-700 transition-all"
+              >
+                Yes
+              </button>
+              <button
+                onClick={() => setShowModal(false)}
+                className="px-6 py-3 bg-gray-200 text-gray-800 rounded-xl font-semibold hover:bg-gray-300 transition-all"
+              >
+                No
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }
