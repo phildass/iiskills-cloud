@@ -15,9 +15,8 @@
 | iiskills-learn-pr     | apps/learn-pr      | 3021 |
 | iiskills-learn-ai     | apps/learn-ai      | 3024 |
 
-**NOT deployed (by design):**
-- `iiskills-web` — apps/web is a placeholder skeleton, never deployed
-- `iiskills-admin` — admin is served at `/admin` route inside `iiskills-main` (apps/main)
+**NOT deployed (removed):**
+- `apps/admin` and `apps/web` have been removed from the repo; admin is served at `/admin` inside `apps/main` (secured by Supabase auth)
 
 ## VPS Deployment Commands
 

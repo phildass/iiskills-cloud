@@ -9,8 +9,7 @@
  *   iiskills-learn-* → https://<name>.iiskills.cloud (learn apps)
  *
  * Note: apps/main is the authoritative production app on port 3000.
- * apps/web is a placeholder skeleton and is NOT deployed.
- * apps/admin is NOT deployed as a separate process; admin is served at /admin in apps/main.
+ * apps/admin and apps/web have been removed; admin is served at /admin in apps/main.
  * 
  * Prerequisites:
  *   1. Build all apps: yarn build (from root)
@@ -48,9 +47,8 @@ module.exports = {
       "log_file": path.join(__dirname, 'logs', 'main-combined.log'),
       "time": true
     },
-    // apps/web and apps/admin are NOT deployed.
+    // apps/admin and apps/web have been removed.
     // admin is served under /admin routes in apps/main.
-    // apps/web is a placeholder skeleton and is NOT deployed.
     {
       "name": "iiskills-learn-ai",
       "cwd": path.join(__dirname, 'apps/learn-ai'),

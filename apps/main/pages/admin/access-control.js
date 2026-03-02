@@ -17,17 +17,10 @@ import {
   getFreeApps,
   getPaidApps,
 } from '../../../../packages/access-control';
+import { useAdminProtectedPage, AccessDenied } from '../../components/AdminProtectedPage';
 
-// Initialize Supabase client
+// Initialize Supabase client (client-side only)
 function getSupabaseClient() {
-  if (typeof window === 'undefined') {
-    // Server-side
-    return createClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL,
-      process.env.SUPABASE_SERVICE_ROLE_KEY
-    );
-  }
-  // Client-side
   return createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
@@ -36,44 +29,21 @@ function getSupabaseClient() {
 
 export default function AccessControlDashboard() {
   const router = useRouter();
+  const { ready, denied } = useAdminProtectedPage();
   const [loading, setLoading] = useState(true);
   const [stats, setStats] = useState(null);
   const [users, setUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
   const [userAccess, setUserAccess] = useState([]);
   const [searchEmail, setSearchEmail] = useState('');
-  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
-    checkAdminAccess();
-  }, []);
-
-  const checkAdminAccess = async () => {
-    const supabase = getSupabaseClient();
-    const { data: { user } } = await supabase.auth.getUser();
-    
-    if (!user) {
-      router.push('/login');
-      return;
+    if (ready) {
+      fetchStats();
+      setLoading(false);
     }
-
-    // Check if user is admin
-    const { data: profile } = await supabase
-      .from('profiles')
-      .select('is_admin')
-      .eq('id', user.id)
-      .single();
-
-    if (!profile || !profile.is_admin) {
-      alert('Access denied. Admin privileges required.');
-      router.push('/');
-      return;
-    }
-
-    setIsAdmin(true);
-    fetchStats();
-    setLoading(false);
-  };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ready]);
 
   const fetchStats = async () => {
     try {
@@ -155,6 +125,8 @@ export default function AccessControlDashboard() {
       alert('Error revoking access: ' + error.message);
     }
   };
+
+  if (denied) return <AccessDenied />;
 
   if (loading) {
     return (

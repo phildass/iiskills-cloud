@@ -1,19 +1,21 @@
 import Head from "next/head";
 import { useState, useEffect } from "react";
-// import ProtectedRoute from "../../components/ProtectedRoute";
 import AdminNav from "../../components/AdminNav";
 import Footer from "../../components/Footer";
 import { supabase } from "../../lib/supabaseClient";
+import { useAdminProtectedPage, AccessDenied } from "../../components/AdminProtectedPage";
 
 export default function AdminUsers() {
+  const { ready, denied } = useAdminProtectedPage();
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [filterAdmin, setFilterAdmin] = useState('all');
 
   useEffect(() => {
-    fetchUsers();
-  }, [filterAdmin]);
+    if (ready) fetchUsers();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ready, filterAdmin]);
 
   const fetchUsers = async () => {
     try {
@@ -54,6 +56,9 @@ export default function AdminUsers() {
       alert(`Error: ${error.message}`);
     }
   };
+
+  if (denied) return <AccessDenied />;
+  if (!ready) return <div className="min-h-screen flex items-center justify-center"><div className="text-lg">Loading...</div></div>;
 
   const filteredUsers = users.filter(user => {
     const searchLower = searchTerm.toLowerCase();

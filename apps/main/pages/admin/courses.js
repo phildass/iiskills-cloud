@@ -6,10 +6,10 @@ import AdminNav from "../../components/AdminNav";
 import Footer from "../../components/Footer";
 import { SUBDOMAIN_OPTIONS } from "../../lib/siteConfig";
 import { getCoursePreviewUrl } from "../../lib/navigation";
-import { useAdminGate } from "../../components/AdminGate";
+import { useAdminProtectedPage, AccessDenied } from "../../components/AdminProtectedPage";
 
 export default function AdminCourses() {
-  const { ready } = useAdminGate();
+  const { ready, denied } = useAdminProtectedPage();
   const router = useRouter();
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -184,6 +184,8 @@ export default function AdminCourses() {
     setEditingCourse(null);
     setShowModal(true);
   };
+
+  if (denied) return <AccessDenied />;
 
   if (!ready) {
     return (

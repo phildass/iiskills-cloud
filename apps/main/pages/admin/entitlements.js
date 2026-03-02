@@ -16,6 +16,7 @@ import { useRouter } from 'next/router';
 import AdminNav from '../../components/AdminNav';
 import Footer from '../../components/Footer';
 import { supabase } from '../../lib/supabaseClient';
+import { useAdminProtectedPage, AccessDenied } from '../../components/AdminProtectedPage';
 
 const PAID_APPS = [
   { id: 'learn-ai', label: 'Learn AI' },
@@ -27,8 +28,7 @@ const PAID_APPS = [
 
 export default function AdminEntitlements() {
   const router = useRouter();
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [checkingAdmin, setCheckingAdmin] = useState(true);
+  const { ready, denied } = useAdminProtectedPage();
 
   const [searchEmail, setSearchEmail] = useState('');
   const [foundUser, setFoundUser] = useState(null);
@@ -39,25 +39,6 @@ export default function AdminEntitlements() {
   const [paymentRef, setPaymentRef] = useState('');
   const [granting, setGranting] = useState(false);
   const [message, setMessage] = useState(null);
-
-  useEffect(() => {
-    async function checkAdmin() {
-      try {
-        const { data: { user } } = await supabase.auth.getUser();
-        if (!user) { router.push('/login'); return; }
-        const { data: profile } = await supabase
-          .from('profiles')
-          .select('is_admin')
-          .eq('id', user.id)
-          .single();
-        if (!profile?.is_admin) { router.push('/'); return; }
-        setIsAdmin(true);
-      } finally {
-        setCheckingAdmin(false);
-      }
-    }
-    checkAdmin();
-  }, [router]);
 
   const handleSearch = async (e) => {
     e.preventDefault();
@@ -141,15 +122,15 @@ export default function AdminEntitlements() {
     setEntitlements(prev => prev.map(e => e.id === entitlementId ? { ...e, status: 'revoked' } : e));
   };
 
-  if (checkingAdmin) {
+  if (denied) return <AccessDenied />;
+
+  if (!ready) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-purple-600" />
       </div>
     );
   }
-
-  if (!isAdmin) return null;
 
   return (
     <>

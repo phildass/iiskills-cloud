@@ -2,6 +2,7 @@ import Head from "next/head";
 import { useState } from "react";
 import AdminNav from "../../components/AdminNav";
 import Footer from "../../components/Footer";
+import { useAdminProtectedPage, AccessDenied } from "../../components/AdminProtectedPage";
 
 /**
  * OTP Management Page - Admin Panel
@@ -16,6 +17,7 @@ import Footer from "../../components/Footer";
  * - Send OTPs via email/SMS
  */
 export default function AdminOTP() {
+  const { ready, denied } = useAdminProtectedPage();
   const [formData, setFormData] = useState({
     email: "",
     phone: "",
@@ -124,12 +126,14 @@ export default function AdminOTP() {
     }
   };
 
+  if (denied) return <AccessDenied />;
+  if (!ready) return <div className="min-h-screen flex items-center justify-center"><div className="text-lg">Loading...</div></div>;
+
   return (
     <>
       <Head>
         <title>OTP Management - Admin - iiskills.cloud</title>
       </Head>
-      <AdminNav />
       <main className="max-w-7xl mx-auto px-4 py-12">
         <h1 className="text-3xl font-bold text-primary mb-8">OTP Management</h1>
 

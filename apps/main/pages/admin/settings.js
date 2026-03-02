@@ -1,11 +1,12 @@
 import Head from "next/head";
 import { useState } from "react";
-// import ProtectedRoute from "../../components/ProtectedRoute";
 import AdminNav from "../../components/AdminNav";
 import Footer from "../../components/Footer";
 import { getCurrentPricing, formatPrice } from "../../utils/pricing";
+import { useAdminProtectedPage, AccessDenied } from "../../components/AdminProtectedPage";
 
 export default function AdminSettings() {
+  const { ready, denied } = useAdminProtectedPage();
   const pricing = getCurrentPricing();
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -64,12 +65,14 @@ export default function AdminSettings() {
     }, 2000);
   };
 
+  if (denied) return <AccessDenied />;
+  if (!ready) return <div className="min-h-screen flex items-center justify-center"><div className="text-lg">Loading...</div></div>;
+
   return (
     <>
       <Head>
         <title>Settings - Admin - iiskills.cloud</title>
       </Head>
-      <AdminNav />
       <main className="max-w-4xl mx-auto px-4 py-12">
         <h1 className="text-3xl font-bold text-primary mb-8">Site Settings</h1>
 

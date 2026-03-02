@@ -4,10 +4,10 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import AdminNav from "../../components/AdminNav";
 import Footer from "../../components/Footer";
-import { useAdminGate } from "../../components/AdminGate";
+import { useAdminProtectedPage, AccessDenied } from "../../components/AdminProtectedPage";
 
 export default function AdminModules() {
-  const { ready } = useAdminGate();
+  const { ready, denied } = useAdminProtectedPage();
   const router = useRouter();
   const [modules, setModules] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -86,6 +86,8 @@ export default function AdminModules() {
     alert('Module management will be fully functional once the database schema is set up.');
     setShowModal(false);
   };
+
+  if (denied) return <AccessDenied />;
 
   if (!ready) {
     return (
