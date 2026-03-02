@@ -1,9 +1,14 @@
 import Head from "next/head";
-// import ProtectedRoute from "../../components/ProtectedRoute";
 import AdminNav from "../../components/AdminNav";
 import Footer from "../../components/Footer";
+import { useAdminProtectedPage, AccessDenied } from "../../components/AdminProtectedPage";
 
 export default function AdminContent() {
+  const { ready, denied } = useAdminProtectedPage();
+
+  if (denied) return <AccessDenied />;
+  if (!ready) return <div className="min-h-screen flex items-center justify-center"><div className="text-lg">Loading...</div></div>;
+
   return (
     <>
       <Head>

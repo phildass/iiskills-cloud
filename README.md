@@ -53,8 +53,7 @@ Learn apps are served at their own subdomains (e.g. `https://learn-apt.iiskills.
 
 | App | Description | Port | Notes |
 |-----|-------------|------|-------|
-| `apps/web` | Main landing page | 3000 | |
-| `apps/admin` | Admin dashboard | 3001 | basePath: `/admin` |
+| `apps/main` | Main production app + admin at `/admin` | 3000 | Admin secured by Supabase auth |
 | `apps/learn-physics` | Physics learning app | 3002 | Reads from `packages/content` |
 
 ## Packages

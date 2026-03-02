@@ -5,10 +5,10 @@ import AdminNav from "../../components/AdminNav";
 import Footer from "../../components/Footer";
 import { ALL_SITES } from "../../lib/siteConfig";
 import { getSiteUrl } from "../../lib/navigation";
-import { useAdminGate } from "../../components/AdminGate";
+import { useAdminProtectedPage, AccessDenied } from "../../components/AdminProtectedPage";
 
 export default function AdminDashboard() {
-  const { ready } = useAdminGate();
+  const { ready, denied } = useAdminProtectedPage();
   const [stats, setStats] = useState({
     totalCourses: 0,
     totalUsers: 0,
@@ -82,6 +82,8 @@ export default function AdminDashboard() {
       console.error('Error fetching site counts:', error);
     }
   };
+
+  if (denied) return <AccessDenied />;
 
   if (!ready) {
     return (
