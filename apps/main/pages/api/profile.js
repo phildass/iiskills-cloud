@@ -55,7 +55,8 @@ export default async function handler(req, res) {
     .select(
       'id, first_name, last_name, full_name, gender, date_of_birth, age, education, ' +
         'qualification, location, state, district, country, specify_country, ' +
-        'is_paid_user, paid_at, subscribed_to_newsletter, created_at, updated_at'
+        'is_paid_user, paid_at, subscribed_to_newsletter, created_at, updated_at, ' +
+        'registration_completed, username, phone'
     )
     .eq('id', user.id)
     .maybeSingle();
