@@ -23,15 +23,35 @@ function validateNextPath(next) {
 }
 
 /**
+ * Validates that an origin is an allowed iiskills.cloud domain.
+ * Prevents open-redirect attacks when doing cross-subdomain token transfer.
+ */
+function isAllowedOrigin(origin) {
+  try {
+    const url = new URL(origin);
+    return (
+      url.hostname === "iiskills.cloud" ||
+      url.hostname.endsWith(".iiskills.cloud") ||
+      url.hostname === "localhost" ||
+      url.hostname === "127.0.0.1"
+    );
+  } catch {
+    return false;
+  }
+}
+
+/**
  * /auth/callback — Supabase magic-link / OAuth callback handler
  *
  * After Supabase redirects the user here with session tokens in the URL,
  * this page:
  * 1. Waits for the Supabase client to detect and exchange the session
  *    (detectSessionInUrl handles the PKCE code / implicit token).
- * 2. Reads the `next` query-string param (set by the caller, e.g. /sign-in).
- * 3. Validates `next` to prevent open-redirect attacks.
- * 4. Redirects the user to the validated destination (or "/" as fallback).
+ * 2. Reads the `origin` and `next` query-string params (set by the caller).
+ * 3. If `origin` is a different (allowed) iiskills.cloud subdomain, transfers
+ *    the session tokens to that subdomain via a URL-hash redirect so the
+ *    subdomain's Supabase client can pick them up (detectSessionInUrl).
+ * 4. Otherwise redirects to the validated `next` path on this domain.
  */
 export default function AuthCallback() {
   const router = useRouter();
@@ -55,14 +75,45 @@ export default function AuthCallback() {
           console.error("[auth/callback] Session error:", error.message);
         }
 
-        if (!cancelled) {
-          // Validate and redirect to the `next` destination
-          const raw = router.query.next;
-          const rawValue = Array.isArray(raw) ? raw[0] || undefined : raw;
-          const destination = validateNextPath(rawValue);
-          setStatus("redirecting");
-          router.replace(destination);
+        if (cancelled) return;
+
+        // Validate and resolve the `next` destination
+        const rawNext = router.query.next;
+        const rawNextValue = Array.isArray(rawNext) ? rawNext[0] || undefined : rawNext;
+        const destination = validateNextPath(rawNextValue);
+
+        // Check if we need to redirect to a different origin (subdomain)
+        const rawOrigin = router.query.origin;
+        const originValue = Array.isArray(rawOrigin) ? rawOrigin[0] || undefined : rawOrigin;
+
+        if (
+          originValue &&
+          isAllowedOrigin(originValue) &&
+          originValue !== window.location.origin
+        ) {
+          // Transfer the session to the target subdomain by appending the tokens
+          // to the URL hash. The subdomain's auth/callback page (with
+          // detectSessionInUrl: true) will automatically pick them up.
+          const session = data?.session;
+          if (session) {
+            const targetUrl = new URL(`${originValue}/auth/callback`);
+            if (destination !== "/") {
+              targetUrl.searchParams.set("next", destination);
+            }
+            const hashParams = new URLSearchParams({
+              access_token: session.access_token,
+              refresh_token: session.refresh_token,
+              token_type: "bearer",
+              type: "recovery",
+            });
+            setStatus("redirecting");
+            window.location.href = `${targetUrl.toString()}#${hashParams.toString()}`;
+            return;
+          }
         }
+
+        setStatus("redirecting");
+        router.replace(destination);
       } catch (err) {
         console.error("[auth/callback] Unexpected error:", err);
         if (!cancelled) {

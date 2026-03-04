@@ -8,6 +8,8 @@ import { indianStates } from "@utils/data";
 import { getCurrentApp, getAuthRedirectUrl } from "@lib/appRegistry";
 import { recordLoginApp, getBestAuthRedirect, initSessionManager } from "@lib/sessionManager";
 
+const MAIN_APP_URL = process.env.NEXT_PUBLIC_MAIN_APP_URL || "https://iiskills.cloud";
+
 /**
  * Enhanced Universal Registration Component
  * 
@@ -226,10 +228,13 @@ export default function EnhancedUniversalRegister({
     try {
       const bestRedirect = getBestAuthRedirect(router.query.redirect);
       const targetPath = bestRedirect?.path || redirectAfterRegister;
-      const redirectUrl =
-        typeof window !== "undefined"
-          ? `${window.location.origin}${targetPath}`
-          : undefined;
+      const origin = typeof window !== "undefined" ? window.location.origin : MAIN_APP_URL;
+      const params = new URLSearchParams();
+      params.set("origin", origin);
+      if (targetPath && targetPath !== "/") {
+        params.set("next", targetPath);
+      }
+      const redirectUrl = `${MAIN_APP_URL}/auth/callback?${params.toString()}`;
 
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: "google",

@@ -16,6 +16,7 @@ const nextConfig = {
       '@lib': path.resolve(__dirname, '../../lib'),
       '@utils': path.resolve(__dirname, '../../utils'),
       '@config': path.resolve(__dirname, '../../config'),
+      '@shared': path.resolve(__dirname, '../../components/shared'),
     },
   },
 
@@ -27,6 +28,7 @@ const nextConfig = {
       '@lib': path.resolve(__dirname, '../../lib'),
       '@utils': path.resolve(__dirname, '../../utils'),
       '@config': path.resolve(__dirname, '../../config'),
+      '@shared': path.resolve(__dirname, '../../components/shared'),
     };
     return config;
   },

@@ -8,6 +8,8 @@ import { genderOptions, educationLevels, countries, indianStates } from "@utils/
 import { getCurrentApp, getAuthRedirectUrl } from "@lib/appRegistry";
 import { recordLoginApp, getBestAuthRedirect, initSessionManager } from "@lib/sessionManager";
 
+const MAIN_APP_URL = process.env.NEXT_PUBLIC_MAIN_APP_URL || "https://iiskills.cloud";
+
 /**
  * Universal Registration Component
  *
@@ -260,11 +262,17 @@ export default function UniversalRegister({
   const handleGoogleSignUp = async () => {
     setIsGoogleLoading(true);
     try {
-      // Multi-App Redirect: Get the best redirect based on app registry
+      // Route Google OAuth through the centralized callback so only one
+      // redirect URL needs to be whitelisted in Supabase.
       const bestRedirect = getBestAuthRedirect(redirectPath);
       const finalRedirect = bestRedirect?.path || redirectAfterRegister;
-      const redirectUrl =
-        typeof window !== "undefined" ? `${window.location.origin}${finalRedirect}` : undefined;
+      const origin = typeof window !== "undefined" ? window.location.origin : MAIN_APP_URL;
+      const params = new URLSearchParams();
+      params.set("origin", origin);
+      if (finalRedirect && finalRedirect !== "/") {
+        params.set("next", finalRedirect);
+      }
+      const redirectUrl = `${MAIN_APP_URL}/auth/callback?${params.toString()}`;
 
       // Include newsletter subscription preference in OAuth metadata
       const { error } = await supabase.auth.signInWithOAuth({
