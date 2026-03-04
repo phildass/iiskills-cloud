@@ -32,7 +32,7 @@ export const getSiteUrl = (siteSlug, useLocalhost = false) => {
  * @returns {string} The admin URL
  */
 export const getAdminUrl = (siteSlug = null) => {
-  const baseUrl = 'https://app.iiskills.cloud/admin';
+  const baseUrl = 'https://iiskills.cloud/admin';
   return siteSlug ? `${baseUrl}?site=${siteSlug}` : baseUrl;
 };
 

@@ -456,7 +456,7 @@ export default function AdminDashboard() {
         <div className="bg-white rounded-lg shadow-lg p-6 mb-12">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
             <a
-              href="https://app.iiskills.cloud"
+              href="https://iiskills.cloud"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center p-4 border border-gray-200 rounded-lg hover:border-blue-400 hover:shadow-md transition"

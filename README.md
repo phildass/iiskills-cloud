@@ -44,8 +44,7 @@ yarn lint
 
 | Environment | URL | Notes |
 |-------------|-----|-------|
-| Staging (current) | https://app.iiskills.cloud | Served from `apps/` via `deploy-all.sh` |
-| Production (future) | https://iiskills.cloud | DNS + Nginx flip when ready to cut over |
+| Production | https://iiskills.cloud | Served from `apps/` via `deploy-all.sh` |
 
 Learn apps are served at their own subdomains (e.g. `https://learn-apt.iiskills.cloud`).
 

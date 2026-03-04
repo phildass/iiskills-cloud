@@ -40,7 +40,7 @@ const APP_PORTS = {
 
 // Production domains
 const APP_DOMAINS = {
-  main: "https://app.iiskills.cloud",
+  main: "https://iiskills.cloud",
   "learn-ai": "https://learn-ai.iiskills.cloud",
   "learn-apt": "https://learn-apt.iiskills.cloud",
   "learn-chemistry": "https://learn-chemistry.iiskills.cloud",

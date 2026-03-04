@@ -176,7 +176,7 @@ pm2 restart iiskills-main --update-env
    pm2 restart iiskills-main --update-env
    ```
 
-3. Log in at `https://app.iiskills.cloud/admin/login` using the passphrase
+3. Log in at `https://iiskills.cloud/admin/login` using the passphrase
    (`iiskills123` if `ADMIN_PANEL_SECRET` is not set).
 
 ### Disable test mode (go to production)

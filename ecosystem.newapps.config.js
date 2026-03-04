@@ -4,7 +4,7 @@
  * ⚠️  HISTORICAL / DEPRECATED — This config is kept for reference only.
  *
  * The active staging environment is now served from apps/ via ecosystem.config.js
- * and is accessible at https://app.iiskills.cloud (staging).
+ * and is accessible at https://iiskills.cloud (staging).
  * Production cutover to https://iiskills.cloud is a DNS + Nginx flip.
  *
  * This file previously pointed at the newapps/ sandbox directory.  The
@@ -25,8 +25,8 @@
  *   pm2 stop ecosystem.newapps.config.js
  *
  * Ports (same as production — sandbox replaces production when active):
- *   sandbox-main             → :3000  (app.iiskills.cloud)
- *   sandbox-learn-apt        → :3002  (app1.iiskills.cloud / learn-apt.iiskills.cloud)
+ *   sandbox-main             → :3000  (iiskills.cloud)
+ *   sandbox-learn-apt        → :3002  (learn-apt.iiskills.cloud)
  *   sandbox-learn-chemistry  → :3005
  *   sandbox-learn-developer  → :3007
  *   sandbox-learn-geography  → :3011

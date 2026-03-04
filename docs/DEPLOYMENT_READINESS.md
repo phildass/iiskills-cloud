@@ -38,8 +38,8 @@ curl -fsS http://localhost:3000
 
 | URL | Expected result |
 |-----|-----------------|
-| https://app.iiskills.cloud/ | Main landing page (staging — current live environment) |
-| https://app.iiskills.cloud/admin | Admin panel (staging, served by iiskills-main) |
+| https://iiskills.cloud/ | Main landing page (staging — current live environment) |
+| https://iiskills.cloud/admin | Admin panel (staging, served by iiskills-main) |
 | https://learn-ai.iiskills.cloud/ | Learn AI app (port 3024) |
 | https://iiskills.cloud/ | Production target — point DNS here when ready to cut over |
 
@@ -54,6 +54,6 @@ The CSP in `config/security-headers.js` already permits the required origins:
 - `frame-src`: `www.google.com`, `translate.google.com`, `translate.googleapis.com`
 
 No additional changes required. To verify:
-1. Open https://app.iiskills.cloud/ in a browser (staging).
+1. Open https://iiskills.cloud/ in a browser (staging).
 2. The language selector dropdown should appear in the top-right nav.
 3. Select any Indian language (e.g. Hindi) and confirm page text changes.

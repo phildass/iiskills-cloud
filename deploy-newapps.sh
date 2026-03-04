@@ -5,7 +5,7 @@
 # environment.  It is NO LONGER the active staging deployment.
 #
 # Current staging environment:
-#   • Host:   https://app.iiskills.cloud  (staging)
+#   • Host:   https://iiskills.cloud  (staging)
 #   • Source: apps/  (monorepo main build)
 #   • Script: deploy-all.sh
 #
@@ -110,8 +110,8 @@ echo -e "${BOLD}${GREEN}✅ Sandbox Deployment Complete!${NC}"
 echo -e "${BOLD}${GREEN}========================================${NC}"
 echo ""
 echo "Sandbox is running on the same ports as production:"
-echo "  sandbox-main          → :3000  (app.iiskills.cloud)"
-echo "  sandbox-learn-apt     → :3002  (app1.iiskills.cloud)"
+echo "  sandbox-main          → :3000  (iiskills.cloud)"
+echo "  sandbox-learn-apt     → :3002  (learn-apt.iiskills.cloud)"
 echo "  sandbox-learn-chemistry → :3005"
 echo "  sandbox-learn-developer → :3007"
 echo "  sandbox-learn-geography → :3011"
