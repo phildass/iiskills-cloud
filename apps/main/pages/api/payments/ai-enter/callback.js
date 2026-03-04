@@ -278,12 +278,19 @@ export default async function handler(req, res) {
       }
     }
 
+    // Build a redirect URL for aienter.in to redirect the browser after payment.
+    // Points to the complete-registration page so the user can set their password.
+    const mainAppUrl =
+      process.env.NEXT_PUBLIC_MAIN_APP_URL || 'https://iiskills.cloud';
+    const redirectUrl = `${mainAppUrl}/complete-registration?course=${encodeURIComponent(courseAppId)}`;
+
     return res.status(200).json({
       success: true,
       message: 'Payment received and access granted',
       razorpay_payment_id,
       user_id,
       app_id: courseAppId,
+      redirect_url: redirectUrl,
     });
   }
 
