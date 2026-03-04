@@ -19,6 +19,11 @@ import GoogleTranslate from "./GoogleTranslate";
  * By default, showAuthButtons is set to false in SiteHeader component,
  * hiding all authentication UI (Login/Register buttons) to provide
  * a fully open-access experience.
+ *
+ * REGISTRATION GATE UPDATE:
+ * - If registrationIncomplete is true, show "Complete Registration →" as the primary CTA.
+ * - Demote any course/app link(s) in customLinks by swapping their className/mobileClassName
+ *   so the Complete Registration CTA is visually primary.
  */
 export default function Header({
   appName = "iiskills.cloud",
@@ -28,6 +33,10 @@ export default function Header({
   onLogout = null,
   showAuthButtons = true,
   isPaid = false,
+
+  // NEW (optional) props
+  registrationIncomplete = false,
+  primaryCta = null, // { label: string, href: string }
 }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -40,6 +49,35 @@ export default function Header({
       await onLogout();
     }
   };
+
+  // Demote customLinks when registration is incomplete:
+  // - keep behavior but reduce visual emphasis by applying muted styles
+  const effectiveLinks = registrationIncomplete
+    ? customLinks.map((link) => {
+        // Only demote clickable links (leave non-clickable labels alone)
+        if (link?.isNonClickable) return link;
+
+        const demotedClass =
+          link.className && link.className.includes("opacity-")
+            ? link.className
+            : `${link.className || "hover:text-primary transition"} opacity-60 hover:opacity-100`;
+
+        const demotedMobileClass =
+          link.mobileClassName && link.mobileClassName.includes("opacity-")
+            ? link.mobileClassName
+            : `${link.mobileClassName || "block hover:text-primary transition"} opacity-70 hover:opacity-100`;
+
+        return {
+          ...link,
+          className: demotedClass,
+          mobileClassName: demotedMobileClass,
+        };
+      })
+    : customLinks;
+
+  // Decide which CTA to show when logged in
+  const showCompleteRegistrationCta =
+    !!user && registrationIncomplete && primaryCta?.href && primaryCta?.label;
 
   return (
     <nav className="bg-white text-gray-800 px-6 py-3 shadow-md sticky top-0 z-[9999]">
@@ -81,7 +119,7 @@ export default function Header({
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex space-x-6 font-medium items-center">
-          {customLinks.map((link, index) =>
+          {effectiveLinks.map((link, index) =>
             link.isNonClickable ? (
               <span key={index} className={link.className || ""}>
                 {link.label}
@@ -106,23 +144,36 @@ export default function Header({
                 // User is logged in - show first name and logout button
                 <>
                   <span className="text-sm font-medium text-gray-700">
-                    {user.user_metadata?.first_name || user.email?.split('@')[0] || 'User'}
+                    {user.user_metadata?.first_name || user.email?.split("@")[0] || "User"}
                     {isPaid && (
                       <span className="ml-2 inline-block bg-gradient-to-r from-purple-600 to-blue-600 text-white text-xs font-bold px-2 py-0.5 rounded-full align-middle">
                         PAID
                       </span>
                     )}
                   </span>
-                  {user.app_metadata?.provider === 'google' && (
+
+                  {user.app_metadata?.provider === "google" && (
                     <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">
                       Google User
                     </span>
                   )}
-                  {isPaid && (
-                    <Link href="/profile" className="hover:text-primary transition font-medium">
-                      Profile
+
+                  {/* PRIMARY CTA: Complete Registration when incomplete, else normal Profile link logic */}
+                  {showCompleteRegistrationCta ? (
+                    <Link
+                      href={primaryCta.href}
+                      className="bg-primary text-white px-4 py-2 rounded hover:bg-blue-700 transition font-bold"
+                    >
+                      {primaryCta.label}
                     </Link>
+                  ) : (
+                    isPaid && (
+                      <Link href="/profile" className="hover:text-primary transition font-medium">
+                        Profile
+                      </Link>
+                    )
                   )}
+
                   <button
                     onClick={handleLogout}
                     className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition font-bold"
@@ -146,7 +197,6 @@ export default function Header({
               )}
             </>
           )}
-
         </div>
 
         {/* Right side: Google Translate (always visible) + Mobile Menu Button */}
@@ -185,7 +235,7 @@ export default function Header({
       {/* Mobile Menu */}
       {isMenuOpen && (
         <div className="md:hidden mt-4 pb-4 space-y-3">
-          {customLinks.map((link, index) =>
+          {effectiveLinks.map((link, index) =>
             link.isNonClickable ? (
               <span key={index} className={link.mobileClassName || link.className || "block"}>
                 {link.label}
@@ -211,24 +261,39 @@ export default function Header({
                 <>
                   <div className="px-4 py-2 flex items-center gap-2">
                     <span className="text-sm font-medium text-gray-700">
-                      {user.user_metadata?.first_name || user.email?.split('@')[0] || 'User'}
+                      {user.user_metadata?.first_name || user.email?.split("@")[0] || "User"}
                       {isPaid && (
                         <span className="ml-2 inline-block bg-gradient-to-r from-purple-600 to-blue-600 text-white text-xs font-bold px-2 py-0.5 rounded-full align-middle">
                           PAID
                         </span>
                       )}
                     </span>
-                    {user.app_metadata?.provider === 'google' && (
+                    {user.app_metadata?.provider === "google" && (
                       <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">
                         Google User
                       </span>
                     )}
                   </div>
-                  {isPaid && (
-                    <Link href="/profile" className="block hover:text-primary transition font-medium px-4 py-2">
-                      Profile
+
+                  {/* Mobile PRIMARY CTA */}
+                  {showCompleteRegistrationCta ? (
+                    <Link
+                      href={primaryCta.href}
+                      className="block bg-primary text-white px-4 py-2 rounded hover:bg-blue-700 transition font-bold"
+                    >
+                      {primaryCta.label}
                     </Link>
+                  ) : (
+                    isPaid && (
+                      <Link
+                        href="/profile"
+                        className="block hover:text-primary transition font-medium px-4 py-2"
+                      >
+                        Profile
+                      </Link>
+                    )
                   )}
+
                   <button
                     onClick={handleLogout}
                     className="block w-full text-left bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition font-bold"
