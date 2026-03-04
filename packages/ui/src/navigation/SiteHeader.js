@@ -9,7 +9,8 @@ import { getCanonicalLinks } from "./canonicalNavLinks";
  * Tracks authentication and paid-user state client-side:
  *   - Unauthenticated: shows Login / Register buttons only.
  *   - Authenticated but not paid: shows user name + Logout; no Profile link.
- *   - Authenticated and paid: shows user name + "PAID" badge + Profile link + Logout.
+ *   - Authenticated and paid + registration incomplete: shows "Complete Registration" link.
+ *   - Authenticated and paid + registration complete: shows user name + "PAID" badge + Profile link + Logout.
  *
  * @param {string} appId - The app identifier (e.g., 'learn-ai', 'main')
  * @param {boolean} isFreeApp - Whether this is a free app (affects payment link display)
@@ -17,6 +18,7 @@ import { getCanonicalLinks } from "./canonicalNavLinks";
 export default function SiteHeader({ appId = "main", isFreeApp = false }) {
   const [user, setUser] = useState(null);
   const [isPaid, setIsPaid] = useState(false);
+  const [registrationCompleted, setRegistrationCompleted] = useState(true);
 
   useEffect(() => {
     let mounted = true;
@@ -39,12 +41,17 @@ export default function SiteHeader({ appId = "main", isFreeApp = false }) {
             });
             const { data: profile } = await sb
               .from("profiles")
-              .select("is_paid_user")
+              .select("is_paid_user, registration_completed")
               .eq("id", currentUser.id)
               .maybeSingle();
 
             if (profile?.is_paid_user) {
-              if (mounted) setIsPaid(true);
+              if (mounted) {
+                setIsPaid(true);
+                // registration_completed defaults to false (column NOT NULL DEFAULT false)
+                // Treat null/undefined as not completed to be safe
+                setRegistrationCompleted(profile.registration_completed === true);
+              }
               return;
             }
 
@@ -59,7 +66,13 @@ export default function SiteHeader({ appId = "main", isFreeApp = false }) {
               .limit(1)
               .maybeSingle();
 
-            if (mounted) setIsPaid(!!entitlement);
+            if (mounted) {
+              setIsPaid(!!entitlement);
+              if (entitlement) {
+                // Has entitlement — check profile's registration_completed flag
+                setRegistrationCompleted(profile?.registration_completed === true);
+              }
+            }
           }
         }
       } catch {
@@ -79,6 +92,7 @@ export default function SiteHeader({ appId = "main", isFreeApp = false }) {
       await signOutUser();
       setUser(null);
       setIsPaid(false);
+      setRegistrationCompleted(true);
       if (typeof window !== "undefined") {
         window.location.href = "/";
       }
@@ -87,11 +101,28 @@ export default function SiteHeader({ appId = "main", isFreeApp = false }) {
     }
   };
 
+  // Build nav links; add a "Complete Registration" link for paid+unregistered users
+  const baseLinks = getCanonicalLinks(appId, isFreeApp);
+  const navLinks =
+    user && isPaid && !registrationCompleted
+      ? [
+          ...baseLinks,
+          {
+            href:
+              (process.env.NEXT_PUBLIC_MAIN_APP_URL || "https://iiskills.cloud") +
+              "/complete-registration",
+            label: "Complete Registration ★",
+            className:
+              "text-purple-600 font-bold hover:text-purple-800 transition animate-pulse",
+          },
+        ]
+      : baseLinks;
+
   return (
     <Header
       appName="" // Removed to create more space in navigation
       homeUrl="/"
-      customLinks={getCanonicalLinks(appId, isFreeApp)}
+      customLinks={navLinks}
       showAuthButtons={true} // UNIVERSAL NAV: Register and Login links visible to ALL users
       user={user}
       isPaid={isPaid}
