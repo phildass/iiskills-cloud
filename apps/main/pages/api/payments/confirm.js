@@ -1,10 +1,11 @@
 import crypto from 'crypto';
 import { createClient } from '@supabase/supabase-js';
-import { generateAndDispatchOTP } from '@lib/otpService';
+import jwt from 'jsonwebtoken';
+import { sendThankYouEmail } from '@lib/otpService';
 import { APPS } from '@lib/appRegistry';
 
 /**
- * Centralized Payment Confirmation Endpoint
+ * Centralized Payment Confirmation Endpoint  (Option A — token-based flow)
  *
  * Receives a signed server-to-server POST from aienter.in after successful
  * Razorpay webhook verification on their side.
@@ -21,10 +22,13 @@ import { APPS } from '@lib/appRegistry';
  * - payment_confirmations table has a UNIQUE constraint on razorpay_payment_id
  * - Duplicate calls return 200 without side-effects
  *
- * On success:
- * - Stores record in payment_confirmations table
- * - Dispatches a 6-digit OTP to the customer's phone (and email if provided)
- * - User then visits /otp-gateway to verify OTP and unlock paid access
+ * On success (Option A — user_token present):
+ * - Verifies the short-lived JWT issued by /api/payments/generate-token
+ * - Grants an entitlement directly to the identified user (no OTP needed)
+ * - Sends a confirmation notification — not an OTP
+ *
+ * Fallback (no user_token — legacy flow):
+ * - Falls back to the OTP dispatch path for backward compatibility
  */
 
 // Disable Next.js body parsing so we can read raw bytes for signature verification
@@ -33,6 +37,9 @@ export const config = {
     bodyParser: false,
   },
 };
+
+// Duration for new entitlements: 1 year in milliseconds
+const ENTITLEMENT_DURATION_MS = 365 * 24 * 60 * 60 * 1000;
 
 const MAX_TIMESTAMP_SKEW_SECONDS = 300; // 5 minutes
 
@@ -135,9 +142,11 @@ export default async function handler(req, res) {
     amountPaise,
     currency = 'INR',
     customerPhone,
+    customerEmail,
     razorpayOrderId,
     razorpayPaymentId,
     paidAt,
+    user_token, // Option A: signed JWT from /api/payments/generate-token
   } = payload;
 
   // ── 5. Validate required fields ────────────────────────────────────────────
@@ -150,7 +159,8 @@ export default async function handler(req, res) {
   if (!razorpayPaymentId) {
     return res.status(400).json({ error: 'razorpayPaymentId is required' });
   }
-  if (!customerPhone) {
+  // customerPhone required unless user_token provides identity
+  if (!user_token && !customerPhone) {
     return res.status(400).json({ error: 'customerPhone is required' });
   }
   if (amountPaise === undefined || amountPaise === null) {
@@ -164,7 +174,7 @@ export default async function handler(req, res) {
   const appName = appConfig?.name || 'iiskills.cloud';
 
   // ── 6. Format phone to E.164 ───────────────────────────────────────────────
-  let formattedPhone = customerPhone;
+  let formattedPhone = customerPhone || null;
   if (formattedPhone && !formattedPhone.startsWith('+')) {
     formattedPhone = `+91${formattedPhone}`;
   }
@@ -216,7 +226,7 @@ export default async function handler(req, res) {
       }
 
       console.error('[payments/confirm] Failed to store confirmation record:', insertError);
-      // Continue to OTP dispatch even if storage fails for non-duplicate reasons
+      // Continue to entitlement/OTP even if storage fails for non-duplicate reasons
     } else {
       confirmationId = inserted?.id || null;
     }
@@ -224,13 +234,101 @@ export default async function handler(req, res) {
     console.warn('[payments/confirm] Supabase not configured – skipping confirmation storage');
   }
 
-  // ── 8. Dispatch OTP to customer phone ─────────────────────────────────────
+  // ── 8. Option A: verify user_token and grant entitlement directly ─────────
+  if (user_token) {
+    const tokenSecret = process.env.PAYMENT_TOKEN_SECRET;
+    if (!tokenSecret) {
+      console.error('[payments/confirm] PAYMENT_TOKEN_SECRET not set');
+      return res.status(500).json({ error: 'Server misconfiguration' });
+    }
+
+    let tokenPayload;
+    try {
+      tokenPayload = jwt.verify(user_token, tokenSecret);
+    } catch (err) {
+      console.error('[payments/confirm] user_token verification failed:', err.message);
+      return res.status(401).json({ error: 'Invalid or expired user token' });
+    }
+
+    const { user_id, course_slug: tokenCourseSlug } = tokenPayload;
+    if (!user_id) {
+      return res.status(400).json({ error: 'user_token missing user_id claim' });
+    }
+
+    const courseAppId = tokenCourseSlug || courseSlug || appId;
+
+    if (supabase) {
+      const { error: entErr } = await supabase.from('entitlements').insert([
+        {
+          user_id,
+          app_id: courseAppId,
+          status: 'active',
+          source: 'razorpay',
+          expires_at: new Date(Date.now() + ENTITLEMENT_DURATION_MS).toISOString(),
+        },
+      ]);
+
+      if (entErr) {
+        const isDuplicate =
+          entErr.code === '23505' ||
+          entErr.message?.includes('duplicate') ||
+          entErr.message?.includes('unique');
+        if (!isDuplicate) {
+          console.error('[payments/confirm] Failed to insert entitlement:', entErr);
+        } else {
+          console.log(
+            `[payments/confirm] Entitlement already exists for user=${user_id} app=${courseAppId}`
+          );
+        }
+      } else {
+        console.log(
+          `[payments/confirm] Entitlement granted: user=${user_id} app=${courseAppId}`
+        );
+
+        // Mark user as paid (idempotent)
+        await supabase
+          .from('profiles')
+          .update({ is_paid_user: true })
+          .eq('id', user_id)
+          .eq('is_paid_user', false);
+
+        await supabase
+          .from('profiles')
+          .update({ paid_at: new Date().toISOString() })
+          .eq('id', user_id)
+          .is('paid_at', null);
+
+        // Send confirmation notification (not OTP) — fire-and-forget
+        const notifyEmail = tokenPayload.email || customerEmail || null;
+        if (notifyEmail) {
+          sendThankYouEmail({
+            email: notifyEmail,
+            appId: courseAppId,
+            appName,
+            paymentTransactionId: razorpayPaymentId,
+          }).catch((err) =>
+            console.error('[payments/confirm] Confirmation email error:', err)
+          );
+        }
+      }
+    }
+
+    return res.status(200).json({
+      success: true,
+      confirmationId,
+      message: 'confirmed',
+      user_id,
+      app_id: courseAppId,
+    });
+  }
+
+  // ── 9. Legacy fallback: dispatch OTP ─────────────────────────────────────
+  // Kept for backward compatibility when user_token is absent.
+  const { generateAndDispatchOTP } = await import('@lib/otpService');
+
   try {
-    // generateAndDispatchOTP requires an email field for OTP record-keeping.
-    // This endpoint receives phone-only confirmations from aienter.in, so we
-    // synthesize a deterministic internal email address. No email is actually
-    // sent to this address; OTP delivery goes to the customerPhone via SMS.
-    const otpEmail = `${razorpayPaymentId}@payment.iiskills.cloud`;
+    // generateAndDispatchOTP requires an email field; synthesize when absent.
+    const otpEmail = customerEmail || `${razorpayPaymentId}@payment.iiskills.cloud`;
 
     const otpResult = await generateAndDispatchOTP({
       email: otpEmail,
@@ -242,7 +340,7 @@ export default async function handler(req, res) {
       adminGenerated: false,
     });
 
-    console.log('[payments/confirm] OTP dispatched:', {
+    console.log('[payments/confirm] OTP dispatched (legacy):', {
       razorpayPaymentId,
       appId,
       deliveryChannel: otpResult.deliveryChannel,
