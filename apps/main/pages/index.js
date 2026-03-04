@@ -286,30 +286,6 @@ export default function Home() {
               ))}
             </div>
 
-            {/* Testimonial / Social Proof Section */}
-            <div className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 rounded-2xl p-10 text-white shadow-2xl mb-8">
-              <div className="text-center mb-8">
-                <h3 className="text-3xl font-bold mb-4">What Our Premium Members Say</h3>
-                <div className="flex justify-center gap-1 text-yellow-300 text-3xl mb-4">
-                  ⭐⭐⭐⭐⭐
-                </div>
-              </div>
-              <div className="grid md:grid-cols-3 gap-6">
-                <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6">
-                  <p className="text-lg mb-4 italic">"The AI course transformed my career. Got promoted within 3 months!"</p>
-                  <p className="font-bold">- Rajesh K., Software Engineer</p>
-                </div>
-                <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6">
-                  <p className="text-lg mb-4 italic">"Best investment in my professional development. Highly recommend!"</p>
-                  <p className="font-bold">- Priya S., Manager</p>
-                </div>
-                <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6">
-                  <p className="text-lg mb-4 italic">"Practical, industry-relevant content. Worth every rupee!"</p>
-                  <p className="font-bold">- Amit M., Developer</p>
-                </div>
-              </div>
-            </div>
-
             {/* Strong CTA */}
             <div className="text-center bg-gradient-to-r from-orange-600 to-amber-600 rounded-2xl p-10 shadow-2xl">
               <h3 className="text-white text-3xl md:text-4xl font-extrabold mb-4">
@@ -477,7 +453,7 @@ export default function Home() {
               <div className="bg-white rounded-xl p-6 shadow-lg">
                 <div className="flex items-center gap-3 mb-3">
                   <Image
-                    src="/images/mini-value-integrity.svg"
+                    src="/images/value-integrity.svg"
                     alt="Integrity icon"
                     width={70}
                     height={70}
@@ -493,7 +469,7 @@ export default function Home() {
               <div className="bg-white rounded-xl p-6 shadow-lg">
                 <div className="flex items-center gap-3 mb-3">
                   <Image
-                    src="/images/mini-value-innovation.svg"
+                    src="/images/value-innovation.svg"
                     alt="Innovation icon"
                     width={70}
                     height={70}
@@ -509,7 +485,7 @@ export default function Home() {
               <div className="bg-white rounded-xl p-6 shadow-lg">
                 <div className="flex items-center gap-3 mb-3">
                   <Image
-                    src="/images/mini-value-diversity.svg"
+                    src="/images/value-diversity.svg"
                     alt="Diversity icon"
                     width={70}
                     height={70}
@@ -525,7 +501,7 @@ export default function Home() {
               <div className="bg-white rounded-xl p-6 shadow-lg">
                 <div className="flex items-center gap-3 mb-3">
                   <Image
-                    src="/images/mini-value-collaboration.svg"
+                    src="/images/value-collaboration.svg"
                     alt="Collaboration icon"
                     width={70}
                     height={70}
