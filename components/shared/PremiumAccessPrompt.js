@@ -8,6 +8,9 @@ import { getEffectivePricingBreakdown, formatINR, isBundleOfferActive } from "@i
  * Internal Payment Preview UI for paid apps
  * Shows after successful calibration qualifier
  *
+ * Redirects to iiskills.cloud/payments/iiskills (auth-first Flow A) so that
+ * the user is authenticated before reaching the aienter.in payment page.
+ *
  * Pricing is derived from the canonical @iiskills/ui/pricing module.
  */
 
@@ -22,11 +25,8 @@ export default function PremiumAccessPrompt({
   const bundleActive = showAIDevBundle && isBundleOfferActive();
 
   const handleUnlock = () => {
-    const params = new URLSearchParams({
-      ...(appId && { course: appId }),
-      returnTo: "https://iiskills.cloud/otp-gateway",
-    });
-    window.location.href = `https://aienter.in/payments/iiskills?${params.toString()}`;
+    const mainAppUrl = process.env.NEXT_PUBLIC_MAIN_APP_URL || 'https://iiskills.cloud';
+    window.location.href = `${mainAppUrl}/payments/iiskills${appId ? `?course=${encodeURIComponent(appId)}` : ''}`;
   };
 
   return (

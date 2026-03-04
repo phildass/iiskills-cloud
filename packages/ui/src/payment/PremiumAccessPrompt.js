@@ -22,11 +22,8 @@ export default function PremiumAccessPrompt({
   const bundleActive = showAIDevBundle && (new Date() <= new Date("2026-03-31T23:59:59"));
 
   const handleUnlock = () => {
-    const params = new URLSearchParams({
-      ...(appId && { course: appId }),
-      returnTo: "https://iiskills.cloud/otp-gateway",
-    });
-    window.location.href = `https://aienter.in/payments/iiskills?${params.toString()}`;
+    const mainAppUrl = process.env.NEXT_PUBLIC_MAIN_APP_URL || 'https://iiskills.cloud';
+    window.location.href = `${mainAppUrl}/payments/iiskills${appId ? `?course=${encodeURIComponent(appId)}` : ''}`;
   };
 
   return (

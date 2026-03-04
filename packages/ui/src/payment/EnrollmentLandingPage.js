@@ -31,7 +31,8 @@ export default function EnrollmentLandingPage({
   const partnerApp = appName.toLowerCase().includes("ai") ? "Learn Developer" : "Learn AI";
 
   const handleEnrol = () => {
-    window.open("https://aienter.in/payments/iiskills", "_blank", "noopener,noreferrer");
+    const mainAppUrl = process.env.NEXT_PUBLIC_MAIN_APP_URL || 'https://iiskills.cloud';
+    window.location.href = `${mainAppUrl}/payments/iiskills${appId ? `?course=${encodeURIComponent(appId)}` : ''}`;
   };
 
   return (
