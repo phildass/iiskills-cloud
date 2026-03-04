@@ -7,6 +7,8 @@ import { signInWithEmail, sendMagicLink, signInWithGoogle } from "@lib/supabaseC
 import { getCurrentApp, getAuthRedirectUrl } from "@lib/appRegistry";
 import { recordLoginApp, getBestAuthRedirect, initSessionManager } from "@lib/sessionManager";
 
+const MAIN_APP_URL = process.env.NEXT_PUBLIC_MAIN_APP_URL || "https://iiskills.cloud";
+
 /**
  * Universal Login Component
  *
@@ -73,14 +75,17 @@ export default function UniversalLogin({
 
     try {
       if (useMagicLink) {
-        // Send magic link to user's email
-        // Multi-App Redirect: Get the best redirect based on app registry and user preferences
+        // Send magic link via centralized callback so only one redirect URL is
+        // needed in Supabase and the session is set on iiskills.cloud first.
         const bestRedirect = getBestAuthRedirect(router.query.redirect);
         const targetPath = bestRedirect?.path || redirectAfterLogin;
-        const redirectUrl =
-          typeof window !== "undefined"
-            ? `${window.location.origin}${targetPath}`
-            : undefined;
+        const origin = typeof window !== "undefined" ? window.location.origin : MAIN_APP_URL;
+        const params = new URLSearchParams();
+        params.set("origin", origin);
+        if (targetPath && targetPath !== "/") {
+          params.set("next", targetPath);
+        }
+        const redirectUrl = `${MAIN_APP_URL}/auth/callback?${params.toString()}`;
 
         const { success: magicLinkSuccess, error: magicLinkError } = await sendMagicLink(
           email,
@@ -143,13 +148,18 @@ export default function UniversalLogin({
     setError("");
 
     try {
-      // Multi-App Redirect: Get the best redirect based on app registry and user preferences
+      // Route Google OAuth through the centralized callback so only one redirect
+      // URL is needed in Supabase. After auth, the callback redirects the user
+      // back to the originating subdomain with the session tokens.
       const bestRedirect = getBestAuthRedirect(router.query.redirect);
       const targetPath = bestRedirect?.path || redirectAfterLogin;
-      const redirectUrl =
-        typeof window !== "undefined"
-          ? `${window.location.origin}${targetPath}`
-          : undefined;
+      const origin = typeof window !== "undefined" ? window.location.origin : MAIN_APP_URL;
+      const params = new URLSearchParams();
+      params.set("origin", origin);
+      if (targetPath && targetPath !== "/") {
+        params.set("next", targetPath);
+      }
+      const redirectUrl = `${MAIN_APP_URL}/auth/callback?${params.toString()}`;
 
       const { success: googleSuccess, error: googleError } = await signInWithGoogle(redirectUrl);
 
