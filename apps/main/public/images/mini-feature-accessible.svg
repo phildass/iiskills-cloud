@@ -1,0 +1,12 @@
+<!-- mini-feature-accessible.svg -->
+<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80" role="img">
+  <title>Accessible to All Indians</title>
+  <circle cx="40" cy="40" r="38" fill="#EDE9FE" stroke="#8B5CF6" stroke-width="2"/>
+  <!-- Globe icon using paths -->
+  <circle cx="40" cy="40" r="20" fill="none" stroke="#7C3AED" stroke-width="2.5"/>
+  <ellipse cx="40" cy="40" rx="11" ry="20" fill="none" stroke="#7C3AED" stroke-width="2"/>
+  <line x1="20" y1="40" x2="60" y2="40" stroke="#7C3AED" stroke-width="2"/>
+  <line x1="40" y1="20" x2="40" y2="60" stroke="#7C3AED" stroke-width="2"/>
+  <path d="M24 28 Q40 22 56 28" fill="none" stroke="#7C3AED" stroke-width="1.5"/>
+  <path d="M24 52 Q40 58 56 52" fill="none" stroke="#7C3AED" stroke-width="1.5"/>
+</svg>
