@@ -4,7 +4,7 @@
 
 This report covers the deployment, Supabase authentication setup, paywall/entitlement system, and Google Translate configuration for `iiskills.cloud`.
 
-**Current staging host:** https://app.iiskills.cloud  
+**Current staging host:** https://iiskills.cloud  
 **Production target (future):** https://iiskills.cloud — cutover requires a DNS + Nginx config flip only.
 
 ---
@@ -76,7 +76,7 @@ Key points:
 
 ### 3.1 Login Flow
 
-1. Navigate to `https://app.iiskills.cloud/login` (staging)
+1. Navigate to `https://iiskills.cloud/login` (staging)
 2. Enter email + password for a registered user
 3. On success → redirected to `/dashboard`
 4. Login/logout buttons appear in all app navbars (shared `Header` component)
@@ -101,7 +101,7 @@ Key points:
 1. User visits `https://aienter.in/payments/iiskills` and completes payment
 2. User notes their **Razorpay Payment ID** (e.g., `pay_XXXXXXXXXX`)
 3. User contacts admin (or submits via a form) with their email + payment ID
-4. Admin logs into `https://app.iiskills.cloud/admin/entitlements` (staging)
+4. Admin logs into `https://iiskills.cloud/admin/entitlements` (staging)
 5. Admin searches user by email
 6. Admin selects app (`learn-ai` or `ai-developer-bundle` for both) and enters payment reference
 7. Admin clicks **Grant 1-Year Access**
@@ -157,9 +157,9 @@ curl -fsS http://localhost:3024               # learn-ai
 
 ### 4.3 Admin Access
 
-- `https://app.iiskills.cloud/admin` — Admin dashboard (staging)
-- `https://app.iiskills.cloud/admin/entitlements` — Grant/revoke entitlements
-- `https://app.iiskills.cloud/admin/access-control` — App access overview
+- `https://iiskills.cloud/admin` — Admin dashboard (staging)
+- `https://iiskills.cloud/admin/entitlements` — Grant/revoke entitlements
+- `https://iiskills.cloud/admin/access-control` — App access overview
 
 ---
 
@@ -218,11 +218,11 @@ pm2 restart iiskills-main
 
 1. Verify env vars are set: `pm2 env iiskills-main`
 2. Check Supabase dashboard → Authentication → Users
-3. Ensure Site URL is set to `https://app.iiskills.cloud` (staging) in Supabase dashboard
+3. Ensure Site URL is set to `https://iiskills.cloud` (staging) in Supabase dashboard
    — update to `https://iiskills.cloud` when production cutover is complete
 
 ### Entitlement check failing
 
 1. Verify `entitlements_table.sql` migration has been run
 2. Check `SUPABASE_SERVICE_ROLE_KEY` is set in apps/main env
-3. Test: `curl -H "Authorization: Bearer <user_token>" https://app.iiskills.cloud/api/entitlement?appId=learn-ai`
+3. Test: `curl -H "Authorization: Bearer <user_token>" https://iiskills.cloud/api/entitlement?appId=learn-ai`

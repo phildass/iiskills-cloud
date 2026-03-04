@@ -113,7 +113,7 @@ NEXT_PUBLIC_TESTING_MODE=true
 NEXT_PUBLIC_OPEN_ACCESS=true
 
 # Site URL
-NEXT_PUBLIC_SITE_URL=http://app1.iiskills.cloud
+NEXT_PUBLIC_SITE_URL=http://iiskills.cloud
 ENVLOCAL
 
 echo ""

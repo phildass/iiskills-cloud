@@ -58,9 +58,6 @@ SITES=(
     learn-math.iiskills.cloud
     learn-physics.iiskills.cloud
     learn-pr.iiskills.cloud
-    app.iiskills.cloud
-    app1.learn-ai.iiskills.cloud
-    app1.learn-developer.iiskills.cloud
 )
 for site in "${SITES[@]}"; do
     cp "${SCRIPT_DIR}/sites-available/${site}" "/etc/nginx/sites-available/${site}"
@@ -91,8 +88,8 @@ for domain in iiskills.cloud learn-ai.iiskills.cloud learn-developer.iiskills.cl
     curl -sk -o /dev/null -w "%{http_code}\n" "https://${domain}/"        || true
 done
 echo ""
-echo "── Canonical redirect verification (expect 301) ─────────────────────────"
-for domain in app.iiskills.cloud app1.learn-ai.iiskills.cloud app1.learn-developer.iiskills.cloud; do
+echo "── Additional domain verification ───────────────────────────────────────"
+for domain in iiskills.cloud learn-ai.iiskills.cloud learn-developer.iiskills.cloud; do
     echo -n "  https://${domain} → "
     curl -sk -o /dev/null -w "%{http_code}  Location: %{redirect_url}\n" \
          "https://${domain}" || true

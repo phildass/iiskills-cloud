@@ -8,7 +8,7 @@
 export const SITES = {
   'main': {
     name: 'Main Site',
-    url: 'https://app.iiskills.cloud',
+    url: 'https://iiskills.cloud',
     slug: 'main',
     subdomain: 'main',
     localhostPort: 3000,

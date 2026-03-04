@@ -42,10 +42,7 @@ nginx/
     ├── learn-management.iiskills.cloud     ← learn-management (port 3016)
     ├── learn-math.iiskills.cloud           ← learn-math (port 3017)
     ├── learn-physics.iiskills.cloud        ← learn-physics (port 3020)
-    ├── learn-pr.iiskills.cloud             ← learn-pr   (port 3021)
-    ├── app.iiskills.cloud                  ← redirect → iiskills.cloud
-    ├── app1.learn-ai.iiskills.cloud        ← redirect → learn-ai.iiskills.cloud
-    └── app1.learn-developer.iiskills.cloud ← redirect → learn-developer.iiskills.cloud
+    └── learn-pr.iiskills.cloud             ← learn-pr   (port 3021)
 ```
 
 ## Site/port mapping
@@ -62,9 +59,6 @@ nginx/
 | `learn-math.iiskills.cloud`         | 3017         |                          |
 | `learn-physics.iiskills.cloud`      | 3020         |                          |
 | `learn-pr.iiskills.cloud`           | 3021         |                          |
-| `app.iiskills.cloud`                | —            | 301 → iiskills.cloud     |
-| `app1.learn-ai.iiskills.cloud`      | —            | 301 → learn-ai           |
-| `app1.learn-developer.iiskills.cloud` | —          | 301 → learn-developer    |
 
 ## TLS certificates
 

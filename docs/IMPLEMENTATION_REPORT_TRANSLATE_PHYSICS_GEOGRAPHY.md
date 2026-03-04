@@ -48,7 +48,7 @@ Script URL updated from protocol-relative `//translate.google.com/…` to `https
 ## B) Learn Physics — Internal Server Error Fix
 
 ### Root Cause
-The 500 error at `app1.learn-physics.iiskills.cloud` is caused by defensive coding gaps:
+The 500 error at `learn-physics.iiskills.cloud` is caused by defensive coding gaps:
 
 1. **Missing null guard in `LessonPage`**: `lesson.frontmatter.level` was accessed without checking if `lesson` is `null`. If `@iiskills/content` can't read the file (wrong path, missing file, filesystem permission error), `getLesson()` returns `null` → `lesson.frontmatter.level` throws `TypeError: Cannot read properties of null` → Next.js returns HTTP 500.
 
@@ -77,11 +77,11 @@ yarn turbo run build --filter=@iiskills/learn-physics
 
 ## C) Learn Developer — TLS Certificate (Security Warning)
 
-`app1.learn-developer.iiskills.cloud` shows a browser security warning. This is a **server configuration issue** (not an app code issue).
+`learn-developer.iiskills.cloud` shows a browser security warning. This is a **server configuration issue** (not an app code issue).
 
 ### Diagnosis
 - The wildcard cert at `/etc/letsencrypt/live/iiskills.cloud/` covers `*.iiskills.cloud` (single-level wildcard).
-- `app1.learn-developer.iiskills.cloud` is a **third-level subdomain** (e.g., `app1.learn-developer.iiskills.cloud`) which is NOT covered by a single `*` wildcard.
+- `learn-developer.iiskills.cloud` is a **third-level subdomain** (e.g., `learn-developer.iiskills.cloud`) which is NOT covered by a single `*` wildcard.
 
 ### Required Server Actions
 ```bash
@@ -92,12 +92,12 @@ certbot certificates
 certbot certonly --nginx \
   -d iiskills.cloud \
   -d '*.iiskills.cloud' \
-  -d app1.learn-developer.iiskills.cloud \
+  -d learn-developer.iiskills.cloud \
   --agree-tos
 
-# 3. Add (or update) nginx config for app1.learn-developer.iiskills.cloud
+# 3. Add (or update) nginx config for learn-developer.iiskills.cloud
 # (Copy pattern from monorepobackup/nginx-configs/learn-developer.iiskills.cloud)
-# Update server_name to: app1.learn-developer.iiskills.cloud
+# Update server_name to: learn-developer.iiskills.cloud
 # proxy_pass to: http://localhost:3007 (learn-developer's port)
 
 # 4. Test and reload nginx

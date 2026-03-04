@@ -91,7 +91,7 @@ function createCourseToSubdomainMap() {
   subdomains.forEach((subdomain) => {
     map[subdomain] = {
       subdomain: subdomain,
-      productionUrl: `https://app1.${subdomain}.iiskills.cloud`,
+      productionUrl: `https://${subdomain}.iiskills.cloud`,
       localUrl: `http://localhost:${portMap[subdomain] || "3000"}`,
       localPort: portMap[subdomain] || "3000",
       exists: true,
