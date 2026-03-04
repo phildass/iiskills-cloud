@@ -1,4 +1,5 @@
 import Head from "next/head";
+import { useRouter } from "next/router";
 import { UniversalLogin } from "@iiskills/ui/authentication";
 
 /**
@@ -14,6 +15,9 @@ import { UniversalLogin } from "@iiskills/ui/authentication";
  * - Recommendation to register for better experience
  */
 export default function SignIn() {
+  const router = useRouter();
+  const { next } = router.query;
+
   return (
     <>
       <Head>
@@ -34,7 +38,8 @@ export default function SignIn() {
           </div>
 
           <UniversalLogin
-            redirectAfterLogin="/dashboard"
+            redirectAfterLogin={next || "/dashboard"}
+            nextUrl={next}
             appName="iiskills.cloud"
             showMagicLink={true}
             showGoogleAuth={true}

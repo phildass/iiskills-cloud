@@ -7,6 +7,8 @@ import { signInWithEmail, sendMagicLink, signInWithGoogle } from "@lib/supabaseC
 import { getCurrentApp, getAuthRedirectUrl } from "@lib/appRegistry";
 import { recordLoginApp, getBestAuthRedirect, initSessionManager } from "@lib/sessionManager";
 
+const MAIN_APP_URL = process.env.NEXT_PUBLIC_MAIN_APP_URL || "https://iiskills.cloud";
+
 /**
  * Universal Login Component
  *
@@ -28,6 +30,7 @@ import { recordLoginApp, getBestAuthRedirect, initSessionManager } from "@lib/se
  * Usage:
  * <UniversalLogin
  *   redirectAfterLogin="/"
+ *   nextUrl="/payments/iiskills?course=learn-management"
  *   appName="iiskills.cloud"
  *   showMagicLink={true}
  *   showGoogleAuth={true}
@@ -35,6 +38,7 @@ import { recordLoginApp, getBestAuthRedirect, initSessionManager } from "@lib/se
  */
 export default function UniversalLogin({
   redirectAfterLogin = "/",
+  nextUrl,
   appName = "iiskills.cloud",
   showMagicLink = true,
   showGoogleAuth = true,
@@ -73,22 +77,40 @@ export default function UniversalLogin({
 
     try {
       if (useMagicLink) {
-        // Send magic link to user's email
-        // Multi-App Redirect: Get the best redirect based on app registry and user preferences
-        const bestRedirect = getBestAuthRedirect(router.query.redirect);
-        const targetPath = bestRedirect?.path || redirectAfterLogin;
-        const redirectUrl =
-          typeof window !== "undefined"
-            ? `${window.location.origin}${targetPath}`
-            : undefined;
+        // Resolve the `next` destination:
+        // Priority: `next` query param → `nextUrl` prop → `redirectAfterLogin` prop
+        const nextParam = router.query.next || nextUrl || null;
+        const destination = nextParam || redirectAfterLogin;
+
+        // Build the emailRedirectTo URL:
+        // Always points to /auth/callback so the Supabase session is properly
+        // exchanged before the user reaches their final destination.
+        const callbackUrl = `${MAIN_APP_URL}/auth/callback${
+          destination && destination !== "/"
+            ? `?next=${encodeURIComponent(destination)}`
+            : ""
+        }`;
+
+        if (process.env.NODE_ENV === "development") {
+          console.debug("[UniversalLogin] magic link emailRedirectTo:", callbackUrl);
+        }
 
         const { success: magicLinkSuccess, error: magicLinkError } = await sendMagicLink(
           email,
-          redirectUrl
+          callbackUrl
         );
 
         if (magicLinkError) {
-          setError(magicLinkError);
+          if (process.env.NODE_ENV === "development") {
+            console.error("[UniversalLogin] magic link error:", magicLinkError);
+          }
+          setError(
+            "We couldn't send the login link. Please try password login or Google sign-in, " +
+              "or check your spam folder and retry. " +
+              (process.env.NODE_ENV === "development"
+                ? `(Dev detail: ${magicLinkError})`
+                : "")
+          );
           setIsLoading(false);
           return;
         }
@@ -121,9 +143,9 @@ export default function UniversalLogin({
           // Authentication successful!
           setSuccess("Login successful! Redirecting...");
 
-          // Multi-App Redirect: Get the best redirect based on app registry and user preferences
-          const bestRedirect = getBestAuthRedirect(router.query.redirect);
-          const redirectUrl = bestRedirect?.path || redirectAfterLogin;
+          // Prefer `next` query param, then `nextUrl` prop, then `redirectAfterLogin`
+          const nextParam = router.query.next || nextUrl || null;
+          const redirectUrl = nextParam || redirectAfterLogin;
 
           // Redirect after a brief delay to show success message
           setTimeout(() => {
@@ -143,15 +165,18 @@ export default function UniversalLogin({
     setError("");
 
     try {
-      // Multi-App Redirect: Get the best redirect based on app registry and user preferences
-      const bestRedirect = getBestAuthRedirect(router.query.redirect);
-      const targetPath = bestRedirect?.path || redirectAfterLogin;
-      const redirectUrl =
-        typeof window !== "undefined"
-          ? `${window.location.origin}${targetPath}`
-          : undefined;
+      // Resolve the `next` destination
+      const nextParam = router.query.next || nextUrl || null;
+      const destination = nextParam || redirectAfterLogin;
 
-      const { success: googleSuccess, error: googleError } = await signInWithGoogle(redirectUrl);
+      // Route Google OAuth through /auth/callback so the session is finalised
+      const callbackUrl = `${MAIN_APP_URL}/auth/callback${
+        destination && destination !== "/"
+          ? `?next=${encodeURIComponent(destination)}`
+          : ""
+      }`;
+
+      const { success: googleSuccess, error: googleError } = await signInWithGoogle(callbackUrl);
 
       if (googleError) {
         setError(googleError);
@@ -308,10 +333,18 @@ export default function UniversalLogin({
 
           <div className="text-center">
             <p className="text-sm text-gray-600">
-              Don't have an account?{" "}
-              <Link href="/register" className="font-medium text-blue-600 hover:text-blue-500">
-                Register now
-              </Link>
+              Don&apos;t have an account?{" "}
+              {(() => {
+                const nextDest = router.query.next || nextUrl;
+                return (
+                  <Link
+                    href={nextDest ? `/register?next=${encodeURIComponent(nextDest)}` : "/register"}
+                    className="font-medium text-blue-600 hover:text-blue-500"
+                  >
+                    Register now
+                  </Link>
+                );
+              })()}
             </p>
           </div>
 
