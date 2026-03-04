@@ -1,0 +1,7 @@
+<!-- mini-feature-affordable.svg -->
+<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80" role="img">
+  <title>Affordable Education</title>
+  <circle cx="40" cy="40" r="38" fill="#DBEAFE" stroke="#3B82F6" stroke-width="2"/>
+  <!-- Rupee symbol -->
+  <text x="40" y="55" font-size="42" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="700" fill="#1D4ED8">&#8377;</text>
+</svg>

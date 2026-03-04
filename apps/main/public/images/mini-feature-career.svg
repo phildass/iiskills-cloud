@@ -1,0 +1,12 @@
+<!-- mini-feature-career.svg -->
+<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80" role="img">
+  <title>Career-Focused Skills</title>
+  <circle cx="40" cy="40" r="38" fill="#DCFCE7" stroke="#22C55E" stroke-width="2"/>
+  <!-- Briefcase icon -->
+  <rect x="18" y="34" width="44" height="28" rx="4" fill="none" stroke="#16A34A" stroke-width="2.5"/>
+  <path d="M30 34 V28 Q30 24 34 24 H46 Q50 24 50 28 V34" fill="none" stroke="#16A34A" stroke-width="2.5"/>
+  <line x1="18" y1="46" x2="62" y2="46" stroke="#16A34A" stroke-width="2"/>
+  <!-- Arrow up (career growth) -->
+  <path d="M37 51 L40 46 L43 51" fill="#16A34A"/>
+  <line x1="40" y1="46" x2="40" y2="57" stroke="#16A34A" stroke-width="2"/>
+</svg>
