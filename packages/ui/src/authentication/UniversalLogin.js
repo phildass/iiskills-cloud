@@ -10,6 +10,29 @@ import { recordLoginApp, getBestAuthRedirect, initSessionManager } from "@lib/se
 const MAIN_APP_URL = process.env.NEXT_PUBLIC_MAIN_APP_URL || "https://iiskills.cloud";
 
 /**
+ * Validates the `next` redirect path to prevent open-redirect attacks.
+ * Only allows same-origin relative paths: must start with "/" but not
+ * "//" (protocol-relative) and must not contain a scheme like "http".
+ * Never throws — always returns a safe value ("/" as fallback).
+ *
+ * @param {string|undefined} next - The redirect path to validate
+ * @returns {string} A safe path — the validated path or "/" as fallback
+ */
+function validateNextParam(next) {
+  if (
+    typeof next !== "string" ||
+    !next.startsWith("/") ||
+    next.startsWith("//") ||
+    next.includes("http") ||
+    /[\r\n\t]/.test(next) || // block header-injection characters
+    /^\/[a-z][a-z0-9+.-]*:/i.test(next)
+  ) {
+    return "/";
+  }
+  return next;
+}
+
+/**
  * Universal Login Component
  *
  * This component provides a standardized login form that can be used
@@ -49,6 +72,7 @@ export default function UniversalLogin({
   const [success, setSuccess] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [useMagicLink, setUseMagicLink] = useState(true);
+  const [debugError, setDebugError] = useState(null);
   const router = useRouter();
 
   // Initialize session manager and record login app
@@ -73,14 +97,15 @@ export default function UniversalLogin({
     e.preventDefault();
     setError("");
     setSuccess("");
+    setDebugError(null);
     setIsLoading(true);
 
     try {
       if (useMagicLink) {
-        // Resolve the `next` destination:
+        // Resolve and validate the `next` destination:
         // Priority: `next` query param → `nextUrl` prop → `redirectAfterLogin` prop
-        const nextParam = router.query.next || nextUrl || null;
-        const destination = nextParam || redirectAfterLogin;
+        const rawNext = router.query.next || nextUrl || redirectAfterLogin || null;
+        const destination = validateNextParam(Array.isArray(rawNext) ? rawNext[0] : rawNext);
 
         // Build the emailRedirectTo URL:
         // Always points to /auth/callback so the Supabase session is properly
@@ -95,22 +120,38 @@ export default function UniversalLogin({
           console.debug("[UniversalLogin] magic link emailRedirectTo:", callbackUrl);
         }
 
-        const { success: magicLinkSuccess, error: magicLinkError } = await sendMagicLink(
-          email,
-          callbackUrl
-        );
+        const {
+          success: magicLinkSuccess,
+          error: magicLinkError,
+          errorDetails,
+        } = await sendMagicLink(email, callbackUrl);
 
         if (magicLinkError) {
-          if (process.env.NODE_ENV === "development") {
-            console.error("[UniversalLogin] magic link error:", magicLinkError);
+          // Always log full error details to help diagnose production issues
+          console.error("[UniversalLogin] magic link error:", {
+            message: magicLinkError,
+            ...(errorDetails || {}),
+          });
+
+          // Persist details for the dev-only debug section
+          setDebugError(errorDetails ? { message: magicLinkError, ...errorDetails } : null);
+
+          // Provide a specific message based on the error type
+          const status = errorDetails?.status;
+          let userMessage;
+          if (status === 429 || /rate[\s-]?limit/i.test(magicLinkError)) {
+            userMessage =
+              "Login email rate-limited. Try again in a few minutes or use Google/password.";
+          } else if (/redirect.*not.*allow|invalid.*redirect/i.test(magicLinkError)) {
+            console.error("[UniversalLogin] redirect URL misconfiguration:", magicLinkError);
+            userMessage = "Login misconfigured. Contact support.";
+          } else {
+            userMessage =
+              "We couldn't send the login link. Please try password login or Google sign-in, " +
+              "or check your spam folder and retry.";
           }
-          setError(
-            "We couldn't send the login link. Please try password login or Google sign-in, " +
-              "or check your spam folder and retry. " +
-              (process.env.NODE_ENV === "development"
-                ? `(Dev detail: ${magicLinkError})`
-                : "")
-          );
+
+          setError(userMessage);
           setIsLoading(false);
           return;
         }
@@ -224,6 +265,16 @@ export default function UniversalLogin({
         {error && (
           <div className="bg-red-50 border-l-4 border-red-400 p-4 rounded">
             <p className="text-sm text-red-700">{error}</p>
+          </div>
+        )}
+
+        {process.env.NODE_ENV !== "production" && debugError && (
+          <div className="bg-yellow-50 border border-yellow-300 rounded p-3 text-xs font-mono text-yellow-800">
+            <strong>Dev error details:</strong>
+            <br />
+            status: {debugError.status ?? "—"} | code: {debugError.code ?? "—"}
+            <br />
+            message: {debugError.message}
           </div>
         )}
 
