@@ -11,12 +11,17 @@ import { getCanonicalLinks } from "./canonicalNavLinks";
  *   - Authenticated but not paid: shows user name + Logout; no Profile link.
  *   - Authenticated and paid: shows user name + "PAID" badge + Profile link + Logout.
  *
+ * Additional gating:
+ *   - If registration is NOT completed, show "Complete Registration →" as PRIMARY CTA
+ *     and demote the course/app link to SECONDARY.
+ *
  * @param {string} appId - The app identifier (e.g., 'learn-ai', 'main')
  * @param {boolean} isFreeApp - Whether this is a free app (affects payment link display)
  */
 export default function SiteHeader({ appId = "main", isFreeApp = false }) {
   const [user, setUser] = useState(null);
   const [isPaid, setIsPaid] = useState(false);
+  const [registrationCompleted, setRegistrationCompleted] = useState(true);
 
   useEffect(() => {
     let mounted = true;
@@ -28,42 +33,62 @@ export default function SiteHeader({ appId = "main", isFreeApp = false }) {
         if (!mounted) return;
         setUser(currentUser);
 
-        if (currentUser) {
-          // Check paid status: profiles.is_paid_user OR active entitlement
-          const { createClient } = await import("@supabase/supabase-js");
-          const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-          const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-          if (url && key) {
-            const sb = createClient(url, key, {
-              auth: { persistSession: false },
-            });
-            const { data: profile } = await sb
-              .from("profiles")
-              .select("is_paid_user")
-              .eq("id", currentUser.id)
-              .maybeSingle();
+        // Default assumptions:
+        // - No user => registration gate irrelevant (treat as completed for nav logic)
+        // - User exists => assume incomplete until proven complete (fail-open into CTA)
+        if (!currentUser) {
+          setRegistrationCompleted(true);
+          setIsPaid(false);
+          return;
+        }
 
-            if (profile?.is_paid_user) {
-              if (mounted) setIsPaid(true);
-              return;
-            }
+        setRegistrationCompleted(false);
 
-            // Fallback: active entitlement
-            const now = new Date().toISOString();
-            const { data: entitlement } = await sb
-              .from("entitlements")
-              .select("id")
-              .eq("user_id", currentUser.id)
-              .eq("status", "active")
-              .or(`expires_at.is.null,expires_at.gt.${now}`)
-              .limit(1)
-              .maybeSingle();
+        // Check paid + registration state from profiles (plus fallback entitlement)
+        const { createClient } = await import("@supabase/supabase-js");
+        const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+        const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-            if (mounted) setIsPaid(!!entitlement);
+        if (url && key) {
+          const sb = createClient(url, key, {
+            auth: { persistSession: false },
+          });
+
+          const { data: profile } = await sb
+            .from("profiles")
+            .select("is_paid_user,registration_completed")
+            .eq("id", currentUser.id)
+            .maybeSingle();
+
+          if (!mounted) return;
+
+          // Registration gate
+          // If column is missing or null, treat as NOT completed so the CTA shows.
+          setRegistrationCompleted(!!profile?.registration_completed);
+
+          // Paid gate
+          if (profile?.is_paid_user) {
+            setIsPaid(true);
+            return;
           }
+
+          // Fallback: active entitlement
+          const now = new Date().toISOString();
+          const { data: entitlement } = await sb
+            .from("entitlements")
+            .select("id")
+            .eq("user_id", currentUser.id)
+            .eq("status", "active")
+            .or(`expires_at.is.null,expires_at.gt.${now}`)
+            .limit(1)
+            .maybeSingle();
+
+          if (!mounted) return;
+          setIsPaid(!!entitlement);
         }
       } catch {
         // Credentials missing or mock client — stay unauthenticated
+        // Keep defaults as-is.
       }
     }
 
@@ -79,6 +104,7 @@ export default function SiteHeader({ appId = "main", isFreeApp = false }) {
       await signOutUser();
       setUser(null);
       setIsPaid(false);
+      setRegistrationCompleted(true);
       if (typeof window !== "undefined") {
         window.location.href = "/";
       }
@@ -86,6 +112,10 @@ export default function SiteHeader({ appId = "main", isFreeApp = false }) {
       // ignore
     }
   };
+
+  // When registration is incomplete, show Complete Registration CTA as primary
+  // and allow Header to demote normal course/app link(s).
+  const registrationIncomplete = !!user && registrationCompleted === false;
 
   return (
     <Header
@@ -95,6 +125,12 @@ export default function SiteHeader({ appId = "main", isFreeApp = false }) {
       showAuthButtons={true} // UNIVERSAL NAV: Register and Login links visible to ALL users
       user={user}
       isPaid={isPaid}
+      registrationIncomplete={registrationIncomplete}
+      primaryCta={
+        registrationIncomplete
+          ? { label: "Complete Registration →", href: "/complete-registration" }
+          : null
+      }
       onLogout={handleLogout}
     />
   );
