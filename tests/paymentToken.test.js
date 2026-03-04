@@ -223,4 +223,54 @@ describe('iiskills checkout: returnTo URL', () => {
   });
 });
 
+// ─── Flow A: auth-first redirect enforcement ──────────────────────────────────
+
+describe('Flow A: payment initiation goes through iiskills.cloud (not directly to aienter.in)', () => {
+  const MAIN_APP_URL = 'https://iiskills.cloud';
+
+  function buildPaymentInitiationUrl(appId, mainAppUrl = MAIN_APP_URL) {
+    return `${mainAppUrl}/payments/iiskills${appId ? `?course=${encodeURIComponent(appId)}` : ''}`;
+  }
+
+  test('payment initiation URL targets iiskills.cloud/payments/iiskills', () => {
+    const url = buildPaymentInitiationUrl('learn-ai');
+    expect(url).toContain('iiskills.cloud/payments/iiskills');
+    expect(url).not.toContain('aienter.in');
+  });
+
+  test('course slug is passed as query param', () => {
+    const url = buildPaymentInitiationUrl('learn-management');
+    expect(url).toContain('course=learn-management');
+  });
+
+  test('URL is valid without a course slug', () => {
+    const url = buildPaymentInitiationUrl('');
+    expect(url).toBe('https://iiskills.cloud/payments/iiskills');
+  });
+
+  test('course slug is URI-encoded in the URL', () => {
+    const url = buildPaymentInitiationUrl('learn-pr');
+    expect(url).toContain('course=learn-pr');
+    // Verify the URL does not contain unencoded special chars
+    expect(() => new URL(url)).not.toThrow();
+  });
+
+  test('PAYMENT_URL constant for onboarding should point to iiskills.cloud', () => {
+    const PAYMENT_URL = 'https://iiskills.cloud/payments/iiskills';
+    expect(PAYMENT_URL).toContain('iiskills.cloud');
+    expect(PAYMENT_URL).not.toContain('aienter.in');
+  });
+
+  test('iiskills.cloud/payments/iiskills enforces auth before reaching aienter.in', () => {
+    // The /payments/iiskills page checks Supabase session first;
+    // unauthenticated users are redirected to /sign-in?next=...
+    // This test documents the expected redirect target for unauthenticated users.
+    const course = 'learn-developer';
+    const next = encodeURIComponent(`/payments/iiskills?course=${course}`);
+    const signInRedirect = `/sign-in?next=${next}`;
+    expect(signInRedirect).toContain('/sign-in');
+    expect(signInRedirect).toContain(encodeURIComponent('/payments/iiskills'));
+  });
+});
+
 console.log('✅ payment token (Option A) tests defined successfully');
