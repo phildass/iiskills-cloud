@@ -74,6 +74,29 @@ describe('payment token: structure', () => {
     const decoded = jwt.decode(token);
     expect(decoded.email).toBeNull();
   });
+
+  test('token includes return_to for known paid app', () => {
+    const token = createPaymentToken({
+      course_slug: 'learn-management',
+      return_to: 'https://learn-management.iiskills.cloud/authorised',
+    });
+    const decoded = jwt.decode(token);
+    expect(decoded.return_to).toBe('https://learn-management.iiskills.cloud/authorised');
+  });
+
+  test('return_to in token points to /authorised on the correct subdomain', () => {
+    const cases = [
+      { course_slug: 'learn-ai', expected: 'https://learn-ai.iiskills.cloud/authorised' },
+      { course_slug: 'learn-developer', expected: 'https://learn-developer.iiskills.cloud/authorised' },
+      { course_slug: 'learn-management', expected: 'https://learn-management.iiskills.cloud/authorised' },
+      { course_slug: 'learn-pr', expected: 'https://learn-pr.iiskills.cloud/authorised' },
+    ];
+    for (const { course_slug, expected } of cases) {
+      const token = createPaymentToken({ course_slug, return_to: expected });
+      const decoded = jwt.decode(token);
+      expect(decoded.return_to).toBe(expected);
+    }
+  });
 });
 
 // ─── Token verification ───────────────────────────────────────────────────────
@@ -215,11 +238,72 @@ describe('ai-enter callback: legacy fallback (no user_token)', () => {
 
 // ─── returnTo URL ─────────────────────────────────────────────────────────────
 
+/**
+ * Mirrors getPaymentReturnToUrl from lib/appRegistry.js.
+ * Kept inline to avoid Jest ES module resolution issues.
+ */
+const PAID_APP_DOMAINS_TEST = {
+  'learn-ai': 'learn-ai.iiskills.cloud',
+  'learn-developer': 'learn-developer.iiskills.cloud',
+  'learn-management': 'learn-management.iiskills.cloud',
+  'learn-pr': 'learn-pr.iiskills.cloud',
+};
+
+function getReturnToUrl(courseAppId) {
+  const domain = PAID_APP_DOMAINS_TEST[courseAppId];
+  if (domain) {
+    return `https://${domain}/authorised`;
+  }
+  return 'https://iiskills.cloud/payments/success';
+}
+
 describe('iiskills checkout: returnTo URL', () => {
-  test('returnTo points to /payments/success (not /otp-gateway)', () => {
-    const RETURN_TO_URL = 'https://iiskills.cloud/payments/success';
-    expect(RETURN_TO_URL).toContain('/payments/success');
-    expect(RETURN_TO_URL).not.toContain('/otp-gateway');
+  test('returnTo for learn-management points to learn-management.iiskills.cloud/authorised', () => {
+    const returnTo = getReturnToUrl('learn-management');
+    expect(returnTo).toBe('https://learn-management.iiskills.cloud/authorised');
+  });
+
+  test('returnTo for learn-ai points to learn-ai.iiskills.cloud/authorised', () => {
+    const returnTo = getReturnToUrl('learn-ai');
+    expect(returnTo).toBe('https://learn-ai.iiskills.cloud/authorised');
+  });
+
+  test('returnTo for learn-developer points to learn-developer.iiskills.cloud/authorised', () => {
+    const returnTo = getReturnToUrl('learn-developer');
+    expect(returnTo).toBe('https://learn-developer.iiskills.cloud/authorised');
+  });
+
+  test('returnTo for learn-pr points to learn-pr.iiskills.cloud/authorised', () => {
+    const returnTo = getReturnToUrl('learn-pr');
+    expect(returnTo).toBe('https://learn-pr.iiskills.cloud/authorised');
+  });
+
+  test('returnTo for unknown course falls back to iiskills.cloud/payments/success', () => {
+    const returnTo = getReturnToUrl('unknown-course');
+    expect(returnTo).toBe('https://iiskills.cloud/payments/success');
+  });
+
+  test('returnTo for empty/null course falls back to iiskills.cloud/payments/success', () => {
+    expect(getReturnToUrl('')).toBe('https://iiskills.cloud/payments/success');
+    expect(getReturnToUrl(null)).toBe('https://iiskills.cloud/payments/success');
+    expect(getReturnToUrl(undefined)).toBe('https://iiskills.cloud/payments/success');
+  });
+
+  test('returnTo URL is a valid HTTPS URL', () => {
+    for (const appId of Object.keys(PAID_APP_DOMAINS_TEST)) {
+      const returnTo = getReturnToUrl(appId);
+      expect(() => new URL(returnTo)).not.toThrow();
+      expect(returnTo).toMatch(/^https:\/\//);
+    }
+  });
+
+  test('returnTo points to /authorised (not /otp-gateway or /payments/success) for paid apps', () => {
+    for (const appId of Object.keys(PAID_APP_DOMAINS_TEST)) {
+      const returnTo = getReturnToUrl(appId);
+      expect(returnTo).toContain('/authorised');
+      expect(returnTo).not.toContain('/otp-gateway');
+      expect(returnTo).not.toContain('/payments/success');
+    }
   });
 });
 

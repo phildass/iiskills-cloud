@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Link from 'next/link';
+import { getPaymentReturnToUrl } from '@lib/appRegistry';
 
 const AIENTER_PAYMENT_URL = 'https://aienter.in/payments/iiskills';
-const RETURN_TO_URL = 'https://iiskills.cloud/payments/success';
 
 /**
  * /payments/iiskills — Redirect to centralized payment portal (Option A)
@@ -14,8 +14,8 @@ const RETURN_TO_URL = 'https://iiskills.cloud/payments/success';
  *    If not, they are redirected to /sign-in with a ?next= param so they
  *    return here after login.
  * 2. A short-lived signed JWT is generated via POST /api/payments/generate-token.
- *    The token carries the user's identity (user_id, name, phone, email) and
- *    the chosen course slug.
+ *    The token carries the user's identity (user_id, name, phone, email),
+ *    the chosen course slug, and the returnTo URL.
  * 3. The user is redirected to aienter.in with the token embedded, so aienter
  *    can return it in the server-to-server callback and iiskills can grant
  *    entitlement without an OTP.
@@ -81,10 +81,11 @@ export default function IiskillsCheckout() {
       if (cancelled) return;
 
       // ── 3. Redirect to aienter with token ─────────────────────────────────
+      const returnTo = getPaymentReturnToUrl(course);
       const params = new URLSearchParams({
         ...(course && { course }),
         token,
-        returnTo: RETURN_TO_URL,
+        returnTo,
       });
 
       window.location.href = `${AIENTER_PAYMENT_URL}?${params.toString()}`;
