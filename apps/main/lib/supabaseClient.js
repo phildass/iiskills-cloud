@@ -1,280 +1,36 @@
 /**
- * Supabase Client Configuration
+ * Supabase Client - apps/main
  *
- * This file initializes and exports the Supabase client for authentication and database operations.
+ * Re-exports the shared GoTrueClient singleton from the root lib/supabaseClient.js
+ * so that ALL modules in apps/main use exactly ONE Supabase client instance.
  *
- * Setup Instructions:
- * 1. Create a Supabase project at https://supabase.com
- * 2. Get your project URL and anon key from project settings
- * 3. Create a .env.local file in the root directory with:
- *    NEXT_PUBLIC_SUPABASE_URL=your-project-url
- *    NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+ * Having a single client instance is critical for:
+ * 1. Correct PKCE code-verifier lookup during OAuth callbacks (the verifier must
+ *    be stored and retrieved by the same client / storage-key).
+ * 2. Eliminating the "Multiple GoTrueClient instances detected" browser warning.
+ * 3. Consistent session state across all pages (sign-in, auth/callback, payments,
+ *    dashboard, profile, …).
  *
- * Learn more: https://supabase.com/docs/guides/auth
+ * App-specific helpers (signInWithGoogle, sendMagicLink, isAdmin, …) are still
+ * defined here but they now operate on the shared supabase instance.
+ *
+ * See lib/supabaseClient.js for environment variable requirements.
  */
 
-import { createClient } from "@supabase/supabase-js";
+// ---------------------------------------------------------------------------
+// Shared singleton — the ONLY GoTrueClient in apps/main.
+// @lib resolves to <repo-root>/lib via the webpack/turbopack alias in
+// apps/main/next.config.js, pointing at the same module that @iiskills/ui
+// authentication components use.
+// ---------------------------------------------------------------------------
+import { supabase as _sharedSupabase, getCurrentUser as _sharedGetCurrentUser } from '@lib/supabaseClient';
 
-// Check if local content mode is enabled (for testing/QA)
-const useLocalContent = process.env.NEXT_PUBLIC_USE_LOCAL_CONTENT === "true";
+export const supabase = _sharedSupabase;
 
-// Supabase project URL and public anonymous key
-// These must be set via environment variables in .env.local
-// Check if Supabase is suspended for maintenance/content review
-const isSupabaseSuspended = process.env.NEXT_PUBLIC_SUPABASE_SUSPENDED === "true";
-
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-
-// Validation constants
-const PLACEHOLDER_URL_PATTERNS = ["your-project", "xyz", "xyzcompany", "abc123"];
-const MIN_ANON_KEY_LENGTH = 20; // Supabase anon keys are typically much longer
-
-// Check if testing mode or auth disabled (for CI/CD and testing)
-const isTestingMode = process.env.NEXT_PUBLIC_TESTING_MODE === "true";
-const isAuthDisabled = process.env.NEXT_PUBLIC_DISABLE_AUTH === "true";
-
-// Check for missing or placeholder values
-// Placeholders are exact matches or obviously invalid values
-const hasPlaceholderUrl =
-  !supabaseUrl ||
-  supabaseUrl === "your-project-url-here" ||
-  supabaseUrl === "https://your-project.supabase.co" ||
-  supabaseUrl.match(
-    new RegExp(`^https?://(${PLACEHOLDER_URL_PATTERNS.join("|")}).*\\.supabase\\.co$`, "i")
-  );
-
-const hasPlaceholderKey =
-  !supabaseAnonKey ||
-  supabaseAnonKey === "your-anon-key-here" ||
-  supabaseAnonKey.startsWith("eyJhbGciOi...") ||
-  supabaseAnonKey.length < MIN_ANON_KEY_LENGTH;
-
-// Skip validation if Supabase is suspended, using local content mode, testing mode, or auth is disabled
-const isMissingCredentials = !isSupabaseSuspended && !useLocalContent && !isTestingMode && !isAuthDisabled && (!supabaseUrl || !supabaseAnonKey || hasPlaceholderUrl || hasPlaceholderKey);
-if (isMissingCredentials) {
-  const errorMessage = `
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-⚠️  SUPABASE CONFIGURATION ERROR
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-Missing or invalid Supabase environment variables!
-
-Required variables:
-  ${!supabaseUrl || hasPlaceholderUrl ? "❌" : "✅"} NEXT_PUBLIC_SUPABASE_URL${hasPlaceholderUrl ? " (contains placeholder value)" : ""}
-  ${!supabaseAnonKey || hasPlaceholderKey ? "❌" : "✅"} NEXT_PUBLIC_SUPABASE_ANON_KEY${hasPlaceholderKey ? " (contains placeholder value)" : ""}
-
-To fix this:
-
-1. Verify .env.local exists in the project root:
-   ${process.cwd()}/.env.local
-
-2. Update with your actual Supabase credentials:
-   NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
-   NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key-here
-
-3. Get credentials from: https://supabase.com
-   - Create a project (if you haven't)
-   - Go to Settings → API
-   - Copy Project URL and anon/public key
-
-4. Quick setup: Run the automated script from repo root:
-   ./setup-env.sh
-
-5. Restart the development server:
-   npm run dev
-
-For more information, see:
-  - .env.local.example (example configuration)
-  - ENV_SETUP_GUIDE.md (detailed setup guide)
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-`;
-  console.warn(errorMessage);
-  // Fall through to mock client so that build succeeds and the app starts in degraded mode
-}
-
-// Create a single Supabase client instance for the app
-// This client will be reused across the application for all Supabase operations
-
-/**
- * Create a mock Supabase client when Supabase is suspended
- * This allows the app to run without a database connection
- */
-function createMockSupabaseClient() {
-  console.warn(
-    "⚠️ SUPABASE SUSPENDED MODE: Running without database connection. All auth operations will return mock data."
-  );
-
-  // Helper to create a chainable query mock that returns empty results
-  const createQueryChain = () => {
-    const chain = {
-      select: () => chain,
-      insert: () => chain,
-      update: () => chain,
-      upsert: () => chain,
-      delete: () => chain,
-      eq: () => chain,
-      neq: () => chain,
-      gt: () => chain,
-      gte: () => chain,
-      lt: () => chain,
-      lte: () => chain,
-      like: () => chain,
-      ilike: () => chain,
-      is: () => chain,
-      in: () => chain,
-      contains: () => chain,
-      containedBy: () => chain,
-      range: () => chain,
-      match: () => chain,
-      not: () => chain,
-      or: () => chain,
-      filter: () => chain,
-      order: () => chain,
-      limit: () => chain,
-      range: () => chain,
-      single: async () => ({
-        data: null,
-        error: { message: "Supabase is currently suspended" },
-      }),
-      maybeSingle: async () => ({
-        data: null,
-        error: null,
-      }),
-      then: async (resolve) => {
-        const result = {
-          data: null,
-          error: { message: "Supabase is currently suspended" },
-        };
-        return resolve ? resolve(result) : result;
-      },
-    };
-    return chain;
-  };
-
-  return {
-    auth: {
-      getSession: async () => ({
-        data: { session: null },
-        error: null,
-      }),
-      getUser: async () => ({
-        data: { user: null },
-        error: null,
-      }),
-      signOut: async () => ({ error: null }),
-      signInWithPassword: async () => ({
-        data: { user: null, session: null },
-        error: { message: "Supabase is currently suspended" },
-      }),
-      signInWithOtp: async () => ({
-        data: null,
-        error: { message: "Supabase is currently suspended" },
-      }),
-      signInWithOAuth: async () => ({
-        data: null,
-        error: { message: "Supabase is currently suspended" },
-      }),
-      signUp: async () => ({
-        data: { user: null, session: null },
-        error: { message: "Supabase is currently suspended" },
-      }),
-      resetPasswordForEmail: async () => ({
-        data: null,
-        error: { message: "Supabase is currently suspended" },
-      }),
-      updateUser: async () => ({
-        data: { user: null },
-        error: { message: "Supabase is currently suspended" },
-      }),
-      onAuthStateChange: () => ({
-        data: { subscription: { unsubscribe: () => {} } },
-      }),
-    },
-    from: () => createQueryChain(),
-    rpc: async () => ({
-      data: null,
-      error: { message: "Supabase is currently suspended" },
-    }),
-    storage: {
-      from: () => ({
-        upload: async () => ({
-          data: null,
-          error: { message: "Supabase is currently suspended" },
-        }),
-        download: async () => ({
-          data: null,
-          error: { message: "Supabase is currently suspended" },
-        }),
-        list: async () => ({
-          data: [],
-          error: null,
-        }),
-        remove: async () => ({
-          data: null,
-          error: { message: "Supabase is currently suspended" },
-        }),
-        createSignedUrl: async () => ({
-          data: null,
-          error: { message: "Supabase is currently suspended" },
-        }),
-        getPublicUrl: () => ({
-          data: { publicUrl: "" },
-        }),
-      }),
-    },
-  };
-}
-
-let supabaseClient;
-
-if (useLocalContent) {
-  // Only import in Node.js environment (not browser)
-  if (typeof window === "undefined") {
-    const { createLocalContentClient } = require("../../../lib/localContentProvider.js");
-    supabaseClient = createLocalContentClient();
-  } else {
-    console.warn("⚠️ Local content mode is only supported in server-side/Node.js environment");
-    supabaseClient = isSupabaseSuspended
-      ? createMockSupabaseClient()
-      : createClient(supabaseUrl, supabaseAnonKey, {
-          auth: {
-            autoRefreshToken: true,
-            persistSession: true,
-            detectSessionInUrl: true,
-            flowType: "pkce",
-            storageKey: "iiskills-auth-token",
-          },
-        });
-  }
-} else if (isSupabaseSuspended || isMissingCredentials || !supabaseUrl || !supabaseAnonKey) {
-  supabaseClient = createMockSupabaseClient();
-} else {
-  supabaseClient = createClient(supabaseUrl, supabaseAnonKey, {
-    auth: {
-      autoRefreshToken: true,
-      persistSession: true,
-      detectSessionInUrl: true,
-      flowType: "pkce",
-      storageKey: "iiskills-auth-token",
-    },
-  });
-}
-
-export const supabase = supabaseClient;
-
-/**
- * Helper function to get the currently logged-in user
- *
- * @returns {Promise<Object|null>} User object if authenticated, null otherwise
- *
- * Example usage:
- * const user = await getCurrentUser()
- * if (user) {
- *   console.log('Logged in as:', user.email)
- * }
- */
+// ---------------------------------------------------------------------------
+// getCurrentUser — re-exported from root lib (handles auth-disabled / mock
+// modes) with an additional [main] tag in the override log.
+// ---------------------------------------------------------------------------
 export async function getCurrentUser() {
   // TEMPORARY AUTH DISABLE - PR: feature/disable-auth-temporary
   // Global feature flag to bypass authentication for debugging/maintenance
@@ -305,35 +61,7 @@ export async function getCurrentUser() {
   }
   // END TEMPORARY AUTH DISABLE
 
-  // If local content mode is enabled, return null (no auth in local mode)
-  if (useLocalContent) {
-    console.log("⚠️ Local content mode: Authentication bypassed");
-    return null;
-  }
-
-  // If Supabase is suspended, return null (no user)
-  if (isSupabaseSuspended) {
-    return null;
-  }
-
-  try {
-    // Get the current session from Supabase
-    const {
-      data: { session },
-      error,
-    } = await supabase.auth.getSession();
-
-    if (error) {
-      console.error("Error getting session:", error.message);
-      return null;
-    }
-
-    // Return the user object from the session (or null if no session)
-    return session?.user || null;
-  } catch (error) {
-    console.error("Error in getCurrentUser:", error);
-    return null;
-  }
+  return _sharedGetCurrentUser();
 }
 
 /**
