@@ -37,14 +37,33 @@ export default function IiskillsCheckout() {
 
     async function initPayment() {
       // ── 1. Check authentication ───────────────────────────────────────────
+      // Use a short retry loop to handle the window right after an OAuth
+      // redirect where the Supabase client may still be exchanging the PKCE
+      // code for a session token.  3 attempts over ~1 s is enough to cover
+      // typical token-exchange latency without noticeably delaying users who
+      // genuinely are not authenticated.
       let session = null;
-      try {
-        const { supabase } = await import('../../lib/supabaseClient');
-        const { data } = await supabase.auth.getSession();
-        session = data?.session;
-      } catch {
-        // Supabase unavailable — treat as unauthenticated
+      const MAX_SESSION_ATTEMPTS = 3;
+      const SESSION_RETRY_DELAY_MS = 400;
+
+      for (let attempt = 1; attempt <= MAX_SESSION_ATTEMPTS; attempt++) {
+        try {
+          const { supabase } = await import('../../lib/supabaseClient');
+          const { data } = await supabase.auth.getSession();
+          session = data?.session ?? null;
+        } catch {
+          // Supabase unavailable — treat as unauthenticated after retries
+        }
+
+        if (session) break;
+
+        if (attempt < MAX_SESSION_ATTEMPTS) {
+          // Wait before retrying to give the client time to establish the session
+          await new Promise((resolve) => setTimeout(resolve, SESSION_RETRY_DELAY_MS));
+        }
       }
+
+      if (cancelled) return;
 
       if (!session) {
         // Redirect to sign-in; after login the user returns to this page
