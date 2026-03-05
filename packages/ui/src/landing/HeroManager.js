@@ -146,6 +146,7 @@ export function getRandomSecondaryImage(appId) {
  * @param {string} props.heroHeight - Height of hero section (default: 70vh for mobile, 80vh for md, 90vh for lg)
  * @param {boolean} props.noOverlay - If true, displays image naturally without any overlay (default: false)
  * @param {string} props.overlayOpacity - Custom overlay opacity class (e.g., "bg-black/20", "bg-black/40"). Only applies when noOverlay is false. Default: "bg-black/40"
+ * @param {string} [props.heroImageSrc] - Optional full path override for the hero image (e.g., "/images/hero-1250-5326.jpg"). When provided, skips appId-based selection and uses this URL directly (enables immutable/versioned hero assets).
  */
 export default function Hero({ 
   appId, 
@@ -153,16 +154,22 @@ export default function Hero({
   className = "", 
   heroHeight = "70vh", 
   noOverlay = false,
-  overlayOpacity = "bg-black/40"
+  overlayOpacity = "bg-black/40",
+  heroImageSrc = null,
 }) {
   const [heroImage, setHeroImage] = useState(null);
 
   useEffect(() => {
+    // If a direct override path is provided, use it; otherwise fall back to appId-based selection.
+    if (heroImageSrc) {
+      setHeroImage(heroImageSrc);
+      return;
+    }
     // Select images on mount to avoid hydration issues
     const images = getHeroImagesForApp(appId);
     // Use the first selected image as the hero background
-    setHeroImage(images[0]);
-  }, [appId]);
+    setHeroImage(`/images/${images[0]}`);
+  }, [appId, heroImageSrc]);
 
   return (
     <section
@@ -176,7 +183,7 @@ export default function Hero({
       {heroImage && (
         <div className="absolute inset-0 z-0">
           <Image
-            src={`/images/${heroImage}`}
+            src={heroImage}
             alt="Hero background"
             fill
             className="object-cover"
