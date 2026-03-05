@@ -44,6 +44,7 @@ export default function Home() {
   }
 ]}
       heroGradient="from-pink-500 to-orange-500"
+      heroImage="/images/hero-1250-5326.jpg"
       sampleModuleId={1}
       sampleLessonId={1}
     />

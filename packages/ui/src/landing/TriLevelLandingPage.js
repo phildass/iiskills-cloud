@@ -59,6 +59,7 @@ export default function TriLevelLandingPage({
   features = [],
   isFree,
   heroGradient = "from-primary to-accent",
+  heroImage = null,
   sampleModuleId = 1,
   sampleLessonId = 1,
   showAIDevBundle = false,
@@ -161,7 +162,7 @@ export default function TriLevelLandingPage({
 
       <main className="min-h-screen">
         {/* Hero Section */}
-        <Hero appId={appId} className="h-[70vh] md:h-[80vh] lg:h-[90vh]">
+        <Hero appId={appId} heroImageSrc={heroImage} className="h-[70vh] md:h-[80vh] lg:h-[90vh]">
           <div className="text-white">
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight mb-3">
               {headline || appName}
