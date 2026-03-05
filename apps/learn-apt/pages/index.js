@@ -121,7 +121,7 @@ export default function Home() {
         <section className="relative overflow-hidden h-[70vh] min-h-[400px]">
           {/* Background Image */}
           <Image
-            src="/images/iiskills-apt-heo.jpg"
+            src="/images/hero.jpg"
             alt="Aptitude Assessment Hero"
             fill
             className="object-cover object-center"
