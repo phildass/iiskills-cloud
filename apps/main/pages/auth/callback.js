@@ -71,6 +71,16 @@ export default function AuthCallback() {
         // (it handles PKCE code exchange and implicit token automatically)
         const { data, error } = await supabase.auth.getSession();
 
+        // Enforce single active session: revoke all other sessions for this user
+        // so that concurrent logins from other devices are terminated.
+        if (data?.session) {
+          try {
+            await supabase.auth.signOut({ scope: "others" });
+          } catch {
+            // Non-critical — proceed even if this call fails
+          }
+        }
+
         if (error) {
           console.error("[auth/callback] Session error:", error.message);
         }
