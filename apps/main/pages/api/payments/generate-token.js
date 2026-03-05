@@ -1,6 +1,7 @@
 import crypto from 'crypto';
 import { createClient } from '@supabase/supabase-js';
 import jwt from 'jsonwebtoken';
+import { getPaymentReturnToUrl } from '@lib/appRegistry';
 
 /**
  * POST /api/payments/generate-token
@@ -94,6 +95,7 @@ export default async function handler(req, res) {
     name:
       [profile?.first_name, profile?.last_name].filter(Boolean).join(' ') || null,
     course_slug: courseSlug,
+    return_to: getPaymentReturnToUrl(courseSlug),
     jti: crypto.randomUUID(), // nonce — prevents replay attacks
   };
 
