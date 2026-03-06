@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 /**
  * useUser — shared hook to get the current Supabase authenticated user.
@@ -21,7 +21,7 @@ export function useUser() {
 
     async function fetchUser() {
       try {
-        const { getCurrentUser } = await import('@lib/supabaseClient');
+        const { getCurrentUser } = await import("@lib/supabaseClient");
         const currentUser = await getCurrentUser();
         if (mounted) setUser(currentUser);
       } catch {
@@ -33,7 +33,9 @@ export function useUser() {
     }
 
     fetchUser();
-    return () => { mounted = false; };
+    return () => {
+      mounted = false;
+    };
   }, []);
 
   return { user, loading };

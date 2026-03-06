@@ -3,4 +3,4 @@
  * Re-exports from root lib directory for @/lib and @lib imports in packages/ui
  */
 
-export * from '../../../lib/sessionManager';
+export * from "../../../lib/sessionManager";

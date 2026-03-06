@@ -111,9 +111,7 @@ export default function UniversalLogin({
         // Always points to /auth/callback so the Supabase session is properly
         // exchanged before the user reaches their final destination.
         const callbackUrl = `${MAIN_APP_URL}/auth/callback${
-          destination && destination !== "/"
-            ? `?next=${encodeURIComponent(destination)}`
-            : ""
+          destination && destination !== "/" ? `?next=${encodeURIComponent(destination)}` : ""
         }`;
 
         if (process.env.NODE_ENV === "development") {
@@ -212,9 +210,7 @@ export default function UniversalLogin({
 
       // Route Google OAuth through /auth/callback so the session is finalised
       const callbackUrl = `${MAIN_APP_URL}/auth/callback${
-        destination && destination !== "/"
-          ? `?next=${encodeURIComponent(destination)}`
-          : ""
+        destination && destination !== "/" ? `?next=${encodeURIComponent(destination)}` : ""
       }`;
 
       const { success: googleSuccess, error: googleError } = await signInWithGoogle(callbackUrl);
@@ -401,8 +397,8 @@ export default function UniversalLogin({
 
           <div className="mt-4 p-4 bg-blue-50 rounded-lg">
             <p className="text-xs text-blue-800">
-              <strong>✓ Universal Login:</strong> Login once to access all iiskills.cloud apps.
-              Your session works across the main site and all learning modules.
+              <strong>✓ Universal Login:</strong> Login once to access all iiskills.cloud apps. Your
+              session works across the main site and all learning modules.
             </p>
           </div>
         </form>

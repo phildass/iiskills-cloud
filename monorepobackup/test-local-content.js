@@ -60,10 +60,7 @@ async function testLocalContentProvider() {
 
   // Test 4: Limit results
   console.log("\nTest 4: Limit results");
-  const { data: limitedCourses, error: error4 } = await client
-    .from("courses")
-    .select("*")
-    .limit(2);
+  const { data: limitedCourses, error: error4 } = await client.from("courses").select("*").limit(2);
   if (limitedCourses && limitedCourses.length === 2 && !error4) {
     console.log(`✓ Passed: Limited to ${limitedCourses.length} courses`);
     passed++;

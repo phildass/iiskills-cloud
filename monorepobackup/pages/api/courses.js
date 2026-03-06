@@ -2,7 +2,7 @@ import { createClient } from "@supabase/supabase-js";
 
 /**
  * Courses API
- * 
+ *
  * Handles CRUD operations for courses
  * Publishing a course automatically triggers newsletter generation
  */
@@ -16,16 +16,16 @@ export default async function handler(req, res) {
   const { method } = req;
 
   switch (method) {
-    case 'GET':
+    case "GET":
       return handleGet(req, res);
-    case 'POST':
+    case "POST":
       return handlePost(req, res);
-    case 'PUT':
+    case "PUT":
       return handlePut(req, res);
-    case 'DELETE':
+    case "DELETE":
       return handleDelete(req, res);
     default:
-      return res.status(405).json({ error: 'Method not allowed' });
+      return res.status(405).json({ error: "Method not allowed" });
   }
 }
 
@@ -36,18 +36,18 @@ async function handleGet(req, res) {
   const { id, slug, status } = req.query;
 
   try {
-    let query = supabase.from('courses').select('*');
+    let query = supabase.from("courses").select("*");
 
     if (id) {
-      query = query.eq('id', id).single();
+      query = query.eq("id", id).single();
     } else if (slug) {
-      query = query.eq('slug', slug).single();
+      query = query.eq("slug", slug).single();
     } else {
       // List all courses
       if (status) {
-        query = query.eq('status', status);
+        query = query.eq("status", status);
       }
-      query = query.order('created_at', { ascending: false });
+      query = query.order("created_at", { ascending: false });
     }
 
     const { data, error } = await query;
@@ -57,9 +57,8 @@ async function handleGet(req, res) {
     }
 
     return res.status(200).json({ data });
-
   } catch (error) {
-    console.error('GET courses error:', error);
+    console.error("GET courses error:", error);
     return res.status(500).json({ error: error.message });
   }
 }
@@ -76,23 +75,18 @@ async function handlePost(req, res) {
       courseData.slug = generateSlug(courseData.title);
     }
 
-    const { data, error } = await supabase
-      .from('courses')
-      .insert([courseData])
-      .select()
-      .single();
+    const { data, error } = await supabase.from("courses").insert([courseData]).select().single();
 
     if (error) {
       throw error;
     }
 
     return res.status(201).json({
-      message: 'Course created successfully',
-      data
+      message: "Course created successfully",
+      data,
     });
-
   } catch (error) {
-    console.error('POST course error:', error);
+    console.error("POST course error:", error);
     return res.status(500).json({ error: error.message });
   }
 }
@@ -106,7 +100,7 @@ async function handlePut(req, res) {
     const courseData = req.body;
 
     if (!id) {
-      return res.status(400).json({ error: 'Course ID required' });
+      return res.status(400).json({ error: "Course ID required" });
     }
 
     // If slug is being updated, regenerate it
@@ -115,9 +109,9 @@ async function handlePut(req, res) {
     }
 
     const { data, error } = await supabase
-      .from('courses')
+      .from("courses")
       .update(courseData)
-      .eq('id', id)
+      .eq("id", id)
       .select()
       .single();
 
@@ -126,18 +120,17 @@ async function handlePut(req, res) {
     }
 
     // If status changed to 'published', newsletter will be auto-queued by trigger
-    let message = 'Course updated successfully';
-    if (courseData.status === 'published') {
-      message = 'Course published! Newsletter will be generated automatically.';
+    let message = "Course updated successfully";
+    if (courseData.status === "published") {
+      message = "Course published! Newsletter will be generated automatically.";
     }
 
     return res.status(200).json({
       message,
-      data
+      data,
     });
-
   } catch (error) {
-    console.error('PUT course error:', error);
+    console.error("PUT course error:", error);
     return res.status(500).json({ error: error.message });
   }
 }
@@ -150,24 +143,20 @@ async function handleDelete(req, res) {
     const { id } = req.query;
 
     if (!id) {
-      return res.status(400).json({ error: 'Course ID required' });
+      return res.status(400).json({ error: "Course ID required" });
     }
 
-    const { error } = await supabase
-      .from('courses')
-      .delete()
-      .eq('id', id);
+    const { error } = await supabase.from("courses").delete().eq("id", id);
 
     if (error) {
       throw error;
     }
 
     return res.status(200).json({
-      message: 'Course deleted successfully'
+      message: "Course deleted successfully",
     });
-
   } catch (error) {
-    console.error('DELETE course error:', error);
+    console.error("DELETE course error:", error);
     return res.status(500).json({ error: error.message });
   }
 }
@@ -178,6 +167,6 @@ async function handleDelete(req, res) {
 function generateSlug(title) {
   return title
     .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-|-$/g, '');
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
 }

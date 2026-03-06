@@ -137,14 +137,10 @@ export default function Curriculum() {
             <h1 className="text-4xl md:text-5xl font-bold text-green-800 mb-4">
               🧬 {BIOLOGY_CURRICULUM.appName} Curriculum
             </h1>
-            <p className="text-xl text-gray-700">
-              {BIOLOGY_CURRICULUM.description}
-            </p>
+            <p className="text-xl text-gray-700">{BIOLOGY_CURRICULUM.description}</p>
             <div className="mt-6 inline-flex items-center px-4 py-2 bg-green-100 border-2 border-green-400 rounded-lg">
               <span className="text-2xl mr-2">🟢</span>
-              <span className="font-semibold text-green-800">
-                Free Forever | Foundation Suite
-              </span>
+              <span className="font-semibold text-green-800">Free Forever | Foundation Suite</span>
             </div>
           </div>
 
@@ -158,11 +154,7 @@ export default function Curriculum() {
                 {/* Module Header */}
                 <div
                   className="p-6 cursor-pointer hover:bg-gray-50 transition-colors"
-                  onClick={() =>
-                    setExpandedModule(
-                      expandedModule === module.id ? null : module.id
-                    )
-                  }
+                  onClick={() => setExpandedModule(expandedModule === module.id ? null : module.id)}
                 >
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
@@ -178,9 +170,7 @@ export default function Curriculum() {
                           {module.tier}
                         </span>
                       </div>
-                      <h2 className="text-2xl font-bold text-gray-900 mb-2">
-                        {module.title}
-                      </h2>
+                      <h2 className="text-2xl font-bold text-gray-900 mb-2">{module.title}</h2>
                       <p className="text-gray-600">{module.description}</p>
                     </div>
                     <div className="text-3xl text-gray-400">
@@ -204,18 +194,14 @@ export default function Curriculum() {
                           </div>
                           <div className="flex-1">
                             <div className="flex items-center gap-2 mb-1">
-                              <h3 className="font-semibold text-gray-900">
-                                {lesson.title}
-                              </h3>
+                              <h3 className="font-semibold text-gray-900">{lesson.title}</h3>
                               {lesson.isFree && (
                                 <span className="px-2 py-1 bg-green-100 text-green-700 text-xs font-bold rounded">
                                   FREE SAMPLE
                                 </span>
                               )}
                             </div>
-                            <p className="text-sm text-gray-600">
-                              {lesson.description}
-                            </p>
+                            <p className="text-sm text-gray-600">{lesson.description}</p>
                           </div>
                           <Link
                             href={`/modules/${module.id}/lesson/${lesson.id}`}
@@ -232,12 +218,8 @@ export default function Curriculum() {
                       <div className="flex items-center gap-3">
                         <span className="text-3xl">🚪</span>
                         <div className="flex-1">
-                          <h3 className="font-bold text-amber-900">
-                            {module.gatekeeper.title}
-                          </h3>
-                          <p className="text-sm text-amber-800">
-                            {module.gatekeeper.description}
-                          </p>
+                          <h3 className="font-bold text-amber-900">{module.gatekeeper.title}</h3>
+                          <p className="text-sm text-amber-800">{module.gatekeeper.description}</p>
                         </div>
                         <button className="px-4 py-2 bg-amber-600 text-white rounded-lg hover:bg-amber-700 transition-colors font-semibold">
                           Take Test

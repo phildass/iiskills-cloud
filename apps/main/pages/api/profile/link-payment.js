@@ -17,7 +17,7 @@
  *   401 { error: 'Unauthorized' }
  */
 
-import { createClient } from '@supabase/supabase-js';
+import { createClient } from "@supabase/supabase-js";
 
 function getSupabaseServer() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -28,26 +28,26 @@ function getSupabaseServer() {
 }
 
 export default async function handler(req, res) {
-  if (req.method !== 'POST') {
-    res.setHeader('Allow', ['POST']);
-    return res.status(405).json({ error: 'Method Not Allowed' });
+  if (req.method !== "POST") {
+    res.setHeader("Allow", ["POST"]);
+    return res.status(405).json({ error: "Method Not Allowed" });
   }
 
   const supabase = getSupabaseServer();
   if (!supabase) {
-    return res.status(503).json({ error: 'Database not configured' });
+    return res.status(503).json({ error: "Database not configured" });
   }
 
   // Authenticate the request
   const authHeader = req.headers.authorization;
-  if (!authHeader || !authHeader.startsWith('Bearer ')) {
-    return res.status(401).json({ error: 'Unauthorized' });
+  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    return res.status(401).json({ error: "Unauthorized" });
   }
 
   const token = authHeader.substring(7);
   const { data: userData, error: authError } = await supabase.auth.getUser(token);
   if (authError || !userData?.user) {
-    return res.status(401).json({ error: 'Unauthorized' });
+    return res.status(401).json({ error: "Unauthorized" });
   }
 
   const user = userData.user;
@@ -55,13 +55,13 @@ export default async function handler(req, res) {
 
   // Check if already marked as paid
   const { data: profile } = await supabase
-    .from('profiles')
-    .select('is_paid_user')
-    .eq('id', user.id)
+    .from("profiles")
+    .select("is_paid_user")
+    .eq("id", user.id)
     .maybeSingle();
 
   if (profile?.is_paid_user) {
-    return res.status(200).json({ linked: true, message: 'Already a paid user' });
+    return res.status(200).json({ linked: true, message: "Already a paid user" });
   }
 
   let linked = false;
@@ -70,12 +70,12 @@ export default async function handler(req, res) {
   // Check for active entitlements
   const now = new Date().toISOString();
   const { data: entitlement } = await supabase
-    .from('entitlements')
-    .select('id, purchased_at')
-    .eq('user_id', user.id)
-    .eq('status', 'active')
+    .from("entitlements")
+    .select("id, purchased_at")
+    .eq("user_id", user.id)
+    .eq("status", "active")
     .or(`expires_at.is.null,expires_at.gt.${now}`)
-    .order('purchased_at', { ascending: true })
+    .order("purchased_at", { ascending: true })
     .limit(1)
     .maybeSingle();
 
@@ -87,11 +87,11 @@ export default async function handler(req, res) {
   // Fallback: check payments table by email
   if (!linked && email) {
     const { data: payment } = await supabase
-      .from('payments')
-      .select('id, created_at')
-      .eq('status', 'captured')
-      .ilike('user_email', email)
-      .order('created_at', { ascending: true })
+      .from("payments")
+      .select("id, created_at")
+      .eq("status", "captured")
+      .ilike("user_email", email)
+      .order("created_at", { ascending: true })
       .limit(1)
       .maybeSingle();
 
@@ -104,20 +104,20 @@ export default async function handler(req, res) {
   if (linked) {
     // Always set is_paid_user; only set paid_at on first linking (idempotent)
     await supabase
-      .from('profiles')
+      .from("profiles")
       .update({ is_paid_user: true })
-      .eq('id', user.id)
-      .eq('is_paid_user', false);
+      .eq("id", user.id)
+      .eq("is_paid_user", false);
 
     await supabase
-      .from('profiles')
+      .from("profiles")
       .update({ paid_at: paidAt || new Date().toISOString() })
-      .eq('id', user.id)
-      .is('paid_at', null);
+      .eq("id", user.id)
+      .is("paid_at", null);
 
     console.log(`[link-payment] Linked paid status for user=${user.id} email=${email}`);
-    return res.status(200).json({ linked: true, message: 'Paid status linked to profile' });
+    return res.status(200).json({ linked: true, message: "Paid status linked to profile" });
   }
 
-  return res.status(200).json({ linked: false, message: 'No payment record found' });
+  return res.status(200).json({ linked: false, message: "No payment record found" });
 }

@@ -99,9 +99,7 @@ async function main() {
   const results = [];
 
   for (const [appId, routes] of Object.entries(APP_ROUTES)) {
-    const baseUrl = useProd
-      ? APP_DOMAINS[appId]
-      : `http://localhost:${APP_PORTS[appId]}`;
+    const baseUrl = useProd ? APP_DOMAINS[appId] : `http://localhost:${APP_PORTS[appId]}`;
 
     console.log(`${BOLD}${appId}${RESET} (${baseUrl})`);
 
@@ -115,15 +113,11 @@ async function main() {
         result.status !== 502 &&
         result.status !== 503;
 
-      const statusStr = result.error
-        ? `CONN_ERR (${result.error})`
-        : `HTTP ${result.status}`;
+      const statusStr = result.error ? `CONN_ERR (${result.error})` : `HTTP ${result.status}`;
 
       const icon = isOk ? `${GREEN}✓${RESET}` : `${RED}✗${RESET}`;
       const statusColour = isOk ? GREEN : RED;
-      console.log(
-        `  ${icon} ${route.padEnd(40)} ${statusColour}${statusStr}${RESET}`
-      );
+      console.log(`  ${icon} ${route.padEnd(40)} ${statusColour}${statusStr}${RESET}`);
 
       results.push({ appId, url, route, ...result, ok: isOk });
     }
@@ -134,9 +128,7 @@ async function main() {
   const total = results.length;
   const passed = total - failures.length;
 
-  console.log(
-    `${BOLD}${CYAN}=== Summary ===${RESET}`
-  );
+  console.log(`${BOLD}${CYAN}=== Summary ===${RESET}`);
   console.log(
     `Checked: ${total} routes | Passed: ${GREEN}${passed}${RESET} | Failed: ${failures.length > 0 ? RED : GREEN}${failures.length}${RESET}`
   );

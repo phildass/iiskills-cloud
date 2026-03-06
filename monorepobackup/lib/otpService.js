@@ -1,31 +1,28 @@
 /**
  * App-Specific OTP Service
- * 
+ *
  * Centralized service for generating, dispatching, and verifying OTPs
  * that are bound to specific apps/courses after payment.
- * 
+ *
  * Key Features:
  * - OTPs are app/course-specific and cannot be reused across apps
  * - Supports SMS (via Vonage) and Email (via SendGrid)
  * - Secure storage with expiration tracking
  * - Rate limiting and verification attempt tracking
  * - No OTP values returned in API responses (security)
- * 
+ *
  * @module lib/otpService
  */
 
-import { createClient } from '@supabase/supabase-js';
-import sgMail from '@sendgrid/mail';
-import { Vonage } from '@vonage/server-sdk';
+import { createClient } from "@supabase/supabase-js";
+import sgMail from "@sendgrid/mail";
+import { Vonage } from "@vonage/server-sdk";
 
 // Vonage SMS status codes
-const VONAGE_SUCCESS_STATUS = '0';
+const VONAGE_SUCCESS_STATUS = "0";
 
 // Initialize Supabase client
-const supabase = createClient(
-  process.env.SUPABASE_URL || '',
-  process.env.SUPABASE_KEY || ''
-);
+const supabase = createClient(process.env.SUPABASE_URL || "", process.env.SUPABASE_KEY || "");
 
 // Initialize SendGrid
 if (process.env.SENDGRID_API_KEY) {
@@ -41,7 +38,7 @@ if (process.env.VONAGE_API_KEY && process.env.VONAGE_API_SECRET) {
       apiSecret: process.env.VONAGE_API_SECRET,
     });
   } catch (error) {
-    console.error('Failed to initialize Vonage client:', error);
+    console.error("Failed to initialize Vonage client:", error);
   }
 }
 
@@ -84,14 +81,14 @@ function isValidPhone(phone) {
  */
 async function sendOTPViaEmail(email, otp, appId, appName) {
   if (!process.env.SENDGRID_API_KEY) {
-    console.warn('SendGrid not configured - skipping email send');
+    console.warn("SendGrid not configured - skipping email send");
     return false;
   }
 
   try {
     await sgMail.send({
       to: email,
-      from: process.env.SENDGRID_FROM_EMAIL || 'info@iiskills.cloud',
+      from: process.env.SENDGRID_FROM_EMAIL || "info@iiskills.cloud",
       subject: `Your OTP for ${appName}`,
       text: `Your OTP is: ${otp}. Valid for 10 minutes. This OTP is specific to ${appName}.`,
       html: `
@@ -132,11 +129,11 @@ async function sendOTPViaEmail(email, otp, appId, appName) {
         </div>
       `,
     });
-    
+
     console.log(`OTP email sent successfully to ${email} for app ${appId}`);
     return true;
   } catch (error) {
-    console.error('SendGrid email error:', error);
+    console.error("SendGrid email error:", error);
     return false;
   }
 }
@@ -151,7 +148,7 @@ async function sendOTPViaEmail(email, otp, appId, appName) {
  */
 async function sendOTPViaSMS(phone, otp, appId, appName) {
   if (!vonageClient || !process.env.VONAGE_BRAND_NAME) {
-    console.warn('Vonage not configured - skipping SMS send');
+    console.warn("Vonage not configured - skipping SMS send");
     return false;
   }
 
@@ -161,7 +158,7 @@ async function sendOTPViaSMS(phone, otp, appId, appName) {
       from: process.env.VONAGE_BRAND_NAME,
       text: `Your iiskills.cloud OTP for ${appName}: ${otp}. Valid for 10 minutes. Do not share this code.`,
     });
-    
+
     // Vonage returns an object with messages array
     // Check if any message was sent successfully (status '0' means success)
     if (response && response.messages && response.messages.length > 0) {
@@ -170,22 +167,22 @@ async function sendOTPViaSMS(phone, otp, appId, appName) {
         console.log(`OTP SMS sent successfully to ${phone} for app ${appId}`);
         return true;
       } else {
-        console.error(`Vonage SMS failed with status ${message.status}: ${message['error-text']}`);
+        console.error(`Vonage SMS failed with status ${message.status}: ${message["error-text"]}`);
         return false;
       }
     }
-    
-    console.error('Vonage SMS: No messages in response');
+
+    console.error("Vonage SMS: No messages in response");
     return false;
   } catch (error) {
-    console.error('Vonage SMS error:', error);
+    console.error("Vonage SMS error:", error);
     return false;
   }
 }
 
 /**
  * Generate and dispatch OTP after payment
- * 
+ *
  * @param {Object} params - OTP generation parameters
  * @param {string} params.email - User's email address (required)
  * @param {string} [params.phone] - User's phone number (optional, E.164 format)
@@ -204,22 +201,22 @@ export async function generateAndDispatchOTP({
   appName,
   userId,
   paymentTransactionId,
-  reason = 'payment_verification',
+  reason = "payment_verification",
   adminGenerated = false,
 }) {
   // Validate required fields
   if (!email || !appId || !appName) {
-    throw new Error('Email, appId, and appName are required');
+    throw new Error("Email, appId, and appName are required");
   }
 
   // Validate email format
   if (!isValidEmail(email)) {
-    throw new Error('Invalid email format');
+    throw new Error("Invalid email format");
   }
 
   // Validate phone format if provided
   if (phone && !isValidPhone(phone)) {
-    throw new Error('Invalid phone format. Phone must be in E.164 format (e.g., +1234567890)');
+    throw new Error("Invalid phone format. Phone must be in E.164 format (e.g., +1234567890)");
   }
 
   // Generate OTP
@@ -227,9 +224,9 @@ export async function generateAndDispatchOTP({
   const expiresAt = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes
 
   // Determine delivery channel
-  let deliveryChannel = 'email';
+  let deliveryChannel = "email";
   if (phone && isValidPhone(phone)) {
-    deliveryChannel = email ? 'both' : 'sms';
+    deliveryChannel = email ? "both" : "sms";
   }
 
   // Send OTP via available channels
@@ -245,7 +242,7 @@ export async function generateAndDispatchOTP({
   }
 
   // Store OTP in database
-  const { data, error: dbError } = await supabase.from('otps').insert([
+  const { data, error: dbError } = await supabase.from("otps").insert([
     {
       user_id: userId || null,
       email,
@@ -265,7 +262,7 @@ export async function generateAndDispatchOTP({
   ]);
 
   if (dbError) {
-    console.error('Database error storing OTP:', dbError);
+    console.error("Database error storing OTP:", dbError);
     throw new Error(`Failed to store OTP: ${dbError.message}`);
   }
 
@@ -283,7 +280,7 @@ export async function generateAndDispatchOTP({
 
 /**
  * Verify OTP for a specific app/course
- * 
+ *
  * @param {Object} params - Verification parameters
  * @param {string} params.email - User's email address
  * @param {string} params.otp - OTP code to verify
@@ -295,7 +292,7 @@ export async function verifyOTP({ email, otp, appId }) {
   if (!email || !otp || !appId) {
     return {
       success: false,
-      error: 'Email, OTP, and appId are required',
+      error: "Email, OTP, and appId are required",
     };
   }
 
@@ -303,27 +300,27 @@ export async function verifyOTP({ email, otp, appId }) {
   if (!isValidEmail(email)) {
     return {
       success: false,
-      error: 'Invalid email format',
+      error: "Invalid email format",
     };
   }
 
   try {
     // Find the OTP record
     const { data: otpRecords, error: fetchError } = await supabase
-      .from('otps')
-      .select('*')
-      .eq('email', email)
-      .eq('otp', otp)
-      .eq('app_id', appId)
-      .is('verified_at', null) // Not yet verified
-      .order('created_at', { ascending: false })
+      .from("otps")
+      .select("*")
+      .eq("email", email)
+      .eq("otp", otp)
+      .eq("app_id", appId)
+      .is("verified_at", null) // Not yet verified
+      .order("created_at", { ascending: false })
       .limit(1);
 
     if (fetchError) {
-      console.error('Database error fetching OTP:', fetchError);
+      console.error("Database error fetching OTP:", fetchError);
       return {
         success: false,
-        error: 'Failed to verify OTP',
+        error: "Failed to verify OTP",
       };
     }
 
@@ -331,7 +328,7 @@ export async function verifyOTP({ email, otp, appId }) {
     if (!otpRecords || otpRecords.length === 0) {
       return {
         success: false,
-        error: 'Invalid OTP or OTP not found for this app',
+        error: "Invalid OTP or OTP not found for this app",
       };
     }
 
@@ -340,11 +337,11 @@ export async function verifyOTP({ email, otp, appId }) {
     // Check if OTP has expired
     const now = new Date();
     const expiresAt = new Date(otpRecord.expires_at);
-    
+
     if (now > expiresAt) {
       return {
         success: false,
-        error: 'OTP has expired',
+        error: "OTP has expired",
       };
     }
 
@@ -352,48 +349,48 @@ export async function verifyOTP({ email, otp, appId }) {
     if (otpRecord.verification_attempts >= 5) {
       return {
         success: false,
-        error: 'Too many verification attempts. Please request a new OTP.',
+        error: "Too many verification attempts. Please request a new OTP.",
       };
     }
 
     // OTP is valid! Mark as verified
     const { error: updateError } = await supabase
-      .from('otps')
+      .from("otps")
       .update({
         verified_at: new Date().toISOString(),
         verification_attempts: otpRecord.verification_attempts + 1,
         updated_at: new Date().toISOString(),
       })
-      .eq('id', otpRecord.id);
+      .eq("id", otpRecord.id);
 
     if (updateError) {
-      console.error('Database error updating OTP:', updateError);
+      console.error("Database error updating OTP:", updateError);
       return {
         success: false,
-        error: 'Failed to verify OTP',
+        error: "Failed to verify OTP",
       };
     }
 
     // Success!
     return {
       success: true,
-      message: 'OTP verified successfully',
+      message: "OTP verified successfully",
       appId: otpRecord.app_id,
       userId: otpRecord.user_id,
       email: otpRecord.email,
     };
   } catch (error) {
-    console.error('OTP verification error:', error);
+    console.error("OTP verification error:", error);
     return {
       success: false,
-      error: 'An error occurred during verification',
+      error: "An error occurred during verification",
     };
   }
 }
 
 /**
  * Check if a valid OTP exists for a user and app
- * 
+ *
  * @param {string} email - User's email address
  * @param {string} appId - App/course identifier
  * @returns {Promise<boolean>} True if valid unverified OTP exists
@@ -401,30 +398,30 @@ export async function verifyOTP({ email, otp, appId }) {
 export async function hasValidOTP(email, appId) {
   try {
     const { data: otpRecords, error } = await supabase
-      .from('otps')
-      .select('expires_at')
-      .eq('email', email)
-      .eq('app_id', appId)
-      .is('verified_at', null)
-      .gt('expires_at', new Date().toISOString())
-      .order('created_at', { ascending: false })
+      .from("otps")
+      .select("expires_at")
+      .eq("email", email)
+      .eq("app_id", appId)
+      .is("verified_at", null)
+      .gt("expires_at", new Date().toISOString())
+      .order("created_at", { ascending: false })
       .limit(1);
 
     if (error) {
-      console.error('Error checking for valid OTP:', error);
+      console.error("Error checking for valid OTP:", error);
       return false;
     }
 
     return otpRecords && otpRecords.length > 0;
   } catch (error) {
-    console.error('Error checking for valid OTP:', error);
+    console.error("Error checking for valid OTP:", error);
     return false;
   }
 }
 
 /**
  * Get OTP statistics for monitoring
- * 
+ *
  * @param {string} email - User's email address
  * @param {string} appId - App/course identifier
  * @returns {Promise<Object>} OTP statistics
@@ -432,21 +429,21 @@ export async function hasValidOTP(email, appId) {
 export async function getOTPStats(email, appId) {
   try {
     const { data: otpRecords, error } = await supabase
-      .from('otps')
-      .select('*')
-      .eq('email', email)
-      .eq('app_id', appId)
-      .order('created_at', { ascending: false })
+      .from("otps")
+      .select("*")
+      .eq("email", email)
+      .eq("app_id", appId)
+      .order("created_at", { ascending: false })
       .limit(10);
 
     if (error) {
-      console.error('Error fetching OTP stats:', error);
+      console.error("Error fetching OTP stats:", error);
       return null;
     }
 
     const total = otpRecords.length;
-    const verified = otpRecords.filter(r => r.verified_at).length;
-    const expired = otpRecords.filter(r => new Date(r.expires_at) < new Date()).length;
+    const verified = otpRecords.filter((r) => r.verified_at).length;
+    const expired = otpRecords.filter((r) => new Date(r.expires_at) < new Date()).length;
     const pending = total - verified - expired;
 
     return {
@@ -457,7 +454,7 @@ export async function getOTPStats(email, appId) {
       recentOTPs: otpRecords,
     };
   } catch (error) {
-    console.error('Error fetching OTP stats:', error);
+    console.error("Error fetching OTP stats:", error);
     return null;
   }
 }

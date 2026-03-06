@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import { useState } from "react";
 
 const PASS_THRESHOLD = 14; // 14 out of 20 to pass
 const TOTAL_QUESTIONS = 20;
@@ -56,9 +56,11 @@ export default function ModuleFinalTestComponent({ questions, moduleId, appKey, 
   if (showResults) {
     const passed = score >= PASS_THRESHOLD;
     return (
-      <div className={`card ${passed ? 'bg-green-50 border-2 border-green-500' : 'bg-red-50 border-2 border-red-500'}`}>
-        <h3 className={`text-2xl font-bold mb-4 ${passed ? 'text-green-800' : 'text-red-800'}`}>
-          {passed ? '🎉 Module Final Test Passed!' : '❌ Module Final Test Not Passed'}
+      <div
+        className={`card ${passed ? "bg-green-50 border-2 border-green-500" : "bg-red-50 border-2 border-red-500"}`}
+      >
+        <h3 className={`text-2xl font-bold mb-4 ${passed ? "text-green-800" : "text-red-800"}`}>
+          {passed ? "🎉 Module Final Test Passed!" : "❌ Module Final Test Not Passed"}
         </h3>
         <p className="text-lg mb-2">
           You scored <strong>{score}</strong> out of <strong>{questions.length}</strong>
@@ -68,7 +70,7 @@ export default function ModuleFinalTestComponent({ questions, moduleId, appKey, 
         </p>
         <p className="text-gray-700 mb-6">
           {passed
-            ? 'Congratulations! You have unlocked the next level.'
+            ? "Congratulations! You have unlocked the next level."
             : `You need at least ${PASS_THRESHOLD} correct answers. Review the module and try again.`}
         </p>
         {!passed && (
@@ -110,8 +112,8 @@ export default function ModuleFinalTestComponent({ questions, moduleId, appKey, 
             key={index}
             className={`flex items-center p-4 border-2 rounded-lg cursor-pointer transition-colors ${
               selectedAnswers[currentQuestion] === index
-                ? 'border-purple-500 bg-purple-50'
-                : 'border-gray-200 hover:border-purple-300'
+                ? "border-purple-500 bg-purple-50"
+                : "border-gray-200 hover:border-purple-300"
             }`}
           >
             <input
@@ -136,8 +138,8 @@ export default function ModuleFinalTestComponent({ questions, moduleId, appKey, 
         </button>
         <span className="text-sm text-gray-500 italic">
           {selectedAnswers[currentQuestion] === undefined
-            ? 'Select an answer to continue'
-            : 'Auto-advancing…'}
+            ? "Select an answer to continue"
+            : "Auto-advancing…"}
         </span>
       </div>
     </div>

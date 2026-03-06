@@ -11,19 +11,19 @@ import { getEffectivePricingBreakdown, formatINR, isBundleOfferActive } from "..
  * Pricing is derived from the canonical @iiskills/ui/pricing module.
  */
 
-export default function PremiumAccessPrompt({ 
+export default function PremiumAccessPrompt({
   appName = "this course",
   appHighlight = "Master the complete curriculum and unlock your potential.",
   showAIDevBundle = false, // Set to true for Learn AI or Learn Developer apps
   appId = "",
-  onCancel 
+  onCancel,
 }) {
   const pricing = getEffectivePricingBreakdown();
-  const bundleActive = showAIDevBundle && (new Date() <= new Date("2026-03-31T23:59:59"));
+  const bundleActive = showAIDevBundle && new Date() <= new Date("2026-03-31T23:59:59");
 
   const handleUnlock = () => {
-    const mainAppUrl = process.env.NEXT_PUBLIC_MAIN_APP_URL || 'https://iiskills.cloud';
-    window.location.href = `${mainAppUrl}/payments/iiskills${appId ? `?course=${encodeURIComponent(appId)}` : ''}`;
+    const mainAppUrl = process.env.NEXT_PUBLIC_MAIN_APP_URL || "https://iiskills.cloud";
+    window.location.href = `${mainAppUrl}/payments/iiskills${appId ? `?course=${encodeURIComponent(appId)}` : ""}`;
   };
 
   return (
@@ -34,9 +34,7 @@ export default function PremiumAccessPrompt({
           <div className="inline-block bg-gradient-to-r from-purple-100 to-blue-100 px-4 py-2 rounded-full mb-3">
             <span className="text-purple-700 font-bold text-sm">iiskills Premium Calibration</span>
           </div>
-          <h2 className="text-3xl font-bold mb-3 text-gray-900">
-            🎉 Qualification Successful!
-          </h2>
+          <h2 className="text-3xl font-bold mb-3 text-gray-900">🎉 Qualification Successful!</h2>
           <p className="text-xl text-gray-700">
             You have successfully qualified for the <strong>{appName}</strong> Professional Track
           </p>
@@ -44,9 +42,7 @@ export default function PremiumAccessPrompt({
 
         {/* App-Specific Highlight */}
         <div className="bg-gradient-to-r from-purple-50 to-blue-50 p-5 rounded-xl mb-6">
-          <p className="text-gray-800 font-medium text-center">
-            {appHighlight}
-          </p>
+          <p className="text-gray-800 font-medium text-center">{appHighlight}</p>
         </div>
 
         {/* AI-Dev Bundle Special Offer — vivid banner, valid till Mar 31 2026 */}
@@ -58,10 +54,12 @@ export default function PremiumAccessPrompt({
               </div>
               <p className="text-yellow-950 font-bold text-lg mb-1">
                 Purchase {appName} and get{" "}
-                {appName.toLowerCase().includes("ai") ? "Learn Developer" : "Learn AI"} included at NO EXTRA COST
+                {appName.toLowerCase().includes("ai") ? "Learn Developer" : "Learn AI"} included at
+                NO EXTRA COST
               </p>
               <p className="text-yellow-900 font-semibold text-sm">
-                ⏰ Exclusive offer — valid until <strong>31 March 2026 only</strong>. Don't miss out!
+                ⏰ Exclusive offer — valid until <strong>31 March 2026 only</strong>. Don't miss
+                out!
               </p>
             </div>
           </div>
@@ -109,26 +107,58 @@ export default function PremiumAccessPrompt({
           <h3 className="text-lg font-semibold mb-3 text-gray-900">What's Included:</h3>
           <ul className="space-y-2 text-gray-700">
             <li className="flex items-start">
-              <svg className="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+              <svg
+                className="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                  clipRule="evenodd"
+                />
               </svg>
               <span>Complete Tri-Level Curriculum (Basic → Intermediate → Advanced)</span>
             </li>
             <li className="flex items-start">
-              <svg className="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+              <svg
+                className="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                  clipRule="evenodd"
+                />
               </svg>
               <span>All lessons, tests, and assessments</span>
             </li>
             <li className="flex items-start">
-              <svg className="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+              <svg
+                className="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                  clipRule="evenodd"
+                />
               </svg>
               <span>Professional certification upon completion</span>
             </li>
             <li className="flex items-start">
-              <svg className="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+              <svg
+                className="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                  clipRule="evenodd"
+                />
               </svg>
               <span>1-year access to all course materials</span>
             </li>
@@ -145,16 +175,16 @@ export default function PremiumAccessPrompt({
         {/* Action Buttons */}
         <div className="flex gap-4">
           {onCancel && (
-            <button 
-              onClick={onCancel} 
+            <button
+              onClick={onCancel}
               className="flex-1 px-6 py-3 bg-gray-200 text-gray-800 rounded-lg font-semibold hover:bg-gray-300 transition-colors duration-200"
             >
               Not Yet
             </button>
           )}
-          <button 
-            onClick={handleUnlock} 
-            className={`${onCancel ? 'flex-1' : 'w-full'} px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-bold hover:from-purple-700 hover:to-blue-700 transition-all duration-200 shadow-lg hover:shadow-xl`}
+          <button
+            onClick={handleUnlock}
+            className={`${onCancel ? "flex-1" : "w-full"} px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-bold hover:from-purple-700 hover:to-blue-700 transition-all duration-200 shadow-lg hover:shadow-xl`}
           >
             Enrol Now — Pay Securely
           </button>

@@ -3,13 +3,13 @@ import { EnhancedUniversalRegister } from "@iiskills/ui/authentication";
 
 /**
  * Registration Page - Main App
- * 
+ *
  * Comprehensive registration form with:
  * - First Name, Last Name
  * - Age
  * - Stage (Student, Employed, Other)
  * - Father's Occupation
- * - Mother's Occupation  
+ * - Mother's Occupation
  * - Location (Taluk, District, State for India; Other for non-India)
  * - Phone Number
  * - Purpose (Just Browsing, Intend to take a course)

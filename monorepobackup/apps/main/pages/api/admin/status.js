@@ -19,42 +19,38 @@
  * the correct message (bootstrap vs. normal login) before any session exists.
  */
 
-import fs from 'fs';
-import { parse } from 'cookie';
-import {
-  ADMIN_COOKIE_NAME,
-  verifyAdminToken,
-  isTestAdminMode,
-} from '../../../lib/adminAuth';
+import fs from "fs";
+import { parse } from "cookie";
+import { ADMIN_COOKIE_NAME, verifyAdminToken, isTestAdminMode } from "../../../lib/adminAuth";
 
 function getAdminDataFile() {
-  return process.env.ADMIN_DATA_FILE || '/var/lib/iiskills/admin.json';
+  return process.env.ADMIN_DATA_FILE || "/var/lib/iiskills/admin.json";
 }
 
 function isPassphraseConfigured() {
   if (process.env.ADMIN_PANEL_SECRET) return true;
   try {
-    const data = JSON.parse(fs.readFileSync(getAdminDataFile(), 'utf8'));
-    return !!(data?.admin_passphrase_hash);
+    const data = JSON.parse(fs.readFileSync(getAdminDataFile(), "utf8"));
+    return !!data?.admin_passphrase_hash;
   } catch (err) {
-    if (err.code !== 'ENOENT') {
-      console.error('[adminStatus] Error reading admin data file:', err.message);
+    if (err.code !== "ENOENT") {
+      console.error("[adminStatus] Error reading admin data file:", err.message);
     }
     return false;
   }
 }
 
 export default async function handler(req, res) {
-  if (req.method !== 'GET') {
-    res.setHeader('Allow', ['GET']);
-    return res.status(405).json({ error: 'Method Not Allowed' });
+  if (req.method !== "GET") {
+    res.setHeader("Allow", ["GET"]);
+    return res.status(405).json({ error: "Method Not Allowed" });
   }
 
   const testMode = isTestAdminMode();
   const configured = testMode ? true : isPassphraseConfigured();
 
   // Check current session for needs_setup flag
-  const cookies = parse(req.headers.cookie || '');
+  const cookies = parse(req.headers.cookie || "");
   const sessionToken = cookies[ADMIN_COOKIE_NAME];
   let needsSetup = false;
   if (sessionToken) {

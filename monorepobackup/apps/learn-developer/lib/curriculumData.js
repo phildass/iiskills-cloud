@@ -54,9 +54,9 @@ const createUser = async (userData) => {
             "Domain Network System - manages network traffic",
             "Domain Name System - translates domain names to IP addresses",
             "Digital Name Service - encrypts domain requests",
-            "Data Navigation System - routes packets efficiently"
+            "Data Navigation System - routes packets efficiently",
           ],
-          correctAnswer: 1
+          correctAnswer: 1,
         },
         {
           question: "What HTTP status code indicates a successful request?",
@@ -64,29 +64,19 @@ const createUser = async (userData) => {
             "404 Not Found",
             "500 Internal Server Error",
             "200 OK",
-            "301 Moved Permanently"
+            "301 Moved Permanently",
           ],
-          correctAnswer: 2
+          correctAnswer: 2,
         },
         {
           question: "Which HTTP method is used to retrieve data from a server?",
-          options: [
-            "POST",
-            "GET",
-            "PUT",
-            "DELETE"
-          ],
-          correctAnswer: 1
+          options: ["POST", "GET", "PUT", "DELETE"],
+          correctAnswer: 1,
         },
         {
           question: "What header specifies the format of data being sent?",
-          options: [
-            "Accept",
-            "Authorization",
-            "Content-Type",
-            "User-Agent"
-          ],
-          correctAnswer: 2
+          options: ["Accept", "Authorization", "Content-Type", "User-Agent"],
+          correctAnswer: 2,
         },
         {
           question: "What does a 404 status code indicate?",
@@ -94,11 +84,11 @@ const createUser = async (userData) => {
             "Server error",
             "Successful request",
             "Resource not found",
-            "Unauthorized access"
+            "Unauthorized access",
           ],
-          correctAnswer: 2
-        }
-      ]
+          correctAnswer: 2,
+        },
+      ],
     },
     {
       id: 2,
@@ -156,19 +146,14 @@ const BlogPost = () => {
             "Faster page load times",
             "Better styling options",
             "Improved accessibility and SEO",
-            "Smaller file sizes"
+            "Smaller file sizes",
           ],
-          correctAnswer: 2
+          correctAnswer: 2,
         },
         {
           question: "Which tag should be used for the main navigation menu?",
-          options: [
-            "<menu>",
-            "<nav>",
-            "<navigation>",
-            "<div class='nav'>"
-          ],
-          correctAnswer: 1
+          options: ["<menu>", "<nav>", "<navigation>", "<div class='nav'>"],
+          correctAnswer: 1,
         },
         {
           question: "What does SEO stand for?",
@@ -176,19 +161,14 @@ const BlogPost = () => {
             "Semantic Element Optimization",
             "Search Engine Optimization",
             "Structured Element Organization",
-            "Site Enhancement Operations"
+            "Site Enhancement Operations",
           ],
-          correctAnswer: 1
+          correctAnswer: 1,
         },
         {
           question: "Which tag represents a self-contained composition in a document?",
-          options: [
-            "<section>",
-            "<div>",
-            "<article>",
-            "<container>"
-          ],
-          correctAnswer: 2
+          options: ["<section>", "<div>", "<article>", "<container>"],
+          correctAnswer: 2,
         },
         {
           question: "Why is alt text important for images?",
@@ -196,11 +176,11 @@ const BlogPost = () => {
             "It makes images load faster",
             "It's required by HTML validators",
             "It improves accessibility and SEO",
-            "It adds copyright protection"
+            "It adds copyright protection",
           ],
-          correctAnswer: 2
-        }
-      ]
+          correctAnswer: 2,
+        },
+      ],
     },
     {
       id: 3,
@@ -289,9 +269,9 @@ const ModernLayout = () => {
             "Flexbox is faster than Grid",
             "Flexbox is one-dimensional, Grid is two-dimensional",
             "Grid is deprecated, use Flexbox instead",
-            "Flexbox only works with images"
+            "Flexbox only works with images",
           ],
-          correctAnswer: 1
+          correctAnswer: 1,
         },
         {
           question: "How do you reference a CSS variable?",
@@ -299,19 +279,14 @@ const ModernLayout = () => {
             "$(variable-name)",
             "var(--variable-name)",
             "${variableName}",
-            "@variable-name"
+            "@variable-name",
           ],
-          correctAnswer: 1
+          correctAnswer: 1,
         },
         {
           question: "Which property is used to create flexible items in Flexbox?",
-          options: [
-            "flex-grow",
-            "flexible",
-            "flex-item",
-            "display: flexible"
-          ],
-          correctAnswer: 0
+          options: ["flex-grow", "flexible", "flex-item", "display: flexible"],
+          correctAnswer: 0,
         },
         {
           question: "What does 'gap' property do in CSS Grid?",
@@ -319,9 +294,9 @@ const ModernLayout = () => {
             "Creates space between grid items",
             "Defines grid line width",
             "Sets minimum height for rows",
-            "Controls grid overflow"
+            "Controls grid overflow",
           ],
-          correctAnswer: 0
+          correctAnswer: 0,
         },
         {
           question: "Where should CSS variables be defined for global access?",
@@ -329,11 +304,11 @@ const ModernLayout = () => {
             "In the <head> tag",
             "In the :root selector",
             "In the body selector",
-            "In a separate variables.css file"
+            "In a separate variables.css file",
           ],
-          correctAnswer: 1
-        }
-      ]
+          correctAnswer: 1,
+        },
+      ],
     },
     {
       id: 4,
@@ -401,19 +376,14 @@ const getAccessLevel = (role) => {
             "'let' is block-scoped, 'const' is function-scoped",
             "'const' cannot be reassigned, 'let' can be reassigned",
             "'let' is faster than 'const'",
-            "There is no difference in modern JavaScript"
+            "There is no difference in modern JavaScript",
           ],
-          correctAnswer: 1
+          correctAnswer: 1,
         },
         {
           question: "Which array method transforms each element and returns a new array?",
-          options: [
-            "forEach()",
-            "filter()",
-            "map()",
-            "reduce()"
-          ],
-          correctAnswer: 2
+          options: ["forEach()", "filter()", "map()", "reduce()"],
+          correctAnswer: 2,
         },
         {
           question: "What does the filter() method return?",
@@ -421,19 +391,14 @@ const getAccessLevel = (role) => {
             "A single value",
             "A new array with elements that pass the test",
             "A boolean value",
-            "The original array modified"
+            "The original array modified",
           ],
-          correctAnswer: 1
+          correctAnswer: 1,
         },
         {
           question: "What is the output of: true ? 'yes' : 'no'",
-          options: [
-            "'no'",
-            "'yes'",
-            "undefined",
-            "Error"
-          ],
-          correctAnswer: 1
+          options: ["'no'", "'yes'", "undefined", "Error"],
+          correctAnswer: 1,
         },
         {
           question: "Which loop is best for iterating over array values (not indices)?",
@@ -441,11 +406,11 @@ const getAccessLevel = (role) => {
             "for (let i = 0; i < arr.length; i++)",
             "while loop",
             "for...of loop",
-            "do...while loop"
+            "do...while loop",
           ],
-          correctAnswer: 2
-        }
-      ]
+          correctAnswer: 2,
+        },
+      ],
     },
     {
       id: 5,
@@ -518,9 +483,9 @@ const UserProfile = () => {
             "Data Object Model",
             "Document Object Model",
             "Dynamic Output Method",
-            "Database Operation Manager"
+            "Database Operation Manager",
           ],
-          correctAnswer: 1
+          correctAnswer: 1,
         },
         {
           question: "What are the three states of a Promise?",
@@ -528,9 +493,9 @@ const UserProfile = () => {
             "loading, success, failure",
             "pending, fulfilled, rejected",
             "waiting, complete, error",
-            "start, processing, end"
+            "start, processing, end",
           ],
-          correctAnswer: 1
+          correctAnswer: 1,
         },
         {
           question: "What does the 'await' keyword do?",
@@ -538,9 +503,9 @@ const UserProfile = () => {
             "Pauses execution until a Promise resolves",
             "Creates a new Promise",
             "Catches errors automatically",
-            "Makes code run faster"
+            "Makes code run faster",
           ],
-          correctAnswer: 0
+          correctAnswer: 0,
         },
         {
           question: "What does fetch() return?",
@@ -548,21 +513,16 @@ const UserProfile = () => {
             "JSON data directly",
             "A Promise that resolves to a Response object",
             "A string of the response",
-            "An error object"
+            "An error object",
           ],
-          correctAnswer: 1
+          correctAnswer: 1,
         },
         {
           question: "Which method is used to handle Promise rejections?",
-          options: [
-            ".then()",
-            ".catch()",
-            ".error()",
-            ".fail()"
-          ],
-          correctAnswer: 1
-        }
-      ]
+          options: [".then()", ".catch()", ".error()", ".fail()"],
+          correctAnswer: 1,
+        },
+      ],
     },
     {
       id: 6,
@@ -649,19 +609,14 @@ export default App;`,
             "A new programming language",
             "JavaScript XML - a syntax extension for JavaScript",
             "A CSS framework",
-            "A database query language"
+            "A database query language",
           ],
-          correctAnswer: 1
+          correctAnswer: 1,
         },
         {
           question: "How do you pass data from parent to child component?",
-          options: [
-            "Using state",
-            "Using props",
-            "Using context",
-            "Using refs"
-          ],
-          correctAnswer: 1
+          options: ["Using state", "Using props", "Using context", "Using refs"],
+          correctAnswer: 1,
         },
         {
           question: "What does useState return?",
@@ -669,9 +624,9 @@ export default App;`,
             "Only the current state value",
             "An array with current state and setter function",
             "An object with state properties",
-            "A Promise"
+            "A Promise",
           ],
-          correctAnswer: 1
+          correctAnswer: 1,
         },
         {
           question: "What is a controlled component in React?",
@@ -679,9 +634,9 @@ export default App;`,
             "A component that controls other components",
             "A form element whose value is controlled by React state",
             "A component that never re-renders",
-            "A component with error boundaries"
+            "A component with error boundaries",
           ],
-          correctAnswer: 1
+          correctAnswer: 1,
         },
         {
           question: "Can you modify props inside a component?",
@@ -689,11 +644,11 @@ export default App;`,
             "Yes, props are mutable",
             "No, props are read-only",
             "Only in class components",
-            "Only with special functions"
+            "Only with special functions",
           ],
-          correctAnswer: 1
-        }
-      ]
+          correctAnswer: 1,
+        },
+      ],
     },
     {
       id: 7,
@@ -795,9 +750,9 @@ const UserList = () => {
             "After every render",
             "Only once after the initial render",
             "Never",
-            "Only when props change"
+            "Only when props change",
           ],
-          correctAnswer: 1
+          correctAnswer: 1,
         },
         {
           question: "What is the purpose of the cleanup function in useEffect?",
@@ -805,9 +760,9 @@ const UserList = () => {
             "To reset component state",
             "To prevent memory leaks and clean up side effects",
             "To improve performance",
-            "To handle errors"
+            "To handle errors",
           ],
-          correctAnswer: 1
+          correctAnswer: 1,
         },
         {
           question: "What problem does useContext solve?",
@@ -815,19 +770,14 @@ const UserList = () => {
             "Performance optimization",
             "Prop drilling through multiple component layers",
             "State immutability",
-            "Form validation"
+            "Form validation",
           ],
-          correctAnswer: 1
+          correctAnswer: 1,
         },
         {
           question: "What must custom Hook names start with?",
-          options: [
-            "get",
-            "use",
-            "hook",
-            "custom"
-          ],
-          correctAnswer: 1
+          options: ["get", "use", "hook", "custom"],
+          correctAnswer: 1,
         },
         {
           question: "What happens if you don't specify a dependency array in useEffect?",
@@ -835,11 +785,11 @@ const UserList = () => {
             "Effect runs once on mount",
             "Effect never runs",
             "Effect runs after every render",
-            "React throws an error"
+            "React throws an error",
           ],
-          correctAnswer: 2
-        }
-      ]
+          correctAnswer: 2,
+        },
+      ],
     },
     {
       id: 8,
@@ -971,29 +921,19 @@ app.listen(PORT, () => {
             "A JavaScript framework",
             "A JavaScript runtime built on Chrome's V8 engine",
             "A database system",
-            "A CSS preprocessor"
+            "A CSS preprocessor",
           ],
-          correctAnswer: 1
+          correctAnswer: 1,
         },
         {
           question: "Which HTTP method is used to create a new resource?",
-          options: [
-            "GET",
-            "PUT",
-            "POST",
-            "DELETE"
-          ],
-          correctAnswer: 2
+          options: ["GET", "PUT", "POST", "DELETE"],
+          correctAnswer: 2,
         },
         {
           question: "What status code indicates successful resource creation?",
-          options: [
-            "200 OK",
-            "201 Created",
-            "204 No Content",
-            "301 Moved Permanently"
-          ],
-          correctAnswer: 1
+          options: ["200 OK", "201 Created", "204 No Content", "301 Moved Permanently"],
+          correctAnswer: 1,
         },
         {
           question: "What is middleware in Express?",
@@ -1001,21 +941,16 @@ app.listen(PORT, () => {
             "Database connection layer",
             "Functions that process requests before reaching route handlers",
             "Frontend components",
-            "CSS styling system"
+            "CSS styling system",
           ],
-          correctAnswer: 1
+          correctAnswer: 1,
         },
         {
           question: "How do you access URL parameters in Express?",
-          options: [
-            "req.query",
-            "req.body",
-            "req.params",
-            "req.headers"
-          ],
-          correctAnswer: 2
-        }
-      ]
+          options: ["req.query", "req.body", "req.params", "req.headers"],
+          correctAnswer: 2,
+        },
+      ],
     },
     {
       id: 9,
@@ -1143,9 +1078,9 @@ const databaseOperations = {
             "Simple Query Language",
             "Structured Query Language",
             "Sequential Query Logic",
-            "Systematic Question Language"
+            "Systematic Question Language",
           ],
-          correctAnswer: 1
+          correctAnswer: 1,
         },
         {
           question: "What is the main difference between SQL and NoSQL databases?",
@@ -1153,9 +1088,9 @@ const databaseOperations = {
             "SQL is faster than NoSQL",
             "SQL is relational with fixed schemas, NoSQL is flexible with document-based storage",
             "NoSQL cannot handle large datasets",
-            "SQL is only for web applications"
+            "SQL is only for web applications",
           ],
-          correctAnswer: 1
+          correctAnswer: 1,
         },
         {
           question: "What does ACID stand for in database transactions?",
@@ -1163,19 +1098,14 @@ const databaseOperations = {
             "Automatic, Consistent, Isolated, Durable",
             "Atomicity, Consistency, Isolation, Durability",
             "Active, Complete, Independent, Distributed",
-            "Adaptive, Concurrent, Integrated, Dedicated"
+            "Adaptive, Concurrent, Integrated, Dedicated",
           ],
-          correctAnswer: 1
+          correctAnswer: 1,
         },
         {
           question: "Which database is document-based?",
-          options: [
-            "PostgreSQL",
-            "MySQL",
-            "MongoDB",
-            "Oracle"
-          ],
-          correctAnswer: 2
+          options: ["PostgreSQL", "MySQL", "MongoDB", "Oracle"],
+          correctAnswer: 2,
         },
         {
           question: "What is an ORM?",
@@ -1183,11 +1113,11 @@ const databaseOperations = {
             "Object-Relational Mapping - a tool to interact with databases using objects",
             "Online Resource Manager",
             "Optimized Response Method",
-            "Operational Record Module"
+            "Operational Record Module",
           ],
-          correctAnswer: 0
-        }
-      ]
+          correctAnswer: 0,
+        },
+      ],
     },
     {
       id: 10,
@@ -1356,9 +1286,9 @@ jobs:
             "JavaScript Web Token",
             "JSON Web Token",
             "Java Web Technology",
-            "Just Web Transfer"
+            "Just Web Transfer",
           ],
-          correctAnswer: 1
+          correctAnswer: 1,
         },
         {
           question: "What are the three parts of a JWT?",
@@ -1366,9 +1296,9 @@ jobs:
             "username, password, token",
             "header, payload, signature",
             "key, value, hash",
-            "id, data, checksum"
+            "id, data, checksum",
           ],
-          correctAnswer: 1
+          correctAnswer: 1,
         },
         {
           question: "What does CI/CD stand for?",
@@ -1376,9 +1306,9 @@ jobs:
             "Code Integration/Code Deployment",
             "Continuous Integration/Continuous Deployment",
             "Central Intelligence/Central Database",
-            "Client Interface/Client Design"
+            "Client Interface/Client Design",
           ],
-          correctAnswer: 1
+          correctAnswer: 1,
         },
         {
           question: "Why should passwords be hashed before storing?",
@@ -1386,9 +1316,9 @@ jobs:
             "To make them shorter",
             "To prevent storing plain text passwords for security",
             "To speed up authentication",
-            "It's required by law"
+            "It's required by law",
           ],
-          correctAnswer: 1
+          correctAnswer: 1,
         },
         {
           question: "What is the purpose of environment variables?",
@@ -1396,12 +1326,12 @@ jobs:
             "To store CSS styles",
             "To separate configuration from code and protect secrets",
             "To improve performance",
-            "To enable debugging"
+            "To enable debugging",
           ],
-          correctAnswer: 1
-        }
-      ]
-    }
+          correctAnswer: 1,
+        },
+      ],
+    },
   ],
 
   // Skills metadata for certificate
@@ -1417,27 +1347,30 @@ jobs:
       "Advanced React Hooks (useEffect, useContext)",
       "Node.js & Express API Development",
       "Database Design (SQL & NoSQL)",
-      "DevOps (Deployment, JWT Security, CI/CD)"
+      "DevOps (Deployment, JWT Security, CI/CD)",
     ],
     certificationLevel: "Professional Developer Certification",
-    institution: "iiskills Developer Academy"
+    institution: "iiskills Developer Academy",
   },
 
   // Certification messages
   certificationMessages: {
     failure: {
       threshold: 30,
-      message: "Keep pushing forward! Full-stack development is a marathon, not a sprint. Review the modules, practice the code examples, and try again. Every expert was once a beginner who refused to give up. You've got this! 💪"
+      message:
+        "Keep pushing forward! Full-stack development is a marathon, not a sprint. Review the modules, practice the code examples, and try again. Every expert was once a beginner who refused to give up. You've got this! 💪",
     },
     pass: {
       threshold: 70,
-      message: "Congratulations! You've demonstrated solid understanding of full-stack development fundamentals. You're ready to build real-world applications. Keep coding, keep learning, and keep pushing boundaries! 🚀"
+      message:
+        "Congratulations! You've demonstrated solid understanding of full-stack development fundamentals. You're ready to build real-world applications. Keep coding, keep learning, and keep pushing boundaries! 🚀",
     },
     excellence: {
       threshold: 90,
-      message: "Outstanding performance! You've mastered the full-stack developer curriculum with excellence. Your deep understanding of HTTP, React, Node.js, databases, and DevOps practices positions you as a professional developer. Build something amazing! 🌟"
-    }
-  }
+      message:
+        "Outstanding performance! You've mastered the full-stack developer curriculum with excellence. Your deep understanding of HTTP, React, Node.js, databases, and DevOps practices positions you as a professional developer. Build something amazing! 🌟",
+    },
+  },
 };
 
 export default curriculumData;

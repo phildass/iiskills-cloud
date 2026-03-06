@@ -1,11 +1,11 @@
 "use client";
 
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
-import Head from 'next/head';
-import Footer from '../../../../components/Footer';
-import QuizComponent from '../../../../components/QuizComponent';
-import { getCurrentUser } from '../../../../lib/supabaseClient';
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import Head from "next/head";
+import Footer from "../../../../components/Footer";
+import QuizComponent from "../../../../components/QuizComponent";
+import { getCurrentUser } from "../../../../lib/supabaseClient";
 
 export default function LessonPage() {
   const router = useRouter();
@@ -27,8 +27,8 @@ export default function LessonPage() {
 
   const checkAuth = async () => {
     const currentUser = await getCurrentUser();
-    if (!currentUser && process.env.NEXT_PUBLIC_DISABLE_AUTH !== 'true') {
-      router.push('/register');
+    if (!currentUser && process.env.NEXT_PUBLIC_DISABLE_AUTH !== "true") {
+      router.push("/register");
       return;
     }
     setUser(currentUser);
@@ -41,10 +41,10 @@ export default function LessonPage() {
         module_id: moduleId,
         title: `Lesson ${lessonId}`,
         content: generateLessonContent(moduleId, lessonId),
-        quiz: generateQuiz()
+        quiz: generateQuiz(),
       });
     } catch (error) {
-      console.error('Error fetching lesson:', error);
+      console.error("Error fetching lesson:", error);
     } finally {
       setLoading(false);
     }
@@ -96,13 +96,8 @@ export default function LessonPage() {
     return [
       {
         question: "What is the largest continent by area?",
-        options: [
-          "Africa",
-          "North America",
-          "Asia",
-          "Europe"
-        ],
-        correct_answer: 2
+        options: ["Africa", "North America", "Asia", "Europe"],
+        correct_answer: 2,
       },
       {
         question: "What is the difference between weather and climate?",
@@ -110,9 +105,9 @@ export default function LessonPage() {
           "They are the same thing",
           "Weather refers to short-term atmospheric conditions; climate refers to long-term patterns",
           "Climate is measured daily; weather is measured annually",
-          "Weather only occurs in cold regions"
+          "Weather only occurs in cold regions",
         ],
-        correct_answer: 1
+        correct_answer: 1,
       },
       {
         question: "What is a tectonic plate?",
@@ -120,9 +115,9 @@ export default function LessonPage() {
           "A type of rock formation",
           "A large segment of Earth's lithosphere that moves over geological time",
           "A mountain range",
-          "An ocean current pattern"
+          "An ocean current pattern",
         ],
-        correct_answer: 1
+        correct_answer: 1,
       },
       {
         question: "What is the equator?",
@@ -130,9 +125,9 @@ export default function LessonPage() {
           "The line separating the northern and southern hemispheres at 0° latitude",
           "The line at 45° north latitude",
           "The boundary between continents",
-          "The prime meridian"
+          "The prime meridian",
         ],
-        correct_answer: 0
+        correct_answer: 0,
       },
       {
         question: "What is urbanization?",
@@ -140,29 +135,29 @@ export default function LessonPage() {
           "The process of converting farmland to forest",
           "The movement of populations from rural to urban areas",
           "Building highways between cities",
-          "The study of city architecture"
+          "The study of city architecture",
         ],
-        correct_answer: 1
-      }
+        correct_answer: 1,
+      },
     ];
   };
 
   const handleQuizComplete = async (passed, score) => {
     setQuizCompleted(passed);
-    
+
     if (passed) {
       try {
-        await fetch('/api/assessments/submit', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+        await fetch("/api/assessments/submit", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             lesson_id: lessonId,
             module_id: moduleId,
-            score: score
-          })
+            score: score,
+          }),
         });
       } catch (error) {
-        console.error('Error saving progress:', error);
+        console.error("Error saving progress:", error);
       }
     }
   };
@@ -176,7 +171,7 @@ export default function LessonPage() {
       if (nextModuleId <= 10) {
         router.push(`/modules/${moduleId}/final-test`);
       } else {
-        router.push('/curriculum');
+        router.push("/curriculum");
       }
     }
   };
@@ -199,18 +194,26 @@ export default function LessonPage() {
     <>
       <Head>
         <title>{lesson?.title} - Learn Geography</title>
-        <meta name="description" content={`Learn Geography - Module ${moduleId}, Lesson ${lessonId}`} />
+        <meta
+          name="description"
+          content={`Learn Geography - Module ${moduleId}, Lesson ${lessonId}`}
+        />
       </Head>
 
       <main className="min-h-screen bg-gray-50 py-12">
         <div className="container mx-auto px-4 max-w-4xl">
           <div className="mb-6">
             <button
-              onClick={() => router.push('/curriculum')}
+              onClick={() => router.push("/curriculum")}
               className="text-blue-600 hover:text-blue-800 flex items-center"
             >
               <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M15 19l-7-7 7-7"
+                />
               </svg>
               Back to Curriculum
             </button>
@@ -222,28 +225,23 @@ export default function LessonPage() {
               <h1 className="text-3xl font-bold mt-2">{lesson?.title}</h1>
             </div>
 
-            <div className="prose max-w-none" dangerouslySetInnerHTML={{ __html: lesson?.content }} />
+            <div
+              className="prose max-w-none"
+              dangerouslySetInnerHTML={{ __html: lesson?.content }}
+            />
           </div>
 
           {lesson?.quiz && (
-            <QuizComponent 
-              questions={lesson.quiz}
-              onComplete={handleQuizComplete}
-            />
+            <QuizComponent questions={lesson.quiz} onComplete={handleQuizComplete} />
           )}
 
           {quizCompleted && (
             <div className="card bg-green-50 border-2 border-green-500">
-              <h3 className="text-xl font-semibold text-green-800 mb-4">
-                🎉 Quiz Passed!
-              </h3>
+              <h3 className="text-xl font-semibold text-green-800 mb-4">🎉 Quiz Passed!</h3>
               <p className="text-gray-700 mb-4">
                 Congratulations! You've successfully completed this lesson.
               </p>
-              <button
-                onClick={goToNextLesson}
-                className="btn-primary"
-              >
+              <button onClick={goToNextLesson} className="btn-primary">
                 Continue to Next Lesson
               </button>
             </div>

@@ -1,6 +1,6 @@
 /**
  * Access Code Generator
- * 
+ *
  * Generates unique access codes for course registration.
  */
 
@@ -10,16 +10,16 @@
  * Character set excludes I, O, 0, 1 to avoid visual ambiguity
  */
 export function generateAccessCode() {
-  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-  let code = '';
-  
+  const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+  let code = "";
+
   for (let i = 0; i < 12; i++) {
     if (i > 0 && i % 4 === 0) {
-      code += '-';
+      code += "-";
     }
     code += chars.charAt(Math.floor(Math.random() * chars.length));
   }
-  
+
   return code;
 }
 
@@ -36,10 +36,10 @@ export function validateAccessCodeFormat(code) {
  */
 export function generateMultipleCodes(count) {
   const codes = new Set();
-  
+
   while (codes.size < count) {
     codes.add(generateAccessCode());
   }
-  
+
   return Array.from(codes);
 }

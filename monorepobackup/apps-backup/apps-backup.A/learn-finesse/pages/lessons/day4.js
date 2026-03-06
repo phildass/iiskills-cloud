@@ -14,9 +14,10 @@ const CULTURAL_CONTEXTS = {
       "2-3 pumps, web-to-web contact",
       "Direct eye contact, confident smile",
       "Firmness signals confidence (avoid bone-crushers)",
-      "Stand up when greeting someone"
+      "Stand up when greeting someone",
     ],
-    nuance: "Firmness matters - too weak seems uncertain, too strong seems aggressive. The 'web' is the area between your thumb and index finger."
+    nuance:
+      "Firmness matters - too weak seems uncertain, too strong seems aggressive. The 'web' is the area between your thumb and index finger.",
   },
   indian: {
     title: "Indian Context",
@@ -26,9 +27,10 @@ const CULTURAL_CONTEXTS = {
       "Namaste: Palms together, slight bow",
       "Wait for elder/senior to initiate handshake",
       "Softer handshake than Western style",
-      "Respect hierarchy - 'Sir/Ma'am' usage"
+      "Respect hierarchy - 'Sir/Ma'am' usage",
     ],
-    nuance: "The 'Indian head shake' can mean yes, no, or maybe - context matters. Elders and high officials initiate contact."
+    nuance:
+      "The 'Indian head shake' can mean yes, no, or maybe - context matters. Elders and high officials initiate contact.",
   },
   eastern: {
     title: "Eastern Context (Japan/China/Singapore)",
@@ -38,10 +40,11 @@ const CULTURAL_CONTEXTS = {
       "15-30° bow for business contexts",
       "Eyes down, hands at sides or in lap (when seated)",
       "Deeper bow = more respect",
-      "Two hands when presenting/receiving objects"
+      "Two hands when presenting/receiving objects",
     ],
-    nuance: "Bow depth communicates respect level. 15° is casual, 30° is standard business, 45°+ is deep respect or apology."
-  }
+    nuance:
+      "Bow depth communicates respect level. 15° is casual, 30° is standard business, 45°+ is deep respect or apology.",
+  },
 };
 
 const QUIZ_CORRECT_ANSWER = "B"; // Option B is the correct cultural response
@@ -67,7 +70,10 @@ export default function Day4Lesson() {
     <>
       <Head>
         <title>Day 4: The Global Greeting - Learn Finesse | iiskills.cloud</title>
-        <meta name="description" content="Master greetings across Western, Indian, and Eastern cultures" />
+        <meta
+          name="description"
+          content="Master greetings across Western, Indian, and Eastern cultures"
+        />
       </Head>
 
       <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 py-12 px-4">
@@ -84,9 +90,7 @@ export default function Day4Lesson() {
             <h1 className="text-5xl font-bold text-transparent bg-clip-text finesse-gradient mb-4">
               The Global Greeting
             </h1>
-            <p className="text-xl text-gray-700 max-w-3xl mx-auto">
-              Handshakes, Namastes, & Bows
-            </p>
+            <p className="text-xl text-gray-700 max-w-3xl mx-auto">Handshakes, Namastes, & Bows</p>
           </motion.div>
 
           {/* Core Lesson */}
@@ -117,7 +121,7 @@ export default function Day4Lesson() {
             className="mb-8"
           >
             <h2 className="text-3xl font-bold text-gray-800 mb-6">Cultural Pivot</h2>
-            
+
             {/* Tab Buttons */}
             <div className="flex flex-wrap gap-3 mb-6">
               <button
@@ -233,8 +237,8 @@ export default function Day4Lesson() {
           >
             <h2 className="text-3xl font-bold mb-4">🎯 Your Mission</h2>
             <p className="text-lg mb-4">
-              Record yourself performing all three greetings: Western handshake, Indian namaste,
-              and Eastern bow. Aim for style accuracy.
+              Record yourself performing all three greetings: Western handshake, Indian namaste, and
+              Eastern bow. Aim for style accuracy.
             </p>
             <ul className="space-y-2 mb-6">
               <li>• Practice in front of a mirror first</li>

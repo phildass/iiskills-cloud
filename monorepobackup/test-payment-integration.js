@@ -2,16 +2,16 @@
 
 /**
  * Test Script for Razorpay Payment Integration
- * 
+ *
  * This script tests all three payment endpoints:
  * 1. /api/pay - Payment initiation
  * 2. /api/payment/webhook - Webhook processing (mock)
  * 3. /api/verify-otp - OTP verification
- * 
+ *
  * Prerequisites:
  * - Server must be running (npm run dev in apps/main)
  * - Environment variables must be set (RAZORPAY_KEY_ID, etc.)
- * 
+ *
  * Usage:
  *   node test-payment-integration.js
  */
@@ -60,7 +60,7 @@ function makeRequest(path, method, data = null) {
 
     const req = http.request(options, (res) => {
       let body = "";
-      
+
       res.on("data", (chunk) => {
         body += chunk;
       });
@@ -113,8 +113,10 @@ async function testPaymentInitiation() {
 
     const response = await makeRequest("/api/pay", "POST", payload);
 
-    log("\nResponse status: " + response.statusCode, 
-      response.statusCode === 200 ? colors.green : colors.red);
+    log(
+      "\nResponse status: " + response.statusCode,
+      response.statusCode === 200 ? colors.green : colors.red
+    );
     log("\nResponse body:", colors.yellow);
     console.log(JSON.stringify(response.body, null, 2));
 
@@ -130,9 +132,8 @@ async function testPaymentInitiation() {
 
     log("\n✅ Payment initiation successful", colors.green);
     log(`Order ID: ${response.body.order.id}`, colors.cyan);
-    
-    return response.body;
 
+    return response.body;
   } catch (error) {
     log("\n❌ Error: " + error.message, colors.red);
     return null;
@@ -145,7 +146,7 @@ async function testOTPVerification(orderId) {
   // For testing, we need to know the OTP
   // In real scenario, user would receive it via email
   // For now, we'll test with error cases first
-  
+
   try {
     // Test 1: Missing OTP
     log("\n[Test 2a] Testing with missing OTP...", colors.yellow);
@@ -153,11 +154,14 @@ async function testOTPVerification(orderId) {
       email: TEST_EMAIL,
       appId: TEST_APP_ID,
     });
-    
-    log(`Status: ${response.statusCode}`, 
-      response.statusCode === 400 ? colors.green : colors.red);
-    log(response.statusCode === 400 ? "✅ Correctly rejected missing OTP" : "❌ Should reject missing OTP", 
-      response.statusCode === 400 ? colors.green : colors.red);
+
+    log(`Status: ${response.statusCode}`, response.statusCode === 400 ? colors.green : colors.red);
+    log(
+      response.statusCode === 400
+        ? "✅ Correctly rejected missing OTP"
+        : "❌ Should reject missing OTP",
+      response.statusCode === 400 ? colors.green : colors.red
+    );
 
     // Test 2: Invalid OTP
     log("\n[Test 2b] Testing with invalid OTP...", colors.yellow);
@@ -166,13 +170,16 @@ async function testOTPVerification(orderId) {
       appId: TEST_APP_ID,
       otp: "000000",
     });
-    
+
     log(`Status: ${response.statusCode}`, colors.yellow);
     log(`Response: ${response.body.error || response.body.message}`, colors.yellow);
-    
+
     // Note: We can't test successful OTP verification without knowing the actual OTP
     // In production, the OTP would be sent via email
-    log("\n⚠️  Cannot test successful OTP verification without actual OTP from webhook", colors.yellow);
+    log(
+      "\n⚠️  Cannot test successful OTP verification without actual OTP from webhook",
+      colors.yellow
+    );
     log("In production flow:", colors.cyan);
     log("  1. Webhook receives payment confirmation", colors.cyan);
     log("  2. OTP is generated and stored", colors.cyan);
@@ -180,7 +187,6 @@ async function testOTPVerification(orderId) {
     log("  4. User enters OTP to verify", colors.cyan);
 
     return true;
-
   } catch (error) {
     log("\n❌ Error: " + error.message, colors.red);
     return false;
@@ -227,7 +233,6 @@ async function testWebhookProcessing(orderId) {
     }
 
     return true;
-
   } catch (error) {
     log("\n❌ Error: " + error.message, colors.red);
     return false;
@@ -241,10 +246,11 @@ async function testEndpointSecurity() {
     // Test 1: Invalid method on /api/pay
     log("\n[Test 4a] Testing GET on /api/pay (should reject)...", colors.yellow);
     let response = await makeRequest("/api/pay", "GET");
-    log(`Status: ${response.statusCode}`, 
-      response.statusCode === 405 ? colors.green : colors.red);
-    log(response.statusCode === 405 ? "✅ Correctly rejects GET method" : "❌ Should reject GET", 
-      response.statusCode === 405 ? colors.green : colors.red);
+    log(`Status: ${response.statusCode}`, response.statusCode === 405 ? colors.green : colors.red);
+    log(
+      response.statusCode === 405 ? "✅ Correctly rejects GET method" : "❌ Should reject GET",
+      response.statusCode === 405 ? colors.green : colors.red
+    );
 
     // Test 2: Missing required fields
     log("\n[Test 4b] Testing missing required fields...", colors.yellow);
@@ -252,10 +258,13 @@ async function testEndpointSecurity() {
       email: TEST_EMAIL,
       // Missing other required fields
     });
-    log(`Status: ${response.statusCode}`, 
-      response.statusCode === 400 ? colors.green : colors.red);
-    log(response.statusCode === 400 ? "✅ Correctly validates required fields" : "❌ Should validate fields", 
-      response.statusCode === 400 ? colors.green : colors.red);
+    log(`Status: ${response.statusCode}`, response.statusCode === 400 ? colors.green : colors.red);
+    log(
+      response.statusCode === 400
+        ? "✅ Correctly validates required fields"
+        : "❌ Should validate fields",
+      response.statusCode === 400 ? colors.green : colors.red
+    );
 
     // Test 3: Invalid email format
     log("\n[Test 4c] Testing invalid email format...", colors.yellow);
@@ -266,10 +275,13 @@ async function testEndpointSecurity() {
       appName: TEST_APP_NAME,
       amount: TEST_AMOUNT,
     });
-    log(`Status: ${response.statusCode}`, 
-      response.statusCode === 400 ? colors.green : colors.red);
-    log(response.statusCode === 400 ? "✅ Correctly validates email format" : "❌ Should validate email", 
-      response.statusCode === 400 ? colors.green : colors.red);
+    log(`Status: ${response.statusCode}`, response.statusCode === 400 ? colors.green : colors.red);
+    log(
+      response.statusCode === 400
+        ? "✅ Correctly validates email format"
+        : "❌ Should validate email",
+      response.statusCode === 400 ? colors.green : colors.red
+    );
 
     // Test 4: Invalid amount (negative)
     log("\n[Test 4d] Testing invalid amount (negative)...", colors.yellow);
@@ -280,14 +292,14 @@ async function testEndpointSecurity() {
       appName: TEST_APP_NAME,
       amount: -100,
     });
-    log(`Status: ${response.statusCode}`, 
-      response.statusCode === 400 ? colors.green : colors.red);
-    log(response.statusCode === 400 ? "✅ Correctly validates amount" : "❌ Should validate amount", 
-      response.statusCode === 400 ? colors.green : colors.red);
+    log(`Status: ${response.statusCode}`, response.statusCode === 400 ? colors.green : colors.red);
+    log(
+      response.statusCode === 400 ? "✅ Correctly validates amount" : "❌ Should validate amount",
+      response.statusCode === 400 ? colors.green : colors.red
+    );
 
     log("\n✅ All security tests passed", colors.green);
     return true;
-
   } catch (error) {
     log("\n❌ Error: " + error.message, colors.red);
     return false;

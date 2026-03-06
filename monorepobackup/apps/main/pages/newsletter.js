@@ -25,16 +25,17 @@ export default function NewsletterPage() {
           <div className="text-center mb-12">
             <h1 className="text-5xl font-bold text-gray-800 mb-4">📧 The Skilling Newsletter</h1>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-6">
-              Stay informed about new courses and important updates—no unnecessary emails, just what matters to your learning journey.
+              Stay informed about new courses and important updates—no unnecessary emails, just what
+              matters to your learning journey.
             </p>
-            
+
             {/* Policy Banner */}
             <div className="bg-blue-50 border-l-4 border-blue-400 p-4 mb-8 text-left max-w-2xl mx-auto rounded">
-              <p className="text-sm text-blue-900 font-semibold">
-                📬 Our Newsletter Policy:
-              </p>
+              <p className="text-sm text-blue-900 font-semibold">📬 Our Newsletter Policy:</p>
               <p className="text-sm text-blue-800 mt-2">
-                The Skilling Newsletter will be sent <strong>ONLY</strong> when new courses are introduced, or important announcements/changes are made. You will <strong>NOT</strong> receive unnecessary or frequent emails.
+                The Skilling Newsletter will be sent <strong>ONLY</strong> when new courses are
+                introduced, or important announcements/changes are made. You will{" "}
+                <strong>NOT</strong> receive unnecessary or frequent emails.
               </p>
             </div>
 
@@ -74,8 +75,10 @@ export default function NewsletterPage() {
 
           {/* Previous Newsletters Section */}
           <div className="mb-12 bg-white rounded-lg shadow-lg p-8">
-            <h2 className="text-3xl font-bold text-primary mb-6 text-center">📰 Previous Newsletters</h2>
-            
+            <h2 className="text-3xl font-bold text-primary mb-6 text-center">
+              📰 Previous Newsletters
+            </h2>
+
             {/* Last Updated Banner */}
             <div className="bg-gradient-to-r from-blue-100 to-purple-100 rounded-lg p-4 mb-6 text-center border-2 border-blue-300">
               <p className="text-sm font-semibold text-blue-900">
@@ -85,21 +88,27 @@ export default function NewsletterPage() {
                 Platform Status: 11 Active Learning Apps • Open Access for Testing
               </p>
             </div>
-            
+
             <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-6 border-2 border-blue-200">
               <div className="flex flex-col md:flex-row items-center justify-between gap-4">
                 <div className="flex-1">
-                  <h3 className="text-xl font-bold text-primary mb-2">📧 Issue #1 - February 2026</h3>
+                  <h3 className="text-xl font-bold text-primary mb-2">
+                    📧 Issue #1 - February 2026
+                  </h3>
                   <p className="text-gray-700 mb-2">
-                    Welcome to our first newsletter! Learn about our platform launch, the 11 learning apps now available, 
-                    and our mission to contribute to Viksit Bharat through accessible education.
+                    Welcome to our first newsletter! Learn about our platform launch, the 11
+                    learning apps now available, and our mission to contribute to Viksit Bharat
+                    through accessible education.
                   </p>
                   <p className="text-sm text-gray-600 mb-3">
-                    <strong>Highlights:</strong> Platform launch announcement, 11-app ecosystem (Developer, AI, Government Jobs, Management, PR, Physics, Chemistry, Math, Geography, and APT), current open access status for testing and preview
+                    <strong>Highlights:</strong> Platform launch announcement, 11-app ecosystem
+                    (Developer, AI, Government Jobs, Management, PR, Physics, Chemistry, Math,
+                    Geography, and APT), current open access status for testing and preview
                   </p>
                   <div className="bg-green-50 border-l-4 border-green-500 p-3 rounded">
                     <p className="text-sm text-green-900 font-semibold">
-                      ✨ Current Status: All apps are freely accessible during our preview and testing phase!
+                      ✨ Current Status: All apps are freely accessible during our preview and
+                      testing phase!
                     </p>
                   </div>
                 </div>
@@ -136,8 +145,8 @@ export default function NewsletterPage() {
           <div className="bg-green-50 border border-green-200 rounded-lg p-6 text-center">
             <h3 className="font-bold text-lg mb-2">📬 What to Expect</h3>
             <p className="text-gray-600 text-sm mb-4">
-              We respect your inbox! You'll only receive emails when there's something truly important to share. 
-              You can easily unsubscribe at any time with one click.
+              We respect your inbox! You'll only receive emails when there's something truly
+              important to share. You can easily unsubscribe at any time with one click.
             </p>
             <div className="flex flex-wrap justify-center gap-4 text-sm text-gray-600">
               <span className="flex items-center">

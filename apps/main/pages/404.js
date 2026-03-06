@@ -14,7 +14,7 @@ export default function Custom404() {
         <div className="max-w-3xl mx-auto text-center">
           {/* 404 Illustration */}
           <div className="text-9xl font-bold text-primary mb-6 animate-pulse">404</div>
-          
+
           {/* Error Message */}
           <h1 className="text-4xl font-bold text-gray-800 mb-4">Page Not Found</h1>
           <p className="text-xl text-gray-600 mb-8">
@@ -23,12 +23,10 @@ export default function Custom404() {
 
           {/* Helpful Information */}
           <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl shadow-lg p-8 mb-8 border-2 border-blue-200">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">
-              🎓 Welcome to iiskills.cloud!
-            </h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">🎓 Welcome to iiskills.cloud!</h2>
             <p className="text-gray-700 mb-4">
-              We're the Indian Institute of Professional Skills Development, powered by AI Cloud Enterprises.
-              We offer comprehensive learning programs across multiple domains:
+              We're the Indian Institute of Professional Skills Development, powered by AI Cloud
+              Enterprises. We offer comprehensive learning programs across multiple domains:
             </p>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-3 text-sm text-gray-700 mb-4">
               <div>🤖 Artificial Intelligence</div>
@@ -91,13 +89,11 @@ export default function Custom404() {
 
           {/* Learning Path Suggestion */}
           <div className="bg-gradient-to-r from-green-50 to-blue-50 rounded-xl p-6 mb-8 border-2 border-green-200">
-            <h3 className="text-xl font-bold text-gray-900 mb-3">
-              🚀 New to iiskills?
-            </h3>
+            <h3 className="text-xl font-bold text-gray-900 mb-3">🚀 New to iiskills?</h3>
             <p className="text-gray-700 mb-4">
-              Start your learning journey with our Foundation Suite - completely free courses in Math, Physics, 
-              Chemistry, Biology, Geography, and Aptitude. Build a strong foundation before advancing to 
-              specialized professional programs.
+              Start your learning journey with our Foundation Suite - completely free courses in
+              Math, Physics, Chemistry, Biology, Geography, and Aptitude. Build a strong foundation
+              before advancing to specialized professional programs.
             </p>
             <Link
               href="/"

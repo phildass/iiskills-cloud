@@ -1,6 +1,6 @@
 /**
  * Super Over Page
- * 
+ *
  * 60-second rapid-fire cricket trivia match
  * Features:
  * - 6-ball Super Over format
@@ -9,10 +9,10 @@
  * - Real-time scoring
  */
 
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 export default function SuperOver() {
   const router = useRouter();
@@ -21,7 +21,7 @@ export default function SuperOver() {
   const [questions, setQuestions] = useState([]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
-  const [difficulty, setDifficulty] = useState('medium');
+  const [difficulty, setDifficulty] = useState("medium");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [gameStarted, setGameStarted] = useState(false);
@@ -32,30 +32,30 @@ export default function SuperOver() {
       setError(null);
 
       // Create match
-      const matchResponse = await fetch('/api/match/create', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const matchResponse = await fetch("/api/match/create", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           playerAId: `player_${Date.now()}`,
-          mode: 'bot',
-          difficulty
-        })
+          mode: "bot",
+          difficulty,
+        }),
       });
 
       const matchData = await matchResponse.json();
       if (!matchResponse.ok) {
-        throw new Error(matchData.message || 'Failed to create match');
+        throw new Error(matchData.message || "Failed to create match");
       }
 
       setMatchId(matchData.matchId);
       setMatch(matchData.match);
 
       // Load questions
-      const questionsResponse = await fetch('/api/daily-strike?count=6');
+      const questionsResponse = await fetch("/api/daily-strike?count=6");
       const questionsData = await questionsResponse.json();
-      
+
       if (!questionsResponse.ok) {
-        throw new Error(questionsData.message || 'Failed to load questions');
+        throw new Error(questionsData.message || "Failed to load questions");
       }
 
       setQuestions(questionsData.questions || []);
@@ -74,20 +74,20 @@ export default function SuperOver() {
     setSelectedAnswer({ answer, isCorrect });
 
     try {
-      const response = await fetch('/api/match/answer', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const response = await fetch("/api/match/answer", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           matchId,
           playerId: match.playerA.id,
-          isCorrect
-        })
+          isCorrect,
+        }),
       });
 
       const data = await response.json();
       if (response.ok) {
         setMatch(data.match);
-        
+
         // Move to next question after delay
         setTimeout(() => {
           if (currentQuestion < questions.length - 1) {
@@ -97,7 +97,7 @@ export default function SuperOver() {
         }, 2000);
       }
     } catch (err) {
-      console.error('Submit answer error:', err);
+      console.error("Submit answer error:", err);
     }
   };
 
@@ -118,14 +118,14 @@ export default function SuperOver() {
                 Select Difficulty
               </label>
               <div className="flex gap-4 justify-center">
-                {['easy', 'medium', 'hard'].map(level => (
+                {["easy", "medium", "hard"].map((level) => (
                   <button
                     key={level}
                     onClick={() => setDifficulty(level)}
                     className={`px-6 py-3 rounded-lg font-semibold capitalize ${
                       difficulty === level
-                        ? 'bg-blue-600 text-white'
-                        : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                        ? "bg-blue-600 text-white"
+                        : "bg-gray-200 text-gray-700 hover:bg-gray-300"
                     }`}
                   >
                     {level}
@@ -134,11 +134,7 @@ export default function SuperOver() {
               </div>
             </div>
 
-            {error && (
-              <div className="mb-4 p-4 bg-red-50 text-red-800 rounded-lg">
-                {error}
-              </div>
-            )}
+            {error && <div className="mb-4 p-4 bg-red-50 text-red-800 rounded-lg">{error}</div>}
 
             <div className="text-center">
               <button
@@ -146,7 +142,7 @@ export default function SuperOver() {
                 disabled={loading}
                 className="bg-blue-600 text-white px-8 py-4 rounded-lg text-xl font-bold hover:bg-blue-700 disabled:bg-gray-400"
               >
-                {loading ? 'Starting...' : 'Start Super Over'}
+                {loading ? "Starting..." : "Start Super Over"}
               </button>
             </div>
           </div>
@@ -157,7 +153,7 @@ export default function SuperOver() {
   }
 
   // Game completed
-  if (match && match.status === 'completed') {
+  if (match && match.status === "completed") {
     const playerRuns = match.playerA.runs;
     const botRuns = match.playerB.runs;
     const won = playerRuns > botRuns;
@@ -169,9 +165,9 @@ export default function SuperOver() {
         <div className="max-w-4xl mx-auto px-4 py-16">
           <div className="bg-white rounded-lg shadow-lg p-8">
             <h1 className="text-3xl font-bold text-center mb-6">
-              {won ? '🎉 You Won!' : tied ? '🤝 Match Tied!' : '😔 Bot Wins!'}
+              {won ? "🎉 You Won!" : tied ? "🤝 Match Tied!" : "😔 Bot Wins!"}
             </h1>
-            
+
             <div className="grid grid-cols-2 gap-8 mb-8">
               <div className="text-center">
                 <div className="text-2xl font-bold mb-2">You</div>
@@ -204,7 +200,7 @@ export default function SuperOver() {
                 Play Again
               </button>
               <button
-                onClick={() => router.push('/')}
+                onClick={() => router.push("/")}
                 className="bg-gray-200 text-gray-700 px-8 py-3 rounded-lg font-semibold hover:bg-gray-300"
               >
                 Back to Home
@@ -219,7 +215,7 @@ export default function SuperOver() {
 
   // Playing match
   const currentQ = questions[currentQuestion];
-  
+
   // Fisher-Yates shuffle for proper randomization
   const shuffleArray = (array) => {
     const shuffled = [...array];
@@ -229,7 +225,7 @@ export default function SuperOver() {
     }
     return shuffled;
   };
-  
+
   const allOptions = currentQ
     ? shuffleArray([currentQ.correctAnswer, ...currentQ.distractors])
     : [];
@@ -237,7 +233,7 @@ export default function SuperOver() {
   return (
     <div className="min-h-screen bg-gray-50">
       <Navbar />
-      
+
       <div className="max-w-4xl mx-auto px-4 py-8">
         {/* Scoreboard */}
         {match && (
@@ -265,12 +261,8 @@ export default function SuperOver() {
         {currentQ && (
           <div className="bg-white rounded-lg shadow-lg p-8">
             <div className="mb-6">
-              <div className="text-sm text-gray-500 mb-2">
-                Ball {currentQuestion + 1}/6
-              </div>
-              <h2 className="text-2xl font-semibold text-gray-900">
-                {currentQ.question}
-              </h2>
+              <div className="text-sm text-gray-500 mb-2">Ball {currentQuestion + 1}/6</div>
+              <h2 className="text-2xl font-semibold text-gray-900">{currentQ.question}</h2>
             </div>
 
             <div className="space-y-3">
@@ -288,13 +280,13 @@ export default function SuperOver() {
                     disabled={selectedAnswer !== null}
                     className={`w-full text-left p-4 rounded-lg border-2 transition-all ${
                       showCorrect
-                        ? 'border-green-500 bg-green-50'
+                        ? "border-green-500 bg-green-50"
                         : showWrong
-                        ? 'border-red-500 bg-red-50'
-                        : isSelected
-                        ? 'border-blue-500 bg-blue-50'
-                        : 'border-gray-200 hover:border-blue-300 bg-white'
-                    } ${selectedAnswer ? 'cursor-not-allowed' : 'cursor-pointer'}`}
+                          ? "border-red-500 bg-red-50"
+                          : isSelected
+                            ? "border-blue-500 bg-blue-50"
+                            : "border-gray-200 hover:border-blue-300 bg-white"
+                    } ${selectedAnswer ? "cursor-not-allowed" : "cursor-pointer"}`}
                   >
                     <div className="flex items-center justify-between">
                       <span className="font-medium">{option}</span>
@@ -307,14 +299,12 @@ export default function SuperOver() {
             </div>
 
             {selectedAnswer && (
-              <div className={`mt-4 p-4 rounded-lg ${
-                selectedAnswer.isCorrect
-                  ? 'bg-green-50 text-green-800'
-                  : 'bg-red-50 text-red-800'
-              }`}>
-                {selectedAnswer.isCorrect
-                  ? '🎉 Correct! Runs scored!'
-                  : '❌ Incorrect. Wicket!'}
+              <div
+                className={`mt-4 p-4 rounded-lg ${
+                  selectedAnswer.isCorrect ? "bg-green-50 text-green-800" : "bg-red-50 text-red-800"
+                }`}
+              >
+                {selectedAnswer.isCorrect ? "🎉 Correct! Runs scored!" : "❌ Incorrect. Wicket!"}
               </div>
             )}
           </div>

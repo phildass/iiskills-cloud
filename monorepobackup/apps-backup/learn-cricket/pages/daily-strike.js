@@ -1,6 +1,6 @@
 /**
  * Daily Strike Page
- * 
+ *
  * 5-10 World Cup focused trivia questions daily challenge
  * Features:
  * - Questions generated from local fixtures
@@ -9,10 +9,10 @@
  * - Optional LLM enrichment
  */
 
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 export default function DailyStrike() {
   const router = useRouter();
@@ -34,11 +34,11 @@ export default function DailyStrike() {
   const fetchQuestions = async () => {
     try {
       setLoading(true);
-      const response = await fetch('/api/daily-strike?count=5');
+      const response = await fetch("/api/daily-strike?count=5");
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.message || 'Failed to load questions');
+        throw new Error(data.message || "Failed to load questions");
       }
 
       setQuestions(data.questions || []);
@@ -72,8 +72,8 @@ export default function DailyStrike() {
         questionId: currentQ.id,
         selected: selectedAnswer,
         correct: currentQ.correctAnswer,
-        isCorrect
-      }
+        isCorrect,
+      },
     ]);
 
     setShowResult(true);
@@ -146,14 +146,12 @@ export default function DailyStrike() {
         <div className="max-w-4xl mx-auto px-4 py-16">
           <div className="bg-white rounded-lg shadow-lg p-8">
             <h1 className="text-3xl font-bold text-center mb-6">Daily Strike Complete! 🎉</h1>
-            
+
             <div className="text-center mb-8">
               <div className="text-6xl font-bold text-blue-600 mb-2">
                 {score}/{questions.length}
               </div>
-              <div className="text-xl text-gray-600">
-                {percentage}% Correct
-              </div>
+              <div className="text-xl text-gray-600">{percentage}% Correct</div>
             </div>
 
             <div className="border-t pt-6 mb-6">
@@ -162,16 +160,16 @@ export default function DailyStrike() {
                 <div
                   key={idx}
                   className={`p-4 mb-2 rounded-lg ${
-                    answer.isCorrect ? 'bg-green-50 border border-green-200' : 'bg-red-50 border border-red-200'
+                    answer.isCorrect
+                      ? "bg-green-50 border border-green-200"
+                      : "bg-red-50 border border-red-200"
                   }`}
                 >
                   <div className="font-semibold">Question {idx + 1}</div>
                   <div className="text-sm mt-1">
                     Your answer: {answer.selected}
                     {!answer.isCorrect && (
-                      <span className="ml-2 text-gray-600">
-                        (Correct: {answer.correct})
-                      </span>
+                      <span className="ml-2 text-gray-600">(Correct: {answer.correct})</span>
                     )}
                   </div>
                 </div>
@@ -186,7 +184,7 @@ export default function DailyStrike() {
                 Play Again
               </button>
               <button
-                onClick={() => router.push('/')}
+                onClick={() => router.push("/")}
                 className="bg-gray-200 text-gray-700 px-8 py-3 rounded-lg hover:bg-gray-300 font-semibold"
               >
                 Back to Home
@@ -201,7 +199,7 @@ export default function DailyStrike() {
 
   // Render quiz question
   const currentQ = questions[currentQuestion];
-  
+
   // Fisher-Yates shuffle for proper randomization
   const shuffleArray = (array) => {
     const shuffled = [...array];
@@ -211,7 +209,7 @@ export default function DailyStrike() {
     }
     return shuffled;
   };
-  
+
   const allOptions = currentQ
     ? shuffleArray([currentQ.correctAnswer, ...currentQ.distractors])
     : [];
@@ -219,7 +217,7 @@ export default function DailyStrike() {
   return (
     <div className="min-h-screen bg-gray-50">
       <Navbar />
-      
+
       <div className="max-w-4xl mx-auto px-4 py-8">
         {/* Header */}
         <div className="mb-8">
@@ -230,7 +228,9 @@ export default function DailyStrike() {
         {/* Progress */}
         <div className="mb-6">
           <div className="flex justify-between text-sm text-gray-600 mb-2">
-            <span>Question {currentQuestion + 1} of {questions.length}</span>
+            <span>
+              Question {currentQuestion + 1} of {questions.length}
+            </span>
             <span>Score: {score}</span>
           </div>
           <div className="w-full bg-gray-200 rounded-full h-2">
@@ -248,9 +248,7 @@ export default function DailyStrike() {
               <div className="text-sm text-gray-500 mb-2">
                 {currentQ.category} • {currentQ.difficulty}
               </div>
-              <h2 className="text-2xl font-semibold text-gray-900">
-                {currentQ.question}
-              </h2>
+              <h2 className="text-2xl font-semibold text-gray-900">{currentQ.question}</h2>
             </div>
 
             {/* Answer Options */}
@@ -268,13 +266,13 @@ export default function DailyStrike() {
                     disabled={showResult}
                     className={`w-full text-left p-4 rounded-lg border-2 transition-all ${
                       showCorrect
-                        ? 'border-green-500 bg-green-50'
+                        ? "border-green-500 bg-green-50"
                         : showWrong
-                        ? 'border-red-500 bg-red-50'
-                        : isSelected
-                        ? 'border-blue-500 bg-blue-50'
-                        : 'border-gray-200 hover:border-blue-300 bg-white'
-                    } ${showResult ? 'cursor-not-allowed' : 'cursor-pointer'}`}
+                          ? "border-red-500 bg-red-50"
+                          : isSelected
+                            ? "border-blue-500 bg-blue-50"
+                            : "border-gray-200 hover:border-blue-300 bg-white"
+                    } ${showResult ? "cursor-not-allowed" : "cursor-pointer"}`}
                   >
                     <div className="flex items-center justify-between">
                       <span className="font-medium">{option}</span>
@@ -294,8 +292,8 @@ export default function DailyStrike() {
                   disabled={!selectedAnswer}
                   className={`flex-1 py-3 rounded-lg font-semibold ${
                     selectedAnswer
-                      ? 'bg-blue-600 text-white hover:bg-blue-700'
-                      : 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                      ? "bg-blue-600 text-white hover:bg-blue-700"
+                      : "bg-gray-200 text-gray-400 cursor-not-allowed"
                   }`}
                 >
                   Submit Answer
@@ -305,20 +303,22 @@ export default function DailyStrike() {
                   onClick={handleNext}
                   className="flex-1 bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700"
                 >
-                  {currentQuestion < questions.length - 1 ? 'Next Question' : 'See Results'}
+                  {currentQuestion < questions.length - 1 ? "Next Question" : "See Results"}
                 </button>
               )}
             </div>
 
             {/* Result Message */}
             {showResult && (
-              <div className={`mt-4 p-4 rounded-lg ${
-                selectedAnswer === currentQ.correctAnswer
-                  ? 'bg-green-50 text-green-800'
-                  : 'bg-red-50 text-red-800'
-              }`}>
+              <div
+                className={`mt-4 p-4 rounded-lg ${
+                  selectedAnswer === currentQ.correctAnswer
+                    ? "bg-green-50 text-green-800"
+                    : "bg-red-50 text-red-800"
+                }`}
+              >
                 {selectedAnswer === currentQ.correctAnswer
-                  ? '🎉 Correct! Well done!'
+                  ? "🎉 Correct! Well done!"
                   : `❌ Incorrect. The correct answer is: ${currentQ.correctAnswer}`}
               </div>
             )}

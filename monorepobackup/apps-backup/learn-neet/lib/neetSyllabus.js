@@ -343,7 +343,7 @@ export function generateQuizQuestions(subject, moduleId, topicId) {
     },
     {
       id: 2,
-      question: `Another sample question to test understanding`,
+      question: "Another sample question to test understanding",
       options: ["Choice 1", "Choice 2", "Choice 3", "Choice 4"],
       correctAnswer: 1,
       explanation: "Comprehensive explanation with diagrams and formulas.",
@@ -364,7 +364,7 @@ export function generateModuleTest(subject, moduleId) {
     questions.push({
       id: i,
       question: `Module test question ${i} for ${subject} module ${moduleId}`,
-      options: [`Option A`, `Option B`, `Option C`, `Option D`],
+      options: ["Option A", "Option B", "Option C", "Option D"],
       correctAnswer: i % 4,
       explanation: `Detailed explanation for question ${i}`,
     });

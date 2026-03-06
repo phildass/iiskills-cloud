@@ -125,8 +125,7 @@ export default function SiteHeader({ appId = "main", isFreeApp = false }) {
 
   // Prefer main app domain for a central complete-registration flow
   const completeRegistrationHref =
-    (process.env.NEXT_PUBLIC_MAIN_APP_URL || "https://iiskills.cloud") +
-    "/complete-registration";
+    (process.env.NEXT_PUBLIC_MAIN_APP_URL || "https://iiskills.cloud") + "/complete-registration";
 
   return (
     <Header

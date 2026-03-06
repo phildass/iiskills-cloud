@@ -1,6 +1,6 @@
-import path from 'path';
-import { createLoader } from '@iiskills/content-loader';
-import { moduleTopics } from '../../../../lib/curriculumGenerator';
+import path from "path";
+import { createLoader } from "@iiskills/content-loader";
+import { moduleTopics } from "../../../../lib/curriculumGenerator";
 
 // ---------------------------------------------------------------------------
 // Static generation: pre-render all 10×10 lesson pages at build time.
@@ -95,13 +95,12 @@ function buildFallbackLesson(moduleId, lessonId) {
 
 export async function getStaticProps({ params }) {
   const { moduleId, lessonId } = params;
-  const contentRoot = path.resolve(process.cwd(), '../../content');
+  const contentRoot = path.resolve(process.cwd(), "../../content");
   const loader = createLoader(contentRoot);
 
   // Try filesystem content first; fall back to inline generation.
   const lesson =
-    loader.getLesson('learn-pr', moduleId, lessonId) ||
-    buildFallbackLesson(moduleId, lessonId);
+    loader.getLesson("learn-pr", moduleId, lessonId) || buildFallbackLesson(moduleId, lessonId);
 
   return { props: { lesson, moduleId, lessonId } };
 }
@@ -111,13 +110,13 @@ export async function getStaticProps({ params }) {
 // Auth check still runs client-side but does NOT block content display.
 // ---------------------------------------------------------------------------
 
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
-import Head from 'next/head';
-import Footer from '../../../../components/Footer';
-import QuizComponent from '../../../../components/QuizComponent';
-import PremiumAccessPrompt from '@shared/PremiumAccessPrompt';
-import { getCurrentUser } from '../../../../lib/supabaseClient';
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import Head from "next/head";
+import Footer from "../../../../components/Footer";
+import QuizComponent from "../../../../components/QuizComponent";
+import PremiumAccessPrompt from "@shared/PremiumAccessPrompt";
+import { getCurrentUser } from "../../../../lib/supabaseClient";
 
 export default function LessonPage({ lesson, moduleId, lessonId }) {
   const router = useRouter();
@@ -131,7 +130,7 @@ export default function LessonPage({ lesson, moduleId, lessonId }) {
     getCurrentUser().then((currentUser) => {
       setUser(currentUser);
       // Show paywall for premium lessons when user is not authenticated.
-      if (!currentUser && !lesson.isFree && process.env.NEXT_PUBLIC_DISABLE_AUTH !== 'true') {
+      if (!currentUser && !lesson.isFree && process.env.NEXT_PUBLIC_DISABLE_AUTH !== "true") {
         setShowPaywall(true);
       }
     });
@@ -139,25 +138,25 @@ export default function LessonPage({ lesson, moduleId, lessonId }) {
 
   const handleQuizComplete = async (passed, score) => {
     setQuizCompleted(passed);
-    
+
     // Show Premium Access Prompt after completing sample lesson (Module 1, Lesson 1)
-    if (passed && moduleId === '1' && lessonId === '1') {
+    if (passed && moduleId === "1" && lessonId === "1") {
       setShowPremiumPrompt(true);
     }
-    
+
     if (passed) {
       try {
-        await fetch('/api/assessments/submit', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+        await fetch("/api/assessments/submit", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             lesson_id: lessonId,
             module_id: moduleId,
-            score: score
-          })
+            score: score,
+          }),
         });
       } catch (error) {
-        console.error('Error saving progress:', error);
+        console.error("Error saving progress:", error);
       }
     }
   };
@@ -171,7 +170,7 @@ export default function LessonPage({ lesson, moduleId, lessonId }) {
       if (nextModuleId <= 10) {
         router.push(`/modules/${moduleId}/final-test`);
       } else {
-        router.push('/curriculum');
+        router.push("/curriculum");
       }
     }
   };
@@ -194,7 +193,7 @@ export default function LessonPage({ lesson, moduleId, lessonId }) {
                   Sign in or upgrade your plan to access this lesson.
                 </p>
                 <button
-                  onClick={() => router.push('/register')}
+                  onClick={() => router.push("/register")}
                   className="btn-primary w-full mb-3"
                 >
                   Sign In / Register
@@ -211,11 +210,16 @@ export default function LessonPage({ lesson, moduleId, lessonId }) {
 
           <div className="mb-6">
             <button
-              onClick={() => router.push('/curriculum')}
+              onClick={() => router.push("/curriculum")}
               className="text-blue-600 hover:text-blue-800 flex items-center"
             >
               <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M15 19l-7-7 7-7"
+                />
               </svg>
               Back to Curriculum
             </button>
@@ -227,28 +231,21 @@ export default function LessonPage({ lesson, moduleId, lessonId }) {
               <h1 className="text-3xl font-bold mt-2">{lesson.title}</h1>
             </div>
 
-            <div className="prose max-w-none" dangerouslySetInnerHTML={{ __html: lesson.content }} />
+            <div
+              className="prose max-w-none"
+              dangerouslySetInnerHTML={{ __html: lesson.content }}
+            />
           </div>
 
-          {lesson.quiz && (
-            <QuizComponent 
-              questions={lesson.quiz}
-              onComplete={handleQuizComplete}
-            />
-          )}
+          {lesson.quiz && <QuizComponent questions={lesson.quiz} onComplete={handleQuizComplete} />}
 
           {quizCompleted && (
             <div className="card bg-green-50 border-2 border-green-500">
-              <h3 className="text-xl font-semibold text-green-800 mb-4">
-                🎉 Quiz Passed!
-              </h3>
+              <h3 className="text-xl font-semibold text-green-800 mb-4">🎉 Quiz Passed!</h3>
               <p className="text-gray-700 mb-4">
                 Congratulations! You've successfully completed this lesson.
               </p>
-              <button
-                onClick={goToNextLesson}
-                className="btn-primary"
-              >
+              <button onClick={goToNextLesson} className="btn-primary">
                 Continue to Next Lesson
               </button>
             </div>

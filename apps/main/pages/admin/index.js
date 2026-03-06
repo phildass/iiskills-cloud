@@ -22,16 +22,15 @@ export default function AdminDashboard() {
       fetchStats();
       fetchSiteCounts();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ready]);
 
   const fetchStats = async () => {
     try {
       // Fetch aggregated content from all sources
       const [coursesRes, modulesRes, lessonsRes] = await Promise.all([
-        fetch('/api/admin/content?type=courses').catch(() => ({ ok: false })),
-        fetch('/api/admin/content?type=modules').catch(() => ({ ok: false })),
-        fetch('/api/admin/content?type=lessons').catch(() => ({ ok: false })),
+        fetch("/api/admin/content?type=courses").catch(() => ({ ok: false })),
+        fetch("/api/admin/content?type=modules").catch(() => ({ ok: false })),
+        fetch("/api/admin/content?type=lessons").catch(() => ({ ok: false })),
       ]);
 
       let courseCount = 0;
@@ -60,26 +59,26 @@ export default function AdminDashboard() {
         totalLessons: lessonCount,
       });
     } catch (error) {
-      console.error('Error fetching stats:', error);
+      console.error("Error fetching stats:", error);
     }
   };
 
   const fetchSiteCounts = async () => {
     try {
       // Fetch aggregated courses to get counts per site
-      const response = await fetch('/api/admin/content?type=courses');
+      const response = await fetch("/api/admin/content?type=courses");
       const data = await response.json();
-      
+
       if (response.ok && data.contents) {
         const counts = {};
-        data.contents.forEach(course => {
-          const subdomain = course.sourceApp || course.subdomain || 'main';
+        data.contents.forEach((course) => {
+          const subdomain = course.sourceApp || course.subdomain || "main";
           counts[subdomain] = (counts[subdomain] || 0) + 1;
         });
         setSiteCounts(counts);
       }
     } catch (error) {
-      console.error('Error fetching site counts:', error);
+      console.error("Error fetching site counts:", error);
     }
   };
 
@@ -102,7 +101,9 @@ export default function AdminDashboard() {
       <AdminNav />
       <main className="max-w-7xl mx-auto px-4 py-12">
         <h1 className="text-4xl font-bold text-primary mb-2">Universal Admin Dashboard</h1>
-        <p className="text-gray-600 mb-8">Manage all iiskills.cloud sites and content from one central location</p>
+        <p className="text-gray-600 mb-8">
+          Manage all iiskills.cloud sites and content from one central location
+        </p>
 
         {/* Statistics Cards */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
@@ -213,13 +214,14 @@ export default function AdminDashboard() {
         <h2 className="text-2xl font-bold text-primary mb-6">Multi-Site Management</h2>
         <div className="bg-white rounded-lg shadow-lg p-6 mb-12">
           <p className="text-gray-600 mb-6">
-            Manage content across all iiskills learning platforms. Click on a site to visit it, or use the buttons to manage content.
+            Manage content across all iiskills learning platforms. Click on a site to visit it, or
+            use the buttons to manage content.
           </p>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
             {ALL_SITES.map((site) => {
               const courseCount = siteCounts[site.subdomain] || 0;
               const isOnline = true; // Could be implemented with a health check
-              
+
               return (
                 <div
                   key={site.subdomain}
@@ -227,21 +229,25 @@ export default function AdminDashboard() {
                 >
                   <div className="flex justify-between items-start mb-3">
                     <h4 className="font-bold text-lg text-gray-800">{site.name}</h4>
-                    <span className={`text-xs px-2 py-1 rounded-full font-semibold ${
-                      isOnline ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
-                    }`}>
-                      {isOnline ? 'Online' : 'Offline'}
+                    <span
+                      className={`text-xs px-2 py-1 rounded-full font-semibold ${
+                        isOnline ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
+                      }`}
+                    >
+                      {isOnline ? "Online" : "Offline"}
                     </span>
                   </div>
                   <p className="text-xs text-gray-500 mb-4">{site.subdomain}</p>
-                  
+
                   <div className="mb-4 space-y-1">
                     <div className="flex items-center text-sm text-gray-600">
                       <span className="mr-2">📚</span>
-                      <span>{courseCount} {courseCount === 1 ? 'Course' : 'Courses'}</span>
+                      <span>
+                        {courseCount} {courseCount === 1 ? "Course" : "Courses"}
+                      </span>
                     </div>
                   </div>
-                  
+
                   <div className="flex space-x-2">
                     <a
                       href={getSiteUrl(site.slug)}
@@ -265,24 +271,30 @@ export default function AdminDashboard() {
         </div>
 
         {/* Localhost Development Navigation */}
-        <h2 className="text-2xl font-bold text-primary mb-6">🔧 Localhost Development Navigation</h2>
+        <h2 className="text-2xl font-bold text-primary mb-6">
+          🔧 Localhost Development Navigation
+        </h2>
         <div className="bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-300 rounded-lg shadow-lg p-6 mb-12">
           <div className="bg-blue-100 border-l-4 border-blue-500 p-4 mb-6">
             <div className="flex">
               <div className="flex-shrink-0">
                 <svg className="h-5 w-5 text-blue-500" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+                  <path
+                    fillRule="evenodd"
+                    d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                    clipRule="evenodd"
+                  />
                 </svg>
               </div>
               <div className="ml-3">
                 <p className="text-sm text-blue-700">
-                  <strong>Local Development:</strong> Quick navigation to all apps running on localhost.
-                  Make sure the apps are running on their assigned ports before clicking.
+                  <strong>Local Development:</strong> Quick navigation to all apps running on
+                  localhost. Make sure the apps are running on their assigned ports before clicking.
                 </p>
               </div>
             </div>
           </div>
-          
+
           <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
             {/* Main Site */}
             <a
@@ -293,7 +305,9 @@ export default function AdminDashboard() {
             >
               <div className="flex items-center justify-between mb-2">
                 <h4 className="font-bold text-gray-800">Main Domain</h4>
-                <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded font-mono">:3000</span>
+                <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded font-mono">
+                  :3000
+                </span>
               </div>
               <p className="text-xs text-gray-600 mb-2">Primary Hub</p>
               <div className="text-2xl">🏠</div>
@@ -308,7 +322,9 @@ export default function AdminDashboard() {
             >
               <div className="flex items-center justify-between mb-2">
                 <h4 className="font-bold text-gray-800">Learn AI</h4>
-                <span className="text-xs bg-purple-100 text-purple-800 px-2 py-1 rounded font-mono">:3024</span>
+                <span className="text-xs bg-purple-100 text-purple-800 px-2 py-1 rounded font-mono">
+                  :3024
+                </span>
               </div>
               <p className="text-xs text-gray-600 mb-2">AI & Machine Learning</p>
               <div className="text-2xl">🤖</div>
@@ -323,7 +339,9 @@ export default function AdminDashboard() {
             >
               <div className="flex items-center justify-between mb-2">
                 <h4 className="font-bold text-gray-800">Learn Management</h4>
-                <span className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded font-mono">:3016</span>
+                <span className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded font-mono">
+                  :3016
+                </span>
               </div>
               <p className="text-xs text-gray-600 mb-2">Business Management</p>
               <div className="text-2xl">📊</div>
@@ -338,7 +356,9 @@ export default function AdminDashboard() {
             >
               <div className="flex items-center justify-between mb-2">
                 <h4 className="font-bold text-gray-800">Learn PR</h4>
-                <span className="text-xs bg-pink-100 text-pink-800 px-2 py-1 rounded font-mono">:3021</span>
+                <span className="text-xs bg-pink-100 text-pink-800 px-2 py-1 rounded font-mono">
+                  :3021
+                </span>
               </div>
               <p className="text-xs text-gray-600 mb-2">Public Relations</p>
               <div className="text-2xl">📢</div>
@@ -353,7 +373,9 @@ export default function AdminDashboard() {
             >
               <div className="flex items-center justify-between mb-2">
                 <h4 className="font-bold text-gray-800">Learn Math</h4>
-                <span className="text-xs bg-red-100 text-red-800 px-2 py-1 rounded font-mono">:3017</span>
+                <span className="text-xs bg-red-100 text-red-800 px-2 py-1 rounded font-mono">
+                  :3017
+                </span>
               </div>
               <p className="text-xs text-gray-600 mb-2">Mathematics</p>
               <div className="text-2xl">🔢</div>
@@ -368,7 +390,9 @@ export default function AdminDashboard() {
             >
               <div className="flex items-center justify-between mb-2">
                 <h4 className="font-bold text-gray-800">Learn Physics</h4>
-                <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded font-mono">:3020</span>
+                <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded font-mono">
+                  :3020
+                </span>
               </div>
               <p className="text-xs text-gray-600 mb-2">Physics Mastery</p>
               <div className="text-2xl">⚛️</div>
@@ -383,7 +407,9 @@ export default function AdminDashboard() {
             >
               <div className="flex items-center justify-between mb-2">
                 <h4 className="font-bold text-gray-800">Learn Chemistry</h4>
-                <span className="text-xs bg-purple-100 text-purple-800 px-2 py-1 rounded font-mono">:3005</span>
+                <span className="text-xs bg-purple-100 text-purple-800 px-2 py-1 rounded font-mono">
+                  :3005
+                </span>
               </div>
               <p className="text-xs text-gray-600 mb-2">Chemistry</p>
               <div className="text-2xl">🧪</div>
@@ -398,7 +424,9 @@ export default function AdminDashboard() {
             >
               <div className="flex items-center justify-between mb-2">
                 <h4 className="font-bold text-gray-800">Learn Geography</h4>
-                <span className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded font-mono">:3011</span>
+                <span className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded font-mono">
+                  :3011
+                </span>
               </div>
               <p className="text-xs text-gray-600 mb-2">World Geography</p>
               <div className="text-2xl">🌍</div>
@@ -413,7 +441,9 @@ export default function AdminDashboard() {
             >
               <div className="flex items-center justify-between mb-2">
                 <h4 className="font-bold text-gray-800">Learn Govt Jobs</h4>
-                <span className="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded font-mono">:3013</span>
+                <span className="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded font-mono">
+                  :3013
+                </span>
               </div>
               <p className="text-xs text-gray-600 mb-2">Government Exams</p>
               <div className="text-2xl">🏛️</div>
@@ -428,7 +458,9 @@ export default function AdminDashboard() {
             >
               <div className="flex items-center justify-between mb-2">
                 <h4 className="font-bold text-gray-800">Learn APT</h4>
-                <span className="text-xs bg-indigo-100 text-indigo-800 px-2 py-1 rounded font-mono">:3002</span>
+                <span className="text-xs bg-indigo-100 text-indigo-800 px-2 py-1 rounded font-mono">
+                  :3002
+                </span>
               </div>
               <p className="text-xs text-gray-600 mb-2">Aptitude Tests</p>
               <div className="text-2xl">🎯</div>
@@ -443,7 +475,9 @@ export default function AdminDashboard() {
             >
               <div className="flex items-center justify-between mb-2">
                 <h4 className="font-bold text-gray-800">Learn Developer</h4>
-                <span className="text-xs bg-orange-100 text-orange-800 px-2 py-1 rounded font-mono">:3007</span>
+                <span className="text-xs bg-orange-100 text-orange-800 px-2 py-1 rounded font-mono">
+                  :3007
+                </span>
               </div>
               <p className="text-xs text-gray-600 mb-2">Web Development</p>
               <div className="text-2xl">💻</div>
@@ -499,22 +533,34 @@ export default function AdminDashboard() {
               </h3>
               <ul className="space-y-2">
                 <li>
-                  <Link href="/admin/courses" className="text-blue-600 hover:text-blue-800 hover:underline">
+                  <Link
+                    href="/admin/courses"
+                    className="text-blue-600 hover:text-blue-800 hover:underline"
+                  >
                     → Courses - Create, edit, delete courses
                   </Link>
                 </li>
                 <li>
-                  <Link href="/admin/modules" className="text-blue-600 hover:text-blue-800 hover:underline">
+                  <Link
+                    href="/admin/modules"
+                    className="text-blue-600 hover:text-blue-800 hover:underline"
+                  >
                     → Modules - Organize course modules
                   </Link>
                 </li>
                 <li>
-                  <Link href="/admin/lessons" className="text-blue-600 hover:text-blue-800 hover:underline">
+                  <Link
+                    href="/admin/lessons"
+                    className="text-blue-600 hover:text-blue-800 hover:underline"
+                  >
                     → Lessons - Manage lesson content
                   </Link>
                 </li>
                 <li>
-                  <Link href="/admin/content" className="text-blue-600 hover:text-blue-800 hover:underline">
+                  <Link
+                    href="/admin/content"
+                    className="text-blue-600 hover:text-blue-800 hover:underline"
+                  >
                     → Page Content - Edit static pages
                   </Link>
                 </li>
@@ -528,12 +574,18 @@ export default function AdminDashboard() {
               </h3>
               <ul className="space-y-2">
                 <li>
-                  <Link href="/admin/users" className="text-blue-600 hover:text-blue-800 hover:underline">
+                  <Link
+                    href="/admin/users"
+                    className="text-blue-600 hover:text-blue-800 hover:underline"
+                  >
                     → Users - View and manage users
                   </Link>
                 </li>
                 <li>
-                  <Link href="/admin/settings" className="text-blue-600 hover:text-blue-800 hover:underline">
+                  <Link
+                    href="/admin/settings"
+                    className="text-blue-600 hover:text-blue-800 hover:underline"
+                  >
                     → Settings - Configure site settings
                   </Link>
                 </li>

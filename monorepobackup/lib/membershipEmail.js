@@ -1,9 +1,9 @@
 /**
  * Membership Email Service
- * 
+ *
  * This module handles sending membership confirmation emails with OTPs.
  * Uses SendGrid for email delivery.
- * 
+ *
  * Required environment variables:
  * - SENDGRID_API_KEY
  * - SENDER_EMAIL
@@ -12,7 +12,7 @@
 
 /**
  * Send membership confirmation email with OTP
- * 
+ *
  * @param {Object} params - Email parameters
  * @param {string} params.email - Recipient email address
  * @param {string} params.name - User's name
@@ -23,15 +23,7 @@
  * @param {number} params.amount - Payment amount
  * @returns {Promise<Object>} Send result
  */
-export async function sendMembershipEmail({
-  email,
-  name,
-  appId,
-  appName,
-  otp,
-  orderId,
-  amount,
-}) {
+export async function sendMembershipEmail({ email, name, appId, appName, otp, orderId, amount }) {
   // Generate email HTML content
   const htmlContent = generateMembershipEmailHTML({
     name,
@@ -42,9 +34,9 @@ export async function sendMembershipEmail({
   });
 
   const apiKey = process.env.SENDGRID_API_KEY;
-  
+
   if (!apiKey) {
-    console.warn('SendGrid API key not configured. Email will not be sent.');
+    console.warn("SendGrid API key not configured. Email will not be sent.");
     console.log("\n========================================");
     console.log("📧 MEMBERSHIP EMAIL (Not Sent - No API Key)");
     console.log("========================================");
@@ -53,7 +45,7 @@ export async function sendMembershipEmail({
     console.log("Order ID:", orderId);
     console.log("Amount: ₹", amount / 100);
     console.log("========================================\n");
-    
+
     return {
       success: false,
       provider: "none",
@@ -63,14 +55,14 @@ export async function sendMembershipEmail({
   }
 
   try {
-    const sgMail = require('@sendgrid/mail');
+    const sgMail = require("@sendgrid/mail");
     sgMail.setApiKey(apiKey);
-    
+
     const result = await sgMail.send({
       to: email,
       from: {
-        email: process.env.SENDER_EMAIL || 'info@iiskills.cloud',
-        name: process.env.SENDER_NAME || 'iiskills'
+        email: process.env.SENDER_EMAIL || "info@iiskills.cloud",
+        name: process.env.SENDER_NAME || "iiskills",
       },
       subject: `Membership Activated - Welcome to ${appName}`,
       html: htmlContent,
@@ -78,23 +70,23 @@ export async function sendMembershipEmail({
       customArgs: {
         app_id: appId,
         order_id: orderId,
-        email_type: 'membership_confirmation'
-      }
+        email_type: "membership_confirmation",
+      },
     });
-    
+
     return {
       success: true,
-      provider: 'sendgrid',
+      provider: "sendgrid",
       email,
-      message_id: result[0]?.messageId || 'sent',
+      message_id: result[0]?.messageId || "sent",
       timestamp: new Date().toISOString(),
     };
   } catch (error) {
-    console.error('SendGrid error sending membership email:', error);
-    
+    console.error("SendGrid error sending membership email:", error);
+
     return {
       success: false,
-      provider: 'sendgrid',
+      provider: "sendgrid",
       email,
       error: error.message,
       timestamp: new Date().toISOString(),
@@ -107,10 +99,10 @@ export async function sendMembershipEmail({
  */
 function stripHtml(html) {
   return html
-    .replace(/<style[^>]*>.*?<\/style>/gi, '')
-    .replace(/<script[^>]*>.*?<\/script>/gi, '')
-    .replace(/<[^>]+>/g, '')
-    .replace(/\s+/g, ' ')
+    .replace(/<style[^>]*>.*?<\/style>/gi, "")
+    .replace(/<script[^>]*>.*?<\/script>/gi, "")
+    .replace(/<[^>]+>/g, "")
+    .replace(/\s+/g, " ")
     .trim();
 }
 
@@ -278,25 +270,25 @@ function generateMembershipEmailHTML({ name, appName, otp, orderId, amount }) {
  */
 export async function sendOTPReminderEmail({ email, name, otp, appName }) {
   const apiKey = process.env.SENDGRID_API_KEY;
-  
+
   if (!apiKey) {
     console.log("\n📧 OTP Reminder email not sent (SendGrid not configured):", email);
     console.log("OTP:", otp);
     console.log("App:", appName);
-    
+
     return {
       success: false,
       provider: "none",
       type: "reminder",
       email,
-      error: "SendGrid API key not configured"
+      error: "SendGrid API key not configured",
     };
   }
 
   try {
-    const sgMail = require('@sendgrid/mail');
+    const sgMail = require("@sendgrid/mail");
     sgMail.setApiKey(apiKey);
-    
+
     const htmlContent = `
       <!DOCTYPE html>
       <html>
@@ -328,22 +320,22 @@ export async function sendOTPReminderEmail({ email, name, otp, appName }) {
         </body>
       </html>
     `;
-    
+
     await sgMail.send({
       to: email,
       from: {
-        email: process.env.SENDER_EMAIL || 'info@iiskills.cloud',
-        name: process.env.SENDER_NAME || 'iiskills'
+        email: process.env.SENDER_EMAIL || "info@iiskills.cloud",
+        name: process.env.SENDER_NAME || "iiskills",
       },
       subject: `OTP Reminder - ${appName}`,
       html: htmlContent,
       text: `Hi ${name || "there"},\n\nThis is a reminder to verify your OTP for ${appName}.\n\nYour OTP: ${otp}\n\nValid for 30 minutes.\n\niiskills.cloud`,
       customArgs: {
-        email_type: 'otp_reminder',
-        app_name: appName
-      }
+        email_type: "otp_reminder",
+        app_name: appName,
+      },
     });
-    
+
     return {
       success: true,
       provider: "sendgrid",
@@ -351,14 +343,14 @@ export async function sendOTPReminderEmail({ email, name, otp, appName }) {
       email,
     };
   } catch (error) {
-    console.error('SendGrid error sending OTP reminder:', error);
-    
+    console.error("SendGrid error sending OTP reminder:", error);
+
     return {
       success: false,
       provider: "sendgrid",
       type: "reminder",
       email,
-      error: error.message
+      error: error.message,
     };
   }
 }

@@ -1,12 +1,12 @@
 /**
  * Example Universal Landing Page with Diagnostic Funnel
- * 
+ *
  * This is a reference implementation showing how to integrate:
  * 1. Tier Selection UI
  * 2. Calibration Gatekeeper
  * 3. Payment Preview UI (for paid apps)
  * 4. AI Content Fallback
- * 
+ *
  * Copy this pattern to any app landing page for consistent UX
  */
 
@@ -33,7 +33,8 @@ export default function ExampleLandingPage() {
     isPaid: false, // Set to true for Academy apps
     showAIDevBundle: false, // Set to true for Learn AI or Learn Developer
     tagline: "Master the Language of Logic",
-    description: "Build mathematical foundations from algebra to calculus with our tri-level diagnostic engine",
+    description:
+      "Build mathematical foundations from algebra to calculus with our tri-level diagnostic engine",
   };
 
   const handleTierSelect = (tier) => {
@@ -64,7 +65,9 @@ export default function ExampleLandingPage() {
   return (
     <>
       <Head>
-        <title>{appConfig.name} - {appConfig.tagline} | iiskills.cloud</title>
+        <title>
+          {appConfig.name} - {appConfig.tagline} | iiskills.cloud
+        </title>
         <meta name="description" content={appConfig.description} />
       </Head>
 
@@ -72,20 +75,11 @@ export default function ExampleLandingPage() {
         {/* Hero Section */}
         <section className="py-20 px-4 text-center">
           <div className="max-w-5xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-            >
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
               <div className="text-7xl mb-6">🎯</div>
-              <h1 className="text-6xl font-bold text-gray-900 mb-4">
-                {appConfig.name}
-              </h1>
-              <p className="text-3xl text-gray-700 mb-6">
-                {appConfig.tagline}
-              </p>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                {appConfig.description}
-              </p>
+              <h1 className="text-6xl font-bold text-gray-900 mb-4">{appConfig.name}</h1>
+              <p className="text-3xl text-gray-700 mb-6">{appConfig.tagline}</p>
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto">{appConfig.description}</p>
             </motion.div>
           </div>
         </section>
@@ -140,9 +134,7 @@ export default function ExampleLandingPage() {
                 className="bg-white rounded-xl p-6 shadow-lg"
               >
                 <div className="text-5xl mb-4">📊</div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">
-                  Diagnostic-First
-                </h3>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">Diagnostic-First</h3>
                 <p className="text-gray-600">
                   Know exactly where you stand before you start learning
                 </p>
@@ -155,9 +147,7 @@ export default function ExampleLandingPage() {
                 className="bg-white rounded-xl p-6 shadow-lg"
               >
                 <div className="text-5xl mb-4">🎯</div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">
-                  Tri-Level System
-                </h3>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">Tri-Level System</h3>
                 <p className="text-gray-600">
                   Basic → Intermediate → Advanced progression tailored to you
                 </p>
@@ -170,12 +160,8 @@ export default function ExampleLandingPage() {
                 className="bg-white rounded-xl p-6 shadow-lg"
               >
                 <div className="text-5xl mb-4">✅</div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">
-                  No 404 Errors
-                </h3>
-                <p className="text-gray-600">
-                  Every button leads to real content - guaranteed
-                </p>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">No 404 Errors</h3>
+                <p className="text-gray-600">Every button leads to real content - guaranteed</p>
               </motion.div>
             </div>
           </div>
@@ -185,9 +171,7 @@ export default function ExampleLandingPage() {
         {!selectedTier && (
           <section className="py-16 px-4 bg-gradient-to-r from-blue-500 to-purple-500">
             <div className="max-w-4xl mx-auto text-center text-white">
-              <h2 className="text-4xl font-bold mb-4">
-                Ready to Begin Your Journey?
-              </h2>
+              <h2 className="text-4xl font-bold mb-4">Ready to Begin Your Journey?</h2>
               <p className="text-xl mb-8">
                 Select your tier above to start the diagnostic calibration
               </p>

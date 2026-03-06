@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
-import Head from 'next/head';
-import Link from 'next/link';
-import { getPaymentReturnToUrl } from '@lib/appRegistry';
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import Head from "next/head";
+import Link from "next/link";
+import { getPaymentReturnToUrl } from "@lib/appRegistry";
 
-const AIENTER_PAYMENT_URL = 'https://aienter.in/payments/iiskills';
+const AIENTER_PAYMENT_URL = "https://aienter.in/payments/iiskills";
 
 /**
  * /payments/iiskills — Redirect to centralized payment portal (Option A)
@@ -28,7 +28,7 @@ const AIENTER_PAYMENT_URL = 'https://aienter.in/payments/iiskills';
 export default function IiskillsCheckout() {
   const router = useRouter();
   const { course } = router.query;
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   useEffect(() => {
     if (!router.isReady) return;
@@ -48,7 +48,7 @@ export default function IiskillsCheckout() {
 
       for (let attempt = 1; attempt <= MAX_SESSION_ATTEMPTS; attempt++) {
         try {
-          const { supabase } = await import('../../lib/supabaseClient');
+          const { supabase } = await import("../../lib/supabaseClient");
           const { data } = await supabase.auth.getSession();
           session = data?.session ?? null;
         } catch {
@@ -67,9 +67,7 @@ export default function IiskillsCheckout() {
 
       if (!session) {
         // Redirect to sign-in; after login the user returns to this page
-        const next = encodeURIComponent(
-          `/payments/iiskills${course ? `?course=${course}` : ''}`
-        );
+        const next = encodeURIComponent(`/payments/iiskills${course ? `?course=${course}` : ""}`);
         router.replace(`/sign-in?next=${next}`);
         return;
       }
@@ -77,22 +75,22 @@ export default function IiskillsCheckout() {
       // ── 2. Generate a signed payment token ────────────────────────────────
       let token = null;
       try {
-        const resp = await fetch('/api/payments/generate-token', {
-          method: 'POST',
+        const resp = await fetch("/api/payments/generate-token", {
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
             Authorization: `Bearer ${session.access_token}`,
           },
-          body: JSON.stringify({ courseSlug: course || 'iiskills' }),
+          body: JSON.stringify({ courseSlug: course || "iiskills" }),
         });
         const data = await resp.json();
         if (!resp.ok || !data.token) {
-          throw new Error(data.error || 'Token generation failed');
+          throw new Error(data.error || "Token generation failed");
         }
         token = data.token;
       } catch (err) {
         if (!cancelled) {
-          setError(err.message || 'Could not prepare payment. Please try again.');
+          setError(err.message || "Could not prepare payment. Please try again.");
         }
         return;
       }
@@ -128,7 +126,7 @@ export default function IiskillsCheckout() {
             <div className="bg-white rounded-2xl shadow-lg max-w-sm w-full p-8">
               <p className="text-red-600 font-medium mb-4">{error}</p>
               <Link
-                href={course ? `/payments/iiskills?course=${course}` : '/payments/iiskills'}
+                href={course ? `/payments/iiskills?course=${course}` : "/payments/iiskills"}
                 className="text-blue-600 underline text-sm"
               >
                 Try again

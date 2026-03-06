@@ -2,43 +2,43 @@
 
 /**
  * iiskills.cloud App Scaffold Generator
- * 
+ *
  * Creates a new learning app with standard structure, all required pages,
  * and proper component usage.
- * 
+ *
  * Usage:
  *   node scripts/create-app.js <app-name> --type=<free|paid>
- *   
+ *
  * Example:
  *   node scripts/create-app.js learn-history --type=free
  */
 
-const fs = require('fs');
-const path = require('path');
-const { execSync } = require('child_process');
+const fs = require("fs");
+const path = require("path");
+const { execSync } = require("child_process");
 
 // Parse command line arguments
 const args = process.argv.slice(2);
 const appName = args[0];
-const typeArg = args.find(arg => arg.startsWith('--type='));
-const appType = typeArg ? typeArg.split('=')[1] : null;
+const typeArg = args.find((arg) => arg.startsWith("--type="));
+const appType = typeArg ? typeArg.split("=")[1] : null;
 
 // Validation
 if (!appName) {
-  console.error('❌ Error: App name is required');
-  console.log('Usage: node scripts/create-app.js <app-name> --type=<free|paid>');
-  console.log('Example: node scripts/create-app.js learn-history --type=free');
+  console.error("❌ Error: App name is required");
+  console.log("Usage: node scripts/create-app.js <app-name> --type=<free|paid>");
+  console.log("Example: node scripts/create-app.js learn-history --type=free");
   process.exit(1);
 }
 
-if (!appType || !['free', 'paid'].includes(appType.toLowerCase())) {
-  console.error('❌ Error: Valid --type flag is required (free or paid)');
-  console.log('Usage: node scripts/create-app.js <app-name> --type=<free|paid>');
+if (!appType || !["free", "paid"].includes(appType.toLowerCase())) {
+  console.error("❌ Error: Valid --type flag is required (free or paid)");
+  console.log("Usage: node scripts/create-app.js <app-name> --type=<free|paid>");
   process.exit(1);
 }
 
-const isFree = appType.toLowerCase() === 'free';
-const appPath = path.join(__dirname, '..', 'apps', appName);
+const isFree = appType.toLowerCase() === "free";
+const appPath = path.join(__dirname, "..", "apps", appName);
 
 // Check if app already exists
 if (fs.existsSync(appPath)) {
@@ -50,20 +50,20 @@ console.log(`\n🚀 Creating new ${appType.toUpperCase()} app: ${appName}\n`);
 
 // Create directory structure
 const directories = [
-  'pages',
-  'pages/api',
-  'pages/api/payment',
-  'pages/api/users',
-  'pages/admin',
-  'components',
-  'lib',
-  'data',
-  'public',
-  'styles',
+  "pages",
+  "pages/api",
+  "pages/api/payment",
+  "pages/api/users",
+  "pages/admin",
+  "components",
+  "lib",
+  "data",
+  "public",
+  "styles",
 ];
 
-console.log('📁 Creating directory structure...');
-directories.forEach(dir => {
+console.log("📁 Creating directory structure...");
+directories.forEach((dir) => {
   const fullPath = path.join(appPath, dir);
   fs.mkdirSync(fullPath, { recursive: true });
   console.log(`   ✓ ${dir}/`);
@@ -71,17 +71,17 @@ directories.forEach(dir => {
 
 // Generate next PORT number
 function getNextPort() {
-  const appsDir = path.join(__dirname, '..', 'apps');
-  const apps = fs.readdirSync(appsDir).filter(f => {
+  const appsDir = path.join(__dirname, "..", "apps");
+  const apps = fs.readdirSync(appsDir).filter((f) => {
     const stat = fs.statSync(path.join(appsDir, f));
     return stat.isDirectory();
   });
-  
+
   let maxPort = 3000;
-  apps.forEach(app => {
-    const envExample = path.join(appsDir, app, '.env.local.example');
+  apps.forEach((app) => {
+    const envExample = path.join(appsDir, app, ".env.local.example");
     if (fs.existsSync(envExample)) {
-      const content = fs.readFileSync(envExample, 'utf-8');
+      const content = fs.readFileSync(envExample, "utf-8");
       const portMatch = content.match(/PORT=(\d+)/);
       if (portMatch) {
         const port = parseInt(portMatch[1]);
@@ -89,12 +89,15 @@ function getNextPort() {
       }
     }
   });
-  
+
   return maxPort + 1;
 }
 
 const appPort = getNextPort();
-const appTitle = appName.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+const appTitle = appName
+  .split("-")
+  .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+  .join(" ");
 const appId = appName;
 
 console.log(`\n📝 Generating files (PORT: ${appPort}, ID: ${appId})...\n`);
@@ -110,34 +113,38 @@ console.log(`\n📝 Generating files (PORT: ${appPort}, ID: ${appId})...\n`);
 // File templates
 const files = {
   // package.json
-  'package.json': JSON.stringify({
-    name: appName,
-    version: '1.0.0',
-    private: true,
-    scripts: {
-      dev: 'next dev',
-      build: 'next build',
-      start: 'next start',
-      lint: 'next lint'
+  "package.json": JSON.stringify(
+    {
+      name: appName,
+      version: "1.0.0",
+      private: true,
+      scripts: {
+        dev: "next dev",
+        build: "next build",
+        start: "next start",
+        lint: "next lint",
+      },
+      dependencies: {
+        "@supabase/supabase-js": "^2.38.4",
+        next: "^13.5.0",
+        react: "^18.2.0",
+        "react-dom": "^18.2.0",
+        razorpay: "^2.9.2",
+      },
+      devDependencies: {
+        autoprefixer: "^10.4.16",
+        eslint: "^8.54.0",
+        "eslint-config-next": "^13.5.0",
+        postcss: "^8.4.31",
+        tailwindcss: "^3.3.5",
+      },
     },
-    dependencies: {
-      '@supabase/supabase-js': '^2.38.4',
-      next: '^13.5.0',
-      react: '^18.2.0',
-      'react-dom': '^18.2.0',
-      razorpay: '^2.9.2'
-    },
-    devDependencies: {
-      autoprefixer: '^10.4.16',
-      eslint: '^8.54.0',
-      'eslint-config-next': '^13.5.0',
-      postcss: '^8.4.31',
-      tailwindcss: '^3.3.5'
-    }
-  }, null, 2),
+    null,
+    2
+  ),
 
   // .env.local.example
-  '.env.local.example': `# ===================================================================
+  ".env.local.example": `# ===================================================================
 # ${appTitle} - Environment Configuration Template
 # ===================================================================
 # 
@@ -152,7 +159,7 @@ const files = {
 # -------------------------------------------------------------------
 NEXT_PUBLIC_APP_ID=${appId}
 NEXT_PUBLIC_APP_NAME="${appTitle}"
-NEXT_PUBLIC_APP_TYPE=${isFree ? 'free' : 'paid'}
+NEXT_PUBLIC_APP_TYPE=${isFree ? "free" : "paid"}
 
 # Server Configuration
 PORT=${appPort}
@@ -178,13 +185,17 @@ GOOGLE_CLIENT_SECRET=your_google_client_secret
 # -------------------------------------------------------------------
 # Payment Configuration (for PAID apps)
 # -------------------------------------------------------------------
-${!isFree ? `RAZORPAY_KEY_ID=your_razorpay_key_id
+${
+  !isFree
+    ? `RAZORPAY_KEY_ID=your_razorpay_key_id
 RAZORPAY_KEY_SECRET=your_razorpay_key_secret
 NEXT_PUBLIC_RAZORPAY_KEY_ID=your_razorpay_key_id
 
 # Pricing (in paise, e.g., 9900 = ₹99)
 NEXT_PUBLIC_PRICE=9900
-NEXT_PUBLIC_GST_PERCENTAGE=18` : '# Not applicable for FREE apps'}
+NEXT_PUBLIC_GST_PERCENTAGE=18`
+    : "# Not applicable for FREE apps"
+}
 
 # -------------------------------------------------------------------
 # Feature Flags
@@ -213,14 +224,14 @@ EMAIL_FROM=noreply@iiskills.cloud
 `,
 
   // README.md
-  'README.md': `# ${appTitle}
+  "README.md": `# ${appTitle}
 
-${isFree ? 'FREE' : 'PAID'} learning application for iiskills.cloud platform.
+${isFree ? "FREE" : "PAID"} learning application for iiskills.cloud platform.
 
 ## Overview
 
 - **App ID**: \`${appId}\`
-- **Type**: ${isFree ? 'FREE' : 'PAID'}
+- **Type**: ${isFree ? "FREE" : "PAID"}
 - **Port**: ${appPort}
 - **Status**: In Development
 
@@ -236,7 +247,7 @@ ${isFree ? 'FREE' : 'PAID'} learning application for iiskills.cloud platform.
    cp .env.local.example .env.local
    \`\`\`
 
-3. Update \`.env.local\` with your actual values (Supabase, ${isFree ? '' : 'Razorpay, '}etc.)
+3. Update \`.env.local\` with your actual values (Supabase, ${isFree ? "" : "Razorpay, "}etc.)
 
 4. Run development server:
    \`\`\`bash
@@ -254,7 +265,7 @@ ${appName}/
 │   ├── curriculum.js   # Course syllabus
 │   ├── login.js        # Login page
 │   ├── register.js     # Registration
-${!isFree ? '│   ├── payment.js     # Payment page\n' : ''}│   ├── dashboard.js    # User dashboard
+${!isFree ? "│   ├── payment.js     # Payment page\n" : ""}│   ├── dashboard.js    # User dashboard
 │   ├── admin/          # Admin interface
 │   └── api/            # API routes
 ├── components/         # App-specific components ONLY
@@ -269,14 +280,14 @@ ${!isFree ? '│   ├── payment.js     # Payment page\n' : ''}│   ├─�
 This app uses shared components from \`/components/shared/\`. Do NOT create local copies.
 
 **Required components**:
-- \`${isFree ? 'UniversalLandingPage' : 'PaidAppLandingPage'}\` - Landing page
+- \`${isFree ? "UniversalLandingPage" : "PaidAppLandingPage"}\` - Landing page
 - \`UniversalLogin\` - Login page
 - \`EnhancedUniversalRegister\` - Registration page
-${!isFree ? '- `PremiumAccessPrompt` - Payment prompt\n' : ''}- \`SharedNavbar\` or \`SubdomainNavbar\` - Navigation
+${!isFree ? "- `PremiumAccessPrompt` - Payment prompt\n" : ""}- \`SharedNavbar\` or \`SubdomainNavbar\` - Navigation
 
 ## Badge Colors
 
-- ${isFree ? '**FREE** apps use **GREEN** badge (\`bg-green-500\`)' : '**PAID** apps use **BLUE** badge (\`bg-blue-600\`)'}
+- ${isFree ? "**FREE** apps use **GREEN** badge (\`bg-green-500\`)" : "**PAID** apps use **BLUE** badge (\`bg-blue-600\`)"}
 
 ## Development Guidelines
 
@@ -308,10 +319,12 @@ See [DEPLOYMENT_POLICY.md](/DEPLOYMENT_POLICY.md) for deployment requirements.
 `,
 
   // pages/index.js (Landing Page)
-  'pages/index.js': `import Head from 'next/head';
-${isFree 
-  ? `import UniversalLandingPage from '@/components/shared/UniversalLandingPage';`
-  : `import PaidAppLandingPage from '@/components/shared/PaidAppLandingPage';`}
+  "pages/index.js": `import Head from 'next/head';
+${
+  isFree
+    ? "import UniversalLandingPage from '@/components/shared/UniversalLandingPage';"
+    : "import PaidAppLandingPage from '@/components/shared/PaidAppLandingPage';"
+}
 
 export default function Home() {
   return (
@@ -323,7 +336,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <${isFree ? 'UniversalLandingPage' : 'PaidAppLandingPage'}
+      <${isFree ? "UniversalLandingPage" : "PaidAppLandingPage"}
         appId="${appId}"
         courseData={{
           title: '${appTitle}',
@@ -334,14 +347,18 @@ export default function Home() {
             'Interactive lessons',
             'Practice exercises',
             'Progress tracking',
-${!isFree ? "            'Certification upon completion',\n" : ''}          ],
+${!isFree ? "            'Certification upon completion',\n" : ""}          ],
         }}
         heroImage="/hero.jpg"
-${!isFree ? `        showAIDevBundle={false}
+${
+  !isFree
+    ? `        showAIDevBundle={false}
         pricing={{
           amount: 99,
           gst: 18,
-        }}` : ''}
+        }}`
+    : ""
+}
       />
     </>
   );
@@ -349,7 +366,7 @@ ${!isFree ? `        showAIDevBundle={false}
 `,
 
   // pages/curriculum.js
-  'pages/curriculum.js': `import Head from 'next/head';
+  "pages/curriculum.js": `import Head from 'next/head';
 import SharedNavbar from '@/components/shared/SharedNavbar';
 import CurriculumTable from '@/components/shared/CurriculumTable';
 
@@ -407,7 +424,7 @@ export default function Curriculum() {
 `,
 
   // pages/login.js
-  'pages/login.js': `import Head from 'next/head';
+  "pages/login.js": `import Head from 'next/head';
 import UniversalLogin from '@/components/shared/UniversalLogin';
 import { useRouter } from 'next/router';
 
@@ -436,7 +453,7 @@ export default function Login() {
 `,
 
   // pages/register.js
-  'pages/register.js': `import Head from 'next/head';
+  "pages/register.js": `import Head from 'next/head';
 import EnhancedUniversalRegister from '@/components/shared/EnhancedUniversalRegister';
 import { useRouter } from 'next/router';
 
@@ -465,7 +482,7 @@ export default function Register() {
 `,
 
   // pages/dashboard.js
-  'pages/dashboard.js': `import { useEffect, useState } from 'react';
+  "pages/dashboard.js": `import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import SharedNavbar from '@/components/shared/SharedNavbar';
@@ -539,7 +556,7 @@ export default function Dashboard() {
 `,
 
   // pages/admin/index.js
-  'pages/admin/index.js': `import { useEffect, useState } from 'react';
+  "pages/admin/index.js": `import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
@@ -634,7 +651,7 @@ export default function AdminDashboard() {
 `,
 
   // next.config.js
-  'next.config.js': `/** @type {import('next').NextConfig} */
+  "next.config.js": `/** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
   // TODO: Add '@iiskills/core' when package is implemented
@@ -659,7 +676,7 @@ module.exports = nextConfig;
 `,
 
   // tailwind.config.js
-  'tailwind.config.js': `/** @type {import('tailwindcss').Config} */
+  "tailwind.config.js": `/** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
@@ -691,7 +708,7 @@ module.exports = {
 `,
 
   // postcss.config.js
-  'postcss.config.js': `module.exports = {
+  "postcss.config.js": `module.exports = {
   plugins: {
     tailwindcss: {},
     autoprefixer: {},
@@ -700,7 +717,7 @@ module.exports = {
 `,
 
   // styles/globals.css
-  'styles/globals.css': `@tailwind base;
+  "styles/globals.css": `@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
@@ -728,26 +745,34 @@ body {
 `,
 
   // jsconfig.json
-  'jsconfig.json': JSON.stringify({
-    compilerOptions: {
-      baseUrl: '.',
-      paths: {
-        '@/*': ['./*'],
-        '@/components/*': ['../../components/*'],
-        '@/lib/*': ['../../lib/*'],
-        '@iiskills/ui': ['../../packages/ui/src/index.js'],
-        '@iiskills/core': ['../../packages/core/index.ts'],
-      }
-    }
-  }, null, 2),
+  "jsconfig.json": JSON.stringify(
+    {
+      compilerOptions: {
+        baseUrl: ".",
+        paths: {
+          "@/*": ["./*"],
+          "@/components/*": ["../../components/*"],
+          "@/lib/*": ["../../lib/*"],
+          "@iiskills/ui": ["../../packages/ui/src/index.js"],
+          "@iiskills/core": ["../../packages/core/index.ts"],
+        },
+      },
+    },
+    null,
+    2
+  ),
 
   // .eslintrc.json
-  '.eslintrc.json': JSON.stringify({
-    extends: 'next/core-web-vitals'
-  }, null, 2),
+  ".eslintrc.json": JSON.stringify(
+    {
+      extends: "next/core-web-vitals",
+    },
+    null,
+    2
+  ),
 
   // .gitignore
-  '.gitignore': `# dependencies
+  ".gitignore": `# dependencies
 /node_modules
 /.pnp
 .pnp.js
@@ -784,30 +809,34 @@ next-env.d.ts
 `,
 
   // data/modules.json
-  'data/modules.json': JSON.stringify({
-    modules: [
-      {
-        id: 1,
-        title: 'Module 1: Introduction',
-        description: 'Get started with the basics',
-        order: 1,
-        lessons: [
-          {
-            id: 1,
-            title: 'Getting Started',
-            duration: '15 min',
-            type: 'lesson',
-            content: 'TODO: Add lesson content'
-          }
-        ]
-      }
-    ]
-  }, null, 2),
+  "data/modules.json": JSON.stringify(
+    {
+      modules: [
+        {
+          id: 1,
+          title: "Module 1: Introduction",
+          description: "Get started with the basics",
+          order: 1,
+          lessons: [
+            {
+              id: 1,
+              title: "Getting Started",
+              duration: "15 min",
+              type: "lesson",
+              content: "TODO: Add lesson content",
+            },
+          ],
+        },
+      ],
+    },
+    null,
+    2
+  ),
 };
 
 // Add payment page for PAID apps
 if (!isFree) {
-  files['pages/payment.js'] = `import Head from 'next/head';
+  files["pages/payment.js"] = `import Head from 'next/head';
 import { useState } from 'react';
 import SharedNavbar from '@/components/shared/SharedNavbar';
 import { useRouter } from 'next/router';
@@ -944,7 +973,7 @@ export default function Payment() {
 `;
 
   // Add payment API route
-  files['pages/api/payment/confirm.js'] = `// Payment confirmation handler
+  files["pages/api/payment/confirm.js"] = `// Payment confirmation handler
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
@@ -967,7 +996,7 @@ export default async function handler(req, res) {
 }
 
 // Add API routes
-files['pages/api/send-otp.js'] = `// OTP sending handler
+files["pages/api/send-otp.js"] = `// OTP sending handler
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
@@ -986,7 +1015,7 @@ export default async function handler(req, res) {
 }
 `;
 
-files['pages/api/users/access.js'] = `// User access check handler
+files["pages/api/users/access.js"] = `// User access check handler
 export default async function handler(req, res) {
   if (req.method !== 'GET') {
     return res.status(405).json({ error: 'Method not allowed' });
@@ -1009,25 +1038,25 @@ export default async function handler(req, res) {
 `;
 
 // Write all files
-console.log('📄 Creating files...\n');
+console.log("📄 Creating files...\n");
 Object.entries(files).forEach(([filename, content]) => {
   const filePath = path.join(appPath, filename);
   const dir = path.dirname(filePath);
-  
+
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir, { recursive: true });
   }
-  
+
   fs.writeFileSync(filePath, content);
   console.log(`   ✓ ${filename}`);
 });
 
 // Create placeholder hero image
-const heroPlaceholder = path.join(appPath, 'public', 'hero.jpg');
-console.log('\n📸 Creating placeholder hero image...');
+const heroPlaceholder = path.join(appPath, "public", "hero.jpg");
+console.log("\n📸 Creating placeholder hero image...");
 // We'll just create an empty file as placeholder
-fs.writeFileSync(heroPlaceholder, '');
-console.log('   ✓ public/hero.jpg (placeholder)');
+fs.writeFileSync(heroPlaceholder, "");
+console.log("   ✓ public/hero.jpg (placeholder)");
 
 // Create lib/supabaseClient.js
 const supabaseClient = `import { createClient } from '@supabase/supabase-js';
@@ -1042,29 +1071,31 @@ if (!supabaseUrl || !supabaseAnonKey) {
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 `;
 
-fs.writeFileSync(path.join(appPath, 'lib', 'supabaseClient.js'), supabaseClient);
-console.log('   ✓ lib/supabaseClient.js');
+fs.writeFileSync(path.join(appPath, "lib", "supabaseClient.js"), supabaseClient);
+console.log("   ✓ lib/supabaseClient.js");
 
 console.log(`\n✅ App created successfully: ${appName}\n`);
-console.log('📋 Next steps:\n');
+console.log("📋 Next steps:\n");
 console.log(`   1. cd apps/${appName}`);
-console.log('   2. Copy .env.local.example to .env.local');
-console.log('   3. Update .env.local with your configuration');
-console.log('   4. yarn install (from root)');
+console.log("   2. Copy .env.local.example to .env.local");
+console.log("   3. Update .env.local with your configuration");
+console.log("   4. yarn install (from root)");
 console.log(`   5. cd apps/${appName} && yarn dev`);
 console.log(`   6. Open http://localhost:${appPort}\n`);
-console.log('📚 Documentation:');
-console.log('   - MONOREPO_ARCHITECTURE.md');
-console.log('   - SHARED_COMPONENTS_LIBRARY.md');
-console.log('   - DEPLOYMENT_POLICY.md\n');
-console.log(`🎨 Remember: ${isFree ? 'FREE apps use GREEN badges' : 'PAID apps use BLUE badges'}\n`);
+console.log("📚 Documentation:");
+console.log("   - MONOREPO_ARCHITECTURE.md");
+console.log("   - SHARED_COMPONENTS_LIBRARY.md");
+console.log("   - DEPLOYMENT_POLICY.md\n");
+console.log(
+  `🎨 Remember: ${isFree ? "FREE apps use GREEN badges" : "PAID apps use BLUE badges"}\n`
+);
 
 // Update ecosystem.config.js
-console.log('🔧 Updating ecosystem.config.js...');
-const ecosystemPath = path.join(__dirname, '..', 'ecosystem.config.js');
+console.log("🔧 Updating ecosystem.config.js...");
+const ecosystemPath = path.join(__dirname, "..", "ecosystem.config.js");
 if (fs.existsSync(ecosystemPath)) {
-  let ecosystem = fs.readFileSync(ecosystemPath, 'utf-8');
-  
+  let ecosystem = fs.readFileSync(ecosystemPath, "utf-8");
+
   const newApp = `    {
       name: '${appName}',
       script: 'node_modules/.bin/next',
@@ -1079,13 +1110,13 @@ if (fs.existsSync(ecosystemPath)) {
         PORT: ${appPort},
       },
     },`;
-  
+
   // Add before the closing bracket
   ecosystem = ecosystem.replace(/(\s*\]\s*\};?\s*)$/, `,\n${newApp}\n$1`);
   fs.writeFileSync(ecosystemPath, ecosystem);
-  console.log('   ✓ Added to ecosystem.config.js');
+  console.log("   ✓ Added to ecosystem.config.js");
 } else {
-  console.log('   ⚠ ecosystem.config.js not found - add manually');
+  console.log("   ⚠ ecosystem.config.js not found - add manually");
 }
 
-console.log('\n🎉 Setup complete! Happy coding!\n');
+console.log("\n🎉 Setup complete! Happy coding!\n");

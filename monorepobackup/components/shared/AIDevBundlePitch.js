@@ -2,12 +2,12 @@
 
 /**
  * AI-Developer Bundle Pitch Component
- * 
+ *
  * Special bundle offer:
  * - Purchase Learn AI → Unlock Learn Developer
  * - Purchase Learn Developer → Unlock Learn AI
  * - Pay for one, get both for Rs 116.82
- * 
+ *
  * "AI and Development are two sides of the same coin"
  */
 
@@ -16,29 +16,26 @@ export default function AIDevBundlePitch({ currentApp = "learn-ai" }) {
     "learn-ai": {
       otherApp: "Learn Developer",
       icon: "💻",
-      pitch: "Master both AI and full-stack development. Understanding code makes you a better AI architect."
+      pitch:
+        "Master both AI and full-stack development. Understanding code makes you a better AI architect.",
     },
     "learn-developer": {
       otherApp: "Learn AI",
       icon: "🤖",
-      pitch: "AI is transforming software development. Master both to stay ahead of the curve."
-    }
+      pitch: "AI is transforming software development. Master both to stay ahead of the curve.",
+    },
   };
 
   const info = bundleInfo[currentApp];
-  
+
   if (!info) return null;
 
   return (
     <div className="bg-gradient-to-r from-purple-900 to-blue-900 text-white py-16">
       <div className="max-w-5xl mx-auto px-4">
         <div className="text-center mb-8">
-          <h2 className="text-4xl font-bold mb-4">
-            🎁 Special Bundle: Pay for One, Get Both Free
-          </h2>
-          <p className="text-2xl mb-2">
-            AI and Development are two sides of the same coin
-          </p>
+          <h2 className="text-4xl font-bold mb-4">🎁 Special Bundle: Pay for One, Get Both Free</h2>
+          <p className="text-2xl mb-2">AI and Development are two sides of the same coin</p>
           <p className="text-xl text-purple-200">
             We ensure you master both for a single investment
           </p>
@@ -100,9 +97,7 @@ export default function AIDevBundlePitch({ currentApp = "learn-ai" }) {
             <p className="text-lg mb-3">
               <strong>💡 Why This Bundle?</strong>
             </p>
-            <p className="text-purple-200">
-              {info.pitch}
-            </p>
+            <p className="text-purple-200">{info.pitch}</p>
           </div>
 
           <div className="text-center">

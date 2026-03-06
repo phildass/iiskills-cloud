@@ -103,7 +103,7 @@ export default function SharedNavbar({
                 // User is logged in - show email and logout button
                 <>
                   <span className="text-base text-gray-600 whitespace-nowrap">
-                    {user.user_metadata?.first_name || user.email?.split('@')[0] || user.email}
+                    {user.user_metadata?.first_name || user.email?.split("@")[0] || user.email}
                     {isPaid && (
                       <span className="ml-2 inline-block bg-gradient-to-r from-purple-600 to-blue-600 text-white text-xs font-bold px-2 py-0.5 rounded-full align-middle">
                         PAID
@@ -195,7 +195,7 @@ export default function SharedNavbar({
                 // User is logged in - show email and logout button
                 <>
                   <div className="text-base text-gray-600 px-4 py-2 bg-gray-50 rounded flex items-center gap-2">
-                    {user.user_metadata?.first_name || user.email?.split('@')[0] || user.email}
+                    {user.user_metadata?.first_name || user.email?.split("@")[0] || user.email}
                     {isPaid && (
                       <span className="inline-block bg-gradient-to-r from-purple-600 to-blue-600 text-white text-xs font-bold px-2 py-0.5 rounded-full">
                         PAID

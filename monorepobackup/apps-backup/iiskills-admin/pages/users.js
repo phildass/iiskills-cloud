@@ -16,15 +16,15 @@ export default function AdminUsers() {
   const fetchUsers = async () => {
     try {
       setLoading(true);
-      
+
       // Fetch from API endpoint
-      const response = await fetch('/api/users');
+      const response = await fetch("/api/users");
       const result = await response.json();
-      
+
       if (result.error) throw new Error(result.error);
       setUsers(result.data || []);
     } catch (error) {
-      console.error('Error fetching users:', error);
+      console.error("Error fetching users:", error);
     } finally {
       setLoading(false);
     }
@@ -94,13 +94,17 @@ export default function AdminUsers() {
                           <div className="text-sm font-medium text-gray-900">{user.email}</div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                          {user.full_name || 'N/A'}
+                          {user.full_name || "N/A"}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                            user.is_admin ? 'bg-purple-100 text-purple-800' : 'bg-gray-100 text-gray-800'
-                          }`}>
-                            {user.is_admin ? 'Admin' : 'User'}
+                          <span
+                            className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
+                              user.is_admin
+                                ? "bg-purple-100 text-purple-800"
+                                : "bg-gray-100 text-gray-800"
+                            }`}
+                          >
+                            {user.is_admin ? "Admin" : "User"}
                           </span>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
@@ -109,14 +113,20 @@ export default function AdminUsers() {
                           </span>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                            user._source === 'supabase' 
-                              ? 'bg-green-100 text-green-800' 
-                              : user._source === 'local'
-                              ? 'bg-blue-100 text-blue-800'
-                              : 'bg-gray-100 text-gray-800'
-                          }`}>
-                            {user._source === 'supabase' ? 'Supabase' : user._source === 'local' ? 'Local' : 'Unknown'}
+                          <span
+                            className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
+                              user._source === "supabase"
+                                ? "bg-green-100 text-green-800"
+                                : user._source === "local"
+                                  ? "bg-blue-100 text-blue-800"
+                                  : "bg-gray-100 text-gray-800"
+                            }`}
+                          >
+                            {user._source === "supabase"
+                              ? "Supabase"
+                              : user._source === "local"
+                                ? "Local"
+                                : "Unknown"}
                           </span>
                         </td>
                       </tr>

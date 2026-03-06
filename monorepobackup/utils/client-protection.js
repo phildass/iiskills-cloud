@@ -1,15 +1,15 @@
 /**
  * Client-Side Protection Utilities
- * 
+ *
  * Provides browser-level protection against content copying and tampering.
- * 
+ *
  * WARNING: These are deterrents, not absolute protections.
  * Determined attackers can bypass client-side protections.
  * Combine with server-side detection, legal protections, and watermarking.
- * 
+ *
  * Usage:
  *   import { enableProtections } from '@/utils/client-protection';
- *   
+ *
  *   useEffect(() => {
  *     if (process.env.NEXT_PUBLIC_ENABLE_COPY_PROTECTION === 'true') {
  *       enableProtections();
@@ -22,17 +22,17 @@
  * Prevents casual users from accessing browser context menu
  */
 export function disableContextMenu() {
-  if (typeof window === 'undefined') return;
+  if (typeof window === "undefined") return;
 
   const handler = (e) => {
     e.preventDefault();
     return false;
   };
 
-  document.addEventListener('contextmenu', handler);
+  document.addEventListener("contextmenu", handler);
 
   return () => {
-    document.removeEventListener('contextmenu', handler);
+    document.removeEventListener("contextmenu", handler);
   };
 }
 
@@ -41,9 +41,9 @@ export function disableContextMenu() {
  * Makes it harder to copy text content
  */
 export function disableTextSelection() {
-  if (typeof window === 'undefined') return;
+  if (typeof window === "undefined") return;
 
-  const style = document.createElement('style');
+  const style = document.createElement("style");
   style.textContent = `
     * {
       -webkit-user-select: none !important;
@@ -69,32 +69,29 @@ export function disableTextSelection() {
  * Disable common keyboard shortcuts for copying
  */
 export function disableCopyShortcuts() {
-  if (typeof window === 'undefined') return;
+  if (typeof window === "undefined") return;
 
   const handler = (e) => {
     // Ctrl+C, Ctrl+X, Ctrl+V, Ctrl+A, Ctrl+U (view source), Ctrl+P (print)
     if (
       (e.ctrlKey || e.metaKey) &&
-      ['c', 'x', 'v', 'a', 'u', 'p', 's'].includes(e.key.toLowerCase())
+      ["c", "x", "v", "a", "u", "p", "s"].includes(e.key.toLowerCase())
     ) {
       e.preventDefault();
       return false;
     }
 
     // F12, Ctrl+Shift+I (DevTools)
-    if (
-      e.key === 'F12' ||
-      ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'I')
-    ) {
+    if (e.key === "F12" || ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === "I")) {
       e.preventDefault();
       return false;
     }
   };
 
-  document.addEventListener('keydown', handler);
+  document.addEventListener("keydown", handler);
 
   return () => {
-    document.removeEventListener('keydown', handler);
+    document.removeEventListener("keydown", handler);
   };
 }
 
@@ -102,35 +99,35 @@ export function disableCopyShortcuts() {
  * Prevent drag and drop of content
  */
 export function disableDragDrop() {
-  if (typeof window === 'undefined') return;
+  if (typeof window === "undefined") return;
 
   const handler = (e) => {
     e.preventDefault();
     return false;
   };
 
-  document.addEventListener('dragstart', handler);
-  document.addEventListener('drop', handler);
+  document.addEventListener("dragstart", handler);
+  document.addEventListener("drop", handler);
 
   return () => {
-    document.removeEventListener('dragstart', handler);
-    document.removeEventListener('drop', handler);
+    document.removeEventListener("dragstart", handler);
+    document.removeEventListener("drop", handler);
   };
 }
 
 /**
  * Add watermark to the page
  * Creates a semi-transparent overlay with user/session information
- * 
+ *
  * @param {Object} options - Watermark configuration
  * @param {string} options.text - Text to display (e.g., user email, session ID)
  * @param {number} options.opacity - Opacity value (0-1)
  */
-export function addWatermark({ text = '', opacity = 0.1 } = {}) {
-  if (typeof window === 'undefined' || !text) return;
+export function addWatermark({ text = "", opacity = 0.1 } = {}) {
+  if (typeof window === "undefined" || !text) return;
 
-  const watermark = document.createElement('div');
-  watermark.id = 'protection-watermark';
+  const watermark = document.createElement("div");
+  watermark.id = "protection-watermark";
   watermark.textContent = text;
   watermark.style.cssText = `
     position: fixed;
@@ -148,7 +145,7 @@ export function addWatermark({ text = '', opacity = 0.1 } = {}) {
   document.body.appendChild(watermark);
 
   return () => {
-    const el = document.getElementById('protection-watermark');
+    const el = document.getElementById("protection-watermark");
     if (el) document.body.removeChild(el);
   };
 }
@@ -156,11 +153,11 @@ export function addWatermark({ text = '', opacity = 0.1 } = {}) {
 /**
  * Detect DevTools opening
  * Monitors for developer tools and can trigger custom behavior
- * 
+ *
  * @param {Function} onDetect - Callback when DevTools detected
  */
 export function detectDevTools(onDetect) {
-  if (typeof window === 'undefined') return;
+  if (typeof window === "undefined") return;
 
   const threshold = 160;
   let isDevToolsOpen = false;
@@ -168,9 +165,14 @@ export function detectDevTools(onDetect) {
   const check = () => {
     const widthThreshold = window.outerWidth - window.innerWidth > threshold;
     const heightThreshold = window.outerHeight - window.innerHeight > threshold;
-    const orientation = widthThreshold ? 'vertical' : 'horizontal';
+    const orientation = widthThreshold ? "vertical" : "horizontal";
 
-    if (!(heightThreshold && widthThreshold) && ((window.Firebug && window.Firebug.chrome && window.Firebug.chrome.isInitialized) || widthThreshold || heightThreshold)) {
+    if (
+      !(heightThreshold && widthThreshold) &&
+      ((window.Firebug && window.Firebug.chrome && window.Firebug.chrome.isInitialized) ||
+        widthThreshold ||
+        heightThreshold)
+    ) {
       if (!isDevToolsOpen) {
         isDevToolsOpen = true;
         if (onDetect) onDetect(true, orientation);
@@ -193,7 +195,7 @@ export function detectDevTools(onDetect) {
 /**
  * Enable all protections
  * Convenience function to enable all protection measures at once
- * 
+ *
  * @param {Object} options - Configuration options
  * @param {boolean} options.contextMenu - Enable context menu protection
  * @param {boolean} options.textSelection - Enable text selection protection
@@ -209,7 +211,7 @@ export function enableProtections({
   copyShortcuts = true,
   dragDrop = true,
   watermark = null,
-  onDevTools = null
+  onDevTools = null,
 } = {}) {
   const cleanups = [];
 
@@ -245,17 +247,17 @@ export function enableProtections({
 
   // Return cleanup function
   return () => {
-    cleanups.forEach(cleanup => {
-      if (typeof cleanup === 'function') cleanup();
+    cleanups.forEach((cleanup) => {
+      if (typeof cleanup === "function") cleanup();
     });
   };
 }
 
 /**
  * React hook for enabling protections
- * 
+ *
  * @param {Object} options - Same as enableProtections options
- * 
+ *
  * @example
  * function MyComponent() {
  *   useProtection({
@@ -265,9 +267,9 @@ export function enableProtections({
  * }
  */
 export function useProtection(options = {}) {
-  if (typeof window === 'undefined') return;
+  if (typeof window === "undefined") return;
 
-  const React = require('react');
+  const React = require("react");
   const { useEffect, useRef } = React;
 
   // Store stringified options to detect changes without causing unnecessary re-renders

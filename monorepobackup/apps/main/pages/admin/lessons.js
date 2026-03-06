@@ -12,13 +12,13 @@ export default function AdminLessons() {
   const [lessons, setLessons] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
-  const [selectedApp, setSelectedApp] = useState('all');
+  const [selectedApp, setSelectedApp] = useState("all");
   const [formData, setFormData] = useState({
-    title: '',
-    content: '',
-    moduleId: '',
+    title: "",
+    content: "",
+    moduleId: "",
     order: 1,
-    duration: '',
+    duration: "",
   });
 
   useEffect(() => {
@@ -35,27 +35,27 @@ export default function AdminLessons() {
   const fetchLessons = async () => {
     try {
       setLoading(true);
-      const response = await fetch('/api/admin/content?type=lessons');
+      const response = await fetch("/api/admin/content?type=lessons");
       const data = await response.json();
-      
+
       if (!response.ok) {
-        throw new Error(data.error || 'Failed to fetch lessons');
+        throw new Error(data.error || "Failed to fetch lessons");
       }
-      
+
       // Transform lessons to display format
       const transformedLessons = (data.contents || []).map((item) => ({
         id: item.id,
         title: item.title,
-        module: item.data.module_id || item.data.moduleId || item.data.moduleName || 'N/A',
-        duration: item.data.duration || 'N/A',
+        module: item.data.module_id || item.data.moduleId || item.data.moduleName || "N/A",
+        duration: item.data.duration || "N/A",
         sourceApp: item.sourceApp,
         sourceBackend: item.sourceBackend,
         order: item.data.order || 0,
       }));
-      
+
       setLessons(transformedLessons);
     } catch (error) {
-      console.error('Error fetching lessons:', error);
+      console.error("Error fetching lessons:", error);
     } finally {
       setLoading(false);
     }
@@ -65,25 +65,24 @@ export default function AdminLessons() {
     const app = e.target.value;
     setSelectedApp(app);
     // Update URL without reload
-    if (app === 'all') {
-      router.push('/admin/lessons', undefined, { shallow: true });
+    if (app === "all") {
+      router.push("/admin/lessons", undefined, { shallow: true });
     } else {
       router.push(`/admin/lessons?app=${app}`, undefined, { shallow: true });
     }
   };
 
   // Filter lessons by selected app
-  const filteredLessons = selectedApp === 'all' 
-    ? lessons 
-    : lessons.filter(lesson => lesson.sourceApp === selectedApp);
+  const filteredLessons =
+    selectedApp === "all" ? lessons : lessons.filter((lesson) => lesson.sourceApp === selectedApp);
 
   // Get unique apps for filter dropdown
-  const uniqueApps = [...new Set(lessons.map(l => l.sourceApp))].sort();
+  const uniqueApps = [...new Set(lessons.map((l) => l.sourceApp))].sort();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     // Lesson creation will be implemented when database schema is added
-    alert('Lesson management will be fully functional once the database schema is set up.');
+    alert("Lesson management will be fully functional once the database schema is set up.");
     setShowModal(false);
   };
 
@@ -104,7 +103,9 @@ export default function AdminLessons() {
       <main className="max-w-7xl mx-auto px-4 py-12">
         {/* Breadcrumb */}
         <nav className="mb-4 text-sm text-gray-600">
-          <Link href="/admin" className="hover:text-blue-600">Admin</Link>
+          <Link href="/admin" className="hover:text-blue-600">
+            Admin
+          </Link>
           <span className="mx-2">›</span>
           <span className="text-gray-900 font-semibold">Lessons</span>
         </nav>
@@ -127,12 +128,17 @@ export default function AdminLessons() {
           <div className="flex">
             <div className="flex-shrink-0">
               <svg className="h-5 w-5 text-blue-400" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+                <path
+                  fillRule="evenodd"
+                  d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                  clipRule="evenodd"
+                />
               </svg>
             </div>
             <div className="ml-3">
               <p className="text-sm text-blue-700">
-                <strong>Viewing aggregated lessons:</strong> Showing lessons from all sources including local filesystem and Supabase.
+                <strong>Viewing aggregated lessons:</strong> Showing lessons from all sources
+                including local filesystem and Supabase.
               </p>
             </div>
           </div>
@@ -151,13 +157,13 @@ export default function AdminLessons() {
               className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
             >
               <option value="all">All Apps ({lessons.length} lessons)</option>
-              {uniqueApps.map(app => (
+              {uniqueApps.map((app) => (
                 <option key={app} value={app}>
-                  {app} ({lessons.filter(l => l.sourceApp === app).length} lessons)
+                  {app} ({lessons.filter((l) => l.sourceApp === app).length} lessons)
                 </option>
               ))}
             </select>
-            {selectedApp !== 'all' && (
+            {selectedApp !== "all" && (
               <span className="text-sm text-gray-600">
                 Showing {filteredLessons.length} of {lessons.length} lessons
               </span>
@@ -171,7 +177,7 @@ export default function AdminLessons() {
             <div className="p-8 text-center text-gray-500">Loading lessons...</div>
           ) : filteredLessons.length === 0 ? (
             <div className="p-8 text-center text-gray-500">
-              {selectedApp === 'all' 
+              {selectedApp === "all"
                 ? "No lessons found. Lessons will appear here once content is aggregated from all sources."
                 : `No lessons found for ${selectedApp}.`}
             </div>
@@ -205,33 +211,26 @@ export default function AdminLessons() {
               <tbody className="bg-white divide-y divide-gray-200">
                 {filteredLessons.map((lesson) => (
                   <tr key={lesson.id} className="hover:bg-gray-50">
-                    <td className="px-6 py-4 text-sm text-gray-700">
-                      {lesson.order}
-                    </td>
+                    <td className="px-6 py-4 text-sm text-gray-700">{lesson.order}</td>
                     <td className="px-6 py-4">
                       <div className="text-sm font-medium text-gray-900">{lesson.title}</div>
                     </td>
-                    <td className="px-6 py-4 text-sm text-gray-700">
-                      {lesson.module}
-                    </td>
-                    <td className="px-6 py-4 text-sm text-gray-700">
-                      {lesson.sourceApp}
-                    </td>
+                    <td className="px-6 py-4 text-sm text-gray-700">{lesson.module}</td>
+                    <td className="px-6 py-4 text-sm text-gray-700">{lesson.sourceApp}</td>
                     <td className="px-6 py-4 text-sm">
-                      <span className={`px-2 py-1 text-xs font-semibold rounded ${
-                        lesson.sourceBackend === 'supabase' ? 'bg-blue-100 text-blue-800' :
-                        'bg-green-100 text-green-800'
-                      }`}>
+                      <span
+                        className={`px-2 py-1 text-xs font-semibold rounded ${
+                          lesson.sourceBackend === "supabase"
+                            ? "bg-blue-100 text-blue-800"
+                            : "bg-green-100 text-green-800"
+                        }`}
+                      >
                         {lesson.sourceBackend}
                       </span>
                     </td>
-                    <td className="px-6 py-4 text-sm text-gray-700">
-                      {lesson.duration}
-                    </td>
+                    <td className="px-6 py-4 text-sm text-gray-700">{lesson.duration}</td>
                     <td className="px-6 py-4 text-sm space-x-2">
-                      <button
-                        className="text-blue-600 hover:text-blue-800 font-medium"
-                      >
+                      <button className="text-blue-600 hover:text-blue-800 font-medium">
                         View
                       </button>
                     </td>
@@ -250,21 +249,27 @@ export default function AdminLessons() {
               <div className="text-green-500 text-xl">✓</div>
               <div>
                 <h3 className="font-semibold text-gray-800">Rich Text Editor</h3>
-                <p className="text-sm text-gray-600">Create lesson content with formatting, images, and videos</p>
+                <p className="text-sm text-gray-600">
+                  Create lesson content with formatting, images, and videos
+                </p>
               </div>
             </div>
             <div className="flex items-start space-x-3">
               <div className="text-green-500 text-xl">✓</div>
               <div>
                 <h3 className="font-semibold text-gray-800">Lesson Ordering</h3>
-                <p className="text-sm text-gray-600">Arrange lessons in logical progression within modules</p>
+                <p className="text-sm text-gray-600">
+                  Arrange lessons in logical progression within modules
+                </p>
               </div>
             </div>
             <div className="flex items-start space-x-3">
               <div className="text-green-500 text-xl">✓</div>
               <div>
                 <h3 className="font-semibold text-gray-800">Duration Tracking</h3>
-                <p className="text-sm text-gray-600">Set estimated completion time for each lesson</p>
+                <p className="text-sm text-gray-600">
+                  Set estimated completion time for each lesson
+                </p>
               </div>
             </div>
             <div className="flex items-start space-x-3">
@@ -278,7 +283,9 @@ export default function AdminLessons() {
               <div className="text-green-500 text-xl">✓</div>
               <div>
                 <h3 className="font-semibold text-gray-800">Media Management</h3>
-                <p className="text-sm text-gray-600">Upload and manage images, videos, and documents</p>
+                <p className="text-sm text-gray-600">
+                  Upload and manage images, videos, and documents
+                </p>
               </div>
             </div>
             <div className="flex items-start space-x-3">
@@ -298,7 +305,7 @@ export default function AdminLessons() {
           <div className="bg-white rounded-lg max-w-3xl w-full max-h-[90vh] overflow-y-auto">
             <div className="p-6">
               <h2 className="text-2xl font-bold text-gray-800 mb-6">Add New Lesson</h2>
-              
+
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -315,9 +322,7 @@ export default function AdminLessons() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Module *
-                  </label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Module *</label>
                   <select
                     required
                     value={formData.moduleId}
@@ -341,15 +346,14 @@ export default function AdminLessons() {
                     placeholder="Lesson content (Rich text editor will be available in production)"
                   />
                   <p className="text-xs text-gray-500 mt-1">
-                    Rich text editor with formatting, images, and videos will be available in the full implementation
+                    Rich text editor with formatting, images, and videos will be available in the
+                    full implementation
                   </p>
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Duration
-                    </label>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Duration</label>
                     <input
                       type="text"
                       value={formData.duration}
@@ -360,14 +364,14 @@ export default function AdminLessons() {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Order
-                    </label>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Order</label>
                     <input
                       type="number"
                       min="1"
                       value={formData.order}
-                      onChange={(e) => setFormData({ ...formData, order: parseInt(e.target.value) || 1 })}
+                      onChange={(e) =>
+                        setFormData({ ...formData, order: parseInt(e.target.value) || 1 })
+                      }
                       className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary"
                     />
                   </div>

@@ -10,7 +10,7 @@ import { recordLoginApp, getBestAuthRedirect, initSessionManager } from "@lib/se
 
 /**
  * Enhanced Universal Registration Component
- * 
+ *
  * Per Product Requirements 14.2, this component provides comprehensive
  * registration with all required fields:
  * - Personal info (First Name, Last Name, Age)
@@ -46,7 +46,7 @@ export default function EnhancedUniversalRegister({
     confirmPassword: "",
     captchaChecked: false,
   });
-  
+
   const [errors, setErrors] = useState({});
   const [success, setSuccess] = useState("");
   const [availableDistricts, setAvailableDistricts] = useState([]);
@@ -101,41 +101,44 @@ export default function EnhancedUniversalRegister({
     if (!formData.lastName.trim()) newErrors.lastName = "Last name is required";
     if (!formData.age) newErrors.age = "Age is required";
     if (!formData.stage) newErrors.stage = "Stage is required";
-    if (!formData.fatherOccupation.trim()) newErrors.fatherOccupation = "Father's occupation is required";
-    if (!formData.motherOccupation.trim()) newErrors.motherOccupation = "Mother's occupation is required";
-    
+    if (!formData.fatherOccupation.trim())
+      newErrors.fatherOccupation = "Father's occupation is required";
+    if (!formData.motherOccupation.trim())
+      newErrors.motherOccupation = "Mother's occupation is required";
+
     // Location validation
     if (formData.country === "india") {
       if (!formData.taluk.trim()) newErrors.taluk = "Taluk is required";
       if (!formData.district) newErrors.district = "District is required";
       if (!formData.state) newErrors.state = "State is required";
     } else {
-      if (!formData.locationOther.trim()) newErrors.locationOther = "Location is required for non-India residents";
+      if (!formData.locationOther.trim())
+        newErrors.locationOther = "Location is required for non-India residents";
     }
-    
+
     if (!formData.phoneNumber.trim()) {
       newErrors.phoneNumber = "Phone number is required";
     } else if (!/^\+?[\d\s-()]{10,}$/.test(formData.phoneNumber)) {
       newErrors.phoneNumber = "Please enter a valid phone number";
     }
-    
+
     if (!formData.purpose) newErrors.purpose = "Purpose is required";
     if (!formData.email.trim()) {
       newErrors.email = "Email is required";
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
       newErrors.email = "Please enter a valid email address";
     }
-    
+
     if (!formData.password) {
       newErrors.password = "Password is required";
     } else if (formData.password.length < 6) {
       newErrors.password = "Password must be at least 6 characters";
     }
-    
+
     if (formData.password !== formData.confirmPassword) {
       newErrors.confirmPassword = "Passwords do not match";
     }
-    
+
     if (!formData.captchaChecked) {
       newErrors.captcha = "Please confirm you are not a robot";
     }
@@ -201,7 +204,7 @@ export default function EnhancedUniversalRegister({
       // Success message
       setSuccess(
         "Registration successful! Please check your email to verify your account. " +
-        "An automated welcome email has been sent which will also verify your email address."
+          "An automated welcome email has been sent which will also verify your email address."
       );
 
       // Store registration success in session storage for login page
@@ -227,9 +230,7 @@ export default function EnhancedUniversalRegister({
       const bestRedirect = getBestAuthRedirect(router.query.redirect);
       const targetPath = bestRedirect?.path || redirectAfterRegister;
       const redirectUrl =
-        typeof window !== "undefined"
-          ? `${window.location.origin}${targetPath}`
-          : undefined;
+        typeof window !== "undefined" ? `${window.location.origin}${targetPath}` : undefined;
 
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: "google",
@@ -260,15 +261,13 @@ export default function EnhancedUniversalRegister({
         {/* Recommendation Message */}
         <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
           <p className="text-sm text-blue-800">
-            We request you to use your real name if you wish to take certification courses. 
-            Though we have Google login, we suggest you register here for a more streamlined experience.
+            We request you to use your real name if you wish to take certification courses. Though
+            we have Google login, we suggest you register here for a more streamlined experience.
           </p>
         </div>
 
         <div className="bg-white rounded-lg shadow-md p-8">
-          <h1 className="text-3xl font-bold text-center mb-8">
-            Register for {appName}
-          </h1>
+          <h1 className="text-3xl font-bold text-center mb-8">Register for {appName}</h1>
 
           {/* Error and Success Messages */}
           {errors.general && (
@@ -301,7 +300,9 @@ export default function EnhancedUniversalRegister({
                   }`}
                   placeholder="Your first name"
                 />
-                {errors.firstName && <p className="mt-1 text-xs text-red-600">{errors.firstName}</p>}
+                {errors.firstName && (
+                  <p className="mt-1 text-xs text-red-600">{errors.firstName}</p>
+                )}
               </div>
 
               <div>
@@ -370,7 +371,10 @@ export default function EnhancedUniversalRegister({
             {/* Parents' Occupation */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label htmlFor="fatherOccupation" className="block text-sm font-medium text-gray-700 mb-1">
+                <label
+                  htmlFor="fatherOccupation"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
                   Father's Occupation *
                 </label>
                 <input
@@ -384,11 +388,16 @@ export default function EnhancedUniversalRegister({
                   }`}
                   placeholder="Father's occupation"
                 />
-                {errors.fatherOccupation && <p className="mt-1 text-xs text-red-600">{errors.fatherOccupation}</p>}
+                {errors.fatherOccupation && (
+                  <p className="mt-1 text-xs text-red-600">{errors.fatherOccupation}</p>
+                )}
               </div>
 
               <div>
-                <label htmlFor="motherOccupation" className="block text-sm font-medium text-gray-700 mb-1">
+                <label
+                  htmlFor="motherOccupation"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
                   Mother's Occupation *
                 </label>
                 <input
@@ -402,7 +411,9 @@ export default function EnhancedUniversalRegister({
                   }`}
                   placeholder="Mother's occupation"
                 />
-                {errors.motherOccupation && <p className="mt-1 text-xs text-red-600">{errors.motherOccupation}</p>}
+                {errors.motherOccupation && (
+                  <p className="mt-1 text-xs text-red-600">{errors.motherOccupation}</p>
+                )}
               </div>
             </div>
 
@@ -449,7 +460,10 @@ export default function EnhancedUniversalRegister({
                 </div>
 
                 <div>
-                  <label htmlFor="district" className="block text-sm font-medium text-gray-700 mb-1">
+                  <label
+                    htmlFor="district"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
                     District *
                   </label>
                   <select
@@ -469,7 +483,9 @@ export default function EnhancedUniversalRegister({
                       </option>
                     ))}
                   </select>
-                  {errors.district && <p className="mt-1 text-xs text-red-600">{errors.district}</p>}
+                  {errors.district && (
+                    <p className="mt-1 text-xs text-red-600">{errors.district}</p>
+                  )}
                 </div>
 
                 <div>
@@ -492,7 +508,10 @@ export default function EnhancedUniversalRegister({
               </div>
             ) : (
               <div>
-                <label htmlFor="locationOther" className="block text-sm font-medium text-gray-700 mb-1">
+                <label
+                  htmlFor="locationOther"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
                   Location *
                 </label>
                 <input
@@ -506,14 +525,19 @@ export default function EnhancedUniversalRegister({
                   }`}
                   placeholder="City, Country"
                 />
-                {errors.locationOther && <p className="mt-1 text-xs text-red-600">{errors.locationOther}</p>}
+                {errors.locationOther && (
+                  <p className="mt-1 text-xs text-red-600">{errors.locationOther}</p>
+                )}
               </div>
             )}
 
             {/* Phone Number and Purpose */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label htmlFor="phoneNumber" className="block text-sm font-medium text-gray-700 mb-1">
+                <label
+                  htmlFor="phoneNumber"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
                   Phone Number *
                 </label>
                 <input
@@ -527,7 +551,9 @@ export default function EnhancedUniversalRegister({
                   }`}
                   placeholder="+91 1234567890"
                 />
-                {errors.phoneNumber && <p className="mt-1 text-xs text-red-600">{errors.phoneNumber}</p>}
+                {errors.phoneNumber && (
+                  <p className="mt-1 text-xs text-red-600">{errors.phoneNumber}</p>
+                )}
               </div>
 
               <div>
@@ -590,7 +616,10 @@ export default function EnhancedUniversalRegister({
               </div>
 
               <div>
-                <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-1">
+                <label
+                  htmlFor="confirmPassword"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
                   Confirm Password *
                 </label>
                 <input
@@ -604,7 +633,9 @@ export default function EnhancedUniversalRegister({
                   }`}
                   placeholder="Re-enter password"
                 />
-                {errors.confirmPassword && <p className="mt-1 text-xs text-red-600">{errors.confirmPassword}</p>}
+                {errors.confirmPassword && (
+                  <p className="mt-1 text-xs text-red-600">{errors.confirmPassword}</p>
+                )}
               </div>
             </div>
 
@@ -625,7 +656,10 @@ export default function EnhancedUniversalRegister({
             {errors.captcha && <p className="text-xs text-red-600">{errors.captcha}</p>}
 
             {/* User Status Display */}
-            {(userStatus.registeredUser || userStatus.paidUser || userStatus.validEmail || userStatus.registeredViaGoogle) && (
+            {(userStatus.registeredUser ||
+              userStatus.paidUser ||
+              userStatus.validEmail ||
+              userStatus.registeredViaGoogle) && (
               <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
                 <h3 className="text-sm font-semibold text-gray-700 mb-2">User Status:</h3>
                 <div className="space-y-1 text-sm text-gray-600">
@@ -679,10 +713,11 @@ export default function EnhancedUniversalRegister({
                 </svg>
                 {isGoogleLoading ? "Redirecting to Google..." : "Login with Google"}
               </button>
-              
+
               {/* Recommendation message for platform registration */}
               <p className="mt-3 text-center text-xs text-gray-500 italic">
-                💡 Google login is available, but we recommend registering with our platform for certification eligibility, progress tracking, and full course access.
+                💡 Google login is available, but we recommend registering with our platform for
+                certification eligibility, progress tracking, and full course access.
               </p>
             </>
           )}

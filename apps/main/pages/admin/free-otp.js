@@ -107,8 +107,8 @@ export default function AdminFreeOTP() {
       <main className="max-w-2xl mx-auto px-4 py-12">
         <h1 className="text-3xl font-bold text-primary mb-2">Free OTP Generation</h1>
         <p className="text-gray-600 mb-8">
-          Generate a free course OTP for a lead using their name and phone number.
-          Email is optional — if provided, the OTP will also be sent via email.
+          Generate a free course OTP for a lead using their name and phone number. Email is optional
+          — if provided, the OTP will also be sent via email.
         </p>
 
         <div className="bg-white rounded-lg shadow-lg p-6">
@@ -223,8 +223,8 @@ export default function AdminFreeOTP() {
                     {result.deliveryChannel === "both"
                       ? "SMS + Email"
                       : result.deliveryChannel === "sms"
-                      ? "SMS"
-                      : "Email"}
+                        ? "SMS"
+                        : "Email"}
                   </li>
                   {result.smsSent && (
                     <li>

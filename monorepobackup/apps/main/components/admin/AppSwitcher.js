@@ -11,19 +11,15 @@ export default function AppSwitcher({ apps, selectedApp, onAppChange }) {
             onClick={() => onAppChange(app)}
             className={`w-full text-left px-4 py-3 rounded-lg transition ${
               selectedApp?.id === app.id
-                ? 'bg-blue-50 text-blue-700 font-medium'
-                : 'text-gray-700 hover:bg-gray-100'
+                ? "bg-blue-50 text-blue-700 font-medium"
+                : "text-gray-700 hover:bg-gray-100"
             }`}
           >
             <div className="flex items-center">
-              <span className="text-2xl mr-3">{app.icon || '📁'}</span>
+              <span className="text-2xl mr-3">{app.icon || "📁"}</span>
               <div className="flex-1 min-w-0">
-                <div className="text-sm font-medium truncate">
-                  {app.displayName}
-                </div>
-                <div className="text-xs text-gray-500 truncate">
-                  {app.description}
-                </div>
+                <div className="text-sm font-medium truncate">{app.displayName}</div>
+                <div className="text-xs text-gray-500 truncate">{app.description}</div>
               </div>
             </div>
           </button>

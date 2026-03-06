@@ -4,10 +4,10 @@ import { useEffect, useState } from "react";
 
 /**
  * Google Translate Widget Component
- * 
+ *
  * Provides multi-language translation support across all iiskills learning apps.
  * Supports 12 major Indian languages plus English.
- * 
+ *
  * Supported Languages:
  * - Hindi (hi) - 528M speakers
  * - Tamil (ta) - 79M speakers
@@ -21,9 +21,9 @@ import { useEffect, useState } from "react";
  * - Odia (or) - 38M speakers
  * - Assamese (as) - 15M speakers
  * - Urdu (ur) - 51M speakers
- * 
+ *
  * Usage: <GoogleTranslate />
- * 
+ *
  * The widget automatically saves user language preference in cookies.
  */
 export default function GoogleTranslate() {
@@ -31,38 +31,38 @@ export default function GoogleTranslate() {
 
   useEffect(() => {
     // Prevent loading script multiple times
-    if (window.google?.translate || document.getElementById('google-translate-script')) {
+    if (window.google?.translate || document.getElementById("google-translate-script")) {
       setIsLoaded(true);
       return;
     }
 
     // Define the initialization function globally
-    window.googleTranslateElementInit = function() {
+    window.googleTranslateElementInit = function () {
       if (window.google?.translate?.TranslateElement) {
         new window.google.translate.TranslateElement(
           {
-            pageLanguage: 'en',
-            includedLanguages: 'hi,ta,te,bn,mr,gu,kn,ml,pa,or,as,ur',
+            pageLanguage: "en",
+            includedLanguages: "hi,ta,te,bn,mr,gu,kn,ml,pa,or,as,ur",
             layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE,
             autoDisplay: false,
-            multilanguagePage: true
+            multilanguagePage: true,
           },
-          'google_translate_element'
+          "google_translate_element"
         );
         setIsLoaded(true);
       }
     };
 
     // Add Google Translate script
-    const script = document.createElement('script');
-    script.id = 'google-translate-script';
-    script.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+    const script = document.createElement("script");
+    script.id = "google-translate-script";
+    script.src = "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
     script.async = true;
     script.onerror = () => {
-      console.warn('Google Translate failed to load');
+      console.warn("Google Translate failed to load");
       setIsLoaded(false);
     };
-    
+
     document.head.appendChild(script);
 
     // Cleanup function
@@ -75,12 +75,12 @@ export default function GoogleTranslate() {
   return (
     <div className="google-translate-wrapper">
       {/* Translation Widget Container */}
-      <div 
+      <div
         id="google_translate_element"
         className="inline-flex items-center"
         aria-label="Language Selector"
       />
-      
+
       {/* Bilingual Label for discoverability */}
       <style jsx global>{`
         /* Google Translate Custom Styling */

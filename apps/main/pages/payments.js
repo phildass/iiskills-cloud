@@ -1,6 +1,6 @@
-import { useEffect } from 'react';
-import { useRouter } from 'next/router';
-import Head from 'next/head';
+import { useEffect } from "react";
+import { useRouter } from "next/router";
+import Head from "next/head";
 
 /**
  * /payments — Central Payment Gateway Entry Point
@@ -24,7 +24,10 @@ export default function Payments() {
     const { course: courseParam, ...otherParams } = router.query;
     if (courseParam) {
       // Forward all query params to the iiskills checkout page
-      router.replace({ pathname: '/payments/iiskills', query: { course: courseParam, ...otherParams } });
+      router.replace({
+        pathname: "/payments/iiskills",
+        query: { course: courseParam, ...otherParams },
+      });
     }
   }, [router.isReady]); // router.isReady changes once; query is read inside the effect
 
@@ -38,9 +41,7 @@ export default function Payments() {
       </Head>
       <div className="min-h-screen flex items-center justify-center bg-gray-50 p-6">
         <div className="max-w-md w-full bg-white rounded-2xl shadow-lg p-8 text-center">
-          <h1 className="text-2xl font-bold text-gray-900 mb-3">
-            iiskills.cloud Payment Gateway
-          </h1>
+          <h1 className="text-2xl font-bold text-gray-900 mb-3">iiskills.cloud Payment Gateway</h1>
           {course ? (
             <p className="text-gray-600">Redirecting to checkout…</p>
           ) : (

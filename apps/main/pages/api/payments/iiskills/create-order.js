@@ -8,6 +8,6 @@
 export default function handler(req, res) {
   return res.status(410).json({
     error:
-      'This endpoint is no longer available. Payments are processed at https://aienter.in/payments/iiskills',
+      "This endpoint is no longer available. Payments are processed at https://aienter.in/payments/iiskills",
   });
 }

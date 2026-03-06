@@ -4,10 +4,10 @@
  * This page redirects users to the complete-registration flow hosted on
  * iiskills.cloud. It preserves any query parameters (e.g. course=learn-ai).
  */
-import { useEffect } from 'react';
-import { useRouter } from 'next/router';
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 
-const MAIN_APP_URL = process.env.NEXT_PUBLIC_MAIN_APP_URL || 'https://iiskills.cloud';
+const MAIN_APP_URL = process.env.NEXT_PUBLIC_MAIN_APP_URL || "https://iiskills.cloud";
 
 export default function CompleteRegistrationRedirect() {
   const router = useRouter();
@@ -16,8 +16,8 @@ export default function CompleteRegistrationRedirect() {
     if (!router.isReady) return;
     const params = new URLSearchParams(router.query);
     // Ensure the course param is set to this app's ID
-    if (!params.get('course')) {
-      params.set('course', 'learn-ai');
+    if (!params.get("course")) {
+      params.set("course", "learn-ai");
     }
     window.location.href = `${MAIN_APP_URL}/complete-registration?${params.toString()}`;
   }, [router.isReady, router.query]);

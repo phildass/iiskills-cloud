@@ -27,7 +27,6 @@ import PremiumAccessPrompt from "./PremiumAccessPrompt";
 
 import LevelSelector from "./LevelSelector";
 
-
 /**
  * Generate standardized app context label
  * Maps app IDs to their iiskills branded labels
@@ -135,7 +134,7 @@ export default function UniversalLandingPage({
   // Map appId to appType for gatekeeper questions
   const getAppType = () => {
     if (appType) return appType;
-    
+
     // Extract app type from appId (e.g., "learn-math" -> "math")
     const typeMap = {
       "learn-math": "math",
@@ -159,7 +158,7 @@ export default function UniversalLandingPage({
   const handleGatekeeperSuccess = () => {
     // For free apps, navigate to Lesson 1.1
     if (isFree) {
-      window.location.href = `/modules/1/lesson/1`;
+      window.location.href = "/modules/1/lesson/1";
     }
   };
 
@@ -213,10 +212,12 @@ export default function UniversalLandingPage({
           {/* Labels and links in top-left corner */}
           <div className="absolute top-4 left-4 flex items-center gap-3 z-10">
             {/* FREE/PAID label - Color code: green for free, blue for paid */}
-            <div className={`${isFree ? 'bg-green-500' : 'bg-blue-600'} text-white px-4 py-2 rounded-lg text-sm font-bold shadow-lg`}>
-              {isFree ? 'FREE' : 'PAID'}
+            <div
+              className={`${isFree ? "bg-green-500" : "bg-blue-600"} text-white px-4 py-2 rounded-lg text-sm font-bold shadow-lg`}
+            >
+              {isFree ? "FREE" : "PAID"}
             </div>
-            
+
             {/* Syllabus link */}
             <Link
               href="/curriculum"
@@ -259,7 +260,7 @@ export default function UniversalLandingPage({
                 </p>
               </div>
             )}
-            
+
             {/* Free Course Notice */}
             {isFree && (
               <div className="bg-white/10 backdrop-blur-sm border-2 border-white/30 rounded-lg p-4 max-w-2xl mx-auto">
@@ -305,7 +306,7 @@ export default function UniversalLandingPage({
               </Link>
             </div>
           )}
-          
+
           {/* OPEN ACCESS: Original paid app registration UI removed
           {!isFree && !user && !loading && (
             <div className="absolute bottom-8 left-0 right-0 px-4 sm:px-8 lg:px-16 flex justify-between items-end gap-4">

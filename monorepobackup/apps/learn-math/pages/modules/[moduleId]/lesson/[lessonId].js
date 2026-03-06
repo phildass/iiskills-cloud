@@ -1,11 +1,11 @@
 "use client";
 
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
-import Head from 'next/head';
-import Footer from '../../../../components/Footer';
-import QuizComponent from '../../../../components/QuizComponent';
-import { getCurrentUser } from '../../../../lib/supabaseClient';
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import Head from "next/head";
+import Footer from "../../../../components/Footer";
+import QuizComponent from "../../../../components/QuizComponent";
+import { getCurrentUser } from "../../../../lib/supabaseClient";
 
 export default function LessonPage() {
   const router = useRouter();
@@ -27,8 +27,8 @@ export default function LessonPage() {
 
   const checkAuth = async () => {
     const currentUser = await getCurrentUser();
-    if (!currentUser && process.env.NEXT_PUBLIC_DISABLE_AUTH !== 'true') {
-      router.push('/register');
+    if (!currentUser && process.env.NEXT_PUBLIC_DISABLE_AUTH !== "true") {
+      router.push("/register");
       return;
     }
     setUser(currentUser);
@@ -41,10 +41,10 @@ export default function LessonPage() {
         module_id: moduleId,
         title: `Lesson ${lessonId}`,
         content: generateLessonContent(moduleId, lessonId),
-        quiz: generateQuiz()
+        quiz: generateQuiz(),
       });
     } catch (error) {
-      console.error('Error fetching lesson:', error);
+      console.error("Error fetching lesson:", error);
     } finally {
       setLoading(false);
     }
@@ -95,43 +95,23 @@ export default function LessonPage() {
     return [
       {
         question: "What is the value of π (pi) approximately?",
-        options: [
-          "2.718",
-          "3.142",
-          "1.618",
-          "1.414"
-        ],
-        correct_answer: 1
+        options: ["2.718", "3.142", "1.618", "1.414"],
+        correct_answer: 1,
       },
       {
         question: "What is the Pythagorean theorem?",
-        options: [
-          "a + b = c",
-          "a² + b² = c²",
-          "a × b = c²",
-          "(a + b)² = c"
-        ],
-        correct_answer: 1
+        options: ["a + b = c", "a² + b² = c²", "a × b = c²", "(a + b)² = c"],
+        correct_answer: 1,
       },
       {
         question: "What is the derivative of x²?",
-        options: [
-          "x",
-          "2",
-          "2x",
-          "x³/3"
-        ],
-        correct_answer: 2
+        options: ["x", "2", "2x", "x³/3"],
+        correct_answer: 2,
       },
       {
         question: "What is the sum of interior angles of a triangle?",
-        options: [
-          "90 degrees",
-          "180 degrees",
-          "270 degrees",
-          "360 degrees"
-        ],
-        correct_answer: 1
+        options: ["90 degrees", "180 degrees", "270 degrees", "360 degrees"],
+        correct_answer: 1,
       },
       {
         question: "What is a prime number?",
@@ -139,29 +119,29 @@ export default function LessonPage() {
           "A number divisible by 2",
           "A number greater than 100",
           "A number divisible only by 1 and itself",
-          "Any odd number"
+          "Any odd number",
         ],
-        correct_answer: 2
-      }
+        correct_answer: 2,
+      },
     ];
   };
 
   const handleQuizComplete = async (passed, score) => {
     setQuizCompleted(passed);
-    
+
     if (passed) {
       try {
-        await fetch('/api/assessments/submit', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+        await fetch("/api/assessments/submit", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             lesson_id: lessonId,
             module_id: moduleId,
-            score: score
-          })
+            score: score,
+          }),
         });
       } catch (error) {
-        console.error('Error saving progress:', error);
+        console.error("Error saving progress:", error);
       }
     }
   };
@@ -175,7 +155,7 @@ export default function LessonPage() {
       if (nextModuleId <= 10) {
         router.push(`/modules/${moduleId}/final-test`);
       } else {
-        router.push('/curriculum');
+        router.push("/curriculum");
       }
     }
   };
@@ -205,11 +185,16 @@ export default function LessonPage() {
         <div className="container mx-auto px-4 max-w-4xl">
           <div className="mb-6">
             <button
-              onClick={() => router.push('/curriculum')}
+              onClick={() => router.push("/curriculum")}
               className="text-blue-600 hover:text-blue-800 flex items-center"
             >
               <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M15 19l-7-7 7-7"
+                />
               </svg>
               Back to Curriculum
             </button>
@@ -221,28 +206,23 @@ export default function LessonPage() {
               <h1 className="text-3xl font-bold mt-2">{lesson?.title}</h1>
             </div>
 
-            <div className="prose max-w-none" dangerouslySetInnerHTML={{ __html: lesson?.content }} />
+            <div
+              className="prose max-w-none"
+              dangerouslySetInnerHTML={{ __html: lesson?.content }}
+            />
           </div>
 
           {lesson?.quiz && (
-            <QuizComponent 
-              questions={lesson.quiz}
-              onComplete={handleQuizComplete}
-            />
+            <QuizComponent questions={lesson.quiz} onComplete={handleQuizComplete} />
           )}
 
           {quizCompleted && (
             <div className="card bg-green-50 border-2 border-green-500">
-              <h3 className="text-xl font-semibold text-green-800 mb-4">
-                🎉 Quiz Passed!
-              </h3>
+              <h3 className="text-xl font-semibold text-green-800 mb-4">🎉 Quiz Passed!</h3>
               <p className="text-gray-700 mb-4">
                 Congratulations! You've successfully completed this lesson.
               </p>
-              <button
-                onClick={goToNextLesson}
-                className="btn-primary"
-              >
+              <button onClick={goToNextLesson} className="btn-primary">
                 Continue to Next Lesson
               </button>
             </div>

@@ -4,7 +4,10 @@ import Link from "next/link";
 import { getPricingDisplay, getIntroOfferNotice } from "../utils/pricing";
 import { getCourseSubdomainLink, courseHasSubdomain } from "../utils/courseSubdomainMapperClient";
 import { getCurrentUser, isAdmin } from "../lib/supabaseClient";
-import { sortCoursesByDisplayOrder, getCourseAvailabilityText } from "../../../config/courseDisplayOrder";
+import {
+  sortCoursesByDisplayOrder,
+  getCourseAvailabilityText,
+} from "../../../config/courseDisplayOrder";
 
 // List of courses hidden from public view (visible only to admins)
 const HIDDEN_COURSE_NAMES = [
@@ -1680,15 +1683,17 @@ export default function Courses() {
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-primary mb-4">Our Courses</h1>
           <p className="text-xl text-charcoal mb-2">Professional Skills Development for Everyone</p>
-          
+
           <p className="text-lg font-semibold text-primary mb-2">
             Courses available now: 9 | Five Free | Four Paid
           </p>
           <p className="text-sm text-orange-600 font-semibold mb-4">
-            Introductory price of Rs 99 (plus GST Rs 17.82) effective till March 31, 2026. Total Rs 116.82
+            Introductory price of Rs 99 (plus GST Rs 17.82) effective till March 31, 2026. Total Rs
+            116.82
           </p>
           <p className="text-sm text-gray-700 font-semibold mb-4">
-            New prices Rs 299 + GST of Rs 53.82 (Total Rs 352.82) will be effective from April 01, 2026
+            New prices Rs 299 + GST of Rs 53.82 (Total Rs 352.82) will be effective from April 01,
+            2026
           </p>
           <div className="mt-4 text-lg font-semibold text-accent">
             Paid courses: {pricing.totalPrice} per course
@@ -1707,7 +1712,8 @@ export default function Courses() {
         <div className="bg-gradient-to-r from-green-50 to-blue-50 rounded-lg shadow-lg p-6 mb-8 text-center border-2 border-green-200">
           <h2 className="text-2xl font-bold text-primary mb-3">Available right now: 9 Courses</h2>
           <p className="text-lg text-charcoal">
-            50+ Courses being developed and should be uploaded soon. Over the next few months you will have 100+ Courses to choose from.
+            50+ Courses being developed and should be uploaded soon. Over the next few months you
+            will have 100+ Courses to choose from.
           </p>
         </div>
 
@@ -2061,7 +2067,8 @@ export default function Courses() {
           </p>
           <div className="bg-white border-2 border-blue-200 rounded-lg p-4 mt-4">
             <p className="text-charcoal mb-3">
-              <strong>📬 Stay Updated:</strong> Subscribe to our newsletter to be the first to know when new courses are launched!
+              <strong>📬 Stay Updated:</strong> Subscribe to our newsletter to be the first to know
+              when new courses are launched!
             </p>
             <Link
               href="/newsletter"

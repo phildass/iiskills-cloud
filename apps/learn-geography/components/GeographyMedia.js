@@ -12,7 +12,7 @@
  *   <GeographyMedia moduleId={moduleId} lessonId={lessonId} />
  */
 
-import { getLessonMedia } from '../data/geographyMedia';
+import { getLessonMedia } from "../data/geographyMedia";
 
 export default function GeographyMedia({ moduleId, lessonId }) {
   const media = getLessonMedia(moduleId, lessonId);
@@ -29,7 +29,7 @@ export default function GeographyMedia({ moduleId, lessonId }) {
             width={640}
             height={360}
             className="geography-media-img"
-            style={{ objectFit: 'cover', borderRadius: '8px' }}
+            style={{ objectFit: "cover", borderRadius: "8px" }}
             unoptimized
           />
         </div>
@@ -48,7 +48,7 @@ export default function GeographyMedia({ moduleId, lessonId }) {
                   width={640}
                   height={360}
                   className="geography-media-img"
-                  style={{ objectFit: 'cover', borderRadius: '8px' }}
+                  style={{ objectFit: "cover", borderRadius: "8px" }}
                   unoptimized
                 />
               </div>

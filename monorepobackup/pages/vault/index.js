@@ -1,41 +1,42 @@
 /**
  * The Vault - Players Index
- * 
+ *
  * Searchable page for browsing cricket players, matches, and venues.
  * For MVP: Stub implementation with placeholder data
  * For Phase 2: Real Elasticsearch/OpenSearch integration
  */
 
-import Head from 'next/head';
-import { useState } from 'react';
-import Link from 'next/link';
+import Head from "next/head";
+import { useState } from "react";
+import Link from "next/link";
 
 // Placeholder player data for MVP
 const PLACEHOLDER_PLAYERS = [
-  { id: 'player_1', name: 'Virat Kohli', country: 'India', role: 'Batsman' },
-  { id: 'player_2', name: 'Rohit Sharma', country: 'India', role: 'Batsman' },
-  { id: 'player_3', name: 'Jasprit Bumrah', country: 'India', role: 'Bowler' },
-  { id: 'player_4', name: 'MS Dhoni', country: 'India', role: 'Wicket-keeper' },
-  { id: 'player_5', name: 'Sachin Tendulkar', country: 'India', role: 'Batsman' }
+  { id: "player_1", name: "Virat Kohli", country: "India", role: "Batsman" },
+  { id: "player_2", name: "Rohit Sharma", country: "India", role: "Batsman" },
+  { id: "player_3", name: "Jasprit Bumrah", country: "India", role: "Bowler" },
+  { id: "player_4", name: "MS Dhoni", country: "India", role: "Wicket-keeper" },
+  { id: "player_5", name: "Sachin Tendulkar", country: "India", role: "Batsman" },
 ];
 
 export default function VaultIndex() {
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [filteredPlayers, setFilteredPlayers] = useState(PLACEHOLDER_PLAYERS);
 
   const handleSearch = (query) => {
     setSearchQuery(query);
-    
+
     if (!query.trim()) {
       setFilteredPlayers(PLACEHOLDER_PLAYERS);
       return;
     }
 
     // Simple search filter (stub for MVP)
-    const filtered = PLACEHOLDER_PLAYERS.filter(player =>
-      player.name.toLowerCase().includes(query.toLowerCase()) ||
-      player.country.toLowerCase().includes(query.toLowerCase()) ||
-      player.role.toLowerCase().includes(query.toLowerCase())
+    const filtered = PLACEHOLDER_PLAYERS.filter(
+      (player) =>
+        player.name.toLowerCase().includes(query.toLowerCase()) ||
+        player.country.toLowerCase().includes(query.toLowerCase()) ||
+        player.role.toLowerCase().includes(query.toLowerCase())
     );
 
     setFilteredPlayers(filtered);
@@ -45,16 +46,17 @@ export default function VaultIndex() {
     <>
       <Head>
         <title>The Vault - Cricket Players Database | Cricket Universe</title>
-        <meta name="description" content="Browse cricket players, matches, and venues in The Vault" />
+        <meta
+          name="description"
+          content="Browse cricket players, matches, and venues in The Vault"
+        />
       </Head>
 
       <main className="min-h-screen bg-gray-50 py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
           <div className="text-center mb-12">
-            <h1 className="text-4xl font-bold text-gray-900 mb-4">
-              🏆 The Vault
-            </h1>
+            <h1 className="text-4xl font-bold text-gray-900 mb-4">🏆 The Vault</h1>
             <p className="text-xl text-gray-600">
               Discover cricket players, legendary matches, and iconic venues
             </p>
@@ -88,18 +90,14 @@ export default function VaultIndex() {
                 >
                   <div className="flex items-start justify-between mb-4">
                     <div>
-                      <h3 className="text-xl font-bold text-gray-900 mb-1">
-                        {player.name}
-                      </h3>
+                      <h3 className="text-xl font-bold text-gray-900 mb-1">{player.name}</h3>
                       <p className="text-gray-600">{player.country}</p>
                     </div>
                     <span className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">
                       {player.role}
                     </span>
                   </div>
-                  <p className="text-blue-600 hover:text-blue-800 font-medium">
-                    View Profile →
-                  </p>
+                  <p className="text-blue-600 hover:text-blue-800 font-medium">View Profile →</p>
                 </Link>
               ))}
             </div>

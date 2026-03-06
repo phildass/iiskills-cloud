@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 export default function ContentEditor({ app, content, onSave, onCancel }) {
   const [formData, setFormData] = useState({});
@@ -25,7 +25,7 @@ export default function ContentEditor({ app, content, onSave, onCancel }) {
     const currentArray = formData[fieldName] || [];
     setFormData((prev) => ({
       ...prev,
-      [fieldName]: [...currentArray, ''],
+      [fieldName]: [...currentArray, ""],
     }));
   };
 
@@ -54,14 +54,14 @@ export default function ContentEditor({ app, content, onSave, onCancel }) {
     setError(null);
 
     try {
-      const method = content.isNew ? 'POST' : 'PUT';
+      const method = content.isNew ? "POST" : "PUT";
       const body = content.isNew
         ? { source_app: app.id, data: formData }
         : { source_app: app.id, content_id: content.id, data: formData };
 
-      const response = await fetch('/api/admin/content', {
+      const response = await fetch("/api/admin/content", {
         method,
-        headers: { 'Content-Type': 'application/json' },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
       });
 
@@ -70,44 +70,44 @@ export default function ContentEditor({ app, content, onSave, onCancel }) {
       if (response.ok) {
         onSave();
       } else {
-        setError(data.error || 'Failed to save content');
+        setError(data.error || "Failed to save content");
       }
     } catch (err) {
-      setError('An error occurred while saving');
-      console.error('Save error:', err);
+      setError("An error occurred while saving");
+      console.error("Save error:", err);
     } finally {
       setIsSaving(false);
     }
   };
 
   const handleDelete = async () => {
-    if (!confirm('Are you sure you want to delete this content?')) {
+    if (!confirm("Are you sure you want to delete this content?")) {
       return;
     }
 
     try {
       const response = await fetch(
         `/api/admin/content?source_app=${app.id}&content_id=${content.id}`,
-        { method: 'DELETE' }
+        { method: "DELETE" }
       );
 
       if (response.ok) {
         onSave();
       } else {
         const data = await response.json();
-        setError(data.error || 'Failed to delete content');
+        setError(data.error || "Failed to delete content");
       }
     } catch (err) {
-      setError('An error occurred while deleting');
-      console.error('Delete error:', err);
+      setError("An error occurred while deleting");
+      console.error("Delete error:", err);
     }
   };
 
   const renderField = (field) => {
-    const value = formData[field.name] || '';
+    const value = formData[field.name] || "";
 
     switch (field.type) {
-      case 'text':
+      case "text":
         return (
           <input
             type="text"
@@ -119,19 +119,19 @@ export default function ContentEditor({ app, content, onSave, onCancel }) {
           />
         );
 
-      case 'textarea':
+      case "textarea":
         return (
           <textarea
             value={value}
             onChange={(e) => handleFieldChange(field.name, e.target.value)}
             placeholder={field.placeholder}
             required={field.required}
-            rows={field.name === 'content' ? 12 : 4}
+            rows={field.name === "content" ? 12 : 4}
             className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           />
         );
 
-      case 'number':
+      case "number":
         return (
           <input
             type="number"
@@ -145,18 +145,18 @@ export default function ContentEditor({ app, content, onSave, onCancel }) {
           />
         );
 
-      case 'date':
+      case "date":
         return (
           <input
             type="datetime-local"
-            value={value ? new Date(value).toISOString().slice(0, 16) : ''}
+            value={value ? new Date(value).toISOString().slice(0, 16) : ""}
             onChange={(e) => handleFieldChange(field.name, e.target.value)}
             required={field.required}
             className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           />
         );
 
-      case 'select':
+      case "select":
         return (
           <select
             value={value}
@@ -173,7 +173,7 @@ export default function ContentEditor({ app, content, onSave, onCancel }) {
           </select>
         );
 
-      case 'array':
+      case "array":
         const arrayValue = formData[field.name] || [];
         return (
           <div className="space-y-2">
@@ -205,7 +205,7 @@ export default function ContentEditor({ app, content, onSave, onCancel }) {
           </div>
         );
 
-      case 'nested':
+      case "nested":
         return (
           <div className="p-4 bg-gray-50 rounded-lg">
             <p className="text-sm text-gray-600">
@@ -232,10 +232,10 @@ export default function ContentEditor({ app, content, onSave, onCancel }) {
       <div className="flex items-center justify-between mb-6">
         <div>
           <h2 className="text-2xl font-bold text-gray-900">
-            {content.isNew ? 'Create New' : 'Edit'} {app.displayName}
+            {content.isNew ? "Create New" : "Edit"} {app.displayName}
           </h2>
           <p className="text-sm text-gray-500 mt-1">
-            {content.isNew ? 'Fill in the details below' : `Editing: ${content.title}`}
+            {content.isNew ? "Fill in the details below" : `Editing: ${content.title}`}
           </p>
         </div>
         <button
@@ -292,7 +292,7 @@ export default function ContentEditor({ app, content, onSave, onCancel }) {
               disabled={isSaving}
               className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition disabled:opacity-50"
             >
-              {isSaving ? 'Saving...' : 'Save Changes'}
+              {isSaving ? "Saving..." : "Save Changes"}
             </button>
           </div>
         </div>

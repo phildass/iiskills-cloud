@@ -17,10 +17,10 @@ import { useEffect } from "react";
  * Usage: included automatically via packages/ui/src/common/Header.js
  */
 
-const TRANSLATE_SCRIPT_ID = 'google-translate-script';
-const TRANSLATE_ELEMENT_ID = 'google_translate_element';
-const TRANSLATE_STYLE_ID = 'google-translate-styles';
-const INCLUDED_LANGUAGES = 'hi,ta,te,bn,mr,gu,kn,ml,pa,or,as,ur';
+const TRANSLATE_SCRIPT_ID = "google-translate-script";
+const TRANSLATE_ELEMENT_ID = "google_translate_element";
+const TRANSLATE_STYLE_ID = "google-translate-styles";
+const INCLUDED_LANGUAGES = "hi,ta,te,bn,mr,gu,kn,ml,pa,or,as,ur";
 
 const TRANSLATE_CSS = `
 .google-translate-widget{display:inline-flex;align-items:center;min-width:80px;min-height:28px}
@@ -36,7 +36,7 @@ const TRANSLATE_CSS = `
 `;
 
 export default function GoogleTranslate() {
-  const disabled = process.env.NEXT_PUBLIC_DISABLE_GOOGLE_TRANSLATE === 'true';
+  const disabled = process.env.NEXT_PUBLIC_DISABLE_GOOGLE_TRANSLATE === "true";
 
   useEffect(() => {
     // Do nothing if explicitly disabled
@@ -44,7 +44,7 @@ export default function GoogleTranslate() {
 
     // Inject styles once
     if (!document.getElementById(TRANSLATE_STYLE_ID)) {
-      const style = document.createElement('style');
+      const style = document.createElement("style");
       style.id = TRANSLATE_STYLE_ID;
       style.textContent = TRANSLATE_CSS;
       document.head.appendChild(style);
@@ -60,7 +60,7 @@ export default function GoogleTranslate() {
         const InlineLayout = window.google.translate.TranslateElement.InlineLayout;
         new window.google.translate.TranslateElement(
           {
-            pageLanguage: 'en',
+            pageLanguage: "en",
             includedLanguages: INCLUDED_LANGUAGES,
             // Only set layout when the InlineLayout enum is available
             ...(InlineLayout != null ? { layout: InlineLayout.SIMPLE } : {}),
@@ -70,7 +70,7 @@ export default function GoogleTranslate() {
           TRANSLATE_ELEMENT_ID
         );
       } catch (e) {
-        console.warn('[iiskills] Google Translate initialization failed:', e);
+        console.warn("[iiskills] Google Translate initialization failed:", e);
       }
     }
 
@@ -88,11 +88,12 @@ export default function GoogleTranslate() {
 
     // First mount: inject script once
     window.googleTranslateElementInit = initWidget;
-    const script = document.createElement('script');
+    const script = document.createElement("script");
     script.id = TRANSLATE_SCRIPT_ID;
-    script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+    script.src =
+      "https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
     script.async = true;
-    script.onerror = () => console.warn('[iiskills] Google Translate script failed to load');
+    script.onerror = () => console.warn("[iiskills] Google Translate script failed to load");
     document.head.appendChild(script);
   }, [disabled]);
 

@@ -22,7 +22,7 @@
  *   RATE_LIMIT_WINDOW_MS     (default 60000) — window size in ms (1 minute)
  */
 
-import { NextResponse } from 'next/server';
+import { NextResponse } from "next/server";
 
 // ---------------------------------------------------------------------------
 // In-process sliding-window store
@@ -31,21 +31,21 @@ import { NextResponse } from 'next/server';
 const store = new Map();
 
 function getRateLimit(routeGroup) {
-  const windowMs = parseInt(process.env.RATE_LIMIT_WINDOW_MS || '60000', 10);
+  const windowMs = parseInt(process.env.RATE_LIMIT_WINDOW_MS || "60000", 10);
   const maxMap = {
-    auth: parseInt(process.env.RATE_LIMIT_AUTH_MAX || '10', 10),
-    payment: parseInt(process.env.RATE_LIMIT_PAYMENT_MAX || '5', 10),
-    admin: parseInt(process.env.RATE_LIMIT_ADMIN_MAX || '30', 10),
-    profile: parseInt(process.env.RATE_LIMIT_PROFILE_MAX || '60', 10),
+    auth: parseInt(process.env.RATE_LIMIT_AUTH_MAX || "10", 10),
+    payment: parseInt(process.env.RATE_LIMIT_PAYMENT_MAX || "5", 10),
+    admin: parseInt(process.env.RATE_LIMIT_ADMIN_MAX || "30", 10),
+    profile: parseInt(process.env.RATE_LIMIT_PROFILE_MAX || "60", 10),
   };
   return { windowMs, max: maxMap[routeGroup] ?? 30 };
 }
 
 function getClientIp(request) {
   return (
-    request.headers.get('x-real-ip') ||
-    request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
-    '127.0.0.1'
+    request.headers.get("x-real-ip") ||
+    request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+    "127.0.0.1"
   );
 }
 
@@ -80,21 +80,19 @@ function checkRateLimit(key, routeGroup) {
 // Route-group classification
 // ---------------------------------------------------------------------------
 function getRouteGroup(pathname) {
-  if (
-    pathname.startsWith('/api/auth/') ||
-    pathname === '/api/auth'
-  ) return 'auth';
+  if (pathname.startsWith("/api/auth/") || pathname === "/api/auth") return "auth";
 
   if (
-    pathname === '/api/pay' ||
-    pathname.startsWith('/api/payment/') ||
-    pathname === '/api/verify-otp' ||
-    pathname === '/api/paymentMembershipHandler'
-  ) return 'payment';
+    pathname === "/api/pay" ||
+    pathname.startsWith("/api/payment/") ||
+    pathname === "/api/verify-otp" ||
+    pathname === "/api/paymentMembershipHandler"
+  )
+    return "payment";
 
-  if (pathname === '/profile') return 'profile';
+  if (pathname === "/profile") return "profile";
 
-  if (pathname.startsWith('/admin')) return 'admin';
+  if (pathname.startsWith("/admin")) return "admin";
 
   return null; // Not rate-limited
 }
@@ -105,7 +103,10 @@ function getRouteGroup(pathname) {
 function isAdminIpAllowed(ip) {
   const allowlist = process.env.ADMIN_IP_ALLOWLIST;
   if (!allowlist) return true; // No allowlist configured — allow all
-  const allowed = allowlist.split(',').map((s) => s.trim()).filter(Boolean);
+  const allowed = allowlist
+    .split(",")
+    .map((s) => s.trim())
+    .filter(Boolean);
   return allowed.includes(ip);
 }
 
@@ -121,8 +122,8 @@ export function middleware(request) {
   const ip = getClientIp(request);
 
   // IP allowlist check for admin routes (before rate limiting)
-  if (routeGroup === 'admin' && !isAdminIpAllowed(ip)) {
-    return new NextResponse('Forbidden', { status: 403 });
+  if (routeGroup === "admin" && !isAdminIpAllowed(ip)) {
+    return new NextResponse("Forbidden", { status: 403 });
   }
 
   const key = `${routeGroup}:${ip}`;
@@ -130,34 +131,37 @@ export function middleware(request) {
 
   if (!allowed) {
     return new NextResponse(
-      JSON.stringify({ error: 'Too Many Requests', retryAfter: Math.ceil((reset - Date.now()) / 1000) }),
+      JSON.stringify({
+        error: "Too Many Requests",
+        retryAfter: Math.ceil((reset - Date.now()) / 1000),
+      }),
       {
         status: 429,
         headers: {
-          'Content-Type': 'application/json',
-          'Retry-After': String(Math.ceil((reset - Date.now()) / 1000)),
-          'X-RateLimit-Limit': String(getRateLimit(routeGroup).max),
-          'X-RateLimit-Remaining': '0',
-          'X-RateLimit-Reset': String(Math.ceil(reset / 1000)),
+          "Content-Type": "application/json",
+          "Retry-After": String(Math.ceil((reset - Date.now()) / 1000)),
+          "X-RateLimit-Limit": String(getRateLimit(routeGroup).max),
+          "X-RateLimit-Remaining": "0",
+          "X-RateLimit-Reset": String(Math.ceil(reset / 1000)),
         },
       }
     );
   }
 
   const response = NextResponse.next();
-  response.headers.set('X-RateLimit-Remaining', String(remaining));
-  response.headers.set('X-RateLimit-Reset', String(Math.ceil(reset / 1000)));
+  response.headers.set("X-RateLimit-Remaining", String(remaining));
+  response.headers.set("X-RateLimit-Reset", String(Math.ceil(reset / 1000)));
   return response;
 }
 
 export const config = {
   matcher: [
-    '/api/auth/:path*',
-    '/api/pay',
-    '/api/payment/:path*',
-    '/api/verify-otp',
-    '/api/paymentMembershipHandler',
-    '/admin/:path*',
-    '/profile',
+    "/api/auth/:path*",
+    "/api/pay",
+    "/api/payment/:path*",
+    "/api/verify-otp",
+    "/api/paymentMembershipHandler",
+    "/admin/:path*",
+    "/profile",
   ],
 };

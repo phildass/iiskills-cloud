@@ -13,7 +13,7 @@
  * - Indicates free vs paid apps
  */
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 import { getCurrentUser, isAdmin } from "@lib/supabaseClient";
 import { getAppNavigationItems, getCurrentApp } from "@lib/appRegistry";
 import { navigateToApp } from "@lib/sessionManager";
@@ -27,7 +27,6 @@ export default function AppSwitcher() {
 
   useEffect(() => {
     loadApps();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -36,20 +35,20 @@ export default function AppSwitcher() {
 
     const handleKeyDown = (e) => {
       switch (e.key) {
-        case 'Escape':
+        case "Escape":
           setIsOpen(false);
           setFocusedIndex(-1);
           break;
-        case 'ArrowDown':
+        case "ArrowDown":
           e.preventDefault();
-          setFocusedIndex(prev => Math.min(prev + 1, apps.length - 1));
+          setFocusedIndex((prev) => Math.min(prev + 1, apps.length - 1));
           break;
-        case 'ArrowUp':
+        case "ArrowUp":
           e.preventDefault();
-          setFocusedIndex(prev => Math.max(prev - 1, 0));
+          setFocusedIndex((prev) => Math.max(prev - 1, 0));
           break;
-        case 'Enter':
-        case ' ':
+        case "Enter":
+        case " ":
           e.preventDefault();
           if (focusedIndex >= 0 && apps[focusedIndex]) {
             handleAppSelect(apps[focusedIndex].id);
@@ -58,8 +57,8 @@ export default function AppSwitcher() {
       }
     };
 
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isOpen, focusedIndex, apps]);
 
   const loadApps = async () => {
@@ -68,12 +67,12 @@ export default function AppSwitcher() {
       const hasAdminAccess = user ? await isAdmin(user) : false;
       const navItems = getAppNavigationItems(user, hasAdminAccess);
       const current = getCurrentApp();
-      
+
       setApps(navItems);
       setCurrentApp(current);
       setLoading(false);
     } catch (error) {
-      console.error('Error loading apps:', error);
+      console.error("Error loading apps:", error);
       setLoading(false);
     }
   };
@@ -96,9 +95,9 @@ export default function AppSwitcher() {
         aria-expanded={isOpen}
         aria-haspopup="true"
       >
-        <span>{currentApp?.name || 'Apps'}</span>
+        <span>{currentApp?.name || "Apps"}</span>
         <svg
-          className={`w-4 h-4 transition-transform ${isOpen ? 'rotate-180' : ''}`}
+          className={`w-4 h-4 transition-transform ${isOpen ? "rotate-180" : ""}`}
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -110,10 +109,7 @@ export default function AppSwitcher() {
       {isOpen && (
         <>
           {/* Backdrop */}
-          <div
-            className="fixed inset-0 z-10"
-            onClick={() => setIsOpen(false)}
-          />
+          <div className="fixed inset-0 z-10" onClick={() => setIsOpen(false)} />
 
           {/* Dropdown */}
           <div className="absolute right-0 mt-2 w-64 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-20">
@@ -121,14 +117,14 @@ export default function AppSwitcher() {
               <div className="px-4 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wider">
                 Switch Apps
               </div>
-              
+
               {apps.map((app, index) => (
                 <button
                   key={app.id}
                   onClick={() => handleAppSelect(app.id)}
                   className={`w-full text-left px-4 py-2 text-sm hover:bg-gray-100 flex items-center justify-between ${
-                    app.isCurrent ? 'bg-blue-50 text-blue-700' : 'text-gray-700'
-                  } ${focusedIndex === index ? 'ring-2 ring-blue-500' : ''}`}
+                    app.isCurrent ? "bg-blue-50 text-blue-700" : "text-gray-700"
+                  } ${focusedIndex === index ? "ring-2 ring-blue-500" : ""}`}
                   role="menuitem"
                   tabIndex={isOpen ? 0 : -1}
                 >
@@ -146,7 +142,7 @@ export default function AppSwitcher() {
                   </span>
                 </button>
               ))}
-              
+
               <div className="border-t border-gray-100 mt-1 pt-1">
                 <div className="px-4 py-2 text-xs text-gray-500">
                   Your session works across all apps

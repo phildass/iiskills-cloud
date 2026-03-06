@@ -6,10 +6,7 @@ export default function Privacy() {
     <>
       <Head>
         <title>Privacy Policy - Learn Companion</title>
-        <meta
-          name="description"
-          content="Privacy Policy for Learn Companion - iiskills.cloud"
-        />
+        <meta name="description" content="Privacy Policy for Learn Companion - iiskills.cloud" />
       </Head>
       <main className="max-w-4xl mx-auto px-4 py-12">
         <h1 className="text-4xl font-bold text-primary mb-4 text-center">Privacy Policy</h1>
@@ -143,9 +140,7 @@ export default function Privacy() {
 
           <section>
             <h2 className="text-2xl font-bold text-accent mb-3">9. Your Rights</h2>
-            <p className="text-charcoal leading-relaxed mb-4">
-              You have the right to:
-            </p>
+            <p className="text-charcoal leading-relaxed mb-4">You have the right to:</p>
             <ul className="list-disc ml-6 text-charcoal space-y-1">
               <li>Access the personal information we hold about you</li>
               <li>Request correction of inaccurate information</li>

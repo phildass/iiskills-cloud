@@ -5,10 +5,10 @@ export default function App({ Component, pageProps }) {
   // Check if we're using local content mode
   const useLocalContent = process.env.NEXT_PUBLIC_USE_LOCAL_CONTENT === "true";
   const supabaseSuspended = process.env.NEXT_PUBLIC_SUPABASE_SUSPENDED === "true";
-  
+
   // Determine display mode
   const isLocalOnlyMode = useLocalContent || supabaseSuspended;
-  
+
   return (
     <ErrorBoundary>
       {/* Warning banner - only show if in local-only mode */}

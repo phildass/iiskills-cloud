@@ -1,6 +1,6 @@
-import path from 'path';
-import { createLoader } from '@iiskills/content-loader';
-import { moduleTopics } from '../../../../lib/curriculumGenerator';
+import path from "path";
+import { createLoader } from "@iiskills/content-loader";
+import { moduleTopics } from "../../../../lib/curriculumGenerator";
 
 // ---------------------------------------------------------------------------
 // Static generation: pre-render all 10×10 lesson pages at build time.
@@ -94,12 +94,12 @@ function buildFallbackLesson(moduleId, lessonId) {
 
 export async function getStaticProps({ params }) {
   const { moduleId, lessonId } = params;
-  const contentRoot = path.resolve(process.cwd(), '../../content');
+  const contentRoot = path.resolve(process.cwd(), "../../content");
   const loader = createLoader(contentRoot);
 
   // Try filesystem content first; fall back to inline generation.
   const lesson =
-    loader.getLesson('learn-management', moduleId, lessonId) ||
+    loader.getLesson("learn-management", moduleId, lessonId) ||
     buildFallbackLesson(moduleId, lessonId);
 
   return { props: { lesson, moduleId, lessonId } };
@@ -110,18 +110,18 @@ export async function getStaticProps({ params }) {
 // Auth check still runs client-side but does NOT block content display.
 // ---------------------------------------------------------------------------
 
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
-import Head from 'next/head';
-import QuizComponent from '../../../../components/QuizComponent';
-import EnrollmentLandingPage from '@shared/EnrollmentLandingPage';
-import { getCurrentUser } from '../../../../lib/supabaseClient';
-import { LessonContent } from '@iiskills/ui/content';
-import { isFreeAccessEnabled } from '@lib/freeAccess';
-import { useEntitlement } from '@lib/hooks/useEntitlement';
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import Head from "next/head";
+import QuizComponent from "../../../../components/QuizComponent";
+import EnrollmentLandingPage from "@shared/EnrollmentLandingPage";
+import { getCurrentUser } from "../../../../lib/supabaseClient";
+import { LessonContent } from "@iiskills/ui/content";
+import { isFreeAccessEnabled } from "@lib/freeAccess";
+import { useEntitlement } from "@lib/hooks/useEntitlement";
 
 const FREE_ACCESS = isFreeAccessEnabled();
-const NO_BADGES_KEY = 'learn-management-noBadges';
+const NO_BADGES_KEY = "learn-management-noBadges";
 
 export default function LessonPage({ lesson, moduleId, lessonId }) {
   const router = useRouter();
@@ -132,16 +132,16 @@ export default function LessonPage({ lesson, moduleId, lessonId }) {
   const [showSkipDialog, setShowSkipDialog] = useState(false);
 
   // Universal entitlement check — skipped for free/sample lessons.
-  const isSampleLesson = moduleId === '1' && lessonId === '1';
+  const isSampleLesson = moduleId === "1" && lessonId === "1";
   const { entitled } = useEntitlement({
-    appId: 'learn-management',
+    appId: "learn-management",
     skip: FREE_ACCESS || lesson.isFree || isSampleLesson,
   });
 
   // Load noBadges flag from localStorage on mount
   useEffect(() => {
     try {
-      setNoBadges(localStorage.getItem(NO_BADGES_KEY) === 'true');
+      setNoBadges(localStorage.getItem(NO_BADGES_KEY) === "true");
     } catch {
       // localStorage unavailable (SSR or private mode)
     }
@@ -170,15 +170,15 @@ export default function LessonPage({ lesson, moduleId, lessonId }) {
 
     // Show Premium Access Prompt after completing sample lesson (Module 1, Lesson 1)
     // Suppressed in free-access mode.
-    if (passed && moduleId === '1' && lessonId === '1' && !FREE_ACCESS) {
+    if (passed && moduleId === "1" && lessonId === "1" && !FREE_ACCESS) {
       setShowEnrollment(true);
     }
 
     if (passed) {
       try {
-        await fetch('/api/assessments/submit', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+        await fetch("/api/assessments/submit", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             lesson_id: lessonId,
             module_id: moduleId,
@@ -186,7 +186,7 @@ export default function LessonPage({ lesson, moduleId, lessonId }) {
           }),
         });
       } catch (error) {
-        console.error('Error saving progress:', error);
+        console.error("Error saving progress:", error);
       }
     }
   };
@@ -200,14 +200,14 @@ export default function LessonPage({ lesson, moduleId, lessonId }) {
       if (nextModuleId <= 10) {
         router.push(`/modules/${moduleId}/final-test`);
       } else {
-        router.push('/curriculum');
+        router.push("/curriculum");
       }
     }
   };
 
   const confirmSkip = () => {
     try {
-      localStorage.setItem(NO_BADGES_KEY, 'true');
+      localStorage.setItem(NO_BADGES_KEY, "true");
     } catch {
       // localStorage unavailable
     }
@@ -220,7 +220,10 @@ export default function LessonPage({ lesson, moduleId, lessonId }) {
     <>
       <Head>
         <title>{lesson.title} - Learn Management</title>
-        <meta name="description" content={`Learn Management - Module ${moduleId}, Lesson ${lessonId}`} />
+        <meta
+          name="description"
+          content={`Learn Management - Module ${moduleId}, Lesson ${lessonId}`}
+        />
       </Head>
 
       <main className="min-h-screen bg-gray-50 py-12">
@@ -238,11 +241,16 @@ export default function LessonPage({ lesson, moduleId, lessonId }) {
 
           <div className="mb-6">
             <button
-              onClick={() => router.push('/curriculum')}
+              onClick={() => router.push("/curriculum")}
               className="text-blue-600 hover:text-blue-800 flex items-center"
             >
               <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M15 19l-7-7 7-7"
+                />
               </svg>
               Back to Curriculum
             </button>
@@ -279,13 +287,11 @@ export default function LessonPage({ lesson, moduleId, lessonId }) {
 
           {(quizCompleted || noBadges) && (
             <div
-              className={`card border-2 ${quizCompleted && !noBadges ? 'bg-green-50 border-green-500' : 'bg-yellow-50 border-yellow-400'}`}
+              className={`card border-2 ${quizCompleted && !noBadges ? "bg-green-50 border-green-500" : "bg-yellow-50 border-yellow-400"}`}
             >
               {quizCompleted && !noBadges ? (
                 <>
-                  <h3 className="text-xl font-semibold text-green-800 mb-4">
-                    🎉 Quiz Passed!
-                  </h3>
+                  <h3 className="text-xl font-semibold text-green-800 mb-4">🎉 Quiz Passed!</h3>
                   <p className="text-gray-700 mb-4">
                     Congratulations! You&apos;ve successfully completed this lesson.
                   </p>

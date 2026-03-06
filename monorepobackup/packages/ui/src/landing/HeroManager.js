@@ -16,7 +16,7 @@ import { useState, useEffect } from "react";
  * - Renders a full-size hero background with first image (hero image)
  * - Positions overlay text at the bottom of the hero area
  *
- * Note: Archived apps (learn-biology, learn-cricket, learn-companion, learn-finesse, learn-govt-jobs, 
+ * Note: Archived apps (learn-biology, learn-cricket, learn-companion, learn-finesse, learn-govt-jobs,
  * learn-leadership, learn-winning, mpa) are in apps-backup/ and are not included in this configuration.
  */
 
@@ -31,8 +31,8 @@ import { useState, useEffect } from "react";
  * Learn-geography has 3 images total (1 hero + 2 secondary images)
  * Other apps have 3 images each (1 hero + 2 random images)
  *
- * Note: Apps in apps-backup/ (learn-biology, learn-cricket, learn-companion, learn-finesse, 
- * learn-govt-jobs, learn-leadership, learn-winning, mpa) are archived and no longer 
+ * Note: Apps in apps-backup/ (learn-biology, learn-cricket, learn-companion, learn-finesse,
+ * learn-govt-jobs, learn-leadership, learn-winning, mpa) are archived and no longer
  * have image assignments here.
  */
 const APP_IMAGE_ASSIGNMENTS = {
@@ -141,13 +141,13 @@ export function getRandomSecondaryImage(appId) {
  * @param {boolean} props.noOverlay - If true, displays image naturally without any overlay (default: false)
  * @param {string} props.overlayOpacity - Custom overlay opacity class (e.g., "bg-black/20", "bg-black/40"). Only applies when noOverlay is false. Default: "bg-black/40"
  */
-export default function Hero({ 
-  appId, 
-  children, 
-  className = "", 
-  heroHeight = "70vh", 
+export default function Hero({
+  appId,
+  children,
+  className = "",
+  heroHeight = "70vh",
   noOverlay = false,
-  overlayOpacity = "bg-black/40"
+  overlayOpacity = "bg-black/40",
 }) {
   const [heroImage, setHeroImage] = useState(null);
 

@@ -108,9 +108,9 @@ export default function Header({
                 // User is logged in - show first name and logout button
                 <>
                   <span className="text-sm font-medium text-gray-700">
-                    {user.user_metadata?.first_name || user.email?.split('@')[0] || 'User'}
+                    {user.user_metadata?.first_name || user.email?.split("@")[0] || "User"}
                   </span>
-                  {user.app_metadata?.provider === 'google' && (
+                  {user.app_metadata?.provider === "google" && (
                     <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">
                       Google User
                     </span>
@@ -138,7 +138,6 @@ export default function Header({
               )}
             </>
           )}
-
         </div>
 
         {/* Mobile Menu Button */}
@@ -196,9 +195,9 @@ export default function Header({
                 <>
                   <div className="px-4 py-2 flex items-center gap-2">
                     <span className="text-sm font-medium text-gray-700">
-                      {user.user_metadata?.first_name || user.email?.split('@')[0] || 'User'}
+                      {user.user_metadata?.first_name || user.email?.split("@")[0] || "User"}
                     </span>
-                    {user.app_metadata?.provider === 'google' && (
+                    {user.app_metadata?.provider === "google" && (
                       <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">
                         Google User
                       </span>

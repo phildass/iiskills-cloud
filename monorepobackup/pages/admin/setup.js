@@ -1,35 +1,35 @@
 /**
  * Admin Setup Page
- * 
+ *
  * First-time admin account creation page.
- * 
+ *
  * SECURITY REQUIREMENTS:
  * - Only active when process.env.ADMIN_SETUP_MODE === 'true'
  * - Only active when no admin accounts exist
  * - Creates first admin with bcrypt-hashed password
  * - Logs all setup attempts to logs/admin-setup.log
  * - Instructs operator to set ADMIN_SETUP_MODE=false after setup
- * 
+ *
  * DO NOT LEAVE OPEN BYPASS IN PRODUCTION!
  */
 
-import { useState, useEffect } from 'react';
-import Head from 'next/head';
-import { useRouter } from 'next/router';
+import { useState, useEffect } from "react";
+import Head from "next/head";
+import { useRouter } from "next/router";
 
 export default function AdminSetup() {
   const router = useRouter();
   const [isSetupMode, setIsSetupMode] = useState(false);
   const [loading, setLoading] = useState(true);
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-    confirmPassword: '',
-    fullName: ''
+    email: "",
+    password: "",
+    confirmPassword: "",
+    fullName: "",
   });
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
-  const [setupInstructions, setSetupInstructions] = useState('');
+  const [setupInstructions, setSetupInstructions] = useState("");
 
   useEffect(() => {
     // Check if setup mode is enabled
@@ -38,16 +38,16 @@ export default function AdminSetup() {
 
   const checkSetupMode = async () => {
     try {
-      const response = await fetch('/api/admin/setup/check');
+      const response = await fetch("/api/admin/setup/check");
       const data = await response.json();
-      
+
       if (data.setupEnabled) {
         setIsSetupMode(true);
       } else {
-        setError(data.message || 'Admin setup is not available');
+        setError(data.message || "Admin setup is not available");
       }
     } catch (err) {
-      setError('Failed to check setup mode');
+      setError("Failed to check setup mode");
     } finally {
       setLoading(false);
     }
@@ -55,54 +55,57 @@ export default function AdminSetup() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
+    setError("");
 
     // Validation
     if (!formData.email || !formData.password) {
-      setError('Email and password are required');
+      setError("Email and password are required");
       return;
     }
 
     if (formData.password.length < 8) {
-      setError('Password must be at least 8 characters long');
+      setError("Password must be at least 8 characters long");
       return;
     }
 
     if (formData.password !== formData.confirmPassword) {
-      setError('Passwords do not match');
+      setError("Passwords do not match");
       return;
     }
 
     try {
-      const response = await fetch('/api/admin/setup', {
-        method: 'POST',
+      const response = await fetch("/api/admin/setup", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           email: formData.email,
           password: formData.password,
-          fullName: formData.fullName || formData.email
-        })
+          fullName: formData.fullName || formData.email,
+        }),
       });
 
       const data = await response.json();
 
       if (response.ok) {
         setSuccess(true);
-        setSetupInstructions(data.instructions || 'Admin account created successfully. Please set ADMIN_SETUP_MODE=false in your environment variables.');
+        setSetupInstructions(
+          data.instructions ||
+            "Admin account created successfully. Please set ADMIN_SETUP_MODE=false in your environment variables."
+        );
       } else {
-        setError(data.error || 'Failed to create admin account');
+        setError(data.error || "Failed to create admin account");
       }
     } catch (err) {
-      setError('An error occurred during setup: ' + err.message);
+      setError("An error occurred during setup: " + err.message);
     }
   };
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -132,9 +135,7 @@ export default function AdminSetup() {
             <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
               <p className="text-gray-700">{error}</p>
             </div>
-            <p className="text-sm text-gray-600 mb-4">
-              Admin setup is only available when:
-            </p>
+            <p className="text-sm text-gray-600 mb-4">Admin setup is only available when:</p>
             <ul className="text-sm text-gray-600 mb-6 space-y-2">
               <li className="flex items-start">
                 <span className="text-blue-600 mr-2">•</span>
@@ -146,7 +147,7 @@ export default function AdminSetup() {
               </li>
             </ul>
             <button
-              onClick={() => router.push('/')}
+              onClick={() => router.push("/")}
               className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition"
             >
               Return to Home
@@ -180,10 +181,17 @@ export default function AdminSetup() {
             <div className="bg-red-50 border-2 border-red-300 rounded-lg p-6 mb-6">
               <p className="text-red-800 font-bold mb-2">⚠️ IMPORTANT - Next Steps:</p>
               <ol className="text-gray-800 space-y-2 list-decimal list-inside">
-                <li>Immediately set <code className="bg-gray-200 px-2 py-1 rounded">ADMIN_SETUP_MODE=false</code> in your environment variables</li>
+                <li>
+                  Immediately set{" "}
+                  <code className="bg-gray-200 px-2 py-1 rounded">ADMIN_SETUP_MODE=false</code> in
+                  your environment variables
+                </li>
                 <li>Restart your application</li>
                 <li>Verify that this setup page is no longer accessible</li>
-                <li>Review the audit log at <code className="bg-gray-200 px-2 py-1 rounded">logs/admin-setup.log</code></li>
+                <li>
+                  Review the audit log at{" "}
+                  <code className="bg-gray-200 px-2 py-1 rounded">logs/admin-setup.log</code>
+                </li>
               </ol>
             </div>
 
@@ -192,7 +200,7 @@ export default function AdminSetup() {
             </div>
 
             <button
-              onClick={() => router.push('/admin')}
+              onClick={() => router.push("/admin")}
               className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition font-semibold"
             >
               Go to Admin Dashboard
@@ -219,8 +227,8 @@ export default function AdminSetup() {
           <div className="bg-yellow-50 border border-yellow-300 rounded-lg p-4 mb-6">
             <p className="text-sm text-yellow-800 font-semibold mb-2">⚠️ Security Notice:</p>
             <p className="text-sm text-yellow-700">
-              This page is only accessible because ADMIN_SETUP_MODE is enabled. 
-              After creating your admin account, you MUST disable this mode.
+              This page is only accessible because ADMIN_SETUP_MODE is enabled. After creating your
+              admin account, you MUST disable this mode.
             </p>
           </div>
 
@@ -280,7 +288,10 @@ export default function AdminSetup() {
             </div>
 
             <div>
-              <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="confirmPassword"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
                 Confirm Password
               </label>
               <input
@@ -305,8 +316,8 @@ export default function AdminSetup() {
 
           <div className="mt-6 pt-6 border-t border-gray-200">
             <p className="text-xs text-gray-500 text-center">
-              This admin account will have full system access. 
-              Choose a strong password and store it securely.
+              This admin account will have full system access. Choose a strong password and store it
+              securely.
             </p>
           </div>
         </div>

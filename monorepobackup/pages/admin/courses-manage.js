@@ -1,10 +1,10 @@
-import { useState, useEffect } from 'react';
-import Head from 'next/head';
-import { createClient } from '@supabase/supabase-js';
+import { useState, useEffect } from "react";
+import Head from "next/head";
+import { createClient } from "@supabase/supabase-js";
 
 /**
  * Admin Courses Management
- * 
+ *
  * Add, edit, and publish courses
  * Publishing automatically triggers newsletter generation
  */
@@ -28,10 +28,10 @@ export default function AdminCoursesManagement() {
   async function loadCourses() {
     setLoading(true);
     const { data } = await supabase
-      .from('courses')
-      .select('*')
-      .order('created_at', { ascending: false });
-    
+      .from("courses")
+      .select("*")
+      .order("created_at", { ascending: false });
+
     setCourses(data || []);
     setLoading(false);
   }
@@ -47,24 +47,24 @@ export default function AdminCoursesManagement() {
   }
 
   async function handleDelete(id) {
-    if (!confirm('Are you sure you want to delete this course?')) {
+    if (!confirm("Are you sure you want to delete this course?")) {
       return;
     }
 
     try {
       const response = await fetch(`/api/courses?id=${id}`, {
-        method: 'DELETE',
+        method: "DELETE",
       });
 
       if (response.ok) {
-        setMessage({ type: 'success', text: '✅ Course deleted' });
+        setMessage({ type: "success", text: "✅ Course deleted" });
         loadCourses();
       } else {
         const data = await response.json();
-        setMessage({ type: 'error', text: `❌ ${data.error}` });
+        setMessage({ type: "error", text: `❌ ${data.error}` });
       }
     } catch (error) {
-      setMessage({ type: 'error', text: `❌ ${error.message}` });
+      setMessage({ type: "error", text: `❌ ${error.message}` });
     }
   }
 
@@ -79,9 +79,7 @@ export default function AdminCoursesManagement() {
           {/* Header */}
           <div className="flex items-center justify-between mb-8">
             <div>
-              <h1 className="text-3xl font-bold text-gray-800 mb-2">
-                📚 Course Management
-              </h1>
+              <h1 className="text-3xl font-bold text-gray-800 mb-2">📚 Course Management</h1>
               <p className="text-gray-600">
                 Add and publish courses • Auto-generates Skilling newsletter
               </p>
@@ -96,9 +94,11 @@ export default function AdminCoursesManagement() {
 
           {/* Message */}
           {message && (
-            <div className={`mb-6 p-4 rounded-lg ${
-              message.type === 'success' ? 'bg-green-50 text-green-800' : 'bg-red-50 text-red-800'
-            }`}>
+            <div
+              className={`mb-6 p-4 rounded-lg ${
+                message.type === "success" ? "bg-green-50 text-green-800" : "bg-red-50 text-red-800"
+              }`}
+            >
               {message.text}
             </div>
           )}
@@ -112,13 +112,13 @@ export default function AdminCoursesManagement() {
                 setEditingCourse(null);
               }}
               onSuccess={(msg) => {
-                setMessage({ type: 'success', text: msg });
+                setMessage({ type: "success", text: msg });
                 setShowForm(false);
                 setEditingCourse(null);
                 loadCourses();
               }}
               onError={(msg) => {
-                setMessage({ type: 'error', text: msg });
+                setMessage({ type: "error", text: msg });
               }}
             />
           )}
@@ -142,11 +142,21 @@ export default function AdminCoursesManagement() {
                 <table className="min-w-full">
                   <thead className="bg-gray-50 border-b">
                     <tr>
-                      <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600">Title</th>
-                      <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600">Status</th>
-                      <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600">Category</th>
-                      <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600">Created</th>
-                      <th className="px-6 py-3 text-right text-xs font-semibold text-gray-600">Actions</th>
+                      <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600">
+                        Title
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600">
+                        Status
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600">
+                        Category
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600">
+                        Created
+                      </th>
+                      <th className="px-6 py-3 text-right text-xs font-semibold text-gray-600">
+                        Actions
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
@@ -157,16 +167,20 @@ export default function AdminCoursesManagement() {
                           <div className="text-sm text-gray-500">{course.slug}</div>
                         </td>
                         <td className="px-6 py-4">
-                          <span className={`inline-block px-2 py-1 rounded text-xs font-semibold ${
-                            course.status === 'published' ? 'bg-green-100 text-green-800' :
-                            course.status === 'archived' ? 'bg-gray-100 text-gray-800' :
-                            'bg-yellow-100 text-yellow-800'
-                          }`}>
+                          <span
+                            className={`inline-block px-2 py-1 rounded text-xs font-semibold ${
+                              course.status === "published"
+                                ? "bg-green-100 text-green-800"
+                                : course.status === "archived"
+                                  ? "bg-gray-100 text-gray-800"
+                                  : "bg-yellow-100 text-yellow-800"
+                            }`}
+                          >
                             {course.status}
                           </span>
                         </td>
                         <td className="px-6 py-4 text-sm text-gray-600">
-                          {course.category || '-'}
+                          {course.category || "-"}
                         </td>
                         <td className="px-6 py-4 text-sm text-gray-500">
                           {new Date(course.created_at).toLocaleDateString()}
@@ -203,27 +217,27 @@ export default function AdminCoursesManagement() {
  */
 function CourseForm({ course, onClose, onSuccess, onError }) {
   const [formData, setFormData] = useState({
-    title: course?.title || '',
-    slug: course?.slug || '',
-    short_description: course?.short_description || '',
-    full_description: course?.full_description || '',
-    highlights: course?.highlights?.join('\n') || '',
-    duration: course?.duration || '',
-    category: course?.category || '',
-    target_audience: course?.target_audience || '',
-    topics_skills: course?.topics_skills?.join('\n') || '',
+    title: course?.title || "",
+    slug: course?.slug || "",
+    short_description: course?.short_description || "",
+    full_description: course?.full_description || "",
+    highlights: course?.highlights?.join("\n") || "",
+    duration: course?.duration || "",
+    category: course?.category || "",
+    target_audience: course?.target_audience || "",
+    topics_skills: course?.topics_skills?.join("\n") || "",
     price: course?.price || 0,
     is_free: course?.is_free || false,
-    subdomain: course?.subdomain || '',
-    status: course?.status || 'draft',
+    subdomain: course?.subdomain || "",
+    status: course?.status || "draft",
   });
   const [saving, setSaving] = useState(false);
 
   function handleChange(e) {
     const { name, value, type, checked } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: type === 'checkbox' ? checked : value
+      [name]: type === "checkbox" ? checked : value,
     }));
   }
 
@@ -235,17 +249,17 @@ function CourseForm({ course, onClose, onSuccess, onError }) {
       // Prepare data
       const data = {
         ...formData,
-        highlights: formData.highlights.split('\n').filter(h => h.trim()),
-        topics_skills: formData.topics_skills.split('\n').filter(t => t.trim()),
+        highlights: formData.highlights.split("\n").filter((h) => h.trim()),
+        topics_skills: formData.topics_skills.split("\n").filter((t) => t.trim()),
         price: parseFloat(formData.price) || 0,
       };
 
-      const url = course?.id ? `/api/courses?id=${course.id}` : '/api/courses';
-      const method = course?.id ? 'PUT' : 'POST';
+      const url = course?.id ? `/api/courses?id=${course.id}` : "/api/courses";
+      const method = course?.id ? "PUT" : "POST";
 
       const response = await fetch(url, {
         method,
-        headers: { 'Content-Type': 'application/json' },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
 
@@ -268,7 +282,7 @@ function CourseForm({ course, onClose, onSuccess, onError }) {
       <div className="bg-white rounded-lg max-w-3xl w-full my-8">
         <div className="p-6 border-b">
           <h2 className="text-2xl font-bold text-gray-800">
-            {course ? 'Edit Course' : 'Add New Course'}
+            {course ? "Edit Course" : "Add New Course"}
           </h2>
         </div>
 
@@ -290,9 +304,7 @@ function CourseForm({ course, onClose, onSuccess, onError }) {
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-1">
-                Category
-              </label>
+              <label className="block text-sm font-semibold text-gray-700 mb-1">Category</label>
               <input
                 type="text"
                 name="category"
@@ -304,9 +316,7 @@ function CourseForm({ course, onClose, onSuccess, onError }) {
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-1">
-                Status *
-              </label>
+              <label className="block text-sm font-semibold text-gray-700 mb-1">Status *</label>
               <select
                 name="status"
                 value={formData.status}
@@ -349,9 +359,7 @@ function CourseForm({ course, onClose, onSuccess, onError }) {
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-1">
-                Duration
-              </label>
+              <label className="block text-sm font-semibold text-gray-700 mb-1">Duration</label>
               <input
                 type="text"
                 name="duration"
@@ -391,7 +399,7 @@ function CourseForm({ course, onClose, onSuccess, onError }) {
             disabled={saving}
             className="px-6 py-2 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-700 disabled:opacity-50"
           >
-            {saving ? 'Saving...' : (course ? 'Update Course' : 'Create Course')}
+            {saving ? "Saving..." : course ? "Update Course" : "Create Course"}
           </button>
         </div>
       </div>

@@ -1,10 +1,10 @@
 /**
  * Navigation Helper Utilities
- * 
+ *
  * Helper functions for navigation between sites and admin pages
  */
 
-import { SITES } from './siteConfig';
+import { SITES } from "./siteConfig";
 
 /**
  * Get the URL for a specific site
@@ -12,7 +12,7 @@ import { SITES } from './siteConfig';
  * @returns {string} The site URL
  */
 export const getSiteUrl = (siteSlug) => {
-  return SITES[siteSlug]?.url || SITES['main'].url;
+  return SITES[siteSlug]?.url || SITES["main"].url;
 };
 
 /**
@@ -21,7 +21,7 @@ export const getSiteUrl = (siteSlug) => {
  * @returns {string} The admin URL
  */
 export const getAdminUrl = (siteSlug = null) => {
-  const baseUrl = 'https://app.iiskills.cloud/admin';
+  const baseUrl = "https://app.iiskills.cloud/admin";
   return siteSlug ? `${baseUrl}?site=${siteSlug}` : baseUrl;
 };
 
@@ -67,5 +67,5 @@ export const getLessonPreviewUrl = (siteSlug, courseSlug, moduleSlug, lessonSlug
  * @returns {object} Site information
  */
 export const getSiteInfo = (siteSlug) => {
-  return SITES[siteSlug] || SITES['main'];
+  return SITES[siteSlug] || SITES["main"];
 };

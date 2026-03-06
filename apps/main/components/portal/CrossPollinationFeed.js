@@ -9,7 +9,8 @@ const BRIDGE_DATA = [
     to: "Learn Management",
     fromModule: "Entropy",
     toModule: "Organizational Decay",
-    description: "Today's Learn-Physics lesson on Entropy helps explain Learn-Management's module on Organizational Decay.",
+    description:
+      "Today's Learn-Physics lesson on Entropy helps explain Learn-Management's module on Organizational Decay.",
     stats: "4,000 users",
   },
   {
@@ -18,7 +19,8 @@ const BRIDGE_DATA = [
     to: "Learn AI",
     fromModule: "Statistics",
     toModule: "Machine Learning",
-    description: "Understanding statistical foundations in Learn-Math makes Learn-AI's Machine Learning concepts crystal clear.",
+    description:
+      "Understanding statistical foundations in Learn-Math makes Learn-AI's Machine Learning concepts crystal clear.",
     stats: "6,200 users",
   },
   {
@@ -27,7 +29,8 @@ const BRIDGE_DATA = [
     to: "Learn Govt Jobs",
     fromModule: "Indian States",
     toModule: "State Service Exams",
-    description: "Learn-Geography's coverage of Indian states directly supports Learn-Govt-Jobs state service exam preparation.",
+    description:
+      "Learn-Geography's coverage of Indian states directly supports Learn-Govt-Jobs state service exam preparation.",
     stats: "3,500 users",
   },
   {
@@ -36,7 +39,8 @@ const BRIDGE_DATA = [
     to: "Learn Management",
     fromModule: "Media Relations",
     toModule: "Stakeholder Communication",
-    description: "Learn-PR's media strategies enhance Learn-Management's stakeholder communication module.",
+    description:
+      "Learn-PR's media strategies enhance Learn-Management's stakeholder communication module.",
     stats: "2,800 users",
   },
 ];
@@ -87,10 +91,10 @@ export default function CrossPollinationFeed() {
           <motion.div
             key={bridge.id}
             initial={{ opacity: 0, y: 10 }}
-            animate={{ 
+            animate={{
               opacity: index === currentIndex ? 1 : 0.5,
               y: 0,
-              scale: index === currentIndex ? 1 : 0.95
+              scale: index === currentIndex ? 1 : 0.95,
             }}
             transition={{ duration: 0.5 }}
             className={`bg-white rounded-lg p-4 shadow-md border-2 ${
