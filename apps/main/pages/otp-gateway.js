@@ -2,6 +2,14 @@ import Head from 'next/head';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 
+export function getServerSideProps() {
+  return {
+    props: {
+      otpDisabled: process.env.OTP_DISABLED === 'true',
+    },
+  };
+}
+
 const PAID_APPS = [
   { id: 'learn-ai', label: 'Learn AI', url: 'https://learn-ai.iiskills.cloud' },
   { id: 'learn-developer', label: 'Learn Developer', url: 'https://learn-developer.iiskills.cloud' },
@@ -18,7 +26,7 @@ const PAID_APPS = [
  *
  * Route: /otp-gateway
  */
-export default function OtpGateway() {
+export default function OtpGateway({ otpDisabled }) {
   const [form, setForm] = useState({ email: '', otp: '', appId: 'learn-ai' });
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(null);
@@ -96,18 +104,46 @@ export default function OtpGateway() {
 
       <main className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
         <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8">
-          {/* Header */}
-          <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full mb-4">
-              <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-              </svg>
+          {otpDisabled ? (
+            /* ── OTP disabled state ────────────────────────────────────── */
+            <div className="text-center" role="status" aria-live="polite">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-amber-100 rounded-full mb-4">
+                <svg className="w-8 h-8 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01M12 3a9 9 0 110 18A9 9 0 0112 3z" />
+                </svg>
+              </div>
+              <h1 className="text-2xl font-bold text-gray-900 mb-3">OTP Activation Unavailable</h1>
+              <p className="text-gray-600 mb-6">
+                OTP activation is temporarily disabled. Please contact{' '}
+                <a href="mailto:support@iiskills.cloud" className="text-blue-600 underline">
+                  support@iiskills.cloud
+                </a>{' '}
+                for assistance.
+              </p>
+              <Link
+                href="/payments/iiskills"
+                className="inline-block bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3 px-6 rounded-xl font-bold hover:from-blue-700 hover:to-indigo-700 transition-all shadow-lg"
+              >
+                Go to Payments
+              </Link>
+              <Link href="/" className="block mt-4 text-sm text-gray-500 hover:text-gray-700">
+                Return to iiskills.cloud
+              </Link>
             </div>
-            <h1 className="text-2xl font-bold text-gray-900 mb-2">Activate Paid Access</h1>
-            <p className="text-gray-600 text-sm">
-              Enter the 6-digit OTP sent to your phone (and email) after payment to unlock your course.
-            </p>
-          </div>
+          ) : (
+            <>
+            {/* Header */}
+            <div className="text-center mb-8">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full mb-4">
+                <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                </svg>
+              </div>
+              <h1 className="text-2xl font-bold text-gray-900 mb-2">Activate Paid Access</h1>
+              <p className="text-gray-600 text-sm">
+                Enter the 6-digit OTP sent to your phone (and email) after payment to unlock your course.
+              </p>
+            </div>
 
           {success ? (
             /* ── Success state ─────────────────────────────────────────── */
@@ -288,6 +324,8 @@ export default function OtpGateway() {
                 </p>
               </div>
             </form>
+          )}
+            </>
           )}
         </div>
       </main>
