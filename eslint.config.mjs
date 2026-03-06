@@ -60,6 +60,10 @@ export default [
         sessionStorage: "readonly",
         alert: "readonly",
         confirm: "readonly",
+        Buffer: "readonly",
+        FormData: "readonly",
+        URL: "readonly",
+        URLSearchParams: "readonly",
       },
     },
     settings: {

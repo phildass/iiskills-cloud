@@ -144,7 +144,10 @@ export default function UnsubscribePage() {
                   <strong>What you can do:</strong>
                 </p>
                 <ul className="list-disc list-inside text-gray-600 text-sm space-y-1 ml-2">
-                  <li>Contact support at support@iiskills.cloud for assistance</li>
+                  <li>
+                    If you have any issues, go to your dashboard and raise a ticket. We will revert
+                    as soon as possible.
+                  </li>
                   <li>Log into your account and manage newsletter preferences in settings</li>
                   <li>Reply to any newsletter email with "unsubscribe" in the subject</li>
                 </ul>

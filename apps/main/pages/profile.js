@@ -244,6 +244,12 @@ export default function ProfilePage() {
             >
               My Apps →
             </Link>
+            <Link
+              href="/tickets"
+              className="bg-amber-500 text-white px-6 py-2 rounded-lg hover:bg-amber-600 transition text-sm font-bold"
+            >
+              🎫 Tickets
+            </Link>
           </div>
         </div>
       </div>

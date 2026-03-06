@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { getMainSiteUrl, isOnSubdomain } from "../utils/urlHelper";
 import { signOutUser } from "../lib/supabaseClient";
 import { LEARNING_SITES } from "../lib/siteConfig";
@@ -12,11 +12,12 @@ import { getSiteUrl } from "../lib/navigation";
  * Admin Navigation Bar
  *
  * Navigation bar for admin pages with Supabase authentication.
- * Shows admin section links and logout functionality.
+ * Shows admin section links, a "New Tickets" badge, and logout functionality.
  */
 export default function AdminNav() {
   const router = useRouter();
   const [showSiteDropdown, setShowSiteDropdown] = useState(false);
+  const [newTicketCount, setNewTicketCount] = useState(null);
 
   const handleLogout = async () => {
     const { success } = await signOutUser();
@@ -24,6 +25,31 @@ export default function AdminNav() {
       router.push("/");
     }
   };
+
+  // Fetch unseen ticket count on mount and every 30s
+  useEffect(() => {
+    let cancelled = false;
+
+    async function fetchCount() {
+      try {
+        const res = await fetch("/api/admin/tickets/count-new", {
+          credentials: "same-origin",
+        });
+        if (!res.ok) return;
+        const data = await res.json();
+        if (!cancelled) setNewTicketCount(data.count ?? 0);
+      } catch {
+        // Ignore network errors for the badge
+      }
+    }
+
+    fetchCount();
+    const interval = setInterval(fetchCount, 30_000);
+    return () => {
+      cancelled = true;
+      clearInterval(interval);
+    };
+  }, []);
 
   // Determine the main site URL
   const mainSiteUrl = getMainSiteUrl();
@@ -69,6 +95,17 @@ export default function AdminNav() {
               OTP
             </Link>
             <Link
+              href="/admin/tickets"
+              className="text-yellow-900 hover:text-yellow-700 font-medium inline-flex items-center gap-1"
+            >
+              Tickets
+              {newTicketCount !== null && newTicketCount > 0 && (
+                <span className="inline-flex items-center justify-center min-w-[1.25rem] h-5 px-1 text-xs font-bold bg-red-600 text-white rounded-full">
+                  {newTicketCount}
+                </span>
+              )}
+            </Link>
+            <Link
               href="/admin/settings"
               className="text-yellow-900 hover:text-yellow-700 font-medium"
             >
@@ -77,6 +114,17 @@ export default function AdminNav() {
           </nav>
         </div>
         <div className="flex items-center space-x-3">
+          {/* New tickets info */}
+          {newTicketCount !== null && (
+            <Link
+              href="/admin/tickets"
+              className="text-xs font-semibold text-red-700 bg-red-100 px-2 py-1 rounded hover:bg-red-200 transition"
+              title="View new tickets"
+            >
+              New tickets (Not Seen Yet): {newTicketCount}
+            </Link>
+          )}
+
           {/* Site Selector Dropdown */}
           <div className="relative">
             <button

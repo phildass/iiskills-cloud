@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import Head from "next/head";
 
 const PAYMENT_URL = "https://iiskills.cloud/payments/iiskills";
-const SUPPORT_EMAIL = "support@iiskills.cloud";
+const SUPPORT_MESSAGE = "If you have any issues, go to your dashboard and raise a ticket. We will revert as soon as possible.";
 
 // PR-specific gatekeeper questions for Intermediate level (Basic PR concepts)
 const INTERMEDIATE_QUESTIONS = [
@@ -197,10 +197,10 @@ export default function Onboarding() {
         localStorage.setItem("enrollmentLevel", approvedLevel);
         setStep("success");
       } else {
-        setOtpError(`Invalid OTP. Please check and try again, or contact ${SUPPORT_EMAIL}`);
+        setOtpError("Invalid OTP. Please check and try again. If you have any issues, go to your dashboard and raise a ticket.");
       }
     } catch {
-      setOtpError(`Unable to verify OTP. Having problems? Contact ${SUPPORT_EMAIL}`);
+      setOtpError("Unable to verify OTP. If you have any issues, go to your dashboard and raise a ticket.");
     } finally {
       setOtpLoading(false);
     }
@@ -275,12 +275,9 @@ export default function Onboarding() {
                 {otpError && (
                   <div className="bg-red-50 border border-red-200 rounded-lg p-3 text-red-700 text-sm">
                     {otpError}
-                    {otpError.includes("problems") && (
+                    {otpError.includes("issues") && (
                       <p className="mt-1">
-                        Contact:{" "}
-                        <a href={`mailto:${SUPPORT_EMAIL}`} className="underline font-semibold">
-                          {SUPPORT_EMAIL}
-                        </a>
+                        {SUPPORT_MESSAGE}
                       </p>
                     )}
                   </div>

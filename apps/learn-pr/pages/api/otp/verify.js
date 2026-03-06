@@ -37,6 +37,6 @@ export default async function handler(req, res) {
     console.error("OTP verification error:", err);
     return res
       .status(500)
-      .json({ error: "Unable to verify OTP. Please contact support@iiskills.cloud" });
+      .json({ error: "Unable to verify OTP. If you have any issues, go to your dashboard and raise a ticket." });
   }
 }
