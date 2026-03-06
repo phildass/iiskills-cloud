@@ -8,7 +8,7 @@ import { supabase } from "../lib/supabaseClient";
 export default function AdminCourses() {
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [filterAppId, setFilterAppId] = useState('all');
+  const [filterAppId, setFilterAppId] = useState("all");
   const [availableApps, setAvailableApps] = useState([]);
 
   useEffect(() => {
@@ -21,32 +21,33 @@ export default function AdminCourses() {
 
   const fetchAvailableApps = async () => {
     try {
-      const response = await fetch('/api/apps');
+      const response = await fetch("/api/apps");
       const result = await response.json();
       if (!result.error && result.data) {
         setAvailableApps(result.data);
       }
     } catch (error) {
-      console.error('Error fetching apps:', error);
+      console.error("Error fetching apps:", error);
     }
   };
 
   const fetchCourses = async () => {
     try {
       setLoading(true);
-      
+
       // Fetch from API endpoint with appId parameter
-      const url = filterAppId === 'all'
-        ? '/api/courses'
-        : `/api/courses?appId=${encodeURIComponent(filterAppId)}`;
-      
+      const url =
+        filterAppId === "all"
+          ? "/api/courses"
+          : `/api/courses?appId=${encodeURIComponent(filterAppId)}`;
+
       const response = await fetch(url);
       const result = await response.json();
-      
+
       if (result.error) throw new Error(result.error);
       setCourses(result.data || []);
     } catch (error) {
-      console.error('Error fetching courses:', error);
+      console.error("Error fetching courses:", error);
     } finally {
       setLoading(false);
     }
@@ -90,13 +91,13 @@ export default function AdminCourses() {
                 className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
               >
                 <option value="all">All Apps ({courses.length} total)</option>
-                {availableApps.map(app => (
+                {availableApps.map((app) => (
                   <option key={app.appId} value={app.appId}>
                     {app.name} ({app.coursesCount} courses)
                   </option>
                 ))}
               </select>
-              {filterAppId !== 'all' && (
+              {filterAppId !== "all" && (
                 <p className="mt-2 text-sm text-gray-600">
                   Showing content only from: <span className="font-semibold">{filterAppId}</span>
                 </p>
@@ -146,38 +147,51 @@ export default function AdminCourses() {
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="text-sm font-medium text-gray-900">
-                            {course.appId || course._discoveredFrom || course.subdomain || 'main'}
+                            {course.appId || course._discoveredFrom || course.subdomain || "main"}
                           </div>
-                          {course.subdomain && course.subdomain !== (course.appId || course._discoveredFrom) && (
-                            <div className="text-xs text-gray-500">subdomain: {course.subdomain}</div>
-                          )}
+                          {course.subdomain &&
+                            course.subdomain !== (course.appId || course._discoveredFrom) && (
+                              <div className="text-xs text-gray-500">
+                                subdomain: {course.subdomain}
+                              </div>
+                            )}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                          {course.category || 'N/A'}
+                          {course.category || "N/A"}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                            course.status === 'published' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
-                          }`}>
-                            {course.status || 'draft'}
+                          <span
+                            className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
+                              course.status === "published"
+                                ? "bg-green-100 text-green-800"
+                                : "bg-yellow-100 text-yellow-800"
+                            }`}
+                          >
+                            {course.status || "draft"}
                           </span>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                          {course.is_free ? 'Free' : `$${course.price || 0}`}
+                          {course.is_free ? "Free" : `$${course.price || 0}`}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                            course._source === 'supabase' 
-                              ? 'bg-green-100 text-green-800' 
-                              : course._source === 'local'
-                              ? 'bg-blue-100 text-blue-800'
-                              : course._source === 'discovered'
-                              ? 'bg-purple-100 text-purple-800'
-                              : 'bg-gray-100 text-gray-800'
-                          }`}>
-                            {course._source === 'supabase' ? 'Supabase' : 
-                             course._source === 'local' ? 'Local' : 
-                             course._source === 'discovered' ? 'Discovered' : 'Unknown'}
+                          <span
+                            className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
+                              course._source === "supabase"
+                                ? "bg-green-100 text-green-800"
+                                : course._source === "local"
+                                  ? "bg-blue-100 text-blue-800"
+                                  : course._source === "discovered"
+                                    ? "bg-purple-100 text-purple-800"
+                                    : "bg-gray-100 text-gray-800"
+                            }`}
+                          >
+                            {course._source === "supabase"
+                              ? "Supabase"
+                              : course._source === "local"
+                                ? "Local"
+                                : course._source === "discovered"
+                                  ? "Discovered"
+                                  : "Unknown"}
                           </span>
                         </td>
                       </tr>

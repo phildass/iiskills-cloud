@@ -12,32 +12,41 @@ const SAMPLE_LESSONS = {
     description: "Discover the building blocks of life",
     isFree: true,
     content: {
-      intro: "Welcome to your first biology lesson! Let's explore the amazing world of cells—the fundamental units of all living things.",
+      intro:
+        "Welcome to your first biology lesson! Let's explore the amazing world of cells—the fundamental units of all living things.",
       sections: [
         {
           title: "What is a Cell?",
-          content: "A cell is the smallest unit of life that can function independently. Think of it like a tiny city, with different parts (organelles) working together to keep everything running smoothly.",
-          analogy: "🏙️ Just like a city has power plants, transportation systems, and a control center, cells have organelles that perform similar functions!",
+          content:
+            "A cell is the smallest unit of life that can function independently. Think of it like a tiny city, with different parts (organelles) working together to keep everything running smoothly.",
+          analogy:
+            "🏙️ Just like a city has power plants, transportation systems, and a control center, cells have organelles that perform similar functions!",
         },
         {
           title: "Two Types of Cells",
-          content: "Prokaryotic Cells: Simple, no nucleus (bacteria). Eukaryotic Cells: Complex, with nucleus (animals, plants, fungi).",
+          content:
+            "Prokaryotic Cells: Simple, no nucleus (bacteria). Eukaryotic Cells: Complex, with nucleus (animals, plants, fungi).",
           visual: "🦠 Prokaryotic vs 🧬 Eukaryotic",
         },
         {
           title: "The Powerhouse: Mitochondria",
-          content: "Mitochondria are the energy factories of the cell. They convert nutrients into ATP (adenosine triphosphate)—the cell's energy currency.",
-          analogy: "⚡ Mitochondria = Power Plant. Just like a power plant converts fuel into electricity, mitochondria convert glucose into energy your cells can use!",
+          content:
+            "Mitochondria are the energy factories of the cell. They convert nutrients into ATP (adenosine triphosphate)—the cell's energy currency.",
+          analogy:
+            "⚡ Mitochondria = Power Plant. Just like a power plant converts fuel into electricity, mitochondria convert glucose into energy your cells can use!",
           connection: "💡 This connects to Learn Chemistry's ATP synthesis lesson!",
         },
         {
           title: "Cell Membrane: The Gatekeeper",
-          content: "The cell membrane controls what enters and exits the cell through selective permeability.",
-          interactive: "🔐 Living Logic Challenge: Your cell's power level is at 10%. Which organelle do you optimize? A) Nucleus B) Mitochondria C) Ribosome",
+          content:
+            "The cell membrane controls what enters and exits the cell through selective permeability.",
+          interactive:
+            "🔐 Living Logic Challenge: Your cell's power level is at 10%. Which organelle do you optimize? A) Nucleus B) Mitochondria C) Ribosome",
           answer: "B) Mitochondria - they produce ATP energy!",
         },
       ],
-      conclusion: "Congratulations! You've learned the basics of cell structure. Ready for the next lesson?",
+      conclusion:
+        "Congratulations! You've learned the basics of cell structure. Ready for the next lesson?",
     },
   },
 };
@@ -53,10 +62,11 @@ export default function LessonPage() {
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-3xl font-bold text-gray-800 mb-4">Lesson Not Found</h1>
-          <p className="text-gray-600 mb-6">
-            This lesson is currently being developed.
-          </p>
-          <Link href="/curriculum" className="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700">
+          <p className="text-gray-600 mb-6">This lesson is currently being developed.</p>
+          <Link
+            href="/curriculum"
+            className="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700"
+          >
             Back to Curriculum
           </Link>
         </div>
@@ -76,26 +86,26 @@ export default function LessonPage() {
           {/* Header */}
           <div className="mb-8">
             <div className="flex items-center gap-2 text-sm text-gray-600 mb-4">
-              <Link href="/" className="hover:text-green-600">Home</Link>
+              <Link href="/" className="hover:text-green-600">
+                Home
+              </Link>
               <span>›</span>
-              <Link href="/curriculum" className="hover:text-green-600">Curriculum</Link>
+              <Link href="/curriculum" className="hover:text-green-600">
+                Curriculum
+              </Link>
               <span>›</span>
               <span>Module {lesson.moduleId}</span>
               <span>›</span>
               <span>Lesson {lesson.lessonId}</span>
             </div>
-            
+
             {lesson.isFree && (
               <div className="inline-block px-4 py-2 bg-green-100 border-2 border-green-400 rounded-lg mb-4">
-                <span className="font-semibold text-green-800">
-                  ✨ FREE SAMPLE LESSON
-                </span>
+                <span className="font-semibold text-green-800">✨ FREE SAMPLE LESSON</span>
               </div>
             )}
 
-            <h1 className="text-4xl font-bold text-green-800 mb-2">
-              {lesson.title}
-            </h1>
+            <h1 className="text-4xl font-bold text-green-800 mb-2">{lesson.title}</h1>
             <p className="text-xl text-gray-600">{lesson.description}</p>
           </div>
 
@@ -110,31 +120,27 @@ export default function LessonPage() {
             <div className="space-y-8">
               {lesson.content.sections.map((section, index) => (
                 <div key={index} className="border-l-4 border-green-600 pl-6">
-                  <h2 className="text-2xl font-bold text-gray-900 mb-3">
-                    {section.title}
-                  </h2>
-                  <p className="text-gray-700 mb-4 leading-relaxed">
-                    {section.content}
-                  </p>
-                  
+                  <h2 className="text-2xl font-bold text-gray-900 mb-3">{section.title}</h2>
+                  <p className="text-gray-700 mb-4 leading-relaxed">{section.content}</p>
+
                   {section.analogy && (
                     <div className="p-4 bg-blue-50 border-l-4 border-blue-400 rounded-r-lg mb-4">
                       <p className="text-blue-900 font-medium">{section.analogy}</p>
                     </div>
                   )}
-                  
+
                   {section.visual && (
                     <div className="text-center p-4 bg-gray-50 rounded-lg mb-4">
                       <p className="text-3xl">{section.visual}</p>
                     </div>
                   )}
-                  
+
                   {section.connection && (
                     <div className="p-4 bg-purple-50 border-l-4 border-purple-400 rounded-r-lg mb-4">
                       <p className="text-purple-900 font-medium">{section.connection}</p>
                     </div>
                   )}
-                  
+
                   {section.interactive && (
                     <div className="p-6 bg-amber-50 border-2 border-amber-300 rounded-lg mb-4">
                       <p className="font-semibold text-amber-900 mb-2">{section.interactive}</p>

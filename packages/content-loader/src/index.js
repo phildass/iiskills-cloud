@@ -14,10 +14,10 @@
  *   const lesson = loader.getLesson('learn-physics', '1', '1');
  */
 
-'use strict';
+"use strict";
 
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
 
 /**
  * Creates a content loader bound to a specific content root directory.
@@ -37,13 +37,11 @@ function createLoader(contentRoot) {
   function readJson(relPath) {
     const fullPath = path.join(contentRoot, relPath);
     if (!fs.existsSync(fullPath)) return null;
-    const raw = fs.readFileSync(fullPath, 'utf-8');
+    const raw = fs.readFileSync(fullPath, "utf-8");
     try {
       return JSON.parse(raw);
     } catch (err) {
-      throw new Error(
-        `[content-loader] Failed to parse JSON at ${fullPath}: ${err.message}`
-      );
+      throw new Error(`[content-loader] Failed to parse JSON at ${fullPath}: ${err.message}`);
     }
   }
 
@@ -55,7 +53,7 @@ function createLoader(contentRoot) {
    * @param {string} filePath - Used in the error message.
    */
   function validateLesson(lesson, filePath) {
-    const required = ['moduleId', 'lessonId', 'title', 'content', 'quiz'];
+    const required = ["moduleId", "lessonId", "title", "content", "quiz"];
     for (const field of required) {
       if (lesson[field] === undefined || lesson[field] === null) {
         throw new Error(
@@ -64,9 +62,7 @@ function createLoader(contentRoot) {
       }
     }
     if (!Array.isArray(lesson.quiz) || lesson.quiz.length === 0) {
-      throw new Error(
-        `[content-loader] "quiz" must be a non-empty array in: ${filePath}`
-      );
+      throw new Error(`[content-loader] "quiz" must be a non-empty array in: ${filePath}`);
     }
   }
 
@@ -77,7 +73,7 @@ function createLoader(contentRoot) {
    * @param {string} filePath
    */
   function validateCourse(course, filePath) {
-    const required = ['appSlug', 'title', 'modules'];
+    const required = ["appSlug", "title", "modules"];
     for (const field of required) {
       if (course[field] === undefined || course[field] === null) {
         throw new Error(
@@ -125,15 +121,12 @@ function createLoader(contentRoot) {
      * @returns {object[]}
      */
     listLessons(appSlug, moduleId) {
-      const dir = path.join(
-        contentRoot,
-        `${appSlug}/lessons/module-${moduleId}`
-      );
+      const dir = path.join(contentRoot, `${appSlug}/lessons/module-${moduleId}`);
       if (!fs.existsSync(dir)) return [];
 
       return fs
         .readdirSync(dir)
-        .filter((f) => f.endsWith('.json'))
+        .filter((f) => f.endsWith(".json"))
         .map((f) => {
           const relPath = `${appSlug}/lessons/module-${moduleId}/${f}`;
           const lesson = readJson(relPath);

@@ -5,7 +5,10 @@ export default function Newsletter() {
     <>
       <Head>
         <title>Newsletter - Learn Finesse | iiskills.cloud</title>
-        <meta name="description" content="Subscribe to Learn Finesse newsletter for global etiquette tips" />
+        <meta
+          name="description"
+          content="Subscribe to Learn Finesse newsletter for global etiquette tips"
+        />
       </Head>
       <main className="max-w-4xl mx-auto px-4 py-12">
         <div className="text-center mb-8">
@@ -19,9 +22,7 @@ export default function Newsletter() {
 
         <div className="bg-white rounded-xl shadow-2xl p-8 mb-8">
           <div className="max-w-2xl mx-auto">
-            <h2 className="text-2xl font-bold text-gray-800 mb-4">
-              Stay Polished, Stay Global
-            </h2>
+            <h2 className="text-2xl font-bold text-gray-800 mb-4">Stay Polished, Stay Global</h2>
             <p className="text-gray-600 mb-6">
               Get weekly tips on navigating cross-cultural business scenarios, latest etiquette
               trends, and real-world case studies from our global community.

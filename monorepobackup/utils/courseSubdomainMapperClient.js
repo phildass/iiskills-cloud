@@ -108,7 +108,9 @@ export function getCourseSubdomainLink(courseName, isDevelopment = false) {
     productionUrl: `https://app1.${normalizedName}.iiskills.cloud`,
     localUrl: `http://localhost:${port}`,
     localPort: port,
-    url: isDevelopment ? `http://localhost:${port}` : `https://app1.${normalizedName}.iiskills.cloud`,
+    url: isDevelopment
+      ? `http://localhost:${port}`
+      : `https://app1.${normalizedName}.iiskills.cloud`,
     exists: true,
   };
 }

@@ -13,17 +13,21 @@
  *   500 — server misconfiguration
  */
 
-import { validateAdminRequest, createServiceRoleClient, isTestAdminMode } from '../../../lib/adminAuth';
+import {
+  validateAdminRequest,
+  createServiceRoleClient,
+  isTestAdminMode,
+} from "../../../lib/adminAuth";
 
 export default async function handler(req, res) {
-  if (req.method !== 'GET') {
-    res.setHeader('Allow', ['GET']);
+  if (req.method !== "GET") {
+    res.setHeader("Allow", ["GET"]);
     return res.status(405).json({ error: `Method ${req.method} Not Allowed` });
   }
 
   const auth = validateAdminRequest(req);
   if (!auth.valid) {
-    return res.status(401).json({ error: auth.reason || 'Unauthorized' });
+    return res.status(401).json({ error: auth.reason || "Unauthorized" });
   }
 
   const testMode = isTestAdminMode();
@@ -43,10 +47,7 @@ export default async function handler(req, res) {
     // Test DB connectivity using service role (production only)
     try {
       const supabase = createServiceRoleClient();
-      const { error } = await supabase
-        .from('courses')
-        .select('id')
-        .limit(1);
+      const { error } = await supabase.from("courses").select("id").limit(1);
       checks.dbConnectivity = !error;
       if (error) checks.dbError = error.message;
     } catch (err) {
@@ -56,11 +57,14 @@ export default async function handler(req, res) {
 
   // In test mode, Supabase keys are not required.
   const requiredChecks = testMode
-    ? { adminSessionSigningKey: checks.adminSessionSigningKey, dbConnectivity: checks.dbConnectivity }
+    ? {
+        adminSessionSigningKey: checks.adminSessionSigningKey,
+        dbConnectivity: checks.dbConnectivity,
+      }
     : checks;
 
   const allOk = Object.entries(requiredChecks)
-    .filter(([k]) => k !== 'dbError')
+    .filter(([k]) => k !== "dbError")
     .every(([, v]) => v === true);
 
   return res.status(allOk ? 200 : 500).json({

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 export default function ContentList({ app, searchQuery, onContentSelect }) {
   const [contents, setContents] = useState([]);
@@ -30,11 +30,11 @@ export default function ContentList({ app, searchQuery, onContentSelect }) {
       if (response.ok) {
         setContents(searchQuery ? data.results || [] : data.contents || []);
       } else {
-        setError(data.error || 'Failed to load content');
+        setError(data.error || "Failed to load content");
       }
     } catch (err) {
-      setError('An error occurred while loading content');
-      console.error('Content loading error:', err);
+      setError("An error occurred while loading content");
+      console.error("Content loading error:", err);
     } finally {
       setIsLoading(false);
     }
@@ -42,12 +42,12 @@ export default function ContentList({ app, searchQuery, onContentSelect }) {
 
   const handleCreate = () => {
     onContentSelect({
-      id: '',
+      id: "",
       appId: app.id,
-      title: '',
+      title: "",
       type: app.displayName,
       data: {},
-      source: 'filesystem',
+      source: "filesystem",
       isNew: true,
     });
   };
@@ -85,10 +85,10 @@ export default function ContentList({ app, searchQuery, onContentSelect }) {
       <div className="flex justify-between items-center mb-6">
         <div>
           <h2 className="text-2xl font-bold text-gray-900">
-            {searchQuery ? 'Search Results' : app.displayName}
+            {searchQuery ? "Search Results" : app.displayName}
           </h2>
           <p className="text-sm text-gray-500 mt-1">
-            {contents.length} {contents.length === 1 ? 'item' : 'items'}
+            {contents.length} {contents.length === 1 ? "item" : "items"}
           </p>
         </div>
         {!searchQuery && (
@@ -124,14 +124,12 @@ export default function ContentList({ app, searchQuery, onContentSelect }) {
               className="bg-white border border-gray-200 rounded-lg p-4 hover:shadow-lg hover:border-blue-300 transition text-left"
             >
               <div className="flex items-start justify-between mb-2">
-                <h3 className="font-semibold text-gray-900 truncate flex-1">
-                  {content.title}
-                </h3>
+                <h3 className="font-semibold text-gray-900 truncate flex-1">{content.title}</h3>
                 <span className="ml-2 px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded">
                   {content.appId}
                 </span>
               </div>
-              
+
               {content.data?.description && (
                 <p className="text-sm text-gray-600 line-clamp-2 mb-2">
                   {content.data.description}
@@ -140,9 +138,7 @@ export default function ContentList({ app, searchQuery, onContentSelect }) {
 
               <div className="flex items-center justify-between text-xs text-gray-500 mt-3">
                 <span>{content.type}</span>
-                <span className="px-2 py-1 bg-blue-50 text-blue-600 rounded">
-                  {content.source}
-                </span>
+                <span className="px-2 py-1 bg-blue-50 text-blue-600 rounded">{content.source}</span>
               </div>
             </button>
           ))}

@@ -21,18 +21,18 @@ export default function Terms() {
             <p className="text-charcoal leading-relaxed">
               These Terms and Conditions ("Terms") govern your use of Learn Companion, a free
               AI-powered life advisor service provided by iiskills.cloud, a digital learning
-              platform of the Indian Institute of Professional Skills Development ("IISKILLS,"
-              "we," "us," or "our"). By accessing or using Learn Companion, you agree to be bound
-              by these Terms.
+              platform of the Indian Institute of Professional Skills Development ("IISKILLS," "we,"
+              "us," or "our"). By accessing or using Learn Companion, you agree to be bound by these
+              Terms.
             </p>
           </section>
 
           <section>
             <h2 className="text-2xl font-bold text-accent mb-3">1. Free Service</h2>
             <p className="text-charcoal leading-relaxed">
-              Learn Companion is provided as a free service. There are no subscription fees,
-              payment requirements, or hidden costs. We reserve the right to modify or discontinue
-              the service at any time.
+              Learn Companion is provided as a free service. There are no subscription fees, payment
+              requirements, or hidden costs. We reserve the right to modify or discontinue the
+              service at any time.
             </p>
           </section>
 
@@ -49,8 +49,8 @@ export default function Terms() {
           <section>
             <h2 className="text-2xl font-bold text-accent mb-3">3. No Professional Advice</h2>
             <p className="text-charcoal leading-relaxed">
-              The advice provided by Learn Companion is AI-generated and should not be considered
-              as professional medical, legal, financial, or therapeutic advice. For serious matters,
+              The advice provided by Learn Companion is AI-generated and should not be considered as
+              professional medical, legal, financial, or therapeutic advice. For serious matters,
               please consult qualified professionals. We are not liable for any decisions made based
               on advice from Learn Companion.
             </p>
@@ -75,7 +75,11 @@ export default function Terms() {
             <p className="text-charcoal leading-relaxed">
               Your conversations with Learn Companion may be stored and analyzed to improve the
               service. We do not share your personal conversations with third parties. For more
-              information, please see our <Link href="/privacy" className="text-accent underline">Privacy Policy</Link>.
+              information, please see our{" "}
+              <Link href="/privacy" className="text-accent underline">
+                Privacy Policy
+              </Link>
+              .
             </p>
           </section>
 

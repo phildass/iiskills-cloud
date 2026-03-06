@@ -1,12 +1,20 @@
-import Head from 'next/head';
-import { useState, useEffect } from 'react';
-import Link from 'next/link';
+import Head from "next/head";
+import { useState, useEffect } from "react";
+import Link from "next/link";
 
 const PAID_APPS = [
-  { id: 'learn-ai', label: 'Learn AI', url: 'https://learn-ai.iiskills.cloud' },
-  { id: 'learn-developer', label: 'Learn Developer', url: 'https://learn-developer.iiskills.cloud' },
-  { id: 'learn-management', label: 'Learn Management', url: 'https://learn-management.iiskills.cloud' },
-  { id: 'learn-pr', label: 'Learn PR', url: 'https://learn-pr.iiskills.cloud' },
+  { id: "learn-ai", label: "Learn AI", url: "https://learn-ai.iiskills.cloud" },
+  {
+    id: "learn-developer",
+    label: "Learn Developer",
+    url: "https://learn-developer.iiskills.cloud",
+  },
+  {
+    id: "learn-management",
+    label: "Learn Management",
+    url: "https://learn-management.iiskills.cloud",
+  },
+  { id: "learn-pr", label: "Learn PR", url: "https://learn-pr.iiskills.cloud" },
 ];
 
 /**
@@ -19,17 +27,17 @@ const PAID_APPS = [
  * Route: /otp-gateway
  */
 export default function OtpGateway() {
-  const [form, setForm] = useState({ email: '', otp: '', appId: 'learn-ai' });
+  const [form, setForm] = useState({ email: "", otp: "", appId: "learn-ai" });
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(null);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(null); // null = unknown
 
   // Check if user is already logged in
   useEffect(() => {
     async function checkAuth() {
       try {
-        const { getCurrentUser } = await import('../lib/supabaseClient');
+        const { getCurrentUser } = await import("../lib/supabaseClient");
         const user = await getCurrentUser();
         setIsAuthenticated(!!user);
       } catch {
@@ -46,14 +54,14 @@ export default function OtpGateway() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
+    setError("");
     setSuccess(null);
     setLoading(true);
 
     try {
-      const res = await fetch('/api/verify-otp', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const res = await fetch("/api/verify-otp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           email: form.email.trim(),
           otp: form.otp.trim(),
@@ -64,7 +72,7 @@ export default function OtpGateway() {
       const data = await res.json();
 
       if (!res.ok || !data.success) {
-        setError(data.error || 'OTP verification failed. Please try again.');
+        setError(data.error || "OTP verification failed. Please try again.");
         return;
       }
 
@@ -74,15 +82,14 @@ export default function OtpGateway() {
         entitlementGranted: data.entitlementGranted,
       });
     } catch (err) {
-      setError('Network error. Please check your connection and try again.');
+      setError("Network error. Please check your connection and try again.");
     } finally {
       setLoading(false);
     }
   };
 
   const appUrl =
-    success &&
-    (PAID_APPS.find((a) => a.id === success.appId)?.url || 'https://iiskills.cloud');
+    success && (PAID_APPS.find((a) => a.id === success.appId)?.url || "https://iiskills.cloud");
 
   return (
     <>
@@ -99,13 +106,24 @@ export default function OtpGateway() {
           {/* Header */}
           <div className="text-center mb-8">
             <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full mb-4">
-              <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+              <svg
+                className="w-8 h-8 text-blue-600"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                />
               </svg>
             </div>
             <h1 className="text-2xl font-bold text-gray-900 mb-2">Activate Paid Access</h1>
             <p className="text-gray-600 text-sm">
-              Enter the 6-digit OTP sent to your phone (and email) after payment to unlock your course.
+              Enter the 6-digit OTP sent to your phone (and email) after payment to unlock your
+              course.
             </p>
           </div>
 
@@ -113,16 +131,26 @@ export default function OtpGateway() {
             /* ── Success state ─────────────────────────────────────────── */
             <div className="text-center">
               <div className="inline-flex items-center justify-center w-20 h-20 bg-green-100 rounded-full mb-4">
-                <svg className="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                <svg
+                  className="w-10 h-10 text-green-600"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M5 13l4 4L19 7"
+                  />
                 </svg>
               </div>
               <h2 className="text-2xl font-bold text-gray-900 mb-2">
                 🎉 You are now a PAID Learner!
               </h2>
               <p className="text-gray-600 mb-2">
-                Your OTP has been verified and paid access is{' '}
-                {success.entitlementGranted ? 'active' : 'being activated'} for your account.
+                Your OTP has been verified and paid access is{" "}
+                {success.entitlementGranted ? "active" : "being activated"} for your account.
               </p>
 
               {/* Prompt unauthenticated users to register / login */}
@@ -132,17 +160,18 @@ export default function OtpGateway() {
                     📋 Payment received — complete your profile
                   </p>
                   <p className="text-amber-700 text-sm mb-3">
-                    Register or login with the email used during payment to access your Profile page and course dashboard.
+                    Register or login with the email used during payment to access your Profile page
+                    and course dashboard.
                   </p>
                   <div className="flex gap-2">
                     <Link
-                      href={`/register?next=/profile`}
+                      href={"/register?next=/profile"}
                       className="flex-1 text-center bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-blue-700 transition"
                     >
                       Register
                     </Link>
                     <Link
-                      href={`/sign-in?next=/profile`}
+                      href={"/sign-in?next=/profile"}
                       className="flex-1 text-center bg-white border border-blue-600 text-blue-600 px-4 py-2 rounded-lg text-sm font-bold hover:bg-blue-50 transition"
                     >
                       Login
@@ -154,7 +183,7 @@ export default function OtpGateway() {
               {isAuthenticated && success.entitlementGranted && (
                 <div className="bg-green-50 border border-green-200 rounded-xl p-3 mb-4">
                   <p className="text-green-800 text-sm font-medium">
-                    ✅ Your profile has been updated.{' '}
+                    ✅ Your profile has been updated.{" "}
                     <Link href="/profile" className="underline font-bold">
                       View Profile
                     </Link>
@@ -164,16 +193,16 @@ export default function OtpGateway() {
 
               {!success.entitlementGranted && isAuthenticated !== false && (
                 <p className="text-amber-600 text-sm mb-4">
-                  ⚠️ Could not auto-link your account. If you are not registered, please{' '}
+                  ⚠️ Could not auto-link your account. If you are not registered, please{" "}
                   <Link href="/register" className="underline font-medium">
                     create an account
-                  </Link>{' '}
+                  </Link>{" "}
                   with the same email address used during payment, then contact support.
                 </p>
               )}
               <div className="bg-blue-50 rounded-xl p-4 mb-6">
                 <p className="text-blue-800 font-medium text-sm">
-                  You now have access to{' '}
+                  You now have access to{" "}
                   <span className="font-bold">
                     {PAID_APPS.find((a) => a.id === success.appId)?.label || success.appId}
                   </span>
@@ -262,21 +291,18 @@ export default function OtpGateway() {
                 disabled={loading}
                 className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3 px-6 rounded-xl font-bold hover:from-blue-700 hover:to-indigo-700 transition-all shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {loading ? 'Verifying…' : 'Verify OTP & Activate Access'}
+                {loading ? "Verifying…" : "Verify OTP & Activate Access"}
               </button>
 
               <div className="text-center space-y-2 pt-2">
                 <p className="text-xs text-gray-500">
-                  Did not receive your OTP?{' '}
-                  <a
-                    href="mailto:support@iiskills.cloud"
-                    className="text-blue-600 underline"
-                  >
+                  Did not receive your OTP?{" "}
+                  <a href="mailto:support@iiskills.cloud" className="text-blue-600 underline">
                     Contact support
                   </a>
                 </p>
                 <p className="text-xs text-gray-500">
-                  Want to enrol?{' '}
+                  Want to enrol?{" "}
                   <a
                     href="https://aienter.in/payments/iiskills"
                     target="_blank"

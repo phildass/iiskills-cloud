@@ -1,29 +1,29 @@
 /**
  * CurriculumTable Component
- * 
+ *
  * Displays the structured curriculum table showing:
  * Level | Modules (What) | Lessons (How) | Tests (Proof)
- * 
+ *
  * Used on landing pages and curriculum pages
  */
 
-import { useState } from 'react';
+import { useState } from "react";
 
-export default function CurriculumTable({ 
-  subject, 
-  basicModules = [], 
-  intermediateModules = [], 
-  advancedModules = [] 
+export default function CurriculumTable({
+  subject,
+  basicModules = [],
+  intermediateModules = [],
+  advancedModules = [],
 }) {
-  const [selectedLevel, setSelectedLevel] = useState('basic');
+  const [selectedLevel, setSelectedLevel] = useState("basic");
 
   const getLevelModules = (level) => {
     switch (level) {
-      case 'basic':
+      case "basic":
         return basicModules;
-      case 'intermediate':
+      case "intermediate":
         return intermediateModules;
-      case 'advanced':
+      case "advanced":
         return advancedModules;
       default:
         return [];
@@ -35,26 +35,26 @@ export default function CurriculumTable({
   const getLevelInfo = (level) => {
     const info = {
       basic: {
-        title: 'Basic',
-        subtitle: 'Literacy',
-        description: 'Build foundational understanding',
-        color: 'green',
-        icon: '🌱'
+        title: "Basic",
+        subtitle: "Literacy",
+        description: "Build foundational understanding",
+        color: "green",
+        icon: "🌱",
       },
       intermediate: {
-        title: 'Intermediate',
-        subtitle: 'Application',
-        description: 'Apply concepts to solve problems',
-        color: 'blue',
-        icon: '⚡'
+        title: "Intermediate",
+        subtitle: "Application",
+        description: "Apply concepts to solve problems",
+        color: "blue",
+        icon: "⚡",
       },
       advanced: {
-        title: 'Advanced',
-        subtitle: 'Specialization',
-        description: 'Master advanced topics',
-        color: 'purple',
-        icon: '🚀'
-      }
+        title: "Advanced",
+        subtitle: "Specialization",
+        description: "Master advanced topics",
+        color: "purple",
+        icon: "🚀",
+      },
     };
     return info[level];
   };
@@ -65,10 +65,10 @@ export default function CurriculumTable({
     <div className="space-y-8">
       {/* Level Selector */}
       <div className="flex flex-col sm:flex-row gap-4 justify-center">
-        {['basic', 'intermediate', 'advanced'].map((level) => {
+        {["basic", "intermediate", "advanced"].map((level) => {
           const info = getLevelInfo(level);
           const isActive = selectedLevel === level;
-          
+
           return (
             <button
               key={level}
@@ -76,14 +76,16 @@ export default function CurriculumTable({
               className={`flex-1 p-6 rounded-xl border-2 transition-all transform hover:scale-105 ${
                 isActive
                   ? `bg-${info.color}-50 border-${info.color}-500 shadow-lg`
-                  : 'bg-white border-gray-200 hover:border-gray-400'
+                  : "bg-white border-gray-200 hover:border-gray-400"
               }`}
             >
               <div className="text-4xl mb-2">{info.icon}</div>
-              <div className={`text-xl font-bold ${isActive ? `text-${info.color}-900` : 'text-gray-900'}`}>
+              <div
+                className={`text-xl font-bold ${isActive ? `text-${info.color}-900` : "text-gray-900"}`}
+              >
                 {info.title}
               </div>
-              <div className={`text-sm ${isActive ? `text-${info.color}-700` : 'text-gray-600'}`}>
+              <div className={`text-sm ${isActive ? `text-${info.color}-700` : "text-gray-600"}`}>
                 {info.subtitle}
               </div>
             </button>
@@ -92,18 +94,17 @@ export default function CurriculumTable({
       </div>
 
       {/* Current Level Header */}
-      <div className={`card bg-gradient-to-r from-${levelInfo.color}-50 to-${levelInfo.color}-100 border-l-4 border-${levelInfo.color}-500`}>
+      <div
+        className={`card bg-gradient-to-r from-${levelInfo.color}-50 to-${levelInfo.color}-100 border-l-4 border-${levelInfo.color}-500`}
+      >
         <div className="flex items-center space-x-4">
           <div className="text-5xl">{levelInfo.icon}</div>
           <div>
-            <h2 className="text-3xl font-bold text-gray-900">
-              {levelInfo.title} Level
-            </h2>
-            <p className="text-lg text-gray-700 mt-1">
-              {levelInfo.description}
-            </p>
+            <h2 className="text-3xl font-bold text-gray-900">{levelInfo.title} Level</h2>
+            <p className="text-lg text-gray-700 mt-1">{levelInfo.description}</p>
             <p className="text-sm text-gray-600 mt-2">
-              {modules.length} modules • {modules.reduce((sum, m) => sum + (m.lessons?.length || 0), 0)} lessons
+              {modules.length} modules •{" "}
+              {modules.reduce((sum, m) => sum + (m.lessons?.length || 0), 0)} lessons
             </p>
           </div>
         </div>
@@ -138,14 +139,14 @@ export default function CurriculumTable({
                         </div>
                       ))}
                       {module.lessons.length === 0 && (
-                        <div className="text-sm text-gray-400 italic">
-                          Coming soon
-                        </div>
+                        <div className="text-sm text-gray-400 italic">Coming soon</div>
                       )}
                     </div>
                   ) : (
                     <div className="text-sm text-gray-400 italic">
-                      {module.lessons === undefined ? 'Coming soon' : `${module.lessons?.length || 10} lessons planned`}
+                      {module.lessons === undefined
+                        ? "Coming soon"
+                        : `${module.lessons?.length || 10} lessons planned`}
                     </div>
                   )}
                 </td>
@@ -154,7 +155,7 @@ export default function CurriculumTable({
                     <span className="text-sm text-gray-600">
                       {module.lessons && module.lessons.length > 0
                         ? `${module.lessons.length} quizzes`
-                        : 'Quiz after each lesson'}
+                        : "Quiz after each lesson"}
                     </span>
                     <span className="text-lg">✅</span>
                   </div>
@@ -190,15 +191,15 @@ export default function CurriculumTable({
 
 /**
  * Subject Comparison Table
- * 
+ *
  * Shows module counts across all 4 subjects
  */
 export function SubjectComparisonTable() {
   const subjects = [
-    { name: 'Physics', basic: 6, intermediate: 8, advanced: 6, icon: '⚛️' },
-    { name: 'Math', basic: 7, intermediate: 9, advanced: 5, icon: '📐' },
-    { name: 'Geography', basic: 5, intermediate: 7, advanced: 5, icon: '🌍' },
-    { name: 'Chemistry', basic: 6, intermediate: 8, advanced: 6, icon: '🧪' }
+    { name: "Physics", basic: 6, intermediate: 8, advanced: 6, icon: "⚛️" },
+    { name: "Math", basic: 7, intermediate: 9, advanced: 5, icon: "📐" },
+    { name: "Geography", basic: 5, intermediate: 7, advanced: 5, icon: "🌍" },
+    { name: "Chemistry", basic: 6, intermediate: 8, advanced: 6, icon: "🧪" },
   ];
 
   return (

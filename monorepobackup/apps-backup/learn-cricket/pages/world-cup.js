@@ -1,6 +1,6 @@
 /**
  * World Cup Landing Page
- * 
+ *
  * Main landing page for ICC Cricket World Cup 2026
  * Features:
  * - Hero section with tournament title
@@ -12,13 +12,13 @@
  * - Navigation to Teams & Stars
  */
 
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
-import Link from 'next/link';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
-import WorldCupHero from '../components/WorldCupHero';
-import MatchCard from '../components/MatchCard';
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import Link from "next/link";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+import WorldCupHero from "../components/WorldCupHero";
+import MatchCard from "../components/MatchCard";
 
 export default function WorldCup() {
   const router = useRouter();
@@ -29,11 +29,12 @@ export default function WorldCup() {
 
   // Check if World Cup mode is enabled
   useEffect(() => {
-    const worldCupEnabled = process.env.NEXT_PUBLIC_ENABLE_WORLD_CUP_MODE === 'true' || 
-                           process.env.ENABLE_WORLD_CUP_MODE === 'true';
-    
+    const worldCupEnabled =
+      process.env.NEXT_PUBLIC_ENABLE_WORLD_CUP_MODE === "true" ||
+      process.env.ENABLE_WORLD_CUP_MODE === "true";
+
     if (!worldCupEnabled) {
-      router.push('/');
+      router.push("/");
     }
   }, [router]);
 
@@ -51,36 +52,36 @@ export default function WorldCup() {
     const loadFixtures = async () => {
       try {
         setLoading(true);
-        const response = await fetch('/data/fixtures/worldcup-fixtures.json');
-        
+        const response = await fetch("/data/fixtures/worldcup-fixtures.json");
+
         if (!response.ok) {
-          throw new Error('Failed to load fixtures data');
+          throw new Error("Failed to load fixtures data");
         }
 
         const data = await response.json();
-        
+
         // Enrich fixtures with venue names
-        const enrichedFixtures = data.fixtures.map(fixture => ({
+        const enrichedFixtures = data.fixtures.map((fixture) => ({
           ...fixture,
-          venueName: data.venues.find(v => v.id === fixture.venue)?.name || 'TBD',
-          venueCity: data.venues.find(v => v.id === fixture.venue)?.city || '',
+          venueName: data.venues.find((v) => v.id === fixture.venue)?.name || "TBD",
+          venueCity: data.venues.find((v) => v.id === fixture.venue)?.city || "",
           teamA: {
             ...fixture.teamA,
-            flag: data.teams.find(t => t.code === fixture.teamA.code)?.flag || '🏏'
+            flag: data.teams.find((t) => t.code === fixture.teamA.code)?.flag || "🏏",
           },
           teamB: {
             ...fixture.teamB,
-            flag: data.teams.find(t => t.code === fixture.teamB.code)?.flag || '🏏'
-          }
+            flag: data.teams.find((t) => t.code === fixture.teamB.code)?.flag || "🏏",
+          },
         }));
 
         setFixturesData({
           ...data,
-          fixtures: enrichedFixtures
+          fixtures: enrichedFixtures,
         });
         setLoading(false);
       } catch (err) {
-        console.error('Error loading fixtures:', err);
+        console.error("Error loading fixtures:", err);
         setError(err.message);
         setLoading(false);
       }
@@ -95,9 +96,9 @@ export default function WorldCup() {
 
     const now = new Date();
     const upcomingMatches = fixturesData.fixtures
-      .filter(match => {
+      .filter((match) => {
         const matchDate = new Date(`${match.date}T${match.time}:00Z`);
-        return matchDate > now && match.status === 'scheduled';
+        return matchDate > now && match.status === "scheduled";
       })
       .sort((a, b) => {
         const dateA = new Date(`${a.date}T${a.time}:00Z`);
@@ -114,9 +115,9 @@ export default function WorldCup() {
 
     const now = new Date();
     return fixturesData.fixtures
-      .filter(match => {
+      .filter((match) => {
         const matchDate = new Date(`${match.date}T${match.time}:00Z`);
-        return matchDate > now && match.status === 'scheduled';
+        return matchDate > now && match.status === "scheduled";
       })
       .sort((a, b) => {
         const dateA = new Date(`${a.date}T${a.time}:00Z`);
@@ -130,35 +131,35 @@ export default function WorldCup() {
   const getGroupStandings = (groupName) => {
     if (!fixturesData || !fixturesData.groups) return [];
 
-    const groupKey = groupName === 'Group A' ? 'groupA' : 'groupB';
+    const groupKey = groupName === "Group A" ? "groupA" : "groupB";
     const teams = fixturesData.groups[groupKey]?.teams || [];
 
     // Mock standings with team flags
     return teams.map((teamName, index) => {
-      const teamData = fixturesData.teams.find(t => t.name === teamName);
+      const teamData = fixturesData.teams.find((t) => t.name === teamName);
       return {
         position: index + 1,
         team: teamName,
-        flag: teamData?.flag || '🏏',
+        flag: teamData?.flag || "🏏",
         matches: 0,
         won: 0,
         lost: 0,
         points: 0,
-        nrr: '+0.00'
+        nrr: "+0.00",
       };
     });
   };
 
   const formatTime = (date) => {
-    return date.toUTCString().split(' ')[4];
+    return date.toUTCString().split(" ")[4];
   };
 
   const formatDate = (date) => {
-    return date.toLocaleDateString('en-US', { 
-      weekday: 'long', 
-      year: 'numeric', 
-      month: 'long', 
-      day: 'numeric' 
+    return date.toLocaleDateString("en-US", {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
     });
   };
 
@@ -177,7 +178,10 @@ export default function WorldCup() {
         <div className="container mx-auto px-4 py-20 text-center">
           <div className="text-red-400 text-xl mb-4">Error loading World Cup data</div>
           <p className="text-gray-300">{error}</p>
-          <Link href="/" className="inline-block mt-6 px-6 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+          <Link
+            href="/"
+            className="inline-block mt-6 px-6 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+          >
             Return Home
           </Link>
         </div>
@@ -188,8 +192,8 @@ export default function WorldCup() {
 
   const nextMatch = getNextMatch();
   const upcomingFixtures = getUpcomingFixtures();
-  const groupAStandings = getGroupStandings('Group A');
-  const groupBStandings = getGroupStandings('Group B');
+  const groupAStandings = getGroupStandings("Group A");
+  const groupBStandings = getGroupStandings("Group B");
 
   return (
     <div className="min-h-screen bg-gray-900 text-white">
@@ -218,7 +222,8 @@ export default function WorldCup() {
                 <div className="text-sm text-gray-400 mb-1">Tournament Info</div>
                 <div className="text-lg font-semibold">{fixturesData.tournament.name}</div>
                 <div className="text-sm text-gray-400">
-                  {new Date(fixturesData.tournament.startDate).toLocaleDateString()} - {new Date(fixturesData.tournament.endDate).toLocaleDateString()}
+                  {new Date(fixturesData.tournament.startDate).toLocaleDateString()} -{" "}
+                  {new Date(fixturesData.tournament.endDate).toLocaleDateString()}
                 </div>
               </div>
             )}
@@ -367,7 +372,10 @@ export default function WorldCup() {
                       </div>
                       <div className="flex items-center space-x-4 text-sm text-gray-400 md:ml-4">
                         <div>
-                          {new Date(match.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                          {new Date(match.date).toLocaleDateString("en-US", {
+                            month: "short",
+                            day: "numeric",
+                          })}
                         </div>
                         <div>{match.time} UTC</div>
                         <div className="hidden md:block">{match.venueName}</div>
@@ -376,9 +384,7 @@ export default function WorldCup() {
                   </div>
                 ))
               ) : (
-                <div className="p-8 text-center text-gray-400">
-                  No upcoming fixtures available
-                </div>
+                <div className="p-8 text-center text-gray-400">No upcoming fixtures available</div>
               )}
             </div>
           </div>
@@ -392,10 +398,16 @@ export default function WorldCup() {
               Discover participating teams, star players, and tournament statistics
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/teams" className="inline-block px-8 py-3 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-md transition-colors">
+              <Link
+                href="/teams"
+                className="inline-block px-8 py-3 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-md transition-colors"
+              >
                 View Teams
               </Link>
-              <Link href="/stars" className="inline-block px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-md transition-colors">
+              <Link
+                href="/stars"
+                className="inline-block px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-md transition-colors"
+              >
                 Top Stars
               </Link>
             </div>

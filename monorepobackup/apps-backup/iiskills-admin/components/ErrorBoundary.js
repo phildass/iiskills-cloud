@@ -45,8 +45,11 @@ class ErrorBoundary extends React.Component {
     console.error("Component Stack:", errorInfo.componentStack);
     console.error("Timestamp:", new Date().toISOString());
     console.error("Environment:", process.env.NODE_ENV);
-    console.error("User Agent:", typeof window !== 'undefined' ? window.navigator.userAgent : 'N/A');
-    console.error("URL:", typeof window !== 'undefined' ? window.location.href : 'N/A');
+    console.error(
+      "User Agent:",
+      typeof window !== "undefined" ? window.navigator.userAgent : "N/A"
+    );
+    console.error("URL:", typeof window !== "undefined" ? window.location.href : "N/A");
     console.error("=".repeat(80));
 
     // Store error details in state (UI will show limited info in production)
@@ -79,7 +82,7 @@ class ErrorBoundary extends React.Component {
 
             <div className="bg-red-50 border-2 border-red-300 rounded-lg p-6 mb-6">
               <p className="text-lg text-gray-800 leading-relaxed mb-4">
-                We're sorry, but something unexpected happened. The error details have been logged 
+                We're sorry, but something unexpected happened. The error details have been logged
                 for debugging.
               </p>
 
@@ -113,8 +116,14 @@ class ErrorBoundary extends React.Component {
                       <li>Verify Supabase credentials in environment variables</li>
                       <li>Ensure seeds/content.json exists and is valid JSON</li>
                       <li>Check that all API endpoints are accessible</li>
-                      <li>Verify PM2 process is running: <code className="bg-yellow-100 px-1">pm2 status</code></li>
-                      <li>Check server logs: <code className="bg-yellow-100 px-1">pm2 logs iiskills-admin</code></li>
+                      <li>
+                        Verify PM2 process is running:{" "}
+                        <code className="bg-yellow-100 px-1">pm2 status</code>
+                      </li>
+                      <li>
+                        Check server logs:{" "}
+                        <code className="bg-yellow-100 px-1">pm2 logs iiskills-admin</code>
+                      </li>
                     </ul>
                   </div>
                 </div>

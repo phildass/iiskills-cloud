@@ -30,7 +30,10 @@ const hasPlaceholderKey =
   supabaseAnonKey.startsWith("eyJhbGciOi...") ||
   supabaseAnonKey.length < 20;
 
-if (!isSupabaseSuspended && (!supabaseUrl || !supabaseAnonKey || hasPlaceholderUrl || hasPlaceholderKey)) {
+if (
+  !isSupabaseSuspended &&
+  (!supabaseUrl || !supabaseAnonKey || hasPlaceholderUrl || hasPlaceholderKey)
+) {
   const errorMessage = `
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ⚠️  SUPABASE CONFIGURATION ERROR - learn-neet module
@@ -234,28 +237,28 @@ export async function getCurrentUser() {
 
   // TEMPORARY - RESTORE AFTER JAN 28, 2026
   // Bypass authentication for testing
-  const DISABLE_AUTH = process.env.NEXT_PUBLIC_DISABLE_AUTH === 'true';
-  
+  const DISABLE_AUTH = process.env.NEXT_PUBLIC_DISABLE_AUTH === "true";
+
   if (DISABLE_AUTH) {
-    console.log('⚠️ TESTING MODE: Authentication bypassed - returning mock user');
+    console.log("⚠️ TESTING MODE: Authentication bypassed - returning mock user");
     return {
-      id: 'test-user-neet',
-      email: 'test@iiskills.cloud',
+      id: "test-user-neet",
+      email: "test@iiskills.cloud",
       user_metadata: {
-        first_name: 'Test',
-        last_name: 'User',
-        full_name: 'Test User',
-        role: 'admin',
+        first_name: "Test",
+        last_name: "User",
+        full_name: "Test User",
+        role: "admin",
         // Grant full access to all courses
         purchased_jee_course: true,
         purchased_ias_course: true,
         purchased_winning_course: true,
-        neet_subscription_end: '2099-12-31'
-      }
+        neet_subscription_end: "2099-12-31",
+      },
     };
   }
   // END TEMPORARY
-  
+
   try {
     const {
       data: { session },
@@ -378,15 +381,15 @@ export function getUserProfile(user) {
 export function checkActiveSubscription(user) {
   // Check if paywall is enabled via environment variable
   const paywallEnabled = process.env.NEXT_PUBLIC_PAYWALL_ENABLED !== "false";
-  
+
   // TEMPORARY - RESTORE AFTER JAN 28, 2026
   // Also check DISABLE_PAYWALL flag for testing mode
-  const DISABLE_PAYWALL = process.env.NEXT_PUBLIC_DISABLE_PAYWALL === 'true';
-  
+  const DISABLE_PAYWALL = process.env.NEXT_PUBLIC_DISABLE_PAYWALL === "true";
+
   // If paywall is disabled (either flag), grant access to everyone
   if (!paywallEnabled || DISABLE_PAYWALL) {
     if (DISABLE_PAYWALL) {
-      console.log('⚠️ TESTING MODE: Paywall bypassed - granting subscription access');
+      console.log("⚠️ TESTING MODE: Paywall bypassed - granting subscription access");
     }
     return true;
   }

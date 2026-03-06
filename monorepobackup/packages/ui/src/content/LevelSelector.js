@@ -47,7 +47,7 @@ const TIERS = [
   },
 ];
 
-export default function LevelSelector({ 
+export default function LevelSelector({
   appName = "this course",
   sampleModuleUrl = "/modules/1/lesson/1",
   intermediateUrl = "/curriculum?level=intermediate",
@@ -66,7 +66,7 @@ export default function LevelSelector({
   };
 
   const handleKeyPress = (event, tier) => {
-    if (event.key === 'Enter' || event.key === ' ') {
+    if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
       handleTierSelect(tier);
     }
@@ -102,7 +102,7 @@ export default function LevelSelector({
               whileHover={{ scale: 1.03 }}
               className="cursor-pointer"
             >
-              <div 
+              <div
                 role="button"
                 tabIndex={0}
                 onClick={() => handleTierSelect(tier)}
@@ -112,18 +112,14 @@ export default function LevelSelector({
                 {/* Emoji Icon */}
                 <div className="text-center mb-4">
                   <div className="text-7xl mb-3">{tier.emoji}</div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-1">
-                    {tier.name}
-                  </h3>
-                  <p className={`text-xl font-bold bg-gradient-to-r ${tier.color} bg-clip-text text-transparent mb-2`}>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-1">{tier.name}</h3>
+                  <p
+                    className={`text-xl font-bold bg-gradient-to-r ${tier.color} bg-clip-text text-transparent mb-2`}
+                  >
                     {tier.title}
                   </p>
-                  <p className="text-sm font-semibold text-gray-700 mb-3">
-                    {tier.subtitle}
-                  </p>
-                  <p className="text-sm text-gray-600">
-                    {tier.description}
-                  </p>
+                  <p className="text-sm font-semibold text-gray-700 mb-3">{tier.subtitle}</p>
+                  <p className="text-sm text-gray-600">{tier.description}</p>
                 </div>
 
                 {/* Action Button */}
@@ -148,21 +144,25 @@ export default function LevelSelector({
           className="mt-12 text-center"
         >
           <div className="inline-block bg-gradient-to-r from-blue-50 to-purple-50 border-2 border-blue-200 rounded-xl p-6 max-w-3xl">
-            <h4 className="text-lg font-bold text-gray-900 mb-2">
-              📊 How It Works
-            </h4>
+            <h4 className="text-lg font-bold text-gray-900 mb-2">📊 How It Works</h4>
             <div className="text-left text-gray-700 space-y-2">
               <p className="flex items-start">
                 <span className="text-green-500 mr-2 flex-shrink-0">🟢</span>
-                <span><strong>Basic:</strong> Start learning immediately - perfect for beginners</span>
+                <span>
+                  <strong>Basic:</strong> Start learning immediately - perfect for beginners
+                </span>
               </p>
               <p className="flex items-start">
                 <span className="text-blue-500 mr-2 flex-shrink-0">🔵</span>
-                <span><strong>Intermediate:</strong> Apply concepts to real-world scenarios</span>
+                <span>
+                  <strong>Intermediate:</strong> Apply concepts to real-world scenarios
+                </span>
               </p>
               <p className="flex items-start">
                 <span className="text-purple-500 mr-2 flex-shrink-0">🟣</span>
-                <span><strong>Advanced:</strong> Master-level expertise and professional certification</span>
+                <span>
+                  <strong>Advanced:</strong> Master-level expertise and professional certification
+                </span>
               </p>
             </div>
           </div>

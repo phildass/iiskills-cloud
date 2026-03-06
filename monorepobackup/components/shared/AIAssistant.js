@@ -148,7 +148,7 @@ export default function AIAssistant() {
       lowerQuestion.includes("create account")
     ) {
       setConsecutiveFailures(0);
-      return `All content on iiskills.cloud is now freely accessible - no registration required! You can explore all courses, modules, and learning materials without creating an account. Just browse and learn!`;
+      return "All content on iiskills.cloud is now freely accessible - no registration required! You can explore all courses, modules, and learning materials without creating an account. Just browse and learn!";
     }
 
     if (
@@ -157,7 +157,7 @@ export default function AIAssistant() {
       lowerQuestion.includes("log in")
     ) {
       setConsecutiveFailures(0);
-      return `No login required! All content on iiskills.cloud is now freely accessible. You can access all courses, modules, and learning materials without signing in. Just browse and start learning!`;
+      return "No login required! All content on iiskills.cloud is now freely accessible. You can access all courses, modules, and learning materials without signing in. Just browse and start learning!";
     }
 
     // Pricing and Payment
@@ -169,7 +169,7 @@ export default function AIAssistant() {
       lowerQuestion.includes("subscription")
     ) {
       setConsecutiveFailures(0);
-      return `We offer affordable learning at competitive prices. Visit our pricing page or specific course pages for detailed pricing information. Some courses may have special introductory offers! You can make payments through our secure payment gateway.`;
+      return "We offer affordable learning at competitive prices. Visit our pricing page or specific course pages for detailed pricing information. Some courses may have special introductory offers! You can make payments through our secure payment gateway.";
     }
 
     // Newsletter
@@ -179,7 +179,7 @@ export default function AIAssistant() {
       lowerQuestion.includes("email update")
     ) {
       setConsecutiveFailures(0);
-      return `You can subscribe to our newsletter to stay updated with new courses, features, and learning resources! Visit the /newsletter page or use the newsletter signup form. We send weekly updates and never spam.`;
+      return "You can subscribe to our newsletter to stay updated with new courses, features, and learning resources! Visit the /newsletter page or use the newsletter signup form. We send weekly updates and never spam.";
     }
 
     // Navigation and Features
@@ -190,7 +190,7 @@ export default function AIAssistant() {
       lowerQuestion.includes("where")
     ) {
       setConsecutiveFailures(0);
-      return `You can navigate using the menu at the top of the page. Key sections include Home, Learning Content, Login, and Register. The footer also has links to important pages like Terms, Privacy, and About. You can also access our newsletter and other learning modules from the main site.`;
+      return "You can navigate using the menu at the top of the page. Key sections include Home, Learning Content, Login, and Register. The footer also has links to important pages like Terms, Privacy, and About. You can also access our newsletter and other learning modules from the main site.";
     }
 
     // About the platform
@@ -200,7 +200,7 @@ export default function AIAssistant() {
       lowerQuestion.includes("iiskills")
     ) {
       setConsecutiveFailures(0);
-      return `iiskills.cloud is a professional skills development platform offering courses across multiple domains including AI, Mathematics, Physics, Chemistry, JEE/NEET preparation, Management, Leadership, and more. We provide comprehensive learning materials, certification, and career guidance.`;
+      return "iiskills.cloud is a professional skills development platform offering courses across multiple domains including AI, Mathematics, Physics, Chemistry, JEE/NEET preparation, Management, Leadership, and more. We provide comprehensive learning materials, certification, and career guidance.";
     }
 
     // Certification
@@ -210,7 +210,7 @@ export default function AIAssistant() {
       lowerQuestion.includes("credential")
     ) {
       setConsecutiveFailures(0);
-      return `We offer certification upon successful completion of courses. Certificates are recognized credentials that validate your skills and knowledge. Visit the Certification section in the main navigation to learn more about our certification programs.`;
+      return "We offer certification upon successful completion of courses. Certificates are recognized credentials that validate your skills and knowledge. Visit the Certification section in the main navigation to learn more about our certification programs.";
     }
 
     // Contact and Support
@@ -221,7 +221,7 @@ export default function AIAssistant() {
       lowerQuestion.includes("email")
     ) {
       setConsecutiveFailures(0);
-      return `For support, you can reach us at info@iiskills.cloud. We're here to help with any questions about courses, registration, payments, or technical issues. You can also check the About page for more contact information.`;
+      return "For support, you can reach us at info@iiskills.cloud. We're here to help with any questions about courses, registration, payments, or technical issues. You can also check the About page for more contact information.";
     }
 
     // Privacy and Terms
@@ -232,7 +232,7 @@ export default function AIAssistant() {
       lowerQuestion.includes("data")
     ) {
       setConsecutiveFailures(0);
-      return `Our Privacy Policy and Terms & Conditions are available in the footer of every page. We take your privacy seriously and follow industry best practices for data protection. Your personal information is secure with us.`;
+      return "Our Privacy Policy and Terms & Conditions are available in the footer of every page. We take your privacy seriously and follow industry best practices for data protection. Your personal information is secure with us.";
     }
 
     // Progress Tracking
@@ -242,7 +242,7 @@ export default function AIAssistant() {
       lowerQuestion.includes("dashboard")
     ) {
       setConsecutiveFailures(0);
-      return `You can track your learning progress through your personal dashboard. After logging in, you'll see your enrolled courses, completed lessons, and upcoming content. Your progress is saved automatically across all devices.`;
+      return "You can track your learning progress through your personal dashboard. After logging in, you'll see your enrolled courses, completed lessons, and upcoming content. Your progress is saved automatically across all devices.";
     }
 
     // Mobile App / PWA
@@ -253,7 +253,7 @@ export default function AIAssistant() {
       lowerQuestion.includes("download")
     ) {
       setConsecutiveFailures(0);
-      return `You can install iiskills.cloud as a Progressive Web App (PWA) on your device for a native app-like experience! Look for the "Install App" button or add to home screen option in your browser. This works on both mobile and desktop.`;
+      return 'You can install iiskills.cloud as a Progressive Web App (PWA) on your device for a native app-like experience! Look for the "Install App" button or add to home screen option in your browser. This works on both mobile and desktop.';
     }
 
     // General help
@@ -264,8 +264,8 @@ export default function AIAssistant() {
 
     // If no match found - handle as failure with specific responses
     const currentFailures = consecutiveFailures;
-    setConsecutiveFailures(prev => prev + 1);
-    
+    setConsecutiveFailures((prev) => prev + 1);
+
     if (currentFailures === 0) {
       // First failure
       return "I am sorry, I cannot understand the question. Could you rephrase it.";

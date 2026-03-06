@@ -1,8 +1,8 @@
-import crypto from 'crypto';
-import { createClient } from '@supabase/supabase-js';
-import jwt from 'jsonwebtoken';
-import { sendThankYouEmail } from '@lib/otpService';
-import { APPS } from '@lib/appRegistry';
+import crypto from "crypto";
+import { createClient } from "@supabase/supabase-js";
+import jwt from "jsonwebtoken";
+import { sendThankYouEmail } from "@lib/otpService";
+import { APPS } from "@lib/appRegistry";
 
 /**
  * ai-enter Payment Callback Handler  (Option A — token-based flow)
@@ -54,15 +54,15 @@ function getSupabaseAdmin() {
 function readRawBody(req) {
   return new Promise((resolve, reject) => {
     const chunks = [];
-    req.on('data', (chunk) => chunks.push(chunk));
-    req.on('end', () => resolve(Buffer.concat(chunks)));
-    req.on('error', reject);
+    req.on("data", (chunk) => chunks.push(chunk));
+    req.on("end", () => resolve(Buffer.concat(chunks)));
+    req.on("error", reject);
   });
 }
 
 export default async function handler(req, res) {
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "Method not allowed" });
   }
 
   // ── 1. Read raw body ───────────────────────────────────────────────────────
@@ -70,42 +70,39 @@ export default async function handler(req, res) {
   try {
     rawBody = await readRawBody(req);
   } catch (err) {
-    console.error('[ai-enter callback] Failed to read request body:', err);
-    return res.status(400).json({ error: 'Failed to read request body' });
+    console.error("[ai-enter callback] Failed to read request body:", err);
+    return res.status(400).json({ error: "Failed to read request body" });
   }
 
   // ── 2. Verify HMAC-SHA256 signature ───────────────────────────────────────
   const secret = process.env.ORIGIN_WEBHOOK_SECRET;
   if (secret) {
-    const receivedSig = req.headers['x-ai-enter-signature'];
+    const receivedSig = req.headers["x-ai-enter-signature"];
     if (!receivedSig) {
-      console.error('[ai-enter callback] Missing X-AI-ENTER-SIGNATURE header');
-      return res.status(401).json({ error: 'Missing signature' });
+      console.error("[ai-enter callback] Missing X-AI-ENTER-SIGNATURE header");
+      return res.status(401).json({ error: "Missing signature" });
     }
 
-    const expectedSig = crypto
-      .createHmac('sha256', secret)
-      .update(rawBody)
-      .digest('hex');
+    const expectedSig = crypto.createHmac("sha256", secret).update(rawBody).digest("hex");
 
     if (
       receivedSig.length !== expectedSig.length ||
-      !crypto.timingSafeEqual(Buffer.from(receivedSig, 'hex'), Buffer.from(expectedSig, 'hex'))
+      !crypto.timingSafeEqual(Buffer.from(receivedSig, "hex"), Buffer.from(expectedSig, "hex"))
     ) {
-      console.error('[ai-enter callback] Signature mismatch');
-      return res.status(401).json({ error: 'Invalid signature' });
+      console.error("[ai-enter callback] Signature mismatch");
+      return res.status(401).json({ error: "Invalid signature" });
     }
   } else {
-    console.warn('[ai-enter callback] ORIGIN_WEBHOOK_SECRET not set – skipping signature check');
+    console.warn("[ai-enter callback] ORIGIN_WEBHOOK_SECRET not set – skipping signature check");
   }
 
   // ── 3. Parse body ──────────────────────────────────────────────────────────
   let payload;
   try {
-    payload = JSON.parse(rawBody.toString('utf8'));
+    payload = JSON.parse(rawBody.toString("utf8"));
   } catch (err) {
-    console.error('[ai-enter callback] Invalid JSON body:', err);
-    return res.status(400).json({ error: 'Invalid JSON body' });
+    console.error("[ai-enter callback] Invalid JSON body:", err);
+    return res.status(400).json({ error: "Invalid JSON body" });
   }
 
   const {
@@ -121,55 +118,53 @@ export default async function handler(req, res) {
   } = payload;
 
   // ── 4. Validate required fields ────────────────────────────────────────────
-  if (event !== 'payment.success') {
+  if (event !== "payment.success") {
     console.log(`[ai-enter callback] Ignoring event: ${event}`);
-    return res.status(200).json({ message: 'Event not processed' });
+    return res.status(200).json({ message: "Event not processed" });
   }
 
   if (!razorpay_payment_id) {
-    return res.status(400).json({ error: 'razorpay_payment_id is required' });
+    return res.status(400).json({ error: "razorpay_payment_id is required" });
   }
 
   // In Option A the user_token carries the identity; phone/email are optional.
   // In the legacy fallback (no user_token) we still require phone or email.
   if (!user_token && !phone && !email) {
-    return res
-      .status(400)
-      .json({ error: 'user_token or at least one of phone/email is required' });
+    return res.status(400).json({ error: "user_token or at least one of phone/email is required" });
   }
 
   // Determine app; default to a generic paid access token when app_id is absent
-  const effectiveAppId = app_id || 'iiskills';
+  const effectiveAppId = app_id || "iiskills";
   const appConfig = APPS[effectiveAppId];
   if (!appConfig) {
     // Unknown app_id — still record but log a warning
     console.warn(`[ai-enter callback] Unknown app_id: ${effectiveAppId}`);
   }
-  const appName = appConfig?.name || 'iiskills.cloud';
+  const appName = appConfig?.name || "iiskills.cloud";
 
   // ── 5. Idempotency check + store payment record ────────────────────────────
   const supabase = getSupabaseAdmin();
   if (supabase) {
     // Attempt insert; the UNIQUE constraint on payment_id makes this idempotent
-    const { error: insertError } = await supabase.from('payments').insert([
+    const { error: insertError } = await supabase.from("payments").insert([
       {
         payment_id: razorpay_payment_id,
-        payment_gateway: 'aienter',
+        payment_gateway: "aienter",
         app_id: effectiveAppId,
         user_email: email || null,
         user_phone: phone || null,
         amount: amount ? amount / 100 : 0,
-        currency: 'INR',
-        status: 'captured',
+        currency: "INR",
+        status: "captured",
         payment_notes: { razorpay_order_id, origin },
       },
     ]);
 
     if (insertError) {
       if (
-        insertError.code === '23505' ||
-        insertError.message?.includes('duplicate') ||
-        insertError.message?.includes('unique')
+        insertError.code === "23505" ||
+        insertError.message?.includes("duplicate") ||
+        insertError.message?.includes("unique")
       ) {
         // Already processed – idempotent response
         console.log(
@@ -177,12 +172,12 @@ export default async function handler(req, res) {
         );
         return res.status(200).json({
           success: true,
-          message: 'Payment already processed (idempotent)',
+          message: "Payment already processed (idempotent)",
           razorpay_payment_id,
         });
       }
       // Non-duplicate DB error — log but continue
-      console.error('[ai-enter callback] Failed to store payment record:', insertError);
+      console.error("[ai-enter callback] Failed to store payment record:", insertError);
     } else {
       // Newly stored payment — send thank-you email (fire-and-forget)
       const thankYouEmail = email || null;
@@ -192,32 +187,32 @@ export default async function handler(req, res) {
           appId: effectiveAppId,
           appName,
           paymentTransactionId: razorpay_payment_id,
-        }).catch((err) => console.error('[ai-enter callback] Thank-you email error:', err));
+        }).catch((err) => console.error("[ai-enter callback] Thank-you email error:", err));
       }
     }
   } else {
-    console.warn('[ai-enter callback] Supabase not configured – skipping payment storage');
+    console.warn("[ai-enter callback] Supabase not configured – skipping payment storage");
   }
 
   // ── 6. Option A: verify user_token and grant entitlement directly ─────────
   if (user_token) {
     const tokenSecret = process.env.PAYMENT_TOKEN_SECRET;
     if (!tokenSecret) {
-      console.error('[ai-enter callback] PAYMENT_TOKEN_SECRET not set');
-      return res.status(500).json({ error: 'Server misconfiguration' });
+      console.error("[ai-enter callback] PAYMENT_TOKEN_SECRET not set");
+      return res.status(500).json({ error: "Server misconfiguration" });
     }
 
     let tokenPayload;
     try {
       tokenPayload = jwt.verify(user_token, tokenSecret);
     } catch (err) {
-      console.error('[ai-enter callback] user_token verification failed:', err.message);
-      return res.status(401).json({ error: 'Invalid or expired user token' });
+      console.error("[ai-enter callback] user_token verification failed:", err.message);
+      return res.status(401).json({ error: "Invalid or expired user token" });
     }
 
     const { user_id, course_slug } = tokenPayload;
     if (!user_id) {
-      return res.status(400).json({ error: 'user_token missing user_id claim' });
+      return res.status(400).json({ error: "user_token missing user_id claim" });
     }
 
     // The course in the token takes precedence; fall back to app_id
@@ -225,45 +220,43 @@ export default async function handler(req, res) {
 
     // Grant entitlement directly (no OTP required)
     if (supabase) {
-      const { error: entErr } = await supabase.from('entitlements').insert([
+      const { error: entErr } = await supabase.from("entitlements").insert([
         {
           user_id,
           app_id: courseAppId,
-          status: 'active',
-          source: 'razorpay',
+          status: "active",
+          source: "razorpay",
           expires_at: new Date(Date.now() + ENTITLEMENT_DURATION_MS).toISOString(),
         },
       ]);
 
       if (entErr) {
         const isDuplicate =
-          entErr.code === '23505' ||
-          entErr.message?.includes('duplicate') ||
-          entErr.message?.includes('unique');
+          entErr.code === "23505" ||
+          entErr.message?.includes("duplicate") ||
+          entErr.message?.includes("unique");
         if (!isDuplicate) {
-          console.error('[ai-enter callback] Failed to insert entitlement:', entErr);
+          console.error("[ai-enter callback] Failed to insert entitlement:", entErr);
         } else {
           console.log(
             `[ai-enter callback] Entitlement already exists for user=${user_id} app=${courseAppId}`
           );
         }
       } else {
-        console.log(
-          `[ai-enter callback] Entitlement granted: user=${user_id} app=${courseAppId}`
-        );
+        console.log(`[ai-enter callback] Entitlement granted: user=${user_id} app=${courseAppId}`);
 
         // Mark user as paid in profiles (idempotent)
         await supabase
-          .from('profiles')
+          .from("profiles")
           .update({ is_paid_user: true })
-          .eq('id', user_id)
-          .eq('is_paid_user', false);
+          .eq("id", user_id)
+          .eq("is_paid_user", false);
 
         await supabase
-          .from('profiles')
+          .from("profiles")
           .update({ paid_at: new Date().toISOString() })
-          .eq('id', user_id)
-          .is('paid_at', null);
+          .eq("id", user_id)
+          .is("paid_at", null);
 
         // Send confirmation notification (not OTP) — fire-and-forget
         const notifyEmail = tokenPayload.email || email || null;
@@ -273,20 +266,19 @@ export default async function handler(req, res) {
             appId: courseAppId,
             appName,
             paymentTransactionId: razorpay_payment_id,
-          }).catch((err) => console.error('[ai-enter callback] Confirmation email error:', err));
+          }).catch((err) => console.error("[ai-enter callback] Confirmation email error:", err));
         }
       }
     }
 
     // Build a redirect URL for aienter.in to redirect the browser after payment.
     // Points to the complete-registration page so the user can set their password.
-    const mainAppUrl =
-      process.env.NEXT_PUBLIC_MAIN_APP_URL || 'https://iiskills.cloud';
+    const mainAppUrl = process.env.NEXT_PUBLIC_MAIN_APP_URL || "https://iiskills.cloud";
     const redirectUrl = `${mainAppUrl}/complete-registration?course=${encodeURIComponent(courseAppId)}`;
 
     return res.status(200).json({
       success: true,
-      message: 'Payment received and access granted',
+      message: "Payment received and access granted",
       razorpay_payment_id,
       user_id,
       app_id: courseAppId,
@@ -297,10 +289,10 @@ export default async function handler(req, res) {
   // ── 7. Legacy fallback: generate & dispatch OTP ───────────────────────────
   // Kept for backward compatibility when user_token is absent.
   // New deployments should always include user_token (Option A flow).
-  const { generateAndDispatchOTP } = await import('@lib/otpService');
+  const { generateAndDispatchOTP } = await import("@lib/otpService");
 
   let formattedPhone = phone || null;
-  if (formattedPhone && !formattedPhone.startsWith('+')) {
+  if (formattedPhone && !formattedPhone.startsWith("+")) {
     formattedPhone = `+91${formattedPhone}`;
   }
 
@@ -314,11 +306,11 @@ export default async function handler(req, res) {
       appId: effectiveAppId,
       appName,
       paymentTransactionId: razorpay_payment_id,
-      reason: 'payment_verification',
+      reason: "payment_verification",
       adminGenerated: false,
     });
 
-    console.log('[ai-enter callback] OTP dispatched (legacy):', {
+    console.log("[ai-enter callback] OTP dispatched (legacy):", {
       razorpay_payment_id,
       effectiveAppId,
       deliveryChannel: otpResult.deliveryChannel,
@@ -328,15 +320,15 @@ export default async function handler(req, res) {
 
     return res.status(200).json({
       success: true,
-      message: 'Payment received and OTP sent',
+      message: "Payment received and OTP sent",
       razorpay_payment_id,
       deliveryChannel: otpResult.deliveryChannel,
     });
   } catch (otpErr) {
-    console.error('[ai-enter callback] OTP dispatch failed:', otpErr);
+    console.error("[ai-enter callback] OTP dispatch failed:", otpErr);
     return res.status(500).json({
       success: false,
-      error: 'Payment recorded but OTP dispatch failed',
+      error: "Payment recorded but OTP dispatch failed",
       razorpay_payment_id,
     });
   }

@@ -108,7 +108,7 @@ export function getBundleOfferNotice() {
   if (!isBundleOfferActive()) {
     return null;
   }
-  return `🎁 LIMITED OFFER: Buy Learn AI OR Learn Developer — get BOTH for the price of ONE! Offer valid until 31 March 2026.`;
+  return "🎁 LIMITED OFFER: Buy Learn AI OR Learn Developer — get BOTH for the price of ONE! Offer valid until 31 March 2026.";
 }
 
 export default {

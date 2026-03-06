@@ -44,7 +44,7 @@ export function ProgressOrbit({ current, total, score }) {
           </linearGradient>
         </defs>
       </svg>
-      
+
       {/* Center text */}
       <div className="absolute inset-0 flex flex-col items-center justify-center">
         <span className="text-2xl font-bold text-white">{current}</span>
@@ -65,7 +65,7 @@ export function QuestionCard({ question, selectedAnswer, onSelectAnswer, childre
     >
       {/* Animated background gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-electric-violet-600/20 to-blue-600/20 rounded-3xl blur-xl -z-10" />
-      
+
       {children}
     </motion.div>
   );
@@ -90,12 +90,12 @@ export function AnswerFeedback({ isCorrect, show }) {
           }}
           transition={{ duration: 1, ease: "easeOut" }}
           className={`w-32 h-32 rounded-full flex items-center justify-center text-6xl ${
-            isCorrect 
-              ? 'bg-emerald-glow/30 border-4 border-emerald-glow' 
-              : 'bg-ruby-fade/30 border-4 border-ruby-fade'
+            isCorrect
+              ? "bg-emerald-glow/30 border-4 border-emerald-glow"
+              : "bg-ruby-fade/30 border-4 border-ruby-fade"
           }`}
         >
-          {isCorrect ? '✓' : '✗'}
+          {isCorrect ? "✓" : "✗"}
         </motion.div>
       </motion.div>
     </AnimatePresence>
@@ -153,24 +153,22 @@ export function LeaderboardSidebar({ isOpen, onToggle, topScorers }) {
         onClick={onToggle}
         className="lg:hidden fixed top-20 right-4 z-40 w-12 h-12 bg-gradient-to-r from-electric-violet-500 to-blue-500 rounded-full flex items-center justify-center text-white shadow-lg"
       >
-        {isOpen ? '✕' : '🏆'}
+        {isOpen ? "✕" : "🏆"}
       </button>
 
       {/* Sidebar */}
       <motion.div
         initial={false}
         animate={{
-          x: isOpen ? 0 : '100%'
+          x: isOpen ? 0 : "100%",
         }}
         className="fixed top-0 right-0 h-full w-80 bg-midnight-900/95 backdrop-blur-md border-l border-white/10 shadow-2xl z-30 overflow-y-auto lg:translate-x-0"
       >
         <div className="p-6">
           <div className="flex items-center justify-between mb-6">
-            <h3 className="text-xl font-bold text-white flex items-center gap-2">
-              🏆 Top Scorers
-            </h3>
+            <h3 className="text-xl font-bold text-white flex items-center gap-2">🏆 Top Scorers</h3>
           </div>
-          
+
           <p className="text-sm text-gray-400 mb-4">Live - Last Hour in India</p>
 
           <div className="space-y-3">
@@ -181,15 +179,21 @@ export function LeaderboardSidebar({ isOpen, onToggle, topScorers }) {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: index * 0.1 }}
                 className={`p-4 rounded-xl ${
-                  index === 0 
-                    ? 'bg-gradient-to-r from-yellow-500/20 to-orange-500/20 border border-yellow-500/30'
-                    : 'bg-white/5 border border-white/10'
+                  index === 0
+                    ? "bg-gradient-to-r from-yellow-500/20 to-orange-500/20 border border-yellow-500/30"
+                    : "bg-white/5 border border-white/10"
                 }`}
               >
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-2">
                     <span className="text-2xl">
-                      {index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : `#${index + 1}`}
+                      {index === 0
+                        ? "🥇"
+                        : index === 1
+                          ? "🥈"
+                          : index === 2
+                            ? "🥉"
+                            : `#${index + 1}`}
                     </span>
                     <span className="text-white font-semibold">{scorer.name}</span>
                   </div>
@@ -214,10 +218,10 @@ export function LeaderboardSidebar({ isOpen, onToggle, topScorers }) {
 // Difficulty Indicator Badge
 export function DifficultyBadge({ level }) {
   const configs = {
-    1: { label: 'Easy', color: 'from-green-500 to-emerald-500', emoji: '⭐' },
-    2: { label: 'Medium', color: 'from-blue-500 to-cyan-500', emoji: '⭐⭐' },
-    3: { label: 'Hard', color: 'from-orange-500 to-red-500', emoji: '⭐⭐⭐' },
-    4: { label: 'Expert', color: 'from-purple-500 to-pink-500', emoji: '⭐⭐⭐⭐' },
+    1: { label: "Easy", color: "from-green-500 to-emerald-500", emoji: "⭐" },
+    2: { label: "Medium", color: "from-blue-500 to-cyan-500", emoji: "⭐⭐" },
+    3: { label: "Hard", color: "from-orange-500 to-red-500", emoji: "⭐⭐⭐" },
+    4: { label: "Expert", color: "from-purple-500 to-pink-500", emoji: "⭐⭐⭐⭐" },
   };
 
   const config = configs[level] || configs[1];
@@ -242,7 +246,7 @@ export function TestTimer({ timeLeft, totalTime }) {
   const formatTime = (seconds) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
-    return `${mins}:${secs.toString().padStart(2, '0')}`;
+    return `${mins}:${secs.toString().padStart(2, "0")}`;
   };
 
   return (
@@ -250,9 +254,9 @@ export function TestTimer({ timeLeft, totalTime }) {
       animate={isLow ? { scale: [1, 1.05, 1] } : {}}
       transition={{ duration: 0.5, repeat: isLow ? Infinity : 0 }}
       className={`px-6 py-3 rounded-xl ${
-        isLow 
-          ? 'bg-gradient-to-r from-red-500 to-orange-500' 
-          : 'bg-gradient-to-r from-electric-violet-500 to-blue-500'
+        isLow
+          ? "bg-gradient-to-r from-red-500 to-orange-500"
+          : "bg-gradient-to-r from-electric-violet-500 to-blue-500"
       } text-white font-bold text-xl shadow-lg`}
     >
       ⏱️ {formatTime(timeLeft)}
@@ -263,7 +267,9 @@ export function TestTimer({ timeLeft, totalTime }) {
 // Domain Tag Component
 export function DomainTag({ domain, color }) {
   return (
-    <div className={`inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r ${color} rounded-full text-white text-sm font-semibold`}>
+    <div
+      className={`inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r ${color} rounded-full text-white text-sm font-semibold`}
+    >
       <span>{domain}</span>
     </div>
   );
@@ -276,7 +282,7 @@ export function QuestionNavigation({ total, current, answers, questions }) {
       {Array.from({ length: total }, (_, i) => {
         const questionId = questions[i]?.id;
         const isAnswered = answers[questionId] !== undefined;
-        
+
         return (
           <motion.button
             key={i}
@@ -285,10 +291,10 @@ export function QuestionNavigation({ total, current, answers, questions }) {
             whileTap={{ scale: 0.9 }}
             className={`w-10 h-10 rounded-full font-semibold text-sm transition-all ${
               i === current
-                ? 'bg-gradient-to-r from-electric-violet-500 to-blue-500 text-white ring-4 ring-electric-violet-300'
+                ? "bg-gradient-to-r from-electric-violet-500 to-blue-500 text-white ring-4 ring-electric-violet-300"
                 : isAnswered
-                ? 'bg-emerald-glow text-white'
-                : 'bg-white/10 text-gray-400 border border-white/20'
+                  ? "bg-emerald-glow text-white"
+                  : "bg-white/10 text-gray-400 border border-white/20"
             }`}
           >
             {i + 1}

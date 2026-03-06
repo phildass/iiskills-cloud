@@ -1,9 +1,9 @@
 /**
  * Access Manager Library
- * 
+ *
  * DEPRECATED: This file is maintained for backward compatibility.
  * New code should import from @iiskills/access-control package.
- * 
+ *
  * @deprecated Use @iiskills/access-control instead
  * @module accessManager
  */
@@ -18,4 +18,4 @@ export {
   revokeAppAccess,
   getAccessStats,
   updatePaymentBundleInfo,
-} from '../packages/access-control';
+} from "../packages/access-control";

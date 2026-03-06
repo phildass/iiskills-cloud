@@ -71,7 +71,7 @@ export default [
       semi: ["error", "always"],
       quotes: ["error", "double", { avoidEscape: true }],
       "no-unused-vars": "warn",
-      "no-use-before-define": ["error", { "functions": false, "classes": true, "variables": true }],
+      "no-use-before-define": ["error", { functions: false, classes: true, variables: true }],
       "react/prop-types": "off",
       "react/react-in-jsx-scope": "off",
       "react-hooks/rules-of-hooks": "error",

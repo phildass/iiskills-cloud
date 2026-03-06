@@ -1,9 +1,9 @@
 /**
  * Tier Selection UI Component
- * 
+ *
  * Universal landing page component for selecting learning tier
  * Features 3-tier progression: Basic → Intermediate → Advanced
- * 
+ *
  * Usage:
  * <TierSelection onTierSelect={(tier) => console.log(tier)} />
  */
@@ -84,9 +84,7 @@ export default function TierSelection({ onTierSelect, appName = "this course" })
           <h2 className="text-4xl font-bold mb-4 text-gray-900">
             This course is engineered in 3 Tiers
           </h2>
-          <p className="text-2xl text-gray-700 mb-2">
-            Where do you belong?
-          </p>
+          <p className="text-2xl text-gray-700 mb-2">Where do you belong?</p>
           <p className="text-lg text-gray-600">
             Select your starting point to begin your diagnostic calibration
           </p>
@@ -110,9 +108,7 @@ export default function TierSelection({ onTierSelect, appName = "this course" })
             >
               <div className="text-center mb-4">
                 <div className="text-6xl mb-3">{tier.emoji}</div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-1">
-                  {tier.name}
-                </h3>
+                <h3 className="text-2xl font-bold text-gray-900 mb-1">{tier.name}</h3>
                 <p className="text-xl font-semibold bg-gradient-to-r {tier.color} bg-clip-text text-transparent mb-2">
                   {tier.title}
                 </p>

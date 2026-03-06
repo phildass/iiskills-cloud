@@ -51,7 +51,13 @@ const hasPlaceholderKey =
   supabaseAnonKey.length < MIN_ANON_KEY_LENGTH;
 
 // Skip validation if Supabase is suspended, using local content mode, testing mode, or auth is disabled
-if (!isSupabaseSuspended && !useLocalContent && !isTestingMode && !isAuthDisabled && (!supabaseUrl || !supabaseAnonKey || hasPlaceholderUrl || hasPlaceholderKey)) {
+if (
+  !isSupabaseSuspended &&
+  !useLocalContent &&
+  !isTestingMode &&
+  !isAuthDisabled &&
+  (!supabaseUrl || !supabaseAnonKey || hasPlaceholderUrl || hasPlaceholderKey)
+) {
   const errorMessage = `
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ⚠️  SUPABASE CONFIGURATION ERROR
@@ -283,24 +289,24 @@ export async function getCurrentUser() {
   // Global feature flag to bypass authentication for debugging/maintenance
   // To enable: Set NEXT_PUBLIC_DISABLE_AUTH=true and rebuild
   try {
-    const isAuthDisabled = process.env.NEXT_PUBLIC_DISABLE_AUTH === 'true';
+    const isAuthDisabled = process.env.NEXT_PUBLIC_DISABLE_AUTH === "true";
     if (isAuthDisabled) {
       console.log("⚠️ AUTH DISABLED [main]: Returning mock user with full permissions");
       return {
-        id: 'dev-override-main',
-        email: 'dev@iiskills.cloud',
-        role: 'bypass',
+        id: "dev-override-main",
+        email: "dev@iiskills.cloud",
+        role: "bypass",
         user_metadata: {
-          firstName: 'Dev',
-          lastName: 'Override',
-          full_name: 'Dev Override',
+          firstName: "Dev",
+          lastName: "Override",
+          full_name: "Dev Override",
           is_admin: true,
-          payment_status: 'paid'
+          payment_status: "paid",
         },
         app_metadata: {
-          payment_status: 'paid',
-          is_admin: true
-        }
+          payment_status: "paid",
+          is_admin: true,
+        },
       };
     }
   } catch (e) {

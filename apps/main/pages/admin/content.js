@@ -7,7 +7,12 @@ export default function AdminContent() {
   const { ready, denied } = useAdminProtectedPage();
 
   if (denied) return <AccessDenied />;
-  if (!ready) return <div className="min-h-screen flex items-center justify-center"><div className="text-lg">Loading...</div></div>;
+  if (!ready)
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-lg">Loading...</div>
+      </div>
+    );
 
   return (
     <>

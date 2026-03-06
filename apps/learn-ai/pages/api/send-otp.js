@@ -1,4 +1,4 @@
-import { createClient } from '@supabase/supabase-js';
+import { createClient } from "@supabase/supabase-js";
 
 const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
 
@@ -7,19 +7,23 @@ let _vonageClient = null;
 
 export default async function handler(req, res) {
   if (!process.env.SENDGRID_API_KEY) {
-    return res.status(503).json({ error: 'Email service not configured (SENDGRID_API_KEY missing)' });
+    return res
+      .status(503)
+      .json({ error: "Email service not configured (SENDGRID_API_KEY missing)" });
   }
   if (!process.env.VONAGE_API_KEY || !process.env.VONAGE_API_SECRET) {
-    return res.status(503).json({ error: 'SMS service not configured (VONAGE credentials missing)' });
+    return res
+      .status(503)
+      .json({ error: "SMS service not configured (VONAGE credentials missing)" });
   }
 
   if (!_sgMail) {
-    const mod = await import('@sendgrid/mail');
+    const mod = await import("@sendgrid/mail");
     _sgMail = mod.default;
     _sgMail.setApiKey(process.env.SENDGRID_API_KEY);
   }
   if (!_vonageClient) {
-    const { Vonage } = await import('@vonage/server-sdk');
+    const { Vonage } = await import("@vonage/server-sdk");
     _vonageClient = new Vonage({
       apiKey: process.env.VONAGE_API_KEY,
       apiSecret: process.env.VONAGE_API_SECRET,
@@ -41,7 +45,7 @@ export default async function handler(req, res) {
 
   // Save OTP to Supabase
   const { error: dbError } = await supabase
-    .from('otps')
+    .from("otps")
     .insert([{ email, phone, otp, expires_at: expiresAt }]);
   if (dbError) {
     return res.status(500).json({ error: `Supabase error: ${dbError.message}` });
@@ -51,10 +55,10 @@ export default async function handler(req, res) {
   try {
     await sgMail.send({
       to: email,
-      from: 'info@iiskills.cloud', // Verified sender
-      subject: 'Your OTP Code',
+      from: "info@iiskills.cloud", // Verified sender
+      subject: "Your OTP Code",
       text: `Your OTP is: ${otp}`,
-      html: `<p>Your OTP is: <b>${otp}</b>. It expires in 10 minutes.</p>`
+      html: `<p>Your OTP is: <b>${otp}</b>. It expires in 10 minutes.</p>`,
     });
   } catch (emailErr) {
     return res.status(500).json({ error: `SendGrid error: ${emailErr.message}` });
@@ -67,15 +71,17 @@ export default async function handler(req, res) {
       from: process.env.VONAGE_BRAND_NAME,
       text: `Your OTP is: ${otp}`,
     });
-    
+
     // Validate Vonage response
     if (!response || !response.messages || response.messages.length === 0) {
-      return res.status(500).json({ error: 'Vonage error: No response from SMS service' });
+      return res.status(500).json({ error: "Vonage error: No response from SMS service" });
     }
-    
+
     const message = response.messages[0];
-    if (message.status !== '0') {
-      return res.status(500).json({ error: `Vonage error: ${message['error-text'] || 'SMS delivery failed'}` });
+    if (message.status !== "0") {
+      return res
+        .status(500)
+        .json({ error: `Vonage error: ${message["error-text"] || "SMS delivery failed"}` });
     }
   } catch (smsErr) {
     return res.status(500).json({ error: `Vonage error: ${smsErr.message}` });

@@ -10,19 +10,23 @@ const SUBJECTS = [
 
 const TEST_QUESTIONS = {
   physics: {
-    question: "If you run in a perfect circle and end where you started, is your displacement Zero?",
+    question:
+      "If you run in a perfect circle and end where you started, is your displacement Zero?",
     correctAnswer: "yes",
     explanation: {
       correct: "Correct. You've got the intuition. Download the App to skip to Intermediate.",
-      incorrect: "Not quite. That's a 'Basic' concept. Download the App to master the foundations in 15 minutes.",
+      incorrect:
+        "Not quite. That's a 'Basic' concept. Download the App to master the foundations in 15 minutes.",
     },
   },
   math: {
     question: "Is zero considered a natural number in modern mathematics?",
     correctAnswer: "yes",
     explanation: {
-      correct: "Correct! Modern mathematics includes zero as a natural number. You're ready for Intermediate.",
-      incorrect: "Actually, zero IS considered a natural number. Download the App to master the basics.",
+      correct:
+        "Correct! Modern mathematics includes zero as a natural number. You're ready for Intermediate.",
+      incorrect:
+        "Actually, zero IS considered a natural number. Download the App to master the basics.",
     },
   },
   chemistry: {
@@ -72,7 +76,8 @@ export default function GatekeeperTest() {
     <div
       className="relative rounded-2xl p-8 md:p-12 backdrop-blur-xl shadow-2xl overflow-hidden"
       style={{
-        background: "linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%)",
+        background:
+          "linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%)",
         border: "1px solid rgba(255, 255, 255, 0.2)",
       }}
     >
@@ -156,9 +161,7 @@ export default function GatekeeperTest() {
             <label className="block text-sm font-semibold text-gray-700 mb-3">
               2. Test Question:
             </label>
-            <p className="text-lg text-charcoal font-medium mb-6">
-              "{currentQuestion.question}"
-            </p>
+            <p className="text-lg text-charcoal font-medium mb-6">"{currentQuestion.question}"</p>
 
             {/* Answer Buttons with Enhanced Microinteractions */}
             {!showResult ? (
@@ -207,7 +210,9 @@ export default function GatekeeperTest() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 className={`p-6 rounded-lg ${
-                  isCorrect ? "bg-green-50 border-2 border-green-500" : "bg-red-50 border-2 border-red-500"
+                  isCorrect
+                    ? "bg-green-50 border-2 border-green-500"
+                    : "bg-red-50 border-2 border-red-500"
                 }`}
               >
                 <div className="flex items-start gap-3 mb-4">
@@ -217,7 +222,9 @@ export default function GatekeeperTest() {
                       {isCorrect ? "Correct!" : "Not Quite!"}
                     </p>
                     <p className="text-gray-700">
-                      {isCorrect ? currentQuestion.explanation.correct : currentQuestion.explanation.incorrect}
+                      {isCorrect
+                        ? currentQuestion.explanation.correct
+                        : currentQuestion.explanation.incorrect}
                     </p>
                   </div>
                 </div>

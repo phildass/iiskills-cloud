@@ -2,13 +2,13 @@
 
 /**
  * App Registry Generator
- * 
+ *
  * Automatically discovers learning apps and generates the app registry.
  * This replaces manual maintenance of lib/appRegistry.js
- * 
+ *
  * Usage:
  *   node scripts/generate-app-registry.js [--output=path/to/output.js] [--dry-run]
- * 
+ *
  * Discovery Rules:
  * - Scans apps/learn-* directories
  * - Requires package.json with dev port
@@ -17,19 +17,21 @@
  * - Maintains main app entry manually (since it's special)
  */
 
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
 
 // Parse command line arguments
 const args = process.argv.slice(2);
-const outputPath = args.find(arg => arg.startsWith('--output='))?.split('=')[1] || path.join(__dirname, '..', 'lib', 'appRegistry.js');
-const dryRun = args.includes('--dry-run');
+const outputPath =
+  args.find((arg) => arg.startsWith("--output="))?.split("=")[1] ||
+  path.join(__dirname, "..", "lib", "appRegistry.js");
+const dryRun = args.includes("--dry-run");
 
 /**
  * Extract port from package.json dev script
  */
 function extractPort(packageJson) {
-  const devScript = packageJson.scripts?.dev || '';
+  const devScript = packageJson.scripts?.dev || "";
   const portMatch = devScript.match(/-p\s+(\d+)/);
   return portMatch ? parseInt(portMatch[1]) : null;
 }
@@ -38,22 +40,22 @@ function extractPort(packageJson) {
  * Discover all learning apps
  */
 function discoverApps() {
-  const appsDir = path.join(__dirname, '..', 'apps');
+  const appsDir = path.join(__dirname, "..", "apps");
   const allApps = fs.readdirSync(appsDir);
   const learningApps = [];
 
   for (const appDir of allApps) {
-    if (!appDir.startsWith('learn-')) continue;
+    if (!appDir.startsWith("learn-")) continue;
 
     const appPath = path.join(appsDir, appDir);
-    const packageJsonPath = path.join(appPath, 'package.json');
-    
+    const packageJsonPath = path.join(appPath, "package.json");
+
     if (!fs.existsSync(packageJsonPath)) {
       console.warn(`Warning: ${appDir} has no package.json, skipping`);
       continue;
     }
 
-    const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
+    const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, "utf8"));
     const port = extractPort(packageJson);
 
     if (!port) {
@@ -62,18 +64,20 @@ function discoverApps() {
     }
 
     // Check if app has content structure
-    const contentDir = path.join(appPath, 'content');
+    const contentDir = path.join(appPath, "content");
     const hasContent = fs.existsSync(contentDir);
 
     // Extract app name (remove 'learn-' prefix and capitalize)
     const appId = appDir;
-    const appName = packageJson.name || appDir
-      .split('-')
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-      .join('-');
+    const appName =
+      packageJson.name ||
+      appDir
+        .split("-")
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+        .join("-");
 
     // Check if it's a free app (e.g., cricket)
-    const isFree = appDir === 'learn-cricket';
+    const isFree = appDir === "learn-cricket";
 
     learningApps.push({
       id: appId,
@@ -81,11 +85,11 @@ function discoverApps() {
       subdomain: appId,
       primaryDomain: `app1.${appId}.iiskills.cloud`,
       localPort: port,
-      postLoginRedirect: '/learn',
-      postRegisterRedirect: '/learn',
-      features: ['simplified-registration', 'courses'],
+      postLoginRedirect: "/learn",
+      postRegisterRedirect: "/learn",
+      features: ["simplified-registration", "courses"],
       isFree,
-      hasContent
+      hasContent,
     });
   }
 
@@ -100,7 +104,7 @@ function discoverApps() {
  */
 function generateRegistryContent(apps) {
   const timestamp = new Date().toISOString();
-  
+
   let content = `/**
  * Multi-App Registry
  * 
@@ -344,30 +348,32 @@ export function getAllAppIds() {
  * Main execution
  */
 function main() {
-  console.log('🔍 Discovering learning apps...');
+  console.log("🔍 Discovering learning apps...");
   const apps = discoverApps();
-  
+
   console.log(`✅ Found ${apps.length} learning apps:`);
-  apps.forEach(app => {
-    console.log(`   - ${app.id} (port ${app.localPort})${app.isFree ? ' [FREE]' : ''}${app.hasContent ? ' [HAS CONTENT]' : ''}`);
+  apps.forEach((app) => {
+    console.log(
+      `   - ${app.id} (port ${app.localPort})${app.isFree ? " [FREE]" : ""}${app.hasContent ? " [HAS CONTENT]" : ""}`
+    );
   });
 
-  console.log('\n📝 Generating app registry...');
+  console.log("\n📝 Generating app registry...");
   const content = generateRegistryContent(apps);
 
   if (dryRun) {
-    console.log('\n--- DRY RUN - Generated Content Preview ---');
-    console.log(content.substring(0, 1000) + '\n...\n(truncated)');
-    console.log('\nℹ️  Dry run complete. No files were modified.');
+    console.log("\n--- DRY RUN - Generated Content Preview ---");
+    console.log(content.substring(0, 1000) + "\n...\n(truncated)");
+    console.log("\nℹ️  Dry run complete. No files were modified.");
   } else {
     // Backup existing file if it exists
     if (fs.existsSync(outputPath)) {
-      const backupPath = outputPath + '.backup';
+      const backupPath = outputPath + ".backup";
       fs.copyFileSync(outputPath, backupPath);
       console.log(`📦 Backed up existing registry to ${backupPath}`);
     }
 
-    fs.writeFileSync(outputPath, content, 'utf8');
+    fs.writeFileSync(outputPath, content, "utf8");
     console.log(`✅ Generated app registry at ${outputPath}`);
     console.log(`   Total apps in registry: ${apps.length + 1} (including main)`);
   }

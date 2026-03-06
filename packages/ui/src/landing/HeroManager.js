@@ -17,7 +17,7 @@ import { useState, useEffect } from "react";
  * - Renders a full-size hero background with first image (hero image)
  * - Positions overlay text at the bottom of the hero area
  *
- * Note: Archived apps (learn-biology, learn-cricket, learn-companion, learn-finesse, learn-govt-jobs, 
+ * Note: Archived apps (learn-biology, learn-cricket, learn-companion, learn-finesse, learn-govt-jobs,
  * learn-leadership, learn-winning, mpa) are in apps-backup/ and are not included in this configuration.
  */
 
@@ -32,8 +32,8 @@ import { useState, useEffect } from "react";
  * Learn-geography has 3 images total (1 hero + 2 secondary images)
  * Other apps have 3 images each (1 hero + 2 random images)
  *
- * Note: Apps in apps-backup/ (learn-biology, learn-cricket, learn-companion, learn-finesse, 
- * learn-govt-jobs, learn-leadership, learn-winning, mpa) are archived and no longer 
+ * Note: Apps in apps-backup/ (learn-biology, learn-cricket, learn-companion, learn-finesse,
+ * learn-govt-jobs, learn-leadership, learn-winning, mpa) are archived and no longer
  * have image assignments here.
  */
 const APP_IMAGE_ASSIGNMENTS = {
@@ -61,16 +61,8 @@ const APP_IMAGE_ASSIGNMENTS = {
     "iiskills-ai-wm5.jpg",
   ],
   "learn-math": ["hero.jpg", "iiskills-math-egirl.jpg", "iiskills-math-mgirl.jpg"],
-  "learn-physics": [
-    "hero.jpg",
-    "iiskills-physics-eman.jpg",
-    "iiskills-physics-girls.jpg",
-  ],
-  "learn-chemistry": [
-    "hero.jpg",
-    "iiskills-chem-labman.jpg",
-    "iiskills-chem-lwoman.jpg",
-  ],
+  "learn-physics": ["hero.jpg", "iiskills-physics-eman.jpg", "iiskills-physics-girls.jpg"],
+  "learn-chemistry": ["hero.jpg", "iiskills-chem-labman.jpg", "iiskills-chem-lwoman.jpg"],
   // MOVED TO apps-backup as per cleanup requirements
   // "learn-biology": [
   //   "iiskills-bio-hero.jpg",
@@ -148,11 +140,11 @@ export function getRandomSecondaryImage(appId) {
  * @param {string} props.overlayOpacity - Custom overlay opacity class (e.g., "bg-black/20", "bg-black/40"). Only applies when noOverlay is false. Default: "bg-black/40"
  * @param {string} [props.heroImageSrc] - Optional full path override for the hero image (e.g., "/images/hero-1250-5326.jpg"). When provided, skips appId-based selection and uses this URL directly (enables immutable/versioned hero assets).
  */
-export default function Hero({ 
-  appId, 
-  children, 
-  className = "", 
-  heroHeight = "70vh", 
+export default function Hero({
+  appId,
+  children,
+  className = "",
+  heroHeight = "70vh",
   noOverlay = false,
   overlayOpacity = "bg-black/40",
   heroImageSrc = null,

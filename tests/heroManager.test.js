@@ -23,15 +23,12 @@ describe("getHeroImagesForApp – hero.jpg prioritization", () => {
     "learn-apt",
   ];
 
-  test.each(LEARN_APPS)(
-    "%s: first image is hero.jpg",
-    (appId) => {
-      const images = getHeroImagesForApp(appId);
-      expect(images).toBeDefined();
-      expect(images.length).toBeGreaterThan(0);
-      expect(images[0].toLowerCase()).toBe("hero.jpg");
-    }
-  );
+  test.each(LEARN_APPS)("%s: first image is hero.jpg", (appId) => {
+    const images = getHeroImagesForApp(appId);
+    expect(images).toBeDefined();
+    expect(images.length).toBeGreaterThan(0);
+    expect(images[0].toLowerCase()).toBe("hero.jpg");
+  });
 
   test("main app does NOT use hero.jpg as first image", () => {
     const images = getHeroImagesForApp("main");

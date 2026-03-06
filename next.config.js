@@ -4,7 +4,7 @@ const { getHeadersConfig } = require("./config/security-headers");
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  
+
   // Disable source maps in production for security
   productionBrowserSourceMaps: false,
 
@@ -14,12 +14,13 @@ const nextConfig = {
 
   // Expose OPEN_ACCESS env var to the client side
   env: {
-    NEXT_PUBLIC_OPEN_ACCESS: process.env.OPEN_ACCESS || process.env.NEXT_PUBLIC_OPEN_ACCESS || 'false',
+    NEXT_PUBLIC_OPEN_ACCESS:
+      process.env.OPEN_ACCESS || process.env.NEXT_PUBLIC_OPEN_ACCESS || "false",
   },
 
   // Security headers
   async headers() {
-    const isDev = process.env.NODE_ENV === 'development';
+    const isDev = process.env.NODE_ENV === "development";
     return getHeadersConfig(isDev);
   },
 

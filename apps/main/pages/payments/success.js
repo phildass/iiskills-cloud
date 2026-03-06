@@ -1,13 +1,21 @@
-import Head from 'next/head';
-import Link from 'next/link';
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
+import Head from "next/head";
+import Link from "next/link";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 
 const PAID_APPS = [
-  { id: 'learn-ai', label: 'Learn AI', url: 'https://learn-ai.iiskills.cloud' },
-  { id: 'learn-developer', label: 'Learn Developer', url: 'https://learn-developer.iiskills.cloud' },
-  { id: 'learn-management', label: 'Learn Management', url: 'https://learn-management.iiskills.cloud' },
-  { id: 'learn-pr', label: 'Learn PR', url: 'https://learn-pr.iiskills.cloud' },
+  { id: "learn-ai", label: "Learn AI", url: "https://learn-ai.iiskills.cloud" },
+  {
+    id: "learn-developer",
+    label: "Learn Developer",
+    url: "https://learn-developer.iiskills.cloud",
+  },
+  {
+    id: "learn-management",
+    label: "Learn Management",
+    url: "https://learn-management.iiskills.cloud",
+  },
+  { id: "learn-pr", label: "Learn PR", url: "https://learn-pr.iiskills.cloud" },
 ];
 
 /**
@@ -32,28 +40,30 @@ export default function PaymentSuccess() {
   const [registrationCompleted, setRegistrationCompleted] = useState(null); // null = loading
 
   const appConfig = PAID_APPS.find((a) => a.id === course);
-  const appUrl = appConfig?.url || 'https://iiskills.cloud/apps-dashboard';
-  const appLabel = appConfig?.label || 'your course';
+  const appUrl = appConfig?.url || "https://iiskills.cloud/apps-dashboard";
+  const appLabel = appConfig?.label || "your course";
 
   // Build the complete-registration URL
   const completeRegUrl = course
     ? `/complete-registration?course=${encodeURIComponent(course)}`
-    : '/complete-registration';
+    : "/complete-registration";
 
   useEffect(() => {
     let mounted = true;
 
     async function checkRegistration() {
       try {
-        const { supabase } = await import('../../lib/supabaseClient');
-        const { data: { session } } = await supabase.auth.getSession();
+        const { supabase } = await import("../../lib/supabaseClient");
+        const {
+          data: { session },
+        } = await supabase.auth.getSession();
 
         if (!session?.access_token) {
           if (mounted) setRegistrationCompleted(false);
           return;
         }
 
-        const res = await fetch('/api/profile', {
+        const res = await fetch("/api/profile", {
           headers: { Authorization: `Bearer ${session.access_token}` },
         });
 
@@ -107,29 +117,23 @@ export default function PaymentSuccess() {
             </svg>
           </div>
 
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">
-            🎉 Payment Successful!
-          </h1>
+          <h1 className="text-2xl font-bold text-gray-900 mb-2">🎉 Payment Successful!</h1>
           <p className="text-gray-600 mb-6">
-            Your payment has been received and paid access to{' '}
-            <span className="font-semibold">{appLabel}</span> is being activated.
-            This usually takes a few seconds.
+            Your payment has been received and paid access to{" "}
+            <span className="font-semibold">{appLabel}</span> is being activated. This usually takes
+            a few seconds.
           </p>
 
           {/* Access info */}
           <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-6 text-left">
-            <p className="text-blue-800 text-sm font-medium mb-1">
-              ✅ What happens next?
-            </p>
+            <p className="text-blue-800 text-sm font-medium mb-1">✅ What happens next?</p>
             <ul className="text-blue-700 text-sm space-y-1 list-disc list-inside">
               <li>Your account has been upgraded to paid access.</li>
               <li>A confirmation notification will be sent shortly.</li>
               {registrationCompleted === false && (
                 <li>Complete your registration to set your password.</li>
               )}
-              {registrationCompleted === true && (
-                <li>You can start learning immediately.</li>
-              )}
+              {registrationCompleted === true && <li>You can start learning immediately.</li>}
             </ul>
           </div>
 
@@ -147,11 +151,11 @@ export default function PaymentSuccess() {
             href={appUrl}
             className={`block w-full py-3 px-6 rounded-xl font-bold text-center transition-all shadow-lg mb-4 ${
               registrationCompleted === false
-                ? 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                : 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:from-blue-700 hover:to-indigo-700'
+                ? "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                : "bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:from-blue-700 hover:to-indigo-700"
             }`}
           >
-            {registrationCompleted === false ? 'Skip to Course →' : 'Start Learning Now →'}
+            {registrationCompleted === false ? "Skip to Course →" : "Start Learning Now →"}
           </a>
 
           <div className="space-y-2">
@@ -164,7 +168,7 @@ export default function PaymentSuccess() {
           </div>
 
           <p className="text-xs text-gray-400 mt-6">
-            Questions?{' '}
+            Questions?{" "}
             <a href="mailto:support@iiskills.cloud" className="text-blue-500 hover:underline">
               Contact support
             </a>

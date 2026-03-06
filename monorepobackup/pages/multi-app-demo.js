@@ -1,6 +1,6 @@
 /**
  * Multi-App Navigation Demo Page
- * 
+ *
  * This page demonstrates the new multi-app authentication features:
  * - App switching with preserved authentication
  * - Current app detection
@@ -8,16 +8,16 @@
  * - Session management utilities
  */
 
-import { useState, useEffect } from 'react';
-import { getCurrentUser, isAdmin } from '../lib/supabaseClient';
-import { getCurrentApp, getAccessibleApps, APPS } from '../lib/appRegistry';
-import { 
-  getLastVisitedApp, 
-  getAppHistory, 
+import { useState, useEffect } from "react";
+import { getCurrentUser, isAdmin } from "../lib/supabaseClient";
+import { getCurrentApp, getAccessibleApps, APPS } from "../lib/appRegistry";
+import {
+  getLastVisitedApp,
+  getAppHistory,
   navigateToApp,
-  recordAppVisit 
-} from '../lib/sessionManager';
-import AppSwitcher from '../components/shared/AppSwitcher';
+  recordAppVisit,
+} from "../lib/sessionManager";
+import AppSwitcher from "../components/shared/AppSwitcher";
 
 export default function MultiAppDemo() {
   const [user, setUser] = useState(null);
@@ -30,7 +30,6 @@ export default function MultiAppDemo() {
 
   useEffect(() => {
     loadData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const loadData = async () => {
@@ -46,7 +45,7 @@ export default function MultiAppDemo() {
       if (currentUser) {
         const adminAccess = await isAdmin(currentUser);
         setHasAdminAccess(adminAccess);
-        
+
         // Get accessible apps
         const apps = getAccessibleApps(currentUser, adminAccess);
         setAccessibleApps(apps);
@@ -69,7 +68,7 @@ export default function MultiAppDemo() {
 
       setLoading(false);
     } catch (error) {
-      console.error('Error loading data:', error);
+      console.error("Error loading data:", error);
       setLoading(false);
     }
   };
@@ -89,9 +88,7 @@ export default function MultiAppDemo() {
     <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            Multi-App Navigation Demo
-          </h1>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">Multi-App Navigation Demo</h1>
           <p className="text-gray-600">
             Demonstration of the enhanced multi-app authentication system
           </p>
@@ -120,8 +117,10 @@ export default function MultiAppDemo() {
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-gray-600">Free Access:</span>
-                <span className={`px-2 py-1 rounded text-sm ${currentApp.isFree ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'}`}>
-                  {currentApp.isFree ? 'Yes' : 'No'}
+                <span
+                  className={`px-2 py-1 rounded text-sm ${currentApp.isFree ? "bg-green-100 text-green-800" : "bg-yellow-100 text-yellow-800"}`}
+                >
+                  {currentApp.isFree ? "Yes" : "No"}
                 </span>
               </div>
             </div>
@@ -141,8 +140,10 @@ export default function MultiAppDemo() {
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-gray-600">Admin Access:</span>
-                <span className={`px-2 py-1 rounded text-sm ${hasAdminAccess ? 'bg-purple-100 text-purple-800' : 'bg-gray-100 text-gray-800'}`}>
-                  {hasAdminAccess ? 'Yes' : 'No'}
+                <span
+                  className={`px-2 py-1 rounded text-sm ${hasAdminAccess ? "bg-purple-100 text-purple-800" : "bg-gray-100 text-gray-800"}`}
+                >
+                  {hasAdminAccess ? "Yes" : "No"}
                 </span>
               </div>
               <div className="flex items-center justify-between">
@@ -185,7 +186,7 @@ export default function MultiAppDemo() {
               <div
                 key={app.id}
                 className={`border rounded-lg p-4 hover:shadow-md transition-shadow cursor-pointer ${
-                  currentApp?.id === app.id ? 'border-blue-500 bg-blue-50' : 'border-gray-200'
+                  currentApp?.id === app.id ? "border-blue-500 bg-blue-50" : "border-gray-200"
                 }`}
                 onClick={() => navigateToApp(app.id)}
               >
@@ -241,18 +242,30 @@ export default function MultiAppDemo() {
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">
                 <tr>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">App</th>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Domain</th>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Port</th>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Free</th>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Features</th>
+                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                    App
+                  </th>
+                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                    Domain
+                  </th>
+                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                    Port
+                  </th>
+                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                    Free
+                  </th>
+                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                    Features
+                  </th>
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
                 {Object.values(APPS).map((app) => (
-                  <tr key={app.id} className={currentApp?.id === app.id ? 'bg-blue-50' : ''}>
+                  <tr key={app.id} className={currentApp?.id === app.id ? "bg-blue-50" : ""}>
                     <td className="px-4 py-3 text-sm font-medium text-gray-900">{app.name}</td>
-                    <td className="px-4 py-3 text-sm text-gray-500 font-mono">{app.primaryDomain}</td>
+                    <td className="px-4 py-3 text-sm text-gray-500 font-mono">
+                      {app.primaryDomain}
+                    </td>
                     <td className="px-4 py-3 text-sm text-gray-500">{app.localPort}</td>
                     <td className="px-4 py-3 text-sm">
                       {app.isFree ? (
@@ -262,8 +275,8 @@ export default function MultiAppDemo() {
                       )}
                     </td>
                     <td className="px-4 py-3 text-sm text-gray-500">
-                      {app.features.slice(0, 2).join(', ')}
-                      {app.features.length > 2 && '...'}
+                      {app.features.slice(0, 2).join(", ")}
+                      {app.features.length > 2 && "..."}
                     </td>
                   </tr>
                 ))}

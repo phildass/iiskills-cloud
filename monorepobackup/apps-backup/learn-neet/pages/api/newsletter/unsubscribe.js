@@ -27,9 +27,9 @@ export default async function handler(req, res) {
 
     // Validate input
     if (!token || typeof token !== "string") {
-      return res.status(400).json({ 
-        success: false, 
-        error: "Invalid unsubscribe token" 
+      return res.status(400).json({
+        success: false,
+        error: "Invalid unsubscribe token",
       });
     }
 
@@ -40,12 +40,12 @@ export default async function handler(req, res) {
 
     if (error) {
       console.error("Supabase RPC error:", error);
-      
+
       // If function doesn't exist, fall back to manual processing
       if (error.code === PG_ERROR_UNDEFINED_FUNCTION || error.message.includes("does not exist")) {
         return await fallbackUnsubscribe(token, res);
       }
-      
+
       return res.status(500).json({
         success: false,
         error: "Failed to process unsubscribe request",
@@ -112,9 +112,9 @@ async function fallbackUnsubscribe(token, res) {
     // Update newsletter_subscribers table
     await supabase
       .from("newsletter_subscribers")
-      .update({ 
+      .update({
         status: "unsubscribed",
-        updated_at: new Date().toISOString() 
+        updated_at: new Date().toISOString(),
       })
       .eq("email", tokenData.email);
 

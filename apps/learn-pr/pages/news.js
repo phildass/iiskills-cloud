@@ -1,14 +1,14 @@
 "use client";
 
-import { useState } from 'react';
-import Head from 'next/head';
-import Footer from '../components/Footer';
-import NewsList from '../components/NewsList';
+import { useState } from "react";
+import Head from "next/head";
+import Footer from "../components/Footer";
+import NewsList from "../components/NewsList";
 
 export default function News() {
   const [stories, setStories] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [page, setPage] = useState(1);
 
   const handleSearch = async (e) => {
@@ -23,7 +23,7 @@ export default function News() {
         setStories(data.articles || []);
       }
     } catch (error) {
-      console.error('Error fetching news:', error);
+      console.error("Error fetching news:", error);
     } finally {
       setLoading(false);
     }
@@ -34,14 +34,16 @@ export default function News() {
     const nextPage = page + 1;
 
     try {
-      const response = await fetch(`/api/news/fetch?q=${encodeURIComponent(searchQuery)}&limit=9&page=${nextPage}`);
+      const response = await fetch(
+        `/api/news/fetch?q=${encodeURIComponent(searchQuery)}&limit=9&page=${nextPage}`
+      );
       if (response.ok) {
         const data = await response.json();
-        setStories(prev => [...prev, ...(data.articles || [])]);
+        setStories((prev) => [...prev, ...(data.articles || [])]);
         setPage(nextPage);
       }
     } catch (error) {
-      console.error('Error loading more news:', error);
+      console.error("Error loading more news:", error);
     } finally {
       setLoading(false);
     }

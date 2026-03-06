@@ -2,7 +2,7 @@
 
 /**
  * Level Selector Component with Diagnostic Gatekeeper
- * 
+ *
  * Universal component for all app landing pages that:
  * 1. Displays "Where would you like to start?" with tier selection
  * 2. Shows diagnostic quiz for Intermediate/Advanced tiers
@@ -53,13 +53,13 @@ const TIERS = [
   },
 ];
 
-export default function LevelSelector({ 
+export default function LevelSelector({
   appName = "this course",
   appId = null, // App ID for gatekeeper questions (e.g., 'learn-math', 'learn-pr')
   sampleModuleUrl = "/modules/1/lesson/1",
   intermediateUrl = "/curriculum?level=intermediate",
   advancedUrl = "/curriculum?level=advanced",
-  questions = [] // Optional: app-specific questions (legacy support)
+  questions = [], // Optional: app-specific questions (legacy support)
 }) {
   const router = useRouter();
   const [selectedTier, setSelectedTier] = useState(null);
@@ -78,7 +78,7 @@ export default function LevelSelector({
   };
 
   const handleKeyPress = (event, tier) => {
-    if (event.key === 'Enter' || event.key === ' ') {
+    if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
       handleTierSelect(tier);
     }
@@ -100,15 +100,13 @@ export default function LevelSelector({
 
   if (showQuiz && selectedTier) {
     // Get gatekeeper questions if appId is provided
-    const gatekeeperQuestions = appId 
-      ? getGatekeeperQuestions(appId, selectedTier.name)
-      : [];
-    
+    const gatekeeperQuestions = appId ? getGatekeeperQuestions(appId, selectedTier.name) : [];
+
     // Determine which quiz component to use
     const hasGatekeeperQuestions = gatekeeperQuestions.length > 0;
     const questionsToUse = hasGatekeeperQuestions ? gatekeeperQuestions : questions;
     const subjectName = appId ? getSubjectName(appId) : appName;
-    
+
     return (
       <section className="py-16 px-4 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-4xl mx-auto">
@@ -118,13 +116,13 @@ export default function LevelSelector({
             className="text-center mb-8"
           >
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              {selectedTier.emoji} {selectedTier.name} Tier {hasGatekeeperQuestions ? 'Gatekeeper' : 'Diagnostic'}
+              {selectedTier.emoji} {selectedTier.name} Tier{" "}
+              {hasGatekeeperQuestions ? "Gatekeeper" : "Diagnostic"}
             </h2>
             <p className="text-lg text-gray-600">
-              {hasGatekeeperQuestions 
+              {hasGatekeeperQuestions
                 ? `Answer all 3 questions correctly to unlock the ${selectedTier.name} tier`
-                : `Answer these 5 questions to verify you're ready for the ${selectedTier.name} tier`
-              }
+                : `Answer these 5 questions to verify you're ready for the ${selectedTier.name} tier`}
             </p>
           </motion.div>
 
@@ -181,7 +179,7 @@ export default function LevelSelector({
               whileHover={{ scale: 1.03 }}
               className="cursor-pointer"
             >
-              <div 
+              <div
                 role="button"
                 tabIndex={0}
                 onClick={() => handleTierSelect(tier)}
@@ -191,18 +189,14 @@ export default function LevelSelector({
                 {/* Emoji Icon */}
                 <div className="text-center mb-4">
                   <div className="text-7xl mb-3">{tier.emoji}</div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-1">
-                    {tier.name}
-                  </h3>
-                  <p className={`text-xl font-bold bg-gradient-to-r ${tier.color} bg-clip-text text-transparent mb-2`}>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-1">{tier.name}</h3>
+                  <p
+                    className={`text-xl font-bold bg-gradient-to-r ${tier.color} bg-clip-text text-transparent mb-2`}
+                  >
                     {tier.title}
                   </p>
-                  <p className="text-sm font-semibold text-gray-700 mb-3">
-                    {tier.subtitle}
-                  </p>
-                  <p className="text-sm text-gray-600">
-                    {tier.description}
-                  </p>
+                  <p className="text-sm font-semibold text-gray-700 mb-3">{tier.subtitle}</p>
+                  <p className="text-sm text-gray-600">{tier.description}</p>
                 </div>
 
                 {/* Action Button */}
@@ -236,21 +230,27 @@ export default function LevelSelector({
           className="mt-12 text-center"
         >
           <div className="inline-block bg-gradient-to-r from-blue-50 to-purple-50 border-2 border-blue-200 rounded-xl p-6 max-w-3xl">
-            <h4 className="text-lg font-bold text-gray-900 mb-2">
-              📊 How It Works
-            </h4>
+            <h4 className="text-lg font-bold text-gray-900 mb-2">📊 How It Works</h4>
             <div className="text-left text-gray-700 space-y-2">
               <p className="flex items-start">
                 <span className="text-green-500 mr-2 flex-shrink-0">🟢</span>
-                <span><strong>Basic:</strong> Start learning immediately - perfect for beginners</span>
+                <span>
+                  <strong>Basic:</strong> Start learning immediately - perfect for beginners
+                </span>
               </p>
               <p className="flex items-start">
                 <span className="text-blue-500 mr-2 flex-shrink-0">🔵</span>
-                <span><strong>Intermediate:</strong> Take a 3-question gatekeeper test (100% accuracy required)</span>
+                <span>
+                  <strong>Intermediate:</strong> Take a 3-question gatekeeper test (100% accuracy
+                  required)
+                </span>
               </p>
               <p className="flex items-start">
                 <span className="text-purple-500 mr-2 flex-shrink-0">🟣</span>
-                <span><strong>Advanced:</strong> Take a 3-question gatekeeper test (100% accuracy required)</span>
+                <span>
+                  <strong>Advanced:</strong> Take a 3-question gatekeeper test (100% accuracy
+                  required)
+                </span>
               </p>
             </div>
           </div>

@@ -3,7 +3,7 @@ import Image from "next/image";
 
 /**
  * Shared Footer Component
- * 
+ *
  * Centralized footer for all iiskills.cloud apps
  * Features:
  * - About section
@@ -96,7 +96,9 @@ export default function Footer() {
           </p>
           {/* Language / Translation - widget lives in the navbar (Header) */}
           <div className="flex justify-center items-center gap-2 mt-4 pt-4 border-t border-gray-200">
-            <span className="text-sm text-gray-600">🌐 Use the language selector in the navigation bar above to translate this page.</span>
+            <span className="text-sm text-gray-600">
+              🌐 Use the language selector in the navigation bar above to translate this page.
+            </span>
           </div>
         </div>
       </div>

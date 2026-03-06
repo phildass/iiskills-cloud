@@ -23,7 +23,10 @@
 // apps/main/next.config.js, pointing at the same module that @iiskills/ui
 // authentication components use.
 // ---------------------------------------------------------------------------
-import { supabase as _sharedSupabase, getCurrentUser as _sharedGetCurrentUser } from '@lib/supabaseClient';
+import {
+  supabase as _sharedSupabase,
+  getCurrentUser as _sharedGetCurrentUser,
+} from "@lib/supabaseClient";
 
 export const supabase = _sharedSupabase;
 
@@ -36,24 +39,24 @@ export async function getCurrentUser() {
   // Global feature flag to bypass authentication for debugging/maintenance
   // To enable: Set NEXT_PUBLIC_DISABLE_AUTH=true and rebuild
   try {
-    const isAuthDisabled = process.env.NEXT_PUBLIC_DISABLE_AUTH === 'true';
+    const isAuthDisabled = process.env.NEXT_PUBLIC_DISABLE_AUTH === "true";
     if (isAuthDisabled) {
       console.log("⚠️ AUTH DISABLED [main]: Returning mock user with full permissions");
       return {
-        id: 'dev-override-main',
-        email: 'dev@iiskills.cloud',
-        role: 'bypass',
+        id: "dev-override-main",
+        email: "dev@iiskills.cloud",
+        role: "bypass",
         user_metadata: {
-          firstName: 'Dev',
-          lastName: 'Override',
-          full_name: 'Dev Override',
+          firstName: "Dev",
+          lastName: "Override",
+          full_name: "Dev Override",
           is_admin: true,
-          payment_status: 'paid'
+          payment_status: "paid",
         },
         app_metadata: {
-          payment_status: 'paid',
-          is_admin: true
-        }
+          payment_status: "paid",
+          is_admin: true,
+        },
       };
     }
   } catch (e) {

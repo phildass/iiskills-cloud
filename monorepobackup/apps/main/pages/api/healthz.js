@@ -1,28 +1,28 @@
 /**
  * Health Check & Content Discovery Endpoint
- * 
+ *
  * This endpoint provides:
  * 1. System health status
  * 2. Complete content inventory from all active learn-* apps
  * 3. Source attribution (app and backend) for each content item
  * 4. Content counts and statistics
- * 
+ *
  * Access: Publicly accessible (no authentication required)
  * Usage: GET /api/healthz
  */
 
-import { ContentManager } from '../../lib/admin/contentManager';
-import { APP_REGISTRY, getAllApps } from '../../lib/admin/contentRegistry';
+import { ContentManager } from "../../lib/admin/contentManager";
+import { APP_REGISTRY, getAllApps } from "../../lib/admin/contentRegistry";
 
 export default async function handler(req, res) {
-  if (req.method !== 'GET') {
-    return res.status(405).json({ error: 'Method not allowed' });
+  if (req.method !== "GET") {
+    return res.status(405).json({ error: "Method not allowed" });
   }
 
   try {
     const contentManager = new ContentManager();
     const allApps = getAllApps();
-    
+
     // Discover content from all apps
     const contentInventory = [];
     const stats = {
@@ -40,7 +40,7 @@ export default async function handler(req, res) {
     for (const app of allApps) {
       try {
         const content = await contentManager.getAllContent(app.id);
-        
+
         stats.contentByApp[app.id] = {
           name: app.displayName,
           icon: app.icon,
@@ -52,11 +52,11 @@ export default async function handler(req, res) {
         stats.totalContent += content.length;
 
         // Count by backend
-        content.forEach(item => {
-          const backend = item.sourceBackend || item.source || 'unknown';
-          if (backend === 'filesystem') {
+        content.forEach((item) => {
+          const backend = item.sourceBackend || item.source || "unknown";
+          if (backend === "filesystem") {
             stats.contentByBackend.filesystem++;
-          } else if (backend === 'supabase') {
+          } else if (backend === "supabase") {
             stats.contentByBackend.supabase++;
           }
         });
@@ -69,7 +69,7 @@ export default async function handler(req, res) {
           contentType: app.contentType,
           dataPath: app.dataPath,
           itemCount: content.length,
-          sampleItems: content.slice(0, 3).map(item => ({
+          sampleItems: content.slice(0, 3).map((item) => ({
             id: item.id,
             title: item.title,
             type: item.type,
@@ -87,11 +87,11 @@ export default async function handler(req, res) {
 
     // System health status
     const health = {
-      status: 'healthy',
+      status: "healthy",
       timestamp: new Date().toISOString(),
-      mode: 'PUBLIC_ACCESS',
-      authentication: 'DISABLED',
-      paywall: 'DISABLED',
+      mode: "PUBLIC_ACCESS",
+      authentication: "DISABLED",
+      paywall: "DISABLED",
       features: {
         universalContentAggregation: true,
         publicAccess: true,
@@ -104,7 +104,7 @@ export default async function handler(req, res) {
       health,
       stats,
       contentInventory,
-      apps: allApps.map(app => ({
+      apps: allApps.map((app) => ({
         id: app.id,
         name: app.displayName,
         icon: app.icon,
@@ -112,10 +112,10 @@ export default async function handler(req, res) {
       })),
     });
   } catch (error) {
-    console.error('Health check error:', error);
+    console.error("Health check error:", error);
     return res.status(500).json({
       health: {
-        status: 'unhealthy',
+        status: "unhealthy",
         timestamp: new Date().toISOString(),
         error: error.message,
       },

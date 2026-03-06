@@ -63,19 +63,13 @@ export default function Onboarding() {
         <div className="max-w-3xl mx-auto">
           {/* Header */}
           <div className="text-center mb-12">
-            <h1 className="text-5xl font-bold text-white mb-4">
-              🧬 Welcome to Learn Biology!
-            </h1>
-            <p className="text-xl text-green-100">
-              Let's personalize your learning journey
-            </p>
+            <h1 className="text-5xl font-bold text-white mb-4">🧬 Welcome to Learn Biology!</h1>
+            <p className="text-xl text-green-100">Let's personalize your learning journey</p>
             <div className="mt-6 flex justify-center gap-2">
               {[1, 2, 3].map((s) => (
                 <div
                   key={s}
-                  className={`w-3 h-3 rounded-full ${
-                    s <= step ? "bg-white" : "bg-green-400"
-                  }`}
+                  className={`w-3 h-3 rounded-full ${s <= step ? "bg-white" : "bg-green-400"}`}
                 />
               ))}
             </div>
@@ -101,9 +95,7 @@ export default function Onboarding() {
                           : "border-gray-200 hover:border-green-300"
                       }`}
                     >
-                      <span className="text-lg font-semibold">
-                        {goal.label}
-                      </span>
+                      <span className="text-lg font-semibold">{goal.label}</span>
                     </button>
                   ))}
                 </div>
@@ -121,9 +113,7 @@ export default function Onboarding() {
                   {backgrounds.map((bg) => (
                     <button
                       key={bg.id}
-                      onClick={() =>
-                        setUserData((prev) => ({ ...prev, background: bg.value }))
-                      }
+                      onClick={() => setUserData((prev) => ({ ...prev, background: bg.value }))}
                       className={`w-full p-4 rounded-lg border-2 text-left transition-all ${
                         userData.background === bg.value
                           ? "border-green-600 bg-green-50"
@@ -140,17 +130,13 @@ export default function Onboarding() {
             {/* Step 3: Pace */}
             {step === 3 && (
               <div>
-                <h2 className="text-3xl font-bold text-gray-900 mb-2">
-                  Choose your learning pace
-                </h2>
+                <h2 className="text-3xl font-bold text-gray-900 mb-2">Choose your learning pace</h2>
                 <p className="text-gray-600 mb-6">You can always adjust this later</p>
                 <div className="space-y-3">
                   {paces.map((pace) => (
                     <button
                       key={pace.id}
-                      onClick={() =>
-                        setUserData((prev) => ({ ...prev, pace: pace.value }))
-                      }
+                      onClick={() => setUserData((prev) => ({ ...prev, pace: pace.value }))}
                       className={`w-full p-4 rounded-lg border-2 text-left transition-all ${
                         userData.pace === pace.value
                           ? "border-green-600 bg-green-50"
@@ -165,14 +151,11 @@ export default function Onboarding() {
                 {/* Welcome Message */}
                 {userData.pace && (
                   <div className="mt-8 p-6 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-lg">
-                    <h3 className="text-2xl font-bold mb-2">
-                      🎉 You're All Set!
-                    </h3>
+                    <h3 className="text-2xl font-bold mb-2">🎉 You're All Set!</h3>
                     <p className="mb-4">
-                      Welcome to the iiskills Foundation Suite! Learn Biology is
-                      completely free, forever. Start with Module 1 to master
-                      cellular structures, then progress through our Tri-Level
-                      system.
+                      Welcome to the iiskills Foundation Suite! Learn Biology is completely free,
+                      forever. Start with Module 1 to master cellular structures, then progress
+                      through our Tri-Level system.
                     </p>
                     <ul className="space-y-2 mb-4">
                       <li>✅ Free sample lesson (Module 1, Lesson 1)</li>

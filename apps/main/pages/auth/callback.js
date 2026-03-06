@@ -96,11 +96,7 @@ export default function AuthCallback() {
         const rawOrigin = router.query.origin;
         const originValue = Array.isArray(rawOrigin) ? rawOrigin[0] || undefined : rawOrigin;
 
-        if (
-          originValue &&
-          isAllowedOrigin(originValue) &&
-          originValue !== window.location.origin
-        ) {
+        if (originValue && isAllowedOrigin(originValue) && originValue !== window.location.origin) {
           // Transfer the session to the target subdomain by appending the tokens
           // to the URL hash. The subdomain's auth/callback page (with
           // detectSessionInUrl: true) will automatically pick them up.
@@ -147,9 +143,7 @@ export default function AuthCallback() {
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-purple-50">
         <div className="text-center">
           {status === "error" ? (
-            <p className="text-red-600 font-medium">
-              Something went wrong. Redirecting to home…
-            </p>
+            <p className="text-red-600 font-medium">Something went wrong. Redirecting to home…</p>
           ) : (
             <>
               <div className="inline-block w-10 h-10 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mb-4" />

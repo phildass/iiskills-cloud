@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import LandingPage from '../components/LandingPage';
+import { useState, useEffect } from "react";
+import LandingPage from "../components/LandingPage";
 
 export default function Home() {
   const [user, setUser] = useState(null);
@@ -9,7 +9,7 @@ export default function Home() {
     newToday: 1240,
     totalActive: 98450,
     deadlinesThisWeek: 145,
-    successfulUsers: 12500
+    successfulUsers: 12500,
   });
   const [showPaywall, setShowPaywall] = useState(false);
 

@@ -1,16 +1,16 @@
 "use client";
 
-import { useState, useEffect } from 'react';
-import AppSwitcher from './admin/AppSwitcher';
-import ContentList from './admin/ContentList';
-import ContentEditor from './admin/ContentEditor';
-import GlobalSearch from './admin/GlobalSearch';
+import { useState, useEffect } from "react";
+import AppSwitcher from "./admin/AppSwitcher";
+import ContentList from "./admin/ContentList";
+import ContentEditor from "./admin/ContentEditor";
+import GlobalSearch from "./admin/GlobalSearch";
 
 export default function UniversalAdminDashboard() {
   const [selectedApp, setSelectedApp] = useState(null);
   const [apps, setApps] = useState([]);
   const [selectedContent, setSelectedContent] = useState(null);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -19,14 +19,14 @@ export default function UniversalAdminDashboard() {
 
   const loadApps = async () => {
     try {
-      const response = await fetch('/api/admin/apps');
+      const response = await fetch("/api/admin/apps");
       const data = await response.json();
       setApps(data.apps || []);
       if (data.apps && data.apps.length > 0) {
         setSelectedApp(data.apps[0]);
       }
     } catch (error) {
-      console.error('Failed to load apps:', error);
+      console.error("Failed to load apps:", error);
     } finally {
       setIsLoading(false);
     }
@@ -47,7 +47,7 @@ export default function UniversalAdminDashboard() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('admin_token');
+    localStorage.removeItem("admin_token");
     window.location.reload();
   };
 
@@ -70,12 +70,8 @@ export default function UniversalAdminDashboard() {
           <h1 className="text-xl font-bold text-gray-900">Universal Admin</h1>
           <p className="text-xs text-gray-500 mt-1">iiskills.cloud</p>
         </div>
-        
-        <AppSwitcher
-          apps={apps}
-          selectedApp={selectedApp}
-          onAppChange={handleAppChange}
-        />
+
+        <AppSwitcher apps={apps} selectedApp={selectedApp} onAppChange={handleAppChange} />
 
         <div className="mt-auto p-4 border-t border-gray-200">
           <button
@@ -91,10 +87,7 @@ export default function UniversalAdminDashboard() {
       <div className="flex-1 flex flex-col">
         {/* Top Bar with Global Search */}
         <div className="bg-white shadow-sm border-b border-gray-200 p-4">
-          <GlobalSearch
-            value={searchQuery}
-            onChange={setSearchQuery}
-          />
+          <GlobalSearch value={searchQuery} onChange={setSearchQuery} />
         </div>
 
         {/* Content Area */}

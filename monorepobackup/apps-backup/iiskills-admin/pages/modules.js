@@ -16,15 +16,15 @@ export default function AdminModules() {
   const fetchModules = async () => {
     try {
       setLoading(true);
-      
+
       // Fetch from API endpoint
-      const response = await fetch('/api/modules');
+      const response = await fetch("/api/modules");
       const result = await response.json();
-      
+
       if (result.error) throw new Error(result.error);
       setModules(result.data || []);
     } catch (error) {
-      console.error('Error fetching modules:', error);
+      console.error("Error fetching modules:", error);
     } finally {
       setLoading(false);
     }
@@ -95,7 +95,7 @@ export default function AdminModules() {
                           <div className="text-sm text-gray-500">{module.slug}</div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                          {module.course_id || 'N/A'}
+                          {module.course_id || "N/A"}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                           {module.order_index}
@@ -106,14 +106,20 @@ export default function AdminModules() {
                           </span>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                            module._source === 'supabase' 
-                              ? 'bg-green-100 text-green-800' 
-                              : module._source === 'local'
-                              ? 'bg-blue-100 text-blue-800'
-                              : 'bg-gray-100 text-gray-800'
-                          }`}>
-                            {module._source === 'supabase' ? 'Supabase' : module._source === 'local' ? 'Local' : 'Unknown'}
+                          <span
+                            className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
+                              module._source === "supabase"
+                                ? "bg-green-100 text-green-800"
+                                : module._source === "local"
+                                  ? "bg-blue-100 text-blue-800"
+                                  : "bg-gray-100 text-gray-800"
+                            }`}
+                          >
+                            {module._source === "supabase"
+                              ? "Supabase"
+                              : module._source === "local"
+                                ? "Local"
+                                : "Unknown"}
                           </span>
                         </td>
                       </tr>

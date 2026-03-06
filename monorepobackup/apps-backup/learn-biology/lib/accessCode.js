@@ -12,7 +12,7 @@ export function checkUserAccess(userId) {
   // Foundation apps are free - always grant access
   return {
     hasAccess: true,
-    tier: 'foundation',
-    isFree: true
+    tier: "foundation",
+    isFree: true,
   };
 }

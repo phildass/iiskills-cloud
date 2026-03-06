@@ -4,7 +4,7 @@ import GoogleTranslate from "./GoogleTranslate";
 
 /**
  * Shared Footer Component
- * 
+ *
  * Centralized footer for all iiskills.cloud apps
  * Features:
  * - About section

@@ -67,9 +67,7 @@ export default function UniversalLogin({
         // This ensures users return to where they started the auth flow
         const targetPath = router.query.redirect || redirectAfterLogin;
         const redirectUrl =
-          typeof window !== "undefined"
-            ? `${window.location.origin}${targetPath}`
-            : undefined;
+          typeof window !== "undefined" ? `${window.location.origin}${targetPath}` : undefined;
 
         const { success: magicLinkSuccess, error: magicLinkError } = await sendMagicLink(
           email,
@@ -136,9 +134,7 @@ export default function UniversalLogin({
       // This ensures users return to where they started the auth flow after OAuth
       const targetPath = router.query.redirect || redirectAfterLogin;
       const redirectUrl =
-        typeof window !== "undefined"
-          ? `${window.location.origin}${targetPath}`
-          : undefined;
+        typeof window !== "undefined" ? `${window.location.origin}${targetPath}` : undefined;
 
       const { success: googleSuccess, error: googleError } = await signInWithGoogle(redirectUrl);
 
@@ -306,8 +302,8 @@ export default function UniversalLogin({
 
           <div className="mt-4 p-4 bg-blue-50 rounded-lg">
             <p className="text-xs text-blue-800">
-              <strong>✓ Universal Login:</strong> Login once to access all iiskills.cloud apps.
-              Your session works across the main site and all learning modules.
+              <strong>✓ Universal Login:</strong> Login once to access all iiskills.cloud apps. Your
+              session works across the main site and all learning modules.
             </p>
           </div>
         </form>

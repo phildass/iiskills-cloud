@@ -22,7 +22,8 @@ const SHORT_TEST_QUESTIONS = [
   },
   {
     id: 3,
-    question: "If all Bloops are Razzies and all Razzies are Lazzies, then all Bloops are definitely Lazzies.",
+    question:
+      "If all Bloops are Razzies and all Razzies are Lazzies, then all Bloops are definitely Lazzies.",
     options: ["True", "False", "Cannot be determined"],
     correctAnswer: 0,
   },
@@ -96,7 +97,7 @@ export default function ShortTest() {
       ...answers,
       [questionId]: answerIndex,
     });
-    
+
     // Auto-advance to next question after a brief delay
     setTimeout(() => {
       if (currentQuestion < SHORT_TEST_QUESTIONS.length - 1) {
@@ -134,7 +135,7 @@ export default function ShortTest() {
   const formatTime = (seconds) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
-    return `${mins}:${secs.toString().padStart(2, '0')}`;
+    return `${mins}:${secs.toString().padStart(2, "0")}`;
   };
 
   if (loading) {
@@ -177,7 +178,9 @@ export default function ShortTest() {
               <div className="space-y-4 mb-8">
                 <div className="flex items-start">
                   <span className="text-green-500 mr-3 mt-1">✓</span>
-                  <p className="text-gray-700">This test contains {SHORT_TEST_QUESTIONS.length} questions</p>
+                  <p className="text-gray-700">
+                    This test contains {SHORT_TEST_QUESTIONS.length} questions
+                  </p>
                 </div>
                 <div className="flex items-start">
                   <span className="text-green-500 mr-3 mt-1">✓</span>
@@ -208,15 +211,25 @@ export default function ShortTest() {
               </div>
               <div className="bg-gradient-to-r from-primary to-accent text-white rounded-lg p-8 mb-8">
                 <div className="text-center">
-                  <div className="text-5xl font-bold mb-2">{score}/{SHORT_TEST_QUESTIONS.length}</div>
-                  <div className="text-xl">{Math.round((score / SHORT_TEST_QUESTIONS.length) * 100)}% Correct</div>
+                  <div className="text-5xl font-bold mb-2">
+                    {score}/{SHORT_TEST_QUESTIONS.length}
+                  </div>
+                  <div className="text-xl">
+                    {Math.round((score / SHORT_TEST_QUESTIONS.length) * 100)}% Correct
+                  </div>
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-4">
-                <Link href="/" className="py-3 px-6 bg-gray-200 text-gray-800 rounded-lg font-semibold text-center hover:bg-gray-300 transition-colors">
+                <Link
+                  href="/"
+                  className="py-3 px-6 bg-gray-200 text-gray-800 rounded-lg font-semibold text-center hover:bg-gray-300 transition-colors"
+                >
                   Back to Home
                 </Link>
-                <button onClick={() => window.location.reload()} className="py-3 px-6 bg-primary text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+                <button
+                  onClick={() => window.location.reload()}
+                  className="py-3 px-6 bg-primary text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+                >
                   Retake Test
                 </button>
               </div>
@@ -225,11 +238,16 @@ export default function ShortTest() {
             <div className="bg-white rounded-lg shadow-md p-8">
               <div className="mb-6">
                 <div className="flex justify-between text-sm text-gray-600 mb-2">
-                  <span>Question {currentQuestion + 1} of {SHORT_TEST_QUESTIONS.length}</span>
+                  <span>
+                    Question {currentQuestion + 1} of {SHORT_TEST_QUESTIONS.length}
+                  </span>
                   <span>{Math.round(progress)}% Complete</span>
                 </div>
                 <div className="w-full bg-gray-200 rounded-full h-2">
-                  <div className="bg-primary h-2 rounded-full transition-all duration-300" style={{ width: `${progress}%` }}></div>
+                  <div
+                    className="bg-primary h-2 rounded-full transition-all duration-300"
+                    style={{ width: `${progress}%` }}
+                  ></div>
                 </div>
               </div>
               <div className="mb-8">
@@ -240,14 +258,22 @@ export default function ShortTest() {
                       key={index}
                       onClick={() => handleAnswerSelect(currentQ.id, index)}
                       className={`w-full text-left p-4 rounded-lg border-2 transition-all ${
-                        answers[currentQ.id] === index ? "border-primary bg-blue-50" : "border-gray-200 hover:border-gray-300"
+                        answers[currentQ.id] === index
+                          ? "border-primary bg-blue-50"
+                          : "border-gray-200 hover:border-gray-300"
                       }`}
                     >
                       <div className="flex items-center">
-                        <div className={`w-6 h-6 rounded-full border-2 mr-3 flex items-center justify-center ${
-                          answers[currentQ.id] === index ? "border-primary bg-primary" : "border-gray-300"
-                        }`}>
-                          {answers[currentQ.id] === index && <div className="w-3 h-3 bg-white rounded-full"></div>}
+                        <div
+                          className={`w-6 h-6 rounded-full border-2 mr-3 flex items-center justify-center ${
+                            answers[currentQ.id] === index
+                              ? "border-primary bg-primary"
+                              : "border-gray-300"
+                          }`}
+                        >
+                          {answers[currentQ.id] === index && (
+                            <div className="w-3 h-3 bg-white rounded-full"></div>
+                          )}
                         </div>
                         <span className="text-gray-900">{option}</span>
                       </div>
@@ -256,15 +282,19 @@ export default function ShortTest() {
                 </div>
               </div>
               <div className="flex justify-between items-center">
-                <button onClick={handlePrevious} disabled={currentQuestion === 0} className="py-2 px-6 bg-gray-200 text-gray-800 rounded-lg font-semibold hover:bg-gray-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                <button
+                  onClick={handlePrevious}
+                  disabled={currentQuestion === 0}
+                  className="py-2 px-6 bg-gray-200 text-gray-800 rounded-lg font-semibold hover:bg-gray-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                >
                   ← Previous
                 </button>
                 <div className="text-sm text-gray-500 italic">
-                  {answers[currentQ.id] === undefined 
-                    ? 'Select an answer to continue'
-                    : currentQuestion === SHORT_TEST_QUESTIONS.length - 1 
-                      ? 'Submitting test...'
-                      : 'Auto-advancing...'}
+                  {answers[currentQ.id] === undefined
+                    ? "Select an answer to continue"
+                    : currentQuestion === SHORT_TEST_QUESTIONS.length - 1
+                      ? "Submitting test..."
+                      : "Auto-advancing..."}
                 </div>
               </div>
             </div>

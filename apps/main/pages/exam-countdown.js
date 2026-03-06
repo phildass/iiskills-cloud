@@ -5,7 +5,7 @@ import CommandCenterSidebar from "../components/CommandCenterSidebar";
 
 /**
  * Exam Countdown Page - Education & Government Alerts
- * 
+ *
  * Features:
  * - Real-time exam alerts from NTA, UPSC, and other official portals
  * - Exam dates, admit card releases, and results
@@ -13,7 +13,7 @@ import CommandCenterSidebar from "../components/CommandCenterSidebar";
  * - Links to relevant Learn modules for preparation
  * - Streak rewards for checking exams
  * - Free access for all users
- * 
+ *
  * Planned Data Sources: Official portals (NTA, UPSC) or education RSS feeds
  */
 export default function ExamCountdown() {
@@ -40,7 +40,8 @@ export default function ExamCountdown() {
         officialUrl: "https://ssc.nic.in",
         relevantModules: ["Learn-Aptitude", "Learn-Maths"],
         learningProgress: 30, // Mock: User completed 30% of relevant modules
-        description: "Exam for recruitment to various Group B and Group C posts in government ministries and departments.",
+        description:
+          "Exam for recruitment to various Group B and Group C posts in government ministries and departments.",
       },
       {
         id: 2,
@@ -57,7 +58,8 @@ export default function ExamCountdown() {
         officialUrl: "https://jeemain.nta.nic.in",
         relevantModules: ["Learn-Physics", "Learn-Maths", "Learn-Chemistry"],
         learningProgress: 45,
-        description: "National level engineering entrance exam for admission to NITs, IIITs, and other institutions.",
+        description:
+          "National level engineering entrance exam for admission to NITs, IIITs, and other institutions.",
       },
       {
         id: 3,
@@ -74,7 +76,8 @@ export default function ExamCountdown() {
         officialUrl: "https://upsc.gov.in",
         relevantModules: ["Learn-Geography", "Learn-Aptitude"],
         learningProgress: 20,
-        description: "India's premier civil services exam for recruitment to IAS, IPS, IFS, and other central services.",
+        description:
+          "India's premier civil services exam for recruitment to IAS, IPS, IFS, and other central services.",
       },
       {
         id: 4,
@@ -91,7 +94,8 @@ export default function ExamCountdown() {
         officialUrl: "https://gate.iisc.ac.in",
         relevantModules: ["Learn-Developer", "Learn-AI", "Learn-Maths"],
         learningProgress: 60,
-        description: "National level exam for admission to postgraduate programs and PSU recruitment.",
+        description:
+          "National level exam for admission to postgraduate programs and PSU recruitment.",
       },
       {
         id: 5,
@@ -125,7 +129,8 @@ export default function ExamCountdown() {
         officialUrl: "https://ssc.nic.in",
         relevantModules: ["Learn-Aptitude", "Learn-Maths"],
         learningProgress: 30,
-        description: "Exam for recruitment to DEO, LDC, PA, and SA posts in various government offices.",
+        description:
+          "Exam for recruitment to DEO, LDC, PA, and SA posts in various government offices.",
       },
     ];
 
@@ -147,7 +152,7 @@ export default function ExamCountdown() {
       filter === "all" ||
       (filter === "upcoming" && exam.status === "upcoming") ||
       (filter === "results" && exam.status === "results");
-    
+
     const matchesSearch =
       searchQuery === "" ||
       exam.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -177,17 +182,13 @@ export default function ExamCountdown() {
           <div className="max-w-6xl mx-auto mb-8">
             <div className="flex items-start justify-between mb-4">
               <div>
-                <h1 className="text-4xl font-bold text-primary mb-2">
-                  ⏰ Exam Countdown
-                </h1>
+                <h1 className="text-4xl font-bold text-primary mb-2">⏰ Exam Countdown</h1>
                 <p className="text-gray-600">
                   Track exam dates with personalized countdowns & preparation tips
                 </p>
               </div>
               <div className="bg-red-100 border border-red-300 px-4 py-2 rounded-lg">
-                <p className="text-sm font-semibold text-red-800">
-                  🔔 Real-time Alerts
-                </p>
+                <p className="text-sm font-semibold text-red-800">🔔 Real-time Alerts</p>
               </div>
             </div>
 
@@ -282,12 +283,7 @@ export default function ExamCountdown() {
               {filteredExams.map((exam) => {
                 const daysToExam = getDaysRemaining(exam.examDate);
                 const daysToAdmit = getDaysRemaining(exam.admitCardDate);
-                const urgency =
-                  daysToExam <= 30
-                    ? "high"
-                    : daysToExam <= 60
-                    ? "medium"
-                    : "low";
+                const urgency = daysToExam <= 30 ? "high" : daysToExam <= 60 ? "medium" : "low";
 
                 return (
                   <div
@@ -304,18 +300,14 @@ export default function ExamCountdown() {
                       <div className="flex items-start justify-between mb-4">
                         <div className="flex-1">
                           <div className="flex items-center gap-2 mb-2">
-                            <h3 className="text-2xl font-bold text-charcoal">
-                              {exam.name}
-                            </h3>
+                            <h3 className="text-2xl font-bold text-charcoal">{exam.name}</h3>
                             {exam.registrationOpen && (
                               <span className="px-3 py-1 bg-green-100 text-green-800 rounded-full text-xs font-bold animate-pulse">
                                 Registration Open
                               </span>
                             )}
                           </div>
-                          <p className="text-lg text-gray-700 mb-2">
-                            {exam.fullName}
-                          </p>
+                          <p className="text-lg text-gray-700 mb-2">{exam.fullName}</p>
                           <div className="flex flex-wrap gap-2">
                             <span className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-semibold">
                               {exam.authority}
@@ -335,17 +327,15 @@ export default function ExamCountdown() {
                                 urgency === "high"
                                   ? "bg-red-100 text-red-800 border-red-500"
                                   : urgency === "medium"
-                                  ? "bg-yellow-100 text-yellow-800 border-yellow-500"
-                                  : "bg-green-100 text-green-800 border-green-500"
+                                    ? "bg-yellow-100 text-yellow-800 border-yellow-500"
+                                    : "bg-green-100 text-green-800 border-green-500"
                               }
                             `}
                           >
                             <span className="text-3xl">{daysToExam}</span>
                             <span className="text-xs">days</span>
                           </div>
-                          <p className="text-xs text-gray-600 mt-1">
-                            to exam
-                          </p>
+                          <p className="text-xs text-gray-600 mt-1">to exam</p>
                         </div>
                       </div>
 
@@ -355,9 +345,7 @@ export default function ExamCountdown() {
                       {/* Important Dates */}
                       <div className="grid md:grid-cols-3 gap-3 mb-4">
                         <div className="bg-blue-50 p-3 rounded-lg">
-                          <p className="text-xs font-semibold text-blue-900 mb-1">
-                            Exam Date
-                          </p>
+                          <p className="text-xs font-semibold text-blue-900 mb-1">Exam Date</p>
                           <p className="font-bold text-blue-800">
                             {exam.examDate.toLocaleDateString("en-IN", {
                               day: "numeric",
@@ -367,9 +355,7 @@ export default function ExamCountdown() {
                           </p>
                         </div>
                         <div className="bg-green-50 p-3 rounded-lg">
-                          <p className="text-xs font-semibold text-green-900 mb-1">
-                            Admit Card
-                          </p>
+                          <p className="text-xs font-semibold text-green-900 mb-1">Admit Card</p>
                           <p className="font-bold text-green-800">
                             {exam.admitCardDate.toLocaleDateString("en-IN", {
                               day: "numeric",
@@ -377,14 +363,10 @@ export default function ExamCountdown() {
                               year: "numeric",
                             })}
                           </p>
-                          <p className="text-xs text-green-700">
-                            ({daysToAdmit} days)
-                          </p>
+                          <p className="text-xs text-green-700">({daysToAdmit} days)</p>
                         </div>
                         <div className="bg-purple-50 p-3 rounded-lg">
-                          <p className="text-xs font-semibold text-purple-900 mb-1">
-                            Registration
-                          </p>
+                          <p className="text-xs font-semibold text-purple-900 mb-1">Registration</p>
                           <p className="font-bold text-purple-800">
                             {exam.registrationDeadline.toLocaleDateString("en-IN", {
                               day: "numeric",
@@ -401,8 +383,7 @@ export default function ExamCountdown() {
                           <span className="text-2xl">🎓</span>
                           <div className="flex-1">
                             <p className="font-bold text-cyan-900 mb-2">
-                              {daysToExam} days to {exam.name} — have you finished
-                              preparation?
+                              {daysToExam} days to {exam.name} — have you finished preparation?
                             </p>
                             <p className="text-sm text-cyan-800 mb-2">
                               Your progress in relevant modules:{" "}
@@ -448,9 +429,7 @@ export default function ExamCountdown() {
 
             {/* API Integration Notice */}
             <div className="mt-8 bg-yellow-50 border border-yellow-200 p-6 rounded-lg">
-              <h3 className="font-bold text-yellow-900 mb-2">
-                🚧 Development Note
-              </h3>
+              <h3 className="font-bold text-yellow-900 mb-2">🚧 Development Note</h3>
               <p className="text-yellow-800 mb-2">
                 Currently showing mock data. Data integration planned from:
               </p>

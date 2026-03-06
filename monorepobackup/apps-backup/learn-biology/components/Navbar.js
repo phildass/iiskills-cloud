@@ -11,7 +11,7 @@ export default function Navbar({ appName = "Learn Biology" }) {
               <span className="font-bold text-xl">{appName}</span>
             </a>
           </div>
-          
+
           <div className="hidden md:flex items-center space-x-4">
             <a
               href="/curriculum"

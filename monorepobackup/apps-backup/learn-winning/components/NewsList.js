@@ -27,20 +27,16 @@ export default function NewsList({ stories, loading }) {
               className="w-full h-48 object-cover rounded-lg mb-4"
             />
           )}
-          
+
           <div className="text-sm text-gray-500 mb-2">
             {story.source} • {new Date(story.publishedAt).toLocaleDateString()}
           </div>
 
-          <h3 className="text-lg font-semibold mb-3 line-clamp-2">
-            {story.title}
-          </h3>
+          <h3 className="text-lg font-semibold mb-3 line-clamp-2">{story.title}</h3>
 
-          <p className="text-gray-600 mb-4 line-clamp-3">
-            {story.description}
-          </p>
+          <p className="text-gray-600 mb-4 line-clamp-3">{story.description}</p>
 
-          {story.url && story.url !== '#' && (
+          {story.url && story.url !== "#" && (
             <a
               href={story.url}
               target="_blank"

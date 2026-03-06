@@ -5,11 +5,11 @@ import Footer from "./Footer";
 
 /**
  * Shared Layout Component
- * 
+ *
  * Wraps page content with consistent header and footer
  * Used by all apps in the monorepo for visual consistency
  */
-export default function Layout({ 
+export default function Layout({
   children,
   appName,
   homeUrl,
@@ -20,7 +20,7 @@ export default function Layout({
 }) {
   return (
     <>
-      <Header 
+      <Header
         appName={appName}
         homeUrl={homeUrl}
         customLinks={customLinks}

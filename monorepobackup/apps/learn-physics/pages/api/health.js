@@ -8,29 +8,26 @@
  * GET /api/health
  */
 export default function handler(req, res) {
-  if (req.method !== 'GET') {
-    return res.status(405).json({ error: 'Method not allowed' });
+  if (req.method !== "GET") {
+    return res.status(405).json({ error: "Method not allowed" });
   }
 
-  const required = [
-    'NEXT_PUBLIC_SUPABASE_URL',
-    'NEXT_PUBLIC_SUPABASE_ANON_KEY',
-  ];
+  const required = ["NEXT_PUBLIC_SUPABASE_URL", "NEXT_PUBLIC_SUPABASE_ANON_KEY"];
 
   const missing = required.filter((key) => !process.env[key]);
 
   if (missing.length > 0) {
     return res.status(503).json({
-      status: 'error',
-      app: 'learn-physics',
-      message: 'Missing required environment variables',
+      status: "error",
+      app: "learn-physics",
+      message: "Missing required environment variables",
       missing,
     });
   }
 
   return res.status(200).json({
-    status: 'ok',
-    app: 'learn-physics',
+    status: "ok",
+    app: "learn-physics",
     timestamp: new Date().toISOString(),
   });
 }

@@ -106,7 +106,7 @@ export default function TriLevelLandingPage({
   const handleLevelClick = (level) => {
     if (level.id === "basic") {
       // Basic: always navigate directly
-      window.location.href = `/modules/1/lesson/1`;
+      window.location.href = "/modules/1/lesson/1";
       return;
     }
     // Intermediate or Advanced: show certificate warning dialog (paid apps only)
@@ -168,9 +168,7 @@ export default function TriLevelLandingPage({
               {headline || appName}
             </h1>
             {subheadline && (
-              <p className="text-lg sm:text-xl leading-relaxed font-normal mb-4">
-                {subheadline}
-              </p>
+              <p className="text-lg sm:text-xl leading-relaxed font-normal mb-4">{subheadline}</p>
             )}
           </div>
         </Hero>
@@ -219,7 +217,7 @@ export default function TriLevelLandingPage({
               {isPaid ? (
                 <>
                   <a
-                    href={`${process.env.NEXT_PUBLIC_MAIN_APP_URL || 'https://iiskills.cloud'}/payments/iiskills?course=${encodeURIComponent(appId)}`}
+                    href={`${process.env.NEXT_PUBLIC_MAIN_APP_URL || "https://iiskills.cloud"}/payments/iiskills?course=${encodeURIComponent(appId)}`}
                     className="inline-block bg-yellow-400 text-yellow-900 px-8 py-4 rounded-lg font-bold shadow-lg hover:bg-yellow-300 transition-all duration-200 text-base sm:text-lg"
                   >
                     💳 Pay Now

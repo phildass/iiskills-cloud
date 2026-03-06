@@ -8,10 +8,10 @@ export class ConversationManager {
     this.maxContextMessages = 20; // Keep last 20 messages for context
     this.userId = null;
     this.settings = {
-      userName: 'MPA',
-      gender: 'neutral',
-      language: 'en',
-      voiceEnabled: true
+      userName: "MPA",
+      gender: "neutral",
+      language: "en",
+      voiceEnabled: true,
     };
   }
 
@@ -24,8 +24,8 @@ export class ConversationManager {
 
   // Load conversation history from localStorage
   loadHistory() {
-    if (typeof window === 'undefined') return;
-    
+    if (typeof window === "undefined") return;
+
     try {
       const stored = localStorage.getItem(`mpa_chat_history_${this.userId}`);
       if (stored) {
@@ -33,19 +33,19 @@ export class ConversationManager {
         this.messages = parsed.slice(-this.maxContextMessages);
       }
     } catch (error) {
-      console.error('Error loading chat history:', error);
+      console.error("Error loading chat history:", error);
     }
   }
 
   // Save conversation history to localStorage
   saveHistory() {
-    if (typeof window === 'undefined') return;
-    
+    if (typeof window === "undefined") return;
+
     try {
       const toSave = this.messages.slice(-this.maxContextMessages);
       localStorage.setItem(`mpa_chat_history_${this.userId}`, JSON.stringify(toSave));
     } catch (error) {
-      console.error('Error saving chat history:', error);
+      console.error("Error saving chat history:", error);
     }
   }
 
@@ -54,56 +54,56 @@ export class ConversationManager {
     const message = {
       role, // 'user' or 'assistant'
       content,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     };
-    
+
     this.messages.push(message);
-    
+
     // Keep only recent messages for context
     if (this.messages.length > this.maxContextMessages) {
       this.messages = this.messages.slice(-this.maxContextMessages);
     }
-    
+
     this.saveHistory();
     return message;
   }
 
   // Get messages for API (without timestamps)
   getMessagesForAPI() {
-    return this.messages.map(m => ({
+    return this.messages.map((m) => ({
       role: m.role,
-      content: m.content
+      content: m.content,
     }));
   }
 
   // Send message to LLM and get response
   async sendMessage(userMessage) {
     // Add user message
-    this.addMessage('user', userMessage);
+    this.addMessage("user", userMessage);
 
     try {
       // Call chat API
-      const response = await fetch('/api/chat', {
-        method: 'POST',
+      const response = await fetch("/api/chat", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           messages: this.getMessagesForAPI(),
           userId: this.userId,
-          settings: this.settings
-        })
+          settings: this.settings,
+        }),
       });
 
       if (!response.ok) {
-        throw new Error('Chat API request failed');
+        throw new Error("Chat API request failed");
       }
 
       const data = await response.json();
-      
+
       // Add assistant response
       if (data.message) {
-        this.addMessage('assistant', data.message);
+        this.addMessage("assistant", data.message);
       }
 
       // Process any tool calls
@@ -113,20 +113,19 @@ export class ConversationManager {
       }
 
       return {
-        message: data.message || 'I apologize, I didn\'t understand that.',
-        skillResults
+        message: data.message || "I apologize, I didn't understand that.",
+        skillResults,
       };
-
     } catch (error) {
-      console.error('Error sending message:', error);
-      
+      console.error("Error sending message:", error);
+
       // Fallback to basic response
       const fallbackResponse = this.getFallbackResponse(userMessage);
-      this.addMessage('assistant', fallbackResponse);
-      
+      this.addMessage("assistant", fallbackResponse);
+
       return {
         message: fallbackResponse,
-        skillResults: []
+        skillResults: [],
       };
     }
   }
@@ -138,33 +137,33 @@ export class ConversationManager {
     for (const toolCall of toolCalls) {
       try {
         const skill = toolCall.name;
-        const parameters = typeof toolCall.arguments === 'string' 
-          ? JSON.parse(toolCall.arguments) 
-          : toolCall.arguments;
+        const parameters =
+          typeof toolCall.arguments === "string"
+            ? JSON.parse(toolCall.arguments)
+            : toolCall.arguments;
 
-        const response = await fetch('/api/skills', {
-          method: 'POST',
+        const response = await fetch("/api/skills", {
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json'
+            "Content-Type": "application/json",
           },
           body: JSON.stringify({
             skill,
-            parameters
-          })
+            parameters,
+          }),
         });
 
         if (!response.ok) {
-          throw new Error('Skills API request failed');
+          throw new Error("Skills API request failed");
         }
 
         const data = await response.json();
         results.push(data);
-
       } catch (error) {
-        console.error('Error executing skill:', error);
+        console.error("Error executing skill:", error);
         results.push({
           success: false,
-          message: 'Failed to execute that action.'
+          message: "Failed to execute that action.",
         });
       }
     }
@@ -175,40 +174,40 @@ export class ConversationManager {
   // Fallback response when API fails
   getFallbackResponse(userMessage) {
     const lower = userMessage.toLowerCase();
-    
-    if (lower.includes('joke')) {
+
+    if (lower.includes("joke")) {
       const jokes = [
         "Why did the AI go to therapy? It had too many deep learning issues.",
         "I'd tell you a UDP joke, but you might not get it.",
-        "Why do programmers prefer dark mode? Because light attracts bugs."
+        "Why do programmers prefer dark mode? Because light attracts bugs.",
       ];
       return jokes[Math.floor(Math.random() * jokes.length)];
     }
-    
-    if (lower.includes('quote')) {
+
+    if (lower.includes("quote")) {
       const quotes = [
-        "\"The obstacle is the way.\" – Marcus Aurelius. Master resistance, become unstoppable.",
-        "\"Discipline equals freedom.\" – Jocko Willink. Structure creates possibility.",
-        "\"Excellence is not an act, but a habit.\" – Aristotle"
+        '"The obstacle is the way." – Marcus Aurelius. Master resistance, become unstoppable.',
+        '"Discipline equals freedom." – Jocko Willink. Structure creates possibility.',
+        '"Excellence is not an act, but a habit." – Aristotle',
       ];
       return quotes[Math.floor(Math.random() * quotes.length)];
     }
-    
-    if (lower.includes('weather')) {
+
+    if (lower.includes("weather")) {
       return "I'd love to check the weather for you. Could you specify the location?";
     }
-    
-    if (lower.includes('reminder') || lower.includes('remind')) {
+
+    if (lower.includes("reminder") || lower.includes("remind")) {
       return "I can set a reminder for you. What would you like to be reminded about and when?";
     }
-    
+
     const responses = [
       "I'm here to assist. How may I help you?",
       "At your service. What can I do for you today?",
       "How may I be of assistance?",
-      "I'm listening. What do you need?"
+      "I'm listening. What do you need?",
     ];
-    
+
     return responses[Math.floor(Math.random() * responses.length)];
   }
 
@@ -221,16 +220,16 @@ export class ConversationManager {
   // Update settings
   updateSettings(newSettings) {
     this.settings = { ...this.settings, ...newSettings };
-    
+
     // Save settings
-    if (typeof window !== 'undefined') {
+    if (typeof window !== "undefined") {
       try {
-        localStorage.setItem('mpaUserName', this.settings.userName);
-        localStorage.setItem('mpaGender', this.settings.gender);
-        localStorage.setItem('mpaLanguage', this.settings.language);
-        localStorage.setItem('mpaVoiceEnabled', this.settings.voiceEnabled ? 'true' : 'false');
+        localStorage.setItem("mpaUserName", this.settings.userName);
+        localStorage.setItem("mpaGender", this.settings.gender);
+        localStorage.setItem("mpaLanguage", this.settings.language);
+        localStorage.setItem("mpaVoiceEnabled", this.settings.voiceEnabled ? "true" : "false");
       } catch (error) {
-        console.error('Error saving settings:', error);
+        console.error("Error saving settings:", error);
       }
     }
   }
@@ -240,7 +239,7 @@ export class ConversationManager {
     return {
       messageCount: this.messages.length,
       firstMessage: this.messages[0]?.timestamp,
-      lastMessage: this.messages[this.messages.length - 1]?.timestamp
+      lastMessage: this.messages[this.messages.length - 1]?.timestamp,
     };
   }
 }

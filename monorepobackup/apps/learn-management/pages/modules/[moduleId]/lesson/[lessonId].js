@@ -1,12 +1,12 @@
 "use client";
 
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
-import Head from 'next/head';
-import Footer from '../../../../components/Footer';
-import QuizComponent from '../../../../components/QuizComponent';
-import PremiumAccessPrompt from '@shared/PremiumAccessPrompt';
-import { getCurrentUser } from '../../../../lib/supabaseClient';
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import Head from "next/head";
+import Footer from "../../../../components/Footer";
+import QuizComponent from "../../../../components/QuizComponent";
+import PremiumAccessPrompt from "@shared/PremiumAccessPrompt";
+import { getCurrentUser } from "../../../../lib/supabaseClient";
 
 export default function LessonPage() {
   const router = useRouter();
@@ -29,8 +29,8 @@ export default function LessonPage() {
 
   const checkAuth = async () => {
     const currentUser = await getCurrentUser();
-    if (!currentUser && process.env.NEXT_PUBLIC_DISABLE_AUTH !== 'true') {
-      router.push('/register');
+    if (!currentUser && process.env.NEXT_PUBLIC_DISABLE_AUTH !== "true") {
+      router.push("/register");
       return;
     }
     setUser(currentUser);
@@ -43,10 +43,10 @@ export default function LessonPage() {
         module_id: moduleId,
         title: `Lesson ${lessonId}`,
         content: generateLessonContent(moduleId, lessonId),
-        quiz: generateQuiz()
+        quiz: generateQuiz(),
       });
     } catch (error) {
-      console.error('Error fetching lesson:', error);
+      console.error("Error fetching lesson:", error);
     } finally {
       setLoading(false);
     }
@@ -104,9 +104,9 @@ export default function LessonPage() {
           "Planning, Organizing, Leading, and Controlling",
           "Hiring, Firing, Promoting, and Demoting",
           "Marketing, Sales, Finance, and Operations",
-          "Analyzing, Designing, Implementing, and Testing"
+          "Analyzing, Designing, Implementing, and Testing",
         ],
-        correct_answer: 0
+        correct_answer: 0,
       },
       {
         question: "Which leadership style involves involving team members in decision-making?",
@@ -114,9 +114,9 @@ export default function LessonPage() {
           "Autocratic leadership",
           "Laissez-faire leadership",
           "Democratic (participative) leadership",
-          "Transactional leadership"
+          "Transactional leadership",
         ],
-        correct_answer: 2
+        correct_answer: 2,
       },
       {
         question: "What does SMART stand for in goal-setting?",
@@ -124,9 +124,9 @@ export default function LessonPage() {
           "Simple, Manageable, Achievable, Realistic, Timely",
           "Specific, Measurable, Achievable, Relevant, Time-bound",
           "Strategic, Meaningful, Actionable, Responsible, Trackable",
-          "Structured, Motivated, Agile, Results-driven, Targeted"
+          "Structured, Motivated, Agile, Results-driven, Targeted",
         ],
-        correct_answer: 1
+        correct_answer: 1,
       },
       {
         question: "What is organizational behavior?",
@@ -134,9 +134,9 @@ export default function LessonPage() {
           "The study of how buildings are organized",
           "The study of how individuals and groups act within organizations",
           "The process of restructuring a company",
-          "A type of financial reporting"
+          "A type of financial reporting",
         ],
-        correct_answer: 1
+        correct_answer: 1,
       },
       {
         question: "What is the primary purpose of change management?",
@@ -144,34 +144,34 @@ export default function LessonPage() {
           "To avoid any changes in the organization",
           "To guide and support employees through organizational transitions",
           "To automate business processes",
-          "To reduce the workforce"
+          "To reduce the workforce",
         ],
-        correct_answer: 1
-      }
+        correct_answer: 1,
+      },
     ];
   };
 
   const handleQuizComplete = async (passed, score) => {
     setQuizCompleted(passed);
-    
+
     // Show Premium Access Prompt after completing sample lesson (Module 1, Lesson 1)
-    if (passed && moduleId === '1' && lessonId === '1') {
+    if (passed && moduleId === "1" && lessonId === "1") {
       setShowPremiumPrompt(true);
     }
-    
+
     if (passed) {
       try {
-        await fetch('/api/assessments/submit', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+        await fetch("/api/assessments/submit", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             lesson_id: lessonId,
             module_id: moduleId,
-            score: score
-          })
+            score: score,
+          }),
         });
       } catch (error) {
-        console.error('Error saving progress:', error);
+        console.error("Error saving progress:", error);
       }
     }
   };
@@ -185,7 +185,7 @@ export default function LessonPage() {
       if (nextModuleId <= 10) {
         router.push(`/modules/${moduleId}/final-test`);
       } else {
-        router.push('/curriculum');
+        router.push("/curriculum");
       }
     }
   };
@@ -208,18 +208,26 @@ export default function LessonPage() {
     <>
       <Head>
         <title>{lesson?.title} - Learn Management</title>
-        <meta name="description" content={`Learn Management - Module ${moduleId}, Lesson ${lessonId}`} />
+        <meta
+          name="description"
+          content={`Learn Management - Module ${moduleId}, Lesson ${lessonId}`}
+        />
       </Head>
 
       <main className="min-h-screen bg-gray-50 py-12">
         <div className="container mx-auto px-4 max-w-4xl">
           <div className="mb-6">
             <button
-              onClick={() => router.push('/curriculum')}
+              onClick={() => router.push("/curriculum")}
               className="text-blue-600 hover:text-blue-800 flex items-center"
             >
               <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M15 19l-7-7 7-7"
+                />
               </svg>
               Back to Curriculum
             </button>
@@ -231,28 +239,23 @@ export default function LessonPage() {
               <h1 className="text-3xl font-bold mt-2">{lesson?.title}</h1>
             </div>
 
-            <div className="prose max-w-none" dangerouslySetInnerHTML={{ __html: lesson?.content }} />
+            <div
+              className="prose max-w-none"
+              dangerouslySetInnerHTML={{ __html: lesson?.content }}
+            />
           </div>
 
           {lesson?.quiz && (
-            <QuizComponent 
-              questions={lesson.quiz}
-              onComplete={handleQuizComplete}
-            />
+            <QuizComponent questions={lesson.quiz} onComplete={handleQuizComplete} />
           )}
 
           {quizCompleted && (
             <div className="card bg-green-50 border-2 border-green-500">
-              <h3 className="text-xl font-semibold text-green-800 mb-4">
-                🎉 Quiz Passed!
-              </h3>
+              <h3 className="text-xl font-semibold text-green-800 mb-4">🎉 Quiz Passed!</h3>
               <p className="text-gray-700 mb-4">
                 Congratulations! You've successfully completed this lesson.
               </p>
-              <button
-                onClick={goToNextLesson}
-                className="btn-primary"
-              >
+              <button onClick={goToNextLesson} className="btn-primary">
                 Continue to Next Lesson
               </button>
             </div>
