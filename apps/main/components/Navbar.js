@@ -1,69 +1,72 @@
-// ============================================================================
-// AUTHENTICATION REMOVED - OPEN ACCESS REFACTOR
-// ============================================================================
-// This navigation bar previously managed user authentication state.
-// All authentication logic has been commented out to make navigation fully public.
-// ============================================================================
-
 "use client";
 
-// import { useState, useEffect } from "react";
-// import { useRouter } from "next/router";
-
-// Import Supabase helpers for authentication state and logout - DISABLED
-// import { getCurrentUser, signOutUser } from "../lib/supabaseClient";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import SharedNavbar from "./shared/SharedNavbar";
 import { canonicalLinks } from "../../../components/shared/canonicalNavLinks";
 
 /**
- * Navigation Bar Component for Main Domain - AUTHENTICATION DISABLED
+ * Navigation Bar Component for Main Domain
  *
- * OPEN ACCESS MODE: This component now provides fully open-access navigation.
- * All authentication state management and logout functionality has been removed.
- *
- * Previous functionality (now disabled):
- * - Managed user authentication state
- * - Provided logout functionality
- * - Checked authentication status on mount
+ * Shows the "My Dashboard" link when a user is logged in.
+ * Unauthenticated users see the canonical nav links plus Login/Register.
  */
 export default function Navbar() {
-  // OPEN ACCESS: All auth state management removed
-  // const [user, setUser] = useState(null);
-  // const router = useRouter();
+  const [user, setUser] = useState(null);
+  const router = useRouter();
 
-  // Authentication check disabled
-  // useEffect(() => {
-  //   checkUser();
-  // }, []);
+  useEffect(() => {
+    let mounted = true;
+    async function checkUser() {
+      try {
+        const { getCurrentUser } = await import("../lib/supabaseClient");
+        const currentUser = await getCurrentUser();
+        if (mounted) setUser(currentUser || null);
+      } catch {
+        // Silently fail — nav degrades gracefully to unauthenticated state
+      }
+    }
+    checkUser();
+    return () => {
+      mounted = false;
+    };
+  }, []);
 
-  /**
-   * Check if a user is currently logged in - DISABLED
-   */
-  // const checkUser = async () => {
-  //   const currentUser = await getCurrentUser();
-  //   setUser(currentUser);
-  // };
+  const handleLogout = async () => {
+    try {
+      const { signOutUser } = await import("../lib/supabaseClient");
+      const { success } = await signOutUser();
+      if (success) {
+        setUser(null);
+        router.push("/");
+      }
+    } catch {
+      // Silently fail
+    }
+  };
 
-  /**
-   * Handle user logout - DISABLED
-   * Signs out the user from Supabase and redirects to login page
-   */
-  // const handleLogout = async () => {
-  //   const { success } = await signOutUser();
-  //   if (success) {
-  //     setUser(null);
-  //     router.push("/login");
-  //   }
-  // };
+  // Append "My Dashboard" to canonical links when user is logged in
+  const navLinks = user
+    ? [
+        ...canonicalLinks,
+        {
+          href: "/dashboard",
+          label: "My Dashboard",
+          className: "hover:text-primary transition text-base font-semibold text-blue-700",
+          mobileClassName:
+            "block hover:text-primary transition text-base py-2 font-semibold text-blue-700",
+        },
+      ]
+    : canonicalLinks;
 
   return (
     <SharedNavbar
-      user={null} // OPEN ACCESS: No user authentication
-      onLogout={null} // OPEN ACCESS: No logout functionality
+      user={user}
+      onLogout={handleLogout}
       appName="iiskills.cloud"
       homeUrl="/"
-      showAuthButtons={true} // UNIVERSAL NAV: Register and Login links visible to ALL users
-      customLinks={canonicalLinks}
+      showAuthButtons={true}
+      customLinks={navLinks}
     />
   );
 }
