@@ -28,6 +28,7 @@ import { getPaymentReturnToUrl } from "@lib/appRegistry";
  *   200 { token: string }
  *   400 { error: string }   — missing or invalid fields
  *   401 { error: string }   — unauthenticated
+ *   422 { error: string, code: 'profile_incomplete' }  — first_name or phone missing
  *   500 { error: string }   — server misconfiguration
  */
 
@@ -81,7 +82,15 @@ export default async function handler(req, res) {
     .eq("id", user.id)
     .single();
 
-  // ── 4. Build and sign the JWT ─────────────────────────────────────────────
+  // ── 4. Enforce minimum profile completeness ───────────────────────────────
+  if (!profile?.first_name || !profile?.phone) {
+    return res.status(422).json({
+      error: "Profile incomplete",
+      code: "profile_incomplete",
+    });
+  }
+
+  // ── 5. Build and sign the JWT ─────────────────────────────────────────────
   const secret = process.env.PAYMENT_TOKEN_SECRET;
   if (!secret) {
     console.error("[generate-token] PAYMENT_TOKEN_SECRET is not set");
