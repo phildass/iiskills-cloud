@@ -8,12 +8,7 @@
   "quiz": [
     {
       "question": "Which of the following is a prime number?",
-      "options": [
-        "1",
-        "4",
-        "9",
-        "7"
-      ],
+      "options": ["1", "4", "9", "7"],
       "correct_answer": 3
     },
     {
@@ -38,22 +33,12 @@
     },
     {
       "question": "GCD(12, 18) using prime factorisation is:",
-      "options": [
-        "2",
-        "3",
-        "6",
-        "36"
-      ],
+      "options": ["2", "3", "6", "36"],
       "correct_answer": 2
     },
     {
       "question": "What is the prime factorisation of 12?",
-      "options": [
-        "2×6",
-        "3×4",
-        "2²×3",
-        "2×2×3"
-      ],
+      "options": ["2×6", "3×4", "2²×3", "2×2×3"],
       "correct_answer": 2
     }
   ]

@@ -8,22 +8,12 @@
   "quiz": [
     {
       "question": "(f ∘ g)(x) means:",
-      "options": [
-        "f(x) × g(x)",
-        "f(x) + g(x)",
-        "f(g(x))",
-        "g(f(x)) only"
-      ],
+      "options": ["f(x) × g(x)", "f(x) + g(x)", "f(g(x))", "g(f(x)) only"],
       "correct_answer": 2
     },
     {
       "question": "If f(x) = 2x and g(x) = x + 3, then (f ∘ g)(x) is:",
-      "options": [
-        "2x + 3",
-        "2x + 6",
-        "2(x + 3)",
-        "2x + 3"
-      ],
+      "options": ["2x + 3", "2x + 6", "2(x + 3)", "2x + 3"],
       "correct_answer": 2
     },
     {
@@ -38,22 +28,12 @@
     },
     {
       "question": "The graph of f⁻¹ is the reflection of f about:",
-      "options": [
-        "x-axis",
-        "y-axis",
-        "y = x",
-        "y = –x"
-      ],
+      "options": ["x-axis", "y-axis", "y = x", "y = –x"],
       "correct_answer": 2
     },
     {
       "question": "A function has an inverse iff it is:",
-      "options": [
-        "Continuous",
-        "Differentiable",
-        "One-to-one (bijective)",
-        "Increasing"
-      ],
+      "options": ["Continuous", "Differentiable", "One-to-one (bijective)", "Increasing"],
       "correct_answer": 2
     }
   ]

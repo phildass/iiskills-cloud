@@ -30,4 +30,4 @@ Force equals mass times acceleration.
 
 A 5 kg object is pushed with a force of 20 N. What is its acceleration?
 
-*Answer: a = F/m = 20/5 = 4 m/s²*
+_Answer: a = F/m = 20/5 = 4 m/s²_

@@ -8,32 +8,17 @@
   "quiz": [
     {
       "question": "What is the formula for momentum?",
-      "options": [
-        "p = Ft",
-        "p = mv",
-        "p = mgh",
-        "p = ma"
-      ],
+      "options": ["p = Ft", "p = mv", "p = mgh", "p = ma"],
       "correct_answer": 1
     },
     {
       "question": "What is the SI unit of momentum?",
-      "options": [
-        "N·m",
-        "J",
-        "kg·m/s",
-        "W"
-      ],
+      "options": ["N·m", "J", "kg·m/s", "W"],
       "correct_answer": 2
     },
     {
       "question": "Impulse equals:",
-      "options": [
-        "Force ÷ Time",
-        "Force × Distance",
-        "Change in momentum",
-        "Mass × Acceleration"
-      ],
+      "options": ["Force ÷ Time", "Force × Distance", "Change in momentum", "Mass × Acceleration"],
       "correct_answer": 2
     },
     {

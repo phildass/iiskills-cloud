@@ -18,32 +18,17 @@
     },
     {
       "question": "The empty set is denoted:",
-      "options": [
-        "{}",
-        "0",
-        "∅",
-        "Ø and ∅ only"
-      ],
+      "options": ["{}", "0", "∅", "Ø and ∅ only"],
       "correct_answer": 2
     },
     {
       "question": "If |A| = 3, how many elements does the power set P(A) have?",
-      "options": [
-        "3",
-        "6",
-        "8",
-        "9"
-      ],
+      "options": ["3", "6", "8", "9"],
       "correct_answer": 2
     },
     {
       "question": "De Morgan's first law states (A ∪ B)ᶜ equals:",
-      "options": [
-        "Aᶜ ∪ Bᶜ",
-        "Aᶜ ∩ Bᶜ",
-        "A ∩ B",
-        "A ∪ Bᶜ"
-      ],
+      "options": ["Aᶜ ∪ Bᶜ", "Aᶜ ∩ Bᶜ", "A ∩ B", "A ∪ Bᶜ"],
       "correct_answer": 1
     },
     {

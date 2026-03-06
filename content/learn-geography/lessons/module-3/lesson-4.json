@@ -8,12 +8,7 @@
   "quiz": [
     {
       "question": "Which ocean is bounded by Africa, Asia, and Australia?",
-      "options": [
-        "Pacific",
-        "Atlantic",
-        "Indian",
-        "Southern"
-      ],
+      "options": ["Pacific", "Atlantic", "Indian", "Southern"],
       "correct_answer": 2
     },
     {
@@ -28,32 +23,17 @@
     },
     {
       "question": "Which sea connects the Indian Ocean to the Mediterranean?",
-      "options": [
-        "Arabian Sea",
-        "Bay of Bengal",
-        "Red Sea",
-        "Andaman Sea"
-      ],
+      "options": ["Arabian Sea", "Bay of Bengal", "Red Sea", "Andaman Sea"],
       "correct_answer": 2
     },
     {
       "question": "What seasonal winds dominate the Indian Ocean?",
-      "options": [
-        "Trade winds",
-        "Polar easterlies",
-        "Monsoon winds",
-        "Westerlies"
-      ],
+      "options": ["Trade winds", "Polar easterlies", "Monsoon winds", "Westerlies"],
       "correct_answer": 2
     },
     {
       "question": "Which strait connects the Persian Gulf to the Indian Ocean?",
-      "options": [
-        "Hormuz Strait",
-        "Malacca Strait",
-        "Bab-el-Mandeb",
-        "Lombok Strait"
-      ],
+      "options": ["Hormuz Strait", "Malacca Strait", "Bab-el-Mandeb", "Lombok Strait"],
       "correct_answer": 0
     }
   ]

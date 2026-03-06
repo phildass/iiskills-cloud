@@ -166,8 +166,8 @@ export async function fetchUserProgress(userId) {
 
 export async function updateUserProgress(userId, appId, level, value) {
   const response = await fetch(`/api/progress/${userId}`, {
-    method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ appId, level, value }),
   });
   return response.json();
@@ -202,7 +202,7 @@ export function UserProgressProvider({ children }) {
   const updateProgress = async (appId, level, value) => {
     // Optimistic update
     setApps(prevApps => /* update logic */);
-    
+
     // API call
     try {
       await updateUserProgress(userId, appId, level, value);
@@ -228,13 +228,13 @@ Example Next.js API route (`pages/api/progress/[userId].js`):
 export default async function handler(req, res) {
   const { userId } = req.query;
 
-  if (req.method === 'GET') {
+  if (req.method === "GET") {
     // Fetch from database
     const progress = await db.progress.findByUser(userId);
     res.json(progress);
   }
 
-  if (req.method === 'PUT') {
+  if (req.method === "PUT") {
     // Update database
     const { appId, level, value } = req.body;
     await db.progress.update(userId, appId, level, value);
@@ -273,15 +273,10 @@ export default function Leaderboard() {
       animate={{ opacity: 1 }}
       className="bg-white rounded-lg shadow-xl p-6"
     >
-      <h2 className="text-2xl font-bold text-primary mb-4">
-        Top Learners This Week
-      </h2>
+      <h2 className="text-2xl font-bold text-primary mb-4">Top Learners This Week</h2>
       <div className="space-y-3">
         {topUsers.map((user, index) => (
-          <div
-            key={index}
-            className="flex items-center gap-4 p-3 bg-gray-50 rounded-lg"
-          >
+          <div key={index} className="flex items-center gap-4 p-3 bg-gray-50 rounded-lg">
             <span className="text-3xl">{user.avatar}</span>
             <div className="flex-1">
               <p className="font-semibold">{user.name}</p>
@@ -307,7 +302,7 @@ import Leaderboard from "../components/portal/Leaderboard";
 <div className="grid lg:grid-cols-2 gap-8 mb-12">
   <UniversalProgressDashboard />
   <Leaderboard />
-</div>
+</div>;
 ```
 
 ---
@@ -376,17 +371,10 @@ npm install react-window
 import { FixedSizeList } from "react-window";
 
 function VirtualizedList({ items }) {
-  const Row = ({ index, style }) => (
-    <div style={style}>{items[index].name}</div>
-  );
+  const Row = ({ index, style }) => <div style={style}>{items[index].name}</div>;
 
   return (
-    <FixedSizeList
-      height={400}
-      itemCount={items.length}
-      itemSize={50}
-      width="100%"
-    >
+    <FixedSizeList height={400} itemCount={items.length} itemSize={50} width="100%">
       {Row}
     </FixedSizeList>
   );
@@ -435,11 +423,11 @@ test("portal features are interactive", async ({ page }) => {
   // Test search bar
   await page.click('button:has-text("Search Skills")');
   await page.fill('input[placeholder*="Search"]', "Python");
-  await expect(page.locator('text=HTML & CSS')).toBeVisible();
+  await expect(page.locator("text=HTML & CSS")).toBeVisible();
 
   // Test galaxy map
   await page.click('button:has-text("Expand")');
-  await expect(page.locator('.skill-galaxy-map')).toHaveClass(/h-\[600px\]/);
+  await expect(page.locator(".skill-galaxy-map")).toHaveClass(/h-\[600px\]/);
 });
 ```
 
@@ -486,6 +474,7 @@ function AnimatedComponent() {
 ### Issue: Components Not Rendering
 
 **Check:**
+
 1. Import paths are correct
 2. Component is exported (default or named)
 3. UserProgressProvider wraps the component tree
@@ -494,6 +483,7 @@ function AnimatedComponent() {
 ### Issue: State Not Updating
 
 **Check:**
+
 1. Using `setApps` to update state, not mutating directly
 2. Context provider is above the consuming component
 3. Dependencies array in `useEffect` is correct
@@ -502,6 +492,7 @@ function AnimatedComponent() {
 ### Issue: Poor Performance
 
 **Check:**
+
 1. Memoize expensive calculations with `useMemo`
 2. Use `React.memo` for components that don't need frequent updates
 3. Avoid inline function definitions in render
@@ -511,6 +502,7 @@ function AnimatedComponent() {
 ### Issue: Build Errors
 
 **Check:**
+
 1. All dependencies are installed (`npm install`)
 2. Import paths match actual file structure
 3. No syntax errors (check ESLint)
@@ -522,24 +514,28 @@ function AnimatedComponent() {
 ## Best Practices
 
 ### Code Organization
+
 - One component per file
 - Group related components in folders
 - Use index.js for barrel exports
 - Keep components under 300 lines
 
 ### State Management
+
 - Lift state to appropriate level
 - Use Context for truly global state
 - Consider local state first
 - Avoid prop drilling with composition
 
 ### Styling
+
 - Use Tailwind utility classes
 - Extract repeated patterns to components
 - Use safelist for dynamic classes
 - Follow existing color scheme
 
 ### Performance
+
 - Lazy load below the fold
 - Optimize images
 - Minimize bundle size
@@ -550,6 +546,7 @@ function AnimatedComponent() {
 ## Resources
 
 ### Documentation
+
 - [Framer Motion Docs](https://www.framer.com/motion/)
 - [Recharts Documentation](https://recharts.org/)
 - [React Force Graph](https://github.com/vasturiano/react-force-graph)
@@ -557,12 +554,14 @@ function AnimatedComponent() {
 - [Tailwind CSS](https://tailwindcss.com/docs)
 
 ### Tools
+
 - React DevTools (browser extension)
 - Next.js DevTools
 - Lighthouse (performance auditing)
 - axe DevTools (accessibility testing)
 
 ### Community
+
 - GitHub Issues for bug reports
 - Discussions for feature requests
 - Stack Overflow for questions

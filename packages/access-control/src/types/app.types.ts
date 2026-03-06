@@ -1,28 +1,28 @@
 /**
  * App Type Definitions
- * 
+ *
  * Defines types for app configuration, IDs, and categorization
  */
 
 /**
  * Valid app identifiers in the iiskills-cloud platform
  */
-export type AppId = 
-  | 'main'
-  | 'learn-ai'
-  | 'learn-apt'
-  | 'learn-chemistry'
-  | 'learn-developer'
-  | 'learn-geography'
-  | 'learn-management'
-  | 'learn-math'
-  | 'learn-physics'
-  | 'learn-pr';
+export type AppId =
+  | "main"
+  | "learn-ai"
+  | "learn-apt"
+  | "learn-chemistry"
+  | "learn-developer"
+  | "learn-geography"
+  | "learn-management"
+  | "learn-math"
+  | "learn-physics"
+  | "learn-pr";
 
 /**
  * App category classification
  */
-export type AppCategory = 'FREE' | 'PAID';
+export type AppCategory = "FREE" | "PAID";
 
 /**
  * App configuration interface
@@ -31,7 +31,7 @@ export interface AppConfig {
   id: AppId;
   name: string;
   price: number;
-  currency: 'INR';
+  currency: "INR";
   category: AppCategory;
   isBundle: boolean;
   bundleWith?: AppId[];
@@ -46,7 +46,7 @@ export interface AppConfig {
 export interface BundleConfig {
   apps: AppId[];
   price: number;
-  currency: 'INR';
+  currency: "INR";
   description: string;
   autoGrant: boolean;
 }

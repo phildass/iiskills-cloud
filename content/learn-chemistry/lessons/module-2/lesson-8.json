@@ -48,12 +48,7 @@
     },
     {
       "question": "What is the atomic number of carbon?",
-      "options": [
-        "4",
-        "6",
-        "8",
-        "12"
-      ],
+      "options": ["4", "6", "8", "12"],
       "correct_answer": 1
     }
   ]

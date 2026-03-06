@@ -8,18 +8,18 @@ show an "untrustworthy website" warning.
 
 ## Hostnames covered
 
-| PM2 process            | Hostname                         | Port |
-|------------------------|----------------------------------|------|
-| iiskills-main          | iiskills.cloud / www.iiskills.cloud | 3000 |
-| iiskills-learn-ai      | learn-ai.iiskills.cloud          | 3024 |
-| iiskills-learn-apt     | learn-apt.iiskills.cloud         | 3002 |
-| iiskills-learn-chemistry | learn-chemistry.iiskills.cloud | 3005 |
-| iiskills-learn-developer | learn-developer.iiskills.cloud | 3007 |
-| iiskills-learn-geography | learn-geography.iiskills.cloud | 3011 |
-| iiskills-learn-management | learn-management.iiskills.cloud | 3016 |
-| iiskills-learn-math    | learn-math.iiskills.cloud        | 3017 |
-| iiskills-learn-physics | learn-physics.iiskills.cloud     | 3020 |
-| iiskills-learn-pr      | learn-pr.iiskills.cloud          | 3021 |
+| PM2 process               | Hostname                            | Port |
+| ------------------------- | ----------------------------------- | ---- |
+| iiskills-main             | iiskills.cloud / www.iiskills.cloud | 3000 |
+| iiskills-learn-ai         | learn-ai.iiskills.cloud             | 3024 |
+| iiskills-learn-apt        | learn-apt.iiskills.cloud            | 3002 |
+| iiskills-learn-chemistry  | learn-chemistry.iiskills.cloud      | 3005 |
+| iiskills-learn-developer  | learn-developer.iiskills.cloud      | 3007 |
+| iiskills-learn-geography  | learn-geography.iiskills.cloud      | 3011 |
+| iiskills-learn-management | learn-management.iiskills.cloud     | 3016 |
+| iiskills-learn-math       | learn-math.iiskills.cloud           | 3017 |
+| iiskills-learn-physics    | learn-physics.iiskills.cloud        | 3020 |
+| iiskills-learn-pr         | learn-pr.iiskills.cloud             | 3021 |
 
 ---
 
@@ -61,6 +61,7 @@ sudo certbot certonly \
 ```
 
 The certificate will be stored at:
+
 - `/etc/letsencrypt/live/iiskills.cloud/fullchain.pem`
 - `/etc/letsencrypt/live/iiskills.cloud/privkey.pem`
 
@@ -141,6 +142,7 @@ done
 ```
 
 Successful output shows:
+
 - `issuer= /C=US/O=Let's Encrypt/CN=...`
 - `notAfter` date at least 60 days in the future
 - `subjectAltName` containing the queried hostname
@@ -149,21 +151,21 @@ Successful output shows:
 
 ## Certificate locations
 
-| Type | Path |
-|------|------|
-| Wildcard cert (Option A) | `/etc/letsencrypt/live/iiskills.cloud/` |
-| Per-host cert (Option B) | `/etc/letsencrypt/live/<hostname>/` |
-| Renewal config | `/etc/letsencrypt/renewal/` |
-| Deploy hooks | `/etc/letsencrypt/renewal-hooks/deploy/` |
-| Certbot logs | `/var/log/letsencrypt/` |
+| Type                     | Path                                     |
+| ------------------------ | ---------------------------------------- |
+| Wildcard cert (Option A) | `/etc/letsencrypt/live/iiskills.cloud/`  |
+| Per-host cert (Option B) | `/etc/letsencrypt/live/<hostname>/`      |
+| Renewal config           | `/etc/letsencrypt/renewal/`              |
+| Deploy hooks             | `/etc/letsencrypt/renewal-hooks/deploy/` |
+| Certbot logs             | `/var/log/letsencrypt/`                  |
 
 ---
 
 ## Troubleshooting
 
-| Symptom | Action |
-|---------|--------|
-| Browser shows "invalid certificate" | Run `sudo certbot certificates` and check expiry |
-| `certbot renew` fails | Ensure port 80 is open; check `/var/log/letsencrypt/letsencrypt.log` |
-| Nginx 502 after cert issue | `pm2 status`; restart the affected app; `sudo nginx -t && sudo systemctl reload nginx` |
-| DNS not propagated | Wait up to 48 h; verify with `dig A <subdomain>.iiskills.cloud` |
+| Symptom                             | Action                                                                                 |
+| ----------------------------------- | -------------------------------------------------------------------------------------- |
+| Browser shows "invalid certificate" | Run `sudo certbot certificates` and check expiry                                       |
+| `certbot renew` fails               | Ensure port 80 is open; check `/var/log/letsencrypt/letsencrypt.log`                   |
+| Nginx 502 after cert issue          | `pm2 status`; restart the affected app; `sudo nginx -t && sudo systemctl reload nginx` |
+| DNS not propagated                  | Wait up to 48 h; verify with `dig A <subdomain>.iiskills.cloud`                        |

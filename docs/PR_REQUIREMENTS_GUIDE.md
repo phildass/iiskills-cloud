@@ -75,14 +75,18 @@ yarn validate-config
 Our PR template includes comprehensive checklists that **must** be completed:
 
 #### 1. **Related Issues**
+
 Link your PR to relevant issues:
+
 ```markdown
 - Closes #123
 - Related to #456
 ```
 
 #### 2. **Type of Change**
+
 Check all applicable boxes:
+
 - 🐛 Bug fix
 - ✨ New feature
 - 💥 Breaking change
@@ -97,6 +101,7 @@ Check all applicable boxes:
 All items must be checked:
 
 **Code Quality & Standards:**
+
 - Uses shared components from `@iiskills/ui`
 - Proper imports (`@iiskills/ui/*`, `@iiskills/core`)
 - No prohibited patterns
@@ -104,12 +109,14 @@ All items must be checked:
 - Prettier formatting applied
 
 **Architecture & Integration:**
+
 - Conforms to `common-integration-plan.md`
 - Required files present (app.config.js)
 - Access control via shared logic
 - No code duplication
 
 **Testing:**
+
 - Tests written/updated
 - Unit tests pass
 - E2E tests pass
@@ -118,6 +125,7 @@ All items must be checked:
 - No regressions
 
 **Visual Changes:**
+
 - Screenshots attached (all devices)
 - Visual regression tests pass
 - Design reviewed
@@ -125,11 +133,13 @@ All items must be checked:
 - Accessibility standards met
 
 **Security:**
+
 - Security scan passed
 - No secrets in code
 - Dependencies reviewed
 
 **Documentation:**
+
 - Comments added where needed
 - Docs updated
 - CHANGELOG.md updated
@@ -143,6 +153,7 @@ Every PR triggers multiple automated workflows that run comprehensive checks:
 ### 1. PR Template Validation
 
 **What it checks:**
+
 - PR has adequate description (minimum 50 characters)
 - Issue linkage present
 - Template sections completed
@@ -150,6 +161,7 @@ Every PR triggers multiple automated workflows that run comprehensive checks:
 **When it runs:** On PR open, sync, or edit
 
 **How to fix:**
+
 - Use the PR template
 - Link to relevant issues
 - Fill out all required sections
@@ -157,6 +169,7 @@ Every PR triggers multiple automated workflows that run comprehensive checks:
 ### 2. Code Quality & Linting
 
 **What it checks:**
+
 - ESLint rules pass (`yarn lint:check`)
 - Prettier formatting applied (`yarn format:check`)
 - No linting errors or warnings
@@ -164,6 +177,7 @@ Every PR triggers multiple automated workflows that run comprehensive checks:
 **When it runs:** On every PR update
 
 **How to fix:**
+
 ```bash
 yarn lint:fix
 yarn format
@@ -172,6 +186,7 @@ yarn format
 ### 3. Import & Pattern Validation
 
 **What it checks:**
+
 - No local component imports (must use `@iiskills/ui`)
 - No deprecated app references (unless marked as such)
 - Proper package imports
@@ -180,17 +195,19 @@ yarn format
 **When it runs:** On every PR update
 
 **Example violations:**
+
 ```javascript
 // ❌ BAD: Local import
-import Button from '../../components/shared/Button';
+import Button from "../../components/shared/Button";
 
 // ✅ GOOD: Package import
-import { Button } from '@iiskills/ui/common';
+import { Button } from "@iiskills/ui/common";
 ```
 
 ### 4. Unit Tests
 
 **What it checks:**
+
 - All unit tests pass
 - Test coverage maintained
 - No failing tests
@@ -198,6 +215,7 @@ import { Button } from '@iiskills/ui/common';
 **When it runs:** On every PR update
 
 **How to run locally:**
+
 ```bash
 yarn test
 ```
@@ -205,6 +223,7 @@ yarn test
 ### 5. E2E Tests
 
 **What it checks:**
+
 - All Playwright E2E tests pass
 - Tests run on multiple browsers (Chromium, Firefox, WebKit)
 - Mobile and tablet tests pass
@@ -212,6 +231,7 @@ yarn test
 **When it runs:** On every PR update
 
 **How to run locally:**
+
 ```bash
 yarn test:e2e
 ```
@@ -219,6 +239,7 @@ yarn test:e2e
 ### 6. Configuration Validation
 
 **What it checks:**
+
 - PORT assignments consistent
 - No deprecated app references (active code)
 - Environment files properly configured
@@ -227,6 +248,7 @@ yarn test:e2e
 **When it runs:** On every PR update
 
 **How to run locally:**
+
 ```bash
 yarn validate-config
 yarn validate-content
@@ -235,6 +257,7 @@ yarn validate-content
 ### 7. Security Scan
 
 **What it checks:**
+
 - No critical or high severity vulnerabilities
 - Dependencies reviewed
 - No secrets in code
@@ -242,6 +265,7 @@ yarn validate-content
 **When it runs:** On every PR update
 
 **How to run locally:**
+
 ```bash
 npm audit --audit-level=high
 ```
@@ -249,6 +273,7 @@ npm audit --audit-level=high
 ### 8. Build Verification
 
 **What it checks:**
+
 - All 10 active apps build successfully
 - No build errors
 - Build output generated
@@ -256,6 +281,7 @@ npm audit --audit-level=high
 **When it runs:** On every PR update
 
 **Apps checked:**
+
 - main, learn-ai, learn-apt, learn-chemistry
 - learn-developer, learn-geography, learn-management
 - learn-math, learn-physics, learn-pr
@@ -308,6 +334,7 @@ Our Danger.js configuration performs sophisticated PR analysis:
 #### Report Generated
 
 Danger.js generates a comprehensive report including:
+
 - Change statistics
 - Requirements checklist
 - Recommendations
@@ -320,6 +347,7 @@ Danger.js generates a comprehensive report including:
 ### When Screenshots are Required
 
 Screenshots **must** be provided when PR modifies:
+
 - Components in `/components/` directories
 - Page files in `/pages/` directories
 - CSS/styling files
@@ -330,16 +358,19 @@ Screenshots **must** be provided when PR modifies:
 For **every UI change**, provide:
 
 #### Desktop (1920x1080)
+
 - Landing page (if affected)
 - Navigation (if affected)
 - Forms/inputs (if affected)
 - Key user flows
 
 #### Tablet (768x1024)
+
 - Same views as desktop
 - Verify responsive behavior
 
 #### Mobile (375x667)
+
 - Same views as desktop/tablet
 - Verify mobile-specific layouts
 
@@ -352,6 +383,7 @@ Use our automated screenshot tool:
 ```
 
 This script:
+
 - Starts all apps
 - Captures screenshots at all required resolutions
 - Organizes output by app and device
@@ -388,6 +420,7 @@ Every PR requires **at least one** reviewer to:
 ### Edge Case Verification
 
 Reviewers must manually test:
+
 - Boundary conditions
 - Error handling
 - Race conditions
@@ -401,6 +434,7 @@ In the PR template, reviewers complete:
 
 ```markdown
 ## Reviewer Checklist
+
 - [ ] All automated checks are green ✅
 - [ ] All requirements in checklist are met
 - [ ] Code quality is high and maintainable
@@ -455,6 +489,7 @@ Every PR automatically receives a comprehensive report:
 ## 🤖 Automated Requirements Analysis Report
 
 ### 📊 Change Statistics
+
 - **Files Changed**: 5
 - **Lines Added**: 142
 - **Lines Deleted**: 28
@@ -462,6 +497,7 @@ Every PR automatically receives a comprehensive report:
 - **Documentation Files**: 1
 
 ### ✅ Requirements Checklist
+
 - ✅ Proper package imports (@iiskills/ui)
 - ✅ No .env files committed
 - ✅ No security issues detected
@@ -469,9 +505,11 @@ Every PR automatically receives a comprehensive report:
 - ✅ Screenshots provided (if UI changes)
 
 ### 💡 Recommendations
+
 ✨ **Excellent!** This PR follows all major guidelines.
 
 ### 🚀 Next Steps
+
 1. Address any ❌ failures and ⚠️ warnings above
 2. Ensure all automated tests pass
 3. Request review from team members
@@ -514,6 +552,7 @@ Before a PR can be merged:
 ### Merge Blocker Configuration
 
 Branch protection rules enforce:
+
 - Required status checks must pass
 - Required reviews must be approved
 - Branch must be up to date
@@ -528,6 +567,7 @@ Branch protection rules enforce:
 #### Issue: Linting Fails
 
 **Solution:**
+
 ```bash
 yarn lint:fix
 yarn format
@@ -538,6 +578,7 @@ git commit -m "Fix linting issues"
 #### Issue: Tests Fail Locally
 
 **Solution:**
+
 ```bash
 # Clear cache
 yarn cache clean
@@ -553,6 +594,7 @@ yarn test
 #### Issue: E2E Tests Timeout
 
 **Solution:**
+
 ```bash
 # Install browsers
 npx playwright install --with-deps
@@ -564,6 +606,7 @@ yarn test:e2e:headed
 #### Issue: Build Fails for Specific App
 
 **Solution:**
+
 ```bash
 # Navigate to app
 cd apps/<app-name>
@@ -579,17 +622,19 @@ yarn build
 
 **Solution:**
 Replace local imports with package imports:
+
 ```javascript
 // Change this:
-import Button from '../../components/shared/Button';
+import Button from "../../components/shared/Button";
 
 // To this:
-import { Button } from '@iiskills/ui/common';
+import { Button } from "@iiskills/ui/common";
 ```
 
 #### Issue: Screenshots Missing
 
 **Solution:**
+
 ```bash
 # Generate screenshots
 ./capture-qa-screenshots.sh
@@ -601,6 +646,7 @@ import { Button } from '@iiskills/ui/common';
 #### Issue: Merge Blocked by Missing Review
 
 **Solution:**
+
 - Ensure all automated checks pass first
 - Request review from appropriate team members
 - Address any feedback promptly
@@ -614,31 +660,40 @@ import { Button } from '@iiskills/ui/common';
 **Title:** Add user profile avatar feature
 
 **Description:**
+
 ```markdown
 ## Related Issues
+
 - Closes #234
 
 ## Type of Change
+
 - [x] ✨ New feature
 
 ## Requirements Checklist
+
 [All items checked]
 
 ## Testing Evidence
+
 All tests pass:
+
 - Unit tests: 42 passed
 - E2E tests: 18 passed
 - Config validation: ✅
 
 ## Screenshots
+
 [Screenshots attached for desktop, tablet, mobile]
 ```
 
 **Automated Report:**
+
 ```markdown
 ## 🤖 Automated Requirements Analysis Report
 
 ### ✅ Requirements Checklist
+
 - ✅ Proper package imports
 - ✅ No .env files committed
 - ✅ No security issues detected
@@ -657,15 +712,18 @@ All tests pass:
 **Title:** Fix bug
 
 **Description:**
+
 ```markdown
 Fixed a bug
 ```
 
 **Automated Report:**
+
 ```markdown
 ## 🤖 Automated Requirements Analysis Report
 
 ### ❌ Issues Found
+
 - ❌ PR title too short
 - ❌ No issue linkage
 - ❌ Local component imports detected

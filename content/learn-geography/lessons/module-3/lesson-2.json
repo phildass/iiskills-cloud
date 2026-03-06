@@ -8,12 +8,7 @@
   "quiz": [
     {
       "question": "Which is the largest ocean by area?",
-      "options": [
-        "Atlantic Ocean",
-        "Indian Ocean",
-        "Pacific Ocean",
-        "Southern Ocean"
-      ],
+      "options": ["Atlantic Ocean", "Indian Ocean", "Pacific Ocean", "Southern Ocean"],
       "correct_answer": 2
     },
     {
@@ -28,12 +23,7 @@
     },
     {
       "question": "What is the deepest trench in the Pacific Ocean?",
-      "options": [
-        "Philippine Trench",
-        "Tonga Trench",
-        "Mariana Trench",
-        "Peru-Chile Trench"
-      ],
+      "options": ["Philippine Trench", "Tonga Trench", "Mariana Trench", "Peru-Chile Trench"],
       "correct_answer": 2
     },
     {
@@ -48,12 +38,7 @@
     },
     {
       "question": "What percentage of Earth's total ocean area does the Pacific represent?",
-      "options": [
-        "About 30%",
-        "About 40%",
-        "About 46%",
-        "About 55%"
-      ],
+      "options": ["About 30%", "About 40%", "About 46%", "About 55%"],
       "correct_answer": 2
     }
   ]

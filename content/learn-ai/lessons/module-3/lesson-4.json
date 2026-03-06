@@ -8,12 +8,7 @@
   "quiz": [
     {
       "question": "What percentage of time do data scientists spend on data cleaning?",
-      "options": [
-        "10-20%",
-        "20-30%",
-        "60-80%",
-        "90%+"
-      ],
+      "options": ["10-20%", "20-30%", "60-80%", "90%+"],
       "correct_answer": 2
     },
     {
@@ -28,12 +23,7 @@
     },
     {
       "question": "Which encoding suits nominal categorical variables (e.g., city names)?",
-      "options": [
-        "Label encoding",
-        "One-hot encoding",
-        "Ordinal encoding",
-        "Binary encoding"
-      ],
+      "options": ["Label encoding", "One-hot encoding", "Ordinal encoding", "Binary encoding"],
       "correct_answer": 1
     },
     {

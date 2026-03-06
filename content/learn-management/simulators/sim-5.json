@@ -30,16 +30,7 @@
       "unit": "days"
     }
   ],
-  "outputs": [
-    "Gantt chart",
-    "Critical path",
-    "Project duration",
-    "Resource utilisation"
-  ],
+  "outputs": ["Gantt chart", "Critical path", "Project duration", "Resource utilisation"],
   "image": "mgmt-sim-5.png",
-  "tags": [
-    "project management",
-    "critical path",
-    "Gantt chart"
-  ]
+  "tags": ["project management", "critical path", "Gantt chart"]
 }

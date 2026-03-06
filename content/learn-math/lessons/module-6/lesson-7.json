@@ -8,22 +8,12 @@
   "quiz": [
     {
       "question": "To differentiate y² with respect to x using implicit differentiation:",
-      "options": [
-        "2y",
-        "2y·dy/dx",
-        "y²·dx",
-        "2dy"
-      ],
+      "options": ["2y", "2y·dy/dx", "y²·dx", "2dy"],
       "correct_answer": 1
     },
     {
       "question": "For x² + y² = 25, dy/dx equals:",
-      "options": [
-        "x/y",
-        "–x/y",
-        "y/x",
-        "–y/x"
-      ],
+      "options": ["x/y", "–x/y", "y/x", "–y/x"],
       "correct_answer": 1
     },
     {
@@ -38,22 +28,12 @@
     },
     {
       "question": "Differentiating x²y = 5 with respect to x gives:",
-      "options": [
-        "2xy = 0",
-        "2xy + x²·dy/dx = 0",
-        "2x·dy/dx = 0",
-        "x²·dy/dx + y = 0"
-      ],
+      "options": ["2xy = 0", "2xy + x²·dy/dx = 0", "2x·dy/dx = 0", "x²·dy/dx + y = 0"],
       "correct_answer": 1
     },
     {
       "question": "The slope of x² + y² = r² at (x, y) is:",
-      "options": [
-        "y/x",
-        "–y/x",
-        "x/y",
-        "–x/y"
-      ],
+      "options": ["y/x", "–y/x", "x/y", "–x/y"],
       "correct_answer": 3
     }
   ]

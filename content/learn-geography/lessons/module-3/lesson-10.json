@@ -8,12 +8,7 @@
   "quiz": [
     {
       "question": "What percentage of global fisheries come from the ocean?",
-      "options": [
-        "About 30%",
-        "About 50%",
-        "About 80%",
-        "About 95%"
-      ],
+      "options": ["About 30%", "About 50%", "About 80%", "About 95%"],
       "correct_answer": 2
     },
     {

@@ -8,42 +8,22 @@
   "quiz": [
     {
       "question": "What is the most populous country in Africa?",
-      "options": [
-        "Ethiopia",
-        "Egypt",
-        "Nigeria",
-        "South Africa"
-      ],
+      "options": ["Ethiopia", "Egypt", "Nigeria", "South Africa"],
       "correct_answer": 2
     },
     {
       "question": "What language family covers most of sub-Saharan Africa?",
-      "options": [
-        "Afroasiatic",
-        "Niger-Congo (Bantu)",
-        "Nilo-Saharan",
-        "Khoisan"
-      ],
+      "options": ["Afroasiatic", "Niger-Congo (Bantu)", "Nilo-Saharan", "Khoisan"],
       "correct_answer": 1
     },
     {
       "question": "Which African city is the largest by population?",
-      "options": [
-        "Cairo",
-        "Lagos",
-        "Kinshasa",
-        "Nairobi"
-      ],
+      "options": ["Cairo", "Lagos", "Kinshasa", "Nairobi"],
       "correct_answer": 1
     },
     {
       "question": "What percentage of the world's population lives in Africa?",
-      "options": [
-        "About 10%",
-        "About 17%",
-        "About 25%",
-        "About 30%"
-      ],
+      "options": ["About 10%", "About 17%", "About 25%", "About 30%"],
       "correct_answer": 1
     },
     {

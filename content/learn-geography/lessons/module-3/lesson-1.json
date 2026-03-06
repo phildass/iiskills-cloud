@@ -8,42 +8,22 @@
   "quiz": [
     {
       "question": "What percentage of Earth's surface is covered by oceans?",
-      "options": [
-        "51%",
-        "61%",
-        "71%",
-        "81%"
-      ],
+      "options": ["51%", "61%", "71%", "81%"],
       "correct_answer": 2
     },
     {
       "question": "How many named oceans are there?",
-      "options": [
-        "3",
-        "4",
-        "5",
-        "6"
-      ],
+      "options": ["3", "4", "5", "6"],
       "correct_answer": 2
     },
     {
       "question": "What is the deepest point in any ocean?",
-      "options": [
-        "Puerto Rico Trench",
-        "Mariana Trench",
-        "Java Trench",
-        "South Sandwich Trench"
-      ],
+      "options": ["Puerto Rico Trench", "Mariana Trench", "Java Trench", "South Sandwich Trench"],
       "correct_answer": 1
     },
     {
       "question": "What is the salinity of typical seawater?",
-      "options": [
-        "About 1.5%",
-        "About 2.5%",
-        "About 3.5%",
-        "About 5%"
-      ],
+      "options": ["About 1.5%", "About 2.5%", "About 3.5%", "About 5%"],
       "correct_answer": 2
     },
     {

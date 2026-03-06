@@ -30,15 +30,7 @@
       "unit": "steps"
     }
   ],
-  "outputs": [
-    "Convergence path",
-    "Loss at each step",
-    "Final minimum value"
-  ],
+  "outputs": ["Convergence path", "Loss at each step", "Final minimum value"],
   "image": "ai-sim-1.png",
-  "tags": [
-    "gradient descent",
-    "optimisation",
-    "supervised learning"
-  ]
+  "tags": ["gradient descent", "optimisation", "supervised learning"]
 }

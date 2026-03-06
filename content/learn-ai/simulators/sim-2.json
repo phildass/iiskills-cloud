@@ -30,15 +30,7 @@
       "unit": ""
     }
   ],
-  "outputs": [
-    "Decision boundary visualisation",
-    "Training accuracy",
-    "Test accuracy"
-  ],
+  "outputs": ["Decision boundary visualisation", "Training accuracy", "Test accuracy"],
   "image": "ai-sim-2.png",
-  "tags": [
-    "neural network",
-    "classification",
-    "decision boundary"
-  ]
+  "tags": ["neural network", "classification", "decision boundary"]
 }

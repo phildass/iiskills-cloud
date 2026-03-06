@@ -48,12 +48,7 @@
     },
     {
       "question": "Which management theorist introduced Scientific Management?",
-      "options": [
-        "Peter Drucker",
-        "Frederick Taylor",
-        "Henri Fayol",
-        "Abraham Maslow"
-      ],
+      "options": ["Peter Drucker", "Frederick Taylor", "Henri Fayol", "Abraham Maslow"],
       "correct_answer": 1
     }
   ]

@@ -8,32 +8,17 @@
   "quiz": [
     {
       "question": "What is the capital of Australia?",
-      "options": [
-        "Sydney",
-        "Melbourne",
-        "Canberra",
-        "Brisbane"
-      ],
+      "options": ["Sydney", "Melbourne", "Canberra", "Brisbane"],
       "correct_answer": 2
     },
     {
       "question": "Which ocean surrounds most of Oceania?",
-      "options": [
-        "Atlantic Ocean",
-        "Indian Ocean",
-        "Pacific Ocean",
-        "Southern Ocean"
-      ],
+      "options": ["Atlantic Ocean", "Indian Ocean", "Pacific Ocean", "Southern Ocean"],
       "correct_answer": 2
     },
     {
       "question": "What is the largest country in Oceania by area?",
-      "options": [
-        "Papua New Guinea",
-        "New Zealand",
-        "Australia",
-        "Fiji"
-      ],
+      "options": ["Papua New Guinea", "New Zealand", "Australia", "Fiji"],
       "correct_answer": 2
     },
     {
@@ -48,12 +33,7 @@
     },
     {
       "question": "What indigenous people are native to Australia?",
-      "options": [
-        "Maoris",
-        "Aboriginal Australians",
-        "Polynesians",
-        "Melanesians"
-      ],
+      "options": ["Maoris", "Aboriginal Australians", "Polynesians", "Melanesians"],
       "correct_answer": 1
     }
   ]

@@ -18,12 +18,7 @@
     },
     {
       "question": "Which famous chess computer is a classic Reactive Machine?",
-      "options": [
-        "AlphaGo",
-        "Deep Blue",
-        "Stockfish",
-        "Leela Chess Zero"
-      ],
+      "options": ["AlphaGo", "Deep Blue", "Stockfish", "Leela Chess Zero"],
       "correct_answer": 1
     },
     {
@@ -38,12 +33,7 @@
     },
     {
       "question": "Where is memory \"stored\" in a trained ML model?",
-      "options": [
-        "A database",
-        "The cloud",
-        "Model parameters (weights)",
-        "RAM"
-      ],
+      "options": ["A database", "The cloud", "Model parameters (weights)", "RAM"],
       "correct_answer": 2
     },
     {

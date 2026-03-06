@@ -18,6 +18,7 @@ This dual-flag requirement ensures accidental activation is prevented.
 **DO NOT use this in production!** This is for development/testing only.
 
 To enable (in .env.local):
+
 ```bash
 TEMP_SUSPEND_AUTH=true
 ADMIN_SUSPEND_CONFIRM=true
@@ -26,6 +27,7 @@ ADMIN_SUSPEND_CONFIRM=true
 ### Scope Limitations (MVP)
 
 For the MVP, the auth bypass is limited to:
+
 - Admin pages only (pages under `/admin/*`)
 - Does NOT bypass payment/paywall restrictions
 - Does NOT grant admin privileges to non-admin users
@@ -39,23 +41,20 @@ The bypass should be implemented in authentication middleware/guards:
 // Example: In auth middleware
 function checkAuth(req, res, next) {
   // Check if TEMP_SUSPEND_AUTH is enabled (DANGEROUS!)
-  if (
-    process.env.TEMP_SUSPEND_AUTH === 'true' && 
-    process.env.ADMIN_SUSPEND_CONFIRM === 'true'
-  ) {
+  if (process.env.TEMP_SUSPEND_AUTH === "true" && process.env.ADMIN_SUSPEND_CONFIRM === "true") {
     // Log the bypass
-    console.warn('⚠️ AUTH BYPASSED - TEMP_SUSPEND_AUTH is enabled!', {
+    console.warn("⚠️ AUTH BYPASSED - TEMP_SUSPEND_AUTH is enabled!", {
       path: req.path,
       ip: req.ip,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     });
-    
+
     // Only allow bypass for admin pages
-    if (req.path.startsWith('/admin')) {
+    if (req.path.startsWith("/admin")) {
       return next(); // Bypass auth
     }
   }
-  
+
   // Normal auth flow
   // ... existing auth logic ...
 }
@@ -84,6 +83,7 @@ All bypassed authentication requests should be logged to `logs/auth-bypass.log`:
 To disable (required before production deployment):
 
 1. Remove or set to false in .env:
+
 ```bash
 TEMP_SUSPEND_AUTH=false
 ADMIN_SUSPEND_CONFIRM=false
@@ -129,7 +129,7 @@ Monitor for unauthorized use in production:
 
 ```bash
 # Check if flags are enabled (should be false in production)
-grep -r "TEMP_SUSPEND_AUTH=true" .env* 
+grep -r "TEMP_SUSPEND_AUTH=true" .env*
 grep -r "ADMIN_SUSPEND_CONFIRM=true" .env*
 
 # Check for bypass log entries
@@ -166,6 +166,7 @@ tail -f logs/auth-bypass.log
 ## Phase 2 Enhancements
 
 For Phase 2, consider:
+
 - Time-limited bypass (auto-disable after X hours)
 - IP whitelist for bypass (only allow from specific IPs)
 - More granular scope control

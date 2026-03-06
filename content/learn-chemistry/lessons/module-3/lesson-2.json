@@ -18,22 +18,12 @@
     },
     {
       "question": "What shape does a molecule with 2 bonding pairs and 0 lone pairs have?",
-      "options": [
-        "Bent",
-        "Trigonal planar",
-        "Linear",
-        "Tetrahedral"
-      ],
+      "options": ["Bent", "Trigonal planar", "Linear", "Tetrahedral"],
       "correct_answer": 2
     },
     {
       "question": "What type of bond forms between two non-metal atoms?",
-      "options": [
-        "Ionic bond",
-        "Metallic bond",
-        "Covalent bond",
-        "Van der Waals bond"
-      ],
+      "options": ["Ionic bond", "Metallic bond", "Covalent bond", "Van der Waals bond"],
       "correct_answer": 2
     },
     {

@@ -48,12 +48,7 @@
     },
     {
       "question": "Which leadership style involves team members in decision-making?",
-      "options": [
-        "Autocratic",
-        "Laissez-faire",
-        "Democratic (participative)",
-        "Transactional"
-      ],
+      "options": ["Autocratic", "Laissez-faire", "Democratic (participative)", "Transactional"],
       "correct_answer": 2
     }
   ]

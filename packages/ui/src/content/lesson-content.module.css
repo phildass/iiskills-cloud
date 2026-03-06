@@ -28,20 +28,34 @@
   margin-bottom: 0.6em;
 }
 
-.container h1 { font-size: 2rem; }
+.container h1 {
+  font-size: 2rem;
+}
 .container h2 {
   font-size: 1.5rem;
   padding-bottom: 0.3em;
   border-bottom: 2px solid #e2e8f0;
 }
-.container h3 { font-size: 1.25rem; color: #1e40af; }
-.container h4 { font-size: 1.1rem; color: #2563eb; }
+.container h3 {
+  font-size: 1.25rem;
+  color: #1e40af;
+}
+.container h4 {
+  font-size: 1.1rem;
+  color: #2563eb;
+}
 .container h5,
-.container h6 { font-size: 1rem; }
+.container h6 {
+  font-size: 1rem;
+}
 
 /* First child — no top margin */
-.container > :first-child { margin-top: 0; }
-.container > :last-child  { margin-bottom: 0; }
+.container > :first-child {
+  margin-top: 0;
+}
+.container > :last-child {
+  margin-bottom: 0;
+}
 
 /* ── Paragraphs ───────────────────────────────────────── */
 .container p {
@@ -66,13 +80,19 @@
   margin-bottom: 1.25em;
   padding-left: 1.75em;
 }
-.container ul { list-style-type: disc; }
-.container ol { list-style-type: decimal; }
+.container ul {
+  list-style-type: disc;
+}
+.container ol {
+  list-style-type: decimal;
+}
 .container li {
   margin-bottom: 0.4em;
   line-height: 1.65;
 }
-.container li::marker { color: #2563eb; }
+.container li::marker {
+  color: #2563eb;
+}
 
 /* ── Blockquotes ──────────────────────────────────────── */
 .container blockquote {
@@ -84,7 +104,9 @@
   color: #1e3a8a;
   font-style: italic;
 }
-.container blockquote p { margin-bottom: 0; }
+.container blockquote p {
+  margin-bottom: 0;
+}
 
 /* ── Inline code ──────────────────────────────────────── */
 .container code:not(pre > code) {
@@ -122,7 +144,9 @@
   text-decoration: underline;
   text-underline-offset: 3px;
   text-decoration-color: #bfdbfe;
-  transition: color 0.15s, text-decoration-color 0.15s;
+  transition:
+    color 0.15s,
+    text-decoration-color 0.15s;
 }
 .container a:hover {
   color: #1d4ed8;
@@ -149,7 +173,9 @@
   border-bottom: 1px solid #f1f5f9;
   vertical-align: top;
 }
-.container tbody tr:last-child td { border-bottom: none; }
+.container tbody tr:last-child td {
+  border-bottom: none;
+}
 
 /* ── Images ───────────────────────────────────────────── */
 .container img {

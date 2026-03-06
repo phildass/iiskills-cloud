@@ -30,13 +30,7 @@
     {
       "questionId": "q2",
       "questionText": "Which element of C.T.F.C. specifies how you want the output structured?",
-      "options": [
-        "Context",
-        "Task",
-        "Format",
-        "Constraints",
-        "I don't know"
-      ],
+      "options": ["Context", "Task", "Format", "Constraints", "I don't know"],
       "correctAnswerIndex": 2,
       "rationale": "Format determines the presentation style: code blocks, bullet points, tables, JSON, etc.",
       "deepDive": {

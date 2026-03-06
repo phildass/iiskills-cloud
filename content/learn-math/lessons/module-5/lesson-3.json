@@ -8,52 +8,27 @@
   "quiz": [
     {
       "question": "The Factor Theorem states (x – k) is a factor of P(x) iff:",
-      "options": [
-        "P(0) = 0",
-        "P(k) = 0",
-        "P(–k) = 0",
-        "k = 0"
-      ],
+      "options": ["P(0) = 0", "P(k) = 0", "P(–k) = 0", "k = 0"],
       "correct_answer": 1
     },
     {
       "question": "A polynomial of odd degree must have at least:",
-      "options": [
-        "Two real roots",
-        "One real root",
-        "No real roots",
-        "Three turning points"
-      ],
+      "options": ["Two real roots", "One real root", "No real roots", "Three turning points"],
       "correct_answer": 1
     },
     {
       "question": "The leading coefficient of 3x⁴ – 2x² + 7 is:",
-      "options": [
-        "4",
-        "3",
-        "–2",
-        "7"
-      ],
+      "options": ["4", "3", "–2", "7"],
       "correct_answer": 1
     },
     {
       "question": "If P(x) = x³ – 6x² + 11x – 6, then P(1) = :",
-      "options": [
-        "0",
-        "1",
-        "–1",
-        "6"
-      ],
+      "options": ["0", "1", "–1", "6"],
       "correct_answer": 0
     },
     {
       "question": "By the Fundamental Theorem of Algebra, a degree-n polynomial has exactly n roots in:",
-      "options": [
-        "ℤ",
-        "ℚ",
-        "ℝ",
-        "ℂ"
-      ],
+      "options": ["ℤ", "ℚ", "ℝ", "ℂ"],
       "correct_answer": 3
     }
   ]

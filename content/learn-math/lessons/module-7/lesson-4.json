@@ -8,42 +8,22 @@
   "quiz": [
     {
       "question": "In the substitution u = g(x), du = :",
-      "options": [
-        "g(x)dx",
-        "g'(x)dx",
-        "dx/g'(x)",
-        "g''(x)dx"
-      ],
+      "options": ["g(x)dx", "g'(x)dx", "dx/g'(x)", "g''(x)dx"],
       "correct_answer": 1
     },
     {
       "question": "To integrate ∫2x(x²+1)⁵ dx, set u = :",
-      "options": [
-        "2x",
-        "x²",
-        "x² + 1",
-        "(x²+1)⁵"
-      ],
+      "options": ["2x", "x²", "x² + 1", "(x²+1)⁵"],
       "correct_answer": 2
     },
     {
       "question": "After substituting u = x², du = 2x dx. So x dx = :",
-      "options": [
-        "du",
-        "2du",
-        "du/2",
-        "du/x"
-      ],
+      "options": ["du", "2du", "du/2", "du/x"],
       "correct_answer": 2
     },
     {
       "question": "∫cos(3x)dx using u = 3x gives:",
-      "options": [
-        "sin(3x) + C",
-        "sin(3x)/3 + C",
-        "3sin(3x) + C",
-        "–cos(3x)/3 + C"
-      ],
+      "options": ["sin(3x) + C", "sin(3x)/3 + C", "3sin(3x) + C", "–cos(3x)/3 + C"],
       "correct_answer": 1
     },
     {

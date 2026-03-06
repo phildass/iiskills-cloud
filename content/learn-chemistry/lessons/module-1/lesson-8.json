@@ -8,12 +8,7 @@
   "quiz": [
     {
       "question": "What type of bond involves the sharing of electrons between atoms?",
-      "options": [
-        "Ionic bond",
-        "Metallic bond",
-        "Covalent bond",
-        "Hydrogen bond"
-      ],
+      "options": ["Ionic bond", "Metallic bond", "Covalent bond", "Hydrogen bond"],
       "correct_answer": 2
     },
     {
@@ -48,12 +43,7 @@
     },
     {
       "question": "What is the symbol for water?",
-      "options": [
-        "CO2",
-        "NaCl",
-        "H2O",
-        "O2"
-      ],
+      "options": ["CO2", "NaCl", "H2O", "O2"],
       "correct_answer": 2
     }
   ]

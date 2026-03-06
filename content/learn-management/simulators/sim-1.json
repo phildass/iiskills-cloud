@@ -30,15 +30,7 @@
       "unit": "%"
     }
   ],
-  "outputs": [
-    "Budget breakdown",
-    "Projected ROI",
-    "Remaining contingency"
-  ],
+  "outputs": ["Budget breakdown", "Projected ROI", "Remaining contingency"],
   "image": "mgmt-sim-1.png",
-  "tags": [
-    "budgeting",
-    "financial management",
-    "resource allocation"
-  ]
+  "tags": ["budgeting", "financial management", "resource allocation"]
 }

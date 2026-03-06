@@ -18,12 +18,7 @@
     },
     {
       "question": "In triangle ABC, if a = 5, A = 30°, B = 45°, find b using the Sine Rule. The key ratio used is:",
-      "options": [
-        "a/sin A",
-        "a × sin A",
-        "sin A/a",
-        "a + sin A"
-      ],
+      "options": ["a/sin A", "a × sin A", "sin A/a", "a + sin A"],
       "correct_answer": 0
     },
     {
@@ -38,22 +33,12 @@
     },
     {
       "question": "The ambiguous case (two possible triangles) can arise with:",
-      "options": [
-        "SSS",
-        "ASA",
-        "AAS",
-        "SSA"
-      ],
+      "options": ["SSS", "ASA", "AAS", "SSA"],
       "correct_answer": 3
     },
     {
       "question": "In a triangle, the larger angle is always opposite the:",
-      "options": [
-        "Shorter side",
-        "Longer side",
-        "Right angle",
-        "Equal side"
-      ],
+      "options": ["Shorter side", "Longer side", "Right angle", "Equal side"],
       "correct_answer": 1
     }
   ]

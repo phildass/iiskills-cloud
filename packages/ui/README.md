@@ -28,7 +28,7 @@ This package is part of the iiskills-cloud monorepo and is automatically availab
 
 ```javascript
 // Import common components
-import { Header, Footer, Layout } from '@iiskills/ui';
+import { Header, Footer, Layout } from "@iiskills/ui";
 
 export default function Page() {
   return (
@@ -45,13 +45,13 @@ export default function Page() {
 
 ```javascript
 // Authentication components
-import { UniversalLogin, EnhancedUniversalRegister } from '@iiskills/ui/authentication';
+import { UniversalLogin, EnhancedUniversalRegister } from "@iiskills/ui/authentication";
 
 // Navigation components
-import { SharedNavbar, AppSwitcher } from '@iiskills/ui/navigation';
+import { SharedNavbar, AppSwitcher } from "@iiskills/ui/navigation";
 
 // Landing page components
-import { UniversalLandingPage, PaidAppLandingPage } from '@iiskills/ui/landing';
+import { UniversalLandingPage, PaidAppLandingPage } from "@iiskills/ui/landing";
 ```
 
 ---
@@ -59,7 +59,8 @@ import { UniversalLandingPage, PaidAppLandingPage } from '@iiskills/ui/landing';
 ## 📚 Component Categories
 
 ### Common Components ✅
-*Status: Migrated*
+
+_Status: Migrated_
 
 - **Header** - Universal header with branding
 - **Footer** - Consistent footer across all apps
@@ -67,13 +68,14 @@ import { UniversalLandingPage, PaidAppLandingPage } from '@iiskills/ui/landing';
 - **GoogleTranslate** - Multi-language support widget
 
 ```javascript
-import { Header, Footer, Layout, GoogleTranslate } from '@iiskills/ui/common';
+import { Header, Footer, Layout, GoogleTranslate } from "@iiskills/ui/common";
 // or
-import { Header, Footer } from '@iiskills/ui';
+import { Header, Footer } from "@iiskills/ui";
 ```
 
 ### Authentication Components 🔄
-*Status: Migration Pending*
+
+_Status: Migration Pending_
 
 - **UniversalLogin** - Standardized login page
 - **UniversalRegister** - Basic registration form
@@ -81,11 +83,12 @@ import { Header, Footer } from '@iiskills/ui';
 - **AuthenticationChecker** - Auth state verification
 
 ```javascript
-import { UniversalLogin, EnhancedUniversalRegister } from '@iiskills/ui/authentication';
+import { UniversalLogin, EnhancedUniversalRegister } from "@iiskills/ui/authentication";
 ```
 
 ### Navigation Components 🔄
-*Status: Migration Pending*
+
+_Status: Migration Pending_
 
 - **SharedNavbar** - Main navigation bar
 - **SubdomainNavbar** - App-specific navigation
@@ -95,11 +98,12 @@ import { UniversalLogin, EnhancedUniversalRegister } from '@iiskills/ui/authenti
 - **canonicalNavLinks** - Navigation link utilities
 
 ```javascript
-import { SharedNavbar, AppSwitcher } from '@iiskills/ui/navigation';
+import { SharedNavbar, AppSwitcher } from "@iiskills/ui/navigation";
 ```
 
 ### Landing Page Components 🔄
-*Status: Migration Pending*
+
+_Status: Migration Pending_
 
 - **UniversalLandingPage** - FREE app landing page
 - **PaidAppLandingPage** - PAID app landing page
@@ -109,11 +113,12 @@ import { SharedNavbar, AppSwitcher } from '@iiskills/ui/navigation';
 - **imageManifest** - Image asset management
 
 ```javascript
-import { UniversalLandingPage, PaidAppLandingPage } from '@iiskills/ui/landing';
+import { UniversalLandingPage, PaidAppLandingPage } from "@iiskills/ui/landing";
 ```
 
 ### Payment Components 🔄
-*Status: Migration Pending*
+
+_Status: Migration Pending_
 
 - **PremiumAccessPrompt** - Payment/upgrade prompt
 - **AIDevBundlePitch** - 2-for-1 bundle offer
@@ -121,11 +126,12 @@ import { UniversalLandingPage, PaidAppLandingPage } from '@iiskills/ui/landing';
 - **CalibrationGatekeeper** - Quiz-based access control
 
 ```javascript
-import { PremiumAccessPrompt, AIDevBundlePitch } from '@iiskills/ui/payment';
+import { PremiumAccessPrompt, AIDevBundlePitch } from "@iiskills/ui/payment";
 ```
 
 ### Content Components 🔄
-*Status: Migration Pending*
+
+_Status: Migration Pending_
 
 - **StandardizedLesson** - Lesson display component
 - **CurriculumTable** - Course syllabus table
@@ -134,46 +140,50 @@ import { PremiumAccessPrompt, AIDevBundlePitch } from '@iiskills/ui/payment';
 - **GatekeeperQuiz** - Access control quiz
 
 ```javascript
-import { StandardizedLesson, CurriculumTable } from '@iiskills/ui/content';
+import { StandardizedLesson, CurriculumTable } from "@iiskills/ui/content";
 ```
 
 ### Newsletter Components 🔄
-*Status: Migration Pending*
+
+_Status: Migration Pending_
 
 - **NewsletterSignup** - Newsletter subscription form
 - **NewsletterNavLink** - Newsletter navigation link
 
 ```javascript
-import { NewsletterSignup } from '@iiskills/ui/newsletter';
+import { NewsletterSignup } from "@iiskills/ui/newsletter";
 ```
 
 ### Translation Components 🔄
-*Status: Migration Pending*
+
+_Status: Migration Pending_
 
 - **TranslationDisclaimer** - Translation notice
 - **TranslationFeatureBanner** - Translation feature promotion
 
 ```javascript
-import { TranslationDisclaimer } from '@iiskills/ui/translation';
+import { TranslationDisclaimer } from "@iiskills/ui/translation";
 ```
 
 ### AI Components 🔄
-*Status: Migration Pending*
+
+_Status: Migration Pending_
 
 - **AIAssistant** - AI chat assistant
 - **AIContentFallback** - AI-generated content fallback
 
 ```javascript
-import { AIAssistant } from '@iiskills/ui/ai';
+import { AIAssistant } from "@iiskills/ui/ai";
 ```
 
 ### PWA Components 🔄
-*Status: Migration Pending*
+
+_Status: Migration Pending_
 
 - **InstallApp** - PWA installation prompt
 
 ```javascript
-import { InstallApp } from '@iiskills/ui/pwa';
+import { InstallApp } from "@iiskills/ui/pwa";
 ```
 
 ---
@@ -183,6 +193,7 @@ import { InstallApp } from '@iiskills/ui/pwa';
 ### Badge Colors
 
 **CRITICAL**: Always use correct badge colors:
+
 - **FREE apps**: Green (`bg-green-500`)
 - **PAID apps**: Blue (`bg-blue-600`)
 
@@ -213,12 +224,13 @@ import { InstallApp } from '@iiskills/ui/pwa';
 ### Component Props
 
 All components accept standard props:
+
 - `appId` (string) - Application identifier from appRegistry
 - `className` (string, optional) - Additional CSS classes
 - `children` (ReactNode, optional) - Child components
 
 ```javascript
-<UniversalLandingPage 
+<UniversalLandingPage
   appId="learn-ai"
   className="custom-class"
   courseData={...}
@@ -262,15 +274,15 @@ Each component should have JSDoc comments:
 ```javascript
 /**
  * UniversalLogin - Standardized login component
- * 
+ *
  * @param {Object} props
  * @param {string} props.appId - App identifier
  * @param {Function} props.onSuccess - Success callback
  * @param {string} [props.redirectUrl] - Redirect URL
  * @returns {JSX.Element}
- * 
+ *
  * @example
- * <UniversalLogin 
+ * <UniversalLogin
  *   appId="learn-ai"
  *   onSuccess={() => router.push('/dashboard')}
  * />
@@ -292,13 +304,15 @@ Each component should have JSDoc comments:
 When components are migrated, import paths will change:
 
 **Before**:
+
 ```javascript
-import UniversalLogin from '@/components/shared/UniversalLogin';
+import UniversalLogin from "@/components/shared/UniversalLogin";
 ```
 
 **After**:
+
 ```javascript
-import { UniversalLogin } from '@iiskills/ui/authentication';
+import { UniversalLogin } from "@iiskills/ui/authentication";
 ```
 
 All apps will be updated systematically. See [COMPONENT_MIGRATION_PLAN.md](../../COMPONENT_MIGRATION_PLAN.md) for details.
@@ -307,18 +321,18 @@ All apps will be updated systematically. See [COMPONENT_MIGRATION_PLAN.md](../..
 
 ## 📋 Migration Status
 
-| Category | Components | Status | Target Date |
-|----------|-----------|--------|-------------|
-| Common | 4 | ✅ Complete | Done |
-| Authentication | 4 | 🔄 Pending | Week 1 |
-| Navigation | 6 | 🔄 Pending | Week 2 |
-| Landing | 7 | 🔄 Pending | Week 3 |
-| Payment | 4 | 🔄 Pending | Week 4 |
-| Content | 5 | 🔄 Pending | Week 4 |
-| Newsletter | 2 | 🔄 Pending | Week 5 |
-| Translation | 2 | 🔄 Pending | Week 5 |
-| AI | 2 | 🔄 Pending | Week 5 |
-| PWA | 1 | 🔄 Pending | Week 5 |
+| Category       | Components | Status      | Target Date |
+| -------------- | ---------- | ----------- | ----------- |
+| Common         | 4          | ✅ Complete | Done        |
+| Authentication | 4          | 🔄 Pending  | Week 1      |
+| Navigation     | 6          | 🔄 Pending  | Week 2      |
+| Landing        | 7          | 🔄 Pending  | Week 3      |
+| Payment        | 4          | 🔄 Pending  | Week 4      |
+| Content        | 5          | 🔄 Pending  | Week 4      |
+| Newsletter     | 2          | 🔄 Pending  | Week 5      |
+| Translation    | 2          | 🔄 Pending  | Week 5      |
+| AI             | 2          | 🔄 Pending  | Week 5      |
+| PWA            | 1          | 🔄 Pending  | Week 5      |
 
 **Total**: 37 components (4 migrated, 33 pending)
 

@@ -8,52 +8,27 @@
   "quiz": [
     {
       "question": "A reflection of point (3,2) about the y-axis gives:",
-      "options": [
-        "(3,–2)",
-        "(–3,2)",
-        "(–3,–2)",
-        "(2,3)"
-      ],
+      "options": ["(3,–2)", "(–3,2)", "(–3,–2)", "(2,3)"],
       "correct_answer": 1
     },
     {
       "question": "A rotation of 90° anticlockwise maps (x,y) to:",
-      "options": [
-        "(–y,x)",
-        "(y,–x)",
-        "(–x,y)",
-        "(y,x)"
-      ],
+      "options": ["(–y,x)", "(y,–x)", "(–x,y)", "(y,x)"],
       "correct_answer": 0
     },
     {
       "question": "A translation by vector (3,–2) maps (1,4) to:",
-      "options": [
-        "(4,2)",
-        "(–2,6)",
-        "(3,2)",
-        "(2,4)"
-      ],
+      "options": ["(4,2)", "(–2,6)", "(3,2)", "(2,4)"],
       "correct_answer": 0
     },
     {
       "question": "An enlargement with scale factor 3 multiplies all lengths by:",
-      "options": [
-        "1",
-        "2",
-        "3",
-        "9"
-      ],
+      "options": ["1", "2", "3", "9"],
       "correct_answer": 2
     },
     {
       "question": "Which transformation preserves shape and size?",
-      "options": [
-        "Enlargement",
-        "Stretch",
-        "Reflection",
-        "Shear"
-      ],
+      "options": ["Enlargement", "Stretch", "Reflection", "Shear"],
       "correct_answer": 2
     }
   ]

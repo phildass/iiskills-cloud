@@ -1,13 +1,13 @@
 /**
  * useModuleData Hook
- * 
+ *
  * A standardized React hook for fetching module data
  * regardless of the backend source. Provides consistent
  * interface across all apps.
  */
 
-import { useState, useEffect, useCallback } from 'react';
-import { Module, ModuleCollection, ModuleFilters, ContentType } from '../types/module.types';
+import { useState, useEffect, useCallback } from "react";
+import { Module, ModuleCollection, ModuleFilters, ContentType } from "../types/module.types";
 
 /**
  * Hook options
@@ -15,19 +15,19 @@ import { Module, ModuleCollection, ModuleFilters, ContentType } from '../types/m
 export interface UseModuleDataOptions {
   // Data source configuration
   endpoint?: string;
-  
+
   // Filters
   filters?: ModuleFilters;
-  
+
   // Pagination
   page?: number;
   pageSize?: number;
-  
+
   // Behavior
   autoFetch?: boolean;
   cacheKey?: string;
   cacheDuration?: number; // in milliseconds
-  
+
   // Callbacks
   onSuccess?: (data: ModuleCollection) => void;
   onError?: (error: Error) => void;
@@ -41,12 +41,12 @@ export interface UseModuleDataResult {
   modules: Module[];
   total: number;
   hasMore: boolean;
-  
+
   // State
   isLoading: boolean;
   isError: boolean;
   error: Error | null;
-  
+
   // Actions
   refetch: () => Promise<void>;
   fetchMore: () => Promise<void>;
@@ -64,7 +64,7 @@ const cache = new Map<string, { data: ModuleCollection; timestamp: number }>();
  */
 export function useModuleData(options: UseModuleDataOptions = {}): UseModuleDataResult {
   const {
-    endpoint = '/api/modules',
+    endpoint = "/api/modules",
     filters = {},
     page: initialPage = 1,
     pageSize = 10,
@@ -90,26 +90,26 @@ export function useModuleData(options: UseModuleDataOptions = {}): UseModuleData
   const buildQueryString = useCallback(
     (page: number, filters: ModuleFilters): string => {
       const params = new URLSearchParams();
-      
-      params.set('page', page.toString());
-      params.set('pageSize', pageSize.toString());
-      
+
+      params.set("page", page.toString());
+      params.set("pageSize", pageSize.toString());
+
       if (filters.content_type?.length) {
-        params.set('content_type', filters.content_type.join(','));
+        params.set("content_type", filters.content_type.join(","));
       }
       if (filters.tags?.length) {
-        params.set('tags', filters.tags.join(','));
+        params.set("tags", filters.tags.join(","));
       }
       if (filters.difficulty?.length) {
-        params.set('difficulty', filters.difficulty.join(','));
+        params.set("difficulty", filters.difficulty.join(","));
       }
       if (filters.status?.length) {
-        params.set('status', filters.status.join(','));
+        params.set("status", filters.status.join(","));
       }
       if (filters.searchQuery) {
-        params.set('q', filters.searchQuery);
+        params.set("q", filters.searchQuery);
       }
-      
+
       return params.toString();
     },
     [pageSize]
@@ -129,60 +129,60 @@ export function useModuleData(options: UseModuleDataOptions = {}): UseModuleData
         const queryString = buildQueryString(page, filters);
         const key = cacheKey || `${endpoint}?${queryString}`;
         const cached = cache.get(key);
-        
+
         if (cached && Date.now() - cached.timestamp < cacheDuration) {
           const { modules: cachedModules, total, hasMore } = cached.data;
-          
+
           if (append) {
             setModules((prev) => [...prev, ...cachedModules]);
           } else {
             setModules(cachedModules);
           }
-          
+
           setTotal(total);
           setHasMore(hasMore);
           setIsLoading(false);
-          
+
           if (onSuccess) {
             onSuccess(cached.data);
           }
-          
+
           return;
         }
 
         // Fetch from API
         const response = await fetch(`${endpoint}?${queryString}`);
-        
+
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
-        
+
         const data: ModuleCollection = await response.json();
-        
+
         // Update cache
         cache.set(key, {
           data,
           timestamp: Date.now(),
         });
-        
+
         // Update state
         if (append) {
           setModules((prev) => [...prev, ...data.modules]);
         } else {
           setModules(data.modules);
         }
-        
+
         setTotal(data.total);
         setHasMore(data.hasMore);
-        
+
         if (onSuccess) {
           onSuccess(data);
         }
       } catch (err) {
-        const error = err instanceof Error ? err : new Error('Failed to fetch modules');
+        const error = err instanceof Error ? err : new Error("Failed to fetch modules");
         setIsError(true);
         setError(error);
-        
+
         if (onError) {
           onError(error);
         }
@@ -205,7 +205,7 @@ export function useModuleData(options: UseModuleDataOptions = {}): UseModuleData
    */
   const fetchMore = useCallback(async () => {
     if (!hasMore || isLoading) return;
-    
+
     const nextPage = currentPage + 1;
     setCurrentPage(nextPage);
     await fetchModules(nextPage, currentFilters, true);
@@ -258,7 +258,7 @@ export function useModuleData(options: UseModuleDataOptions = {}): UseModuleData
 /**
  * Hook for fetching a single module by ID
  */
-export function useModule(id: string, endpoint = '/api/modules') {
+export function useModule(id: string, endpoint = "/api/modules") {
   const [module, setModule] = useState<Module | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
@@ -271,15 +271,15 @@ export function useModule(id: string, endpoint = '/api/modules') {
 
     try {
       const response = await fetch(`${endpoint}/${id}`);
-      
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      
+
       const data: Module = await response.json();
       setModule(data);
     } catch (err) {
-      const error = err instanceof Error ? err : new Error('Failed to fetch module');
+      const error = err instanceof Error ? err : new Error("Failed to fetch module");
       setIsError(true);
       setError(error);
     } finally {

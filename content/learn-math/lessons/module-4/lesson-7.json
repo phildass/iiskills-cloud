@@ -8,12 +8,7 @@
   "quiz": [
     {
       "question": "The Cosine Rule states c² = a² + b² – 2ab·cos(C). When C = 90°, this reduces to:",
-      "options": [
-        "c² = a² – b²",
-        "c² = a² + b² + 2ab",
-        "c² = a² + b²",
-        "c = a + b"
-      ],
+      "options": ["c² = a² – b²", "c² = a² + b² + 2ab", "c² = a² + b²", "c = a + b"],
       "correct_answer": 2
     },
     {
@@ -48,12 +43,7 @@
     },
     {
       "question": "For which combination does the Cosine Rule apply but Sine Rule is less direct?",
-      "options": [
-        "AAS",
-        "ASA",
-        "SSS",
-        "AAA"
-      ],
+      "options": ["AAS", "ASA", "SSS", "AAA"],
       "correct_answer": 2
     }
   ]

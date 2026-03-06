@@ -8,12 +8,7 @@
   "quiz": [
     {
       "question": "To multiply A (m×n) by B (n×p), the result has dimensions:",
-      "options": [
-        "m×n",
-        "n×p",
-        "m×p",
-        "n×n"
-      ],
+      "options": ["m×n", "n×p", "m×p", "n×n"],
       "correct_answer": 2
     },
     {
@@ -38,12 +33,7 @@
     },
     {
       "question": "For 2×2 matrices, AB ≠ BA in general. This means multiplication is:",
-      "options": [
-        "Associative",
-        "Distributive",
-        "Non-commutative",
-        "Invertible"
-      ],
+      "options": ["Associative", "Distributive", "Non-commutative", "Invertible"],
       "correct_answer": 2
     },
     {

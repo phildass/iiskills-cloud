@@ -8,12 +8,7 @@
   "quiz": [
     {
       "question": "The sum of interior angles of a quadrilateral is:",
-      "options": [
-        "180°",
-        "270°",
-        "360°",
-        "540°"
-      ],
+      "options": ["180°", "270°", "360°", "540°"],
       "correct_answer": 2
     },
     {
@@ -38,22 +33,12 @@
     },
     {
       "question": "The diagonals of a rectangle are:",
-      "options": [
-        "Perpendicular",
-        "Equal in length",
-        "Unequal",
-        "Parallel"
-      ],
+      "options": ["Perpendicular", "Equal in length", "Unequal", "Parallel"],
       "correct_answer": 1
     },
     {
       "question": "A trapezium has exactly how many pairs of parallel sides?",
-      "options": [
-        "0",
-        "1",
-        "2",
-        "3"
-      ],
+      "options": ["0", "1", "2", "3"],
       "correct_answer": 1
     }
   ]

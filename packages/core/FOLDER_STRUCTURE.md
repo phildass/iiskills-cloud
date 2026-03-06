@@ -112,24 +112,28 @@ packages/core/                          # Core shared library
 ## 🏛️ Architecture Layers
 
 ### 1. Data Layer (types/)
+
 - **Purpose**: Define the shape of all data structures
 - **Key Concept**: Discriminated unions for type safety
 - **Files**: module.types.ts, config.types.ts
 
 ### 2. Logic Layer (hooks/, utils/)
+
 - **Purpose**: Handle data fetching and transformations
 - **Key Concept**: Reusable hooks and utility functions
 - **Files**: useModuleData.ts, moduleUtils.ts
 
 ### 3. Presentation Layer (components/)
+
 - **Purpose**: Render UI based on data and config
 - **Key Concept**: Schema-driven rendering with switch statements
 - **Files**: ModuleContainer.tsx, ModuleSwitcher.tsx
 
 ### 4. Configuration Layer (config/, theme/)
+
 - **Purpose**: Define app-specific settings and styling
 - **Key Concept**: JSON-based configuration, CSS variables
-- **Files**: *.config.json, theme.ts
+- **Files**: \*.config.json, theme.ts
 
 ## 🔄 Data Flow
 
@@ -152,11 +156,13 @@ packages/core/                          # Core shared library
 ## 🎨 How Content Types Work
 
 Each content type has:
+
 1. **Type Definition** (in module.types.ts)
 2. **Default Renderer** (in ModuleSwitcher.tsx)
 3. **Custom Renderer** (optional, app-specific)
 
 Example flow for a lesson:
+
 ```
 Module<'lesson'> → ModuleSwitcher → DefaultLessonRenderer or CustomLessonRenderer
 ```
@@ -173,7 +179,9 @@ Apps can customize:
 ## 📦 Usage in Apps
 
 ### Step 1: Install
+
 Add to app's package.json:
+
 ```json
 {
   "dependencies": {
@@ -183,14 +191,17 @@ Add to app's package.json:
 ```
 
 ### Step 2: Configure
+
 Create `config/app.config.json` based on templates
 
 ### Step 3: Import & Use
+
 ```typescript
-import { ModuleContainer, useModule } from '@iiskills/core';
+import { ModuleContainer, useModule } from "@iiskills/core";
 ```
 
 ### Step 4: Customize
+
 Override renderers, theme, or configuration as needed
 
 ## 🌟 Key Benefits
@@ -204,14 +215,14 @@ Override renderers, theme, or configuration as needed
 
 ## 📚 File Responsibilities
 
-| File | Responsibility | Size |
-|------|---------------|------|
-| module.types.ts | Define all module data structures | ~150 LOC |
-| config.types.ts | Define configuration structure | ~180 LOC |
-| useModuleData.ts | Data fetching hook with caching | ~280 LOC |
-| ModuleContainer.tsx | HOC with loading/error states | ~230 LOC |
-| ModuleSwitcher.tsx | Content-type-based renderer | ~400 LOC |
-| theme.ts | Theme system with CSS variables | ~270 LOC |
-| moduleUtils.ts | Utility functions for modules | ~230 LOC |
+| File                | Responsibility                    | Size     |
+| ------------------- | --------------------------------- | -------- |
+| module.types.ts     | Define all module data structures | ~150 LOC |
+| config.types.ts     | Define configuration structure    | ~180 LOC |
+| useModuleData.ts    | Data fetching hook with caching   | ~280 LOC |
+| ModuleContainer.tsx | HOC with loading/error states     | ~230 LOC |
+| ModuleSwitcher.tsx  | Content-type-based renderer       | ~400 LOC |
+| theme.ts            | Theme system with CSS variables   | ~270 LOC |
+| moduleUtils.ts      | Utility functions for modules     | ~230 LOC |
 
 Total: ~1,740 lines of reusable code

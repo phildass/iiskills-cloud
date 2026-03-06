@@ -18,12 +18,7 @@
     },
     {
       "question": "Which strait connects the Atlantic and Pacific Oceans?",
-      "options": [
-        "Strait of Gibraltar",
-        "Drake Passage",
-        "Strait of Malacca",
-        "Bosphorus Strait"
-      ],
+      "options": ["Strait of Gibraltar", "Drake Passage", "Strait of Malacca", "Bosphorus Strait"],
       "correct_answer": 1
     },
     {
@@ -38,12 +33,7 @@
     },
     {
       "question": "Which gulf is the world's largest?",
-      "options": [
-        "Gulf of Mexico",
-        "Gulf of Guinea",
-        "Persian Gulf",
-        "Gulf of Aden"
-      ],
+      "options": ["Gulf of Mexico", "Gulf of Guinea", "Persian Gulf", "Gulf of Aden"],
       "correct_answer": 0
     },
     {

@@ -8,52 +8,27 @@
   "quiz": [
     {
       "question": "Simplify √48:",
-      "options": [
-        "4√3",
-        "6√2",
-        "3√4",
-        "2√12"
-      ],
+      "options": ["4√3", "6√2", "3√4", "2√12"],
       "correct_answer": 0
     },
     {
       "question": "What is 8^(2/3)?",
-      "options": [
-        "2",
-        "4",
-        "6",
-        "8"
-      ],
+      "options": ["2", "4", "6", "8"],
       "correct_answer": 1
     },
     {
       "question": "Rationalising 1/√5 gives:",
-      "options": [
-        "√5",
-        "√5/5",
-        "5",
-        "1/5"
-      ],
+      "options": ["√5", "√5/5", "5", "1/5"],
       "correct_answer": 1
     },
     {
       "question": "aᵐ × aⁿ equals:",
-      "options": [
-        "aᵐⁿ",
-        "aᵐ⁺ⁿ",
-        "aᵐ/aⁿ",
-        "a²ᵐⁿ"
-      ],
+      "options": ["aᵐⁿ", "aᵐ⁺ⁿ", "aᵐ/aⁿ", "a²ᵐⁿ"],
       "correct_answer": 1
     },
     {
       "question": "3√2 + 5√2 equals:",
-      "options": [
-        "8",
-        "8√2",
-        "8√4",
-        "15√2"
-      ],
+      "options": ["8", "8√2", "8√4", "15√2"],
       "correct_answer": 1
     }
   ]

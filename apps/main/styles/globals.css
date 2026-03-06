@@ -40,7 +40,8 @@ body {
 
 /* Blinking animation for FREE label */
 @keyframes blink {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 1;
   }
   50% {

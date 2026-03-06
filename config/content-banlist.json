@@ -10,13 +10,7 @@
     "racist",
     "sexist"
   ],
-  "bannedPhrases": [
-    "vote for",
-    "support party",
-    "religious belief",
-    "god said",
-    "fake news"
-  ],
+  "bannedPhrases": ["vote for", "support party", "religious belief", "god said", "fake news"],
   "controversialTopics": [
     "politics",
     "religion",

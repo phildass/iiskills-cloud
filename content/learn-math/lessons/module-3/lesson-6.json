@@ -8,52 +8,27 @@
   "quiz": [
     {
       "question": "The distance between (1,2) and (4,6) is:",
-      "options": [
-        "5",
-        "6",
-        "7",
-        "4"
-      ],
+      "options": ["5", "6", "7", "4"],
       "correct_answer": 0
     },
     {
       "question": "The midpoint of (0,0) and (4,6) is:",
-      "options": [
-        "(2,3)",
-        "(4,6)",
-        "(1,1.5)",
-        "(3,4)"
-      ],
+      "options": ["(2,3)", "(4,6)", "(1,1.5)", "(3,4)"],
       "correct_answer": 0
     },
     {
       "question": "The slope of a vertical line is:",
-      "options": [
-        "0",
-        "1",
-        "–1",
-        "Undefined"
-      ],
+      "options": ["0", "1", "–1", "Undefined"],
       "correct_answer": 3
     },
     {
       "question": "Two lines are perpendicular if their slopes m₁ and m₂ satisfy:",
-      "options": [
-        "m₁ = m₂",
-        "m₁ + m₂ = 0",
-        "m₁ × m₂ = –1",
-        "m₁ – m₂ = 1"
-      ],
+      "options": ["m₁ = m₂", "m₁ + m₂ = 0", "m₁ × m₂ = –1", "m₁ – m₂ = 1"],
       "correct_answer": 2
     },
     {
       "question": "The equation of a circle with centre (0,0) and radius r is:",
-      "options": [
-        "x + y = r",
-        "x² + y² = r",
-        "x² + y² = r²",
-        "(x+y)² = r²"
-      ],
+      "options": ["x + y = r", "x² + y² = r", "x² + y² = r²", "(x+y)² = r²"],
       "correct_answer": 2
     }
   ]

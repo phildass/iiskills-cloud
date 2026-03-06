@@ -38,12 +38,7 @@
     },
     {
       "question": "How many parameters does an Express error-handling middleware have?",
-      "options": [
-        "2 (req, res)",
-        "3 (req, res, next)",
-        "4 (err, req, res, next)",
-        "1 (err)"
-      ],
+      "options": ["2 (req, res)", "3 (req, res, next)", "4 (err, req, res, next)", "1 (err)"],
       "correct_answer": 2
     },
     {

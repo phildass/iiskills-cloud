@@ -18,12 +18,7 @@
     },
     {
       "question": "In which module does \"Renewable Energy Transitions\" appear?",
-      "options": [
-        "Human Geography",
-        "Physical Geography",
-        "Environmental Issues",
-        "Climate Zones"
-      ],
+      "options": ["Human Geography", "Physical Geography", "Environmental Issues", "Climate Zones"],
       "correct_answer": 2
     },
     {

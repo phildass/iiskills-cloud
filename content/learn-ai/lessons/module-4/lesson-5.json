@@ -8,12 +8,7 @@
   "quiz": [
     {
       "question": "What method trains (fits) a Scikit-learn model on data?",
-      "options": [
-        "model.train()",
-        "model.fit(X_train, y_train)",
-        "model.learn()",
-        "model.run()"
-      ],
+      "options": ["model.train()", "model.fit(X_train, y_train)", "model.learn()", "model.run()"],
       "correct_answer": 1
     },
     {
@@ -38,12 +33,7 @@
     },
     {
       "question": "Which metric is most appropriate for an imbalanced classification problem (e.g., fraud detection)?",
-      "options": [
-        "Accuracy",
-        "F1-score or AUC-ROC",
-        "Mean Squared Error",
-        "R-squared"
-      ],
+      "options": ["Accuracy", "F1-score or AUC-ROC", "Mean Squared Error", "R-squared"],
       "correct_answer": 1
     },
     {

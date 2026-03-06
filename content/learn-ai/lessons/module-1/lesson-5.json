@@ -8,32 +8,17 @@
   "quiz": [
     {
       "question": "Which type of AI problem predicts a continuous numerical value?",
-      "options": [
-        "Classification",
-        "Clustering",
-        "Regression",
-        "Anomaly detection"
-      ],
+      "options": ["Classification", "Clustering", "Regression", "Anomaly detection"],
       "correct_answer": 2
     },
     {
       "question": "Identifying fraudulent UPI transactions is best framed as which type of AI problem?",
-      "options": [
-        "Regression",
-        "Classification or Anomaly Detection",
-        "Clustering",
-        "Generation"
-      ],
+      "options": ["Regression", "Classification or Anomaly Detection", "Clustering", "Generation"],
       "correct_answer": 1
     },
     {
       "question": "Grouping Indian districts by agricultural risk without predefined labels is an example of:",
-      "options": [
-        "Supervised classification",
-        "Regression",
-        "Clustering",
-        "Recommendation"
-      ],
+      "options": ["Supervised classification", "Regression", "Clustering", "Recommendation"],
       "correct_answer": 2
     },
     {

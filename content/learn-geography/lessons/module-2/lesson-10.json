@@ -8,22 +8,12 @@
   "quiz": [
     {
       "question": "Which continent is the most densely populated?",
-      "options": [
-        "Africa",
-        "Asia",
-        "Europe",
-        "North America"
-      ],
+      "options": ["Africa", "Asia", "Europe", "North America"],
       "correct_answer": 1
     },
     {
       "question": "Which continent has the highest average elevation?",
-      "options": [
-        "Asia",
-        "Antarctica",
-        "South America",
-        "Australia"
-      ],
+      "options": ["Asia", "Antarctica", "South America", "Australia"],
       "correct_answer": 1
     },
     {
@@ -48,12 +38,7 @@
     },
     {
       "question": "Which continent has the lowest average precipitation?",
-      "options": [
-        "Australia",
-        "Antarctica",
-        "Africa",
-        "Asia"
-      ],
+      "options": ["Australia", "Antarctica", "Africa", "Asia"],
       "correct_answer": 1
     }
   ]

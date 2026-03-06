@@ -8,12 +8,7 @@
   "quiz": [
     {
       "question": "Who coined the term 'Artificial Intelligence'?",
-      "options": [
-        "Alan Turing",
-        "John McCarthy",
-        "Marvin Minsky",
-        "Geoffrey Hinton"
-      ],
+      "options": ["Alan Turing", "John McCarthy", "Marvin Minsky", "Geoffrey Hinton"],
       "correct_answer": 1
     },
     {

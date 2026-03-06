@@ -13,28 +13,28 @@ This report covers the deployment, Supabase authentication setup, paywall/entitl
 
 Each app needs a `.env.local` file (or PM2 `env` block) with these variables.
 
-### All Apps (learn-* and apps/main)
+### All Apps (learn-\* and apps/main)
 
-| Variable | Description | Required |
-|---|---|---|
-| `NEXT_PUBLIC_SUPABASE_URL` | Your Supabase project URL (e.g. `https://xxx.supabase.co`) | Yes |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase public anon key | Yes |
+| Variable                        | Description                                                | Required |
+| ------------------------------- | ---------------------------------------------------------- | -------- |
+| `NEXT_PUBLIC_SUPABASE_URL`      | Your Supabase project URL (e.g. `https://xxx.supabase.co`) | Yes      |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase public anon key                                   | Yes      |
 
 ### apps/main only (server-side)
 
-| Variable | Description | Required |
-|---|---|---|
-| `SUPABASE_SERVICE_ROLE_KEY` | Service role key (for admin operations) | Yes (for admin/entitlement APIs) |
-| `NEXT_PUBLIC_SUPABASE_URL` | Same as above | Yes |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Same as above | Yes |
+| Variable                        | Description                             | Required                         |
+| ------------------------------- | --------------------------------------- | -------------------------------- |
+| `SUPABASE_SERVICE_ROLE_KEY`     | Service role key (for admin operations) | Yes (for admin/entitlement APIs) |
+| `NEXT_PUBLIC_SUPABASE_URL`      | Same as above                           | Yes                              |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Same as above                           | Yes                              |
 
 ### Optional
 
-| Variable | Description |
-|---|---|
-| `NEXT_PUBLIC_DISABLE_AUTH` | Set to `true` to disable auth (CI/dev builds without credentials) |
-| `NEXT_PUBLIC_DISABLE_GOOGLE_TRANSLATE` | Set to `true` to hide the translate widget |
-| `PORT` | Override port (set automatically by deploy-all.sh) |
+| Variable                               | Description                                                       |
+| -------------------------------------- | ----------------------------------------------------------------- |
+| `NEXT_PUBLIC_DISABLE_AUTH`             | Set to `true` to disable auth (CI/dev builds without credentials) |
+| `NEXT_PUBLIC_DISABLE_GOOGLE_TRANSLATE` | Set to `true` to hide the translate widget                        |
+| `PORT`                                 | Override port (set automatically by deploy-all.sh)                |
 
 ### PM2 Ecosystem Config Example
 
@@ -63,6 +63,7 @@ Run this migration in your Supabase SQL editor or via `supabase db push`:
 **File:** `supabase/migrations/entitlements_table.sql`
 
 Key points:
+
 - Table: `public.entitlements`
 - Columns: `id`, `user_id`, `app_id`, `course_id`, `status`, `purchased_at`, `expires_at`, `source`, `payment_reference`, `granted_by`
 - RLS: Users can SELECT their own rows; Admins (via `profiles.is_admin`) can manage all rows
@@ -167,10 +168,10 @@ curl -fsS http://localhost:3024               # learn-ai
 
 All prices are sourced from `utils/pricing.js` (centralized, single source of truth):
 
-| Period | Base Price | GST (18%) | Total |
-|---|---|---|---|
-| Introductory (until 14 Feb 2026) | ₹99 | ₹17.82 | ₹116.82 |
-| Regular (from 15 Feb 2026) | ₹299 | ₹53.82 | ₹352.82 |
+| Period                           | Base Price | GST (18%) | Total   |
+| -------------------------------- | ---------- | --------- | ------- |
+| Introductory (until 14 Feb 2026) | ₹99        | ₹17.82    | ₹116.82 |
+| Regular (from 15 Feb 2026)       | ₹299       | ₹53.82    | ₹352.82 |
 
 **AI + Developer Bundle:** Buy one, get one free — valid until **31 March 2026**.
 
@@ -181,6 +182,7 @@ All prices are sourced from `utils/pricing.js` (centralized, single source of tr
 Google Translate widget is embedded in the shared `Footer` component (`packages/ui/src/common/Footer.js`). It appears in all apps automatically.
 
 CSP headers allow:
+
 - `script-src`: `https://www.google.com https://www.gstatic.com https://translate.google.com`
 - `connect-src`: `https://translate.googleapis.com`
 - `frame-src`: `https://www.google.com https://translate.google.com https://translate.googleapis.com`
@@ -191,17 +193,17 @@ To disable translate in a specific app, set `NEXT_PUBLIC_DISABLE_GOOGLE_TRANSLAT
 
 ## 7. Paid Apps Summary
 
-| App | Paid | AI-Dev Bundle |
-|---|---|---|
-| learn-ai | ✅ | ✅ (paired with learn-developer) |
-| learn-developer | ✅ | ✅ (paired with learn-ai) |
-| learn-management | ✅ | ❌ |
-| learn-pr | ✅ | ❌ |
-| learn-apt | Free (registration required) | ❌ |
-| learn-chemistry | Free (registration required) | ❌ |
-| learn-geography | Free (registration required) | ❌ |
-| learn-math | Free (registration required) | ❌ |
-| learn-physics | Free (registration required) | ❌ |
+| App              | Paid                         | AI-Dev Bundle                    |
+| ---------------- | ---------------------------- | -------------------------------- |
+| learn-ai         | ✅                           | ✅ (paired with learn-developer) |
+| learn-developer  | ✅                           | ✅ (paired with learn-ai)        |
+| learn-management | ✅                           | ❌                               |
+| learn-pr         | ✅                           | ❌                               |
+| learn-apt        | Free (registration required) | ❌                               |
+| learn-chemistry  | Free (registration required) | ❌                               |
+| learn-geography  | Free (registration required) | ❌                               |
+| learn-math       | Free (registration required) | ❌                               |
+| learn-physics    | Free (registration required) | ❌                               |
 
 ---
 

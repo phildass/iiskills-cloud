@@ -28,32 +28,17 @@
     },
     {
       "question": "The vertex of y = 2(x–3)² + 5 is:",
-      "options": [
-        "(3, 5)",
-        "(–3, 5)",
-        "(5, 3)",
-        "(2, 5)"
-      ],
+      "options": ["(3, 5)", "(–3, 5)", "(5, 3)", "(2, 5)"],
       "correct_answer": 0
     },
     {
       "question": "Vieta's formula for product of roots of ax² + bx + c = 0 is:",
-      "options": [
-        "–b/a",
-        "b/a",
-        "c/a",
-        "–c/a"
-      ],
+      "options": ["–b/a", "b/a", "c/a", "–c/a"],
       "correct_answer": 2
     },
     {
       "question": "Completing the square on x² + 6x gives:",
-      "options": [
-        "(x+3)² – 9",
-        "(x+6)² – 36",
-        "(x+3)² + 9",
-        "(x–3)² – 9"
-      ],
+      "options": ["(x+3)² – 9", "(x+6)² – 36", "(x+3)² + 9", "(x–3)² – 9"],
       "correct_answer": 0
     }
   ]

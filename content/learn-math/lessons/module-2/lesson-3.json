@@ -18,42 +18,22 @@
     },
     {
       "question": "The discriminant of ax² + bx + c is:",
-      "options": [
-        "b² + 4ac",
-        "b² – 4ac",
-        "–b² + 4ac",
-        "4ac – b"
-      ],
+      "options": ["b² + 4ac", "b² – 4ac", "–b² + 4ac", "4ac – b"],
       "correct_answer": 1
     },
     {
       "question": "If Δ < 0, the quadratic has:",
-      "options": [
-        "Two real roots",
-        "One repeated root",
-        "Two complex roots",
-        "No roots at all"
-      ],
+      "options": ["Two real roots", "One repeated root", "Two complex roots", "No roots at all"],
       "correct_answer": 2
     },
     {
       "question": "The roots of x² – 5x + 6 = 0 are:",
-      "options": [
-        "2 and 3",
-        "–2 and –3",
-        "1 and 6",
-        "–1 and 6"
-      ],
+      "options": ["2 and 3", "–2 and –3", "1 and 6", "–1 and 6"],
       "correct_answer": 0
     },
     {
       "question": "According to Vieta's formulas, for ax² + bx + c = 0, the sum of roots is:",
-      "options": [
-        "c/a",
-        "b/a",
-        "–b/a",
-        "–c/a"
-      ],
+      "options": ["c/a", "b/a", "–b/a", "–c/a"],
       "correct_answer": 2
     }
   ]

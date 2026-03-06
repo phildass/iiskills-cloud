@@ -28,12 +28,7 @@
     },
     {
       "question": "Which Indian supercomputer provides publicly available HPC resources for AI?",
-      "options": [
-        "ISRO-AI",
-        "Param Siddhi AI",
-        "Aadhaar Compute",
-        "BharatHPC"
-      ],
+      "options": ["ISRO-AI", "Param Siddhi AI", "Aadhaar Compute", "BharatHPC"],
       "correct_answer": 1
     },
     {
@@ -48,12 +43,7 @@
     },
     {
       "question": "Which platform provides free GPU access for AI learning?",
-      "options": [
-        "AWS Free Tier",
-        "Google Colab",
-        "Azure Dev Sandbox",
-        "Heroku"
-      ],
+      "options": ["AWS Free Tier", "Google Colab", "Azure Dev Sandbox", "Heroku"],
       "correct_answer": 1
     }
   ]

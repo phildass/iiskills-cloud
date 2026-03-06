@@ -7,17 +7,17 @@ name: Build & Test All Apps
 
 on:
   pull_request:
-    branches: [ main ]
+    branches: [main]
   push:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   build-all-apps:
     runs-on: ubuntu-latest
-    
+
     permissions:
       contents: read
-    
+
     strategy:
       matrix:
         app:
@@ -32,22 +32,22 @@ jobs:
           - apps/learn-physics
           - apps/learn-pr
       fail-fast: false
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
-      
+          node-version: "18"
+
       - name: Enable Corepack (yarn 4)
         run: corepack enable
-      
+
       - name: Install dependencies
         run: yarn install
-      
+
       - name: Build ${{ matrix.app }}
         run: |
           cd ${{ matrix.app }}
@@ -56,7 +56,7 @@ jobs:
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
           NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
           NEXT_PUBLIC_DISABLE_AUTH: true
-      
+
       - name: Check build output
         run: |
           if [ ! -d "${{ matrix.app }}/.next" ]; then
@@ -68,30 +68,30 @@ jobs:
   merge-check:
     runs-on: ubuntu-latest
     needs: build-all-apps
-    
+
     permissions:
       contents: read
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
-      
+          node-version: "18"
+
       - name: Enable Corepack (yarn 4)
         run: corepack enable
-      
+
       - name: Install dependencies
         run: yarn install
-      
+
       - name: Validate content schema
         run: npm run validate-content
-      
+
       - name: Check for orphans and broken links
         run: npm run check-orphans
-      
+
       - name: All builds passed
         run: echo "✅ All 10 active apps built successfully - safe to merge!"

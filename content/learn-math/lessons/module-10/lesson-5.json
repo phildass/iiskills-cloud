@@ -8,12 +8,7 @@
   "quiz": [
     {
       "question": "A Fourier series represents a periodic function as a sum of:",
-      "options": [
-        "Polynomials",
-        "Exponentials",
-        "Sines and cosines",
-        "Logarithms"
-      ],
+      "options": ["Polynomials", "Exponentials", "Sines and cosines", "Logarithms"],
       "correct_answer": 2
     },
     {
@@ -38,12 +33,7 @@
     },
     {
       "question": "An odd function's Fourier series contains only:",
-      "options": [
-        "Cosine terms",
-        "Sine terms",
-        "Constant term",
-        "Both sine and cosine"
-      ],
+      "options": ["Cosine terms", "Sine terms", "Constant term", "Both sine and cosine"],
       "correct_answer": 1
     },
     {

@@ -8,22 +8,12 @@
   "quiz": [
     {
       "question": "The area of a circle with radius r is:",
-      "options": [
-        "πr",
-        "2πr",
-        "πr²",
-        "2πr²"
-      ],
+      "options": ["πr", "2πr", "πr²", "2πr²"],
       "correct_answer": 2
     },
     {
       "question": "The circumference of a circle with radius r is:",
-      "options": [
-        "πr",
-        "2πr",
-        "πr²",
-        "πd/2"
-      ],
+      "options": ["πr", "2πr", "πr²", "πd/2"],
       "correct_answer": 1
     },
     {
@@ -38,22 +28,12 @@
     },
     {
       "question": "The angle in a semicircle is always:",
-      "options": [
-        "45°",
-        "60°",
-        "90°",
-        "120°"
-      ],
+      "options": ["45°", "60°", "90°", "120°"],
       "correct_answer": 2
     },
     {
       "question": "The angle at the centre is how many times the inscribed angle on the same arc?",
-      "options": [
-        "Equal",
-        "Half",
-        "Twice",
-        "Three times"
-      ],
+      "options": ["Equal", "Half", "Twice", "Three times"],
       "correct_answer": 2
     }
   ]

@@ -28,12 +28,7 @@
     },
     {
       "question": "Which Indian EdTech company uses emotion-detecting AI?",
-      "options": [
-        "Toppr",
-        "Vedantu",
-        "BYJU'S",
-        "Unacademy"
-      ],
+      "options": ["Toppr", "Vedantu", "BYJU'S", "Unacademy"],
       "correct_answer": 2
     },
     {

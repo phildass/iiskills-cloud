@@ -28,12 +28,7 @@
     },
     {
       "question": "The column space of A is spanned by:",
-      "options": [
-        "The rows of A",
-        "The columns of A",
-        "The eigenvalues",
-        "The diagonal"
-      ],
+      "options": ["The rows of A", "The columns of A", "The eigenvalues", "The diagonal"],
       "correct_answer": 1
     },
     {

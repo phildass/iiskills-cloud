@@ -18,12 +18,7 @@
     },
     {
       "question": "Which change of state involves a solid becoming a gas directly?",
-      "options": [
-        "Melting",
-        "Evaporation",
-        "Sublimation",
-        "Condensation"
-      ],
+      "options": ["Melting", "Evaporation", "Sublimation", "Condensation"],
       "correct_answer": 2
     },
     {
@@ -38,12 +33,7 @@
     },
     {
       "question": "What is the boiling point of water at standard pressure?",
-      "options": [
-        "90°C",
-        "100°C",
-        "110°C",
-        "120°C"
-      ],
+      "options": ["90°C", "100°C", "110°C", "120°C"],
       "correct_answer": 1
     },
     {

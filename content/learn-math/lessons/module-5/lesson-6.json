@@ -8,52 +8,27 @@
   "quiz": [
     {
       "question": "log₁₀(1000) equals:",
-      "options": [
-        "1",
-        "2",
-        "3",
-        "4"
-      ],
+      "options": ["1", "2", "3", "4"],
       "correct_answer": 2
     },
     {
       "question": "ln(e²) equals:",
-      "options": [
-        "1",
-        "2",
-        "e",
-        "e²"
-      ],
+      "options": ["1", "2", "e", "e²"],
       "correct_answer": 1
     },
     {
       "question": "The inverse of y = eˣ is:",
-      "options": [
-        "y = e^(–x)",
-        "y = ln(x)",
-        "y = log₁₀(x)",
-        "y = x/e"
-      ],
+      "options": ["y = e^(–x)", "y = ln(x)", "y = log₁₀(x)", "y = x/e"],
       "correct_answer": 1
     },
     {
       "question": "log(a/b) equals:",
-      "options": [
-        "log(a) × log(b)",
-        "log(a) + log(b)",
-        "log(a) – log(b)",
-        "log(a)/log(b)"
-      ],
+      "options": ["log(a) × log(b)", "log(a) + log(b)", "log(a) – log(b)", "log(a)/log(b)"],
       "correct_answer": 2
     },
     {
       "question": "The domain of y = ln(x) is:",
-      "options": [
-        "All real numbers",
-        "x ≥ 0",
-        "x > 0",
-        "x > 1"
-      ],
+      "options": ["All real numbers", "x ≥ 0", "x > 0", "x > 1"],
       "correct_answer": 2
     }
   ]

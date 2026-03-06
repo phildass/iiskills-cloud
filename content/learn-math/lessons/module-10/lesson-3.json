@@ -8,32 +8,17 @@
   "quiz": [
     {
       "question": "A second-order linear ODE with constant coefficients has the form:",
-      "options": [
-        "ay'' + by' + cy = f(x)",
-        "ay' + by = f(x)",
-        "y'' = f(x) only",
-        "ay³ + by = 0"
-      ],
+      "options": ["ay'' + by' + cy = f(x)", "ay' + by = f(x)", "y'' = f(x) only", "ay³ + by = 0"],
       "correct_answer": 0
     },
     {
       "question": "The characteristic equation of ay'' + by' + cy = 0 is:",
-      "options": [
-        "ar + b = 0",
-        "ar² + br + c = 0",
-        "ar² + c = 0",
-        "br + c = 0"
-      ],
+      "options": ["ar + b = 0", "ar² + br + c = 0", "ar² + c = 0", "br + c = 0"],
       "correct_answer": 1
     },
     {
       "question": "If characteristic roots are complex (α ± βi), the general solution involves:",
-      "options": [
-        "Only exponentials",
-        "Only polynomials",
-        "e^(αx)(A cos βx + B sin βx)",
-        "A + Bx"
-      ],
+      "options": ["Only exponentials", "Only polynomials", "e^(αx)(A cos βx + B sin βx)", "A + Bx"],
       "correct_answer": 2
     },
     {

@@ -33,14 +33,14 @@ git pull → yarn build → (build OK?) → pm2 restart → health check
 
 Key properties:
 
-| Property | Behaviour |
-|---|---|
-| Concurrent deploys | Prevented by `flock` on `/tmp/iiskills-main-deploy.lock` |
-| Failed build | PM2 is **never** restarted; site remains up |
-| Health check | `GET http://127.0.0.1:3000/api/health` must return `200` within 60 s |
-| Last-known-good build | Saved to `apps/main/.next.prev` before every build |
-| Previous git SHA | Captured before `git reset --hard` for manual git rollback |
-| Logs | Written to `logs/deploy-main/<timestamp>.log` |
+| Property              | Behaviour                                                            |
+| --------------------- | -------------------------------------------------------------------- |
+| Concurrent deploys    | Prevented by `flock` on `/tmp/iiskills-main-deploy.lock`             |
+| Failed build          | PM2 is **never** restarted; site remains up                          |
+| Health check          | `GET http://127.0.0.1:3000/api/health` must return `200` within 60 s |
+| Last-known-good build | Saved to `apps/main/.next.prev` before every build                   |
+| Previous git SHA      | Captured before `git reset --hard` for manual git rollback           |
+| Logs                  | Written to `logs/deploy-main/<timestamp>.log`                        |
 
 ---
 
@@ -48,14 +48,14 @@ Key properties:
 
 Ensure the following are available on the server:
 
-| Tool | Version |
-|---|---|
-| Node.js | ≥ 18 |
-| Yarn | ≥ 4 (berry) |
-| PM2 | any recent version |
-| `curl` | standard |
+| Tool    | Version                         |
+| ------- | ------------------------------- |
+| Node.js | ≥ 18                            |
+| Yarn    | ≥ 4 (berry)                     |
+| PM2     | any recent version              |
+| `curl`  | standard                        |
 | `flock` | standard (part of `util-linux`) |
-| `git` | standard |
+| `git`   | standard                        |
 
 The file `apps/main/.env.local` must exist and contain the correct env vars
 (see [section 8](#8-environment-variable-setup-with-pm2-ecosystem-file)).
@@ -71,10 +71,10 @@ bash scripts/deploy-main-safe.sh
 
 ### Options
 
-| Flag | Effect |
-|---|---|
+| Flag               | Effect                                                                    |
+| ------------------ | ------------------------------------------------------------------------- |
 | `--skip-preflight` | Skip `scripts/preflight-main.sh` (e.g. in CI where checks run separately) |
-| `--port PORT` | Override the health-check port (default: `3000`) |
+| `--port PORT`      | Override the health-check port (default: `3000`)                          |
 
 Example — skip pre-flight and use a custom port:
 
@@ -86,18 +86,18 @@ bash scripts/deploy-main-safe.sh --skip-preflight --port 3000
 
 ## 4. What the script does
 
-| Step | Action |
-|---|---|
-| 0 | Runs `scripts/preflight-main.sh` (unless `--skip-preflight`) |
-| 1 | Verifies the working tree is clean (no uncommitted changes) |
-| 2 | Records `PREV_SHA=$(git rev-parse HEAD)` for rollback |
-| 3 | `git fetch origin && git checkout main && git reset --hard origin/main` |
-| 4 | `yarn install --immutable` (deterministic deps) |
-| 5 | Copies `apps/main/.next` → `apps/main/.next.prev` (last-known-good backup) |
-| 6 | `cd apps/main && yarn build` — **exits non-zero on failure; PM2 untouched** |
-| 7 | Validates `apps/main/.next/BUILD_ID` exists |
-| 8 | `pm2 restart iiskills-main --update-env` |
-| 9 | Polls `http://127.0.0.1:3000/api/health` until `200` (up to 60 s); rolls back on failure |
+| Step | Action                                                                                   |
+| ---- | ---------------------------------------------------------------------------------------- |
+| 0    | Runs `scripts/preflight-main.sh` (unless `--skip-preflight`)                             |
+| 1    | Verifies the working tree is clean (no uncommitted changes)                              |
+| 2    | Records `PREV_SHA=$(git rev-parse HEAD)` for rollback                                    |
+| 3    | `git fetch origin && git checkout main && git reset --hard origin/main`                  |
+| 4    | `yarn install --immutable` (deterministic deps)                                          |
+| 5    | Copies `apps/main/.next` → `apps/main/.next.prev` (last-known-good backup)               |
+| 6    | `cd apps/main && yarn build` — **exits non-zero on failure; PM2 untouched**              |
+| 7    | Validates `apps/main/.next/BUILD_ID` exists                                              |
+| 8    | `pm2 restart iiskills-main --update-env`                                                 |
+| 9    | Polls `http://127.0.0.1:3000/api/health` until `200` (up to 60 s); rolls back on failure |
 
 ---
 

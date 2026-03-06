@@ -8,12 +8,7 @@
   "quiz": [
     {
       "question": "The sum of two consecutive integers n and n+1 is always:",
-      "options": [
-        "Even",
-        "Odd",
-        "Prime",
-        "Divisible by 4"
-      ],
+      "options": ["Even", "Odd", "Prime", "Divisible by 4"],
       "correct_answer": 1
     },
     {
@@ -38,22 +33,12 @@
     },
     {
       "question": "(a + b)² expands to:",
-      "options": [
-        "a² + b²",
-        "a² + ab + b²",
-        "a² + 2ab + b²",
-        "2a + 2b"
-      ],
+      "options": ["a² + b²", "a² + ab + b²", "a² + 2ab + b²", "2a + 2b"],
       "correct_answer": 2
     },
     {
       "question": "(a + b)(a – b) equals:",
-      "options": [
-        "a² + b²",
-        "a² – b²",
-        "2a",
-        "2ab"
-      ],
+      "options": ["a² + b²", "a² – b²", "2a", "2ab"],
       "correct_answer": 1
     }
   ]

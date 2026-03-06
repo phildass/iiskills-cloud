@@ -8,12 +8,7 @@
   "quiz": [
     {
       "question": "What type of bond forms between two non-metal atoms?",
-      "options": [
-        "Ionic bond",
-        "Metallic bond",
-        "Covalent bond",
-        "Van der Waals bond"
-      ],
+      "options": ["Ionic bond", "Metallic bond", "Covalent bond", "Van der Waals bond"],
       "correct_answer": 2
     },
     {

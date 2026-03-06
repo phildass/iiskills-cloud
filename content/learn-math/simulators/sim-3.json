@@ -22,16 +22,7 @@
       "unit": "index"
     }
   ],
-  "outputs": [
-    "f(x₀)",
-    "f'(x₀) — slope of tangent",
-    "Tangent line equation"
-  ],
+  "outputs": ["f(x₀)", "f'(x₀) — slope of tangent", "Tangent line equation"],
   "image": "math-sim-3.png",
-  "tags": [
-    "calculus",
-    "derivative",
-    "tangent",
-    "differentiation"
-  ]
+  "tags": ["calculus", "derivative", "tangent", "differentiation"]
 }

@@ -28,10 +28,9 @@ const PAID_APPS = [
 export default function AdminEntitlements() {
   const { ready, denied } = useAdminProtectedPage();
 
-
-  const [searchMode, setSearchMode] = useState('email'); // 'email' | 'phone'
-  const [searchEmail, setSearchEmail] = useState('');
-  const [searchPhone, setSearchPhone] = useState('');
+  const [searchMode, setSearchMode] = useState("email"); // 'email' | 'phone'
+  const [searchEmail, setSearchEmail] = useState("");
+  const [searchPhone, setSearchPhone] = useState("");
 
   const [foundUser, setFoundUser] = useState(null);
   const [entitlements, setEntitlements] = useState([]);
@@ -49,10 +48,9 @@ export default function AdminEntitlements() {
     setEntitlements([]);
     setMessage(null);
     try {
-
       let profile = null;
 
-      if (searchMode === 'phone') {
+      if (searchMode === "phone") {
         // Look up user via admin API endpoint (searches profiles.phone)
         const rawPhone = searchPhone.trim();
         if (!rawPhone) return;
@@ -60,7 +58,7 @@ export default function AdminEntitlements() {
         const resp = await fetch(`/api/admin/lookup-user?${params.toString()}`);
         const data = await resp.json();
         if (!resp.ok || !data.found) {
-          setMessage({ type: 'error', text: 'User not found. Check the phone number.' });
+          setMessage({ type: "error", text: "User not found. Check the phone number." });
           return;
         }
         profile = data.profile;
@@ -71,7 +69,7 @@ export default function AdminEntitlements() {
         const resp = await fetch(`/api/admin/user-lookup?${params.toString()}`);
         const data = await resp.json();
         if (!resp.ok || !data.users || data.users.length === 0) {
-          setMessage({ type: 'error', text: 'User not found. Check the email address.' });
+          setMessage({ type: "error", text: "User not found. Check the email address." });
           return;
         }
         profile = data.users[0];
@@ -111,9 +109,11 @@ export default function AdminEntitlements() {
 
       if (error) throw error;
 
-
-      setMessage({ type: 'success', text: `✅ Entitlement granted for ${grantAppId} to user ${foundUser.id.slice(0, 8)}…` });
-      setPaymentRef('');
+      setMessage({
+        type: "success",
+        text: `✅ Entitlement granted for ${grantAppId} to user ${foundUser.id.slice(0, 8)}…`,
+      });
+      setPaymentRef("");
       // Refresh entitlements
       const { data: ents } = await supabase
         .from("entitlements")
@@ -176,8 +176,8 @@ export default function AdminEntitlements() {
                   type="radio"
                   name="searchMode"
                   value="email"
-                  checked={searchMode === 'email'}
-                  onChange={() => setSearchMode('email')}
+                  checked={searchMode === "email"}
+                  onChange={() => setSearchMode("email")}
                   className="accent-purple-600"
                 />
                 By Email
@@ -187,20 +187,19 @@ export default function AdminEntitlements() {
                   type="radio"
                   name="searchMode"
                   value="phone"
-                  checked={searchMode === 'phone'}
-                  onChange={() => setSearchMode('phone')}
+                  checked={searchMode === "phone"}
+                  onChange={() => setSearchMode("phone")}
                   className="accent-purple-600"
                 />
                 By Phone
               </label>
             </div>
             <form onSubmit={handleSearch} className="flex gap-3">
-
-              {searchMode === 'email' ? (
+              {searchMode === "email" ? (
                 <input
                   type="email"
                   value={searchEmail}
-                  onChange={e => setSearchEmail(e.target.value)}
+                  onChange={(e) => setSearchEmail(e.target.value)}
                   placeholder="user@example.com"
                   className="flex-1 border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-400"
                   required
@@ -209,7 +208,7 @@ export default function AdminEntitlements() {
                 <input
                   type="text"
                   value={searchPhone}
-                  onChange={e => setSearchPhone(e.target.value)}
+                  onChange={(e) => setSearchPhone(e.target.value)}
                   placeholder="+919876543210 or 9876543210"
                   className="flex-1 border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-400"
                   required
@@ -241,9 +240,15 @@ export default function AdminEntitlements() {
               <section className="bg-white rounded-xl shadow p-6 mb-6">
                 <h2 className="text-lg font-semibold mb-1">👤 User</h2>
 
-                <p className="text-gray-700">{foundUser.first_name} {foundUser.last_name}</p>
-                {foundUser.email && <p className="text-sm text-gray-600 mt-0.5">✉️ {foundUser.email}</p>}
-                {foundUser.phone && <p className="text-sm text-gray-600 mt-0.5">📱 {foundUser.phone}</p>}
+                <p className="text-gray-700">
+                  {foundUser.first_name} {foundUser.last_name}
+                </p>
+                {foundUser.email && (
+                  <p className="text-sm text-gray-600 mt-0.5">✉️ {foundUser.email}</p>
+                )}
+                {foundUser.phone && (
+                  <p className="text-sm text-gray-600 mt-0.5">📱 {foundUser.phone}</p>
+                )}
                 <p className="text-xs text-gray-400 mt-1">ID: {foundUser.id}</p>
               </section>
 

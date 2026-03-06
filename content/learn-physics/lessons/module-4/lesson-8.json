@@ -18,42 +18,22 @@
     },
     {
       "question": "What does °C stand for?",
-      "options": [
-        "Celsius",
-        "Coulomb",
-        "Centimetre",
-        "Candela"
-      ],
+      "options": ["Celsius", "Coulomb", "Centimetre", "Candela"],
       "correct_answer": 0
     },
     {
       "question": "Water boils at:",
-      "options": [
-        "0°C",
-        "37°C",
-        "100°C",
-        "212°C"
-      ],
+      "options": ["0°C", "37°C", "100°C", "212°C"],
       "correct_answer": 2
     },
     {
       "question": "Heat flows from:",
-      "options": [
-        "Cold to hot",
-        "Hot to cold",
-        "Both directions equally",
-        "Neither direction"
-      ],
+      "options": ["Cold to hot", "Hot to cold", "Both directions equally", "Neither direction"],
       "correct_answer": 1
     },
     {
       "question": "Which material is a good thermal conductor?",
-      "options": [
-        "Wood",
-        "Plastic",
-        "Copper",
-        "Rubber"
-      ],
+      "options": ["Wood", "Plastic", "Copper", "Rubber"],
       "correct_answer": 2
     }
   ]

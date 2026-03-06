@@ -176,7 +176,7 @@ The lesson should include:
 3. Practical applications in real-world scenarios
 4. A summary reinforcing the main takeaways
 
-Format: Use clear paragraphs with subheadings. 
+Format: Use clear paragraphs with subheadings.
 Target audience: learners with {difficulty} level knowledge.
 Writing style: Educational, engaging, and practical.
 ```
@@ -339,6 +339,7 @@ pm2 start ecosystem.config.js --only learn-math
 ## 📈 Metrics & Analytics
 
 Track user progress:
+
 - Lesson completion rates
 - Quiz scores
 - Time spent per lesson
@@ -374,6 +375,7 @@ yarn build
 ### Database Connection
 
 If Supabase is unavailable:
+
 1. Set `NEXT_PUBLIC_SUPABASE_SUSPENDED=true`
 2. App will use in-memory storage
 3. Data persists only for session duration
@@ -405,6 +407,7 @@ Proprietary - Part of iiskills-cloud monorepo
 ## 🆘 Support
 
 For issues or questions:
+
 - Check documentation
 - Review error logs
 - Contact development team

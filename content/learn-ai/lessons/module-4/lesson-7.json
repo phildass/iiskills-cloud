@@ -28,12 +28,7 @@
     },
     {
       "question": "What is the base class for all PyTorch neural network modules?",
-      "options": [
-        "torch.Layer",
-        "torch.Model",
-        "torch.nn.Module",
-        "torch.network.Base"
-      ],
+      "options": ["torch.Layer", "torch.Model", "torch.nn.Module", "torch.network.Base"],
       "correct_answer": 2
     },
     {
@@ -48,12 +43,7 @@
     },
     {
       "question": "Which Python decorator disables gradient computation during inference?",
-      "options": [
-        "@torch.inference",
-        "@torch.no_grad()",
-        "@torch.eval_mode",
-        "@no_gradients"
-      ],
+      "options": ["@torch.inference", "@torch.no_grad()", "@torch.eval_mode", "@no_gradients"],
       "correct_answer": 1
     }
   ]

@@ -3,6 +3,7 @@
 This document provides LLM prompts and templates for generating cricket-related content including trivia questions, player summaries, and validation guidelines.
 
 ## Table of Contents
+
 1. [Trivia Question Generation](#trivia-question-generation)
 2. [Distractor Generation](#distractor-generation)
 3. [Player Summary Generation](#player-summary-generation)
@@ -17,6 +18,7 @@ This document provides LLM prompts and templates for generating cricket-related 
 **Purpose**: Convert match events into engaging trivia questions.
 
 **Input Data**:
+
 - Match details (teams, date, venue, format)
 - Key events (wickets, boundaries, milestones)
 - Player statistics
@@ -54,6 +56,7 @@ Format your response as JSON:
 **Example Usage**:
 
 Input:
+
 ```
 Match: India vs Australia
 Date: 2023-11-19
@@ -62,6 +65,7 @@ Event: Virat Kohli scored his 50th ODI century
 ```
 
 Expected Output:
+
 ```json
 {
   "question": "Against which team did Virat Kohli score his historic 50th ODI century in 2023?",
@@ -122,6 +126,7 @@ Question: "Who holds the record for most runs in a single World Cup tournament?"
 Correct Answer: "Sachin Tendulkar (673 runs in 2003)"
 
 Good Distractors:
+
 - "Rohit Sharma (648 runs in 2019)" - Near miss, recent event
 - "Kumar Sangakkara (541 runs in 2015)" - High scorer, different tournament
 - "Matthew Hayden (659 runs in 2007)" - Close number, different player
@@ -135,6 +140,7 @@ Good Distractors:
 **Purpose**: Convert structured player data into engaging, human-readable summaries.
 
 **Input Data Structure**:
+
 ```json
 {
   "player_name": "string",
@@ -180,6 +186,7 @@ Format your response as plain text paragraphs.
 **Example**:
 
 Input:
+
 ```json
 {
   "player_name": "Virat Kohli",
@@ -200,6 +207,7 @@ Input:
 ```
 
 Output:
+
 ```
 Virat Kohli stands as one of the most prolific batsmen in modern cricket, with a remarkable ODI career spanning over a decade. Known for his aggressive batting style and exceptional ability to chase down targets, Kohli has amassed 12,311 runs in 254 matches at an impressive average of 53.62. His consistency is reflected in his 43 ODI centuries, including the historic 50th century that equaled Sachin Tendulkar's legendary record.
 
@@ -217,6 +225,7 @@ Kohli's aggressive approach is evident in his strike rate of 93.17, making him e
 **Validation Checklist**:
 
 #### 1. Factual Accuracy
+
 - [ ] Player names are spelled correctly
 - [ ] Team names are accurate
 - [ ] Venues exist and are correctly named
@@ -225,12 +234,14 @@ Kohli's aggressive approach is evident in his strike rate of 93.17, making him e
 - [ ] Match formats are correctly identified (Test/ODI/T20)
 
 #### 2. Cricket Logic
+
 - [ ] Rules and terminology are used correctly
 - [ ] Game situations are possible within cricket rules
 - [ ] Player roles match their actual specializations
 - [ ] Statistics make sense (e.g., strike rate ranges, reasonable averages)
 
 #### 3. Question Quality
+
 - [ ] Question is unambiguous
 - [ ] Correct answer is verifiable
 - [ ] Distractors are plausible but clearly wrong
@@ -238,6 +249,7 @@ Kohli's aggressive approach is evident in his strike rate of 93.17, making him e
 - [ ] Question tests knowledge, not guessing ability
 
 #### 4. Language Quality
+
 - [ ] Grammar is correct
 - [ ] Spelling is accurate
 - [ ] Tone is appropriate (professional, engaging)
@@ -247,6 +259,7 @@ Kohli's aggressive approach is evident in his strike rate of 93.17, making him e
 ### Automated Validation Rules
 
 **Numeric Ranges** (flag for review if outside these ranges):
+
 - Batting Average: 0-100
 - Bowling Average: 10-50
 - Strike Rate (batting): 40-200
@@ -255,6 +268,7 @@ Kohli's aggressive approach is evident in his strike rate of 93.17, making him e
 - Matches: 0-500
 
 **String Validation**:
+
 - Player names: 2-50 characters, alphabetic with spaces and hyphens
 - Team names: Must be from recognized cricket-playing nations or franchises
 - Venues: Must match known cricket stadiums (maintain a reference list)
@@ -264,6 +278,7 @@ Kohli's aggressive approach is evident in his strike rate of 93.17, making him e
 **Purpose**: Ensure generated content is original and doesn't plagiarize sources.
 
 **Paraphrasing Rules**:
+
 1. **Structure Variation**: Change sentence structure even when facts remain the same
 2. **Synonym Usage**: Use different words while maintaining cricket terminology accuracy
 3. **Perspective Shift**: Tell the same fact from a different angle
@@ -275,11 +290,13 @@ Kohli's aggressive approach is evident in his strike rate of 93.17, making him e
 Original: "Sachin Tendulkar scored 100 international centuries."
 
 Acceptable Paraphrases:
+
 - "The Little Master achieved a century of centuries in international cricket."
 - "Tendulkar became the first player to reach 100 international hundreds."
 - "With 100 centuries across Tests and ODIs, Sachin Tendulkar set an unprecedented record."
 
 Unacceptable (too similar):
+
 - "Sachin Tendulkar has 100 international centuries."
 - "Tendulkar scored one hundred centuries in international cricket."
 
@@ -296,6 +313,7 @@ Track these metrics to ensure AI-generated content quality:
 5. **Error Categories**: Track most common types of errors for improvement
 
 **Target Benchmarks** (MVP):
+
 - Acceptance Rate: > 70%
 - Fact-Check Pass Rate: > 90%
 - Human Review Agreement: > 85%

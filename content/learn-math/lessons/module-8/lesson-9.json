@@ -18,22 +18,12 @@
     },
     {
       "question": "The standard error of the mean is:",
-      "options": [
-        "σ/n",
-        "σ/√n",
-        "σ·√n",
-        "σ²/n"
-      ],
+      "options": ["σ/n", "σ/√n", "σ·√n", "σ²/n"],
       "correct_answer": 1
     },
     {
       "question": "As sample size n increases, the standard error:",
-      "options": [
-        "Increases",
-        "Decreases",
-        "Stays the same",
-        "Equals 1"
-      ],
+      "options": ["Increases", "Decreases", "Stays the same", "Equals 1"],
       "correct_answer": 1
     },
     {
@@ -48,12 +38,7 @@
     },
     {
       "question": "The CLT generally applies well when n ≥ :",
-      "options": [
-        "5",
-        "10",
-        "30",
-        "100"
-      ],
+      "options": ["5", "10", "30", "100"],
       "correct_answer": 2
     }
   ]

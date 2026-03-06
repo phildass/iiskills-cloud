@@ -1,16 +1,16 @@
 /**
  * Payment Type Definitions
- * 
+ *
  * Defines types for payment processing and bundle access
  */
 
-import type { AppId } from './app.types';
-import type { UserAppAccess } from './access.types';
+import type { AppId } from "./app.types";
+import type { UserAppAccess } from "./access.types";
 
 /**
  * Payment status
  */
-export type PaymentStatus = 'created' | 'completed' | 'failed';
+export type PaymentStatus = "created" | "completed" | "failed";
 
 /**
  * Payment record from database
@@ -71,7 +71,7 @@ export interface UpdatePaymentBundleResult {
  */
 export interface PaymentGuardResult {
   passed: boolean;
-  reason?: 'invalid_method' | 'free_app' | 'missing_fields' | 'success';
+  reason?: "invalid_method" | "free_app" | "missing_fields" | "success";
   error?: string;
 }
 
@@ -80,7 +80,7 @@ export interface PaymentGuardResult {
  */
 export interface RazorpayOrderParams {
   amount: number;
-  currency: 'INR';
+  currency: "INR";
   receipt?: string;
   notes?: Record<string, string>;
 }

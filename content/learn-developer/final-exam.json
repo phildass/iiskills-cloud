@@ -15,12 +15,7 @@
     },
     {
       "question": "What HTTP status code indicates a successful GET request?",
-      "options": [
-        "201 Created",
-        "404 Not Found",
-        "200 OK",
-        "301 Moved Permanently"
-      ],
+      "options": ["201 Created", "404 Not Found", "200 OK", "301 Moved Permanently"],
       "correct_answer": 2
     },
     {
