@@ -5,7 +5,7 @@ import Link from "next/link";
 export function getServerSideProps() {
   return {
     props: {
-      otpDisabled: process.env.OTP_DISABLED === 'true',
+      otpDisabled: process.env.OTP_DISABLED === "true",
     },
   };
 }
@@ -35,11 +35,8 @@ const PAID_APPS = [
  * Route: /otp-gateway
  */
 
-export default function OtpGateway() {
-  const [form, setForm] = useState({ email: "", otp: "", appId: "learn-ai" });
-
 export default function OtpGateway({ otpDisabled }) {
-  const [form, setForm] = useState({ email: '', otp: '', appId: 'learn-ai' });
+  const [form, setForm] = useState({ email: "", otp: "", appId: "learn-ai" });
 
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(null);
@@ -116,7 +113,6 @@ export default function OtpGateway({ otpDisabled }) {
 
       <main className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
         <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8">
-
           {/* Header */}
           <div className="text-center mb-8">
             <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full mb-4">
@@ -145,13 +141,24 @@ export default function OtpGateway({ otpDisabled }) {
             /* ── OTP disabled state ────────────────────────────────────── */
             <div className="text-center" role="status" aria-live="polite">
               <div className="inline-flex items-center justify-center w-16 h-16 bg-amber-100 rounded-full mb-4">
-                <svg className="w-8 h-8 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01M12 3a9 9 0 110 18A9 9 0 0112 3z" />
+                <svg
+                  className="w-8 h-8 text-amber-600"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 9v2m0 4h.01M12 3a9 9 0 110 18A9 9 0 0112 3z"
+                  />
                 </svg>
               </div>
               <h1 className="text-2xl font-bold text-gray-900 mb-3">OTP Activation Unavailable</h1>
               <p className="text-gray-600 mb-6">
-                OTP activation is temporarily disabled. If you have any issues, go to your dashboard and raise a ticket. We will revert as soon as possible.
+                OTP activation is temporarily disabled. If you have any issues, go to your dashboard
+                and raise a ticket. We will revert as soon as possible.
               </p>
               <Link
                 href="/payments/iiskills"
@@ -165,205 +172,192 @@ export default function OtpGateway({ otpDisabled }) {
             </div>
           ) : (
             <>
-            {/* Header */}
-            <div className="text-center mb-8">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full mb-4">
-                <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                </svg>
-              </div>
-              <h1 className="text-2xl font-bold text-gray-900 mb-2">Activate Paid Access</h1>
-              <p className="text-gray-600 text-sm">
-                Enter the 6-digit OTP sent to your phone (and email) after payment to unlock your course.
-              </p>
-            </div>
-
-
-          {success ? (
-            /* ── Success state ─────────────────────────────────────────── */
-            <div className="text-center">
-              <div className="inline-flex items-center justify-center w-20 h-20 bg-green-100 rounded-full mb-4">
-                <svg
-                  className="w-10 h-10 text-green-600"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M5 13l4 4L19 7"
-                  />
-                </svg>
-              </div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">
-                🎉 You are now a PAID Learner!
-              </h2>
-              <p className="text-gray-600 mb-2">
-                Your OTP has been verified and paid access is{" "}
-                {success.entitlementGranted ? "active" : "being activated"} for your account.
-              </p>
-
-              {/* Prompt unauthenticated users to register / login */}
-              {isAuthenticated === false && (
-                <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-4 text-left">
-                  <p className="text-amber-800 font-semibold text-sm mb-1">
-                    📋 Payment received — complete your profile
-                  </p>
-                  <p className="text-amber-700 text-sm mb-3">
-                    Register or login with the email used during payment to access your Profile page
-                    and course dashboard.
-                  </p>
-                  <div className="flex gap-2">
-                    <Link
-                      href={"/register?next=/profile"}
-                      className="flex-1 text-center bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-blue-700 transition"
+              {success ? (
+                /* ── Success state ─────────────────────────────────────────── */
+                <div className="text-center">
+                  <div className="inline-flex items-center justify-center w-20 h-20 bg-green-100 rounded-full mb-4">
+                    <svg
+                      className="w-10 h-10 text-green-600"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
                     >
-                      Register
-                    </Link>
-                    <Link
-                      href={"/sign-in?next=/profile"}
-                      className="flex-1 text-center bg-white border border-blue-600 text-blue-600 px-4 py-2 rounded-lg text-sm font-bold hover:bg-blue-50 transition"
-                    >
-                      Login
-                    </Link>
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M5 13l4 4L19 7"
+                      />
+                    </svg>
                   </div>
-                </div>
-              )}
-
-              {isAuthenticated && success.entitlementGranted && (
-                <div className="bg-green-50 border border-green-200 rounded-xl p-3 mb-4">
-                  <p className="text-green-800 text-sm font-medium">
-                    ✅ Your profile has been updated.{" "}
-                    <Link href="/profile" className="underline font-bold">
-                      View Profile
-                    </Link>
+                  <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                    🎉 You are now a PAID Learner!
+                  </h2>
+                  <p className="text-gray-600 mb-2">
+                    Your OTP has been verified and paid access is{" "}
+                    {success.entitlementGranted ? "active" : "being activated"} for your account.
                   </p>
-                </div>
-              )}
 
-              {!success.entitlementGranted && isAuthenticated !== false && (
-                <p className="text-amber-600 text-sm mb-4">
-                  ⚠️ Could not auto-link your account. If you are not registered, please{" "}
-                  <Link href="/register" className="underline font-medium">
-                    create an account
-                  </Link>{" "}
-                  with the same email address used during payment, then contact support.
-                </p>
-              )}
-              <div className="bg-blue-50 rounded-xl p-4 mb-6">
-                <p className="text-blue-800 font-medium text-sm">
-                  You now have access to{" "}
-                  <span className="font-bold">
-                    {PAID_APPS.find((a) => a.id === success.appId)?.label || success.appId}
-                  </span>
-                </p>
-              </div>
-              <a
-                href={appUrl}
-                className="block w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3 px-6 rounded-xl font-bold text-center hover:from-blue-700 hover:to-indigo-700 transition-all shadow-lg"
-              >
-                Start Learning Now →
-              </a>
-              <Link href="/" className="block mt-4 text-sm text-gray-500 hover:text-gray-700">
-                Return to iiskills.cloud
-              </Link>
-            </div>
-          ) : (
-            /* ── OTP form ──────────────────────────────────────────────── */
-            <form onSubmit={handleSubmit} className="space-y-5">
-              {/* Email */}
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                  Email Address
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={form.email}
-                  onChange={handleChange}
-                  required
-                  placeholder="The email you used during payment"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
-                />
-              </div>
+                  {/* Prompt unauthenticated users to register / login */}
+                  {isAuthenticated === false && (
+                    <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-4 text-left">
+                      <p className="text-amber-800 font-semibold text-sm mb-1">
+                        📋 Payment received — complete your profile
+                      </p>
+                      <p className="text-amber-700 text-sm mb-3">
+                        Register or login with the email used during payment to access your Profile
+                        page and course dashboard.
+                      </p>
+                      <div className="flex gap-2">
+                        <Link
+                          href={"/register?next=/profile"}
+                          className="flex-1 text-center bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-blue-700 transition"
+                        >
+                          Register
+                        </Link>
+                        <Link
+                          href={"/sign-in?next=/profile"}
+                          className="flex-1 text-center bg-white border border-blue-600 text-blue-600 px-4 py-2 rounded-lg text-sm font-bold hover:bg-blue-50 transition"
+                        >
+                          Login
+                        </Link>
+                      </div>
+                    </div>
+                  )}
 
-              {/* OTP */}
-              <div>
-                <label htmlFor="otp" className="block text-sm font-medium text-gray-700 mb-1">
-                  6-Digit OTP
-                </label>
-                <input
-                  type="text"
-                  id="otp"
-                  name="otp"
-                  value={form.otp}
-                  onChange={handleChange}
-                  required
-                  maxLength={6}
-                  pattern="[0-9]{6}"
-                  placeholder="Enter your OTP"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg text-center text-2xl font-bold tracking-[0.5em] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
-                />
-                <p className="text-xs text-gray-500 mt-1">OTPs are valid for 10 minutes</p>
-              </div>
+                  {isAuthenticated && success.entitlementGranted && (
+                    <div className="bg-green-50 border border-green-200 rounded-xl p-3 mb-4">
+                      <p className="text-green-800 text-sm font-medium">
+                        ✅ Your profile has been updated.{" "}
+                        <Link href="/profile" className="underline font-bold">
+                          View Profile
+                        </Link>
+                      </p>
+                    </div>
+                  )}
 
-              {/* App selector */}
-              <div>
-                <label htmlFor="appId" className="block text-sm font-medium text-gray-700 mb-1">
-                  Course
-                </label>
-                <select
-                  id="appId"
-                  name="appId"
-                  value={form.appId}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
-                >
-                  {PAID_APPS.map((app) => (
-                    <option key={app.id} value={app.id}>
-                      {app.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              {/* Error */}
-              {error && (
-                <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
-                  {error}
-                </div>
-              )}
-
-              {/* Submit */}
-              <button
-                type="submit"
-                disabled={loading}
-                className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3 px-6 rounded-xl font-bold hover:from-blue-700 hover:to-indigo-700 transition-all shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                {loading ? "Verifying…" : "Verify OTP & Activate Access"}
-              </button>
-
-              <div className="text-center space-y-2 pt-2">
-                <p className="text-xs text-gray-500">
-                  If you have any issues, go to your dashboard and raise a ticket. We will revert as soon as possible.
-                </p>
-                <p className="text-xs text-gray-500">
-                  Want to enrol?{" "}
+                  {!success.entitlementGranted && isAuthenticated !== false && (
+                    <p className="text-amber-600 text-sm mb-4">
+                      ⚠️ Could not auto-link your account. If you are not registered, please{" "}
+                      <Link href="/register" className="underline font-medium">
+                        create an account
+                      </Link>{" "}
+                      with the same email address used during payment, then contact support.
+                    </p>
+                  )}
+                  <div className="bg-blue-50 rounded-xl p-4 mb-6">
+                    <p className="text-blue-800 font-medium text-sm">
+                      You now have access to{" "}
+                      <span className="font-bold">
+                        {PAID_APPS.find((a) => a.id === success.appId)?.label || success.appId}
+                      </span>
+                    </p>
+                  </div>
                   <a
-                    href="https://aienter.in/payments/iiskills"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-blue-600 underline"
+                    href={appUrl}
+                    className="block w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3 px-6 rounded-xl font-bold text-center hover:from-blue-700 hover:to-indigo-700 transition-all shadow-lg"
                   >
-                    Pay now at aienter.in
+                    Start Learning Now →
                   </a>
-                </p>
-              </div>
-            </form>
-          )}
+                  <Link href="/" className="block mt-4 text-sm text-gray-500 hover:text-gray-700">
+                    Return to iiskills.cloud
+                  </Link>
+                </div>
+              ) : (
+                /* ── OTP form ──────────────────────────────────────────────── */
+                <form onSubmit={handleSubmit} className="space-y-5">
+                  {/* Email */}
+                  <div>
+                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+                      Email Address
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      value={form.email}
+                      onChange={handleChange}
+                      required
+                      placeholder="The email you used during payment"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                    />
+                  </div>
+
+                  {/* OTP */}
+                  <div>
+                    <label htmlFor="otp" className="block text-sm font-medium text-gray-700 mb-1">
+                      6-Digit OTP
+                    </label>
+                    <input
+                      type="text"
+                      id="otp"
+                      name="otp"
+                      value={form.otp}
+                      onChange={handleChange}
+                      required
+                      maxLength={6}
+                      pattern="[0-9]{6}"
+                      placeholder="Enter your OTP"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg text-center text-2xl font-bold tracking-[0.5em] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                    />
+                    <p className="text-xs text-gray-500 mt-1">OTPs are valid for 10 minutes</p>
+                  </div>
+
+                  {/* App selector */}
+                  <div>
+                    <label htmlFor="appId" className="block text-sm font-medium text-gray-700 mb-1">
+                      Course
+                    </label>
+                    <select
+                      id="appId"
+                      name="appId"
+                      value={form.appId}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                    >
+                      {PAID_APPS.map((app) => (
+                        <option key={app.id} value={app.id}>
+                          {app.label}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  {/* Error */}
+                  {error && (
+                    <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
+                      {error}
+                    </div>
+                  )}
+
+                  {/* Submit */}
+                  <button
+                    type="submit"
+                    disabled={loading}
+                    className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3 px-6 rounded-xl font-bold hover:from-blue-700 hover:to-indigo-700 transition-all shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {loading ? "Verifying…" : "Verify OTP & Activate Access"}
+                  </button>
+
+                  <div className="text-center space-y-2 pt-2">
+                    <p className="text-xs text-gray-500">
+                      If you have any issues, go to your dashboard and raise a ticket. We will
+                      revert as soon as possible.
+                    </p>
+                    <p className="text-xs text-gray-500">
+                      Want to enrol?{" "}
+                      <a
+                        href="https://aienter.in/payments/iiskills"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-600 underline"
+                      >
+                        Pay now at aienter.in
+                      </a>
+                    </p>
+                  </div>
+                </form>
+              )}
             </>
           )}
         </div>

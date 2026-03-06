@@ -427,7 +427,7 @@ Use this checklist when running migrations:
 - [ ] Ran verification queries (all passed)
 - [ ] Tested a sample query in each new table
 - [ ] Existing apps still work (smoke test)
-- [ ] Documented completion date: ****\_\_****
+- [ ] Documented completion date: \***\*\_\_\*\***
 
 ---
 

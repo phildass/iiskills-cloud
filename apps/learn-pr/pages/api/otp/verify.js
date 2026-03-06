@@ -39,11 +39,9 @@ export default async function handler(req, res) {
     return res.status(200).json({ success: true, path });
   } catch (err) {
     console.error("OTP verification error:", err);
-    return res
-      .status(500)
-      .json({
-        error:
-          "Unable to verify OTP. If you have any issues, go to your dashboard and raise a ticket.",
-      });
+    return res.status(500).json({
+      error:
+        "Unable to verify OTP. If you have any issues, go to your dashboard and raise a ticket.",
+    });
   }
 }
