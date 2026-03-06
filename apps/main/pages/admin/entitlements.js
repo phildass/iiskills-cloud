@@ -11,8 +11,7 @@
  */
 
 import Head from "next/head";
-import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
+import { useState } from "react";
 import AdminNav from "../../components/AdminNav";
 import Footer from "../../components/Footer";
 import { supabase } from "../../lib/supabaseClient";
@@ -27,15 +26,12 @@ const PAID_APPS = [
 ];
 
 export default function AdminEntitlements() {
-  const router = useRouter();
   const { ready, denied } = useAdminProtectedPage();
 
 
   const [searchMode, setSearchMode] = useState('email'); // 'email' | 'phone'
   const [searchEmail, setSearchEmail] = useState('');
   const [searchPhone, setSearchPhone] = useState('');
-
-  const [searchEmail, setSearchEmail] = useState("");
 
   const [foundUser, setFoundUser] = useState(null);
   const [entitlements, setEntitlements] = useState([]);
@@ -69,30 +65,16 @@ export default function AdminEntitlements() {
         }
         profile = data.profile;
       } else {
-        // Look up user in profiles table by email
+        // Look up user by email via the service-role admin API (profiles has no email column)
         if (!searchEmail.trim()) return;
-        const { data, error } = await supabase
-          .from('profiles')
-          .select('id, email, first_name, last_name')
-          .eq('email', searchEmail.trim().toLowerCase())
-          .maybeSingle();
-        if (error || !data) {
+        const params = new URLSearchParams({ q: searchEmail.trim().toLowerCase() });
+        const resp = await fetch(`/api/admin/user-lookup?${params.toString()}`);
+        const data = await resp.json();
+        if (!resp.ok || !data.users || data.users.length === 0) {
           setMessage({ type: 'error', text: 'User not found. Check the email address.' });
           return;
         }
-        profile = data;
-
-      // Look up user in profiles table
-      const { data: profile, error } = await supabase
-        .from("profiles")
-        .select("id, email, first_name, last_name")
-        .eq("email", searchEmail.trim().toLowerCase())
-        .maybeSingle();
-
-      if (error || !profile) {
-        setMessage({ type: "error", text: "User not found. Check the email address." });
-        return;
-
+        profile = data.users[0];
       }
 
       setFoundUser(profile);
@@ -132,12 +114,6 @@ export default function AdminEntitlements() {
 
       setMessage({ type: 'success', text: `✅ Entitlement granted for ${grantAppId} to user ${foundUser.id.slice(0, 8)}…` });
       setPaymentRef('');
-
-      setMessage({
-        type: "success",
-        text: `✅ Entitlement granted for ${grantAppId} to ${foundUser.email}`,
-      });
-      setPaymentRef("");
       // Refresh entitlements
       const { data: ents } = await supabase
         .from("entitlements")
@@ -240,15 +216,6 @@ export default function AdminEntitlements() {
                 />
               )}
 
-              <input
-                type="email"
-                value={searchEmail}
-                onChange={(e) => setSearchEmail(e.target.value)}
-                placeholder="user@example.com"
-                className="flex-1 border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-400"
-                required
-              />
-
               <button
                 type="submit"
                 disabled={searching}
@@ -277,10 +244,6 @@ export default function AdminEntitlements() {
                 <p className="text-gray-700">{foundUser.first_name} {foundUser.last_name}</p>
                 {foundUser.email && <p className="text-sm text-gray-600 mt-0.5">✉️ {foundUser.email}</p>}
                 {foundUser.phone && <p className="text-sm text-gray-600 mt-0.5">📱 {foundUser.phone}</p>}
-
-                <p className="text-gray-700">
-                  {foundUser.first_name} {foundUser.last_name} — <strong>{foundUser.email}</strong>
-                </p>
                 <p className="text-xs text-gray-400 mt-1">ID: {foundUser.id}</p>
               </section>
 
