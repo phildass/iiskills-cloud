@@ -30,7 +30,9 @@ export default function AdminEntitlements() {
   const router = useRouter();
   const { ready, denied } = useAdminProtectedPage();
 
+  const [searchMode, setSearchMode] = useState('email'); // 'email' | 'phone'
   const [searchEmail, setSearchEmail] = useState('');
+  const [searchPhone, setSearchPhone] = useState('');
   const [foundUser, setFoundUser] = useState(null);
   const [entitlements, setEntitlements] = useState([]);
   const [searching, setSearching] = useState(false);
@@ -42,23 +44,40 @@ export default function AdminEntitlements() {
 
   const handleSearch = async (e) => {
     e.preventDefault();
-    if (!searchEmail.trim()) return;
     setSearching(true);
     setFoundUser(null);
     setEntitlements([]);
     setMessage(null);
     try {
-      // Look up user in profiles table
-      const { data: profile, error } = await supabase
-        .from('profiles')
-        .select('id, email, first_name, last_name')
-        .eq('email', searchEmail.trim().toLowerCase())
-        .maybeSingle();
+      let profile = null;
 
-      if (error || !profile) {
-        setMessage({ type: 'error', text: 'User not found. Check the email address.' });
-        return;
+      if (searchMode === 'phone') {
+        // Look up user via admin API endpoint (searches profiles.phone)
+        const rawPhone = searchPhone.trim();
+        if (!rawPhone) return;
+        const params = new URLSearchParams({ phone: rawPhone });
+        const resp = await fetch(`/api/admin/lookup-user?${params.toString()}`);
+        const data = await resp.json();
+        if (!resp.ok || !data.found) {
+          setMessage({ type: 'error', text: 'User not found. Check the phone number.' });
+          return;
+        }
+        profile = data.profile;
+      } else {
+        // Look up user in profiles table by email
+        if (!searchEmail.trim()) return;
+        const { data, error } = await supabase
+          .from('profiles')
+          .select('id, email, first_name, last_name')
+          .eq('email', searchEmail.trim().toLowerCase())
+          .maybeSingle();
+        if (error || !data) {
+          setMessage({ type: 'error', text: 'User not found. Check the email address.' });
+          return;
+        }
+        profile = data;
       }
+
       setFoundUser(profile);
 
       // Load entitlements
@@ -93,7 +112,7 @@ export default function AdminEntitlements() {
 
       if (error) throw error;
 
-      setMessage({ type: 'success', text: `✅ Entitlement granted for ${grantAppId} to ${foundUser.email}` });
+      setMessage({ type: 'success', text: `✅ Entitlement granted for ${grantAppId} to user ${foundUser.id.slice(0, 8)}…` });
       setPaymentRef('');
       // Refresh entitlements
       const { data: ents } = await supabase
@@ -148,15 +167,50 @@ export default function AdminEntitlements() {
           {/* Search */}
           <section className="bg-white rounded-xl shadow p-6 mb-6">
             <h2 className="text-lg font-semibold mb-4">🔍 Find User</h2>
+            <div className="flex gap-4 mb-3">
+              <label className="flex items-center gap-1 text-sm font-medium text-gray-700 cursor-pointer">
+                <input
+                  type="radio"
+                  name="searchMode"
+                  value="email"
+                  checked={searchMode === 'email'}
+                  onChange={() => setSearchMode('email')}
+                  className="accent-purple-600"
+                />
+                By Email
+              </label>
+              <label className="flex items-center gap-1 text-sm font-medium text-gray-700 cursor-pointer">
+                <input
+                  type="radio"
+                  name="searchMode"
+                  value="phone"
+                  checked={searchMode === 'phone'}
+                  onChange={() => setSearchMode('phone')}
+                  className="accent-purple-600"
+                />
+                By Phone
+              </label>
+            </div>
             <form onSubmit={handleSearch} className="flex gap-3">
-              <input
-                type="email"
-                value={searchEmail}
-                onChange={e => setSearchEmail(e.target.value)}
-                placeholder="user@example.com"
-                className="flex-1 border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-400"
-                required
-              />
+              {searchMode === 'email' ? (
+                <input
+                  type="email"
+                  value={searchEmail}
+                  onChange={e => setSearchEmail(e.target.value)}
+                  placeholder="user@example.com"
+                  className="flex-1 border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-400"
+                  required
+                />
+              ) : (
+                <input
+                  type="text"
+                  value={searchPhone}
+                  onChange={e => setSearchPhone(e.target.value)}
+                  placeholder="+919876543210 or 9876543210"
+                  className="flex-1 border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-400"
+                  required
+                />
+              )}
               <button
                 type="submit"
                 disabled={searching}
@@ -179,7 +233,9 @@ export default function AdminEntitlements() {
             <>
               <section className="bg-white rounded-xl shadow p-6 mb-6">
                 <h2 className="text-lg font-semibold mb-1">👤 User</h2>
-                <p className="text-gray-700">{foundUser.first_name} {foundUser.last_name} — <strong>{foundUser.email}</strong></p>
+                <p className="text-gray-700">{foundUser.first_name} {foundUser.last_name}</p>
+                {foundUser.email && <p className="text-sm text-gray-600 mt-0.5">✉️ {foundUser.email}</p>}
+                {foundUser.phone && <p className="text-sm text-gray-600 mt-0.5">📱 {foundUser.phone}</p>}
                 <p className="text-xs text-gray-400 mt-1">ID: {foundUser.id}</p>
               </section>
 
