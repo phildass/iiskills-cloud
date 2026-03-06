@@ -4,6 +4,9 @@
  * Verifies a Supabase access token and issues an admin_session cookie when
  * the user qualifies as admin (ADMIN_ALLOWLIST_EMAILS OR profiles.is_admin = true).
  *
+ * Also auto-fulfills pending admin_invites: if the user has a pending invite,
+ * sets profiles.is_admin = true and marks the invite as fulfilled.
+ *
  * This endpoint bridges Supabase-authenticated admins into the existing
  * supreme-admin cookie flow so that all /api/admin/* endpoints (which use
  * the synchronous validateAdminRequest check) transparently accept both
@@ -52,7 +55,7 @@ export default async function handler(req, res) {
     return res.status(401).json({ error: "Invalid or expired access token" });
   }
 
-  // Check email allowlist
+  // Check email allowlist (superadmin path)
   const allowlistEmails = getAdminAllowlistEmails();
   if (user.email && allowlistEmails.includes(user.email.toLowerCase())) {
     const token = createAdminToken(false);
@@ -71,6 +74,35 @@ export default async function handler(req, res) {
     const token = createAdminToken(false);
     setAdminSessionCookie(res, token);
     return res.status(200).json({ ok: true });
+  }
+
+  // Check for a pending admin invite for this email
+  if (user.email) {
+    const { data: invite } = await serviceClient
+      .from("admin_invites")
+      .select("id")
+      .eq("email", user.email.toLowerCase())
+      .eq("status", "pending")
+      .single();
+
+    if (invite) {
+      // Fulfill the invite: set profiles.is_admin = true
+      await serviceClient.from("profiles").update({ is_admin: true }).eq("id", user.id);
+
+      // Mark the invite as fulfilled
+      await serviceClient
+        .from("admin_invites")
+        .update({
+          status: "fulfilled",
+          fulfilled_at: new Date().toISOString(),
+          fulfilled_user_id: user.id,
+        })
+        .eq("id", invite.id);
+
+      const token = createAdminToken(false);
+      setAdminSessionCookie(res, token);
+      return res.status(200).json({ ok: true, inviteFulfilled: true });
+    }
   }
 
   return res.status(403).json({ error: "Not authorized as admin" });

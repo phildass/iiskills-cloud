@@ -149,6 +149,90 @@ export function getAdminAllowlistEmails() {
 }
 
 /**
+ * Returns true when the given email is in the ADMIN_ALLOWLIST_EMAILS env var.
+ * Superadmins have additional privileges (create/revoke admins).
+ *
+ * @param {string|null|undefined} email
+ * @returns {boolean}
+ */
+export function isSuperadmin(email) {
+  if (!email) return false;
+  const allowlist = getAdminAllowlistEmails();
+  return allowlist.includes(email.toLowerCase());
+}
+
+/**
+ * Extract the actor identity from a request.
+ *
+ * Returns:
+ *   { actorUserId: string|null, actorEmail: string|null, actorType: 'supabase_admin'|'emergency_admin' }
+ *
+ * Supabase Bearer token is resolved against the auth service; emergency admin (cookie/secret)
+ * has no associated user identity.
+ *
+ * @param {import('http').IncomingMessage} req
+ * @returns {Promise<{ actorUserId: string|null, actorEmail: string|null, actorType: string }>}
+ */
+export async function getActorInfo(req) {
+  // Check if this is a Supabase Bearer token request
+  const authHeader = req.headers.authorization;
+  if (authHeader && authHeader.startsWith("Bearer ")) {
+    try {
+      const bearerToken = authHeader.slice(7);
+      const serviceClient = createServiceRoleClient();
+      const {
+        data: { user },
+      } = await serviceClient.auth.getUser(bearerToken);
+      if (user) {
+        return {
+          actorUserId: user.id,
+          actorEmail: user.email || null,
+          actorType: "supabase_admin",
+        };
+      }
+    } catch {
+      // fall through to emergency admin
+    }
+  }
+  return { actorUserId: null, actorEmail: null, actorType: "emergency_admin" };
+}
+
+/**
+ * Write an audit event to the admin_audit_events table.
+ *
+ * @param {object} supabaseServiceClient - Supabase client with service role
+ * @param {object} event
+ * @param {string} event.action - Action enum (grant_entitlement, revoke_entitlement, etc.)
+ * @param {string|null} event.actorUserId
+ * @param {string|null} event.actorEmail
+ * @param {string} event.actorType - 'supabase_admin' | 'emergency_admin'
+ * @param {string|null} [event.targetUserId]
+ * @param {string|null} [event.targetEmailOrPhone]
+ * @param {string|null} [event.appId]
+ * @param {string|null} [event.courseTitleSnapshot]
+ * @param {object|null} [event.metadata]
+ * @returns {Promise<void>}
+ */
+export async function writeAuditEvent(supabaseServiceClient, event) {
+  try {
+    await supabaseServiceClient.from("admin_audit_events").insert({
+      actor_user_id: event.actorUserId || null,
+      actor_email: event.actorEmail || null,
+      actor_type: event.actorType,
+      action: event.action,
+      target_user_id: event.targetUserId || null,
+      target_email_or_phone: event.targetEmailOrPhone || null,
+      app_id: event.appId || null,
+      course_title_snapshot: event.courseTitleSnapshot || null,
+      metadata: event.metadata || null,
+    });
+  } catch (err) {
+    // Audit failures must never block the main action — log and continue.
+    console.error("[writeAuditEvent] Failed to write audit event:", err?.message || err);
+  }
+}
+
+/**
  * Validate an incoming admin API request (synchronous, supreme-admin only).
  *
  * When ADMIN_AUTH_DISABLED=true, all requests are allowed unconditionally.

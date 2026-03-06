@@ -1,12 +1,9 @@
-import { createClient } from "@supabase/supabase-js";
-import { validateAdminRequest } from "../../../lib/adminAuth";
-
-function getSupabaseAdmin() {
-  const url = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_KEY;
-  if (!url || !key) return null;
-  return createClient(url, key);
-}
+import {
+  validateAdminRequestAsync,
+  createServiceRoleClient,
+  getActorInfo,
+  writeAuditEvent,
+} from "../../../lib/adminAuth";
 
 /**
  * GET /api/admin/tickets
@@ -15,16 +12,18 @@ function getSupabaseAdmin() {
  *
  * PATCH /api/admin/tickets
  *   - Body: { id, status, admin_note }
- *   - Updates ticket status / admin note
+ *   - Updates ticket status / admin note + writes audit event
  */
 export default async function handler(req, res) {
-  const adminCheck = validateAdminRequest(req);
-  if (!adminCheck.valid) {
-    return res.status(403).json({ error: "Forbidden" });
+  const auth = await validateAdminRequestAsync(req);
+  if (!auth.valid) {
+    return res.status(auth.status || 403).json({ error: auth.reason || "Forbidden" });
   }
 
-  const supabase = getSupabaseAdmin();
-  if (!supabase) {
+  let supabase;
+  try {
+    supabase = createServiceRoleClient();
+  } catch {
     return res.status(500).json({ error: "Server misconfiguration" });
   }
 
@@ -66,6 +65,21 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: "No fields to update" });
     }
 
+    // Fetch existing ticket for audit
+    let previousStatus = null;
+    let targetUserId = null;
+    try {
+      const { data: existing } = await supabase
+        .from("forum_tickets")
+        .select("status, user_id")
+        .eq("id", id)
+        .single();
+      previousStatus = existing?.status || null;
+      targetUserId = existing?.user_id || null;
+    } catch {
+      // non-fatal
+    }
+
     const { data, error } = await supabase
       .from("forum_tickets")
       .update(updates)
@@ -76,6 +90,24 @@ export default async function handler(req, res) {
     if (error) {
       console.error("[admin/tickets PATCH] DB error:", error);
       return res.status(500).json({ error: "Failed to update ticket" });
+    }
+
+    // Audit log for status changes
+    if (status) {
+      const actor = await getActorInfo(req);
+      await writeAuditEvent(supabase, {
+        actorUserId: actor.actorUserId,
+        actorEmail: actor.actorEmail,
+        actorType: actor.actorType,
+        action: "update_ticket_status",
+        targetUserId,
+        metadata: {
+          ticket_id: id,
+          previous_status: previousStatus,
+          new_status: status,
+          admin_note: admin_note || null,
+        },
+      });
     }
 
     return res.status(200).json({ ticket: data });

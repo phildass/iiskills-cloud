@@ -106,6 +106,21 @@ export default function AdminNav() {
               )}
             </Link>
             <Link
+              href="/admin/entitlements"
+              className="text-yellow-900 hover:text-yellow-700 font-medium"
+            >
+              Entitlements
+            </Link>
+            <Link
+              href="/admin/admins"
+              className="text-yellow-900 hover:text-yellow-700 font-medium"
+            >
+              Admins
+            </Link>
+            <Link href="/admin/audit" className="text-yellow-900 hover:text-yellow-700 font-medium">
+              Audit Log
+            </Link>
+            <Link
               href="/admin/settings"
               className="text-yellow-900 hover:text-yellow-700 font-medium"
             >

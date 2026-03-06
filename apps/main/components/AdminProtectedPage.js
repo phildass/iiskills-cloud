@@ -10,20 +10,25 @@
  * Behaviour:
  * - Checks if user is logged in via Supabase auth.
  * - If not logged in → redirects to /login?redirect=<current path>.
- * - If logged in → checks admin authorization via public.profiles.is_admin.
- * - If unauthorized → renders the AccessDenied (403) component in place.
+ * - If logged in → calls /api/admin/supabase-login with the access token.
+ *   The server checks ADMIN_ALLOWLIST_EMAILS OR profiles.is_admin=true.
+ * - If unauthorized (403) → renders the AccessDenied (403) component in place.
  *   (Does NOT redirect to / or /dashboard.)
- * - If authorized → calls /api/admin/supabase-login to mint an admin_session
- *   cookie so that all /api/admin/* endpoints (which use the sync
- *   validateAdminRequest check) also accept this session.
+ * - On success the server mints an admin_session cookie so that all
+ *   /api/admin/* endpoints (which use the sync validateAdminRequest check)
+ *   also accept this session.
  * - Sets ready=true once the cookie is obtained and the page may render.
+ *
+ * For superadmin-only pages pass `requireSuperadmin=true`. The hook will
+ * additionally call /api/admin/admins?self=1 which returns 403 when the
+ * authenticated user is not a superadmin.
  */
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { supabase, isAdmin } from "../lib/supabaseClient";
+import { supabase } from "../lib/supabaseClient";
 
-export function useAdminProtectedPage() {
+export function useAdminProtectedPage({ requireSuperadmin = false } = {}) {
   const router = useRouter();
   const [ready, setReady] = useState(false);
   const [denied, setDenied] = useState(false);
@@ -34,38 +39,46 @@ export function useAdminProtectedPage() {
     async function checkAdmin() {
       try {
         const {
-          data: { user },
-        } = await supabase.auth.getUser();
+          data: { session },
+        } = await supabase.auth.getSession();
 
         if (cancelled) return;
 
-        if (!user) {
+        if (!session?.access_token) {
           router.replace(`/login?redirect=${encodeURIComponent(router.asPath)}`);
           return;
         }
 
-        const adminAccess = await isAdmin(user);
+        // Server-side check: ADMIN_ALLOWLIST_EMAILS OR profiles.is_admin=true
+        const loginRes = await fetch("/api/admin/supabase-login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ access_token: session.access_token }),
+        });
+
         if (cancelled) return;
 
-        if (!adminAccess) {
+        if (loginRes.status === 403 || loginRes.status === 401) {
           setDenied(true);
           return;
         }
 
-        // Mint an admin_session cookie so /api/admin/* sync checks pass
-        try {
-          const {
-            data: { session },
-          } = await supabase.auth.getSession();
-          if (session?.access_token) {
-            await fetch("/api/admin/supabase-login", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ access_token: session.access_token }),
-            });
+        if (!loginRes.ok) {
+          // Server error — treat as denied to be safe
+          setDenied(true);
+          return;
+        }
+
+        // Superadmin check (if required)
+        if (requireSuperadmin) {
+          const saRes = await fetch("/api/admin/admins?self=1", {
+            credentials: "same-origin",
+          });
+          if (cancelled) return;
+          if (saRes.status === 403) {
+            setDenied(true);
+            return;
           }
-        } catch {
-          // Non-fatal — admin pages may still work via the Bearer token path
         }
 
         if (!cancelled) setReady(true);
@@ -80,7 +93,7 @@ export function useAdminProtectedPage() {
     return () => {
       cancelled = true;
     };
-  }, [router]);
+  }, [router, requireSuperadmin]);
 
   return { ready, denied };
 }
