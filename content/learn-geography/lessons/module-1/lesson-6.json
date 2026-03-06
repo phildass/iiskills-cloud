@@ -8,12 +8,7 @@
   "quiz": [
     {
       "question": "What percentage of Earths fresh water is stored in glaciers and ice sheets?",
-      "options": [
-        "About 10%",
-        "About 30%",
-        "About 69%",
-        "About 90%"
-      ],
+      "options": ["About 10%", "About 30%", "About 69%", "About 90%"],
       "correct_answer": 2
     },
     {
@@ -48,12 +43,7 @@
     },
     {
       "question": "What landform is created when a glacier carves a U-shaped valley that is then flooded by the sea?",
-      "options": [
-        "A delta",
-        "A fjord",
-        "A lagoon",
-        "An atoll"
-      ],
+      "options": ["A delta", "A fjord", "A lagoon", "An atoll"],
       "correct_answer": 1
     }
   ]

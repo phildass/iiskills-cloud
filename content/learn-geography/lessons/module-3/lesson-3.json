@@ -8,12 +8,7 @@
   "quiz": [
     {
       "question": "Which is the second largest ocean?",
-      "options": [
-        "Pacific",
-        "Indian",
-        "Atlantic",
-        "Southern"
-      ],
+      "options": ["Pacific", "Indian", "Atlantic", "Southern"],
       "correct_answer": 2
     },
     {
@@ -28,12 +23,7 @@
     },
     {
       "question": "Which current moderates the climate of Western Europe?",
-      "options": [
-        "Labrador Current",
-        "Gulf Stream",
-        "Benguela Current",
-        "Canary Current"
-      ],
+      "options": ["Labrador Current", "Gulf Stream", "Benguela Current", "Canary Current"],
       "correct_answer": 1
     },
     {
@@ -48,12 +38,7 @@
     },
     {
       "question": "Which island in the Atlantic Ocean is the most remote inhabited island?",
-      "options": [
-        "Azores",
-        "Canary Islands",
-        "Tristan da Cunha",
-        "Bermuda"
-      ],
+      "options": ["Azores", "Canary Islands", "Tristan da Cunha", "Bermuda"],
       "correct_answer": 2
     }
   ]

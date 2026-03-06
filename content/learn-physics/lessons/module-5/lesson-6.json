@@ -18,12 +18,7 @@
     },
     {
       "question": "The SI unit of energy is:",
-      "options": [
-        "Watt",
-        "Newton",
-        "Joule",
-        "Pascal"
-      ],
+      "options": ["Watt", "Newton", "Joule", "Pascal"],
       "correct_answer": 2
     },
     {
@@ -38,22 +33,12 @@
     },
     {
       "question": "Power is:",
-      "options": [
-        "Energy × Time",
-        "Energy ÷ Time",
-        "Force × Distance",
-        "Mass × Velocity"
-      ],
+      "options": ["Energy × Time", "Energy ÷ Time", "Force × Distance", "Mass × Velocity"],
       "correct_answer": 1
     },
     {
       "question": "1 kilowatt equals:",
-      "options": [
-        "100 watts",
-        "1000 watts",
-        "10 watts",
-        "10,000 watts"
-      ],
+      "options": ["100 watts", "1000 watts", "10 watts", "10,000 watts"],
       "correct_answer": 1
     }
   ]

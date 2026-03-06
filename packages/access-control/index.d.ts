@@ -1,41 +1,41 @@
 /**
  * TypeScript Type Definitions for @iiskills/access-control
- * 
+ *
  * This file provides complete type definitions for the access control package.
  * Can be used for TypeScript projects or JSDoc type checking in JavaScript.
- * 
+ *
  * @packageDocumentation
  */
 
 /**
  * App type enumeration
  */
-export type AppType = 'free' | 'paid';
+export type AppType = "free" | "paid";
 
 /**
  * How access was granted to a user
  */
-export type GrantedVia = 'payment' | 'bundle' | 'admin' | 'otp' | 'promo';
+export type GrantedVia = "payment" | "bundle" | "admin" | "otp" | "promo";
 
 /**
  * App identifier - must be one of the known app IDs
  */
-export type AppId = 
-  | 'main'
-  | 'learn-ai'
-  | 'learn-apt'
-  | 'learn-chemistry'
-  | 'learn-developer'
-  | 'learn-geography'
-  | 'learn-management'
-  | 'learn-math'
-  | 'learn-physics'
-  | 'learn-pr';
+export type AppId =
+  | "main"
+  | "learn-ai"
+  | "learn-apt"
+  | "learn-chemistry"
+  | "learn-developer"
+  | "learn-geography"
+  | "learn-management"
+  | "learn-math"
+  | "learn-physics"
+  | "learn-pr";
 
 /**
  * Bundle identifier
  */
-export type BundleId = 'ai-developer-bundle';
+export type BundleId = "ai-developer-bundle";
 
 /**
  * Price in paisa (smallest currency unit)
@@ -227,10 +227,10 @@ export interface GrantBundleAccessParams {
 
 /**
  * Check if an app is free (no payment required)
- * 
+ *
  * @param appId - App identifier
  * @returns true if app is free, false if paid
- * 
+ *
  * @example
  * ```typescript
  * if (isFreeApp('learn-math')) {
@@ -242,10 +242,10 @@ export function isFreeApp(appId: string): boolean;
 
 /**
  * Check if an app is part of a bundle
- * 
+ *
  * @param appId - App identifier
  * @returns true if app is in a bundle
- * 
+ *
  * @example
  * ```typescript
  * if (isBundleApp('learn-ai')) {
@@ -257,10 +257,10 @@ export function isBundleApp(appId: string): boolean;
 
 /**
  * Check if an app requires payment
- * 
+ *
  * @param appId - App identifier
  * @returns true if app requires payment
- * 
+ *
  * @example
  * ```typescript
  * if (requiresPayment('learn-ai')) {
@@ -272,11 +272,11 @@ export function requiresPayment(appId: string): boolean;
 
 /**
  * Check if a user has access to an app
- * 
+ *
  * @param user - User object with apps array
  * @param appId - App identifier
  * @returns true if user has access
- * 
+ *
  * @example
  * ```typescript
  * const user = { id: '123', apps: ['learn-ai', 'learn-developer'] };
@@ -289,10 +289,10 @@ export function userHasAccess(user: User | null, appId: string): boolean;
 
 /**
  * Get bundle information for an app
- * 
+ *
  * @param appId - App identifier
  * @returns Bundle config or null if not in a bundle
- * 
+ *
  * @example
  * ```typescript
  * const bundle = getBundleInfo('learn-ai');
@@ -306,10 +306,10 @@ export function getBundleInfo(appId: string): Bundle | null;
 
 /**
  * Get all apps that will be unlocked when purchasing an app
- * 
+ *
  * @param appId - App identifier being purchased
  * @returns Array of app IDs that will be unlocked
- * 
+ *
  * @example
  * ```typescript
  * const appsToUnlock = getAppsToUnlock('learn-ai');
@@ -320,7 +320,7 @@ export function getAppsToUnlock(appId: string): AppId[];
 
 /**
  * Get detailed access status for a user and app
- * 
+ *
  * @param user - User object
  * @param appId - App identifier
  * @returns Detailed access status
@@ -329,7 +329,7 @@ export function getAccessStatus(user: User | null, appId: string): AccessStatus;
 
 /**
  * Check if user has access to an app via bundle
- * 
+ *
  * @param userAppIds - Array of app IDs user has access to
  * @param appId - App ID to check
  * @returns true if user has access via bundle
@@ -338,7 +338,7 @@ export function hasAccessViaBundle(userAppIds: string[], appId: string): boolean
 
 /**
  * Get a user-friendly message about bundle access
- * 
+ *
  * @param appId - App identifier
  * @returns Message string
  */
@@ -350,10 +350,10 @@ export function getBundleAccessMessage(appId: string): string;
 
 /**
  * Grant access to a single app
- * 
+ *
  * @param params - Grant access parameters
  * @returns User app access record
- * 
+ *
  * @example
  * ```typescript
  * const access = await grantAppAccess({
@@ -368,10 +368,10 @@ export function grantAppAccess(params: GrantAppAccessParams): Promise<UserAppAcc
 
 /**
  * Grant bundle access (unlocks all apps in bundle)
- * 
+ *
  * @param params - Grant bundle access parameters
  * @returns Bundle access result
- * 
+ *
  * @example
  * ```typescript
  * const result = await grantBundleAccess({
@@ -386,11 +386,11 @@ export function grantBundleAccess(params: GrantBundleAccessParams): Promise<Bund
 
 /**
  * Check if user has access to an app (database check)
- * 
+ *
  * @param userId - User UUID
  * @param appId - App identifier
  * @returns true if user has access
- * 
+ *
  * @example
  * ```typescript
  * const hasAccess = await hasAppAccess('user-uuid', 'learn-ai');
@@ -403,7 +403,7 @@ export function hasAppAccess(userId: string, appId: string): Promise<boolean>;
 
 /**
  * Get user with their access information
- * 
+ *
  * @param userId - User UUID
  * @returns User object with apps array
  */
@@ -411,7 +411,7 @@ export function getUserWithAccess(userId: string): Promise<User | null>;
 
 /**
  * Get all apps a user has access to
- * 
+ *
  * @param userId - User UUID
  * @returns Array of user app access records
  */
@@ -419,7 +419,7 @@ export function getUserApps(userId: string): Promise<UserAppAccess[]>;
 
 /**
  * Revoke user access to an app
- * 
+ *
  * @param userId - User UUID
  * @param appId - App identifier
  * @returns true if successfully revoked
@@ -428,7 +428,7 @@ export function revokeAppAccess(userId: string, appId: string): Promise<boolean>
 
 /**
  * Get access statistics for an app
- * 
+ *
  * @param appId - App identifier (optional, omit for all apps)
  * @returns Access statistics
  */
@@ -436,7 +436,7 @@ export function getAccessStats(appId?: string): Promise<AccessStats | AccessStat
 
 /**
  * Update payment record with bundle information
- * 
+ *
  * @param paymentId - Payment UUID
  * @param bundledApps - Array of bundled app IDs
  * @returns true if successfully updated
@@ -456,8 +456,8 @@ export const APPS: Record<AppId, AppConfig>;
  * App type constants
  */
 export const APP_TYPE: {
-  FREE: 'free';
-  PAID: 'paid';
+  FREE: "free";
+  PAID: "paid";
 };
 
 /**
@@ -497,7 +497,7 @@ export function getBundleConfig(bundleId: string): Bundle | null;
 
 /**
  * Guard free app payment endpoints
- * 
+ *
  * @param appId - App identifier
  * @returns Payment guard result
  */
@@ -505,7 +505,7 @@ export function guardFreeAppPayment(appId: string): PaymentGuardResult;
 
 /**
  * Higher-order function to wrap payment endpoints with free app guard
- * 
+ *
  * @param handler - Payment handler function
  * @returns Wrapped handler
  */
@@ -513,7 +513,7 @@ export function withFreeAppGuard(handler: Function): Function;
 
 /**
  * Validate payment method
- * 
+ *
  * @param method - HTTP method
  * @returns true if valid
  */
@@ -521,7 +521,7 @@ export function validatePaymentMethod(method: string): boolean;
 
 /**
  * Validate payment request body
- * 
+ *
  * @param body - Request body
  * @returns Object with valid flag and missing fields
  */
@@ -529,7 +529,7 @@ export function validatePaymentBody(body: any): { valid: boolean; missing: strin
 
 /**
  * Complete payment endpoint guard (combines all validations)
- * 
+ *
  * @param appId - App identifier
  * @param req - Request object
  * @param res - Response object

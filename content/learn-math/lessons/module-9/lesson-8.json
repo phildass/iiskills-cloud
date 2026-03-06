@@ -8,22 +8,12 @@
   "quiz": [
     {
       "question": "An eigenvector v of matrix A satisfies:",
-      "options": [
-        "Av = 0",
-        "Av = λv",
-        "Av = v + λ",
-        "A + v = λ"
-      ],
+      "options": ["Av = 0", "Av = λv", "Av = v + λ", "A + v = λ"],
       "correct_answer": 1
     },
     {
       "question": "Eigenvalues are found by solving:",
-      "options": [
-        "Av = 0",
-        "det(A – λI) = 0",
-        "A⁻¹v = λv",
-        "tr(A) = λ"
-      ],
+      "options": ["Av = 0", "det(A – λI) = 0", "A⁻¹v = λv", "tr(A) = λ"],
       "correct_answer": 1
     },
     {
@@ -48,12 +38,7 @@
     },
     {
       "question": "Eigenvectors corresponding to distinct eigenvalues are:",
-      "options": [
-        "Identical",
-        "Parallel",
-        "Linearly independent",
-        "Zero vectors"
-      ],
+      "options": ["Identical", "Parallel", "Linearly independent", "Zero vectors"],
       "correct_answer": 2
     }
   ]

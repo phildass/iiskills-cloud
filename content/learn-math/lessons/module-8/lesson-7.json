@@ -18,42 +18,22 @@
     },
     {
       "question": "P(X = k) for B(n, p) is:",
-      "options": [
-        "C(n,k) pᵏ",
-        "C(n,k) pᵏ(1–p)ⁿ⁻ᵏ",
-        "nᵏ pᵏ",
-        "pᵏ(1–p)ⁿ"
-      ],
+      "options": ["C(n,k) pᵏ", "C(n,k) pᵏ(1–p)ⁿ⁻ᵏ", "nᵏ pᵏ", "pᵏ(1–p)ⁿ"],
       "correct_answer": 1
     },
     {
       "question": "For B(10, 0.5), the mean E(X) = :",
-      "options": [
-        "5",
-        "2.5",
-        "10",
-        "1"
-      ],
+      "options": ["5", "2.5", "10", "1"],
       "correct_answer": 0
     },
     {
       "question": "The variance of B(n, p) is:",
-      "options": [
-        "np",
-        "np(1–p)",
-        "n(1–p)",
-        "np²"
-      ],
+      "options": ["np", "np(1–p)", "n(1–p)", "np²"],
       "correct_answer": 1
     },
     {
       "question": "A Bernoulli trial has how many possible outcomes?",
-      "options": [
-        "1",
-        "2",
-        "3",
-        "n"
-      ],
+      "options": ["1", "2", "3", "n"],
       "correct_answer": 1
     }
   ]

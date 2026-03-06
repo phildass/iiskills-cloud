@@ -28,12 +28,7 @@
     },
     {
       "question": "Which subatomic particle has a negative charge?",
-      "options": [
-        "Proton",
-        "Neutron",
-        "Electron",
-        "Nucleus"
-      ],
+      "options": ["Proton", "Neutron", "Electron", "Nucleus"],
       "correct_answer": 2
     },
     {
@@ -48,12 +43,7 @@
     },
     {
       "question": "What shape is an s-orbital?",
-      "options": [
-        "Dumbbell-shaped",
-        "Spherical",
-        "Toroidal",
-        "Clover-shaped"
-      ],
+      "options": ["Dumbbell-shaped", "Spherical", "Toroidal", "Clover-shaped"],
       "correct_answer": 1
     }
   ]

@@ -8,52 +8,27 @@
   "quiz": [
     {
       "question": "Which is the largest country in South America?",
-      "options": [
-        "Argentina",
-        "Colombia",
-        "Brazil",
-        "Peru"
-      ],
+      "options": ["Argentina", "Colombia", "Brazil", "Peru"],
       "correct_answer": 2
     },
     {
       "question": "What is the world's largest river by discharge?",
-      "options": [
-        "Nile",
-        "Mississippi",
-        "Amazon",
-        "Yangtze"
-      ],
+      "options": ["Nile", "Mississippi", "Amazon", "Yangtze"],
       "correct_answer": 2
     },
     {
       "question": "Which North American country has the largest economy?",
-      "options": [
-        "Canada",
-        "Mexico",
-        "United States",
-        "Cuba"
-      ],
+      "options": ["Canada", "Mexico", "United States", "Cuba"],
       "correct_answer": 2
     },
     {
       "question": "What mountain range runs along the western coast of South America?",
-      "options": [
-        "Rockies",
-        "Appalachians",
-        "Andes",
-        "Sierra Madre"
-      ],
+      "options": ["Rockies", "Appalachians", "Andes", "Sierra Madre"],
       "correct_answer": 2
     },
     {
       "question": "What is the largest desert in North America?",
-      "options": [
-        "Mojave Desert",
-        "Sonoran Desert",
-        "Chihuahuan Desert",
-        "Great Basin Desert"
-      ],
+      "options": ["Mojave Desert", "Sonoran Desert", "Chihuahuan Desert", "Great Basin Desert"],
       "correct_answer": 3
     }
   ]

@@ -8,52 +8,27 @@
   "quiz": [
     {
       "question": "What is mechanical advantage?",
-      "options": [
-        "Work output ÷ Work input",
-        "Load ÷ Effort",
-        "Effort ÷ Load",
-        "Power ÷ Time"
-      ],
+      "options": ["Work output ÷ Work input", "Load ÷ Effort", "Effort ÷ Load", "Power ÷ Time"],
       "correct_answer": 1
     },
     {
       "question": "Which of these is NOT a simple machine?",
-      "options": [
-        "Lever",
-        "Pulley",
-        "Battery",
-        "Inclined plane"
-      ],
+      "options": ["Lever", "Pulley", "Battery", "Inclined plane"],
       "correct_answer": 2
     },
     {
       "question": "A lever has load = 200 N and effort = 50 N. What is its MA?",
-      "options": [
-        "0.25",
-        "4",
-        "10",
-        "150"
-      ],
+      "options": ["0.25", "4", "10", "150"],
       "correct_answer": 1
     },
     {
       "question": "What is conserved in every simple machine?",
-      "options": [
-        "Force",
-        "Speed",
-        "Energy",
-        "Distance"
-      ],
+      "options": ["Force", "Speed", "Energy", "Distance"],
       "correct_answer": 2
     },
     {
       "question": "Which simple machine is essentially a wrapped inclined plane?",
-      "options": [
-        "Lever",
-        "Pulley",
-        "Wedge",
-        "Screw"
-      ],
+      "options": ["Lever", "Pulley", "Wedge", "Screw"],
       "correct_answer": 3
     }
   ]

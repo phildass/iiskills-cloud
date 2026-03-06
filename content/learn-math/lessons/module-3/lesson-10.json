@@ -8,32 +8,17 @@
   "quiz": [
     {
       "question": "In a proof, a statement accepted without proof is called:",
-      "options": [
-        "Theorem",
-        "Lemma",
-        "Axiom",
-        "Corollary"
-      ],
+      "options": ["Theorem", "Lemma", "Axiom", "Corollary"],
       "correct_answer": 2
     },
     {
       "question": "Euclid's parallel postulate is an example of:",
-      "options": [
-        "A theorem",
-        "An axiom",
-        "A lemma",
-        "A corollary"
-      ],
+      "options": ["A theorem", "An axiom", "A lemma", "A corollary"],
       "correct_answer": 1
     },
     {
       "question": "A theorem is:",
-      "options": [
-        "A definition",
-        "A conjecture",
-        "A proven statement",
-        "An assumption"
-      ],
+      "options": ["A definition", "A conjecture", "A proven statement", "An assumption"],
       "correct_answer": 2
     },
     {

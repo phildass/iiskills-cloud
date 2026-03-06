@@ -8,42 +8,22 @@
   "quiz": [
     {
       "question": "The probability of an impossible event is:",
-      "options": [
-        "1",
-        "0.5",
-        "–1",
-        "0"
-      ],
+      "options": ["1", "0.5", "–1", "0"],
       "correct_answer": 3
     },
     {
       "question": "For mutually exclusive events A and B: P(A ∪ B) = :",
-      "options": [
-        "P(A) × P(B)",
-        "P(A) + P(B) – P(A∩B)",
-        "P(A) + P(B)",
-        "P(A) – P(B)"
-      ],
+      "options": ["P(A) × P(B)", "P(A) + P(B) – P(A∩B)", "P(A) + P(B)", "P(A) – P(B)"],
       "correct_answer": 2
     },
     {
       "question": "The complement of event A has probability:",
-      "options": [
-        "P(A) + 1",
-        "1 – P(A)",
-        "1/P(A)",
-        "P(A)²"
-      ],
+      "options": ["P(A) + 1", "1 – P(A)", "1/P(A)", "P(A)²"],
       "correct_answer": 1
     },
     {
       "question": "For independent events A and B: P(A ∩ B) = :",
-      "options": [
-        "P(A) + P(B)",
-        "P(A) – P(B)",
-        "P(A) × P(B)",
-        "P(A) / P(B)"
-      ],
+      "options": ["P(A) + P(B)", "P(A) – P(B)", "P(A) × P(B)", "P(A) / P(B)"],
       "correct_answer": 2
     },
     {

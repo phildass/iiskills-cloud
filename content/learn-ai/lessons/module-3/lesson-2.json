@@ -8,12 +8,7 @@
   "quiz": [
     {
       "question": "Which measure of central tendency is most robust to outliers?",
-      "options": [
-        "Mean",
-        "Variance",
-        "Median",
-        "Standard deviation"
-      ],
+      "options": ["Mean", "Variance", "Median", "Standard deviation"],
       "correct_answer": 2
     },
     {
@@ -38,12 +33,7 @@
     },
     {
       "question": "Which distribution models rare events over time?",
-      "options": [
-        "Normal",
-        "Binomial",
-        "Poisson",
-        "Uniform"
-      ],
+      "options": ["Normal", "Binomial", "Poisson", "Uniform"],
       "correct_answer": 2
     },
     {

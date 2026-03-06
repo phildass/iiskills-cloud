@@ -33,7 +33,6 @@ export default function IiskillsCheckout() {
   const router = useRouter();
   const { course } = router.query;
 
-
   /**
    * step:
    *   'loading'      — initial auth + profile check in progress
@@ -101,7 +100,6 @@ export default function IiskillsCheckout() {
       // ── 2. Check profile completeness ─────────────────────────────────────
       let profileComplete = false;
       try {
-
         const { supabase } = await import("../../lib/supabaseClient");
         const { data: profileData } = await supabase
           .from("profiles")

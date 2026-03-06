@@ -8,52 +8,27 @@
   "quiz": [
     {
       "question": "Which European country has the largest land area?",
-      "options": [
-        "France",
-        "Germany",
-        "Russia",
-        "Ukraine"
-      ],
+      "options": ["France", "Germany", "Russia", "Ukraine"],
       "correct_answer": 2
     },
     {
       "question": "What sea separates Europe from Africa at its narrowest point?",
-      "options": [
-        "Aegean Sea",
-        "Adriatic Sea",
-        "Strait of Gibraltar",
-        "Bosphorus Strait"
-      ],
+      "options": ["Aegean Sea", "Adriatic Sea", "Strait of Gibraltar", "Bosphorus Strait"],
       "correct_answer": 2
     },
     {
       "question": "What is the longest river in Europe?",
-      "options": [
-        "Danube",
-        "Rhine",
-        "Volga",
-        "Thames"
-      ],
+      "options": ["Danube", "Rhine", "Volga", "Thames"],
       "correct_answer": 2
     },
     {
       "question": "Which mountain range forms a natural boundary between Europe and Asia?",
-      "options": [
-        "Alps",
-        "Carpathians",
-        "Ural Mountains",
-        "Caucasus"
-      ],
+      "options": ["Alps", "Carpathians", "Ural Mountains", "Caucasus"],
       "correct_answer": 2
     },
     {
       "question": "What is the smallest country in Europe by area?",
-      "options": [
-        "Monaco",
-        "San Marino",
-        "Vatican City",
-        "Liechtenstein"
-      ],
+      "options": ["Monaco", "San Marino", "Vatican City", "Liechtenstein"],
       "correct_answer": 2
     }
   ]

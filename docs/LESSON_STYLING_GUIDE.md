@@ -1,14 +1,14 @@
 # Lesson Styling Guide
 
 This document describes the lesson content styling system, what Markdown/HTML features are supported,
-and how authors can produce richly styled output across every learn-* app.
+and how authors can produce richly styled output across every learn-\* app.
 
 ---
 
 ## How It Works
 
 Lesson body content is rendered through a shared **`LessonContent`** React component
-(`packages/ui/src/content/LessonContent.js`).  The component wraps HTML or React children
+(`packages/ui/src/content/LessonContent.js`). The component wraps HTML or React children
 in a `lesson-content` container styled by
 `packages/ui/src/content/lesson-content.module.css`.
 
@@ -37,8 +37,11 @@ The CSS module is automatically bundled because each app has
 
 ```markdown
 # H1 – Page Title (2 rem, bold, dark)
+
 ## H2 – Section heading (1.5 rem, underline border)
+
 ### H3 – Sub-section (1.25 rem, accent blue)
+
 #### H4 – Minor heading (1.1 rem, light blue)
 ```
 
@@ -51,13 +54,13 @@ Paragraphs are separated automatically — no need for manual `<br>` tags.
 
 ```markdown
 **Bold text** appears heavier with a near-black colour.
-*Italic text* appears in a slightly lighter shade.
+_Italic text_ appears in a slightly lighter shade.
 ```
 
 ### Unordered and Ordered Lists
 
 ```markdown
-- First item  (blue bullet)
+- First item (blue bullet)
 - Second item
   - Nested item
 
@@ -75,7 +78,7 @@ Paragraphs are separated automatically — no need for manual `<br>` tags.
 
 ### Inline Code
 
-Use single backticks for inline code:  `` `const x = 42` ``
+Use single backticks for inline code: `` `const x = 42` ``
 
 Inline code gets a pink colour on a light grey background.
 
@@ -102,7 +105,7 @@ Links appear in blue with an underline on hover.
 
 ```markdown
 | Feature       | Supported |
-|---------------|-----------|
+| ------------- | --------- |
 | Headings      | ✅        |
 | Bold / Italic | ✅        |
 | Code blocks   | ✅        |
@@ -120,36 +123,36 @@ Renders as a subtle grey divider.
 
 ## Style Reference
 
-| Element       | Style |
-|---------------|-------|
-| Container     | `max-width: 72ch`, centred, `font-size: 1.0625rem`, `line-height: 1.75` |
-| `h1`          | 2 rem, bold, very dark |
-| `h2`          | 1.5 rem, bold, underline border |
-| `h3`          | 1.25 rem, bold, accent blue (#1e40af) |
-| `h4`          | 1.1 rem, light blue (#2563eb) |
-| `p`           | 1.25 em bottom margin |
-| `strong`      | bold, near-black |
-| `em`          | italic, slate-700 |
-| `ul` / `ol`   | 1.75 em left indent, blue markers |
-| `blockquote`  | blue left border, pale-blue background |
-| `code`        | pink on grey, 4 px radius |
-| `pre`         | dark navy background, scrollable |
-| `a`           | blue, underline on hover |
-| `table`       | full-width, striped borders |
-| `img`         | responsive, 8 px radius |
+| Element      | Style                                                                   |
+| ------------ | ----------------------------------------------------------------------- |
+| Container    | `max-width: 72ch`, centred, `font-size: 1.0625rem`, `line-height: 1.75` |
+| `h1`         | 2 rem, bold, very dark                                                  |
+| `h2`         | 1.5 rem, bold, underline border                                         |
+| `h3`         | 1.25 rem, bold, accent blue (#1e40af)                                   |
+| `h4`         | 1.1 rem, light blue (#2563eb)                                           |
+| `p`          | 1.25 em bottom margin                                                   |
+| `strong`     | bold, near-black                                                        |
+| `em`         | italic, slate-700                                                       |
+| `ul` / `ol`  | 1.75 em left indent, blue markers                                       |
+| `blockquote` | blue left border, pale-blue background                                  |
+| `code`       | pink on grey, 4 px radius                                               |
+| `pre`        | dark navy background, scrollable                                        |
+| `a`          | blue, underline on hover                                                |
+| `table`      | full-width, striped borders                                             |
+| `img`        | responsive, 8 px radius                                                 |
 
 ---
 
 ## Where Styles Live
 
-| File | Purpose |
-|------|---------|
-| `packages/ui/src/content/lesson-content.module.css` | All lesson typography styles (CSS module) |
-| `packages/ui/src/content/LessonContent.js` | React component that applies the styles |
-| `packages/ui/src/content/index.js` | Exports `LessonContent` from `@iiskills/ui/content` |
+| File                                                | Purpose                                             |
+| --------------------------------------------------- | --------------------------------------------------- |
+| `packages/ui/src/content/lesson-content.module.css` | All lesson typography styles (CSS module)           |
+| `packages/ui/src/content/LessonContent.js`          | React component that applies the styles             |
+| `packages/ui/src/content/index.js`                  | Exports `LessonContent` from `@iiskills/ui/content` |
 
 To change the visual design of lessons **across all apps**, edit only
-`lesson-content.module.css`.  No per-app changes are needed.
+`lesson-content.module.css`. No per-app changes are needed.
 
 ---
 

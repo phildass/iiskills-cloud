@@ -28,12 +28,7 @@
     },
     {
       "question": "Which soil type is most fertile for agriculture?",
-      "options": [
-        "Sandy soil",
-        "Laterite soil",
-        "Loam soil",
-        "Clay soil"
-      ],
+      "options": ["Sandy soil", "Laterite soil", "Loam soil", "Clay soil"],
       "correct_answer": 2
     },
     {

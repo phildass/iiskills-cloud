@@ -25,22 +25,12 @@
     },
     {
       "question": "What type of bond involves the sharing of electrons between atoms?",
-      "options": [
-        "Ionic bond",
-        "Metallic bond",
-        "Covalent bond",
-        "Hydrogen bond"
-      ],
+      "options": ["Ionic bond", "Metallic bond", "Covalent bond", "Hydrogen bond"],
       "correct_answer": 2
     },
     {
       "question": "Which state of matter has a definite volume but no definite shape?",
-      "options": [
-        "Solid",
-        "Liquid",
-        "Gas",
-        "Plasma"
-      ],
+      "options": ["Solid", "Liquid", "Gas", "Plasma"],
       "correct_answer": 1
     },
     {
@@ -65,12 +55,7 @@
     },
     {
       "question": "What is the general formula for an alkane?",
-      "options": [
-        "CnH2n",
-        "CnH2n+2",
-        "CnH2n-2",
-        "CnHn"
-      ],
+      "options": ["CnH2n", "CnH2n+2", "CnH2n-2", "CnHn"],
       "correct_answer": 1
     },
     {
@@ -105,12 +90,7 @@
     },
     {
       "question": "What is the ideal gas law?",
-      "options": [
-        "PV = nRT",
-        "P/V = nR/T",
-        "PV = RT",
-        "P = nRT/V²"
-      ],
+      "options": ["PV = nRT", "P/V = nR/T", "PV = RT", "P = nRT/V²"],
       "correct_answer": 0
     },
     {

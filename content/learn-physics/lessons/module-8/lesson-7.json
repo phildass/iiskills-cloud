@@ -28,32 +28,17 @@
     },
     {
       "question": "Which Indian organisation operates nuclear power plants?",
-      "options": [
-        "ISRO",
-        "DRDO",
-        "NPCIL",
-        "BARC"
-      ],
+      "options": ["ISRO", "DRDO", "NPCIL", "BARC"],
       "correct_answer": 2
     },
     {
       "question": "In a nuclear power plant, what drives the electrical generator?",
-      "options": [
-        "Direct nuclear radiation",
-        "A steam turbine",
-        "A diesel engine",
-        "Solar panels"
-      ],
+      "options": ["Direct nuclear radiation", "A steam turbine", "A diesel engine", "Solar panels"],
       "correct_answer": 1
     },
     {
       "question": "Which fuel is most commonly used in nuclear power plants?",
-      "options": [
-        "Hydrogen",
-        "Carbon",
-        "Uranium-235",
-        "Thorium-90"
-      ],
+      "options": ["Hydrogen", "Carbon", "Uranium-235", "Thorium-90"],
       "correct_answer": 2
     }
   ]

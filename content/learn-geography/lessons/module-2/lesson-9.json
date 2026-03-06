@@ -18,22 +18,12 @@
     },
     {
       "question": "What fraction of the world's fresh water is held in Antarctic ice?",
-      "options": [
-        "About 30%",
-        "About 50%",
-        "About 70%",
-        "About 90%"
-      ],
+      "options": ["About 30%", "About 50%", "About 70%", "About 90%"],
       "correct_answer": 2
     },
     {
       "question": "What is the North Pole located on?",
-      "options": [
-        "A large island",
-        "Greenland",
-        "Floating sea ice",
-        "A continental shelf"
-      ],
+      "options": ["A large island", "Greenland", "Floating sea ice", "A continental shelf"],
       "correct_answer": 2
     },
     {
@@ -48,12 +38,7 @@
     },
     {
       "question": "Which country claims the most territory in Antarctica?",
-      "options": [
-        "USA",
-        "Russia",
-        "Australia",
-        "No country — claims are frozen under the treaty"
-      ],
+      "options": ["USA", "Russia", "Australia", "No country — claims are frozen under the treaty"],
       "correct_answer": 3
     }
   ]

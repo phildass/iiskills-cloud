@@ -18,42 +18,22 @@
     },
     {
       "question": "The Fundamental Theorem of Calculus Part 1 states that d/dx ∫ₐˣ f(t)dt = :",
-      "options": [
-        "f(a)",
-        "f(x)",
-        "F(x) – F(a)",
-        "F'(x)"
-      ],
+      "options": ["f(a)", "f(x)", "F(x) – F(a)", "F'(x)"],
       "correct_answer": 1
     },
     {
       "question": "An antiderivative F(x) satisfies:",
-      "options": [
-        "F(x) = f'(x)",
-        "F'(x) = f(x)",
-        "∫F(x)dx = f(x)",
-        "F(x) = 0"
-      ],
+      "options": ["F(x) = f'(x)", "F'(x) = f(x)", "∫F(x)dx = f(x)", "F(x) = 0"],
       "correct_answer": 1
     },
     {
       "question": "The notation ∫f(x)dx means:",
-      "options": [
-        "Definite integral",
-        "Indefinite integral",
-        "Derivative of f",
-        "Limit of f"
-      ],
+      "options": ["Definite integral", "Indefinite integral", "Derivative of f", "Limit of f"],
       "correct_answer": 1
     },
     {
       "question": "∫cos x dx = :",
-      "options": [
-        "–sin x + C",
-        "sin x + C",
-        "–cos x + C",
-        "tan x + C"
-      ],
+      "options": ["–sin x + C", "sin x + C", "–cos x + C", "tan x + C"],
       "correct_answer": 1
     }
   ]

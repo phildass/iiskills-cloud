@@ -18,42 +18,22 @@
     },
     {
       "question": "The general solution of dy/dx = ky is:",
-      "options": [
-        "y = kx",
-        "y = Ce^(kx)",
-        "y = k + x",
-        "y = Cx^k"
-      ],
+      "options": ["y = kx", "y = Ce^(kx)", "y = k + x", "y = Cx^k"],
       "correct_answer": 1
     },
     {
       "question": "A separable ODE can be written as:",
-      "options": [
-        "y' = f(x) + g(y)",
-        "y' = f(x)·g(y)",
-        "y'' = f(y)",
-        "y = Ax + B"
-      ],
+      "options": ["y' = f(x) + g(y)", "y' = f(x)·g(y)", "y'' = f(y)", "y = Ax + B"],
       "correct_answer": 1
     },
     {
       "question": "A first-order linear ODE has the form:",
-      "options": [
-        "y'' + P(x)y = Q(x)",
-        "y' + P(x)y = Q(x)",
-        "y² + Py = Q",
-        "y' = y²"
-      ],
+      "options": ["y'' + P(x)y = Q(x)", "y' + P(x)y = Q(x)", "y² + Py = Q", "y' = y²"],
       "correct_answer": 1
     },
     {
       "question": "An integrating factor μ(x) for y' + P(x)y = Q(x) is:",
-      "options": [
-        "e^(∫P dx)",
-        "∫P dx",
-        "P(x)",
-        "Q(x)/P(x)"
-      ],
+      "options": ["e^(∫P dx)", "∫P dx", "P(x)", "Q(x)/P(x)"],
       "correct_answer": 0
     }
   ]

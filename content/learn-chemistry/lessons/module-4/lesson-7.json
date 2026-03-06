@@ -8,12 +8,7 @@
   "quiz": [
     {
       "question": "According to kinetic molecular theory, what happens to gas molecules at higher temperatures?",
-      "options": [
-        "They slow down",
-        "They stop moving",
-        "They move faster",
-        "They become liquids"
-      ],
+      "options": ["They slow down", "They stop moving", "They move faster", "They become liquids"],
       "correct_answer": 2
     },
     {
@@ -28,12 +23,7 @@
     },
     {
       "question": "What is the process of a liquid becoming a gas called?",
-      "options": [
-        "Condensation",
-        "Sublimation",
-        "Evaporation",
-        "Deposition"
-      ],
+      "options": ["Condensation", "Sublimation", "Evaporation", "Deposition"],
       "correct_answer": 2
     },
     {
@@ -48,12 +38,7 @@
     },
     {
       "question": "What is the ideal gas law?",
-      "options": [
-        "PV = nRT",
-        "P/V = nR/T",
-        "PV = RT",
-        "P = nRT/V²"
-      ],
+      "options": ["PV = nRT", "P/V = nR/T", "PV = RT", "P = nRT/V²"],
       "correct_answer": 0
     }
   ]

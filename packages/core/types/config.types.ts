@@ -1,12 +1,12 @@
 /**
  * App Configuration Layer
- * 
+ *
  * This module defines the configuration structure for each app
  * allowing feature toggles and customization while maintaining
  * a unified core architecture.
  */
 
-import { ContentType } from '../types/module.types';
+import { ContentType } from "../types/module.types";
 
 /**
  * Navigation configuration
@@ -83,7 +83,7 @@ export interface APIConfig {
  */
 export interface AnalyticsConfig {
   enabled: boolean;
-  provider?: 'google' | 'mixpanel' | 'custom';
+  provider?: "google" | "mixpanel" | "custom";
   trackingId?: string;
   events?: {
     pageView: boolean;
@@ -101,26 +101,26 @@ export interface AppConfig {
   id: string;
   name: string;
   version: string;
-  environment: 'development' | 'staging' | 'production';
-  
+  environment: "development" | "staging" | "production";
+
   // Feature configuration
   features: FeatureFlags;
-  
+
   // Navigation
   navigation: NavigationConfig;
-  
+
   // Content
   content: ContentConfig;
-  
+
   // Branding
   branding: BrandingConfig;
-  
+
   // API
   api: APIConfig;
-  
+
   // Analytics
   analytics: AnalyticsConfig;
-  
+
   // Custom configuration per app
   custom?: Record<string, any>;
 }
@@ -130,10 +130,10 @@ export interface AppConfig {
  */
 export function createDefaultConfig(overrides: Partial<AppConfig>): AppConfig {
   const defaults: AppConfig = {
-    id: 'default-app',
-    name: 'Default App',
-    version: '1.0.0',
-    environment: 'development',
+    id: "default-app",
+    name: "Default App",
+    version: "1.0.0",
+    environment: "development",
     features: {
       isSearchable: true,
       hasProgressTracking: true,
@@ -151,23 +151,23 @@ export function createDefaultConfig(overrides: Partial<AppConfig>): AppConfig {
       enableSearch: true,
     },
     content: {
-      supportedTypes: ['lesson', 'test', 'article'],
-      defaultType: 'lesson',
+      supportedTypes: ["lesson", "test", "article"],
+      defaultType: "lesson",
       enableUserGenerated: false,
       moderationRequired: true,
     },
     branding: {
-      appName: 'Default App',
-      appDescription: 'A learning platform powered by iiskills.cloud',
-      primaryColor: '#3b82f6',
-      secondaryColor: '#8b5cf6',
+      appName: "Default App",
+      appDescription: "A learning platform powered by iiskills.cloud",
+      primaryColor: "#3b82f6",
+      secondaryColor: "#8b5cf6",
     },
     api: {
-      baseUrl: '/api',
+      baseUrl: "/api",
       endpoints: {
-        modules: '/modules',
-        auth: '/auth',
-        user: '/user',
+        modules: "/modules",
+        auth: "/auth",
+        user: "/user",
       },
       timeout: 30000,
       retryAttempts: 3,

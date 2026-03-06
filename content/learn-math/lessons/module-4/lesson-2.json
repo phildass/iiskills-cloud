@@ -8,52 +8,27 @@
   "quiz": [
     {
       "question": "sin(30°) equals:",
-      "options": [
-        "1/2",
-        "√3/2",
-        "√2/2",
-        "1"
-      ],
+      "options": ["1/2", "√3/2", "√2/2", "1"],
       "correct_answer": 0
     },
     {
       "question": "cos(60°) equals:",
-      "options": [
-        "1",
-        "1/2",
-        "√3/2",
-        "√2/2"
-      ],
+      "options": ["1", "1/2", "√3/2", "√2/2"],
       "correct_answer": 1
     },
     {
       "question": "tan(θ) is defined as:",
-      "options": [
-        "sin(θ)/cos(θ)",
-        "cos(θ)/sin(θ)",
-        "1/sin(θ)",
-        "1/cos(θ)"
-      ],
+      "options": ["sin(θ)/cos(θ)", "cos(θ)/sin(θ)", "1/sin(θ)", "1/cos(θ)"],
       "correct_answer": 0
     },
     {
       "question": "sin(90°) equals:",
-      "options": [
-        "0",
-        "1",
-        "–1",
-        "√2/2"
-      ],
+      "options": ["0", "1", "–1", "√2/2"],
       "correct_answer": 1
     },
     {
       "question": "cos(0°) equals:",
-      "options": [
-        "0",
-        "–1",
-        "1",
-        "1/2"
-      ],
+      "options": ["0", "–1", "1", "1/2"],
       "correct_answer": 2
     }
   ]

@@ -18,12 +18,7 @@
     },
     {
       "question": "In which module does \"Food Security and Agricultural Systems\" appear?",
-      "options": [
-        "Human Geography",
-        "Physical Geography",
-        "Economic Geography",
-        "Climate Zones"
-      ],
+      "options": ["Human Geography", "Physical Geography", "Economic Geography", "Climate Zones"],
       "correct_answer": 2
     },
     {

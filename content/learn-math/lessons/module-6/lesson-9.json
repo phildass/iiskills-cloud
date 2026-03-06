@@ -8,52 +8,27 @@
   "quiz": [
     {
       "question": "A critical point of f(x) satisfies:",
-      "options": [
-        "f(x) = 0",
-        "f'(x) = 0 or undefined",
-        "f''(x) = 0",
-        "f(x) = f'(x)"
-      ],
+      "options": ["f(x) = 0", "f'(x) = 0 or undefined", "f''(x) = 0", "f(x) = f'(x)"],
       "correct_answer": 1
     },
     {
       "question": "If f'(a) = 0 and f''(a) > 0, then x = a is a:",
-      "options": [
-        "Maximum",
-        "Minimum",
-        "Inflection point",
-        "Saddle point"
-      ],
+      "options": ["Maximum", "Minimum", "Inflection point", "Saddle point"],
       "correct_answer": 1
     },
     {
       "question": "If f'(a) = 0 and f''(a) < 0, then x = a is a:",
-      "options": [
-        "Minimum",
-        "Maximum",
-        "Inflection point",
-        "Undefined"
-      ],
+      "options": ["Minimum", "Maximum", "Inflection point", "Undefined"],
       "correct_answer": 1
     },
     {
       "question": "The first derivative test checks the sign of f' on either side of a critical point to determine:",
-      "options": [
-        "Concavity",
-        "Max or min",
-        "The domain",
-        "Continuity"
-      ],
+      "options": ["Concavity", "Max or min", "The domain", "Continuity"],
       "correct_answer": 1
     },
     {
       "question": "Optimisation problems in calculus look for values that maximise or minimise:",
-      "options": [
-        "The derivative",
-        "An objective function",
-        "The domain",
-        "The range"
-      ],
+      "options": ["The derivative", "An objective function", "The domain", "The range"],
       "correct_answer": 1
     }
   ]

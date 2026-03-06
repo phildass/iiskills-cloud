@@ -18,12 +18,7 @@
     },
     {
       "question": "What does deep learning automate that traditional ML requires manually?",
-      "options": [
-        "Model deployment",
-        "Feature engineering",
-        "Data collection",
-        "Code writing"
-      ],
+      "options": ["Model deployment", "Feature engineering", "Data collection", "Code writing"],
       "correct_answer": 1
     },
     {
@@ -48,12 +43,7 @@
     },
     {
       "question": "What do traditional ML algorithms require that deep learning does not?",
-      "options": [
-        "Large datasets",
-        "Human-engineered features",
-        "GPUs",
-        "Cloud compute"
-      ],
+      "options": ["Large datasets", "Human-engineered features", "GPUs", "Cloud compute"],
       "correct_answer": 1
     }
   ]

@@ -9,16 +9,17 @@ Learn Apt has been transformed from a basic test platform into a **high-fidelity
 ## 🎨 Visual Design
 
 ### Theme: Midnight Blue & Electric Violet
+
 - **Primary Colors:**
   - Midnight Blue: `#1a1a3e` - `#0d0d1f` (darker shades)
   - Electric Violet: `#a855f7` (primary accent)
   - Complementary gradients from violet to blue
-  
 - **Feedback Colors:**
   - Emerald Glow: `#10b981` (correct answers)
   - Ruby Fade: `#ef4444` (incorrect answers)
 
 ### UI Components
+
 - **Glassmorphism Cards:** Question cards with backdrop blur and semi-transparent backgrounds
 - **Animated Background Orbs:** Floating gradient orbs that create depth and movement
 - **Progress Orbit:** Glowing circular progress indicator with SVG animations
@@ -31,15 +32,17 @@ Learn Apt has been transformed from a basic test platform into a **high-fidelity
 The platform now tests across **5 scientific cognitive domains**, each with career connections:
 
 ### 1. Numerical Ability 💰
+
 - **Skills:** Arithmetic, Percentages, Ratios, Profit/Loss, Compound Interest
 - **Careers:** Banking (₹8-18 LPA), Finance, Data Science (₹10-25 LPA)
-- **Superpower Titles:** 
+- **Superpower Titles:**
   - Poor: "Building Blocks"
   - Average: "Number Cruncher"
   - Good: "Financial Wizard"
   - Excellent: "Pro Banker"
 
 ### 2. Logical Reasoning 🧩
+
 - **Skills:** Pattern Recognition, Syllogisms, Coding-Decoding, Deduction
 - **Careers:** Software Development (₹8-20 LPA), Management Consulting (₹12-30 LPA)
 - **Superpower Titles:**
@@ -49,6 +52,7 @@ The platform now tests across **5 scientific cognitive domains**, each with care
   - Excellent: "Strategic Genius"
 
 ### 3. Verbal Ability 🎤
+
 - **Skills:** Grammar, Vocabulary, Analogies, Reading Comprehension
 - **Careers:** Content Strategy (₹6-15 LPA), Marketing (₹8-20 LPA), Sales (₹10-25 LPA)
 - **Superpower Titles:**
@@ -58,6 +62,7 @@ The platform now tests across **5 scientific cognitive domains**, each with care
   - Excellent: "Communication Authority"
 
 ### 4. Spatial/Abstract 🏗️
+
 - **Skills:** 3D Visualization, Rotations, Mirror Images, Pattern Recognition
 - **Careers:** Architecture (₹7-18 LPA), UI/UX Design (₹8-20 LPA), 3D Design
 - **Superpower Titles:**
@@ -67,6 +72,7 @@ The platform now tests across **5 scientific cognitive domains**, each with care
   - Excellent: "Design Visionary"
 
 ### 5. Data Interpretation 📊
+
 - **Skills:** Chart Reading, Statistical Analysis, Trend Identification
 - **Careers:** Business Analysis (₹8-18 LPA), Data Analysis (₹7-16 LPA), Research
 - **Superpower Titles:**
@@ -80,6 +86,7 @@ The platform now tests across **5 scientific cognitive domains**, each with care
 ## ⚡ Test Modules
 
 ### Quick-Fire Module (Featured)
+
 - **Duration:** 5 minutes (300 seconds)
 - **Questions:** 15 questions across all 5 domains
 - **Features:**
@@ -90,6 +97,7 @@ The platform now tests across **5 scientific cognitive domains**, each with care
   - Question navigation with visual indicators
 
 ### Domain-Specific Tests
+
 - Each cognitive domain can be tested individually
 - Adaptive difficulty logic (planned feature)
 - Questions tagged by difficulty: Easy, Medium, Hard, Expert
@@ -99,24 +107,28 @@ The platform now tests across **5 scientific cognitive domains**, each with care
 ## 🎯 Key Features Implemented
 
 ### 1. Progress Orbit Component
+
 - Circular SVG-based progress indicator
 - Gradient stroke with glow effect
 - Shows current question number and total
 - Animates smoothly as user progresses
 
 ### 2. Glassmorphism Question Cards
+
 - Frosted glass effect with backdrop blur
 - Semi-transparent background with gradient overlay
 - Border glow on hover
 - Smooth transitions and animations
 
 ### 3. Answer Feedback System
+
 - Immediate visual feedback on answer selection
 - Full-screen overlay with emerald (✓) or ruby (✗) indicator
 - Scale and fade animations
 - Auto-advance to next question after feedback
 
 ### 4. Brain Fact Pop-ups
+
 - Displays every 5 questions
 - Rotating lightbulb emoji animation
 - Engaging facts comparing performance to professionals
@@ -126,6 +138,7 @@ The platform now tests across **5 scientific cognitive domains**, each with care
   - "💡 The prefrontal cortex you just used is the same area Einstein excelled in!"
 
 ### 5. Live Leaderboard Sidebar
+
 - Collapsible on mobile with toggle button
 - Shows top 5 scorers with ranking
 - Gold/Silver/Bronze highlighting for top 3
@@ -133,6 +146,7 @@ The platform now tests across **5 scientific cognitive domains**, each with care
 - Displays score percentage and domain
 
 ### 6. Brain-Print Generator
+
 - **Radar Chart Visualization** using Recharts
 - Shows performance across all 5 cognitive domains
 - Color-coded with electric violet gradient
@@ -143,6 +157,7 @@ The platform now tests across **5 scientific cognitive domains**, each with care
   - Performance tier (Exceptional/Strong/Growing/Building)
 
 ### 7. Superpower Reveal
+
 - Dramatic full-screen modal after test completion
 - Animated emoji and title reveal
 - Score display with gradient text
@@ -150,6 +165,7 @@ The platform now tests across **5 scientific cognitive domains**, each with care
 - Smooth transitions and spring animations
 
 ### 8. Career Aptitude Insights
+
 - Maps cognitive scores to career pathways
 - Shows top 3 domains with relevant careers
 - Salary ranges for each career (in ₹ LPA)
@@ -157,6 +173,7 @@ The platform now tests across **5 scientific cognitive domains**, each with care
 - Integration point for Career Mapper
 
 ### 9. JSON Export
+
 - One-click export of test results
 - Includes:
   - Timestamp
@@ -172,6 +189,7 @@ The platform now tests across **5 scientific cognitive domains**, each with care
 ## 🛠️ Technical Implementation
 
 ### Dependencies Added
+
 ```json
 {
   "framer-motion": "^latest",
@@ -180,6 +198,7 @@ The platform now tests across **5 scientific cognitive domains**, each with care
 ```
 
 ### File Structure
+
 ```
 apps/learn-apt/
 ├── components/
@@ -203,6 +222,7 @@ apps/learn-apt/
 ### Components Overview
 
 #### TestComponents.js
+
 - `ProgressOrbit` - Circular progress with SVG animation
 - `QuestionCard` - Glassmorphism card wrapper
 - `AnswerFeedback` - Correct/incorrect overlay animation
@@ -214,6 +234,7 @@ apps/learn-apt/
 - `QuestionNavigation` - Question dot navigation
 
 #### BrainPrint.js
+
 - `BrainPrintGenerator` - Main analytics component with radar chart
 - `SuperpowerReveal` - Full-screen achievement reveal
 - `CareerAptitudeInsights` - Career pathway recommendations
@@ -223,6 +244,7 @@ apps/learn-apt/
 ## 📊 Question Bank Structure
 
 Each question includes:
+
 ```javascript
 {
   id: 'num_001',
@@ -238,6 +260,7 @@ Each question includes:
 ```
 
 **Current Question Count:**
+
 - Numerical Ability: 8 questions (Easy to Expert)
 - Logical Reasoning: 8 questions
 - Verbal Ability: 8 questions
@@ -250,6 +273,7 @@ Each question includes:
 ## 🎮 User Experience Flow
 
 ### 1. Landing Page
+
 - Dark themed hero with animated brain emoji
 - 5 cognitive domain cards with glassmorphism
 - Career tags for each domain
@@ -259,6 +283,7 @@ Each question includes:
 - CTA buttons to register or start testing
 
 ### 2. Test Experience
+
 - Start screen with instructions
 - Question-by-question interface with:
   - Domain and difficulty tags
@@ -271,6 +296,7 @@ Each question includes:
 - Leaderboard sidebar (toggleable)
 
 ### 3. Results & Analytics
+
 - Test completion celebration
 - Brain-Print radar chart
 - Domain score breakdown
@@ -285,24 +311,28 @@ Each question includes:
 ## 🔮 Planned Features (Not Yet Implemented)
 
 ### Adaptive Difficulty Engine
+
 - Track consecutive correct answers
 - Boost difficulty by 20% after 3 correct in a row
 - Dynamically select harder questions from question bank
 - Adjust scoring based on difficulty level
 
 ### API Integration
+
 - Career Mapper API endpoint
 - Auto-sync results to main platform
 - Real-time leaderboard updates
 - User progress tracking in database
 
 ### Advanced Analytics
+
 - Performance over time graphs
 - Comparison with peers
 - Recommended study areas
 - Skill gap analysis
 
 ### Mobile Enhancements
+
 - Haptic feedback on devices that support it
 - Optimized touch interactions
 - Progressive Web App features
@@ -313,20 +343,25 @@ Each question includes:
 ## 🚀 Getting Started
 
 ### Development
+
 ```bash
 cd apps/learn-apt
 npm install
 npm run dev
 ```
+
 Server runs on: http://localhost:3002
 
 ### Build
+
 ```bash
 npm run build
 ```
 
 ### Test Authentication
+
 The app requires authentication. Use:
+
 - Register at `/register`
 - Login at `/login`
 - Or set `NEXT_PUBLIC_DISABLE_AUTH=true` in `.env.local` for testing
@@ -337,7 +372,7 @@ The app requires authentication. Use:
 
 - **Desktop:** Full leaderboard sidebar, larger question cards
 - **Tablet:** Collapsible sidebar, optimized spacing
-- **Mobile:** 
+- **Mobile:**
   - Hidden sidebar (toggle button)
   - Single column layout
   - Touch-optimized buttons
@@ -348,6 +383,7 @@ The app requires authentication. Use:
 ## 🎨 Animation Details
 
 ### Framer Motion Variants
+
 - **fadeIn:** Opacity 0→1
 - **slideUp:** TranslateY(20px)→0
 - **scale:** Scale 0.8→1
@@ -355,6 +391,7 @@ The app requires authentication. Use:
 - **orbit:** Rotate 0→360deg (20s)
 
 ### Transitions
+
 - Question changes: Slide animation
 - Answer selection: Scale + color change
 - Modal appears: Spring animation with damping
@@ -365,6 +402,7 @@ The app requires authentication. Use:
 ## 🔧 Configuration
 
 ### Tailwind Theme Extensions
+
 ```javascript
 colors: {
   'midnight': { /* 50-950 scale */ },
@@ -385,6 +423,7 @@ animations: {
 ## 📖 Best Practices
 
 ### Adding New Questions
+
 1. Add to appropriate domain array in `questionBank.js`
 2. Include all required fields (id, domain, difficulty, etc.)
 3. Write clear explanations
@@ -392,6 +431,7 @@ animations: {
 5. Test question rendering in UI
 
 ### Creating New Test Modules
+
 1. Use existing components from `TestComponents.js`
 2. Follow Quick-Fire module pattern
 3. Implement timer if time-based
@@ -399,6 +439,7 @@ animations: {
 5. Generate Brain-Print on completion
 
 ### Styling Guidelines
+
 - Use gradient backgrounds for CTAs
 - Apply glassmorphism for cards
 - Ensure midnight blue/violet theme consistency
@@ -428,13 +469,14 @@ The redesign achieves the following objectives:
 ✅ **Career Integration:** Pathway recommendations with salary data  
 ✅ **Export Capability:** JSON export for data portability  
 ✅ **Responsive:** Works on desktop, tablet, and mobile  
-✅ **Accessible:** Keyboard navigation and semantic HTML  
+✅ **Accessible:** Keyboard navigation and semantic HTML
 
 ---
 
 ## 📞 Support & Documentation
 
 For questions or issues:
+
 - Check code comments in components
 - Review `questionBank.js` for data structure
 - See Tailwind config for theme customization
@@ -448,8 +490,8 @@ For questions or issues:
 **Color Palette:** Midnight Blue & Electric Violet  
 **Animation Library:** Framer Motion  
 **Charts:** Recharts  
-**Framework:** Next.js 16 with Turbopack  
+**Framework:** Next.js 16 with Turbopack
 
 ---
 
-*Transform Learn Apt into the primary "Diagnostic Engine" for the iiskills.cloud ecosystem, powerfully connecting aptitudes to clear, engaging career outcomes!*
+_Transform Learn Apt into the primary "Diagnostic Engine" for the iiskills.cloud ecosystem, powerfully connecting aptitudes to clear, engaging career outcomes!_

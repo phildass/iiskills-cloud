@@ -18,12 +18,7 @@
     },
     {
       "question": "Two parallel lines in a system of equations mean:",
-      "options": [
-        "One solution",
-        "Infinite solutions",
-        "No solution",
-        "Two solutions"
-      ],
+      "options": ["One solution", "Infinite solutions", "No solution", "Two solutions"],
       "correct_answer": 2
     },
     {
@@ -48,12 +43,7 @@
     },
     {
       "question": "Substituting y = 2x – 1 into 3x + y = 8 gives:",
-      "options": [
-        "5x = 7",
-        "5x = 9",
-        "x = 9",
-        "x = 2"
-      ],
+      "options": ["5x = 7", "5x = 9", "x = 9", "x = 2"],
       "correct_answer": 1
     }
   ]

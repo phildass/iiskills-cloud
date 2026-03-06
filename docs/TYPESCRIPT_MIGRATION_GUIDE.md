@@ -61,23 +61,23 @@ This guide documents the TypeScript support added to the iiskills-cloud monorepo
 
 ```typescript
 // App identifiers (strict typing)
-type AppId = 
-  | 'main'
-  | 'learn-ai'
-  | 'learn-apt'
-  | 'learn-chemistry'
-  | 'learn-developer'
-  | 'learn-geography'
-  | 'learn-management'
-  | 'learn-math'
-  | 'learn-physics'
-  | 'learn-pr';
+type AppId =
+  | "main"
+  | "learn-ai"
+  | "learn-apt"
+  | "learn-chemistry"
+  | "learn-developer"
+  | "learn-geography"
+  | "learn-management"
+  | "learn-math"
+  | "learn-physics"
+  | "learn-pr";
 
 // App configuration
 interface AppConfig {
   id: AppId;
   name: string;
-  type: 'free' | 'paid';
+  type: "free" | "paid";
   bundleId: BundleId | null;
   price: Price | null;
 }
@@ -127,15 +127,10 @@ function userHasAccess(user: User | null, appId: string): boolean;
 function getBundleInfo(appId: string): Bundle | null;
 
 // Grant bundle access
-function grantBundleAccess(
-  params: GrantBundleAccessParams
-): Promise<BundleAccessResult>;
+function grantBundleAccess(params: GrantBundleAccessParams): Promise<BundleAccessResult>;
 
 // Get access status
-function getAccessStatus(
-  user: User | null,
-  appId: string
-): AccessStatus;
+function getAccessStatus(user: User | null, appId: string): AccessStatus;
 ```
 
 ---
@@ -147,87 +142,83 @@ function getAccessStatus(
 The type definitions are automatically included when you import the package:
 
 ```typescript
-import { 
-  isFreeApp, 
+import {
+  isFreeApp,
   requiresPayment,
   userHasAccess,
   type AppId,
   type User,
   type Bundle,
-} from '@iiskills/access-control';
+} from "@iiskills/access-control";
 ```
 
 ### Basic Usage
 
 ```typescript
-import { isFreeApp, requiresPayment } from '@iiskills/access-control';
+import { isFreeApp, requiresPayment } from "@iiskills/access-control";
 
 // TypeScript knows these return boolean
-const isMathFree: boolean = isFreeApp('learn-math'); // ✅
-const needsPayment: boolean = requiresPayment('learn-ai'); // ✅
+const isMathFree: boolean = isFreeApp("learn-math"); // ✅
+const needsPayment: boolean = requiresPayment("learn-ai"); // ✅
 
 // TypeScript catches invalid app IDs (at compile time if using strict AppId type)
-const invalid = isFreeApp('invalid-app'); // ⚠️ Works but not type-safe
+const invalid = isFreeApp("invalid-app"); // ⚠️ Works but not type-safe
 ```
 
 ### With Type Annotations
 
 ```typescript
-import { 
-  type User, 
+import {
+  type User,
   type AppId,
   type AccessStatus,
   userHasAccess,
   getAccessStatus,
-} from '@iiskills/access-control';
+} from "@iiskills/access-control";
 
 // Define user with correct type
 const user: User = {
-  id: 'uuid-123',
-  email: 'test@example.com',
-  apps: ['learn-ai', 'learn-developer'],
+  id: "uuid-123",
+  email: "test@example.com",
+  apps: ["learn-ai", "learn-developer"],
 };
 
 // TypeScript knows the return types
-const hasAccess: boolean = userHasAccess(user, 'learn-ai');
+const hasAccess: boolean = userHasAccess(user, "learn-ai");
 
 // Get detailed status with full type safety
-const status: AccessStatus = getAccessStatus(user, 'learn-ai');
+const status: AccessStatus = getAccessStatus(user, "learn-ai");
 console.log(status.hasAccess); // ✅ TypeScript knows this exists
-console.log(status.reason);    // ✅ TypeScript knows this exists
+console.log(status.reason); // ✅ TypeScript knows this exists
 ```
 
 ### Database Operations
 
 ```typescript
-import { 
-  grantBundleAccess,
-  hasAppAccess,
-  type BundleAccessResult,
-} from '@iiskills/access-control';
+import { grantBundleAccess, hasAppAccess, type BundleAccessResult } from "@iiskills/access-control";
 
 // Grant bundle access with type safety
 const result: BundleAccessResult = await grantBundleAccess({
-  userId: 'uuid-123',
-  purchasedAppId: 'learn-ai',
-  paymentId: 'payment-uuid',
+  userId: "uuid-123",
+  purchasedAppId: "learn-ai",
+  paymentId: "payment-uuid",
 });
 
 // TypeScript knows the structure
-console.log(result.purchasedApp);   // ✅ AppId
-console.log(result.unlockedApps);   // ✅ AppId[]
-console.log(result.bundledApps);    // ✅ AppId[]
-console.log(result.accessRecords);  // ✅ UserAppAccess[]
+console.log(result.purchasedApp); // ✅ AppId
+console.log(result.unlockedApps); // ✅ AppId[]
+console.log(result.bundledApps); // ✅ AppId[]
+console.log(result.accessRecords); // ✅ UserAppAccess[]
 
 // Check access with type inference
-const access: boolean = await hasAppAccess('uuid-123', 'learn-ai');
+const access: boolean = await hasAppAccess("uuid-123", "learn-ai");
 ```
 
 ### React Components (TypeScript)
 
 ```typescript
 import { useState, useEffect } from 'react';
-import { 
+import {
   type User,
   type AppId,
   userHasAccess,
@@ -264,7 +255,7 @@ You can get TypeScript-like type checking in JavaScript files using JSDoc:
 
 ```javascript
 // @ts-check
-import { isFreeApp, userHasAccess } from '@iiskills/access-control';
+import { isFreeApp, userHasAccess } from "@iiskills/access-control";
 
 /**
  * Check if user can access an app
@@ -283,10 +274,10 @@ function canAccessApp(user, appId) {
 Even without JSDoc, your IDE will provide autocomplete and type hints:
 
 ```javascript
-import { getAccessStatus } from '@iiskills/access-control';
+import { getAccessStatus } from "@iiskills/access-control";
 
-const user = { id: '123', email: 'test@example.com' };
-const status = getAccessStatus(user, 'learn-ai');
+const user = { id: "123", email: "test@example.com" };
+const status = getAccessStatus(user, "learn-ai");
 
 // Your IDE will show:
 // - status.hasAccess (boolean)
@@ -301,10 +292,10 @@ All existing JavaScript code continues to work unchanged:
 
 ```javascript
 // This still works exactly as before
-import { isFreeApp } from '@iiskills/access-control';
+import { isFreeApp } from "@iiskills/access-control";
 
-if (isFreeApp('learn-math')) {
-  console.log('Free app!');
+if (isFreeApp("learn-math")) {
+  console.log("Free app!");
 }
 ```
 
@@ -330,7 +321,7 @@ To enable type checking for JavaScript files, update `tsconfig.json`:
 ```json
 {
   "compilerOptions": {
-    "checkJs": true  // Change from false to true
+    "checkJs": true // Change from false to true
   }
 }
 ```
@@ -356,6 +347,7 @@ This generates `.d.ts` files from JSDoc comments in JavaScript files (future enh
 ## Migration Roadmap
 
 ### Phase 1: Type Definitions (COMPLETE ✅)
+
 - [x] Create comprehensive type definitions (`index.d.ts`)
 - [x] Add TypeScript configuration (`tsconfig.json`)
 - [x] Update package.json with types field
@@ -363,18 +355,21 @@ This generates `.d.ts` files from JSDoc comments in JavaScript files (future enh
 - [x] Test with TypeScript projects
 
 ### Phase 2: Gradual TypeScript Adoption (PLANNED)
+
 - [ ] Convert utility functions to TypeScript (`.ts`)
 - [ ] Convert configuration files to TypeScript
 - [ ] Add TypeScript to test files
 - [ ] Maintain JavaScript compatibility via compilation
 
 ### Phase 3: Full TypeScript (FUTURE)
+
 - [ ] Convert all source files to TypeScript
 - [ ] Enable strict mode across all files
 - [ ] Generate declaration files from source
 - [ ] Set up build pipeline for TypeScript
 
 ### Phase 4: Expand to Other Packages (FUTURE)
+
 - [ ] Add types to `@iiskills/ui`
 - [ ] Add types to `@iiskills/core`
 - [ ] Add types to `@iiskills/content-sdk`
@@ -387,15 +382,13 @@ This generates `.d.ts` files from JSDoc comments in JavaScript files (future enh
 ### For TypeScript Projects
 
 1. **Import Types Explicitly**
+
    ```typescript
-   import { 
-     isFreeApp,
-     type AppId,
-     type User,
-   } from '@iiskills/access-control';
+   import { isFreeApp, type AppId, type User } from "@iiskills/access-control";
    ```
 
 2. **Use Strict Type Checking**
+
    ```json
    {
      "compilerOptions": {
@@ -405,6 +398,7 @@ This generates `.d.ts` files from JSDoc comments in JavaScript files (future enh
    ```
 
 3. **Leverage Type Inference**
+
    ```typescript
    // TypeScript infers the return type
    const status = getAccessStatus(user, appId);
@@ -412,13 +406,14 @@ This generates `.d.ts` files from JSDoc comments in JavaScript files (future enh
 
 4. **Use Union Types for App IDs**
    ```typescript
-   type MyAppId = 'learn-ai' | 'learn-developer';
-   const app: MyAppId = 'learn-ai'; // ✅ Type-safe
+   type MyAppId = "learn-ai" | "learn-developer";
+   const app: MyAppId = "learn-ai"; // ✅ Type-safe
    ```
 
 ### For JavaScript Projects
 
 1. **Use JSDoc for Critical Functions**
+
    ```javascript
    /**
     * @param {import('@iiskills/access-control').User} user
@@ -431,9 +426,10 @@ This generates `.d.ts` files from JSDoc comments in JavaScript files (future enh
    ```
 
 2. **Enable Type Checking with `// @ts-check`**
+
    ```javascript
    // @ts-check
-   import { isFreeApp } from '@iiskills/access-control';
+   import { isFreeApp } from "@iiskills/access-control";
    // TypeScript will now check this file
    ```
 
@@ -469,25 +465,20 @@ Create a test TypeScript file:
 
 ```typescript
 // test-types.ts
-import { 
-  isFreeApp,
-  requiresPayment,
-  type AppId,
-  type User,
-} from '@iiskills/access-control';
+import { isFreeApp, requiresPayment, type AppId, type User } from "@iiskills/access-control";
 
 // Test basic functions
-const isMathFree: boolean = isFreeApp('learn-math');
-const needsPayment: boolean = requiresPayment('learn-ai');
+const isMathFree: boolean = isFreeApp("learn-math");
+const needsPayment: boolean = requiresPayment("learn-ai");
 
 // Test with user
 const user: User = {
-  id: '123',
-  email: 'test@example.com',
-  apps: ['learn-ai'],
+  id: "123",
+  email: "test@example.com",
+  apps: ["learn-ai"],
 };
 
-console.log('Types work!');
+console.log("Types work!");
 ```
 
 Run with:
@@ -514,6 +505,7 @@ node test-types.js
    - Other IDEs: Restart TypeScript server
 
 2. **Check Package Installation**
+
    ```bash
    yarn install
    ls -la packages/access-control/index.d.ts
@@ -529,11 +521,13 @@ node test-types.js
 If you get type errors in JavaScript:
 
 1. **Disable Type Checking for That File**
+
    ```javascript
    // @ts-nocheck
    ```
 
 2. **Ignore Specific Lines**
+
    ```javascript
    // @ts-ignore
    const result = someUntypedFunction();

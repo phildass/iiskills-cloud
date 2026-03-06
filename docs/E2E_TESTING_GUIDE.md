@@ -31,45 +31,53 @@ tests/e2e/
 Tests all access control requirements as specified in the modernization roadmap:
 
 #### Scenario 1: Free App Access
+
 - ✅ Unauthenticated users can access landing pages
 - ✅ Can access curriculum without auth
 - ✅ Shows correct badge color (green for free)
 - **Apps tested**: learn-apt, learn-chemistry, learn-geography, learn-math, learn-physics
 
 #### Scenario 2: Paid App Access - Pre-Payment
+
 - ✅ Unauthenticated users see landing pages
 - ✅ Authenticated users without payment see paywall
 - ✅ Payment pages show correct pricing
 - **Apps tested**: learn-ai, learn-developer, learn-management, learn-pr
 
 #### Scenario 3: AI-Developer Bundle Logic
+
 - ✅ Payment pages mention bundle
 - ✅ Bundle pricing is consistent across both apps
 - ⏳ Purchasing one app unlocks both (requires payment integration)
 
 #### Scenario 4: Post-Payment Access
+
 - ⏳ Users with paid access can view content (requires test database)
 - ⏳ Users with bundle access can view both apps (requires test database)
 - ⏳ Payment confirmation creates access records (requires Razorpay test mode)
 
 #### Scenario 5: Admin Override Controls
+
 - ⏳ Admin can manually grant access (requires admin user)
 - ⏳ Admin can revoke access (requires admin user)
 - ⏳ Admin dashboard shows bundle statistics (requires admin user)
 - ✅ Admin dashboard page exists
 
 #### Scenario 6: Access Control Package Integration
+
 - ✅ Package functions are available
 - ✅ Free apps are correctly identified
 - ✅ Bundle apps are correctly identified
 - ✅ Bundle unlocking logic is correct
 
 #### Scenario 7: Cross-App Navigation
+
 - ✅ Main portal shows all apps with correct badges
 - ✅ Free and paid apps have visual distinction
 - ✅ Bundle apps show bundle indicator
 
 #### Scenario 8: Payment Guard Middleware
+
 - ✅ Free apps reject payment attempts
 - ✅ Payment endpoints require authentication
 
@@ -78,47 +86,57 @@ Tests all access control requirements as specified in the modernization roadmap:
 Captures screenshots and compares against baselines to detect visual regressions:
 
 #### Landing Pages
+
 - All app landing pages (desktop, tablet, mobile)
 - Main portal landing page
 - Responsive design verification
 
 #### Payment Pages
+
 - All paid app payment pages
 - Bundle payment page consistency check
 
 #### Authentication Pages
+
 - Login page
 - Register page
 
 #### Admin Pages
+
 - Admin access control dashboard (when authenticated)
 - Unauthorized access handling
 
 #### Navigation Components
+
 - Navbar
 - App switcher menu
 - Access control badges
 
 #### Error States
+
 - 404 page
 - Access denied page
 
 #### Responsive Design
+
 - 7 different viewports tested
 - From 320px mobile to 1920px desktop
 
 #### Dark Mode (if supported)
+
 - Main portal
 - Sample free/paid apps
 
 ## Running Tests
 
 ### Run All E2E Tests
+
 ```bash
 yarn test:e2e
 ```
 
 ### Run Specific Test Suites
+
 ```bash
 # Access control tests only
 npx playwright test tests/e2e/access-control
@@ -131,6 +149,7 @@ npx playwright test tests/e2e/auth
 ```
 
 ### Run on Specific Browser
+
 ```bash
 yarn test:e2e:chrome    # Chromium
 yarn test:e2e:firefox   # Firefox
@@ -138,16 +157,19 @@ yarn test:e2e:webkit    # WebKit/Safari
 ```
 
 ### Run in UI Mode (Interactive)
+
 ```bash
 yarn test:e2e:ui
 ```
 
 ### Debug Tests
+
 ```bash
 yarn test:e2e:debug
 ```
 
 ### Update Screenshot Baselines
+
 ```bash
 npx playwright test visual --update-snapshots
 ```
@@ -157,6 +179,7 @@ npx playwright test visual --update-snapshots
 ### GitHub Actions Workflow
 
 The `.github/workflows/e2e-tests.yml` workflow runs automatically on:
+
 - Pull requests to `main` or `develop`
 - Pushes to `main` or `develop`
 - Manual workflow dispatch
@@ -183,6 +206,7 @@ The `.github/workflows/e2e-tests.yml` workflow runs automatically on:
 ### Artifacts
 
 Test results are uploaded as artifacts and retained for 7 days:
+
 - `playwright-report-{browser}`: Full test reports
 - `playwright-html-report-{browser}`: HTML reports
 - `visual-regression-failures`: Failed screenshot comparisons
@@ -207,6 +231,7 @@ DATABASE_URL=...
 ### Playwright Config
 
 Configuration in `playwright.config.js`:
+
 - **Timeout**: 30 seconds per test
 - **Retries**: 2 on CI, 0 locally
 - **Workers**: 1 on CI (sequential), unlimited locally
@@ -241,18 +266,18 @@ For tests marked with `.skip()`, set up test users in your test database:
 
 ```sql
 -- Insert test users
-INSERT INTO profiles (email, name) VALUES 
+INSERT INTO profiles (email, name) VALUES
   ('test-user@iiskills.test', 'Test User'),
   ('premium-user@iiskills.test', 'Premium User'),
   ('admin@iiskills.test', 'Admin User');
 
 -- Grant admin role
-UPDATE profiles SET is_admin = true 
+UPDATE profiles SET is_admin = true
 WHERE email = 'admin@iiskills.test';
 
 -- Grant bundle access to premium user
 INSERT INTO user_app_access (user_id, app_id, granted_via)
-SELECT 
+SELECT
   (SELECT id FROM profiles WHERE email = 'premium-user@iiskills.test'),
   unnest(ARRAY['learn-ai', 'learn-developer']),
   'payment';
@@ -273,14 +298,14 @@ SELECT
 ### Example Test
 
 ```javascript
-test('User can access free app curriculum', async ({ page }) => {
+test("User can access free app curriculum", async ({ page }) => {
   // Navigate to page
-  await page.goto('/learn-math/learn');
-  await page.waitForLoadState('networkidle');
-  
+  await page.goto("/learn-math/learn");
+  await page.waitForLoadState("networkidle");
+
   // Verify no paywall
-  await expect(page.locator('text=Access Denied')).not.toBeVisible();
-  
+  await expect(page.locator("text=Access Denied")).not.toBeVisible();
+
   // Verify content is displayed
   await expect(page.locator('[data-testid="curriculum"]')).toBeVisible();
 });
@@ -289,14 +314,14 @@ test('User can access free app curriculum', async ({ page }) => {
 ### Screenshot Test Template
 
 ```javascript
-test('Component screenshot', async ({ page }) => {
-  await page.goto('/path');
-  await page.waitForLoadState('networkidle');
+test("Component screenshot", async ({ page }) => {
+  await page.goto("/path");
+  await page.waitForLoadState("networkidle");
   await page.waitForTimeout(500); // Wait for animations
-  
-  await expect(page).toHaveScreenshot('component-name.png', {
+
+  await expect(page).toHaveScreenshot("component-name.png", {
     fullPage: true,
-    animations: 'disabled',
+    animations: "disabled",
   });
 });
 ```
@@ -314,7 +339,7 @@ test('Component screenshot', async ({ page }) => {
 - Screenshots may differ slightly across OS/browsers
 - Use `mask` option to hide dynamic content:
   ```javascript
-  mask: ['[data-testid="timestamp"]', 'text=/\\d{4}-\\d{2}-\\d{2}/']
+  mask: ['[data-testid="timestamp"]', "text=/\\d{4}-\\d{2}-\\d{2}/"];
   ```
 
 ### Timeouts
@@ -325,19 +350,22 @@ test('Component screenshot', async ({ page }) => {
   ```
 - Or wait longer for specific elements:
   ```javascript
-  await page.waitForSelector('selector', { timeout: 10000 });
+  await page.waitForSelector("selector", { timeout: 10000 });
   ```
 
 ### Authentication in Tests
 
 For tests requiring authentication:
+
 ```javascript
-await context.addCookies([{
-  name: 'sb-access-token',
-  value: 'test-token',
-  domain: 'localhost',
-  path: '/',
-}]);
+await context.addCookies([
+  {
+    name: "sb-access-token",
+    value: "test-token",
+    domain: "localhost",
+    path: "/",
+  },
+]);
 ```
 
 ## Coverage Metrics
@@ -354,6 +382,7 @@ await context.addCookies([{
 ### Coverage Goals
 
 Per modernization roadmap:
+
 - Authentication flows: 100% ✅
 - Payment flows: 100% ⏳ (requires Razorpay test mode)
 - Navigation: 90% ✅
@@ -363,18 +392,21 @@ Per modernization roadmap:
 ## Next Steps
 
 ### Phase 1 (Current)
+
 - ✅ Comprehensive access control tests created
 - ✅ Visual regression tests created
 - ✅ CI/CD workflow created
 - ✅ Documentation updated
 
 ### Phase 2 (Next)
+
 - [ ] Set up Razorpay test mode for payment flow tests
 - [ ] Create test database with test users
 - [ ] Enable skipped tests that require authentication
 - [ ] Add performance benchmarks
 
 ### Phase 3 (Future)
+
 - [ ] Add API tests
 - [ ] Add mobile app tests (if applicable)
 - [ ] Add load testing

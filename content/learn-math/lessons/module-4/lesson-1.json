@@ -18,42 +18,22 @@
     },
     {
       "question": "Which Greek letter commonly denotes an angle in trigonometry?",
-      "options": [
-        "π",
-        "σ",
-        "θ",
-        "μ"
-      ],
+      "options": ["π", "σ", "θ", "μ"],
       "correct_answer": 2
     },
     {
       "question": "The ratio opposite/hypotenuse defines:",
-      "options": [
-        "cosine",
-        "tangent",
-        "sine",
-        "secant"
-      ],
+      "options": ["cosine", "tangent", "sine", "secant"],
       "correct_answer": 2
     },
     {
       "question": "The ratio adjacent/hypotenuse defines:",
-      "options": [
-        "cosine",
-        "tangent",
-        "sine",
-        "cosecant"
-      ],
+      "options": ["cosine", "tangent", "sine", "cosecant"],
       "correct_answer": 0
     },
     {
       "question": "Trigonometry is mainly concerned with:",
-      "options": [
-        "Whole numbers",
-        "Angles and sides of triangles",
-        "Probability",
-        "Polynomials"
-      ],
+      "options": ["Whole numbers", "Angles and sides of triangles", "Probability", "Polynomials"],
       "correct_answer": 1
     }
   ]

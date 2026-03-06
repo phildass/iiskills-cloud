@@ -28,12 +28,7 @@
     },
     {
       "question": "Which framework is primarily developed by Google for deep learning?",
-      "options": [
-        "PyTorch",
-        "TensorFlow",
-        "Scikit-learn",
-        "Keras standalone"
-      ],
+      "options": ["PyTorch", "TensorFlow", "Scikit-learn", "Keras standalone"],
       "correct_answer": 1
     },
     {

@@ -8,52 +8,27 @@
   "quiz": [
     {
       "question": "The chain rule states d/dx f(g(x)) = :",
-      "options": [
-        "f'(x)g'(x)",
-        "f'(g(x)) · g'(x)",
-        "f(g'(x))",
-        "f'(g(x)) + g'(x)"
-      ],
+      "options": ["f'(x)g'(x)", "f'(g(x)) · g'(x)", "f(g'(x))", "f'(g(x)) + g'(x)"],
       "correct_answer": 1
     },
     {
       "question": "d/dx sin(3x) = :",
-      "options": [
-        "cos(3x)",
-        "3cos(3x)",
-        "–3cos(3x)",
-        "sin(3)"
-      ],
+      "options": ["cos(3x)", "3cos(3x)", "–3cos(3x)", "sin(3)"],
       "correct_answer": 1
     },
     {
       "question": "d/dx (x² + 1)⁵ = :",
-      "options": [
-        "5(x² + 1)⁴",
-        "10x(x² + 1)⁴",
-        "5(x² + 1)",
-        "2x(x² + 1)⁴"
-      ],
+      "options": ["5(x² + 1)⁴", "10x(x² + 1)⁴", "5(x² + 1)", "2x(x² + 1)⁴"],
       "correct_answer": 1
     },
     {
       "question": "d/dx e^(x²) = :",
-      "options": [
-        "e^(x²)",
-        "2xe^(x²)",
-        "x²e^(x²–1)",
-        "e^(2x)"
-      ],
+      "options": ["e^(x²)", "2xe^(x²)", "x²e^(x²–1)", "e^(2x)"],
       "correct_answer": 1
     },
     {
       "question": "d/dx ln(sin x) = :",
-      "options": [
-        "cos x",
-        "1/sin x",
-        "cos x/sin x",
-        "–cos x/sin x"
-      ],
+      "options": ["cos x", "1/sin x", "cos x/sin x", "–cos x/sin x"],
       "correct_answer": 2
     }
   ]

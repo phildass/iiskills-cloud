@@ -48,12 +48,7 @@
     },
     {
       "question": "What function converts a Pandas column to datetime type?",
-      "options": [
-        "pd.to_date()",
-        "pd.datetime()",
-        "pd.to_datetime()",
-        "pd.as_datetime()"
-      ],
+      "options": ["pd.to_date()", "pd.datetime()", "pd.to_datetime()", "pd.as_datetime()"],
       "correct_answer": 2
     }
   ]

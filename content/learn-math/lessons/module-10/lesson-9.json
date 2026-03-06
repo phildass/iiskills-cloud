@@ -8,12 +8,7 @@
   "quiz": [
     {
       "question": "Goldbach's conjecture states every even integer > 2 is:",
-      "options": [
-        "A prime",
-        "A product of two primes",
-        "A sum of two primes",
-        "A perfect square"
-      ],
+      "options": ["A prime", "A product of two primes", "A sum of two primes", "A perfect square"],
       "correct_answer": 2
     },
     {
@@ -38,12 +33,7 @@
     },
     {
       "question": "Fermat's Last Theorem, proved by Andrew Wiles in 1995, states there are no integer solutions to:",
-      "options": [
-        "xⁿ + yⁿ = zⁿ for n > 2",
-        "x² + y² = z²",
-        "xy = z",
-        "xⁿ = y for n > 2"
-      ],
+      "options": ["xⁿ + yⁿ = zⁿ for n > 2", "x² + y² = z²", "xy = z", "xⁿ = y for n > 2"],
       "correct_answer": 0
     },
     {

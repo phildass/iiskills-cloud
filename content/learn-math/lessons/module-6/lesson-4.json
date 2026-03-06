@@ -8,52 +8,27 @@
   "quiz": [
     {
       "question": "The power rule states d/dx(xⁿ) = :",
-      "options": [
-        "xⁿ⁻¹",
-        "nxⁿ",
-        "nxⁿ⁻¹",
-        "xⁿ⁺¹/n"
-      ],
+      "options": ["xⁿ⁻¹", "nxⁿ", "nxⁿ⁻¹", "xⁿ⁺¹/n"],
       "correct_answer": 2
     },
     {
       "question": "d/dx(sin x) = :",
-      "options": [
-        "–sin x",
-        "cos x",
-        "–cos x",
-        "tan x"
-      ],
+      "options": ["–sin x", "cos x", "–cos x", "tan x"],
       "correct_answer": 1
     },
     {
       "question": "d/dx(eˣ) = :",
-      "options": [
-        "eˣ⁻¹",
-        "xeˣ⁻¹",
-        "eˣ",
-        "e"
-      ],
+      "options": ["eˣ⁻¹", "xeˣ⁻¹", "eˣ", "e"],
       "correct_answer": 2
     },
     {
       "question": "d/dx(ln x) = :",
-      "options": [
-        "1",
-        "ln x",
-        "1/x",
-        "x"
-      ],
+      "options": ["1", "ln x", "1/x", "x"],
       "correct_answer": 2
     },
     {
       "question": "d/dx(cos x) = :",
-      "options": [
-        "sin x",
-        "–sin x",
-        "cos x",
-        "–cos x"
-      ],
+      "options": ["sin x", "–sin x", "cos x", "–cos x"],
       "correct_answer": 1
     }
   ]

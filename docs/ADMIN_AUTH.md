@@ -11,9 +11,9 @@ The bypass is controlled by a single environment variable: `ADMIN_AUTH_DISABLED`
 
 ## Environment Variables
 
-| Variable | Side | Purpose |
-|---|---|---|
-| `ADMIN_AUTH_DISABLED` | Server | Disables all server-side auth checks for admin routes/APIs |
+| Variable                          | Side                         | Purpose                                                         |
+| --------------------------------- | ---------------------------- | --------------------------------------------------------------- |
+| `ADMIN_AUTH_DISABLED`             | Server                       | Disables all server-side auth checks for admin routes/APIs      |
 | `NEXT_PUBLIC_ADMIN_AUTH_DISABLED` | Client (baked at build time) | Disables the client-side `AdminGate` redirect to `/admin/login` |
 
 Both variables must be set to `true` together for the full bypass to work.
@@ -70,6 +70,7 @@ The flag removes every authentication layer from the admin section. Anyone who c
 `/admin` on your domain will have full admin access without a password.
 
 Acceptable uses:
+
 - Local development
 - Staging environments with no real data
 - Short-lived testing periods on a locked-down server
@@ -78,11 +79,11 @@ Acceptable uses:
 
 ## How It Works (Code References)
 
-| File | What changes |
-|---|---|
-| `apps/main/lib/adminAuth.js` | `isAdminAuthDisabled()` helper; `validateAdminRequest()` returns `{ valid: true }` immediately when disabled |
-| `apps/main/components/AdminGate.js` | `GATE_DISABLED` is `true` when `NEXT_PUBLIC_ADMIN_AUTH_DISABLED=true` — no redirect to login |
-| `apps/main/pages/admin/login.js` | `getServerSideProps` redirects to `/admin` when `ADMIN_AUTH_DISABLED=true` |
-| `apps/main/pages/api/admin/health.js` | Returns `{ ok: true, authDisabled: true }` without credential checks when disabled |
+| File                                  | What changes                                                                                                 |
+| ------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| `apps/main/lib/adminAuth.js`          | `isAdminAuthDisabled()` helper; `validateAdminRequest()` returns `{ valid: true }` immediately when disabled |
+| `apps/main/components/AdminGate.js`   | `GATE_DISABLED` is `true` when `NEXT_PUBLIC_ADMIN_AUTH_DISABLED=true` — no redirect to login                 |
+| `apps/main/pages/admin/login.js`      | `getServerSideProps` redirects to `/admin` when `ADMIN_AUTH_DISABLED=true`                                   |
+| `apps/main/pages/api/admin/health.js` | Returns `{ ok: true, authDisabled: true }` without credential checks when disabled                           |
 
 To restore full Supabase-based auth later, simply toggle the flag — no code changes needed.

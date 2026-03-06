@@ -1,6 +1,6 @@
 /**
  * Unified Content Schema for iiskills-cloud Monorepo
- * 
+ *
  * This module provides a unified interface for all content types across apps:
  * - Jobs (apps/gov-jobs)
  * - Lessons (apps/exam-prep, apps/general-education)
@@ -21,7 +21,15 @@ export interface Location {
 /**
  * Core content types across all apps
  */
-export type ContentType = 'job' | 'lesson' | 'test' | 'module' | 'sports' | 'article' | 'quiz' | 'other';
+export type ContentType =
+  | "job"
+  | "lesson"
+  | "test"
+  | "module"
+  | "sports"
+  | "article"
+  | "quiz"
+  | "other";
 
 /**
  * Unified Content Interface - The single source of truth for all content
@@ -31,34 +39,34 @@ export interface UnifiedContent {
   // Core identification
   id: string;
   type: ContentType;
-  
+
   // Content details
   title: string;
   description?: string;
-  
+
   // Metadata for search and filtering
   tags?: string[];
   metadata?: Record<string, any>;
-  
+
   // Geographic data (for gov-jobs)
   location?: Location;
-  
+
   // Time-sensitive data (for jobs, exams, etc.)
   deadline?: string;
-  
+
   // URL to detailed content
   url?: string;
-  
+
   // Source app identifier
   app?: string;
-  
+
   // Timestamps
   createdAt?: string;
   updatedAt?: string;
-  
+
   // Status
-  status?: 'draft' | 'published' | 'archived';
-  
+  status?: "draft" | "published" | "archived";
+
   // Additional app-specific data
   customFields?: Record<string, any>;
 }
@@ -67,9 +75,9 @@ export interface UnifiedContent {
  * Job-specific interface (extends UnifiedContent)
  */
 export interface Job extends UnifiedContent {
-  type: 'job';
+  type: "job";
   company?: string;
-  employmentType?: 'full-time' | 'part-time' | 'contract' | 'internship';
+  employmentType?: "full-time" | "part-time" | "contract" | "internship";
   salary?: {
     min?: number;
     max?: number;
@@ -84,14 +92,14 @@ export interface Job extends UnifiedContent {
  * Lesson-specific interface (extends UnifiedContent)
  */
 export interface Lesson extends UnifiedContent {
-  type: 'lesson';
+  type: "lesson";
   subject?: string;
-  difficulty?: 'beginner' | 'intermediate' | 'advanced';
+  difficulty?: "beginner" | "intermediate" | "advanced";
   duration?: number; // in minutes
   objectives?: string[];
   prerequisites?: string[];
   materials?: Array<{
-    type: 'pdf' | 'video' | 'link' | 'document';
+    type: "pdf" | "video" | "link" | "document";
     url: string;
     title: string;
   }>;
@@ -101,19 +109,19 @@ export interface Lesson extends UnifiedContent {
  * Test-specific interface (extends UnifiedContent)
  */
 export interface Test extends UnifiedContent {
-  type: 'test';
+  type: "test";
   subject?: string;
   duration?: number; // in minutes
   totalQuestions?: number;
   passingScore?: number;
-  difficulty?: 'beginner' | 'intermediate' | 'advanced';
+  difficulty?: "beginner" | "intermediate" | "advanced";
 }
 
 /**
  * Module-specific interface (extends UnifiedContent)
  */
 export interface Module extends UnifiedContent {
-  type: 'module';
+  type: "module";
   subject?: string;
   lessons?: string[]; // Array of lesson IDs
   tests?: string[]; // Array of test IDs
@@ -124,19 +132,19 @@ export interface Module extends UnifiedContent {
  * Type guards for runtime type checking
  */
 export function isJob(content: UnifiedContent): content is Job {
-  return content.type === 'job';
+  return content.type === "job";
 }
 
 export function isLesson(content: UnifiedContent): content is Lesson {
-  return content.type === 'lesson';
+  return content.type === "lesson";
 }
 
 export function isTest(content: UnifiedContent): content is Test {
-  return content.type === 'test';
+  return content.type === "test";
 }
 
 export function isModule(content: UnifiedContent): content is Module {
-  return content.type === 'module';
+  return content.type === "module";
 }
 
 /**
@@ -159,7 +167,7 @@ export interface ContentFilters {
   apps?: string[];
   location?: Partial<Location>;
   searchQuery?: string;
-  status?: UnifiedContent['status'][];
+  status?: UnifiedContent["status"][];
   hasDeadline?: boolean;
 }
 

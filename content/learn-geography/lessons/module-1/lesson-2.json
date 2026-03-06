@@ -28,12 +28,7 @@
     },
     {
       "question": "What is the name of the boundary where the Pacific Plate meets others?",
-      "options": [
-        "Atlantic Ridge",
-        "Ring of Fire",
-        "Himalayan Belt",
-        "African Rift"
-      ],
+      "options": ["Atlantic Ridge", "Ring of Fire", "Himalayan Belt", "African Rift"],
       "correct_answer": 1
     },
     {

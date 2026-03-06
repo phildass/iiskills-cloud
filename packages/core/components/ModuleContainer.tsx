@@ -1,31 +1,31 @@
 /**
  * ModuleContainer Component
- * 
+ *
  * A Higher-Order Component (HOC) that provides common functionality
  * for all module types. It handles loading states, error handling,
  * and delegates rendering to ModuleSwitcher.
  */
 
-import React, { useState, useCallback } from 'react';
-import { Module } from '../types/module.types';
-import { ModuleSwitcher, ModuleSwitcherProps } from './ModuleSwitcher';
+import React, { useState, useCallback } from "react";
+import { Module } from "../types/module.types";
+import { ModuleSwitcher, ModuleSwitcherProps } from "./ModuleSwitcher";
 
 /**
  * Props for ModuleContainer
  */
-export interface ModuleContainerProps extends Omit<ModuleSwitcherProps, 'module'> {
+export interface ModuleContainerProps extends Omit<ModuleSwitcherProps, "module"> {
   module: Module | null;
   isLoading?: boolean;
   error?: Error | null;
-  
+
   // Custom renderers for states
   renderLoading?: React.ComponentType;
   renderError?: React.ComponentType<{ error: Error; onRetry?: () => void }>;
   renderEmpty?: React.ComponentType;
-  
+
   // Callbacks
   onRetry?: () => void;
-  
+
   // Container customization
   className?: string;
   showMetadata?: boolean;
@@ -49,12 +49,17 @@ const DefaultLoadingRenderer: React.FC = () => {
 /**
  * Default Error Component
  */
-const DefaultErrorRenderer: React.FC<{ error: Error; onRetry?: () => void }> = ({ error, onRetry }) => {
+const DefaultErrorRenderer: React.FC<{ error: Error; onRetry?: () => void }> = ({
+  error,
+  onRetry,
+}) => {
   return (
     <div className="flex items-center justify-center min-h-[400px]">
       <div className="text-center max-w-md">
         <div className="text-6xl mb-4">⚠️</div>
-        <h2 className="text-2xl font-bold text-red-600 dark:text-red-400 mb-2">Error Loading Module</h2>
+        <h2 className="text-2xl font-bold text-red-600 dark:text-red-400 mb-2">
+          Error Loading Module
+        </h2>
         <p className="text-gray-600 dark:text-gray-400 mb-4">{error.message}</p>
         {onRetry && (
           <button
@@ -77,7 +82,9 @@ const DefaultEmptyRenderer: React.FC = () => {
     <div className="flex items-center justify-center min-h-[400px]">
       <div className="text-center">
         <div className="text-6xl mb-4">📭</div>
-        <h2 className="text-2xl font-bold text-gray-700 dark:text-gray-300 mb-2">No Module Found</h2>
+        <h2 className="text-2xl font-bold text-gray-700 dark:text-gray-300 mb-2">
+          No Module Found
+        </h2>
         <p className="text-gray-600 dark:text-gray-400">The requested module could not be found.</p>
       </div>
     </div>
@@ -87,9 +94,12 @@ const DefaultEmptyRenderer: React.FC = () => {
 /**
  * Module Metadata Display
  */
-const ModuleMetadata: React.FC<{ module: Module; showTags?: boolean }> = ({ module, showTags = true }) => {
+const ModuleMetadata: React.FC<{ module: Module; showTags?: boolean }> = ({
+  module,
+  showTags = true,
+}) => {
   const { metadata } = module;
-  
+
   return (
     <div className="module-metadata mb-6 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
       <div className="flex flex-wrap gap-4 text-sm text-gray-600 dark:text-gray-400">
@@ -99,7 +109,7 @@ const ModuleMetadata: React.FC<{ module: Module; showTags?: boolean }> = ({ modu
             <span>{metadata.author}</span>
           </div>
         )}
-        
+
         {metadata.difficulty && (
           <div className="flex items-center">
             <span className="font-semibold mr-1">Difficulty:</span>
@@ -108,20 +118,20 @@ const ModuleMetadata: React.FC<{ module: Module; showTags?: boolean }> = ({ modu
             </span>
           </div>
         )}
-        
+
         {metadata.estimatedDuration && (
           <div className="flex items-center">
             <span className="font-semibold mr-1">Duration:</span>
             <span>{metadata.estimatedDuration} minutes</span>
           </div>
         )}
-        
+
         <div className="flex items-center">
           <span className="font-semibold mr-1">Updated:</span>
           <span>{new Date(metadata.updatedAt).toLocaleDateString()}</span>
         </div>
       </div>
-      
+
       {showTags && metadata.tags && metadata.tags.length > 0 && (
         <div className="mt-3 flex flex-wrap gap-2">
           {metadata.tags.map((tag, index) => (
@@ -152,13 +162,13 @@ export const ModuleContainer: React.FC<ModuleContainerProps> = ({
   onRetry,
   onComplete,
   onError,
-  className = '',
+  className = "",
   showMetadata = true,
   showTags = true,
   ...switcherProps
 }) => {
   const [internalError, setInternalError] = useState<Error | null>(null);
-  
+
   /**
    * Handle errors from child components
    */
@@ -171,7 +181,7 @@ export const ModuleContainer: React.FC<ModuleContainerProps> = ({
     },
     [onError]
   );
-  
+
   /**
    * Handle completion
    */
@@ -180,7 +190,7 @@ export const ModuleContainer: React.FC<ModuleContainerProps> = ({
       onComplete();
     }
   }, [onComplete]);
-  
+
   /**
    * Render loading state
    */
@@ -192,7 +202,7 @@ export const ModuleContainer: React.FC<ModuleContainerProps> = ({
       </div>
     );
   }
-  
+
   /**
    * Render error state
    */
@@ -205,7 +215,7 @@ export const ModuleContainer: React.FC<ModuleContainerProps> = ({
       </div>
     );
   }
-  
+
   /**
    * Render empty state
    */
@@ -217,14 +227,14 @@ export const ModuleContainer: React.FC<ModuleContainerProps> = ({
       </div>
     );
   }
-  
+
   /**
    * Render module content
    */
   return (
     <div className={`module-container ${className}`}>
       {showMetadata && <ModuleMetadata module={module} showTags={showTags} />}
-      
+
       <ModuleSwitcher
         module={module}
         onComplete={handleComplete}

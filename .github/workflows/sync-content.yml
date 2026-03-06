@@ -6,12 +6,12 @@ on:
     branches:
       - main
     paths:
-      - 'seeds/**'
-      - 'data/**'
-      - 'apps/learn-*/data/**'
-      - 'apps/learn-*/content/**'
-      - 'scripts/sync_to_supabase.js'
-      - '.github/workflows/sync-content.yml'
+      - "seeds/**"
+      - "data/**"
+      - "apps/learn-*/data/**"
+      - "apps/learn-*/content/**"
+      - "scripts/sync_to_supabase.js"
+      - ".github/workflows/sync-content.yml"
   workflow_dispatch: # Allow manual trigger
 
 # Prevent concurrent syncs
@@ -23,30 +23,30 @@ jobs:
   sync:
     name: Sync Content to Supabase
     runs-on: ubuntu-latest
-    
+
     permissions:
-      contents: read  # Read repository content
-      actions: read   # Read workflow artifacts if needed
-    
+      contents: read # Read repository content
+      actions: read # Read workflow artifacts if needed
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 1 # Shallow clone for faster checkout
-      
+
       - name: Setup Node.js 20
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'yarn'
-      
+          node-version: "20"
+          cache: "yarn"
+
       - name: Install dependencies
         run: |
           echo "Installing dependencies..."
           yarn install --frozen-lockfile
         env:
           NODE_ENV: production
-      
+
       - name: Create .env.local
         run: |
           echo "Creating .env.local with Supabase credentials..."
@@ -56,7 +56,7 @@ jobs:
           NEXT_PUBLIC_SUPABASE_URL=${{ secrets.SUPABASE_URL }}
           EOF
           echo ".env.local created successfully"
-      
+
       - name: Verify Supabase credentials
         run: |
           if [ -z "${{ secrets.SUPABASE_URL }}" ]; then
@@ -68,7 +68,7 @@ jobs:
             exit 1
           fi
           echo "✅ Supabase credentials verified"
-      
+
       - name: Run content sync
         id: sync
         run: |
@@ -78,7 +78,7 @@ jobs:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
           NODE_ENV: production
-      
+
       - name: Upload sync logs on failure
         if: failure()
         uses: actions/upload-artifact@v4
@@ -87,7 +87,7 @@ jobs:
           path: |
             *.log
           retention-days: 7
-      
+
       - name: Report sync status
         if: always()
         run: |
@@ -97,7 +97,7 @@ jobs:
             echo "❌ Content sync failed. Check the logs above for details."
             echo "💡 Tip: Check that your Supabase credentials are correct and tables exist."
           fi
-      
+
       - name: Send notification on failure
         if: failure()
         run: |

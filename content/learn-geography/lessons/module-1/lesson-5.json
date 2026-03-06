@@ -18,12 +18,7 @@
     },
     {
       "question": "Which biome has the greatest biodiversity?",
-      "options": [
-        "Desert",
-        "Tundra",
-        "Tropical rainforest",
-        "Boreal forest"
-      ],
+      "options": ["Desert", "Tundra", "Tropical rainforest", "Boreal forest"],
       "correct_answer": 2
     },
     {
@@ -48,12 +43,7 @@
     },
     {
       "question": "Which biome covers approximately one-third of Earths land surface?",
-      "options": [
-        "Grasslands",
-        "Wetlands",
-        "Forests",
-        "Deserts"
-      ],
+      "options": ["Grasslands", "Wetlands", "Forests", "Deserts"],
       "correct_answer": 2
     }
   ]

@@ -8,12 +8,7 @@
   "quiz": [
     {
       "question": "Which of the following is a natural hazard?",
-      "options": [
-        "Industrial accident",
-        "Volcanic eruption",
-        "Oil spill",
-        "Nuclear meltdown"
-      ],
+      "options": ["Industrial accident", "Volcanic eruption", "Oil spill", "Nuclear meltdown"],
       "correct_answer": 1
     },
     {
@@ -28,12 +23,7 @@
     },
     {
       "question": "Which area of the world is most prone to tropical cyclones?",
-      "options": [
-        "Central Asia",
-        "Western Europe",
-        "Tropical ocean regions",
-        "The Sahara Desert"
-      ],
+      "options": ["Central Asia", "Western Europe", "Tropical ocean regions", "The Sahara Desert"],
       "correct_answer": 2
     },
     {

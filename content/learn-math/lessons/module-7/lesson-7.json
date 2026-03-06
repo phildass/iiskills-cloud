@@ -18,32 +18,17 @@
     },
     {
       "question": "∫₁^∞ 1/x² dx evaluates to:",
-      "options": [
-        "∞",
-        "0",
-        "1",
-        "2"
-      ],
+      "options": ["∞", "0", "1", "2"],
       "correct_answer": 2
     },
     {
       "question": "∫₁^∞ 1/x dx is:",
-      "options": [
-        "1",
-        "–1",
-        "0",
-        "Divergent"
-      ],
+      "options": ["1", "–1", "0", "Divergent"],
       "correct_answer": 3
     },
     {
       "question": "A convergent improper integral has:",
-      "options": [
-        "An infinite value",
-        "A finite value",
-        "No value",
-        "A complex value"
-      ],
+      "options": ["An infinite value", "A finite value", "No value", "A complex value"],
       "correct_answer": 1
     },
     {

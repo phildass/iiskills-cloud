@@ -28,32 +28,17 @@
     },
     {
       "question": "The integral measures:",
-      "options": [
-        "Slope of tangent",
-        "Rate of change",
-        "Accumulation or area",
-        "Maximum value"
-      ],
+      "options": ["Slope of tangent", "Rate of change", "Accumulation or area", "Maximum value"],
       "correct_answer": 2
     },
     {
       "question": "Sir Isaac Newton and Gottfried Wilhelm Leibniz are credited with developing:",
-      "options": [
-        "Algebra",
-        "Statistics",
-        "Calculus",
-        "Geometry"
-      ],
+      "options": ["Algebra", "Statistics", "Calculus", "Geometry"],
       "correct_answer": 2
     },
     {
       "question": "The Fundamental Theorem of Calculus states that differentiation and integration are:",
-      "options": [
-        "Identical",
-        "Unrelated",
-        "Inverse operations",
-        "Both linear"
-      ],
+      "options": ["Identical", "Unrelated", "Inverse operations", "Both linear"],
       "correct_answer": 2
     }
   ]

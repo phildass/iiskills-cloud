@@ -8,42 +8,22 @@
   "quiz": [
     {
       "question": "The binomial coefficient C(n, r) = n!/(r!(n–r)!). C(5,2) equals:",
-      "options": [
-        "5",
-        "10",
-        "20",
-        "15"
-      ],
+      "options": ["5", "10", "20", "15"],
       "correct_answer": 1
     },
     {
       "question": "The binomial theorem expands (a + b)ⁿ as a sum of how many terms?",
-      "options": [
-        "n",
-        "n–1",
-        "n+1",
-        "2n"
-      ],
+      "options": ["n", "n–1", "n+1", "2n"],
       "correct_answer": 2
     },
     {
       "question": "The general term in the expansion of (a+b)ⁿ is:",
-      "options": [
-        "C(n,r)aⁿbʳ",
-        "C(n,r)aⁿ⁻ʳbʳ",
-        "C(n,r)aʳbⁿ",
-        "n!aⁿ⁻ʳbʳ"
-      ],
+      "options": ["C(n,r)aⁿbʳ", "C(n,r)aⁿ⁻ʳbʳ", "C(n,r)aʳbⁿ", "n!aⁿ⁻ʳbʳ"],
       "correct_answer": 1
     },
     {
       "question": "Pascal's triangle gives which values?",
-      "options": [
-        "Fibonacci numbers",
-        "Binomial coefficients",
-        "Prime numbers",
-        "Square numbers"
-      ],
+      "options": ["Fibonacci numbers", "Binomial coefficients", "Prime numbers", "Square numbers"],
       "correct_answer": 1
     },
     {

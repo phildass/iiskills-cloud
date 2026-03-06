@@ -1,7 +1,7 @@
 # Admin Testing Mode
 
 This document explains how to enable **TEST_ADMIN_MODE** so the admin panel works
-without a Supabase database connection.  This is intended **only for the testing
+without a Supabase database connection. This is intended **only for the testing
 period**; production should use `TEST_ADMIN_MODE=false` (the default) with
 Supabase-based authentication.
 
@@ -9,13 +9,13 @@ Supabase-based authentication.
 
 ## How it works
 
-| Env var | Value | Effect |
-|---|---|---|
-| `TEST_ADMIN_MODE` | `true` | Enable test mode (no DB required) |
-| `TEST_ADMIN_MODE` | `false` or unset | Production mode (Supabase auth) |
-| `ADMIN_PANEL_SECRET` | your passphrase | Override the default test passphrase |
-| `ADMIN_SECRET` | your passphrase | Alias for `ADMIN_PANEL_SECRET` (lower priority) |
-| `ADMIN_SESSION_SIGNING_KEY` | a long random secret | Signs the session cookie (required) |
+| Env var                     | Value                | Effect                                          |
+| --------------------------- | -------------------- | ----------------------------------------------- |
+| `TEST_ADMIN_MODE`           | `true`               | Enable test mode (no DB required)               |
+| `TEST_ADMIN_MODE`           | `false` or unset     | Production mode (Supabase auth)                 |
+| `ADMIN_PANEL_SECRET`        | your passphrase      | Override the default test passphrase            |
+| `ADMIN_SECRET`              | your passphrase      | Alias for `ADMIN_PANEL_SECRET` (lower priority) |
+| `ADMIN_SESSION_SIGNING_KEY` | a long random secret | Signs the session cookie (required)             |
 
 When `TEST_ADMIN_MODE=true`:
 
@@ -43,7 +43,7 @@ pm2 restart iiskills-main --update-env
 ```
 
 > **Note:** Replace `iiskills123` with a stronger passphrase for any shared
-> environment.  The signing key must be kept secret; generate a new one with
+> environment. The signing key must be kept secret; generate a new one with
 > `openssl rand -hex 32`.
 
 ### Verify the env vars were applied
@@ -54,7 +54,7 @@ pm2 env iiskills-main | grep -E "TEST_ADMIN_MODE|ADMIN_PANEL_SECRET|ADMIN_SESSIO
 
 ### Making the settings persist across reboots
 
-`export` only lasts until the next reboot or PM2 reload.  To persist across
+`export` only lasts until the next reboot or PM2 reload. To persist across
 reboots you have two options:
 
 **Option A — PM2 ecosystem config** (recommended if you use `ecosystem.config.js`):
@@ -73,6 +73,7 @@ reboots you have two options:
 ```
 
 Then:
+
 ```bash
 pm2 restart ecosystem.config.js --env production
 pm2 save

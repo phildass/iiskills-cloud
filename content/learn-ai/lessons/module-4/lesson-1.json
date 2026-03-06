@@ -18,12 +18,7 @@
     },
     {
       "question": "Which Python data structure provides O(1) key-value lookup?",
-      "options": [
-        "List",
-        "Tuple",
-        "Dictionary",
-        "Set"
-      ],
+      "options": ["List", "Tuple", "Dictionary", "Set"],
       "correct_answer": 2
     },
     {

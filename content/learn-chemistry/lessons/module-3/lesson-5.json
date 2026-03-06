@@ -48,12 +48,7 @@
     },
     {
       "question": "Which type of solid has the highest melting point?",
-      "options": [
-        "Molecular solid",
-        "Metallic solid",
-        "Ionic solid",
-        "Network covalent solid"
-      ],
+      "options": ["Molecular solid", "Metallic solid", "Ionic solid", "Network covalent solid"],
       "correct_answer": 3
     }
   ]

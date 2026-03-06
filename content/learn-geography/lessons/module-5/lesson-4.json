@@ -18,12 +18,7 @@
     },
     {
       "question": "In which module does \"Urbanisation and Urban Systems\" appear?",
-      "options": [
-        "Human Geography",
-        "Physical Geography",
-        "Human Geography",
-        "Climate Zones"
-      ],
+      "options": ["Human Geography", "Physical Geography", "Human Geography", "Climate Zones"],
       "correct_answer": 2
     },
     {

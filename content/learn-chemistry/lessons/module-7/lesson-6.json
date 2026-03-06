@@ -8,12 +8,7 @@
   "quiz": [
     {
       "question": "Which biomolecule contains the peptide bond?",
-      "options": [
-        "Carbohydrates",
-        "Lipids",
-        "Proteins",
-        "Nucleic acids"
-      ],
+      "options": ["Carbohydrates", "Lipids", "Proteins", "Nucleic acids"],
       "correct_answer": 2
     },
     {

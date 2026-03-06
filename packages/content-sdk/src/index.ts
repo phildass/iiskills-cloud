@@ -1,6 +1,6 @@
 /**
  * Content SDK - Core utilities for content discovery and management
- * 
+ *
  * This SDK provides utilities for:
  * - Searching and filtering content across apps
  * - Geographic resolution for gov-jobs
@@ -15,15 +15,12 @@ import {
   ContentManifest,
   MetaIndex,
   Location,
-} from '@iiskills/schema';
+} from "@iiskills/schema";
 
 /**
  * Search content across all apps based on filters
  */
-export function searchContent(
-  items: UnifiedContent[],
-  filters: ContentFilters
-): UnifiedContent[] {
+export function searchContent(items: UnifiedContent[], filters: ContentFilters): UnifiedContent[] {
   let results = [...items];
 
   // Filter by content type
@@ -33,9 +30,7 @@ export function searchContent(
 
   // Filter by tags
   if (filters.tags && filters.tags.length > 0) {
-    results = results.filter((item) =>
-      item.tags?.some((tag) => filters.tags!.includes(tag))
-    );
+    results = results.filter((item) => item.tags?.some((tag) => filters.tags!.includes(tag)));
   }
 
   // Filter by app
@@ -47,14 +42,14 @@ export function searchContent(
   if (filters.location) {
     results = results.filter((item) => {
       if (!item.location) return false;
-      
+
       const loc = item.location;
       const filterLoc = filters.location!;
-      
+
       if (filterLoc.country && loc.country !== filterLoc.country) return false;
       if (filterLoc.state && loc.state !== filterLoc.state) return false;
       if (filterLoc.district && loc.district !== filterLoc.district) return false;
-      
+
       return true;
     });
   }
@@ -79,7 +74,7 @@ export function searchContent(
       const titleMatch = item.title?.toLowerCase().includes(query);
       const descMatch = item.description?.toLowerCase().includes(query);
       const tagsMatch = item.tags?.some((tag) => tag.toLowerCase().includes(query));
-      
+
       return titleMatch || descMatch || tagsMatch;
     });
   }
@@ -114,7 +109,7 @@ export function paginateContent(
  */
 export interface GeographyNode {
   name: string;
-  type: 'country' | 'state' | 'district';
+  type: "country" | "state" | "district";
   children?: GeographyNode[];
 }
 
@@ -237,7 +232,7 @@ export async function loadMetaIndex(path: string): Promise<MetaIndex> {
   // In a real implementation, this would load from filesystem or API
   // For now, return a stub
   return {
-    version: '1.0.0',
+    version: "1.0.0",
     apps: [],
     lastUpdated: new Date().toISOString(),
   };
@@ -250,8 +245,8 @@ export async function loadManifest(path: string): Promise<ContentManifest> {
   // In a real implementation, this would load from filesystem or API
   // For now, return a stub
   return {
-    app: '',
-    version: '1.0.0',
+    app: "",
+    version: "1.0.0",
     contentTypes: [],
     items: [],
     lastUpdated: new Date().toISOString(),
@@ -260,30 +255,30 @@ export async function loadManifest(path: string): Promise<ContentManifest> {
 
 /**
  * Generate content embeddings for semantic search
- * 
+ *
  * ⚠️ WARNING: This is a PLACEHOLDER implementation and should NOT be used in production!
- * 
+ *
  * For production use, integrate with:
  * - OpenAI embeddings API (text-embedding-ada-002)
  * - FAISS for local vector search
  * - Pinecone for cloud vector database
  * - Qdrant for open-source vector search
- * 
+ *
  * This placeholder returns a simple hash-based vector for testing purposes only.
  */
 export function generateEmbedding(content: UnifiedContent): number[] {
   // Placeholder: returns a simple hash-based embedding
   // DO NOT USE IN PRODUCTION - this is not a real semantic embedding
-  const text = `${content.title} ${content.description || ''} ${content.tags?.join(' ') || ''}`;
-  const hash = text.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
-  return Array.from({ length: 10 }, (_, i) => (hash * (i + 1)) % 100 / 100);
+  const text = `${content.title} ${content.description || ""} ${content.tags?.join(" ") || ""}`;
+  const hash = text.split("").reduce((acc, char) => acc + char.charCodeAt(0), 0);
+  return Array.from({ length: 10 }, (_, i) => ((hash * (i + 1)) % 100) / 100);
 }
 
 /**
  * Semantic search using embeddings
- * 
+ *
  * ⚠️ WARNING: This is a PLACEHOLDER implementation for testing only!
- * 
+ *
  * For production, implement proper vector similarity search with a real embedding model.
  */
 export function semanticSearch(
@@ -293,11 +288,11 @@ export function semanticSearch(
 ): UnifiedContent[] {
   // Placeholder: falls back to basic search
   // In production, use vector similarity search with proper embeddings
-  
+
   // Create a query object for embedding generation (marked as 'other' type as it's not real content)
   const queryEmbedding = generateEmbedding({
-    id: 'query',
-    type: 'other',
+    id: "query",
+    type: "other",
     title: query,
   });
 
@@ -319,11 +314,11 @@ export function semanticSearch(
  */
 export function validateContent(content: any): content is UnifiedContent {
   return (
-    typeof content === 'object' &&
+    typeof content === "object" &&
     content !== null &&
-    typeof content.id === 'string' &&
-    typeof content.type === 'string' &&
-    typeof content.title === 'string'
+    typeof content.id === "string" &&
+    typeof content.type === "string" &&
+    typeof content.title === "string"
   );
 }
 
@@ -337,4 +332,4 @@ export {
   ContentManifest,
   MetaIndex,
   Location,
-} from '@iiskills/schema';
+} from "@iiskills/schema";

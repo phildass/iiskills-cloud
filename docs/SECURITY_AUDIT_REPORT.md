@@ -40,11 +40,13 @@ A comprehensive security audit was performed on the iiskills-cloud monorepo. The
 **Description**: The ajv package has a Regular Expression Denial of Service (ReDoS) vulnerability when using the `$data` option.
 
 **Risk Assessment**:
+
 - **Production Risk**: ✅ LOW - AJV is only used by ESLint (dev tool)
 - **Development Risk**: ⚠️ MODERATE - Could slow down linting in edge cases
 - **Exploitation Difficulty**: HIGH - Requires specific regex patterns
 
-**Mitigation**: 
+**Mitigation**:
+
 - Not used in production code
 - ESLint usage doesn't typically trigger $data option
 - Monitor for updates to ESLint and dependencies
@@ -56,6 +58,7 @@ A comprehensive security audit was performed on the iiskills-cloud monorepo. The
 ### 2. ESLint Ecosystem Chain
 
 **Affected Packages**:
+
 - `eslint`
 - `@eslint/eslintrc`
 - `@eslint-community/eslint-utils`
@@ -71,6 +74,7 @@ A comprehensive security audit was performed on the iiskills-cloud monorepo. The
 **Root Cause**: AJV vulnerability propagates through ESLint dependency chain
 
 **Risk Assessment**:
+
 - **Production Risk**: ✅ NONE - All are dev dependencies
 - **Development Risk**: ⚠️ LOW - Affects code linting only
 - **CI/CD Risk**: ⚠️ LOW - Affects linting in CI pipelines
@@ -86,48 +90,59 @@ A comprehensive security audit was performed on the iiskills-cloud monorepo. The
 Analyzed all production dependencies for known vulnerabilities:
 
 #### 1. Next.js (`next@^16.1.1`)
+
 - **Status**: ✅ SECURE
 - **Last CVE Check**: 2026-02-18
 - **Notes**: Using latest stable version
 
 #### 2. React (`react@latest`, `react-dom@latest`)
+
 - **Status**: ✅ SECURE
 - **Notes**: Latest version, no known vulnerabilities
 
 #### 3. Supabase Client (`@supabase/supabase-js@^2.95.3`)
+
 - **Status**: ✅ SECURE
 - **Notes**: Latest stable version
 
 #### 4. Razorpay SDK (`razorpay@^2.9.6`)
+
 - **Status**: ✅ SECURE
 - **Notes**: Official SDK, regularly updated
 
 #### 5. OpenAI SDK (`openai@^4.73.0`)
+
 - **Status**: ✅ SECURE
 - **Notes**: Latest version
 
 #### 6. Framer Motion (`framer-motion@^12.33.0`)
+
 - **Status**: ✅ SECURE
 - **Notes**: UI animation library, no security concerns
 
 #### 7. SendGrid Mail (`@sendgrid/mail@^8.1.6`)
+
 - **Status**: ✅ SECURE
 - **Notes**: Official SDK
 
 #### 8. Vonage Server SDK (`@vonage/server-sdk@^3.26.0`)
+
 - **Status**: ✅ SECURE
 - **Notes**: Official SDK for SMS/OTP
 
 #### 9. jsPDF (`jspdf@^4.0.0`)
+
 - **Status**: ⚠️ CHECK REQUIRED
 - **Notes**: Version 4.0.0 is quite old (current is 2.x series)
 - **Action**: Verify version is correct, consider updating
 
 #### 10. QRCode (`qrcode@^1.5.4`)
+
 - **Status**: ✅ SECURE
 - **Notes**: Stable package for QR generation
 
 #### 11. HTML2Canvas (`html2canvas@^1.4.1`)
+
 - **Status**: ✅ SECURE
 - **Notes**: Used for screenshot generation
 
@@ -138,6 +153,7 @@ Analyzed all production dependencies for known vulnerabilities:
 ### Immediate Actions (This Sprint)
 
 #### 1. jsPDF Version Verification
+
 ```bash
 # Check actual version installed
 npm ls jspdf
@@ -151,6 +167,7 @@ npm update jspdf
 **Risk**: LOW (well-tested library)
 
 #### 2. Document Security Scan Process
+
 - [x] Create security audit documentation
 - [x] Define scanning schedule
 - [x] Establish escalation process
@@ -160,6 +177,7 @@ npm update jspdf
 **Risk**: NONE
 
 #### 3. Add Security Scanning to CI/CD
+
 ```yaml
 # Add to .github/workflows/security.yml
 - name: Run npm audit
@@ -173,6 +191,7 @@ npm update jspdf
 ### Short-Term Actions (Next Sprint)
 
 #### 1. Monitor ESLint Ecosystem
+
 - Watch for updates to ESLint 10.x that fix AJV dependency
 - Subscribe to GitHub security advisories
 - Review quarterly
@@ -181,6 +200,7 @@ npm update jspdf
 **Effort**: LOW (ongoing)
 
 #### 2. Evaluate Alternative Linters
+
 - Consider migrating to Biome or other modern linters
 - Benchmark performance
 - Plan migration if beneficial
@@ -189,6 +209,7 @@ npm update jspdf
 **Effort**: HIGH (1 week)
 
 #### 3. Dependency Update Policy
+
 - Establish automated dependency updates (Dependabot)
 - Define update review process
 - Schedule monthly dependency reviews
@@ -199,6 +220,7 @@ npm update jspdf
 ### Long-Term Actions (Future)
 
 #### 1. Implement Snyk or Similar
+
 - Integrate Snyk for continuous monitoring
 - Set up automated PR checks
 - Configure severity thresholds
@@ -207,6 +229,7 @@ npm update jspdf
 **Effort**: MEDIUM (1 day)
 
 #### 2. Security Training
+
 - Train team on secure coding practices
 - OWASP Top 10 awareness
 - Dependency security best practices
@@ -237,6 +260,7 @@ npm update jspdf
 ### Running Security Scans
 
 #### 1. npm audit
+
 ```bash
 # Production dependencies only
 npm audit --production
@@ -249,6 +273,7 @@ npm audit --json > audit-report.json
 ```
 
 #### 2. Snyk (Optional - Future)
+
 ```bash
 # Install Snyk CLI
 npm install -g snyk
@@ -264,6 +289,7 @@ snyk monitor
 ```
 
 #### 3. GitHub Security Advisories
+
 - Enable Dependabot alerts
 - Review security tab regularly
 - Configure automated PRs for updates
@@ -293,6 +319,7 @@ snyk monitor
 **Vulnerability**: AJV ReDoS in ESLint dependencies  
 **Risk Level**: Moderate  
 **Acceptance Reason**:
+
 - Only affects development environment
 - Not exploitable in production
 - No fix available without breaking changes
@@ -345,8 +372,8 @@ npm audit <package-name>
 ```json
 {
   "dependencies": {
-    "@supabase/supabase-js": "2.95.3",  // Exact version
-    "razorpay": "^2.9.6"                // Caret allows patches
+    "@supabase/supabase-js": "2.95.3", // Exact version
+    "razorpay": "^2.9.6" // Caret allows patches
   }
 }
 ```
@@ -362,10 +389,12 @@ npm audit <package-name>
 ## Security Contacts
 
 ### Internal
+
 - **Security Lead**: Development Team
 - **Escalation**: Project Maintainer
 
 ### External
+
 - **npm Security**: security@npmjs.com
 - **GitHub Security**: security@github.com
 - **Vulnerability Disclosure**: (Define process)
@@ -377,6 +406,7 @@ npm audit <package-name>
 ### OWASP Top 10 (2021)
 
 Our security audit addresses:
+
 - ✅ A06:2021 - Vulnerable and Outdated Components
 - ✅ A08:2021 - Software and Data Integrity Failures
 

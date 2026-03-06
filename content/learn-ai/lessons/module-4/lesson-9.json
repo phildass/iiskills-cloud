@@ -8,12 +8,7 @@
   "quiz": [
     {
       "question": "What tool enforces Python code style automatically?",
-      "options": [
-        "Pandas",
-        "flake8 or black (code linters/formatters)",
-        "NumPy",
-        "TensorFlow"
-      ],
+      "options": ["Pandas", "flake8 or black (code linters/formatters)", "NumPy", "TensorFlow"],
       "correct_answer": 1
     },
     {

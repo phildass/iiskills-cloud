@@ -7,6 +7,7 @@ A comprehensive aptitude testing application built with Next.js, providing 8 sel
 ### Test Types (8 modules, 8 tests)
 
 #### Domain Tests
+
 - **Numerical Ability** (`/tests/numerical`): Arithmetic, percentages, ratios (~15 min, 8 questions)
 - **Logical Reasoning** (`/tests/logical`): Pattern recognition, syllogisms (~15 min, 8 questions)
 - **Verbal Ability** (`/tests/verbal`): Grammar, reading comprehension (~15 min, 8 questions)
@@ -14,13 +15,16 @@ A comprehensive aptitude testing application built with Next.js, providing 8 sel
 - **Data Interpretation** (`/tests/data-interpretation`): Charts, tables, data insights (~15 min, 8 questions)
 
 #### Mixed / Rapid Test
+
 - **Quick-Fire** (`/tests/quick-fire`): 5-minute timed dash across all domains (15 questions)
 
 #### General Purpose Tests
+
 - **General Purpose – Short** (`/tests/general-short`): Quick 7-question mixed assessment (~10 min)
 - **General Purpose – Elaborate** (`/tests/general-elaborate`): Comprehensive 120-question assessment (~90 min)
 
 ### Key Features
+
 - 💯 100% Free - No subscriptions or hidden fees
 - 📊 Detailed Analytics - Comprehensive performance reports
 - 🚀 Progress Tracking - Monitor improvement over time
@@ -38,24 +42,28 @@ A comprehensive aptitude testing application built with Next.js, providing 8 sel
 ## Getting Started
 
 ### Prerequisites
+
 - Node.js 18+
 - Yarn 4+
 
 ### Installation
 
 1. Install dependencies:
+
 ```bash
 cd apps/learn-apt
 yarn install
 ```
 
 2. Set up environment variables:
+
 ```bash
 cp .env.local.example .env.local
 # Edit .env.local with your Supabase credentials
 ```
 
 3. Run the development server:
+
 ```bash
 yarn dev
 ```
@@ -114,6 +122,7 @@ apps/learn-apt/
 ## Features in Detail
 
 ### General Purpose – Short
+
 - 7 carefully curated questions
 - 10-minute time limit
 - Covers basic aptitude skills
@@ -121,6 +130,7 @@ apps/learn-apt/
 - Great for quick practice
 
 ### General Purpose – Elaborate
+
 - 120 comprehensive questions
 - 90-minute time limit
 - Multiple categories: Math, Patterns, Logic
@@ -128,17 +138,20 @@ apps/learn-apt/
 - In-depth skill assessment
 
 ### Domain Tests (Numerical / Logical / Verbal / Spatial / Data Interpretation)
+
 - 8 targeted questions per domain
 - 15-minute time limit
 - Domain-specific skill assessment
 - Instant scoring with career connections
 
 ### Quick-Fire
+
 - 15 mixed questions across all domains
 - 5-minute rapid-fire format
 - Get your complete Aptitude Signature
 
 ### User Experience
+
 - Clean, modern interface
 - Progress tracking during tests
 - Question navigation
@@ -148,6 +161,7 @@ apps/learn-apt/
 ## Authentication
 
 The app uses Supabase for authentication, providing:
+
 - Email/password registration and login
 - Secure session management
 - Cross-subdomain authentication support
@@ -156,11 +170,13 @@ The app uses Supabase for authentication, providing:
 ## Deployment
 
 ### Development
+
 ```bash
 yarn dev
 ```
 
 ### Production
+
 ```bash
 yarn build
 yarn start

@@ -8,12 +8,7 @@
   "quiz": [
     {
       "question": "The inverse A⁻¹ satisfies:",
-      "options": [
-        "A⁻¹A = 0",
-        "A⁻¹A = I",
-        "A⁻¹ = –A",
-        "A⁻¹A = A²"
-      ],
+      "options": ["A⁻¹A = 0", "A⁻¹A = I", "A⁻¹ = –A", "A⁻¹A = A²"],
       "correct_answer": 1
     },
     {
@@ -28,22 +23,12 @@
     },
     {
       "question": "To solve Ax = b using the inverse: x = :",
-      "options": [
-        "A⁻¹ + b",
-        "A⁻¹b",
-        "b⁻¹A",
-        "bA⁻¹"
-      ],
+      "options": ["A⁻¹ + b", "A⁻¹b", "b⁻¹A", "bA⁻¹"],
       "correct_answer": 1
     },
     {
       "question": "Gaussian elimination transforms a matrix to:",
-      "options": [
-        "Diagonal form",
-        "Row echelon form",
-        "Identity matrix",
-        "Transpose form"
-      ],
+      "options": ["Diagonal form", "Row echelon form", "Identity matrix", "Transpose form"],
       "correct_answer": 1
     },
     {

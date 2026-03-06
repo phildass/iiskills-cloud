@@ -8,12 +8,7 @@
   "quiz": [
     {
       "question": "What is the general formula for an alkane?",
-      "options": [
-        "CnH2n",
-        "CnH2n+2",
-        "CnH2n-2",
-        "CnHn"
-      ],
+      "options": ["CnH2n", "CnH2n+2", "CnH2n-2", "CnHn"],
       "correct_answer": 1
     },
     {
@@ -48,12 +43,7 @@
     },
     {
       "question": "What is the IUPAC suffix for a ketone?",
-      "options": [
-        "-ol",
-        "-al",
-        "-one",
-        "-oic acid"
-      ],
+      "options": ["-ol", "-al", "-one", "-oic acid"],
       "correct_answer": 2
     }
   ]

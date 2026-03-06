@@ -8,52 +8,27 @@
   "quiz": [
     {
       "question": "sin²(x) + cos²(x) equals:",
-      "options": [
-        "0",
-        "2",
-        "1",
-        "sin(2x)"
-      ],
+      "options": ["0", "2", "1", "sin(2x)"],
       "correct_answer": 2
     },
     {
       "question": "1 + tan²(x) equals:",
-      "options": [
-        "sec²(x)",
-        "csc²(x)",
-        "1",
-        "2"
-      ],
+      "options": ["sec²(x)", "csc²(x)", "1", "2"],
       "correct_answer": 0
     },
     {
       "question": "1 + cot²(x) equals:",
-      "options": [
-        "sec²(x)",
-        "csc²(x)",
-        "tan²(x)",
-        "1"
-      ],
+      "options": ["sec²(x)", "csc²(x)", "tan²(x)", "1"],
       "correct_answer": 1
     },
     {
       "question": "sin(2x) equals:",
-      "options": [
-        "2sin(x)",
-        "sin²(x)+cos²(x)",
-        "2sin(x)cos(x)",
-        "cos²(x)–sin²(x)"
-      ],
+      "options": ["2sin(x)", "sin²(x)+cos²(x)", "2sin(x)cos(x)", "cos²(x)–sin²(x)"],
       "correct_answer": 2
     },
     {
       "question": "cos(2x) can be written as:",
-      "options": [
-        "2cos(x)",
-        "cos²(x) – sin²(x)",
-        "2sin(x)cos(x)",
-        "1 – cos²(x)"
-      ],
+      "options": ["2cos(x)", "cos²(x) – sin²(x)", "2sin(x)cos(x)", "1 – cos²(x)"],
       "correct_answer": 1
     }
   ]

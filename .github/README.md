@@ -28,11 +28,13 @@ This directory contains GitHub Actions workflows and automation scripts for the 
 
 **Purpose**: Comprehensive automated validation of all PR requirements
 
-**Triggers**: 
+**Triggers**:
+
 - Pull request opened, synchronized, reopened, or edited
 - Target branch: `main`
 
 **Jobs**:
+
 1. **PR Template Validation** - Ensures PR uses template and has adequate description
 2. **Code Quality** - Runs ESLint and Prettier checks
 3. **Import Validation** - Checks for prohibited patterns and proper imports
@@ -45,6 +47,7 @@ This directory contains GitHub Actions workflows and automation scripts for the 
 10. **Final Status** - Overall pass/fail status
 
 **Required Secrets**:
+
 - None (uses `GITHUB_TOKEN` automatically)
 
 ### 2. Danger.js PR Analysis (`danger-pr-analysis.yml`)
@@ -52,10 +55,12 @@ This directory contains GitHub Actions workflows and automation scripts for the 
 **Purpose**: Sophisticated PR analysis with automated commenting
 
 **Triggers**:
+
 - Pull request opened, synchronized, reopened, or edited
 - Target branch: `main`
 
 **What it checks**:
+
 - PR metadata (title, description, size)
 - Code quality issues (console.log, TODOs)
 - Import validation (local vs package imports)
@@ -71,15 +76,18 @@ This directory contains GitHub Actions workflows and automation scripts for the 
 **Purpose**: Verify all apps build successfully
 
 **Triggers**:
+
 - Pull request to `main`
 - Push to `main`
 
 **What it does**:
+
 - Builds all 17 apps in parallel (matrix strategy)
 - Validates content schema
 - Checks for orphans and broken links
 
 **Required Secrets**:
+
 - `NEXT_PUBLIC_SUPABASE_URL`
 - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
 
@@ -88,6 +96,7 @@ This directory contains GitHub Actions workflows and automation scripts for the 
 ## 🎯 Pull Request Template
 
 ### Location
+
 `.github/PULL_REQUEST_TEMPLATE.md`
 
 ### Sections
@@ -113,6 +122,7 @@ This directory contains GitHub Actions workflows and automation scripts for the 
 ## 🤖 Danger.js Configuration
 
 ### Location
+
 `.github/dangerfile.js`
 
 ### What it analyzes
@@ -154,6 +164,7 @@ This directory contains GitHub Actions workflows and automation scripts for the 
 ### Report Format
 
 Danger.js generates a comprehensive report including:
+
 - Change statistics
 - Requirements checklist
 - Recommendations
@@ -183,11 +194,13 @@ Enable these branch protection rules for `main`:
 ## 🛠️ Local Testing
 
 ### Test PR Template
+
 ```bash
 # The template will automatically appear when creating a PR via GitHub UI
 ```
 
 ### Test Danger.js Locally
+
 ```bash
 # Install dependencies
 yarn install
@@ -197,6 +210,7 @@ yarn danger pr https://github.com/phildass/iiskills-cloud/pull/123
 ```
 
 ### Test Workflows Locally (with act)
+
 ```bash
 # Install act (https://github.com/nektos/act)
 brew install act  # macOS
@@ -208,6 +222,7 @@ act pull_request -W .github/workflows/pr-requirements-check.yml
 ```
 
 ### Run Pre-PR Checks
+
 ```bash
 # Run all checks that CI will run
 yarn lint:check
@@ -244,20 +259,20 @@ jobs:
   my-job:
     name: Job Name
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
-          cache: 'yarn'
-      
+          node-version: "18"
+          cache: "yarn"
+
       - name: Install dependencies
         run: yarn install --frozen-lockfile
-      
+
       - name: Run my task
         run: yarn my-script
 ```

@@ -38,22 +38,12 @@
     },
     {
       "question": "Which phase involves transforming raw data into informative model inputs?",
-      "options": [
-        "Model evaluation",
-        "Feature engineering",
-        "Deployment",
-        "Monitoring"
-      ],
+      "options": ["Model evaluation", "Feature engineering", "Deployment", "Monitoring"],
       "correct_answer": 1
     },
     {
       "question": "Which tool is commonly used for experiment tracking during model training?",
-      "options": [
-        "Docker",
-        "Kubernetes",
-        "MLflow",
-        "Nginx"
-      ],
+      "options": ["Docker", "Kubernetes", "MLflow", "Nginx"],
       "correct_answer": 2
     }
   ]

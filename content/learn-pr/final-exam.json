@@ -95,12 +95,7 @@
     },
     {
       "question": "Which element is NOT typically included in a press release?",
-      "options": [
-        "Headline",
-        "Boilerplate",
-        "Product price list",
-        "Spokesperson quote"
-      ],
+      "options": ["Headline", "Boilerplate", "Product price list", "Spokesperson quote"],
       "correct_answer": 2
     },
     {

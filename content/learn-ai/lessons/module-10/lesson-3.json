@@ -18,12 +18,7 @@
     },
     {
       "question": "Which platform is most commonly used to showcase AI projects?",
-      "options": [
-        "TikTok",
-        "GitHub",
-        "WhatsApp",
-        "Instagram"
-      ],
+      "options": ["TikTok", "GitHub", "WhatsApp", "Instagram"],
       "correct_answer": 1
     },
     {

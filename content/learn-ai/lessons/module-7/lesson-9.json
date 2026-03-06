@@ -48,12 +48,7 @@
     },
     {
       "question": "Which neural network architecture is best for image recognition?",
-      "options": [
-        "RNN",
-        "LSTM",
-        "CNN",
-        "Transformer"
-      ],
+      "options": ["RNN", "LSTM", "CNN", "Transformer"],
       "correct_answer": 2
     }
   ]

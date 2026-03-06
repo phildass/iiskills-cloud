@@ -38,12 +38,7 @@
     },
     {
       "question": "Which Indian government initiative aims to give every farmer a digital AI-powered profile?",
-      "options": [
-        "PM Kisan",
-        "Digital Agriculture Mission",
-        "e-NAM",
-        "Soil Health Card Scheme"
-      ],
+      "options": ["PM Kisan", "Digital Agriculture Mission", "e-NAM", "Soil Health Card Scheme"],
       "correct_answer": 1
     },
     {

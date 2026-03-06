@@ -18,12 +18,7 @@
     },
     {
       "question": "What process converts liquid water to water vapour?",
-      "options": [
-        "Condensation",
-        "Precipitation",
-        "Evaporation",
-        "Infiltration"
-      ],
+      "options": ["Condensation", "Precipitation", "Evaporation", "Infiltration"],
       "correct_answer": 2
     },
     {
@@ -38,22 +33,12 @@
     },
     {
       "question": "Which type of erosion is most common in the upper course of a river?",
-      "options": [
-        "Lateral erosion",
-        "Deposition",
-        "Vertical erosion",
-        "Attrition only"
-      ],
+      "options": ["Lateral erosion", "Deposition", "Vertical erosion", "Attrition only"],
       "correct_answer": 2
     },
     {
       "question": "What forms at the mouth of a river where it meets the sea?",
-      "options": [
-        "A waterfall",
-        "A delta or estuary",
-        "A meander",
-        "A gorge"
-      ],
+      "options": ["A waterfall", "A delta or estuary", "A meander", "A gorge"],
       "correct_answer": 1
     }
   ]

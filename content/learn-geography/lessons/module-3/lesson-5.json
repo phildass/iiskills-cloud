@@ -8,22 +8,12 @@
   "quiz": [
     {
       "question": "Which is the smallest ocean?",
-      "options": [
-        "Southern Ocean",
-        "Arctic Ocean",
-        "Indian Ocean",
-        "Pacific Ocean"
-      ],
+      "options": ["Southern Ocean", "Arctic Ocean", "Indian Ocean", "Pacific Ocean"],
       "correct_answer": 1
     },
     {
       "question": "When was the Southern Ocean officially recognised as the fifth ocean?",
-      "options": [
-        "1995",
-        "2000",
-        "2021",
-        "2015"
-      ],
+      "options": ["1995", "2000", "2021", "2015"],
       "correct_answer": 2
     },
     {

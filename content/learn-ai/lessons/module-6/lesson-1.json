@@ -28,22 +28,12 @@
     },
     {
       "question": "Which technique reduces the number of features while retaining variance?",
-      "options": [
-        "Logistic Regression",
-        "PCA",
-        "k-Nearest Neighbours",
-        "Gradient Boosting"
-      ],
+      "options": ["Logistic Regression", "PCA", "k-Nearest Neighbours", "Gradient Boosting"],
       "correct_answer": 1
     },
     {
       "question": "What type of learning does an autoencoder perform?",
-      "options": [
-        "Supervised",
-        "Reinforcement",
-        "Unsupervised",
-        "Semi-supervised only"
-      ],
+      "options": ["Supervised", "Reinforcement", "Unsupervised", "Semi-supervised only"],
       "correct_answer": 2
     },
     {

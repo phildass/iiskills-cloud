@@ -8,42 +8,22 @@
   "quiz": [
     {
       "question": "Share 120 in the ratio 3:2:1. The largest share is:",
-      "options": [
-        "40",
-        "60",
-        "80",
-        "30"
-      ],
+      "options": ["40", "60", "80", "30"],
       "correct_answer": 1
     },
     {
       "question": "y ∝ x and y = 15 when x = 3. When x = 7, y = ?",
-      "options": [
-        "21",
-        "28",
-        "35",
-        "14"
-      ],
+      "options": ["21", "28", "35", "14"],
       "correct_answer": 2
     },
     {
       "question": "y is inversely proportional to x. If y = 4 when x = 6, then y when x = 3 is:",
-      "options": [
-        "2",
-        "6",
-        "8",
-        "12"
-      ],
+      "options": ["2", "6", "8", "12"],
       "correct_answer": 2
     },
     {
       "question": "Which law follows inverse proportion: PV = constant?",
-      "options": [
-        "Newton's Second Law",
-        "Ohm's Law",
-        "Boyle's Law",
-        "Hooke's Law"
-      ],
+      "options": ["Newton's Second Law", "Ohm's Law", "Boyle's Law", "Hooke's Law"],
       "correct_answer": 2
     },
     {

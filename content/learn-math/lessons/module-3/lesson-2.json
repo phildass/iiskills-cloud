@@ -8,12 +8,7 @@
   "quiz": [
     {
       "question": "An equilateral triangle has all interior angles equal to:",
-      "options": [
-        "45°",
-        "60°",
-        "90°",
-        "120°"
-      ],
+      "options": ["45°", "60°", "90°", "120°"],
       "correct_answer": 1
     },
     {
@@ -28,32 +23,17 @@
     },
     {
       "question": "The sum of interior angles of a triangle is:",
-      "options": [
-        "90°",
-        "180°",
-        "270°",
-        "360°"
-      ],
+      "options": ["90°", "180°", "270°", "360°"],
       "correct_answer": 1
     },
     {
       "question": "An isosceles triangle has:",
-      "options": [
-        "All sides equal",
-        "No sides equal",
-        "Two equal sides",
-        "One right angle"
-      ],
+      "options": ["All sides equal", "No sides equal", "Two equal sides", "One right angle"],
       "correct_answer": 2
     },
     {
       "question": "Which congruence condition uses two angles and the included side?",
-      "options": [
-        "SSS",
-        "SAS",
-        "ASA",
-        "AAS"
-      ],
+      "options": ["SSS", "SAS", "ASA", "AAS"],
       "correct_answer": 2
     }
   ]

@@ -8,22 +8,12 @@
   "quiz": [
     {
       "question": "Solve 3(x – 2) = 9:",
-      "options": [
-        "x = 2",
-        "x = 3",
-        "x = 5",
-        "x = 7"
-      ],
+      "options": ["x = 2", "x = 3", "x = 5", "x = 7"],
       "correct_answer": 2
     },
     {
       "question": "In y = mx + b, what does m represent?",
-      "options": [
-        "y-intercept",
-        "x-intercept",
-        "Slope",
-        "Constant"
-      ],
+      "options": ["y-intercept", "x-intercept", "Slope", "Constant"],
       "correct_answer": 2
     },
     {
@@ -38,22 +28,12 @@
     },
     {
       "question": "The slope between (1,2) and (3,8) is:",
-      "options": [
-        "2",
-        "3",
-        "4",
-        "6"
-      ],
+      "options": ["2", "3", "4", "6"],
       "correct_answer": 1
     },
     {
       "question": "Which method eliminates a variable by adding/subtracting equations?",
-      "options": [
-        "Substitution",
-        "Graphing",
-        "Elimination",
-        "Factorisation"
-      ],
+      "options": ["Substitution", "Graphing", "Elimination", "Factorisation"],
       "correct_answer": 2
     }
   ]

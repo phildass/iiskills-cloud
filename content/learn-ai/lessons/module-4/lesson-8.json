@@ -28,12 +28,7 @@
     },
     {
       "question": "What type of GPU does Google Colab provide for free?",
-      "options": [
-        "No GPU — only CPU",
-        "NVIDIA T4 or better",
-        "AMD Radeon",
-        "Intel GPU"
-      ],
+      "options": ["No GPU — only CPU", "NVIDIA T4 or better", "AMD Radeon", "Intel GPU"],
       "correct_answer": 1
     },
     {
@@ -48,12 +43,7 @@
     },
     {
       "question": "What is the file extension for a Jupyter Notebook?",
-      "options": [
-        ".jpy",
-        ".notebook",
-        ".ipynb",
-        ".jnb"
-      ],
+      "options": [".jpy", ".notebook", ".ipynb", ".jnb"],
       "correct_answer": 2
     }
   ]

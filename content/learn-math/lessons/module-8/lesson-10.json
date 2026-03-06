@@ -38,22 +38,12 @@
     },
     {
       "question": "If p-value < α (significance level), we:",
-      "options": [
-        "Accept H₀",
-        "Reject H₀",
-        "Increase the sample size",
-        "Draw no conclusion"
-      ],
+      "options": ["Accept H₀", "Reject H₀", "Increase the sample size", "Draw no conclusion"],
       "correct_answer": 1
     },
     {
       "question": "A two-tailed test is used when H₁ states:",
-      "options": [
-        "μ > μ₀",
-        "μ < μ₀",
-        "μ ≠ μ₀",
-        "μ = μ₀"
-      ],
+      "options": ["μ > μ₀", "μ < μ₀", "μ ≠ μ₀", "μ = μ₀"],
       "correct_answer": 2
     }
   ]

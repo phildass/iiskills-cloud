@@ -18,12 +18,7 @@
     },
     {
       "question": "In which module does \"Gender and Development\" appear?",
-      "options": [
-        "Human Geography",
-        "Physical Geography",
-        "Human Geography",
-        "Climate Zones"
-      ],
+      "options": ["Human Geography", "Physical Geography", "Human Geography", "Climate Zones"],
       "correct_answer": 2
     },
     {

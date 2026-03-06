@@ -8,42 +8,22 @@
   "quiz": [
     {
       "question": "The volume of a cuboid l × w × h is:",
-      "options": [
-        "l + w + h",
-        "2(lw + lh + wh)",
-        "lwh",
-        "(l + w + h)³"
-      ],
+      "options": ["l + w + h", "2(lw + lh + wh)", "lwh", "(l + w + h)³"],
       "correct_answer": 2
     },
     {
       "question": "The volume of a cylinder with radius r and height h is:",
-      "options": [
-        "2πrh",
-        "πr²h",
-        "πrh",
-        "2πr²h"
-      ],
+      "options": ["2πrh", "πr²h", "πrh", "2πr²h"],
       "correct_answer": 1
     },
     {
       "question": "The surface area of a sphere with radius r is:",
-      "options": [
-        "4πr²",
-        "4πr³/3",
-        "2πr²",
-        "πr²"
-      ],
+      "options": ["4πr²", "4πr³/3", "2πr²", "πr²"],
       "correct_answer": 0
     },
     {
       "question": "The volume of a cone is:",
-      "options": [
-        "πr²h",
-        "2πrh",
-        "πr²h/3",
-        "πrh/3"
-      ],
+      "options": ["πr²h", "2πrh", "πr²h/3", "πrh/3"],
       "correct_answer": 2
     },
     {

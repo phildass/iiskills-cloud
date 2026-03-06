@@ -8,52 +8,27 @@
   "quiz": [
     {
       "question": "arcsin(1/2) equals:",
-      "options": [
-        "30°",
-        "45°",
-        "60°",
-        "90°"
-      ],
+      "options": ["30°", "45°", "60°", "90°"],
       "correct_answer": 0
     },
     {
       "question": "arctan(1) equals:",
-      "options": [
-        "30°",
-        "45°",
-        "60°",
-        "90°"
-      ],
+      "options": ["30°", "45°", "60°", "90°"],
       "correct_answer": 1
     },
     {
       "question": "The domain of arcsin(x) is:",
-      "options": [
-        "[0, π]",
-        "[–1, 1]",
-        "(–∞, ∞)",
-        "[–π/2, π/2]"
-      ],
+      "options": ["[0, π]", "[–1, 1]", "(–∞, ∞)", "[–π/2, π/2]"],
       "correct_answer": 1
     },
     {
       "question": "arccos(0) equals:",
-      "options": [
-        "0°",
-        "45°",
-        "90°",
-        "180°"
-      ],
+      "options": ["0°", "45°", "90°", "180°"],
       "correct_answer": 2
     },
     {
       "question": "The range of arctan(x) is:",
-      "options": [
-        "[–1, 1]",
-        "[0, π]",
-        "(–π/2, π/2)",
-        "(–∞, ∞)"
-      ],
+      "options": ["[–1, 1]", "[0, π]", "(–π/2, π/2)", "(–∞, ∞)"],
       "correct_answer": 2
     }
   ]

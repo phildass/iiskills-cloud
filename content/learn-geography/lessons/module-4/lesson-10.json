@@ -18,12 +18,7 @@
     },
     {
       "question": "In which module does \"Climate Change and Future Projections\" appear?",
-      "options": [
-        "Human Geography",
-        "Physical Geography",
-        "Climate Zones",
-        "Climate Zones"
-      ],
+      "options": ["Human Geography", "Physical Geography", "Climate Zones", "Climate Zones"],
       "correct_answer": 2
     },
     {

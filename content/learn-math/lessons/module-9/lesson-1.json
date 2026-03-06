@@ -8,12 +8,7 @@
   "quiz": [
     {
       "question": "A vector in ℝ² has:",
-      "options": [
-        "One component",
-        "Two components",
-        "Three components",
-        "n components"
-      ],
+      "options": ["One component", "Two components", "Three components", "n components"],
       "correct_answer": 1
     },
     {

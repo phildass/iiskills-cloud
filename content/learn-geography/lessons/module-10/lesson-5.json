@@ -18,12 +18,7 @@
     },
     {
       "question": "In which module does \"Geography of Education\" appear?",
-      "options": [
-        "Human Geography",
-        "Physical Geography",
-        "Advanced Topics",
-        "Climate Zones"
-      ],
+      "options": ["Human Geography", "Physical Geography", "Advanced Topics", "Climate Zones"],
       "correct_answer": 2
     },
     {

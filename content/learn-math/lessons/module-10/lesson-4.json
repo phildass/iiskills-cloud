@@ -18,22 +18,12 @@
     },
     {
       "question": "ℒ{eˢᵗ} = :",
-      "options": [
-        "1/(s–a)",
-        "s/(s²+a²)",
-        "a/(s²+a²)",
-        "1/s"
-      ],
+      "options": ["1/(s–a)", "s/(s²+a²)", "a/(s²+a²)", "1/s"],
       "correct_answer": 0
     },
     {
       "question": "ℒ{1} = :",
-      "options": [
-        "s",
-        "1/s",
-        "s²",
-        "1/s²"
-      ],
+      "options": ["s", "1/s", "s²", "1/s²"],
       "correct_answer": 1
     },
     {
@@ -48,12 +38,7 @@
     },
     {
       "question": "The Laplace transform of a derivative f'(t) is:",
-      "options": [
-        "sF(s)",
-        "sF(s) – f(0)",
-        "F(s)/s",
-        "F(s) + f(0)"
-      ],
+      "options": ["sF(s)", "sF(s) – f(0)", "F(s)/s", "F(s) + f(0)"],
       "correct_answer": 1
     }
   ]

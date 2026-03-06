@@ -8,22 +8,12 @@
   "quiz": [
     {
       "question": "What is the primary architecture for computer vision?",
-      "options": [
-        "RNNs",
-        "Transformers",
-        "Convolutional Neural Networks (CNNs)",
-        "GANs"
-      ],
+      "options": ["RNNs", "Transformers", "Convolutional Neural Networks (CNNs)", "GANs"],
       "correct_answer": 2
     },
     {
       "question": "Which Indian startup uses CV for breast cancer screening?",
-      "options": [
-        "Practo",
-        "Niramai",
-        "Healthifyme",
-        "1mg"
-      ],
+      "options": ["Practo", "Niramai", "Healthifyme", "1mg"],
       "correct_answer": 1
     },
     {

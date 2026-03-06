@@ -8,52 +8,27 @@
   "quiz": [
     {
       "question": "The derivative f'(x) is defined as:",
-      "options": [
-        "f(x+h) – f(x)",
-        "lim(h→0) [f(x+h)–f(x)]/h",
-        "f(x)/h",
-        "∫f(x)dx"
-      ],
+      "options": ["f(x+h) – f(x)", "lim(h→0) [f(x+h)–f(x)]/h", "f(x)/h", "∫f(x)dx"],
       "correct_answer": 1
     },
     {
       "question": "The derivative of a constant c is:",
-      "options": [
-        "c",
-        "1",
-        "0",
-        "–c"
-      ],
+      "options": ["c", "1", "0", "–c"],
       "correct_answer": 2
     },
     {
       "question": "d/dx(x³) equals:",
-      "options": [
-        "x²",
-        "3x",
-        "3x²",
-        "x⁴/4"
-      ],
+      "options": ["x²", "3x", "3x²", "x⁴/4"],
       "correct_answer": 2
     },
     {
       "question": "The derivative of f(x) = 5 is:",
-      "options": [
-        "5",
-        "5x",
-        "1",
-        "0"
-      ],
+      "options": ["5", "5x", "1", "0"],
       "correct_answer": 3
     },
     {
       "question": "If f'(x) > 0 on an interval, f is:",
-      "options": [
-        "Decreasing",
-        "Constant",
-        "Increasing",
-        "Concave up"
-      ],
+      "options": ["Decreasing", "Constant", "Increasing", "Concave up"],
       "correct_answer": 2
     }
   ]

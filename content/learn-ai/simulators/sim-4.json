@@ -30,17 +30,7 @@
       "unit": "samples"
     }
   ],
-  "outputs": [
-    "Confusion matrix",
-    "Precision",
-    "Recall",
-    "F1-score",
-    "Accuracy"
-  ],
+  "outputs": ["Confusion matrix", "Precision", "Recall", "F1-score", "Accuracy"],
   "image": "ai-sim-4.png",
-  "tags": [
-    "evaluation metrics",
-    "confusion matrix",
-    "precision recall"
-  ]
+  "tags": ["evaluation metrics", "confusion matrix", "precision recall"]
 }

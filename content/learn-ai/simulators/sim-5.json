@@ -30,15 +30,7 @@
       "unit": "words"
     }
   ],
-  "outputs": [
-    "2D embedding visualisation",
-    "Nearest neighbours",
-    "Analogy results"
-  ],
+  "outputs": ["2D embedding visualisation", "Nearest neighbours", "Analogy results"],
   "image": "ai-sim-5.png",
-  "tags": [
-    "word embeddings",
-    "NLP",
-    "word2vec"
-  ]
+  "tags": ["word embeddings", "NLP", "word2vec"]
 }

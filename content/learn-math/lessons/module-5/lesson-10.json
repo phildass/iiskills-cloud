@@ -8,52 +8,27 @@
   "quiz": [
     {
       "question": "The equation x²/a² + y²/b² = 1 represents:",
-      "options": [
-        "A parabola",
-        "A hyperbola",
-        "An ellipse",
-        "A circle"
-      ],
+      "options": ["A parabola", "A hyperbola", "An ellipse", "A circle"],
       "correct_answer": 2
     },
     {
       "question": "The equation y = ax² represents:",
-      "options": [
-        "A circle",
-        "An ellipse",
-        "A parabola",
-        "A hyperbola"
-      ],
+      "options": ["A circle", "An ellipse", "A parabola", "A hyperbola"],
       "correct_answer": 2
     },
     {
       "question": "The equation x² + y² = r² represents:",
-      "options": [
-        "A parabola",
-        "A circle",
-        "An ellipse",
-        "A hyperbola"
-      ],
+      "options": ["A parabola", "A circle", "An ellipse", "A hyperbola"],
       "correct_answer": 1
     },
     {
       "question": "A hyperbola has the equation:",
-      "options": [
-        "x²/a² + y²/b² = 1",
-        "x²/a² – y²/b² = 1",
-        "y = ax²",
-        "x² + y² = r²"
-      ],
+      "options": ["x²/a² + y²/b² = 1", "x²/a² – y²/b² = 1", "y = ax²", "x² + y² = r²"],
       "correct_answer": 1
     },
     {
       "question": "The focus of a parabola y = x²/(4p) is located at:",
-      "options": [
-        "(0, p)",
-        "(p, 0)",
-        "(0, 0)",
-        "(4p, 0)"
-      ],
+      "options": ["(0, p)", "(p, 0)", "(0, 0)", "(4p, 0)"],
       "correct_answer": 0
     }
   ]

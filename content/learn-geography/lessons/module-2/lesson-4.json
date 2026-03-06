@@ -8,22 +8,12 @@
   "quiz": [
     {
       "question": "Which is the highest mountain range in Asia?",
-      "options": [
-        "Karakoram",
-        "Hindu Kush",
-        "Himalayas",
-        "Ural Mountains"
-      ],
+      "options": ["Karakoram", "Hindu Kush", "Himalayas", "Ural Mountains"],
       "correct_answer": 2
     },
     {
       "question": "What is the longest river in Asia?",
-      "options": [
-        "Ganges",
-        "Mekong",
-        "Yangtze",
-        "Indus"
-      ],
+      "options": ["Ganges", "Mekong", "Yangtze", "Indus"],
       "correct_answer": 2
     },
     {
@@ -38,22 +28,12 @@
     },
     {
       "question": "Which Asian sea is the world's largest lake?",
-      "options": [
-        "Aral Sea",
-        "Dead Sea",
-        "Caspian Sea",
-        "Red Sea"
-      ],
+      "options": ["Aral Sea", "Dead Sea", "Caspian Sea", "Red Sea"],
       "correct_answer": 2
     },
     {
       "question": "How many of the world's 10 highest mountains are in Asia?",
-      "options": [
-        "5",
-        "7",
-        "9",
-        "All 10"
-      ],
+      "options": ["5", "7", "9", "All 10"],
       "correct_answer": 3
     }
   ]

@@ -18,42 +18,22 @@
     },
     {
       "question": "The harmonic series Σ 1/n is:",
-      "options": [
-        "Convergent",
-        "Divergent",
-        "Zero",
-        "A geometric series"
-      ],
+      "options": ["Convergent", "Divergent", "Zero", "A geometric series"],
       "correct_answer": 1
     },
     {
       "question": "The ratio test: if lim|aₙ₊₁/aₙ| < 1, the series:",
-      "options": [
-        "Diverges",
-        "Converges absolutely",
-        "Oscillates",
-        "Is inconclusive"
-      ],
+      "options": ["Diverges", "Converges absolutely", "Oscillates", "Is inconclusive"],
       "correct_answer": 1
     },
     {
       "question": "A geometric series Σarⁿ converges iff:",
-      "options": [
-        "a > 1",
-        "r > 0",
-        "|r| < 1",
-        "a < r"
-      ],
+      "options": ["a > 1", "r > 0", "|r| < 1", "a < r"],
       "correct_answer": 2
     },
     {
       "question": "The p-series Σ 1/nᵖ converges iff:",
-      "options": [
-        "p > 0",
-        "p > 1",
-        "p ≥ 1",
-        "p < 1"
-      ],
+      "options": ["p > 0", "p > 1", "p ≥ 1", "p < 1"],
       "correct_answer": 1
     }
   ]

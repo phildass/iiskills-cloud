@@ -8,32 +8,17 @@
   "quiz": [
     {
       "question": "In uniform circular motion, what remains constant?",
-      "options": [
-        "Velocity",
-        "Acceleration",
-        "Speed",
-        "Displacement"
-      ],
+      "options": ["Velocity", "Acceleration", "Speed", "Displacement"],
       "correct_answer": 2
     },
     {
       "question": "Centripetal force is directed:",
-      "options": [
-        "Away from the centre",
-        "Tangent to the circle",
-        "Towards the centre",
-        "Upward"
-      ],
+      "options": ["Away from the centre", "Tangent to the circle", "Towards the centre", "Upward"],
       "correct_answer": 2
     },
     {
       "question": "What is the formula for centripetal force?",
-      "options": [
-        "F = ma",
-        "F = mv²/r",
-        "F = mgh",
-        "F = mv/t"
-      ],
+      "options": ["F = ma", "F = mv²/r", "F = mgh", "F = mv/t"],
       "correct_answer": 1
     },
     {

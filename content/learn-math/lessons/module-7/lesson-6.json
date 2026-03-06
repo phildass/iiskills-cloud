@@ -18,22 +18,12 @@
     },
     {
       "question": "Decomposing 1/((x–1)(x–2)) as A/(x–1) + B/(x–2): A equals:",
-      "options": [
-        "1",
-        "–1",
-        "2",
-        "–2"
-      ],
+      "options": ["1", "–1", "2", "–2"],
       "correct_answer": 1
     },
     {
       "question": "∫ A/(x–a) dx = :",
-      "options": [
-        "A·ln|x–a| + C",
-        "A/(x–a)² + C",
-        "A·e^(x–a) + C",
-        "A·(x–a) + C"
-      ],
+      "options": ["A·ln|x–a| + C", "A/(x–a)² + C", "A·e^(x–a) + C", "A·(x–a) + C"],
       "correct_answer": 0
     },
     {
@@ -48,12 +38,7 @@
     },
     {
       "question": "An irreducible quadratic in the denominator leads to an integral involving:",
-      "options": [
-        "ln only",
-        "arctan",
-        "arcsin",
-        "Partial derivatives"
-      ],
+      "options": ["ln only", "arctan", "arcsin", "Partial derivatives"],
       "correct_answer": 1
     }
   ]

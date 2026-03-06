@@ -38,12 +38,7 @@
     },
     {
       "question": "Where does the ITCZ (Intertropical Convergence Zone) lie?",
-      "options": [
-        "Near the poles",
-        "Along the equator",
-        "At 45° latitude",
-        "Along the tropics"
-      ],
+      "options": ["Near the poles", "Along the equator", "At 45° latitude", "Along the tropics"],
       "correct_answer": 1
     },
     {

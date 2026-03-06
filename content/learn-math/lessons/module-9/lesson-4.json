@@ -28,12 +28,7 @@
     },
     {
       "question": "The transpose of a matrix swaps its:",
-      "options": [
-        "Determinant and trace",
-        "Rows and columns",
-        "Diagonals",
-        "Eigenvalues"
-      ],
+      "options": ["Determinant and trace", "Rows and columns", "Diagonals", "Eigenvalues"],
       "correct_answer": 1
     },
     {
@@ -48,12 +43,7 @@
     },
     {
       "question": "The identity matrix I satisfies:",
-      "options": [
-        "AI = 0",
-        "AI = A",
-        "AI = I",
-        "A + I = A"
-      ],
+      "options": ["AI = 0", "AI = A", "AI = I", "A + I = A"],
       "correct_answer": 1
     }
   ]

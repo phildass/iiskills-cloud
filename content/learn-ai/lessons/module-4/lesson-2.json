@@ -8,12 +8,7 @@
   "quiz": [
     {
       "question": "What is NumPy's core data structure?",
-      "options": [
-        "DataFrame",
-        "ndarray (N-dimensional array)",
-        "Series",
-        "Matrix"
-      ],
+      "options": ["DataFrame", "ndarray (N-dimensional array)", "Series", "Matrix"],
       "correct_answer": 1
     },
     {
@@ -48,12 +43,7 @@
     },
     {
       "question": "What function creates a NumPy array of zeros?",
-      "options": [
-        "np.zeros()",
-        "np.empty()",
-        "np.null()",
-        "np.blank()"
-      ],
+      "options": ["np.zeros()", "np.empty()", "np.null()", "np.blank()"],
       "correct_answer": 0
     }
   ]

@@ -38,17 +38,7 @@
       "unit": ""
     }
   ],
-  "outputs": [
-    "Amplitude",
-    "Period = 2π/B",
-    "Phase shift = –C/B",
-    "Vertical shift"
-  ],
+  "outputs": ["Amplitude", "Period = 2π/B", "Phase shift = –C/B", "Vertical shift"],
   "image": "math-sim-2.png",
-  "tags": [
-    "trigonometry",
-    "sine",
-    "cosine",
-    "waves"
-  ]
+  "tags": ["trigonometry", "sine", "cosine", "waves"]
 }

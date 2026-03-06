@@ -38,22 +38,12 @@
     },
     {
       "question": "Which CRISP-DM phase comes first?",
-      "options": [
-        "Data Preparation",
-        "Modelling",
-        "Business Understanding",
-        "Evaluation"
-      ],
+      "options": ["Data Preparation", "Modelling", "Business Understanding", "Evaluation"],
       "correct_answer": 2
     },
     {
       "question": "What is the approximate fresher data science salary in India?",
-      "options": [
-        "₹2-3 LPA",
-        "₹6 LPA",
-        "₹20 LPA",
-        "₹50 LPA"
-      ],
+      "options": ["₹2-3 LPA", "₹6 LPA", "₹20 LPA", "₹50 LPA"],
       "correct_answer": 1
     }
   ]

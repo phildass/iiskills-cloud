@@ -35,6 +35,7 @@ The repository uses Supabase for database management, which includes built-in mi
 **Location**: `supabase/migrations/`
 
 **Tooling**:
+
 - Supabase CLI for migration creation and application
 - SQL files for migration definitions
 - Version control via Git
@@ -77,7 +78,7 @@ Each migration file should contain:
 -- Date: 2026-02-18
 -- Description: Creates the user_app_access table to track which apps users have access to
 -- Related Issue: #123
--- 
+--
 -- Rollback: To rollback this migration, run:
 --   DROP TABLE IF EXISTS user_app_access;
 
@@ -127,7 +128,7 @@ BEGIN
   IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_name = 'user_app_access') THEN
     RAISE EXCEPTION 'Migration failed: user_app_access table was not created';
   END IF;
-  
+
   RAISE NOTICE 'Migration successful: user_app_access table created';
 END $$;
 
@@ -152,11 +153,13 @@ COMMIT;
 **Format**: `YYYYMMDDHHMMSS_descriptive_name.sql`
 
 **Examples**:
+
 - `20260218120000_create_user_app_access_table.sql`
 - `20260218130000_add_bundle_info_to_payments.sql`
 - `20260218140000_create_otp_codes_table.sql`
 
 **Rules**:
+
 - Use timestamp prefix (YYYYMMDDHHmmss)
 - Use lowercase with underscores
 - Be descriptive but concise
@@ -192,6 +195,7 @@ touch supabase/migrations/$(date +%Y%m%d%H%M%S)_descriptive_name.sql
 ### 2. Write Migration
 
 Follow the file structure template above:
+
 - Add header comment
 - Write SQL changes
 - Add validations
@@ -270,18 +274,21 @@ COMMIT;
 ### 2. Backward Compatible Changes
 
 **Safe Operations**:
+
 - ✅ Add new tables
 - ✅ Add new columns (with defaults)
 - ✅ Add indexes (concurrently)
 - ✅ Add check constraints (NOT VALID, then validate)
 
 **Risky Operations**:
+
 - ⚠️ Remove columns (requires code deploy first)
 - ⚠️ Rename columns (use views for transition)
 - ⚠️ Change column types (requires data migration)
 - ⚠️ Add NOT NULL without default
 
 **Breaking Operations**:
+
 - ❌ Drop tables without deprecation period
 - ❌ Remove columns in use
 - ❌ Change primary keys
@@ -302,7 +309,7 @@ CREATE INDEX CONCURRENTLY idx_user_email ON users(email);
 
 ```sql
 -- Step 1: Add constraint as NOT VALID (no lock)
-ALTER TABLE users ADD CONSTRAINT check_email_format 
+ALTER TABLE users ADD CONSTRAINT check_email_format
   CHECK (email ~ '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$') NOT VALID;
 
 -- Step 2: Validate (can be done during low traffic)
@@ -326,10 +333,10 @@ BEGIN
       WHERE normalized_email IS NULL
       LIMIT batch_size
     );
-    
+
     GET DIAGNOSTICS rows_updated = ROW_COUNT;
     EXIT WHEN rows_updated = 0;
-    
+
     RAISE NOTICE 'Updated % rows', rows_updated;
     PERFORM pg_sleep(0.1); -- Throttle
   END LOOP;
@@ -377,11 +384,11 @@ BEGIN
   SELECT COUNT(*) INTO invalid_count
   FROM users
   WHERE email NOT LIKE '%@%';
-  
+
   IF invalid_count > 0 THEN
     RAISE EXCEPTION 'Found % users with invalid emails', invalid_count;
   END IF;
-  
+
   RAISE NOTICE 'All emails are valid';
 END $$;
 ```
@@ -408,27 +415,26 @@ psql $DATABASE_URL -c "SELECT * FROM user_app_access LIMIT 5;"
 
 ```javascript
 // tests/migrations/user-app-access.test.js
-describe('user_app_access migration', () => {
-  it('should create table with correct structure', async () => {
-    const { data: columns } = await supabase
-      .rpc('get_table_columns', { table_name: 'user_app_access' });
-    
+describe("user_app_access migration", () => {
+  it("should create table with correct structure", async () => {
+    const { data: columns } = await supabase.rpc("get_table_columns", {
+      table_name: "user_app_access",
+    });
+
     expect(columns).toContainEqual(
-      expect.objectContaining({ column_name: 'user_id', data_type: 'uuid' })
+      expect.objectContaining({ column_name: "user_id", data_type: "uuid" })
     );
   });
-  
-  it('should enforce unique constraint', async () => {
+
+  it("should enforce unique constraint", async () => {
     // Try to insert duplicate
-    const { error } = await supabase
-      .from('user_app_access')
-      .insert([
-        { user_id: 'uuid1', app_id: 'learn-ai', granted_via: 'payment' },
-        { user_id: 'uuid1', app_id: 'learn-ai', granted_via: 'payment' }
-      ]);
-    
+    const { error } = await supabase.from("user_app_access").insert([
+      { user_id: "uuid1", app_id: "learn-ai", granted_via: "payment" },
+      { user_id: "uuid1", app_id: "learn-ai", granted_via: "payment" },
+    ]);
+
     expect(error).toBeDefined();
-    expect(error.code).toBe('23505'); // unique violation
+    expect(error.code).toBe("23505"); // unique violation
   });
 });
 ```
@@ -546,6 +552,7 @@ npm run test:smoke
 ### 2. Schema Documentation
 
 Update `docs/DATABASE_SCHEMA.md`:
+
 - Add new tables
 - Document relationships
 - Explain complex logic
@@ -554,6 +561,7 @@ Update `docs/DATABASE_SCHEMA.md`:
 ### 3. API Documentation
 
 Update API docs if schema changes affect:
+
 - Request/response formats
 - Available endpoints
 - Query parameters
@@ -561,18 +569,22 @@ Update API docs if schema changes affect:
 ### 4. Changelog
 
 Add to `CHANGELOG.md`:
+
 ```markdown
 ## [1.2.0] - 2026-02-18
 
 ### Added
+
 - User app access tracking table
 - Bundle access support
 - Access via payment, bundle, admin, or OTP
 
 ### Changed
+
 - Payment table now includes bundle_apps array
 
 ### Database
+
 - Migration: 20260218120000_create_user_app_access_table.sql
 ```
 

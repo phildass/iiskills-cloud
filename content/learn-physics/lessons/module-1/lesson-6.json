@@ -8,52 +8,27 @@
   "quiz": [
     {
       "question": "What shape is the path of a projectile?",
-      "options": [
-        "Circle",
-        "Straight line",
-        "Parabola",
-        "Ellipse"
-      ],
+      "options": ["Circle", "Straight line", "Parabola", "Ellipse"],
       "correct_answer": 2
     },
     {
       "question": "What force acts on a projectile during flight?",
-      "options": [
-        "No force",
-        "Gravity only",
-        "Friction only",
-        "Both gravity and friction"
-      ],
+      "options": ["No force", "Gravity only", "Friction only", "Both gravity and friction"],
       "correct_answer": 1
     },
     {
       "question": "The horizontal component of a projectile's velocity is:",
-      "options": [
-        "Increasing",
-        "Decreasing",
-        "Constant",
-        "Zero"
-      ],
+      "options": ["Increasing", "Decreasing", "Constant", "Zero"],
       "correct_answer": 2
     },
     {
       "question": "What is the value of acceleration due to gravity (g) near Earth's surface?",
-      "options": [
-        "5 m/s²",
-        "9.8 m/s²",
-        "20 m/s²",
-        "0.98 m/s²"
-      ],
+      "options": ["5 m/s²", "9.8 m/s²", "20 m/s²", "0.98 m/s²"],
       "correct_answer": 1
     },
     {
       "question": "A ball is thrown horizontally. When does it have maximum horizontal velocity?",
-      "options": [
-        "At the start",
-        "At the peak",
-        "At landing",
-        "It is constant throughout"
-      ],
+      "options": ["At the start", "At the peak", "At landing", "It is constant throughout"],
       "correct_answer": 3
     }
   ]

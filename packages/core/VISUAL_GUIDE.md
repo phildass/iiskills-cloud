@@ -13,6 +13,7 @@ Job Page → Hard-coded Job UI
 ```
 
 Problems:
+
 - Code duplication
 - Inconsistent interfaces
 - Hard to maintain
@@ -25,6 +26,7 @@ Module Data (with content_type) → ModuleSwitcher → Appropriate Renderer
 ```
 
 Benefits:
+
 - ✅ Single source of truth
 - ✅ Type-safe
 - ✅ Consistent UI
@@ -317,16 +319,28 @@ function Page({ id }) {
 
 ```css
 /* app1.css */
-.button { background: #3b82f6; }
-.heading { color: #1e3a8a; }
+.button {
+  background: #3b82f6;
+}
+.heading {
+  color: #1e3a8a;
+}
 
 /* app2.css */
-.button { background: #10b981; }
-.heading { color: #065f46; }
+.button {
+  background: #10b981;
+}
+.heading {
+  color: #065f46;
+}
 
 /* app3.css */
-.button { background: #8b5cf6; }
-.heading { color: #5b21b6; }
+.button {
+  background: #8b5cf6;
+}
+.heading {
+  color: #5b21b6;
+}
 ```
 
 ❌ Inconsistent, hard to maintain
@@ -337,8 +351,8 @@ function Page({ id }) {
 // All apps use the same system
 const theme = createTheme({
   colors: {
-    primary: { 500: '#3b82f6' }  // Your brand color
-  }
+    primary: { 500: "#3b82f6" }, // Your brand color
+  },
 });
 
 const cssVars = generateCSSVariables(theme);
@@ -391,30 +405,33 @@ Apps That Can Use This:
 ## 🎯 Key Advantages
 
 ### 1. Type Safety
+
 ```typescript
 // ❌ Without types
 const module = fetchModule(id);
-module.content.description  // Might not exist!
+module.content.description; // Might not exist!
 
 // ✅ With types
-const module: Module<'lesson'> = fetchModule(id);
-module.content.description  // TypeScript knows this exists!
+const module: Module<"lesson"> = fetchModule(id);
+module.content.description; // TypeScript knows this exists!
 ```
 
 ### 2. Single Source of Truth
+
 ```typescript
 // ❌ Before: Multiple definitions
 // app1/types.ts: interface Lesson { ... }
 // app2/types.ts: interface Lesson { ... }  // Might differ!
 
 // ✅ After: One definition
-import { Module } from '@iiskills/core';
+import { Module } from "@iiskills/core";
 ```
 
 ### 3. Easy Extensibility
+
 ```typescript
 // Add a new content type in ONE place
-type ContentType = 'lesson' | 'test' | 'job_posting' | 'workshop'; // ← New type!
+type ContentType = "lesson" | "test" | "job_posting" | "workshop"; // ← New type!
 
 // All apps automatically support it!
 ```
@@ -424,6 +441,7 @@ type ContentType = 'lesson' | 'test' | 'job_posting' | 'workshop'; // ← New ty
 ## 🏆 Success Metrics
 
 Before Schema-Driven UI:
+
 - ❌ 15 apps with duplicate code
 - ❌ Inconsistent interfaces
 - ❌ Hard to add new features
@@ -431,6 +449,7 @@ Before Schema-Driven UI:
 - ❌ Maintenance nightmare
 
 After Schema-Driven UI:
+
 - ✅ Shared core library
 - ✅ Consistent interfaces
 - ✅ Easy feature additions
@@ -463,4 +482,4 @@ With this Schema-Driven UI system, you can:
 
 ---
 
-*Made with ❤️ for iiskills.cloud*
+_Made with ❤️ for iiskills.cloud_

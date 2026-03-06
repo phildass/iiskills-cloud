@@ -28,12 +28,7 @@
     },
     {
       "question": "Which technique best visualises high-dimensional cluster structure in 2D?",
-      "options": [
-        "PCA",
-        "Linear Regression",
-        "t-SNE or UMAP",
-        "Decision Trees"
-      ],
+      "options": ["PCA", "Linear Regression", "t-SNE or UMAP", "Decision Trees"],
       "correct_answer": 2
     },
     {

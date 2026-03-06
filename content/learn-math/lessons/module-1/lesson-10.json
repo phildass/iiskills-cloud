@@ -8,52 +8,27 @@
   "quiz": [
     {
       "question": "What is 17 mod 5?",
-      "options": [
-        "1",
-        "2",
-        "3",
-        "4"
-      ],
+      "options": ["1", "2", "3", "4"],
       "correct_answer": 1
     },
     {
       "question": "17 ≡ ? (mod 12)",
-      "options": [
-        "4",
-        "5",
-        "6",
-        "7"
-      ],
+      "options": ["4", "5", "6", "7"],
       "correct_answer": 1
     },
     {
       "question": "The modular inverse of a mod m exists if and only if:",
-      "options": [
-        "a > m",
-        "GCD(a,m) = 1",
-        "a is prime",
-        "m is even"
-      ],
+      "options": ["a > m", "GCD(a,m) = 1", "a is prime", "m is even"],
       "correct_answer": 1
     },
     {
       "question": "Fermat's Little Theorem applies when p is:",
-      "options": [
-        "Even",
-        "Composite",
-        "Prime",
-        "Any integer"
-      ],
+      "options": ["Even", "Composite", "Prime", "Any integer"],
       "correct_answer": 2
     },
     {
       "question": "In clock arithmetic (mod 12), what is 10 + 5?",
-      "options": [
-        "15",
-        "3",
-        "2",
-        "1"
-      ],
+      "options": ["15", "3", "2", "1"],
       "correct_answer": 1
     }
   ]

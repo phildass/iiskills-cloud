@@ -8,22 +8,12 @@
   "quiz": [
     {
       "question": "Which Indian fintech company uses ML for payment processing?",
-      "options": [
-        "Infosys",
-        "Razorpay",
-        "NITI Aayog",
-        "NASSCOM"
-      ],
+      "options": ["Infosys", "Razorpay", "NITI Aayog", "NASSCOM"],
       "correct_answer": 1
     },
     {
       "question": "How many doctors per 1,000 people does India have?",
-      "options": [
-        "0.7 (vs WHO target of 1)",
-        "2.5",
-        "5.0",
-        "0.2"
-      ],
+      "options": ["0.7 (vs WHO target of 1)", "2.5", "5.0", "0.2"],
       "correct_answer": 0
     },
     {
@@ -38,22 +28,12 @@
     },
     {
       "question": "How many students are in India's K-12 education market?",
-      "options": [
-        "50 million",
-        "100 million",
-        "260 million",
-        "500 million"
-      ],
+      "options": ["50 million", "100 million", "260 million", "500 million"],
       "correct_answer": 2
     },
     {
       "question": "What is India's Smart Cities Mission target?",
-      "options": [
-        "50 cities",
-        "100 cities",
-        "200 cities",
-        "500 cities"
-      ],
+      "options": ["50 cities", "100 cities", "200 cities", "500 cities"],
       "correct_answer": 1
     }
   ]

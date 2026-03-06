@@ -2,14 +2,8 @@
  * Example Usage of @iiskills/core
  */
 
-import React from 'react';
-import {
-  Module,
-  ModuleContainer,
-  useModuleData,
-  useModule,
-  ModuleRendererProps
-} from '../index';
+import React from "react";
+import { Module, ModuleContainer, useModuleData, useModule, ModuleRendererProps } from "../index";
 
 // Basic Module Display Example
 export function BasicModuleExample({ moduleId }: { moduleId: string }) {
@@ -17,31 +11,21 @@ export function BasicModuleExample({ moduleId }: { moduleId: string }) {
 
   return (
     <div className="container mx-auto p-4">
-      <ModuleContainer
-        module={module}
-        isLoading={isLoading}
-        error={error}
-        onRetry={refetch}
-      />
+      <ModuleContainer module={module} isLoading={isLoading} error={error} onRetry={refetch} />
     </div>
   );
 }
 
 // Module List Example
 export function ModuleListExample() {
-  const {
-    modules,
-    isLoading,
-    hasMore,
-    fetchMore,
-  } = useModuleData({
-    endpoint: '/api/modules',
+  const { modules, isLoading, hasMore, fetchMore } = useModuleData({
+    endpoint: "/api/modules",
     filters: {
-      content_type: ['lesson', 'test'],
-      status: ['published']
+      content_type: ["lesson", "test"],
+      status: ["published"],
     },
     pageSize: 12,
-    autoFetch: true
+    autoFetch: true,
   });
 
   return (

@@ -8,32 +8,17 @@
   "quiz": [
     {
       "question": "What is the sum of angles in a straight line?",
-      "options": [
-        "90°",
-        "180°",
-        "270°",
-        "360°"
-      ],
+      "options": ["90°", "180°", "270°", "360°"],
       "correct_answer": 1
     },
     {
       "question": "How many sides does a hexagon have?",
-      "options": [
-        "4",
-        "5",
-        "6",
-        "8"
-      ],
+      "options": ["4", "5", "6", "8"],
       "correct_answer": 2
     },
     {
       "question": "A right angle measures:",
-      "options": [
-        "45°",
-        "60°",
-        "90°",
-        "180°"
-      ],
+      "options": ["45°", "60°", "90°", "180°"],
       "correct_answer": 2
     },
     {

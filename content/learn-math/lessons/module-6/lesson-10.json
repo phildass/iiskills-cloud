@@ -8,22 +8,12 @@
   "quiz": [
     {
       "question": "In related rates, we differentiate both sides with respect to:",
-      "options": [
-        "x",
-        "y",
-        "t (time)",
-        "The dependent variable"
-      ],
+      "options": ["x", "y", "t (time)", "The dependent variable"],
       "correct_answer": 2
     },
     {
       "question": "The equation relating the volume of a sphere to its radius is V = 4πr³/3. dV/dt in terms of dr/dt is:",
-      "options": [
-        "4πr²",
-        "4πr²·dr/dt",
-        "3·4πr²",
-        "4π·dr/dt"
-      ],
+      "options": ["4πr²", "4πr²·dr/dt", "3·4πr²", "4π·dr/dt"],
       "correct_answer": 1
     },
     {

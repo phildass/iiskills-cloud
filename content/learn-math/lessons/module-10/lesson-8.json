@@ -28,22 +28,12 @@
     },
     {
       "question": "A triple integral ∭f dV is used to find:",
-      "options": [
-        "Area",
-        "Surface area only",
-        "Volume or mass of a 3D solid",
-        "Length"
-      ],
+      "options": ["Area", "Surface area only", "Volume or mass of a 3D solid", "Length"],
       "correct_answer": 2
     },
     {
       "question": "In polar coordinates, dA = :",
-      "options": [
-        "dr dθ",
-        "r dr dθ",
-        "r² dr dθ",
-        "dr / r dθ"
-      ],
+      "options": ["dr dθ", "r dr dθ", "r² dr dθ", "dr / r dθ"],
       "correct_answer": 1
     },
     {
