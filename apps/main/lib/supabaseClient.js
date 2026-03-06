@@ -221,34 +221,18 @@ export async function signInWithGoogle(redirectTo = null) {
  *
  * ⚠️ IMPORTANT: This is for CLIENT-SIDE UI DISPLAY ONLY
  * Server-side verification is required for actual access control.
- * This function should only be used to show/hide UI elements.
- *
- * In production, implement server-side admin verification:
- * - API routes should verify admin role from profiles table
- * - Protected pages should validate on server before rendering
- * - Database queries should use Row Level Security (RLS)
+ * API routes use validateAdminRequest / validateAdminRequestAsync from adminAuth.js,
+ * which additionally checks the ADMIN_ALLOWLIST_EMAILS env var.
  *
  * @param {Object} user - User object from Supabase
  * @returns {Promise<boolean>} True if user is admin
- *
- * Example usage:
- * const user = await getCurrentUser()
- * const hasAdminAccess = await isAdmin(user)
- * if (hasAdminAccess) {
- *   // Show admin UI
- * }
  */
 export async function isAdmin(user) {
   if (!user) return false;
 
-  // Hardcoded admin emails - always grant admin access
-  const adminEmails = ["pda.indian@gmail.com", "pda.kenya@gmail.com", "pda.indian@gvmail.com"];
-  if (adminEmails.includes(user.email)) {
-    return true;
-  }
-
   try {
-    // Query the public.profiles table for admin status
+    // Query the public.profiles table for admin status.
+    // Server-side allowlist checks are handled by validateAdminRequestAsync in adminAuth.js.
     const { data, error } = await supabase
       .from("profiles")
       .select("is_admin")

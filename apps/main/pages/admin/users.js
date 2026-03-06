@@ -17,21 +17,30 @@ export default function AdminUsers() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ready, filterAdmin]);
 
+  const getAuthHeaders = async () => {
+    const headers = { "Content-Type": "application/json" };
+    try {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+      if (session?.access_token) {
+        headers["Authorization"] = `Bearer ${session.access_token}`;
+      }
+    } catch {
+      // Proceed without Bearer token — admin_session cookie will be used
+    }
+    return headers;
+  };
+
   const fetchUsers = async () => {
     try {
       setLoading(true);
-      let query = supabase.from("profiles").select("*").order("created_at", { ascending: false });
-
-      if (filterAdmin === "admin") {
-        query = query.eq("is_admin", true);
-      } else if (filterAdmin === "regular") {
-        query = query.eq("is_admin", false);
-      }
-
-      const { data, error } = await query;
-
-      if (error) throw error;
-      setUsers(data || []);
+      const headers = await getAuthHeaders();
+      const params = filterAdmin !== "all" ? `?filter=${filterAdmin}` : "";
+      const res = await fetch(`/api/admin/users${params}`, { headers });
+      if (!res.ok) throw new Error("Failed to fetch users");
+      const data = await res.json();
+      setUsers(data.users || []);
     } catch (error) {
       console.error("Error fetching users:", error);
     } finally {
@@ -44,12 +53,16 @@ export default function AdminUsers() {
       return;
 
     try {
-      const { error } = await supabase
-        .from("profiles")
-        .update({ is_admin: !currentStatus })
-        .eq("id", userId);
-
-      if (error) throw error;
+      const headers = await getAuthHeaders();
+      const res = await fetch("/api/admin/users", {
+        method: "PATCH",
+        headers,
+        body: JSON.stringify({ userId, isAdmin: !currentStatus }),
+      });
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.error || "Failed to update admin status");
+      }
       alert("Admin status updated successfully!");
       fetchUsers();
     } catch (error) {

@@ -4,17 +4,19 @@
  * Usage:
  *   import { useAdminProtectedPage } from '../../components/AdminProtectedPage';
  *   ...
- *   const { ready } = useAdminProtectedPage();
+ *   const { ready, denied } = useAdminProtectedPage();
  *   if (!ready) return null; // or a loading spinner
  *
  * Behaviour:
  * - Checks if user is logged in via Supabase auth.
  * - If not logged in → redirects to /login?redirect=<current path>.
- * - If logged in → checks admin authorization:
- *     • email is pda.indian@gmail.com or pda.indian@gvmail.com, OR
- *     • public.profiles.is_admin = true
- * - If unauthorized → shows "Access denied" briefly and redirects to /.
- * - If authorized → sets ready=true so the page may render.
+ * - If logged in → checks admin authorization via public.profiles.is_admin.
+ * - If unauthorized → renders the AccessDenied (403) component in place.
+ *   (Does NOT redirect to / or /dashboard.)
+ * - If authorized → calls /api/admin/supabase-login to mint an admin_session
+ *   cookie so that all /api/admin/* endpoints (which use the sync
+ *   validateAdminRequest check) also accept this session.
+ * - Sets ready=true once the cookie is obtained and the page may render.
  */
 
 import { useEffect, useState } from "react";
@@ -47,13 +49,26 @@ export function useAdminProtectedPage() {
 
         if (!adminAccess) {
           setDenied(true);
-          setTimeout(() => {
-            if (!cancelled) router.replace("/");
-          }, 2000);
           return;
         }
 
-        setReady(true);
+        // Mint an admin_session cookie so /api/admin/* sync checks pass
+        try {
+          const {
+            data: { session },
+          } = await supabase.auth.getSession();
+          if (session?.access_token) {
+            await fetch("/api/admin/supabase-login", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ access_token: session.access_token }),
+            });
+          }
+        } catch {
+          // Non-fatal — admin pages may still work via the Bearer token path
+        }
+
+        if (!cancelled) setReady(true);
       } catch {
         if (!cancelled) {
           router.replace(`/login?redirect=${encodeURIComponent(router.asPath)}`);
@@ -71,7 +86,8 @@ export function useAdminProtectedPage() {
 }
 
 /**
- * AccessDenied — rendered while the user is being redirected away.
+ * AccessDenied — rendered when the user lacks admin privileges.
+ * Shows a clear 403 message without an automatic redirect.
  */
 export function AccessDenied() {
   return (
@@ -79,7 +95,9 @@ export function AccessDenied() {
       <div className="bg-white rounded-xl shadow-lg p-8 text-center max-w-sm">
         <div className="text-5xl mb-4">🚫</div>
         <h1 className="text-2xl font-bold text-gray-800 mb-2">Access Denied</h1>
-        <p className="text-gray-500 text-sm">You do not have admin privileges. Redirecting…</p>
+        <p className="text-gray-500 text-sm">
+          You do not have admin privileges to access this page.
+        </p>
       </div>
     </div>
   );
