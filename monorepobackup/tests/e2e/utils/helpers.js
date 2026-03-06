@@ -11,14 +11,14 @@
  * @returns {Promise<Page>} - Authenticated page
  */
 async function login(page, user) {
-  await page.goto('/login');
+  await page.goto("/login");
   await page.fill('input[name="email"]', user.email);
   await page.fill('input[name="password"]', user.password);
   await page.click('button[type="submit"]');
-  
+
   // Wait for redirect after login
   await page.waitForURL(/dashboard|learn/, { timeout: 10000 });
-  
+
   return page;
 }
 
@@ -29,10 +29,10 @@ async function login(page, user) {
 async function logout(page) {
   // Click user menu
   await page.click('[data-testid="user-menu"]');
-  
+
   // Click logout
-  await page.click('text=Logout');
-  
+  await page.click("text=Logout");
+
   // Wait for redirect to login or home
   await page.waitForURL(/login|^\/$/, { timeout: 5000 });
 }
@@ -45,10 +45,10 @@ async function logout(page) {
 async function navigateToApp(page, appName) {
   // Open app switcher
   await page.click('[data-testid="app-switcher"]');
-  
+
   // Click on the app
   await page.click(`text=${appName}`);
-  
+
   // Wait for navigation
   await page.waitForURL(new RegExp(appName), { timeout: 10000 });
 }
@@ -62,7 +62,7 @@ async function navigateToApp(page, appName) {
  */
 async function waitForElement(page, selector, message, timeout = 5000) {
   try {
-    await page.waitForSelector(selector, { state: 'visible', timeout });
+    await page.waitForSelector(selector, { state: "visible", timeout });
   } catch (error) {
     throw new Error(`${message}: Element "${selector}" not found`);
   }
@@ -74,7 +74,7 @@ async function waitForElement(page, selector, message, timeout = 5000) {
  * @param {string} name - Screenshot name
  */
 async function takeScreenshot(page, name) {
-  const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+  const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
   const filename = `screenshot-${name}-${timestamp}.png`;
   await page.screenshot({ path: `test-results/screenshots/${filename}`, fullPage: true });
   console.log(`Screenshot saved: ${filename}`);

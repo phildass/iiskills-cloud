@@ -1,21 +1,21 @@
-import Razorpay from 'razorpay';
+import Razorpay from "razorpay";
 
 export default async function handler(req, res) {
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "Method not allowed" });
   }
 
   try {
-    const { amount, currency = 'INR', receipt } = req.body;
+    const { amount, currency = "INR", receipt } = req.body;
 
     if (!amount) {
-      return res.status(400).json({ error: 'Amount is required' });
+      return res.status(400).json({ error: "Amount is required" });
     }
 
     // Validate Razorpay credentials
     if (!process.env.RAZORPAY_KEY_ID || !process.env.RAZORPAY_KEY_SECRET) {
-      console.error('Missing Razorpay credentials in environment variables');
-      return res.status(500).json({ error: 'Payment service not configured' });
+      console.error("Missing Razorpay credentials in environment variables");
+      return res.status(500).json({ error: "Payment service not configured" });
     }
 
     const razorpay = new Razorpay({
@@ -36,10 +36,10 @@ export default async function handler(req, res) {
       order,
     });
   } catch (error) {
-    console.error('Payment order creation error:', error);
-    return res.status(500).json({ 
-      error: 'Failed to create payment order',
-      ...(process.env.NODE_ENV === 'development' && { details: error.message })
+    console.error("Payment order creation error:", error);
+    return res.status(500).json({
+      error: "Failed to create payment order",
+      ...(process.env.NODE_ENV === "development" && { details: error.message }),
     });
   }
 }

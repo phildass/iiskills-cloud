@@ -1,6 +1,6 @@
 "use client";
 
-import { getPricingDisplay, getBundleOfferNotice, isBundleOfferActive } from '../pricing/pricing';
+import { getPricingDisplay, getBundleOfferNotice, isBundleOfferActive } from "../pricing/pricing";
 
 /**
  * EnrollmentLandingPage Component
@@ -12,8 +12,16 @@ import { getPricingDisplay, getBundleOfferNotice, isBundleOfferActive } from '..
  */
 
 const CHECK_ICON = (
-  <svg className="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+  <svg
+    className="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5"
+    fill="currentColor"
+    viewBox="0 0 20 20"
+  >
+    <path
+      fillRule="evenodd"
+      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+      clipRule="evenodd"
+    />
   </svg>
 );
 
@@ -31,14 +39,13 @@ export default function EnrollmentLandingPage({
   const partnerApp = appName.toLowerCase().includes("ai") ? "Learn Developer" : "Learn AI";
 
   const handleEnrol = () => {
-    const mainAppUrl = process.env.NEXT_PUBLIC_MAIN_APP_URL || 'https://iiskills.cloud';
-    window.location.href = `${mainAppUrl}/payments/iiskills${appId ? `?course=${encodeURIComponent(appId)}` : ''}`;
+    const mainAppUrl = process.env.NEXT_PUBLIC_MAIN_APP_URL || "https://iiskills.cloud";
+    window.location.href = `${mainAppUrl}/payments/iiskills${appId ? `?course=${encodeURIComponent(appId)}` : ""}`;
   };
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 p-4 backdrop-blur-sm">
       <div className="bg-white rounded-2xl w-full max-w-2xl shadow-2xl overflow-y-auto max-h-[90vh]">
-
         {/* Header */}
         <div className="bg-gradient-to-r from-purple-700 to-blue-700 rounded-t-2xl px-8 py-6 text-white">
           <div className="flex justify-between items-start">
@@ -50,7 +57,11 @@ export default function EnrollmentLandingPage({
               <p className="text-purple-200 mt-1">{appHighlight}</p>
             </div>
             {onClose && (
-              <button onClick={onClose} className="text-white/70 hover:text-white transition text-2xl leading-none" aria-label="Close">
+              <button
+                onClick={onClose}
+                className="text-white/70 hover:text-white transition text-2xl leading-none"
+                aria-label="Close"
+              >
                 ×
               </button>
             )}
@@ -58,7 +69,6 @@ export default function EnrollmentLandingPage({
         </div>
 
         <div className="px-8 py-6 space-y-6">
-
           {/* Bundle Banner — vivid, eye-catching */}
           {bundleActive && bundleNotice && (
             <div className="bg-gradient-to-r from-yellow-400 to-amber-400 border-4 border-yellow-600 rounded-xl p-5 shadow-lg text-center">
@@ -66,10 +76,12 @@ export default function EnrollmentLandingPage({
                 🎁 BUY ONE, GET ONE FREE!
               </div>
               <p className="text-yellow-950 font-bold text-lg">
-                Enrol in <strong>{appName}</strong> and unlock <strong>{partnerApp}</strong> at no extra cost!
+                Enrol in <strong>{appName}</strong> and unlock <strong>{partnerApp}</strong> at no
+                extra cost!
               </p>
               <p className="text-yellow-900 text-sm font-semibold mt-1">
-                ⏰ Exclusive offer — valid until <strong>31 March 2026 only</strong>. Don't miss out!
+                ⏰ Exclusive offer — valid until <strong>31 March 2026 only</strong>. Don't miss
+                out!
               </p>
             </div>
           )}
@@ -94,7 +106,9 @@ export default function EnrollmentLandingPage({
             <span className="text-2xl">📅</span>
             <div>
               <p className="font-semibold text-green-900">Validity: 1 Year</p>
-              <p className="text-sm text-green-800">Full access to all lessons, tests, and updates for 12 months from enrollment date.</p>
+              <p className="text-sm text-green-800">
+                Full access to all lessons, tests, and updates for 12 months from enrollment date.
+              </p>
             </div>
           </div>
 
@@ -139,12 +153,14 @@ export default function EnrollmentLandingPage({
                 "Professional certification upon completion",
                 "1-year access to all course materials and updates",
                 bundleActive ? `Bonus: ${partnerApp} included FREE (till 31 Mar 2026)` : null,
-              ].filter(Boolean).map((item, i) => (
-                <li key={i} className="flex items-start">
-                  {CHECK_ICON}
-                  <span className={i === 4 ? "font-semibold text-purple-700" : ""}>{item}</span>
-                </li>
-              ))}
+              ]
+                .filter(Boolean)
+                .map((item, i) => (
+                  <li key={i} className="flex items-start">
+                    {CHECK_ICON}
+                    <span className={i === 4 ? "font-semibold text-purple-700" : ""}>{item}</span>
+                  </li>
+                ))}
             </ul>
           </div>
 
@@ -169,9 +185,12 @@ export default function EnrollmentLandingPage({
           {/* Submit Payment Reference */}
           <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 text-sm text-amber-800">
             <p className="font-semibold mb-1">📝 After Payment:</p>
-            <p>Once you have paid on the Razorpay portal, please contact our admin with your Razorpay Payment ID to activate your account access. Your enrolment will be activated within 24 hours.</p>
+            <p>
+              Once you have paid on the Razorpay portal, please contact our admin with your Razorpay
+              Payment ID to activate your account access. Your enrolment will be activated within 24
+              hours.
+            </p>
           </div>
-
         </div>
       </div>
     </div>

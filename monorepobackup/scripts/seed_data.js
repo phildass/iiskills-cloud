@@ -48,7 +48,7 @@ const MODULE_TITLES = [
   "Model Evaluation & Deployment",
   "Freelance AI Services & Monetization",
   "AI Product & Tool Creation (Prompt Engineering)",
-  "Career Pathways, Portfolio & Interview Prep"
+  "Career Pathways, Portfolio & Interview Prep",
 ];
 
 const MODEL = "gpt-4o-mini"; // adjust if unavailable; can be changed to a suitable model
@@ -85,7 +85,7 @@ function sleep(ms) {
 
 // build tasks
 async function generateLesson(moduleIndex, moduleTitle, lessonIndex) {
-  const system = `You are a concise course content generator. Follow the JSON schema exactly.`;
+  const system = "You are a concise course content generator. Follow the JSON schema exactly.";
   const userPrompt = `
 ${LLM_PROMPT_TEMPLATE}
 
@@ -97,10 +97,10 @@ Make the lesson title short (<=10 words). Ensure the lesson's content teaches on
       model: MODEL,
       messages: [
         { role: "system", content: system },
-        { role: "user", content: userPrompt }
+        { role: "user", content: userPrompt },
       ],
       temperature: 0.2,
-      max_tokens: 1200
+      max_tokens: 1200,
     });
     // API returns text in resp. adapt to whichever shape the OpenAI SDK returns
     const text = resp.choices?.[0]?.message?.content ?? resp.choices?.[0]?.text ?? "";
@@ -142,8 +142,13 @@ async function generateAll() {
             lessonObj = lessonJsonWrapper.lesson;
           } else {
             // if the generator returned the full module, find lesson by lessonId
-            if (lessonJsonWrapper.moduleId === moduleId && Array.isArray(lessonJsonWrapper.lessons)) {
-              lessonObj = lessonJsonWrapper.lessons.find(l => l.lessonId === lessonId) || lessonJsonWrapper.lessons[0];
+            if (
+              lessonJsonWrapper.moduleId === moduleId &&
+              Array.isArray(lessonJsonWrapper.lessons)
+            ) {
+              lessonObj =
+                lessonJsonWrapper.lessons.find((l) => l.lessonId === lessonId) ||
+                lessonJsonWrapper.lessons[0];
             } else {
               // fallback: attempt to use the wrapper itself as a lesson
               lessonObj = lessonJsonWrapper;
@@ -166,7 +171,7 @@ async function generateAll() {
             lessonId,
             title: lessonObj.title,
             content: lessonObj.content,
-            quiz: lessonObj.quiz
+            quiz: lessonObj.quiz,
           });
 
           // small pause to respect rate limits
@@ -174,7 +179,10 @@ async function generateAll() {
           break; // exit retry loop
         } catch (err) {
           attempt++;
-          console.warn(`Attempt ${attempt} failed for module ${moduleId} lesson ${lessonId}:`, err.message || err);
+          console.warn(
+            `Attempt ${attempt} failed for module ${moduleId} lesson ${lessonId}:`,
+            err.message || err
+          );
           if (attempt >= maxAttempts) {
             console.error("Max attempts reached. Aborting.");
             throw err;
@@ -193,7 +201,7 @@ async function generateAll() {
   output.finalExam = {
     totalQuestions: 20,
     passThreshold: 13,
-    questions: []
+    questions: [],
   };
 
   // generate final exam as one LLM call
@@ -207,7 +215,7 @@ Each question should be concise and test understanding across modules.
       model: MODEL,
       messages: [{ role: "user", content: examPrompt }],
       temperature: 0.2,
-      max_tokens: 2000
+      max_tokens: 2000,
     });
     const examText = examResp.choices?.[0]?.message?.content ?? examResp.choices?.[0]?.text ?? "";
     const examJson = JSON.parse(examText);
@@ -236,14 +244,14 @@ Each question should be concise and test understanding across modules.
           module_id: mod.moduleId,
           lesson_id: lesson.lessonId,
           title: lesson.title,
-          content: lesson.content
+          content: lesson.content,
         });
         if (lErr) console.error("Supabase lesson upsert error", lErr);
         // upsert quiz questions as JSON field
         const { error: qErr } = await supabaseClient.from("quizzes").upsert({
           module_id: mod.moduleId,
           lesson_id: lesson.lessonId,
-          questions: lesson.quiz.questions
+          questions: lesson.quiz.questions,
         });
         if (qErr) console.error("Supabase quiz upsert error", qErr);
       }

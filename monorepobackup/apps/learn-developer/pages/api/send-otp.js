@@ -1,6 +1,6 @@
-import sgMail from '@sendgrid/mail';
-import { createClient } from '@supabase/supabase-js';
-import { Vonage } from '@vonage/server-sdk';
+import sgMail from "@sendgrid/mail";
+import { createClient } from "@supabase/supabase-js";
+import { Vonage } from "@vonage/server-sdk";
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
@@ -25,7 +25,7 @@ export default async function handler(req, res) {
 
   // Save OTP to Supabase
   const { error: dbError } = await supabase
-    .from('otps')
+    .from("otps")
     .insert([{ email, phone, otp, expires_at: expiresAt }]);
   if (dbError) {
     return res.status(500).json({ error: `Supabase error: ${dbError.message}` });
@@ -35,10 +35,10 @@ export default async function handler(req, res) {
   try {
     await sgMail.send({
       to: email,
-      from: 'info@iiskills.cloud', // Verified sender
-      subject: 'Your OTP Code',
+      from: "info@iiskills.cloud", // Verified sender
+      subject: "Your OTP Code",
       text: `Your OTP is: ${otp}`,
-      html: `<p>Your OTP is: <b>${otp}</b>. It expires in 10 minutes.</p>`
+      html: `<p>Your OTP is: <b>${otp}</b>. It expires in 10 minutes.</p>`,
     });
   } catch (emailErr) {
     return res.status(500).json({ error: `SendGrid error: ${emailErr.message}` });
@@ -51,15 +51,17 @@ export default async function handler(req, res) {
       from: process.env.VONAGE_BRAND_NAME,
       text: `Your OTP is: ${otp}`,
     });
-    
+
     // Validate Vonage response
     if (!response || !response.messages || response.messages.length === 0) {
-      return res.status(500).json({ error: 'Vonage error: No response from SMS service' });
+      return res.status(500).json({ error: "Vonage error: No response from SMS service" });
     }
-    
+
     const message = response.messages[0];
-    if (message.status !== '0') {
-      return res.status(500).json({ error: `Vonage error: ${message['error-text'] || 'SMS delivery failed'}` });
+    if (message.status !== "0") {
+      return res
+        .status(500)
+        .json({ error: `Vonage error: ${message["error-text"] || "SMS delivery failed"}` });
     }
   } catch (smsErr) {
     return res.status(500).json({ error: `Vonage error: ${smsErr.message}` });

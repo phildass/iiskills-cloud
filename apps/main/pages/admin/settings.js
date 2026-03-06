@@ -45,7 +45,7 @@ export default function AdminSettings() {
     // Save new password to localStorage
     // NOTE: This is for demo purposes only. In production, this should be stored securely in a database
     localStorage.setItem("iiskills_admin_password", newPassword);
-    
+
     // Update the environment variable equivalent in localStorage for SecretPasswordPrompt
     // This ensures the new password works with the login prompt
     if (typeof window !== "undefined") {
@@ -54,7 +54,9 @@ export default function AdminSettings() {
       sessionStorage.removeItem("iiskills_secret_admin");
     }
 
-    setPasswordMessage("Password changed successfully! Please log in again with your new password.");
+    setPasswordMessage(
+      "Password changed successfully! Please log in again with your new password."
+    );
     setCurrentPassword("");
     setNewPassword("");
     setConfirmPassword("");
@@ -66,7 +68,12 @@ export default function AdminSettings() {
   };
 
   if (denied) return <AccessDenied />;
-  if (!ready) return <div className="min-h-screen flex items-center justify-center"><div className="text-lg">Loading...</div></div>;
+  if (!ready)
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-lg">Loading...</div>
+      </div>
+    );
 
   return (
     <>
@@ -82,9 +89,10 @@ export default function AdminSettings() {
           <div className="bg-white rounded-lg shadow p-6 border-l-4 border-red-500">
             <h2 className="text-xl font-bold text-red-600 mb-4">🔐 Admin Password Management</h2>
             <p className="text-sm text-gray-600 mb-4">
-              Change your admin password. Default password is <code className="bg-gray-100 px-2 py-1 rounded">iiskills123</code>
+              Change your admin password. Default password is{" "}
+              <code className="bg-gray-100 px-2 py-1 rounded">iiskills123</code>
             </p>
-            
+
             <form onSubmit={handlePasswordChange} className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-charcoal mb-2">
@@ -98,11 +106,9 @@ export default function AdminSettings() {
                   placeholder="Enter current password"
                 />
               </div>
-              
+
               <div>
-                <label className="block text-sm font-medium text-charcoal mb-2">
-                  New Password
-                </label>
+                <label className="block text-sm font-medium text-charcoal mb-2">New Password</label>
                 <input
                   type="password"
                   value={newPassword}
@@ -111,7 +117,7 @@ export default function AdminSettings() {
                   placeholder="Enter new password (min 8 characters)"
                 />
               </div>
-              
+
               <div>
                 <label className="block text-sm font-medium text-charcoal mb-2">
                   Confirm New Password
@@ -147,7 +153,9 @@ export default function AdminSettings() {
 
             <div className="mt-4 bg-yellow-50 border border-yellow-200 rounded p-3">
               <p className="text-yellow-800 text-xs">
-                <strong>⚠️ Security Note:</strong> This is a demo implementation. In production, passwords should be stored securely in a database with proper hashing and encryption.
+                <strong>⚠️ Security Note:</strong> This is a demo implementation. In production,
+                passwords should be stored securely in a database with proper hashing and
+                encryption.
               </p>
             </div>
           </div>
@@ -215,8 +223,8 @@ export default function AdminSettings() {
                     })}
                   </p>
                   <p className="text-blue-700 text-xs mt-1">
-                    New fees will be effective from April 01, 2026. Regular pricing (Rs 352.82)
-                    will apply.
+                    New fees will be effective from April 01, 2026. Regular pricing (Rs 352.82) will
+                    apply.
                   </p>
                 </div>
               )}
@@ -228,13 +236,13 @@ export default function AdminSettings() {
                 <h3 className="font-semibold text-gray-900 mb-3">Automated Pricing Schedule</h3>
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between py-2 border-b border-gray-200">
-                    <span className="text-gray-700">Introductory Period (Until March 31, 2026):</span>
+                    <span className="text-gray-700">
+                      Introductory Period (Until March 31, 2026):
+                    </span>
                     <span className="font-bold">Rs 116.82</span>
                   </div>
                   <div className="flex justify-between py-2">
-                    <span className="text-gray-700">
-                      Regular Pricing (From April 01, 2026):
-                    </span>
+                    <span className="text-gray-700">Regular Pricing (From April 01, 2026):</span>
                     <span className="font-bold">Rs 352.82</span>
                   </div>
                 </div>

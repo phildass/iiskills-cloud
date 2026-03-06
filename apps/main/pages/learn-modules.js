@@ -367,9 +367,7 @@ export default function LearnModules() {
         <section className="py-16 bg-gradient-to-r from-primary to-accent text-white">
           <div className="max-w-4xl mx-auto px-4 text-center">
             <h2 className="text-4xl font-bold mb-6">Start Learning Today</h2>
-            <p className="text-xl mb-8">
-              Access world-class learning content - all free and open
-            </p>
+            <p className="text-xl mb-8">Access world-class learning content - all free and open</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               {/* OPEN ACCESS: Registration link removed - all content is publicly accessible */}
               {/* <Link

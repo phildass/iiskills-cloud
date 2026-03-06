@@ -35,7 +35,8 @@ const nextConfig = {
 
   // Expose OPEN_ACCESS env var to the client side
   env: {
-    NEXT_PUBLIC_OPEN_ACCESS: process.env.OPEN_ACCESS || process.env.NEXT_PUBLIC_OPEN_ACCESS || "false",
+    NEXT_PUBLIC_OPEN_ACCESS:
+      process.env.OPEN_ACCESS || process.env.NEXT_PUBLIC_OPEN_ACCESS || "false",
   },
 
   // Security headers

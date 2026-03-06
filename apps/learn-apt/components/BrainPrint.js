@@ -1,7 +1,14 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, ResponsiveContainer } from 'recharts';
+import {
+  RadarChart,
+  PolarGrid,
+  PolarAngleAxis,
+  PolarRadiusAxis,
+  Radar,
+  ResponsiveContainer,
+} from "recharts";
 import { COGNITIVE_DOMAINS, DOMAIN_SUPERPOWERS, getSuperpowerForScore } from "../lib/questionBank";
 
 // Brain-Print SVG Generator Component
@@ -9,27 +16,27 @@ export function BrainPrintGenerator({ domainScores, onExport }) {
   // Prepare data for radar chart
   const chartData = [
     {
-      domain: 'Numerical',
+      domain: "Numerical",
       score: domainScores[COGNITIVE_DOMAINS.NUMERICAL] || 0,
       fullMark: 100,
     },
     {
-      domain: 'Logical',
+      domain: "Logical",
       score: domainScores[COGNITIVE_DOMAINS.LOGICAL] || 0,
       fullMark: 100,
     },
     {
-      domain: 'Verbal',
+      domain: "Verbal",
       score: domainScores[COGNITIVE_DOMAINS.VERBAL] || 0,
       fullMark: 100,
     },
     {
-      domain: 'Spatial',
+      domain: "Spatial",
       score: domainScores[COGNITIVE_DOMAINS.SPATIAL] || 0,
       fullMark: 100,
     },
     {
-      domain: 'Data',
+      domain: "Data",
       score: domainScores[COGNITIVE_DOMAINS.DATA_INTERPRETATION] || 0,
       fullMark: 100,
     },
@@ -37,12 +44,9 @@ export function BrainPrintGenerator({ domainScores, onExport }) {
 
   // Calculate overall statistics
   const scores = Object.values(domainScores);
-  const averageScore = scores.length > 0 
-    ? Math.round(scores.reduce((a, b) => a + b, 0) / scores.length) 
-    : 0;
-  const topDomain = Object.entries(domainScores).reduce((a, b) => 
-    b[1] > a[1] ? b : a, ['', 0]
-  );
+  const averageScore =
+    scores.length > 0 ? Math.round(scores.reduce((a, b) => a + b, 0) / scores.length) : 0;
+  const topDomain = Object.entries(domainScores).reduce((a, b) => (b[1] > a[1] ? b : a), ["", 0]);
 
   return (
     <div className="w-full max-w-4xl mx-auto">
@@ -72,15 +76,8 @@ export function BrainPrintGenerator({ domainScores, onExport }) {
           <ResponsiveContainer width="100%" height={400}>
             <RadarChart data={chartData}>
               <PolarGrid stroke="#a855f7" strokeOpacity={0.3} />
-              <PolarAngleAxis 
-                dataKey="domain" 
-                tick={{ fill: '#fff', fontSize: 14 }}
-              />
-              <PolarRadiusAxis 
-                angle={90} 
-                domain={[0, 100]} 
-                tick={{ fill: '#a855f7' }}
-              />
+              <PolarAngleAxis dataKey="domain" tick={{ fill: "#fff", fontSize: 14 }} />
+              <PolarRadiusAxis angle={90} domain={[0, 100]} tick={{ fill: "#a855f7" }} />
               <Radar
                 name="Your Score"
                 dataKey="score"
@@ -105,13 +102,9 @@ export function BrainPrintGenerator({ domainScores, onExport }) {
                 whileHover={{ scale: 1.05 }}
                 className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20"
               >
-                <div className="text-3xl mb-2">{superpower?.title?.split(' ')[0] || '💎'}</div>
-                <div className="text-white font-semibold text-sm mb-1">
-                  {domain.split(' ')[0]}
-                </div>
-                <div className="text-2xl font-bold text-electric-violet-400">
-                  {score}%
-                </div>
+                <div className="text-3xl mb-2">{superpower?.title?.split(" ")[0] || "💎"}</div>
+                <div className="text-white font-semibold text-sm mb-1">{domain.split(" ")[0]}</div>
+                <div className="text-2xl font-bold text-electric-violet-400">{score}%</div>
               </motion.div>
             );
           })}
@@ -123,15 +116,19 @@ export function BrainPrintGenerator({ domainScores, onExport }) {
             <div className="text-gray-400 text-sm mb-1">Overall Score</div>
             <div className="text-4xl font-bold text-white">{averageScore}%</div>
             <div className="text-electric-violet-300 mt-2">
-              {averageScore >= 80 ? '🏆 Exceptional' : averageScore >= 60 ? '⭐ Strong' : averageScore >= 40 ? '💪 Growing' : '🌱 Building'}
+              {averageScore >= 80
+                ? "🏆 Exceptional"
+                : averageScore >= 60
+                  ? "⭐ Strong"
+                  : averageScore >= 40
+                    ? "💪 Growing"
+                    : "🌱 Building"}
             </div>
           </div>
 
           <div className="bg-gradient-to-r from-blue-600/20 to-cyan-600/20 rounded-xl p-6 border border-blue-500/30">
             <div className="text-gray-400 text-sm mb-1">Top Domain</div>
-            <div className="text-2xl font-bold text-white mb-1">
-              {topDomain[0].split(' ')[0]}
-            </div>
+            <div className="text-2xl font-bold text-white mb-1">{topDomain[0].split(" ")[0]}</div>
             <div className="text-3xl font-bold text-blue-400">{topDomain[1]}%</div>
           </div>
         </div>
@@ -155,15 +152,15 @@ export function BrainPrintGenerator({ domainScores, onExport }) {
 // Superpower Reveal Component
 export function SuperpowerReveal({ domain, score, onContinue }) {
   const superpower = getSuperpowerForScore(domain, score);
-  
+
   if (!superpower) return null;
 
   const domainEmojis = {
-    [COGNITIVE_DOMAINS.NUMERICAL]: '💰',
-    [COGNITIVE_DOMAINS.LOGICAL]: '🧩',
-    [COGNITIVE_DOMAINS.VERBAL]: '🎤',
-    [COGNITIVE_DOMAINS.SPATIAL]: '🏗️',
-    [COGNITIVE_DOMAINS.DATA_INTERPRETATION]: '📊',
+    [COGNITIVE_DOMAINS.NUMERICAL]: "💰",
+    [COGNITIVE_DOMAINS.LOGICAL]: "🧩",
+    [COGNITIVE_DOMAINS.VERBAL]: "🎤",
+    [COGNITIVE_DOMAINS.SPATIAL]: "🏗️",
+    [COGNITIVE_DOMAINS.DATA_INTERPRETATION]: "📊",
   };
 
   return (
@@ -188,11 +185,11 @@ export function SuperpowerReveal({ domain, score, onContinue }) {
             transition={{
               duration: 2,
               repeat: Infinity,
-              ease: "easeInOut"
+              ease: "easeInOut",
             }}
             className="text-8xl mb-6"
           >
-            {domainEmojis[domain] || '💎'}
+            {domainEmojis[domain] || "💎"}
           </motion.div>
 
           {/* Superpower Title */}
@@ -262,29 +259,29 @@ export function CareerAptitudeInsights({ domainScores }) {
 
   const careerMappings = {
     [COGNITIVE_DOMAINS.NUMERICAL]: [
-      { title: 'Banking & Finance', salary: '₹8-18 LPA', icon: '💼' },
-      { title: 'Data Science', salary: '₹10-25 LPA', icon: '📊' },
-      { title: 'Financial Analyst', salary: '₹7-15 LPA', icon: '💰' },
+      { title: "Banking & Finance", salary: "₹8-18 LPA", icon: "💼" },
+      { title: "Data Science", salary: "₹10-25 LPA", icon: "📊" },
+      { title: "Financial Analyst", salary: "₹7-15 LPA", icon: "💰" },
     ],
     [COGNITIVE_DOMAINS.LOGICAL]: [
-      { title: 'Software Developer', salary: '₹8-20 LPA', icon: '💻' },
-      { title: 'Management Consultant', salary: '₹12-30 LPA', icon: '🎯' },
-      { title: 'Operations Research', salary: '₹9-18 LPA', icon: '⚙️' },
+      { title: "Software Developer", salary: "₹8-20 LPA", icon: "💻" },
+      { title: "Management Consultant", salary: "₹12-30 LPA", icon: "🎯" },
+      { title: "Operations Research", salary: "₹9-18 LPA", icon: "⚙️" },
     ],
     [COGNITIVE_DOMAINS.VERBAL]: [
-      { title: 'Content Strategist', salary: '₹6-15 LPA', icon: '✍️' },
-      { title: 'Marketing Manager', salary: '₹8-20 LPA', icon: '📢' },
-      { title: 'Sales Leader', salary: '₹10-25 LPA', icon: '💼' },
+      { title: "Content Strategist", salary: "₹6-15 LPA", icon: "✍️" },
+      { title: "Marketing Manager", salary: "₹8-20 LPA", icon: "📢" },
+      { title: "Sales Leader", salary: "₹10-25 LPA", icon: "💼" },
     ],
     [COGNITIVE_DOMAINS.SPATIAL]: [
-      { title: 'Architect', salary: '₹7-18 LPA', icon: '🏛️' },
-      { title: 'UI/UX Designer', salary: '₹8-20 LPA', icon: '🎨' },
-      { title: '3D Designer', salary: '₹6-15 LPA', icon: '🖌️' },
+      { title: "Architect", salary: "₹7-18 LPA", icon: "🏛️" },
+      { title: "UI/UX Designer", salary: "₹8-20 LPA", icon: "🎨" },
+      { title: "3D Designer", salary: "₹6-15 LPA", icon: "🖌️" },
     ],
     [COGNITIVE_DOMAINS.DATA_INTERPRETATION]: [
-      { title: 'Business Analyst', salary: '₹8-18 LPA', icon: '📈' },
-      { title: 'Data Analyst', salary: '₹7-16 LPA', icon: '📊' },
-      { title: 'Research Analyst', salary: '₹6-14 LPA', icon: '🔬' },
+      { title: "Business Analyst", salary: "₹8-18 LPA", icon: "📈" },
+      { title: "Data Analyst", salary: "₹7-16 LPA", icon: "📊" },
+      { title: "Research Analyst", salary: "₹6-14 LPA", icon: "🔬" },
     ],
   };
 
@@ -349,11 +346,10 @@ export function CareerAptitudeInsights({ domainScores }) {
           transition={{ delay: 0.8 }}
           className="bg-gradient-to-r from-electric-violet-600 to-blue-600 rounded-2xl p-6 text-center"
         >
-          <h4 className="text-2xl font-bold text-white mb-3">
-            🚀 Next Step: Career Mapper
-          </h4>
+          <h4 className="text-2xl font-bold text-white mb-3">🚀 Next Step: Career Mapper</h4>
           <p className="text-white/90 mb-4">
-            Head to the Career Mapper to see how these aptitudes translate to market value, job opportunities, and skill development paths.
+            Head to the Career Mapper to see how these aptitudes translate to market value, job
+            opportunities, and skill development paths.
           </p>
           <a
             href="/career-mapper"

@@ -1,14 +1,14 @@
 "use client";
 
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
-import Head from 'next/head';
-import Link from 'next/link';
-import Footer from '../../../components/Footer';
-import RapidFireQuiz from '../../../components/RapidFireQuiz';
-import PremiumAccessPrompt from '@shared/PremiumAccessPrompt';
-import { curriculumData } from '../../../lib/curriculumData';
-import { getCurrentUser } from '../../../lib/supabaseClient';
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import Head from "next/head";
+import Link from "next/link";
+import Footer from "../../../components/Footer";
+import RapidFireQuiz from "../../../components/RapidFireQuiz";
+import PremiumAccessPrompt from "@shared/PremiumAccessPrompt";
+import { curriculumData } from "../../../lib/curriculumData";
+import { getCurrentUser } from "../../../lib/supabaseClient";
 
 export default function LessonPage() {
   const router = useRouter();
@@ -33,8 +33,8 @@ export default function LessonPage() {
 
   const checkAuth = async () => {
     const currentUser = await getCurrentUser();
-    if (!currentUser && process.env.NEXT_PUBLIC_DISABLE_AUTH !== 'true') {
-      router.push('/register');
+    if (!currentUser && process.env.NEXT_PUBLIC_DISABLE_AUTH !== "true") {
+      router.push("/register");
       return;
     }
     setUser(currentUser);
@@ -42,14 +42,14 @@ export default function LessonPage() {
 
   const fetchModule = async () => {
     try {
-      const moduleData = curriculumData.modules.find(m => m.id === parseInt(moduleId));
+      const moduleData = curriculumData.modules.find((m) => m.id === parseInt(moduleId));
       if (moduleData) {
         setModule(moduleData);
       } else {
-        router.push('/curriculum');
+        router.push("/curriculum");
       }
     } catch (error) {
-      console.error('Error fetching module:', error);
+      console.error("Error fetching module:", error);
     } finally {
       setLoading(false);
     }
@@ -59,21 +59,21 @@ export default function LessonPage() {
     setShowQuiz(true);
     // Scroll to quiz section
     setTimeout(() => {
-      document.getElementById('quiz-section')?.scrollIntoView({ behavior: 'smooth' });
+      document.getElementById("quiz-section")?.scrollIntoView({ behavior: "smooth" });
     }, 100);
   };
 
   const handleQuizComplete = async (passed, score, percentage) => {
     setQuizCompleted(passed);
     setQuizScore({ score, total: module?.test.length || 5, percentage });
-    
+
     // Show Premium Access Prompt after completing sample lesson (Module 1)
-    if (passed && moduleId === '1') {
+    if (passed && moduleId === "1") {
       setShowPremiumPrompt(true);
     }
-    
+
     // Save progress (you can integrate with Supabase here)
-    console.log('Quiz completed:', { moduleId, passed, score, percentage });
+    console.log("Quiz completed:", { moduleId, passed, score, percentage });
   };
 
   const goToNextModule = () => {
@@ -81,7 +81,7 @@ export default function LessonPage() {
     if (nextModuleId <= curriculumData.modules.length) {
       router.push(`/modules/${nextModuleId}/lesson`);
     } else {
-      router.push('/curriculum');
+      router.push("/curriculum");
     }
   };
 
@@ -131,7 +131,12 @@ export default function LessonPage() {
               className="text-blue-600 hover:text-blue-800 flex items-center"
             >
               <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M15 19l-7-7 7-7"
+                />
               </svg>
               Back to Curriculum
             </Link>
@@ -149,11 +154,15 @@ export default function LessonPage() {
             <p className="text-gray-600 mb-4">{module.description}</p>
             <div className="flex items-center gap-4 text-sm text-gray-500">
               <span>⏱️ {module.duration}</span>
-              <span className={`px-2 py-1 rounded ${
-                module.difficulty === 'Beginner' ? 'bg-green-100 text-green-700' :
-                module.difficulty === 'Intermediate' ? 'bg-yellow-100 text-yellow-700' :
-                'bg-red-100 text-red-700'
-              }`}>
+              <span
+                className={`px-2 py-1 rounded ${
+                  module.difficulty === "Beginner"
+                    ? "bg-green-100 text-green-700"
+                    : module.difficulty === "Intermediate"
+                      ? "bg-yellow-100 text-yellow-700"
+                      : "bg-red-100 text-red-700"
+                }`}
+              >
                 {module.difficulty}
               </span>
             </div>
@@ -166,7 +175,7 @@ export default function LessonPage() {
               The Lesson: Deep Dive
             </h2>
             <div className="prose max-w-none">
-              {(module.lesson || module.deepDive || '').split('\n\n').map((paragraph, index) => (
+              {(module.lesson || module.deepDive || "").split("\n\n").map((paragraph, index) => (
                 <p key={index} className="mb-4 text-gray-700 leading-relaxed">
                   {paragraph}
                 </p>
@@ -180,7 +189,7 @@ export default function LessonPage() {
               <span className="mr-2">💻</span>
               The Code Lab: Clean Code Example
             </h2>
-            {typeof module.codeExample === 'object' && module.codeExample.language && (
+            {typeof module.codeExample === "object" && module.codeExample.language && (
               <div className="bg-gray-100 p-4 rounded-lg mb-4">
                 <p className="text-sm text-gray-600 mb-2">
                   <strong>Language:</strong> {module.codeExample.language}
@@ -191,7 +200,11 @@ export default function LessonPage() {
               </div>
             )}
             <pre className="bg-gray-900 text-gray-100 p-6 rounded-lg overflow-x-auto">
-              <code>{typeof module.codeExample === 'object' ? module.codeExample.code : module.codeExample}</code>
+              <code>
+                {typeof module.codeExample === "object"
+                  ? module.codeExample.code
+                  : module.codeExample}
+              </code>
             </pre>
           </div>
 
@@ -200,7 +213,8 @@ export default function LessonPage() {
             <div className="card bg-blue-50 border-2 border-blue-500 text-center">
               <h3 className="text-xl font-semibold mb-4">Ready for the Rapid-Fire Test?</h3>
               <p className="text-gray-700 mb-6">
-                Test your knowledge with 5 quick questions. The quiz will automatically advance as you select each answer!
+                Test your knowledge with 5 quick questions. The quiz will automatically advance as
+                you select each answer!
               </p>
               <button onClick={handleStartQuiz} className="btn-primary">
                 ⚡ Start Rapid-Fire Test

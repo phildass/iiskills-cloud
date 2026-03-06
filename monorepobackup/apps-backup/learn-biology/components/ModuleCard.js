@@ -22,9 +22,7 @@ export default function ModuleCard({ module, onClick }) {
       <div className="flex items-start justify-between mb-4">
         <div className="flex-1">
           <div className="flex items-center gap-3 mb-2">
-            <span className="text-2xl font-bold text-green-600">
-              Module {module.id}
-            </span>
+            <span className="text-2xl font-bold text-green-600">Module {module.id}</span>
             <span
               className={`px-3 py-1 rounded-full text-sm font-semibold border-2 ${getTierColor(
                 module.tier
@@ -33,17 +31,13 @@ export default function ModuleCard({ module, onClick }) {
               {module.tier}
             </span>
           </div>
-          <h3 className="text-xl font-bold text-gray-900 mb-2">
-            {module.title}
-          </h3>
+          <h3 className="text-xl font-bold text-gray-900 mb-2">{module.title}</h3>
           <p className="text-gray-600 text-sm">{module.description}</p>
         </div>
       </div>
 
       <div className="flex items-center justify-between mt-4 pt-4 border-t border-gray-200">
-        <span className="text-sm text-gray-500">
-          {module.lessons?.length || 0} Lessons
-        </span>
+        <span className="text-sm text-gray-500">{module.lessons?.length || 0} Lessons</span>
         <span className="text-green-600 font-semibold">View Module →</span>
       </div>
     </div>

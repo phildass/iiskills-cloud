@@ -12,55 +12,55 @@
  * On success: rotates cookie to needs_setup=false, returns { ok: true }
  */
 
-import bcrypt from 'bcrypt';
-import fs from 'fs';
-import path from 'path';
-import { parse } from 'cookie';
+import bcrypt from "bcrypt";
+import fs from "fs";
+import path from "path";
+import { parse } from "cookie";
 import {
   ADMIN_COOKIE_NAME,
   verifyAdminToken,
   createAdminToken,
   setAdminSessionCookie,
   isTestAdminMode,
-} from '../../../lib/adminAuth';
+} from "../../../lib/adminAuth";
 
 const BCRYPT_ROUNDS = 12;
 
 function getAdminDataFile() {
-  return process.env.ADMIN_DATA_FILE || '/var/lib/iiskills/admin.json';
+  return process.env.ADMIN_DATA_FILE || "/var/lib/iiskills/admin.json";
 }
 
 export default async function handler(req, res) {
-  if (req.method !== 'POST') {
-    res.setHeader('Allow', ['POST']);
-    return res.status(405).json({ error: 'Method Not Allowed' });
+  if (req.method !== "POST") {
+    res.setHeader("Allow", ["POST"]);
+    return res.status(405).json({ error: "Method Not Allowed" });
   }
 
   // In test mode, passphrase management is via env var only.
   if (isTestAdminMode()) {
     return res.status(400).json({
-      error: 'Set ADMIN_PANEL_SECRET in server env and restart.',
+      error: "Set ADMIN_PANEL_SECRET in server env and restart.",
       testMode: true,
     });
   }
 
   // Require a valid admin session (needs_setup or full)
-  const cookies = parse(req.headers.cookie || '');
+  const cookies = parse(req.headers.cookie || "");
   const sessionToken = cookies[ADMIN_COOKIE_NAME];
   if (!sessionToken) {
-    return res.status(401).json({ error: 'Not authenticated' });
+    return res.status(401).json({ error: "Not authenticated" });
   }
   const tokenResult = verifyAdminToken(sessionToken);
   if (!tokenResult.valid) {
-    return res.status(401).json({ error: 'Invalid or expired session' });
+    return res.status(401).json({ error: "Invalid or expired session" });
   }
 
   const { newPassphrase } = req.body || {};
-  if (!newPassphrase || typeof newPassphrase !== 'string') {
-    return res.status(400).json({ error: 'newPassphrase is required' });
+  if (!newPassphrase || typeof newPassphrase !== "string") {
+    return res.status(400).json({ error: "newPassphrase is required" });
   }
   if (newPassphrase.length < 8) {
-    return res.status(400).json({ error: 'Passphrase must be at least 8 characters' });
+    return res.status(400).json({ error: "Passphrase must be at least 8 characters" });
   }
 
   const hash = await bcrypt.hash(newPassphrase, BCRYPT_ROUNDS);

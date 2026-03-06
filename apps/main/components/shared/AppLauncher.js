@@ -6,7 +6,7 @@ import UniversalInstallPrompt from "./UniversalInstallPrompt";
 
 /**
  * AppLauncher Component
- * 
+ *
  * Central dashboard showing all iiskills apps with:
  * - Visual cards for each app
  * - Install status indicators
@@ -14,15 +14,15 @@ import UniversalInstallPrompt from "./UniversalInstallPrompt";
  * - Install buttons for each app
  * - Grouping by free/paid
  * - Access status indicators
- * 
+ *
  * @param {Object} userAccess - User's app access information from @iiskills/access-control
  * @param {boolean} showInstallButtons - Whether to show install buttons
  * @param {string} view - Display view: 'grid' | 'list'
  */
-export default function AppLauncher({ 
+export default function AppLauncher({
   userAccess = null,
   showInstallButtons = true,
-  view = "grid"
+  view = "grid",
 }) {
   const [installedApps, setInstalledApps] = useState(new Set());
 
@@ -31,52 +31,52 @@ export default function AppLauncher({
     // This is a simplified check - in production, you might track this via localStorage
     const checkInstalledApps = () => {
       const installed = new Set();
-      
+
       // Check if current app is installed
       if (window.matchMedia && window.matchMedia("(display-mode: standalone)").matches) {
         // Get current app ID from hostname
         const hostname = window.location.hostname;
-        if (hostname.includes('learn-')) {
-          const appId = hostname.split('.')[0];
+        if (hostname.includes("learn-")) {
+          const appId = hostname.split(".")[0];
           installed.add(appId);
-        } else if (hostname === 'iiskills.cloud' || hostname === 'localhost') {
-          installed.add('main');
+        } else if (hostname === "iiskills.cloud" || hostname === "localhost") {
+          installed.add("main");
         }
       }
-      
+
       // Check localStorage for installation tracking (apps should set this on first launch)
       // Wrap in try-catch to handle browsers with strict privacy settings or disabled storage
       try {
-        Object.keys(APPS).forEach(appId => {
+        Object.keys(APPS).forEach((appId) => {
           const isInstalled = localStorage.getItem(`app_installed_${appId}`);
-          if (isInstalled === 'true') {
+          if (isInstalled === "true") {
             installed.add(appId);
           }
         });
       } catch (error) {
-        console.warn('localStorage access blocked or disabled:', error);
+        console.warn("localStorage access blocked or disabled:", error);
         // Continue with just the standalone mode detection
       }
-      
+
       setInstalledApps(installed);
     };
-    
+
     checkInstalledApps();
   }, []);
 
   // Group apps by type
-  const freeApps = Object.values(APPS).filter(app => app.type === APP_TYPE.FREE);
-  const paidApps = Object.values(APPS).filter(app => app.type === APP_TYPE.PAID);
+  const freeApps = Object.values(APPS).filter((app) => app.type === APP_TYPE.FREE);
+  const paidApps = Object.values(APPS).filter((app) => app.type === APP_TYPE.PAID);
 
   // Get app URL based on environment
   const getAppUrl = (appId) => {
-    if (appId === 'main') {
-      return process.env.NODE_ENV === 'production' 
-        ? 'https://iiskills.cloud'
-        : 'http://localhost:3000';
+    if (appId === "main") {
+      return process.env.NODE_ENV === "production"
+        ? "https://iiskills.cloud"
+        : "http://localhost:3000";
     }
-    
-    return process.env.NODE_ENV === 'production'
+
+    return process.env.NODE_ENV === "production"
       ? `https://${appId}.iiskills.cloud`
       : `http://localhost:${getLocalPort(appId)}`;
   };
@@ -84,16 +84,16 @@ export default function AppLauncher({
   // Get local development port for each app
   const getLocalPort = (appId) => {
     const portMap = {
-      'main': 3000,
-      'learn-ai': 3001,
-      'learn-apt': 3002,
-      'learn-chemistry': 3003,
-      'learn-developer': 3004,
-      'learn-geography': 3005,
-      'learn-management': 3006,
-      'learn-math': 3007,
-      'learn-physics': 3008,
-      'learn-pr': 3009,
+      main: 3000,
+      "learn-ai": 3001,
+      "learn-apt": 3002,
+      "learn-chemistry": 3003,
+      "learn-developer": 3004,
+      "learn-geography": 3005,
+      "learn-management": 3006,
+      "learn-math": 3007,
+      "learn-physics": 3008,
+      "learn-pr": 3009,
     };
     return portMap[appId] || 3000;
   };
@@ -104,12 +104,12 @@ export default function AppLauncher({
     if (APPS[appId].type === APP_TYPE.FREE) {
       return true;
     }
-    
+
     // No userAccess provided - assume no access
     if (!userAccess) {
       return false;
     }
-    
+
     // Check if user has access via payment or bundle
     return userAccess[appId]?.hasAccess || false;
   };
@@ -117,36 +117,36 @@ export default function AppLauncher({
   // Get app icon/emoji
   const getAppIcon = (appId) => {
     const icons = {
-      'learn-ai': '🤖',
-      'learn-apt': '🧮',
-      'learn-chemistry': '⚗️',
-      'learn-developer': '💻',
-      'learn-geography': '🌍',
-      'learn-management': '📊',
-      'learn-math': '📐',
-      'learn-physics': '⚛️',
-      'learn-pr': '📣',
+      "learn-ai": "🤖",
+      "learn-apt": "🧮",
+      "learn-chemistry": "⚗️",
+      "learn-developer": "💻",
+      "learn-geography": "🌍",
+      "learn-management": "📊",
+      "learn-math": "📐",
+      "learn-physics": "⚛️",
+      "learn-pr": "📣",
     };
-    return icons[appId] || '📚';
+    return icons[appId] || "📚";
   };
 
   // Get app color
   const getAppColor = (appId, isFree) => {
     if (isFree) {
       return {
-        bg: 'bg-gradient-to-br from-green-50 to-emerald-50',
-        border: 'border-green-200',
-        badge: 'bg-green-600',
-        button: 'bg-green-600 hover:bg-green-700',
-        text: 'text-green-700',
+        bg: "bg-gradient-to-br from-green-50 to-emerald-50",
+        border: "border-green-200",
+        badge: "bg-green-600",
+        button: "bg-green-600 hover:bg-green-700",
+        text: "text-green-700",
       };
     }
     return {
-      bg: 'bg-gradient-to-br from-blue-50 to-indigo-50',
-      border: 'border-blue-200',
-      badge: 'bg-blue-600',
-      button: 'bg-blue-600 hover:bg-blue-700',
-      text: 'text-blue-700',
+      bg: "bg-gradient-to-br from-blue-50 to-indigo-50",
+      border: "border-blue-200",
+      badge: "bg-blue-600",
+      button: "bg-blue-600 hover:bg-blue-700",
+      text: "text-blue-700",
     };
   };
 
@@ -158,11 +158,15 @@ export default function AppLauncher({
     const appUrl = getAppUrl(app.id);
 
     return (
-      <div className={`${colors.bg} border-2 ${colors.border} rounded-lg p-6 shadow-lg hover:shadow-xl transition-all duration-300 relative`}>
+      <div
+        className={`${colors.bg} border-2 ${colors.border} rounded-lg p-6 shadow-lg hover:shadow-xl transition-all duration-300 relative`}
+      >
         {/* App Status Badges */}
         <div className="flex gap-2 mb-4 flex-wrap">
-          <span className={`${colors.badge} text-white text-xs px-3 py-1 rounded-full font-semibold`}>
-            {isFree ? '🎉 FREE' : '💎 PAID'}
+          <span
+            className={`${colors.badge} text-white text-xs px-3 py-1 rounded-full font-semibold`}
+          >
+            {isFree ? "🎉 FREE" : "💎 PAID"}
           </span>
           {isInstalled && (
             <span className="bg-gray-800 text-white text-xs px-3 py-1 rounded-full font-semibold">
@@ -196,13 +200,13 @@ export default function AppLauncher({
             rel="noopener noreferrer"
             className={`block w-full ${colors.button} text-white text-center px-4 py-3 rounded-lg font-semibold transition shadow-md`}
           >
-            {isInstalled ? '🚀 Launch' : '🌐 Open'}
+            {isInstalled ? "🚀 Launch" : "🌐 Open"}
           </a>
 
           {/* Install Button */}
           {showInstallButtons && !isInstalled && (
             <button
-              onClick={() => window.open(appUrl, '_blank')}
+              onClick={() => window.open(appUrl, "_blank")}
               className="block w-full bg-gray-600 hover:bg-gray-700 text-white text-center px-4 py-2 rounded-lg font-semibold transition text-sm"
             >
               📥 Visit to Install
@@ -224,17 +228,17 @@ export default function AppLauncher({
 
   const getAppDescription = (appId) => {
     const descriptions = {
-      'learn-ai': 'Master Artificial Intelligence fundamentals',
-      'learn-apt': 'Develop aptitude & logical reasoning skills',
-      'learn-chemistry': 'Explore the world of chemistry',
-      'learn-developer': 'Learn software development skills',
-      'learn-geography': 'Discover the world through geography',
-      'learn-management': 'Build essential management skills',
-      'learn-math': 'Master mathematical concepts',
-      'learn-physics': 'Understand the laws of physics',
-      'learn-pr': 'Master public relations & communication',
+      "learn-ai": "Master Artificial Intelligence fundamentals",
+      "learn-apt": "Develop aptitude & logical reasoning skills",
+      "learn-chemistry": "Explore the world of chemistry",
+      "learn-developer": "Learn software development skills",
+      "learn-geography": "Discover the world through geography",
+      "learn-management": "Build essential management skills",
+      "learn-math": "Master mathematical concepts",
+      "learn-physics": "Understand the laws of physics",
+      "learn-pr": "Master public relations & communication",
     };
-    return descriptions[appId] || 'Expand your skills and knowledge';
+    return descriptions[appId] || "Expand your skills and knowledge";
   };
 
   const AppSection = ({ title, apps, description }) => (
@@ -243,16 +247,16 @@ export default function AppLauncher({
         <h2 className="text-3xl font-bold text-gray-900 mb-2">{title}</h2>
         {description && <p className="text-gray-600">{description}</p>}
       </div>
-      
-      {view === 'grid' ? (
+
+      {view === "grid" ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {apps.map(app => (
+          {apps.map((app) => (
             <AppCard key={app.id} app={app} />
           ))}
         </div>
       ) : (
         <div className="space-y-4">
-          {apps.map(app => (
+          {apps.map((app) => (
             <div key={app.id} className="max-w-3xl">
               <AppCard app={app} />
             </div>
@@ -266,18 +270,17 @@ export default function AppLauncher({
     <div className="w-full">
       {/* Header Section */}
       <div className="mb-8 text-center">
-        <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-          Your App Suite
-        </h1>
+        <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Your App Suite</h1>
         <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-          Access all iiskills learning apps from one place. Install them on your device for offline access and a native app experience.
+          Access all iiskills learning apps from one place. Install them on your device for offline
+          access and a native app experience.
         </p>
       </div>
 
       {/* Install Mother App Prompt - Only show if not installed */}
-      {!installedApps.has('main') && (
+      {!installedApps.has("main") && (
         <div className="mb-8 max-w-2xl mx-auto">
-          <UniversalInstallPrompt 
+          <UniversalInstallPrompt
             currentAppId="main"
             variant="banner"
             size="lg"
@@ -303,14 +306,14 @@ export default function AppLauncher({
       </div>
 
       {/* Free Apps Section */}
-      <AppSection 
+      <AppSection
         title="🎉 Free Apps"
         apps={freeApps}
         description="Start learning immediately with our completely free courses"
       />
 
       {/* Paid Apps Section */}
-      <AppSection 
+      <AppSection
         title="💎 Premium Apps"
         apps={paidApps}
         description="Unlock advanced courses with premium access"
@@ -318,15 +321,15 @@ export default function AppLauncher({
 
       {/* Info Section */}
       <div className="mt-12 max-w-3xl mx-auto bg-blue-50 border-2 border-blue-200 rounded-lg p-6">
-        <h3 className="text-xl font-bold text-blue-900 mb-3">
-          💡 How to Install Apps
-        </h3>
+        <h3 className="text-xl font-bold text-blue-900 mb-3">💡 How to Install Apps</h3>
         <div className="space-y-2 text-blue-800">
           <p>
-            <strong>On Desktop:</strong> Visit any app and look for the "Install" button in your browser's address bar or click the install button on the page.
+            <strong>On Desktop:</strong> Visit any app and look for the "Install" button in your
+            browser's address bar or click the install button on the page.
           </p>
           <p>
-            <strong>On Mobile:</strong> Open any app in your mobile browser and select "Add to Home Screen" from your browser menu.
+            <strong>On Mobile:</strong> Open any app in your mobile browser and select "Add to Home
+            Screen" from your browser menu.
           </p>
           <p>
             <strong>On iOS:</strong> Tap the Share button in Safari and select "Add to Home Screen".

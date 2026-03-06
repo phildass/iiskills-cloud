@@ -99,7 +99,9 @@ export default function DomainTest() {
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="text-center">
           <p className="text-xl text-gray-600 mb-4">Test not found.</p>
-          <Link href="/" className="text-blue-600 hover:underline">← Back to home</Link>
+          <Link href="/" className="text-blue-600 hover:underline">
+            ← Back to home
+          </Link>
         </div>
       </div>
     );
@@ -150,7 +152,10 @@ export default function DomainTest() {
     <>
       <Head>
         <title>{domainConfig.title} Test – Learn Apt</title>
-        <meta name="description" content={`${domainConfig.title} aptitude test – ${domainConfig.description}`} />
+        <meta
+          name="description"
+          content={`${domainConfig.title} aptitude test – ${domainConfig.description}`}
+        />
       </Head>
 
       <main className="min-h-screen bg-gradient-to-br from-yellow-50 to-orange-50">
@@ -163,7 +168,9 @@ export default function DomainTest() {
                   <span className="text-3xl">{domainConfig.emoji}</span>
                   <h1 className="text-2xl font-bold text-gray-900">{domainConfig.title}</h1>
                 </div>
-                <p className="text-sm text-gray-600">{questions.length} questions · {domainConfig.duration}</p>
+                <p className="text-sm text-gray-600">
+                  {questions.length} questions · {domainConfig.duration}
+                </p>
               </div>
               {testStarted && !testCompleted && (
                 <div className="text-right">
@@ -181,7 +188,9 @@ export default function DomainTest() {
               <div className="space-y-4 mb-8">
                 <div className="flex items-start">
                   <span className="text-green-500 mr-3 mt-1">✓</span>
-                  <p className="text-gray-700">{questions.length} questions covering {domainConfig.title}</p>
+                  <p className="text-gray-700">
+                    {questions.length} questions covering {domainConfig.title}
+                  </p>
                 </div>
                 <div className="flex items-start">
                   <span className="text-green-500 mr-3 mt-1">✓</span>
@@ -210,16 +219,20 @@ export default function DomainTest() {
             /* Results */
             <div className="bg-white rounded-lg shadow-md p-8">
               <div className="text-center mb-8">
-                <div className="text-6xl mb-4">
-                  {score / questions.length >= 0.7 ? "🎉" : "👍"}
-                </div>
+                <div className="text-6xl mb-4">{score / questions.length >= 0.7 ? "🎉" : "👍"}</div>
                 <h2 className="text-3xl font-bold text-gray-900 mb-2">Test Completed!</h2>
                 <p className="text-gray-600">{domainConfig.title}</p>
               </div>
-              <div className={`bg-gradient-to-r ${domainConfig.color} text-white rounded-lg p-8 mb-8`}>
+              <div
+                className={`bg-gradient-to-r ${domainConfig.color} text-white rounded-lg p-8 mb-8`}
+              >
                 <div className="text-center">
-                  <div className="text-5xl font-bold mb-2">{score}/{questions.length}</div>
-                  <div className="text-xl">{Math.round((score / questions.length) * 100)}% Correct</div>
+                  <div className="text-5xl font-bold mb-2">
+                    {score}/{questions.length}
+                  </div>
+                  <div className="text-xl">
+                    {Math.round((score / questions.length) * 100)}% Correct
+                  </div>
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-4">
@@ -242,7 +255,9 @@ export default function DomainTest() {
             <div className="bg-white rounded-lg shadow-md p-8">
               <div className="mb-6">
                 <div className="flex justify-between text-sm text-gray-600 mb-2">
-                  <span>Question {currentQuestion + 1} of {questions.length}</span>
+                  <span>
+                    Question {currentQuestion + 1} of {questions.length}
+                  </span>
                   <span>{Math.round(progress)}% Complete</span>
                 </div>
                 <div className="w-full bg-gray-200 rounded-full h-2">
@@ -295,8 +310,8 @@ export default function DomainTest() {
                   {answers[currentQ.id] === undefined
                     ? "Select an answer to continue"
                     : currentQuestion === questions.length - 1
-                    ? "Submitting test..."
-                    : "Auto-advancing..."}
+                      ? "Submitting test..."
+                      : "Auto-advancing..."}
                 </div>
               </div>
             </div>

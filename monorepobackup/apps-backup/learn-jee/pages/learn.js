@@ -215,7 +215,7 @@ export default function Learn() {
       // Check if user has purchased the course
       // For now, we'll check user metadata
       const purchased = currentUser.user_metadata?.purchased_jee_course === true;
-      
+
       // If paywall is disabled, grant access to everyone
       setHasPurchased(!paywallEnabled || purchased);
 

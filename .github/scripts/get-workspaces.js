@@ -14,29 +14,29 @@
  *   # Outputs: {"include":[{"workspaceName":"learn-math","workspacePath":"apps/learn-math"},...]}
  */
 
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
 
-const APPS_DIR = path.join(__dirname, '../../apps');
+const APPS_DIR = path.join(__dirname, "../../apps");
 
 // Fallback static list if dynamic detection fails
 const FALLBACK_WORKSPACES = [
-  { workspaceName: 'main', workspacePath: 'apps/main' },
-  { workspaceName: 'learn-ai', workspacePath: 'apps/learn-ai' },
-  { workspaceName: 'learn-apt', workspacePath: 'apps/learn-apt' },
-  { workspaceName: 'learn-chemistry', workspacePath: 'apps/learn-chemistry' },
-  { workspaceName: 'learn-developer', workspacePath: 'apps/learn-developer' },
-  { workspaceName: 'learn-geography', workspacePath: 'apps/learn-geography' },
-  { workspaceName: 'learn-management', workspacePath: 'apps/learn-management' },
-  { workspaceName: 'learn-math', workspacePath: 'apps/learn-math' },
-  { workspaceName: 'learn-physics', workspacePath: 'apps/learn-physics' },
-  { workspaceName: 'learn-pr', workspacePath: 'apps/learn-pr' }
+  { workspaceName: "main", workspacePath: "apps/main" },
+  { workspaceName: "learn-ai", workspacePath: "apps/learn-ai" },
+  { workspaceName: "learn-apt", workspacePath: "apps/learn-apt" },
+  { workspaceName: "learn-chemistry", workspacePath: "apps/learn-chemistry" },
+  { workspaceName: "learn-developer", workspacePath: "apps/learn-developer" },
+  { workspaceName: "learn-geography", workspacePath: "apps/learn-geography" },
+  { workspaceName: "learn-management", workspacePath: "apps/learn-management" },
+  { workspaceName: "learn-math", workspacePath: "apps/learn-math" },
+  { workspaceName: "learn-physics", workspacePath: "apps/learn-physics" },
+  { workspaceName: "learn-pr", workspacePath: "apps/learn-pr" },
 ];
 
 function getWorkspaces() {
   try {
     if (!fs.existsSync(APPS_DIR)) {
-      console.error('apps/ directory not found, using fallback');
+      console.error("apps/ directory not found, using fallback");
       return FALLBACK_WORKSPACES;
     }
 
@@ -46,11 +46,11 @@ function getWorkspaces() {
     for (const entry of entries) {
       // Skip non-directories and apps-backup
       if (!entry.isDirectory()) continue;
-      if (entry.name === 'apps-backup') continue;
-      if (entry.name.startsWith('.')) continue;
+      if (entry.name === "apps-backup") continue;
+      if (entry.name.startsWith(".")) continue;
 
       const appPath = path.join(APPS_DIR, entry.name);
-      const pkgPath = path.join(appPath, 'package.json');
+      const pkgPath = path.join(appPath, "package.json");
 
       if (!fs.existsSync(pkgPath)) {
         console.error(`Skipping ${entry.name}: no package.json`);
@@ -58,14 +58,14 @@ function getWorkspaces() {
       }
 
       try {
-        const pkgContent = fs.readFileSync(pkgPath, 'utf8');
+        const pkgContent = fs.readFileSync(pkgPath, "utf8");
         const pkg = JSON.parse(pkgContent);
 
         // Only include workspaces that have a build script
         if (pkg.scripts && pkg.scripts.build) {
           workspaces.push({
             workspaceName: entry.name,
-            workspacePath: `apps/${entry.name}`
+            workspacePath: `apps/${entry.name}`,
           });
         } else {
           console.error(`Skipping ${entry.name}: no build script`);
@@ -76,13 +76,13 @@ function getWorkspaces() {
     }
 
     if (workspaces.length === 0) {
-      console.error('No workspaces found, using fallback');
+      console.error("No workspaces found, using fallback");
       return FALLBACK_WORKSPACES;
     }
 
     return workspaces;
   } catch (err) {
-    console.error('Error scanning workspaces, using fallback:', err.message);
+    console.error("Error scanning workspaces, using fallback:", err.message);
     return FALLBACK_WORKSPACES;
   }
 }

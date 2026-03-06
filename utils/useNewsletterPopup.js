@@ -23,7 +23,7 @@ export function useNewsletterPopup(displayDurationSeconds = 30) {
       try {
         // Check if user is authenticated
         const user = await getCurrentUser();
-        
+
         // Don't show popup to authenticated users
         if (user) {
           return;
@@ -33,9 +33,12 @@ export function useNewsletterPopup(displayDurationSeconds = 30) {
         showTimer = setTimeout(() => setShowPopup(true), 100);
 
         // Auto-dismiss after specified duration
-        autoDismissTimer = setTimeout(() => {
-          handleAutoDismiss();
-        }, (displayDurationSeconds + 0.1) * 1000); // Add 0.1s for show animation
+        autoDismissTimer = setTimeout(
+          () => {
+            handleAutoDismiss();
+          },
+          (displayDurationSeconds + 0.1) * 1000
+        ); // Add 0.1s for show animation
       } catch (error) {
         console.error("Error checking authentication for popup:", error);
         // On error, don't show popup to be safe
@@ -61,7 +64,7 @@ export function useNewsletterPopup(displayDurationSeconds = 30) {
 
   const closePopup = (subscribed = false) => {
     setIsClosing(true);
-    
+
     // Wait for fade-out animation before hiding
     setTimeout(() => {
       setShowPopup(false);

@@ -6,10 +6,10 @@ import { useAdminProtectedPage, AccessDenied } from "../../components/AdminProte
 
 /**
  * OTP Management Page - Admin Panel
- * 
- * Per Product Requirements: Admin must be able to generate any number 
+ *
+ * Per Product Requirements: Admin must be able to generate any number
  * of OTP codes for any course (in the admin panel).
- * 
+ *
  * Features:
  * - Generate OTPs for specific courses
  * - Specify recipient email and phone
@@ -66,8 +66,8 @@ export default function AdminOTP() {
       }
 
       // Call the appropriate course's send-otp API
-      const apiEndpoint = `/api/admin/generate-otp`;
-      
+      const apiEndpoint = "/api/admin/generate-otp";
+
       const response = await fetch(apiEndpoint, {
         method: "POST",
         headers: {
@@ -92,11 +92,9 @@ export default function AdminOTP() {
       const deliveryStatus = [];
       if (data.emailSent) deliveryStatus.push("email");
       if (data.smsSent) deliveryStatus.push("SMS");
-      
-      setMessage(
-        `✅ OTP generated and sent successfully via ${deliveryStatus.join(" and ")}!`
-      );
-      
+
+      setMessage(`✅ OTP generated and sent successfully via ${deliveryStatus.join(" and ")}!`);
+
       // Add to generated OTPs list (without actual OTP value for security)
       setGeneratedOTPs((prev) => [
         {
@@ -127,7 +125,12 @@ export default function AdminOTP() {
   };
 
   if (denied) return <AccessDenied />;
-  if (!ready) return <div className="min-h-screen flex items-center justify-center"><div className="text-lg">Loading...</div></div>;
+  if (!ready)
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-lg">Loading...</div>
+      </div>
+    );
 
   return (
     <>
@@ -141,17 +144,12 @@ export default function AdminOTP() {
         <div className="grid md:grid-cols-2 gap-8">
           {/* OTP Generation Form */}
           <div className="bg-white rounded-lg shadow-lg p-6">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">
-              Generate New OTP
-            </h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">Generate New OTP</h2>
 
             <form onSubmit={handleGenerateOTP} className="space-y-4">
               {/* Email */}
               <div>
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-medium text-gray-700 mb-1"
-                >
+                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
                   Email Address *
                 </label>
                 <input
@@ -168,10 +166,7 @@ export default function AdminOTP() {
 
               {/* Phone */}
               <div>
-                <label
-                  htmlFor="phone"
-                  className="block text-sm font-medium text-gray-700 mb-1"
-                >
+                <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
                   Phone Number * (with country code)
                 </label>
                 <input
@@ -188,10 +183,7 @@ export default function AdminOTP() {
 
               {/* Course Selection */}
               <div>
-                <label
-                  htmlFor="course"
-                  className="block text-sm font-medium text-gray-700 mb-1"
-                >
+                <label htmlFor="course" className="block text-sm font-medium text-gray-700 mb-1">
                   Course *
                 </label>
                 <select
@@ -212,10 +204,7 @@ export default function AdminOTP() {
 
               {/* Reason */}
               <div>
-                <label
-                  htmlFor="reason"
-                  className="block text-sm font-medium text-gray-700 mb-1"
-                >
+                <label htmlFor="reason" className="block text-sm font-medium text-gray-700 mb-1">
                   Reason for OTP Generation
                 </label>
                 <select
@@ -269,9 +258,7 @@ export default function AdminOTP() {
 
           {/* Recent OTPs */}
           <div className="bg-white rounded-lg shadow-lg p-6">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">
-              Recently Generated OTPs
-            </h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">Recently Generated OTPs</h2>
 
             {generatedOTPs.length === 0 ? (
               <div className="text-center text-gray-500 py-8">
@@ -280,14 +267,9 @@ export default function AdminOTP() {
             ) : (
               <div className="space-y-3 max-h-[600px] overflow-y-auto">
                 {generatedOTPs.map((otp, index) => (
-                  <div
-                    key={index}
-                    className="border border-gray-200 rounded p-4 hover:bg-gray-50"
-                  >
+                  <div key={index} className="border border-gray-200 rounded p-4 hover:bg-gray-50">
                     <div className="flex justify-between items-start mb-2">
-                      <div className="text-lg font-bold text-green-600">
-                        ✓ OTP Sent
-                      </div>
+                      <div className="text-lg font-bold text-green-600">✓ OTP Sent</div>
                       <div className="text-xs text-gray-500">
                         {new Date(otp.timestamp).toLocaleTimeString()}
                       </div>

@@ -7,49 +7,51 @@ import Footer from "../components/Footer";
 export default function AdminSettings() {
   const [showPasswordModal, setShowPasswordModal] = useState(false);
   const [passwordForm, setPasswordForm] = useState({
-    currentPassword: '',
-    newPassword: '',
-    confirmPassword: '',
+    currentPassword: "",
+    newPassword: "",
+    confirmPassword: "",
   });
-  const [successMessage, setSuccessMessage] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handlePasswordSubmit = (e) => {
     e.preventDefault();
-    
+
     // Validation
     if (!passwordForm.newPassword || !passwordForm.confirmPassword) {
-      setErrorMessage('Please fill in all fields');
+      setErrorMessage("Please fill in all fields");
       return;
     }
 
     if (passwordForm.newPassword !== passwordForm.confirmPassword) {
-      setErrorMessage('New passwords do not match');
+      setErrorMessage("New passwords do not match");
       return;
     }
 
     if (passwordForm.newPassword.length < 8) {
-      setErrorMessage('Password must be at least 8 characters long');
+      setErrorMessage("Password must be at least 8 characters long");
       return;
     }
 
     // Mock password change (backend logic can use Supabase)
-    console.log('Password change requested:', {
+    console.log("Password change requested:", {
       newPassword: passwordForm.newPassword,
     });
 
-    setSuccessMessage('Password change requested! (This is a mock - integrate with Supabase for actual password change)');
-    setErrorMessage('');
+    setSuccessMessage(
+      "Password change requested! (This is a mock - integrate with Supabase for actual password change)"
+    );
+    setErrorMessage("");
     setPasswordForm({
-      currentPassword: '',
-      newPassword: '',
-      confirmPassword: '',
+      currentPassword: "",
+      newPassword: "",
+      confirmPassword: "",
     });
-    
+
     // Close modal after 2 seconds
     setTimeout(() => {
       setShowPasswordModal(false);
-      setSuccessMessage('');
+      setSuccessMessage("");
     }, 2000);
   };
 
@@ -67,9 +69,7 @@ export default function AdminSettings() {
             <div className="flex justify-between items-center mb-6">
               <div>
                 <h1 className="text-3xl font-bold text-gray-900">Settings</h1>
-                <p className="mt-2 text-sm text-gray-600">
-                  Configure admin dashboard settings
-                </p>
+                <p className="mt-2 text-sm text-gray-600">Configure admin dashboard settings</p>
               </div>
               <Link
                 href="/"
@@ -93,11 +93,15 @@ export default function AdminSettings() {
                   <div className="space-y-4">
                     <div>
                       <label className="block text-sm font-medium text-gray-700">Email</label>
-                      <p className="mt-1 text-sm text-gray-900">admin@iiskills.cloud (Local Mode)</p>
+                      <p className="mt-1 text-sm text-gray-900">
+                        admin@iiskills.cloud (Local Mode)
+                      </p>
                     </div>
-                    
+
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Password</label>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Password
+                      </label>
                       <button
                         onClick={() => setShowPasswordModal(true)}
                         className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50"
@@ -112,10 +116,10 @@ export default function AdminSettings() {
               {/* Local Content Mode Info */}
               <div className="bg-white shadow overflow-hidden sm:rounded-lg">
                 <div className="px-4 py-5 sm:px-6">
-                  <h2 className="text-lg leading-6 font-medium text-gray-900">Local Content Mode</h2>
-                  <p className="mt-1 max-w-2xl text-sm text-gray-500">
-                    Admin app configuration
-                  </p>
+                  <h2 className="text-lg leading-6 font-medium text-gray-900">
+                    Local Content Mode
+                  </h2>
+                  <p className="mt-1 max-w-2xl text-sm text-gray-500">Admin app configuration</p>
                 </div>
                 <div className="border-t border-gray-200 px-4 py-5 sm:p-6">
                   <div className="space-y-4">
@@ -127,14 +131,16 @@ export default function AdminSettings() {
                         </span>
                       </p>
                     </div>
-                    
+
                     <div>
                       <label className="block text-sm font-medium text-gray-700">Data Source</label>
                       <p className="mt-1 text-sm text-gray-900">seeds/content.json</p>
                     </div>
-                    
+
                     <div>
-                      <label className="block text-sm font-medium text-gray-700">Authentication</label>
+                      <label className="block text-sm font-medium text-gray-700">
+                        Authentication
+                      </label>
                       <p className="mt-1 text-sm text-gray-900">Disabled (No login required)</p>
                     </div>
                   </div>
@@ -158,13 +164,13 @@ export default function AdminSettings() {
                         <h3 className="text-lg leading-6 font-medium text-gray-900 mb-4">
                           Change Password
                         </h3>
-                        
+
                         {successMessage && (
                           <div className="mb-4 p-4 bg-green-50 border border-green-200 rounded-md">
                             <p className="text-sm text-green-800">{successMessage}</p>
                           </div>
                         )}
-                        
+
                         {errorMessage && (
                           <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-md">
                             <p className="text-sm text-red-800">{errorMessage}</p>
@@ -173,43 +179,64 @@ export default function AdminSettings() {
 
                         <div className="space-y-4">
                           <div>
-                            <label htmlFor="current-password" className="block text-sm font-medium text-gray-700">
+                            <label
+                              htmlFor="current-password"
+                              className="block text-sm font-medium text-gray-700"
+                            >
                               Current Password
                             </label>
                             <input
                               type="password"
                               id="current-password"
                               value={passwordForm.currentPassword}
-                              onChange={(e) => setPasswordForm({...passwordForm, currentPassword: e.target.value})}
+                              onChange={(e) =>
+                                setPasswordForm({
+                                  ...passwordForm,
+                                  currentPassword: e.target.value,
+                                })
+                              }
                               className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                               placeholder="Enter current password"
                             />
                           </div>
-                          
+
                           <div>
-                            <label htmlFor="new-password" className="block text-sm font-medium text-gray-700">
+                            <label
+                              htmlFor="new-password"
+                              className="block text-sm font-medium text-gray-700"
+                            >
                               New Password
                             </label>
                             <input
                               type="password"
                               id="new-password"
                               value={passwordForm.newPassword}
-                              onChange={(e) => setPasswordForm({...passwordForm, newPassword: e.target.value})}
+                              onChange={(e) =>
+                                setPasswordForm({ ...passwordForm, newPassword: e.target.value })
+                              }
                               className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                               placeholder="Enter new password"
                               required
                             />
                           </div>
-                          
+
                           <div>
-                            <label htmlFor="confirm-password" className="block text-sm font-medium text-gray-700">
+                            <label
+                              htmlFor="confirm-password"
+                              className="block text-sm font-medium text-gray-700"
+                            >
                               Confirm New Password
                             </label>
                             <input
                               type="password"
                               id="confirm-password"
                               value={passwordForm.confirmPassword}
-                              onChange={(e) => setPasswordForm({...passwordForm, confirmPassword: e.target.value})}
+                              onChange={(e) =>
+                                setPasswordForm({
+                                  ...passwordForm,
+                                  confirmPassword: e.target.value,
+                                })
+                              }
                               className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                               placeholder="Confirm new password"
                               required
@@ -230,8 +257,8 @@ export default function AdminSettings() {
                       type="button"
                       onClick={() => {
                         setShowPasswordModal(false);
-                        setErrorMessage('');
-                        setSuccessMessage('');
+                        setErrorMessage("");
+                        setSuccessMessage("");
                       }}
                       className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
                     >

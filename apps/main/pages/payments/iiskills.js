@@ -3,7 +3,10 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 import Link from "next/link";
 import { getPaymentReturnToUrl } from "@lib/appRegistry";
+
 import { isValidIndianPhone } from "@lib/phoneValidation";
+
+
 
 const AIENTER_PAYMENT_URL = "https://aienter.in/payments/iiskills";
 
@@ -32,6 +35,7 @@ export default function IiskillsCheckout() {
   const router = useRouter();
   const { course } = router.query;
 
+
   /**
    * step:
    *   'loading'      — initial auth + profile check in progress
@@ -51,6 +55,9 @@ export default function IiskillsCheckout() {
 
   // Store the current session so the form submit can reuse it
   const [session, setSession] = useState(null);
+
+  const [error, setError] = useState("");
+
 
   useEffect(() => {
     if (!router.isReady) return;
@@ -99,6 +106,7 @@ export default function IiskillsCheckout() {
       // ── 2. Check profile completeness ─────────────────────────────────────
       let profileComplete = false;
       try {
+
         const { supabase } = await import("../../lib/supabaseClient");
         const { data: profileData } = await supabase
           .from("profiles")
@@ -116,6 +124,24 @@ export default function IiskillsCheckout() {
           const stored = profileData.phone;
           const local = stored.startsWith("+91") && stored.length === 13 ? stored.slice(3) : stored;
           setPhone(local);
+
+        const resp = await fetch("/api/payments/generate-token", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${session.access_token}`,
+          },
+          body: JSON.stringify({ courseSlug: course || "iiskills" }),
+        });
+        const data = await resp.json();
+        if (!resp.ok || !data.token) {
+          throw new Error(data.error || "Token generation failed");
+        }
+        token = data.token;
+      } catch (err) {
+        if (!cancelled) {
+          setError(err.message || "Could not prepare payment. Please try again.");
+
         }
       } catch {
         // If we can't fetch the profile, require registration to be safe

@@ -77,9 +77,7 @@ export default function AuthCallback() {
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-purple-50">
         <div className="text-center">
           {status === "error" ? (
-            <p className="text-red-600 font-medium">
-              Something went wrong. Redirecting to home…
-            </p>
+            <p className="text-red-600 font-medium">Something went wrong. Redirecting to home…</p>
           ) : (
             <>
               <div className="inline-block w-10 h-10 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mb-4" />

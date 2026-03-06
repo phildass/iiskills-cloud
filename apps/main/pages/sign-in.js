@@ -5,16 +5,16 @@ import { UniversalLogin } from "@iiskills/ui/authentication";
 
 /**
  * Login Page - Main App (Route: /sign-in)
- * 
+ *
  * Per Product Requirements: /sign-in must be a real page (no 404)
  * This provides an SEO-friendly alternative to /login in the main app
- * 
+ *
  * Features:
  * - Regular Login (email/password)
  * - Google Login
  * - Magic Link for Google users
  * - Recommendation to register for better experience
- * 
+ *
  * Already-authenticated guard: on mount we check for an existing Supabase
  * session and immediately redirect to the `next` param (or /dashboard) so
  * that users who are already logged in — including those arriving here right
@@ -75,9 +75,7 @@ export default function SignIn() {
         const { supabase } = await import("../lib/supabaseClient");
         const { data } = await supabase.auth.getSession();
         if (!cancelled && data?.session) {
-          const destination = safeNextPath(
-            Array.isArray(next) ? next[0] : next
-          );
+          const destination = safeNextPath(Array.isArray(next) ? next[0] : next);
           router.replace(destination);
           return;
         }
@@ -88,7 +86,9 @@ export default function SignIn() {
     }
 
     checkSession();
-    return () => { cancelled = true; };
+    return () => {
+      cancelled = true;
+    };
   }, [router.isReady, next, router]);
 
   // Show nothing while we check the session to avoid a flash of the login form
@@ -110,7 +110,8 @@ export default function SignIn() {
           {/* Recommendation Message */}
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6 mx-4">
             <p className="text-sm text-blue-800">
-              Though we have Google login, we suggest you register here for a more streamlined experience.
+              Though we have Google login, we suggest you register here for a more streamlined
+              experience.
             </p>
           </div>
 

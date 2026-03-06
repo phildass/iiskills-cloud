@@ -11,23 +11,22 @@ export default function App({ Component, pageProps }) {
   return (
     <ErrorBoundary>
       <UserProgressProvider>
+        <Head>
+          <link rel="icon" href="/images/favicon-iiskills.svg" />
+          <link rel="apple-touch-icon" href="/images/favicon-iiskills.svg" />
+        </Head>
 
-      <Head>
-        <link rel="icon" href="/images/favicon-iiskills.svg" />
-        <link rel="apple-touch-icon" href="/images/favicon-iiskills.svg" />
-      </Head>
+        <SiteHeader />
+        <div className="pb-20">
+          <Component {...pageProps} />
+        </div>
+        <Footer />
 
-      <SiteHeader />
-      <div className="pb-20">
-        <Component {...pageProps} />
-      </div>
-      <Footer />
+        {/* AI Assistant - always visible */}
+        <AIAssistant />
 
-      {/* AI Assistant - always visible */}
-      <AIAssistant />
-
-      {/* Testing Mode Banner - shows when feature flags are enabled */}
-      <TestingModeBanner />
+        {/* Testing Mode Banner - shows when feature flags are enabled */}
+        <TestingModeBanner />
       </UserProgressProvider>
     </ErrorBoundary>
   );

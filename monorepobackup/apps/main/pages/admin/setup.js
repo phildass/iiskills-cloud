@@ -11,21 +11,21 @@
  * On success redirects to /admin.
  */
 
-import Head from 'next/head';
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
+import Head from "next/head";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 
 export default function AdminSetupPage() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
   const [testMode, setTestMode] = useState(false);
-  const [newPassphrase, setNewPassphrase] = useState('');
-  const [confirmPassphrase, setConfirmPassphrase] = useState('');
-  const [error, setError] = useState('');
+  const [newPassphrase, setNewPassphrase] = useState("");
+  const [confirmPassphrase, setConfirmPassphrase] = useState("");
+  const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
 
   useEffect(() => {
-    fetch('/api/admin/status')
+    fetch("/api/admin/status")
       .then((r) => r.json())
       .then((data) => {
         setTestMode(!!data.testMode);
@@ -33,31 +33,31 @@ export default function AdminSetupPage() {
       })
       .catch(() => {
         // Cannot reach server; redirect to login
-        router.replace('/admin/login');
+        router.replace("/admin/login");
       });
   }, [router]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
+    setError("");
 
     if (!newPassphrase) {
-      setError('Passphrase is required');
+      setError("Passphrase is required");
       return;
     }
     if (newPassphrase.length < 8) {
-      setError('Passphrase must be at least 8 characters');
+      setError("Passphrase must be at least 8 characters");
       return;
     }
     if (newPassphrase !== confirmPassphrase) {
-      setError('Passphrases do not match');
+      setError("Passphrases do not match");
       return;
     }
 
     try {
-      const res = await fetch('/api/admin/set-passphrase', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const res = await fetch("/api/admin/set-passphrase", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ newPassphrase }),
       });
 
@@ -65,14 +65,14 @@ export default function AdminSetupPage() {
 
       if (res.ok && data.ok) {
         setSuccess(true);
-        setTimeout(() => router.replace('/admin'), 2000);
+        setTimeout(() => router.replace("/admin"), 2000);
       } else if (res.status === 401) {
-        router.replace('/admin/login');
+        router.replace("/admin/login");
       } else {
-        setError(data.error || 'Failed to set passphrase');
+        setError(data.error || "Failed to set passphrase");
       }
     } catch {
-      setError('Network error -- please try again');
+      setError("Network error -- please try again");
     }
   };
 
@@ -97,16 +97,16 @@ export default function AdminSetupPage() {
             <div className="text-5xl mb-4">🧪</div>
             <h1 className="text-2xl font-bold text-gray-800 mb-3">Testing Mode Active</h1>
             <p className="text-amber-700 bg-amber-50 border border-amber-200 rounded-lg px-4 py-3 text-sm mb-4">
-              Passphrase management is disabled while{' '}
+              Passphrase management is disabled while{" "}
               <code className="font-mono">TEST_ADMIN_MODE=true</code>.
             </p>
             <p className="text-gray-500 text-sm mb-6">
-              Set <code className="font-mono">ADMIN_PANEL_SECRET</code> in your PM2 environment
-              and restart the <code className="font-mono">iiskills-main</code> process to use
-              a custom passphrase.
+              Set <code className="font-mono">ADMIN_PANEL_SECRET</code> in your PM2 environment and
+              restart the <code className="font-mono">iiskills-main</code> process to use a custom
+              passphrase.
             </p>
             <button
-              onClick={() => router.replace('/admin')}
+              onClick={() => router.replace("/admin")}
               className="bg-blue-600 text-white py-2 px-6 rounded-lg font-semibold hover:bg-blue-700 transition"
             >
               Go to Admin Dashboard

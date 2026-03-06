@@ -22,7 +22,7 @@ export default async function handler(req, res) {
   // Return message that authentication is disabled
   return res.status(200).json({
     message: "Authentication is disabled. All content is publicly accessible.",
-    disabled: true
+    disabled: true,
   });
 }
 

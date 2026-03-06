@@ -26,18 +26,63 @@ export default function Home() {
 
   // Course data: 5 free, 4 paid
   const freeCourses = [
-    { name: "Learn Physics", tagline: "Master forces, energy & the universe", image: "/images/iiskills-main1.jpg", url: "https://learn-physics.iiskills.cloud" },
-    { name: "Learn Math", tagline: "Build strong problem-solving foundations", image: "/images/iiskills-main2.jpg", url: "https://learn-math.iiskills.cloud" },
-    { name: "Learn Chemistry", tagline: "Explore reactions, elements & bonds", image: "/images/iiskills-main3.jpg", url: "https://learn-chemistry.iiskills.cloud" },
-    { name: "Learn Geography", tagline: "Discover our world, its lands & people", image: "/images/iiskills-main4.jpg", url: "https://learn-geography.iiskills.cloud" },
-    { name: "Learn Aptitude", tagline: "Sharpen your competitive exam skills", image: "/images/iiskills-main5.jpg", url: "https://learn-apt.iiskills.cloud" },
+    {
+      name: "Learn Physics",
+      tagline: "Master forces, energy & the universe",
+      image: "/images/iiskills-main1.jpg",
+      url: "https://learn-physics.iiskills.cloud",
+    },
+    {
+      name: "Learn Math",
+      tagline: "Build strong problem-solving foundations",
+      image: "/images/iiskills-main2.jpg",
+      url: "https://learn-math.iiskills.cloud",
+    },
+    {
+      name: "Learn Chemistry",
+      tagline: "Explore reactions, elements & bonds",
+      image: "/images/iiskills-main3.jpg",
+      url: "https://learn-chemistry.iiskills.cloud",
+    },
+    {
+      name: "Learn Geography",
+      tagline: "Discover our world, its lands & people",
+      image: "/images/iiskills-main4.jpg",
+      url: "https://learn-geography.iiskills.cloud",
+    },
+    {
+      name: "Learn Aptitude",
+      tagline: "Sharpen your competitive exam skills",
+      image: "/images/iiskills-main5.jpg",
+      url: "https://learn-apt.iiskills.cloud",
+    },
   ];
 
   const paidCourses = [
-    { name: "Learn PR", tagline: "Excel in public relations & communications", image: "/images/iiskills-main6.jpg", url: "https://learn-pr.iiskills.cloud" },
-    { name: "Learn AI", tagline: "Build AI-powered apps & solutions", image: "/images/iiskills-main7.jpg", url: "https://learn-ai.iiskills.cloud" },
-    { name: "Learn Management", tagline: "Lead teams and drive business results", image: "/images/iiskills-main8.jpg", url: "https://learn-management.iiskills.cloud" },
-    { name: "Learn Developer", tagline: "Code full-stack web applications", image: "/images/iiskills-main9.jpg", url: "https://learn-developer.iiskills.cloud" },
+    {
+      name: "Learn PR",
+      tagline: "Excel in public relations & communications",
+      image: "/images/iiskills-main6.jpg",
+      url: "https://learn-pr.iiskills.cloud",
+    },
+    {
+      name: "Learn AI",
+      tagline: "Build AI-powered apps & solutions",
+      image: "/images/iiskills-main7.jpg",
+      url: "https://learn-ai.iiskills.cloud",
+    },
+    {
+      name: "Learn Management",
+      tagline: "Lead teams and drive business results",
+      image: "/images/iiskills-main8.jpg",
+      url: "https://learn-management.iiskills.cloud",
+    },
+    {
+      name: "Learn Developer",
+      tagline: "Code full-stack web applications",
+      image: "/images/iiskills-main9.jpg",
+      url: "https://learn-developer.iiskills.cloud",
+    },
   ];
 
   return (
@@ -57,7 +102,8 @@ export default function Home() {
               Democratizing Education for Every Indian
             </h1>
             <p className="text-lg sm:text-xl lg:text-2xl leading-relaxed max-w-4xl mx-auto px-4 drop-shadow-md">
-              Affordable professional skills • No barriers • Accessible online • Contributing to Viksit Bharat
+              Affordable professional skills • No barriers • Accessible online • Contributing to
+              Viksit Bharat
             </p>
             <p className="text-base sm:text-lg lg:text-xl max-w-3xl mx-auto px-4 drop-shadow-md">
               9 Courses Available | 5 Free | 4 Paid (Only {pricing.totalPrice})
@@ -88,10 +134,10 @@ export default function Home() {
                 📱 Browse All Apps
               </Link>
             </div>
-            
+
             {/* Install App Prompt */}
             <div className="mt-6 flex justify-center">
-              <UniversalInstallPrompt 
+              <UniversalInstallPrompt
                 currentAppId="main"
                 currentAppName="iiskills.cloud"
                 variant="button"
@@ -121,7 +167,9 @@ export default function Home() {
                 Launch Your Learning Journey Today!
               </h2>
               <p className="text-2xl text-gray-700 max-w-3xl mx-auto font-medium">
-                Start with <span className="text-green-600 font-bold">5 completely free courses</span> and build the foundation for your future success
+                Start with{" "}
+                <span className="text-green-600 font-bold">5 completely free courses</span> and
+                build the foundation for your future success
               </p>
             </div>
 
@@ -160,8 +208,18 @@ export default function Home() {
                     <p className="text-gray-500 text-sm mb-4 flex-1">{course.tagline}</p>
                     <div className="inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white font-bold px-5 py-2.5 rounded-lg transition-colors text-sm self-start">
                       Start Now
-                      <svg className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                      <svg
+                        className="w-4 h-4 transform group-hover:translate-x-1 transition-transform"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M13 7l5 5m0 0l-5 5m5-5H6"
+                        />
                       </svg>
                     </div>
                   </div>
@@ -172,7 +230,8 @@ export default function Home() {
             {/* Call to Action Banner */}
             <div className="bg-gradient-to-r from-green-600 to-emerald-600 rounded-2xl p-8 text-center shadow-2xl">
               <p className="text-white text-xl md:text-2xl font-bold mb-4">
-                🚀 Join <span className="text-yellow-300">thousands of learners</span> starting their journey with zero investment!
+                🚀 Join <span className="text-yellow-300">thousands of learners</span> starting
+                their journey with zero investment!
               </p>
               <p className="text-green-100 text-lg">
                 No hidden costs • Lifetime access • Learn at your own pace
@@ -214,7 +273,9 @@ export default function Home() {
                 Unlock Professional Mastery
               </h2>
               <p className="text-2xl text-gray-700 max-w-3xl mx-auto font-medium mb-6">
-                Advance your career with <span className="text-orange-600 font-bold">4 expert-level courses</span> designed for industry success
+                Advance your career with{" "}
+                <span className="text-orange-600 font-bold">4 expert-level courses</span> designed
+                for industry success
               </p>
               <div className="inline-block bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-2xl shadow-xl">
                 <p className="text-xl font-bold">
@@ -262,14 +323,30 @@ export default function Home() {
                     {/* Feature Highlights */}
                     <div className="space-y-1 mb-4 text-xs text-gray-600">
                       <div className="flex items-center gap-1.5">
-                        <svg className="w-3.5 h-3.5 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                        <svg
+                          className="w-3.5 h-3.5 text-green-500 flex-shrink-0"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                            clipRule="evenodd"
+                          />
                         </svg>
                         <span>Expert-level content</span>
                       </div>
                       <div className="flex items-center gap-1.5">
-                        <svg className="w-3.5 h-3.5 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                        <svg
+                          className="w-3.5 h-3.5 text-green-500 flex-shrink-0"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                            clipRule="evenodd"
+                          />
                         </svg>
                         <span>Lifetime access</span>
                       </div>
@@ -299,7 +376,8 @@ export default function Home() {
                   Get Started Today
                 </a>
                 <p className="text-white font-semibold text-lg">
-                  Only {pricing.totalPrice} per course{pricing.isIntroductory ? ` • Limited Time Offer!` : ''}
+                  Only {pricing.totalPrice} per course
+                  {pricing.isIntroductory ? " • Limited Time Offer!" : ""}
                 </p>
               </div>
             </div>
@@ -333,25 +411,29 @@ export default function Home() {
               <div className="bg-gradient-to-br from-blue-500 to-blue-700 text-white rounded-xl shadow-lg p-8">
                 <h3 className="text-2xl font-bold mb-4">🎯 Our Mission</h3>
                 <p className="leading-relaxed mb-4">
-                  To empower every Indian with professional skills and technology-led learning platforms
-                  that enable career growth and personal development.
+                  To empower every Indian with professional skills and technology-led learning
+                  platforms that enable career growth and personal development.
                 </p>
                 <p className="leading-relaxed">
-                  We believe in democratizing education by making it affordable ({pricing.totalPrice} per course{pricing.isIntroductory ? `, introductory offer until ${pricing.introEndDate}` : ''}),
-                  accessible online, and focused on immediately applicable skills.
+                  We believe in democratizing education by making it affordable (
+                  {pricing.totalPrice} per course
+                  {pricing.isIntroductory
+                    ? `, introductory offer until ${pricing.introEndDate}`
+                    : ""}
+                  ), accessible online, and focused on immediately applicable skills.
                 </p>
               </div>
 
               <div className="bg-gradient-to-br from-purple-500 to-purple-700 text-white rounded-xl shadow-lg p-8">
                 <h3 className="text-2xl font-bold mb-4">🌟 Contributing to Viksit Bharat</h3>
                 <p className="leading-relaxed mb-4">
-                  To contribute to <span className="font-bold">Viksit Bharat</span> (Developed India) by bridging the
-                  skill gap and creating opportunities for millions of Indians to upgrade their
-                  abilities and achieve their potential.
+                  To contribute to <span className="font-bold">Viksit Bharat</span> (Developed
+                  India) by bridging the skill gap and creating opportunities for millions of
+                  Indians to upgrade their abilities and achieve their potential.
                 </p>
                 <p className="leading-relaxed">
-                  We envision an India where quality education is a right, not a privilege, and where
-                  every individual has the tools to succeed in the modern economy.
+                  We envision an India where quality education is a right, not a privilege, and
+                  where every individual has the tools to succeed in the modern economy.
                 </p>
               </div>
             </div>
@@ -390,7 +472,8 @@ export default function Home() {
                 </div>
                 <h3 className="text-2xl font-bold text-gray-900 mb-3">Affordable Education</h3>
                 <p className="text-gray-700">
-                  Quality education at just {pricing.totalPrice} per paid course. 5 courses are completely free. No hidden costs, no barriers.
+                  Quality education at just {pricing.totalPrice} per paid course. 5 courses are
+                  completely free. No hidden costs, no barriers.
                 </p>
               </div>
 
@@ -405,7 +488,8 @@ export default function Home() {
                 </div>
                 <h3 className="text-2xl font-bold text-gray-900 mb-3">Accessible to All Indians</h3>
                 <p className="text-gray-700">
-                  Online platform accessible from anywhere in India. Learn in your language, at your own pace, on your schedule.
+                  Online platform accessible from anywhere in India. Learn in your language, at your
+                  own pace, on your schedule.
                 </p>
               </div>
 
@@ -420,7 +504,8 @@ export default function Home() {
                 </div>
                 <h3 className="text-2xl font-bold text-gray-900 mb-3">Career-Focused Skills</h3>
                 <p className="text-gray-700">
-                  Immediately applicable professional skills designed for real career advancement and job market success.
+                  Immediately applicable professional skills designed for real career advancement
+                  and job market success.
                 </p>
               </div>
             </div>
@@ -445,7 +530,7 @@ export default function Home() {
             <div className="text-center mb-12">
               <h2 className="text-4xl font-bold text-gray-900 mb-4">💎 Our Core Values</h2>
             </div>
-            
+
             <div className="grid md:grid-cols-2 gap-6">
               <div className="bg-white rounded-xl p-6 shadow-lg">
                 <div className="flex items-center gap-3 mb-3">
@@ -462,7 +547,7 @@ export default function Home() {
                   quality, even at affordable prices.
                 </p>
               </div>
-              
+
               <div className="bg-white rounded-xl p-6 shadow-lg">
                 <div className="flex items-center gap-3 mb-3">
                   <Image
@@ -471,14 +556,16 @@ export default function Home() {
                     width={70}
                     height={70}
                   />
-                  <h3 className="font-bold text-xl text-blue-600">Innovation & Lifelong Learning</h3>
+                  <h3 className="font-bold text-xl text-blue-600">
+                    Innovation & Lifelong Learning
+                  </h3>
                 </div>
                 <p className="text-gray-700">
                   We continuously evolve our content and methods to stay relevant in a rapidly
                   changing world.
                 </p>
               </div>
-              
+
               <div className="bg-white rounded-xl p-6 shadow-lg">
                 <div className="flex items-center gap-3 mb-3">
                   <Image
@@ -494,7 +581,7 @@ export default function Home() {
                   from all backgrounds and regions.
                 </p>
               </div>
-              
+
               <div className="bg-white rounded-xl p-6 shadow-lg">
                 <div className="flex items-center gap-3 mb-3">
                   <Image

@@ -196,7 +196,11 @@ const INITIAL_APPS = [
     connections: ["learn-ai"],
     microQuiz: {
       question: "What is HTML?",
-      options: ["HyperText Markup Language", "High Tech Modern Language", "Home Tool Markup Language"],
+      options: [
+        "HyperText Markup Language",
+        "High Tech Modern Language",
+        "Home Tool Markup Language",
+      ],
       correctAnswer: 0,
     },
   },
@@ -227,17 +231,21 @@ export function UserProgressProvider({ children }) {
 
   // Calculate overall progress and top app
   useEffect(() => {
-    const avgProgress = apps.reduce((sum, app) => {
-      const appAvg = (app.progress.basics + app.progress.intermediate + app.progress.advanced) / 3;
-      return sum + appAvg;
-    }, 0) / apps.length;
+    const avgProgress =
+      apps.reduce((sum, app) => {
+        const appAvg =
+          (app.progress.basics + app.progress.intermediate + app.progress.advanced) / 3;
+        return sum + appAvg;
+      }, 0) / apps.length;
 
     setTotalProgress(avgProgress);
 
     // Find top app by total progress
     const top = apps.reduce((max, app) => {
-      const appTotal = (app.progress.basics + app.progress.intermediate + app.progress.advanced) / 3;
-      const maxTotal = (max.progress.basics + max.progress.intermediate + max.progress.advanced) / 3;
+      const appTotal =
+        (app.progress.basics + app.progress.intermediate + app.progress.advanced) / 3;
+      const maxTotal =
+        (max.progress.basics + max.progress.intermediate + max.progress.advanced) / 3;
       return appTotal > maxTotal ? app : max;
     }, apps[0]);
 

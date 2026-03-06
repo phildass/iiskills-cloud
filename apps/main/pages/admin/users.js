@@ -9,63 +9,69 @@ export default function AdminUsers() {
   const { ready, denied } = useAdminProtectedPage();
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [filterAdmin, setFilterAdmin] = useState('all');
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filterAdmin, setFilterAdmin] = useState("all");
 
   useEffect(() => {
     if (ready) fetchUsers();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ready, filterAdmin]);
 
   const fetchUsers = async () => {
     try {
       setLoading(true);
-      let query = supabase.from('profiles').select('*').order('created_at', { ascending: false });
-      
-      if (filterAdmin === 'admin') {
-        query = query.eq('is_admin', true);
-      } else if (filterAdmin === 'regular') {
-        query = query.eq('is_admin', false);
+      let query = supabase.from("profiles").select("*").order("created_at", { ascending: false });
+
+      if (filterAdmin === "admin") {
+        query = query.eq("is_admin", true);
+      } else if (filterAdmin === "regular") {
+        query = query.eq("is_admin", false);
       }
-      
+
       const { data, error } = await query;
-      
+
       if (error) throw error;
       setUsers(data || []);
     } catch (error) {
-      console.error('Error fetching users:', error);
+      console.error("Error fetching users:", error);
     } finally {
       setLoading(false);
     }
   };
 
   const toggleAdminStatus = async (userId, currentStatus) => {
-    if (!confirm(`Are you sure you want to ${currentStatus ? 'remove' : 'grant'} admin access?`)) return;
-    
+    if (!confirm(`Are you sure you want to ${currentStatus ? "remove" : "grant"} admin access?`))
+      return;
+
     try {
       const { error } = await supabase
-        .from('profiles')
+        .from("profiles")
         .update({ is_admin: !currentStatus })
-        .eq('id', userId);
-      
+        .eq("id", userId);
+
       if (error) throw error;
-      alert(`Admin status updated successfully!`);
+      alert("Admin status updated successfully!");
       fetchUsers();
     } catch (error) {
-      console.error('Error updating admin status:', error);
+      console.error("Error updating admin status:", error);
       alert(`Error: ${error.message}`);
     }
   };
 
   if (denied) return <AccessDenied />;
-  if (!ready) return <div className="min-h-screen flex items-center justify-center"><div className="text-lg">Loading...</div></div>;
+  if (!ready)
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-lg">Loading...</div>
+      </div>
+    );
 
-  const filteredUsers = users.filter(user => {
+  const filteredUsers = users.filter((user) => {
     const searchLower = searchTerm.toLowerCase();
     return (
-      (user.first_name?.toLowerCase().includes(searchLower)) ||
-      (user.last_name?.toLowerCase().includes(searchLower)) ||
-      (user.full_name?.toLowerCase().includes(searchLower))
+      user.first_name?.toLowerCase().includes(searchLower) ||
+      user.last_name?.toLowerCase().includes(searchLower) ||
+      user.full_name?.toLowerCase().includes(searchLower)
     );
   });
 
@@ -102,7 +108,7 @@ export default function AdminUsers() {
               </select>
             </div>
             <div className="text-sm text-gray-600">
-              {filteredUsers.length} user{filteredUsers.length !== 1 ? 's' : ''} found
+              {filteredUsers.length} user{filteredUsers.length !== 1 ? "s" : ""} found
             </div>
           </div>
         </div>
@@ -148,30 +154,38 @@ export default function AdminUsers() {
                     <tr key={user.id} className="hover:bg-gray-50">
                       <td className="px-6 py-4">
                         <div className="text-sm font-medium text-gray-900">
-                          {user.full_name || `${user.first_name || ''} ${user.last_name || ''}`.trim() || 'N/A'}
+                          {user.full_name ||
+                            `${user.first_name || ""} ${user.last_name || ""}`.trim() ||
+                            "N/A"}
                         </div>
-                        {user.gender && (
-                          <div className="text-xs text-gray-500">{user.gender}</div>
-                        )}
+                        {user.gender && <div className="text-xs text-gray-500">{user.gender}</div>}
                       </td>
                       <td className="px-6 py-4 text-sm text-gray-700">
-                        {user.district && user.state ? `${user.district}, ${user.state}` : user.state || user.location || 'N/A'}
+                        {user.district && user.state
+                          ? `${user.district}, ${user.state}`
+                          : user.state || user.location || "N/A"}
                       </td>
                       <td className="px-6 py-4 text-sm text-gray-700">
-                        {user.qualification || user.education || 'N/A'}
+                        {user.qualification || user.education || "N/A"}
                       </td>
                       <td className="px-6 py-4">
-                        <span className={`px-2 py-1 text-xs font-semibold rounded ${
-                          user.is_admin ? 'bg-red-100 text-red-800' : 'bg-gray-100 text-gray-800'
-                        }`}>
-                          {user.is_admin ? 'Admin' : 'User'}
+                        <span
+                          className={`px-2 py-1 text-xs font-semibold rounded ${
+                            user.is_admin ? "bg-red-100 text-red-800" : "bg-gray-100 text-gray-800"
+                          }`}
+                        >
+                          {user.is_admin ? "Admin" : "User"}
                         </span>
                       </td>
                       <td className="px-6 py-4">
-                        <span className={`px-2 py-1 text-xs font-semibold rounded ${
-                          user.subscribed_to_newsletter ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
-                        }`}>
-                          {user.subscribed_to_newsletter ? 'Yes' : 'No'}
+                        <span
+                          className={`px-2 py-1 text-xs font-semibold rounded ${
+                            user.subscribed_to_newsletter
+                              ? "bg-green-100 text-green-800"
+                              : "bg-gray-100 text-gray-800"
+                          }`}
+                        >
+                          {user.subscribed_to_newsletter ? "Yes" : "No"}
                         </span>
                       </td>
                       <td className="px-6 py-4 text-sm text-gray-700">
@@ -181,10 +195,12 @@ export default function AdminUsers() {
                         <button
                           onClick={() => toggleAdminStatus(user.id, user.is_admin)}
                           className={`${
-                            user.is_admin ? 'text-orange-600 hover:text-orange-800' : 'text-blue-600 hover:text-blue-800'
+                            user.is_admin
+                              ? "text-orange-600 hover:text-orange-800"
+                              : "text-blue-600 hover:text-blue-800"
                           } font-medium`}
                         >
-                          {user.is_admin ? 'Remove Admin' : 'Make Admin'}
+                          {user.is_admin ? "Remove Admin" : "Make Admin"}
                         </button>
                       </td>
                     </tr>
@@ -203,11 +219,15 @@ export default function AdminUsers() {
           </div>
           <div className="bg-white rounded-lg shadow p-6">
             <h3 className="text-lg font-semibold text-gray-800 mb-2">Admins</h3>
-            <p className="text-4xl font-bold text-accent">{users.filter(u => u.is_admin).length}</p>
+            <p className="text-4xl font-bold text-accent">
+              {users.filter((u) => u.is_admin).length}
+            </p>
           </div>
           <div className="bg-white rounded-lg shadow p-6">
             <h3 className="text-lg font-semibold text-gray-800 mb-2">Newsletter Subscribers</h3>
-            <p className="text-4xl font-bold text-primary">{users.filter(u => u.subscribed_to_newsletter).length}</p>
+            <p className="text-4xl font-bold text-primary">
+              {users.filter((u) => u.subscribed_to_newsletter).length}
+            </p>
           </div>
         </div>
       </main>

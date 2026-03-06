@@ -1,6 +1,6 @@
-import { createClient } from '@supabase/supabase-js';
-import { verifyOTP, sendWelcomeEmail } from '@lib/otpService';
-import { APPS } from '@lib/appRegistry';
+import { createClient } from "@supabase/supabase-js";
+import { verifyOTP, sendWelcomeEmail } from "@lib/otpService";
+import { APPS } from "@lib/appRegistry";
 
 /**
  * OTP Verification Endpoint
@@ -30,8 +30,12 @@ function getSupabaseAdmin() {
 }
 
 export default async function handler(req, res) {
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "Method not allowed" });
+  }
+
+  if (process.env.OTP_DISABLED === 'true') {
+    return res.status(410).json({ success: false, error: 'OTP is temporarily disabled' });
   }
 
   try {
@@ -41,7 +45,7 @@ export default async function handler(req, res) {
     if (!email || !otp || !appId) {
       return res.status(400).json({
         success: false,
-        error: 'Email, OTP, and appId are required',
+        error: "Email, OTP, and appId are required",
       });
     }
 
@@ -60,9 +64,9 @@ export default async function handler(req, res) {
       try {
         // Find user by email (service-role bypasses RLS)
         const { data: users, error: lookupErr } = await supabase
-          .from('auth.users')
-          .select('id')
-          .eq('email', email)
+          .from("auth.users")
+          .select("id")
+          .eq("email", email)
           .limit(1);
 
         // auth.users is not directly queryable via PostgREST in most setups;
@@ -77,48 +81,44 @@ export default async function handler(req, res) {
         }
 
         if (userId) {
-          const { error: entErr } = await supabase.from('entitlements').insert([
+          const { error: entErr } = await supabase.from("entitlements").insert([
             {
               user_id: userId,
               app_id: appId,
-              status: 'active',
-              source: 'razorpay',
-              expires_at: new Date(
-                Date.now() + 365 * 24 * 60 * 60 * 1000
-              ).toISOString(),
+              status: "active",
+              source: "razorpay",
+              expires_at: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString(),
             },
           ]);
 
           if (entErr) {
             // Ignore duplicate entitlement (idempotent)
             if (
-              entErr.code !== '23505' &&
-              !entErr.message?.includes('duplicate') &&
-              !entErr.message?.includes('unique')
+              entErr.code !== "23505" &&
+              !entErr.message?.includes("duplicate") &&
+              !entErr.message?.includes("unique")
             ) {
-              console.error('[verify-otp] Failed to insert entitlement:', entErr);
+              console.error("[verify-otp] Failed to insert entitlement:", entErr);
             } else {
               entitlementGranted = true; // already granted
             }
           } else {
             entitlementGranted = true;
-            console.log(
-              `[verify-otp] Entitlement granted: user=${userId} app=${appId}`
-            );
+            console.log(`[verify-otp] Entitlement granted: user=${userId} app=${appId}`);
 
             // Mark user as paid in profiles table (idempotent)
             // Always set is_paid_user=true; only set paid_at on first grant
             await supabase
-              .from('profiles')
+              .from("profiles")
               .update({ is_paid_user: true })
-              .eq('id', userId)
-              .eq('is_paid_user', false);
+              .eq("id", userId)
+              .eq("is_paid_user", false);
 
             await supabase
-              .from('profiles')
+              .from("profiles")
               .update({ paid_at: new Date().toISOString() })
-              .eq('id', userId)
-              .is('paid_at', null);
+              .eq("id", userId)
+              .is("paid_at", null);
 
             // Send welcome email on first-time grant
             const appConfig = APPS[appId];
@@ -127,9 +127,7 @@ export default async function handler(req, res) {
                 email: email.toLowerCase().trim(),
                 appId,
                 appName: appConfig.name,
-              }).catch((err) =>
-                console.error('[verify-otp] Welcome email error:', err)
-              );
+              }).catch((err) => console.error("[verify-otp] Welcome email error:", err));
             }
           }
         } else {
@@ -139,23 +137,23 @@ export default async function handler(req, res) {
         }
       } catch (entGrantErr) {
         // Non-fatal – OTP was still valid
-        console.error('[verify-otp] Entitlement grant error:', entGrantErr);
+        console.error("[verify-otp] Entitlement grant error:", entGrantErr);
       }
     }
 
     return res.status(200).json({
       success: true,
-      message: 'OTP verified successfully',
+      message: "OTP verified successfully",
       appId: result.appId,
       email: result.email,
       entitlementGranted,
     });
   } catch (error) {
-    console.error('[verify-otp] endpoint error:', error);
+    console.error("[verify-otp] endpoint error:", error);
     return res.status(500).json({
       success: false,
-      error: 'An error occurred during verification',
-      message: process.env.NODE_ENV === 'development' ? error.message : undefined,
+      error: "An error occurred during verification",
+      message: process.env.NODE_ENV === "development" ? error.message : undefined,
     });
   }
 }

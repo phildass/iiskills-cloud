@@ -17,11 +17,11 @@
  * The guard never touches Supabase auth, profiles, or RLS.
  */
 
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
 // NEXT_PUBLIC_* vars are baked in at build time — identical on server and client.
-const GATE_DISABLED = process.env.NEXT_PUBLIC_DISABLE_ADMIN_GATE === 'true';
+const GATE_DISABLED = process.env.NEXT_PUBLIC_DISABLE_ADMIN_GATE === "true";
 
 export function useAdminGate() {
   const router = useRouter();
@@ -36,14 +36,14 @@ export function useAdminGate() {
 
     async function checkSession() {
       try {
-        const res = await fetch('/api/admin/health');
+        const res = await fetch("/api/admin/health");
         if (cancelled) return;
         if (res.status === 401) {
           router.replace(`/admin/login?redirect=${encodeURIComponent(router.asPath)}`);
         } else {
           const data = await res.json().catch(() => ({}));
           if (data.needs_setup) {
-            router.replace('/admin/setup');
+            router.replace("/admin/setup");
           } else {
             setReady(true);
           }

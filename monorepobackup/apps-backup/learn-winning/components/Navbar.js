@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import Link from "next/link";
 
 export default function Navbar() {
   return (
@@ -8,7 +8,7 @@ export default function Navbar() {
           <Link href="/" className="text-2xl font-bold text-primary">
             Learn Winning
           </Link>
-          
+
           <div className="hidden md:flex space-x-6">
             <Link href="/" className="text-gray-700 hover:text-primary transition-colors">
               Home

@@ -91,73 +91,73 @@ export function createLocalContentClient() {
   const createQueryChain = (table) => {
     let data = loadLocalContent()[table] || [];
     let filters = [];
-    let selectFields = '*';
+    let selectFields = "*";
     let orderConfig = null;
     let limitValue = null;
 
     const chain = {
-      select: (fields = '*') => {
+      select: (fields = "*") => {
         selectFields = fields;
         return chain;
       },
 
       eq: (field, value) => {
-        filters.push({ field, op: 'eq', value });
+        filters.push({ field, op: "eq", value });
         return chain;
       },
 
       neq: (field, value) => {
-        filters.push({ field, op: 'neq', value });
+        filters.push({ field, op: "neq", value });
         return chain;
       },
 
       gt: (field, value) => {
-        filters.push({ field, op: 'gt', value });
+        filters.push({ field, op: "gt", value });
         return chain;
       },
 
       gte: (field, value) => {
-        filters.push({ field, op: 'gte', value });
+        filters.push({ field, op: "gte", value });
         return chain;
       },
 
       lt: (field, value) => {
-        filters.push({ field, op: 'lt', value });
+        filters.push({ field, op: "lt", value });
         return chain;
       },
 
       lte: (field, value) => {
-        filters.push({ field, op: 'lte', value });
+        filters.push({ field, op: "lte", value });
         return chain;
       },
 
       like: (field, pattern) => {
-        filters.push({ field, op: 'like', value: pattern });
+        filters.push({ field, op: "like", value: pattern });
         return chain;
       },
 
       ilike: (field, pattern) => {
-        filters.push({ field, op: 'ilike', value: pattern });
+        filters.push({ field, op: "ilike", value: pattern });
         return chain;
       },
 
       is: (field, value) => {
-        filters.push({ field, op: 'is', value });
+        filters.push({ field, op: "is", value });
         return chain;
       },
 
       in: (field, values) => {
-        filters.push({ field, op: 'in', value: values });
+        filters.push({ field, op: "in", value: values });
         return chain;
       },
 
       contains: (field, value) => {
-        filters.push({ field, op: 'contains', value });
+        filters.push({ field, op: "contains", value });
         return chain;
       },
 
       containedBy: (field, value) => {
-        filters.push({ field, op: 'containedBy', value });
+        filters.push({ field, op: "containedBy", value });
         return chain;
       },
 
@@ -168,13 +168,13 @@ export function createLocalContentClient() {
 
       match: (query) => {
         Object.entries(query).forEach(([field, value]) => {
-          filters.push({ field, op: 'eq', value });
+          filters.push({ field, op: "eq", value });
         });
         return chain;
       },
 
       not: (field, op, value) => {
-        filters.push({ field, op: 'not', value });
+        filters.push({ field, op: "not", value });
         return chain;
       },
 
@@ -326,12 +326,12 @@ export function createLocalContentClient() {
           filteredData.sort((a, b) => {
             const aVal = a[orderConfig.field];
             const bVal = b[orderConfig.field];
-            
+
             // Handle null/undefined values - treat them as less than any value
             if (aVal == null && bVal == null) return 0;
             if (aVal == null) return orderConfig.ascending ? -1 : 1;
             if (bVal == null) return orderConfig.ascending ? 1 : -1;
-            
+
             const comparison = aVal < bVal ? -1 : aVal > bVal ? 1 : 0;
             return orderConfig.ascending ? comparison : -comparison;
           });
@@ -354,7 +354,7 @@ export function createLocalContentClient() {
     from: (table) => createQueryChain(table),
     rpc: async (fn, params) => ({
       data: null,
-      error: { message: 'RPC not supported in local content mode' },
+      error: { message: "RPC not supported in local content mode" },
     }),
     auth: {
       getSession: async () => ({
@@ -368,27 +368,27 @@ export function createLocalContentClient() {
       signOut: async () => ({ error: null }),
       signInWithPassword: async () => ({
         data: { user: null, session: null },
-        error: { message: 'Auth not supported in local content mode' },
+        error: { message: "Auth not supported in local content mode" },
       }),
       signInWithOtp: async () => ({
         data: null,
-        error: { message: 'Auth not supported in local content mode' },
+        error: { message: "Auth not supported in local content mode" },
       }),
       signInWithOAuth: async () => ({
         data: null,
-        error: { message: 'Auth not supported in local content mode' },
+        error: { message: "Auth not supported in local content mode" },
       }),
       signUp: async () => ({
         data: { user: null, session: null },
-        error: { message: 'Auth not supported in local content mode' },
+        error: { message: "Auth not supported in local content mode" },
       }),
       resetPasswordForEmail: async () => ({
         data: null,
-        error: { message: 'Auth not supported in local content mode' },
+        error: { message: "Auth not supported in local content mode" },
       }),
       updateUser: async () => ({
         data: { user: null },
-        error: { message: 'Auth not supported in local content mode' },
+        error: { message: "Auth not supported in local content mode" },
       }),
       onAuthStateChange: () => ({
         data: { subscription: { unsubscribe: () => {} } },
@@ -398,11 +398,11 @@ export function createLocalContentClient() {
       from: () => ({
         upload: async () => ({
           data: null,
-          error: { message: 'Storage not supported in local content mode' },
+          error: { message: "Storage not supported in local content mode" },
         }),
         download: async () => ({
           data: null,
-          error: { message: 'Storage not supported in local content mode' },
+          error: { message: "Storage not supported in local content mode" },
         }),
         list: async () => ({
           data: [],
@@ -410,14 +410,14 @@ export function createLocalContentClient() {
         }),
         remove: async () => ({
           data: null,
-          error: { message: 'Storage not supported in local content mode' },
+          error: { message: "Storage not supported in local content mode" },
         }),
         createSignedUrl: async () => ({
           data: null,
-          error: { message: 'Storage not supported in local content mode' },
+          error: { message: "Storage not supported in local content mode" },
         }),
         getPublicUrl: () => ({
-          data: { publicUrl: '' },
+          data: { publicUrl: "" },
         }),
       }),
     },

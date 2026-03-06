@@ -1,12 +1,12 @@
 /**
  * Calibration Gatekeeper Component
- * 
+ *
  * High-impact logic question per app to qualify users for tier entry
  * Shows "Calibration Confirmed!" message on success
  * For paid apps, displays Internal Payment Preview UI after qualification
- * 
+ *
  * Usage:
- * <CalibrationGatekeeper 
+ * <CalibrationGatekeeper
  *   appName="Learn Math"
  *   tier="intermediate"
  *   isPaid={false}
@@ -24,19 +24,23 @@ const CALIBRATION_QUESTIONS = {
     question: "If a set of numbers is 2, 4, 8, 16, what is the formula for the nth term?",
     options: ["n²", "2n", "2^n (Exponential growth)", "n + 2"],
     correctAnswer: 2,
-    explanation: "The pattern shows exponential growth: 2¹=2, 2²=4, 2³=8, 2⁴=16. The formula is 2^n.",
+    explanation:
+      "The pattern shows exponential growth: 2¹=2, 2²=4, 2³=8, 2⁴=16. The formula is 2^n.",
   },
   physics: {
-    question: "If you double the mass of an object but keep the force the same, what happens to acceleration?",
+    question:
+      "If you double the mass of an object but keep the force the same, what happens to acceleration?",
     options: ["It doubles", "It is halved (F = ma)", "It stays the same", "It quadruples"],
     correctAnswer: 1,
-    explanation: "Using F = ma, if F is constant and m doubles, then a = F/(2m) = (F/m)/2, so acceleration is halved.",
+    explanation:
+      "Using F = ma, if F is constant and m doubles, then a = F/(2m) = (F/m)/2, so acceleration is halved.",
   },
   biology: {
     question: "Which organelle acts as the 'Power Plant' generating ATP for the cell?",
     options: ["Nucleus", "Ribosome", "Mitochondria", "Chloroplast"],
     correctAnswer: 2,
-    explanation: "Mitochondria are the powerhouse of the cell, generating ATP through cellular respiration.",
+    explanation:
+      "Mitochondria are the powerhouse of the cell, generating ATP through cellular respiration.",
   },
   chemistry: {
     question: "Which type of bond involves the sharing of electron pairs between atoms?",
@@ -54,39 +58,55 @@ const CALIBRATION_QUESTIONS = {
     question: "3 workers build a wall in 6 hours. How many workers are needed to do it in 2 hours?",
     options: ["3 workers", "6 workers", "9 workers (Inverse ratio)", "12 workers"],
     correctAnswer: 2,
-    explanation: "Work is constant. 3 workers × 6 hours = 18 worker-hours. For 2 hours: 18 ÷ 2 = 9 workers needed (inverse ratio).",
+    explanation:
+      "Work is constant. 3 workers × 6 hours = 18 worker-hours. For 2 hours: 18 ÷ 2 = 9 workers needed (inverse ratio).",
   },
-  
+
   // ACADEMY SUITE (Paid Apps)
   ai: {
     question: "In Machine Learning, does 'Supervised Learning' require labeled data?",
-    options: ["Yes, it requires labeled data", "No, it doesn't require labeled data", "Only sometimes", "It depends on the algorithm"],
+    options: [
+      "Yes, it requires labeled data",
+      "No, it doesn't require labeled data",
+      "Only sometimes",
+      "It depends on the algorithm",
+    ],
     correctAnswer: 0,
-    explanation: "Supervised Learning requires labeled training data to learn the mapping between inputs and outputs. Master Neural Architectures.",
+    explanation:
+      "Supervised Learning requires labeled training data to learn the mapping between inputs and outputs. Master Neural Architectures.",
   },
   developer: {
     question: "Which HTTP method is typically used to update existing data on a server?",
     options: ["GET", "POST", "PUT or PATCH", "DELETE"],
     correctAnswer: 2,
-    explanation: "PUT or PATCH methods are used to update existing resources on a server. PUT replaces the entire resource, while PATCH applies partial modifications.",
+    explanation:
+      "PUT or PATCH methods are used to update existing resources on a server. PUT replaces the entire resource, while PATCH applies partial modifications.",
   },
   finesse: {
     question: "If a client goes silent after your pitch, should you:",
-    options: ["A) Fill the gap immediately", "B) Wait and let the silence work", "C) Change the subject", "D) Apologize"],
+    options: [
+      "A) Fill the gap immediately",
+      "B) Wait and let the silence work",
+      "C) Change the subject",
+      "D) Apologize",
+    ],
     correctAnswer: 1,
-    explanation: "Master Executive Presence: Option B - Wait. Strategic silence after your pitch creates pressure and shows confidence. Don't rush to fill the gap.",
+    explanation:
+      "Master Executive Presence: Option B - Wait. Strategic silence after your pitch creates pressure and shows confidence. Don't rush to fill the gap.",
   },
   management: {
     question: "A 'Bottleneck' in a workflow is defined by the stage with the:",
     options: ["A) Highest cost", "B) Lowest capacity", "C) Most workers", "D) Longest distance"],
     correctAnswer: 1,
-    explanation: "Optimize Human Systems: A bottleneck is the stage with the lowest capacity (B), which limits the entire workflow's throughput.",
+    explanation:
+      "Optimize Human Systems: A bottleneck is the stage with the lowest capacity (B), which limits the entire workflow's throughput.",
   },
   pr: {
     question: "Is the primary goal of PR to buy ads or to earn 'Organic Authority'?",
     options: ["Buy ads", "Earn Organic Authority", "Both equally", "Neither"],
     correctAnswer: 1,
-    explanation: "Control Public Perception: The primary goal of PR is to earn Organic Authority through media relations, not to buy advertising space.",
+    explanation:
+      "Control Public Perception: The primary goal of PR is to earn Organic Authority through media relations, not to buy advertising space.",
   },
   // MOVED TO apps-backup as per cleanup requirements
   // "govt-jobs": {
@@ -192,15 +212,11 @@ export default function CalibrationGatekeeper({
                 <div className="inline-block bg-blue-100 px-4 py-2 rounded-full text-blue-700 font-semibold mb-4">
                   {tier.charAt(0).toUpperCase() + tier.slice(1)} Tier • {appName}
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">
-                  Calibration Question
-                </h3>
+                <h3 className="text-2xl font-bold text-gray-900 mb-2">Calibration Question</h3>
               </div>
 
               <div className="bg-gray-50 rounded-xl p-6 mb-6">
-                <p className="text-xl text-gray-900 font-medium">
-                  {question.question}
-                </p>
+                <p className="text-xl text-gray-900 font-medium">{question.question}</p>
               </div>
 
               <div className="space-y-3 mb-6">
@@ -268,9 +284,7 @@ export default function CalibrationGatekeeper({
 
               {showExplanation && (
                 <div className="bg-white/80 rounded-xl p-6 mb-6 border-2 border-blue-200">
-                  <h4 className="font-bold text-lg text-gray-900 mb-2">
-                    Explanation:
-                  </h4>
+                  <h4 className="font-bold text-lg text-gray-900 mb-2">Explanation:</h4>
                   <p className="text-gray-700">{question.explanation}</p>
                   <p className="text-sm text-gray-600 mt-3">
                     <strong>Correct answer:</strong>{" "}
@@ -287,9 +301,7 @@ export default function CalibrationGatekeeper({
                       ? "🎉 Proceed to secure payment to unlock full course access"
                       : "🎉 You now have access to the full course content!"}
                   </p>
-                  <p className="text-sm text-green-700">
-                    Your diagnostic profile has been updated
-                  </p>
+                  <p className="text-sm text-green-700">Your diagnostic profile has been updated</p>
                 </div>
               ) : (
                 <button

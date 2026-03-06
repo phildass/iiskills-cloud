@@ -19,48 +19,48 @@
  * Cookie: HttpOnly admin_session signed with ADMIN_SESSION_SIGNING_KEY (12 h).
  */
 
-import crypto from 'crypto';
-import bcrypt from 'bcrypt';
-import fs from 'fs';
+import crypto from "crypto";
+import bcrypt from "bcrypt";
+import fs from "fs";
 import {
   createAdminToken,
   setAdminSessionCookie,
   isTestAdminMode,
   getTestPassphrase,
-} from '../../../lib/adminAuth';
+} from "../../../lib/adminAuth";
 
-const BOOTSTRAP_PASSPHRASE = 'iiskills123';
+const BOOTSTRAP_PASSPHRASE = "iiskills123";
 
 function getAdminDataFile() {
-  return process.env.ADMIN_DATA_FILE || '/var/lib/iiskills/admin.json';
+  return process.env.ADMIN_DATA_FILE || "/var/lib/iiskills/admin.json";
 }
 
 function getAdminPassphraseHash() {
   try {
-    const data = JSON.parse(fs.readFileSync(getAdminDataFile(), 'utf8'));
+    const data = JSON.parse(fs.readFileSync(getAdminDataFile(), "utf8"));
     return data?.admin_passphrase_hash || null;
   } catch (err) {
-    if (err.code !== 'ENOENT') {
-      console.error('[adminAuth] Error reading admin data file:', err.message);
+    if (err.code !== "ENOENT") {
+      console.error("[adminAuth] Error reading admin data file:", err.message);
     }
     return null;
   }
 }
 
 export default async function handler(req, res) {
-  if (req.method !== 'POST') {
-    res.setHeader('Allow', ['POST']);
-    return res.status(405).json({ error: 'Method Not Allowed' });
+  if (req.method !== "POST") {
+    res.setHeader("Allow", ["POST"]);
+    return res.status(405).json({ error: "Method Not Allowed" });
   }
 
   const { passphrase } = req.body || {};
-  if (!passphrase || typeof passphrase !== 'string') {
-    return res.status(400).json({ error: 'passphrase is required' });
+  if (!passphrase || typeof passphrase !== "string") {
+    return res.status(400).json({ error: "passphrase is required" });
   }
 
   if (!process.env.ADMIN_SESSION_SIGNING_KEY && !process.env.ADMIN_JWT_SECRET) {
     return res.status(500).json({
-      error: 'ADMIN_SESSION_SIGNING_KEY is not configured on the server',
+      error: "ADMIN_SESSION_SIGNING_KEY is not configured on the server",
     });
   }
 
@@ -71,7 +71,7 @@ export default async function handler(req, res) {
     const b = Buffer.from(expected);
     const match = a.length === b.length && crypto.timingSafeEqual(a, b);
     if (!match) {
-      return res.status(401).json({ error: 'Invalid passphrase' });
+      return res.status(401).json({ error: "Invalid passphrase" });
     }
     const token = createAdminToken(false);
     setAdminSessionCookie(res, token);
@@ -99,7 +99,7 @@ export default async function handler(req, res) {
     // Normal login: verify passphrase against bcrypt hash
     const valid = await bcrypt.compare(passphrase, storedHash);
     if (!valid) {
-      return res.status(401).json({ error: 'Invalid passphrase' });
+      return res.status(401).json({ error: "Invalid passphrase" });
     }
     const token = createAdminToken(false);
     setAdminSessionCookie(res, token);
@@ -108,7 +108,7 @@ export default async function handler(req, res) {
 
   // No hash stored yet: only the bootstrap passphrase is accepted
   if (passphrase !== BOOTSTRAP_PASSPHRASE) {
-    return res.status(401).json({ error: 'Invalid passphrase' });
+    return res.status(401).json({ error: "Invalid passphrase" });
   }
   const token = createAdminToken(true); // needs_setup = true
   setAdminSessionCookie(res, token);

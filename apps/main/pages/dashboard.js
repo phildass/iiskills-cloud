@@ -88,9 +88,7 @@ export default function Dashboard() {
                 <div className="bg-amber-50 border border-amber-300 rounded-lg p-5 mb-6 flex items-start gap-4">
                   <span className="text-2xl">🎉</span>
                   <div className="flex-1">
-                    <p className="font-semibold text-amber-900 mb-1">
-                      Complete your account setup
-                    </p>
+                    <p className="font-semibold text-amber-900 mb-1">Complete your account setup</p>
                     <p className="text-sm text-amber-800 mb-3">
                       Set a password and personalise your profile to get the most out of your
                       iiskills subscription.
@@ -127,12 +125,7 @@ export default function Dashboard() {
                     href="/profile"
                     className="inline-flex items-center gap-2 border border-gray-300 hover:border-blue-400 text-gray-700 hover:text-blue-700 text-sm font-medium px-4 py-2 rounded-lg transition"
                   >
-                    <svg
-                      className="w-4 h-4"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"

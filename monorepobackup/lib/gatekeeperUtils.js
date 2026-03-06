@@ -1,6 +1,6 @@
 /**
  * Gatekeeper Questions Utility
- * 
+ *
  * Provides gatekeeper questions for each subject and tier.
  * Questions are loaded from the centralized data file.
  */
@@ -8,9 +8,9 @@
 // Use dynamic import for JSON data
 let gatekeeperData;
 try {
-  gatekeeperData = require('../data/gatekeeperQuestions.json');
+  gatekeeperData = require("../data/gatekeeperQuestions.json");
 } catch (err) {
-  console.error('Failed to load gatekeeper questions:', err);
+  console.error("Failed to load gatekeeper questions:", err);
   gatekeeperData = [];
 }
 
@@ -18,11 +18,11 @@ try {
  * Map of app IDs to their corresponding subject names in the gatekeeper data
  */
 const APP_TO_SUBJECT_MAP = {
-  'learn-math': 'Learn Mathematics',
-  'learn-pr': 'Public Relations',
-  'learn-management': 'Management',
-  'learn-developer': 'Developer',
-  'learn-ai': 'Artificial Intelligence'
+  "learn-math": "Learn Mathematics",
+  "learn-pr": "Public Relations",
+  "learn-management": "Management",
+  "learn-developer": "Developer",
+  "learn-ai": "Artificial Intelligence",
 };
 
 /**
@@ -33,14 +33,14 @@ const APP_TO_SUBJECT_MAP = {
  */
 function getGatekeeperQuestions(appId, tier) {
   const subject = APP_TO_SUBJECT_MAP[appId];
-  
+
   if (!subject) {
     console.warn(`No gatekeeper questions found for app: ${appId}`);
     return [];
   }
 
   const tierCapitalized = tier.charAt(0).toUpperCase() + tier.slice(1).toLowerCase();
-  
+
   const questionSet = gatekeeperData.find(
     (item) => item.subject === subject && item.tier === tierCapitalized
   );
@@ -60,8 +60,8 @@ function getGatekeeperQuestions(appId, tier) {
  */
 function getAllGatekeeperQuestions(appId) {
   return {
-    intermediate: getGatekeeperQuestions(appId, 'Intermediate'),
-    advanced: getGatekeeperQuestions(appId, 'Advanced')
+    intermediate: getGatekeeperQuestions(appId, "Intermediate"),
+    advanced: getGatekeeperQuestions(appId, "Advanced"),
   };
 }
 
@@ -88,5 +88,5 @@ module.exports = {
   getGatekeeperQuestions,
   getAllGatekeeperQuestions,
   getSubjectName,
-  hasGatekeeperQuestions
+  hasGatekeeperQuestions,
 };

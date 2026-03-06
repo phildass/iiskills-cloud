@@ -16,12 +16,12 @@
  * - set-passphrase endpoint is disabled
  */
 
-import crypto from 'crypto';
-import jwt from 'jsonwebtoken';
-import { serialize, parse } from 'cookie';
-import { createClient } from '@supabase/supabase-js';
+import crypto from "crypto";
+import jwt from "jsonwebtoken";
+import { serialize, parse } from "cookie";
+import { createClient } from "@supabase/supabase-js";
 
-export const ADMIN_COOKIE_NAME = 'admin_session';
+export const ADMIN_COOKIE_NAME = "admin_session";
 const SESSION_EXPIRY_SECONDS = 12 * 60 * 60; // 12 hours
 
 /**
@@ -29,7 +29,7 @@ const SESSION_EXPIRY_SECONDS = 12 * 60 * 60; // 12 hours
  * In this mode, the admin passphrase is read from env vars only (no Supabase).
  */
 export function isTestAdminMode() {
-  return process.env.TEST_ADMIN_MODE === 'true';
+  return process.env.TEST_ADMIN_MODE === "true";
 }
 
 /**
@@ -39,7 +39,7 @@ export function isTestAdminMode() {
  * it MUST be false (or absent) in production.
  */
 export function isAdminAuthDisabled() {
-  return process.env.ADMIN_AUTH_DISABLED === 'true';
+  return process.env.ADMIN_AUTH_DISABLED === "true";
 }
 
 /**
@@ -47,12 +47,12 @@ export function isAdminAuthDisabled() {
  * Priority: ADMIN_PANEL_SECRET → ADMIN_SECRET → "iiskills123"
  */
 export function getTestPassphrase() {
-  return process.env.ADMIN_PANEL_SECRET || process.env.ADMIN_SECRET || 'iiskills123';
+  return process.env.ADMIN_PANEL_SECRET || process.env.ADMIN_SECRET || "iiskills123";
 }
 
 function getSigningKey() {
   const key = process.env.ADMIN_SESSION_SIGNING_KEY || process.env.ADMIN_JWT_SECRET;
-  if (!key) throw new Error('ADMIN_SESSION_SIGNING_KEY is not configured');
+  if (!key) throw new Error("ADMIN_SESSION_SIGNING_KEY is not configured");
   return key;
 }
 
@@ -83,13 +83,13 @@ export function verifyAdminToken(token) {
 /** Set the admin_session HttpOnly cookie on the response */
 export function setAdminSessionCookie(res, token) {
   res.setHeader(
-    'Set-Cookie',
+    "Set-Cookie",
     serialize(ADMIN_COOKIE_NAME, token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
       maxAge: SESSION_EXPIRY_SECONDS,
-      path: '/',
+      path: "/",
     })
   );
 }
@@ -97,13 +97,13 @@ export function setAdminSessionCookie(res, token) {
 /** Clear the admin_session cookie (logout) */
 export function clearAdminSessionCookie(res) {
   res.setHeader(
-    'Set-Cookie',
-    serialize(ADMIN_COOKIE_NAME, '', {
+    "Set-Cookie",
+    serialize(ADMIN_COOKIE_NAME, "", {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
       maxAge: 0,
-      path: '/',
+      path: "/",
     })
   );
 }
@@ -111,10 +111,10 @@ export function clearAdminSessionCookie(res) {
 /** Extract the real client IP from request headers */
 function getClientIp(req) {
   return (
-    req.headers['x-real-ip'] ||
-    req.headers['x-forwarded-for']?.split(',')[0]?.trim() ||
+    req.headers["x-real-ip"] ||
+    req.headers["x-forwarded-for"]?.split(",")[0]?.trim() ||
     req.socket?.remoteAddress ||
-    'unknown'
+    "unknown"
   );
 }
 
@@ -123,7 +123,10 @@ function checkIpAllowlist(req) {
   const allowlist = process.env.ADMIN_IP_ALLOWLIST;
   if (!allowlist) return true; // No allowlist configured — allow all
   const clientIp = getClientIp(req);
-  const allowedIps = allowlist.split(',').map((ip) => ip.trim()).filter(Boolean);
+  const allowedIps = allowlist
+    .split(",")
+    .map((ip) => ip.trim())
+    .filter(Boolean);
   return allowedIps.includes(clientIp);
 }
 
@@ -146,15 +149,15 @@ export function validateAdminRequest(req) {
   }
 
   if (!checkIpAllowlist(req)) {
-    return { valid: false, reason: 'IP not in allowlist' };
+    return { valid: false, reason: "IP not in allowlist" };
   }
 
   // Accept direct secret in header (useful for scripts / curl)
-  const headerSecret = req.headers['x-admin-secret'];
+  const headerSecret = req.headers["x-admin-secret"];
   if (headerSecret) {
     const expectedSecret = process.env.ADMIN_PANEL_SECRET;
     if (!expectedSecret) {
-      return { valid: false, reason: 'ADMIN_PANEL_SECRET is not configured' };
+      return { valid: false, reason: "ADMIN_PANEL_SECRET is not configured" };
     }
     // Use constant-time comparison to prevent timing attacks
     const a = Buffer.from(headerSecret);
@@ -166,7 +169,7 @@ export function validateAdminRequest(req) {
   }
 
   // Accept signed session cookie
-  const cookies = parse(req.headers.cookie || '');
+  const cookies = parse(req.headers.cookie || "");
   const sessionToken = cookies[ADMIN_COOKIE_NAME];
   if (sessionToken) {
     const result = verifyAdminToken(sessionToken);
@@ -175,7 +178,7 @@ export function validateAdminRequest(req) {
     }
   }
 
-  return { valid: false, reason: 'Unauthorized' };
+  return { valid: false, reason: "Unauthorized" };
 }
 
 /**
@@ -188,9 +191,7 @@ export function createServiceRoleClient() {
   const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
   if (!url || !serviceKey) {
-    throw new Error(
-      'Missing NEXT_PUBLIC_SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY'
-    );
+    throw new Error("Missing NEXT_PUBLIC_SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY");
   }
 
   return createClient(url, serviceKey, {

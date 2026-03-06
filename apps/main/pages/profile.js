@@ -171,9 +171,7 @@ export default function ProfilePage() {
   }
 
   const displayName =
-    profile.full_name ||
-    [profile.first_name, profile.last_name].filter(Boolean).join(" ") ||
-    email;
+    profile.full_name || [profile.first_name, profile.last_name].filter(Boolean).join(" ") || email;
 
   const fields = [
     { label: "Full Name", value: displayName },
@@ -225,9 +223,7 @@ export default function ProfilePage() {
                     <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-0.5">
                       {label}
                     </p>
-                    <p className="text-gray-900 font-medium text-sm break-words">
-                      {String(value)}
-                    </p>
+                    <p className="text-gray-900 font-medium text-sm break-words">{String(value)}</p>
                   </div>
                 ) : null
               )}

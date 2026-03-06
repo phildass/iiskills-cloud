@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import { useState } from "react";
 
 export default function QuizComponent({ questions, onComplete }) {
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -35,10 +35,10 @@ export default function QuizComponent({ questions, onComplete }) {
         correctCount++;
       }
     });
-    
+
     setScore(correctCount);
     setShowResults(true);
-    
+
     const passed = correctCount >= 3;
     onComplete(passed, correctCount);
   };
@@ -53,17 +53,19 @@ export default function QuizComponent({ questions, onComplete }) {
   if (showResults) {
     const passed = score >= 3;
     return (
-      <div className={`card ${passed ? 'bg-green-50 border-2 border-green-500' : 'bg-red-50 border-2 border-red-500'}`}>
-        <h3 className={`text-2xl font-bold mb-4 ${passed ? 'text-green-800' : 'text-red-800'}`}>
-          {passed ? '🎉 Quiz Passed!' : '❌ Quiz Not Passed'}
+      <div
+        className={`card ${passed ? "bg-green-50 border-2 border-green-500" : "bg-red-50 border-2 border-red-500"}`}
+      >
+        <h3 className={`text-2xl font-bold mb-4 ${passed ? "text-green-800" : "text-red-800"}`}>
+          {passed ? "🎉 Quiz Passed!" : "❌ Quiz Not Passed"}
         </h3>
         <p className="text-lg mb-4">
           You scored {score} out of {questions.length}
         </p>
         <p className="text-gray-700 mb-6">
           {passed
-            ? 'Congratulations! You need 3 or more correct answers to pass, and you made it!'
-            : 'You need at least 3 correct answers to pass. Please review the material and try again.'}
+            ? "Congratulations! You need 3 or more correct answers to pass, and you made it!"
+            : "You need at least 3 correct answers to pass. Please review the material and try again."}
         </p>
         {!passed && (
           <button onClick={resetQuiz} className="btn-primary">
@@ -85,7 +87,7 @@ export default function QuizComponent({ questions, onComplete }) {
             Question {currentQuestion + 1} of {questions.length}
           </span>
         </div>
-        
+
         <div className="w-full bg-gray-200 rounded-full h-2 mb-4">
           <div
             className="bg-blue-600 h-2 rounded-full transition-all duration-300"
@@ -102,8 +104,8 @@ export default function QuizComponent({ questions, onComplete }) {
             key={index}
             className={`flex items-center p-4 border-2 rounded-lg cursor-pointer transition-colors ${
               selectedAnswers[currentQuestion] === index
-                ? 'border-blue-500 bg-blue-50'
-                : 'border-gray-200 hover:border-blue-300'
+                ? "border-blue-500 bg-blue-50"
+                : "border-gray-200 hover:border-blue-300"
             }`}
           >
             <input
@@ -132,7 +134,7 @@ export default function QuizComponent({ questions, onComplete }) {
           disabled={selectedAnswers[currentQuestion] === undefined}
           className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          {currentQuestion === questions.length - 1 ? 'Submit Quiz' : 'Next'}
+          {currentQuestion === questions.length - 1 ? "Submit Quiz" : "Next"}
         </button>
       </div>
     </div>

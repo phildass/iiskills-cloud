@@ -17,9 +17,9 @@
  * - If authorized → sets ready=true so the page may render.
  */
 
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
-import { supabase, isAdmin } from '../lib/supabaseClient';
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import { supabase, isAdmin } from "../lib/supabaseClient";
 
 export function useAdminProtectedPage() {
   const router = useRouter();
@@ -48,7 +48,7 @@ export function useAdminProtectedPage() {
         if (!adminAccess) {
           setDenied(true);
           setTimeout(() => {
-            if (!cancelled) router.replace('/');
+            if (!cancelled) router.replace("/");
           }, 2000);
           return;
         }
@@ -79,9 +79,7 @@ export function AccessDenied() {
       <div className="bg-white rounded-xl shadow-lg p-8 text-center max-w-sm">
         <div className="text-5xl mb-4">🚫</div>
         <h1 className="text-2xl font-bold text-gray-800 mb-2">Access Denied</h1>
-        <p className="text-gray-500 text-sm">
-          You do not have admin privileges. Redirecting…
-        </p>
+        <p className="text-gray-500 text-sm">You do not have admin privileges. Redirecting…</p>
       </div>
     </div>
   );

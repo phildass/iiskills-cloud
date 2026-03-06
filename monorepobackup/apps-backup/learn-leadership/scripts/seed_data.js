@@ -2,17 +2,17 @@
 
 /**
  * Seed Data Generator for Learn AI
- * 
+ *
  * This script generates 100 lessons (10 modules × 10 lessons each) with AI-generated content.
- * 
+ *
  * Usage: node scripts/seed_data.js
- * 
+ *
  * Note: This script generates placeholder content. In production with OPENAI_API_KEY,
  * it would use OpenAI's API to generate high-quality, contextual lesson content.
  */
 
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
 
 // Module topics and metadata
 const modules = [
@@ -21,77 +21,187 @@ const modules = [
     title: "Introduction to AI",
     description: "Understanding the fundamentals of Artificial Intelligence",
     difficulty: "Beginner",
-    topics: ["What is AI", "History of AI", "Types of AI Systems", "AI Applications", "AI Ethics", "AI vs ML", "Current State", "Future Trends", "Getting Started", "Career Paths"]
+    topics: [
+      "What is AI",
+      "History of AI",
+      "Types of AI Systems",
+      "AI Applications",
+      "AI Ethics",
+      "AI vs ML",
+      "Current State",
+      "Future Trends",
+      "Getting Started",
+      "Career Paths",
+    ],
   },
   {
     id: 2,
     title: "Types of AI",
     description: "Exploring different categories and applications of AI",
     difficulty: "Beginner",
-    topics: ["Narrow AI", "General AI", "Superintelligence", "Reactive Machines", "Limited Memory", "Theory of Mind", "Self-Aware AI", "Weak vs Strong", "Symbolic AI", "Sub-symbolic AI"]
+    topics: [
+      "Narrow AI",
+      "General AI",
+      "Superintelligence",
+      "Reactive Machines",
+      "Limited Memory",
+      "Theory of Mind",
+      "Self-Aware AI",
+      "Weak vs Strong",
+      "Symbolic AI",
+      "Sub-symbolic AI",
+    ],
   },
   {
     id: 3,
     title: "Data Science Fundamentals",
     description: "Building the foundation for AI with data science",
     difficulty: "Beginner",
-    topics: ["Data Types", "Data Collection", "Data Cleaning", "Exploratory Analysis", "Statistical Methods", "Data Visualization", "Databases", "Big Data", "Data Ethics", "Best Practices"]
+    topics: [
+      "Data Types",
+      "Data Collection",
+      "Data Cleaning",
+      "Exploratory Analysis",
+      "Statistical Methods",
+      "Data Visualization",
+      "Databases",
+      "Big Data",
+      "Data Ethics",
+      "Best Practices",
+    ],
   },
   {
     id: 4,
     title: "Python for AI",
     description: "Learning Python programming for AI applications",
     difficulty: "Beginner",
-    topics: ["Python Basics", "Data Structures", "NumPy", "Pandas", "Matplotlib", "SciPy", "File Handling", "Functions", "OOP Concepts", "Libraries Overview"]
+    topics: [
+      "Python Basics",
+      "Data Structures",
+      "NumPy",
+      "Pandas",
+      "Matplotlib",
+      "SciPy",
+      "File Handling",
+      "Functions",
+      "OOP Concepts",
+      "Libraries Overview",
+    ],
   },
   {
     id: 5,
     title: "Supervised Learning",
     description: "Understanding supervised machine learning algorithms",
     difficulty: "Intermediate",
-    topics: ["Linear Regression", "Logistic Regression", "Decision Trees", "Random Forests", "SVM", "KNN", "Naive Bayes", "Model Evaluation", "Cross-Validation", "Hyperparameter Tuning"]
+    topics: [
+      "Linear Regression",
+      "Logistic Regression",
+      "Decision Trees",
+      "Random Forests",
+      "SVM",
+      "KNN",
+      "Naive Bayes",
+      "Model Evaluation",
+      "Cross-Validation",
+      "Hyperparameter Tuning",
+    ],
   },
   {
     id: 6,
     title: "Unsupervised Learning",
     description: "Exploring clustering and dimensionality reduction",
     difficulty: "Intermediate",
-    topics: ["K-Means", "Hierarchical Clustering", "DBSCAN", "PCA", "t-SNE", "Autoencoders", "Anomaly Detection", "Association Rules", "Pattern Mining", "Feature Selection"]
+    topics: [
+      "K-Means",
+      "Hierarchical Clustering",
+      "DBSCAN",
+      "PCA",
+      "t-SNE",
+      "Autoencoders",
+      "Anomaly Detection",
+      "Association Rules",
+      "Pattern Mining",
+      "Feature Selection",
+    ],
   },
   {
     id: 7,
     title: "Neural Networks",
     description: "Deep dive into neural network architectures",
     difficulty: "Intermediate",
-    topics: ["Perceptrons", "Activation Functions", "Backpropagation", "Deep Learning", "CNNs", "RNNs", "LSTMs", "Transformers", "GANs", "Transfer Learning"]
+    topics: [
+      "Perceptrons",
+      "Activation Functions",
+      "Backpropagation",
+      "Deep Learning",
+      "CNNs",
+      "RNNs",
+      "LSTMs",
+      "Transformers",
+      "GANs",
+      "Transfer Learning",
+    ],
   },
   {
     id: 8,
     title: "AI Monetization",
     description: "Turning AI skills into income streams",
     difficulty: "Advanced",
-    topics: ["Freelancing", "Consulting", "Product Development", "SaaS Models", "API Services", "Training & Courses", "Research Roles", "Startup Ideas", "Portfolio Building", "Marketing"]
+    topics: [
+      "Freelancing",
+      "Consulting",
+      "Product Development",
+      "SaaS Models",
+      "API Services",
+      "Training & Courses",
+      "Research Roles",
+      "Startup Ideas",
+      "Portfolio Building",
+      "Marketing",
+    ],
   },
   {
     id: 9,
     title: "AI Tools & Frameworks",
     description: "Mastering popular AI tools and platforms",
     difficulty: "Advanced",
-    topics: ["TensorFlow", "PyTorch", "Keras", "Scikit-learn", "Hugging Face", "OpenAI API", "Cloud Platforms", "MLOps", "Version Control", "Deployment"]
+    topics: [
+      "TensorFlow",
+      "PyTorch",
+      "Keras",
+      "Scikit-learn",
+      "Hugging Face",
+      "OpenAI API",
+      "Cloud Platforms",
+      "MLOps",
+      "Version Control",
+      "Deployment",
+    ],
   },
   {
     id: 10,
     title: "Career Pathways in AI",
     description: "Building a successful career in artificial intelligence",
     difficulty: "Advanced",
-    topics: ["Job Roles", "Skills Required", "Resume Building", "Interview Prep", "Networking", "Continuous Learning", "Certifications", "Soft Skills", "Industry Trends", "Success Stories"]
-  }
+    topics: [
+      "Job Roles",
+      "Skills Required",
+      "Resume Building",
+      "Interview Prep",
+      "Networking",
+      "Continuous Learning",
+      "Certifications",
+      "Soft Skills",
+      "Industry Trends",
+      "Success Stories",
+    ],
+  },
 ];
 
 /**
  * Generate lesson content using template
  * In production, this would call OpenAI API with the following prompt template:
- * 
+ *
  * PROMPT TEMPLATE:
  * "Write a comprehensive 400-word lesson about {topic} in the context of {module_title}.
  * The lesson should include:
@@ -99,7 +209,7 @@ const modules = [
  * 2. 3-4 key concepts with clear explanations and examples
  * 3. Practical applications in real-world scenarios
  * 4. A summary reinforcing the main takeaways
- * 
+ *
  * Format: Use clear paragraphs with subheadings. Target audience: learners with {difficulty} level knowledge.
  * Writing style: Educational, engaging, and practical."
  */
@@ -129,21 +239,21 @@ function generateLessonContent(moduleId, lessonId, topic, moduleTitle, difficult
     `,
     duration_minutes: 15,
     is_free: lessonId === 1,
-    order: lessonId
+    order: lessonId,
   };
 }
 
 /**
  * Generate quiz questions for a lesson
  * In production with OPENAI_API_KEY:
- * 
+ *
  * PROMPT TEMPLATE:
  * "Generate 5 multiple-choice questions to test understanding of {topic} in {module_title}.
  * For each question:
  * 1. Write a clear question that tests conceptual understanding, not just memorization
  * 2. Provide 4 answer options where only one is correct
  * 3. Include a brief explanation of why the correct answer is right
- * 
+ *
  * Difficulty level: {difficulty}
  * Format as JSON array with fields: question, options (array of 4), correct_answer (index 0-3), explanation"
  */
@@ -155,10 +265,10 @@ function generateQuizQuestions(topic, moduleTitle, difficulty) {
         "To process and analyze data effectively",
         "To store information permanently",
         "To display results to users",
-        "To connect different systems"
+        "To connect different systems",
       ],
       correct_answer: 0,
-      explanation: `The primary purpose is to process and analyze data, which is fundamental to ${topic}.`
+      explanation: `The primary purpose is to process and analyze data, which is fundamental to ${topic}.`,
     },
     {
       question: `Which scenario best demonstrates the application of ${topic}?`,
@@ -166,10 +276,10 @@ function generateQuizQuestions(topic, moduleTitle, difficulty) {
         "Creating user interfaces",
         "Solving complex analytical problems",
         "Managing file storage",
-        "Sending email notifications"
+        "Sending email notifications",
       ],
       correct_answer: 1,
-      explanation: `${topic} is most effectively used for solving complex analytical problems.`
+      explanation: `${topic} is most effectively used for solving complex analytical problems.`,
     },
     {
       question: `What is a key advantage of using ${topic}?`,
@@ -177,10 +287,11 @@ function generateQuizQuestions(topic, moduleTitle, difficulty) {
         "It requires no training data",
         "It provides accurate insights from patterns",
         "It works without algorithms",
-        "It needs no computational resources"
+        "It needs no computational resources",
       ],
       correct_answer: 1,
-      explanation: `The key advantage is providing accurate insights by identifying patterns in data.`
+      explanation:
+        "The key advantage is providing accurate insights by identifying patterns in data.",
     },
     {
       question: `When implementing ${topic}, what is most important?`,
@@ -188,10 +299,11 @@ function generateQuizQuestions(topic, moduleTitle, difficulty) {
         "Having the fastest computer",
         "Understanding the underlying principles",
         "Using the most expensive tools",
-        "Memorizing all formulas"
+        "Memorizing all formulas",
       ],
       correct_answer: 1,
-      explanation: `Understanding the underlying principles is crucial for effective implementation.`
+      explanation:
+        "Understanding the underlying principles is crucial for effective implementation.",
     },
     {
       question: `How does ${topic} contribute to AI advancement?`,
@@ -199,11 +311,11 @@ function generateQuizQuestions(topic, moduleTitle, difficulty) {
         "By replacing human decision-making entirely",
         "By enabling systems to learn and improve",
         "By eliminating the need for data",
-        "By making AI free for everyone"
+        "By making AI free for everyone",
       ],
       correct_answer: 1,
-      explanation: `${topic} contributes by enabling systems to learn from data and continuously improve.`
-    }
+      explanation: `${topic} contributes by enabling systems to learn from data and continuously improve.`,
+    },
   ];
 }
 
@@ -219,19 +331,19 @@ function generateCourseData() {
       generated_at: new Date().toISOString(),
       total_modules: 10,
       total_lessons: 100,
-      generator: 'seed_data.js',
-      note: 'In production, content would be generated using OpenAI API for higher quality and context-awareness'
-    }
+      generator: "seed_data.js",
+      note: "In production, content would be generated using OpenAI API for higher quality and context-awareness",
+    },
   };
 
-  modules.forEach(module => {
+  modules.forEach((module) => {
     courseData.modules.push({
       id: module.id,
       title: module.title,
       description: module.description,
       difficulty: module.difficulty,
       order: module.id,
-      lesson_count: 10
+      lesson_count: 10,
     });
 
     module.topics.forEach((topic, index) => {
@@ -243,14 +355,14 @@ function generateCourseData() {
         module.title,
         module.difficulty
       );
-      
+
       courseData.lessons.push(lesson);
 
       const quiz = {
         lesson_id: lesson.id,
-        questions: generateQuizQuestions(topic, module.title, module.difficulty)
+        questions: generateQuizQuestions(topic, module.title, module.difficulty),
       };
-      
+
       courseData.quizzes.push(quiz);
     });
   });
@@ -262,23 +374,25 @@ function generateCourseData() {
  * Save data to JSON file
  */
 function saveData() {
-  const dataDir = path.join(__dirname, '..', 'data');
-  
+  const dataDir = path.join(__dirname, "..", "data");
+
   if (!fs.existsSync(dataDir)) {
     fs.mkdirSync(dataDir, { recursive: true });
   }
 
   const data = generateCourseData();
-  const filePath = path.join(dataDir, 'seed.json');
+  const filePath = path.join(dataDir, "seed.json");
 
   fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
 
-  console.log('✅ Seed data generated successfully!');
+  console.log("✅ Seed data generated successfully!");
   console.log(`📁 Location: ${filePath}`);
   console.log(`📚 Modules: ${data.modules.length}`);
   console.log(`📖 Lessons: ${data.lessons.length}`);
   console.log(`❓ Quizzes: ${data.quizzes.length}`);
-  console.log('\n💡 Note: In production with OPENAI_API_KEY, content would be AI-generated for higher quality.');
+  console.log(
+    "\n💡 Note: In production with OPENAI_API_KEY, content would be AI-generated for higher quality."
+  );
 }
 
 // Run the generator

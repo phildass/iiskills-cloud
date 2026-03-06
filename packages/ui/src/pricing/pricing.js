@@ -99,15 +99,12 @@ export function getEffectiveBasePrice(date = new Date()) {
 export function getEffectivePricingBreakdown(date = new Date()) {
   const intro = isIntroPeriod(date);
   return {
-    base:    intro ? OLD_PRICE  : NEW_PRICE,
-    gst:     intro ? OLD_GST    : NEW_GST,
-    total:   intro ? OLD_TOTAL  : NEW_TOTAL,
+    base: intro ? OLD_PRICE : NEW_PRICE,
+    gst: intro ? OLD_GST : NEW_GST,
+    total: intro ? OLD_TOTAL : NEW_TOTAL,
     gstRate: GST_RATE,
-    phase:   intro ? "intro" : "standard",
-    messages: [
-      "Effective till March 31, 2026",
-      "New prices effective from April 01, 2026",
-    ],
+    phase: intro ? "intro" : "standard",
+    messages: ["Effective till March 31, 2026", "New prices effective from April 01, 2026"],
   };
 }
 
@@ -117,13 +114,13 @@ export function getEffectivePricingBreakdown(date = new Date()) {
 export function getCurrentPricing(date = new Date()) {
   const bd = getEffectivePricingBreakdown(date);
   return {
-    basePrice:     bd.base,
-    gstRate:       bd.gstRate,
-    gstAmount:     bd.gst,
-    totalPrice:    bd.total,
+    basePrice: bd.base,
+    gstRate: bd.gstRate,
+    gstAmount: bd.gst,
+    totalPrice: bd.total,
     isIntroductory: bd.phase === "intro",
-    introEndDate:  new Date(`${CUTOFF_DATE}T23:59:59`),
-    currency:      "INR",
+    introEndDate: new Date(`${CUTOFF_DATE}T23:59:59`),
+    currency: "INR",
     currencySymbol: "Rs",
   };
 }
@@ -134,10 +131,10 @@ export function getCurrentPricing(date = new Date()) {
 export function getPricingDisplay(date = new Date()) {
   const p = getCurrentPricing(date);
   return {
-    basePrice:   formatINR(p.basePrice),
-    gstAmount:   formatINR(p.gstAmount),
-    totalPrice:  formatINR(p.totalPrice),
-    gstRate:     `${(p.gstRate * 100).toFixed(0)}%`,
+    basePrice: formatINR(p.basePrice),
+    gstAmount: formatINR(p.gstAmount),
+    totalPrice: formatINR(p.totalPrice),
+    gstRate: `${(p.gstRate * 100).toFixed(0)}%`,
     isIntroductory: p.isIntroductory,
     introEndDate: p.introEndDate.toLocaleDateString("en-IN", {
       year: "numeric",
@@ -170,12 +167,12 @@ export default {
   getPricingDisplay,
   getIntroOfferNotice,
   // legacy aliases
-  INTRO_BASE_PRICE:  OLD_PRICE,
-  INTRO_GST_AMOUNT:  OLD_GST,
+  INTRO_BASE_PRICE: OLD_PRICE,
+  INTRO_GST_AMOUNT: OLD_GST,
   INTRO_TOTAL_PRICE: OLD_TOTAL,
-  INTRO_END_DATE:    new Date(`${CUTOFF_DATE}T23:59:59`),
-  REGULAR_BASE_PRICE:  NEW_PRICE,
-  REGULAR_GST_AMOUNT:  NEW_GST,
+  INTRO_END_DATE: new Date(`${CUTOFF_DATE}T23:59:59`),
+  REGULAR_BASE_PRICE: NEW_PRICE,
+  REGULAR_GST_AMOUNT: NEW_GST,
   REGULAR_TOTAL_PRICE: NEW_TOTAL,
 };
 
@@ -199,7 +196,7 @@ export function isBundleOfferActive(currentDate = new Date()) {
  */
 export function getBundleOfferNotice() {
   if (!isBundleOfferActive()) return null;
-  return `🎁 LIMITED OFFER: Buy Learn AI OR Learn Developer — get BOTH for the price of ONE! Offer valid until 31 March 2026.`;
+  return "🎁 LIMITED OFFER: Buy Learn AI OR Learn Developer — get BOTH for the price of ONE! Offer valid until 31 March 2026.";
 }
 
 export { BUNDLE_APPS };

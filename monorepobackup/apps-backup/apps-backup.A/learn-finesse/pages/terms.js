@@ -8,9 +8,7 @@ export default function Terms() {
         <meta name="description" content="Terms and Conditions for Learn Finesse" />
       </Head>
       <main className="max-w-4xl mx-auto px-4 py-12">
-        <h1 className="text-4xl font-bold text-primary mb-8 text-center">
-          Terms and Conditions
-        </h1>
+        <h1 className="text-4xl font-bold text-primary mb-8 text-center">Terms and Conditions</h1>
 
         <div className="bg-white rounded-lg shadow-lg p-8 space-y-6">
           <section>
@@ -32,17 +30,17 @@ export default function Terms() {
           <section>
             <h2 className="text-2xl font-bold text-charcoal mb-3">3. Educational Content</h2>
             <p className="text-gray-700 leading-relaxed">
-              The content provided in Learn Finesse is for educational purposes. While we strive
-              for cultural accuracy across Western, Indian, and Eastern contexts, cultural norms
-              can vary within regions. We recommend adapting lessons to your specific context.
+              The content provided in Learn Finesse is for educational purposes. While we strive for
+              cultural accuracy across Western, Indian, and Eastern contexts, cultural norms can
+              vary within regions. We recommend adapting lessons to your specific context.
             </p>
           </section>
 
           <section>
             <h2 className="text-2xl font-bold text-charcoal mb-3">4. No Formal Certification</h2>
             <p className="text-gray-700 leading-relaxed">
-              Learn Finesse provides skill badges and confidence scores for internal tracking.
-              These do not constitute formal certification or professional credentials.
+              Learn Finesse provides skill badges and confidence scores for internal tracking. These
+              do not constitute formal certification or professional credentials.
             </p>
           </section>
 
@@ -65,8 +63,8 @@ export default function Terms() {
           <section>
             <h2 className="text-2xl font-bold text-charcoal mb-3">7. Modifications</h2>
             <p className="text-gray-700 leading-relaxed">
-              Learn Finesse reserves the right to revise these terms at any time. Continued use
-              of the platform constitutes acceptance of revised terms.
+              Learn Finesse reserves the right to revise these terms at any time. Continued use of
+              the platform constitutes acceptance of revised terms.
             </p>
           </section>
 

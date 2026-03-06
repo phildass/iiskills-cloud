@@ -28,7 +28,6 @@ import PremiumAccessPrompt from "../payment/PremiumAccessPrompt";
 import LevelSelector from "../content/LevelSelector";
 import UniversalInstallPrompt from "../pwa/UniversalInstallPrompt";
 
-
 /**
  * Generate standardized app context label
  * Maps app IDs to their iiskills branded labels
@@ -136,7 +135,7 @@ export default function UniversalLandingPage({
   // Map appId to appType for gatekeeper questions
   const getAppType = () => {
     if (appType) return appType;
-    
+
     // Extract app type from appId (e.g., "learn-math" -> "math")
     const typeMap = {
       "learn-math": "math",
@@ -160,7 +159,7 @@ export default function UniversalLandingPage({
   const handleGatekeeperSuccess = () => {
     // For free apps, navigate to Lesson 1.1
     if (isFree) {
-      window.location.href = `/modules/1/lesson/1`;
+      window.location.href = "/modules/1/lesson/1";
     }
   };
 
@@ -234,8 +233,10 @@ export default function UniversalLandingPage({
           <div className="max-w-4xl mx-auto text-center">
             {/* Labels */}
             <div className="flex items-center gap-3 justify-center mb-6">
-              <div className={`${isFree ? 'bg-green-500' : 'bg-blue-600'} text-white px-4 py-2 rounded-lg text-sm font-bold shadow-lg`}>
-                {isFree ? 'FREE' : 'PAID'}
+              <div
+                className={`${isFree ? "bg-green-500" : "bg-blue-600"} text-white px-4 py-2 rounded-lg text-sm font-bold shadow-lg`}
+              >
+                {isFree ? "FREE" : "PAID"}
               </div>
               <Link
                 href="/curriculum"

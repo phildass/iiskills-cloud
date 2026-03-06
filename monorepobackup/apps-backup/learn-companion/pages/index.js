@@ -20,21 +20,21 @@ export default function Home() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!input.trim() || isLoading) return;
 
     const userMessage = input.trim();
-    
+
     // Add user message to chat
-    setMessages(prev => [...prev, { role: 'user', content: userMessage }]);
+    setMessages((prev) => [...prev, { role: "user", content: userMessage }]);
     setInput("What should I do?");
     setIsLoading(true);
 
     try {
-      const response = await fetch('/api/chat', {
-        method: 'POST',
+      const response = await fetch("/api/chat", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ message: userMessage }),
       });
@@ -42,19 +42,25 @@ export default function Home() {
       const data = await response.json();
 
       if (response.ok) {
-        setMessages(prev => [...prev, { role: 'assistant', content: data.message }]);
+        setMessages((prev) => [...prev, { role: "assistant", content: data.message }]);
       } else {
-        setMessages(prev => [...prev, { 
-          role: 'assistant', 
-          content: data.error || 'Sorry, something went wrong. Please try again.' 
-        }]);
+        setMessages((prev) => [
+          ...prev,
+          {
+            role: "assistant",
+            content: data.error || "Sorry, something went wrong. Please try again.",
+          },
+        ]);
       }
     } catch (error) {
-      console.error('Error:', error);
-      setMessages(prev => [...prev, { 
-        role: 'assistant', 
-        content: 'Sorry, I encountered an error. Please try again.' 
-      }]);
+      console.error("Error:", error);
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: "assistant",
+          content: "Sorry, I encountered an error. Please try again.",
+        },
+      ]);
     } finally {
       setIsLoading(false);
     }
@@ -82,7 +88,7 @@ export default function Home() {
                     Welcome to Learn Companion
                   </h2>
                   <p className="text-gray-600 mb-4">
-                    I'm your AI life advisor. Ask me questions starting with "What should I do..." 
+                    I'm your AI life advisor. Ask me questions starting with "What should I do..."
                     and I'll provide helpful, actionable advice.
                   </p>
                   <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 text-left">
@@ -100,13 +106,13 @@ export default function Home() {
                 {messages.map((message, index) => (
                   <div
                     key={index}
-                    className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
+                    className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}
                   >
                     <div
                       className={`max-w-[80%] rounded-lg px-4 py-3 ${
-                        message.role === 'user'
-                          ? 'bg-primary text-white'
-                          : 'bg-white text-gray-800 border border-gray-200 shadow-sm'
+                        message.role === "user"
+                          ? "bg-primary text-white"
+                          : "bg-white text-gray-800 border border-gray-200 shadow-sm"
                       }`}
                     >
                       <p className="whitespace-pre-wrap">{message.content}</p>
@@ -130,7 +136,10 @@ export default function Home() {
           </div>
 
           {/* Input Form */}
-          <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow-md border border-gray-200 p-4">
+          <form
+            onSubmit={handleSubmit}
+            className="bg-white rounded-lg shadow-md border border-gray-200 p-4"
+          >
             <div className="flex items-center space-x-2">
               <input
                 type="text"
@@ -145,7 +154,7 @@ export default function Home() {
                 disabled={isLoading || !input.trim()}
                 className="px-6 py-3 bg-primary text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {isLoading ? 'Sending...' : 'Send'}
+                {isLoading ? "Sending..." : "Send"}
               </button>
             </div>
             <p className="text-xs text-gray-500 mt-2">

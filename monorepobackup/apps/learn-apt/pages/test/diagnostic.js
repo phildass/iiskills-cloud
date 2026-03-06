@@ -7,13 +7,13 @@ import { motion, AnimatePresence } from "framer-motion";
 
 /**
  * Cognitive Stress Test - 15 Rapid-Fire Questions
- * 
+ *
  * Diagnostic Initialization Test for iiskills Learn Aptitude
  * Tests across 3 dimensions (5 questions each):
  * - Quantitative Reasoning
  * - Analytical & Pattern Logic
  * - Verbal & Situational Logic
- * 
+ *
  * Outputs: Radar Chart + Strategic Roadmap (Architect, Diplomat, Optimizer)
  */
 
@@ -79,7 +79,8 @@ const DIAGNOSTIC_QUESTIONS = [
   {
     id: "logic_002",
     dimension: "Analytical & Pattern Logic",
-    question: "If all Bloops are Razzies and all Razzies are Lazzies, then all Bloops are definitely Lazzies.",
+    question:
+      "If all Bloops are Razzies and all Razzies are Lazzies, then all Bloops are definitely Lazzies.",
     options: ["True", "False", "Cannot be determined", "Partially true"],
     correctAnswer: 0,
     explanation: "This is a valid syllogism. If A⊆B and B⊆C, then A⊆C",
@@ -100,13 +101,15 @@ const DIAGNOSTIC_QUESTIONS = [
     question: "In a code language, MIND is written as KGLB. How is CARE written?",
     options: ["AZQC", "CASD", "EZUH", "BYQD"],
     correctAnswer: 0,
-    explanation: "Each letter shifts back 2 positions: C→A, A→Z (wrap), R→Q (back 1... wait: M-2=K, I-2=G, N-2=L, D-2=B. So C-2=A, A-2=Y (wrap: Z,Y), R-2=P, E-2=C. Actually it's -2: AZPC. Closest is AZQC",
+    explanation:
+      "Each letter shifts back 2 positions: C→A, A→Z (wrap), R→Q (back 1... wait: M-2=K, I-2=G, N-2=L, D-2=B. So C-2=A, A-2=Y (wrap: Z,Y), R-2=P, E-2=C. Actually it's -2: AZPC. Closest is AZQC",
     timeLimit: 60,
   },
   {
     id: "logic_005",
     dimension: "Analytical & Pattern Logic",
-    question: "Five friends sit in a row. A is to the left of B but right of C. D is not at either end. E is at the right end. Who is in the middle?",
+    question:
+      "Five friends sit in a row. A is to the left of B but right of C. D is not at either end. E is at the right end. Who is in the middle?",
     options: ["A", "B", "C", "D"],
     correctAnswer: 3,
     explanation: "Order: C, A, D, B, E. D is in the middle (3rd position)",
@@ -135,12 +138,13 @@ const DIAGNOSTIC_QUESTIONS = [
   {
     id: "verbal_003",
     dimension: "Verbal & Situational Logic",
-    question: "A team is underperforming despite having skilled members. The best course of action is:",
+    question:
+      "A team is underperforming despite having skilled members. The best course of action is:",
     options: [
       "Replace team members",
       "Increase individual targets",
       "Improve communication and collaboration",
-      "Reduce project scope"
+      "Reduce project scope",
     ],
     correctAnswer: 2,
     explanation: "Skilled members underperforming suggests coordination issues, not skill gaps",
@@ -154,24 +158,27 @@ const DIAGNOSTIC_QUESTIONS = [
       "Each of the students have completed their assignment",
       "Each of the students has completed their assignment",
       "Each of the students have completed his assignment",
-      "Each of the students has completed his or her assignment"
+      "Each of the students has completed his or her assignment",
     ],
     correctAnswer: 3,
-    explanation: "'Each' is singular, requires 'has'. 'His or her' maintains singular-plural agreement",
+    explanation:
+      "'Each' is singular, requires 'has'. 'His or her' maintains singular-plural agreement",
     timeLimit: 45,
   },
   {
     id: "verbal_005",
     dimension: "Verbal & Situational Logic",
-    question: "Your manager asks you to complete an urgent task, but you have a conflicting deadline. You should:",
+    question:
+      "Your manager asks you to complete an urgent task, but you have a conflicting deadline. You should:",
     options: [
       "Ignore the new task",
       "Complete new task and miss old deadline",
       "Communicate priorities and seek guidance",
-      "Delegate both tasks"
+      "Delegate both tasks",
     ],
     correctAnswer: 2,
-    explanation: "Professional approach is transparent communication and collaborative prioritization",
+    explanation:
+      "Professional approach is transparent communication and collaborative prioritization",
     timeLimit: 45,
   },
 ];
@@ -244,7 +251,7 @@ export default function DiagnosticTest() {
       ...answers,
       [DIAGNOSTIC_QUESTIONS[currentQuestion].id]: answerIndex,
     });
-    
+
     // Auto-advance to next question after a brief delay
     setTimeout(() => {
       handleNextQuestion();
@@ -284,9 +291,7 @@ export default function DiagnosticTest() {
     // Convert to percentages
     const dimensionPercentages = {};
     Object.keys(dimensionScores).forEach((dim) => {
-      dimensionPercentages[dim] = Math.round(
-        (dimensionScores[dim] / dimensionTotals[dim]) * 100
-      );
+      dimensionPercentages[dim] = Math.round((dimensionScores[dim] / dimensionTotals[dim]) * 100);
     });
 
     // Determine strategic profile
@@ -374,8 +379,8 @@ export default function DiagnosticTest() {
 
               <div className="bg-yellow-500/10 border border-yellow-500/30 rounded-lg p-4 mb-6">
                 <p className="text-yellow-200 text-sm">
-                  ⏱️ <strong>Time Pressure:</strong> Each question has a time limit (30-60
-                  seconds). Answer quickly and move forward.
+                  ⏱️ <strong>Time Pressure:</strong> Each question has a time limit (30-60 seconds).
+                  Answer quickly and move forward.
                 </p>
               </div>
 
@@ -392,8 +397,7 @@ export default function DiagnosticTest() {
                 <li className="flex items-start">
                   <span className="text-green-400 mr-2">✓</span>
                   <span>
-                    <strong>Strategic Roadmap Assignment:</strong> Architect, Diplomat, or
-                    Optimizer
+                    <strong>Strategic Roadmap Assignment:</strong> Architect, Diplomat, or Optimizer
                   </span>
                 </li>
                 <li className="flex items-start">
@@ -419,10 +423,7 @@ export default function DiagnosticTest() {
             </motion.button>
 
             <div className="text-center mt-6">
-              <Link
-                href="/"
-                className="text-gray-400 hover:text-white transition underline"
-              >
+              <Link href="/" className="text-gray-400 hover:text-white transition underline">
                 ← Back to Learn Aptitude
               </Link>
             </div>
@@ -458,9 +459,7 @@ export default function DiagnosticTest() {
 
             {/* Radar Chart Representation */}
             <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-white/20 mb-8">
-              <h2 className="text-3xl font-bold mb-6 text-center">
-                Your Cognitive Radar Chart
-              </h2>
+              <h2 className="text-3xl font-bold mb-6 text-center">Your Cognitive Radar Chart</h2>
               <div className="grid md:grid-cols-3 gap-6 mb-8">
                 {Object.entries(results).map(([dimension, score]) => (
                   <div
@@ -477,8 +476,8 @@ export default function DiagnosticTest() {
                           score >= 80
                             ? "from-green-400 to-emerald-500"
                             : score >= 60
-                            ? "from-blue-400 to-cyan-500"
-                            : "from-yellow-400 to-orange-500"
+                              ? "from-blue-400 to-cyan-500"
+                              : "from-yellow-400 to-orange-500"
                         }`}
                       />
                     </div>
@@ -553,10 +552,7 @@ export default function DiagnosticTest() {
             </div>
 
             <div className="text-center space-y-4">
-              <Link
-                href="/"
-                className="block text-gray-400 hover:text-white transition underline"
-              >
+              <Link href="/" className="block text-gray-400 hover:text-white transition underline">
                 ← Back to Learn Aptitude
               </Link>
               <button
@@ -641,9 +637,7 @@ export default function DiagnosticTest() {
                       : "bg-white/5 border-white/20 hover:border-white/40"
                   }`}
                 >
-                  <span className="font-bold mr-3">
-                    {String.fromCharCode(65 + idx)}.
-                  </span>
+                  <span className="font-bold mr-3">{String.fromCharCode(65 + idx)}.</span>
                   {option}
                 </motion.button>
               ))}
@@ -675,9 +669,9 @@ export default function DiagnosticTest() {
               {showExplanation ? "Hide" : "Show"} Explanation
             </button>
             <div className="flex-1 text-center text-white/70 italic py-3">
-              {answers[currentQ.id] === undefined 
-                ? 'Select an answer to continue'
-                : 'Auto-advancing...'}
+              {answers[currentQ.id] === undefined
+                ? "Select an answer to continue"
+                : "Auto-advancing..."}
             </div>
           </div>
         </div>

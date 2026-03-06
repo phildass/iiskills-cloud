@@ -16,15 +16,15 @@ export default function AdminLessons() {
   const fetchLessons = async () => {
     try {
       setLoading(true);
-      
+
       // Fetch from API endpoint
-      const response = await fetch('/api/lessons');
+      const response = await fetch("/api/lessons");
       const result = await response.json();
-      
+
       if (result.error) throw new Error(result.error);
       setLessons(result.data || []);
     } catch (error) {
-      console.error('Error fetching lessons:', error);
+      console.error("Error fetching lessons:", error);
     } finally {
       setLoading(false);
     }
@@ -98,10 +98,10 @@ export default function AdminLessons() {
                           <div className="text-sm text-gray-500">{lesson.slug}</div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                          {lesson.module_id || 'N/A'}
+                          {lesson.module_id || "N/A"}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                          {lesson.type || 'content'}
+                          {lesson.type || "content"}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                           {lesson.order_index}
@@ -112,14 +112,20 @@ export default function AdminLessons() {
                           </span>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                            lesson._source === 'supabase' 
-                              ? 'bg-green-100 text-green-800' 
-                              : lesson._source === 'local'
-                              ? 'bg-blue-100 text-blue-800'
-                              : 'bg-gray-100 text-gray-800'
-                          }`}>
-                            {lesson._source === 'supabase' ? 'Supabase' : lesson._source === 'local' ? 'Local' : 'Unknown'}
+                          <span
+                            className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
+                              lesson._source === "supabase"
+                                ? "bg-green-100 text-green-800"
+                                : lesson._source === "local"
+                                  ? "bg-blue-100 text-blue-800"
+                                  : "bg-gray-100 text-gray-800"
+                            }`}
+                          >
+                            {lesson._source === "supabase"
+                              ? "Supabase"
+                              : lesson._source === "local"
+                                ? "Local"
+                                : "Unknown"}
                           </span>
                         </td>
                       </tr>

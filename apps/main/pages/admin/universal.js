@@ -1,6 +1,6 @@
-import Head from 'next/head';
-import UniversalAdminDashboard from '../../components/UniversalAdminDashboard';
-import { useAdminProtectedPage, AccessDenied } from '../../components/AdminProtectedPage';
+import Head from "next/head";
+import UniversalAdminDashboard from "../../components/UniversalAdminDashboard";
+import { useAdminProtectedPage, AccessDenied } from "../../components/AdminProtectedPage";
 
 export default function AdminPage() {
   const { ready, denied } = useAdminProtectedPage();

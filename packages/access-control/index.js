@@ -1,8 +1,8 @@
 /**
  * @iiskills/access-control
- * 
+ *
  * Universal App Access Control System
- * 
+ *
  * This package provides centralized access control for all iiskills.cloud apps.
  * It handles:
  * - Free vs paid app definitions
@@ -10,34 +10,34 @@
  * - User access verification
  * - Payment integration
  * - Database operations
- * 
+ *
  * @example Basic usage
  * ```javascript
  * import { isFreeApp, requiresPayment, userHasAccess } from '@iiskills/access-control';
- * 
+ *
  * // Check if app is free
  * if (isFreeApp('learn-math')) {
  *   console.log('This app is free!');
  * }
- * 
+ *
  * // Check if app requires payment
  * if (requiresPayment('learn-ai')) {
  *   console.log('Payment required');
  * }
- * 
+ *
  * // Check user access
  * if (userHasAccess(user, 'learn-developer')) {
  *   console.log('User has access!');
  * }
  * ```
- * 
+ *
  * @example Database operations
  * ```javascript
  * import { hasAppAccess, grantBundleAccess } from '@iiskills/access-control';
- * 
+ *
  * // Check access from database
  * const hasAccess = await hasAppAccess(userId, 'learn-ai');
- * 
+ *
  * // Grant bundle access after payment
  * const result = await grantBundleAccess({
  *   userId: 'uuid',
@@ -46,7 +46,7 @@
  * });
  * // This unlocks both learn-ai and learn-developer
  * ```
- * 
+ *
  * @module @iiskills/access-control
  */
 
@@ -61,7 +61,7 @@ export {
   getAccessStatus,
   hasAccessViaBundle,
   getBundleAccessMessage,
-} from './accessControl.js';
+} from "./accessControl.js";
 
 // Database operations
 export {
@@ -73,7 +73,7 @@ export {
   revokeAppAccess,
   getAccessStats,
   updatePaymentBundleInfo,
-} from './dbAccessManager.js';
+} from "./dbAccessManager.js";
 
 // Configuration and constants
 export {
@@ -84,7 +84,7 @@ export {
   getPaidApps,
   getAppConfig,
   getBundleConfig,
-} from './appConfig.js';
+} from "./appConfig.js";
 
 // Payment guards and validation
 export {
@@ -93,4 +93,4 @@ export {
   validatePaymentMethod,
   validatePaymentBody,
   guardPaymentEndpoint,
-} from './paymentGuard.js';
+} from "./paymentGuard.js";

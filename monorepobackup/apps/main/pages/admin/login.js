@@ -1,6 +1,6 @@
-import Head from 'next/head';
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
+import Head from "next/head";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 
 /**
  * Admin Login Page — /admin/login
@@ -21,15 +21,15 @@ import { useRouter } from 'next/router';
  */
 export default function AdminLogin() {
   const router = useRouter();
-  const [passphrase, setPassphrase] = useState('');
-  const [error, setError] = useState('');
+  const [passphrase, setPassphrase] = useState("");
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [isBootstrap, setIsBootstrap] = useState(false);
   const [testMode, setTestMode] = useState(false);
   const [statusLoaded, setStatusLoaded] = useState(false);
 
   useEffect(() => {
-    fetch('/api/admin/status')
+    fetch("/api/admin/status")
       .then((r) => r.json())
       .then((data) => {
         setIsBootstrap(!data.configured);
@@ -41,13 +41,13 @@ export default function AdminLogin() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
+    setError("");
     setLoading(true);
 
     try {
-      const res = await fetch('/api/admin/bootstrap-or-login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const res = await fetch("/api/admin/bootstrap-or-login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ passphrase }),
       });
 
@@ -55,18 +55,17 @@ export default function AdminLogin() {
 
       if (res.ok && data.ok) {
         if (data.needs_setup) {
-          router.replace('/admin/setup');
+          router.replace("/admin/setup");
         } else {
           const redirectTo =
-            (typeof router.query.redirect === 'string' && router.query.redirect) ||
-            '/admin';
+            (typeof router.query.redirect === "string" && router.query.redirect) || "/admin";
           router.replace(redirectTo);
         }
       } else {
-        setError(data.error || 'Login failed');
+        setError(data.error || "Login failed");
       }
     } catch {
-      setError('Network error — please try again');
+      setError("Network error — please try again");
     } finally {
       setLoading(false);
     }
@@ -86,8 +85,8 @@ export default function AdminLogin() {
             <h1 className="text-2xl font-bold text-gray-800">Admin Access</h1>
             {statusLoaded && testMode ? (
               <p className="text-sm text-amber-600 mt-2 font-medium bg-amber-50 border border-amber-200 rounded-lg px-3 py-2">
-                Testing mode — default passphrase is <code className="font-mono">iiskills123</code>
-                {' '}(set <code className="font-mono">ADMIN_PANEL_SECRET</code> to override).
+                Testing mode — default passphrase is <code className="font-mono">iiskills123</code>{" "}
+                (set <code className="font-mono">ADMIN_PANEL_SECRET</code> to override).
               </p>
             ) : statusLoaded && isBootstrap ? (
               <p className="text-sm text-amber-600 mt-2 font-medium">
@@ -100,10 +99,7 @@ export default function AdminLogin() {
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label
-                htmlFor="passphrase"
-                className="block text-sm font-medium text-gray-700 mb-1"
-              >
+              <label htmlFor="passphrase" className="block text-sm font-medium text-gray-700 mb-1">
                 Passphrase
               </label>
               <input
@@ -130,7 +126,7 @@ export default function AdminLogin() {
               disabled={loading}
               className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg font-semibold hover:bg-blue-700 disabled:opacity-50 transition"
             >
-              {loading ? 'Signing in…' : 'Sign In'}
+              {loading ? "Signing in…" : "Sign In"}
             </button>
           </form>
         </div>

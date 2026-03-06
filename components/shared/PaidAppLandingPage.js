@@ -2,7 +2,7 @@
 
 /**
  * Enhanced Paid App Landing Page
- * 
+ *
  * Extends UniversalLandingPage with:
  * - Sample Lesson Showcase (Zero-Barrier Sample)
  * - App-specific highlights
@@ -24,7 +24,6 @@ import CalibrationGatekeeper from "./CalibrationGatekeeper";
 import PremiumAccessPrompt from "./PremiumAccessPrompt";
 
 import LevelSelector from "./LevelSelector";
-
 
 /**
  * Generate standardized app context label
@@ -57,12 +56,8 @@ function getAppSpecificLinks(appId) {
     //   { label: "Job Search", href: "/jobs" },
     //   { label: "Exam Alerts", href: "/exam-countdown" },
     // ],
-    "learn-ai": [
-      { label: "AI Playground", href: "/playground" },
-    ],
-    "learn-finesse": [
-      { label: "Certification", href: "/certification" },
-    ],
+    "learn-ai": [{ label: "AI Playground", href: "/playground" }],
+    "learn-finesse": [{ label: "Certification", href: "/certification" }],
   };
 
   return [...commonLinks, ...(appSpecificMap[appId] || [])];
@@ -92,7 +87,7 @@ export default function PaidAppLandingPage({
   // Map appId to appType for gatekeeper questions
   const getAppType = () => {
     if (appType) return appType;
-    
+
     const typeMap = {
       "learn-ai": "ai",
       "learn-developer": "developer",
@@ -154,7 +149,7 @@ export default function PaidAppLandingPage({
             <div className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-bold shadow-lg">
               PAID
             </div>
-            
+
             {/* Syllabus link */}
             <Link
               href="/curriculum"
@@ -164,7 +159,9 @@ export default function PaidAppLandingPage({
             </Link>
           </div>
 
-          <div className={`text-center space-y-6 max-w-4xl mx-auto mt-20 ${appId === 'learn-pr' ? 'text-white' : 'text-blue-600'}`}>
+          <div
+            className={`text-center space-y-6 max-w-4xl mx-auto mt-20 ${appId === "learn-pr" ? "text-white" : "text-blue-600"}`}
+          >
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight">
               {headline || appName}
             </h1>
@@ -179,7 +176,8 @@ export default function PaidAppLandingPage({
               <div className="bg-gradient-to-r from-purple-500 to-pink-500 border-2 border-white rounded-lg p-4 max-w-2xl mx-auto shadow-2xl">
                 <p className="text-xl font-bold text-white">🎁 Two Apps for the Price of One!</p>
                 <p className="text-sm mt-2 text-white">
-                  Purchase Learn AI or Learn Developer for {formatINR(pricing.base)} (+GST) and get BOTH apps!
+                  Purchase Learn AI or Learn Developer for {formatINR(pricing.base)} (+GST) and get
+                  BOTH apps!
                 </p>
               </div>
             )}
@@ -296,7 +294,8 @@ export default function PaidAppLandingPage({
                   Structured Learning Path
                 </h2>
                 <p className="text-lg text-gray-600 mb-6">
-                  Master skills through our proven Tri-Level system: Basic foundations, intermediate frameworks, and advanced mastery. Each level builds on the last.
+                  Master skills through our proven Tri-Level system: Basic foundations, intermediate
+                  frameworks, and advanced mastery. Each level builds on the last.
                 </p>
                 <a
                   href="#sample"
@@ -312,9 +311,7 @@ export default function PaidAppLandingPage({
         {/* Final CTA Section */}
         <section className="py-16 bg-gradient-to-r from-purple-600 to-blue-600 text-white">
           <div className="max-w-4xl mx-auto px-4 text-center">
-            <h2 className="text-3xl sm:text-4xl font-bold mb-6">
-              Ready to Master {appName}?
-            </h2>
+            <h2 className="text-3xl sm:text-4xl font-bold mb-6">Ready to Master {appName}?</h2>
             <p className="text-xl mb-8">
               Start with our free sample lesson and experience the iiskills difference.
             </p>

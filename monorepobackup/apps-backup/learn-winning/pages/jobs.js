@@ -1,13 +1,13 @@
 "use client";
 
-import { useState, useEffect } from 'react';
-import Head from 'next/head';
-import Footer from '../components/Footer';
+import { useState, useEffect } from "react";
+import Head from "next/head";
+import Footer from "../components/Footer";
 
 export default function Jobs() {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [filter, setFilter] = useState('');
+  const [filter, setFilter] = useState("");
 
   useEffect(() => {
     fetchJobs();
@@ -19,48 +19,49 @@ export default function Jobs() {
       const mockJobs = [
         {
           id: 1,
-          title: 'AI/ML Engineer',
-          company: 'Tech Corp India',
-          location: 'Bangalore, India',
-          salary: '₹15-25 LPA',
-          type: 'Full-time',
-          description: 'Looking for AI/ML engineer with 2+ years experience',
-          posted: '2 days ago'
+          title: "AI/ML Engineer",
+          company: "Tech Corp India",
+          location: "Bangalore, India",
+          salary: "₹15-25 LPA",
+          type: "Full-time",
+          description: "Looking for AI/ML engineer with 2+ years experience",
+          posted: "2 days ago",
         },
         {
           id: 2,
-          title: 'Data Scientist',
-          company: 'Analytics Solutions',
-          location: 'Mumbai, India',
-          salary: '₹12-20 LPA',
-          type: 'Full-time',
-          description: 'Data scientist role focusing on predictive analytics',
-          posted: '5 days ago'
+          title: "Data Scientist",
+          company: "Analytics Solutions",
+          location: "Mumbai, India",
+          salary: "₹12-20 LPA",
+          type: "Full-time",
+          description: "Data scientist role focusing on predictive analytics",
+          posted: "5 days ago",
         },
         {
           id: 3,
-          title: 'AI Research Intern',
-          company: 'Innovation Labs',
-          location: 'Hyderabad, India',
-          salary: '₹30k-50k/month',
-          type: 'Internship',
-          description: 'Research internship in computer vision and NLP',
-          posted: '1 week ago'
-        }
+          title: "AI Research Intern",
+          company: "Innovation Labs",
+          location: "Hyderabad, India",
+          salary: "₹30k-50k/month",
+          type: "Internship",
+          description: "Research internship in computer vision and NLP",
+          posted: "1 week ago",
+        },
       ];
 
       setJobs(mockJobs);
       setLoading(false);
     } catch (error) {
-      console.error('Error fetching jobs:', error);
+      console.error("Error fetching jobs:", error);
       setLoading(false);
     }
   };
 
-  const filteredJobs = jobs.filter(job =>
-    job.title.toLowerCase().includes(filter.toLowerCase()) ||
-    job.company.toLowerCase().includes(filter.toLowerCase()) ||
-    job.location.toLowerCase().includes(filter.toLowerCase())
+  const filteredJobs = jobs.filter(
+    (job) =>
+      job.title.toLowerCase().includes(filter.toLowerCase()) ||
+      job.company.toLowerCase().includes(filter.toLowerCase()) ||
+      job.location.toLowerCase().includes(filter.toLowerCase())
   );
 
   return (
@@ -100,7 +101,7 @@ export default function Jobs() {
                     <p className="text-gray-600">No jobs found matching your search.</p>
                   </div>
                 ) : (
-                  filteredJobs.map(job => (
+                  filteredJobs.map((job) => (
                     <div key={job.id} className="card hover:shadow-lg transition-shadow">
                       <div className="flex justify-between items-start mb-4">
                         <div>
@@ -120,9 +121,7 @@ export default function Jobs() {
                       <p className="text-gray-700 mb-4">{job.description}</p>
                       <div className="flex justify-between items-center">
                         <span className="text-sm text-gray-500">Posted {job.posted}</span>
-                        <button className="btn-primary">
-                          Apply Now
-                        </button>
+                        <button className="btn-primary">Apply Now</button>
                       </div>
                     </div>
                   ))
@@ -133,10 +132,11 @@ export default function Jobs() {
             <div className="mt-12 card bg-blue-50">
               <h3 className="text-xl font-semibold mb-4">Not finding the right job?</h3>
               <p className="text-gray-700 mb-4">
-                Complete our AI course to build the skills employers are looking for. Many of our graduates land their dream jobs within weeks of completion.
+                Complete our AI course to build the skills employers are looking for. Many of our
+                graduates land their dream jobs within weeks of completion.
               </p>
               <button
-                onClick={() => window.location.href = '/curriculum'}
+                onClick={() => (window.location.href = "/curriculum")}
                 className="btn-primary"
               >
                 View Course Curriculum

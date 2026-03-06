@@ -5,7 +5,10 @@ export default function Certification() {
     <>
       <Head>
         <title>Skill Badges - Learn Finesse | iiskills.cloud</title>
-        <meta name="description" content="Earn skill badges and track your cross-cultural confidence" />
+        <meta
+          name="description"
+          content="Earn skill badges and track your cross-cultural confidence"
+        />
       </Head>
       <main className="max-w-6xl mx-auto px-4 py-12">
         <div className="text-center mb-12">
@@ -19,16 +22,12 @@ export default function Certification() {
         </div>
 
         <div className="bg-gradient-to-br from-indigo-50 to-pink-50 rounded-2xl shadow-xl p-8 mb-12">
-          <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">
-            How It Works
-          </h2>
+          <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">How It Works</h2>
           <div className="grid md:grid-cols-3 gap-6">
             <div className="bg-white rounded-lg p-6 text-center">
               <div className="text-4xl mb-3">📚</div>
               <h3 className="text-xl font-bold text-gray-800 mb-2">Complete Lessons</h3>
-              <p className="text-gray-600">
-                Work through the 10-day bootcamp at your own pace
-              </p>
+              <p className="text-gray-600">Work through the 10-day bootcamp at your own pace</p>
             </div>
             <div className="bg-white rounded-lg p-6 text-center">
               <div className="text-4xl mb-3">✅</div>
@@ -40,9 +39,7 @@ export default function Certification() {
             <div className="bg-white rounded-lg p-6 text-center">
               <div className="text-4xl mb-3">🏆</div>
               <h3 className="text-xl font-bold text-gray-800 mb-2">Earn Badges</h3>
-              <p className="text-gray-600">
-                Collect skill badges and build your confidence score
-              </p>
+              <p className="text-gray-600">Collect skill badges and build your confidence score</p>
             </div>
           </div>
         </div>
@@ -131,9 +128,7 @@ export default function Certification() {
         </div>
 
         <div className="text-center bg-white rounded-xl shadow-lg p-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-4">
-            Ready to Start Your Journey?
-          </h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-4">Ready to Start Your Journey?</h2>
           <p className="text-gray-600 mb-6">
             Begin the 10-day bootcamp and start earning your skill badges today.
           </p>
