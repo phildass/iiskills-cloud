@@ -3,25 +3,9 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 import Link from "next/link";
 import { getPaymentReturnToUrl } from "@lib/appRegistry";
+import { isValidIndianPhone } from "@lib/phoneValidation";
 
 const AIENTER_PAYMENT_URL = "https://aienter.in/payments/iiskills";
-
-/**
- * Validate a raw phone input as an Indian mobile number.
- * Accepts 10-digit numbers (with optional +91 or 91 prefix).
- * The local 10 digits must start with 6–9.
- *
- * @param {string} raw
- * @returns {boolean}
- */
-function isValidIndianPhone(raw) {
-  if (!raw) return false;
-  const trimmed = raw.trim();
-  const digits = trimmed.replace(/\D/g, "");
-  let local = digits;
-  if (local.length === 12 && local.startsWith("91")) local = local.slice(2);
-  return /^[6-9]\d{9}$/.test(local);
-}
 
 /**
  * /payments/iiskills — Redirect to centralized payment portal (Option A)
@@ -118,7 +102,7 @@ export default function IiskillsCheckout() {
         const { supabase } = await import("../../lib/supabaseClient");
         const { data: profileData } = await supabase
           .from("profiles")
-          .select("first_name, phone")
+          .select("first_name, last_name, phone")
           .eq("id", currentSession.user.id)
           .single();
 
@@ -126,6 +110,7 @@ export default function IiskillsCheckout() {
 
         // Pre-fill the form with any existing values to reduce re-entry
         if (profileData?.first_name) setFirstName(profileData.first_name);
+        if (profileData?.last_name) setLastName(profileData.last_name);
         if (profileData?.phone) {
           // Display the stored phone stripped of +91 prefix for the 10-digit input
           const stored = profileData.phone;
@@ -174,6 +159,13 @@ export default function IiskillsCheckout() {
       });
       const data = await resp.json();
       if (!resp.ok || !data.token) {
+        // If the server reports that the profile is incomplete, send the user
+        // back to the registration form rather than showing a dead-end error.
+        if (data.code === "profile_incomplete") {
+          setStep("registration");
+          setFormError("Please complete your details before proceeding to payment.");
+          return;
+        }
         throw new Error(data.error || "Token generation failed");
       }
       token = data.token;

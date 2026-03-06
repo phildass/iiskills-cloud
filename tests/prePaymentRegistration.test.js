@@ -5,7 +5,7 @@
  * - normalizePhone: E.164 phone normalisation
  * - isValidE164:    validation of normalised numbers
  * - generate-token: 422 response when profile is incomplete
- * - isValidIndianPhone: client-side phone validation (inline in iiskills.js)
+ * - isValidIndianPhone: client-side phone validation (from lib/phoneValidation.js)
  */
 
 'use strict';
@@ -14,6 +14,8 @@ const {
   normalizePhone,
   isValidE164,
 } = require('../apps/main/pages/api/payments/save-profile');
+
+const { isValidIndianPhone } = require('../lib/phoneValidation');
 
 // ─── normalizePhone ───────────────────────────────────────────────────────────
 
@@ -166,19 +168,9 @@ describe('generate-token: profile_incomplete guard logic', () => {
   });
 });
 
-// ─── Client-side Indian phone validation (mirrors isValidIndianPhone in iiskills.js) ─────
+// ─── Client-side Indian phone validation (from lib/phoneValidation.js) ─────
 
 describe('isValidIndianPhone (client-side): accepts/rejects phone inputs', () => {
-  // Mirrors the function inside apps/main/pages/payments/iiskills.js
-  function isValidIndianPhone(raw) {
-    if (!raw) return false;
-    const trimmed = raw.trim();
-    const digits = trimmed.replace(/\D/g, '');
-    let local = digits;
-    if (local.length === 12 && local.startsWith('91')) local = local.slice(2);
-    return /^[6-9]\d{9}$/.test(local);
-  }
-
   test('accepts 10-digit number starting with 9', () => {
     expect(isValidIndianPhone('9876543210')).toBe(true);
   });
