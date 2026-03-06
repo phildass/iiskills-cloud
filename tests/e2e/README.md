@@ -63,6 +63,7 @@ yarn test:e2e:codegen
 ## Test Categories
 
 ### 1. Navigation Tests (`navigation/`)
+
 - Universal navbar visibility and responsiveness
 - Login/Register button presence
 - Terminology verification (uses "Login" not "Sign in")
@@ -70,6 +71,7 @@ yarn test:e2e:codegen
 - Mobile menu behavior
 
 ### 2. Authentication Tests (`auth/`)
+
 - Login page display and terminology
 - Form validation
 - Error handling
@@ -77,12 +79,14 @@ yarn test:e2e:codegen
 - Forgot password link
 
 ### 3. Access Control Tests (`access-control/`)
+
 - Badge color standardization:
   - FREE apps: green badges (bg-green-500)
   - PAID apps: blue badges (bg-blue-600)
 - Landing page badge verification
 
 ### 4. Payment Tests (`payments/`) - To be implemented
+
 - Razorpay integration
 - Single course purchase flow
 - Bundle purchase flow
@@ -93,16 +97,16 @@ yarn test:e2e:codegen
 ### Basic Test Structure
 
 ```javascript
-const { test, expect } = require('@playwright/test');
+const { test, expect } = require("@playwright/test");
 
-test.describe('Feature Name', () => {
+test.describe("Feature Name", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/your-page');
+    await page.goto("/your-page");
   });
 
-  test('should do something', async ({ page }) => {
+  test("should do something", async ({ page }) => {
     // Your test code
-    await expect(page.locator('selector')).toBeVisible();
+    await expect(page.locator("selector")).toBeVisible();
   });
 });
 ```
@@ -110,15 +114,15 @@ test.describe('Feature Name', () => {
 ### Using Helper Functions
 
 ```javascript
-const { login, logout, navigateToApp } = require('../utils/helpers');
-const { TEST_USERS } = require('../fixtures/test-users');
+const { login, logout, navigateToApp } = require("../utils/helpers");
+const { TEST_USERS } = require("../fixtures/test-users");
 
-test('test with authentication', async ({ page }) => {
+test("test with authentication", async ({ page }) => {
   // Login using helper
   await login(page, TEST_USERS.regularUser);
-  
+
   // Your test code
-  
+
   // Logout
   await logout(page);
 });
@@ -151,7 +155,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: "18"
       - name: Install dependencies
         run: yarn install
       - name: Install Playwright Browsers
@@ -190,16 +194,19 @@ Configuration is defined in `/playwright.config.js`:
 ## Troubleshooting
 
 ### Tests timing out
+
 - Increase timeout in test or config
 - Check if the application is running
 - Verify network conditions
 
 ### Element not found
+
 - Check selector syntax
 - Ensure element is visible (not just present in DOM)
 - Verify page has loaded completely
 
 ### Flaky tests
+
 - Add explicit waits for dynamic content
 - Check for race conditions
 - Use `waitForLoadState()` when needed
@@ -223,6 +230,7 @@ Minimum test coverage targets:
 ## Support
 
 For questions or issues with E2E tests:
+
 1. Check this README
 2. Review [Playwright documentation](https://playwright.dev)
 3. Check existing tests for examples

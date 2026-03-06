@@ -18,12 +18,7 @@
     },
     {
       "question": "In which module does \"Maritime Boundaries and the Law of the Sea\" appear?",
-      "options": [
-        "Human Geography",
-        "Physical Geography",
-        "Geopolitics",
-        "Climate Zones"
-      ],
+      "options": ["Human Geography", "Physical Geography", "Geopolitics", "Climate Zones"],
       "correct_answer": 2
     },
     {

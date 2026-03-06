@@ -18,32 +18,17 @@
     },
     {
       "question": "What HTTP status code indicates a successful request?",
-      "options": [
-        "404 Not Found",
-        "500 Internal Server Error",
-        "200 OK",
-        "301 Moved Permanently"
-      ],
+      "options": ["404 Not Found", "500 Internal Server Error", "200 OK", "301 Moved Permanently"],
       "correct_answer": 2
     },
     {
       "question": "Which HTTP method is used to retrieve data from a server?",
-      "options": [
-        "POST",
-        "GET",
-        "PUT",
-        "DELETE"
-      ],
+      "options": ["POST", "GET", "PUT", "DELETE"],
       "correct_answer": 1
     },
     {
       "question": "What header specifies the format of data being sent?",
-      "options": [
-        "Accept",
-        "Authorization",
-        "Content-Type",
-        "User-Agent"
-      ],
+      "options": ["Accept", "Authorization", "Content-Type", "User-Agent"],
       "correct_answer": 2
     },
     {

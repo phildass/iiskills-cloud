@@ -8,52 +8,27 @@
   "quiz": [
     {
       "question": "What is the value of x if 2x + 3 = 11?",
-      "options": [
-        "3",
-        "4",
-        "5",
-        "6"
-      ],
+      "options": ["3", "4", "5", "6"],
       "correct_answer": 1
     },
     {
       "question": "Which of these is an algebraic expression (not an equation)?",
-      "options": [
-        "3x + 2 = 8",
-        "x = 4",
-        "5y² – 3y + 1",
-        "2a – b = 0"
-      ],
+      "options": ["3x + 2 = 8", "x = 4", "5y² – 3y + 1", "2a – b = 0"],
       "correct_answer": 2
     },
     {
       "question": "Simplify 3x + 5x:",
-      "options": [
-        "8",
-        "8x",
-        "8x²",
-        "15x"
-      ],
+      "options": ["8", "8x", "8x²", "15x"],
       "correct_answer": 1
     },
     {
       "question": "Expand a(b + c):",
-      "options": [
-        "a + b + c",
-        "ab + ac",
-        "abc",
-        "a + bc"
-      ],
+      "options": ["a + b + c", "ab + ac", "abc", "a + bc"],
       "correct_answer": 1
     },
     {
       "question": "Factorise 6x² + 9x:",
-      "options": [
-        "3(2x² + 3x)",
-        "3x(2x + 3)",
-        "6x(x + 1)",
-        "9x(2x/3 + 1)"
-      ],
+      "options": ["3(2x² + 3x)", "3x(2x + 3)", "6x(x + 1)", "9x(2x/3 + 1)"],
       "correct_answer": 1
     }
   ]

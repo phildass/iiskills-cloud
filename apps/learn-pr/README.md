@@ -152,6 +152,7 @@ PAYMENT_RETURN_URL=https://aienter.in/payments
 This app uses **Google Cloud Translation API** for multi-language support.
 
 ### Setup:
+
 1. Get a Google Cloud Translation API key from [Google Cloud Console](https://console.cloud.google.com)
 2. Add to `.env.local`:
    ```bash
@@ -159,6 +160,7 @@ This app uses **Google Cloud Translation API** for multi-language support.
    ```
 
 ### Supported Languages:
+
 - English (en)
 - Hindi (hi)
 - Tamil (ta)
@@ -173,6 +175,7 @@ This app uses **Google Cloud Translation API** for multi-language support.
 - Urdu (ur)
 
 ### Fallback Behavior:
+
 If API key is missing or API fails, original English text is displayed.
 
 ### SUSPENDED Mode
@@ -205,7 +208,7 @@ The lesson should include:
 3. Practical applications in real-world scenarios
 4. A summary reinforcing the main takeaways
 
-Format: Use clear paragraphs with subheadings. 
+Format: Use clear paragraphs with subheadings.
 Target audience: learners with {difficulty} level knowledge.
 Writing style: Educational, engaging, and practical.
 ```
@@ -368,6 +371,7 @@ pm2 start ecosystem.config.js --only learn-pr
 ## 📈 Metrics & Analytics
 
 Track user progress:
+
 - Lesson completion rates
 - Quiz scores
 - Time spent per lesson
@@ -403,6 +407,7 @@ yarn build
 ### Database Connection
 
 If Supabase is unavailable:
+
 1. Set `NEXT_PUBLIC_SUPABASE_SUSPENDED=true`
 2. App will use in-memory storage
 3. Data persists only for session duration
@@ -434,6 +439,7 @@ Proprietary - Part of iiskills-cloud monorepo
 ## 🆘 Support
 
 For issues or questions:
+
 - Check documentation
 - Review error logs
 - Contact development team

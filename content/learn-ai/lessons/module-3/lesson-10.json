@@ -38,12 +38,7 @@
     },
     {
       "question": "What app does HUL use to gather rural retail outlet data?",
-      "options": [
-        "Shikhar app",
-        "Udaan app",
-        "BigBasket Rural",
-        "Meesho Rural"
-      ],
+      "options": ["Shikhar app", "Udaan app", "BigBasket Rural", "Meesho Rural"],
       "correct_answer": 0
     },
     {

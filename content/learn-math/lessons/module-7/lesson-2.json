@@ -8,12 +8,7 @@
   "quiz": [
     {
       "question": "∫₀² x dx equals:",
-      "options": [
-        "1",
-        "2",
-        "4",
-        "0"
-      ],
+      "options": ["1", "2", "4", "0"],
       "correct_answer": 1
     },
     {
@@ -28,32 +23,17 @@
     },
     {
       "question": "∫ₐᵃ f(x)dx equals:",
-      "options": [
-        "1",
-        "f(a)",
-        "0",
-        "2f(a)"
-      ],
+      "options": ["1", "f(a)", "0", "2f(a)"],
       "correct_answer": 2
     },
     {
       "question": "∫ₐᵇ f(x)dx = –∫_b^a f(x)dx is called:",
-      "options": [
-        "Linearity",
-        "Reversal of limits property",
-        "Zero property",
-        "Additivity"
-      ],
+      "options": ["Linearity", "Reversal of limits property", "Zero property", "Additivity"],
       "correct_answer": 1
     },
     {
       "question": "∫₁⁴ x² dx. The correct setup for the power rule is:",
-      "options": [
-        "[x³]₁⁴",
-        "[x³/3]₁⁴",
-        "[x²/2]₁⁴",
-        "[3x²]₁⁴"
-      ],
+      "options": ["[x³]₁⁴", "[x³/3]₁⁴", "[x²/2]₁⁴", "[3x²]₁⁴"],
       "correct_answer": 1
     }
   ]

@@ -18,22 +18,12 @@
     },
     {
       "question": "How many airports had DigiYatra deployed as of 2024?",
-      "options": [
-        "5",
-        "10",
-        "24+",
-        "50+"
-      ],
+      "options": ["5", "10", "24+", "50+"],
       "correct_answer": 2
     },
     {
       "question": "What is the India AI Mission budget announced in 2024?",
-      "options": [
-        "₹500 crore",
-        "₹2,000 crore",
-        "₹10,372 crore",
-        "₹50,000 crore"
-      ],
+      "options": ["₹500 crore", "₹2,000 crore", "₹10,372 crore", "₹50,000 crore"],
       "correct_answer": 2
     },
     {
@@ -48,12 +38,7 @@
     },
     {
       "question": "How many UPI transactions per month did India process in 2024?",
-      "options": [
-        "100 million",
-        "500 million",
-        "2 billion",
-        "Over 10 billion"
-      ],
+      "options": ["100 million", "500 million", "2 billion", "Over 10 billion"],
       "correct_answer": 3
     }
   ]

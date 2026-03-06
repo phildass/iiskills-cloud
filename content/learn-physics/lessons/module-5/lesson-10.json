@@ -8,12 +8,7 @@
   "quiz": [
     {
       "question": "Which branch of physics does 'Inverters and Batteries' primarily belong to?",
-      "options": [
-        "Electricity and Magnetism",
-        "Chemistry",
-        "Biology",
-        "Mathematics"
-      ],
+      "options": ["Electricity and Magnetism", "Chemistry", "Biology", "Mathematics"],
       "correct_answer": 0
     },
     {
@@ -28,32 +23,17 @@
     },
     {
       "question": "Physics is a:",
-      "options": [
-        "Social science",
-        "Natural science",
-        "Formal science",
-        "Art form"
-      ],
+      "options": ["Social science", "Natural science", "Formal science", "Art form"],
       "correct_answer": 1
     },
     {
       "question": "Which instrument measures force?",
-      "options": [
-        "Thermometer",
-        "Spring balance",
-        "Voltmeter",
-        "Barometer"
-      ],
+      "options": ["Thermometer", "Spring balance", "Voltmeter", "Barometer"],
       "correct_answer": 1
     },
     {
       "question": "What does 'uniform' mean in physics?",
-      "options": [
-        "Large",
-        "Constant, not changing",
-        "Very small",
-        "Random"
-      ],
+      "options": ["Large", "Constant, not changing", "Very small", "Random"],
       "correct_answer": 1
     }
   ]

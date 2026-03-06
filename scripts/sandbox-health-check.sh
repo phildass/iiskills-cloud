@@ -48,7 +48,7 @@ if [[ -z "$SUPABASE_URL" || -z "$ANON_KEY" ]]; then
   echo "     export SANDBOX_SUPABASE_ANON_KEY=<anon-key>"
   echo "     export SANDBOX_SUPABASE_SERVICE_ROLE_KEY=<service-role-key>  # optional"
   echo ""
-  echo "  See newapps/README.md for full setup instructions."
+  echo "  See the docs/ directory for full setup instructions."
   echo ""
   exit 0
 fi

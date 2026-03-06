@@ -28,32 +28,17 @@
     },
     {
       "question": "A parameter describes:",
-      "options": [
-        "A sample",
-        "The population",
-        "Any number",
-        "A test statistic"
-      ],
+      "options": ["A sample", "The population", "Any number", "A test statistic"],
       "correct_answer": 1
     },
     {
       "question": "Data collected directly by the researcher is called:",
-      "options": [
-        "Secondary data",
-        "Primary data",
-        "Tertiary data",
-        "Nominal data"
-      ],
+      "options": ["Secondary data", "Primary data", "Tertiary data", "Nominal data"],
       "correct_answer": 1
     },
     {
       "question": "Which type of data is measured on a scale with a true zero?",
-      "options": [
-        "Nominal",
-        "Ordinal",
-        "Interval",
-        "Ratio"
-      ],
+      "options": ["Nominal", "Ordinal", "Interval", "Ratio"],
       "correct_answer": 3
     }
   ]

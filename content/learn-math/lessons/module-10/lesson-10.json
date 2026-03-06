@@ -18,12 +18,7 @@
     },
     {
       "question": "Exponential growth models use which equation?",
-      "options": [
-        "y = mx + b",
-        "y = ax²",
-        "y = Aeˢᵗ",
-        "y = A sin(bt)"
-      ],
+      "options": ["y = mx + b", "y = ax²", "y = Aeˢᵗ", "y = A sin(bt)"],
       "correct_answer": 2
     },
     {

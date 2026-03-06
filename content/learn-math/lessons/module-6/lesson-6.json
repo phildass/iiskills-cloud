@@ -8,52 +8,27 @@
   "quiz": [
     {
       "question": "The product rule states d/dx[f·g] = :",
-      "options": [
-        "f'g'",
-        "f'g + fg'",
-        "f'g – fg'",
-        "(f + g)'"
-      ],
+      "options": ["f'g'", "f'g + fg'", "f'g – fg'", "(f + g)'"],
       "correct_answer": 1
     },
     {
       "question": "The quotient rule states d/dx[f/g] = :",
-      "options": [
-        "f'g – fg'/g²",
-        "f'g + fg'/g²",
-        "f'/g'",
-        "(f' – g')/g"
-      ],
+      "options": ["f'g – fg'/g²", "f'g + fg'/g²", "f'/g'", "(f' – g')/g"],
       "correct_answer": 0
     },
     {
       "question": "d/dx(x²·sin x) = :",
-      "options": [
-        "2x·cos x",
-        "x²cos x + 2x·sin x",
-        "2x·sin x",
-        "x²·cos x"
-      ],
+      "options": ["2x·cos x", "x²cos x + 2x·sin x", "2x·sin x", "x²·cos x"],
       "correct_answer": 1
     },
     {
       "question": "d/dx(sin x / x) using quotient rule = :",
-      "options": [
-        "cos x/x",
-        "(x·cos x – sin x)/x²",
-        "(sin x – x·cos x)/x²",
-        "cos x – sin x/x"
-      ],
+      "options": ["cos x/x", "(x·cos x – sin x)/x²", "(sin x – x·cos x)/x²", "cos x – sin x/x"],
       "correct_answer": 1
     },
     {
       "question": "d/dx(x·eˣ) = :",
-      "options": [
-        "eˣ",
-        "xeˣ",
-        "eˣ + xeˣ",
-        "eˣ – xeˣ"
-      ],
+      "options": ["eˣ", "xeˣ", "eˣ + xeˣ", "eˣ – xeˣ"],
       "correct_answer": 2
     }
   ]

@@ -8,32 +8,17 @@
   "quiz": [
     {
       "question": "Friction acts in what direction relative to motion?",
-      "options": [
-        "Same direction",
-        "Opposite direction",
-        "Perpendicular direction",
-        "At 45°"
-      ],
+      "options": ["Same direction", "Opposite direction", "Perpendicular direction", "At 45°"],
       "correct_answer": 1
     },
     {
       "question": "Which type of friction is the largest?",
-      "options": [
-        "Rolling friction",
-        "Kinetic friction",
-        "Static friction",
-        "Fluid friction"
-      ],
+      "options": ["Rolling friction", "Kinetic friction", "Static friction", "Fluid friction"],
       "correct_answer": 2
     },
     {
       "question": "The formula for friction force is:",
-      "options": [
-        "f = ma",
-        "f = μN",
-        "f = mv²/r",
-        "f = mgh"
-      ],
+      "options": ["f = ma", "f = μN", "f = mv²/r", "f = mgh"],
       "correct_answer": 1
     },
     {

@@ -30,16 +30,7 @@
       "unit": ""
     }
   ],
-  "outputs": [
-    "Vertex (h, k)",
-    "Discriminant Δ = b² – 4ac",
-    "Roots (if real)"
-  ],
+  "outputs": ["Vertex (h, k)", "Discriminant Δ = b² – 4ac", "Roots (if real)"],
   "image": "math-sim-1.png",
-  "tags": [
-    "quadratic",
-    "parabola",
-    "algebra",
-    "roots"
-  ]
+  "tags": ["quadratic", "parabola", "algebra", "roots"]
 }

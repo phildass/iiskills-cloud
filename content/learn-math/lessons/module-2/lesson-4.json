@@ -8,32 +8,17 @@
   "quiz": [
     {
       "question": "The degree of 4x³ – 2x² + 7 is:",
-      "options": [
-        "2",
-        "3",
-        "4",
-        "7"
-      ],
+      "options": ["2", "3", "4", "7"],
       "correct_answer": 1
     },
     {
       "question": "The Remainder Theorem states: dividing P(x) by (x–k) gives remainder:",
-      "options": [
-        "P(0)",
-        "P(k)",
-        "k",
-        "0"
-      ],
+      "options": ["P(0)", "P(k)", "k", "0"],
       "correct_answer": 1
     },
     {
       "question": "(x – 2) is a factor of P(x) if and only if:",
-      "options": [
-        "P(0) = 2",
-        "P(2) = 0",
-        "P(2) = 2",
-        "P(–2) = 0"
-      ],
+      "options": ["P(0) = 2", "P(2) = 0", "P(2) = 2", "P(–2) = 0"],
       "correct_answer": 1
     },
     {
@@ -48,12 +33,7 @@
     },
     {
       "question": "A polynomial of degree 4 has at most how many real roots?",
-      "options": [
-        "2",
-        "3",
-        "4",
-        "5"
-      ],
+      "options": ["2", "3", "4", "5"],
       "correct_answer": 2
     }
   ]

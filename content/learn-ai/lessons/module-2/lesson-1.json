@@ -8,32 +8,17 @@
   "quiz": [
     {
       "question": "What type of AI are ALL currently deployed AI systems?",
-      "options": [
-        "General AI",
-        "Narrow AI",
-        "Superintelligence",
-        "Hybrid AI"
-      ],
+      "options": ["General AI", "Narrow AI", "Superintelligence", "Hybrid AI"],
       "correct_answer": 1
     },
     {
       "question": "Who coined the term \"Artificial General Intelligence\"?",
-      "options": [
-        "Alan Turing",
-        "Nick Bostrom",
-        "John McCarthy",
-        "Geoffrey Hinton"
-      ],
+      "options": ["Alan Turing", "Nick Bostrom", "John McCarthy", "Geoffrey Hinton"],
       "correct_answer": 1
     },
     {
       "question": "Which initiative builds Narrow AI tools specifically for Indian languages?",
-      "options": [
-        "Google India",
-        "AI4Bharat",
-        "Microsoft Bharat",
-        "IBM India"
-      ],
+      "options": ["Google India", "AI4Bharat", "Microsoft Bharat", "IBM India"],
       "correct_answer": 1
     },
     {

@@ -1,1 +1,0 @@
-../../apps/learn-geography/next.config.js

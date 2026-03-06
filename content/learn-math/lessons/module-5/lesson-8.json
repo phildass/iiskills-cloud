@@ -28,22 +28,12 @@
     },
     {
       "question": "For a repeated linear factor (x–a)², the partial fraction terms include:",
-      "options": [
-        "A/(x–a)",
-        "A/(x–a)²",
-        "A/(x–a) + B/(x–a)²",
-        "A/(x–a)³"
-      ],
+      "options": ["A/(x–a)", "A/(x–a)²", "A/(x–a) + B/(x–a)²", "A/(x–a)³"],
       "correct_answer": 2
     },
     {
       "question": "For an irreducible quadratic factor (x²+1), the numerator is:",
-      "options": [
-        "A",
-        "A/(x²+1)",
-        "Ax + B",
-        "x + A"
-      ],
+      "options": ["A", "A/(x²+1)", "Ax + B", "x + A"],
       "correct_answer": 2
     },
     {

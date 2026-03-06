@@ -10,6 +10,10 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
+  if (process.env.OTP_DISABLED === "true") {
+    return res.status(410).json({ error: "OTP is temporarily disabled" });
+  }
+
   const { otp, path } = req.body;
 
   if (!otp || !/^\d{6}$/.test(otp)) {
@@ -37,6 +41,9 @@ export default async function handler(req, res) {
     console.error("OTP verification error:", err);
     return res
       .status(500)
-      .json({ error: "Unable to verify OTP. Please contact support@iiskills.cloud" });
+      .json({
+        error:
+          "Unable to verify OTP. If you have any issues, go to your dashboard and raise a ticket.",
+      });
   }
 }

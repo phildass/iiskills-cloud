@@ -38,16 +38,7 @@
       "unit": ""
     }
   ],
-  "outputs": [
-    "Determinant",
-    "Transformed unit square",
-    "Eigenvalues (if real)"
-  ],
+  "outputs": ["Determinant", "Transformed unit square", "Eigenvalues (if real)"],
   "image": "math-sim-5.png",
-  "tags": [
-    "linear algebra",
-    "matrices",
-    "transformations",
-    "eigenvectors"
-  ]
+  "tags": ["linear algebra", "matrices", "transformations", "eigenvectors"]
 }

@@ -8,12 +8,7 @@
   "quiz": [
     {
       "question": "A ladder leans against a wall at 60° to the ground. If the ladder is 10 m, the height reached is:",
-      "options": [
-        "5 m",
-        "5√3 m",
-        "10√3 m",
-        "10/√3 m"
-      ],
+      "options": ["5 m", "5√3 m", "10√3 m", "10/√3 m"],
       "correct_answer": 1
     },
     {
@@ -28,12 +23,7 @@
     },
     {
       "question": "In surveying, bearing is measured clockwise from:",
-      "options": [
-        "East",
-        "South",
-        "North",
-        "West"
-      ],
+      "options": ["East", "South", "North", "West"],
       "correct_answer": 2
     },
     {
@@ -48,12 +38,7 @@
     },
     {
       "question": "Which trigonometric function models simple harmonic motion (pendulum)?",
-      "options": [
-        "Linear function",
-        "Quadratic",
-        "Sine or cosine",
-        "Logarithm"
-      ],
+      "options": ["Linear function", "Quadratic", "Sine or cosine", "Logarithm"],
       "correct_answer": 2
     }
   ]

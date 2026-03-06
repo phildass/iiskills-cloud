@@ -18,12 +18,7 @@
     },
     {
       "question": "What is the SI unit of force?",
-      "options": [
-        "Joule",
-        "Watt",
-        "Newton",
-        "Pascal"
-      ],
+      "options": ["Joule", "Watt", "Newton", "Pascal"],
       "correct_answer": 2
     },
     {
@@ -48,12 +43,7 @@
     },
     {
       "question": "What is the formula for kinetic energy?",
-      "options": [
-        "KE = mgh",
-        "KE = Fd",
-        "KE = ½mv²",
-        "KE = mc²"
-      ],
+      "options": ["KE = mgh", "KE = Fd", "KE = ½mv²", "KE = mc²"],
       "correct_answer": 2
     }
   ]

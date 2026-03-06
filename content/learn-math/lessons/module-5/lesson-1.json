@@ -8,22 +8,12 @@
   "quiz": [
     {
       "question": "The vertex form of a quadratic is:",
-      "options": [
-        "ax² + bx + c",
-        "a(x–h)² + k",
-        "(x–r)(x–s)",
-        "ax + b"
-      ],
+      "options": ["ax² + bx + c", "a(x–h)² + k", "(x–r)(x–s)", "ax + b"],
       "correct_answer": 1
     },
     {
       "question": "A polynomial of degree n has at most how many roots?",
-      "options": [
-        "n–1",
-        "n",
-        "n+1",
-        "2n"
-      ],
+      "options": ["n–1", "n", "n+1", "2n"],
       "correct_answer": 1
     },
     {
@@ -38,22 +28,12 @@
     },
     {
       "question": "The complex conjugate of 3 + 4i is:",
-      "options": [
-        "3 – 4i",
-        "–3 + 4i",
-        "–3 – 4i",
-        "4 + 3i"
-      ],
+      "options": ["3 – 4i", "–3 + 4i", "–3 – 4i", "4 + 3i"],
       "correct_answer": 0
     },
     {
       "question": "A rational function is undefined where its denominator equals:",
-      "options": [
-        "1",
-        "–1",
-        "0",
-        "Its numerator"
-      ],
+      "options": ["1", "–1", "0", "Its numerator"],
       "correct_answer": 2
     }
   ]

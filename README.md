@@ -2,21 +2,18 @@
 
 This is the rebuilt IISkills Cloud monorepo using **Yarn Classic (v1)** workspaces and **Next.js**.
 
-> The original repository snapshot is preserved in [`monorepobackup/`](./monorepobackup/) (frozen, safe to delete once the new build is stable).
-
 ## Structure
 
 ```
 .
 ├── apps/
-│   ├── web/             # Main landing page (port 3000)
-│   ├── admin/           # Admin dashboard shell (port 3001, basePath /admin)
-│   └── learn-physics/   # Physics learning app (port 3002)
+│   ├── main/            # Production main site (port 3000)
+│   ├── admin/           # Admin dashboard (port 3001, basePath /admin)
+│   └── learn-*/         # Learning apps (various ports)
 ├── packages/
 │   ├── ui/              # Universal navbar, layout (shared across all apps)
 │   ├── content/         # Git-based content source of truth
 │   └── core/            # Shared types & helpers
-└── monorepobackup/      # Frozen snapshot of previous repo (2026-02-24)
 ```
 
 ## Dev Commands
@@ -42,30 +39,31 @@ yarn lint
 
 ## Environments
 
-| Environment | URL | Notes |
-|-------------|-----|-------|
-| Production | https://iiskills.cloud | Served from `apps/` via `deploy-all.sh` |
+| Environment | URL                    | Notes                                   |
+| ----------- | ---------------------- | --------------------------------------- |
+| Production  | https://iiskills.cloud | Served from `apps/` via `deploy-all.sh` |
 
 Learn apps are served at their own subdomains (e.g. `https://learn-apt.iiskills.cloud`).
 
 ## Apps
 
-| App | Description | Port | Notes |
-|-----|-------------|------|-------|
-| `apps/main` | Main production app + admin at `/admin` | 3000 | Admin secured by Supabase auth |
-| `apps/learn-physics` | Physics learning app | 3002 | Reads from `packages/content` |
+| App                  | Description                             | Port | Notes                          |
+| -------------------- | --------------------------------------- | ---- | ------------------------------ |
+| `apps/main`          | Main production app + admin at `/admin` | 3000 | Admin secured by Supabase auth |
+| `apps/learn-physics` | Physics learning app                    | 3002 | Reads from `packages/content`  |
 
 ## Packages
 
-| Package | Description |
-|---------|-------------|
-| `packages/ui` | Universal navbar (with Google Translate hook), Layout |
+| Package            | Description                                                   |
+| ------------------ | ------------------------------------------------------------- |
+| `packages/ui`      | Universal navbar (with Google Translate hook), Layout         |
 | `packages/content` | Git-based content: courses, modules, lessons as JSON/Markdown |
-| `packages/core` | Shared types and utility helpers |
+| `packages/core`    | Shared types and utility helpers                              |
 
 ## Content Structure
 
 Content lives in `packages/content/courses/<course-id>/`:
+
 - `course.json` — metadata (title, hours, modules list)
 - `modules/<module-id>/<lesson>.md` — lesson content with YAML frontmatter
 
@@ -91,15 +89,15 @@ rendered **once** in the always-visible part of the header (desktop and mobile).
 All Next.js apps import `config/security-headers.js` and apply the following headers via
 `next.config.js → headers()`:
 
-| Header | Value |
-|--------|-------|
-| `Content-Security-Policy` | Restricts script/style/frame/connect sources; allows Supabase, Razorpay, and Google Translate |
-| `Strict-Transport-Security` | `max-age=31536000; includeSubDomains` (production only) |
-| `X-Frame-Options` | `SAMEORIGIN` |
-| `X-Content-Type-Options` | `nosniff` |
-| `Referrer-Policy` | `strict-origin-when-cross-origin` |
-| `Permissions-Policy` | Disables camera, microphone; allows geolocation and payment for self |
-| `X-XSS-Protection` | `1; mode=block` |
+| Header                      | Value                                                                                         |
+| --------------------------- | --------------------------------------------------------------------------------------------- |
+| `Content-Security-Policy`   | Restricts script/style/frame/connect sources; allows Supabase, Razorpay, and Google Translate |
+| `Strict-Transport-Security` | `max-age=31536000; includeSubDomains` (production only)                                       |
+| `X-Frame-Options`           | `SAMEORIGIN`                                                                                  |
+| `X-Content-Type-Options`    | `nosniff`                                                                                     |
+| `Referrer-Policy`           | `strict-origin-when-cross-origin`                                                             |
+| `Permissions-Policy`        | Disables camera, microphone; allows geolocation and payment for self                          |
+| `X-XSS-Protection`          | `1; mode=block`                                                                               |
 
 `productionBrowserSourceMaps: false` is set on all apps to avoid exposing source code in production.
 
@@ -107,13 +105,14 @@ All Next.js apps import `config/security-headers.js` and apply the following hea
 
 `apps/main/middleware.js` implements in-process sliding-window rate limiting for sensitive routes:
 
-| Route group | Limit (default) | Window |
-|-------------|-----------------|--------|
-| `/api/auth/*` | 10 req | 1 min |
-| `/api/pay`, `/api/payment/*`, `/api/verify-otp` | 5 req | 1 min |
-| `/admin/*` | 30 req | 1 min |
+| Route group                                     | Limit (default) | Window |
+| ----------------------------------------------- | --------------- | ------ |
+| `/api/auth/*`                                   | 10 req          | 1 min  |
+| `/api/pay`, `/api/payment/*`, `/api/verify-otp` | 5 req           | 1 min  |
+| `/admin/*`                                      | 30 req          | 1 min  |
 
 Override defaults via environment variables:
+
 ```
 RATE_LIMIT_WINDOW_MS=60000
 RATE_LIMIT_AUTH_MAX=10
@@ -162,6 +161,7 @@ refuses to create orders if live keys are accidentally configured.
 #### Go-live (real charges)
 
 Switch to live mode by updating:
+
 ```
 RAZORPAY_MODE=live
 RAZORPAY_KEY_ID=rzp_live_<your-live-key-id>
@@ -201,4 +201,3 @@ ADMIN_AUTH_DISABLED=false
 NEXT_PUBLIC_DISABLE_ADMIN_GATE=false
 NEXT_PUBLIC_DISABLE_AUTH=false
 ```
-

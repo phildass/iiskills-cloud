@@ -8,12 +8,7 @@
   "quiz": [
     {
       "question": "What architecture revolutionised NLP in 2017?",
-      "options": [
-        "CNNs",
-        "LSTMs",
-        "The Transformer",
-        "GRUs"
-      ],
+      "options": ["CNNs", "LSTMs", "The Transformer", "GRUs"],
       "correct_answer": 2
     },
     {

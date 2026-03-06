@@ -28,12 +28,7 @@
     },
     {
       "question": "Which metric is commonly used to evaluate classification models?",
-      "options": [
-        "RMSE",
-        "R-squared",
-        "F1-score",
-        "Gradient"
-      ],
+      "options": ["RMSE", "R-squared", "F1-score", "Gradient"],
       "correct_answer": 2
     },
     {
@@ -48,12 +43,7 @@
     },
     {
       "question": "Which algorithm is best suited for predicting a continuous value?",
-      "options": [
-        "K-Means",
-        "Linear Regression",
-        "DBSCAN",
-        "PCA"
-      ],
+      "options": ["K-Means", "Linear Regression", "DBSCAN", "PCA"],
       "correct_answer": 1
     }
   ]

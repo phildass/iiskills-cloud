@@ -8,42 +8,22 @@
   "quiz": [
     {
       "question": "P(A|B) reads as:",
-      "options": [
-        "P(A) times P(B)",
-        "P(A) given B has occurred",
-        "P(A or B)",
-        "P(A and B)"
-      ],
+      "options": ["P(A) times P(B)", "P(A) given B has occurred", "P(A or B)", "P(A and B)"],
       "correct_answer": 1
     },
     {
       "question": "The conditional probability formula is P(A|B) = :",
-      "options": [
-        "P(A)×P(B)",
-        "P(A∩B)/P(B)",
-        "P(A)/P(B)",
-        "P(A∩B)×P(B)"
-      ],
+      "options": ["P(A)×P(B)", "P(A∩B)/P(B)", "P(A)/P(B)", "P(A∩B)×P(B)"],
       "correct_answer": 1
     },
     {
       "question": "Bayes' theorem relates P(A|B) to:",
-      "options": [
-        "P(A) only",
-        "P(B|A), P(A), and P(B)",
-        "P(A+B)",
-        "P(A²)"
-      ],
+      "options": ["P(A) only", "P(B|A), P(A), and P(B)", "P(A+B)", "P(A²)"],
       "correct_answer": 1
     },
     {
       "question": "Events A and B are independent iff:",
-      "options": [
-        "P(A|B) = P(B)",
-        "P(A|B) = P(A)",
-        "P(A∩B) = 0",
-        "P(A) = P(B)"
-      ],
+      "options": ["P(A|B) = P(B)", "P(A|B) = P(A)", "P(A∩B) = 0", "P(A) = P(B)"],
       "correct_answer": 1
     },
     {

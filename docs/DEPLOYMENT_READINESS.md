@@ -2,20 +2,21 @@
 
 ## Final PM2 Process Expectations
 
-| PM2 Name              | App directory      | Port |
-|-----------------------|--------------------|------|
-| iiskills-main         | apps/main          | 3000 |
-| iiskills-learn-apt    | apps/learn-apt     | 3002 |
-| iiskills-learn-chemistry | apps/learn-chemistry | 3005 |
-| iiskills-learn-developer | apps/learn-developer | 3007 |
-| iiskills-learn-geography | apps/learn-geography | 3011 |
+| PM2 Name                  | App directory         | Port |
+| ------------------------- | --------------------- | ---- |
+| iiskills-main             | apps/main             | 3000 |
+| iiskills-learn-apt        | apps/learn-apt        | 3002 |
+| iiskills-learn-chemistry  | apps/learn-chemistry  | 3005 |
+| iiskills-learn-developer  | apps/learn-developer  | 3007 |
+| iiskills-learn-geography  | apps/learn-geography  | 3011 |
 | iiskills-learn-management | apps/learn-management | 3016 |
-| iiskills-learn-math   | apps/learn-math    | 3017 |
-| iiskills-learn-physics | apps/learn-physics | 3020 |
-| iiskills-learn-pr     | apps/learn-pr      | 3021 |
-| iiskills-learn-ai     | apps/learn-ai      | 3024 |
+| iiskills-learn-math       | apps/learn-math       | 3017 |
+| iiskills-learn-physics    | apps/learn-physics    | 3020 |
+| iiskills-learn-pr         | apps/learn-pr         | 3021 |
+| iiskills-learn-ai         | apps/learn-ai         | 3024 |
 
 **NOT deployed (removed):**
+
 - `apps/admin` and `apps/web` have been removed from the repo; admin is served at `/admin` inside `apps/main` (secured by Supabase auth)
 
 ## VPS Deployment Commands
@@ -36,12 +37,12 @@ curl -fsS http://localhost:3000
 
 ## Browser Tests
 
-| URL | Expected result |
-|-----|-----------------|
-| https://iiskills.cloud/ | Main landing page (staging — current live environment) |
-| https://iiskills.cloud/admin | Admin panel (staging, served by iiskills-main) |
-| https://learn-ai.iiskills.cloud/ | Learn AI app (port 3024) |
-| https://iiskills.cloud/ | Production target — point DNS here when ready to cut over |
+| URL                              | Expected result                                           |
+| -------------------------------- | --------------------------------------------------------- |
+| https://iiskills.cloud/          | Main landing page (staging — current live environment)    |
+| https://iiskills.cloud/admin     | Admin panel (staging, served by iiskills-main)            |
+| https://learn-ai.iiskills.cloud/ | Learn AI app (port 3024)                                  |
+| https://iiskills.cloud/          | Production target — point DNS here when ready to cut over |
 
 ## Google Translate
 
@@ -54,6 +55,7 @@ The CSP in `config/security-headers.js` already permits the required origins:
 - `frame-src`: `www.google.com`, `translate.google.com`, `translate.googleapis.com`
 
 No additional changes required. To verify:
+
 1. Open https://iiskills.cloud/ in a browser (staging).
 2. The language selector dropdown should appear in the top-right nav.
 3. Select any Indian language (e.g. Hindi) and confirm page text changes.

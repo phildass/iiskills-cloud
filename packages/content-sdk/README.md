@@ -22,27 +22,27 @@ yarn add @iiskills/content-sdk
 ### Basic Content Search
 
 ```typescript
-import { searchContent, paginateContent } from '@iiskills/content-sdk';
-import type { UnifiedContent, ContentFilters } from '@iiskills/content-sdk';
+import { searchContent, paginateContent } from "@iiskills/content-sdk";
+import type { UnifiedContent, ContentFilters } from "@iiskills/content-sdk";
 
 // Sample content
 const content: UnifiedContent[] = [
   {
-    id: '1',
-    type: 'lesson',
-    title: 'Introduction to Algebra',
-    description: 'Learn basic algebra concepts',
-    tags: ['math', 'algebra'],
-    app: 'learn-math',
+    id: "1",
+    type: "lesson",
+    title: "Introduction to Algebra",
+    description: "Learn basic algebra concepts",
+    tags: ["math", "algebra"],
+    app: "learn-math",
   },
   // ... more content
 ];
 
 // Search with filters
 const filters: ContentFilters = {
-  type: ['lesson', 'test'],
-  tags: ['math'],
-  searchQuery: 'algebra',
+  type: ["lesson", "test"],
+  tags: ["math"],
+  searchQuery: "algebra",
 };
 
 const results = searchContent(content, filters);
@@ -61,20 +61,20 @@ console.log(paginated);
 ### Geographic Resolution
 
 ```typescript
-import { GeographicResolver } from '@iiskills/content-sdk';
+import { GeographicResolver } from "@iiskills/content-sdk";
 
 // Define geography hierarchy
 const geography = [
   {
-    name: 'India',
-    type: 'country' as const,
+    name: "India",
+    type: "country" as const,
     children: [
       {
-        name: 'Bihar',
-        type: 'state' as const,
+        name: "Bihar",
+        type: "state" as const,
         children: [
-          { name: 'Patna', type: 'district' as const },
-          { name: 'Gaya', type: 'district' as const },
+          { name: "Patna", type: "district" as const },
+          { name: "Gaya", type: "district" as const },
         ],
       },
     ],
@@ -84,12 +84,12 @@ const geography = [
 const resolver = new GeographicResolver(geography);
 
 // Resolve a location query
-const locations = resolver.resolveLocation('Patna');
+const locations = resolver.resolveLocation("Patna");
 console.log(locations);
 // [{ country: 'India', state: 'Bihar', district: 'Patna' }]
 
 // Expand a location to sub-locations
-const expanded = resolver.expandLocation({ country: 'India', state: 'Bihar' });
+const expanded = resolver.expandLocation({ country: "India", state: "Bihar" });
 console.log(expanded);
 // [
 //   { country: 'India', state: 'Bihar', district: 'Patna' },
@@ -100,23 +100,27 @@ console.log(expanded);
 ### Content Aggregation
 
 ```typescript
-import { aggregateContent } from '@iiskills/content-sdk';
-import type { ContentManifest } from '@iiskills/content-sdk';
+import { aggregateContent } from "@iiskills/content-sdk";
+import type { ContentManifest } from "@iiskills/content-sdk";
 
 const manifests: ContentManifest[] = [
   {
-    app: 'learn-apt',
-    version: '1.0.0',
-    contentTypes: ['test'],
-    items: [/* ... */],
-    lastUpdated: '2024-01-01T00:00:00Z',
+    app: "learn-apt",
+    version: "1.0.0",
+    contentTypes: ["test"],
+    items: [
+      /* ... */
+    ],
+    lastUpdated: "2024-01-01T00:00:00Z",
   },
   {
-    app: 'learn-math',
-    version: '1.0.0',
-    contentTypes: ['lesson', 'test'],
-    items: [/* ... */],
-    lastUpdated: '2024-01-01T00:00:00Z',
+    app: "learn-math",
+    version: "1.0.0",
+    contentTypes: ["lesson", "test"],
+    items: [
+      /* ... */
+    ],
+    lastUpdated: "2024-01-01T00:00:00Z",
   },
 ];
 
@@ -127,11 +131,11 @@ const allContent = aggregateContent(manifests);
 ### Semantic Search (Placeholder)
 
 ```typescript
-import { semanticSearch } from '@iiskills/content-sdk';
+import { semanticSearch } from "@iiskills/content-sdk";
 
 // Note: This is a placeholder implementation
 // In production, integrate with OpenAI embeddings, FAISS, Pinecone, or Qdrant
-const results = semanticSearch('How to solve quadratic equations', content, 5);
+const results = semanticSearch("How to solve quadratic equations", content, 5);
 ```
 
 ## API Reference
@@ -139,23 +143,29 @@ const results = semanticSearch('How to solve quadratic equations', content, 5);
 ### Functions
 
 #### `searchContent(items, filters): UnifiedContent[]`
+
 Filter content based on various criteria.
 
 #### `paginateContent(items, page, pageSize): ContentCollection`
+
 Paginate content results.
 
 #### `aggregateContent(manifests): UnifiedContent[]`
+
 Combine content from multiple app manifests.
 
 #### `validateContent(content): boolean`
+
 Check if an object conforms to the UnifiedContent interface.
 
 ### Classes
 
 #### `GeographicResolver`
+
 Resolve and expand geographic locations.
 
 **Methods:**
+
 - `resolveLocation(query: string): Location[]` - Find locations matching a query
 - `expandLocation(location: Partial<Location>): Location[]` - Expand to sub-locations
 

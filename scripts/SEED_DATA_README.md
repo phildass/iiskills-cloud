@@ -5,6 +5,7 @@ This script generates comprehensive AI/Data Science course content using OpenAI'
 ## Overview
 
 The `seed_data.js` script creates:
+
 - **10 Modules** covering AI & Data Science topics
 - **10 Lessons per Module** (100 lessons total)
 - **5-Question Quiz per Lesson** with multiple choice answers
@@ -57,6 +58,7 @@ npm run seed:ai-content
 ```
 
 This will:
+
 1. Generate the JSON file
 2. Upload modules, lessons, and quizzes to Supabase
 
@@ -100,17 +102,20 @@ The generated JSON follows this structure:
 ## Content Guidelines
 
 The script generates content optimized for:
+
 - **Indian learners** seeking practical AI skills
 - **Monetization focus**: Freelancing, job preparation, career building
 - **Accessibility**: Simple language, clear examples
 - **Engagement**: Varied question types testing both theory and application
 
 Each lesson:
+
 - Maximum 5 paragraphs
 - Maximum 400 words
 - Includes India-relevant examples where applicable
 
 Each quiz:
+
 - 5 multiple-choice questions
 - 4 options per question
 - Mix of conceptual and applied questions
@@ -130,7 +135,7 @@ const handleAnswerSelect = (questionId, answerIndex) => {
     ...answers,
     [questionId]: answerIndex,
   });
-  
+
   // Auto-advance to next question after a brief delay
   setTimeout(() => {
     if (currentQuestion < questions.length - 1) {
@@ -144,6 +149,7 @@ const handleAnswerSelect = (questionId, answerIndex) => {
 ```
 
 This auto-progression pattern:
+
 - Speeds up quiz completion
 - Reduces clicks/taps required
 - Provides immediate feedback
@@ -151,15 +157,16 @@ This auto-progression pattern:
 
 ## Environment Variables
 
-| Variable | Required | Purpose |
-|----------|----------|---------|
-| `OPENAI_API_KEY` | Yes | OpenAI API access for content generation |
-| `SUPABASE_URL` | Optional | Supabase project URL for upload |
-| `SUPABASE_SERVICE_ROLE_KEY` | Optional | Supabase service key for upload |
+| Variable                    | Required | Purpose                                  |
+| --------------------------- | -------- | ---------------------------------------- |
+| `OPENAI_API_KEY`            | Yes      | OpenAI API access for content generation |
+| `SUPABASE_URL`              | Optional | Supabase project URL for upload          |
+| `SUPABASE_SERVICE_ROLE_KEY` | Optional | Supabase service key for upload          |
 
 ## Security Notes
 
-⚠️ **IMPORTANT**: 
+⚠️ **IMPORTANT**:
+
 - Never commit API keys to the repository
 - Add keys to `.env.local` or export them in your shell
 - The `data/` directory is gitignored to prevent accidental commits
@@ -170,16 +177,19 @@ This auto-progression pattern:
 If uploading to Supabase, ensure these tables exist:
 
 ### modules
+
 - `id` (integer, primary key)
 - `title` (text)
 
 ### lessons
+
 - `module_id` (integer, foreign key)
 - `lesson_id` (integer)
 - `title` (text)
 - `content` (text)
 
 ### quizzes
+
 - `module_id` (integer)
 - `lesson_id` (integer)
 - `questions` (jsonb)
@@ -187,6 +197,7 @@ If uploading to Supabase, ensure these tables exist:
 ## Customization
 
 You can modify the script to:
+
 - Change module topics (edit `MODULE_TITLES` array)
 - Adjust lesson count (change `LESSONS_PER_MODULE`)
 - Modify word limit (change `LESSON_WORD_LIMIT`)
@@ -195,6 +206,7 @@ You can modify the script to:
 ## Rate Limiting
 
 The script includes built-in delays:
+
 - 800ms between lesson generations
 - 1200ms between modules
 - Exponential backoff on retries
@@ -204,6 +216,7 @@ This respects OpenAI's rate limits. For faster generation with higher tier API a
 ## Error Handling
 
 The script includes:
+
 - Automatic retry (3 attempts per lesson)
 - Validation of LLM output structure
 - Graceful fallback for final exam generation
@@ -212,6 +225,7 @@ The script includes:
 ## Output Location
 
 Generated files are saved to:
+
 ```
 data/
 ├── learn-ai-seed.json    # Complete course content
@@ -247,15 +261,18 @@ npm run seed:ai-content  # Will automatically upload with credentials set
 ## Troubleshooting
 
 ### "OPENAI_API_KEY is required"
+
 - Ensure you've exported the API key in your current shell session
 - Or add it to `.env.local` and load it with `dotenv`
 
 ### LLM returns invalid JSON
+
 - The script retries up to 3 times
 - Check your OpenAI API quota and rate limits
 - Verify the model name is correct and available
 
 ### Supabase upload fails
+
 - Ensure tables exist with correct schema
 - Verify service role key has proper permissions
 - Check Supabase connection and credentials

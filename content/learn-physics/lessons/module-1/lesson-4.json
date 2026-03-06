@@ -8,32 +8,17 @@
   "quiz": [
     {
       "question": "What is the formula for acceleration?",
-      "options": [
-        "a = v × t",
-        "a = (v − u) ÷ t",
-        "a = F × m",
-        "a = d ÷ t"
-      ],
+      "options": ["a = v × t", "a = (v − u) ÷ t", "a = F × m", "a = d ÷ t"],
       "correct_answer": 1
     },
     {
       "question": "What is the SI unit of acceleration?",
-      "options": [
-        "km/h",
-        "m/s",
-        "m/s²",
-        "N/kg"
-      ],
+      "options": ["km/h", "m/s", "m/s²", "N/kg"],
       "correct_answer": 2
     },
     {
       "question": "If a car speeds up from rest to 20 m/s in 4 s, what is its acceleration?",
-      "options": [
-        "2.5 m/s²",
-        "5 m/s²",
-        "80 m/s²",
-        "0.2 m/s²"
-      ],
+      "options": ["2.5 m/s²", "5 m/s²", "80 m/s²", "0.2 m/s²"],
       "correct_answer": 1
     },
     {
@@ -48,12 +33,7 @@
     },
     {
       "question": "A ball slows from 10 m/s to 0 in 2 s. What is its acceleration?",
-      "options": [
-        "−5 m/s²",
-        "5 m/s²",
-        "−20 m/s²",
-        "20 m/s²"
-      ],
+      "options": ["−5 m/s²", "5 m/s²", "−20 m/s²", "20 m/s²"],
       "correct_answer": 0
     }
   ]

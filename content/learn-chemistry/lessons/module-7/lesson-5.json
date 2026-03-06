@@ -8,22 +8,12 @@
   "quiz": [
     {
       "question": "What is the IUPAC suffix for a ketone?",
-      "options": [
-        "-ol",
-        "-al",
-        "-one",
-        "-oic acid"
-      ],
+      "options": ["-ol", "-al", "-one", "-oic acid"],
       "correct_answer": 2
     },
     {
       "question": "Which biomolecule contains the peptide bond?",
-      "options": [
-        "Carbohydrates",
-        "Lipids",
-        "Proteins",
-        "Nucleic acids"
-      ],
+      "options": ["Carbohydrates", "Lipids", "Proteins", "Nucleic acids"],
       "correct_answer": 2
     },
     {

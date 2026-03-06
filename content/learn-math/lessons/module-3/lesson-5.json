@@ -8,52 +8,27 @@
   "quiz": [
     {
       "question": "The area of a triangle with base b and height h is:",
-      "options": [
-        "bh",
-        "bh/2",
-        "2bh",
-        "b + h"
-      ],
+      "options": ["bh", "bh/2", "2bh", "b + h"],
       "correct_answer": 1
     },
     {
       "question": "The perimeter of a rectangle with length l and width w is:",
-      "options": [
-        "lw",
-        "2lw",
-        "l + w",
-        "2(l + w)"
-      ],
+      "options": ["lw", "2lw", "l + w", "2(l + w)"],
       "correct_answer": 3
     },
     {
       "question": "The area of a trapezium with parallel sides a and b and height h is:",
-      "options": [
-        "(a+b)h",
-        "(a+b)h/2",
-        "abh",
-        "(a+b)/2"
-      ],
+      "options": ["(a+b)h", "(a+b)h/2", "abh", "(a+b)/2"],
       "correct_answer": 1
     },
     {
       "question": "A square with side 5 cm has area:",
-      "options": [
-        "10 cm²",
-        "20 cm²",
-        "25 cm²",
-        "50 cm²"
-      ],
+      "options": ["10 cm²", "20 cm²", "25 cm²", "50 cm²"],
       "correct_answer": 2
     },
     {
       "question": "The area of a parallelogram with base b and height h is:",
-      "options": [
-        "bh/2",
-        "bh",
-        "2bh",
-        "b + h"
-      ],
+      "options": ["bh/2", "bh", "2bh", "b + h"],
       "correct_answer": 1
     }
   ]

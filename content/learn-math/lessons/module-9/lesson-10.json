@@ -28,12 +28,7 @@
     },
     {
       "question": "Least-squares regression finds the best-fit line by solving:",
-      "options": [
-        "Ax = b exactly",
-        "AᵀAx = Aᵀb (normal equations)",
-        "A⁻¹x = b",
-        "Ax = 0"
-      ],
+      "options": ["Ax = b exactly", "AᵀAx = Aᵀb (normal equations)", "A⁻¹x = b", "Ax = 0"],
       "correct_answer": 1
     },
     {
@@ -48,12 +43,7 @@
     },
     {
       "question": "Cryptographic systems like Hill cipher use:",
-      "options": [
-        "Calculus",
-        "Matrix multiplication modulo n",
-        "Integration",
-        "Logarithms only"
-      ],
+      "options": ["Calculus", "Matrix multiplication modulo n", "Integration", "Logarithms only"],
       "correct_answer": 1
     }
   ]

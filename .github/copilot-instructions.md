@@ -8,7 +8,7 @@ This is the **IISkills Cloud monorepo** — a Next.js / Yarn 4 workspaces projec
 **Build system**: Turborepo (`turbo`)  
 **Framework**: Next.js (all apps)  
 **Database/Auth**: Supabase  
-**Styling**: Tailwind CSS + CSS Modules  
+**Styling**: Tailwind CSS + CSS Modules
 
 ---
 
@@ -82,23 +82,28 @@ yarn validate-content       # Content schema validation
 ## Key Conventions
 
 ### Imports
+
 - **Always** import shared UI components from `@iiskills/ui/*` — never copy or locally override them.
 - Import `Layout`, `Header`, `Footer` from `@iiskills/ui/common` (not `@iiskills/ui`) to avoid loading auth modules.
 - Pricing utilities must be imported from `utils/pricing.js` (root) or `apps/main/utils/pricing.js`. Never hardcode prices.
 
 ### Components
+
 - All paid learn apps have a `@shared` webpack/turbopack alias pointing to `../../components/shared`.
 - Use `PremiumAccessPrompt` and `EnrollmentLandingPage` from `@shared` or `@iiskills/ui`.
 
 ### Entitlements / Paywall
+
 - Check entitlements via `GET /api/entitlement?appId=<app-id>` (handled by `apps/main/pages/api/entitlement.js`).
 - When querying entitlements, use `.in('app_id', [appId, 'ai-developer-bundle'])` to handle bundle access.
 - The bundle app ID `ai-developer-bundle` grants access to both `learn-ai` AND `learn-developer`.
 
 ### Supabase Client
+
 - `lib/supabaseClient.js` and `apps/main/lib/supabaseClient.js` must **not** throw at init when credentials are missing — they fall back to a mock client so builds succeed in CI without `.env.local`.
 
 ### Lesson Pages
+
 - Lesson pages in all learn apps are **open-access** — do not redirect unauthenticated users to `/register`.
 - Style lesson content via the `LessonContent` component from `packages/ui/src/content/LessonContent.js`.
 
@@ -124,9 +129,9 @@ Alternatively, use the browser tool to navigate to the running app and capture a
 **Required viewports for UI screenshots**:
 | Viewport | Width | Height |
 |----------|-------|--------|
-| Desktop  | 1920  | 1080   |
-| Tablet   | 768   | 1024   |
-| Mobile   | 375   | 667    |
+| Desktop | 1920 | 1080 |
+| Tablet | 768 | 1024 |
+| Mobile | 375 | 667 |
 
 Attach all three viewport screenshots to the pull request under the **Screenshots/Videos** section of the PR template.
 
@@ -135,6 +140,7 @@ Attach all three viewport screenshots to the pull request under the **Screenshot
 ## Pull Request Requirements
 
 Before opening a PR, ensure:
+
 1. `yarn lint:check` passes — no ESLint errors
 2. `yarn format:check` passes — no Prettier violations
 3. `yarn test` passes — all unit tests green

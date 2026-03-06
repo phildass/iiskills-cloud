@@ -12,6 +12,7 @@ This guide walks you through implementing the Schema-Driven UI approach in your 
 ```
 
 In your app's `package.json`:
+
 ```json
 {
   "dependencies": {
@@ -24,37 +25,37 @@ In your app's `package.json`:
 
 ```typescript
 // pages/example.tsx
-import { Module } from '@iiskills/core';
+import { Module } from "@iiskills/core";
 
-const myLesson: Module<'lesson'> = {
-  id: 'intro-to-programming',
-  title: 'Introduction to Programming',
-  content_type: 'lesson',
-  status: 'published',
+const myLesson: Module<"lesson"> = {
+  id: "intro-to-programming",
+  title: "Introduction to Programming",
+  content_type: "lesson",
+  status: "published",
   isPublic: true,
   metadata: {
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
-    difficulty: 'beginner',
+    difficulty: "beginner",
     estimatedDuration: 30,
-    tags: ['programming', 'basics']
+    tags: ["programming", "basics"],
   },
   content: {
-    description: 'Learn the fundamentals of programming',
+    description: "Learn the fundamentals of programming",
     objectives: [
-      'Understand variables and data types',
-      'Learn about functions',
-      'Write your first program'
+      "Understand variables and data types",
+      "Learn about functions",
+      "Write your first program",
     ],
     sections: [
       {
-        id: 'section-1',
-        title: 'What is Programming?',
-        content: 'Programming is the process of creating instructions...',
-        order: 1
-      }
-    ]
-  }
+        id: "section-1",
+        title: "What is Programming?",
+        content: "Programming is the process of creating instructions...",
+        order: 1,
+      },
+    ],
+  },
 };
 ```
 
@@ -68,9 +69,9 @@ import { useRouter } from 'next/router';
 export default function LessonPage() {
   const router = useRouter();
   const { id } = router.query;
-  
+
   const { module, isLoading, error, refetch } = useModule(id as string);
-  
+
   return (
     <div className="container mx-auto p-6">
       <ModuleContainer
@@ -146,37 +147,34 @@ Create `config/app.config.json` in your app:
 Create `pages/api/modules/index.ts`:
 
 ```typescript
-import { NextApiRequest, NextApiResponse } from 'next';
-import { Module, ModuleCollection } from '@iiskills/core';
+import { NextApiRequest, NextApiResponse } from "next";
+import { Module, ModuleCollection } from "@iiskills/core";
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<ModuleCollection>
-) {
-  if (req.method !== 'GET') {
+export default async function handler(req: NextApiRequest, res: NextApiResponse<ModuleCollection>) {
+  if (req.method !== "GET") {
     return res.status(405).end();
   }
 
   // Parse query parameters
   const {
-    page = '1',
-    pageSize = '10',
+    page = "1",
+    pageSize = "10",
     content_type,
     tags,
     difficulty,
     status,
-    q: searchQuery
+    q: searchQuery,
   } = req.query;
 
   // Fetch from database (example)
   const modules: Module[] = await fetchModulesFromDB({
     page: parseInt(page as string),
     pageSize: parseInt(pageSize as string),
-    content_type: content_type ? (content_type as string).split(',') : undefined,
-    tags: tags ? (tags as string).split(',') : undefined,
-    difficulty: difficulty ? (difficulty as string).split(',') : undefined,
-    status: status ? (status as string).split(',') : undefined,
-    searchQuery: searchQuery as string
+    content_type: content_type ? (content_type as string).split(",") : undefined,
+    tags: tags ? (tags as string).split(",") : undefined,
+    difficulty: difficulty ? (difficulty as string).split(",") : undefined,
+    status: status ? (status as string).split(",") : undefined,
+    searchQuery: searchQuery as string,
   });
 
   const total = await getModulesCount();
@@ -188,7 +186,7 @@ export default async function handler(
     total,
     page: currentPage,
     pageSize: size,
-    hasMore: currentPage * size < total
+    hasMore: currentPage * size < total,
   });
 }
 
@@ -207,14 +205,14 @@ async function getModulesCount(): Promise<number> {
 Create `pages/api/modules/[id].ts`:
 
 ```typescript
-import { NextApiRequest, NextApiResponse } from 'next';
-import { Module } from '@iiskills/core';
+import { NextApiRequest, NextApiResponse } from "next";
+import { Module } from "@iiskills/core";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Module | { error: string }>
 ) {
-  if (req.method !== 'GET') {
+  if (req.method !== "GET") {
     return res.status(405).end();
   }
 
@@ -224,7 +222,7 @@ export default async function handler(
   const module = await fetchModuleById(id as string);
 
   if (!module) {
-    return res.status(404).json({ error: 'Module not found' });
+    return res.status(404).json({ error: "Module not found" });
   }
 
   res.status(200).json(module);
@@ -376,16 +374,16 @@ export default function ModuleDetailPage() {
 Create `styles/theme.ts`:
 
 ```typescript
-import { createTheme, generateCSSVariables } from '@iiskills/core';
+import { createTheme, generateCSSVariables } from "@iiskills/core";
 
 export const customTheme = createTheme({
   colors: {
     primary: {
-      500: '#3b82f6', // Your brand color
-      600: '#2563eb',
+      500: "#3b82f6", // Your brand color
+      600: "#2563eb",
       // ... other shades
-    }
-  }
+    },
+  },
 });
 
 export const cssVariables = generateCSSVariables(customTheme);
@@ -464,6 +462,7 @@ import { CustomLessonRenderer } from '../components/CustomLessonRenderer';
 ### Option 1: Custom Config per App
 
 Each app can have its own config:
+
 - `learn-aptitude/config/app.config.json`
 - `learn-govt-jobs/config/app.config.json`
 - `learn-management/config/app.config.json`
@@ -471,6 +470,7 @@ Each app can have its own config:
 ### Option 2: Custom Renderers
 
 Override default renderers:
+
 ```typescript
 <ModuleSwitcher
   module={module}
@@ -483,23 +483,25 @@ Override default renderers:
 ### Option 3: Custom Theme
 
 Create app-specific themes:
+
 ```typescript
 const myTheme = createTheme({
   colors: {
-    primary: { 500: '#your-color' }
-  }
+    primary: { 500: "#your-color" },
+  },
 });
 ```
 
 ### Option 4: Extend Module Types
 
 Add custom fields:
+
 ```typescript
 interface CustomModule extends Module {
   customFields: {
     rating: number;
     views: number;
-  }
+  };
 }
 ```
 
@@ -529,13 +531,13 @@ npx tsc --noEmit
 
 ```typescript
 // lib/testData.ts
-import { Module } from '@iiskills/core';
+import { Module } from "@iiskills/core";
 
 export const testModules: Module[] = [
   {
-    id: '1',
-    title: 'Test Lesson',
-    content_type: 'lesson',
+    id: "1",
+    title: "Test Lesson",
+    content_type: "lesson",
     // ... rest of the module
   },
   // ... more test modules
@@ -549,6 +551,7 @@ export const testModules: Module[] = [
 ### 1. Environment Configuration
 
 Create production config:
+
 ```json
 {
   "environment": "production",
@@ -592,30 +595,33 @@ npm run deploy
 ### Issue: Module not rendering
 
 **Solution**: Check that your module data matches the Module<T> type:
+
 ```typescript
-import { validateModule } from '@iiskills/core';
+import { validateModule } from "@iiskills/core";
 
 if (!validateModule(myModule)) {
-  console.error('Invalid module structure');
+  console.error("Invalid module structure");
 }
 ```
 
 ### Issue: API returns 404
 
 **Solution**: Ensure your API endpoint matches the config:
+
 ```typescript
 // Check config
 console.log(appConfig.api.endpoints.modules);
 
 // Verify useModuleData endpoint
 useModuleData({
-  endpoint: appConfig.api.endpoints.modules
+  endpoint: appConfig.api.endpoints.modules,
 });
 ```
 
 ### Issue: Theme not applying
 
 **Solution**: Make sure CSS variables are included:
+
 ```typescript
 // In _app.tsx
 import { cssVariables } from '../styles/theme';

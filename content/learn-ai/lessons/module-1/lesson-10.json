@@ -28,12 +28,7 @@
     },
     {
       "question": "Which platform is recommended for free GPU access and AI competitions?",
-      "options": [
-        "GitHub",
-        "Kaggle",
-        "Stack Overflow",
-        "Reddit"
-      ],
+      "options": ["GitHub", "Kaggle", "Stack Overflow", "Reddit"],
       "correct_answer": 1
     },
     {

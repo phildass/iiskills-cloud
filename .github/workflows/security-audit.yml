@@ -4,16 +4,16 @@ on:
   # Run on every push to main/develop
   push:
     branches: [main, develop]
-  
+
   # Run on all pull requests
   pull_request:
     branches: [main, develop]
-  
+
   # Run weekly on schedule
   schedule:
     # Every Monday at 9:00 AM UTC
-    - cron: '0 9 * * 1'
-  
+    - cron: "0 9 * * 1"
+
   # Allow manual triggering
   workflow_dispatch:
 
@@ -21,23 +21,23 @@ jobs:
   npm-audit:
     name: npm Security Audit
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'yarn'
-      
+          node-version: "20"
+          cache: "yarn"
+
       - name: Enable Corepack
         run: corepack enable
-      
+
       - name: Install dependencies
         run: yarn install --immutable
-      
+
       - name: Run npm audit (production only)
         id: audit-prod
         run: |
@@ -45,7 +45,7 @@ jobs:
           npm audit --production --audit-level=moderate || echo "audit_prod_failed=true" >> $GITHUB_OUTPUT
           npm audit --production --audit-level=moderate >> $GITHUB_STEP_SUMMARY 2>&1 || true
         continue-on-error: true
-      
+
       - name: Run npm audit (all dependencies)
         id: audit-all
         run: |
@@ -54,13 +54,13 @@ jobs:
           npm audit --audit-level=moderate || echo "audit_all_failed=true" >> $GITHUB_OUTPUT
           npm audit --audit-level=moderate >> $GITHUB_STEP_SUMMARY 2>&1 || true
         continue-on-error: true
-      
+
       - name: Generate JSON report
         if: always()
         run: |
           npm audit --json > security-audit-report.json
           npm audit --production --json > security-audit-prod-only.json
-      
+
       - name: Upload audit reports
         if: always()
         uses: actions/upload-artifact@v4
@@ -70,21 +70,21 @@ jobs:
             security-audit-report.json
             security-audit-prod-only.json
           retention-days: 90
-      
+
       - name: Check critical vulnerabilities
         run: |
           # Check for critical or high vulnerabilities in production
           CRITICAL_COUNT=$(npm audit --production --json | jq '.metadata.vulnerabilities.critical')
           HIGH_COUNT=$(npm audit --production --json | jq '.metadata.vulnerabilities.high')
-          
+
           echo "Critical vulnerabilities: $CRITICAL_COUNT"
           echo "High vulnerabilities: $HIGH_COUNT"
-          
+
           if [ "$CRITICAL_COUNT" -gt 0 ] || [ "$HIGH_COUNT" -gt 0 ]; then
             echo "::error::Found $CRITICAL_COUNT critical and $HIGH_COUNT high vulnerabilities in production dependencies"
             exit 1
           fi
-      
+
       - name: Comment on PR
         if: github.event_name == 'pull_request' && always()
         uses: actions/github-script@v7
@@ -93,23 +93,23 @@ jobs:
             const fs = require('fs');
             const auditReport = JSON.parse(fs.readFileSync('security-audit-report.json', 'utf8'));
             const vulns = auditReport.metadata.vulnerabilities;
-            
+
             const comment = `## Security Audit Results
-            
+
             **Total Vulnerabilities**: ${vulns.total}
             - Critical: ${vulns.critical}
             - High: ${vulns.high}
             - Moderate: ${vulns.moderate}
             - Low: ${vulns.low}
-            
+
             ${vulns.critical > 0 || vulns.high > 0 ? '⚠️ **Action Required**: Critical or high severity vulnerabilities found!' : '✅ No critical or high vulnerabilities'}
-            
+
             <details>
             <summary>View Full Report</summary>
-            
+
             Download the full audit report from the workflow artifacts.
             </details>`;
-            
+
             github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
@@ -121,11 +121,11 @@ jobs:
     name: Dependency Review
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request'
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      
+
       - name: Dependency Review
         uses: actions/dependency-review-action@v4
         with:
@@ -135,29 +135,29 @@ jobs:
   license-check:
     name: License Compliance
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'yarn'
-      
+          node-version: "20"
+          cache: "yarn"
+
       - name: Enable Corepack
         run: corepack enable
-      
+
       - name: Install dependencies
         run: yarn install --immutable
-      
+
       - name: Check licenses
         run: |
           npx license-checker --summary >> $GITHUB_STEP_SUMMARY
           npx license-checker --json > licenses.json
         continue-on-error: true
-      
+
       - name: Upload license report
         if: always()
         uses: actions/upload-artifact@v4
@@ -171,7 +171,7 @@ jobs:
     needs: [npm-audit, dependency-review, license-check]
     if: always()
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Create summary
         run: |
@@ -186,13 +186,13 @@ jobs:
           echo "- Dependency Review: ${{ needs.dependency-review.result }}" >> $GITHUB_STEP_SUMMARY
           echo "- License Check: ${{ needs.license-check.result }}" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          
+
           if [ "${{ needs.npm-audit.result }}" != "success" ]; then
             echo "⚠️ Security vulnerabilities detected. Review the npm audit job for details." >> $GITHUB_STEP_SUMMARY
           else
             echo "✅ No security vulnerabilities detected." >> $GITHUB_STEP_SUMMARY
           fi
-      
+
       - name: Fail if critical issues
         if: needs.npm-audit.result == 'failure'
         run: |

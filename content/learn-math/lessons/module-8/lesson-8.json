@@ -18,42 +18,22 @@
     },
     {
       "question": "The area under the entire normal curve equals:",
-      "options": [
-        "0",
-        "0.5",
-        "σ",
-        "1"
-      ],
+      "options": ["0", "0.5", "σ", "1"],
       "correct_answer": 3
     },
     {
       "question": "Approximately what percentage of data lies within 1 standard deviation of the mean?",
-      "options": [
-        "50%",
-        "68%",
-        "95%",
-        "99.7%"
-      ],
+      "options": ["50%", "68%", "95%", "99.7%"],
       "correct_answer": 1
     },
     {
       "question": "A z-score is calculated as:",
-      "options": [
-        "x – μ",
-        "(x – μ)/σ",
-        "(x – σ)/μ",
-        "x/σ"
-      ],
+      "options": ["x – μ", "(x – μ)/σ", "(x – σ)/μ", "x/σ"],
       "correct_answer": 1
     },
     {
       "question": "The standard normal distribution has μ = 0 and σ = :",
-      "options": [
-        "0",
-        "0.5",
-        "1",
-        "2"
-      ],
+      "options": ["0", "0.5", "1", "2"],
       "correct_answer": 2
     }
   ]

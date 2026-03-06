@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.0] - 2026-02-18
 
 ### Added
+
 - Initial package structure with proper exports
 - Component category organization (authentication, navigation, landing, payment, content, common, newsletter, translation, ai, pwa)
 - Migrated common components:
@@ -20,11 +21,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - CHANGELOG.md (this file)
 
 ### Changed
+
 - Package version bumped from 0.0.0 to 1.0.0
 - Reorganized src/ directory with category subdirectories
 - Updated main index.js with proper exports and documentation
 
 ### Migration Status
+
 - ✅ Common components (5/5 complete)
 - ✅ Authentication components (4/4 complete)
 - ✅ Navigation components (6/6 complete)
@@ -39,9 +42,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 **Total Progress**: 38/38 components (100% - MIGRATION COMPLETE!)
 
 ### Deprecated
+
 - Direct imports from /components/shared/ (will be removed after migration)
 
 ### Documentation
+
 - Created comprehensive README.md
 - Added JSDoc comments to common components
 - Documented import patterns and usage examples
@@ -51,22 +56,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Planned for 1.1.0
+
 - Migrate authentication components (UniversalLogin, UniversalRegister, etc.)
 - Add TypeScript type definitions
 - Create Storybook stories for visual documentation
 - Add component unit tests
 
 ### Planned for 1.2.0
+
 - Migrate navigation components (SharedNavbar, AppSwitcher, etc.)
 - Improve component documentation
 - Add accessibility improvements
 
 ### Planned for 1.3.0
+
 - Migrate landing page components (UniversalLandingPage, PaidAppLandingPage, etc.)
 - Add responsive design improvements
 - Create component usage examples
 
 ### Planned for 1.4.0
+
 - Migrate payment and content components
 - Complete migration of all remaining components
 - Remove legacy /components/shared/ directory
@@ -75,26 +84,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Version History
 
-| Version | Date | Status | Components |
-|---------|------|--------|------------|
-| 1.0.0 | 2026-02-18 | Released | 4 (Common) |
-| 0.0.0 | - | Deprecated | 3 (Initial) |
+| Version | Date       | Status     | Components  |
+| ------- | ---------- | ---------- | ----------- |
+| 1.0.0   | 2026-02-18 | Released   | 4 (Common)  |
+| 0.0.0   | -          | Deprecated | 3 (Initial) |
 
 ---
 
 ## Breaking Changes
 
 ### 1.0.0
+
 **Import Path Changes** (gradual rollout):
 
 Old way (deprecated):
+
 ```javascript
-import UniversalLogin from '@/components/shared/UniversalLogin';
+import UniversalLogin from "@/components/shared/UniversalLogin";
 ```
 
 New way (after migration):
+
 ```javascript
-import { UniversalLogin } from '@iiskills/ui/authentication';
+import { UniversalLogin } from "@iiskills/ui/authentication";
 ```
 
 All apps will be updated systematically during the component migration phase. No immediate action required.

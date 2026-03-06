@@ -79,6 +79,7 @@ For each migration file:
 5. **Wait for success message** in the output panel
 
 **Expected Output:**
+
 ```
 NOTICE: ========================================
 NOTICE: [MIGRATION NAME] COMPLETE!
@@ -108,15 +109,15 @@ In SQL Editor, run:
 
 ```sql
 -- Check all tables exist
-SELECT table_name 
-FROM information_schema.tables 
+SELECT table_name
+FROM information_schema.tables
 WHERE table_schema = 'public'
   AND table_name IN (
-    'apps', 
-    'user_progress', 
-    'certificates', 
-    'subscriptions', 
-    'analytics_events', 
+    'apps',
+    'user_progress',
+    'certificates',
+    'subscriptions',
+    'analytics_events',
     'content_library',
     'profiles',
     'courses'
@@ -135,8 +136,8 @@ SELECT COUNT(*) as total_apps FROM public.apps;
 
 ```sql
 -- Check functions were created
-SELECT routine_name 
-FROM information_schema.routines 
+SELECT routine_name
+FROM information_schema.routines
 WHERE routine_schema = 'public'
   AND routine_name IN (
     'is_admin',
@@ -152,8 +153,8 @@ ORDER BY routine_name;
 
 ```sql
 -- Check RLS is enabled
-SELECT tablename, rowsecurity 
-FROM pg_tables 
+SELECT tablename, rowsecurity
+FROM pg_tables
 WHERE schemaname = 'public'
   AND tablename IN (
     'apps',
@@ -201,13 +202,13 @@ DROP FUNCTION IF EXISTS public.increment_content_access_count(UUID);
 DROP FUNCTION IF EXISTS public.update_course_enrollment_count() CASCADE;
 
 -- Revert profiles table changes
-ALTER TABLE public.profiles 
+ALTER TABLE public.profiles
   DROP COLUMN IF EXISTS app_preferences,
   DROP COLUMN IF EXISTS last_visited_app,
   DROP COLUMN IF EXISTS last_visited_at;
 
 -- Revert courses table changes
-ALTER TABLE public.courses 
+ALTER TABLE public.courses
   DROP COLUMN IF EXISTS instructor_id,
   DROP COLUMN IF EXISTS instructor_name,
   DROP COLUMN IF EXISTS difficulty_level,
@@ -252,28 +253,25 @@ To use new features, update your application code:
 
 ```typescript
 // In your app's course/lesson component
-const { error } = await supabase
-  .from('user_progress')
-  .upsert({
-    user_id: user.id,
-    app_subdomain: 'learn-ai',
-    content_type: 'course',
-    content_id: courseId,
-    content_slug: courseSlug,
-    progress_percentage: 75,
-    status: 'in_progress',
-    time_spent_seconds: 3600
-  });
+const { error } = await supabase.from("user_progress").upsert({
+  user_id: user.id,
+  app_subdomain: "learn-ai",
+  content_type: "course",
+  content_id: courseId,
+  content_slug: courseSlug,
+  progress_percentage: 75,
+  status: "in_progress",
+  time_spent_seconds: 3600,
+});
 ```
 
 #### Check Subscription Access
 
 ```typescript
 // Check if user has premium access
-const { data: hasAccess } = await supabase
-  .rpc('has_active_subscription', { 
-    p_app_subdomain: 'learn-ai' 
-  });
+const { data: hasAccess } = await supabase.rpc("has_active_subscription", {
+  p_app_subdomain: "learn-ai",
+});
 
 if (!hasAccess) {
   // Show paywall
@@ -284,10 +282,9 @@ if (!hasAccess) {
 
 ```typescript
 // Get user's progress summary
-const { data: progress } = await supabase
-  .rpc('get_user_progress_summary', { 
-    p_app_subdomain: null // or specific app
-  });
+const { data: progress } = await supabase.rpc("get_user_progress_summary", {
+  p_app_subdomain: null, // or specific app
+});
 
 console.log(progress);
 // [
@@ -300,26 +297,22 @@ console.log(progress);
 
 ```typescript
 // Issue a certificate on course completion
-const { data: certNumber } = await supabase
-  .rpc('generate_certificate_number', { 
-    p_app_subdomain: 'learn-ai' 
-  });
+const { data: certNumber } = await supabase.rpc("generate_certificate_number", {
+  p_app_subdomain: "learn-ai",
+});
 
-const { data: verifyCode } = await supabase
-  .rpc('generate_verification_code');
+const { data: verifyCode } = await supabase.rpc("generate_verification_code");
 
-const { error } = await supabase
-  .from('certificates')
-  .insert({
-    certificate_number: certNumber,
-    user_id: user.id,
-    app_subdomain: 'learn-ai',
-    course_title: 'AI Fundamentals',
-    user_name: user.full_name,
-    completion_date: new Date().toISOString().split('T')[0],
-    verification_code: verifyCode,
-    status: 'active'
-  });
+const { error } = await supabase.from("certificates").insert({
+  certificate_number: certNumber,
+  user_id: user.id,
+  app_subdomain: "learn-ai",
+  course_title: "AI Fundamentals",
+  user_name: user.full_name,
+  completion_date: new Date().toISOString().split("T")[0],
+  verification_code: verifyCode,
+  status: "active",
+});
 ```
 
 ### 3. **Monitor Performance**
@@ -328,8 +321,8 @@ The migrations add numerous indexes for performance. Monitor your queries to ens
 
 ```sql
 EXPLAIN ANALYZE
-SELECT * FROM user_progress 
-WHERE user_id = 'user-uuid' 
+SELECT * FROM user_progress
+WHERE user_id = 'user-uuid'
   AND app_subdomain = 'learn-ai';
 ```
 
@@ -380,8 +373,9 @@ ALTER TABLE table_name ENABLE ROW LEVEL SECURITY;
    - Use Supabase's built-in backup feature before running new migrations
 
 2. **Monitor Table Sizes**
+
    ```sql
-   SELECT 
+   SELECT
      schemaname,
      tablename,
      pg_size_pretty(pg_total_relation_size(schemaname||'.'||tablename)) AS size
@@ -433,7 +427,7 @@ Use this checklist when running migrations:
 - [ ] Ran verification queries (all passed)
 - [ ] Tested a sample query in each new table
 - [ ] Existing apps still work (smoke test)
-- [ ] Documented completion date: __________
+- [ ] Documented completion date: ****\_\_****
 
 ---
 

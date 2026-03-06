@@ -3,6 +3,7 @@
 ## Who can see the Profile page
 
 The **Profile** link is visible in the navigation **only** when both conditions are met:
+
 1. The user is **authenticated** (has an active Supabase session), AND
 2. The user is a **paid user**.
 
@@ -22,10 +23,10 @@ When an active entitlement is found but `is_paid_user` is still `false`, the sys
 
 ### Database columns added to `public.profiles`
 
-| Column | Type | Default | Description |
-|--------|------|---------|-------------|
-| `is_paid_user` | `boolean` | `false` | Denormalized paid-status flag; updated when entitlement is granted |
-| `paid_at` | `timestamptz` | `NULL` | Timestamp of when the user first became a paid user (immutable after first set) |
+| Column         | Type          | Default | Description                                                                     |
+| -------------- | ------------- | ------- | ------------------------------------------------------------------------------- |
+| `is_paid_user` | `boolean`     | `false` | Denormalized paid-status flag; updated when entitlement is granted              |
+| `paid_at`      | `timestamptz` | `NULL`  | Timestamp of when the user first became a paid user (immutable after first set) |
 
 Apply the migration to add these columns:
 
@@ -48,8 +49,9 @@ A user may pay (via Razorpay → OTP gateway) **before** creating an iiskills ac
    - Sets `profiles.paid_at` (only on first grant, never overwritten)
 
 2. **OTP gateway success page** (`/otp-gateway`): If the user is **not** logged in, the success state now shows a prominent prompt:
+
    > "Payment received. Please register / login to access your Profile page and course dashboard."
-   
+
    Two buttons are displayed: **Register** and **Login**, both redirecting to `/profile` after authentication.
 
 3. **Profile page visit** (`/profile`): When a user visits `/profile` with an active entitlement but `is_paid_user = false`, the page's API call automatically syncs the flag.
@@ -67,6 +69,7 @@ Fetches the authenticated user's profile.
 **Auth**: `Authorization: Bearer <access_token>`
 
 **Responses**:
+
 - `200` — `{ profile: { id, first_name, …, is_paid_user, paid_at }, email }`
 - `401` — Unauthorized (missing/invalid token)
 - `403` — User is authenticated but not a paid user
@@ -80,6 +83,7 @@ Links pre-existing payment records to the authenticated user's profile.
 **Auth**: `Authorization: Bearer <access_token>`
 
 **Responses**:
+
 - `200` — `{ linked: bool, message: string }`
 - `401` — Unauthorized
 

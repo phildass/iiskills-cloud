@@ -28,10 +28,5 @@
     "P(μ–3σ < X < μ+3σ) ≈ 99.73%"
   ],
   "image": "math-sim-4.png",
-  "tags": [
-    "statistics",
-    "normal distribution",
-    "probability",
-    "bell curve"
-  ]
+  "tags": ["statistics", "normal distribution", "probability", "bell curve"]
 }

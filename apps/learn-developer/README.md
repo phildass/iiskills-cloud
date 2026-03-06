@@ -24,11 +24,13 @@ The **Web Developer Bootcamp** is designed to transform beginners into proficien
 ## Features
 
 ### Educational Content
+
 - **300-word Deep Dive Lessons**: Each module includes comprehensive lessons with high-impact analogies
 - **Clean Code Labs**: Practical, industry-standard code examples using ES6+ and functional React
 - **Rapid-Fire Tests**: 5 questions per module with instant transitions
 
 ### UX Flow
+
 - **Automated Testing**: Every module ends with a rapid-fire test
 - **Instant Progression**: Clicking an answer automatically advances to the next question
 - **Smart Certification**:
@@ -37,6 +39,7 @@ The **Web Developer Bootcamp** is designed to transform beginners into proficien
   - \> 90%: Honors - Certificate of Excellence
 
 ### Technical Features
+
 - Built with Next.js 16+ and React 19
 - Tailwind CSS for styling
 - Supabase for authentication (optional)
@@ -46,6 +49,7 @@ The **Web Developer Bootcamp** is designed to transform beginners into proficien
 ## Development
 
 ### Prerequisites
+
 - Node.js 18+
 - Yarn 4+
 
@@ -116,6 +120,7 @@ learn-developer/
 ## Curriculum Data
 
 All course content is stored in `lib/curriculumData.js`, including:
+
 - Module metadata (title, description, difficulty, duration)
 - 300-word lessons with analogies
 - Code examples with syntax highlighting
@@ -126,6 +131,7 @@ All course content is stored in `lib/curriculumData.js`, including:
 ## Testing System
 
 The rapid-fire quiz system:
+
 1. Displays one question at a time
 2. Automatically advances on answer selection (500ms delay for visual feedback)
 3. Calculates scores and determines certification level
@@ -142,10 +148,12 @@ Score > 90%   → Honors - Certificate of Excellence
 ## Deployment
 
 ### Port Assignment
+
 - Development: `3024`
 - Production: Configured via PM2
 
 ### Production Checklist
+
 - [ ] Environment variables configured
 - [ ] Supabase auth URLs updated
 - [ ] DNS records configured
@@ -163,6 +171,7 @@ Part of the iiskills-cloud monorepo. See root LICENSE file.
 ## Support
 
 For questions or issues:
+
 - Check the main repository documentation
 - Review the ADDING_NEW_APP.md guide
 - Contact the development team

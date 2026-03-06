@@ -317,18 +317,15 @@ export default async function handler(req, res) {
 
   // ── 9. Legacy fallback: dispatch OTP ─────────────────────────────────────
   // Kept for backward compatibility when user_token is absent.
-  const { generateAndDispatchOTP } = await import("@lib/otpService");
 
-
-  if (process.env.OTP_DISABLED === 'true') {
+  if (process.env.OTP_DISABLED === "true") {
     return res.status(400).json({
       error:
-        'OTP is disabled. Please start payment from iiskills.cloud so a payment token is included.',
+        "OTP is disabled. Please start payment from iiskills.cloud so a payment token is included.",
     });
   }
 
-  const { generateAndDispatchOTP } = await import('@lib/otpService');
-
+  const { generateAndDispatchOTP } = await import("@lib/otpService");
 
   try {
     // generateAndDispatchOTP requires an email field; synthesize when absent.

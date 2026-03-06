@@ -168,10 +168,8 @@ export default function PaymentSuccess() {
           </div>
 
           <p className="text-xs text-gray-400 mt-6">
-            Questions?{" "}
-            <a href="mailto:support@iiskills.cloud" className="text-blue-500 hover:underline">
-              Contact support
-            </a>
+            If you have any issues, go to your dashboard and raise a ticket. We will revert as soon
+            as possible.
           </p>
         </div>
       </main>

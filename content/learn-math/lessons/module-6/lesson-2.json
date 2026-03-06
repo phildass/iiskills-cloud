@@ -8,52 +8,27 @@
   "quiz": [
     {
       "question": "lim(x→2) (x² – 4)/(x – 2) equals:",
-      "options": [
-        "0",
-        "2",
-        "4",
-        "Undefined"
-      ],
+      "options": ["0", "2", "4", "Undefined"],
       "correct_answer": 2
     },
     {
       "question": "A function f is continuous at x = a if:",
-      "options": [
-        "f(a) is defined only",
-        "lim(x→a) f(x) = f(a)",
-        "f(a) = 0",
-        "f'(a) exists"
-      ],
+      "options": ["f(a) is defined only", "lim(x→a) f(x) = f(a)", "f(a) = 0", "f'(a) exists"],
       "correct_answer": 1
     },
     {
       "question": "lim(x→0) sin(x)/x equals:",
-      "options": [
-        "0",
-        "∞",
-        "1",
-        "–1"
-      ],
+      "options": ["0", "∞", "1", "–1"],
       "correct_answer": 2
     },
     {
       "question": "If lim(x→a⁺) f(x) ≠ lim(x→a⁻) f(x), the limit:",
-      "options": [
-        "Equals the average",
-        "Does not exist",
-        "Is 0",
-        "Is infinity"
-      ],
+      "options": ["Equals the average", "Does not exist", "Is 0", "Is infinity"],
       "correct_answer": 1
     },
     {
       "question": "A removable discontinuity is also called:",
-      "options": [
-        "A jump discontinuity",
-        "An infinite discontinuity",
-        "A hole",
-        "An asymptote"
-      ],
+      "options": ["A jump discontinuity", "An infinite discontinuity", "A hole", "An asymptote"],
       "correct_answer": 2
     }
   ]

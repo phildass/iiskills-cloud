@@ -16,11 +16,13 @@ export default function AdminDashboard() {
     totalLessons: 0,
   });
   const [siteCounts, setSiteCounts] = useState({});
+  const [openTickets, setOpenTickets] = useState(0);
 
   useEffect(() => {
     if (ready) {
       fetchStats();
       fetchSiteCounts();
+      fetchOpenTickets();
     }
   }, [ready]);
 
@@ -79,6 +81,18 @@ export default function AdminDashboard() {
       }
     } catch (error) {
       console.error("Error fetching site counts:", error);
+    }
+  };
+
+  const fetchOpenTickets = async () => {
+    try {
+      const response = await fetch("/api/admin/tickets?status=open");
+      if (response.ok) {
+        const data = await response.json();
+        setOpenTickets(data.openCount || 0);
+      }
+    } catch {
+      // non-fatal
     }
   };
 
@@ -207,6 +221,20 @@ export default function AdminDashboard() {
             <div className="text-4xl mb-3 group-hover:scale-110 transition-transform">⚙️</div>
             <h3 className="font-bold text-lg text-gray-800 mb-2">Settings</h3>
             <p className="text-sm text-gray-600">Configure site settings</p>
+          </Link>
+
+          <Link
+            href="/admin/tickets"
+            className="relative bg-white border-2 border-amber-200 rounded-lg shadow-md p-6 hover:border-amber-400 hover:shadow-lg transition text-center group"
+          >
+            {openTickets > 0 && (
+              <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center shadow">
+                {openTickets > 99 ? "99+" : openTickets}
+              </span>
+            )}
+            <div className="text-4xl mb-3 group-hover:scale-110 transition-transform">🎫</div>
+            <h3 className="font-bold text-lg text-gray-800 mb-2">Tickets</h3>
+            <p className="text-sm text-gray-600">Manage support tickets</p>
           </Link>
         </div>
 

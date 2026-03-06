@@ -8,22 +8,12 @@
   "quiz": [
     {
       "question": "What percentage of Earths land surface is classified as desert?",
-      "options": [
-        "About 10%",
-        "About 20%",
-        "About 33%",
-        "About 50%"
-      ],
+      "options": ["About 10%", "About 20%", "About 33%", "About 50%"],
       "correct_answer": 2
     },
     {
       "question": "What is the largest hot desert in the world?",
-      "options": [
-        "Arabian Desert",
-        "Gobi Desert",
-        "Sahara Desert",
-        "Kalahari Desert"
-      ],
+      "options": ["Arabian Desert", "Gobi Desert", "Sahara Desert", "Kalahari Desert"],
       "correct_answer": 2
     },
     {
@@ -38,12 +28,7 @@
     },
     {
       "question": "What type of rock formation is common in desert landscapes?",
-      "options": [
-        "Moraines",
-        "Mesas and buttes",
-        "Fjords",
-        "River terraces"
-      ],
+      "options": ["Moraines", "Mesas and buttes", "Fjords", "River terraces"],
       "correct_answer": 1
     },
     {

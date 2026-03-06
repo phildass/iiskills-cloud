@@ -18,12 +18,7 @@
     },
     {
       "question": "In which module does \"Nuclear Geography\" appear?",
-      "options": [
-        "Human Geography",
-        "Physical Geography",
-        "Geopolitics",
-        "Climate Zones"
-      ],
+      "options": ["Human Geography", "Physical Geography", "Geopolitics", "Climate Zones"],
       "correct_answer": 2
     },
     {

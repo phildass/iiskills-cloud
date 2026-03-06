@@ -8,12 +8,7 @@
   "quiz": [
     {
       "question": "Which business model charges per API call?",
-      "options": [
-        "Subscription",
-        "Freemium",
-        "Pay-per-use",
-        "Licensing"
-      ],
+      "options": ["Subscription", "Freemium", "Pay-per-use", "Licensing"],
       "correct_answer": 2
     },
     {

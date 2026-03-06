@@ -8,42 +8,22 @@
   "quiz": [
     {
       "question": "How many solutions does sin(x) = 0.5 have in [0°, 360°]?",
-      "options": [
-        "1",
-        "2",
-        "3",
-        "4"
-      ],
+      "options": ["1", "2", "3", "4"],
       "correct_answer": 1
     },
     {
       "question": "The general solution of sin(x) = 1/2 includes:",
-      "options": [
-        "30° only",
-        "30° + 360°n only",
-        "30° + 360°n and 150° + 360°n",
-        "30° + 180°n"
-      ],
+      "options": ["30° only", "30° + 360°n only", "30° + 360°n and 150° + 360°n", "30° + 180°n"],
       "correct_answer": 2
     },
     {
       "question": "To solve cos(2x) = 1 for x in [0°, 360°], first solve for:",
-      "options": [
-        "x directly",
-        "2x then halve",
-        "x² then take square root",
-        "cos x = 0.5"
-      ],
+      "options": ["x directly", "2x then halve", "x² then take square root", "cos x = 0.5"],
       "correct_answer": 1
     },
     {
       "question": "tan(x) = –1 in [0°, 360°] has solutions at:",
-      "options": [
-        "45° and 225°",
-        "135° and 315°",
-        "135° and 225°",
-        "45° and 315°"
-      ],
+      "options": ["45° and 225°", "135° and 315°", "135° and 225°", "45° and 315°"],
       "correct_answer": 1
     },
     {

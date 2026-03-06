@@ -62,38 +62,34 @@ Since this is a monorepo package, it's automatically available to all workspace 
 #### 1. Using the Module Types
 
 ```typescript
-import { Module, LessonContent } from '@iiskills/core';
+import { Module, LessonContent } from "@iiskills/core";
 
-const lessonModule: Module<'lesson'> = {
-  id: 'lesson-001',
-  title: 'Introduction to React',
-  content_type: 'lesson',
-  status: 'published',
+const lessonModule: Module<"lesson"> = {
+  id: "lesson-001",
+  title: "Introduction to React",
+  content_type: "lesson",
+  status: "published",
   isPublic: true,
   metadata: {
-    createdAt: '2024-01-01T00:00:00Z',
-    updatedAt: '2024-01-01T00:00:00Z',
-    author: 'John Doe',
-    difficulty: 'beginner',
+    createdAt: "2024-01-01T00:00:00Z",
+    updatedAt: "2024-01-01T00:00:00Z",
+    author: "John Doe",
+    difficulty: "beginner",
     estimatedDuration: 30,
-    tags: ['react', 'javascript', 'frontend']
+    tags: ["react", "javascript", "frontend"],
   },
   content: {
-    description: 'Learn the basics of React',
-    objectives: [
-      'Understand React components',
-      'Learn about JSX',
-      'Create your first React app'
-    ],
+    description: "Learn the basics of React",
+    objectives: ["Understand React components", "Learn about JSX", "Create your first React app"],
     sections: [
       {
-        id: 'section-1',
-        title: 'What is React?',
-        content: 'React is a JavaScript library...',
-        order: 1
-      }
-    ]
-  }
+        id: "section-1",
+        title: "What is React?",
+        content: "React is a JavaScript library...",
+        order: 1,
+      },
+    ],
+  },
 };
 ```
 
@@ -205,7 +201,7 @@ const cssVars = generateCSSVariables(myTheme);
 
 ```javascript
 // tailwind.config.js
-import { generateTailwindConfig, defaultTheme } from '@iiskills/core';
+import { generateTailwindConfig, defaultTheme } from "@iiskills/core";
 
 module.exports = {
   ...generateTailwindConfig(defaultTheme),
@@ -218,20 +214,20 @@ module.exports = {
 ### Creating an App Config
 
 ```typescript
-import { AppConfig, createDefaultConfig } from '@iiskills/core';
+import { AppConfig, createDefaultConfig } from "@iiskills/core";
 
 const config: AppConfig = createDefaultConfig({
-  id: 'my-app',
-  name: 'My Learning App',
+  id: "my-app",
+  name: "My Learning App",
   features: {
     isSearchable: true,
     hasProgressTracking: true,
     hasCertificates: false,
   },
   branding: {
-    appName: 'My Learning App',
-    primaryColor: '#3b82f6',
-  }
+    appName: "My Learning App",
+    primaryColor: "#3b82f6",
+  },
 });
 ```
 
@@ -321,16 +317,19 @@ type CustomModule = Module & {
 ## 🎯 Use Cases
 
 ### Use Case 1: Learn Aptitude
+
 - Content Types: `lesson`, `test`
 - Features: Progress tracking, certificates, AI assistance
 - Custom: Career guidance, test modes (short/elaborate)
 
 ### Use Case 2: Learn Government Jobs
+
 - Content Types: `job_posting`, `lesson`, `article`
 - Features: Job alerts, bookmarks, search
 - Custom: Application deadlines, job categories
 
 ### Use Case 3: Learn Management
+
 - Content Types: `lesson`, `article`, `video`
 - Features: Certificates, discussions, progress tracking
 - Custom: Course categories, learning paths
@@ -338,6 +337,7 @@ type CustomModule = Module & {
 ## 📚 Examples
 
 See the `config/` directory for complete app configuration examples:
+
 - `learn-aptitude.config.json`
 - `learn-govt-jobs.config.json`
 - `learn-management.config.json`

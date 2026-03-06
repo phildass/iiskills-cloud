@@ -8,52 +8,27 @@
   "quiz": [
     {
       "question": "Sound travels fastest through:",
-      "options": [
-        "Vacuum",
-        "Air",
-        "Water",
-        "Solid steel"
-      ],
+      "options": ["Vacuum", "Air", "Water", "Solid steel"],
       "correct_answer": 3
     },
     {
       "question": "The frequency of sound is measured in:",
-      "options": [
-        "Metres",
-        "Newtons",
-        "Hertz",
-        "Decibels"
-      ],
+      "options": ["Metres", "Newtons", "Hertz", "Decibels"],
       "correct_answer": 2
     },
     {
       "question": "Which type of wave is sound?",
-      "options": [
-        "Transverse",
-        "Longitudinal",
-        "Electromagnetic",
-        "Standing"
-      ],
+      "options": ["Transverse", "Longitudinal", "Electromagnetic", "Standing"],
       "correct_answer": 1
     },
     {
       "question": "Light travels at approximately:",
-      "options": [
-        "3×10⁶ m/s",
-        "3×10⁸ m/s",
-        "3×10¹⁰ m/s",
-        "300 m/s"
-      ],
+      "options": ["3×10⁶ m/s", "3×10⁸ m/s", "3×10¹⁰ m/s", "300 m/s"],
       "correct_answer": 1
     },
     {
       "question": "Reflection of light follows:",
-      "options": [
-        "Snell's law",
-        "Law of reflection",
-        "Newton's law",
-        "Ohm's law"
-      ],
+      "options": ["Snell's law", "Law of reflection", "Newton's law", "Ohm's law"],
       "correct_answer": 1
     }
   ]

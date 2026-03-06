@@ -8,22 +8,12 @@
   "quiz": [
     {
       "question": "What is the longest river in Africa?",
-      "options": [
-        "Congo River",
-        "Niger River",
-        "Nile River",
-        "Zambezi River"
-      ],
+      "options": ["Congo River", "Niger River", "Nile River", "Zambezi River"],
       "correct_answer": 2
     },
     {
       "question": "Which desert covers most of northern Africa?",
-      "options": [
-        "Namib Desert",
-        "Kalahari Desert",
-        "Sahara Desert",
-        "Arabian Desert"
-      ],
+      "options": ["Namib Desert", "Kalahari Desert", "Sahara Desert", "Arabian Desert"],
       "correct_answer": 2
     },
     {
@@ -38,22 +28,12 @@
     },
     {
       "question": "Which African lake is the largest by surface area?",
-      "options": [
-        "Lake Tanganyika",
-        "Lake Malawi",
-        "Lake Victoria",
-        "Lake Chad"
-      ],
+      "options": ["Lake Tanganyika", "Lake Malawi", "Lake Victoria", "Lake Chad"],
       "correct_answer": 2
     },
     {
       "question": "What mountain is the highest peak in Africa?",
-      "options": [
-        "Mount Kenya",
-        "Mount Kilimanjaro",
-        "Atlas Mountains peak",
-        "Drakensberg peak"
-      ],
+      "options": ["Mount Kenya", "Mount Kilimanjaro", "Atlas Mountains peak", "Drakensberg peak"],
       "correct_answer": 1
     }
   ]

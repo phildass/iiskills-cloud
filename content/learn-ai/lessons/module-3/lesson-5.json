@@ -8,12 +8,7 @@
   "quiz": [
     {
       "question": "Who formalised EDA in the 1970s?",
-      "options": [
-        "Claude Shannon",
-        "Andrey Kolmogorov",
-        "John Tukey",
-        "Ronald Fisher"
-      ],
+      "options": ["Claude Shannon", "Andrey Kolmogorov", "John Tukey", "Ronald Fisher"],
       "correct_answer": 2
     },
     {
@@ -38,12 +33,7 @@
     },
     {
       "question": "What type of analysis examines exactly two variables?",
-      "options": [
-        "Univariate",
-        "Bivariate",
-        "Multivariate",
-        "Dimensionality"
-      ],
+      "options": ["Univariate", "Bivariate", "Multivariate", "Dimensionality"],
       "correct_answer": 1
     },
     {

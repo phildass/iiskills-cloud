@@ -47,18 +47,18 @@ nginx/
 
 ## Site/port mapping
 
-| Config file                         | Backend port | Notes                    |
-|-------------------------------------|:------------:|--------------------------|
-| `iiskills.cloud`                    | 3000         | main site + www          |
-| `learn-ai.iiskills.cloud`           | 3024         |                          |
-| `learn-apt.iiskills.cloud`          | 3002         |                          |
-| `learn-chemistry.iiskills.cloud`    | 3005         |                          |
-| `learn-developer.iiskills.cloud`    | 3007         |                          |
-| `learn-geography.iiskills.cloud`    | 3011         |                          |
-| `learn-management.iiskills.cloud`   | 3016         |                          |
-| `learn-math.iiskills.cloud`         | 3017         |                          |
-| `learn-physics.iiskills.cloud`      | 3020         |                          |
-| `learn-pr.iiskills.cloud`           | 3021         |                          |
+| Config file                       | Backend port | Notes           |
+| --------------------------------- | :----------: | --------------- |
+| `iiskills.cloud`                  |     3000     | main site + www |
+| `learn-ai.iiskills.cloud`         |     3024     |                 |
+| `learn-apt.iiskills.cloud`        |     3002     |                 |
+| `learn-chemistry.iiskills.cloud`  |     3005     |                 |
+| `learn-developer.iiskills.cloud`  |     3007     |                 |
+| `learn-geography.iiskills.cloud`  |     3011     |                 |
+| `learn-management.iiskills.cloud` |     3016     |                 |
+| `learn-math.iiskills.cloud`       |     3017     |                 |
+| `learn-physics.iiskills.cloud`    |     3020     |                 |
+| `learn-pr.iiskills.cloud`         |     3021     |                 |
 
 ## TLS certificates
 
@@ -74,9 +74,9 @@ is installed at those paths before running the setup script.
 
 ## Access credentials
 
-| Field    | Value            |
-|----------|------------------|
-| Username | `authorized`     |
+| Field    | Value              |
+| -------- | ------------------ |
+| Username | `authorized`       |
 | Password | `LizMon2610@4ever` |
 
 > **Note:** The password hash is stored in
@@ -86,5 +86,5 @@ is installed at those paths before running the setup script.
 ## Removing testing-period restrictions
 
 When the testing period ends, replace these configs with the production configs
-from `monorepobackup/nginx-configs/` (updated to use the correct SSL cert paths)
+from `nginx/sites-available/` (updated to use the correct SSL cert paths)
 and reload nginx.

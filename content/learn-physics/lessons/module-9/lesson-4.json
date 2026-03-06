@@ -8,42 +8,22 @@
   "quiz": [
     {
       "question": "Electric current is measured in:",
-      "options": [
-        "Volts",
-        "Ohms",
-        "Amperes",
-        "Watts"
-      ],
+      "options": ["Volts", "Ohms", "Amperes", "Watts"],
       "correct_answer": 2
     },
     {
       "question": "Voltage is measured using a:",
-      "options": [
-        "Ammeter",
-        "Voltmeter",
-        "Galvanometer",
-        "Barometer"
-      ],
+      "options": ["Ammeter", "Voltmeter", "Galvanometer", "Barometer"],
       "correct_answer": 1
     },
     {
       "question": "Resistance is measured in:",
-      "options": [
-        "Amperes",
-        "Volts",
-        "Watts",
-        "Ohms"
-      ],
+      "options": ["Amperes", "Volts", "Watts", "Ohms"],
       "correct_answer": 3
     },
     {
       "question": "Which is a good electrical conductor?",
-      "options": [
-        "Glass",
-        "Rubber",
-        "Copper wire",
-        "Plastic"
-      ],
+      "options": ["Glass", "Rubber", "Copper wire", "Plastic"],
       "correct_answer": 2
     },
     {

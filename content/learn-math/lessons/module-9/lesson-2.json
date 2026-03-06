@@ -8,52 +8,27 @@
   "quiz": [
     {
       "question": "The magnitude of vector (3, 4) is:",
-      "options": [
-        "3",
-        "4",
-        "5",
-        "7"
-      ],
+      "options": ["3", "4", "5", "7"],
       "correct_answer": 2
     },
     {
       "question": "The unit vector in the direction of v is:",
-      "options": [
-        "v + |v|",
-        "v / |v|",
-        "v × |v|",
-        "|v| – v"
-      ],
+      "options": ["v + |v|", "v / |v|", "v × |v|", "|v| – v"],
       "correct_answer": 1
     },
     {
       "question": "Vector addition (2,3) + (1,–1) = :",
-      "options": [
-        "(3,2)",
-        "(1,4)",
-        "(2,2)",
-        "(3,4)"
-      ],
+      "options": ["(3,2)", "(1,4)", "(2,2)", "(3,4)"],
       "correct_answer": 0
     },
     {
       "question": "Scalar multiplication 3·(2,1) = :",
-      "options": [
-        "(5,4)",
-        "(6,3)",
-        "(2,3)",
-        "(23,13)"
-      ],
+      "options": ["(5,4)", "(6,3)", "(2,3)", "(23,13)"],
       "correct_answer": 1
     },
     {
       "question": "The position vector from A(1,2) to B(4,6) is:",
-      "options": [
-        "(3,4)",
-        "(5,8)",
-        "(–3,–4)",
-        "(4,6)"
-      ],
+      "options": ["(3,4)", "(5,8)", "(–3,–4)", "(4,6)"],
       "correct_answer": 0
     }
   ]

@@ -30,15 +30,7 @@
       "unit": ""
     }
   ],
-  "outputs": [
-    "Cluster assignments",
-    "Inertia (within-cluster variance)",
-    "Centroid positions"
-  ],
+  "outputs": ["Cluster assignments", "Inertia (within-cluster variance)", "Centroid positions"],
   "image": "ai-sim-3.png",
-  "tags": [
-    "k-means",
-    "clustering",
-    "unsupervised learning"
-  ]
+  "tags": ["k-means", "clustering", "unsupervised learning"]
 }

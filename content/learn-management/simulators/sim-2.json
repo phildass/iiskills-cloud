@@ -30,15 +30,7 @@
       "unit": "₹"
     }
   ],
-  "outputs": [
-    "Productivity index",
-    "Employee engagement score",
-    "Predicted retention rate"
-  ],
+  "outputs": ["Productivity index", "Employee engagement score", "Predicted retention rate"],
   "image": "mgmt-sim-2.png",
-  "tags": [
-    "team performance",
-    "motivation",
-    "employee engagement"
-  ]
+  "tags": ["team performance", "motivation", "employee engagement"]
 }

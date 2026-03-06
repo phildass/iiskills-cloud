@@ -4,7 +4,8 @@ import { useState } from "react";
 import Head from "next/head";
 
 const PAYMENT_URL = "https://iiskills.cloud/payments/iiskills";
-const SUPPORT_EMAIL = "support@iiskills.cloud";
+const SUPPORT_MESSAGE =
+  "If you have any issues, go to your dashboard and raise a ticket. We will revert as soon as possible.";
 
 const INTERMEDIATE_QUESTIONS = [
   {
@@ -183,10 +184,12 @@ export default function Onboarding() {
         localStorage.setItem("enrollmentLevel", approvedLevel);
         setStep("success");
       } else {
-        setOtpError(`Invalid OTP. Please check and try again, or contact ${SUPPORT_EMAIL}`);
+        setOtpError(
+          `Invalid OTP. Please check and try again, or go to your dashboard and raise a ticket`
+        );
       }
     } catch {
-      setOtpError(`Unable to verify OTP. Having problems? Contact ${SUPPORT_EMAIL}`);
+      setOtpError(`Unable to verify OTP. Having problems? raise a ticket from your dashboard`);
     } finally {
       setOtpLoading(false);
     }
@@ -261,14 +264,7 @@ export default function Onboarding() {
                 {otpError && (
                   <div className="bg-red-50 border border-red-200 rounded-lg p-3 text-red-700 text-sm">
                     {otpError}
-                    {otpError.includes("problems") && (
-                      <p className="mt-1">
-                        Contact:{" "}
-                        <a href={`mailto:${SUPPORT_EMAIL}`} className="underline font-semibold">
-                          {SUPPORT_EMAIL}
-                        </a>
-                      </p>
-                    )}
+                    {otpError.includes("problems") && <p className="mt-1">{SUPPORT_MESSAGE}</p>}
                   </div>
                 )}
                 <button
@@ -280,15 +276,7 @@ export default function Onboarding() {
                 </button>
               </form>
               <div className="mt-6 text-center text-sm text-gray-500">
-                <p>
-                  Having problems?{" "}
-                  <a
-                    href={`mailto:${SUPPORT_EMAIL}`}
-                    className="text-blue-600 underline font-semibold"
-                  >
-                    Contact {SUPPORT_EMAIL}
-                  </a>
-                </p>
+                <p>{SUPPORT_MESSAGE}</p>
               </div>
             </div>
           </div>

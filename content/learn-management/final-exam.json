@@ -15,12 +15,7 @@
     },
     {
       "question": "Which leadership style adapts to follower readiness?",
-      "options": [
-        "Autocratic",
-        "Laissez-faire",
-        "Situational Leadership",
-        "Bureaucratic"
-      ],
+      "options": ["Autocratic", "Laissez-faire", "Situational Leadership", "Bureaucratic"],
       "correct_answer": 2
     },
     {
@@ -55,12 +50,7 @@
     },
     {
       "question": "What is Tuckman's final team development stage?",
-      "options": [
-        "Storming",
-        "Norming",
-        "Forming",
-        "Performing"
-      ],
+      "options": ["Storming", "Norming", "Forming", "Performing"],
       "correct_answer": 3
     },
     {

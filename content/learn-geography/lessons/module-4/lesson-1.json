@@ -18,12 +18,7 @@
     },
     {
       "question": "In which module does \"Introduction to Climate Classification\" appear?",
-      "options": [
-        "Human Geography",
-        "Physical Geography",
-        "Climate Zones",
-        "Climate Zones"
-      ],
+      "options": ["Human Geography", "Physical Geography", "Climate Zones", "Climate Zones"],
       "correct_answer": 2
     },
     {

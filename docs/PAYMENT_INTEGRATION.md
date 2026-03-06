@@ -48,15 +48,15 @@ User is redirected to https://<appname>.iiskills.cloud/authorised
 
 When a logged-in user reaches `/payments/iiskills`, iiskills.cloud generates a short-lived JWT:
 
-| Payload field | Description |
-|---------------|-------------|
-| `user_id` | Supabase user UUID |
-| `email` | User's email address |
-| `phone` | User's phone number (from profile) |
-| `name` | User's full name (from profile) |
-| `course_slug` | App ID of the course being purchased |
-| `return_to` | Post-payment redirect URL (`https://<appname>.iiskills.cloud/authorised`) |
-| `jti` | Random nonce to prevent replay attacks |
+| Payload field | Description                                                               |
+| ------------- | ------------------------------------------------------------------------- |
+| `user_id`     | Supabase user UUID                                                        |
+| `email`       | User's email address                                                      |
+| `phone`       | User's phone number (from profile)                                        |
+| `name`        | User's full name (from profile)                                           |
+| `course_slug` | App ID of the course being purchased                                      |
+| `return_to`   | Post-payment redirect URL (`https://<appname>.iiskills.cloud/authorised`) |
+| `jti`         | Random nonce to prevent replay attacks                                    |
 
 The token is signed with `PAYMENT_TOKEN_SECRET` (HS256) and expires in 10 minutes.
 
@@ -65,12 +65,12 @@ The token is signed with `PAYMENT_TOKEN_SECRET` (HS256) and expires in 10 minute
 After a successful payment, aienter.in redirects the user to the `returnTo` URL. This is
 derived from the `course` app ID and always points to `https://<appname>.iiskills.cloud/authorised`:
 
-| App ID | returnTo |
-|--------|---------|
-| `learn-ai` | `https://learn-ai.iiskills.cloud/authorised` |
-| `learn-developer` | `https://learn-developer.iiskills.cloud/authorised` |
+| App ID             | returnTo                                             |
+| ------------------ | ---------------------------------------------------- |
+| `learn-ai`         | `https://learn-ai.iiskills.cloud/authorised`         |
+| `learn-developer`  | `https://learn-developer.iiskills.cloud/authorised`  |
 | `learn-management` | `https://learn-management.iiskills.cloud/authorised` |
-| `learn-pr` | `https://learn-pr.iiskills.cloud/authorised` |
+| `learn-pr`         | `https://learn-pr.iiskills.cloud/authorised`         |
 
 The `/authorised` page on each subdomain app shows a payment success message and
 immediately redirects to `/complete-registration` to finalise onboarding.
@@ -79,11 +79,11 @@ immediately redirects to `/complete-registration` to finalise onboarding.
 
 ## Callback Endpoint
 
-| Property | Value |
-|----------|-------|
-| **URL** | `POST https://iiskills.cloud/api/payments/ai-enter/callback` |
-| **Content-Type** | `application/json` |
-| **Auth** | HMAC-SHA256 signature (see below) |
+| Property         | Value                                                        |
+| ---------------- | ------------------------------------------------------------ |
+| **URL**          | `POST https://iiskills.cloud/api/payments/ai-enter/callback` |
+| **Content-Type** | `application/json`                                           |
+| **Auth**         | HMAC-SHA256 signature (see below)                            |
 
 ---
 
@@ -91,12 +91,12 @@ immediately redirects to `/complete-registration` to finalise onboarding.
 
 Set these on **iiskills.cloud** (apps/main `.env.local` / server environment):
 
-| Variable | Description |
-|----------|-------------|
-| `PAYMENT_TOKEN_SECRET` | Long random string used to sign/verify payment JWT tokens. Generate with `openssl rand -hex 32`. |
-| `ORIGIN_WEBHOOK_SECRET` | Shared HMAC secret between aienter.in and iiskills.cloud for server-to-server callback. |
-| `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL |
-| `SUPABASE_SERVICE_ROLE_KEY` | Supabase service role key (server-side only, never exposed to browser) |
+| Variable                    | Description                                                                                      |
+| --------------------------- | ------------------------------------------------------------------------------------------------ |
+| `PAYMENT_TOKEN_SECRET`      | Long random string used to sign/verify payment JWT tokens. Generate with `openssl rand -hex 32`. |
+| `ORIGIN_WEBHOOK_SECRET`     | Shared HMAC secret between aienter.in and iiskills.cloud for server-to-server callback.          |
+| `NEXT_PUBLIC_SUPABASE_URL`  | Supabase project URL                                                                             |
+| `SUPABASE_SERVICE_ROLE_KEY` | Supabase service role key (server-side only, never exposed to browser)                           |
 
 ---
 
@@ -104,23 +104,23 @@ Set these on **iiskills.cloud** (apps/main `.env.local` / server environment):
 
 ### Headers
 
-| Header | Required | Description |
-|--------|----------|-------------|
-| `X-AI-ENTER-SIGNATURE` | **Yes** | HMAC-SHA256 hex digest of the raw request body, keyed with `ORIGIN_WEBHOOK_SECRET` |
-| `Content-Type` | **Yes** | Must be `application/json` |
+| Header                 | Required | Description                                                                        |
+| ---------------------- | -------- | ---------------------------------------------------------------------------------- |
+| `X-AI-ENTER-SIGNATURE` | **Yes**  | HMAC-SHA256 hex digest of the raw request body, keyed with `ORIGIN_WEBHOOK_SECRET` |
+| `Content-Type`         | **Yes**  | Must be `application/json`                                                         |
 
 ### Body Fields
 
-| Field | Type | Required | Description |
-|-------|------|----------|-------------|
-| `event` | `string` | **Yes** | Must be `"payment.success"` |
-| `razorpay_payment_id` | `string` | **Yes** | Razorpay payment ID — used as idempotency key |
-| `app_id` | `string` | **Yes** | iiskills app identifier, e.g. `"learn-ai"` |
-| `user_token` | `string` | **Yes (Option A)** | The JWT token issued by `/api/payments/generate-token` |
-| `phone` | `string` | **Yes (legacy)** | Required if `user_token` is absent |
-| `email` | `string` | No | Customer email (used in legacy flow) |
-| `amount` | `number` | No | Payment amount in paise |
-| `currency` | `string` | No | Defaults to `"INR"` |
+| Field                 | Type     | Required           | Description                                            |
+| --------------------- | -------- | ------------------ | ------------------------------------------------------ |
+| `event`               | `string` | **Yes**            | Must be `"payment.success"`                            |
+| `razorpay_payment_id` | `string` | **Yes**            | Razorpay payment ID — used as idempotency key          |
+| `app_id`              | `string` | **Yes**            | iiskills app identifier, e.g. `"learn-ai"`             |
+| `user_token`          | `string` | **Yes (Option A)** | The JWT token issued by `/api/payments/generate-token` |
+| `phone`               | `string` | **Yes (legacy)**   | Required if `user_token` is absent                     |
+| `email`               | `string` | No                 | Customer email (used in legacy flow)                   |
+| `amount`              | `number` | No                 | Payment amount in paise                                |
+| `currency`            | `string` | No                 | Defaults to `"INR"`                                    |
 
 ---
 
@@ -129,13 +129,13 @@ Set these on **iiskills.cloud** (apps/main `.env.local` / server environment):
 Compute the signature over the **raw request body bytes** (not re-serialized JSON):
 
 ```javascript
-const crypto = require('crypto');
+const crypto = require("crypto");
 
 const rawBody = JSON.stringify(payload); // keep as-is; do not re-serialize
 const signature = crypto
-  .createHmac('sha256', process.env.ORIGIN_WEBHOOK_SECRET)
-  .update(Buffer.from(rawBody, 'utf8'))
-  .digest('hex');
+  .createHmac("sha256", process.env.ORIGIN_WEBHOOK_SECRET)
+  .update(Buffer.from(rawBody, "utf8"))
+  .digest("hex");
 ```
 
 Send the signature in the `X-AI-ENTER-SIGNATURE` header.
@@ -144,13 +144,13 @@ Send the signature in the `X-AI-ENTER-SIGNATURE` header.
 
 ## Response Codes
 
-| Status | Meaning |
-|--------|---------|
-| `200` | Payment confirmed (or already confirmed — idempotent) |
-| `400` | Missing/invalid required field |
-| `401` | Missing or invalid `X-AI-ENTER-SIGNATURE`, or invalid `user_token` |
-| `405` | Non-POST request |
-| `500` | Server-side error (Supabase unavailable, etc.) |
+| Status | Meaning                                                            |
+| ------ | ------------------------------------------------------------------ |
+| `200`  | Payment confirmed (or already confirmed — idempotent)              |
+| `400`  | Missing/invalid required field                                     |
+| `401`  | Missing or invalid `X-AI-ENTER-SIGNATURE`, or invalid `user_token` |
+| `405`  | Non-POST request                                                   |
+| `500`  | Server-side error (Supabase unavailable, etc.)                     |
 
 ---
 

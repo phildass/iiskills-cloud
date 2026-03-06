@@ -1,1 +1,0 @@
-../../apps/learn-management/next.config.js

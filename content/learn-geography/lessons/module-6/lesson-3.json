@@ -18,12 +18,7 @@
     },
     {
       "question": "In which module does \"Secondary Sector — Industry and Manufacturing\" appear?",
-      "options": [
-        "Human Geography",
-        "Physical Geography",
-        "Economic Geography",
-        "Climate Zones"
-      ],
+      "options": ["Human Geography", "Physical Geography", "Economic Geography", "Climate Zones"],
       "correct_answer": 2
     },
     {

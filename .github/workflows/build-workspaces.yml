@@ -3,20 +3,20 @@ name: Build workspaces (per-workspace)
 on:
   push:
     paths:
-      - 'apps/**'
-      - 'packages/**'
-      - '.github/workflows/build-workspaces.yml'
-      - 'scripts/workspace-install-build.sh'
+      - "apps/**"
+      - "packages/**"
+      - ".github/workflows/build-workspaces.yml"
+      - "scripts/workspace-install-build.sh"
   pull_request:
     paths:
-      - 'apps/**'
-      - 'packages/**'
-      - '.github/workflows/build-workspaces.yml'
-      - 'scripts/workspace-install-build.sh'
+      - "apps/**"
+      - "packages/**"
+      - ".github/workflows/build-workspaces.yml"
+      - "scripts/workspace-install-build.sh"
   workflow_dispatch:
     inputs:
       workspace:
-        description: 'Specific workspace to build (leave empty for all)'
+        description: "Specific workspace to build (leave empty for all)"
         required: false
         type: string
 
@@ -35,7 +35,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: "18"
 
       - name: Generate workspace matrix
         id: set-matrix
@@ -64,7 +64,7 @@ jobs:
       fail-fast: false
       matrix: ${{ fromJson(needs.prepare-matrix.outputs.matrix) }}
     env:
-      NODE_OPTIONS: '--max-old-space-size=4096'
+      NODE_OPTIONS: "--max-old-space-size=4096"
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -75,8 +75,8 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
-          cache: 'yarn'
+          node-version: "18"
+          cache: "yarn"
 
       - name: Setup environment files for CI
         run: |

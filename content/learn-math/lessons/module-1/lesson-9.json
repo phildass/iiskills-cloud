@@ -8,42 +8,22 @@
   "quiz": [
     {
       "question": "What is log₂(8)?",
-      "options": [
-        "2",
-        "3",
-        "4",
-        "8"
-      ],
+      "options": ["2", "3", "4", "8"],
       "correct_answer": 1
     },
     {
       "question": "The natural logarithm uses base:",
-      "options": [
-        "2",
-        "10",
-        "e",
-        "π"
-      ],
+      "options": ["2", "10", "e", "π"],
       "correct_answer": 2
     },
     {
       "question": "Which law states log(xy) = log(x) + log(y)?",
-      "options": [
-        "Product rule",
-        "Quotient rule",
-        "Power rule",
-        "Change of base"
-      ],
+      "options": ["Product rule", "Quotient rule", "Power rule", "Change of base"],
       "correct_answer": 0
     },
     {
       "question": "What is 2⁻³?",
-      "options": [
-        "–8",
-        "–6",
-        "1/8",
-        "1/6"
-      ],
+      "options": ["–8", "–6", "1/8", "1/6"],
       "correct_answer": 2
     },
     {

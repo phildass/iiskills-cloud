@@ -8,32 +8,17 @@
   "quiz": [
     {
       "question": "Which type of radiation is stopped by a sheet of paper?",
-      "options": [
-        "Gamma radiation",
-        "Beta radiation",
-        "Alpha radiation",
-        "X-rays"
-      ],
+      "options": ["Gamma radiation", "Beta radiation", "Alpha radiation", "X-rays"],
       "correct_answer": 2
     },
     {
       "question": "The biological effect of radiation on the human body is measured in:",
-      "options": [
-        "Gray (Gy)",
-        "Sievert (Sv)",
-        "Becquerel (Bq)",
-        "Curie (Ci)"
-      ],
+      "options": ["Gray (Gy)", "Sievert (Sv)", "Becquerel (Bq)", "Curie (Ci)"],
       "correct_answer": 1
     },
     {
       "question": "Which material is most effective for shielding gamma radiation?",
-      "options": [
-        "Paper",
-        "Aluminium foil",
-        "Lead",
-        "Wood"
-      ],
+      "options": ["Paper", "Aluminium foil", "Lead", "Wood"],
       "correct_answer": 2
     },
     {

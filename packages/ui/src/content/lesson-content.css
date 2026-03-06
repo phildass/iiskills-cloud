@@ -28,20 +28,34 @@
   margin-bottom: 0.6em;
 }
 
-.lesson-content h1 { font-size: 2rem; }
+.lesson-content h1 {
+  font-size: 2rem;
+}
 .lesson-content h2 {
   font-size: 1.5rem;
   padding-bottom: 0.3em;
   border-bottom: 2px solid #e2e8f0;
 }
-.lesson-content h3 { font-size: 1.25rem; color: #1e40af; }
-.lesson-content h4 { font-size: 1.1rem; color: #2563eb; }
+.lesson-content h3 {
+  font-size: 1.25rem;
+  color: #1e40af;
+}
+.lesson-content h4 {
+  font-size: 1.1rem;
+  color: #2563eb;
+}
 .lesson-content h5,
-.lesson-content h6 { font-size: 1rem; }
+.lesson-content h6 {
+  font-size: 1rem;
+}
 
 /* First child — no top margin */
-.lesson-content > :first-child { margin-top: 0; }
-.lesson-content > :last-child  { margin-bottom: 0; }
+.lesson-content > :first-child {
+  margin-top: 0;
+}
+.lesson-content > :last-child {
+  margin-bottom: 0;
+}
 
 /* ── Paragraphs ───────────────────────────────────────── */
 .lesson-content p {
@@ -66,13 +80,19 @@
   margin-bottom: 1.25em;
   padding-left: 1.75em;
 }
-.lesson-content ul { list-style-type: disc; }
-.lesson-content ol { list-style-type: decimal; }
+.lesson-content ul {
+  list-style-type: disc;
+}
+.lesson-content ol {
+  list-style-type: decimal;
+}
 .lesson-content li {
   margin-bottom: 0.4em;
   line-height: 1.65;
 }
-.lesson-content li::marker { color: #2563eb; }
+.lesson-content li::marker {
+  color: #2563eb;
+}
 
 /* ── Blockquotes ──────────────────────────────────────── */
 .lesson-content blockquote {
@@ -84,7 +104,9 @@
   color: #1e3a8a;
   font-style: italic;
 }
-.lesson-content blockquote p { margin-bottom: 0; }
+.lesson-content blockquote p {
+  margin-bottom: 0;
+}
 
 /* ── Inline code ──────────────────────────────────────── */
 .lesson-content code:not(pre > code) {
@@ -122,7 +144,9 @@
   text-decoration: underline;
   text-underline-offset: 3px;
   text-decoration-color: #bfdbfe;
-  transition: color 0.15s, text-decoration-color 0.15s;
+  transition:
+    color 0.15s,
+    text-decoration-color 0.15s;
 }
 .lesson-content a:hover {
   color: #1d4ed8;
@@ -149,7 +173,9 @@
   border-bottom: 1px solid #f1f5f9;
   vertical-align: top;
 }
-.lesson-content tbody tr:last-child td { border-bottom: none; }
+.lesson-content tbody tr:last-child td {
+  border-bottom: none;
+}
 
 /* ── Images ───────────────────────────────────────────── */
 .lesson-content img {

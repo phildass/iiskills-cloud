@@ -8,22 +8,12 @@
   "quiz": [
     {
       "question": "The dot product of (1,0,0) and (0,1,0) is:",
-      "options": [
-        "0",
-        "1",
-        "–1",
-        "2"
-      ],
+      "options": ["0", "1", "–1", "2"],
       "correct_answer": 0
     },
     {
       "question": "a·b = |a||b|cos θ. Two perpendicular vectors have dot product:",
-      "options": [
-        "1",
-        "–1",
-        "0",
-        "|a||b|"
-      ],
+      "options": ["1", "–1", "0", "|a||b|"],
       "correct_answer": 2
     },
     {
@@ -38,22 +28,12 @@
     },
     {
       "question": "The dot product of (2,3) and (4,–1) is:",
-      "options": [
-        "5",
-        "8",
-        "11",
-        "–5"
-      ],
+      "options": ["5", "8", "11", "–5"],
       "correct_answer": 0
     },
     {
       "question": "The cross product is defined in:",
-      "options": [
-        "ℝ² only",
-        "ℝ³ (and ℝ⁷)",
-        "All dimensions",
-        "ℝ⁴ only"
-      ],
+      "options": ["ℝ² only", "ℝ³ (and ℝ⁷)", "All dimensions", "ℝ⁴ only"],
       "correct_answer": 1
     }
   ]

@@ -8,22 +8,12 @@
   "quiz": [
     {
       "question": "The graph of y = 2ˣ passes through:",
-      "options": [
-        "(0, 0)",
-        "(1, 0)",
-        "(0, 1)",
-        "(–1, 2)"
-      ],
+      "options": ["(0, 0)", "(1, 0)", "(0, 1)", "(–1, 2)"],
       "correct_answer": 2
     },
     {
       "question": "For y = aˣ with a > 1, as x → –∞, y approaches:",
-      "options": [
-        "∞",
-        "1",
-        "0",
-        "–∞"
-      ],
+      "options": ["∞", "1", "0", "–∞"],
       "correct_answer": 2
     },
     {
@@ -38,22 +28,12 @@
     },
     {
       "question": "Which describes exponential growth?",
-      "options": [
-        "y = 2x + 1",
-        "y = x²",
-        "y = 3ˣ",
-        "y = log(x)"
-      ],
+      "options": ["y = 2x + 1", "y = x²", "y = 3ˣ", "y = log(x)"],
       "correct_answer": 2
     },
     {
       "question": "Continuous compounding uses the formula:",
-      "options": [
-        "A = P(1+r/n)^(nt)",
-        "A = Pt",
-        "A = Peʳᵗ",
-        "A = P + rt"
-      ],
+      "options": ["A = P(1+r/n)^(nt)", "A = Pt", "A = Peʳᵗ", "A = P + rt"],
       "correct_answer": 2
     }
   ]

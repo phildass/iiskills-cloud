@@ -8,52 +8,27 @@
   "quiz": [
     {
       "question": "When dividing an inequality by a negative number, you:",
-      "options": [
-        "Keep the direction",
-        "Reverse the inequality",
-        "Square both sides",
-        "Add 1"
-      ],
+      "options": ["Keep the direction", "Reverse the inequality", "Square both sides", "Add 1"],
       "correct_answer": 1
     },
     {
       "question": "|2x – 3| = 7 has solutions:",
-      "options": [
-        "x = 5 only",
-        "x = –2 only",
-        "x = 5 or x = –2",
-        "x = 2 or x = –5"
-      ],
+      "options": ["x = 5 only", "x = –2 only", "x = 5 or x = –2", "x = 2 or x = –5"],
       "correct_answer": 2
     },
     {
       "question": "|x| < 4 means:",
-      "options": [
-        "x < 4",
-        "–4 < x < 4",
-        "x < –4 or x > 4",
-        "x > 4"
-      ],
+      "options": ["x < 4", "–4 < x < 4", "x < –4 or x > 4", "x > 4"],
       "correct_answer": 1
     },
     {
       "question": "The interval notation for –2 ≤ x < 5 is:",
-      "options": [
-        "(–2, 5)",
-        "[–2, 5)",
-        "(–2, 5]",
-        "[–2, 5]"
-      ],
+      "options": ["(–2, 5)", "[–2, 5)", "(–2, 5]", "[–2, 5]"],
       "correct_answer": 1
     },
     {
       "question": "|x| > 3 means:",
-      "options": [
-        "–3 < x < 3",
-        "x > –3",
-        "x < –3 or x > 3",
-        "x < 3"
-      ],
+      "options": ["–3 < x < 3", "x > –3", "x < –3 or x > 3", "x < 3"],
       "correct_answer": 2
     }
   ]

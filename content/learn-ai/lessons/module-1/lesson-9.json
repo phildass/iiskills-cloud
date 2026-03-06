@@ -18,12 +18,7 @@
     },
     {
       "question": "What does XAI stand for?",
-      "options": [
-        "Extreme AI",
-        "Explainable AI",
-        "Extended AI Interface",
-        "External AI"
-      ],
+      "options": ["Extreme AI", "Explainable AI", "Extended AI Interface", "External AI"],
       "correct_answer": 1
     },
     {

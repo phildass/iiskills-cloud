@@ -8,52 +8,27 @@
   "quiz": [
     {
       "question": "How many radians is 180°?",
-      "options": [
-        "π/2",
-        "π",
-        "2π",
-        "3π/2"
-      ],
+      "options": ["π/2", "π", "2π", "3π/2"],
       "correct_answer": 1
     },
     {
       "question": "Convert 90° to radians:",
-      "options": [
-        "π/4",
-        "π/3",
-        "π/2",
-        "π"
-      ],
+      "options": ["π/4", "π/3", "π/2", "π"],
       "correct_answer": 2
     },
     {
       "question": "The arc length of a sector with radius r and angle θ (in radians) is:",
-      "options": [
-        "r/θ",
-        "rθ",
-        "θ/r",
-        "πrθ"
-      ],
+      "options": ["r/θ", "rθ", "θ/r", "πrθ"],
       "correct_answer": 1
     },
     {
       "question": "The area of a sector with radius r and angle θ (radians) is:",
-      "options": [
-        "rθ",
-        "r²θ",
-        "r²θ/2",
-        "πr²θ"
-      ],
+      "options": ["rθ", "r²θ", "r²θ/2", "πr²θ"],
       "correct_answer": 2
     },
     {
       "question": "A full circle in radians is:",
-      "options": [
-        "π",
-        "π/2",
-        "3π/2",
-        "2π"
-      ],
+      "options": ["π", "π/2", "3π/2", "2π"],
       "correct_answer": 3
     }
   ]

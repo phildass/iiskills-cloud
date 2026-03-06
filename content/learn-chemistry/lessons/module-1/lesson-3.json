@@ -38,22 +38,12 @@
     },
     {
       "question": "What is the symbol for water?",
-      "options": [
-        "CO2",
-        "NaCl",
-        "H2O",
-        "O2"
-      ],
+      "options": ["CO2", "NaCl", "H2O", "O2"],
       "correct_answer": 2
     },
     {
       "question": "Which state of matter has a definite volume but no definite shape?",
-      "options": [
-        "Solid",
-        "Liquid",
-        "Gas",
-        "Plasma"
-      ],
+      "options": ["Solid", "Liquid", "Gas", "Plasma"],
       "correct_answer": 1
     }
   ]

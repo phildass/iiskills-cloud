@@ -38,22 +38,12 @@
     },
     {
       "question": "The partial derivative ∂f/∂x treats:",
-      "options": [
-        "x as a constant",
-        "y as a constant",
-        "Both as variables",
-        "Both as constants"
-      ],
+      "options": ["x as a constant", "y as a constant", "Both as variables", "Both as constants"],
       "correct_answer": 1
     },
     {
       "question": "Complex numbers extend the reals by including:",
-      "options": [
-        "π",
-        "e",
-        "i = √(–1)",
-        "∞"
-      ],
+      "options": ["π", "e", "i = √(–1)", "∞"],
       "correct_answer": 2
     }
   ]

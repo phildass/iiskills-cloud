@@ -18,42 +18,22 @@
     },
     {
       "question": "Which quantity has both magnitude and direction?",
-      "options": [
-        "Speed",
-        "Distance",
-        "Velocity",
-        "Time"
-      ],
+      "options": ["Speed", "Distance", "Velocity", "Time"],
       "correct_answer": 2
     },
     {
       "question": "A train travels 120 km in 2 hours. What is its speed?",
-      "options": [
-        "40 km/h",
-        "60 km/h",
-        "80 km/h",
-        "100 km/h"
-      ],
+      "options": ["40 km/h", "60 km/h", "80 km/h", "100 km/h"],
       "correct_answer": 1
     },
     {
       "question": "What is the displacement if you walk 3 km east and then 3 km west?",
-      "options": [
-        "6 km",
-        "3 km",
-        "0 km",
-        "9 km"
-      ],
+      "options": ["6 km", "3 km", "0 km", "9 km"],
       "correct_answer": 2
     },
     {
       "question": "What unit is commonly used for speed in everyday life?",
-      "options": [
-        "m/s²",
-        "km/h",
-        "Newton",
-        "Joule"
-      ],
+      "options": ["m/s²", "km/h", "Newton", "Joule"],
       "correct_answer": 1
     }
   ]

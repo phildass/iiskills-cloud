@@ -8,42 +8,22 @@
   "quiz": [
     {
       "question": "The imaginary unit i satisfies:",
-      "options": [
-        "i = √1",
-        "i² = –1",
-        "i² = 1",
-        "i = –1"
-      ],
+      "options": ["i = √1", "i² = –1", "i² = 1", "i = –1"],
       "correct_answer": 1
     },
     {
       "question": "The modulus of z = 3 + 4i is:",
-      "options": [
-        "3",
-        "4",
-        "5",
-        "7"
-      ],
+      "options": ["3", "4", "5", "7"],
       "correct_answer": 2
     },
     {
       "question": "Euler's formula states e^(iθ) = :",
-      "options": [
-        "cos θ + i sin θ",
-        "cos θ – i sin θ",
-        "sin θ + i cos θ",
-        "i(cos θ + sin θ)"
-      ],
+      "options": ["cos θ + i sin θ", "cos θ – i sin θ", "sin θ + i cos θ", "i(cos θ + sin θ)"],
       "correct_answer": 0
     },
     {
       "question": "The argument of a complex number is its:",
-      "options": [
-        "Modulus",
-        "Angle in the complex plane",
-        "Real part",
-        "Imaginary part"
-      ],
+      "options": ["Modulus", "Angle in the complex plane", "Real part", "Imaginary part"],
       "correct_answer": 1
     },
     {

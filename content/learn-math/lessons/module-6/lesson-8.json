@@ -8,52 +8,27 @@
   "quiz": [
     {
       "question": "The second derivative f''(x) is:",
-      "options": [
-        "d/dx[f(x)]",
-        "d/dx[f'(x)]",
-        "∫f(x)dx",
-        "f(x)²"
-      ],
+      "options": ["d/dx[f(x)]", "d/dx[f'(x)]", "∫f(x)dx", "f(x)²"],
       "correct_answer": 1
     },
     {
       "question": "If f''(x) > 0, the function is:",
-      "options": [
-        "Decreasing",
-        "Concave up",
-        "Concave down",
-        "At a maximum"
-      ],
+      "options": ["Decreasing", "Concave up", "Concave down", "At a maximum"],
       "correct_answer": 1
     },
     {
       "question": "If f''(x) < 0, the function is:",
-      "options": [
-        "Increasing",
-        "Concave up",
-        "Concave down",
-        "At a minimum"
-      ],
+      "options": ["Increasing", "Concave up", "Concave down", "At a minimum"],
       "correct_answer": 2
     },
     {
       "question": "An inflection point occurs where:",
-      "options": [
-        "f'(x) = 0",
-        "f''(x) = 0 and concavity changes",
-        "f(x) = 0",
-        "f'''(x) = 0"
-      ],
+      "options": ["f'(x) = 0", "f''(x) = 0 and concavity changes", "f(x) = 0", "f'''(x) = 0"],
       "correct_answer": 1
     },
     {
       "question": "d²/dx²(sin x) = :",
-      "options": [
-        "cos x",
-        "–cos x",
-        "sin x",
-        "–sin x"
-      ],
+      "options": ["cos x", "–cos x", "sin x", "–sin x"],
       "correct_answer": 3
     }
   ]

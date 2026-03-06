@@ -8,12 +8,7 @@
   "quiz": [
     {
       "question": "Which library is the foundation for all Python visualisation libraries?",
-      "options": [
-        "Seaborn",
-        "Plotly",
-        "Matplotlib",
-        "Bokeh"
-      ],
+      "options": ["Seaborn", "Plotly", "Matplotlib", "Bokeh"],
       "correct_answer": 2
     },
     {
@@ -38,22 +33,12 @@
     },
     {
       "question": "What chart type is best for visualising the distribution of a continuous variable?",
-      "options": [
-        "Pie chart",
-        "Histogram or box plot",
-        "Line chart",
-        "Bar chart"
-      ],
+      "options": ["Pie chart", "Histogram or box plot", "Line chart", "Bar chart"],
       "correct_answer": 1
     },
     {
       "question": "Which library creates choropleth maps of Indian states?",
-      "options": [
-        "Seaborn",
-        "NumPy",
-        "Folium with Geopandas",
-        "Plotly Express only"
-      ],
+      "options": ["Seaborn", "NumPy", "Folium with Geopandas", "Plotly Express only"],
       "correct_answer": 2
     }
   ]

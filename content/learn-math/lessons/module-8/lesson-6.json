@@ -8,42 +8,22 @@
   "quiz": [
     {
       "question": "For a discrete probability distribution, the sum of all P(X = x) must equal:",
-      "options": [
-        "0",
-        "0.5",
-        "1",
-        "n"
-      ],
+      "options": ["0", "0.5", "1", "n"],
       "correct_answer": 2
     },
     {
       "question": "The expected value E(X) = :",
-      "options": [
-        "Most probable value",
-        "Σ x·P(X=x)",
-        "Maximum value",
-        "Median value"
-      ],
+      "options": ["Most probable value", "Σ x·P(X=x)", "Maximum value", "Median value"],
       "correct_answer": 1
     },
     {
       "question": "Var(X) = E(X²) – [E(X)]² is the formula for:",
-      "options": [
-        "Standard deviation",
-        "Variance",
-        "Covariance",
-        "Skewness"
-      ],
+      "options": ["Standard deviation", "Variance", "Covariance", "Skewness"],
       "correct_answer": 1
     },
     {
       "question": "If X takes values {0, 1, 2} with equal probability, E(X) = :",
-      "options": [
-        "0",
-        "0.5",
-        "1",
-        "2"
-      ],
+      "options": ["0", "0.5", "1", "2"],
       "correct_answer": 2
     },
     {

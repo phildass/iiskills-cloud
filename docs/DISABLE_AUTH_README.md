@@ -13,6 +13,7 @@
 ## Purpose
 
 This temporary override allows you to:
+
 - Test the application without authentication flows
 - Debug issues that may be related to auth
 - Perform maintenance without user sessions
@@ -23,18 +24,21 @@ This temporary override allows you to:
 ### Local Development
 
 1. **Set environment variables in your shell:**
+
    ```bash
    export DISABLE_AUTH=true
    export NEXT_PUBLIC_DISABLE_AUTH=true
    ```
 
 2. **Or add to `.env.local` file:**
+
    ```
    DISABLE_AUTH=true
    NEXT_PUBLIC_DISABLE_AUTH=true
    ```
 
 3. **Rebuild and restart the application:**
+
    ```bash
    npm run build
    npm run dev
@@ -51,12 +55,14 @@ This temporary override allows you to:
 ### CI/Deployment
 
 Add the environment variables to your deployment configuration:
+
 - **Vercel:** Add to Environment Variables in project settings
 - **Netlify:** Add to Build environment variables
 - **Docker:** Add to your docker-compose.yml or Dockerfile
 - **PM2:** Add to ecosystem.config.js environment section
 
 Example for PM2:
+
 ```javascript
 {
   env: {
@@ -76,6 +82,7 @@ unset NEXT_PUBLIC_DISABLE_AUTH
 ```
 
 Then rebuild and restart:
+
 ```bash
 npm run build
 npm run dev
@@ -84,6 +91,7 @@ npm run dev
 ### Option 2: Remove from .env.local
 
 Delete or comment out the lines in `.env.local`:
+
 ```
 # DISABLE_AUTH=true
 # NEXT_PUBLIC_DISABLE_AUTH=true
@@ -105,14 +113,16 @@ Then rebuild and restart.
 When this feature is enabled, the following are bypassed:
 
 ### Client-Side
+
 - `getCurrentUser()` returns a mock user instead of null
 - `ProtectedRoute` components allow access without auth
-- `PaidUserProtectedRoute` components allow access without auth  
+- `PaidUserProtectedRoute` components allow access without auth
 - `UserProtectedRoute` components allow access without auth
 - Paywall checks are bypassed
 - Login/Register redirect logic is disabled
 
 ### Server-Side
+
 - API route authentication checks are bypassed
 - `getServerSideProps` auth checks are bypassed
 - Server-side redirects to /login are bypassed
@@ -143,6 +153,7 @@ When auth is disabled, a mock user is provided with full permissions:
 ```
 
 This mock user has:
+
 - Admin privileges
 - Paid/premium status
 - All features unlocked
@@ -154,14 +165,18 @@ This mock user has:
 The centralized flag is in: `lib/feature-flags/disableAuth.js`
 
 ```javascript
-import { isAuthDisabledClient, isAuthDisabledServer, getMockUser } from '@/lib/feature-flags/disableAuth';
+import {
+  isAuthDisabledClient,
+  isAuthDisabledServer,
+  getMockUser,
+} from "@/lib/feature-flags/disableAuth";
 
 // Client-side check
 if (isAuthDisabledClient()) {
   return getMockUser();
 }
 
-// Server-side check  
+// Server-side check
 if (isAuthDisabledServer()) {
   req.user = getMockUser();
 }
@@ -178,6 +193,7 @@ See the PR description for the complete list of modified files.
 ### Check if Auth is Disabled
 
 1. **Console logs:** Look for this warning on server startup:
+
    ```
    ⚠️  AUTHENTICATION DISABLED - TEMPORARY OVERRIDE ACTIVE
    ```
@@ -234,6 +250,7 @@ Before enabling in any environment:
 ## Support
 
 For questions or issues:
+
 1. Check this documentation first
 2. Review the PR description: `feature/disable-auth-temporary`
 3. Check backup files if you need to revert specific changes

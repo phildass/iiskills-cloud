@@ -239,6 +239,12 @@ export default function ProfilePage() {
               ← Back to Home
             </Link>
             <Link
+              href="/tickets"
+              className="bg-amber-500 text-white px-6 py-2 rounded-lg hover:bg-amber-600 transition text-sm font-bold"
+            >
+              🎫 Tickets
+            </Link>
+            <Link
               href="/apps-dashboard"
               className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition text-sm font-bold"
             >

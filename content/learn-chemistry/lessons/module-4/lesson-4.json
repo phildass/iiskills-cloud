@@ -18,12 +18,7 @@
     },
     {
       "question": "What is the ideal gas law?",
-      "options": [
-        "PV = nRT",
-        "P/V = nR/T",
-        "PV = RT",
-        "P = nRT/V²"
-      ],
+      "options": ["PV = nRT", "P/V = nR/T", "PV = RT", "P = nRT/V²"],
       "correct_answer": 0
     },
     {
@@ -38,12 +33,7 @@
     },
     {
       "question": "Which change of state involves a solid becoming a gas directly?",
-      "options": [
-        "Melting",
-        "Evaporation",
-        "Sublimation",
-        "Condensation"
-      ],
+      "options": ["Melting", "Evaporation", "Sublimation", "Condensation"],
       "correct_answer": 2
     },
     {

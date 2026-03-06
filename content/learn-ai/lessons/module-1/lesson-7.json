@@ -18,12 +18,7 @@
     },
     {
       "question": "What is the name of India's Open Government Data platform?",
-      "options": [
-        "IndiaData.gov",
-        "data.gov.in",
-        "NITI.ai",
-        "DataIndia.org"
-      ],
+      "options": ["IndiaData.gov", "data.gov.in", "NITI.ai", "DataIndia.org"],
       "correct_answer": 1
     },
     {
@@ -48,12 +43,7 @@
     },
     {
       "question": "Which type of data has no predefined schema (e.g., images, text)?",
-      "options": [
-        "Structured data",
-        "Relational data",
-        "Unstructured data",
-        "Normalised data"
-      ],
+      "options": ["Structured data", "Relational data", "Unstructured data", "Normalised data"],
       "correct_answer": 2
     }
   ]

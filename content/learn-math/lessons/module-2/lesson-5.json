@@ -8,42 +8,22 @@
   "quiz": [
     {
       "question": "The vertical line test determines whether a curve is:",
-      "options": [
-        "A polynomial",
-        "A function",
-        "Symmetric",
-        "Bounded"
-      ],
+      "options": ["A polynomial", "A function", "Symmetric", "Bounded"],
       "correct_answer": 1
     },
     {
       "question": "y = f(x) + 3 shifts the graph of f:",
-      "options": [
-        "Right 3",
-        "Left 3",
-        "Up 3",
-        "Down 3"
-      ],
+      "options": ["Right 3", "Left 3", "Up 3", "Down 3"],
       "correct_answer": 2
     },
     {
       "question": "(f ∘ g)(x) means:",
-      "options": [
-        "f(x) + g(x)",
-        "f(x) × g(x)",
-        "f(g(x))",
-        "g(f(x)) only"
-      ],
+      "options": ["f(x) + g(x)", "f(x) × g(x)", "f(g(x))", "g(f(x)) only"],
       "correct_answer": 2
     },
     {
       "question": "The graph of f⁻¹(x) is the reflection of f(x) about:",
-      "options": [
-        "The x-axis",
-        "The y-axis",
-        "y = x",
-        "y = –x"
-      ],
+      "options": ["The x-axis", "The y-axis", "y = x", "y = –x"],
       "correct_answer": 2
     },
     {

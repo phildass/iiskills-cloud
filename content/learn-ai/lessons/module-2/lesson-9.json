@@ -8,22 +8,12 @@
   "quiz": [
     {
       "question": "Which Indian company built Sarvam-1, an LLM for Indian languages?",
-      "options": [
-        "Infosys",
-        "Sarvam AI",
-        "TCS",
-        "Wipro"
-      ],
+      "options": ["Infosys", "Sarvam AI", "TCS", "Wipro"],
       "correct_answer": 1
     },
     {
       "question": "What technique does Stable Diffusion use?",
-      "options": [
-        "GANs",
-        "CNNs",
-        "Diffusion models (noise addition and reversal)",
-        "RNNs"
-      ],
+      "options": ["GANs", "CNNs", "Diffusion models (noise addition and reversal)", "RNNs"],
       "correct_answer": 2
     },
     {
@@ -48,12 +38,7 @@
     },
     {
       "question": "India has the ___ largest ChatGPT user base worldwide.",
-      "options": [
-        "First",
-        "Second",
-        "Third",
-        "Fifth"
-      ],
+      "options": ["First", "Second", "Third", "Fifth"],
       "correct_answer": 1
     }
   ]

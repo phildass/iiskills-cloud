@@ -30,15 +30,7 @@
       "unit": ""
     }
   ],
-  "outputs": [
-    "Overall readiness score",
-    "Dimension breakdown",
-    "Priority actions for improvement"
-  ],
+  "outputs": ["Overall readiness score", "Dimension breakdown", "Priority actions for improvement"],
   "image": "mgmt-sim-4.png",
-  "tags": [
-    "change management",
-    "organisational readiness",
-    "assessment"
-  ]
+  "tags": ["change management", "organisational readiness", "assessment"]
 }

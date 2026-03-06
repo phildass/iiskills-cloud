@@ -7,6 +7,7 @@ This directory contains utility scripts for managing the IISKILLS Cloud platform
 ### AI Content Generation
 
 #### seed_data.js
+
 Generates comprehensive AI/Data Science course content using OpenAI's LLM API.
 
 - **What it does**: Creates 10 modules × 10 lessons with 5-question quizzes
@@ -14,6 +15,7 @@ Generates comprehensive AI/Data Science course content using OpenAI's LLM API.
 - **Documentation**: See [SEED_DATA_README.md](./SEED_DATA_README.md)
 
 **Usage:**
+
 ```bash
 # Generate content
 npm run seed:ai-content
@@ -29,6 +31,7 @@ npm run seed:ai-content
 Complete automated deployment script with comprehensive logging and health checks.
 
 **What it does:**
+
 - Pulls latest code from origin/main
 - Installs dependencies with yarn
 - Runs pre-deployment checks (builds all apps)
@@ -37,6 +40,7 @@ Complete automated deployment script with comprehensive logging and health check
 - Logs deployment to devlog and timestamped log file
 
 **Features:**
+
 - Timestamped log files at `/tmp/deploy-all-YYYYMMDD-HHMMSS.log`
 - Exit on error with detailed logging (set -euo pipefail)
 - Can run in detached tmux sessions for long deployments
@@ -91,11 +95,13 @@ tmux kill-session -t deploy
 ```
 
 **Output:**
+
 - Creates `/tmp/deploy-all-YYYYMMDD-HHMMSS.log` with full deployment log
 - Appends deployment record to `./devlog`
 - Returns exit code 0 on success, 1 on failure
 
 **Prerequisites:**
+
 - Must be run from repository root
 - Requires PM2 to be configured
 - All apps must be in ecosystem.config.js
@@ -105,16 +111,19 @@ tmux kill-session -t deploy
 Scans the `apps/` directory and creates an audit file (`apps_audit.txt`) listing any missing expected files or directories.
 
 **Expected structure for each app:**
+
 - `app/` directory
 - `public/` directory
 - `README.md` (for the main app only)
 
 **Usage:**
+
 ```bash
 ./scripts/audit-apps.sh
 ```
 
 **Output:**
+
 - Creates `apps_audit.txt` in the repository root
 - Lists each app and its missing files/directories
 
@@ -123,15 +132,18 @@ Scans the `apps/` directory and creates an audit file (`apps_audit.txt`) listing
 Restores missing files from `origin/main` branch based on the audit file.
 
 **Prerequisites:**
+
 - Must run `audit-apps.sh` first to generate `apps_audit.txt`
 - Must have `origin/main` branch available
 
 **Usage:**
+
 ```bash
 ./scripts/restore_from_remote.sh
 ```
 
 **Behavior:**
+
 - Reads `apps_audit.txt`
 - For each missing file/directory, checks if it exists on `origin/main`
 - If it exists on remote, restores it using `git checkout origin/main -- <path>`
@@ -162,15 +174,14 @@ git status
 
 ## Content Sync Scripts
 
-
 ### sync_to_supabase.js
 
 ### sync_to_supabase.js (NEW - Recommended)
 
-
 **Purpose**: Discovers and syncs ALL course content from multiple sources to Supabase.
 
 **Features**:
+
 - ✅ Auto-discovers content from all sources
 - ✅ Comprehensive error reporting and logging
 - ✅ Dry-run mode for safe testing
@@ -178,14 +189,14 @@ git status
 - ✅ Prevents duplicate entries (upsert logic)
 
 **Content Sources**:
+
 1. `seeds/content.json` - Legacy unified content file
 2. `apps/learn-*/data/seed.json` - App-specific module data
 3. `data/sync-platform/**/*.json` - Individual module/lesson files
 4. Government jobs, geography data, and other content types
 
-
-
 **Usage**:
+
 ```bash
 # Dry run (test without changes)
 
@@ -208,6 +219,7 @@ SUPABASE_URL="your-url" SUPABASE_SERVICE_ROLE_KEY="your-key" node scripts/sync_t
 ```
 
 **Environment Variables**:
+
 - `SUPABASE_URL` or `NEXT_PUBLIC_SUPABASE_URL` - Your Supabase project URL
 
 - `SUPABASE_KEY` or `SUPABASE_SERVICE_ROLE_KEY` - Service role key with admin access
@@ -216,7 +228,8 @@ SUPABASE_URL="your-url" SUPABASE_SERVICE_ROLE_KEY="your-key" node scripts/sync_t
 **Output**:
 The script provides detailed statistics about content synced to Supabase.
 
-**Documentation**: 
+**Documentation**:
+
 - See [SUPABASE_SYNC_SETUP.md](../SUPABASE_SYNC_SETUP.md) for complete setup guide
 - See [CONTENT_SYNC_REFERENCE.md](../CONTENT_SYNC_REFERENCE.md) for quick reference
 - See [CONTENT_SYNC_ARCHITECTURE.md](../CONTENT_SYNC_ARCHITECTURE.md) for architecture details
@@ -226,6 +239,7 @@ The script provides detailed statistics about content synced to Supabase.
 - OR `SUPABASE_ANON_KEY` - Anonymous key (limited access)
 
 **Output**:
+
 ```
   CONTENT SYNC TO SUPABASE
 
@@ -239,12 +253,12 @@ Summary:
 
 **Documentation**: See [COURSE_SYNC_FIX.md](../COURSE_SYNC_FIX.md) for detailed problem analysis and solution.
 
-
 ### migrate-content-to-supabase.ts (Legacy)
 
 **Purpose**: Migrates content from `seeds/content.json` only.
 
 **Limitations**:
+
 - ❌ Only reads from seeds/content.json
 - ❌ Doesn't discover app-specific content
 - ❌ Doesn't process sync-platform files
@@ -257,6 +271,7 @@ Summary:
 ### Error: Missing Supabase credentials
 
 **Solution**:
+
 ```bash
 export SUPABASE_URL="https://your-project.supabase.co"
 
@@ -280,3 +295,4 @@ node scripts/sync_to_supabase.js
 
 **Solution**: See [COURSE_SYNC_FIX.md](../COURSE_SYNC_FIX.md) for detailed troubleshooting steps.
 
+```
