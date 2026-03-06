@@ -150,6 +150,17 @@ export default async function handler(req, res) {
     }
 
     // Generate and dispatch app-specific OTP
+    if (process.env.OTP_DISABLED === 'true') {
+      // Return 200 so the upstream payment provider does not retry the webhook.
+      // Payment has already been stored; the user can be manually activated.
+      console.log('[webhook] OTP_DISABLED — skipping OTP dispatch for payment:', paymentId);
+      return res.status(200).json({
+        success: true,
+        message: 'Payment processed (OTP disabled)',
+        appId,
+      });
+    }
+
     try {
       const otpResult = await generateAndDispatchOTP({
         email, // Already validated - required

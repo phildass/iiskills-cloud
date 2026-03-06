@@ -12,6 +12,10 @@ const vonageClient = new Vonage({
 });
 
 export default async function handler(req, res) {
+  if (process.env.OTP_DISABLED === 'true') {
+    return res.status(410).json({ error: 'OTP is temporarily disabled' });
+  }
+
   // Get user info from request body
   const { email, phone } = req.body;
 
@@ -65,5 +69,5 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: `Vonage error: ${smsErr.message}` });
   }
 
-  return res.status(200).json({ message: "OTP sent via email and SMS!", otp }); // (remove otp in prod)
+  return res.status(200).json({ message: "OTP sent via email and SMS!" });
 }

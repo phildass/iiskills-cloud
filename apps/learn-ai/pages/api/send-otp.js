@@ -6,6 +6,10 @@ let _sgMail = null;
 let _vonageClient = null;
 
 export default async function handler(req, res) {
+  if (process.env.OTP_DISABLED === 'true') {
+    return res.status(410).json({ error: 'OTP is temporarily disabled' });
+  }
+
   if (!process.env.SENDGRID_API_KEY) {
     return res.status(503).json({ error: 'Email service not configured (SENDGRID_API_KEY missing)' });
   }
@@ -81,5 +85,5 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: `Vonage error: ${smsErr.message}` });
   }
 
-  return res.status(200).json({ message: "OTP sent via email and SMS!", otp }); // (remove otp in prod)
+  return res.status(200).json({ message: "OTP sent via email and SMS!" });
 }
