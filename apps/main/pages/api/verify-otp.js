@@ -34,6 +34,10 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
+  if (process.env.OTP_DISABLED === 'true') {
+    return res.status(410).json({ success: false, error: 'OTP is temporarily disabled' });
+  }
+
   try {
     const { email, otp, appId, paymentTransactionId } = req.body;
 

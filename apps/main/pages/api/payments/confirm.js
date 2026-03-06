@@ -319,6 +319,17 @@ export default async function handler(req, res) {
   // Kept for backward compatibility when user_token is absent.
   const { generateAndDispatchOTP } = await import("@lib/otpService");
 
+
+  if (process.env.OTP_DISABLED === 'true') {
+    return res.status(400).json({
+      error:
+        'OTP is disabled. Please start payment from iiskills.cloud so a payment token is included.',
+    });
+  }
+
+  const { generateAndDispatchOTP } = await import('@lib/otpService');
+
+
   try {
     // generateAndDispatchOTP requires an email field; synthesize when absent.
     const otpEmail = customerEmail || `${razorpayPaymentId}@payment.iiskills.cloud`;
