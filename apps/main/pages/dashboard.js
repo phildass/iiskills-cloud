@@ -70,7 +70,24 @@ function CourseMessagesTab({ accessToken }) {
       if (res.ok) {
         const { courses: list } = await res.json();
         setCourses(list || []);
-        if (list?.length > 0) setSelectedCourse(list[0].app_id);
+        if (list?.length > 0) {
+          setSelectedCourse(list[0].app_id);
+        } else {
+          setSelectedCourse(null);
+        }
+      } else {
+        let message = "Failed to load courses.";
+        try {
+          const payload = await res.json();
+          if (payload && typeof payload === "object") {
+            message = payload.message || payload.error || message;
+          }
+        } catch {
+          // Ignore JSON parse errors; fall back to generic message.
+        }
+        setCourses([]);
+        setSelectedCourse(null);
+        setError(message);
       }
     } catch {
       setError("Failed to load courses.");

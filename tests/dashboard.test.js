@@ -2,15 +2,13 @@
  * Tests for the My Dashboard feature
  *
  * Covers:
- *   - Content filter (moderation)
- *   - Ticket monthly limits (free vs paid)
+ *   - Content filter (moderation) — tests real lib/contentFilter.js
+ *   - Ticket monthly limits (free vs paid) — tests real lib/tickets/limits.js
+ *   - Moderation strike/ban logic — tests real lib/moderation/strikes.js
  *   - Authorization boundaries
  */
 
 "use strict";
-
-const path = require("path");
-const fs = require("fs");
 
 // ── Content Filter ────────────────────────────────────────────────────────────
 
@@ -63,72 +61,61 @@ describe("contentFilter — checkContent()", () => {
 
 // ── Ticket Monthly Limit Logic ────────────────────────────────────────────────
 
-describe("ticket monthly limit enforcement", () => {
-  const TICKET_LIMIT_FREE = 1;
-  const TICKET_LIMIT_PAID = 5;
+describe("ticket monthly limit enforcement (lib/tickets/limits.js)", () => {
+  let checkMonthlyTicketLimit, TICKET_LIMIT_FREE, TICKET_LIMIT_PAID;
 
-  function checkLimit(monthCount, isPaid) {
-    const limit = isPaid ? TICKET_LIMIT_PAID : TICKET_LIMIT_FREE;
-    if (monthCount >= limit) {
-      const now = new Date();
-      const nextMonth = new Date(now.getFullYear(), now.getMonth() + 1, 1);
-      return {
-        blocked: true,
-        limit,
-        used: monthCount,
-        resetDate: nextMonth.toISOString(),
-      };
-    }
-    return { blocked: false, limit, used: monthCount };
-  }
+  beforeAll(() => {
+    // Import the real shared helper used by the API handler
+    ({ checkMonthlyTicketLimit, TICKET_LIMIT_FREE, TICKET_LIMIT_PAID } = require("../lib/tickets/limits"));
+  });
 
   describe("free user (limit: 1 ticket/month)", () => {
     it("allows first ticket of the month", () => {
-      const result = checkLimit(0, false);
+      const result = checkMonthlyTicketLimit(0, false);
       expect(result.blocked).toBe(false);
+      expect(result.limit).toBe(TICKET_LIMIT_FREE);
     });
 
     it("blocks second ticket of the month", () => {
-      const result = checkLimit(1, false);
+      const result = checkMonthlyTicketLimit(1, false);
       expect(result.blocked).toBe(true);
       expect(result.limit).toBe(1);
     });
 
-    it("includes reset date in block response", () => {
-      const result = checkLimit(1, false);
+    it("includes reset date (UTC 1st of next month) in block response", () => {
+      const result = checkMonthlyTicketLimit(1, false);
       expect(result.resetDate).toBeDefined();
       const resetDate = new Date(result.resetDate);
-      expect(resetDate.getDate()).toBe(1); // 1st of next month
+      expect(resetDate.getUTCDate()).toBe(1);
     });
   });
 
   describe("paid user (limit: 5 tickets/month)", () => {
     it("allows first ticket of the month", () => {
-      expect(checkLimit(0, true).blocked).toBe(false);
+      expect(checkMonthlyTicketLimit(0, true).blocked).toBe(false);
     });
 
     it("allows up to 5th ticket of the month", () => {
-      expect(checkLimit(4, true).blocked).toBe(false);
+      expect(checkMonthlyTicketLimit(4, true).blocked).toBe(false);
     });
 
     it("blocks 6th ticket of the month", () => {
-      const result = checkLimit(5, true);
+      const result = checkMonthlyTicketLimit(5, true);
       expect(result.blocked).toBe(true);
-      expect(result.limit).toBe(5);
+      expect(result.limit).toBe(TICKET_LIMIT_PAID);
     });
   });
 });
 
 // ── Moderation Strike / Ban Logic ─────────────────────────────────────────────
 
-describe("moderation strike and ban logic", () => {
-  const MODERATION_STRIKE_LIMIT = 3;
+describe("moderation strike and ban logic (lib/moderation/strikes.js)", () => {
+  let processModerationStrike, MODERATION_STRIKE_LIMIT;
 
-  function processModerationStrike(currentStrikes) {
-    const newStrikes = currentStrikes + 1;
-    const shouldBan = newStrikes >= MODERATION_STRIKE_LIMIT;
-    return { newStrikes, shouldBan };
-  }
+  beforeAll(() => {
+    // Import the real shared helper used by the API handlers
+    ({ processModerationStrike, MODERATION_STRIKE_LIMIT } = require("../lib/moderation/strikes"));
+  });
 
   it("first strike does not trigger ban", () => {
     const { newStrikes, shouldBan } = processModerationStrike(0);
@@ -142,15 +129,20 @@ describe("moderation strike and ban logic", () => {
     expect(shouldBan).toBe(false);
   });
 
-  it("third strike triggers ban", () => {
-    const { newStrikes, shouldBan } = processModerationStrike(2);
-    expect(newStrikes).toBe(3);
+  it("third strike triggers ban (reaches MODERATION_STRIKE_LIMIT)", () => {
+    const { newStrikes, shouldBan } = processModerationStrike(MODERATION_STRIKE_LIMIT - 1);
+    expect(newStrikes).toBe(MODERATION_STRIKE_LIMIT);
     expect(shouldBan).toBe(true);
   });
 
   it("strike after ban threshold also triggers ban", () => {
-    const { shouldBan } = processModerationStrike(5);
+    const { shouldBan } = processModerationStrike(MODERATION_STRIKE_LIMIT + 2);
     expect(shouldBan).toBe(true);
+  });
+
+  it("MODERATION_STRIKE_LIMIT matches contentFilter export", () => {
+    const { MODERATION_STRIKE_LIMIT: filterLimit } = require("../lib/contentFilter");
+    expect(MODERATION_STRIKE_LIMIT).toBe(filterLimit);
   });
 });
 
@@ -184,3 +176,4 @@ describe("authorization boundary logic", () => {
     expect(userOwnsCourseMessage(USER_A, USER_B)).toBe(false);
   });
 });
+

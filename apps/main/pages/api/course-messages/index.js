@@ -15,7 +15,11 @@
  */
 
 import { createClient } from "@supabase/supabase-js";
-import { checkContent, MODERATION_STRIKE_LIMIT } from "../../../../lib/contentFilter";
+import { checkContent } from "../../../../lib/contentFilter";
+import {
+  processModerationStrike,
+  MODERATION_STRIKE_LIMIT,
+} from "../../../../lib/moderation/strikes";
 
 function getSupabaseAdmin() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL;
@@ -108,31 +112,8 @@ export default async function handler(req, res) {
       return res.status(500).json({ error: "Failed to fetch messages" });
     }
 
-    // Also fetch admin replies that reference any of these message ids
-    const topLevelIds = messages.filter((m) => !m.is_admin_reply).map((m) => m.id);
-    let allMessages = messages;
-
-    if (topLevelIds.length > 0) {
-      const { data: replies } = await supabase
-        .from("course_messages")
-        .select(
-          "id, user_id, course_app_id, message, is_admin_reply, parent_id, read_by_user, created_at"
-        )
-        .in("parent_id", topLevelIds)
-        .eq("is_admin_reply", true)
-        .order("created_at", { ascending: true });
-
-      if (replies && replies.length > 0) {
-        // Merge and sort by created_at
-        const replyIds = new Set(replies.map((r) => r.id));
-        allMessages = [...messages.filter((m) => !replyIds.has(m.id)), ...replies].sort(
-          (a, b) => new Date(a.created_at) - new Date(b.created_at)
-        );
-      }
-    }
-
     // Mark unread admin replies as read
-    const unreadAdminIds = allMessages
+    const unreadAdminIds = (messages || [])
       .filter((m) => m.is_admin_reply && !m.read_by_user)
       .map((m) => m.id);
 
@@ -143,7 +124,7 @@ export default async function handler(req, res) {
         .in("id", unreadAdminIds);
     }
 
-    return res.status(200).json({ messages: allMessages });
+    return res.status(200).json({ messages: messages || [] });
   }
 
   // ── POST: send a new message ─────────────────────────────────────────────
@@ -192,19 +173,18 @@ export default async function handler(req, res) {
       });
 
       // Increment strikes and potentially ban the user
-      const currentStrikes = (profile?.moderation_strikes || 0) + 1;
-      const shouldBan = currentStrikes >= MODERATION_STRIKE_LIMIT;
+      const { newStrikes, shouldBan } = processModerationStrike(profile?.moderation_strikes || 0);
 
       await supabase
         .from("profiles")
         .update({
-          moderation_strikes: currentStrikes,
+          moderation_strikes: newStrikes,
           ...(shouldBan ? { is_banned: true, banned_at: new Date().toISOString() } : {}),
         })
         .eq("id", user.id);
 
       console.warn(
-        `[course-messages] Content rejected for user ${user.id}: ${flagResult.reason}. Strikes: ${currentStrikes}`
+        `[course-messages] Content rejected for user ${user.id}: ${flagResult.reason}. Strikes: ${newStrikes}`
       );
 
       if (shouldBan) {
@@ -216,9 +196,9 @@ export default async function handler(req, res) {
       }
 
       return res.status(422).json({
-        error: `Your message was rejected: ${flagResult.reason}. Please revise your message. (Strike ${currentStrikes} of ${MODERATION_STRIKE_LIMIT})`,
+        error: `Your message was rejected: ${flagResult.reason}. Please revise your message. (Strike ${newStrikes} of ${MODERATION_STRIKE_LIMIT})`,
         flagged: true,
-        strikes: currentStrikes,
+        strikes: newStrikes,
       });
     }
 

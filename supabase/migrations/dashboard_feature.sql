@@ -10,6 +10,12 @@ ALTER TABLE public.profiles
   ADD COLUMN IF NOT EXISTS is_banned BOOLEAN NOT NULL DEFAULT false,
   ADD COLUMN IF NOT EXISTS banned_at TIMESTAMPTZ;
 
+-- Prevent authenticated users from updating moderation fields directly.
+-- Only service_role (server-side admin code paths) can modify these columns.
+REVOKE UPDATE (moderation_strikes, is_banned, banned_at)
+  ON public.profiles
+  FROM authenticated;
+
 -- ── 2. course_messages table ─────────────────────────────────────────────────
 -- Stores per-course communication threads between a learner and admins.
 CREATE TABLE IF NOT EXISTS public.course_messages (
@@ -53,11 +59,17 @@ CREATE POLICY "course_messages_insert_own" ON public.course_messages
   FOR INSERT TO authenticated
   WITH CHECK (auth.uid() = user_id AND is_admin_reply = false);
 
--- Learners can mark messages as read (update read_by_user only)
+-- Learners can only mark their own non-admin-reply messages as read.
+-- They cannot modify admin replies or other message columns.
 CREATE POLICY "course_messages_update_own_read" ON public.course_messages
   FOR UPDATE TO authenticated
-  USING (auth.uid() = user_id)
-  WITH CHECK (auth.uid() = user_id);
+  USING (auth.uid() = user_id AND is_admin_reply = false)
+  WITH CHECK (auth.uid() = user_id AND is_admin_reply = false);
+
+-- Restrict column-level UPDATE for authenticated users to read_by_user only.
+-- This prevents learners from modifying message content, is_admin_reply, parent_id, etc.
+REVOKE UPDATE ON public.course_messages FROM authenticated;
+GRANT UPDATE (read_by_user) ON public.course_messages TO authenticated;
 
 -- Service role can do everything
 CREATE POLICY "course_messages_service_role_all" ON public.course_messages
@@ -65,7 +77,7 @@ CREATE POLICY "course_messages_service_role_all" ON public.course_messages
   USING (true)
   WITH CHECK (true);
 
-GRANT SELECT, INSERT, UPDATE ON public.course_messages TO authenticated;
+GRANT SELECT, INSERT ON public.course_messages TO authenticated;
 GRANT ALL ON public.course_messages TO service_role;
 
 -- ── 3. ticket_replies table ──────────────────────────────────────────────────

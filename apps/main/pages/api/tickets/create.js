@@ -30,7 +30,12 @@
 import { createClient } from "@supabase/supabase-js";
 import formidable from "formidable";
 import fs from "fs";
-import { checkContent, MODERATION_STRIKE_LIMIT } from "../../../../lib/contentFilter";
+import { checkContent } from "../../../../lib/contentFilter";
+import { checkMonthlyTicketLimit } from "../../../../lib/tickets/limits";
+import {
+  processModerationStrike,
+  MODERATION_STRIKE_LIMIT,
+} from "../../../../lib/moderation/strikes";
 
 export const config = {
   api: {
@@ -38,9 +43,7 @@ export const config = {
   },
 };
 
-// Monthly ticket limits
-const TICKET_LIMIT_FREE = 1;
-const TICKET_LIMIT_PAID = 5;
+// Monthly ticket limits are defined in lib/tickets/limits.js
 
 const VALID_ISSUE_TYPES = [
   "payment_auth_not_made",
@@ -104,10 +107,12 @@ async function isPaidUser(supabaseAdmin, userId) {
   return !!legacy;
 }
 
-/** Count tickets created by user in the current calendar month */
+/** Count tickets created by user in the current calendar month (UTC) */
 async function countTicketsThisMonth(supabaseAdmin, userId) {
   const now = new Date();
-  const monthStart = new Date(now.getFullYear(), now.getMonth(), 1).toISOString();
+  // First moment of the current calendar month in UTC — ensures a consistent
+  // month boundary regardless of server timezone.
+  const monthStart = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), 1)).toISOString();
   const { count, error } = await supabaseAdmin
     .from("forum_tickets")
     .select("id", { count: "exact", head: true })
@@ -225,7 +230,7 @@ export default async function handler(req, res) {
   if (profile?.is_banned) {
     return res.status(403).json({
       error:
-        "Your account has been suspended due to repeated policy violations. Please contact support via a new ticket once reinstated.",
+        "Your account is currently suspended due to repeated policy violations. You cannot create new support tickets or messages while suspended. An administrator must review and reinstate your account before you can use support again.",
     });
   }
 
@@ -243,19 +248,18 @@ export default async function handler(req, res) {
     });
 
     // Increment strikes
-    const currentStrikes = (profile?.moderation_strikes || 0) + 1;
-    const shouldBan = currentStrikes >= MODERATION_STRIKE_LIMIT;
+    const { newStrikes, shouldBan } = processModerationStrike(profile?.moderation_strikes || 0);
 
     await supabaseAdmin
       .from("profiles")
       .update({
-        moderation_strikes: currentStrikes,
+        moderation_strikes: newStrikes,
         ...(shouldBan ? { is_banned: true, banned_at: new Date().toISOString() } : {}),
       })
       .eq("id", user.id);
 
     console.warn(
-      `[tickets/create] Content rejected for user ${user.id}: ${flagResult.reason}. Strikes: ${currentStrikes}`
+      `[tickets/create] Content rejected for user ${user.id}: ${flagResult.reason}. Strikes: ${newStrikes}`
     );
 
     if (shouldBan) {
@@ -267,31 +271,29 @@ export default async function handler(req, res) {
     }
 
     return res.status(422).json({
-      error: `Your ticket was rejected: ${flagResult.reason}. Please revise your content. (Strike ${currentStrikes} of ${MODERATION_STRIKE_LIMIT})`,
+      error: `Your ticket was rejected: ${flagResult.reason}. Please revise your content. (Strike ${newStrikes} of ${MODERATION_STRIKE_LIMIT})`,
       flagged: true,
-      strikes: currentStrikes,
+      strikes: newStrikes,
     });
   }
 
   // ── Monthly ticket limit ──────────────────────────────────────────────────
   const paid = await isPaidUser(supabaseAdmin, user.id);
-  const limit = paid ? TICKET_LIMIT_PAID : TICKET_LIMIT_FREE;
   const monthCount = await countTicketsThisMonth(supabaseAdmin, user.id);
+  const limitCheck = checkMonthlyTicketLimit(monthCount, paid);
 
-  if (monthCount >= limit) {
-    const now = new Date();
-    const nextMonth = new Date(now.getFullYear(), now.getMonth() + 1, 1);
-    const resetDate = nextMonth.toLocaleDateString("en-IN", {
+  if (limitCheck.blocked) {
+    const resetDate = new Date(limitCheck.resetDate).toLocaleDateString("en-IN", {
       day: "2-digit",
       month: "long",
       year: "numeric",
     });
 
     return res.status(429).json({
-      error: `You have reached your monthly ticket limit (${limit} ticket${limit === 1 ? "" : "s"} per month for ${paid ? "paid" : "free"} users). Your limit resets on ${resetDate}.`,
-      limit,
-      used: monthCount,
-      resetDate: nextMonth.toISOString(),
+      error: `You have reached your monthly ticket limit (${limitCheck.limit} ticket${limitCheck.limit === 1 ? "" : "s"} per month for ${paid ? "paid" : "free"} users). Your limit resets on ${resetDate}.`,
+      limit: limitCheck.limit,
+      used: limitCheck.used,
+      resetDate: limitCheck.resetDate,
     });
   }
 
