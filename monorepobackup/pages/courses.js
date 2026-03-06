@@ -56,7 +56,7 @@ function isCourseAvailable(courseName) {
   if (courseName === "Cricket Know All") {
     return AVAILABLE_SUBDOMAINS.includes("cricket-know-all");
   }
-  
+
   // Convert course name to subdomain format (e.g., "Learn AI" -> "learn-ai")
   // Remove suffixes like "– Free", "– From the book", etc.
   const cleanName = courseName
@@ -1651,11 +1651,10 @@ export default function Courses() {
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-primary mb-4">Our Courses</h1>
           <p className="text-xl text-charcoal mb-2">Professional Skills Development for Everyone</p>
-          <p className="text-lg font-semibold text-primary mb-2">
-            Courses available: 10
-          </p>
+          <p className="text-lg font-semibold text-primary mb-2">Courses available: 10</p>
           <p className="text-sm text-orange-600 font-semibold mb-4">
-            Introductory fee only till February 15. New fees will be applicable from midnight of February 15.
+            Introductory fee only till February 15. New fees will be applicable from midnight of
+            February 15.
           </p>
           <div className="mt-4 text-lg font-semibold text-accent">
             Paid courses: {pricing.totalPrice} per course
@@ -1674,7 +1673,8 @@ export default function Courses() {
         <div className="bg-gradient-to-r from-green-50 to-blue-50 rounded-lg shadow-lg p-6 mb-8 text-center border-2 border-green-200">
           <h2 className="text-2xl font-bold text-primary mb-3">Available right now: 10 Courses</h2>
           <p className="text-lg text-charcoal">
-            50+ Courses being developed and should be uploaded soon. Over the next few months you will have 100+ Courses to choose from.
+            50+ Courses being developed and should be uploaded soon. Over the next few months you
+            will have 100+ Courses to choose from.
           </p>
         </div>
 

@@ -1,21 +1,21 @@
-import { createClient } from '@supabase/supabase-js';
+import { createClient } from "@supabase/supabase-js";
 
 /**
  * Newsletter PDF Generation API
- * 
+ *
  * Generates a PDF version of a newsletter
  * This endpoint is used to create downloadable PDFs
  */
 
 export default async function handler(req, res) {
-  if (req.method !== 'GET') {
-    return res.status(405).json({ error: 'Method not allowed' });
+  if (req.method !== "GET") {
+    return res.status(405).json({ error: "Method not allowed" });
   }
 
   const { id } = req.query;
 
   if (!id) {
-    return res.status(400).json({ error: 'Newsletter ID is required' });
+    return res.status(400).json({ error: "Newsletter ID is required" });
   }
 
   try {
@@ -26,13 +26,13 @@ export default async function handler(req, res) {
 
     // Fetch the newsletter
     const { data: newsletter, error } = await supabase
-      .from('newsletter_editions')
-      .select('*')
-      .eq('id', id)
+      .from("newsletter_editions")
+      .select("*")
+      .eq("id", id)
       .single();
 
     if (error || !newsletter) {
-      return res.status(404).json({ error: 'Newsletter not found' });
+      return res.status(404).json({ error: "Newsletter not found" });
     }
 
     // Return newsletter data for client-side PDF generation
@@ -52,12 +52,11 @@ export default async function handler(req, res) {
         html_content: newsletter.html_content,
         web_content: newsletter.web_content,
         sent_at: newsletter.sent_at,
-        created_at: newsletter.created_at
-      }
+        created_at: newsletter.created_at,
+      },
     });
-
   } catch (error) {
-    console.error('PDF generation error:', error);
-    res.status(500).json({ error: 'Failed to generate PDF' });
+    console.error("PDF generation error:", error);
+    res.status(500).json({ error: "Failed to generate PDF" });
   }
 }

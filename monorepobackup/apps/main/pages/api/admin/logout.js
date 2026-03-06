@@ -4,12 +4,12 @@
  * Clears the admin_session cookie, effectively logging the admin out.
  */
 
-import { clearAdminSessionCookie } from '../../../lib/adminAuth';
+import { clearAdminSessionCookie } from "../../../lib/adminAuth";
 
 export default function handler(req, res) {
-  if (req.method !== 'POST') {
-    res.setHeader('Allow', ['POST']);
-    return res.status(405).json({ error: 'Method Not Allowed' });
+  if (req.method !== "POST") {
+    res.setHeader("Allow", ["POST"]);
+    return res.status(405).json({ error: "Method Not Allowed" });
   }
 
   clearAdminSessionCookie(res);

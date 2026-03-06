@@ -69,14 +69,14 @@ export default function MagicSearchBar() {
     const fuzzyResults = SEARCH_DATA.filter((item) => {
       const titleLower = item.title.toLowerCase();
       const appName = apps.find((a) => a.id === item.app)?.name.toLowerCase() || "";
-      
+
       // Simple fuzzy matching: check if all characters appear in order
       let titleIndex = 0;
       let appIndex = 0;
       for (let char of query) {
         const foundInTitle = titleLower.indexOf(char, titleIndex);
         const foundInApp = appName.indexOf(char, appIndex);
-        
+
         if (foundInTitle !== -1) {
           titleIndex = foundInTitle + 1;
           continue;
@@ -192,14 +192,14 @@ export default function MagicSearchBar() {
                 ) : searchQuery.trim() !== "" ? (
                   <div className="p-8 text-center text-gray-500">
                     <p className="text-lg mb-2">No results found</p>
-                    <p className="text-sm">Try searching for "Leadership", "Python", or "Physics"</p>
+                    <p className="text-sm">
+                      Try searching for "Leadership", "Python", or "Physics"
+                    </p>
                   </div>
                 ) : (
                   <div className="p-8 text-center text-gray-500">
                     <p className="text-lg mb-2">Start typing to search</p>
-                    <p className="text-sm">
-                      Search across all apps, modules, and lessons
-                    </p>
+                    <p className="text-sm">Search across all apps, modules, and lessons</p>
                   </div>
                 )}
               </div>

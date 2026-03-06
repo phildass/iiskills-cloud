@@ -327,8 +327,8 @@ export default function UniversalLogin({
 
           <div className="mt-4 p-4 bg-blue-50 rounded-lg">
             <p className="text-xs text-blue-800">
-              <strong>✓ Universal Login:</strong> Login once to access all iiskills.cloud apps.
-              Your session works across the main site and all learning modules.
+              <strong>✓ Universal Login:</strong> Login once to access all iiskills.cloud apps. Your
+              session works across the main site and all learning modules.
             </p>
           </div>
         </form>

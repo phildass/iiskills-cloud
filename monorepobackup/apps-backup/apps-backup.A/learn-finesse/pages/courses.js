@@ -12,21 +12,33 @@ const TEN_DAY_CURRICULUM = [
         day: 1,
         title: "The Personal Audit & Brand Identity",
         focus: "Understanding your current image and crafting your ideal professional brand",
-        culturalTopics: ["Western: Authenticity & Confidence", "Indian: Respect & Humility", "Eastern: Harmony & Composure"]
+        culturalTopics: [
+          "Western: Authenticity & Confidence",
+          "Indian: Respect & Humility",
+          "Eastern: Harmony & Composure",
+        ],
       },
       {
         day: 2,
         title: "Visual Impact: Grooming Across Borders",
         focus: "Dress codes, grooming standards, and visual presentation in different cultures",
-        culturalTopics: ["Western: Business Casual", "Indian: Traditional with Modern", "Eastern: Conservative & Neat"]
+        culturalTopics: [
+          "Western: Business Casual",
+          "Indian: Traditional with Modern",
+          "Eastern: Conservative & Neat",
+        ],
       },
       {
         day: 3,
         title: "Digital Real Estate: LinkedIn & Social Footprints",
         focus: "Managing your online presence and professional digital identity globally",
-        culturalTopics: ["Western: Personal Branding", "Indian: Credentials Focus", "Eastern: Group Achievements"]
-      }
-    ]
+        culturalTopics: [
+          "Western: Personal Branding",
+          "Indian: Credentials Focus",
+          "Eastern: Group Achievements",
+        ],
+      },
+    ],
   },
   {
     phase: "Phase 2: Engagement",
@@ -35,27 +47,43 @@ const TEN_DAY_CURRICULUM = [
         day: 4,
         title: "The Global Greeting: Handshakes, Namastes, & Bows",
         focus: "First impressions matter: Master greetings across three cultural contexts",
-        culturalTopics: ["Western: Firm Handshake", "Indian: Namaste or Soft Handshake", "Eastern: Bowing Etiquette"]
+        culturalTopics: [
+          "Western: Firm Handshake",
+          "Indian: Namaste or Soft Handshake",
+          "Eastern: Bowing Etiquette",
+        ],
       },
       {
         day: 5,
         title: "Verbal Artistry: The Multi-Cultural Elevator Pitch",
         focus: "Crafting and delivering compelling introductions adapted to cultural norms",
-        culturalTopics: ["Western: Direct & Impactful", "Indian: Rapport-Building", "Eastern: Modest & Respectful"]
+        culturalTopics: [
+          "Western: Direct & Impactful",
+          "Indian: Rapport-Building",
+          "Eastern: Modest & Respectful",
+        ],
       },
       {
         day: 6,
         title: "High-Context Listening: Decoding Silence & 'Maybe'",
         focus: "Understanding unspoken communication and cultural subtleties",
-        culturalTopics: ["Western: Explicit Communication", "Indian: Head Shake Nuances", "Eastern: Reading Between Lines"]
+        culturalTopics: [
+          "Western: Explicit Communication",
+          "Indian: Head Shake Nuances",
+          "Eastern: Reading Between Lines",
+        ],
       },
       {
         day: 7,
         title: "The Global Table: Dining Etiquette",
         focus: "Navigate business meals from Western fork placement to Eastern chopstick protocol",
-        culturalTopics: ["Western: BMW Rule", "Indian: Right Hand Etiquette", "Eastern: Chopstick Rules"]
-      }
-    ]
+        culturalTopics: [
+          "Western: BMW Rule",
+          "Indian: Right Hand Etiquette",
+          "Eastern: Chopstick Rules",
+        ],
+      },
+    ],
   },
   {
     phase: "Phase 3: Accelerator",
@@ -64,22 +92,30 @@ const TEN_DAY_CURRICULUM = [
         day: 8,
         title: "Interview Gauntlet: Regional Mastery",
         focus: "STAR-P method and adapting interview strategies for different cultural contexts",
-        culturalTopics: ["Western: 'I' Language", "Indian: Team + Personal", "Eastern: 'We' Language"]
+        culturalTopics: [
+          "Western: 'I' Language",
+          "Indian: Team + Personal",
+          "Eastern: 'We' Language",
+        ],
       },
       {
         day: 9,
         title: "Corporate Hierarchy: Managing Up & Digital Ethics",
         focus: "Understanding chain of command and digital communication protocols",
-        culturalTopics: ["Western: First Names", "Indian: Honorifics", "Eastern: Titles & Seniority"]
+        culturalTopics: [
+          "Western: First Names",
+          "Indian: Honorifics",
+          "Eastern: Titles & Seniority",
+        ],
       },
       {
         day: 10,
         title: "Final Synthesis: The Global Networking Simulation",
         focus: "Real-world simulation: Switch etiquette modes seamlessly at an international gala",
-        culturalTopics: ["All Cultures: Social Versatility & Adaptive Excellence"]
-      }
-    ]
-  }
+        culturalTopics: ["All Cultures: Social Versatility & Adaptive Excellence"],
+      },
+    ],
+  },
 ];
 
 export default function CoursesPage() {
@@ -89,7 +125,10 @@ export default function CoursesPage() {
     <>
       <Head>
         <title>10-Day Bootcamp Curriculum - Learn Finesse | iiskills.cloud</title>
-        <meta name="description" content="Explore the comprehensive 10-day curriculum covering Western, Indian, and Eastern etiquette, soft skills, and professional polish." />
+        <meta
+          name="description"
+          content="Explore the comprehensive 10-day curriculum covering Western, Indian, and Eastern etiquette, soft skills, and professional polish."
+        />
       </Head>
 
       <div className="min-h-screen bg-gradient-to-br from-slate-50 to-purple-50 py-12 px-4 sm:px-6 lg:px-8">
@@ -104,8 +143,9 @@ export default function CoursesPage() {
               10-Day Finesse Bootcamp
             </h1>
             <p className="text-xl text-gray-700 max-w-3xl mx-auto">
-              Your transformative journey to mastering cross-cultural etiquette, soft skills, and professional polish.
-              Each day features core lessons, cultural pivots, and actionable missions.
+              Your transformative journey to mastering cross-cultural etiquette, soft skills, and
+              professional polish. Each day features core lessons, cultural pivots, and actionable
+              missions.
             </p>
           </motion.div>
 
@@ -135,18 +175,12 @@ export default function CoursesPage() {
                       <span className="text-sm font-bold text-white bg-gradient-to-r from-indigo-500 to-pink-500 px-3 py-1 rounded-full">
                         Day {day.day}
                       </span>
-                      <span className="text-2xl">
-                        {selectedDay === day.day ? "▼" : "▶"}
-                      </span>
+                      <span className="text-2xl">{selectedDay === day.day ? "▼" : "▶"}</span>
                     </div>
 
-                    <h3 className="text-xl font-bold text-gray-800 mb-2">
-                      {day.title}
-                    </h3>
+                    <h3 className="text-xl font-bold text-gray-800 mb-2">{day.title}</h3>
 
-                    <p className="text-gray-600 text-sm mb-4">
-                      {day.focus}
-                    </p>
+                    <p className="text-gray-600 text-sm mb-4">{day.focus}</p>
 
                     {selectedDay === day.day && (
                       <motion.div
@@ -182,12 +216,10 @@ export default function CoursesPage() {
             transition={{ delay: 0.5 }}
             className="mt-16 text-center bg-white rounded-2xl shadow-2xl p-12"
           >
-            <h2 className="text-4xl font-bold text-gray-800 mb-4">
-              Ready to Begin Your Journey?
-            </h2>
+            <h2 className="text-4xl font-bold text-gray-800 mb-4">Ready to Begin Your Journey?</h2>
             <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-              Transform your professional presence with our immersive 10-day bootcamp.
-              No certificates—just real skills, cultural confidence, and global polish.
+              Transform your professional presence with our immersive 10-day bootcamp. No
+              certificates—just real skills, cultural confidence, and global polish.
             </p>
             <button className="bg-gradient-to-r from-indigo-600 to-pink-600 text-white font-bold text-lg py-4 px-12 rounded-full hover:shadow-2xl transform hover:-translate-y-1 transition-all">
               Start Your Bootcamp

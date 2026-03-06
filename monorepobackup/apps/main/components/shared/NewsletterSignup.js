@@ -32,7 +32,8 @@ export default function NewsletterSignup() {
         return;
       }
       window.grecaptcha.ready(() => {
-        window.grecaptcha.execute(process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY, { action: "submit" })
+        window.grecaptcha
+          .execute(process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY, { action: "submit" })
           .then(resolve)
           .catch(reject);
       });
@@ -78,11 +79,7 @@ export default function NewsletterSignup() {
         alert("Subscription successful!"); // Or show a custom success message/UI
       }
     } catch (err) {
-      setError(
-        typeof err === "string"
-          ? err
-          : "An error occurred. Please reload and try again."
-      );
+      setError(typeof err === "string" ? err : "An error occurred. Please reload and try again.");
     }
     setLoading(false);
   };
@@ -98,11 +95,7 @@ export default function NewsletterSignup() {
           style={{ width: "100%", marginBottom: 12, padding: 8 }}
         />
       </div>
-      {error && (
-        <div style={{ color: "#b71c1c", marginBottom: 8 }}>
-          {error}
-        </div>
-      )}
+      {error && <div style={{ color: "#b71c1c", marginBottom: 8 }}>{error}</div>}
       <button
         type="submit"
         style={{
@@ -125,8 +118,8 @@ export default function NewsletterSignup() {
         and{" "}
         <a href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer">
           Terms of Service
-        </a>
-        {" "}apply.
+        </a>{" "}
+        apply.
       </div>
     </form>
   );

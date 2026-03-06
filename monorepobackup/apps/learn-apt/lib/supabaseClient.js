@@ -35,18 +35,18 @@ export async function getCurrentUser() {
   // TEMPORARY AUTH DISABLE - PR: feature/disable-auth-temporary
   // Global feature flag to bypass authentication for debugging/maintenance
   try {
-    const isAuthDisabled = process.env.NEXT_PUBLIC_DISABLE_AUTH === 'true';
+    const isAuthDisabled = process.env.NEXT_PUBLIC_DISABLE_AUTH === "true";
     if (isAuthDisabled) {
       console.log("⚠️ AUTH DISABLED [learn-apt]: Returning mock user");
       return {
-        id: 'dev-override-apt',
-        email: 'dev@iiskills.cloud',
-        role: 'bypass',
+        id: "dev-override-apt",
+        email: "dev@iiskills.cloud",
+        role: "bypass",
         user_metadata: {
-          full_name: 'Dev Override',
+          full_name: "Dev Override",
           is_admin: true,
-          payment_status: 'paid'
-        }
+          payment_status: "paid",
+        },
       };
     }
   } catch (e) {

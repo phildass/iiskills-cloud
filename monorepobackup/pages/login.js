@@ -3,12 +3,12 @@ import UniversalLogin from "../components/shared/UniversalLogin";
 
 /**
  * Login Page - Re-enabled per Product Requirements 14.2
- * 
+ *
  * Provides two options for user login:
  * 1. Regular Login (email/password)
  * 2. Google Sign-In
- * 
- * Displays recommendation: "Though we have Google sign in, we suggest you 
+ *
+ * Displays recommendation: "Though we have Google sign in, we suggest you
  * register here for a more streamlined experience."
  */
 export default function Login() {
@@ -27,7 +27,8 @@ export default function Login() {
           {/* Recommendation Message */}
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6 mx-4">
             <p className="text-sm text-blue-800">
-              Though we have Google login, we suggest you register here for a more streamlined experience.
+              Though we have Google login, we suggest you register here for a more streamlined
+              experience.
             </p>
           </div>
 

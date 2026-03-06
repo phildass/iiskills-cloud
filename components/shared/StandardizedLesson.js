@@ -1,13 +1,13 @@
 /**
  * StandardizedLesson Component
- * 
+ *
  * Renders lessons in the unified format:
  * Hook → Core Concept → Formula → Interactive → Test
- * 
+ *
  * Used across all learning apps for consistent lesson structure
  */
 
-import { useState } from 'react';
+import { useState } from "react";
 
 export default function StandardizedLesson({ lesson, onComplete }) {
   const [showInteractive, setShowInteractive] = useState(false);
@@ -20,14 +20,18 @@ export default function StandardizedLesson({ lesson, onComplete }) {
   // Helper function to render text with basic markdown-like formatting
   const renderFormattedText = (text) => {
     if (!text) return null;
-    
-    return text.split('\n').map((line, idx) => {
+
+    return text.split("\n").map((line, idx) => {
       // Handle bold text
-      line = line.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+      line = line.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
       // Handle bullet points
-      if (line.trim().startsWith('•')) {
+      if (line.trim().startsWith("•")) {
         return (
-          <li key={idx} className="ml-4" dangerouslySetInnerHTML={{ __html: line.replace('•', '') }} />
+          <li
+            key={idx}
+            className="ml-4"
+            dangerouslySetInnerHTML={{ __html: line.replace("•", "") }}
+          />
         );
       }
       // Regular paragraph
@@ -42,9 +46,7 @@ export default function StandardizedLesson({ lesson, onComplete }) {
     <div className="max-w-4xl mx-auto p-6 space-y-8">
       {/* Lesson Title */}
       <div className="text-center">
-        <h1 className="text-4xl font-bold text-gray-900 mb-2">
-          {lesson.title}
-        </h1>
+        <h1 className="text-4xl font-bold text-gray-900 mb-2">{lesson.title}</h1>
       </div>
 
       {/* Hook Section - Engaging Scenario */}
@@ -55,12 +57,8 @@ export default function StandardizedLesson({ lesson, onComplete }) {
               <span className="text-3xl">🎣</span>
             </div>
             <div className="flex-1">
-              <h2 className="text-xl font-semibold text-gray-900 mb-2">
-                Think About This...
-              </h2>
-              <p className="text-lg text-gray-700 leading-relaxed italic">
-                {lesson.hook}
-              </p>
+              <h2 className="text-xl font-semibold text-gray-900 mb-2">Think About This...</h2>
+              <p className="text-lg text-gray-700 leading-relaxed italic">{lesson.hook}</p>
             </div>
           </div>
         </section>
@@ -74,9 +72,7 @@ export default function StandardizedLesson({ lesson, onComplete }) {
               <span className="text-3xl">💡</span>
             </div>
             <div className="flex-1">
-              <h2 className="text-2xl font-semibold text-gray-900 mb-4">
-                Core Concept
-              </h2>
+              <h2 className="text-2xl font-semibold text-gray-900 mb-4">Core Concept</h2>
               <div className="prose prose-lg max-w-none text-gray-700">
                 {renderFormattedText(lesson.coreConcept)}
               </div>
@@ -93,9 +89,7 @@ export default function StandardizedLesson({ lesson, onComplete }) {
               <span className="text-3xl">📐</span>
             </div>
             <div className="flex-1">
-              <h2 className="text-xl font-semibold text-gray-900 mb-3">
-                Key Formula
-              </h2>
+              <h2 className="text-xl font-semibold text-gray-900 mb-3">Key Formula</h2>
               <div className="bg-white rounded-lg p-4 font-mono text-lg text-center border-2 border-amber-200">
                 {lesson.formula}
               </div>
@@ -112,28 +106,17 @@ export default function StandardizedLesson({ lesson, onComplete }) {
               <span className="text-3xl">🎮</span>
             </div>
             <div className="flex-1">
-              <h2 className="text-xl font-semibold text-gray-900 mb-3">
-                Interactive Exercise
-              </h2>
+              <h2 className="text-xl font-semibold text-gray-900 mb-3">Interactive Exercise</h2>
               <div className="bg-white rounded-lg p-4 border-2 border-green-200">
-                <p className="text-lg text-gray-700 mb-4">
-                  {lesson.interactive.prompt}
-                </p>
+                <p className="text-lg text-gray-700 mb-4">{lesson.interactive.prompt}</p>
                 {!showInteractive ? (
-                  <button
-                    onClick={() => setShowInteractive(true)}
-                    className="btn btn-primary"
-                  >
+                  <button onClick={() => setShowInteractive(true)} className="btn btn-primary">
                     👆 Tap to Reveal Answer
                   </button>
                 ) : (
                   <div className="mt-4 p-4 bg-green-100 rounded-lg border-2 border-green-400">
-                    <p className="text-lg font-semibold text-green-900">
-                      ✓ Answer:
-                    </p>
-                    <p className="text-lg text-green-800 mt-2">
-                      {lesson.interactive.answer}
-                    </p>
+                    <p className="text-lg font-semibold text-green-900">✓ Answer:</p>
+                    <p className="text-lg text-green-800 mt-2">{lesson.interactive.answer}</p>
                   </div>
                 )}
               </div>
@@ -150,21 +133,13 @@ export default function StandardizedLesson({ lesson, onComplete }) {
               <span className="text-3xl">✅</span>
             </div>
             <div className="flex-1">
-              <h2 className="text-2xl font-semibold text-gray-900 mb-4">
-                Quick Quiz
-              </h2>
+              <h2 className="text-2xl font-semibold text-gray-900 mb-4">Quick Quiz</h2>
               {!showTest ? (
-                <button
-                  onClick={() => setShowTest(true)}
-                  className="btn btn-primary"
-                >
+                <button onClick={() => setShowTest(true)} className="btn btn-primary">
                   Start Quiz
                 </button>
               ) : (
-                <LessonQuiz
-                  questions={lesson.test.questions}
-                  onComplete={onComplete}
-                />
+                <LessonQuiz questions={lesson.test.questions} onComplete={onComplete} />
               )}
             </div>
           </div>
@@ -173,17 +148,11 @@ export default function StandardizedLesson({ lesson, onComplete }) {
 
       {/* Navigation Buttons */}
       <div className="flex justify-between pt-8">
-        <button
-          onClick={() => window.history.back()}
-          className="btn btn-secondary"
-        >
+        <button onClick={() => window.history.back()} className="btn btn-secondary">
           ← Back to Module
         </button>
         {onComplete && (
-          <button
-            onClick={onComplete}
-            className="btn btn-primary"
-          >
+          <button onClick={onComplete} className="btn btn-primary">
             Mark Complete & Continue →
           </button>
         )}
@@ -215,13 +184,16 @@ function LessonQuiz({ questions, onComplete }) {
     if (selectedAnswer === null) return;
 
     const isCorrect = selectedAnswer === question.correctAnswer;
-    
+
     setShowExplanation(true);
-    setAnsweredQuestions([...answeredQuestions, {
-      question: question.question,
-      correct: isCorrect
-    }]);
-    
+    setAnsweredQuestions([
+      ...answeredQuestions,
+      {
+        question: question.question,
+        correct: isCorrect,
+      },
+    ]);
+
     if (isCorrect) {
       setScore(score + 1);
     }
@@ -246,15 +218,15 @@ function LessonQuiz({ questions, onComplete }) {
 
     return (
       <div className="space-y-6">
-        <div className={`p-6 rounded-lg text-center ${
-          passed ? 'bg-green-100 border-2 border-green-400' : 'bg-yellow-100 border-2 border-yellow-400'
-        }`}>
-          <div className="text-6xl mb-4">
-            {passed ? '🎉' : '📚'}
-          </div>
-          <h3 className="text-2xl font-bold mb-2">
-            {passed ? 'Great Job!' : 'Keep Practicing!'}
-          </h3>
+        <div
+          className={`p-6 rounded-lg text-center ${
+            passed
+              ? "bg-green-100 border-2 border-green-400"
+              : "bg-yellow-100 border-2 border-yellow-400"
+          }`}
+        >
+          <div className="text-6xl mb-4">{passed ? "🎉" : "📚"}</div>
+          <h3 className="text-2xl font-bold mb-2">{passed ? "Great Job!" : "Keep Practicing!"}</h3>
           <p className="text-xl mb-4">
             You scored {score} out of {questions.length} ({percentage}%)
           </p>
@@ -298,8 +270,12 @@ function LessonQuiz({ questions, onComplete }) {
     <div className="space-y-6">
       {/* Progress Bar */}
       <div className="flex items-center justify-between text-sm text-gray-600 mb-4">
-        <span>Question {currentQuestion + 1} of {questions.length}</span>
-        <span>Score: {score}/{answeredQuestions.length}</span>
+        <span>
+          Question {currentQuestion + 1} of {questions.length}
+        </span>
+        <span>
+          Score: {score}/{answeredQuestions.length}
+        </span>
       </div>
       <div className="w-full bg-gray-200 rounded-full h-2 mb-6">
         <div
@@ -310,9 +286,7 @@ function LessonQuiz({ questions, onComplete }) {
 
       {/* Question */}
       <div className="bg-white rounded-lg p-6 border-2 border-purple-200">
-        <p className="text-xl font-semibold text-gray-900 mb-6">
-          {question.question}
-        </p>
+        <p className="text-xl font-semibold text-gray-900 mb-6">{question.question}</p>
 
         {/* Answer Options */}
         <div className="space-y-3">
@@ -321,19 +295,20 @@ function LessonQuiz({ questions, onComplete }) {
             const isCorrect = index === question.correctAnswer;
             const showCorrectness = showExplanation;
 
-            let buttonClass = 'w-full text-left p-4 rounded-lg border-2 transition-all ';
+            let buttonClass = "w-full text-left p-4 rounded-lg border-2 transition-all ";
             if (showCorrectness) {
               if (isCorrect) {
-                buttonClass += 'bg-green-100 border-green-400 text-green-900';
+                buttonClass += "bg-green-100 border-green-400 text-green-900";
               } else if (isSelected && !isCorrect) {
-                buttonClass += 'bg-red-100 border-red-400 text-red-900';
+                buttonClass += "bg-red-100 border-red-400 text-red-900";
               } else {
-                buttonClass += 'bg-gray-50 border-gray-200 text-gray-600';
+                buttonClass += "bg-gray-50 border-gray-200 text-gray-600";
               }
             } else if (isSelected) {
-              buttonClass += 'bg-primary/10 border-primary text-primary font-semibold';
+              buttonClass += "bg-primary/10 border-primary text-primary font-semibold";
             } else {
-              buttonClass += 'bg-white border-gray-300 text-gray-900 hover:border-primary hover:bg-primary/5';
+              buttonClass +=
+                "bg-white border-gray-300 text-gray-900 hover:border-primary hover:bg-primary/5";
             }
 
             return (
@@ -346,7 +321,9 @@ function LessonQuiz({ questions, onComplete }) {
                 <span className="flex items-center justify-between">
                   <span>{option}</span>
                   {showCorrectness && isCorrect && <span className="text-2xl">✓</span>}
-                  {showCorrectness && isSelected && !isCorrect && <span className="text-2xl">✗</span>}
+                  {showCorrectness && isSelected && !isCorrect && (
+                    <span className="text-2xl">✗</span>
+                  )}
                 </span>
               </button>
             );
@@ -372,11 +349,8 @@ function LessonQuiz({ questions, onComplete }) {
               Submit Answer
             </button>
           ) : (
-            <button
-              onClick={handleNextQuestion}
-              className="btn btn-primary"
-            >
-              {isLastQuestion ? 'Finish Quiz' : 'Next Question →'}
+            <button onClick={handleNextQuestion} className="btn btn-primary">
+              {isLastQuestion ? "Finish Quiz" : "Next Question →"}
             </button>
           )}
         </div>

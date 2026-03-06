@@ -8,9 +8,9 @@
  * This page is intentionally simple — all registration logic lives in
  * /complete-registration which redirects to iiskills.cloud/complete-registration.
  */
-import { useEffect } from 'react';
-import { useRouter } from 'next/router';
-import Head from 'next/head';
+import { useEffect } from "react";
+import { useRouter } from "next/router";
+import Head from "next/head";
 
 export default function Authorised() {
   const router = useRouter();
@@ -18,7 +18,7 @@ export default function Authorised() {
   useEffect(() => {
     // Brief delay so the success message is visible before redirecting.
     const timer = setTimeout(() => {
-      router.replace('/complete-registration?course=learn-developer');
+      router.replace("/complete-registration?course=learn-developer");
     }, 1500);
     return () => clearTimeout(timer);
   }, [router]);

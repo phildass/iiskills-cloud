@@ -1,26 +1,26 @@
 /**
  * LiveScoreWithFact Component
- * 
+ *
  * Displays live match score with a "Did You Know?" cricket fact
- * 
+ *
  * Features:
  * - Real-time score updates (when ENABLE_LIVE_STATS=true and CRICKET_API_KEY set)
  * - Fallback to fixture data when live stats unavailable
  * - Cricket trivia facts
  * - Responsive design
- * 
+ *
  * Props:
  * @param {string} matchId - Match identifier to display
  * @param {boolean} autoRefresh - Enable auto-refresh (default: false)
  * @param {number} refreshInterval - Refresh interval in ms (default: 30000)
  */
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
-export default function LiveScoreWithFact({ 
-  matchId, 
+export default function LiveScoreWithFact({
+  matchId,
   autoRefresh = false,
-  refreshInterval = 30000 
+  refreshInterval = 30000,
 }) {
   const [matchData, setMatchData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -36,7 +36,7 @@ export default function LiveScoreWithFact({
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.message || 'Failed to fetch match data');
+        throw new Error(data.message || "Failed to fetch match data");
       }
 
       setMatchData(data.match);
@@ -94,9 +94,9 @@ export default function LiveScoreWithFact({
     return null;
   }
 
-  const isScheduled = matchData.status === 'scheduled';
-  const isLive = matchData.status === 'live';
-  const isCompleted = matchData.status === 'completed';
+  const isScheduled = matchData.status === "scheduled";
+  const isLive = matchData.status === "live";
+  const isCompleted = matchData.status === "completed";
 
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden">
@@ -122,9 +122,7 @@ export default function LiveScoreWithFact({
             </div>
           )}
           {isScheduled && (
-            <div className="bg-white/20 px-3 py-1 rounded-full text-sm">
-              Scheduled
-            </div>
+            <div className="bg-white/20 px-3 py-1 rounded-full text-sm">Scheduled</div>
           )}
           {isCompleted && (
             <div className="bg-green-500 px-3 py-1 rounded-full text-sm font-semibold">
@@ -139,15 +137,25 @@ export default function LiveScoreWithFact({
         {/* Venue & Date */}
         <div className="flex items-center text-sm text-gray-600 mb-4">
           <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+            />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+            />
           </svg>
           {matchData.venue?.name}, {matchData.venue?.city}
           <span className="mx-2">•</span>
-          {new Date(matchData.date).toLocaleDateString('en-US', { 
-            month: 'short', 
-            day: 'numeric',
-            year: 'numeric'
+          {new Date(matchData.date).toLocaleDateString("en-US", {
+            month: "short",
+            day: "numeric",
+            year: "numeric",
           })}
         </div>
 
@@ -157,23 +165,19 @@ export default function LiveScoreWithFact({
             <div>
               <div className="text-lg font-semibold mb-1">{matchData.teamA.name}</div>
               <div className="text-3xl font-bold text-blue-600">
-                {matchData.teamA.score || '0'}/{matchData.teamA.wickets || '0'}
+                {matchData.teamA.score || "0"}/{matchData.teamA.wickets || "0"}
               </div>
               {matchData.teamA.overs && (
-                <div className="text-sm text-gray-500">
-                  ({matchData.teamA.overs} overs)
-                </div>
+                <div className="text-sm text-gray-500">({matchData.teamA.overs} overs)</div>
               )}
             </div>
             <div>
               <div className="text-lg font-semibold mb-1">{matchData.teamB.name}</div>
               <div className="text-3xl font-bold text-blue-600">
-                {matchData.teamB.score || '0'}/{matchData.teamB.wickets || '0'}
+                {matchData.teamB.score || "0"}/{matchData.teamB.wickets || "0"}
               </div>
               {matchData.teamB.overs && (
-                <div className="text-sm text-gray-500">
-                  ({matchData.teamB.overs} overs)
-                </div>
+                <div className="text-sm text-gray-500">({matchData.teamB.overs} overs)</div>
               )}
             </div>
           </div>
@@ -199,7 +203,11 @@ export default function LiveScoreWithFact({
             <div className="flex items-start">
               <div className="flex-shrink-0">
                 <svg className="h-5 w-5 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+                  <path
+                    fillRule="evenodd"
+                    d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                    clipRule="evenodd"
+                  />
                 </svg>
               </div>
               <div className="ml-3">
@@ -213,13 +221,9 @@ export default function LiveScoreWithFact({
         {/* Data Source & Last Updated */}
         <div className="mt-4 pt-4 border-t border-gray-200 text-xs text-gray-500 flex items-center justify-between">
           <span>
-            Source: {matchData.dataSource === 'local-fixtures' ? 'Local Fixtures' : 'Live API'}
+            Source: {matchData.dataSource === "local-fixtures" ? "Local Fixtures" : "Live API"}
           </span>
-          {lastUpdated && (
-            <span>
-              Updated: {lastUpdated.toLocaleTimeString()}
-            </span>
-          )}
+          {lastUpdated && <span>Updated: {lastUpdated.toLocaleTimeString()}</span>}
         </div>
       </div>
     </div>

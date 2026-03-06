@@ -29,7 +29,7 @@
  *   500 { error: string }   — server error
  */
 
-import { createClient } from '@supabase/supabase-js';
+import { createClient } from "@supabase/supabase-js";
 
 // ─── Password validation ──────────────────────────────────────────────────────
 
@@ -41,23 +41,23 @@ import { createClient } from '@supabase/supabase-js';
  */
 export function validatePassword(password) {
   const errors = [];
-  if (!password || typeof password !== 'string') {
-    return ['Password is required'];
+  if (!password || typeof password !== "string") {
+    return ["Password is required"];
   }
   if (password.length < 10) {
-    errors.push('Password must be at least 10 characters long');
+    errors.push("Password must be at least 10 characters long");
   }
   if (!/[A-Z]/.test(password)) {
-    errors.push('Password must contain at least one uppercase letter');
+    errors.push("Password must contain at least one uppercase letter");
   }
   if (!/[a-z]/.test(password)) {
-    errors.push('Password must contain at least one lowercase letter');
+    errors.push("Password must contain at least one lowercase letter");
   }
   if (!/[0-9]/.test(password)) {
-    errors.push('Password must contain at least one number');
+    errors.push("Password must contain at least one number");
   }
   if (!/[^A-Za-z0-9]/.test(password)) {
-    errors.push('Password must contain at least one special character (e.g. @, #, $, !)');
+    errors.push("Password must contain at least one special character (e.g. @, #, $, !)");
   }
   return errors;
 }
@@ -71,8 +71,11 @@ export function validatePassword(password) {
  * @returns {string}
  */
 function sanitiseName(name) {
-  const cleaned = (name || '').replace(/[^a-zA-Z]/g, '').toLowerCase().slice(0, 10);
-  return cleaned || 'user';
+  const cleaned = (name || "")
+    .replace(/[^a-zA-Z]/g, "")
+    .toLowerCase()
+    .slice(0, 10);
+  return cleaned || "user";
 }
 
 /**
@@ -101,22 +104,22 @@ function getSupabaseAdmin() {
 // ─── Handler ──────────────────────────────────────────────────────────────────
 
 export default async function handler(req, res) {
-  if (req.method !== 'POST') {
-    res.setHeader('Allow', ['POST']);
-    return res.status(405).json({ error: 'Method Not Allowed' });
+  if (req.method !== "POST") {
+    res.setHeader("Allow", ["POST"]);
+    return res.status(405).json({ error: "Method Not Allowed" });
   }
 
   // ── 1. Authenticate ────────────────────────────────────────────────────────
   const authHeader = req.headers.authorization;
-  const accessToken = authHeader?.startsWith('Bearer ') ? authHeader.slice(7) : null;
+  const accessToken = authHeader?.startsWith("Bearer ") ? authHeader.slice(7) : null;
   if (!accessToken) {
-    return res.status(401).json({ error: 'Authentication required' });
+    return res.status(401).json({ error: "Authentication required" });
   }
 
   const supabase = getSupabaseAdmin();
   if (!supabase) {
-    console.error('[complete-registration] Supabase not configured');
-    return res.status(500).json({ error: 'Server not configured' });
+    console.error("[complete-registration] Supabase not configured");
+    return res.status(500).json({ error: "Server not configured" });
   }
 
   const {
@@ -125,17 +128,17 @@ export default async function handler(req, res) {
   } = await supabase.auth.getUser(accessToken);
 
   if (authError || !user) {
-    return res.status(401).json({ error: 'Invalid or expired session' });
+    return res.status(401).json({ error: "Invalid or expired session" });
   }
 
   // ── 2. Validate body ───────────────────────────────────────────────────────
   const { password, confirmPassword } = req.body || {};
 
   if (!password) {
-    return res.status(400).json({ error: 'Password is required' });
+    return res.status(400).json({ error: "Password is required" });
   }
   if (password !== confirmPassword) {
-    return res.status(400).json({ error: 'Passwords do not match' });
+    return res.status(400).json({ error: "Passwords do not match" });
   }
 
   const passwordErrors = validatePassword(password);
@@ -145,9 +148,9 @@ export default async function handler(req, res) {
 
   // ── 3. Check if already completed (idempotent) ────────────────────────────
   const { data: existingProfile } = await supabase
-    .from('profiles')
-    .select('registration_completed, username, first_name, last_name, full_name')
-    .eq('id', user.id)
+    .from("profiles")
+    .select("registration_completed, username, first_name, last_name, full_name")
+    .eq("id", user.id)
     .maybeSingle();
 
   if (existingProfile?.registration_completed) {
@@ -161,8 +164,8 @@ export default async function handler(req, res) {
   // ── 4. Update password via Supabase Admin API ──────────────────────────────
   const { error: pwError } = await supabase.auth.admin.updateUserById(user.id, { password });
   if (pwError) {
-    console.error('[complete-registration] Password update failed:', pwError.message);
-    return res.status(500).json({ error: 'Failed to update password. Please try again.' });
+    console.error("[complete-registration] Password update failed:", pwError.message);
+    return res.status(500).json({ error: "Failed to update password. Please try again." });
   }
 
   // ── 5. Generate unique username (skip if user already has one) ────────────
@@ -171,9 +174,9 @@ export default async function handler(req, res) {
   if (!username) {
     const baseName =
       existingProfile?.full_name ||
-      [existingProfile?.first_name, existingProfile?.last_name].filter(Boolean).join(' ') ||
-      user.email?.split('@')[0] ||
-      'user';
+      [existingProfile?.first_name, existingProfile?.last_name].filter(Boolean).join(" ") ||
+      user.email?.split("@")[0] ||
+      "user";
 
     // Retry loop for uniqueness
     let attempts = 0;
@@ -183,23 +186,23 @@ export default async function handler(req, res) {
 
       // Try to insert; if unique constraint fires we retry
       const { error: upsertErr } = await supabase
-        .from('profiles')
+        .from("profiles")
         .update({ username: candidate })
-        .eq('id', user.id)
-        .is('username', null); // only set if still null (race-safe)
+        .eq("id", user.id)
+        .is("username", null); // only set if still null (race-safe)
 
       // Check for uniqueness violation
       if (!upsertErr) {
         username = candidate;
       } else if (
-        upsertErr.code === '23505' ||
-        upsertErr.message?.includes('unique') ||
-        upsertErr.message?.includes('duplicate')
+        upsertErr.code === "23505" ||
+        upsertErr.message?.includes("unique") ||
+        upsertErr.message?.includes("duplicate")
       ) {
         // Collision — retry with a new candidate
         continue;
       } else {
-        console.error('[complete-registration] Username update error:', upsertErr.message);
+        console.error("[complete-registration] Username update error:", upsertErr.message);
         break; // non-uniqueness error — stop retrying
       }
     }
@@ -207,9 +210,9 @@ export default async function handler(req, res) {
     // Fallback: fetch whatever username was set (in case another request won the race)
     if (!username) {
       const { data: refetched } = await supabase
-        .from('profiles')
-        .select('username')
-        .eq('id', user.id)
+        .from("profiles")
+        .select("username")
+        .eq("id", user.id)
         .maybeSingle();
       username = refetched?.username || null;
     }
@@ -217,16 +220,18 @@ export default async function handler(req, res) {
 
   // ── 6. Mark registration as completed ─────────────────────────────────────
   const { error: updateErr } = await supabase
-    .from('profiles')
+    .from("profiles")
     .update({ registration_completed: true })
-    .eq('id', user.id);
+    .eq("id", user.id);
 
   if (updateErr) {
-    console.error('[complete-registration] Profile update failed:', updateErr.message);
-    return res.status(500).json({ error: 'Failed to update profile. Please try again.' });
+    console.error("[complete-registration] Profile update failed:", updateErr.message);
+    return res.status(500).json({ error: "Failed to update profile. Please try again." });
   }
 
-  console.log(`[complete-registration] Completed for user=${user.id.slice(0, 8)}... username=${username}`);
+  console.log(
+    `[complete-registration] Completed for user=${user.id.slice(0, 8)}... username=${username}`
+  );
 
   return res.status(200).json({ success: true, username });
 }

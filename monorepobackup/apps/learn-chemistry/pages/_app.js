@@ -4,7 +4,6 @@ import Head from "next/head";
 import { SiteHeader } from "@iiskills/ui/navigation";
 import { Footer } from "@iiskills/ui/common";
 
-
 export default function App({ Component, pageProps }) {
   return (
     <>

@@ -1,6 +1,14 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, ResponsiveContainer, Tooltip } from "recharts";
+import {
+  RadarChart,
+  PolarGrid,
+  PolarAngleAxis,
+  PolarRadiusAxis,
+  Radar,
+  ResponsiveContainer,
+  Tooltip,
+} from "recharts";
 import { useUserProgress } from "../../contexts/UserProgressContext";
 
 // Dynamic taglines based on top app
@@ -27,7 +35,10 @@ export default function UniversalProgressDashboard() {
     // Prepare radar chart data
     const data = apps.map((app) => ({
       subject: app.name.replace("Learn ", ""),
-      score: ((app.progress.basics + app.progress.intermediate + app.progress.advanced) / 3).toFixed(0),
+      score: (
+        (app.progress.basics + app.progress.intermediate + app.progress.advanced) /
+        3
+      ).toFixed(0),
       fullMark: 100,
     }));
     setRadarData(data);
@@ -57,7 +68,8 @@ export default function UniversalProgressDashboard() {
           {currentTagline}
         </motion.h2>
         <p className="text-lg text-charcoal">
-          Total Human Capital: <span className="font-bold text-accent">{totalProgress.toFixed(1)}%</span>
+          Total Human Capital:{" "}
+          <span className="font-bold text-accent">{totalProgress.toFixed(1)}%</span>
         </p>
       </div>
 
@@ -65,21 +77,21 @@ export default function UniversalProgressDashboard() {
         <ResponsiveContainer width="100%" height="100%">
           <RadarChart data={radarData}>
             <PolarGrid stroke="#C77DDB" />
-            <PolarAngleAxis 
-              dataKey="subject" 
+            <PolarAngleAxis
+              dataKey="subject"
               tick={{ fill: "#24272a", fontSize: 12 }}
               style={{ fontWeight: 600 }}
             />
             <PolarRadiusAxis angle={90} domain={[0, 100]} tick={{ fill: "#0052CC" }} />
-            <Radar 
-              name="Progress" 
-              dataKey="score" 
-              stroke="#0052CC" 
-              fill="#C77DDB" 
+            <Radar
+              name="Progress"
+              dataKey="score"
+              stroke="#0052CC"
+              fill="#C77DDB"
               fillOpacity={0.6}
               strokeWidth={2}
             />
-            <Tooltip 
+            <Tooltip
               contentStyle={{
                 backgroundColor: "white",
                 border: "2px solid #0052CC",

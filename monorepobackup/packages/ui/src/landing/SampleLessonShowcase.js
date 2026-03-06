@@ -2,11 +2,11 @@
 
 /**
  * Sample Lesson Showcase Component
- * 
+ *
  * Universal access module structure for paid apps:
  * - Overview: High-impact highlights
  * - Sample Lesson: Choose Basic or Intermediate level (no test tab)
- * 
+ *
  * Zero-Barrier Sample for every paid app
  */
 
@@ -23,12 +23,12 @@ function getSampleLessonUrl(appId, moduleId, lessonId) {
   return `/modules/${moduleId}/lesson/${lessonId}`; // Standard module-based structure
 }
 
-export default function SampleLessonShowcase({ 
+export default function SampleLessonShowcase({
   appId,
   appName,
   appHighlight,
   sampleModuleId = 1,
-  sampleLessonId = 1
+  sampleLessonId = 1,
 }) {
   const [activeTab, setActiveTab] = useState("overview");
   const [sampleLevel, setSampleLevel] = useState(null);
@@ -37,19 +37,20 @@ export default function SampleLessonShowcase({
   const appHighlights = {
     "learn-finesse": {
       title: "Master Social Intelligence & Executive Presence",
-      description: "Master social intelligence, executive presence, and the logic of power dynamics.",
+      description:
+        "Master social intelligence, executive presence, and the logic of power dynamics.",
       keyPoints: [
         "Executive presence in high-stakes business environments",
         "Cultural intelligence across Western, Indian, and Eastern contexts",
         "Power dynamics and influence strategies",
         "Advanced communication and negotiation techniques",
-        "Professional etiquette and social positioning"
+        "Professional etiquette and social positioning",
       ],
       triLevelPreview: {
         level1: "Building Intuition: Foundation of social intelligence and professional presence",
         level2: "The Systems: Strategic frameworks for executive communication",
-        level3: "The Architect: Mastering power dynamics and influence at scale"
-      }
+        level3: "The Architect: Mastering power dynamics and influence at scale",
+      },
     },
     "learn-ai": {
       title: "Move from AI User to AI Architect",
@@ -59,13 +60,13 @@ export default function SampleLessonShowcase({
         "Prompt engineering and AI tool mastery",
         "AI business models and monetization strategies",
         "Building AI-powered products and services",
-        "Ethical AI and responsible deployment"
+        "Ethical AI and responsible deployment",
       ],
       triLevelPreview: {
         level1: "Building Intuition: Prompts, models, and AI basics",
         level2: "The Systems: ML algorithms and neural architectures",
-        level3: "The Architect: AI monetization and product development"
-      }
+        level3: "The Architect: AI monetization and product development",
+      },
     },
     "learn-developer": {
       title: "Standardize Your Coding Logic",
@@ -75,13 +76,13 @@ export default function SampleLessonShowcase({
         "System architecture and design patterns",
         "Database design and API development",
         "DevOps and deployment strategies",
-        "Code quality and professional standards"
+        "Code quality and professional standards",
       ],
       triLevelPreview: {
         level1: "Building Intuition: HTML, CSS, JavaScript fundamentals",
         level2: "The Systems: Frameworks, APIs, and databases",
-        level3: "The Architect: System design and scalable architecture"
-      }
+        level3: "The Architect: System design and scalable architecture",
+      },
     },
     "learn-pr": {
       title: "Master the Science of Public Perception",
@@ -91,13 +92,13 @@ export default function SampleLessonShowcase({
         "Crisis communication and reputation management",
         "Brand positioning and messaging frameworks",
         "Digital PR and social media influence",
-        "Stakeholder engagement and relationship building"
+        "Stakeholder engagement and relationship building",
       ],
       triLevelPreview: {
         level1: "Building Intuition: PR fundamentals and media landscape",
         level2: "The Systems: Campaign management and crisis response",
-        level3: "The Architect: Brand influence and perception engineering"
-      }
+        level3: "The Architect: Brand influence and perception engineering",
+      },
     },
     "learn-management": {
       title: "Standardize Your Leadership Systems",
@@ -107,14 +108,14 @@ export default function SampleLessonShowcase({
         "Team leadership and organizational behavior",
         "Operations management and process optimization",
         "Financial management and resource allocation",
-        "Change management and innovation leadership"
+        "Change management and innovation leadership",
       ],
       triLevelPreview: {
         level1: "Building Intuition: Management fundamentals and team basics",
         level2: "The Systems: Strategic frameworks and operational excellence",
-        level3: "The Architect: Organizational design and transformational leadership"
-      }
-    }
+        level3: "The Architect: Organizational design and transformational leadership",
+      },
+    },
   };
 
   const highlight = appHighlights[appId] || {
@@ -124,8 +125,8 @@ export default function SampleLessonShowcase({
     triLevelPreview: {
       level1: "Building Intuition: Foundation concepts",
       level2: "The Systems: Strategic frameworks",
-      level3: "The Architect: Advanced mastery"
-    }
+      level3: "The Architect: Advanced mastery",
+    },
   };
 
   // Intermediate lesson is module 2
@@ -137,9 +138,7 @@ export default function SampleLessonShowcase({
       <div className="max-w-6xl mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold mb-4 text-gray-900">
-            Try Before You Enroll
-          </h2>
+          <h2 className="text-4xl font-bold mb-4 text-gray-900">Try Before You Enroll</h2>
           <p className="text-xl text-gray-600">
             Experience our Tri-Level learning system with a complete sample lesson
           </p>
@@ -175,14 +174,24 @@ export default function SampleLessonShowcase({
             <div>
               <h3 className="text-3xl font-bold mb-4 text-gray-900">{highlight.title}</h3>
               <p className="text-xl text-gray-700 mb-6 italic">{highlight.description}</p>
-              
+
               <div className="mb-8">
-                <h4 className="text-xl font-semibold mb-4 text-gray-800">Why This Skill Is a Career Multiplier</h4>
+                <h4 className="text-xl font-semibold mb-4 text-gray-800">
+                  Why This Skill Is a Career Multiplier
+                </h4>
                 <ul className="space-y-3">
                   {highlight.keyPoints.map((point, index) => (
                     <li key={index} className="flex items-start">
-                      <svg className="w-6 h-6 text-green-500 mr-3 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                      <svg
+                        className="w-6 h-6 text-green-500 mr-3 flex-shrink-0 mt-0.5"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                          clipRule="evenodd"
+                        />
                       </svg>
                       <span className="text-gray-700 text-lg">{point}</span>
                     </li>
@@ -194,15 +203,21 @@ export default function SampleLessonShowcase({
                 <h4 className="text-xl font-semibold mb-4 text-gray-900">🎯 The Tri-Level Logic</h4>
                 <div className="space-y-3">
                   <div className="flex items-start">
-                    <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-semibold mr-3">Level 1</span>
+                    <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-semibold mr-3">
+                      Level 1
+                    </span>
                     <p className="text-gray-700">{highlight.triLevelPreview.level1}</p>
                   </div>
                   <div className="flex items-start">
-                    <span className="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-semibold mr-3">Level 2</span>
+                    <span className="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-semibold mr-3">
+                      Level 2
+                    </span>
                     <p className="text-gray-700">{highlight.triLevelPreview.level2}</p>
                   </div>
                   <div className="flex items-start">
-                    <span className="bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm font-semibold mr-3">Level 3</span>
+                    <span className="bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm font-semibold mr-3">
+                      Level 3
+                    </span>
                     <p className="text-gray-700">{highlight.triLevelPreview.level3}</p>
                   </div>
                 </div>
@@ -212,9 +227,12 @@ export default function SampleLessonShowcase({
 
           {activeTab === "sample" && (
             <div>
-              <h3 className="text-3xl font-bold mb-4 text-gray-900">Sample Lesson: Choose Your Level</h3>
+              <h3 className="text-3xl font-bold mb-4 text-gray-900">
+                Sample Lesson: Choose Your Level
+              </h3>
               <p className="text-lg text-gray-700 mb-6">
-                Choose a sample lesson to experience our teaching style. Both are <strong>100% free</strong>—no login required!
+                Choose a sample lesson to experience our teaching style. Both are{" "}
+                <strong>100% free</strong>—no login required!
               </p>
 
               {!sampleLevel ? (
@@ -225,8 +243,12 @@ export default function SampleLessonShowcase({
                   >
                     <div className="text-3xl mb-2">🟢</div>
                     <h4 className="text-xl font-bold text-gray-900 mb-1">Basic</h4>
-                    <p className="text-gray-600 text-sm">Foundations and core concepts — perfect for beginners</p>
-                    <span className="inline-block mt-3 bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">Choose Basic →</span>
+                    <p className="text-gray-600 text-sm">
+                      Foundations and core concepts — perfect for beginners
+                    </p>
+                    <span className="inline-block mt-3 bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">
+                      Choose Basic →
+                    </span>
                   </button>
                   <button
                     onClick={() => setSampleLevel("intermediate")}
@@ -234,18 +256,25 @@ export default function SampleLessonShowcase({
                   >
                     <div className="text-3xl mb-2">🔵</div>
                     <h4 className="text-xl font-bold text-gray-900 mb-1">Intermediate</h4>
-                    <p className="text-gray-600 text-sm">Apply concepts to real-world scenarios and complex patterns</p>
-                    <span className="inline-block mt-3 bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-semibold">Choose Intermediate →</span>
+                    <p className="text-gray-600 text-sm">
+                      Apply concepts to real-world scenarios and complex patterns
+                    </p>
+                    <span className="inline-block mt-3 bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-semibold">
+                      Choose Intermediate →
+                    </span>
                   </button>
                 </div>
               ) : (
                 <div>
                   <div className="bg-white rounded-xl p-6 mb-6 border-2 border-blue-200">
                     <p className="text-gray-700 mb-2">
-                      🎓 You selected: <strong>{sampleLevel === "basic" ? "Basic" : "Intermediate"}</strong> sample lesson.
+                      🎓 You selected:{" "}
+                      <strong>{sampleLevel === "basic" ? "Basic" : "Intermediate"}</strong> sample
+                      lesson.
                     </p>
                     <p className="text-gray-700">
-                      This lesson is <strong>100% free</strong> and accessible to everyone—no login required!
+                      This lesson is <strong>100% free</strong> and accessible to everyone—no login
+                      required!
                     </p>
                   </div>
 
@@ -272,5 +301,3 @@ export default function SampleLessonShowcase({
     </div>
   );
 }
-
-

@@ -6,13 +6,13 @@ export const enhancedCurriculumData = {
   modules: [
     {
       id: 1,
-      moduleId: 'logic-algorithms',
-      tier: 'basics',
+      moduleId: "logic-algorithms",
+      tier: "basics",
       title: "Logic & Control Flow",
       subtitle: "SHARED MODULE - Syncs with Learn AI",
       isSyncModule: true,
-      syncTarget: 'learn-ai',
-      syncModuleId: 'logic-algorithms',
+      syncTarget: "learn-ai",
+      syncModuleId: "logic-algorithms",
       difficulty: "Beginner",
       deepDive: `Think of programming logic as teaching a very literal friend. They do EXACTLY what you say—no more, no less. If/else statements are like giving instructions with alternatives: "If it's raining, take an umbrella. Else, wear sunglasses."
 
@@ -23,7 +23,7 @@ Here's where it gets cool: The same logic patterns exist in AI! Chain-of-Thought
 Big O notation (algorithm efficiency) matters in both worlds. An O(n²) loop in code is slow. An O(n²) attention mechanism in AI (like in transformers) is expensive. Same concept, different application!
 
 **Pro Tip:** Master control flow in code, and you'll understand how AI "thinks" step-by-step. See Learn AI Module: Chain-of-Thought Prompting to see this concept from the AI side!`,
-      
+
       codeExample: `// Control Flow Examples in JavaScript
 
 // IF/ELSE - Decision Making
@@ -316,7 +316,7 @@ console.log(getGrade(50)); // Should return "F"</code></pre>
               <li>✅ Understand truthy/falsy values to write concise conditionals</li>
               <li>✅ Same logic patterns apply to AI prompting (Chain-of-Thought)</li>
             </ul>
-          `
+          `,
         },
         {
           id: 2,
@@ -585,7 +585,7 @@ const findDuplicates = (array) => {
               <li>✅ Beware of nested loops (O(n²))—optimize when possible</li>
               <li>✅ Same iteration concepts power AI training loops</li>
             </ul>
-          `
+          `,
         },
         {
           id: 3,
@@ -886,70 +886,55 @@ fizzBuzz();
               <li>✅ Always consider time/space complexity for large datasets</li>
               <li>✅ Practice with challenges (FizzBuzz, reverse string, etc.)</li>
             </ul>
-          `
-        }
+          `,
+        },
       ],
-      
+
       test: [
         {
           question: "What happens if your loop never updates its variable?",
-          options: [
-            "Program halts",
-            "Infinite loop",
-            "Error in syntax",
-            "Returns undefined"
-          ],
+          options: ["Program halts", "Infinite loop", "Error in syntax", "Returns undefined"],
           correctAnswer: 1,
-          rationale: "Without updating the condition variable, the loop condition never becomes false, causing an infinite loop.",
-          deepDive: "Infinite loops are a classic bug in both code and AI workflows—in AI, this is like a model that never converges during training. Set stop conditions! See Learn AI: Neural Network Training to understand convergence."
+          rationale:
+            "Without updating the condition variable, the loop condition never becomes false, causing an infinite loop.",
+          deepDive:
+            "Infinite loops are a classic bug in both code and AI workflows—in AI, this is like a model that never converges during training. Set stop conditions! See Learn AI: Neural Network Training to understand convergence.",
         },
         {
           question: "Which operator checks strict equality in JavaScript?",
-          options: [
-            "=",
-            "==",
-            "===",
-            "!="
-          ],
+          options: ["=", "==", "===", "!="],
           correctAnswer: 2,
-          rationale: "=== checks both value AND type without type coercion. == performs type coercion, which can lead to unexpected results.",
-          deepDive: "Always use === to avoid bugs like '5' == 5 being true. In AI prompts, precision matters too—ambiguous prompts = unexpected outputs! See Learn AI: Prompt Engineering for precision techniques."
+          rationale:
+            "=== checks both value AND type without type coercion. == performs type coercion, which can lead to unexpected results.",
+          deepDive:
+            "Always use === to avoid bugs like '5' == 5 being true. In AI prompts, precision matters too—ambiguous prompts = unexpected outputs! See Learn AI: Prompt Engineering for precision techniques.",
         },
         {
           question: "What's the output of: `for(let i=0; i<3; i++) { console.log(i); }`?",
-          options: [
-            "0, 1, 2",
-            "1, 2, 3",
-            "0, 1, 2, 3",
-            "Error"
-          ],
+          options: ["0, 1, 2", "1, 2, 3", "0, 1, 2, 3", "Error"],
           correctAnswer: 0,
-          rationale: "Loop starts at 0 (i=0), runs while i<3 (0, 1, 2), incrementing i after each iteration.",
-          deepDive: "Off-by-one errors are common in loops. Similarly, AI context windows have boundaries—exceed them and you lose data! See Learn AI: Context Window Management."
+          rationale:
+            "Loop starts at 0 (i=0), runs while i<3 (0, 1, 2), incrementing i after each iteration.",
+          deepDive:
+            "Off-by-one errors are common in loops. Similarly, AI context windows have boundaries—exceed them and you lose data! See Learn AI: Context Window Management.",
         },
         {
           question: "Which loop is best for iterating over an array in modern JavaScript?",
-          options: [
-            "for loop",
-            "while loop",
-            "forEach or map",
-            "do-while"
-          ],
+          options: ["for loop", "while loop", "forEach or map", "do-while"],
           correctAnswer: 2,
-          rationale: "forEach, map, filter, and reduce are declarative and more readable than traditional for loops.",
-          deepDive: "Modern JS favors declarative over imperative. In AI, declarative prompts (tell what you want) beat imperative (tell how to do it)! See Learn AI: Effective Prompting Styles."
+          rationale:
+            "forEach, map, filter, and reduce are declarative and more readable than traditional for loops.",
+          deepDive:
+            "Modern JS favors declarative over imperative. In AI, declarative prompts (tell what you want) beat imperative (tell how to do it)! See Learn AI: Effective Prompting Styles.",
         },
         {
           question: "What does Big O notation describe?",
-          options: [
-            "Code size",
-            "Algorithm efficiency",
-            "Syntax errors",
-            "Variable types"
-          ],
+          options: ["Code size", "Algorithm efficiency", "Syntax errors", "Variable types"],
           correctAnswer: 1,
-          rationale: "Big O describes how an algorithm's runtime or space usage grows relative to input size.",
-          deepDive: "O(n) means linear time. AI models also scale—GPT-4's attention is O(n²)! Learn more in Learn AI: Neural Network Efficiency and Scaling."
+          rationale:
+            "Big O describes how an algorithm's runtime or space usage grows relative to input size.",
+          deepDive:
+            "O(n) means linear time. AI models also scale—GPT-4's attention is O(n²)! Learn more in Learn AI: Neural Network Efficiency and Scaling.",
         },
         {
           question: "What's a common use case for nested if/else?",
@@ -957,23 +942,21 @@ fizzBuzz();
             "Multiple condition checks",
             "Faster execution",
             "Smaller file size",
-            "Database queries"
+            "Database queries",
           ],
           correctAnswer: 0,
-          rationale: "Nested if/else allows checking multiple conditions in sequence, though guard clauses are often cleaner.",
-          deepDive: "Nested conditions can get messy—refactor into guard clauses or switch statements. AI tip: Break complex prompts into sub-prompts! See Learn AI: Prompt Decomposition Strategies."
+          rationale:
+            "Nested if/else allows checking multiple conditions in sequence, though guard clauses are often cleaner.",
+          deepDive:
+            "Nested conditions can get messy—refactor into guard clauses or switch statements. AI tip: Break complex prompts into sub-prompts! See Learn AI: Prompt Decomposition Strategies.",
         },
         {
           question: "Which is NOT a valid JavaScript loop?",
-          options: [
-            "for",
-            "while",
-            "do-while",
-            "repeat-until"
-          ],
+          options: ["for", "while", "do-while", "repeat-until"],
           correctAnswer: 3,
           rationale: "repeat-until exists in some languages (like Lua) but not in JavaScript.",
-          deepDive: "Different languages have different syntax. In AI, different models have different 'syntax'—learn to adapt your prompts! See Learn AI: Multi-Model Prompting."
+          deepDive:
+            "Different languages have different syntax. In AI, different models have different 'syntax'—learn to adapt your prompts! See Learn AI: Multi-Model Prompting.",
         },
         {
           question: "What's the purpose of the break statement?",
@@ -981,11 +964,13 @@ fizzBuzz();
             "Exit a loop early",
             "Pause execution",
             "Skip to next iteration",
-            "Throw an error"
+            "Throw an error",
           ],
           correctAnswer: 0,
-          rationale: "break immediately exits the current loop, useful for optimization when you've found what you're looking for.",
-          deepDive: "break optimizes by stopping unnecessary iterations. In AI, early stopping prevents overfitting during training—similar concept! See Learn AI: Regularization Techniques."
+          rationale:
+            "break immediately exits the current loop, useful for optimization when you've found what you're looking for.",
+          deepDive:
+            "break optimizes by stopping unnecessary iterations. In AI, early stopping prevents overfitting during training—similar concept! See Learn AI: Regularization Techniques.",
         },
         {
           question: "What's the difference between for and forEach?",
@@ -993,11 +978,13 @@ fizzBuzz();
             "No difference",
             "for is more flexible, forEach is cleaner",
             "forEach is faster",
-            "for doesn't work on arrays"
+            "for doesn't work on arrays",
           ],
           correctAnswer: 1,
-          rationale: "for allows break/continue and is more flexible. forEach is cleaner for simple iteration but can't be interrupted.",
-          deepDive: "forEach can't use break/continue, but it's more readable. Trade-offs exist everywhere—AI prompt length vs. clarity, too! See Learn AI: Balancing Prompt Complexity."
+          rationale:
+            "for allows break/continue and is more flexible. forEach is cleaner for simple iteration but can't be interrupted.",
+          deepDive:
+            "forEach can't use break/continue, but it's more readable. Trade-offs exist everywhere—AI prompt length vs. clarity, too! See Learn AI: Balancing Prompt Complexity.",
         },
         {
           question: "What triggers an infinite loop?",
@@ -1005,15 +992,16 @@ fizzBuzz();
             "Condition never becomes false",
             "Too many iterations",
             "Missing semicolon",
-            "Wrong variable type"
+            "Wrong variable type",
           ],
           correctAnswer: 0,
           rationale: "If the loop condition never evaluates to false, the loop runs forever.",
-          deepDive: "Always ensure your loop condition will eventually fail. In AI, infinite loops = runaway costs! Set max tokens to prevent this. See Learn AI: Cost Management & Token Limits."
-        }
-      ]
-    }
-    
+          deepDive:
+            "Always ensure your loop condition will eventually fail. In AI, infinite loops = runaway costs! Set max tokens to prevent this. See Learn AI: Cost Management & Token Limits.",
+        },
+      ],
+    },
+
     // ... Additional modules would follow the same pattern ...
     // Module 2: HTML5 & Semantic Structure
     // Module 3: CSS3 Styling & Responsive Design
@@ -1024,7 +1012,7 @@ fizzBuzz();
     // Module 8: Databases & Data Persistence
     // Module 9: API Management (SHARED)
     // Module 10: Deployment, CI/CD, and DevOps
-  ]
+  ],
 };
 
 export default enhancedCurriculumData;

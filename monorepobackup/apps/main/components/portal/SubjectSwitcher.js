@@ -106,7 +106,7 @@ export default function SubjectSwitcher() {
           }}
         >
           {/* Glassmorphic background gradient */}
-          <div 
+          <div
             className="absolute inset-0 opacity-10 pointer-events-none"
             style={{
               background: `linear-gradient(135deg, ${selectedSubject.color}40 0%, transparent 100%)`,
@@ -115,21 +115,19 @@ export default function SubjectSwitcher() {
 
           {/* Path Name Header */}
           <div className="text-center mb-8 relative z-10">
-            <h3 
+            <h3
               className="text-3xl md:text-4xl font-bold mb-2"
               style={{ color: selectedSubject.color }}
             >
               {selectedSubject.pathName}
             </h3>
-            <p className="text-gray-600 text-lg italic">
-              {selectedSubject.tagline}
-            </p>
+            <p className="text-gray-600 text-lg italic">{selectedSubject.tagline}</p>
           </div>
 
           {/* Tri-Level Progression */}
           <div className="space-y-6 relative z-10">
             {/* Level 1: Basic */}
-            <motion.div 
+            <motion.div
               className="bg-gradient-to-r from-green-50 to-green-100 rounded-xl p-6 border-l-4 border-green-500 hover:shadow-lg transition-all duration-300"
               whileHover={{ scale: 1.02 }}
               initial={{ opacity: 0, x: -20 }}
@@ -152,7 +150,7 @@ export default function SubjectSwitcher() {
             </motion.div>
 
             {/* Level 2: Intermediate */}
-            <motion.div 
+            <motion.div
               className="bg-gradient-to-r from-blue-50 to-blue-100 rounded-xl p-6 border-l-4 border-blue-500 hover:shadow-lg transition-all duration-300"
               whileHover={{ scale: 1.02 }}
               initial={{ opacity: 0, x: -20 }}
@@ -175,7 +173,7 @@ export default function SubjectSwitcher() {
             </motion.div>
 
             {/* Level 3: Advanced */}
-            <motion.div 
+            <motion.div
               className="bg-gradient-to-r from-purple-50 to-purple-100 rounded-xl p-6 border-l-4 border-purple-500 hover:shadow-lg transition-all duration-300"
               whileHover={{ scale: 1.02 }}
               initial={{ opacity: 0, x: -20 }}

@@ -99,7 +99,10 @@ export default function Home() {
     <>
       <Head>
         <title>iiskills-aptitude - Master Aptitude & Cognitive Skills</title>
-        <meta name="description" content="Discover your cognitive superpowers with our scientific diagnostic engine. Test across 5 domains, get your Brain-Print, and unlock your career potential." />
+        <meta
+          name="description"
+          content="Discover your cognitive superpowers with our scientific diagnostic engine. Test across 5 domains, get your Brain-Print, and unlock your career potential."
+        />
       </Head>
 
       <main className="min-h-screen">
@@ -141,19 +144,12 @@ export default function Home() {
 
         {/* Light Yellow Background Content Section */}
         <div className="bg-yellow-50">
-
-
-
           {user && (
             <section className="py-10 px-4 sm:px-6 lg:px-8 bg-yellow-100">
               <div className="max-w-4xl mx-auto text-center">
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  className="space-y-4"
-                >
+                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-4">
                   <h3 className="text-2xl font-bold text-gray-900">
-                    Welcome back, {user?.user_metadata?.first_name || 'Explorer'}! 🎯
+                    Welcome back, {user?.user_metadata?.first_name || "Explorer"}! 🎯
                   </h3>
                   <p className="text-lg text-gray-700">
                     Choose a cognitive domain to begin your diagnostic journey
@@ -186,9 +182,7 @@ export default function Home() {
                 viewport={{ once: true }}
                 className="text-center mb-12"
               >
-                <h2 className="text-4xl font-bold text-gray-900 mb-4">
-                  All Tests
-                </h2>
+                <h2 className="text-4xl font-bold text-gray-900 mb-4">All Tests</h2>
                 <p className="text-xl text-gray-600">
                   8 modules · 8 tests — pick any and start immediately
                 </p>
@@ -212,7 +206,7 @@ export default function Home() {
                       <p className="text-gray-600 mb-4 flex-1">{test.description}</p>
 
                       <div className="flex flex-wrap gap-2 mb-4">
-                        {test.careers.map(career => (
+                        {test.careers.map((career) => (
                           <span
                             key={career}
                             className={`px-3 py-1 text-xs font-semibold rounded-full bg-gradient-to-r ${test.color} text-white`}
@@ -244,19 +238,46 @@ export default function Home() {
                 viewport={{ once: true }}
                 className="text-center mb-12"
               >
-                <h2 className="text-4xl font-bold text-gray-900 mb-4">
-                  The Diagnostic Experience
-                </h2>
+                <h2 className="text-4xl font-bold text-gray-900 mb-4">The Diagnostic Experience</h2>
               </motion.div>
 
               <div className="grid md:grid-cols-3 gap-8">
                 {[
-                  { emoji: "🎯", title: "Adaptive Difficulty", desc: "Get 3 right in a row? We boost difficulty by 20% to challenge your peak performance." },
-                  { emoji: "🧠", title: "Brain-Print Generator", desc: "Get a unique SVG graphic showing your skill distribution across all cognitive domains.", delay: 0.1 },
-                  { emoji: "💼", title: "Career Mapping", desc: "Auto-sync your results with Career Mapper for real-time market value and pathway insights.", delay: 0.2 },
-                  { emoji: "✨", title: "Insight Pop-ups", desc: "Every 5 questions, get Brain Facts comparing your performance to top professionals.", delay: 0.3 },
-                  { emoji: "🏆", title: "Live Leaderboard", desc: "See top scorers in India for the current hour, ranked by domain and overall score.", delay: 0.4 },
-                  { emoji: "💎", title: "Superpower Reveals", desc: 'Unlock titles like "Pro Banker", "Strategic Genius", or "Design Visionary" based on performance.', delay: 0.5 },
+                  {
+                    emoji: "🎯",
+                    title: "Adaptive Difficulty",
+                    desc: "Get 3 right in a row? We boost difficulty by 20% to challenge your peak performance.",
+                  },
+                  {
+                    emoji: "🧠",
+                    title: "Brain-Print Generator",
+                    desc: "Get a unique SVG graphic showing your skill distribution across all cognitive domains.",
+                    delay: 0.1,
+                  },
+                  {
+                    emoji: "💼",
+                    title: "Career Mapping",
+                    desc: "Auto-sync your results with Career Mapper for real-time market value and pathway insights.",
+                    delay: 0.2,
+                  },
+                  {
+                    emoji: "✨",
+                    title: "Insight Pop-ups",
+                    desc: "Every 5 questions, get Brain Facts comparing your performance to top professionals.",
+                    delay: 0.3,
+                  },
+                  {
+                    emoji: "🏆",
+                    title: "Live Leaderboard",
+                    desc: "See top scorers in India for the current hour, ranked by domain and overall score.",
+                    delay: 0.4,
+                  },
+                  {
+                    emoji: "💎",
+                    title: "Superpower Reveals",
+                    desc: 'Unlock titles like "Pro Banker", "Strategic Genius", or "Design Visionary" based on performance.',
+                    delay: 0.5,
+                  },
                 ].map((feature) => (
                   <motion.div
                     key={feature.title}
@@ -284,9 +305,7 @@ export default function Home() {
                 viewport={{ once: true }}
                 className="text-center mb-10"
               >
-                <h2 className="text-4xl font-bold text-gray-900 mb-4">
-                  What You&apos;ll Discover
-                </h2>
+                <h2 className="text-4xl font-bold text-gray-900 mb-4">What You&apos;ll Discover</h2>
               </motion.div>
 
               <div className="space-y-6">
@@ -298,7 +317,8 @@ export default function Home() {
                 >
                   <p className="text-lg font-semibold mb-2">💡 Spatial IQ: 145</p>
                   <p className="text-white/90">
-                    Top 5% for Architect/UI roles. Your brain processes visual information exceptionally well!
+                    Top 5% for Architect/UI roles. Your brain processes visual information
+                    exceptionally well!
                   </p>
                 </motion.div>
 
@@ -311,7 +331,8 @@ export default function Home() {
                 >
                   <p className="text-lg font-semibold mb-2">💰 Financial Literacy: Pro Banker</p>
                   <p className="text-white/90">
-                    Check Main Domain for Banking pathways. Skills valued at ₹12-18 LPA starting salary.
+                    Check Main Domain for Banking pathways. Skills valued at ₹12-18 LPA starting
+                    salary.
                   </p>
                 </motion.div>
 
@@ -324,7 +345,8 @@ export default function Home() {
                 >
                   <p className="text-lg font-semibold mb-2">🎯 Strategic Genius Unlocked</p>
                   <p className="text-white/90">
-                    Your systematic thinking places you in consulting territory. Next step: Explore Management Consulting careers.
+                    Your systematic thinking places you in consulting territory. Next step: Explore
+                    Management Consulting careers.
                   </p>
                 </motion.div>
               </div>
@@ -345,7 +367,8 @@ export default function Home() {
                     Ready to Unlock Your Superpowers?
                   </h3>
                   <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-                    Join thousands discovering their cognitive strengths. Get your Brain-Print and career insights today — 100% free!
+                    Join thousands discovering their cognitive strengths. Get your Brain-Print and
+                    career insights today — 100% free!
                   </p>
                   <Link
                     href="/tests"
@@ -357,7 +380,6 @@ export default function Home() {
               </div>
             </section>
           )}
-
         </div>
       </main>
     </>

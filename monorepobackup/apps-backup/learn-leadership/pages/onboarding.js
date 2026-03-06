@@ -1,40 +1,40 @@
 "use client";
 
-import { useState } from 'react';
-import { useRouter } from 'next/router';
-import Head from 'next/head';
-import Footer from '../components/Footer';
+import { useState } from "react";
+import { useRouter } from "next/router";
+import Head from "next/head";
+import Footer from "../components/Footer";
 
 export default function Onboarding() {
   const router = useRouter();
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    learningPath: '',
+    name: "",
+    email: "",
+    learningPath: "",
     hasExperience: false,
-    goals: ''
+    goals: "",
   });
   const [loading, setLoading] = useState(false);
 
   const learningPaths = [
     {
-      id: 'beginner',
-      title: 'Complete Beginner',
-      description: 'Start from scratch with AI fundamentals',
-      requiresTest: false
+      id: "beginner",
+      title: "Complete Beginner",
+      description: "Start from scratch with AI fundamentals",
+      requiresTest: false,
     },
     {
-      id: 'intermediate',
-      title: 'Some Programming Experience',
-      description: 'You know basics, ready for AI concepts',
-      requiresTest: true
+      id: "intermediate",
+      title: "Some Programming Experience",
+      description: "You know basics, ready for AI concepts",
+      requiresTest: true,
     },
     {
-      id: 'advanced',
-      title: 'Technical Background',
-      description: 'Fast-track through advanced topics',
-      requiresTest: true
-    }
+      id: "advanced",
+      title: "Technical Background",
+      description: "Fast-track through advanced topics",
+      requiresTest: true,
+    },
   ];
 
   const handleSubmit = async (e) => {
@@ -43,28 +43,28 @@ export default function Onboarding() {
 
     try {
       // If path 2 or 3, check for required test
-      if (formData.learningPath !== 'beginner' && !formData.hasExperience) {
-        alert('A quick assessment is required for this learning path.');
+      if (formData.learningPath !== "beginner" && !formData.hasExperience) {
+        alert("A quick assessment is required for this learning path.");
         // In production, redirect to assessment
         setLoading(false);
         return;
       }
 
       // Save onboarding data
-      const response = await fetch('/api/users/access', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
+      const response = await fetch("/api/users/access", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
       });
 
       if (response.ok) {
-        router.push('/curriculum');
+        router.push("/curriculum");
       } else {
-        alert('Error saving profile. Please try again.');
+        alert("Error saving profile. Please try again.");
       }
     } catch (error) {
-      console.error('Error:', error);
-      alert('An error occurred. Please try again.');
+      console.error("Error:", error);
+      alert("An error occurred. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -72,9 +72,9 @@ export default function Onboarding() {
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: type === 'checkbox' ? checked : value
+      [name]: type === "checkbox" ? checked : value,
     }));
   };
 
@@ -121,10 +121,15 @@ export default function Onboarding() {
               </div>
 
               <div>
-                <label className="block text-sm font-semibold mb-4">Choose Your Learning Path</label>
+                <label className="block text-sm font-semibold mb-4">
+                  Choose Your Learning Path
+                </label>
                 <div className="space-y-4">
-                  {learningPaths.map(path => (
-                    <label key={path.id} className="flex items-start p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-blue-500 transition-colors">
+                  {learningPaths.map((path) => (
+                    <label
+                      key={path.id}
+                      className="flex items-start p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-blue-500 transition-colors"
+                    >
                       <input
                         type="radio"
                         name="learningPath"
@@ -149,7 +154,9 @@ export default function Onboarding() {
               </div>
 
               <div>
-                <label className="block text-sm font-semibold mb-2">What are your goals? (Optional)</label>
+                <label className="block text-sm font-semibold mb-2">
+                  What are your goals? (Optional)
+                </label>
                 <textarea
                   name="goals"
                   value={formData.goals}
@@ -165,7 +172,7 @@ export default function Onboarding() {
                 disabled={loading}
                 className="w-full btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {loading ? 'Saving...' : 'Start Learning'}
+                {loading ? "Saving..." : "Start Learning"}
               </button>
             </form>
           </div>

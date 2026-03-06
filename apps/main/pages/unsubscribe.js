@@ -63,9 +63,7 @@ export default function UnsubscribePage() {
             <div className="bg-white rounded-2xl shadow-xl p-8">
               <div className="text-center mb-6">
                 <div className="text-6xl mb-4">✅</div>
-                <h2 className="text-3xl font-bold text-gray-800 mb-2">
-                  Successfully Unsubscribed
-                </h2>
+                <h2 className="text-3xl font-bold text-gray-800 mb-2">Successfully Unsubscribed</h2>
                 {email && (
                   <p className="text-gray-600 mb-4">
                     We've removed <strong className="text-primary">{email}</strong> from The
@@ -92,7 +90,9 @@ export default function UnsubscribePage() {
                   <li>You won't receive new course announcements via email</li>
                   <li>You won't receive important platform updates via email</li>
                   <li>You can still access all courses by logging into your account</li>
-                  <li>You can resubscribe anytime from your account settings or the newsletter page</li>
+                  <li>
+                    You can resubscribe anytime from your account settings or the newsletter page
+                  </li>
                 </ul>
               </div>
 
@@ -117,9 +117,7 @@ export default function UnsubscribePage() {
             <div className="bg-white rounded-2xl shadow-xl p-8">
               <div className="text-center mb-6">
                 <div className="text-6xl mb-4">⚠️</div>
-                <h2 className="text-3xl font-bold text-gray-800 mb-2">
-                  Unsubscribe Failed
-                </h2>
+                <h2 className="text-3xl font-bold text-gray-800 mb-2">Unsubscribe Failed</h2>
                 <p className="text-gray-600 mb-4">
                   We encountered an issue processing your unsubscribe request.
                 </p>

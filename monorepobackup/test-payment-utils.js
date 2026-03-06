@@ -2,7 +2,7 @@
 
 /**
  * Unit Tests for Razorpay Utility Functions
- * 
+ *
  * Tests the core utility functions without requiring a running server.
  * This validates the payment logic, OTP generation, database operations, etc.
  */
@@ -44,11 +44,11 @@ function assert(condition, message) {
 async function testRazorpayUtilities() {
   logSection("TEST 1: Razorpay Utilities");
 
-  const { 
-    getRazorpayClient, 
-    generateSecureOTP, 
+  const {
+    getRazorpayClient,
+    generateSecureOTP,
     calculateMembershipExpiry,
-    verifyWebhookSignature 
+    verifyWebhookSignature,
   } = require("./lib/razorpay");
 
   // Test 1: Razorpay client initialization
@@ -63,7 +63,7 @@ async function testRazorpayUtilities() {
   const otp = generateSecureOTP(6);
   assert(otp.length === 6, `OTP length is 6 (got: ${otp})`);
   assert(/^\d+$/.test(otp), "OTP contains only digits");
-  
+
   const otp8 = generateSecureOTP(8);
   assert(otp8.length === 8, `OTP with custom length works (got ${otp8.length} digits)`);
 
@@ -84,11 +84,19 @@ async function testRazorpayUtilities() {
     .createHmac("sha256", process.env.RAZORPAY_WEBHOOK_SECRET)
     .update(testBody)
     .digest("hex");
-  
-  const isValid = verifyWebhookSignature(testBody, validSignature, process.env.RAZORPAY_WEBHOOK_SECRET);
+
+  const isValid = verifyWebhookSignature(
+    testBody,
+    validSignature,
+    process.env.RAZORPAY_WEBHOOK_SECRET
+  );
   assert(isValid === true, "Webhook signature verification works for valid signature");
 
-  const isInvalid = verifyWebhookSignature(testBody, "invalid_signature", process.env.RAZORPAY_WEBHOOK_SECRET);
+  const isInvalid = verifyWebhookSignature(
+    testBody,
+    "invalid_signature",
+    process.env.RAZORPAY_WEBHOOK_SECRET
+  );
   assert(isInvalid === false, "Webhook signature verification rejects invalid signature");
 }
 
@@ -127,12 +135,12 @@ async function testMockDatabase() {
   // Test 2: Store and verify OTP
   const testOTP = "123456";
   storeOTP("test@example.com", "learn-ai", testOTP, "order_test_123");
-  
+
   // First, test with wrong OTP (before using the correct one)
   const invalidResult = verifyOTP("test@example.com", "learn-ai", "999999");
   assert(invalidResult.valid === false, "OTP verification fails for incorrect OTP");
   assert(invalidResult.error === "Invalid OTP", "Error message is correct for wrong OTP");
-  
+
   // Then verify with correct OTP
   const validResult = verifyOTP("test@example.com", "learn-ai", testOTP);
   assert(validResult.valid === true, "OTP verification succeeds for correct OTP");
@@ -148,10 +156,10 @@ async function testMockDatabase() {
   // Test 4: Store and retrieve membership
   const expiryDate = new Date();
   expiryDate.setFullYear(expiryDate.getFullYear() + 1);
-  
+
   storeMembership("member@example.com", "learn-ai", expiryDate, "order_test_789");
   const membership = getMembership("member@example.com", "learn-ai");
-  
+
   assert(membership !== null, "Membership stored and retrieved successfully");
   assert(membership.status === "active", "Membership status is active");
   assert(membership.email === "member@example.com", "Membership email is correct");
@@ -173,7 +181,7 @@ async function testEmailGeneration() {
   };
 
   const result = await sendMembershipEmail(emailParams);
-  
+
   assert(result.success === true, "Email generation succeeds");
   assert(result.provider === "mock", "Uses mock provider");
   assert(result.email === "test@example.com", "Email recipient is correct");
@@ -195,7 +203,6 @@ async function runAllTests() {
     log("✅ Database operations working", colors.green);
     log("✅ Email generation working", colors.green);
     log("\n🎉 All unit tests passed!\n", colors.green + colors.bold);
-
   } catch (error) {
     log("\n❌ Test failed: " + error.message, colors.red);
     console.error(error);

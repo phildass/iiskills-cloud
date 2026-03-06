@@ -2,10 +2,10 @@
 
 /**
  * Premium Access Prompt Component
- * 
+ *
  * Post-sample conversion flow for paid apps
  * Shows pricing breakdown with GST and redirects to aienter.in/payments
- * 
+ *
  * Features:
  * - Transparent pricing: Rs 99 + 18% GST = Rs 116.82
  * - Scarcity messaging: Valid until Feb 28, 2026
@@ -13,10 +13,10 @@
  * - Direct redirect to aienter.in/payments
  */
 
-export default function PremiumAccessPrompt({ 
+export default function PremiumAccessPrompt({
   appName = "this course",
   appHighlight = "Master the complete curriculum and unlock your potential.",
-  onCancel 
+  onCancel,
 }) {
   const handleUnlock = () => {
     // Redirect to unified payment hub
@@ -28,19 +28,13 @@ export default function PremiumAccessPrompt({
       <div className="bg-white rounded-2xl max-w-xl w-full p-8 shadow-2xl">
         {/* Hook Message */}
         <div className="text-center mb-6">
-          <h2 className="text-3xl font-bold mb-3 text-gray-900">
-            🎯 You've Mastered the Basics
-          </h2>
-          <p className="text-xl text-gray-700">
-            Ready to reach the Apex?
-          </p>
+          <h2 className="text-3xl font-bold mb-3 text-gray-900">🎯 You've Mastered the Basics</h2>
+          <p className="text-xl text-gray-700">Ready to reach the Apex?</p>
         </div>
 
         {/* App-Specific Highlight */}
         <div className="bg-gradient-to-r from-purple-50 to-blue-50 p-5 rounded-xl mb-6">
-          <p className="text-gray-800 font-medium text-center">
-            {appHighlight}
-          </p>
+          <p className="text-gray-800 font-medium text-center">{appHighlight}</p>
         </div>
 
         {/* Pricing Breakdown - Transparency Phase */}
@@ -61,7 +55,7 @@ export default function PremiumAccessPrompt({
               <span className="text-green-600">Rs 116.82</span>
             </div>
           </div>
-          
+
           {/* Scarcity Tactic */}
           <div className="bg-yellow-50 border-l-4 border-yellow-400 p-3 rounded">
             <p className="text-sm text-yellow-800 font-medium">
@@ -75,26 +69,58 @@ export default function PremiumAccessPrompt({
           <h3 className="text-lg font-semibold mb-3 text-gray-900">Full Course Access Includes:</h3>
           <ul className="space-y-2 text-gray-700">
             <li className="flex items-start">
-              <svg className="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+              <svg
+                className="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                  clipRule="evenodd"
+                />
               </svg>
               <span>Complete Tri-Level Curriculum (Basic → Intermediate → Advanced)</span>
             </li>
             <li className="flex items-start">
-              <svg className="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+              <svg
+                className="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                  clipRule="evenodd"
+                />
               </svg>
               <span>All lessons, tests, and assessments</span>
             </li>
             <li className="flex items-start">
-              <svg className="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+              <svg
+                className="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                  clipRule="evenodd"
+                />
               </svg>
               <span>Professional certification upon completion</span>
             </li>
             <li className="flex items-start">
-              <svg className="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+              <svg
+                className="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                  clipRule="evenodd"
+                />
               </svg>
               <span>Lifetime access to all course materials</span>
             </li>
@@ -110,14 +136,14 @@ export default function PremiumAccessPrompt({
 
         {/* Action Buttons */}
         <div className="flex gap-4">
-          <button 
-            onClick={onCancel} 
+          <button
+            onClick={onCancel}
             className="flex-1 px-6 py-3 bg-gray-200 text-gray-800 rounded-lg font-semibold hover:bg-gray-300 transition-colors duration-200"
           >
             Not Yet
           </button>
-          <button 
-            onClick={handleUnlock} 
+          <button
+            onClick={handleUnlock}
             className="flex-1 px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-bold hover:from-purple-700 hover:to-blue-700 transition-all duration-200 shadow-lg hover:shadow-xl"
           >
             Yes, Unlock Full Course →

@@ -1,11 +1,13 @@
 "use client";
 
-import { useState, useEffect } from 'react';
-import Head from 'next/head';
-import Footer from '../components/Footer';
-import ModuleCard from '../components/ModuleCard';
-import CurriculumTable, { SubjectComparisonTable } from '../../../components/shared/CurriculumTable';
-import { getAllModules, getContentByLevel } from '../lib/curriculumGenerator';
+import { useState, useEffect } from "react";
+import Head from "next/head";
+import Footer from "../components/Footer";
+import ModuleCard from "../components/ModuleCard";
+import CurriculumTable, {
+  SubjectComparisonTable,
+} from "../../../components/shared/CurriculumTable";
+import { getAllModules, getContentByLevel } from "../lib/curriculumGenerator";
 
 export default function Curriculum() {
   const [modules, setModules] = useState([]);
@@ -20,36 +22,53 @@ export default function Curriculum() {
     <>
       <Head>
         <title>Full Curriculum - Learn Physics</title>
-        <meta name="description" content="Complete Physics course curriculum organized by difficulty levels" />
+        <meta
+          name="description"
+          content="Complete Physics course curriculum organized by difficulty levels"
+        />
       </Head>
 
       <main className="min-h-screen bg-gray-50 py-12">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto mb-12">
-            <h1 className="text-4xl font-bold mb-6 text-center">Complete Physics Course Curriculum</h1>
-            
+            <h1 className="text-4xl font-bold mb-6 text-center">
+              Complete Physics Course Curriculum
+            </h1>
+
             <div className="card mb-8">
               <h2 className="text-2xl font-semibold mb-4">Course Structure</h2>
               <ul className="space-y-3 text-gray-700">
                 <li className="flex items-start">
                   <span className="font-semibold mr-2">📚</span>
-                  <span><strong>Three Levels:</strong> Basic → Intermediate → Advanced</span>
+                  <span>
+                    <strong>Three Levels:</strong> Basic → Intermediate → Advanced
+                  </span>
                 </li>
                 <li className="flex items-start">
                   <span className="font-semibold mr-2">📖</span>
-                  <span><strong>20 Comprehensive Modules</strong> covering fundamental to advanced topics</span>
+                  <span>
+                    <strong>20 Comprehensive Modules</strong> covering fundamental to advanced
+                    topics
+                  </span>
                 </li>
                 <li className="flex items-start">
                   <span className="font-semibold mr-2">🎓</span>
-                  <span><strong>Structured Learning Path:</strong> Each level unlocks the next</span>
+                  <span>
+                    <strong>Structured Learning Path:</strong> Each level unlocks the next
+                  </span>
                 </li>
                 <li className="flex items-start">
                   <span className="font-semibold mr-2">✅</span>
-                  <span><strong>Quiz After Each Lesson</strong> - Prove your understanding</span>
+                  <span>
+                    <strong>Quiz After Each Lesson</strong> - Prove your understanding
+                  </span>
                 </li>
                 <li className="flex items-start">
                   <span className="font-semibold mr-2">🎯</span>
-                  <span><strong>Standard Lesson Format:</strong> Hook → Core Concept → Formula → Interactive → Test</span>
+                  <span>
+                    <strong>Standard Lesson Format:</strong> Hook → Core Concept → Formula →
+                    Interactive → Test
+                  </span>
                 </li>
               </ul>
             </div>

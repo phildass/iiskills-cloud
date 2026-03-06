@@ -1,10 +1,10 @@
 /** @type {import('next').NextConfig} */
-const path = require('path');
-const { getHeadersConfig } = require('../../config/security-headers');
+const path = require("path");
+const { getHeadersConfig } = require("../../config/security-headers");
 
 const nextConfig = {
   reactStrictMode: true,
-  transpilePackages: ['@iiskills/ui'],
+  transpilePackages: ["@iiskills/ui"],
 
   // Disable source maps in production for security
   productionBrowserSourceMaps: false,
@@ -12,12 +12,12 @@ const nextConfig = {
   // Turbopack configuration for module resolution
   turbopack: {
     resolveAlias: {
-      '@/lib': path.resolve(__dirname, '../../lib'),
-      '@/utils': path.resolve(__dirname, '../../utils'),
-      '@/config': path.resolve(__dirname, '../../config'),
-      '@lib': path.resolve(__dirname, '../../lib'),
-      '@utils': path.resolve(__dirname, '../../utils'),
-      '@config': path.resolve(__dirname, '../../config'),
+      "@/lib": path.resolve(__dirname, "../../lib"),
+      "@/utils": path.resolve(__dirname, "../../utils"),
+      "@/config": path.resolve(__dirname, "../../config"),
+      "@lib": path.resolve(__dirname, "../../lib"),
+      "@utils": path.resolve(__dirname, "../../utils"),
+      "@config": path.resolve(__dirname, "../../config"),
     },
   },
 
@@ -25,24 +25,25 @@ const nextConfig = {
   webpack: (config) => {
     config.resolve.alias = {
       ...config.resolve.alias,
-      '@/lib': path.resolve(__dirname, '../../lib'),
-      '@/utils': path.resolve(__dirname, '../../utils'),
-      '@/config': path.resolve(__dirname, '../../config'),
-      '@lib': path.resolve(__dirname, '../../lib'),
-      '@utils': path.resolve(__dirname, '../../utils'),
-      '@config': path.resolve(__dirname, '../../config'),
+      "@/lib": path.resolve(__dirname, "../../lib"),
+      "@/utils": path.resolve(__dirname, "../../utils"),
+      "@/config": path.resolve(__dirname, "../../config"),
+      "@lib": path.resolve(__dirname, "../../lib"),
+      "@utils": path.resolve(__dirname, "../../utils"),
+      "@config": path.resolve(__dirname, "../../config"),
     };
     return config;
   },
 
   // Expose OPEN_ACCESS env var to the client side
   env: {
-    NEXT_PUBLIC_OPEN_ACCESS: process.env.OPEN_ACCESS || process.env.NEXT_PUBLIC_OPEN_ACCESS || 'false',
+    NEXT_PUBLIC_OPEN_ACCESS:
+      process.env.OPEN_ACCESS || process.env.NEXT_PUBLIC_OPEN_ACCESS || "false",
   },
 
   // Security headers
   async headers() {
-    const isDev = process.env.NODE_ENV === 'development';
+    const isDev = process.env.NODE_ENV === "development";
     return getHeadersConfig(isDev);
   },
 

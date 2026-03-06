@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect } from 'react';
-import { useRouter } from 'next/router';
-import Head from 'next/head';
-import Footer from '../components/Footer';
+import { useEffect } from "react";
+import { useRouter } from "next/router";
+import Head from "next/head";
+import Footer from "../components/Footer";
 
 export default function Register() {
   const router = useRouter();
@@ -11,7 +11,8 @@ export default function Register() {
   useEffect(() => {
     // Redirect to payment page after a brief message
     const timer = setTimeout(() => {
-      window.location.href = process.env.NEXT_PUBLIC_PAYMENT_RETURN_URL || 'https://aienter.in/payments';
+      window.location.href =
+        process.env.NEXT_PUBLIC_PAYMENT_RETURN_URL || "https://aienter.in/payments";
     }, 3000);
 
     return () => clearTimeout(timer);
@@ -40,35 +41,58 @@ export default function Register() {
                 Special Offer: Only Rs 99
               </h2>
               <p className="text-gray-700">
-                Get full access to all 100 lessons, case studies, and certification exam with a free trial period.
+                Get full access to all 100 lessons, case studies, and certification exam with a free
+                trial period.
               </p>
             </div>
 
             <div className="space-y-4 text-left">
               <div className="flex items-start">
-                <svg className="w-6 h-6 text-green-500 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                <svg
+                  className="w-6 h-6 text-green-500 mr-3 flex-shrink-0"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clipRule="evenodd"
+                  />
                 </svg>
                 <span>Instant access to all course materials</span>
               </div>
               <div className="flex items-start">
-                <svg className="w-6 h-6 text-green-500 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                <svg
+                  className="w-6 h-6 text-green-500 mr-3 flex-shrink-0"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clipRule="evenodd"
+                  />
                 </svg>
                 <span>Self-paced learning - complete in 3 months or faster</span>
               </div>
               <div className="flex items-start">
-                <svg className="w-6 h-6 text-green-500 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                <svg
+                  className="w-6 h-6 text-green-500 mr-3 flex-shrink-0"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clipRule="evenodd"
+                  />
                 </svg>
                 <span>Certificate upon successful completion</span>
               </div>
             </div>
 
             <div className="mt-8">
-              <p className="text-gray-600">
-                Redirecting to payment page...
-              </p>
+              <p className="text-gray-600">Redirecting to payment page...</p>
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mt-4"></div>
             </div>
           </div>

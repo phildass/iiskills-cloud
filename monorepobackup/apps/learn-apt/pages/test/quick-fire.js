@@ -6,7 +6,12 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { motion, AnimatePresence } from "framer-motion";
 import { getCurrentUser } from "../../lib/supabaseClient";
-import { QUICK_FIRE_QUESTIONS, BRAIN_FACTS, calculateDomainScore, COGNITIVE_DOMAINS } from "../../lib/questionBank";
+import {
+  QUICK_FIRE_QUESTIONS,
+  BRAIN_FACTS,
+  calculateDomainScore,
+  COGNITIVE_DOMAINS,
+} from "../../lib/questionBank";
 import {
   ProgressOrbit,
   QuestionCard,
@@ -16,9 +21,13 @@ import {
   DifficultyBadge,
   TestTimer,
   DomainTag,
-  QuestionNavigation
+  QuestionNavigation,
 } from "../../components/TestComponents";
-import { BrainPrintGenerator, SuperpowerReveal, CareerAptitudeInsights } from "../../components/BrainPrint";
+import {
+  BrainPrintGenerator,
+  SuperpowerReveal,
+  CareerAptitudeInsights,
+} from "../../components/BrainPrint";
 
 export default function QuickFireTest() {
   const [user, setUser] = useState(null);
@@ -31,7 +40,7 @@ export default function QuickFireTest() {
   const [showFeedback, setShowFeedback] = useState(false);
   const [lastAnswerCorrect, setLastAnswerCorrect] = useState(false);
   const [showBrainFact, setShowBrainFact] = useState(false);
-  const [currentBrainFact, setCurrentBrainFact] = useState('');
+  const [currentBrainFact, setCurrentBrainFact] = useState("");
   const [leaderboardOpen, setLeaderboardOpen] = useState(false);
   const [showSuperpower, setShowSuperpower] = useState(false);
   const [domainScores, setDomainScores] = useState({});
@@ -73,7 +82,11 @@ export default function QuickFireTest() {
 
   // Show brain fact every 5 questions
   useEffect(() => {
-    if (Object.keys(answers).length > 0 && Object.keys(answers).length % 5 === 0 && !showBrainFact) {
+    if (
+      Object.keys(answers).length > 0 &&
+      Object.keys(answers).length % 5 === 0 &&
+      !showBrainFact
+    ) {
       const randomFact = BRAIN_FACTS[Math.floor(Math.random() * BRAIN_FACTS.length)];
       setCurrentBrainFact(randomFact);
       setShowBrainFact(true);
@@ -85,9 +98,9 @@ export default function QuickFireTest() {
   };
 
   const handleAnswerSelect = (questionId, answerIndex) => {
-    const question = QUICK_FIRE_QUESTIONS.find(q => q.id === questionId);
+    const question = QUICK_FIRE_QUESTIONS.find((q) => q.id === questionId);
     const isCorrect = answerIndex === question.correctAnswer;
-    
+
     setAnswers({
       ...answers,
       [questionId]: answerIndex,
@@ -113,7 +126,7 @@ export default function QuickFireTest() {
   const handleSubmitTest = () => {
     // Calculate domain scores
     const scores = {};
-    Object.values(COGNITIVE_DOMAINS).forEach(domain => {
+    Object.values(COGNITIVE_DOMAINS).forEach((domain) => {
       scores[domain] = calculateDomainScore(answers, domain);
     });
     setDomainScores(scores);
@@ -133,12 +146,12 @@ export default function QuickFireTest() {
     };
 
     const dataStr = JSON.stringify(results, null, 2);
-    const dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
+    const dataUri = "data:application/json;charset=utf-8," + encodeURIComponent(dataStr);
     const exportFileDefaultName = `brain-print-${Date.now()}.json`;
 
-    const linkElement = document.createElement('a');
-    linkElement.setAttribute('href', dataUri);
-    linkElement.setAttribute('download', exportFileDefaultName);
+    const linkElement = document.createElement("a");
+    linkElement.setAttribute("href", dataUri);
+    linkElement.setAttribute("download", exportFileDefaultName);
     linkElement.click();
   };
 
@@ -151,16 +164,20 @@ export default function QuickFireTest() {
   }
 
   const currentQ = QUICK_FIRE_QUESTIONS[currentQuestion];
-  const totalCorrect = QUICK_FIRE_QUESTIONS.filter(q => answers[q.id] === q.correctAnswer).length;
-  const overallScore = Object.keys(answers).length > 0 
-    ? Math.round((totalCorrect / Object.keys(answers).length) * 100) 
-    : 0;
+  const totalCorrect = QUICK_FIRE_QUESTIONS.filter((q) => answers[q.id] === q.correctAnswer).length;
+  const overallScore =
+    Object.keys(answers).length > 0
+      ? Math.round((totalCorrect / Object.keys(answers).length) * 100)
+      : 0;
 
   return (
     <>
       <Head>
         <title>Quick-Fire Challenge - Learn Apt</title>
-        <meta name="description" content="5-minute aptitude challenge across all cognitive domains" />
+        <meta
+          name="description"
+          content="5-minute aptitude challenge across all cognitive domains"
+        />
       </Head>
 
       <main className="min-h-screen bg-gradient-to-br from-midnight-950 via-midnight-900 to-midnight-800">
@@ -178,15 +195,12 @@ export default function QuickFireTest() {
 
         {/* Brain Fact Popup */}
         {showBrainFact && (
-          <BrainFactPopup
-            fact={currentBrainFact}
-            onClose={() => setShowBrainFact(false)}
-          />
+          <BrainFactPopup fact={currentBrainFact} onClose={() => setShowBrainFact(false)} />
         )}
 
         {/* Superpower Reveal - Removed as it will be shown in results */}
 
-        <div className={`max-w-6xl mx-auto px-4 py-8 ${testStarted && 'lg:pr-96'}`}>
+        <div className={`max-w-6xl mx-auto px-4 py-8 ${testStarted && "lg:pr-96"}`}>
           {/* Header */}
           {!testCompleted && (
             <div className="mb-8">
@@ -219,10 +233,7 @@ export default function QuickFireTest() {
 
           {!testStarted ? (
             // Start Screen
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-            >
+            <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}>
               <QuestionCard>
                 <div className="text-center py-8">
                   <motion.div
@@ -232,22 +243,26 @@ export default function QuickFireTest() {
                     transition={{
                       duration: 2,
                       repeat: Infinity,
-                      ease: "easeInOut"
+                      ease: "easeInOut",
                     }}
                     className="text-8xl mb-6"
                   >
                     ⚡
                   </motion.div>
                   <h2 className="text-4xl font-bold text-white mb-6">Ready for the Challenge?</h2>
-                  
+
                   <div className="space-y-4 mb-8 text-left max-w-lg mx-auto">
                     <div className="flex items-start gap-3">
                       <span className="text-emerald-glow text-2xl">✓</span>
-                      <p className="text-gray-300 text-lg">15 questions across all 5 cognitive domains</p>
+                      <p className="text-gray-300 text-lg">
+                        15 questions across all 5 cognitive domains
+                      </p>
                     </div>
                     <div className="flex items-start gap-3">
                       <span className="text-emerald-glow text-2xl">✓</span>
-                      <p className="text-gray-300 text-lg">5-minute time limit - test your speed!</p>
+                      <p className="text-gray-300 text-lg">
+                        5-minute time limit - test your speed!
+                      </p>
                     </div>
                     <div className="flex items-start gap-3">
                       <span className="text-emerald-glow text-2xl">✓</span>
@@ -270,7 +285,10 @@ export default function QuickFireTest() {
                     🚀 Start Quick-Fire Challenge
                   </button>
 
-                  <Link href="/" className="block mt-6 text-gray-400 hover:text-white transition-colors">
+                  <Link
+                    href="/"
+                    className="block mt-6 text-gray-400 hover:text-white transition-colors"
+                  >
                     ← Back to home
                   </Link>
                 </div>
@@ -278,11 +296,7 @@ export default function QuickFireTest() {
             </motion.div>
           ) : testCompleted ? (
             // Results Screen
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="space-y-8"
-            >
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-8">
               <div className="text-center mb-8">
                 <motion.div
                   initial={{ scale: 0 }}
@@ -296,7 +310,8 @@ export default function QuickFireTest() {
                   Challenge Complete!
                 </h2>
                 <p className="text-xl text-gray-300">
-                  You completed {Object.keys(answers).length} out of {QUICK_FIRE_QUESTIONS.length} questions
+                  You completed {Object.keys(answers).length} out of {QUICK_FIRE_QUESTIONS.length}{" "}
+                  questions
                 </p>
               </div>
 
@@ -334,7 +349,10 @@ export default function QuickFireTest() {
                 <QuestionCard>
                   {/* Domain and Difficulty Tags */}
                   <div className="flex flex-wrap items-center gap-3 mb-6">
-                    <DomainTag domain={currentQ.domain} color="from-electric-violet-500 to-blue-500" />
+                    <DomainTag
+                      domain={currentQ.domain}
+                      color="from-electric-violet-500 to-blue-500"
+                    />
                     <DifficultyBadge level={currentQ.difficulty} />
                   </div>
 
@@ -355,22 +373,24 @@ export default function QuickFireTest() {
                         className={`w-full text-left p-6 rounded-2xl border-2 transition-all ${
                           answers[currentQ.id] === index
                             ? answers[currentQ.id] === currentQ.correctAnswer
-                              ? 'border-emerald-glow bg-emerald-glow/20'
-                              : 'border-ruby-fade bg-ruby-fade/20'
-                            : 'border-white/20 hover:border-electric-violet-400 bg-white/5 hover:bg-white/10'
-                        } ${answers[currentQ.id] !== undefined ? 'cursor-not-allowed' : 'cursor-pointer'}`}
+                              ? "border-emerald-glow bg-emerald-glow/20"
+                              : "border-ruby-fade bg-ruby-fade/20"
+                            : "border-white/20 hover:border-electric-violet-400 bg-white/5 hover:bg-white/10"
+                        } ${answers[currentQ.id] !== undefined ? "cursor-not-allowed" : "cursor-pointer"}`}
                       >
                         <div className="flex items-center">
-                          <div className={`w-8 h-8 rounded-full border-2 mr-4 flex items-center justify-center ${
-                            answers[currentQ.id] === index
-                              ? answers[currentQ.id] === currentQ.correctAnswer
-                                ? 'border-emerald-glow bg-emerald-glow'
-                                : 'border-ruby-fade bg-ruby-fade'
-                              : 'border-white/40'
-                          }`}>
+                          <div
+                            className={`w-8 h-8 rounded-full border-2 mr-4 flex items-center justify-center ${
+                              answers[currentQ.id] === index
+                                ? answers[currentQ.id] === currentQ.correctAnswer
+                                  ? "border-emerald-glow bg-emerald-glow"
+                                  : "border-ruby-fade bg-ruby-fade"
+                                : "border-white/40"
+                            }`}
+                          >
                             {answers[currentQ.id] === index && (
                               <span className="text-white text-lg">
-                                {answers[currentQ.id] === currentQ.correctAnswer ? '✓' : '✗'}
+                                {answers[currentQ.id] === currentQ.correctAnswer ? "✓" : "✗"}
                               </span>
                             )}
                           </div>
@@ -390,20 +410,21 @@ export default function QuickFireTest() {
                   />
 
                   {/* Submit Button (appears on last question) */}
-                  {currentQuestion === QUICK_FIRE_QUESTIONS.length - 1 && Object.keys(answers).length === QUICK_FIRE_QUESTIONS.length && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className="mt-8 text-center"
-                    >
-                      <button
-                        onClick={handleSubmitTest}
-                        className="px-12 py-5 bg-gradient-to-r from-emerald-glow to-green-600 text-white rounded-2xl font-bold text-xl hover:from-green-600 hover:to-emerald-glow transition-all shadow-2xl transform hover:scale-105"
+                  {currentQuestion === QUICK_FIRE_QUESTIONS.length - 1 &&
+                    Object.keys(answers).length === QUICK_FIRE_QUESTIONS.length && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="mt-8 text-center"
                       >
-                        🏆 Complete & See Results
-                      </button>
-                    </motion.div>
-                  )}
+                        <button
+                          onClick={handleSubmitTest}
+                          className="px-12 py-5 bg-gradient-to-r from-emerald-glow to-green-600 text-white rounded-2xl font-bold text-xl hover:from-green-600 hover:to-emerald-glow transition-all shadow-2xl transform hover:scale-105"
+                        >
+                          🏆 Complete & See Results
+                        </button>
+                      </motion.div>
+                    )}
                 </QuestionCard>
               </motion.div>
             </AnimatePresence>

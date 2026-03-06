@@ -129,7 +129,12 @@ export default function Header({
           {/* iiskills Logo */}
           <div className="flex flex-col items-center">
             <div className="relative w-10 h-10 flex-shrink-0">
-              <Image src="/images/iiskills-logo.png" alt="IISKILLS Logo" fill className="object-contain" />
+              <Image
+                src="/images/iiskills-logo.png"
+                alt="IISKILLS Logo"
+                fill
+                className="object-contain"
+              />
             </div>
             <span className="text-[7px] text-gray-600 text-center leading-tight mt-0.5 max-w-[60px]">
               Indian Institute of Professional Skills Development
@@ -172,7 +177,9 @@ export default function Header({
                   </span>
 
                   {user.app_metadata?.provider === "google" && (
-                    <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">Google User</span>
+                    <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">
+                      Google User
+                    </span>
                   )}
 
                   {/* Primary CTA override when registration is incomplete */}
@@ -226,9 +233,19 @@ export default function Header({
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               {isMenuOpen ? (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
               ) : (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
               )}
             </svg>
           </button>
@@ -270,7 +287,9 @@ export default function Header({
                       )}
                     </span>
                     {user.app_metadata?.provider === "google" && (
-                      <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">Google User</span>
+                      <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">
+                        Google User
+                      </span>
                     )}
                   </div>
 
@@ -283,7 +302,10 @@ export default function Header({
                     </Link>
                   ) : (
                     isPaid && (
-                      <Link href="/profile" className="block hover:text-primary transition font-medium px-4 py-2">
+                      <Link
+                        href="/profile"
+                        className="block hover:text-primary transition font-medium px-4 py-2"
+                      >
                         Profile
                       </Link>
                     )

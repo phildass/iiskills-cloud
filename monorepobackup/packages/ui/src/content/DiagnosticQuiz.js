@@ -2,7 +2,7 @@
 
 /**
  * Diagnostic Quiz Component
- * 
+ *
  * Level 1 Qualifier quiz for Intermediate and Advanced tiers.
  * - 5 relevant questions per subject
  * - 30% passing threshold (must score at least 2/5 correct)
@@ -13,12 +13,12 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-export default function DiagnosticQuiz({ 
-  tier, 
-  appName = "this subject", 
-  onPass, 
+export default function DiagnosticQuiz({
+  tier,
+  appName = "this subject",
+  onPass,
   onFail,
-  questions = [] 
+  questions = [],
 }) {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState([]);
@@ -41,9 +41,9 @@ export default function DiagnosticQuiz({
         "Option A: Basic concept",
         "Option B: Advanced concept",
         "Option C: Expert concept",
-        "Option D: None of the above"
+        "Option D: None of the above",
       ],
-      correctAnswer: 0
+      correctAnswer: 0,
     },
     {
       question: `Which of the following is a key component in ${appName}?`,
@@ -51,9 +51,9 @@ export default function DiagnosticQuiz({
         "Option A: Component 1",
         "Option B: Component 2",
         "Option C: Component 3",
-        "Option D: Component 4"
+        "Option D: Component 4",
       ],
-      correctAnswer: 1
+      correctAnswer: 1,
     },
     {
       question: `How would you solve a typical ${appName} problem?`,
@@ -61,9 +61,9 @@ export default function DiagnosticQuiz({
         "Option A: Method 1",
         "Option B: Method 2",
         "Option C: Method 3",
-        "Option D: Method 4"
+        "Option D: Method 4",
       ],
-      correctAnswer: 2
+      correctAnswer: 2,
     },
     {
       question: `What is the most important consideration in ${appName}?`,
@@ -71,9 +71,9 @@ export default function DiagnosticQuiz({
         "Option A: Consideration 1",
         "Option B: Consideration 2",
         "Option C: Consideration 3",
-        "Option D: Consideration 4"
+        "Option D: Consideration 4",
       ],
-      correctAnswer: 0
+      correctAnswer: 0,
     },
     {
       question: `Which approach best demonstrates ${appName} expertise?`,
@@ -81,10 +81,10 @@ export default function DiagnosticQuiz({
         "Option A: Approach 1",
         "Option B: Approach 2",
         "Option C: Approach 3",
-        "Option D: Approach 4"
+        "Option D: Approach 4",
       ],
-      correctAnswer: 3
-    }
+      correctAnswer: 3,
+    },
   ];
 
   const quizQuestions = questions.length > 0 ? questions : defaultQuestions;
@@ -99,7 +99,7 @@ export default function DiagnosticQuiz({
       // Calculate score
       const correct = calculateCorrectCount(newAnswers, quizQuestions);
       setCorrectCount(correct);
-      
+
       const finalScore = (correct / quizQuestions.length) * 100;
       setScore(finalScore);
       setShowResults(true);
@@ -154,8 +154,8 @@ export default function DiagnosticQuiz({
                 Score: {score.toFixed(0)}% ({correctCount}/{quizQuestions.length} correct)
               </p>
               <p className="text-gray-600 mb-6">
-                We recommend starting with the Basic tier to build a strong foundation.
-                You need at least 30% to proceed to {tier} tier.
+                We recommend starting with the Basic tier to build a strong foundation. You need at
+                least 30% to proceed to {tier} tier.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <button
@@ -189,13 +189,15 @@ export default function DiagnosticQuiz({
       {/* Progress Bar */}
       <div className="mb-6">
         <div className="flex justify-between text-sm text-gray-600 mb-2">
-          <span>Question {currentQuestion + 1} of {quizQuestions.length}</span>
-          <span>{Math.round(((currentQuestion) / quizQuestions.length) * 100)}% Complete</span>
+          <span>
+            Question {currentQuestion + 1} of {quizQuestions.length}
+          </span>
+          <span>{Math.round((currentQuestion / quizQuestions.length) * 100)}% Complete</span>
         </div>
         <div className="w-full bg-gray-200 rounded-full h-2">
-          <div 
+          <div
             className="bg-gradient-to-r from-blue-500 to-purple-500 h-2 rounded-full transition-all duration-300"
-            style={{ width: `${((currentQuestion) / quizQuestions.length) * 100}%` }}
+            style={{ width: `${(currentQuestion / quizQuestions.length) * 100}%` }}
           />
         </div>
       </div>
@@ -208,9 +210,7 @@ export default function DiagnosticQuiz({
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -20 }}
         >
-          <h3 className="text-2xl font-bold text-gray-900 mb-6">
-            {currentQ.question}
-          </h3>
+          <h3 className="text-2xl font-bold text-gray-900 mb-6">{currentQ.question}</h3>
 
           <div className="space-y-3">
             {currentQ.options.map((option, index) => (
@@ -229,7 +229,8 @@ export default function DiagnosticQuiz({
       {/* Info */}
       <div className="mt-8 p-4 bg-blue-50 rounded-lg border border-blue-200">
         <p className="text-sm text-gray-700">
-          <strong>Note:</strong> You need to score at least 30% (2 out of 5 correct) to proceed to the {tier} tier.
+          <strong>Note:</strong> You need to score at least 30% (2 out of 5 correct) to proceed to
+          the {tier} tier.
         </p>
       </div>
     </motion.div>

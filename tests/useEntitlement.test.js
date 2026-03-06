@@ -14,10 +14,10 @@
  *  - isFreeAccessEnabled() short-circuit is respected (verified via freeAccess)
  */
 
-'use strict';
+"use strict";
 
 // We import the real fetchEntitlement with injected deps for direct testing.
-const { fetchEntitlement } = require('../lib/hooks/useEntitlement');
+const { fetchEntitlement } = require("../lib/hooks/useEntitlement");
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -42,80 +42,80 @@ function makeGetSession(accessToken = null) {
 // Tests
 // ---------------------------------------------------------------------------
 
-describe('fetchEntitlement — core entitlement fetch logic', () => {
-  it('returns true when API reports entitled=true', async () => {
-    const result = await fetchEntitlement('learn-ai', {
+describe("fetchEntitlement — core entitlement fetch logic", () => {
+  it("returns true when API reports entitled=true", async () => {
+    const result = await fetchEntitlement("learn-ai", {
       getSession: makeGetSession(),
       fetchImpl: makeFetch({ ok: true, body: { entitled: true } }),
     });
     expect(result).toBe(true);
   });
 
-  it('returns false when API reports entitled=false', async () => {
-    const result = await fetchEntitlement('learn-ai', {
+  it("returns false when API reports entitled=false", async () => {
+    const result = await fetchEntitlement("learn-ai", {
       getSession: makeGetSession(),
       fetchImpl: makeFetch({ ok: true, body: { entitled: false } }),
     });
     expect(result).toBe(false);
   });
 
-  it('returns false on non-OK HTTP status', async () => {
-    const result = await fetchEntitlement('learn-management', {
+  it("returns false on non-OK HTTP status", async () => {
+    const result = await fetchEntitlement("learn-management", {
       getSession: makeGetSession(),
       fetchImpl: makeFetch({ ok: false, body: {} }),
     });
     expect(result).toBe(false);
   });
 
-  it('rejects when fetch throws a network error (hook catches this)', async () => {
-    const fetchImpl = jest.fn().mockRejectedValue(new Error('network failure'));
+  it("rejects when fetch throws a network error (hook catches this)", async () => {
+    const fetchImpl = jest.fn().mockRejectedValue(new Error("network failure"));
     await expect(
-      fetchEntitlement('learn-pr', { getSession: makeGetSession(), fetchImpl })
-    ).rejects.toThrow('network failure');
+      fetchEntitlement("learn-pr", { getSession: makeGetSession(), fetchImpl })
+    ).rejects.toThrow("network failure");
   });
 
-  it('attaches Authorization header when session has access_token', async () => {
+  it("attaches Authorization header when session has access_token", async () => {
     const fetchImpl = makeFetch({ ok: true, body: { entitled: true } });
-    await fetchEntitlement('learn-developer', {
-      getSession: makeGetSession('test-token-abc'),
+    await fetchEntitlement("learn-developer", {
+      getSession: makeGetSession("test-token-abc"),
       fetchImpl,
     });
 
     const [, callOptions] = fetchImpl.mock.calls[0];
-    expect(callOptions.headers['Authorization']).toBe('Bearer test-token-abc');
+    expect(callOptions.headers["Authorization"]).toBe("Bearer test-token-abc");
   });
 
-  it('does NOT attach Authorization header when session is null', async () => {
+  it("does NOT attach Authorization header when session is null", async () => {
     const fetchImpl = makeFetch({ ok: true, body: { entitled: false } });
-    await fetchEntitlement('learn-ai', {
+    await fetchEntitlement("learn-ai", {
       getSession: makeGetSession(null),
       fetchImpl,
     });
 
     const [, callOptions] = fetchImpl.mock.calls[0];
-    expect(callOptions.headers['Authorization']).toBeUndefined();
+    expect(callOptions.headers["Authorization"]).toBeUndefined();
   });
 
-  it('calls the correct API endpoint including appId', async () => {
+  it("calls the correct API endpoint including appId", async () => {
     const fetchImpl = makeFetch({ ok: true, body: { entitled: true } });
-    await fetchEntitlement('learn-management', {
+    await fetchEntitlement("learn-management", {
       getSession: makeGetSession(),
       fetchImpl,
     });
 
     const [url] = fetchImpl.mock.calls[0];
-    expect(url).toBe('https://iiskills.cloud/api/entitlement?appId=learn-management');
+    expect(url).toBe("https://iiskills.cloud/api/entitlement?appId=learn-management");
   });
 
-  it('URL-encodes special characters in appId', async () => {
+  it("URL-encodes special characters in appId", async () => {
     const fetchImpl = makeFetch({ ok: true, body: { entitled: false } });
-    await fetchEntitlement('app id with spaces', {
+    await fetchEntitlement("app id with spaces", {
       getSession: makeGetSession(),
       fetchImpl,
     });
 
     const [url] = fetchImpl.mock.calls[0];
-    expect(url).toContain('app%20id%20with%20spaces');
+    expect(url).toContain("app%20id%20with%20spaces");
   });
 });
 
@@ -123,7 +123,7 @@ describe('fetchEntitlement — core entitlement fetch logic', () => {
 // isFreeAccessEnabled — short-circuit behaviour (reuses freeAccess module)
 // ---------------------------------------------------------------------------
 
-describe('useEntitlement — free-access mode short-circuit', () => {
+describe("useEntitlement — free-access mode short-circuit", () => {
   let originalEnv;
 
   beforeEach(() => {
@@ -135,16 +135,16 @@ describe('useEntitlement — free-access mode short-circuit', () => {
     process.env = originalEnv;
   });
 
-  it('isFreeAccessEnabled returns true when FREE_ACCESS=true', () => {
-    process.env.FREE_ACCESS = 'true';
-    const { isFreeAccessEnabled } = require('../lib/freeAccess');
+  it("isFreeAccessEnabled returns true when FREE_ACCESS=true", () => {
+    process.env.FREE_ACCESS = "true";
+    const { isFreeAccessEnabled } = require("../lib/freeAccess");
     expect(isFreeAccessEnabled()).toBe(true);
   });
 
-  it('isFreeAccessEnabled returns false when neither flag is set', () => {
+  it("isFreeAccessEnabled returns false when neither flag is set", () => {
     delete process.env.FREE_ACCESS;
     delete process.env.NEXT_PUBLIC_FREE_ACCESS;
-    const { isFreeAccessEnabled } = require('../lib/freeAccess');
+    const { isFreeAccessEnabled } = require("../lib/freeAccess");
     expect(isFreeAccessEnabled()).toBe(false);
   });
 });

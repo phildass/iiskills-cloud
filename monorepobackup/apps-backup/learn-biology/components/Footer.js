@@ -9,14 +9,12 @@ export default function Footer() {
           <div>
             <h3 className="text-white font-bold text-lg mb-4">Learn Biology</h3>
             <p className="text-sm">
-              Part of the iiskills Foundation Suite. Master biology from cells
-              to ecosystems—free forever.
+              Part of the iiskills Foundation Suite. Master biology from cells to ecosystems—free
+              forever.
             </p>
             <div className="mt-4 flex items-center gap-2 px-3 py-2 bg-green-900 rounded-lg">
               <span className="text-xl">🟢</span>
-              <span className="text-xs font-bold text-green-300">
-                Free Forever
-              </span>
+              <span className="text-xs font-bold text-green-300">Free Forever</span>
             </div>
           </div>
 
@@ -86,10 +84,7 @@ export default function Footer() {
             <h4 className="text-white font-semibold mb-4">Explore More</h4>
             <ul className="space-y-2 text-sm">
               <li>
-                <a
-                  href="https://iiskills.cloud"
-                  className="hover:text-white transition-colors"
-                >
+                <a href="https://iiskills.cloud" className="hover:text-white transition-colors">
                   All iiskills Courses
                 </a>
               </li>
@@ -116,9 +111,7 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="mt-12 pt-8 border-t border-gray-800 text-center text-sm">
           <p>&copy; 2026 iiskills.cloud - All Rights Reserved</p>
-          <p className="mt-2 text-gray-500">
-            The 12th app in the iiskills ecosystem 🧬
-          </p>
+          <p className="mt-2 text-gray-500">The 12th app in the iiskills ecosystem 🧬</p>
         </div>
       </div>
     </footer>

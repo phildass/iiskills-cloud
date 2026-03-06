@@ -43,7 +43,9 @@ export default function Tests() {
         <div className="max-w-7xl mx-auto px-4 py-8">
           <div className="mb-8">
             <h1 className="text-3xl font-bold text-gray-900 mb-2">My Tests</h1>
-            <p className="text-gray-600">Welcome back, {user?.user_metadata?.first_name || 'Student'}!</p>
+            <p className="text-gray-600">
+              Welcome back, {user?.user_metadata?.first_name || "Student"}!
+            </p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
@@ -51,12 +53,12 @@ export default function Tests() {
               <div className="text-5xl mb-4">⚡</div>
               <h3 className="text-2xl font-bold text-gray-900 mb-3">General Purpose – Short</h3>
               <p className="text-gray-600 mb-6">
-                Quick 7-question assessment to test your basic aptitude skills. Perfect for a quick practice session.
+                Quick 7-question assessment to test your basic aptitude skills. Perfect for a quick
+                practice session.
               </p>
               <div className="space-y-2 mb-6">
                 <div className="flex items-center text-sm text-gray-700">
-                  <span className="text-green-500 mr-2">✓</span>
-                  7 questions
+                  <span className="text-green-500 mr-2">✓</span>7 questions
                 </div>
                 <div className="flex items-center text-sm text-gray-700">
                   <span className="text-green-500 mr-2">✓</span>
@@ -75,7 +77,8 @@ export default function Tests() {
               <div className="text-5xl mb-4">🎯</div>
               <h3 className="text-2xl font-bold text-gray-900 mb-3">General Purpose – Elaborate</h3>
               <p className="text-gray-600 mb-6">
-                Comprehensive 120-question assessment covering all aspects of aptitude testing. Get detailed performance insights.
+                Comprehensive 120-question assessment covering all aspects of aptitude testing. Get
+                detailed performance insights.
               </p>
               <div className="space-y-2 mb-6">
                 <div className="flex items-center text-sm text-gray-700">

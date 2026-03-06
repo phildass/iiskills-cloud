@@ -12,7 +12,7 @@ export default function Navbar() {
           <Link href="/" className="text-2xl font-bold text-primary">
             Learn Govt Jobs
           </Link>
-          
+
           <div className="hidden md:flex space-x-6">
             {navLinks.map((link, index) => (
               <Link

@@ -2,7 +2,7 @@
 
 /**
  * Enhanced Paid App Landing Page
- * 
+ *
  * Extends UniversalLandingPage with:
  * - Sample Lesson Showcase (Zero-Barrier Sample)
  * - App-specific highlights
@@ -23,7 +23,6 @@ import PremiumAccessPrompt from "../payment/PremiumAccessPrompt";
 
 import LevelSelector from "../content/LevelSelector";
 import UniversalInstallPrompt from "../pwa/UniversalInstallPrompt";
-
 
 /**
  * Generate standardized app context label
@@ -57,12 +56,8 @@ function getAppSpecificLinks(appId) {
     //   { label: "Job Search", href: "/jobs" },
     //   { label: "Exam Alerts", href: "/exam-countdown" },
     // ],
-    "learn-ai": [
-      { label: "AI Playground", href: "/playground" },
-    ],
-    "learn-finesse": [
-      { label: "Certification", href: "/certification" },
-    ],
+    "learn-ai": [{ label: "AI Playground", href: "/playground" }],
+    "learn-finesse": [{ label: "Certification", href: "/certification" }],
   };
 
   return [...commonLinks, ...(appSpecificMap[appId] || [])];
@@ -128,9 +123,7 @@ export default function PaidAppLandingPage({
               {headline || appName}
             </h1>
             {subheadline && (
-              <p className="text-lg sm:text-xl leading-relaxed font-normal mb-4">
-                {subheadline}
-              </p>
+              <p className="text-lg sm:text-xl leading-relaxed font-normal mb-4">{subheadline}</p>
             )}
           </div>
         </Hero>
@@ -256,7 +249,8 @@ export default function PaidAppLandingPage({
                   Structured Learning Path
                 </h2>
                 <p className="text-lg text-gray-600 mb-6">
-                  Master skills through our proven Tri-Level system: Basic foundations, intermediate frameworks, and advanced mastery. Each level builds on the last.
+                  Master skills through our proven Tri-Level system: Basic foundations, intermediate
+                  frameworks, and advanced mastery. Each level builds on the last.
                 </p>
                 <Link
                   href="/onboarding"
@@ -272,9 +266,7 @@ export default function PaidAppLandingPage({
         {/* Final CTA Section */}
         <section className="py-16 bg-gradient-to-r from-purple-600 to-blue-600 text-white">
           <div className="max-w-4xl mx-auto px-4 text-center">
-            <h2 className="text-3xl sm:text-4xl font-bold mb-6">
-              Ready to Master {appName}?
-            </h2>
+            <h2 className="text-3xl sm:text-4xl font-bold mb-6">Ready to Master {appName}?</h2>
             <p className="text-xl mb-8">
               Start with our free sample lesson and experience the iiskills difference.
             </p>

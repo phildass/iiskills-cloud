@@ -2,7 +2,10 @@ export default function CertificateViewer({ certificate }) {
   if (!certificate) {
     return (
       <div className="card text-center py-12">
-        <p className="text-gray-600">No certificate available yet. Complete the course and pass the final exam to earn your certificate.</p>
+        <p className="text-gray-600">
+          No certificate available yet. Complete the course and pass the final exam to earn your
+          certificate.
+        </p>
       </div>
     );
   }
@@ -11,7 +14,7 @@ export default function CertificateViewer({ certificate }) {
     <div className="card">
       <div className="border-4 border-blue-600 rounded-lg p-8 text-center">
         <h2 className="text-3xl font-bold text-primary mb-6">Certificate of Completion</h2>
-        
+
         <div className="mb-6">
           <p className="text-lg mb-2">This certifies that</p>
           <p className="text-2xl font-bold mb-4">{certificate.user_name}</p>
@@ -27,12 +30,8 @@ export default function CertificateViewer({ certificate }) {
         </div>
 
         <div className="flex gap-4 justify-center">
-          <button className="btn-primary">
-            Download PDF
-          </button>
-          <button className="btn-secondary">
-            Share Certificate
-          </button>
+          <button className="btn-primary">Download PDF</button>
+          <button className="btn-secondary">Share Certificate</button>
         </div>
       </div>
     </div>

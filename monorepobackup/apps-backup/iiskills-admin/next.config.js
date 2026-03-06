@@ -5,30 +5,30 @@
 
 module.exports = {
   reactStrictMode: true,
-  
+
   // Transpile shared packages if using monorepo packages
-  transpilePackages: ['@iiskills/core'],
-  
+  transpilePackages: ["@iiskills/core"],
+
   async rewrites() {
     return [
       // Redirect /admin to / within admin app
       {
-        source: '/admin',
-        destination: '/',
+        source: "/admin",
+        destination: "/",
       },
       {
-        source: '/admin/:path*',
-        destination: '/:path*',
+        source: "/admin/:path*",
+        destination: "/:path*",
       },
     ];
   },
-  
+
   async redirects() {
     return [
       // Redirect /admin to root within admin app
       {
-        source: '/admin',
-        destination: '/',
+        source: "/admin",
+        destination: "/",
         permanent: false,
       },
     ];

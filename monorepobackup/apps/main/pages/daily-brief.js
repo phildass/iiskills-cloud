@@ -5,7 +5,7 @@ import CommandCenterSidebar from "../components/CommandCenterSidebar";
 
 /**
  * Daily Brief Page - AI-Summarized News
- * 
+ *
  * Features:
  * - Top headlines from NewsAPI.org or GNews
  * - AI-generated 60-word summaries (OpenAI, Gemini, etc.)
@@ -13,7 +13,7 @@ import CommandCenterSidebar from "../components/CommandCenterSidebar";
  * - "Bridge" links to relevant Learn modules
  * - 3 reads = Free Hint or Module Unlock
  * - Free access for all users
- * 
+ *
  * Planned API: NewsAPI.org (or GNews as backup)
  */
 export default function DailyBrief() {
@@ -119,19 +119,10 @@ export default function DailyBrief() {
     setNews(mockNews);
   }, []);
 
-  const categories = [
-    "all",
-    "Geography",
-    "Physics",
-    "AI",
-    "Developer",
-    "PR",
-  ];
+  const categories = ["all", "Geography", "Physics", "AI", "Developer", "PR"];
 
   const filteredNews =
-    selectedCategory === "all"
-      ? news
-      : news.filter((item) => item.category === selectedCategory);
+    selectedCategory === "all" ? news : news.filter((item) => item.category === selectedCategory);
 
   const [readArticles, setReadArticles] = useState(new Set());
 
@@ -163,17 +154,13 @@ export default function DailyBrief() {
           <div className="max-w-6xl mx-auto mb-8">
             <div className="flex items-start justify-between mb-4">
               <div>
-                <h1 className="text-4xl font-bold text-primary mb-2">
-                  📰 Daily Brief
-                </h1>
+                <h1 className="text-4xl font-bold text-primary mb-2">📰 Daily Brief</h1>
                 <p className="text-gray-600">
                   AI-summarized news personalized to your Learn interests
                 </p>
               </div>
               <div className="bg-purple-100 border border-purple-300 px-4 py-2 rounded-lg">
-                <p className="text-sm font-semibold text-purple-800">
-                  🤖 AI-Powered Summaries
-                </p>
+                <p className="text-sm font-semibold text-purple-800">🤖 AI-Powered Summaries</p>
               </div>
             </div>
 
@@ -197,9 +184,7 @@ export default function DailyBrief() {
               {readCount >= 3 && (
                 <div className="mt-3 bg-white/20 p-3 rounded-lg border-2 border-white/40">
                   <p className="font-bold text-lg">🎉 Challenge Complete!</p>
-                  <p className="text-sm">
-                    Claim your free hint in any Learn module
-                  </p>
+                  <p className="text-sm">Claim your free hint in any Learn module</p>
                 </div>
               )}
             </div>
@@ -207,12 +192,8 @@ export default function DailyBrief() {
             {/* Category Filter */}
             <div className="bg-white p-6 rounded-lg shadow-md mb-6">
               <div className="flex items-center justify-between mb-4">
-                <h2 className="text-lg font-bold text-charcoal">
-                  Filter by Interest
-                </h2>
-                <p className="text-sm text-gray-600">
-                  Based on your Learn modules
-                </p>
+                <h2 className="text-lg font-bold text-charcoal">Filter by Interest</h2>
+                <p className="text-sm text-gray-600">Based on your Learn modules</p>
               </div>
               <div className="flex flex-wrap gap-2">
                 {categories.map((category) => (
@@ -254,14 +235,14 @@ export default function DailyBrief() {
                       {article.category === "Geography"
                         ? "🌍"
                         : article.category === "Physics"
-                        ? "⚛️"
-                        : article.category === "AI"
-                        ? "🤖"
-                        : article.category === "Developer"
-                        ? "💻"
-                        : article.category === "PR"
-                        ? "📢"
-                        : "📰"}
+                          ? "⚛️"
+                          : article.category === "AI"
+                            ? "🤖"
+                            : article.category === "Developer"
+                              ? "💻"
+                              : article.category === "PR"
+                                ? "📢"
+                                : "📰"}
                     </span>
                   </div>
 
@@ -283,16 +264,12 @@ export default function DailyBrief() {
                     </h3>
 
                     {/* Source */}
-                    <p className="text-sm text-gray-600 mb-4">
-                      {article.source}
-                    </p>
+                    <p className="text-sm text-gray-600 mb-4">{article.source}</p>
 
                     {/* AI Summary (60 words) */}
                     <div className="bg-purple-50 border-l-4 border-purple-500 p-4 mb-4">
                       <p className="text-sm text-gray-800 leading-relaxed">
-                        <span className="font-semibold text-purple-700">
-                          AI Summary:
-                        </span>{" "}
+                        <span className="font-semibold text-purple-700">AI Summary:</span>{" "}
                         {article.summary}
                       </p>
                     </div>
@@ -302,9 +279,7 @@ export default function DailyBrief() {
                       <div className="flex items-start gap-2">
                         <span className="text-2xl">🌉</span>
                         <div className="flex-1">
-                          <p className="font-semibold text-green-900 mb-1">
-                            Bridge to Learning
-                          </p>
+                          <p className="font-semibold text-green-900 mb-1">Bridge to Learning</p>
                           <p className="text-sm text-green-800 mb-2">
                             {article.bridgeModule}: {article.bridgeLesson}
                           </p>
@@ -340,23 +315,15 @@ export default function DailyBrief() {
 
             {/* API Integration Notice */}
             <div className="mt-8 bg-yellow-50 border border-yellow-200 p-6 rounded-lg">
-              <h3 className="font-bold text-yellow-900 mb-2">
-                🚧 Development Note
-              </h3>
+              <h3 className="font-bold text-yellow-900 mb-2">🚧 Development Note</h3>
               <p className="text-yellow-800 mb-2">
                 Currently showing mock data. API integration planned with:
               </p>
               <ul className="list-disc list-inside text-yellow-800 space-y-1">
-                <li>
-                  NewsAPI.org (primary) - Fetch top headlines by category
-                </li>
+                <li>NewsAPI.org (primary) - Fetch top headlines by category</li>
                 <li>GNews API (backup) - Alternative news aggregator</li>
-                <li>
-                  OpenAI API - Generate 60-word summaries from article content
-                </li>
-                <li>
-                  Gemini API (backup) - Alternative AI summarization service
-                </li>
+                <li>OpenAI API - Generate 60-word summaries from article content</li>
+                <li>Gemini API (backup) - Alternative AI summarization service</li>
               </ul>
               <p className="text-yellow-800 mt-3 text-sm font-semibold">
                 Environment Variables Needed:

@@ -20,7 +20,7 @@ export default function SkillGalaxyMap() {
       name: app.name.replace("Learn ", ""),
       color: app.color,
       progress: app.progress,
-      val: 20 + ((app.progress.basics + app.progress.intermediate + app.progress.advanced) / 3) / 5,
+      val: 20 + (app.progress.basics + app.progress.intermediate + app.progress.advanced) / 3 / 5,
     }));
 
     const links = [];
@@ -141,7 +141,9 @@ export default function SkillGalaxyMap() {
                 <div>
                   <div className="flex justify-between items-center mb-2">
                     <span className="text-sm font-medium text-charcoal">Basics</span>
-                    <span className="text-sm font-bold text-accent">{selectedApp.progress.basics}%</span>
+                    <span className="text-sm font-bold text-accent">
+                      {selectedApp.progress.basics}%
+                    </span>
                   </div>
                   <div className="w-full bg-gray-200 rounded-full h-3">
                     <motion.div
@@ -156,7 +158,9 @@ export default function SkillGalaxyMap() {
                 <div>
                   <div className="flex justify-between items-center mb-2">
                     <span className="text-sm font-medium text-charcoal">Intermediate</span>
-                    <span className="text-sm font-bold text-accent">{selectedApp.progress.intermediate}%</span>
+                    <span className="text-sm font-bold text-accent">
+                      {selectedApp.progress.intermediate}%
+                    </span>
                   </div>
                   <div className="w-full bg-gray-200 rounded-full h-3">
                     <motion.div
@@ -171,7 +175,9 @@ export default function SkillGalaxyMap() {
                 <div>
                   <div className="flex justify-between items-center mb-2">
                     <span className="text-sm font-medium text-charcoal">Advanced</span>
-                    <span className="text-sm font-bold text-accent">{selectedApp.progress.advanced}%</span>
+                    <span className="text-sm font-bold text-accent">
+                      {selectedApp.progress.advanced}%
+                    </span>
                   </div>
                   <div className="w-full bg-gray-200 rounded-full h-3">
                     <motion.div

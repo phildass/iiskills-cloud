@@ -7,6 +7,5 @@ if (!supabaseUrl || !supabaseAnonKey) {
   console.warn("⚠️ Supabase credentials not configured. Some features may be limited.");
 }
 
-export const supabase = supabaseUrl && supabaseAnonKey 
-  ? createClient(supabaseUrl, supabaseAnonKey)
-  : null;
+export const supabase =
+  supabaseUrl && supabaseAnonKey ? createClient(supabaseUrl, supabaseAnonKey) : null;

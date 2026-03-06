@@ -1,6 +1,6 @@
 export default function LessonCard({ lesson, locked = false }) {
   return (
-    <div className={`card ${locked ? 'opacity-50' : 'hover:shadow-lg'} transition-shadow`}>
+    <div className={`card ${locked ? "opacity-50" : "hover:shadow-lg"} transition-shadow`}>
       <div className="flex items-center justify-between">
         <div className="flex-1">
           <h4 className="text-lg font-semibold mb-2">{lesson.title}</h4>

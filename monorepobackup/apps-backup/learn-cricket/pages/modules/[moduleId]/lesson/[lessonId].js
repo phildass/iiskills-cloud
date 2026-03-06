@@ -1,11 +1,11 @@
 "use client";
 
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
-import Head from 'next/head';
-import Footer from '../../../../components/Footer';
-import QuizComponent from '../../../../components/QuizComponent';
-import { getCurrentUser } from '../../../../lib/supabaseClient';
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import Head from "next/head";
+import Footer from "../../../../components/Footer";
+import QuizComponent from "../../../../components/QuizComponent";
+import { getCurrentUser } from "../../../../lib/supabaseClient";
 
 export default function LessonPage() {
   const router = useRouter();
@@ -27,8 +27,8 @@ export default function LessonPage() {
 
   const checkAuth = async () => {
     const currentUser = await getCurrentUser();
-    if (!currentUser && process.env.NEXT_PUBLIC_DISABLE_AUTH !== 'true') {
-      router.push('/register');
+    if (!currentUser && process.env.NEXT_PUBLIC_DISABLE_AUTH !== "true") {
+      router.push("/register");
       return;
     }
     setUser(currentUser);
@@ -41,10 +41,10 @@ export default function LessonPage() {
         module_id: moduleId,
         title: `Lesson ${lessonId}`,
         content: generateLessonContent(moduleId, lessonId),
-        quiz: generateQuiz()
+        quiz: generateQuiz(),
       });
     } catch (error) {
-      console.error('Error fetching lesson:', error);
+      console.error("Error fetching lesson:", error);
     } finally {
       setLoading(false);
     }
@@ -77,9 +77,9 @@ export default function LessonPage() {
           "To predict outcomes based on labeled data",
           "To cluster unlabeled data",
           "To reduce data dimensions",
-          "To generate new data"
+          "To generate new data",
         ],
-        correct_answer: 0
+        correct_answer: 0,
       },
       {
         question: "Which algorithm is commonly used for classification tasks?",
@@ -87,9 +87,9 @@ export default function LessonPage() {
           "K-means clustering",
           "Decision Trees",
           "Principal Component Analysis",
-          "Autoencoder"
+          "Autoencoder",
         ],
-        correct_answer: 1
+        correct_answer: 1,
       },
       {
         question: "What does overfitting mean in machine learning?",
@@ -97,19 +97,14 @@ export default function LessonPage() {
           "Model performs well on all data",
           "Model memorizes training data but performs poorly on new data",
           "Model uses too few features",
-          "Model trains too quickly"
+          "Model trains too quickly",
         ],
-        correct_answer: 1
+        correct_answer: 1,
       },
       {
         question: "Which metric is best for imbalanced classification problems?",
-        options: [
-          "Accuracy",
-          "F1 Score",
-          "Mean Squared Error",
-          "R-squared"
-        ],
-        correct_answer: 1
+        options: ["Accuracy", "F1 Score", "Mean Squared Error", "R-squared"],
+        correct_answer: 1,
       },
       {
         question: "What is the purpose of a validation set?",
@@ -117,29 +112,29 @@ export default function LessonPage() {
           "To train the model",
           "To test final performance",
           "To tune hyperparameters during training",
-          "To store predictions"
+          "To store predictions",
         ],
-        correct_answer: 2
-      }
+        correct_answer: 2,
+      },
     ];
   };
 
   const handleQuizComplete = async (passed, score) => {
     setQuizCompleted(passed);
-    
+
     if (passed) {
       try {
-        await fetch('/api/assessments/submit', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+        await fetch("/api/assessments/submit", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             lesson_id: lessonId,
             module_id: moduleId,
-            score: score
-          })
+            score: score,
+          }),
         });
       } catch (error) {
-        console.error('Error saving progress:', error);
+        console.error("Error saving progress:", error);
       }
     }
   };
@@ -153,7 +148,7 @@ export default function LessonPage() {
       if (nextModuleId <= 10) {
         router.push(`/modules/${nextModuleId}/lesson/1`);
       } else {
-        router.push('/curriculum');
+        router.push("/curriculum");
       }
     }
   };
@@ -183,11 +178,16 @@ export default function LessonPage() {
         <div className="container mx-auto px-4 max-w-4xl">
           <div className="mb-6">
             <button
-              onClick={() => router.push('/curriculum')}
+              onClick={() => router.push("/curriculum")}
               className="text-blue-600 hover:text-blue-800 flex items-center"
             >
               <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M15 19l-7-7 7-7"
+                />
               </svg>
               Back to Curriculum
             </button>
@@ -199,28 +199,23 @@ export default function LessonPage() {
               <h1 className="text-3xl font-bold mt-2">{lesson?.title}</h1>
             </div>
 
-            <div className="prose max-w-none" dangerouslySetInnerHTML={{ __html: lesson?.content }} />
+            <div
+              className="prose max-w-none"
+              dangerouslySetInnerHTML={{ __html: lesson?.content }}
+            />
           </div>
 
           {lesson?.quiz && (
-            <QuizComponent 
-              questions={lesson.quiz}
-              onComplete={handleQuizComplete}
-            />
+            <QuizComponent questions={lesson.quiz} onComplete={handleQuizComplete} />
           )}
 
           {quizCompleted && (
             <div className="card bg-green-50 border-2 border-green-500">
-              <h3 className="text-xl font-semibold text-green-800 mb-4">
-                🎉 Quiz Passed!
-              </h3>
+              <h3 className="text-xl font-semibold text-green-800 mb-4">🎉 Quiz Passed!</h3>
               <p className="text-gray-700 mb-4">
                 Congratulations! You've successfully completed this lesson.
               </p>
-              <button
-                onClick={goToNextLesson}
-                className="btn-primary"
-              >
+              <button onClick={goToNextLesson} className="btn-primary">
                 Continue to Next Lesson
               </button>
             </div>

@@ -19,24 +19,24 @@
  * Access: public — no authentication required.
  */
 
-import { supabase } from '../../lib/supabaseClient';
+import { supabase } from "../../lib/supabaseClient";
 
 export default async function handler(req, res) {
-  if (req.method !== 'GET') {
-    res.setHeader('Allow', ['GET']);
+  if (req.method !== "GET") {
+    res.setHeader("Allow", ["GET"]);
     return res.status(405).json({ error: `Method ${req.method} Not Allowed` });
   }
 
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
-  const isSuspended = process.env.NEXT_PUBLIC_SUPABASE_SUSPENDED === 'true';
-  const isSandbox = process.env.NEXT_PUBLIC_TESTING_MODE === 'true';
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
+  const isSuspended = process.env.NEXT_PUBLIC_SUPABASE_SUSPENDED === "true";
+  const isSandbox = process.env.NEXT_PUBLIC_TESTING_MODE === "true";
 
   // Expose hostname only — never expose the anon/service-role key
-  let supabaseHostname = '(not configured)';
+  let supabaseHostname = "(not configured)";
   try {
     if (supabaseUrl) supabaseHostname = new URL(supabaseUrl).hostname;
   } catch {
-    supabaseHostname = supabaseUrl ? '(invalid URL)' : '(not configured)';
+    supabaseHostname = supabaseUrl ? "(invalid URL)" : "(not configured)";
   }
 
   const result = {
@@ -52,22 +52,22 @@ export default async function handler(req, res) {
 
   if (isSuspended) {
     result.ok = true;
-    result.mode = 'mock (suspended)';
+    result.mode = "mock (suspended)";
     return res.status(200).json(result);
   }
 
   // Live mode — attempt a lightweight query to confirm connectivity
   try {
-    const { error } = await supabase.from('profiles').select('id').limit(1);
+    const { error } = await supabase.from("profiles").select("id").limit(1);
     result.ok = !error;
     result.queryOk = !error;
     result.queryError = error ? error.message : null;
-    result.mode = 'live';
+    result.mode = "live";
   } catch (err) {
     result.ok = false;
     result.queryOk = false;
     result.queryError = err.message;
-    result.mode = 'error';
+    result.mode = "error";
   }
 
   return res.status(result.ok ? 200 : 503).json(result);

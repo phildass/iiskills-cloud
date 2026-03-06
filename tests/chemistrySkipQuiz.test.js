@@ -6,7 +6,7 @@
  *  - Badge awarding is blocked when noBadges flag is set
  */
 
-'use strict';
+"use strict";
 
 // ---------------------------------------------------------------------------
 // Mock localStorage
@@ -16,24 +16,30 @@ const localStorageMock = (() => {
   let store = {};
   return {
     getItem: (key) => store[key] ?? null,
-    setItem: (key, value) => { store[key] = String(value); },
-    removeItem: (key) => { delete store[key]; },
-    clear: () => { store = {}; },
+    setItem: (key, value) => {
+      store[key] = String(value);
+    },
+    removeItem: (key) => {
+      delete store[key];
+    },
+    clear: () => {
+      store = {};
+    },
   };
 })();
 
-const NO_BADGES_KEY = 'learn-chemistry-noBadges';
+const NO_BADGES_KEY = "learn-chemistry-noBadges";
 
 // ---------------------------------------------------------------------------
 // Inline helpers that mirror the logic from the lesson page component
 // ---------------------------------------------------------------------------
 
 function setNoBadgesFlag(storage) {
-  storage.setItem(NO_BADGES_KEY, 'true');
+  storage.setItem(NO_BADGES_KEY, "true");
 }
 
 function getNoBadgesFlag(storage) {
-  return storage.getItem(NO_BADGES_KEY) === 'true';
+  return storage.getItem(NO_BADGES_KEY) === "true";
 }
 
 /**
@@ -48,41 +54,41 @@ function canAwardBadge(storage) {
 // Tests
 // ---------------------------------------------------------------------------
 
-describe('learn-chemistry skip-quiz feature', () => {
+describe("learn-chemistry skip-quiz feature", () => {
   beforeEach(() => {
     localStorageMock.clear();
   });
 
-  it('noBadges flag is false by default', () => {
+  it("noBadges flag is false by default", () => {
     expect(getNoBadgesFlag(localStorageMock)).toBe(false);
   });
 
   it('setNoBadgesFlag stores "true" in localStorage', () => {
     setNoBadgesFlag(localStorageMock);
-    expect(localStorageMock.getItem(NO_BADGES_KEY)).toBe('true');
+    expect(localStorageMock.getItem(NO_BADGES_KEY)).toBe("true");
   });
 
-  it('getNoBadgesFlag returns true after flag is set', () => {
+  it("getNoBadgesFlag returns true after flag is set", () => {
     setNoBadgesFlag(localStorageMock);
     expect(getNoBadgesFlag(localStorageMock)).toBe(true);
   });
 
-  it('badge awarding is allowed when noBadges is false', () => {
+  it("badge awarding is allowed when noBadges is false", () => {
     expect(canAwardBadge(localStorageMock)).toBe(true);
   });
 
-  it('badge awarding is blocked when noBadges flag is set', () => {
+  it("badge awarding is blocked when noBadges flag is set", () => {
     setNoBadgesFlag(localStorageMock);
     expect(canAwardBadge(localStorageMock)).toBe(false);
   });
 
-  it('noBadges flag persists across reads (irreversible policy)', () => {
+  it("noBadges flag persists across reads (irreversible policy)", () => {
     setNoBadgesFlag(localStorageMock);
     expect(getNoBadgesFlag(localStorageMock)).toBe(true);
     expect(getNoBadgesFlag(localStorageMock)).toBe(true);
   });
 
-  it('uses app-specific localStorage key (learn-chemistry-noBadges)', () => {
-    expect(NO_BADGES_KEY).toBe('learn-chemistry-noBadges');
+  it("uses app-specific localStorage key (learn-chemistry-noBadges)", () => {
+    expect(NO_BADGES_KEY).toBe("learn-chemistry-noBadges");
   });
 });

@@ -4,8 +4,8 @@
  */
 
 export default async function handler(req, res) {
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "Method not allowed" });
   }
 
   try {
@@ -13,7 +13,7 @@ export default async function handler(req, res) {
 
     // Validate input
     if (!moduleId || !answers) {
-      return res.status(400).json({ error: 'Missing required fields' });
+      return res.status(400).json({ error: "Missing required fields" });
     }
 
     // Mock scoring logic (in production, this would check against correct answers)
@@ -32,21 +32,21 @@ export default async function handler(req, res) {
       passed,
       xpAwarded,
       badgeAwarded,
-      message: passed 
+      message: passed
         ? `Congratulations! You passed Level ${moduleId} with ${score}%`
-        : `You scored ${score}%. Keep practicing and try again!`
+        : `You scored ${score}%. Keep practicing and try again!`,
     });
   } catch (error) {
-    console.error('Assessment submission error:', error);
-    return res.status(500).json({ error: 'Internal server error' });
+    console.error("Assessment submission error:", error);
+    return res.status(500).json({ error: "Internal server error" });
   }
 }
 
 function getBadgeForModule(moduleId) {
   const badges = {
-    1: { name: 'Cellular Architect', emoji: '🔬', description: 'Mastered Cell Logic' },
-    2: { name: 'Systems Coordinator', emoji: '🫀', description: 'Mastered Body Systems' },
-    3: { name: 'Genetics Strategist', emoji: '🧬', description: 'Mastered Genetics & Ecology' },
+    1: { name: "Cellular Architect", emoji: "🔬", description: "Mastered Cell Logic" },
+    2: { name: "Systems Coordinator", emoji: "🫀", description: "Mastered Body Systems" },
+    3: { name: "Genetics Strategist", emoji: "🧬", description: "Mastered Genetics & Ecology" },
   };
   return badges[moduleId] || null;
 }

@@ -1,7 +1,7 @@
 "use client";
 
-import { useUser } from './useUser';
-import Link from 'next/link';
+import { useUser } from "./useUser";
+import Link from "next/link";
 
 /**
  * RequireAuth — wraps content that needs an authenticated user.
@@ -18,9 +18,9 @@ import Link from 'next/link';
  */
 export default function RequireAuth({
   children,
-  loginPath = '/login',
-  registerPath = '/register',
-  message = 'Please log in or register to access this content.',
+  loginPath = "/login",
+  registerPath = "/register",
+  message = "Please log in or register to access this content.",
 }) {
   const { user, loading } = useUser();
 

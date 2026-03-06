@@ -7,7 +7,7 @@ import AppLauncher from "../components/shared/AppLauncher";
 
 /**
  * Apps Dashboard Page
- * 
+ *
  * Central hub showing all iiskills apps with:
  * - App launcher with install capabilities
  * - User's access status for each app
@@ -27,7 +27,7 @@ export default function AppsDashboard() {
     try {
       const currentUser = await getCurrentUser();
       setUser(currentUser);
-      
+
       if (currentUser) {
         // Load access status for all apps
         const accessStatus = {};
@@ -43,7 +43,7 @@ export default function AppsDashboard() {
         setUserAccess(accessStatus);
       }
     } catch (error) {
-      console.error('Error loading user data:', error);
+      console.error("Error loading user data:", error);
     } finally {
       setIsLoading(false);
     }
@@ -53,9 +53,9 @@ export default function AppsDashboard() {
     <>
       <Head>
         <title>My Apps - iiskills.cloud</title>
-        <meta 
-          name="description" 
-          content="Access all your iiskills learning apps in one place. Install apps for offline access and a native experience." 
+        <meta
+          name="description"
+          content="Access all your iiskills learning apps in one place. Install apps for offline access and a native experience."
         />
       </Head>
 
@@ -80,11 +80,7 @@ export default function AppsDashboard() {
               )}
 
               {/* App Launcher */}
-              <AppLauncher 
-                userAccess={userAccess}
-                showInstallButtons={true}
-                view="grid"
-              />
+              <AppLauncher userAccess={userAccess} showInstallButtons={true} view="grid" />
 
               {/* Sign In Prompt for Non-Authenticated Users */}
               {!user && (
@@ -93,7 +89,8 @@ export default function AppsDashboard() {
                     🔐 Sign In for Full Access
                   </h3>
                   <p className="text-yellow-800 mb-4">
-                    Create a free account to unlock all features, track your progress, and sync across devices.
+                    Create a free account to unlock all features, track your progress, and sync
+                    across devices.
                   </p>
                   <div className="flex gap-4 justify-center flex-wrap">
                     <a
@@ -118,10 +115,11 @@ export default function AppsDashboard() {
                   <div className="text-4xl mb-3">🌐</div>
                   <h3 className="text-lg font-bold text-gray-900 mb-2">One Sign-In</h3>
                   <p className="text-sm text-gray-600">
-                    Register once and access all iiskills apps seamlessly. No repeated sign-ins needed.
+                    Register once and access all iiskills apps seamlessly. No repeated sign-ins
+                    needed.
                   </p>
                 </div>
-                
+
                 <div className="bg-white border-2 border-gray-200 rounded-lg p-6 text-center">
                   <div className="text-4xl mb-3">📱</div>
                   <h3 className="text-lg font-bold text-gray-900 mb-2">Install Anywhere</h3>
@@ -129,12 +127,13 @@ export default function AppsDashboard() {
                     Download apps on any device - phone, tablet, or desktop. Works offline too!
                   </p>
                 </div>
-                
+
                 <div className="bg-white border-2 border-gray-200 rounded-lg p-6 text-center">
                   <div className="text-4xl mb-3">🔄</div>
                   <h3 className="text-lg font-bold text-gray-900 mb-2">Synced Progress</h3>
                   <p className="text-sm text-gray-600">
-                    Your learning progress syncs automatically across all installed apps and devices.
+                    Your learning progress syncs automatically across all installed apps and
+                    devices.
                   </p>
                 </div>
               </div>

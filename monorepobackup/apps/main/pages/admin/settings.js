@@ -44,7 +44,7 @@ export default function AdminSettings() {
     // Save new password to localStorage
     // NOTE: This is for demo purposes only. In production, this should be stored securely in a database
     localStorage.setItem("iiskills_admin_password", newPassword);
-    
+
     // Update the environment variable equivalent in localStorage for SecretPasswordPrompt
     // This ensures the new password works with the login prompt
     if (typeof window !== "undefined") {
@@ -53,7 +53,9 @@ export default function AdminSettings() {
       sessionStorage.removeItem("iiskills_secret_admin");
     }
 
-    setPasswordMessage("Password changed successfully! Please log in again with your new password.");
+    setPasswordMessage(
+      "Password changed successfully! Please log in again with your new password."
+    );
     setCurrentPassword("");
     setNewPassword("");
     setConfirmPassword("");
@@ -78,9 +80,10 @@ export default function AdminSettings() {
           <div className="bg-white rounded-lg shadow p-6 border-l-4 border-red-500">
             <h2 className="text-xl font-bold text-red-600 mb-4">🔐 Admin Password Management</h2>
             <p className="text-sm text-gray-600 mb-4">
-              Change your admin password. Default password is <code className="bg-gray-100 px-2 py-1 rounded">iiskills123</code>
+              Change your admin password. Default password is{" "}
+              <code className="bg-gray-100 px-2 py-1 rounded">iiskills123</code>
             </p>
-            
+
             <form onSubmit={handlePasswordChange} className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-charcoal mb-2">
@@ -94,11 +97,9 @@ export default function AdminSettings() {
                   placeholder="Enter current password"
                 />
               </div>
-              
+
               <div>
-                <label className="block text-sm font-medium text-charcoal mb-2">
-                  New Password
-                </label>
+                <label className="block text-sm font-medium text-charcoal mb-2">New Password</label>
                 <input
                   type="password"
                   value={newPassword}
@@ -107,7 +108,7 @@ export default function AdminSettings() {
                   placeholder="Enter new password (min 8 characters)"
                 />
               </div>
-              
+
               <div>
                 <label className="block text-sm font-medium text-charcoal mb-2">
                   Confirm New Password
@@ -143,7 +144,9 @@ export default function AdminSettings() {
 
             <div className="mt-4 bg-yellow-50 border border-yellow-200 rounded p-3">
               <p className="text-yellow-800 text-xs">
-                <strong>⚠️ Security Note:</strong> This is a demo implementation. In production, passwords should be stored securely in a database with proper hashing and encryption.
+                <strong>⚠️ Security Note:</strong> This is a demo implementation. In production,
+                passwords should be stored securely in a database with proper hashing and
+                encryption.
               </p>
             </div>
           </div>

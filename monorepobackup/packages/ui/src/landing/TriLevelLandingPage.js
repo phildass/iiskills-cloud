@@ -105,7 +105,7 @@ export default function TriLevelLandingPage({
   const handleLevelClick = (level) => {
     if (level.id === "basic") {
       // Basic: always navigate directly
-      window.location.href = `/modules/1/lesson/1`;
+      window.location.href = "/modules/1/lesson/1";
       return;
     }
     // Intermediate or Advanced: show certificate warning dialog (paid apps only)
@@ -167,9 +167,7 @@ export default function TriLevelLandingPage({
               {headline || appName}
             </h1>
             {subheadline && (
-              <p className="text-lg sm:text-xl leading-relaxed font-normal mb-4">
-                {subheadline}
-              </p>
+              <p className="text-lg sm:text-xl leading-relaxed font-normal mb-4">{subheadline}</p>
             )}
           </div>
         </Hero>

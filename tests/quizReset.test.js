@@ -57,7 +57,12 @@ function createQuizComponentState(questions) {
   return {
     reset,
     selectAnswer,
-    getState: () => ({ currentQuestion, selectedAnswers: [...selectedAnswers], showResults, score }),
+    getState: () => ({
+      currentQuestion,
+      selectedAnswers: [...selectedAnswers],
+      showResults,
+      score,
+    }),
   };
 }
 
@@ -65,8 +70,8 @@ function createQuizComponentState(questions) {
 // Tests
 // ---------------------------------------------------------------------------
 
-describe('Quiz state resets on lesson change', () => {
-  test('quizCompleted resets to false when navigating to a new lesson', () => {
+describe("Quiz state resets on lesson change", () => {
+  test("quizCompleted resets to false when navigating to a new lesson", () => {
     const state = createLessonState();
 
     // Complete lesson 1 quiz
@@ -78,14 +83,14 @@ describe('Quiz state resets on lesson change', () => {
     expect(state.getQuizCompleted()).toBe(false);
   });
 
-  test('quizCompleted remains false when quiz is failed', () => {
+  test("quizCompleted remains false when quiz is failed", () => {
     const state = createLessonState();
 
     state.onQuizComplete(false);
     expect(state.getQuizCompleted()).toBe(false);
   });
 
-  test('quizCompleted persists as true until next lesson change', () => {
+  test("quizCompleted persists as true until next lesson change", () => {
     const state = createLessonState();
 
     state.onQuizComplete(true);
@@ -101,8 +106,8 @@ describe('Quiz state resets on lesson change', () => {
   });
 });
 
-describe('Quiz completion is per lesson (key isolation)', () => {
-  test('two independent lesson states do not share quizCompleted', () => {
+describe("Quiz completion is per lesson (key isolation)", () => {
+  test("two independent lesson states do not share quizCompleted", () => {
     const lesson1 = createLessonState();
     const lesson2 = createLessonState();
 
@@ -112,14 +117,14 @@ describe('Quiz completion is per lesson (key isolation)', () => {
   });
 });
 
-describe('QuizComponent internal state resets on remount (key prop)', () => {
+describe("QuizComponent internal state resets on remount (key prop)", () => {
   const sampleQuestions = [
-    { question: 'Q1?', options: ['A', 'B', 'C', 'D'], correct_answer: 0 },
-    { question: 'Q2?', options: ['A', 'B', 'C', 'D'], correct_answer: 1 },
-    { question: 'Q3?', options: ['A', 'B', 'C', 'D'], correct_answer: 2 },
+    { question: "Q1?", options: ["A", "B", "C", "D"], correct_answer: 0 },
+    { question: "Q2?", options: ["A", "B", "C", "D"], correct_answer: 1 },
+    { question: "Q3?", options: ["A", "B", "C", "D"], correct_answer: 2 },
   ];
 
-  test('selectedAnswers and score clear after reset (simulating key change)', () => {
+  test("selectedAnswers and score clear after reset (simulating key change)", () => {
     const quiz = createQuizComponentState(sampleQuestions);
 
     // Answer all questions
@@ -140,7 +145,7 @@ describe('QuizComponent internal state resets on remount (key prop)', () => {
     expect(after.score).toBe(0);
   });
 
-  test('score calculation is independent across quiz instances', () => {
+  test("score calculation is independent across quiz instances", () => {
     const quiz1 = createQuizComponentState(sampleQuestions);
     const quiz2 = createQuizComponentState(sampleQuestions);
 

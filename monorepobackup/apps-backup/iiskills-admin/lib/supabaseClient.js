@@ -52,7 +52,10 @@ const hasPlaceholderKey =
 // This ensures the admin app can run even without Supabase credentials
 const allowMissingSupabase = true; // Always allow for admin dashboard
 
-if (!allowMissingSupabase && (!supabaseUrl || !supabaseAnonKey || hasPlaceholderUrl || hasPlaceholderKey)) {
+if (
+  !allowMissingSupabase &&
+  (!supabaseUrl || !supabaseAnonKey || hasPlaceholderUrl || hasPlaceholderKey)
+) {
   const errorMessage = `
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ⚠️  SUPABASE CONFIGURATION ERROR
@@ -106,7 +109,8 @@ For more information, see:
 // UNIFIED MODE: If credentials are missing, use mock client to allow app to run with local content only
 let supabaseClient;
 
-const hasValidCredentials = supabaseUrl && supabaseAnonKey && !hasPlaceholderUrl && !hasPlaceholderKey;
+const hasValidCredentials =
+  supabaseUrl && supabaseAnonKey && !hasPlaceholderUrl && !hasPlaceholderKey;
 
 if (useLocalContent) {
   // Only import in Node.js environment (not browser)
@@ -115,21 +119,22 @@ if (useLocalContent) {
     supabaseClient = createLocalContentClient();
   } else {
     console.warn("⚠️ Local content mode is only supported in server-side/Node.js environment");
-    supabaseClient = isSupabaseSuspended || !hasValidCredentials
-      ? createMockSupabaseClient()
-      : createClient(supabaseUrl, supabaseAnonKey, {
-          auth: {
-            storage: window.localStorage,
-            autoRefreshToken: true,
-            persistSession: true,
-            detectSessionInUrl: true,
-            cookieOptions: {
-              domain: getCookieDomain(),
-              secure: window.location.protocol === "https:",
-              sameSite: "lax",
+    supabaseClient =
+      isSupabaseSuspended || !hasValidCredentials
+        ? createMockSupabaseClient()
+        : createClient(supabaseUrl, supabaseAnonKey, {
+            auth: {
+              storage: window.localStorage,
+              autoRefreshToken: true,
+              persistSession: true,
+              detectSessionInUrl: true,
+              cookieOptions: {
+                domain: getCookieDomain(),
+                secure: window.location.protocol === "https:",
+                sameSite: "lax",
+              },
             },
-          },
-        });
+          });
   }
 } else if (isSupabaseSuspended || !hasValidCredentials) {
   // Use mock client if Supabase is suspended or credentials are missing

@@ -2,9 +2,9 @@
  * @deprecated Use packages/ui/src/navigation/SiteHeader.js (via @iiskills/ui/navigation) instead.
  * This legacy Navbar is not used by any deployed app; kept only for backward compatibility.
  */
-import React, { useState } from 'react';
-import Link from 'next/link';
-import GoogleTranslate from './common/GoogleTranslate';
+import React, { useState } from "react";
+import Link from "next/link";
+import GoogleTranslate from "./common/GoogleTranslate";
 
 /**
  * Universal Navbar shared across all IISkills apps.
@@ -13,68 +13,66 @@ import GoogleTranslate from './common/GoogleTranslate';
  * - Google Translate widget via canonical GoogleTranslate component (always visible)
  * - Mobile-responsive hamburger menu
  */
-export function Navbar({ appName = 'IISkills' }) {
+export function Navbar({ appName = "IISkills" }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navLinks = [
-    { href: '/', label: 'Home' },
-    { href: '/courses', label: 'Courses' },
-    { href: '/certification', label: 'Certification' },
-    { href: '/newsletter', label: 'Newsletter' },
-    { href: '/about', label: 'About' },
-    { href: '/terms', label: 'Terms' },
+    { href: "/", label: "Home" },
+    { href: "/courses", label: "Courses" },
+    { href: "/certification", label: "Certification" },
+    { href: "/newsletter", label: "Newsletter" },
+    { href: "/about", label: "About" },
+    { href: "/terms", label: "Terms" },
   ];
 
   const linkStyle = {
-    color: '#374151',
-    textDecoration: 'none',
-    fontSize: '0.9rem',
+    color: "#374151",
+    textDecoration: "none",
+    fontSize: "0.9rem",
     fontWeight: 500,
-    whiteSpace: 'nowrap',
+    whiteSpace: "nowrap",
   };
 
   const btnStyle = {
-    background: '#2563eb',
-    color: '#fff',
-    padding: '0.4rem 0.85rem',
-    borderRadius: '6px',
-    textDecoration: 'none',
-    fontSize: '0.875rem',
+    background: "#2563eb",
+    color: "#fff",
+    padding: "0.4rem 0.85rem",
+    borderRadius: "6px",
+    textDecoration: "none",
+    fontSize: "0.875rem",
     fontWeight: 600,
   };
 
   return (
     <nav
       style={{
-        background: '#fff',
-        borderBottom: '1px solid #e5e7eb',
-        boxShadow: '0 1px 3px rgba(0,0,0,0.08)',
-        position: 'sticky',
+        background: "#fff",
+        borderBottom: "1px solid #e5e7eb",
+        boxShadow: "0 1px 3px rgba(0,0,0,0.08)",
+        position: "sticky",
         top: 0,
         zIndex: 9999,
-        padding: '0 1.5rem',
+        padding: "0 1.5rem",
       }}
     >
       <div
         style={{
-          maxWidth: '1280px',
-          margin: '0 auto',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          height: '56px',
+          maxWidth: "1280px",
+          margin: "0 auto",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          height: "56px",
         }}
       >
         {/* Brand */}
         <Link
           href="/"
-          style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem' }}
+          style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: "0.5rem" }}
         >
-          <span style={{ fontWeight: 700, fontSize: '1.1rem', color: '#1e3a8a' }}>
-            IISkills
-          </span>
-          {appName && appName !== 'IISkills' && (
-            <span style={{ color: '#6b7280', fontSize: '0.9rem', fontWeight: 400 }}>
+          <span style={{ fontWeight: 700, fontSize: "1.1rem", color: "#1e3a8a" }}>IISkills</span>
+          {appName && appName !== "IISkills" && (
+            <span style={{ color: "#6b7280", fontSize: "0.9rem", fontWeight: 400 }}>
               — {appName}
             </span>
           )}
@@ -83,9 +81,9 @@ export function Navbar({ appName = 'IISkills' }) {
         {/* Desktop nav */}
         <div
           style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '1.25rem',
+            display: "flex",
+            alignItems: "center",
+            gap: "1.25rem",
           }}
           className="iiskills-desktop-nav"
         >
@@ -104,7 +102,7 @@ export function Navbar({ appName = 'IISkills' }) {
         </div>
 
         {/* Right side: Google Translate (always visible) + Mobile hamburger */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
           {/* Google Translate widget – rendered once here, visible on both desktop and mobile */}
           <GoogleTranslate />
 
@@ -112,16 +110,23 @@ export function Navbar({ appName = 'IISkills' }) {
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             style={{
-              display: 'none',
-              background: 'none',
-              border: 'none',
-              cursor: 'pointer',
-              padding: '0.25rem',
+              display: "none",
+              background: "none",
+              border: "none",
+              cursor: "pointer",
+              padding: "0.25rem",
             }}
             className="iiskills-mobile-menu-btn"
             aria-label="Toggle menu"
           >
-            <svg width="24" height="24" fill="none" stroke="#374151" strokeWidth="2" viewBox="0 0 24 24">
+            <svg
+              width="24"
+              height="24"
+              fill="none"
+              stroke="#374151"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+            >
               {isMenuOpen ? (
                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
               ) : (
@@ -136,11 +141,11 @@ export function Navbar({ appName = 'IISkills' }) {
       {isMenuOpen && (
         <div
           style={{
-            padding: '0.75rem 0 1rem',
-            borderTop: '1px solid #e5e7eb',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '0.75rem',
+            padding: "0.75rem 0 1rem",
+            borderTop: "1px solid #e5e7eb",
+            display: "flex",
+            flexDirection: "column",
+            gap: "0.75rem",
           }}
           className="iiskills-mobile-menu"
         >
@@ -148,16 +153,24 @@ export function Navbar({ appName = 'IISkills' }) {
             <Link
               key={link.href}
               href={link.href}
-              style={{ ...linkStyle, display: 'block' }}
+              style={{ ...linkStyle, display: "block" }}
               onClick={() => setIsMenuOpen(false)}
             >
               {link.label}
             </Link>
           ))}
-          <Link href="/login" style={{ ...linkStyle, display: 'block' }} onClick={() => setIsMenuOpen(false)}>
+          <Link
+            href="/login"
+            style={{ ...linkStyle, display: "block" }}
+            onClick={() => setIsMenuOpen(false)}
+          >
             Login
           </Link>
-          <Link href="/register" style={{ ...btnStyle, display: 'inline-block', alignSelf: 'flex-start' }} onClick={() => setIsMenuOpen(false)}>
+          <Link
+            href="/register"
+            style={{ ...btnStyle, display: "inline-block", alignSelf: "flex-start" }}
+            onClick={() => setIsMenuOpen(false)}
+          >
             Register
           </Link>
         </div>

@@ -32,12 +32,12 @@ export default function AdminDashboard() {
     // TEMPORARY: Bypass authentication for immediate admin access
     // TODO: Re-enable authentication after initial setup
     // To disable bypass, set NEXT_PUBLIC_DISABLE_AUTH=false in .env.local
-    const BYPASS_AUTH = process.env.NEXT_PUBLIC_DISABLE_AUTH === 'true';
-    
+    const BYPASS_AUTH = process.env.NEXT_PUBLIC_DISABLE_AUTH === "true";
+
     if (BYPASS_AUTH) {
-      console.warn('⚠️ SECURITY WARNING: Admin authentication is bypassed!');
-      console.warn('⚠️ This should NEVER be enabled in production!');
-      console.warn('⚠️ Set NEXT_PUBLIC_DISABLE_AUTH=false to re-enable authentication');
+      console.warn("⚠️ SECURITY WARNING: Admin authentication is bypassed!");
+      console.warn("⚠️ This should NEVER be enabled in production!");
+      console.warn("⚠️ Set NEXT_PUBLIC_DISABLE_AUTH=false to re-enable authentication");
       setIsAuthenticated(true);
       setIsLoading(false);
       return;
@@ -67,10 +67,10 @@ export default function AdminDashboard() {
     try {
       // Fetch aggregated content from all sources
       const [coursesRes, modulesRes, lessonsRes, usersRes] = await Promise.all([
-        fetch('/api/admin/content?type=courses').catch(() => ({ ok: false })),
-        fetch('/api/admin/content?type=modules').catch(() => ({ ok: false })),
-        fetch('/api/admin/content?type=lessons').catch(() => ({ ok: false })),
-        supabase.from('profiles').select('*', { count: 'exact', head: true }),
+        fetch("/api/admin/content?type=courses").catch(() => ({ ok: false })),
+        fetch("/api/admin/content?type=modules").catch(() => ({ ok: false })),
+        fetch("/api/admin/content?type=lessons").catch(() => ({ ok: false })),
+        supabase.from("profiles").select("*", { count: "exact", head: true }),
       ]);
 
       let courseCount = 0;
@@ -99,26 +99,26 @@ export default function AdminDashboard() {
         totalLessons: lessonCount,
       });
     } catch (error) {
-      console.error('Error fetching stats:', error);
+      console.error("Error fetching stats:", error);
     }
   };
 
   const fetchSiteCounts = async () => {
     try {
       // Fetch aggregated courses to get counts per site
-      const response = await fetch('/api/admin/content?type=courses');
+      const response = await fetch("/api/admin/content?type=courses");
       const data = await response.json();
-      
+
       if (response.ok && data.contents) {
         const counts = {};
-        data.contents.forEach(course => {
-          const subdomain = course.sourceApp || course.subdomain || 'main';
+        data.contents.forEach((course) => {
+          const subdomain = course.sourceApp || course.subdomain || "main";
           counts[subdomain] = (counts[subdomain] || 0) + 1;
         });
         setSiteCounts(counts);
       }
     } catch (error) {
-      console.error('Error fetching site counts:', error);
+      console.error("Error fetching site counts:", error);
     }
   };
 
@@ -143,18 +143,25 @@ export default function AdminDashboard() {
       <AdminNav />
       <main className="max-w-7xl mx-auto px-4 py-12">
         {/* Warning Banner */}
-        {process.env.NEXT_PUBLIC_DISABLE_AUTH === 'true' && (
+        {process.env.NEXT_PUBLIC_DISABLE_AUTH === "true" && (
           <div className="bg-red-100 border-l-4 border-red-500 p-4 mb-8">
             <div className="flex">
               <div className="flex-shrink-0">
                 <svg className="h-5 w-5 text-red-500" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                  <path
+                    fillRule="evenodd"
+                    d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
+                    clipRule="evenodd"
+                  />
                 </svg>
               </div>
               <div className="ml-3">
                 <p className="text-sm text-red-700">
-                  <strong>🚨 SECURITY WARNING:</strong> Admin authentication is currently BYPASSED! This mode should NEVER be enabled in production. 
-                  All administrative functions are available without authentication. Set <code className="bg-red-200 px-1">NEXT_PUBLIC_DISABLE_AUTH=false</code> to re-enable authentication.
+                  <strong>🚨 SECURITY WARNING:</strong> Admin authentication is currently BYPASSED!
+                  This mode should NEVER be enabled in production. All administrative functions are
+                  available without authentication. Set{" "}
+                  <code className="bg-red-200 px-1">NEXT_PUBLIC_DISABLE_AUTH=false</code> to
+                  re-enable authentication.
                 </p>
               </div>
             </div>
@@ -162,7 +169,9 @@ export default function AdminDashboard() {
         )}
 
         <h1 className="text-4xl font-bold text-primary mb-2">Universal Admin Dashboard</h1>
-        <p className="text-gray-600 mb-8">Manage all iiskills.cloud sites and content from one central location</p>
+        <p className="text-gray-600 mb-8">
+          Manage all iiskills.cloud sites and content from one central location
+        </p>
 
         {/* Statistics Cards */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
@@ -273,13 +282,14 @@ export default function AdminDashboard() {
         <h2 className="text-2xl font-bold text-primary mb-6">Multi-Site Management</h2>
         <div className="bg-white rounded-lg shadow-lg p-6 mb-12">
           <p className="text-gray-600 mb-6">
-            Manage content across all iiskills learning platforms. Click on a site to visit it, or use the buttons to manage content.
+            Manage content across all iiskills learning platforms. Click on a site to visit it, or
+            use the buttons to manage content.
           </p>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
             {ALL_SITES.map((site) => {
               const courseCount = siteCounts[site.subdomain] || 0;
               const isOnline = true; // Could be implemented with a health check
-              
+
               return (
                 <div
                   key={site.subdomain}
@@ -287,21 +297,25 @@ export default function AdminDashboard() {
                 >
                   <div className="flex justify-between items-start mb-3">
                     <h4 className="font-bold text-lg text-gray-800">{site.name}</h4>
-                    <span className={`text-xs px-2 py-1 rounded-full font-semibold ${
-                      isOnline ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
-                    }`}>
-                      {isOnline ? 'Online' : 'Offline'}
+                    <span
+                      className={`text-xs px-2 py-1 rounded-full font-semibold ${
+                        isOnline ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
+                      }`}
+                    >
+                      {isOnline ? "Online" : "Offline"}
                     </span>
                   </div>
                   <p className="text-xs text-gray-500 mb-4">{site.subdomain}</p>
-                  
+
                   <div className="mb-4 space-y-1">
                     <div className="flex items-center text-sm text-gray-600">
                       <span className="mr-2">📚</span>
-                      <span>{courseCount} {courseCount === 1 ? 'Course' : 'Courses'}</span>
+                      <span>
+                        {courseCount} {courseCount === 1 ? "Course" : "Courses"}
+                      </span>
                     </div>
                   </div>
-                  
+
                   <div className="flex space-x-2">
                     <a
                       href={getSiteUrl(site.slug)}
@@ -372,22 +386,34 @@ export default function AdminDashboard() {
               </h3>
               <ul className="space-y-2">
                 <li>
-                  <Link href="/admin/courses" className="text-blue-600 hover:text-blue-800 hover:underline">
+                  <Link
+                    href="/admin/courses"
+                    className="text-blue-600 hover:text-blue-800 hover:underline"
+                  >
                     → Courses - Create, edit, delete courses
                   </Link>
                 </li>
                 <li>
-                  <Link href="/admin/modules" className="text-blue-600 hover:text-blue-800 hover:underline">
+                  <Link
+                    href="/admin/modules"
+                    className="text-blue-600 hover:text-blue-800 hover:underline"
+                  >
                     → Modules - Organize course modules
                   </Link>
                 </li>
                 <li>
-                  <Link href="/admin/lessons" className="text-blue-600 hover:text-blue-800 hover:underline">
+                  <Link
+                    href="/admin/lessons"
+                    className="text-blue-600 hover:text-blue-800 hover:underline"
+                  >
                     → Lessons - Manage lesson content
                   </Link>
                 </li>
                 <li>
-                  <Link href="/admin/content" className="text-blue-600 hover:text-blue-800 hover:underline">
+                  <Link
+                    href="/admin/content"
+                    className="text-blue-600 hover:text-blue-800 hover:underline"
+                  >
                     → Page Content - Edit static pages
                   </Link>
                 </li>
@@ -401,12 +427,18 @@ export default function AdminDashboard() {
               </h3>
               <ul className="space-y-2">
                 <li>
-                  <Link href="/admin/users" className="text-blue-600 hover:text-blue-800 hover:underline">
+                  <Link
+                    href="/admin/users"
+                    className="text-blue-600 hover:text-blue-800 hover:underline"
+                  >
                     → Users - View and manage users
                   </Link>
                 </li>
                 <li>
-                  <Link href="/admin/settings" className="text-blue-600 hover:text-blue-800 hover:underline">
+                  <Link
+                    href="/admin/settings"
+                    className="text-blue-600 hover:text-blue-800 hover:underline"
+                  >
                     → Settings - Configure site settings
                   </Link>
                 </li>

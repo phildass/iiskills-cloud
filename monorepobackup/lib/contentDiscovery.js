@@ -1,24 +1,24 @@
 /**
  * Content Discovery System
- * 
+ *
  * Auto-discovers and aggregates content from all learn-* apps in the monorepo.
  * This eliminates the need for manual updates when new apps or data sources are added.
- * 
+ *
  * Features:
  * - Scans all learn-* directories for data files
  * - Supports multiple file formats (JSON, JS modules)
  * - Caches discovered content for performance
  * - Provides source metadata for each discovered item
  * - Gracefully handles missing or invalid files
- * 
+ *
  * Usage:
  *   import { discoverAllContent } from './contentDiscovery';
  *   const content = await discoverAllContent();
  */
 
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
 
 // Get __dirname equivalent in ES modules
 const __filename = fileURLToPath(import.meta.url);
@@ -35,18 +35,18 @@ const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
  * Common locations where content files might exist
  */
 const CONTENT_FILE_PATTERNS = [
-  'manifest.json',
-  'data/courses.json',
-  'data/modules.json',
-  'data/lessons.json',
-  'data/content.json',
-  'data/newsletters.json',
-  'data/deadlines.json',
-  'data/geography.json',
-  'seeds/content.json',
-  'content/courses.json',
-  'content/data.json',
-  'public/data/courses.json',
+  "manifest.json",
+  "data/courses.json",
+  "data/modules.json",
+  "data/lessons.json",
+  "data/content.json",
+  "data/newsletters.json",
+  "data/deadlines.json",
+  "data/geography.json",
+  "seeds/content.json",
+  "content/courses.json",
+  "content/data.json",
+  "public/data/courses.json",
 ];
 
 /**
@@ -57,22 +57,22 @@ function findLearnAppDirectories() {
   try {
     // Start from project root
     const projectRoot = path.resolve(process.cwd());
-    const appsDir = path.join(projectRoot, 'apps');
-    
+    const appsDir = path.join(projectRoot, "apps");
+
     if (!fs.existsSync(appsDir)) {
-      console.warn('⚠️ Apps directory not found:', appsDir);
+      console.warn("⚠️ Apps directory not found:", appsDir);
       return [];
     }
-    
+
     const entries = fs.readdirSync(appsDir, { withFileTypes: true });
     const learnApps = entries
-      .filter(entry => entry.isDirectory() && entry.name.startsWith('learn-'))
-      .map(entry => path.join(appsDir, entry.name));
-    
+      .filter((entry) => entry.isDirectory() && entry.name.startsWith("learn-"))
+      .map((entry) => path.join(appsDir, entry.name));
+
     console.log(`📁 Found ${learnApps.length} learn-* app directories`);
     return learnApps;
   } catch (error) {
-    console.error('Error finding learn-* directories:', error.message);
+    console.error("Error finding learn-* directories:", error.message);
     return [];
   }
 }
@@ -85,10 +85,10 @@ function findLearnAppDirectories() {
 function discoverContentInApp(appDir) {
   const appName = path.basename(appDir);
   const discoveredFiles = [];
-  
+
   for (const pattern of CONTENT_FILE_PATTERNS) {
     const filePath = path.join(appDir, pattern);
-    
+
     if (fs.existsSync(filePath)) {
       try {
         const stats = fs.statSync(filePath);
@@ -103,11 +103,11 @@ function discoverContentInApp(appDir) {
       }
     }
   }
-  
+
   if (discoveredFiles.length > 0) {
     console.log(`  ✓ ${appName}: Found ${discoveredFiles.length} content file(s)`);
   }
-  
+
   return {
     appName,
     appDir,
@@ -122,7 +122,7 @@ function discoverContentInApp(appDir) {
  */
 function parseContentFile(filePath) {
   try {
-    const content = fs.readFileSync(filePath, 'utf-8');
+    const content = fs.readFileSync(filePath, "utf-8");
     return JSON.parse(content);
   } catch (error) {
     console.error(`Error parsing ${filePath}:`, error.message);
@@ -144,35 +144,45 @@ function normalizeContent(content, source) {
     profiles: [],
     questions: [],
   };
-  
+
   // Handle different content structures
   if (Array.isArray(content)) {
     // If content is an array, assume it's courses
     normalized.courses = content;
-  } else if (typeof content === 'object') {
+  } else if (typeof content === "object") {
     // Check for manifest format with items array
     if (content.items && Array.isArray(content.items)) {
       // Categorize items by type
-      content.items.forEach(item => {
+      content.items.forEach((item) => {
         const type = item.type?.toLowerCase();
-        
+
         if (!type) {
-          console.warn(`⚠️ Item ${item.id || 'unknown'} from ${source} has no type field, treating as course`);
+          console.warn(
+            `⚠️ Item ${item.id || "unknown"} from ${source} has no type field, treating as course`
+          );
         }
-        
+
         // Map item types to normalized categories
-        if (type === 'course' || type === 'test' || type === 'job' || type === 'article' || type === 'sports') {
+        if (
+          type === "course" ||
+          type === "test" ||
+          type === "job" ||
+          type === "article" ||
+          type === "sports"
+        ) {
           // Treat all these as "courses" for admin dashboard
           normalized.courses.push(item);
-        } else if (type === 'module') {
+        } else if (type === "module") {
           normalized.modules.push(item);
-        } else if (type === 'lesson') {
+        } else if (type === "lesson") {
           normalized.lessons.push(item);
-        } else if (type === 'question') {
+        } else if (type === "question") {
           normalized.questions.push(item);
         } else {
           // Default to courses if type is unknown
-          console.warn(`⚠️ Unknown content type "${type}" for item ${item.id || 'unknown'} from ${source}, treating as course`);
+          console.warn(
+            `⚠️ Unknown content type "${type}" for item ${item.id || "unknown"} from ${source}, treating as course`
+          );
           normalized.courses.push(item);
         }
       });
@@ -185,18 +195,18 @@ function normalizeContent(content, source) {
       if (content.questions) normalized.questions = content.questions;
     }
   }
-  
+
   // Add source metadata to all items
   const addSourceMetadata = (items) => {
-    return items.map(item => ({
+    return items.map((item) => ({
       ...item,
-      appId: source,              // Standardized app identification
-      _discoveredFrom: source,    // Legacy field for backward compatibility
+      appId: source, // Standardized app identification
+      _discoveredFrom: source, // Legacy field for backward compatibility
       _discoveredAt: new Date().toISOString(),
-      _source: 'discovered',      // Mark as discovered content
+      _source: "discovered", // Mark as discovered content
     }));
   };
-  
+
   return {
     courses: addSourceMetadata(normalized.courses),
     modules: addSourceMetadata(normalized.modules),
@@ -213,7 +223,7 @@ function normalizeContent(content, source) {
  */
 export async function discoverAllContent(options = {}) {
   const { forceRefresh = false } = options;
-  
+
   // Check cache
   if (!forceRefresh && contentCache && cacheTimestamp) {
     const cacheAge = Date.now() - cacheTimestamp;
@@ -222,9 +232,9 @@ export async function discoverAllContent(options = {}) {
       return contentCache;
     }
   }
-  
-  console.log('🔍 Starting content discovery across all learn-* apps...');
-  
+
+  console.log("🔍 Starting content discovery across all learn-* apps...");
+
   const learnApps = findLearnAppDirectories();
   const allContent = {
     courses: [],
@@ -239,31 +249,31 @@ export async function discoverAllContent(options = {}) {
       sources: [],
     },
   };
-  
+
   for (const appDir of learnApps) {
     const discovered = discoverContentInApp(appDir);
-    
+
     if (discovered.files.length === 0) {
       continue;
     }
-    
+
     // Parse each discovered file
     for (const file of discovered.files) {
       const content = parseContentFile(file.path);
-      
+
       if (!content) {
         continue;
       }
-      
+
       const normalized = normalizeContent(content, discovered.appName);
-      
+
       // Merge into aggregated content
       allContent.courses.push(...normalized.courses);
       allContent.modules.push(...normalized.modules);
       allContent.lessons.push(...normalized.lessons);
       allContent.profiles.push(...normalized.profiles);
       allContent.questions.push(...normalized.questions);
-      
+
       allContent._metadata.totalFilesFound++;
       allContent._metadata.sources.push({
         app: discovered.appName,
@@ -280,8 +290,8 @@ export async function discoverAllContent(options = {}) {
       });
     }
   }
-  
-  console.log(`✅ Content discovery complete:`);
+
+  console.log("✅ Content discovery complete:");
   console.log(`   - Apps scanned: ${allContent._metadata.totalAppsScanned}`);
   console.log(`   - Files found: ${allContent._metadata.totalFilesFound}`);
   console.log(`   - Courses: ${allContent.courses.length}`);
@@ -289,11 +299,11 @@ export async function discoverAllContent(options = {}) {
   console.log(`   - Lessons: ${allContent.lessons.length}`);
   console.log(`   - Profiles: ${allContent.profiles.length}`);
   console.log(`   - Questions: ${allContent.questions.length}`);
-  
+
   // Update cache
   contentCache = allContent;
   cacheTimestamp = Date.now();
-  
+
   return allContent;
 }
 
@@ -304,13 +314,11 @@ export async function discoverAllContent(options = {}) {
  */
 export async function getAppContent(appName) {
   const allContent = await discoverAllContent();
-  
+
   const filterByApp = (items) => {
-    return items.filter(item => 
-      item.appId === appName || item._discoveredFrom === appName
-    );
+    return items.filter((item) => item.appId === appName || item._discoveredFrom === appName);
   };
-  
+
   return {
     courses: filterByApp(allContent.courses),
     modules: filterByApp(allContent.modules),
@@ -326,7 +334,7 @@ export async function getAppContent(appName) {
  */
 export async function getAppsWithContent() {
   const allContent = await discoverAllContent();
-  return allContent._metadata.sources.map(s => s.app);
+  return allContent._metadata.sources.map((s) => s.app);
 }
 
 /**
@@ -335,7 +343,7 @@ export async function getAppsWithContent() {
 export function clearDiscoveryCache() {
   contentCache = null;
   cacheTimestamp = null;
-  console.log('🗑️ Discovery cache cleared');
+  console.log("🗑️ Discovery cache cleared");
 }
 
 /**

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
 
 const appName = process.argv[2];
 
@@ -10,7 +10,7 @@ if (!appName) {
   process.exit(1);
 }
 
-const appDir = path.join(__dirname, 'apps', appName);
+const appDir = path.join(__dirname, "apps", appName);
 
 // Basic template
 const indexPage = `import { CoreLayout } from '../../packages/ui';
@@ -37,7 +37,7 @@ const configFile = `module.exports = {
 `;
 
 fs.mkdirSync(appDir, { recursive: true });
-fs.writeFileSync(path.join(appDir, 'index.js'), indexPage);
-fs.writeFileSync(path.join(appDir, 'app.config.js'), configFile);
+fs.writeFileSync(path.join(appDir, "index.js"), indexPage);
+fs.writeFileSync(path.join(appDir, "app.config.js"), configFile);
 
 console.log(`App scaffolded at ${appDir}`);
