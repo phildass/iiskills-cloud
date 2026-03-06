@@ -7,6 +7,10 @@ let _sgMail = null;
 let _vonageClient = null;
 
 export default async function handler(req, res) {
+  if (process.env.OTP_DISABLED === "true") {
+    return res.status(410).json({ error: "OTP is temporarily disabled" });
+  }
+
   if (!process.env.SENDGRID_API_KEY) {
     return res
       .status(503)

@@ -12,6 +12,10 @@ const vonageClient = new Vonage({
 });
 
 export default async function handler(req, res) {
+  if (process.env.OTP_DISABLED === "true") {
+    return res.status(410).json({ error: "OTP is temporarily disabled" });
+  }
+
   // Get user info from request body
   const { email, phone } = req.body;
 

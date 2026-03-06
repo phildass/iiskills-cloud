@@ -1,1 +1,0 @@
-../../apps/learn-math/next.config.js

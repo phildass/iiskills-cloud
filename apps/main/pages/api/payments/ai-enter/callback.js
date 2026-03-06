@@ -290,9 +290,6 @@ export default async function handler(req, res) {
   // Kept for backward compatibility when user_token is absent.
   // New deployments should always include user_token (Option A flow).
 
-  const { generateAndDispatchOTP } = await import("@lib/otpService");
-
-
   // If OTP is disabled, reject requests that lack a user_token (Option A).
   if (process.env.OTP_DISABLED === 'true') {
     return res.status(400).json({

@@ -151,17 +151,14 @@ export default function OtpGateway({ otpDisabled }) {
               </div>
               <h1 className="text-2xl font-bold text-gray-900 mb-3">OTP Activation Unavailable</h1>
               <p className="text-gray-600 mb-6">
-                OTP activation is temporarily disabled. Please contact{' '}
-                <a href="mailto:support@iiskills.cloud" className="text-blue-600 underline">
-                  support@iiskills.cloud
-                </a>{' '}
-                for assistance.
+                If you have any issues, go to your dashboard and raise a ticket. We will revert as
+                soon as possible.
               </p>
               <Link
-                href="/payments/iiskills"
+                href="/tickets"
                 className="inline-block bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3 px-6 rounded-xl font-bold hover:from-blue-700 hover:to-indigo-700 transition-all shadow-lg"
               >
-                Go to Payments
+                Go to Tickets
               </Link>
               <Link href="/" className="block mt-4 text-sm text-gray-500 hover:text-gray-700">
                 Return to iiskills.cloud
@@ -352,10 +349,8 @@ export default function OtpGateway({ otpDisabled }) {
 
               <div className="text-center space-y-2 pt-2">
                 <p className="text-xs text-gray-500">
-                  Did not receive your OTP?{" "}
-                  <a href="mailto:support@iiskills.cloud" className="text-blue-600 underline">
-                    Contact support
-                  </a>
+                  If you have any issues, go to your dashboard and raise a ticket. We will revert as
+                  soon as possible.
                 </p>
                 <p className="text-xs text-gray-500">
                   Want to enrol?{" "}
