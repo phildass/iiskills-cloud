@@ -20,7 +20,7 @@ Learn Pr is a self-paced online course platform designed to take students from A
 ### Prerequisites
 
 - Node.js 18+ and Yarn
-- Supabase account (optional - works in SUSPENDED mode)
+- Supabase account
 - Environment variables configured
 
 ### Installation
@@ -99,7 +99,7 @@ apps/learn-pr/
 ### Modules Overview
 
 1. **Introduction to AI** (Beginner) - Fundamentals and history
-2. **Types of AI** (Beginner) - Categories and classifications
+1. **Types of AI** (Beginner) - Categories and classifications
 3. **Data Science Fundamentals** (Beginner) - Data foundation
 4. **Python for AI** (Beginner) - Programming basics
 5. **Supervised Learning** (Intermediate) - ML algorithms
@@ -112,7 +112,7 @@ apps/learn-pr/
 ### Learning Flow
 
 1. **Registration** - Pay Rs 99 for course access
-2. **Onboarding** - Choose learning path (3 options)
+1. **Onboarding** - Choose learning path (3 options)
 3. **Lessons** - Study content (max 400 words each)
 4. **Quizzes** - Pass with 3/5 to unlock next lesson
 5. **Final Exam** - 20 questions, pass with 13+ correct
@@ -153,7 +153,7 @@ This app uses **Google Cloud Translation API** for multi-language support.
 ### Setup:
 
 1. Get a Google Cloud Translation API key from [Google Cloud Console](https://console.cloud.google.com)
-2. Add to `.env.local`:
+1. Add to `.env.local`:
    ```bash
    GOOGLE_TRANSLATE_API_KEY=your-key-here
    ```
@@ -177,14 +177,6 @@ This app uses **Google Cloud Translation API** for multi-language support.
 
 If API key is missing or API fails, original English text is displayed.
 
-### SUSPENDED Mode
-
-
-
-- Development without Supabase setup
-- Demonstrations and testing
-- Environments where database is temporarily unavailable
-
 ## 📊 Seed Data Generation
 
 The seed script generates 100 lessons with content and quizzes:
@@ -203,7 +195,7 @@ In production with `OPENAI_API_KEY`, the seed script would use these prompts:
 Write a comprehensive 400-word lesson about {topic} in the context of {module_title}.
 The lesson should include:
 1. An engaging introduction explaining why this topic matters
-2. 3-4 key concepts with clear explanations and examples
+1. 3-4 key concepts with clear explanations and examples
 3. Practical applications in real-world scenarios
 4. A summary reinforcing the main takeaways
 
@@ -218,7 +210,7 @@ Writing style: Educational, engaging, and practical.
 Generate 5 multiple-choice questions to test understanding of {topic} in {module_title}.
 For each question:
 1. Write a clear question that tests conceptual understanding
-2. Provide 4 answer options where only one is correct
+1. Provide 4 answer options where only one is correct
 3. Include a brief explanation of why the correct answer is right
 
 Difficulty level: {difficulty}
@@ -255,7 +247,7 @@ Format as JSON array with fields: question, options, correct_answer, explanation
 ### Access Code System
 
 1. User pays Rs 99 via external payment gateway
-2. Payment confirmed via `/api/payment/confirm`
+1. Payment confirmed via `/api/payment/confirm`
 3. System generates unique access code (format: `XXXX-XXXX-XXXX`)
 4. Access code emailed to user via SendGrid
 5. User enters code to activate account
@@ -407,7 +399,7 @@ yarn build
 
 If Supabase is unavailable:
 
-2. App will use in-memory storage
+1. App will use in-memory storage
 3. Data persists only for session duration
 
 ### Payment Issues
@@ -426,7 +418,7 @@ If Supabase is unavailable:
 ## 🤝 Contributing
 
 1. Follow existing code patterns
-2. Write descriptive commit messages
+1. Write descriptive commit messages
 3. Test all changes locally
 4. Update documentation as needed
 
