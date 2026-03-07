@@ -13,9 +13,10 @@ const path = require("path");
 
 const ROOT = path.resolve(__dirname, "..");
 
-// Patterns that must NOT appear in any tracked source file
+// Patterns that must NOT appear in any tracked source file path
 const BANNED_PATTERNS = [
-  /pages\/api\/.*otp.*\.js$/i, // OTP API route files
+  /pages\/api\/.*otp.*\.js$/i, // OTP API route files (e.g. pages/api/send-otp.js)
+  /pages\/otp-gateway\.js$/i, // OTP gateway page
   /lib\/otpService\.js$/, // OTP service module
   /lib\/membershipEmail\.js$/, // OTP membership email module
 ];
@@ -35,6 +36,9 @@ const BANNED_CONTENT_PATTERNS = [
   { pattern: /VONAGE_API_KEY/, description: "VONAGE_API_KEY env var reference" },
   { pattern: /VONAGE_API_SECRET/, description: "VONAGE_API_SECRET env var reference" },
   { pattern: /VONAGE_BRAND_NAME/, description: "VONAGE_BRAND_NAME env var reference" },
+  // Kebab-case OTP strings that may appear as literals in code (route hrefs, fetch calls, etc.)
+  { pattern: /['"\/]send-otp['\"\/]/, description: "send-otp route or string literal" },
+  { pattern: /['"\/]verify-otp['\"\/]/, description: "verify-otp route or string literal" },
 ];
 
 // Directories to skip during scanning
