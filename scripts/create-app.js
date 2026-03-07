@@ -630,13 +630,6 @@ export default function AdminDashboard() {
 
               <div className="bg-white overflow-hidden shadow rounded-lg">
                 <div className="p-5">
-                  <h3 className="text-lg font-medium text-gray-900">OTP Codes</h3>
-                  <p className="mt-1 text-sm text-gray-500">Generate and manage access codes</p>
-                </div>
-              </div>
-
-              <div className="bg-white overflow-hidden shadow rounded-lg">
-                <div className="p-5">
                   <h3 className="text-lg font-medium text-gray-900">Content</h3>
                   <p className="mt-1 text-sm text-gray-500">Manage course content</p>
                 </div>
@@ -844,7 +837,6 @@ import { getEffectivePricingBreakdown, formatINR } from '@iiskills/ui/pricing';
 
 export default function Payment() {
   const router = useRouter();
-  const [otpCode, setOtpCode] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const pricing = getEffectivePricingBreakdown();
@@ -861,24 +853,6 @@ export default function Payment() {
       router.push('/dashboard');
     } catch (err) {
       setError(err.message || 'Payment failed');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleOTPSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setError('');
-
-    try {
-      // TODO: Implement OTP validation
-      console.log('Validating OTP:', otpCode);
-      
-      // For now, just redirect to dashboard
-      router.push('/dashboard');
-    } catch (err) {
-      setError(err.message || 'Invalid OTP code');
     } finally {
       setLoading(false);
     }
@@ -918,41 +892,6 @@ export default function Payment() {
               >
                 {loading ? 'Processing...' : 'Pay Now'}
               </button>
-            </div>
-
-            {/* OR Divider */}
-            <div className="relative my-8">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-gray-300"></div>
-              </div>
-              <div className="relative flex justify-center text-sm">
-                <span className="px-4 bg-white text-gray-500">OR</span>
-              </div>
-            </div>
-
-            {/* Option 2: OTP Code */}
-            <div className="p-6 border-2 border-green-200 rounded-lg">
-              <h3 className="text-xl font-semibold mb-2">Have an Access Code?</h3>
-              <p className="text-gray-600 mb-4">
-                Enter your OTP code provided by the administrator
-              </p>
-              <form onSubmit={handleOTPSubmit}>
-                <input
-                  type="text"
-                  value={otpCode}
-                  onChange={(e) => setOtpCode(e.target.value.toUpperCase())}
-                  placeholder="Enter OTP Code"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg mb-4"
-                  required
-                />
-                <button
-                  type="submit"
-                  disabled={loading || !otpCode}
-                  className="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 disabled:opacity-50"
-                >
-                  {loading ? 'Validating...' : 'Activate Access'}
-                </button>
-              </form>
             </div>
 
             {error && (
@@ -996,25 +935,6 @@ export default async function handler(req, res) {
 }
 
 // Add API routes
-files["pages/api/send-otp.js"] = `// OTP sending handler
-export default async function handler(req, res) {
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
-  }
-
-  try {
-    const { email, phone } = req.body;
-
-    // TODO: Implement OTP sending via email/SMS
-    
-    res.status(200).json({ success: true, message: 'OTP sent' });
-  } catch (error) {
-    console.error('OTP sending error:', error);
-    res.status(500).json({ error: 'Failed to send OTP' });
-  }
-}
-`;
-
 files["pages/api/users/access.js"] = `// User access check handler
 export default async function handler(req, res) {
   if (req.method !== 'GET') {
