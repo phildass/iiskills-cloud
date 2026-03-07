@@ -128,7 +128,6 @@ Create `.env.local` from `.env.local.example`:
 # Supabase Configuration
 NEXT_PUBLIC_SUPABASE_URL=your-project-url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
-NEXT_PUBLIC_SUPABASE_SUSPENDED=false
 
 # App Configuration
 NEXT_PUBLIC_SITE_URL=http://localhost:3011
@@ -147,8 +146,6 @@ PAYMENT_RETURN_URL=https://aienter.in/payments
 ```
 
 ### SUSPENDED Mode
-
-When `NEXT_PUBLIC_SUPABASE_SUSPENDED=true`, the app uses in-memory storage as a fallback, allowing it to function without a database connection. This is useful for:
 
 - Development without Supabase setup
 - Demonstrations and testing
@@ -376,7 +373,6 @@ yarn build
 
 If Supabase is unavailable:
 
-1. Set `NEXT_PUBLIC_SUPABASE_SUSPENDED=true`
 2. App will use in-memory storage
 3. Data persists only for session duration
 

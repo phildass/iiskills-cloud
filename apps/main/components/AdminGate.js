@@ -8,7 +8,7 @@
  *   if (!ready) return null; // or a loading spinner
  *
  * Behaviour:
- * - When NEXT_PUBLIC_DISABLE_ADMIN_GATE=true, always allows access (sandbox mode).
+ * - When NEXT_PUBLIC_DISABLE_ADMIN_GATE=true, always allows access (dev/local override).
  * - Otherwise, calls GET /api/admin/health to validate the admin_session cookie.
  * - If the response is 401, redirects to /admin/login.
  * - If the response is ok (200 or even 500/env issues), the session is valid
@@ -20,7 +20,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
-// Admin gate is disabled when NEXT_PUBLIC_DISABLE_ADMIN_GATE=true (dev/staging sandbox).
+// Admin gate is disabled when NEXT_PUBLIC_DISABLE_ADMIN_GATE=true (local dev override).
 // In production, leave NEXT_PUBLIC_DISABLE_ADMIN_GATE unset (or set to 'false').
 const GATE_DISABLED = process.env.NEXT_PUBLIC_DISABLE_ADMIN_GATE === "true";
 

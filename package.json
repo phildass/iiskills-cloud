@@ -34,7 +34,6 @@
     "format:check": "prettier --check .",
     "dev:main": "cd apps/main && npm run dev",
     "dev:web": "yarn workspace @iiskills/web dev",
-    "dev:admin": "yarn workspace @iiskills/admin dev",
     "dev:learn-physics": "yarn workspace @iiskills/learn-physics dev",
     "generate-pm2-config": "node generate-ecosystem.js",
     "validate-pm2-config": "node validate-ecosystem.js",

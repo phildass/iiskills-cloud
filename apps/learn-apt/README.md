@@ -77,7 +77,6 @@ Create a `.env.local` file with the following variables:
 ```env
 NEXT_PUBLIC_SUPABASE_URL=your-supabase-url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
-NEXT_PUBLIC_SUPABASE_SUSPENDED=false
 NEXT_PUBLIC_SITE_URL=http://localhost:3002
 NEXT_PUBLIC_MAIN_DOMAIN=iiskills.cloud
 NEXT_PUBLIC_APP_ID=learn-apt
