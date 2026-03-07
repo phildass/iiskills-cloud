@@ -91,9 +91,6 @@ export default function AdminNav() {
             <Link href="/admin/users" className="text-yellow-900 hover:text-yellow-700 font-medium">
               Users
             </Link>
-            <Link href="/admin/otp" className="text-yellow-900 hover:text-yellow-700 font-medium">
-              OTP
-            </Link>
             <Link
               href="/admin/tickets"
               className="text-yellow-900 hover:text-yellow-700 font-medium inline-flex items-center gap-1"

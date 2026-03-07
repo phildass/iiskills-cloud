@@ -1,7 +1,7 @@
 import crypto from "crypto";
 import { createClient } from "@supabase/supabase-js";
 import jwt from "jsonwebtoken";
-import { sendThankYouEmail } from "@lib/otpService";
+import { sendThankYouEmail } from "@lib/emailService";
 import { APPS } from "@lib/appRegistry";
 
 /**
@@ -21,11 +21,10 @@ import { APPS } from "@lib/appRegistry";
  *
  * On success (Option A — user_token present):
  * - Verifies the short-lived JWT issued by /api/payments/generate-token
- * - Grants an entitlement directly to the identified user (no OTP needed)
- * - Sends a confirmation notification (email/SMS) — not an OTP
+ * - Grants an entitlement directly to the identified user
+ * - Sends a confirmation notification (email)
  *
- * Fallback (no user_token — legacy flow):
- * - Falls back to the OTP dispatch path for backward compatibility
+ * Requests without user_token are rejected (legacy OTP dispatch removed).
  */
 
 // Disable Next.js body parsing so we can read raw bytes for signature verification
@@ -128,7 +127,6 @@ export default async function handler(req, res) {
   }
 
   // In Option A the user_token carries the identity; phone/email are optional.
-  // In the legacy fallback (no user_token) we still require phone or email.
   if (!user_token && !phone && !email) {
     return res.status(400).json({ error: "user_token or at least one of phone/email is required" });
   }
@@ -218,7 +216,7 @@ export default async function handler(req, res) {
     // The course in the token takes precedence; fall back to app_id
     const courseAppId = course_slug || effectiveAppId;
 
-    // Grant entitlement directly (no OTP required)
+    // Grant entitlement directly
     if (supabase) {
       const { error: entErr } = await supabase.from("entitlements").insert([
         {
@@ -258,7 +256,7 @@ export default async function handler(req, res) {
           .eq("id", user_id)
           .is("paid_at", null);
 
-        // Send confirmation notification (not OTP) — fire-and-forget
+        // Send confirmation notification — fire-and-forget
         const notifyEmail = tokenPayload.email || email || null;
         if (notifyEmail) {
           sendThankYouEmail({
@@ -286,59 +284,10 @@ export default async function handler(req, res) {
     });
   }
 
-  // ── 7. Legacy fallback: generate & dispatch OTP ───────────────────────────
-  // Kept for backward compatibility when user_token is absent.
-  // New deployments should always include user_token (Option A flow).
-
-  // If OTP is disabled, reject requests that lack a user_token (Option A).
-  if (process.env.OTP_DISABLED === "true") {
-    return res.status(400).json({
-      error:
-        "OTP is disabled. Please start payment from iiskills.cloud so a payment token is included.",
-    });
-  }
-
-  const { generateAndDispatchOTP } = await import("@lib/otpService");
-
-  let formattedPhone = phone || null;
-  if (formattedPhone && !formattedPhone.startsWith("+")) {
-    formattedPhone = `+91${formattedPhone}`;
-  }
-
-  try {
-    // generateAndDispatchOTP requires email; use a synthetic one when absent
-    const otpEmail = email || `${razorpay_payment_id}@payment.iiskills.cloud`;
-
-    const otpResult = await generateAndDispatchOTP({
-      email: otpEmail,
-      phone: formattedPhone,
-      appId: effectiveAppId,
-      appName,
-      paymentTransactionId: razorpay_payment_id,
-      reason: "payment_verification",
-      adminGenerated: false,
-    });
-
-    console.log("[ai-enter callback] OTP dispatched (legacy):", {
-      razorpay_payment_id,
-      effectiveAppId,
-      deliveryChannel: otpResult.deliveryChannel,
-      emailSent: otpResult.emailSent,
-      smsSent: otpResult.smsSent,
-    });
-
-    return res.status(200).json({
-      success: true,
-      message: "Payment received and OTP sent",
-      razorpay_payment_id,
-      deliveryChannel: otpResult.deliveryChannel,
-    });
-  } catch (otpErr) {
-    console.error("[ai-enter callback] OTP dispatch failed:", otpErr);
-    return res.status(500).json({
-      success: false,
-      error: "Payment recorded but OTP dispatch failed",
-      razorpay_payment_id,
-    });
-  }
+  // ── 7. Legacy fallback: no user_token provided ───────────────────────────
+  // New deployments must always include user_token (Option A flow).
+  // Requests without a token are rejected — OTP dispatch has been removed.
+  return res.status(400).json({
+    error: "user_token is required. Please start payment from iiskills.cloud.",
+  });
 }

@@ -52,7 +52,11 @@ describe("Daily Strike - Question Validation", () => {
       id: "daily_strike_1",
       question: "Which teams are playing in Match 1?",
       correctAnswer: "India vs Pakistan",
-      distractors: ["Australia vs England", "New Zealand vs South Africa", "Sri Lanka vs Bangladesh"],
+      distractors: [
+        "Australia vs England",
+        "New Zealand vs South Africa",
+        "Sri Lanka vs Bangladesh",
+      ],
       category: "fixtures",
       difficulty: "easy",
       sourceDataId: "wc2026_001",
@@ -71,7 +75,11 @@ describe("Daily Strike - Question Validation", () => {
 
   test("distractors do not include correct answer", () => {
     const correctAnswer = "India vs Pakistan";
-    const distractors = ["Australia vs England", "New Zealand vs South Africa", "Sri Lanka vs Bangladesh"];
+    const distractors = [
+      "Australia vs England",
+      "New Zealand vs South Africa",
+      "Sri Lanka vs Bangladesh",
+    ];
 
     expect(distractors).not.toContain(correctAnswer);
   });

@@ -44,7 +44,6 @@ export async function getCurrentUser() {
   }
   // END TEMPORARY AUTH DISABLE
 
-
   try {
     const {
       data: { session },
@@ -67,7 +66,6 @@ export async function getCurrentUser() {
  * Helper function to sign out the current user
  */
 export async function signOutUser() {
-
   try {
     const { error } = await supabase.auth.signOut();
 
@@ -97,7 +95,6 @@ export function getSiteUrl() {
  * Query wrapper
  */
 export async function queryData(table, filters = {}) {
-
   try {
     let query = supabase.from(table).select("*");
 
@@ -116,7 +113,6 @@ export async function queryData(table, filters = {}) {
  * Insert wrapper
  */
 export async function insertData(table, data) {
-
   try {
     const { data: result, error } = await supabase.from(table).insert(data).select().single();
     return { data: result, error };

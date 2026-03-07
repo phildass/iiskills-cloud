@@ -5,7 +5,6 @@
  *   - /api/auth/* — authentication endpoints
  *   - /api/pay    — payment order creation
  *   - /api/payment/* — payment callbacks / webhooks
- *   - /api/verify-otp — OTP verification
  *   - /admin/*   — admin panel (optionally protected by IP allowlist)
  *
  * Implementation uses a sliding-window counter stored in a module-level
@@ -85,7 +84,6 @@ function getRouteGroup(pathname) {
   if (
     pathname === "/api/pay" ||
     pathname.startsWith("/api/payment/") ||
-    pathname === "/api/verify-otp" ||
     pathname === "/api/paymentMembershipHandler"
   )
     return "payment";
@@ -159,7 +157,6 @@ export const config = {
     "/api/auth/:path*",
     "/api/pay",
     "/api/payment/:path*",
-    "/api/verify-otp",
     "/api/paymentMembershipHandler",
     "/admin/:path*",
     "/profile",

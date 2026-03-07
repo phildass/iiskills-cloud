@@ -43,7 +43,6 @@ export async function getCurrentUser() {
   }
   // END TEMPORARY AUTH DISABLE
 
-
   try {
     const {
       data: { session },
