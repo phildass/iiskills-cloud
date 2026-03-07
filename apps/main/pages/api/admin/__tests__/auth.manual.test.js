@@ -43,7 +43,6 @@ let passwordHash;
     console.log("✓ Password hashed successfully");
     console.log("  Hash length:", passwordHash.length);
     console.log("  Hash starts with $2b$ (bcrypt identifier):", passwordHash.startsWith("$2b$") ? "✓ PASS" : "✗ FAIL");
-    );
 
     // Verify the hash
     const isValid = await bcrypt.compare(testPassword, passwordHash);
