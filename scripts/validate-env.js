@@ -89,7 +89,6 @@ function validateEnvFile(envPath, label) {
       "NEXT_PUBLIC_DISABLE_AUTH=true",
       "NEXT_PUBLIC_DISABLE_PAYWALL=true",
       "NEXT_PUBLIC_USE_LOCAL_CONTENT=true",
-      "NEXT_PUBLIC_SUPABASE_SUSPENDED=true",
     ];
 
     testingFlags.forEach((flag) => {
@@ -116,14 +115,13 @@ function validateEnvFile(envPath, label) {
     const match = content.match(regex);
 
     if (!match) {
-      // Variable not found - check if suspension mode is enabled
-      const isSuspended = content.includes("NEXT_PUBLIC_SUPABASE_SUSPENDED=true");
+      // Variable not found - check if local content mode is enabled
       const isLocalContent = content.includes("NEXT_PUBLIC_USE_LOCAL_CONTENT=true");
 
-      if (!isSuspended && !isLocalContent && !allowTesting) {
+      if (!isLocalContent && !allowTesting) {
         console.log(`  ${RED}✗ FAIL: ${varName} is missing${RESET}`);
         console.log(`    Required: ${description}`);
-        console.log("    Either set this variable or enable NEXT_PUBLIC_SUPABASE_SUSPENDED=true\n");
+        console.log("    Either set this variable or enable NEXT_PUBLIC_USE_LOCAL_CONTENT=true\n");
         fileErrors++;
         errors++;
       }

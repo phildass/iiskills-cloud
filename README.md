@@ -7,8 +7,7 @@ This is the rebuilt IISkills Cloud monorepo using **Yarn Classic (v1)** workspac
 ```
 .
 ├── apps/
-│   ├── main/            # Production main site (port 3000)
-│   ├── admin/           # Admin dashboard (port 3001, basePath /admin)
+│   ├── main/            # Production main site + admin at /admin (port 3000)
 │   └── learn-*/         # Learning apps (various ports)
 ├── packages/
 │   ├── ui/              # Universal navbar, layout (shared across all apps)
@@ -26,8 +25,7 @@ yarn install
 yarn dev
 
 # Run individual apps
-yarn dev:web            # http://localhost:3000
-yarn dev:admin          # http://localhost:3001/admin
+yarn dev:main           # http://localhost:3000
 yarn dev:learn-physics  # http://localhost:3002
 
 # Build all apps
