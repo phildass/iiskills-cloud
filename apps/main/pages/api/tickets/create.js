@@ -4,6 +4,11 @@
  * Creates a support ticket for the authenticated user.
  * Optionally uploads a proof-of-payment file to the "ticket-proofs" bucket.
  *
+ * Enforces:
+ *   - Server-side content moderation (banned keywords/phrases)
+ *   - Monthly ticket limits (Free: 1/month, Paid: 5/month)
+ *   - Strike/ban system for repeated content violations
+ *
  * Body (multipart/form-data or JSON):
  *   - name        {string}  required
  *   - phone       {string}  optional – E.164 or normalized to +91
@@ -17,18 +22,25 @@
  *   201 { id }
  *   400 validation error
  *   401 not authenticated
+ *   422 content moderation rejection
+ *   429 monthly ticket limit reached
  *   500 server error
  */
 
 import { createClient } from "@supabase/supabase-js";
 import formidable from "formidable";
 import fs from "fs";
+import { checkContent, MODERATION_STRIKE_LIMIT } from "../../../../lib/contentFilter";
 
 export const config = {
   api: {
     bodyParser: false, // we parse multipart ourselves
   },
 };
+
+// Monthly ticket limits
+const TICKET_LIMIT_FREE = 1;
+const TICKET_LIMIT_PAID = 5;
 
 const VALID_ISSUE_TYPES = [
   "payment_auth_not_made",
@@ -62,6 +74,51 @@ function normalizePhone(phone) {
   if (!trimmed) return null;
   if (trimmed.startsWith("+")) return trimmed;
   return `+91${trimmed}`;
+}
+
+/**
+ * Check if user has an active paid entitlement.
+ * Any active, non-expired entitlement row is treated as "paid".
+ */
+async function isPaidUser(supabaseAdmin, userId) {
+  const now = new Date().toISOString();
+  const { data } = await supabaseAdmin
+    .from("entitlements")
+    .select("id")
+    .eq("user_id", userId)
+    .eq("status", "active")
+    .or(`expires_at.is.null,expires_at.gt.${now}`)
+    .limit(1)
+    .maybeSingle();
+  if (data) return true;
+
+  // Legacy check
+  const { data: legacy } = await supabaseAdmin
+    .from("user_app_access")
+    .select("id")
+    .eq("user_id", userId)
+    .eq("is_active", true)
+    .or(`expires_at.is.null,expires_at.gt.${now}`)
+    .limit(1)
+    .maybeSingle();
+  return !!legacy;
+}
+
+/** Count tickets created by user in the current calendar month */
+async function countTicketsThisMonth(supabaseAdmin, userId) {
+  const now = new Date();
+  const monthStart = new Date(now.getFullYear(), now.getMonth(), 1).toISOString();
+  const { count, error } = await supabaseAdmin
+    .from("forum_tickets")
+    .select("id", { count: "exact", head: true })
+    .eq("user_id", userId)
+    .gte("created_at", monthStart);
+
+  if (error) {
+    console.error("[tickets/create] count error:", error);
+    return 0;
+  }
+  return count || 0;
 }
 
 export default async function handler(req, res) {
@@ -156,6 +213,86 @@ export default async function handler(req, res) {
   const supabaseAdmin = getSupabaseAdmin();
   if (!supabaseAdmin) {
     return res.status(500).json({ error: "Service configuration error" });
+  }
+
+  // ── Check ban status ──────────────────────────────────────────────────────
+  const { data: profile } = await supabaseAdmin
+    .from("profiles")
+    .select("is_banned, moderation_strikes")
+    .eq("id", user.id)
+    .maybeSingle();
+
+  if (profile?.is_banned) {
+    return res.status(403).json({
+      error:
+        "Your account has been suspended due to repeated policy violations. Please contact support via a new ticket once reinstated.",
+    });
+  }
+
+  // ── Content moderation ────────────────────────────────────────────────────
+  const contentToCheck = [name, other_text].filter(Boolean).join(" ");
+  const flagResult = checkContent(contentToCheck);
+
+  if (flagResult.flagged) {
+    // Log rejection
+    await supabaseAdmin.from("moderation_logs").insert({
+      user_id: user.id,
+      content_type: "ticket",
+      content_snippet: contentToCheck.slice(0, 200),
+      rejection_reason: flagResult.reason,
+    });
+
+    // Increment strikes
+    const currentStrikes = (profile?.moderation_strikes || 0) + 1;
+    const shouldBan = currentStrikes >= MODERATION_STRIKE_LIMIT;
+
+    await supabaseAdmin
+      .from("profiles")
+      .update({
+        moderation_strikes: currentStrikes,
+        ...(shouldBan ? { is_banned: true, banned_at: new Date().toISOString() } : {}),
+      })
+      .eq("id", user.id);
+
+    console.warn(
+      `[tickets/create] Content rejected for user ${user.id}: ${flagResult.reason}. Strikes: ${currentStrikes}`
+    );
+
+    if (shouldBan) {
+      return res.status(403).json({
+        error:
+          "Your ticket was rejected and your account has been suspended due to repeated policy violations.",
+        flagged: true,
+      });
+    }
+
+    return res.status(422).json({
+      error: `Your ticket was rejected: ${flagResult.reason}. Please revise your content. (Strike ${currentStrikes} of ${MODERATION_STRIKE_LIMIT})`,
+      flagged: true,
+      strikes: currentStrikes,
+    });
+  }
+
+  // ── Monthly ticket limit ──────────────────────────────────────────────────
+  const paid = await isPaidUser(supabaseAdmin, user.id);
+  const limit = paid ? TICKET_LIMIT_PAID : TICKET_LIMIT_FREE;
+  const monthCount = await countTicketsThisMonth(supabaseAdmin, user.id);
+
+  if (monthCount >= limit) {
+    const now = new Date();
+    const nextMonth = new Date(now.getFullYear(), now.getMonth() + 1, 1);
+    const resetDate = nextMonth.toLocaleDateString("en-IN", {
+      day: "2-digit",
+      month: "long",
+      year: "numeric",
+    });
+
+    return res.status(429).json({
+      error: `You have reached your monthly ticket limit (${limit} ticket${limit === 1 ? "" : "s"} per month for ${paid ? "paid" : "free"} users). Your limit resets on ${resetDate}.`,
+      limit,
+      used: monthCount,
+      resetDate: nextMonth.toISOString(),
+    });
   }
 
   // ── Upload proof (if provided) ────────────────────────────────────────────
