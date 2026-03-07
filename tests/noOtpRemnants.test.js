@@ -36,9 +36,10 @@ const BANNED_CONTENT_PATTERNS = [
   { pattern: /VONAGE_API_KEY/, description: "VONAGE_API_KEY env var reference" },
   { pattern: /VONAGE_API_SECRET/, description: "VONAGE_API_SECRET env var reference" },
   { pattern: /VONAGE_BRAND_NAME/, description: "VONAGE_BRAND_NAME env var reference" },
-  // Kebab-case OTP strings that may appear as literals in code (route hrefs, fetch calls, etc.)
-  { pattern: /['"\/]send-otp['\"\/]/, description: "send-otp route or string literal" },
-  { pattern: /['"\/]verify-otp['\"\/]/, description: "verify-otp route or string literal" },
+  // Kebab-case OTP strings that may appear as literals in code.
+  // Broad match: catches backticks, .js, querystrings, end-of-string, etc.
+  { pattern: /send-otp/, description: "send-otp route or string literal" },
+  { pattern: /verify-otp/, description: "verify-otp route or string literal" },
 ];
 
 // Directories to skip during scanning

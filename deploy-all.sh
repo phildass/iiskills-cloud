@@ -8,6 +8,11 @@ set -euo pipefail
 #
 # All output is tee'd to /var/log/iiskills/deploy-<timestamp>.log so that
 # post-failure forensics (OOM kills, resource exhaustion) are preserved.
+#
+# Tuneable environment variables (set before running or in /etc/iiskills.env):
+#   IISKILLS_MAX_OLD_SPACE_SIZE_MB  — override Node heap limit (default: auto-derived
+#                                     from /proc/meminfo, clamped to 1024–4096 MB)
+#   IISKILLS_TURBO_CONCURRENCY      — override turbo --concurrency (default: 2)
 # ---------------------------------------------------------------------------
 
 DEPLOY_TS="$(date +%Y-%m-%d-%H%M)"
@@ -27,14 +32,19 @@ else
 fi
 
 # ---------------------------------------------------------------------------
-# Failure trap: capture system diagnostics to help identify OOM kills
+# Failure diagnostics trap — runs on EXIT when the script exits non-zero.
+# Covers both ERR paths (set -e) and explicit `exit 1` calls.
 # ---------------------------------------------------------------------------
-_on_error() {
+_on_exit() {
   local exit_code=$?
-  local failing_line=${BASH_LINENO[0]}
+  # Only print diagnostics on failure
+  [ "${exit_code}" -eq 0 ] && return 0
   echo ""
   echo "================================================================"
-  echo "DEPLOY FAILED — exit code ${exit_code} at line ${failing_line}"
+  echo "DEPLOY FAILED — exit code ${exit_code}"
+  echo ""
+  echo "NOTE: exit 137 = SIGKILL (kernel OOM reaper killed the process)."
+  echo "      exit 143 = SIGTERM. Other non-zero codes indicate script errors."
   echo "Collecting system diagnostics for root-cause analysis..."
   echo "================================================================"
   echo ""
@@ -55,15 +65,14 @@ _on_error() {
   echo "--- ulimit -a ---"
   ulimit -a 2>/dev/null || echo "(ulimit not available)"
   echo ""
-  echo "--- dmesg -T (last 200 lines — OOM evidence) ---"
+  echo "--- dmesg -T (last 200 lines — look for 'Killed process' for OOM evidence) ---"
   dmesg -T 2>/dev/null | tail -n 200 || echo "(dmesg not available or not permitted)"
   echo ""
   echo "================================================================"
   echo "End of diagnostics. Log saved to: ${LOGFILE}"
   echo "================================================================"
-  exit "${exit_code}"
 }
-trap '_on_error' ERR
+trap '_on_exit' EXIT
 
 # ---------------------------------------------------------------------------
 # Load credentials from /etc/iiskills.env if present
@@ -137,15 +146,36 @@ echo "==> OTP policy guard"
 # ---------------------------------------------------------------------------
 # Build — with memory headroom + capped concurrency to prevent OOM kills
 #
-# NODE_OPTIONS=--max-old-space-size=4096 raises Node's V8 heap limit so that
-# Next.js build workers don't get killed by the kernel OOM reaper (exit 129).
+# NODE heap limit is derived from /proc/meminfo (half of total RAM, clamped to
+# [1024, 4096] MB). Override with IISKILLS_MAX_OLD_SPACE_SIZE_MB env var.
 #
-# --concurrency=2 prevents Turborepo from running too many Next.js build
-# workers in parallel on memory-constrained hosts.
+# Turbo concurrency defaults to 2 to limit parallel Next.js build workers on
+# memory-constrained hosts. Override with IISKILLS_TURBO_CONCURRENCY env var.
+#
+# Why exit 137 matters: SIGKILL (128+9) from the kernel OOM reaper produces
+# exit code 137. If you see 137 in dmesg/logs, the root cause is memory, not
+# a build error. Reduce concurrency or increase RAM.
 # ---------------------------------------------------------------------------
-echo "==> Build (monorepo) — NODE_OPTIONS=--max-old-space-size=4096, turbo concurrency=2"
-export NODE_OPTIONS="${NODE_OPTIONS:+$NODE_OPTIONS }--max-old-space-size=4096"
-yarn turbo run build --concurrency=2
+
+# Derive max-old-space-size from available RAM when not explicitly overridden.
+if [ -n "${IISKILLS_MAX_OLD_SPACE_SIZE_MB:-}" ]; then
+  _heap_mb="${IISKILLS_MAX_OLD_SPACE_SIZE_MB}"
+  echo "==> NODE heap limit: ${_heap_mb} MB (from IISKILLS_MAX_OLD_SPACE_SIZE_MB)"
+elif [ -r /proc/meminfo ]; then
+  _mem_kb=$(awk '/^MemTotal:/ { print $2 }' /proc/meminfo)
+  # Use half of total RAM, clamped to [1024, 4096] MB
+  _half_mb=$(( _mem_kb / 2 / 1024 ))
+  _heap_mb=$(( _half_mb < 1024 ? 1024 : ( _half_mb > 4096 ? 4096 : _half_mb ) ))
+  echo "==> NODE heap limit: ${_heap_mb} MB (auto-derived from /proc/meminfo: MemTotal=${_mem_kb} kB)"
+else
+  _heap_mb=1024
+  echo "==> NODE heap limit: ${_heap_mb} MB (fallback — /proc/meminfo not available)"
+fi
+
+_turbo_concurrency="${IISKILLS_TURBO_CONCURRENCY:-2}"
+echo "==> Build (monorepo) — --max-old-space-size=${_heap_mb}, turbo concurrency=${_turbo_concurrency}"
+export NODE_OPTIONS="${NODE_OPTIONS:+$NODE_OPTIONS }--max-old-space-size=${_heap_mb}"
+yarn turbo run build --concurrency="${_turbo_concurrency}"
 
 # ---------------------------------------------------------------------------
 # Start MAIN on :3000
