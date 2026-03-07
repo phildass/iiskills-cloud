@@ -65,7 +65,7 @@ export default function TicketsPage() {
 
     async function init() {
       try {
-        const { getCurrentUser, supabase } = await import("../lib/supabaseClient");
+        const { getCurrentUser, supabase } = await import("../../lib/supabaseClient");
         const user = await getCurrentUser();
 
         if (!mounted) return;
