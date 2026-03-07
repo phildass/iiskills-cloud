@@ -215,6 +215,33 @@ export default function AdminDashboard() {
           </Link>
 
           <Link
+            href="/admin/entitlements"
+            className="bg-white border-2 border-green-200 rounded-lg shadow-md p-6 hover:border-green-400 hover:shadow-lg transition text-center group"
+          >
+            <div className="text-4xl mb-3 group-hover:scale-110 transition-transform">🎟️</div>
+            <h3 className="font-bold text-lg text-gray-800 mb-2">Entitlements</h3>
+            <p className="text-sm text-gray-600">Grant/revoke paid access</p>
+          </Link>
+
+          <Link
+            href="/admin/admins"
+            className="bg-white border-2 border-yellow-200 rounded-lg shadow-md p-6 hover:border-yellow-400 hover:shadow-lg transition text-center group"
+          >
+            <div className="text-4xl mb-3 group-hover:scale-110 transition-transform">🔐</div>
+            <h3 className="font-bold text-lg text-gray-800 mb-2">Admin Management</h3>
+            <p className="text-sm text-gray-600">Manage admin access (superadmin)</p>
+          </Link>
+
+          <Link
+            href="/admin/audit"
+            className="bg-white border-2 border-indigo-200 rounded-lg shadow-md p-6 hover:border-indigo-400 hover:shadow-lg transition text-center group"
+          >
+            <div className="text-4xl mb-3 group-hover:scale-110 transition-transform">📋</div>
+            <h3 className="font-bold text-lg text-gray-800 mb-2">Audit Log</h3>
+            <p className="text-sm text-gray-600">View privileged action history</p>
+          </Link>
+
+          <Link
             href="/admin/settings"
             className="bg-white border-2 border-purple-200 rounded-lg shadow-md p-6 hover:border-purple-400 hover:shadow-lg transition text-center group"
           >

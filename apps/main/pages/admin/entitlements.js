@@ -4,17 +4,19 @@
  * /admin/entitlements
  *
  * Allows admins to:
- * - Search users by email
+ * - Search users by email or phone
  * - View a user's existing entitlements
- * - Grant a new entitlement (after verifying Razorpay payment reference)
- * - Revoke an entitlement
+ * - Grant a new entitlement (with audit logging via /api/admin/entitlements)
+ * - Revoke an entitlement (with audit logging via /api/admin/entitlements)
+ *
+ * All writes go through /api/admin/entitlements which enforces authorization
+ * and writes audit events.
  */
 
 import Head from "next/head";
 import { useState } from "react";
 import AdminNav from "../../components/AdminNav";
 import Footer from "../../components/Footer";
-import { supabase } from "../../lib/supabaseClient";
 import { useAdminProtectedPage, AccessDenied } from "../../components/AdminProtectedPage";
 
 const PAID_APPS = [
@@ -41,6 +43,16 @@ export default function AdminEntitlements() {
   const [granting, setGranting] = useState(false);
   const [message, setMessage] = useState(null);
 
+  const loadEntitlements = async (userId) => {
+    const resp = await fetch(`/api/admin/entitlements?user_id=${encodeURIComponent(userId)}`, {
+      credentials: "same-origin",
+    });
+    if (resp.ok) {
+      const data = await resp.json();
+      setEntitlements(data.entitlements || []);
+    }
+  };
+
   const handleSearch = async (e) => {
     e.preventDefault();
     setSearching(true);
@@ -55,7 +67,9 @@ export default function AdminEntitlements() {
         const rawPhone = searchPhone.trim();
         if (!rawPhone) return;
         const params = new URLSearchParams({ phone: rawPhone });
-        const resp = await fetch(`/api/admin/lookup-user?${params.toString()}`);
+        const resp = await fetch(`/api/admin/lookup-user?${params.toString()}`, {
+          credentials: "same-origin",
+        });
         const data = await resp.json();
         if (!resp.ok || !data.found) {
           setMessage({ type: "error", text: "User not found. Check the phone number." });
@@ -63,10 +77,12 @@ export default function AdminEntitlements() {
         }
         profile = data.profile;
       } else {
-        // Look up user by email via the service-role admin API (profiles has no email column)
+        // Look up user by email via the service-role admin API
         if (!searchEmail.trim()) return;
         const params = new URLSearchParams({ q: searchEmail.trim().toLowerCase() });
-        const resp = await fetch(`/api/admin/user-lookup?${params.toString()}`);
+        const resp = await fetch(`/api/admin/user-lookup?${params.toString()}`, {
+          credentials: "same-origin",
+        });
         const data = await resp.json();
         if (!resp.ok || !data.users || data.users.length === 0) {
           setMessage({ type: "error", text: "User not found. Check the email address." });
@@ -76,14 +92,7 @@ export default function AdminEntitlements() {
       }
 
       setFoundUser(profile);
-
-      // Load entitlements
-      const { data: ents } = await supabase
-        .from("entitlements")
-        .select("*")
-        .eq("user_id", profile.id)
-        .order("purchased_at", { ascending: false });
-      setEntitlements(ents || []);
+      await loadEntitlements(profile.id);
     } finally {
       setSearching(false);
     }
@@ -95,34 +104,33 @@ export default function AdminEntitlements() {
     setGranting(true);
     setMessage(null);
     try {
-      const expiresAt = new Date();
-      expiresAt.setFullYear(expiresAt.getFullYear() + 1);
-
-      const { error } = await supabase.from("entitlements").insert({
-        user_id: foundUser.id,
-        app_id: grantAppId,
-        status: "active",
-        source: "admin",
-        payment_reference: paymentRef.trim() || null,
-        expires_at: expiresAt.toISOString(),
+      const resp = await fetch("/api/admin/entitlements", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "same-origin",
+        body: JSON.stringify({
+          user_id: foundUser.id,
+          app_id: grantAppId,
+          payment_reference: paymentRef.trim() || undefined,
+        }),
       });
 
-      if (error) throw error;
+      const data = await resp.json();
+      if (!resp.ok) {
+        setMessage({
+          type: "error",
+          text: `Error: ${data.error || "Failed to grant entitlement"}`,
+        });
+        return;
+      }
 
+      const appLabel = PAID_APPS.find((a) => a.id === grantAppId)?.label || grantAppId;
       setMessage({
         type: "success",
-        text: `✅ Entitlement granted for ${grantAppId} to user ${foundUser.id.slice(0, 8)}…`,
+        text: `✅ Entitlement granted for "${appLabel}" to user ${foundUser.id.slice(0, 8)}…`,
       });
       setPaymentRef("");
-      // Refresh entitlements
-      const { data: ents } = await supabase
-        .from("entitlements")
-        .select("*")
-        .eq("user_id", foundUser.id)
-        .order("purchased_at", { ascending: false });
-      setEntitlements(ents || []);
-    } catch (err) {
-      setMessage({ type: "error", text: `Error: ${err.message}` });
+      await loadEntitlements(foundUser.id);
     } finally {
       setGranting(false);
     }
@@ -130,12 +138,15 @@ export default function AdminEntitlements() {
 
   const handleRevoke = async (entitlementId) => {
     if (!confirm("Revoke this entitlement?")) return;
-    const { error } = await supabase
-      .from("entitlements")
-      .update({ status: "revoked" })
-      .eq("id", entitlementId);
-    if (error) {
-      setMessage({ type: "error", text: error.message });
+    const resp = await fetch("/api/admin/entitlements", {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      credentials: "same-origin",
+      body: JSON.stringify({ id: entitlementId }),
+    });
+    if (!resp.ok) {
+      const data = await resp.json();
+      setMessage({ type: "error", text: data.error || "Failed to revoke entitlement" });
       return;
     }
     setEntitlements((prev) =>
