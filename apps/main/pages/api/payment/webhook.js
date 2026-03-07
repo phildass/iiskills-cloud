@@ -1,6 +1,6 @@
 import crypto from "crypto";
 import { createClient } from "@supabase/supabase-js";
-import { generateAndDispatchOTP, sendThankYouEmail } from "@lib/otpService";
+import { sendThankYouEmail } from "@lib/paymentEmail";
 import { APPS } from "@lib/appRegistry";
 
 const supabase = createClient(process.env.SUPABASE_URL || "", process.env.SUPABASE_KEY || "");
@@ -15,12 +15,11 @@ const supabase = createClient(process.env.SUPABASE_URL || "", process.env.SUPABA
  * 1. Verify webhook signature for security
  * 2. Extract payment details and app/course identifier
  * 3. Extract user contact information (email and/or phone)
- * 4. Generate and dispatch app-specific OTP
- * 5. Store payment record in database
+ * 4. Store payment record in database
+ * 5. Send confirmation email
  *
  * Security:
  * - Webhook signature verification prevents unauthorized requests
- * - OTPs are app-specific and cannot be reused across apps
  * - No sensitive data returned in response
  */
 export default async function handler(req, res) {
@@ -85,7 +84,7 @@ export default async function handler(req, res) {
       console.error("Payment missing user email:", paymentId);
       return res.status(400).json({
         error: "Payment missing user email",
-        message: "Payment must include user email address for OTP delivery",
+        message: "Payment must include user email address",
       });
     }
 
@@ -126,7 +125,7 @@ export default async function handler(req, res) {
         });
       }
       console.error("Failed to store payment record:", paymentError);
-      // Continue with OTP dispatch even if storage fails for other reasons
+      // Continue with confirmation email even if storage fails for other reasons
     } else {
       // Newly stored payment — send thank-you email (fire-and-forget)
       sendThankYouEmail({
@@ -137,58 +136,11 @@ export default async function handler(req, res) {
       }).catch((err) => console.error("[webhook] Thank-you email error:", err));
     }
 
-    // Generate and dispatch app-specific OTP
-    if (process.env.OTP_DISABLED === "true") {
-      // Return 200 so the upstream payment provider does not retry the webhook.
-      // Payment has already been stored; the user can be manually activated.
-      console.log("[webhook] OTP_DISABLED — skipping OTP dispatch for payment:", paymentId);
-      return res.status(200).json({
-        success: true,
-        message: "Payment processed (OTP disabled)",
-        appId,
-      });
-    }
-
-    try {
-      const otpResult = await generateAndDispatchOTP({
-        email, // Already validated - required
-        phone: formattedPhone || null, // Optional
-        appId,
-        appName: appConfig.name,
-        paymentTransactionId: paymentId,
-        reason: "payment_verification",
-        adminGenerated: false,
-      });
-
-      console.log("OTP dispatched successfully:", {
-        paymentId,
-        appId,
-        email,
-        deliveryChannel: otpResult.deliveryChannel,
-        emailSent: otpResult.emailSent,
-        smsSent: otpResult.smsSent,
-      });
-
-      return res.status(200).json({
-        success: true,
-        message: "Payment processed and OTP sent",
-        appId,
-        deliveryChannel: otpResult.deliveryChannel,
-        emailSent: otpResult.emailSent,
-        smsSent: otpResult.smsSent,
-        // NO OTP value returned for security
-      });
-    } catch (otpError) {
-      console.error("Failed to generate/dispatch OTP:", otpError);
-
-      // Payment was captured but OTP failed — log for manual follow-up
-      return res.status(500).json({
-        success: false,
-        error: "Payment received but OTP dispatch failed",
-        paymentId,
-        appId,
-      });
-    }
+    return res.status(200).json({
+      success: true,
+      message: "Payment processed",
+      appId,
+    });
   } catch (error) {
     console.error("Payment webhook error:", error);
     return res.status(500).json({

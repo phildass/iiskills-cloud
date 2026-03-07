@@ -4,7 +4,6 @@ import { useState, useRef, useEffect } from "react";
 import Head from "next/head";
 
 const PAYMENT_URL = "https://iiskills.cloud/payments/iiskills";
-const SUPPORT_MESSAGE = "If you have any issues, go to your dashboard and raise a ticket. We will revert as soon as possible.";
 
 // PR-specific gatekeeper questions for Intermediate level (Basic PR concepts)
 const INTERMEDIATE_QUESTIONS = [
@@ -102,7 +101,7 @@ const LEARNING_PATHS = [
 ];
 
 export default function Onboarding() {
-  const [step, setStep] = useState("select"); // select | test | payment | otp | success
+  const [step, setStep] = useState("select"); // select | test | payment | success
   const [selectedPath, setSelectedPath] = useState(null);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState([]);
@@ -111,9 +110,6 @@ export default function Onboarding() {
   const transitionTimerRef = useRef(null);
   const [approvedLevel, setApprovedLevel] = useState(null);
   const [testResult, setTestResult] = useState(null);
-  const [otp, setOtp] = useState("");
-  const [otpError, setOtpError] = useState("");
-  const [otpLoading, setOtpLoading] = useState(false);
 
   // Clean up any pending transition timer on unmount
   useEffect(() => {
@@ -176,34 +172,7 @@ export default function Onboarding() {
 
   const handleProceedToPayment = () => {
     window.open(`${PAYMENT_URL}?course=learn-pr&level=${approvedLevel}`, "_blank");
-    setStep("otp");
-  };
-
-  const handleOtpSubmit = async (e) => {
-    e.preventDefault();
-    if (otp.length !== 6 || !/^\d{6}$/.test(otp)) {
-      setOtpError("Please enter a valid 6-digit OTP.");
-      return;
-    }
-    setOtpLoading(true);
-    setOtpError("");
-    try {
-      const response = await fetch("/api/otp/verify", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ otp, level: approvedLevel }),
-      });
-      if (response.ok) {
-        localStorage.setItem("enrollmentLevel", approvedLevel);
-        setStep("success");
-      } else {
-        setOtpError("Invalid OTP. Please check and try again. If you have any issues, go to your dashboard and raise a ticket.");
-      }
-    } catch {
-      setOtpError("Unable to verify OTP. If you have any issues, go to your dashboard and raise a ticket.");
-    } finally {
-      setOtpLoading(false);
-    }
+    setStep("success");
   };
 
   if (step === "success") {
@@ -218,89 +187,14 @@ export default function Onboarding() {
               <div className="text-7xl mb-4">🎉</div>
               <h1 className="text-3xl font-bold text-green-600 mb-4">Access Granted!</h1>
               <p className="text-lg text-gray-700 mb-6">
-                Welcome to the{" "}
-                <strong>
-                  {approvedLevel
-                    ? approvedLevel.charAt(0).toUpperCase() + approvedLevel.slice(1)
-                    : ""}
-                </strong>{" "}
-                path. Your PR journey begins now!
+                Your payment has been submitted. Please sign in to access your course.
               </p>
               <a
-                href="/curriculum"
-                className="inline-block bg-gradient-to-r from-pink-500 to-orange-500 text-white px-8 py-4 rounded-lg font-bold text-lg hover:opacity-90 transition shadow-lg"
+                href="/sign-in"
+                className="inline-block bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-8 py-4 rounded-lg font-bold text-lg hover:opacity-90 transition shadow-lg"
               >
-                Go to Curriculum →
+                Sign In →
               </a>
-            </div>
-          </div>
-        </main>
-      </>
-    );
-  }
-
-  if (step === "otp") {
-    return (
-      <>
-        <Head>
-          <title>Enter OTP - Learn PR</title>
-        </Head>
-        <main className="min-h-screen bg-gray-50 py-12">
-          <div className="container mx-auto px-4 max-w-md">
-            <div className="bg-white rounded-2xl shadow-lg p-8">
-              <div className="text-center mb-6">
-                <div className="text-5xl mb-3">🔐</div>
-                <h1 className="text-2xl font-bold text-gray-900">Enter Your OTP</h1>
-                <p className="text-gray-600 mt-2">
-                  After completing payment at <strong>{PAYMENT_URL}</strong>, you will receive a
-                  6-digit OTP. Enter it below to unlock your course access.
-                </p>
-              </div>
-              <form onSubmit={handleOtpSubmit} className="space-y-4">
-                <div>
-                  <label className="block text-sm font-semibold mb-2 text-gray-700">
-                    6-Digit OTP
-                  </label>
-                  <input
-                    type="text"
-                    inputMode="numeric"
-                    pattern="\d{6}"
-                    maxLength={6}
-                    value={otp}
-                    onChange={(e) => setOtp(e.target.value.replace(/\D/g, "").slice(0, 6))}
-                    placeholder="000000"
-                    className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg text-center text-2xl font-bold tracking-widest focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
-                  />
-                </div>
-                {otpError && (
-                  <div className="bg-red-50 border border-red-200 rounded-lg p-3 text-red-700 text-sm">
-                    {otpError}
-                    {otpError.includes("issues") && (
-                      <p className="mt-1">
-                        {SUPPORT_MESSAGE}
-                      </p>
-                    )}
-                  </div>
-                )}
-                <button
-                  type="submit"
-                  disabled={otpLoading || otp.length !== 6}
-                  className="w-full bg-gradient-to-r from-pink-500 to-orange-500 text-white py-3 rounded-lg font-bold text-lg disabled:opacity-50 disabled:cursor-not-allowed hover:opacity-90 transition"
-                >
-                  {otpLoading ? "Verifying..." : "Verify & Unlock Access"}
-                </button>
-              </form>
-              <div className="mt-6 text-center text-sm text-gray-500">
-                <p>
-                  Having problems?{" "}
-                  <a
-                    href={`mailto:${SUPPORT_EMAIL}`}
-                    className="text-pink-600 underline font-semibold"
-                  >
-                    Contact {SUPPORT_EMAIL}
-                  </a>
-                </p>
-              </div>
             </div>
           </div>
         </main>
@@ -352,8 +246,8 @@ export default function Onboarding() {
                 <ol className="text-sm text-indigo-700 space-y-1 list-decimal list-inside mt-2">
                   <li>Click &quot;Proceed to Payment&quot; below</li>
                   <li>Complete payment at {PAYMENT_URL}</li>
-                  <li>Receive a 6-digit OTP via SMS/email</li>
-                  <li>Enter OTP here to unlock access</li>
+                  
+                  <li>Sign in to access your course</li>
                 </ol>
               </div>
               <button
@@ -492,14 +386,14 @@ export default function Onboarding() {
               <h4 className="text-lg font-bold text-gray-900 mb-2">📊 How It Works</h4>
               <div className="space-y-2 text-gray-700 text-sm">
                 <p>
-                  🟢 <strong>Basic:</strong> No test required → Payment → OTP → Access
+                  🟢 <strong>Basic:</strong> No test required → Payment → Access
                 </p>
                 <p>
-                  🔵 <strong>Intermediate:</strong> 3-question test (one attempt) → Payment → OTP →
+                  🔵 <strong>Intermediate:</strong> 3-question test (one attempt) → Payment →
                   Access at approved level
                 </p>
                 <p>
-                  🟣 <strong>Advanced:</strong> 3-question test (one attempt) → Payment → OTP →
+                  🟣 <strong>Advanced:</strong> 3-question test (one attempt) → Payment →
                   Access at approved level
                 </p>
               </div>

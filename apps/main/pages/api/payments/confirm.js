@@ -1,7 +1,7 @@
 import crypto from "crypto";
 import { createClient } from "@supabase/supabase-js";
 import jwt from "jsonwebtoken";
-import { sendThankYouEmail } from "@lib/otpService";
+import { sendThankYouEmail } from "@lib/paymentEmail";
 import { APPS } from "@lib/appRegistry";
 
 /**
@@ -24,11 +24,11 @@ import { APPS } from "@lib/appRegistry";
  *
  * On success (Option A — user_token present):
  * - Verifies the short-lived JWT issued by /api/payments/generate-token
- * - Grants an entitlement directly to the identified user (no OTP needed)
- * - Sends a confirmation notification — not an OTP
+ * - Grants an entitlement directly to the identified user
+ * - Sends a confirmation notification email
  *
  * Fallback (no user_token — legacy flow):
- * - Falls back to the OTP dispatch path for backward compatibility
+ * - Returns 400; all payments must include a user_token (Option A flow).
  */
 
 // Disable Next.js body parsing so we can read raw bytes for signature verification
@@ -223,7 +223,7 @@ export default async function handler(req, res) {
       }
 
       console.error("[payments/confirm] Failed to store confirmation record:", insertError);
-      // Continue to entitlement/OTP even if storage fails for non-duplicate reasons
+      // Continue to entitlement grant even if storage fails for non-duplicate reasons
     } else {
       confirmationId = inserted?.id || null;
     }
@@ -315,50 +315,9 @@ export default async function handler(req, res) {
     });
   }
 
-  // ── 9. Legacy fallback: dispatch OTP ─────────────────────────────────────
-  // Kept for backward compatibility when user_token is absent.
-
-  if (process.env.OTP_DISABLED === "true") {
-    return res.status(400).json({
-      error:
-        "OTP is disabled. Please start payment from iiskills.cloud so a payment token is included.",
-    });
-  }
-
-  const { generateAndDispatchOTP } = await import("@lib/otpService");
-
-  try {
-    // generateAndDispatchOTP requires an email field; synthesize when absent.
-    const otpEmail = customerEmail || `${razorpayPaymentId}@payment.iiskills.cloud`;
-
-    const otpResult = await generateAndDispatchOTP({
-      email: otpEmail,
-      phone: formattedPhone,
-      appId,
-      appName,
-      paymentTransactionId: razorpayPaymentId,
-      reason: "payment_verification",
-      adminGenerated: false,
-    });
-
-    console.log("[payments/confirm] OTP dispatched (legacy):", {
-      razorpayPaymentId,
-      appId,
-      deliveryChannel: otpResult.deliveryChannel,
-      smsSent: otpResult.smsSent,
-    });
-
-    return res.status(200).json({
-      success: true,
-      confirmationId,
-      message: "confirmed",
-    });
-  } catch (otpErr) {
-    console.error("[payments/confirm] OTP dispatch failed:", otpErr);
-    return res.status(500).json({
-      success: false,
-      confirmationId,
-      error: "Payment confirmed but OTP dispatch failed",
-    });
-  }
+  // ── 9. No user_token — reject legacy requests ────────────────────────────
+  // All payments must use the token-based flow (Option A).
+  return res.status(400).json({
+    error: "Payment confirmation requires a user_token. Please start payment from iiskills.cloud.",
+  });
 }
