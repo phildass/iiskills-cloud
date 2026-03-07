@@ -4,6 +4,18 @@
  * This test ensures that no OTP-related code exists in the repository.
  * OTP functionality has been permanently removed from the codebase.
  * This test acts as a CI guard to prevent OTP code from being re-introduced.
+ *
+ * ALLOWED references (NOT flagged by this guard):
+ *   - jaibharat.cloud  — separate sister product; cross-references are legitimate
+ *   - jaikisan.cloud   — separate sister product; cross-references are legitimate
+ *   - aienter.in       — shared payment gateway used by all iiskills products
+ *   - signInWithOtp    — Supabase magic-link auth; unrelated to the old Vonage OTP
+ *   - generateSecureOTP — razorpay.js random order-code generator; not Vonage OTP
+ *   - grantedVia:"otp" — access-control enum value retained for historical DB rows
+ *
+ * Any line in a source file that references a known-external domain (jaibharat.cloud,
+ * jaikisan.cloud) is exempt from content-pattern checks so that webhook helpers,
+ * shared-gateway adapters, and similar integration code can coexist safely.
  */
 
 /* eslint-env jest */
@@ -40,6 +52,17 @@ const BANNED_CONTENT_PATTERNS = [
   // Broad match: catches backticks, .js, querystrings, end-of-string, etc.
   { pattern: /send-otp/, description: "send-otp route or string literal" },
   { pattern: /verify-otp/, description: "verify-otp route or string literal" },
+];
+
+// Lines matching any of these patterns are exempt from BANNED_CONTENT_PATTERNS.
+// They represent legitimate references to external/sister products and are NOT
+// remnants of the old iiskills Vonage OTP system.
+const EXEMPT_LINE_PATTERNS = [
+  /jaibharat\.cloud/, // sister product — cross-references allowed
+  /jaikisan\.cloud/, // sister product — cross-references allowed
+  // aienter.in is the shared payment gateway; its references never trigger banned
+  // patterns, but listing it here documents the intent and future-proofs the guard.
+  // /aienter\.in/,
 ];
 
 // Directories to skip during scanning
@@ -100,7 +123,7 @@ describe("OTP Removal — CI guard", () => {
   test("no OTP content patterns exist in source files", () => {
     const violations = [];
     for (const file of allSourceFiles) {
-      // Skip this test file itself and the paymentEmail utility
+      // Skip this test file itself
       const rel = getRelPath(file);
       if (rel === "tests/noOtpRemnants.test.js") continue;
 
@@ -111,9 +134,23 @@ describe("OTP Removal — CI guard", () => {
         continue;
       }
 
-      for (const { pattern, description } of BANNED_CONTENT_PATTERNS) {
-        if (pattern.test(content)) {
-          violations.push(`${rel}: contains "${description}"`);
+      // Scan line-by-line so that lines referencing known external domains
+      // (jaibharat.cloud, jaikisan.cloud) can be exempted from the OTP guard.
+      // These sister products legitimately share the aienter.in gateway and may
+      // have their own OTP-related paths in URLs/comments — that is NOT a
+      // reintroduction of iiskills's old Vonage OTP system.
+      const lines = content.split("\n");
+      for (let lineIdx = 0; lineIdx < lines.length; lineIdx++) {
+        const line = lines[lineIdx];
+
+        // Exempt lines that reference known-external/sister-product domains
+        if (EXEMPT_LINE_PATTERNS.some((p) => p.test(line))) continue;
+
+        for (const { pattern, description } of BANNED_CONTENT_PATTERNS) {
+          if (pattern.test(line)) {
+            violations.push(`${rel}:${lineIdx + 1}: contains "${description}"`);
+            break; // only report the first matching pattern per line
+          }
         }
       }
     }
