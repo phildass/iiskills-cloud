@@ -5,7 +5,8 @@ export default function ModuleCard({ module, preview = false }) {
     <div className="card hover:shadow-lg transition-shadow">
       <div className="flex items-start justify-between mb-4">
         <div className="text-3xl mr-4">
-          {module.difficulty === "Beginner" ? "🌱" : 
+          {module.difficulty === "Beginner"
+            ? "🌱"
             : module.difficulty === "Intermediate"
               ? "🚀"
               : "⭐"}
