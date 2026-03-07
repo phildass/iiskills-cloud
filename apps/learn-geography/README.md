@@ -145,12 +145,6 @@ JOBS_FEED_URL=https://example.com/api/jobs
 PAYMENT_RETURN_URL=https://aienter.in/payments
 ```
 
-### SUSPENDED Mode
-
-- Development without Supabase setup
-- Demonstrations and testing
-- Environments where database is temporarily unavailable
-
 ## 📊 Seed Data Generation
 
 The seed script generates 100 lessons with content and quizzes:

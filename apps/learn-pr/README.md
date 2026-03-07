@@ -177,12 +177,6 @@ This app uses **Google Cloud Translation API** for multi-language support.
 
 If API key is missing or API fails, original English text is displayed.
 
-### SUSPENDED Mode
-
-- Development without Supabase setup
-- Demonstrations and testing
-- Environments where database is temporarily unavailable
-
 ## 📊 Seed Data Generation
 
 The seed script generates 100 lessons with content and quizzes:
