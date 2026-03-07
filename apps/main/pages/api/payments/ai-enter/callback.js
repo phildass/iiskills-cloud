@@ -1,7 +1,7 @@
 import crypto from "crypto";
 import { createClient } from "@supabase/supabase-js";
 import jwt from "jsonwebtoken";
-import { sendThankYouEmail } from "@lib/otpService";
+import { sendThankYouEmail } from "@lib/paymentEmail";
 import { APPS } from "@lib/appRegistry";
 
 /**
@@ -21,11 +21,11 @@ import { APPS } from "@lib/appRegistry";
  *
  * On success (Option A — user_token present):
  * - Verifies the short-lived JWT issued by /api/payments/generate-token
- * - Grants an entitlement directly to the identified user (no OTP needed)
- * - Sends a confirmation notification (email/SMS) — not an OTP
+ * - Grants an entitlement directly to the identified user
+ * - Sends a confirmation notification email
  *
  * Fallback (no user_token — legacy flow):
- * - Falls back to the OTP dispatch path for backward compatibility
+ * - Returns 400; all payments must include a user_token (Option A flow).
  */
 
 // Disable Next.js body parsing so we can read raw bytes for signature verification
@@ -286,59 +286,9 @@ export default async function handler(req, res) {
     });
   }
 
-  // ── 7. Legacy fallback: generate & dispatch OTP ───────────────────────────
-  // Kept for backward compatibility when user_token is absent.
-  // New deployments should always include user_token (Option A flow).
-
-  // If OTP is disabled, reject requests that lack a user_token (Option A).
-  if (process.env.OTP_DISABLED === "true") {
-    return res.status(400).json({
-      error:
-        "OTP is disabled. Please start payment from iiskills.cloud so a payment token is included.",
-    });
-  }
-
-  const { generateAndDispatchOTP } = await import("@lib/otpService");
-
-  let formattedPhone = phone || null;
-  if (formattedPhone && !formattedPhone.startsWith("+")) {
-    formattedPhone = `+91${formattedPhone}`;
-  }
-
-  try {
-    // generateAndDispatchOTP requires email; use a synthetic one when absent
-    const otpEmail = email || `${razorpay_payment_id}@payment.iiskills.cloud`;
-
-    const otpResult = await generateAndDispatchOTP({
-      email: otpEmail,
-      phone: formattedPhone,
-      appId: effectiveAppId,
-      appName,
-      paymentTransactionId: razorpay_payment_id,
-      reason: "payment_verification",
-      adminGenerated: false,
-    });
-
-    console.log("[ai-enter callback] OTP dispatched (legacy):", {
-      razorpay_payment_id,
-      effectiveAppId,
-      deliveryChannel: otpResult.deliveryChannel,
-      emailSent: otpResult.emailSent,
-      smsSent: otpResult.smsSent,
-    });
-
-    return res.status(200).json({
-      success: true,
-      message: "Payment received and OTP sent",
-      razorpay_payment_id,
-      deliveryChannel: otpResult.deliveryChannel,
-    });
-  } catch (otpErr) {
-    console.error("[ai-enter callback] OTP dispatch failed:", otpErr);
-    return res.status(500).json({
-      success: false,
-      error: "Payment recorded but OTP dispatch failed",
-      razorpay_payment_id,
-    });
-  }
+  // ── 7. No user_token — reject legacy requests ────────────────────────────
+  // All payments must use the token-based flow (Option A).
+  return res.status(400).json({
+    error: "Payment confirmation requires a user_token. Please start payment from iiskills.cloud.",
+  });
 }

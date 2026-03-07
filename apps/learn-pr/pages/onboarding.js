@@ -101,7 +101,7 @@ const LEARNING_PATHS = [
 ];
 
 export default function Onboarding() {
-  const [step, setStep] = useState("select"); // select | test | payment | otp | success
+  const [step, setStep] = useState("select"); // select | test | payment | success
   const [selectedPath, setSelectedPath] = useState(null);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState([]);
@@ -246,8 +246,8 @@ export default function Onboarding() {
                 <ol className="text-sm text-indigo-700 space-y-1 list-decimal list-inside mt-2">
                   <li>Click &quot;Proceed to Payment&quot; below</li>
                   <li>Complete payment at {PAYMENT_URL}</li>
-                  <li>Receive a 6-digit OTP via SMS/email</li>
-                  <li>Enter OTP here to unlock access</li>
+                  
+                  <li>Sign in to access your course</li>
                 </ol>
               </div>
               <button
@@ -386,14 +386,14 @@ export default function Onboarding() {
               <h4 className="text-lg font-bold text-gray-900 mb-2">📊 How It Works</h4>
               <div className="space-y-2 text-gray-700 text-sm">
                 <p>
-                  🟢 <strong>Basic:</strong> No test required → Payment → OTP → Access
+                  🟢 <strong>Basic:</strong> No test required → Payment → Access
                 </p>
                 <p>
-                  🔵 <strong>Intermediate:</strong> 3-question test (one attempt) → Payment → OTP →
+                  🔵 <strong>Intermediate:</strong> 3-question test (one attempt) → Payment →
                   Access at approved level
                 </p>
                 <p>
-                  🟣 <strong>Advanced:</strong> 3-question test (one attempt) → Payment → OTP →
+                  🟣 <strong>Advanced:</strong> 3-question test (one attempt) → Payment →
                   Access at approved level
                 </p>
               </div>

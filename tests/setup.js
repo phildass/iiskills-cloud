@@ -34,13 +34,3 @@ jest.mock("@sendgrid/mail", () => {
   };
 });
 
-// Mock Vonage SDK to avoid ES module issues
-jest.mock("@vonage/server-sdk", () => {
-  return {
-    Vonage: jest.fn().mockImplementation(() => ({
-      sms: {
-        send: jest.fn().mockResolvedValue({ success: true }),
-      },
-    })),
-  };
-});
