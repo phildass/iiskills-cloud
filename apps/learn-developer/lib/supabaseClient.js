@@ -1,36 +1,22 @@
 /**
  * Supabase Client Configuration for Learn Developer
  *
- * This file initializes the Supabase client with support for SUSPENDED mode.
- * When SUSPENDED mode is active, it provides an in-memory fallback to allow
- * the app to function without a database connection.
+ * This file initializes the Supabase client.
  */
 
 import { createClient } from "@supabase/supabase-js";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "https://placeholder.supabase.co";
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "placeholder-key";
-const isSuspended = process.env.NEXT_PUBLIC_SUPABASE_SUSPENDED === "true";
-
-// In-memory store for SUSPENDED mode
-const memoryStore = {
-  users: [],
-  modules: [],
-  lessons: [],
-  progress: [],
-  certificates: [],
-};
 
 // Create Supabase client
-export const supabase = !isSuspended
-  ? createClient(supabaseUrl, supabaseAnonKey, {
-      auth: {
-        autoRefreshToken: true,
-        persistSession: true,
-        detectSessionInUrl: true,
-      },
-    })
-  : null;
+export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+  auth: {
+    autoRefreshToken: true,
+    persistSession: true,
+    detectSessionInUrl: true,
+  },
+});
 
 /**
  * Helper function to get the currently logged-in user
@@ -58,11 +44,6 @@ export async function getCurrentUser() {
   }
   // END TEMPORARY AUTH DISABLE
 
-  if (isSuspended) {
-    // Return mock user in SUSPENDED mode
-    return memoryStore.users[0] || null;
-  }
-
   try {
     const {
       data: { session },
@@ -85,10 +66,6 @@ export async function getCurrentUser() {
  * Helper function to sign out the current user
  */
 export async function signOutUser() {
-  if (isSuspended) {
-    memoryStore.users = [];
-    return { success: true };
-  }
 
   try {
     const { error } = await supabase.auth.signOut();
@@ -116,12 +93,9 @@ export function getSiteUrl() {
 }
 
 /**
- * Query wrapper that handles SUSPENDED mode
+ * Query wrapper
  */
 export async function queryData(table, filters = {}) {
-  if (isSuspended) {
-    return { data: memoryStore[table] || [], error: null };
-  }
 
   try {
     let query = supabase.from(table).select("*");
@@ -138,15 +112,9 @@ export async function queryData(table, filters = {}) {
 }
 
 /**
- * Insert wrapper that handles SUSPENDED mode
+ * Insert wrapper
  */
 export async function insertData(table, data) {
-  if (isSuspended) {
-    const record = { id: Date.now(), ...data, created_at: new Date().toISOString() };
-    memoryStore[table] = memoryStore[table] || [];
-    memoryStore[table].push(record);
-    return { data: record, error: null };
-  }
 
   try {
     const { data: result, error } = await supabase.from(table).insert(data).select().single();
@@ -156,4 +124,3 @@ export async function insertData(table, data) {
   }
 }
 
-export { isSuspended, memoryStore };

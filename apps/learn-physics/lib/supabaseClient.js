@@ -1,36 +1,22 @@
 /**
  * Supabase Client Configuration for Learn Physics
  *
- * This file initializes the Supabase client with support for SUSPENDED mode.
- * When SUSPENDED mode is active, it provides an in-memory fallback to allow
- * the app to function without a database connection.
+ * This file initializes the Supabase client.
  */
 
 import { createClient } from "@supabase/supabase-js";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "https://placeholder.supabase.co";
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "placeholder-key";
-const isSuspended = process.env.NEXT_PUBLIC_SUPABASE_SUSPENDED === "true";
-
-// In-memory store for SUSPENDED mode
-const memoryStore = {
-  users: [],
-  modules: [],
-  lessons: [],
-  progress: [],
-  certificates: [],
-};
 
 // Create Supabase client
-export const supabase = !isSuspended
-  ? createClient(supabaseUrl, supabaseAnonKey, {
-      auth: {
-        autoRefreshToken: true,
-        persistSession: true,
-        detectSessionInUrl: true,
-      },
-    })
-  : null;
+export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+  auth: {
+    autoRefreshToken: true,
+    persistSession: true,
+    detectSessionInUrl: true,
+  },
+});
 
 /**
  * Helper function to get the currently logged-in user
@@ -57,10 +43,6 @@ export async function getCurrentUser() {
   }
   // END TEMPORARY AUTH DISABLE
 
-  if (isSuspended) {
-    return memoryStore.users[0] || null;
-  }
-
   try {
     const {
       data: { session },
@@ -79,4 +61,3 @@ export async function getCurrentUser() {
   }
 }
 
-export { isSuspended, memoryStore };
