@@ -1,5 +1,5 @@
 /**
- * Supabase Client Configuration for Learn AI
+ * Supabase Client Configuration for Learn PR
  *
  * This file initializes the Supabase client.
  */

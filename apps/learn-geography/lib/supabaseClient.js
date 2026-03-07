@@ -1,5 +1,5 @@
 /**
- * Supabase Client Configuration for Learn AI
+ * Supabase Client Configuration for Learn Geography
  *
  * This file initializes the Supabase client.
  */
