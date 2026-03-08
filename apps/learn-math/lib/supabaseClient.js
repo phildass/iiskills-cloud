@@ -31,7 +31,6 @@ if (!_hasCredentials && process.env.NODE_ENV === "production" && typeof window =
 
 // Guard: do not use placeholder fallbacks — they get bundled into production output.
 // In CI/build without credentials, a null-safe stub is returned; all auth calls return empty.
-const _hasCredentials = Boolean(supabaseUrl && supabaseAnonKey);
 const _createNullClient = () => {
   const chain = () => {
     const q = {
@@ -99,7 +98,6 @@ export const supabase = _hasCredentials
       }),
     };
 
-  : _createNullClient();
 
 
 /**
