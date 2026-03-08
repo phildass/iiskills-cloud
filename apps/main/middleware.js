@@ -113,6 +113,11 @@ function isAdminIpAllowed(ip) {
 // ---------------------------------------------------------------------------
 export function middleware(request) {
   const { pathname } = request.nextUrl;
+
+  // Always allow manifest.json through — PWA manifests must be publicly
+  // accessible without any rate-limiting or auth checks.
+  if (pathname === "/manifest.json") return NextResponse.next();
+
   const routeGroup = getRouteGroup(pathname);
 
   if (!routeGroup) return NextResponse.next();
