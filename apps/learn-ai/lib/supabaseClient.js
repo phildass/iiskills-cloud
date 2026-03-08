@@ -78,29 +78,6 @@ export const supabase = _hasCredentials
 
   : _createNullClient();
 
-  : {
-      auth: {
-        getSession: async () => ({ data: { session: null }, error: null }),
-        getUser: async () => ({ data: { user: null }, error: null }),
-        signOut: async () => ({ error: null }),
-        signInWithPassword: async () => ({
-          data: { user: null, session: null },
-          error: { message: "No database connection" },
-        }),
-        signInWithOtp: async () => ({ data: null, error: { message: "No database connection" } }),
-        signUp: async () => ({
-          data: { user: null, session: null },
-          error: { message: "No database connection" },
-        }),
-        onAuthStateChange: () => ({ data: { subscription: { unsubscribe: () => {} } } }),
-      },
-      from: () => ({
-        select: () => ({ data: null, error: { message: "No database connection" } }),
-        insert: () => ({ data: null, error: { message: "No database connection" } }),
-        update: () => ({ data: null, error: { message: "No database connection" } }),
-        delete: () => ({ data: null, error: { message: "No database connection" } }),
-      }),
-    };
 
 
 
