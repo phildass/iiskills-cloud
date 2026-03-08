@@ -85,22 +85,16 @@ else
 fi
 
 REPO_DIR="/root/iiskills-cloud-apps"
+# Build into a staging directory so PM2 processes are NOT stopped until the
+# build is fully verified. If the build fails, existing PM2 processes keep
+# running and callers see the old version instead of a 502.
+BUILD_DIR="${REPO_DIR}-build-${DEPLOY_TS}"
 REPO_URL="https://github.com/phildass/iiskills-cloud.git"
 BRANCH="main"
 
 # ---------------------------------------------------------------------------
-# Verify required tools are available
+# List of IISkills PM2 process names (only these are ever stopped/deleted)
 # ---------------------------------------------------------------------------
-for cmd in node yarn pm2 git; do
-  command -v "$cmd" >/dev/null 2>&1 || { echo "ERROR: '$cmd' not found in PATH. Aborting."; exit 1; }
-done
-
-echo "==> Runtime versions"
-node -v
-yarn --version
-
-echo "==> Stop existing IISkills PM2 processes only (do NOT delete all PM2 processes on the host)"
-# Only manage our own processes. Never run `pm2 delete all`.
 IISKILLS_PROCS=(
   "iiskills-main"
   "iiskills-learn-apt"
@@ -114,20 +108,24 @@ IISKILLS_PROCS=(
   "iiskills-learn-ai"
 )
 
-for p in "${IISKILLS_PROCS[@]}"; do
-  pm2 stop "$p" >/dev/null 2>&1 || true
-  pm2 delete "$p" >/dev/null 2>&1 || true
+# ---------------------------------------------------------------------------
+# Verify required tools are available
+# ---------------------------------------------------------------------------
+for cmd in node yarn pm2 git; do
+  command -v "$cmd" >/dev/null 2>&1 || { echo "ERROR: '$cmd' not found in PATH. Aborting."; exit 1; }
 done
 
-echo "==> Backup previous checkout (if exists)"
-if [ -d "$REPO_DIR" ]; then
-  ts="$(date +%Y%m%d-%H%M%S)"
-  mv "$REPO_DIR" "${REPO_DIR}.BAK.${ts}"
-fi
+echo "==> Runtime versions"
+node -v
+yarn --version
 
-echo "==> Fresh clone"
-git clone "$REPO_URL" "$REPO_DIR"
-cd "$REPO_DIR"
+# ---------------------------------------------------------------------------
+# Clone into the BUILD directory (NOT the live REPO_DIR).
+# Existing PM2 processes continue running the old build while we compile.
+# ---------------------------------------------------------------------------
+echo "==> Fresh clone to build staging directory: $BUILD_DIR"
+git clone "$REPO_URL" "$BUILD_DIR"
+cd "$BUILD_DIR"
 git checkout "$BRANCH"
 git pull
 
@@ -178,18 +176,64 @@ export NODE_OPTIONS="${NODE_OPTIONS:+$NODE_OPTIONS }--max-old-space-size=${_heap
 yarn turbo run build --concurrency="${_turbo_concurrency}"
 
 # ---------------------------------------------------------------------------
+
+# Post-build validations — run BEFORE touching any running PM2 process.
+# If any check fails, the script aborts here and existing processes stay up.
+# ---------------------------------------------------------------------------
+echo "==> Post-build validation: apps/main BUILD_ID"
+if [ ! -f "$BUILD_DIR/apps/main/.next/BUILD_ID" ]; then
+  echo "ERROR: apps/main/.next/BUILD_ID not found — build failed or was skipped."
+  echo "  Fix: inspect the build log above, then re-run deploy-all.sh."
+  exit 1
+fi
+echo "  BUILD_ID: $(cat "$BUILD_DIR/apps/main/.next/BUILD_ID")"
+
+echo "==> Post-build validation: no placeholder Supabase strings in apps/main bundle"
+if node "$BUILD_DIR/scripts/verify-build-env.js" --app="$BUILD_DIR/apps/main"; then
+  echo "  Placeholder check: PASSED"
+else
+  echo "ERROR: Placeholder credential strings found in apps/main compiled bundle."
+  echo "  This means NEXT_PUBLIC_SUPABASE_URL or NEXT_PUBLIC_SUPABASE_ANON_KEY was NOT"
+  echo "  set with real values at build time."
+  echo "  Fix:"
+  echo "    1. Set real credentials in /etc/iiskills.env (or apps/main/.env.production)"
+  echo "    2. Re-run: ./deploy-all.sh"
+  exit 1
+fi
+
+# ---------------------------------------------------------------------------
+# All validations passed — safe to stop PM2 and promote the new build.
+# ---------------------------------------------------------------------------
+echo "==> Build validated. Stopping existing IISkills PM2 processes."
+# Only manage our own processes. Never run `pm2 delete all`.
+for p in "${IISKILLS_PROCS[@]}"; do
+  pm2 stop "$p" >/dev/null 2>&1 || true
+  pm2 delete "$p" >/dev/null 2>&1 || true
+done
+
+echo "==> Backup previous checkout (if exists)"
+if [ -d "$REPO_DIR" ]; then
+  ts="$(date +%Y%m%d-%H%M%S)"
+  mv "$REPO_DIR" "${REPO_DIR}.BAK.${ts}"
+fi
+
+echo "==> Promote build staging directory to production: $BUILD_DIR → $REPO_DIR"
+mv "$BUILD_DIR" "$REPO_DIR"
+cd "$REPO_DIR"
+
+# ---------------------------------------------------------------------------
+# Start MAIN on :3000
+
 # Post-build verification — must pass before any PM2 process is started.
 # Checks:
 #   1) apps/main/.next/BUILD_ID exists (confirms Next.js build completed)
 #   2) No placeholder Supabase credential strings in the compiled client bundle
 #      (guards against NEXT_PUBLIC_* env vars not being set at build time)
+
 # ---------------------------------------------------------------------------
 echo "==> Post-build verification"
 if [ ! -d "$REPO_DIR/apps/main" ]; then
-  echo "ERROR: apps/main directory not found. Aborting."; exit 1
-fi
-if [ ! -f "$REPO_DIR/apps/main/.next/BUILD_ID" ]; then
-  echo "ERROR: apps/main/.next/BUILD_ID not found — build may have failed. Aborting."; exit 1
+  echo "ERROR: apps/main directory not found after promotion. Aborting."; exit 1
 fi
 echo "  ✓ apps/main/.next/BUILD_ID found: $(cat "$REPO_DIR/apps/main/.next/BUILD_ID")"
 
