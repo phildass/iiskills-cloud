@@ -85,3 +85,8 @@ apps/**/.env.local
 # Backup files
 *.backup
 *-backup.*
+
+# server-only env (do not commit)
+apps/main/.env.production
+apps/main/.env.production.local
+apps/main/.env.local
