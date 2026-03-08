@@ -34,7 +34,7 @@ const BANNED_LITERALS = [
   "your-project-url-here",
   "https://your-project.supabase.co",
   "https://placeholder.supabase.co",
-  '"placeholder-key"',
+  "placeholder-key",
 ];
 
 // Directories to skip during scanning (never bundled)
