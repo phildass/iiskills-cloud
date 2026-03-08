@@ -2640,6 +2640,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@supabase/auth-helpers-nextjs@npm:^0.15.0":
+  version: 0.15.0
+  resolution: "@supabase/auth-helpers-nextjs@npm:0.15.0"
+  dependencies:
+    cookie: "npm:^1.0.2"
+  peerDependencies:
+    "@supabase/supabase-js": ^2.76.1
+  checksum: 10c0/4a70240858d25a1d301cbb22d94ded50a45ba33e9e0375782e89268667f91f5cbdd50234d1b5a2ca8c67f22333ae11862e7d05cbb55f98e6899cf98ff19f5dd3
+  languageName: node
+  linkType: hard
+
 "@supabase/auth-helpers-nextjs@npm:^0.8.0":
   version: 0.8.7
   resolution: "@supabase/auth-helpers-nextjs@npm:0.8.7"
@@ -2699,6 +2710,17 @@ __metadata:
     tslib: "npm:2.8.1"
     ws: "npm:^8.18.2"
   checksum: 10c0/66aa6d8af06fac1321f1e4d959a16b3f02e536931264bf6c1884f5d11b30946de3ae828c7c71ce55a6637ece7932fc880c1200abe27827487fdd0b64cebf6c1d
+  languageName: node
+  linkType: hard
+
+"@supabase/ssr@npm:^0.9.0":
+  version: 0.9.0
+  resolution: "@supabase/ssr@npm:0.9.0"
+  dependencies:
+    cookie: "npm:^1.0.2"
+  peerDependencies:
+    "@supabase/supabase-js": ^2.97.0
+  checksum: 10c0/72ae27d9f873c0fd69109126e9bbf1d6e994c5c3706041fca4daf1f6aa551402b3064c30178ad4fa4035156cd76cf537cddbc7c15000574365aa94651dbc3ec5
   languageName: node
   linkType: hard
 
@@ -4238,7 +4260,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cookie@npm:^1.1.1":
+"cookie@npm:^1.0.2, cookie@npm:^1.1.1":
   version: 1.1.1
   resolution: "cookie@npm:1.1.1"
   checksum: 10c0/79c4ddc0fcad9c4f045f826f42edf54bcc921a29586a4558b0898277fa89fb47be95bc384c2253f493af7b29500c830da28341274527328f18eba9f58afa112c
@@ -6204,6 +6226,8 @@ __metadata:
     "@eslint/js": "npm:^9.39.2"
     "@playwright/test": "npm:^1.49.0"
     "@sendgrid/mail": "npm:^8.1.6"
+    "@supabase/auth-helpers-nextjs": "npm:^0.15.0"
+    "@supabase/ssr": "npm:^0.9.0"
     "@supabase/supabase-js": "npm:^2.95.3"
     "@typescript-eslint/eslint-plugin": "npm:^8.52.0"
     "@typescript-eslint/parser": "npm:^8.52.0"
