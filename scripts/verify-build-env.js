@@ -22,7 +22,12 @@ const fs = require("fs");
 const path = require("path");
 
 // Strings that must never appear inside a production bundle
-const BANNED_STRINGS = ["your-anon-key-here", "your-project-url-here"];
+const BANNED_STRINGS = [
+  "your-anon-key-here",
+  "your-project-url-here",
+  "https://placeholder.supabase.co",
+  "placeholder-key",
+];
 
 // Resolve the .next directory relative to an optional --app argument
 const args = process.argv.slice(2);

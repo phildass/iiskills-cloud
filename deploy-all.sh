@@ -176,6 +176,7 @@ export NODE_OPTIONS="${NODE_OPTIONS:+$NODE_OPTIONS }--max-old-space-size=${_heap
 yarn turbo run build --concurrency="${_turbo_concurrency}"
 
 # ---------------------------------------------------------------------------
+
 # Post-build validations — run BEFORE touching any running PM2 process.
 # If any check fails, the script aborts here and existing processes stay up.
 # ---------------------------------------------------------------------------
@@ -222,11 +223,35 @@ cd "$REPO_DIR"
 
 # ---------------------------------------------------------------------------
 # Start MAIN on :3000
+
+# Post-build verification — must pass before any PM2 process is started.
+# Checks:
+#   1) apps/main/.next/BUILD_ID exists (confirms Next.js build completed)
+#   2) No placeholder Supabase credential strings in the compiled client bundle
+#      (guards against NEXT_PUBLIC_* env vars not being set at build time)
+
 # ---------------------------------------------------------------------------
-echo "==> Start MAIN on :3000 from apps/main"
+echo "==> Post-build verification"
 if [ ! -d "$REPO_DIR/apps/main" ]; then
   echo "ERROR: apps/main directory not found after promotion. Aborting."; exit 1
 fi
+echo "  ✓ apps/main/.next/BUILD_ID found: $(cat "$REPO_DIR/apps/main/.next/BUILD_ID")"
+
+echo "  Checking for placeholder credentials in apps/main client bundle..."
+cd "$REPO_DIR"
+if node scripts/verify-build-env.js --app=apps/main; then
+  echo "  ✓ No placeholder strings found in apps/main bundle"
+else
+  echo "ERROR: Placeholder Supabase credential string(s) found in apps/main compiled bundle."
+  echo "       Real NEXT_PUBLIC_SUPABASE_* env vars were not set at build time."
+  echo "       Set them in /etc/iiskills.env or apps/main/.env.production and redeploy."
+  exit 1
+fi
+
+# ---------------------------------------------------------------------------
+# Start MAIN on :3000
+# ---------------------------------------------------------------------------
+echo "==> Start MAIN on :3000 from apps/main"
 cd "$REPO_DIR/apps/main"
 PORT=3000 pm2 start "npx next start -p 3000" --name iiskills-main
 
