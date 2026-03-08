@@ -16,7 +16,7 @@ const _hasCredentials =
   !!supabaseUrl &&
   !!supabaseAnonKey &&
   supabaseUrl.includes(".supabase.co") &&
-  supabaseAnonKey.startsWith("eyJ");
+  (supabaseAnonKey.startsWith("eyJ") || supabaseAnonKey.startsWith("sb_"));
 
 // In production on the server, fail fast if credentials are missing.
 if (!_hasCredentials && process.env.NODE_ENV === "production" && typeof window === "undefined") {
@@ -28,8 +28,10 @@ if (!_hasCredentials && process.env.NODE_ENV === "production" && typeof window =
 }
 
 // Create Supabase client — real when credentials are present, no-op stub for CI builds.
+
 // Guard: do not use placeholder fallbacks — they get bundled into production output.
 // In CI/build without credentials, a null-safe stub is returned; all auth calls return empty.
+
 const _createNullClient = () => {
   const chain = () => {
     const q = {
@@ -72,6 +74,9 @@ export const supabase = _hasCredentials
       },
     })
 
+
+  : _createNullClient();
+
   : {
       auth: {
         getSession: async () => ({ data: { session: null }, error: null }),
@@ -95,6 +100,7 @@ export const supabase = _hasCredentials
         delete: () => ({ data: null, error: { message: "No database connection" } }),
       }),
     };
+
 
 
 
