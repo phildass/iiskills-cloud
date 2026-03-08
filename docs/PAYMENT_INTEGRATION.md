@@ -162,6 +162,52 @@ HTTP 200 without creating duplicate records.
 
 ---
 
+## Profile Self-Healing (generate-token)
+
+`POST /api/payments/generate-token` is resilient to a missing `profiles` row:
+
+1. It uses `maybeSingle()` instead of `single()` — a missing row returns `null`, not an error.
+2. If no row is found, the API performs an `upsert({ id: user.id })` to create a minimal stub.
+3. It then re-fetches the profile and checks completeness as usual.
+4. If `first_name` or `phone` are still absent, the normal `422 profile_incomplete` response is
+   returned, directing the client to the registration form.
+
+### Required Supabase DB Policies
+
+The profiles table must allow authenticated users to insert / upsert their own row.
+If your project uses a `handle_new_user` trigger this is handled automatically; otherwise
+ensure the following policies exist:
+
+```sql
+-- Allow an authenticated user to insert their own profile row.
+CREATE POLICY "Users can insert own profile"
+  ON public.profiles FOR INSERT
+  TO authenticated
+  WITH CHECK (auth.uid() = id);
+
+-- Allow an authenticated user to update their own profile row.
+CREATE POLICY "Users can update own profile"
+  ON public.profiles FOR UPDATE
+  TO authenticated
+  USING (auth.uid() = id);
+```
+
+---
+
+## Public Asset Accessibility (manifest.json / favicon)
+
+`apps/main/middleware.js` contains an explicit pass-through guard for static / public assets:
+
+```
+/manifest.json   /favicon.ico   /robots.txt   /sitemap.xml
+/_next/*         /images/*
+```
+
+These paths always return `NextResponse.next()` without rate-limiting or auth gating,
+ensuring PWA manifests and browser-level assets are never blocked by the Edge middleware.
+
+---
+
 ## Security Notes
 
 - The raw body (not re-serialized JSON) **must** be used for HMAC computation on both sides.

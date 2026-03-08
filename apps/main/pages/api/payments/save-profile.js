@@ -57,12 +57,14 @@ export default async function handler(req, res) {
     full_name: trimmedLastName ? `${trimmedFirstName} ${trimmedLastName}` : trimmedFirstName,
   };
 
-  const { error: updateError } = await supabase.from("profiles").update(updates).eq("id", user.id);
+  const { error: upsertError } = await supabase
+    .from("profiles")
+    .upsert({ id: user.id, ...updates }, { onConflict: "id" });
 
-  if (updateError) {
-    console.error("[save-profile] DB update error:", updateError.message);
+  if (upsertError) {
+    console.error("[save-profile] DB upsert error:", upsertError.message);
 
-    if (updateError.code === "23505" || updateError.message?.includes("unique")) {
+    if (upsertError.code === "23505" || upsertError.message?.includes("unique")) {
       return res.status(409).json({
         error: "This phone number is already associated with another account.",
       });

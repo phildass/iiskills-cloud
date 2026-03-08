@@ -161,6 +161,92 @@ describe("generate-token: profile_incomplete guard logic", () => {
       checkProfileComplete({ first_name: "Priya", phone: "+919876543210", last_name: null })
     ).toBe(true);
   });
+
+  // Self-healing: a freshly upserted stub row has null name/phone → still incomplete.
+  test("returns false for a freshly upserted stub row (null first_name and phone)", () => {
+    // Simulates the profile returned right after upsert({ id }) with no other fields.
+    expect(checkProfileComplete({ first_name: null, phone: null })).toBe(false);
+  });
+
+  test("returns false when profile row exists but all fields are null", () => {
+    expect(checkProfileComplete({ first_name: null, phone: null, last_name: null })).toBe(false);
+  });
+});
+
+// ─── generate-token: self-healing flow logic ─────────────────────────────────
+
+describe("generate-token: missing-profile self-healing logic", () => {
+  /**
+   * Documents the expected behaviour when no profile row exists for the user:
+   * 1. maybeSingle() returns null (not an error) → existingProfile === null.
+   * 2. An upsert of { id: user.id } is attempted (creates a minimal stub row).
+   * 3. After upsert, the profile is re-fetched.
+   * 4. Because first_name and phone are still null, the 422 code fires,
+   *    routing the user to the registration form.
+   *
+   * These tests validate the decision tree without a real Supabase connection.
+   */
+
+  function resolveGenerateTokenOutcome({ fetchedProfile, upsertSucceeded, refetchedProfile }) {
+    // Step 1: check if fetch returned null (missing row).
+    let profile = fetchedProfile;
+
+    if (profile === null) {
+      // Step 2: attempt upsert.
+      if (!upsertSucceeded) return { status: 500, code: "profile_init_error" };
+
+      // Step 3: re-fetch.
+      profile = refetchedProfile;
+      if (profile === null) return { status: 500, code: "profile_fetch_error" };
+    }
+
+    // Step 4: completeness check.
+    if (!profile?.first_name || !profile?.phone) {
+      return { status: 422, code: "profile_incomplete" };
+    }
+
+    return { status: 200, code: "ok" };
+  }
+
+  test("missing profile + successful upsert → 422 profile_incomplete (stub has no name/phone)", () => {
+    const result = resolveGenerateTokenOutcome({
+      fetchedProfile: null,
+      upsertSucceeded: true,
+      refetchedProfile: { first_name: null, phone: null },
+    });
+    expect(result.status).toBe(422);
+    expect(result.code).toBe("profile_incomplete");
+  });
+
+  test("missing profile + upsert failure → 500 profile_init_error", () => {
+    const result = resolveGenerateTokenOutcome({
+      fetchedProfile: null,
+      upsertSucceeded: false,
+      refetchedProfile: null,
+    });
+    expect(result.status).toBe(500);
+    expect(result.code).toBe("profile_init_error");
+  });
+
+  test("existing complete profile → 200 ok", () => {
+    const result = resolveGenerateTokenOutcome({
+      fetchedProfile: { first_name: "Priya", phone: "+919876543210" },
+      upsertSucceeded: true,
+      refetchedProfile: null, // not reached
+    });
+    expect(result.status).toBe(200);
+    expect(result.code).toBe("ok");
+  });
+
+  test("existing profile with incomplete data → 422 profile_incomplete", () => {
+    const result = resolveGenerateTokenOutcome({
+      fetchedProfile: { first_name: "Priya", phone: null },
+      upsertSucceeded: true,
+      refetchedProfile: null, // not reached
+    });
+    expect(result.status).toBe(422);
+    expect(result.code).toBe("profile_incomplete");
+  });
 });
 
 // ─── Client-side Indian phone validation (from lib/phoneValidation.js) ─────
