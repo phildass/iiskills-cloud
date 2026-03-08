@@ -27,16 +27,22 @@ const _hasCredentials =
   (supabaseAnonKey.startsWith("eyJ") || supabaseAnonKey.startsWith("sb_"));
 
 // In production on the server, fail fast if credentials are missing.
-if (!_hasCredentials && process.env.NODE_ENV === "production" && typeof window === "undefined") {
-  console.error(
-    "STARTUP ERROR: Missing or invalid NEXT_PUBLIC_SUPABASE_URL / NEXT_PUBLIC_SUPABASE_ANON_KEY. " +
-      "Set these in your environment before starting the server."
-  );
-  process.exit(1);
-}
+  // In production on the server, fail fast if credentials are missing.
+  if (!_hasCredentials && process.env.NODE_ENV === "production" && typeof window === "undefined") {
+    console.error(
+      "STARTUP ERROR: Missing or invalid NEXT_PUBLIC_SUPABASE_URL / NEXT_PUBLIC_SUPABASE_ANON_KEY. " +
+        "Set these in your environment before starting the server."
+    );
+    process.exit(1);
+  }
+
 
 // Create Supabase client — real when credentials are present, no-op stub for CI builds.
 
+
+
+// Guard: do not use placeholder fallbacks — they get bundled into production output.
+// In CI/build without credentials, a null-safe stub is returned; all auth calls return empty.
 
 const _createNullClient = () => {
   const chain = () => {
@@ -81,7 +87,34 @@ export const supabase = _hasCredentials
       },
     })
 
+
   : _createNullClient();
+
+  : {
+      auth: {
+        getSession: async () => ({ data: { session: null }, error: null }),
+        getUser: async () => ({ data: { user: null }, error: null }),
+        signOut: async () => ({ error: null }),
+        signInWithPassword: async () => ({
+          data: { user: null, session: null },
+          error: { message: "No database connection" },
+        }),
+        signInWithOtp: async () => ({ data: null, error: { message: "No database connection" } }),
+        signUp: async () => ({
+          data: { user: null, session: null },
+          error: { message: "No database connection" },
+        }),
+        onAuthStateChange: () => ({ data: { subscription: { unsubscribe: () => {} } } }),
+      },
+      from: () => ({
+        select: () => ({ data: null, error: { message: "No database connection" } }),
+        insert: () => ({ data: null, error: { message: "No database connection" } }),
+        update: () => ({ data: null, error: { message: "No database connection" } }),
+        delete: () => ({ data: null, error: { message: "No database connection" } }),
+      }),
+    };
+
+
 
 
 /**
