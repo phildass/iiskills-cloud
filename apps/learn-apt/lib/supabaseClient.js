@@ -14,17 +14,58 @@
 
 import { createClient } from "@supabase/supabase-js";
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "https://placeholder.supabase.co";
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "placeholder-key";
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-// Create Supabase client
-export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
-  auth: {
-    autoRefreshToken: true,
-    persistSession: true,
-    detectSessionInUrl: true,
-  },
-});
+// Use POSITIVE validation: check if the values look like real credentials.
+// This avoids placeholder strings being compiled into the client bundle.
+const _hasCredentials =
+  !!supabaseUrl &&
+  !!supabaseAnonKey &&
+  supabaseUrl.includes(".supabase.co") &&
+  supabaseAnonKey.startsWith("eyJ");
+
+// In production on the server, fail fast if credentials are missing.
+if (!_hasCredentials && process.env.NODE_ENV === "production" && typeof window === "undefined") {
+  console.error(
+    "STARTUP ERROR: Missing or invalid NEXT_PUBLIC_SUPABASE_URL / NEXT_PUBLIC_SUPABASE_ANON_KEY. " +
+      "Set these in your environment before starting the server."
+  );
+  process.exit(1);
+}
+
+// Create Supabase client — real when credentials are present, no-op stub for CI builds.
+export const supabase = _hasCredentials
+  ? createClient(supabaseUrl, supabaseAnonKey, {
+      auth: {
+        autoRefreshToken: true,
+        persistSession: true,
+        detectSessionInUrl: true,
+      },
+    })
+  : {
+      auth: {
+        getSession: async () => ({ data: { session: null }, error: null }),
+        getUser: async () => ({ data: { user: null }, error: null }),
+        signOut: async () => ({ error: null }),
+        signInWithPassword: async () => ({
+          data: { user: null, session: null },
+          error: { message: "No database connection" },
+        }),
+        signInWithOtp: async () => ({ data: null, error: { message: "No database connection" } }),
+        signUp: async () => ({
+          data: { user: null, session: null },
+          error: { message: "No database connection" },
+        }),
+        onAuthStateChange: () => ({ data: { subscription: { unsubscribe: () => {} } } }),
+      },
+      from: () => ({
+        select: () => ({ data: null, error: { message: "No database connection" } }),
+        insert: () => ({ data: null, error: { message: "No database connection" } }),
+        update: () => ({ data: null, error: { message: "No database connection" } }),
+        delete: () => ({ data: null, error: { message: "No database connection" } }),
+      }),
+    };
 
 /**
  * Helper function to get the currently logged-in user
