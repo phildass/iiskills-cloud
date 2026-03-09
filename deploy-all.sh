@@ -213,6 +213,17 @@ done
 
 echo "==> Backup previous checkout (if exists)"
 if [ -d "$REPO_DIR" ]; then
+  # IMPORTANT: prevent multi-GB backups by removing build artifacts and dependencies
+  # from the OLD checkout before archiving it.
+  echo "  Shrinking previous checkout before backup (remove node_modules/.next/dist caches)..."
+  rm -rf \
+    "$REPO_DIR"/**/node_modules \
+    "$REPO_DIR"/**/.next \
+    "$REPO_DIR"/**/dist \
+    "$REPO_DIR"/**/.turbo \
+    "$REPO_DIR"/**/.cache \
+    2>/dev/null || true
+
   ts="$(date +%Y%m%d-%H%M%S)"
   mv "$REPO_DIR" "${REPO_DIR}.BAK.${ts}"
 fi
@@ -222,14 +233,11 @@ mv "$BUILD_DIR" "$REPO_DIR"
 cd "$REPO_DIR"
 
 # ---------------------------------------------------------------------------
-# Start MAIN on :3000
-
 # Post-build verification — must pass before any PM2 process is started.
 # Checks:
 #   1) apps/main/.next/BUILD_ID exists (confirms Next.js build completed)
 #   2) No placeholder Supabase credential strings in the compiled client bundle
 #      (guards against NEXT_PUBLIC_* env vars not being set at build time)
-
 # ---------------------------------------------------------------------------
 echo "==> Post-build verification"
 if [ ! -d "$REPO_DIR/apps/main" ]; then
@@ -287,6 +295,9 @@ done
 
 echo "==> Save PM2 process list"
 pm2 save
+
+echo "==> Prune old backups/build dirs (retention enforcement)"
+/usr/local/bin/prune-iiskills-backups.sh || true
 
 echo "================================================================"
 echo "==> Deployment complete. Run 'pm2 status' to verify."
