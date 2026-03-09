@@ -90,3 +90,6 @@ apps/**/.env.local
 apps/main/.env.production
 apps/main/.env.production.local
 apps/main/.env.local
+
+# Stray server-local directory (not part of repo)
+main/
