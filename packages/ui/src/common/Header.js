@@ -31,9 +31,14 @@ export default function Header({
   showAuthButtons = true,
   isPaid = false,
 
-  // NEW (optional) props
+  // Optional props
   registrationIncomplete = false,
   primaryCta = null, // { label: string, href: string }
+
+  // Auth link overrides — set to absolute main-site URLs for non-main apps
+  loginUrl = "/login",
+  registerUrl = "/register",
+  profileUrl = "/profile",
 }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -192,7 +197,7 @@ export default function Header({
                     </Link>
                   ) : (
                     isPaid && (
-                      <Link href="/profile" className="hover:text-primary transition font-medium">
+                      <Link href={profileUrl} className="hover:text-primary transition font-medium">
                         Profile
                       </Link>
                     )
@@ -207,11 +212,11 @@ export default function Header({
                 </>
               ) : (
                 <>
-                  <Link href="/login" className="hover:text-primary transition">
+                  <Link href={loginUrl} className="hover:text-primary transition">
                     Login
                   </Link>
                   <Link
-                    href="/register"
+                    href={registerUrl}
                     className="bg-primary text-white px-4 py-2 rounded hover:bg-blue-700 transition font-bold"
                   >
                     Register
@@ -303,7 +308,7 @@ export default function Header({
                   ) : (
                     isPaid && (
                       <Link
-                        href="/profile"
+                        href={profileUrl}
                         className="block hover:text-primary transition font-medium px-4 py-2"
                       >
                         Profile
@@ -320,11 +325,11 @@ export default function Header({
                 </>
               ) : (
                 <>
-                  <Link href="/login" className="block hover:text-primary transition">
+                  <Link href={loginUrl} className="block hover:text-primary transition">
                     Login
                   </Link>
                   <Link
-                    href="/register"
+                    href={registerUrl}
                     className="block bg-primary text-white px-4 py-2 rounded hover:bg-blue-700 transition font-bold"
                   >
                     Register

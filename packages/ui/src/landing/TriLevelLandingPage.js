@@ -162,7 +162,12 @@ export default function TriLevelLandingPage({
 
       <main className="min-h-screen">
         {/* Hero Section */}
-        <Hero appId={appId} heroImageSrc={heroImage} className="h-[70vh] md:h-[80vh] lg:h-[90vh]">
+        <Hero
+          appId={appId}
+          appName={appName}
+          heroImageSrc={heroImage}
+          className="h-[70vh] md:h-[80vh] lg:h-[90vh]"
+        >
           <div className="text-white">
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight mb-3">
               {headline || appName}
