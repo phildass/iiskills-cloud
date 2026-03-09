@@ -133,6 +133,7 @@ export function getRandomSecondaryImage(appId) {
  * Hero component with full-size background image and bottom-aligned overlay
  * @param {Object} props
  * @param {string} props.appId - App identifier for image selection
+ * @param {string} [props.appName] - App display name shown in the secondary nav bar at top-left (e.g., "Learn AI")
  * @param {React.ReactNode} props.children - Content to display in hero overlay (positioned at bottom)
  * @param {string} props.className - Additional CSS classes for the hero section
  * @param {string} props.heroHeight - Height of hero section (default: 70vh for mobile, 80vh for md, 90vh for lg)
@@ -142,6 +143,7 @@ export function getRandomSecondaryImage(appId) {
  */
 export default function Hero({
   appId,
+  appName = null,
   children,
   className = "",
   heroHeight = "70vh",
@@ -189,6 +191,18 @@ export default function Hero({
       {/* Overlay for better text readability - can be disabled with noOverlay prop or customized */}
       {!noOverlay && (
         <div className={`absolute inset-0 ${overlayOpacity} z-10`} aria-hidden="true"></div>
+      )}
+
+      {/* Secondary nav bar - top left, shows the app name */}
+      {appName && (
+        <div className="absolute top-4 left-4 z-20">
+          <a
+            href="/"
+            className="inline-flex items-center gap-2 bg-black/50 backdrop-blur-sm text-white px-4 py-2 rounded-full font-semibold text-sm hover:bg-black/70 transition-colors"
+          >
+            <span>{appName}</span>
+          </a>
+        </div>
       )}
 
       {/* Content container - positioned at bottom */}

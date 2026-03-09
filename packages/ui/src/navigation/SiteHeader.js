@@ -123,9 +123,15 @@ export default function SiteHeader({ appId = "main", isFreeApp = false }) {
   // and will demote irrelevant links when registrationIncomplete === true.
   const navLinks = getCanonicalLinks(appId, isFreeApp);
 
+  // For non-main apps, auth pages live on the main site.
+  const mainAppUrl = process.env.NEXT_PUBLIC_MAIN_APP_URL || "https://iiskills.cloud";
+  const isSubApp = appId !== "main";
+  const loginUrl = isSubApp ? `${mainAppUrl}/login` : "/login";
+  const registerUrl = isSubApp ? `${mainAppUrl}/register` : "/register";
+  const profileUrl = isSubApp ? `${mainAppUrl}/profile` : "/profile";
+
   // Prefer main app domain for a central complete-registration flow
-  const completeRegistrationHref =
-    (process.env.NEXT_PUBLIC_MAIN_APP_URL || "https://iiskills.cloud") + "/complete-registration";
+  const completeRegistrationHref = `${mainAppUrl}/complete-registration`;
 
   return (
     <Header
@@ -142,6 +148,9 @@ export default function SiteHeader({ appId = "main", isFreeApp = false }) {
           : null
       }
       onLogout={handleLogout}
+      loginUrl={loginUrl}
+      registerUrl={registerUrl}
+      profileUrl={profileUrl}
     />
   );
 }
