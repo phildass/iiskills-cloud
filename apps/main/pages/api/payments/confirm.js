@@ -19,16 +19,16 @@ import { APPS } from "@lib/appRegistry";
  * - Optional replay-protection via x-aienter-timestamp (rejects requests older than 5 min)
  *
  * Idempotency:
- * - payment_confirmations table has a UNIQUE constraint on razorpay_payment_id
- * - Duplicate calls return 200 without side-effects
+ * - purchases table tracks iiskills_ack_at; duplicate calls with the same purchaseId
+ *   and razorpayPaymentId return 200 without side-effects
+ * - entitlements insert is idempotent via ON CONFLICT handling
  *
- * On success (Option A — user_token present):
+ * On success (Option A — user_token required):
  * - Verifies the short-lived JWT issued by /api/payments/generate-token
- * - Grants an entitlement directly to the identified user
+ * - Updates the purchases row (status='paid', razorpay fields, iiskills_ack_at)
+ * - Grants an entitlement into public.entitlements (course_slug, not app_id)
+ * - Marks profiles.is_paid_user=true and paid_at (idempotent)
  * - Sends a confirmation notification email
- *
- * Fallback (no user_token — legacy flow):
- * - Returns 400; all payments must include a user_token (Option A flow).
  */
 
 // Disable Next.js body parsing so we can read raw bytes for signature verification
@@ -45,10 +45,7 @@ const MAX_TIMESTAMP_SKEW_SECONDS = 300; // 5 minutes
 
 function getSupabaseAdmin() {
   const url = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key =
-    process.env.SUPABASE_SERVICE_ROLE_KEY ||
-    process.env.SUPABASE_KEY ||
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_KEY;
   if (!url || !key) return null;
   return createClient(url, key);
 }
@@ -143,7 +140,7 @@ export default async function handler(req, res) {
     razorpayOrderId,
     razorpayPaymentId,
     paidAt,
-    user_token, // Option A: signed JWT from /api/payments/generate-token
+    user_token, // Option A: signed JWT from /api/payments/generate-token (required)
   } = payload;
 
   // ── 5. Validate required fields ────────────────────────────────────────────
@@ -156,9 +153,10 @@ export default async function handler(req, res) {
   if (!razorpayPaymentId) {
     return res.status(400).json({ error: "razorpayPaymentId is required" });
   }
-  // customerPhone required unless user_token provides identity
-  if (!user_token && !customerPhone) {
-    return res.status(400).json({ error: "customerPhone is required" });
+  if (!user_token) {
+    return res
+      .status(400)
+      .json({ error: "user_token is required for payment confirmation." });
   }
   if (amountPaise === undefined || amountPaise === null) {
     return res.status(400).json({ error: "amountPaise is required" });
@@ -170,154 +168,169 @@ export default async function handler(req, res) {
   }
   const appName = appConfig?.name || "iiskills.cloud";
 
-  // ── 6. Format phone to E.164 ───────────────────────────────────────────────
+  // ── 6. Verify user_token (Option A — required) ────────────────────────────
+  const tokenSecret = process.env.PAYMENT_TOKEN_SECRET;
+  if (!tokenSecret) {
+    console.error("[payments/confirm] PAYMENT_TOKEN_SECRET not set");
+    return res.status(500).json({ error: "Server misconfiguration" });
+  }
+
+  let tokenPayload;
+  try {
+    tokenPayload = jwt.verify(user_token, tokenSecret);
+  } catch (err) {
+    console.error("[payments/confirm] user_token verification failed:", err.message);
+    return res.status(401).json({ error: "Invalid or expired user token" });
+  }
+
+  const { user_id, course_slug: tokenCourseSlug } = tokenPayload;
+  if (!user_id) {
+    return res.status(400).json({ error: "user_token missing user_id claim" });
+  }
+
+  const courseAppId = tokenCourseSlug || courseSlug || appId;
+
+  // ── 7. Format phone to E.164 ───────────────────────────────────────────────
   let formattedPhone = customerPhone || null;
   if (formattedPhone && !formattedPhone.startsWith("+")) {
     formattedPhone = `+91${formattedPhone}`;
   }
 
-  // ── 7. Store confirmation record (idempotent) ──────────────────────────────
+  // ── 8. Update purchase row in public.purchases (idempotent) ───────────────
   const supabase = getSupabaseAdmin();
-  let confirmationId = null;
 
   if (supabase) {
-    const { data: inserted, error: insertError } = await supabase
-      .from("payment_confirmations")
-      .insert([
-        {
-          purchase_id: purchaseId,
-          app_id: appId,
-          course_slug: courseSlug || null,
-          amount_paise: amountPaise,
-          currency,
-          customer_phone: formattedPhone,
-          razorpay_order_id: razorpayOrderId || null,
-          razorpay_payment_id: razorpayPaymentId,
-          paid_at: paidAt || null,
-        },
-      ])
-      .select("id")
-      .single();
+    const { data: existingPurchase, error: fetchError } = await supabase
+      .from("purchases")
+      .select("id, razorpay_payment_id, iiskills_ack_at, metadata")
+      .eq("id", purchaseId)
+      .maybeSingle();
 
-    if (insertError) {
-      const isDuplicate =
-        insertError.code === "23505" ||
-        insertError.message?.includes("duplicate") ||
-        insertError.message?.includes("unique");
-
-      if (isDuplicate) {
-        console.log(
-          `[payments/confirm] Duplicate razorpayPaymentId ${razorpayPaymentId} – already processed`
+    if (fetchError) {
+      console.error("[payments/confirm] Failed to fetch purchase:", fetchError);
+      // Continue — don't block entitlement grant on fetch error
+    } else if (existingPurchase) {
+      // Verify user ownership via purchase metadata
+      const purchaseUserId = existingPurchase.metadata?.user_id;
+      if (purchaseUserId && purchaseUserId !== user_id) {
+        console.error(
+          `[payments/confirm] user_id mismatch: token=${user_id} purchase=${purchaseUserId}`
         );
-        // Fetch the existing record id for the response
-        const { data: existing } = await supabase
-          .from("payment_confirmations")
-          .select("id")
-          .eq("razorpay_payment_id", razorpayPaymentId)
-          .single();
+        return res.status(403).json({ error: "Purchase does not belong to this user" });
+      }
+
+      // Idempotency: already acknowledged with the same payment ID
+      if (
+        existingPurchase.iiskills_ack_at &&
+        existingPurchase.razorpay_payment_id === razorpayPaymentId
+      ) {
+        console.log(
+          `[payments/confirm] Purchase ${purchaseId} already acknowledged (idempotent)`
+        );
         return res.status(200).json({
           success: true,
-          confirmationId: existing?.id || null,
+          purchaseId,
           message: "Payment already confirmed (idempotent)",
+          course_slug: courseAppId,
         });
       }
 
-      console.error("[payments/confirm] Failed to store confirmation record:", insertError);
-      // Continue to entitlement grant even if storage fails for non-duplicate reasons
+      // Update the purchase to paid
+      const now = new Date().toISOString();
+      const { error: updateError } = await supabase
+        .from("purchases")
+        .update({
+          status: "paid",
+          razorpay_payment_id: razorpayPaymentId,
+          razorpay_order_id: razorpayOrderId || null,
+          paid_at: paidAt || now,
+          iiskills_ack_at: now,
+          updated_at: now,
+        })
+        .eq("id", purchaseId);
+
+      if (updateError) {
+        console.error("[payments/confirm] Failed to update purchase:", updateError);
+        // Continue to entitlement grant even if purchase update fails
+      } else {
+        console.log(`[payments/confirm] Purchase ${purchaseId} updated to paid`);
+      }
     } else {
-      confirmationId = inserted?.id || null;
+      console.warn(
+        `[payments/confirm] Purchase ${purchaseId} not found — proceeding with entitlement grant`
+      );
     }
   } else {
-    console.warn("[payments/confirm] Supabase not configured – skipping confirmation storage");
+    console.warn("[payments/confirm] Supabase not configured — skipping purchases update");
   }
 
-  // ── 8. Option A: verify user_token and grant entitlement directly ─────────
-  if (user_token) {
-    const tokenSecret = process.env.PAYMENT_TOKEN_SECRET;
-    if (!tokenSecret) {
-      console.error("[payments/confirm] PAYMENT_TOKEN_SECRET not set");
-      return res.status(500).json({ error: "Server misconfiguration" });
-    }
+  // ── 9. Grant entitlement into public.entitlements (idempotent) ────────────
+  if (supabase) {
+    const { error: entErr } = await supabase.from("entitlements").insert([
+      {
+        user_id,
+        course_slug: courseAppId, // uses course_slug (not app_id)
+        status: "active",
+        source: "razorpay",
+        purchase_id: purchaseId, // links back to the purchase row
+        expires_at: new Date(Date.now() + ENTITLEMENT_DURATION_MS).toISOString(),
+      },
+    ]);
 
-    let tokenPayload;
-    try {
-      tokenPayload = jwt.verify(user_token, tokenSecret);
-    } catch (err) {
-      console.error("[payments/confirm] user_token verification failed:", err.message);
-      return res.status(401).json({ error: "Invalid or expired user token" });
-    }
-
-    const { user_id, course_slug: tokenCourseSlug } = tokenPayload;
-    if (!user_id) {
-      return res.status(400).json({ error: "user_token missing user_id claim" });
-    }
-
-    const courseAppId = tokenCourseSlug || courseSlug || appId;
-
-    if (supabase) {
-      const { error: entErr } = await supabase.from("entitlements").insert([
-        {
-          user_id,
-          app_id: courseAppId,
-          status: "active",
-          source: "razorpay",
-          expires_at: new Date(Date.now() + ENTITLEMENT_DURATION_MS).toISOString(),
-        },
-      ]);
-
-      if (entErr) {
-        const isDuplicate =
-          entErr.code === "23505" ||
-          entErr.message?.includes("duplicate") ||
-          entErr.message?.includes("unique");
-        if (!isDuplicate) {
-          console.error("[payments/confirm] Failed to insert entitlement:", entErr);
-        } else {
-          console.log(
-            `[payments/confirm] Entitlement already exists for user=${user_id} app=${courseAppId}`
-          );
-        }
+    if (entErr) {
+      const isDuplicate =
+        entErr.code === "23505" ||
+        entErr.message?.includes("duplicate") ||
+        entErr.message?.includes("unique");
+      if (!isDuplicate) {
+        console.error("[payments/confirm] Failed to insert entitlement:", entErr);
       } else {
-        console.log(`[payments/confirm] Entitlement granted: user=${user_id} app=${courseAppId}`);
+        console.log(
+          `[payments/confirm] Entitlement already exists for user=${user_id} course=${courseAppId}`
+        );
+      }
+    } else {
+      console.log(
+        `[payments/confirm] Entitlement granted: user=${user_id} course=${courseAppId}`
+      );
 
-        // Mark user as paid (idempotent)
-        await supabase
-          .from("profiles")
-          .update({ is_paid_user: true })
-          .eq("id", user_id)
-          .eq("is_paid_user", false);
+      // Mark user as paid (idempotent)
+      await supabase
+        .from("profiles")
+        .update({ is_paid_user: true })
+        .eq("id", user_id)
+        .eq("is_paid_user", false);
 
-        await supabase
-          .from("profiles")
-          .update({ paid_at: new Date().toISOString() })
-          .eq("id", user_id)
-          .is("paid_at", null);
+      await supabase
+        .from("profiles")
+        .update({ paid_at: new Date().toISOString() })
+        .eq("id", user_id)
+        .is("paid_at", null);
 
-        // Send confirmation notification (not OTP) — fire-and-forget
-        const notifyEmail = tokenPayload.email || customerEmail || null;
-        if (notifyEmail) {
-          sendThankYouEmail({
-            email: notifyEmail,
-            appId: courseAppId,
-            appName,
-            paymentTransactionId: razorpayPaymentId,
-          }).catch((err) => console.error("[payments/confirm] Confirmation email error:", err));
-        }
+      // Send confirmation notification (not OTP) — fire-and-forget
+      const notifyEmail = tokenPayload.email || customerEmail || null;
+      if (notifyEmail) {
+        sendThankYouEmail({
+          email: notifyEmail,
+          appId: courseAppId,
+          appName,
+          paymentTransactionId: razorpayPaymentId,
+        }).catch((err) => console.error("[payments/confirm] Confirmation email error:", err));
       }
     }
-
-    return res.status(200).json({
-      success: true,
-      confirmationId,
-      message: "confirmed",
-      user_id,
-      app_id: courseAppId,
-    });
   }
 
-  // ── 9. No user_token — reject legacy requests ────────────────────────────
-  // All payments must use the token-based flow (Option A).
-  return res.status(400).json({
-    error: "Payment confirmation requires a user_token. Please start payment from iiskills.cloud.",
+  const mainAppUrl = process.env.NEXT_PUBLIC_MAIN_APP_URL || "https://iiskills.cloud";
+  const redirectUrl =
+    tokenPayload.return_to ||
+    `${mainAppUrl}/complete-registration?course=${encodeURIComponent(courseAppId)}`;
+
+  return res.status(200).json({
+    success: true,
+    purchaseId,
+    message: "confirmed",
+    user_id,
+    course_slug: courseAppId,
+    redirect_url: redirectUrl,
   });
 }

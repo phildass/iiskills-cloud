@@ -148,6 +148,35 @@ export default function IiskillsCheckout() {
    */
   async function proceedToPayment(currentSession) {
     setStep("paying");
+
+    // ── Step 1: Create purchase record (before redirect) ────────────────────
+    let purchaseId = null;
+    try {
+      const resp = await fetch("/api/payments/create-purchase", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${currentSession.access_token}`,
+        },
+        body: JSON.stringify({ courseSlug: course || "iiskills" }),
+      });
+      const data = await resp.json();
+      if (!resp.ok || !data.purchaseId) {
+        if (data.code === "profile_incomplete") {
+          setStep("registration");
+          setFormError("Please complete your details before proceeding to payment.");
+          return;
+        }
+        throw new Error(data.error || "Failed to create purchase record");
+      }
+      purchaseId = data.purchaseId;
+    } catch (err) {
+      setStep("error");
+      setError(err.message || "Could not initiate payment. Please try again.");
+      return;
+    }
+
+    // ── Step 2: Generate signed token ──────────────────────────────────────
     let token = null;
     try {
       const resp = await fetch("/api/payments/generate-token", {
@@ -176,10 +205,11 @@ export default function IiskillsCheckout() {
       return;
     }
 
-    // ── Redirect to aienter with token ──────────────────────────────────────
+    // ── Step 3: Redirect to aienter with purchaseId + token ─────────────────
     const returnTo = getPaymentReturnToUrl(course);
     const params = new URLSearchParams({
       ...(course && { course }),
+      purchaseId,
       token,
       returnTo,
     });

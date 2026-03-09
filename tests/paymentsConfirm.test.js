@@ -150,15 +150,16 @@ describe("payments/confirm: payload validation", () => {
     expect(payload.razorpayPaymentId).toBeUndefined();
   });
 
-  test("requires customerPhone", () => {
+  test("requires user_token (Option A — token required)", () => {
     const payload = {
       purchaseId: "purchase-uuid",
       appId: "learn-ai",
       amountPaise: 49900,
       currency: "INR",
+      customerPhone: "+919876543210",
       razorpayPaymentId: "pay_abc",
     };
-    expect(payload.customerPhone).toBeUndefined();
+    expect(payload.user_token).toBeUndefined();
   });
 
   test("requires amountPaise", () => {
@@ -207,11 +208,11 @@ describe("payments/confirm: payload validation", () => {
 });
 
 describe("payments/confirm: idempotency", () => {
-  test("duplicate razorpay_payment_id is detected by pg unique constraint (error 23505)", () => {
+  test("duplicate razorpay_payment_id on purchases is detected by pg unique constraint (error 23505)", () => {
     const pgUniqueError = {
       code: "23505",
       message:
-        'duplicate key value violates unique constraint "payment_confirmations_razorpay_payment_id_key"',
+        'duplicate key value violates unique constraint "purchases_razorpay_payment_id_key"',
     };
     const isDuplicate =
       pgUniqueError.code === "23505" ||
@@ -223,13 +224,39 @@ describe("payments/confirm: idempotency", () => {
   test("non-unique DB error is not treated as idempotent duplicate", () => {
     const pgOtherError = {
       code: "42P01",
-      message: 'relation "payment_confirmations" does not exist',
+      message: 'relation "purchases" does not exist',
     };
     const isDuplicate =
       pgOtherError.code === "23505" ||
       pgOtherError.message?.includes("duplicate") ||
       pgOtherError.message?.includes("unique");
     expect(isDuplicate).toBe(false);
+  });
+
+  test("purchase already acknowledged (iiskills_ack_at set) triggers idempotent response", () => {
+    const existingPurchase = {
+      id: "purchase-uuid-123",
+      razorpay_payment_id: "pay_test123",
+      iiskills_ack_at: new Date().toISOString(),
+    };
+    const incomingPaymentId = "pay_test123";
+    const isAlreadyAcknowledged =
+      existingPurchase.iiskills_ack_at &&
+      existingPurchase.razorpay_payment_id === incomingPaymentId;
+    expect(isAlreadyAcknowledged).toBe(true);
+  });
+
+  test("purchase with different razorpay_payment_id is not treated as duplicate", () => {
+    const existingPurchase = {
+      id: "purchase-uuid-123",
+      razorpay_payment_id: "pay_other",
+      iiskills_ack_at: new Date().toISOString(),
+    };
+    const incomingPaymentId = "pay_test123";
+    const isAlreadyAcknowledged =
+      existingPurchase.iiskills_ack_at &&
+      existingPurchase.razorpay_payment_id === incomingPaymentId;
+    expect(isAlreadyAcknowledged).toBe(false);
   });
 });
 
@@ -254,24 +281,110 @@ describe("payments/confirm: phone formatting", () => {
 });
 
 describe("payments/confirm: response shape", () => {
-  test('success response includes confirmationId and message "confirmed"', () => {
+  test('success response includes purchaseId and message "confirmed"', () => {
     const response = {
       success: true,
-      confirmationId: "some-uuid",
+      purchaseId: "some-uuid",
       message: "confirmed",
+      course_slug: "learn-ai",
     };
     expect(response.success).toBe(true);
     expect(response.message).toBe("confirmed");
-    expect(response).toHaveProperty("confirmationId");
+    expect(response).toHaveProperty("purchaseId");
+  });
+
+  test("success response uses course_slug (not app_id)", () => {
+    const response = {
+      success: true,
+      purchaseId: "some-uuid",
+      message: "confirmed",
+      course_slug: "learn-management",
+    };
+    expect(response).toHaveProperty("course_slug");
+    expect(response).not.toHaveProperty("app_id");
+  });
+
+  test("success response includes redirect_url", () => {
+    const response = {
+      success: true,
+      purchaseId: "some-uuid",
+      message: "confirmed",
+      course_slug: "learn-ai",
+      redirect_url: "https://learn-ai.iiskills.cloud/authorised",
+    };
+    expect(response.redirect_url).toBeDefined();
+    expect(response.redirect_url).toMatch(/^https:\/\//);
   });
 
   test("idempotent response is also success=true", () => {
     const response = {
       success: true,
-      confirmationId: "existing-uuid",
+      purchaseId: "existing-uuid",
       message: "Payment already confirmed (idempotent)",
     };
     expect(response.success).toBe(true);
+  });
+});
+
+describe("payments/confirm: entitlement uses course_slug", () => {
+  test("entitlement row uses course_slug field (not app_id)", () => {
+    const entitlementRow = {
+      user_id: "user-uuid",
+      course_slug: "learn-ai",
+      status: "active",
+      source: "razorpay",
+      purchase_id: "purchase-uuid",
+      expires_at: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString(),
+    };
+    expect(entitlementRow).toHaveProperty("course_slug");
+    expect(entitlementRow).not.toHaveProperty("app_id");
+    expect(entitlementRow).toHaveProperty("purchase_id");
+  });
+
+  test("entitlement course_slug comes from token payload (not payload appId)", () => {
+    const tokenCourseSlug = "learn-developer";
+    const payloadAppId = "learn-management"; // different from token
+    const courseAppId = tokenCourseSlug || payloadAppId;
+    expect(courseAppId).toBe("learn-developer");
+  });
+
+  test("entitlement falls back to courseSlug then appId when token has no course_slug", () => {
+    const tokenCourseSlug = undefined;
+    const courseSlug = "learn-pr";
+    const appId = "learn-ai";
+    const courseAppId = tokenCourseSlug || courseSlug || appId;
+    expect(courseAppId).toBe("learn-pr");
+  });
+});
+
+describe("payments/confirm: purchases table update", () => {
+  test("purchase update sets expected fields", () => {
+    const now = new Date().toISOString();
+    const updatePayload = {
+      status: "paid",
+      razorpay_payment_id: "pay_abc123",
+      razorpay_order_id: "order_abc123",
+      paid_at: now,
+      iiskills_ack_at: now,
+      updated_at: now,
+    };
+    expect(updatePayload.status).toBe("paid");
+    expect(updatePayload.iiskills_ack_at).toBeDefined();
+    expect(updatePayload.razorpay_payment_id).toBe("pay_abc123");
+  });
+
+  test("user ownership check compares token user_id to purchase metadata.user_id", () => {
+    const tokenUserId = "user-a";
+    const purchaseMetaUserId = "user-b";
+    const isOwner = !purchaseMetaUserId || purchaseMetaUserId === tokenUserId;
+    expect(isOwner).toBe(false);
+  });
+
+  test("user ownership check passes when metadata.user_id matches token user_id", () => {
+    const tokenUserId = "user-a";
+    const purchaseMetaUserId = "user-a";
+    const isOwner = !purchaseMetaUserId || purchaseMetaUserId === tokenUserId;
+    expect(isOwner).toBe(true);
   });
 });
 
