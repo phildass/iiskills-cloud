@@ -202,7 +202,7 @@ export default async function handler(req, res) {
   if (supabase) {
     const { data: existingPurchase, error: fetchError } = await supabase
       .from("purchases")
-      .select("id, razorpay_payment_id, iiskills_ack_at, metadata")
+      .select("id, user_id, razorpay_payment_id, iiskills_ack_at, metadata")
       .eq("id", purchaseId)
       .maybeSingle();
 
@@ -210,9 +210,16 @@ export default async function handler(req, res) {
       console.error("[payments/confirm] Failed to fetch purchase:", fetchError);
       // Continue — don't block entitlement grant on fetch error
     } else if (existingPurchase) {
-      // Verify user ownership via purchase metadata
-      const purchaseUserId = existingPurchase.metadata?.user_id;
-      if (purchaseUserId && purchaseUserId !== user_id) {
+      // Verify user ownership: prefer dedicated user_id column, fall back to
+      // metadata.user_id. Reject if neither is present (cannot verify ownership).
+      const purchaseUserId = existingPurchase.user_id || existingPurchase.metadata?.user_id;
+      if (!purchaseUserId) {
+        console.error(
+          `[payments/confirm] Purchase ${purchaseId} has no user_id — ownership unverifiable`
+        );
+        return res.status(403).json({ error: "Purchase ownership cannot be verified" });
+      }
+      if (purchaseUserId !== user_id) {
         console.error(
           `[payments/confirm] user_id mismatch: token=${user_id} purchase=${purchaseUserId}`
         );

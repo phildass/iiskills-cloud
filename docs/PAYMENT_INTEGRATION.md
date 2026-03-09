@@ -232,6 +232,17 @@ Entitlement inserts are also idempotent via the `(user_id, course_slug)` unique 
 
 ---
 
+## Migrations Required
+
+Apply these migrations in order for a fresh or existing database:
+
+| File | Description |
+| ---- | ----------- |
+| `supabase/migrations/2026-03-09_purchases_table.sql` | Creates `public.purchases` table with `user_id` FK, unique partial index on `razorpay_payment_id` |
+| `supabase/migrations/2026-03-09_entitlements_add_columns.sql` | Adds `course_slug`, `purchase_id` columns to `public.entitlements`; adds unique constraint on `(user_id, course_slug)` |
+
+---
+
 ## returnTo URL (per-app)
 
 After a successful payment, aienter.in uses `redirect_url` from the confirm response
@@ -255,6 +266,66 @@ After a successful payment, aienter.in uses `redirect_url` from the confirm resp
 - `user_token` is **required** for all confirm calls. Legacy calls without a token return 400.
 - Do **not** rely on payer phone matching registered phone to grant access.
   Identity is established via `user_token` (signed by iiskills.cloud).
-- `purchases.metadata.user_id` is verified against the token's `user_id` to prevent
-  one user's token being used to mark another user's purchase as paid.
+- `purchases.user_id` (column) is the primary ownership check; `metadata.user_id` is the
+  fallback. If neither is present the confirm endpoint returns **403** and refuses to grant
+  the entitlement. `create-purchase.js` always writes both.
+
+---
+
+## Ownership Validation in /api/payments/confirm
+
+```
+purchases.user_id  (dedicated FK column — preferred)
+  └─ set by create-purchase.js from authenticated Supabase user
+  └─ selected by confirm.js alongside metadata
+
+purchases.metadata.user_id  (JSONB fallback — always written by create-purchase)
+  └─ used when user_id column is null (legacy rows)
+
+Reject (403) if neither is present.
+```
+
+---
+
+## Troubleshooting
+
+### "Paid but no entitlement"
+
+Work through this checklist in order:
+
+1. **Check confirm was called** — look for `POST /api/payments/confirm` in server logs.
+   If missing, aienter.in did not call back or the URL is wrong (`IISKILLS_CONFIRM_URL`).
+
+2. **Check signature** — look for `[payments/confirm] Signature mismatch` in logs.
+   - Ensure `AIENTER_CONFIRMATION_SIGNING_SECRET` is the **same value** on both sides.
+   - Confirm aienter.in signs the **raw** JSON bytes (not re-serialized).
+
+3. **Check user_token** — if the token is expired (>10 min) you'll see
+   `[payments/confirm] user_token verification failed`.
+   Fix: ensure aienter.in completes and calls back within the 10-minute token window.
+
+4. **Check ownership** — look for `user_id mismatch` or `ownership unverifiable` in logs.
+   - Run `SELECT * FROM purchases WHERE id = '<purchaseId>'` to inspect the row.
+   - Ensure `user_id` and `metadata->>'user_id'` are set and match the JWT `user_id`.
+
+5. **Check entitlement insert** — look for `Failed to insert entitlement` in logs.
+   - Run `SELECT * FROM entitlements WHERE user_id = '<userId>'` to check for the row.
+   - If a `23505` duplicate error is logged it means the entitlement already exists.
+
+6. **Check profiles update** — verify `profiles.is_paid_user = true` for the user.
+   The entitlement must exist first; `is_paid_user` is set idempotently after insert.
+
+### "Signature mismatch"
+
+- Verify `AIENTER_CONFIRMATION_SIGNING_SECRET` is identical on aienter.in and iiskills.cloud.
+- Verify the signature is computed over the **raw request body bytes**, not re-serialized JSON.
+- The signature header must be lowercase: `x-aienter-signature`.
+- The value must be a hex string (64 characters for SHA-256).
+- Check for stale/rotated secrets — rotate both simultaneously and deploy atomically.
+
+### "Purchase already confirmed (idempotent)"
+
+This is expected behaviour. If the same `purchaseId` + `razorpayPaymentId` arrives again,
+the confirm endpoint returns `200` immediately without re-granting the entitlement.
+The user's access is already granted from the first call.
 
