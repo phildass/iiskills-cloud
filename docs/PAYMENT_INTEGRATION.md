@@ -16,39 +16,99 @@ User is redirected to https://iiskills.cloud/payments/iiskills?course=<appId>
 (already authenticated — Supabase session checked here)
       │
       ▼
+iiskills.cloud POST /api/payments/create-purchase
+Creates a purchases row (status='created') and returns purchaseId
+      │
+      ▼
 iiskills.cloud POST /api/payments/generate-token
 Generates signed JWT with user identity, course slug, and returnTo URL
       │
       ▼
-User is redirected to https://aienter.in/payments/iiskills?course=...&token=...&returnTo=...
+User is redirected to https://aienter.in/payments/iiskills?course=...&purchaseId=...&token=...&returnTo=...
 (token verified by aienter — no login prompt shown)
       │
       ▼
 User pays via Razorpay on aienter.in
       │
       ▼
-aienter.in POSTs server-to-server to https://iiskills.cloud/api/payments/ai-enter/callback
-iiskills.cloud verifies HMAC signature, grants entitlement
+aienter.in POSTs server-to-server to https://iiskills.cloud/api/payments/confirm
+iiskills.cloud verifies HMAC signature + user_token, updates purchases row,
+grants entitlement, marks profile as paid
       │
       ▼
 User is redirected to https://<appname>.iiskills.cloud/authorised
-      │
-      ▼
-/authorised redirects to /complete-registration (set password, fill profile, etc.)
+(redirect_url returned in confirm response, or returnTo from token)
 ```
 
 > **Key principle**: iiskills.cloud does **not** talk to Razorpay directly. It trusts the
 > confirmation only after verifying a shared HMAC-SHA256 secret with aienter.in.
 
+> **Deprecated**: `/api/payments/ai-enter/callback` now returns HTTP 410 Gone.
+> All callbacks **must** use `/api/payments/confirm`.
+
 ---
 
-## SSO Token Flow
+## Required Environment Variables
 
-### Token Generation: `POST /api/payments/generate-token`
+Set these on **iiskills.cloud** (apps/main `.env.local` / server environment):
 
-When a logged-in user reaches `/payments/iiskills`, iiskills.cloud generates a short-lived JWT:
+| Variable                              | Description                                                                                      |
+| ------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| `PAYMENT_TOKEN_SECRET`                | Long random string used to sign/verify payment JWT tokens. Generate with `openssl rand -hex 32`. |
+| `AIENTER_CONFIRMATION_SIGNING_SECRET` | Shared HMAC secret between aienter.in and iiskills.cloud for server-to-server callback.          |
+| `NEXT_PUBLIC_SUPABASE_URL`            | Supabase project URL                                                                             |
+| `SUPABASE_SERVICE_ROLE_KEY`           | Supabase service role key (server-side only, never exposed to browser)                           |
 
-| Payload field | Description                                                               |
+Set these on **aienter.in**:
+
+| Variable                              | Description                                                                   |
+| ------------------------------------- | ----------------------------------------------------------------------------- |
+| `AIENTER_CONFIRMATION_SIGNING_SECRET` | Same shared secret as iiskills; used to sign the x-aienter-signature header.  |
+| `IISKILLS_CONFIRM_URL`                | `https://iiskills.cloud/api/payments/confirm`                                 |
+
+---
+
+## API Endpoints
+
+### `POST /api/payments/create-purchase`
+
+Creates a `purchases` row **before** the user is redirected to aienter.in.
+
+**Authentication**: Supabase session (Bearer token in Authorization header)
+
+**Request body**:
+```json
+{
+  "courseSlug": "learn-ai",
+  "amountPaise": 49900,
+  "currency": "INR"
+}
+```
+
+**Response**:
+```json
+{ "purchaseId": "<uuid>" }
+```
+
+The `purchaseId` must be included in the redirect to aienter.in and in the
+server-to-server callback payload.
+
+---
+
+### `POST /api/payments/generate-token`
+
+Generates a short-lived JWT carrying the user's identity.
+
+**Authentication**: Supabase session (Bearer token)
+
+**Request body**:
+```json
+{ "courseSlug": "learn-ai" }
+```
+
+**JWT payload fields**:
+
+| Field         | Description                                                               |
 | ------------- | ------------------------------------------------------------------------- |
 | `user_id`     | Supabase user UUID                                                        |
 | `email`       | User's email address                                                      |
@@ -58,69 +118,75 @@ When a logged-in user reaches `/payments/iiskills`, iiskills.cloud generates a s
 | `return_to`   | Post-payment redirect URL (`https://<appname>.iiskills.cloud/authorised`) |
 | `jti`         | Random nonce to prevent replay attacks                                    |
 
-The token is signed with `PAYMENT_TOKEN_SECRET` (HS256) and expires in 10 minutes.
-
-### returnTo URL (per-app)
-
-After a successful payment, aienter.in redirects the user to the `returnTo` URL. This is
-derived from the `course` app ID and always points to `https://<appname>.iiskills.cloud/authorised`:
-
-| App ID             | returnTo                                             |
-| ------------------ | ---------------------------------------------------- |
-| `learn-ai`         | `https://learn-ai.iiskills.cloud/authorised`         |
-| `learn-developer`  | `https://learn-developer.iiskills.cloud/authorised`  |
-| `learn-management` | `https://learn-management.iiskills.cloud/authorised` |
-| `learn-pr`         | `https://learn-pr.iiskills.cloud/authorised`         |
-
-The `/authorised` page on each subdomain app shows a payment success message and
-immediately redirects to `/complete-registration` to finalise onboarding.
+Token is signed with `PAYMENT_TOKEN_SECRET` (HS256), expires in 10 minutes.
 
 ---
 
-## Callback Endpoint
+### `POST /api/payments/confirm` ← **Canonical callback endpoint**
 
-| Property         | Value                                                        |
-| ---------------- | ------------------------------------------------------------ |
-| **URL**          | `POST https://iiskills.cloud/api/payments/ai-enter/callback` |
-| **Content-Type** | `application/json`                                           |
-| **Auth**         | HMAC-SHA256 signature (see below)                            |
+Receives the server-to-server POST from aienter.in after a successful payment.
+
+| Property         | Value                                                    |
+| ---------------- | -------------------------------------------------------- |
+| **URL**          | `POST https://iiskills.cloud/api/payments/confirm`       |
+| **Content-Type** | `application/json`                                       |
+| **Auth**         | HMAC-SHA256 signature (see below)                        |
+
+#### Request headers
+
+| Header                  | Required | Description                                                                           |
+| ----------------------- | -------- | ------------------------------------------------------------------------------------- |
+| `x-aienter-signature`   | **Yes**  | HMAC-SHA256 hex digest of the raw request body, keyed with `AIENTER_CONFIRMATION_SIGNING_SECRET` |
+| `x-aienter-timestamp`   | No       | Unix timestamp in seconds; rejected if skew > 5 minutes                              |
+| `Content-Type`          | **Yes**  | Must be `application/json`                                                            |
+
+#### Request body
+
+| Field                 | Type     | Required | Description                                                |
+| --------------------- | -------- | -------- | ---------------------------------------------------------- |
+| `purchaseId`          | `string` | **Yes**  | UUID from `/api/payments/create-purchase`                  |
+| `appId`               | `string` | **Yes**  | iiskills app identifier, e.g. `"learn-ai"`                 |
+| `user_token`          | `string` | **Yes**  | The JWT token from `/api/payments/generate-token`          |
+| `razorpayPaymentId`   | `string` | **Yes**  | Razorpay payment ID                                        |
+| `amountPaise`         | `number` | **Yes**  | Payment amount in paise                                    |
+| `courseSlug`          | `string` | No       | Course slug (falls back to token's course_slug or appId)   |
+| `razorpayOrderId`     | `string` | No       | Razorpay order ID                                          |
+| `paidAt`              | `string` | No       | ISO timestamp of payment                                   |
+| `customerPhone`       | `string` | No       | Payer's phone (informational only — not used for identity) |
+| `customerEmail`       | `string` | No       | Payer's email (used for confirmation email if present)     |
+| `currency`            | `string` | No       | Defaults to `"INR"`                                        |
+
+#### Response
+
+| Status | Meaning                                                              |
+| ------ | -------------------------------------------------------------------- |
+| `200`  | Payment confirmed (or already confirmed — idempotent)                |
+| `400`  | Missing/invalid required field                                       |
+| `401`  | Missing or invalid `x-aienter-signature`, or invalid `user_token`    |
+| `403`  | Purchase does not belong to the user identified by `user_token`      |
+| `405`  | Non-POST request                                                     |
+| `500`  | Server-side error (Supabase unavailable, etc.)                       |
+
+Success response body:
+```json
+{
+  "success": true,
+  "purchaseId": "<uuid>",
+  "message": "confirmed",
+  "user_id": "<user-uuid>",
+  "course_slug": "learn-ai",
+  "redirect_url": "https://learn-ai.iiskills.cloud/authorised"
+}
+```
 
 ---
 
-## Required Environment Variables
+### `POST /api/payments/ai-enter/callback` — **DEPRECATED (410 Gone)**
 
-Set these on **iiskills.cloud** (apps/main `.env.local` / server environment):
+This endpoint has been superseded by `/api/payments/confirm`. It now returns
+HTTP **410 Gone** with a pointer to the correct endpoint.
 
-| Variable                    | Description                                                                                      |
-| --------------------------- | ------------------------------------------------------------------------------------------------ |
-| `PAYMENT_TOKEN_SECRET`      | Long random string used to sign/verify payment JWT tokens. Generate with `openssl rand -hex 32`. |
-| `ORIGIN_WEBHOOK_SECRET`     | Shared HMAC secret between aienter.in and iiskills.cloud for server-to-server callback.          |
-| `NEXT_PUBLIC_SUPABASE_URL`  | Supabase project URL                                                                             |
-| `SUPABASE_SERVICE_ROLE_KEY` | Supabase service role key (server-side only, never exposed to browser)                           |
-
----
-
-## Request Format
-
-### Headers
-
-| Header                 | Required | Description                                                                        |
-| ---------------------- | -------- | ---------------------------------------------------------------------------------- |
-| `X-AI-ENTER-SIGNATURE` | **Yes**  | HMAC-SHA256 hex digest of the raw request body, keyed with `ORIGIN_WEBHOOK_SECRET` |
-| `Content-Type`         | **Yes**  | Must be `application/json`                                                         |
-
-### Body Fields
-
-| Field                 | Type     | Required           | Description                                            |
-| --------------------- | -------- | ------------------ | ------------------------------------------------------ |
-| `event`               | `string` | **Yes**            | Must be `"payment.success"`                            |
-| `razorpay_payment_id` | `string` | **Yes**            | Razorpay payment ID — used as idempotency key          |
-| `app_id`              | `string` | **Yes**            | iiskills app identifier, e.g. `"learn-ai"`             |
-| `user_token`          | `string` | **Yes (Option A)** | The JWT token issued by `/api/payments/generate-token` |
-| `phone`               | `string` | **Yes (legacy)**   | Required if `user_token` is absent                     |
-| `email`               | `string` | No                 | Customer email (used in legacy flow)                   |
-| `amount`              | `number` | No                 | Payment amount in paise                                |
-| `currency`            | `string` | No                 | Defaults to `"INR"`                                    |
+Update aienter.in to call `/api/payments/confirm` instead.
 
 ---
 
@@ -133,78 +199,50 @@ const crypto = require("crypto");
 
 const rawBody = JSON.stringify(payload); // keep as-is; do not re-serialize
 const signature = crypto
-  .createHmac("sha256", process.env.ORIGIN_WEBHOOK_SECRET)
+  .createHmac("sha256", process.env.AIENTER_CONFIRMATION_SIGNING_SECRET)
   .update(Buffer.from(rawBody, "utf8"))
   .digest("hex");
 ```
 
-Send the signature in the `X-AI-ENTER-SIGNATURE` header.
-
----
-
-## Response Codes
-
-| Status | Meaning                                                            |
-| ------ | ------------------------------------------------------------------ |
-| `200`  | Payment confirmed (or already confirmed — idempotent)              |
-| `400`  | Missing/invalid required field                                     |
-| `401`  | Missing or invalid `X-AI-ENTER-SIGNATURE`, or invalid `user_token` |
-| `405`  | Non-POST request                                                   |
-| `500`  | Server-side error (Supabase unavailable, etc.)                     |
+Send in the `x-aienter-signature` header (lowercase).
 
 ---
 
 ## Idempotency
 
-iiskills.cloud enforces idempotency via a `UNIQUE` constraint on `razorpay_payment_id` in the
-payments table. Sending the same `razorpay_payment_id` more than once returns
-HTTP 200 without creating duplicate records.
+The confirm endpoint enforces idempotency by checking `purchases.iiskills_ack_at`:
+
+1. If `purchases.iiskills_ack_at IS NOT NULL` AND `razorpay_payment_id` matches → return 200
+2. Otherwise, update the purchase row and grant the entitlement
+
+Entitlement inserts are also idempotent via the `(user_id, course_slug)` unique constraint.
 
 ---
 
-## Profile Self-Healing (generate-token)
+## DB Tables Used
 
-`POST /api/payments/generate-token` is resilient to a missing `profiles` row:
+| Table          | Operation                                          |
+| -------------- | -------------------------------------------------- |
+| `purchases`    | INSERT (create-purchase), UPDATE (confirm)         |
+| `entitlements` | INSERT with course_slug (not app_id)               |
+| `profiles`     | UPDATE is_paid_user=true, paid_at (idempotent)     |
 
-1. It uses `maybeSingle()` instead of `single()` — a missing row returns `null`, not an error.
-2. If no row is found, the API performs an `upsert({ id: user.id })` to create a minimal stub.
-3. It then re-fetches the profile and checks completeness as usual.
-4. If `first_name` or `phone` are still absent, the normal `422 profile_incomplete` response is
-   returned, directing the client to the registration form.
-
-### Required Supabase DB Policies
-
-The profiles table must allow authenticated users to insert / upsert their own row.
-If your project uses a `handle_new_user` trigger this is handled automatically; otherwise
-ensure the following policies exist:
-
-```sql
--- Allow an authenticated user to insert their own profile row.
-CREATE POLICY "Users can insert own profile"
-  ON public.profiles FOR INSERT
-  TO authenticated
-  WITH CHECK (auth.uid() = id);
-
--- Allow an authenticated user to update their own profile row.
-CREATE POLICY "Users can update own profile"
-  ON public.profiles FOR UPDATE
-  TO authenticated
-  USING (auth.uid() = id);
-```
+> **Important**: `entitlements.course_slug` is used (not `app_id`). This matches
+> the schema column name in `public.entitlements`.
 
 ---
 
-## Public Asset Accessibility (manifest.json / favicon)
+## returnTo URL (per-app)
 
-`apps/main/middleware.js` contains an explicit pass-through guard for static / public assets:
+After a successful payment, aienter.in uses `redirect_url` from the confirm response
+(derived from the token's `return_to` field):
 
-```
-/manifest.json   /favicon.ico   /robots.txt   /sitemap.xml
-/_next/*         /images/*
-```
-
-These paths always return `NextResponse.next()` without rate-limiting or auth gating,
-ensuring PWA manifests and browser-level assets are never blocked by the Edge middleware.
+| App ID             | returnTo                                             |
+| ------------------ | ---------------------------------------------------- |
+| `learn-ai`         | `https://learn-ai.iiskills.cloud/authorised`         |
+| `learn-developer`  | `https://learn-developer.iiskills.cloud/authorised`  |
+| `learn-management` | `https://learn-management.iiskills.cloud/authorised` |
+| `learn-pr`         | `https://learn-pr.iiskills.cloud/authorised`         |
 
 ---
 
@@ -212,8 +250,11 @@ ensuring PWA manifests and browser-level assets are never blocked by the Edge mi
 
 - The raw body (not re-serialized JSON) **must** be used for HMAC computation on both sides.
 - `timingSafeEqual` is used for comparison to prevent timing attacks.
-- `ORIGIN_WEBHOOK_SECRET` is a server-side-only env var — never expose it client-side.
-- `PAYMENT_TOKEN_SECRET` is used server-side only to sign/verify JWTs.
-- iiskills.cloud does **not** require Razorpay credentials.
-- The `returnTo` URL in the JWT payload is authoritative; unsigned query params for `returnTo`
-  should not be trusted over the verified token payload.
+- `AIENTER_CONFIRMATION_SIGNING_SECRET` is server-side only — never expose client-side.
+- `PAYMENT_TOKEN_SECRET` is server-side only — used to sign/verify JWTs.
+- `user_token` is **required** for all confirm calls. Legacy calls without a token return 400.
+- Do **not** rely on payer phone matching registered phone to grant access.
+  Identity is established via `user_token` (signed by iiskills.cloud).
+- `purchases.metadata.user_id` is verified against the token's `user_id` to prevent
+  one user's token being used to mark another user's purchase as paid.
+

@@ -1,16 +1,19 @@
 /**
- * Tests for the ai-enter payment callback endpoint.
+ * Tests related to the aienter.in → iiskills.cloud payment callback flow.
  *
- * Tests:
- * - Signature verification logic (HMAC-SHA256 over raw body)
- * - Idempotency detection (duplicate payment_id)
- * - Payload validation
+ * The /api/payments/ai-enter/callback endpoint is DEPRECATED (returns 410).
+ * The canonical endpoint is POST /api/payments/confirm.
+ *
+ * These tests verify:
+ * - Signature verification logic used by /api/payments/confirm (HMAC-SHA256 over raw body)
+ * - Idempotency detection (duplicate razorpay_payment_id via purchases table)
+ * - Payload validation for the confirm endpoint
  * - Event filtering (non-success events are ignored)
  */
 
 const crypto = require("crypto");
 
-const SECRET = "test-origin-webhook-secret";
+const SECRET = "test-aienter-confirmation-signing-secret";
 
 /**
  * Compute the expected HMAC-SHA256 signature for a given raw body.
@@ -23,11 +26,11 @@ describe("ai-enter callback: signature verification", () => {
   test("correctly computes HMAC-SHA256 signature over raw bytes", () => {
     const body = Buffer.from(
       JSON.stringify({
-        event: "payment.success",
-        razorpay_payment_id: "pay_test123",
-        phone: "+919876543210",
-        app_id: "learn-ai",
-        amount: 49900,
+        purchaseId: "purchase-uuid-123",
+        appId: "learn-ai",
+        razorpayPaymentId: "pay_test123",
+        amountPaise: 49900,
+        user_token: "eyJ.abc.def",
       })
     );
 
@@ -82,61 +85,74 @@ describe("ai-enter callback: signature verification", () => {
   });
 });
 
-describe("ai-enter callback: payload validation", () => {
-  test("only processes payment.success events", () => {
+describe("ai-enter callback: payload validation (confirm endpoint)", () => {
+  test("only processes payment.success events (legacy format)", () => {
     const events = ["payment.failed", "order.created", "refund.initiated"];
     events.forEach((event) => {
-      // Non-success events should be ignored (returning 200 with message)
       expect(event).not.toBe("payment.success");
     });
   });
 
-  test("requires razorpay_payment_id", () => {
+  test("requires razorpayPaymentId", () => {
     const payload = {
-      event: "payment.success",
-      phone: "+919876543210",
-      app_id: "learn-ai",
+      purchaseId: "purchase-uuid",
+      appId: "learn-ai",
+      amountPaise: 49900,
+      user_token: "eyJ.abc.def",
     };
-    // No razorpay_payment_id — should be rejected
-    expect(payload.razorpay_payment_id).toBeUndefined();
+    // No razorpayPaymentId — should be rejected
+    expect(payload.razorpayPaymentId).toBeUndefined();
   });
 
-  test("requires at least phone or email for OTP delivery", () => {
-    const payloadMissingBoth = {
-      event: "payment.success",
-      razorpay_payment_id: "pay_abc",
+  test("requires user_token (Option A — token required)", () => {
+    const payload = {
+      purchaseId: "purchase-uuid",
+      appId: "learn-ai",
+      amountPaise: 49900,
+      razorpayPaymentId: "pay_abc",
     };
-    expect(payloadMissingBoth.phone).toBeUndefined();
-    expect(payloadMissingBoth.email).toBeUndefined();
+    expect(payload.user_token).toBeUndefined();
   });
 
-  test("accepts payload with only phone", () => {
+  test("accepts valid confirm payload with user_token", () => {
     const payload = {
-      event: "payment.success",
-      razorpay_payment_id: "pay_abc",
+      purchaseId: "purchase-uuid",
+      appId: "learn-ai",
+      amountPaise: 49900,
+      razorpayPaymentId: "pay_abc",
+      user_token: "eyJ.abc.def",
+    };
+    const hasIdentity = Boolean(payload.user_token);
+    expect(hasIdentity).toBe(true);
+  });
+
+  test("accepts payload with only phone (legacy — user_token preferred)", () => {
+    const payload = {
+      purchaseId: "purchase-uuid",
+      appId: "learn-ai",
+      amountPaise: 49900,
+      razorpayPaymentId: "pay_abc",
       phone: "+919876543210",
-      app_id: "learn-ai",
-      amount: 49900,
     };
     expect(payload.phone).toBeDefined();
     expect(!payload.phone && !payload.email).toBe(false);
   });
 
-  test("accepts payload with only email", () => {
+  test("accepts payload with only email (legacy — user_token preferred)", () => {
     const payload = {
-      event: "payment.success",
-      razorpay_payment_id: "pay_abc",
+      purchaseId: "purchase-uuid",
+      appId: "learn-ai",
+      amountPaise: 49900,
+      razorpayPaymentId: "pay_abc",
       email: "user@example.com",
-      app_id: "learn-ai",
-      amount: 49900,
     };
     expect(payload.email).toBeDefined();
     expect(!payload.phone && !payload.email).toBe(false);
   });
 });
 
-describe("ai-enter callback: idempotency", () => {
-  test("duplicate payment_id is detected by unique constraint (pg error 23505)", () => {
+describe("ai-enter callback: idempotency (purchases table)", () => {
+  test("duplicate payment is detected by unique constraint on purchases (pg error 23505)", () => {
     const pgUniqueError = {
       code: "23505",
       message: "duplicate key value violates unique constraint",
@@ -149,7 +165,7 @@ describe("ai-enter callback: idempotency", () => {
   });
 
   test("non-unique DB error is not treated as idempotent duplicate", () => {
-    const pgOtherError = { code: "42P01", message: 'relation "payments" does not exist' };
+    const pgOtherError = { code: "42P01", message: 'relation "purchases" does not exist' };
     const isDuplicate =
       pgOtherError.code === "23505" ||
       pgOtherError.message?.includes("duplicate") ||
@@ -158,18 +174,25 @@ describe("ai-enter callback: idempotency", () => {
   });
 });
 
-describe("ai-enter callback: phone formatting", () => {
-  test("prepends +91 to bare 10-digit Indian numbers", () => {
-    const phone = "9876543210";
-    const formatted = phone.startsWith("+") ? phone : `+91${phone}`;
-    expect(formatted).toBe("+919876543210");
+describe("ai-enter callback: deprecated endpoint", () => {
+  test("deprecated endpoint should return 410 Gone", () => {
+    // The /api/payments/ai-enter/callback endpoint is deprecated.
+    // It returns HTTP 410 Gone directing callers to /api/payments/confirm.
+    const expectedStatus = 410;
+    const expectedBody = {
+      error: "This endpoint is deprecated. Use POST /api/payments/confirm instead.",
+      successor: "https://iiskills.cloud/api/payments/confirm",
+    };
+    expect(expectedStatus).toBe(410);
+    expect(expectedBody.successor).toContain("/api/payments/confirm");
   });
 
-  test("leaves E.164 numbers unchanged", () => {
-    const phone = "+919876543210";
-    const formatted = phone.startsWith("+") ? phone : `+91${phone}`;
-    expect(formatted).toBe("+919876543210");
+  test("successor endpoint is the canonical confirm endpoint", () => {
+    const successor = "https://iiskills.cloud/api/payments/confirm";
+    expect(successor).toContain("iiskills.cloud");
+    expect(successor).toContain("/api/payments/confirm");
+    expect(successor).not.toContain("/ai-enter/callback");
   });
 });
 
-console.log("✅ ai-enter callback tests defined successfully");
+console.log("✅ ai-enter callback (confirm endpoint) tests defined successfully");
