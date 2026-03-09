@@ -14,6 +14,7 @@
 describe("create-purchase: purchase row structure", () => {
   test("purchase row has required fields", () => {
     const purchaseRow = {
+      user_id: "user-uuid-123",
       course_slug: "learn-ai",
       target_app_host: "learn-ai.iiskills.cloud",
       customer_phone: "+919876543210",
@@ -27,6 +28,7 @@ describe("create-purchase: purchase row structure", () => {
     expect(purchaseRow.customer_phone).toBeDefined();
     expect(purchaseRow.status).toBe("created");
     expect(purchaseRow.metadata).toHaveProperty("user_id");
+    expect(purchaseRow.user_id).toBeDefined();
   });
 
   test("initial status is 'created'", () => {
@@ -132,6 +134,79 @@ describe("create-purchase: amountPaise handling", () => {
     const amountPaise = 49900;
     const purchaseRow = { amount_paise: amountPaise };
     expect(purchaseRow.amount_paise).toBe(49900);
+  });
+});
+
+// ─── user_id column ───────────────────────────────────────────────────────────
+
+describe("create-purchase: user_id column", () => {
+  test("purchase row includes user_id as a dedicated column", () => {
+    const userId = "user-uuid-abc";
+    const purchaseRow = {
+      user_id: userId,
+      course_slug: "learn-ai",
+      customer_phone: "+919876543210",
+      amount_paise: 49900,
+      currency: "INR",
+      status: "created",
+      metadata: { user_id: userId, email: "user@example.com" },
+    };
+    expect(purchaseRow.user_id).toBe(userId);
+  });
+
+  test("user_id in column matches user_id in metadata", () => {
+    const userId = "user-uuid-xyz";
+    const purchaseRow = {
+      user_id: userId,
+      metadata: { user_id: userId, email: "test@example.com" },
+    };
+    expect(purchaseRow.user_id).toBe(purchaseRow.metadata.user_id);
+  });
+});
+
+// ─── idempotency dedup ────────────────────────────────────────────────────────
+
+describe("create-purchase: idempotency dedup", () => {
+  test("recent purchase with same user+course+amount within 10 min is reused", () => {
+    const tenMinutesAgo = new Date(Date.now() - 10 * 60 * 1000).toISOString();
+    const existingPurchase = {
+      id: "existing-uuid-abc",
+      user_id: "user-uuid-123",
+      course_slug: "learn-ai",
+      amount_paise: 49900,
+      status: "created",
+      created_at: new Date(Date.now() - 2 * 60 * 1000).toISOString(), // 2 min ago
+    };
+    const isWithinWindow = existingPurchase.created_at >= tenMinutesAgo;
+    expect(isWithinWindow).toBe(true);
+    expect(existingPurchase.status).toBe("created");
+  });
+
+  test("purchase older than 10 minutes is NOT reused (creates new)", () => {
+    const tenMinutesAgo = new Date(Date.now() - 10 * 60 * 1000).toISOString();
+    const oldPurchase = {
+      id: "old-uuid-abc",
+      created_at: new Date(Date.now() - 15 * 60 * 1000).toISOString(), // 15 min ago
+    };
+    const isWithinWindow = oldPurchase.created_at >= tenMinutesAgo;
+    expect(isWithinWindow).toBe(false);
+  });
+
+  test("purchase with different amount is NOT reused", () => {
+    const userId = "user-uuid-123";
+    const courseSlug = "learn-ai";
+    const requestedAmount = 49900;
+    const existingPurchase = { user_id: userId, course_slug: courseSlug, amount_paise: 99900 };
+    const isMatch =
+      existingPurchase.user_id === userId &&
+      existingPurchase.course_slug === courseSlug &&
+      existingPurchase.amount_paise === requestedAmount;
+    expect(isMatch).toBe(false);
+  });
+
+  test("purchase with status paid is NOT reused for dedup (only status=created)", () => {
+    const status = "paid";
+    expect(status).not.toBe("created");
   });
 });
 

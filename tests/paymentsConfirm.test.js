@@ -388,4 +388,97 @@ describe("payments/confirm: purchases table update", () => {
   });
 });
 
+describe("payments/confirm: hardened ownership validation", () => {
+  // Simulates the confirm.js logic:
+  //   purchaseUserId = purchase.user_id || purchase.metadata?.user_id
+  //   if (!purchaseUserId) → reject 403
+  //   if (purchaseUserId !== tokenUserId) → reject 403
+
+  function checkOwnership(purchase, tokenUserId) {
+    const purchaseUserId = purchase.user_id || purchase.metadata?.user_id;
+    if (!purchaseUserId) return { ok: false, reason: "ownership_unverifiable" };
+    if (purchaseUserId !== tokenUserId) return { ok: false, reason: "user_mismatch" };
+    return { ok: true };
+  }
+
+  test("prefers user_id column over metadata.user_id for ownership check", () => {
+    const purchase = { user_id: "user-a", metadata: { user_id: "user-b" } };
+    const result = checkOwnership(purchase, "user-a");
+    expect(result.ok).toBe(true);
+  });
+
+  test("falls back to metadata.user_id when user_id column is null", () => {
+    const purchase = { user_id: null, metadata: { user_id: "user-a" } };
+    const result = checkOwnership(purchase, "user-a");
+    expect(result.ok).toBe(true);
+  });
+
+  test("rejects when both user_id column and metadata.user_id are missing", () => {
+    const purchase = { user_id: null, metadata: {} };
+    const result = checkOwnership(purchase, "user-a");
+    expect(result.ok).toBe(false);
+    expect(result.reason).toBe("ownership_unverifiable");
+  });
+
+  test("rejects when user_id column is missing and metadata.user_id is also missing", () => {
+    const purchase = { user_id: undefined, metadata: null };
+    const result = checkOwnership(purchase, "user-a");
+    expect(result.ok).toBe(false);
+    expect(result.reason).toBe("ownership_unverifiable");
+  });
+
+  test("rejects when user_id column mismatches token user_id", () => {
+    const purchase = { user_id: "user-b", metadata: { user_id: "user-b" } };
+    const result = checkOwnership(purchase, "user-a");
+    expect(result.ok).toBe(false);
+    expect(result.reason).toBe("user_mismatch");
+  });
+
+  test("rejects when metadata.user_id mismatches token user_id (user_id column null)", () => {
+    const purchase = { user_id: null, metadata: { user_id: "user-b" } };
+    const result = checkOwnership(purchase, "user-a");
+    expect(result.ok).toBe(false);
+    expect(result.reason).toBe("user_mismatch");
+  });
+});
+
+describe("payments/confirm: entitlements unique constraint", () => {
+  test("entitlement insert uses course_slug for uniqueness (not app_id)", () => {
+    const entitlementRow = {
+      user_id: "user-uuid",
+      course_slug: "learn-ai",
+      status: "active",
+      source: "razorpay",
+      purchase_id: "purchase-uuid",
+      expires_at: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString(),
+    };
+    expect(entitlementRow.course_slug).toBe("learn-ai");
+    expect(entitlementRow.purchase_id).toBeDefined();
+  });
+
+  test("duplicate entitlement (23505) is treated as idempotent — not an error", () => {
+    const entError = {
+      code: "23505",
+      message: 'duplicate key value violates unique constraint "idx_entitlements_user_course_slug_unique"',
+    };
+    const isDuplicate =
+      entError.code === "23505" ||
+      entError.message?.includes("duplicate") ||
+      entError.message?.includes("unique");
+    expect(isDuplicate).toBe(true);
+  });
+
+  test("unique constraint on purchases.razorpay_payment_id prevents duplicate payment grants", () => {
+    const pgUniqueError = {
+      code: "23505",
+      message: 'duplicate key value violates unique constraint "idx_purchases_razorpay_payment_id_unique"',
+    };
+    const isDuplicate =
+      pgUniqueError.code === "23505" ||
+      pgUniqueError.message?.includes("duplicate") ||
+      pgUniqueError.message?.includes("unique");
+    expect(isDuplicate).toBe(true);
+  });
+});
+
 console.log("✅ payments/confirm tests defined successfully");

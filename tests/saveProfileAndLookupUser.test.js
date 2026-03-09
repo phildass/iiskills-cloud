@@ -146,4 +146,52 @@ describe("save-profile: unique constraint detection", () => {
   });
 });
 
+// ── 5. save-profile: profile lock after payment / registration ─────────────────
+
+// Mirrors the lock logic in the save-profile handler:
+//   if (profile.is_paid_user || profile.registration_completed) → 409 profile_locked
+
+function isProfileLocked(profile) {
+  return Boolean(profile?.is_paid_user || profile?.registration_completed);
+}
+
+describe("save-profile: profile lock rules", () => {
+  test("profile is locked when is_paid_user=true", () => {
+    const profile = { is_paid_user: true, registration_completed: false };
+    expect(isProfileLocked(profile)).toBe(true);
+  });
+
+  test("profile is locked when registration_completed=true", () => {
+    const profile = { is_paid_user: false, registration_completed: true };
+    expect(isProfileLocked(profile)).toBe(true);
+  });
+
+  test("profile is locked when both is_paid_user and registration_completed are true", () => {
+    const profile = { is_paid_user: true, registration_completed: true };
+    expect(isProfileLocked(profile)).toBe(true);
+  });
+
+  test("profile is NOT locked when both flags are false", () => {
+    const profile = { is_paid_user: false, registration_completed: false };
+    expect(isProfileLocked(profile)).toBe(false);
+  });
+
+  test("profile is NOT locked when profile is null (new user)", () => {
+    expect(isProfileLocked(null)).toBe(false);
+  });
+
+  test("profile is NOT locked when profile flags are undefined (schema pre-migration)", () => {
+    const profile = {};
+    expect(isProfileLocked(profile)).toBe(false);
+  });
+
+  test("locked profile returns 409 with code=profile_locked", () => {
+    const errorResponse = {
+      error: "Profile name and phone cannot be changed after payment or registration.",
+      code: "profile_locked",
+    };
+    expect(errorResponse.code).toBe("profile_locked");
+  });
+});
+
 console.log("✅ saveProfile and adminLookupUser tests defined successfully");

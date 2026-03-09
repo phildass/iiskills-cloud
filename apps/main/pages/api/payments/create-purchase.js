@@ -2,6 +2,10 @@ import { createSupabasePagesServerClient } from "../../../lib/supabase/serverPag
 import { createServiceRoleClient } from "../../../lib/adminAuth";
 import { APPS } from "@lib/appRegistry";
 
+// Deduplication window: reuse an existing 'created' purchase within this window
+// to prevent double-click / double-tab duplicate rows.
+const PURCHASE_DEDUP_WINDOW_MS = 10 * 60 * 1000; // 10 minutes
+
 /**
  * Create Purchase Endpoint
  *
@@ -83,10 +87,34 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: "Server misconfiguration" });
   }
 
+  // Idempotency: reuse an existing "created" purchase for the same
+  // user+course+amount that was created within the dedup window.
+  // This prevents double-click / double-tab duplicate purchases.
+  const dedupWindowStart = new Date(Date.now() - PURCHASE_DEDUP_WINDOW_MS).toISOString();
+  const { data: existingPurchase } = await adminClient
+    .from("purchases")
+    .select("id")
+    .eq("user_id", user.id)
+    .eq("course_slug", courseSlug)
+    .eq("amount_paise", amountPaise)
+    .eq("status", "created")
+    .gte("created_at", dedupWindowStart)
+    .order("created_at", { ascending: false })
+    .limit(1)
+    .maybeSingle();
+
+  if (existingPurchase) {
+    console.log(
+      `[create-purchase] Reusing existing purchase ${existingPurchase.id} for user=${user.id} course=${courseSlug}`
+    );
+    return res.status(200).json({ purchaseId: existingPurchase.id });
+  }
+
   const { data: purchase, error: insertError } = await adminClient
     .from("purchases")
     .insert([
       {
+        user_id: user.id,
         course_slug: courseSlug,
         target_app_host: targetAppHost,
         customer_phone: customerPhone,

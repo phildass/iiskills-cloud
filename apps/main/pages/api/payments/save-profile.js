@@ -50,6 +50,20 @@ export default async function handler(req, res) {
 
   const trimmedLastName = typeof last_name === "string" ? last_name.trim() : null;
 
+  // Lock: disallow name/phone changes once the user has paid or completed registration.
+  const { data: existingProfile } = await supabase
+    .from("profiles")
+    .select("is_paid_user, registration_completed")
+    .eq("id", user.id)
+    .maybeSingle();
+
+  if (existingProfile?.is_paid_user || existingProfile?.registration_completed) {
+    return res.status(409).json({
+      error: "Profile name and phone cannot be changed after payment or registration.",
+      code: "profile_locked",
+    });
+  }
+
   const updates = {
     first_name: trimmedFirstName,
     phone: normalizedPhone,
