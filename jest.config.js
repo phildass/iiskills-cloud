@@ -17,6 +17,13 @@ module.exports = {
   ],
   moduleNameMapper: {
     "^@/(.*)$": "<rootDir>/$1",
+    // Map TypeScript Supabase server-client files to a JS mock so that tests
+    // importing JS modules (e.g. save-profile.js) don't fail trying to parse
+    // TypeScript syntax.  The mock provides the same public API shape.
+    "supabase/pagesServerClient(\\.ts)?$":
+      "<rootDir>/tests/__mocks__/supabasePagesServerClient.js",
+    "supabase/serverPagesClient(\\.ts)?$":
+      "<rootDir>/tests/__mocks__/supabasePagesServerClient.js",
   },
   // Transform ES modules for tests
   transform: {

@@ -5,35 +5,35 @@
  *   3. Migration: add_phone_e164_constraint.sql — E.164 regex matches
  */
 
-// ── 1. save-profile: normalisePhone utility ──────────────────────────────────
+// ── 1. save-profile: normalizePhone utility ──────────────────────────────────
 
-const { normalisePhone } = require("../apps/main/pages/api/payments/save-profile");
+const { normalizePhone } = require("../apps/main/pages/api/payments/save-profile");
 
-describe("save-profile: normalisePhone", () => {
+describe("save-profile: normalizePhone", () => {
   test("prepends +91 to a bare 10-digit Indian number", () => {
-    expect(normalisePhone("9876543210")).toBe("+919876543210");
+    expect(normalizePhone("9876543210")).toBe("+919876543210");
   });
 
   test("leaves an already-E.164 Indian number unchanged", () => {
-    expect(normalisePhone("+919876543210")).toBe("+919876543210");
+    expect(normalizePhone("+919876543210")).toBe("+919876543210");
   });
 
   test("leaves a non-Indian E.164 number unchanged", () => {
-    expect(normalisePhone("+12025551234")).toBe("+12025551234");
+    expect(normalizePhone("+12025551234")).toBe("+12025551234");
   });
 
   test("trims whitespace before normalising", () => {
-    expect(normalisePhone("  9876543210  ")).toBe("+919876543210");
-    expect(normalisePhone("  +919876543210  ")).toBe("+919876543210");
+    expect(normalizePhone("  9876543210  ")).toBe("+919876543210");
+    expect(normalizePhone("  +919876543210  ")).toBe("+919876543210");
   });
 
-  test('handles empty string gracefully (returns "+91")', () => {
-    expect(normalisePhone("")).toBe("+91");
+  test("handles empty string gracefully (returns null)", () => {
+    expect(normalizePhone("")).toBeNull();
   });
 
-  test('handles null/undefined gracefully (returns "+91")', () => {
-    expect(normalisePhone(null)).toBe("+91");
-    expect(normalisePhone(undefined)).toBe("+91");
+  test("handles null/undefined gracefully (returns null)", () => {
+    expect(normalizePhone(null)).toBeNull();
+    expect(normalizePhone(undefined)).toBeNull();
   });
 });
 
@@ -86,15 +86,15 @@ describe("E.164 regex validation", () => {
     expect(E164_REGEX.test("+91-9876543210")).toBe(false);
   });
 
-  test("normalisePhone + E164_REGEX: bare Indian number passes after normalisation", () => {
-    const phone = normalisePhone("9876543210");
+  test("normalizePhone + E164_REGEX: bare Indian number passes after normalisation", () => {
+    const phone = normalizePhone("9876543210");
     expect(E164_REGEX.test(phone)).toBe(true);
   });
 
-  test("normalisePhone + E164_REGEX: bare 5-digit number passes after normalisation", () => {
-    // normalisePhone('12345') → '+9112345'
+  test("normalizePhone + E164_REGEX: bare 5-digit number passes after normalisation", () => {
+    // normalizePhone('12345') → '+9112345'
     // Regex: +[1-9][0-9]{6,14} → '9' matches [1-9], '112345' (6 chars) matches [0-9]{6,14} → valid
-    const phone = normalisePhone("12345");
+    const phone = normalizePhone("12345");
     expect(E164_REGEX.test(phone)).toBe(true);
   });
 });

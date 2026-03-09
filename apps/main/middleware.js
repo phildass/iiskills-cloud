@@ -109,14 +109,39 @@ function isAdminIpAllowed(ip) {
 }
 
 // ---------------------------------------------------------------------------
+// Public paths that must ALWAYS be accessible without any gating.
+// Belt-and-suspenders guard: the matcher config below already excludes these
+// paths, but we short-circuit here in case the matcher list ever changes.
+// ---------------------------------------------------------------------------
+const PUBLIC_PATH_PREFIXES = ["/_next/", "/images/"];
+const PUBLIC_PATH_EXACT = new Set([
+  "/manifest.json",
+  "/favicon.ico",
+  "/robots.txt",
+  "/sitemap.xml",
+]);
+
+function isPublicPath(pathname) {
+  if (PUBLIC_PATH_EXACT.has(pathname)) return true;
+  return PUBLIC_PATH_PREFIXES.some((prefix) => pathname.startsWith(prefix));
+}
+
+// ---------------------------------------------------------------------------
 // Middleware entry-point
 // ---------------------------------------------------------------------------
 export function middleware(request) {
   const { pathname } = request.nextUrl;
 
+
+  // Always pass through public / static assets without any rate-limiting or
+  // auth gating so that browser-level PWA manifest, icons, and crawlers are
+  // never blocked by this middleware.
+  if (isPublicPath(pathname)) return NextResponse.next();
+
   // Always allow manifest.json through — PWA manifests must be publicly
   // accessible without any rate-limiting or auth checks.
   if (pathname === "/manifest.json") return NextResponse.next();
+
 
   const routeGroup = getRouteGroup(pathname);
 
