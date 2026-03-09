@@ -107,4 +107,43 @@ export default async function handler(req, res) {
           console.error("[generate-token] Profile re-fetch after upsert failed", {
             userId: user.id,
             code: refreshError.code,
-            message: refreshError
+            message: refreshError.message,
+          });
+        } else if (refreshed) {
+          profile = refreshed;
+        }
+      }
+    } catch (err) {
+      console.error("[generate-token] Service role client unavailable", {
+        userId: user.id,
+        message: err?.message || String(err),
+      });
+    }
+  }
+
+  if (!profile?.first_name || !profile?.phone) {
+    console.warn("[generate-token] Profile incomplete — cannot issue payment token", {
+      userId: user.id,
+      hasFirstName: Boolean(profile?.first_name),
+      hasPhone: Boolean(profile?.phone),
+      profileExists: Boolean(profile),
+    });
+    return res.status(422).json({ error: "Profile incomplete", code: "profile_incomplete" });
+  }
+
+  const secret = process.env.PAYMENT_TOKEN_SECRET;
+  if (!secret) return res.status(500).json({ error: "Server misconfiguration" });
+
+  const payload = {
+    user_id: user.id,
+    email: user.email || null,
+    phone: profile.phone,
+    name: [profile.first_name, profile.last_name].filter(Boolean).join(" ") || null,
+    course_slug: courseSlug,
+    return_to: getPaymentReturnToUrl(courseSlug),
+    jti: crypto.randomUUID(),
+  };
+
+  const token = jwt.sign(payload, secret, { expiresIn: "10m" });
+  return res.status(200).json({ token });
+}
