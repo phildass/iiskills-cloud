@@ -1,6 +1,7 @@
 import { createSupabasePagesServerClient } from "../../../lib/supabase/serverPagesClient";
 import { createServiceRoleClient } from "../../../lib/adminAuth";
 import { APPS } from "@lib/appRegistry";
+import { getCurrentPricing } from "@iiskills/ui/pricing";
 
 // Deduplication window: reuse an existing 'created' purchase within this window
 // to prevent double-click / double-tab duplicate rows.
@@ -39,9 +40,39 @@ export default async function handler(req, res) {
     return res.status(401).json({ error: "Invalid or expired session" });
   }
 
-  const { courseSlug, amountPaise = 0, currency = "INR" } = req.body || {};
+  const { courseSlug, amountPaise: amountPaiseRaw, currency = "INR" } = req.body || {};
   if (!courseSlug) {
     return res.status(400).json({ error: "courseSlug is required" });
+  }
+
+  // ── 1b. Canonical pricing (total incl GST) ────────────────────────────────
+  // We intentionally derive the amount server-side to avoid trusting the client.
+  const pricing = getCurrentPricing(); // numeric totals
+  const canonicalAmountPaise = Math.round(Number(pricing.totalPrice) * 100);
+
+  if (!Number.isFinite(canonicalAmountPaise) || canonicalAmountPaise <= 0) {
+    console.error("[create-purchase] Invalid canonicalAmountPaise", {
+      pricing,
+      canonicalAmountPaise,
+    });
+    return res.status(500).json({ error: "Server pricing misconfiguration" });
+  }
+
+  let amountPaise = Number.isFinite(Number(amountPaiseRaw)) ? Number(amountPaiseRaw) : null;
+
+  // If client didn't send a valid amount, use canonical total (incl GST).
+  if (!amountPaise || amountPaise <= 0) {
+    amountPaise = canonicalAmountPaise;
+  }
+
+  // If client DID send an amount and it doesn't match canonical, reject.
+  // (Prevents tampering; allow only canonical amount.)
+  if (amountPaiseRaw !== undefined && amountPaise !== canonicalAmountPaise) {
+    return res.status(400).json({
+      error: "Invalid amountPaise. Please refresh and try again.",
+      code: "invalid_amount",
+      expectedAmountPaise: canonicalAmountPaise,
+    });
   }
 
   // ── 2. Fetch profile (phone identity + name) ───────────────────────────────
@@ -109,7 +140,13 @@ export default async function handler(req, res) {
     );
     return res.status(200).json({ purchaseId: existingPurchase.id });
   }
-
+    console.error("[create-purchase] amount debug:", {
+    amountPaiseRaw,
+    amountPaise,
+    currency,
+    pricing,
+    canonicalAmountPaise,
+});
   const { data: purchase, error: insertError } = await adminClient
     .from("purchases")
     .insert([
@@ -138,6 +175,8 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: "Failed to create purchase" });
   }
 
-  console.log(`[create-purchase] Purchase created: id=${purchase.id} user=${user.id} course=${courseSlug}`);
+  console.log(
+    `[create-purchase] Purchase created: id=${purchase.id} user=${user.id} course=${courseSlug}`
+  );
   return res.status(200).json({ purchaseId: purchase.id });
 }
