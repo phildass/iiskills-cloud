@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Head from "next/head";
 
-const PAYMENT_URL = "https://iiskills.cloud/payments/iiskills";
+const PAYMENT_URL = "https://iiskills.cloud/start-payment";
 
 const INTERMEDIATE_QUESTIONS = [
   {
