@@ -106,7 +106,7 @@ All Next.js apps import `config/security-headers.js` and apply the following hea
 | Route group                                     | Limit (default) | Window |
 | ----------------------------------------------- | --------------- | ------ |
 | `/api/auth/*`                                   | 10 req          | 1 min  |
-| `/api/pay`, `/api/payment/*`, `/api/verify-otp` | 5 req           | 1 min  |
+| `/api/pay`, `/api/payment/*` | 5 req           | 1 min  |
 | `/admin/*`                                      | 30 req          | 1 min  |
 
 Override defaults via environment variables:

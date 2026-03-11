@@ -10,7 +10,6 @@
  *   - jaikisan.cloud   — separate sister product; cross-references are legitimate
  *   - aienter.in       — shared payment gateway used by all iiskills products
  *   - signInWithOtp    — Supabase magic-link auth; unrelated to the old Vonage OTP
- *   - generateSecureOTP — razorpay.js random order-code generator; not Vonage OTP
  *   - grantedVia:"otp" — access-control enum value retained for historical DB rows
  *
  * Any line in a source file that references a known-external domain (jaibharat.cloud,
@@ -45,6 +44,8 @@ const BANNED_CONTENT_PATTERNS = [
   { pattern: /vonageClient\.sms\.send/, description: "Vonage SMS send call" },
   { pattern: /\.from\(['"]otps['"]\)/, description: "Supabase otps table access" },
   { pattern: /OTP_DISABLED/, description: "OTP_DISABLED env var reference" },
+  { pattern: /OTP_SECRET/, description: "OTP_SECRET env var reference" },
+  { pattern: /generateSecureOTP/, description: "generateSecureOTP call (removed from razorpay.js)" },
   { pattern: /VONAGE_API_KEY/, description: "VONAGE_API_KEY env var reference" },
   { pattern: /VONAGE_API_SECRET/, description: "VONAGE_API_SECRET env var reference" },
   { pattern: /VONAGE_BRAND_NAME/, description: "VONAGE_BRAND_NAME env var reference" },
