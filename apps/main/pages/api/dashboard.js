@@ -112,37 +112,74 @@ export default async function handler(req, res) {
   // ── Progress summary ──────────────────────────────────────────────────────
   const { data: progressRows } = await supabase
     .from("user_lesson_progress")
-    .select("app_id, passed, completed_at")
+    .select("app_id, module_id, lesson_id, passed, completed_at, last_seen_at")
     .eq("user_id", userId);
 
   const progressList = progressRows || [];
   const totalLessonsCompleted = progressList.filter((p) => p.completed_at).length;
   const totalLessonsPassed = progressList.filter((p) => p.passed).length;
 
-  // Group progress by app
+  // Group progress by app and track last-seen lesson
   const progressByApp = progressList.reduce((acc, row) => {
-    if (!acc[row.app_id]) acc[row.app_id] = { total: 0, passed: 0 };
+    if (!acc[row.app_id]) acc[row.app_id] = { total: 0, passed: 0, lastLesson: null };
     acc[row.app_id].total++;
     if (row.passed) acc[row.app_id].passed++;
+    // Track most-recently-seen lesson
+    const current = acc[row.app_id].lastLesson;
+    const rowTs = row.last_seen_at || row.completed_at;
+    if (rowTs && (!current || new Date(rowTs) > new Date(current.last_active_at))) {
+      acc[row.app_id].lastLesson = {
+        module_id: row.module_id,
+        lesson_id: row.lesson_id,
+        last_active_at: rowTs,
+      };
+    }
     return acc;
   }, {});
+
+  // ── Paid course slugs ──────────────────────────────────────────────────────
+  // Primary: purchases with status='paid', de-duplicated by course_slug
+  const purchaseList = purchases || [];
+  const paidSlugsFromPurchases = [...new Set(purchaseList.map((p) => p.course_slug))];
+
+  // Fallback: active entitlements not already covered by purchases
+  const entitlementList = entitlements || [];
+  const paidSlugsFromEntitlements = entitlementList
+    .flatMap((e) => {
+      if (e.app_id === "ai-developer-bundle") return ["learn-ai", "learn-developer"];
+      return [e.app_id];
+    })
+    .filter((slug) => !paidSlugsFromPurchases.includes(slug));
+
+  const paidCourseSlugs = [...new Set([...paidSlugsFromPurchases, ...paidSlugsFromEntitlements])];
+
+  // ── Last lesson per paid course (for deep-link CTA) ───────────────────────
+  const lastLessonByApp = Object.fromEntries(
+    Object.entries(progressByApp)
+      .filter(([appId]) => paidCourseSlugs.includes(appId))
+      .map(([appId, data]) => [appId, data.lastLesson])
+  );
 
   return res.status(200).json({
     profile: profile || null,
     email: user.email,
     isGoogleUser,
-    purchases: purchases || [],
-    purchasesTotal: (purchases || []).reduce((sum, p) => sum + (p.amount_paise || 0), 0),
-    entitlements: entitlements || [],
+    purchases: purchaseList,
+    purchasesTotal: purchaseList.reduce((sum, p) => sum + (p.amount_paise || 0), 0),
+    entitlements: entitlementList,
     badges: badgeList,
     badgeCount,
     honourStudent,
     certificates: certList,
     certificateCount: certList.length,
+    paidCourseSlugs,
+    lastLessonByApp,
     progress: {
       totalLessonsCompleted,
       totalLessonsPassed,
-      byApp: progressByApp,
+      byApp: Object.fromEntries(
+        Object.entries(progressByApp).map(([k, v]) => [k, { total: v.total, passed: v.passed }])
+      ),
     },
   });
 }

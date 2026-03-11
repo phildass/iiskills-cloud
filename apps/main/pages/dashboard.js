@@ -1022,7 +1022,7 @@ function ProfileTab({ dashboardData, accessToken, onProfileUpdated }) {
 
 // ── Progress & Achievements Tab ──────────────────────────────────────────────
 
-function AchievementsTab({ dashboardData }) {
+function AchievementsTab({ dashboardData, accessToken }) {
   const {
     badges,
     badgeCount,
@@ -1042,6 +1042,9 @@ function AchievementsTab({ dashboardData }) {
 
   return (
     <div className="space-y-6">
+      {/* My Accomplishments (AI) */}
+      <AccomplishmentsSection accessToken={accessToken} />
+
       {/* Honour Student Badge */}
       {honourStudent && (
         <div className="bg-gradient-to-r from-yellow-400 via-yellow-300 to-amber-400 rounded-xl p-6 text-center shadow-lg">
@@ -1185,6 +1188,245 @@ function AchievementsTab({ dashboardData }) {
   );
 }
 
+// ── My Courses Tab ────────────────────────────────────────────────────────────
+
+/**
+ * Free courses shown in the "My Courses" tab — always visible to all users.
+ * These match exactly: Chemistry | Geography | Math | Physics.
+ */
+const FREE_COURSES = [
+  {
+    id: "learn-chemistry",
+    name: "Learn Chemistry",
+    emoji: "⚗️",
+    homeUrl: "https://learn-chemistry.iiskills.cloud/",
+  },
+  {
+    id: "learn-geography",
+    name: "Learn Geography",
+    emoji: "🌍",
+    homeUrl: "https://learn-geography.iiskills.cloud/",
+  },
+  {
+    id: "learn-math",
+    name: "Learn Math",
+    emoji: "➗",
+    homeUrl: "https://learn-math.iiskills.cloud/",
+  },
+  {
+    id: "learn-physics",
+    name: "Learn Physics",
+    emoji: "⚛️",
+    homeUrl: "https://learn-physics.iiskills.cloud/",
+  },
+];
+
+/** Display names for paid course slugs */
+const PAID_COURSE_NAMES = {
+  "learn-ai": "Learn AI",
+  "learn-developer": "Learn Developer",
+  "learn-management": "Learn Management",
+  "learn-pr": "Learn PR",
+};
+
+function getCourseName(slug) {
+  return PAID_COURSE_NAMES[slug] || slug;
+}
+
+function getCourseEmoji(slug) {
+  const map = {
+    "learn-ai": "🤖",
+    "learn-developer": "💻",
+    "learn-management": "📊",
+    "learn-pr": "📣",
+  };
+  return map[slug] || "📚";
+}
+
+function MyCourseTab({ dashboardData }) {
+  const paidCourseSlugs = dashboardData?.paidCourseSlugs || [];
+  const lastLessonByApp = dashboardData?.lastLessonByApp || {};
+  const progressByApp = dashboardData?.progress?.byApp || {};
+
+  return (
+    <div className="space-y-8">
+      {/* ── My Free Courses ─────────────────────────────────────────────── */}
+      <section>
+        <h2 className="text-lg font-bold text-gray-900 mb-4">📗 My Free Courses</h2>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {FREE_COURSES.map((course) => (
+            <a
+              key={course.id}
+              href={course.homeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-white rounded-xl shadow p-5 flex flex-col items-center text-center hover:shadow-md transition group"
+            >
+              <span className="text-4xl mb-2 group-hover:scale-110 transition-transform">
+                {course.emoji}
+              </span>
+              <p className="font-semibold text-gray-800 text-sm">{course.name}</p>
+              <span className="mt-3 inline-block bg-green-100 text-green-700 text-xs font-bold px-3 py-1 rounded-full">
+                Free
+              </span>
+              <span className="mt-2 text-blue-600 text-xs font-medium group-hover:underline">
+                Go to Course →
+              </span>
+            </a>
+          ))}
+        </div>
+      </section>
+
+      {/* ── My Paid Courses ─────────────────────────────────────────────── */}
+      <section>
+        <h2 className="text-lg font-bold text-gray-900 mb-1">🔒 My Paid Courses</h2>
+        <p className="text-sm text-gray-500 mb-4">Courses you have access to.</p>
+        {paidCourseSlugs.length === 0 ? (
+          <div className="bg-white rounded-xl shadow p-8 text-center text-gray-500">
+            <p className="text-3xl mb-3">🎓</p>
+            <p className="font-semibold text-gray-700 mb-1">No paid courses yet</p>
+            <p className="text-sm">
+              Explore our{" "}
+              <a href="/courses" className="text-blue-600 hover:underline">
+                course catalogue
+              </a>{" "}
+              to get started.
+            </p>
+          </div>
+        ) : (
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {paidCourseSlugs.map((slug) => {
+              const courseHome = `https://${slug}.iiskills.cloud/`;
+              const lastLesson = lastLessonByApp[slug];
+              const appProgress = progressByApp[slug];
+              const hasProgress = !!lastLesson || (appProgress && appProgress.total > 0);
+
+              // Deep-link to last lesson when progress exists, otherwise /learn
+              let ctaUrl = courseHome;
+              if (lastLesson?.module_id && lastLesson?.lesson_id) {
+                ctaUrl = `https://${slug}.iiskills.cloud/learn/${lastLesson.module_id}/${lastLesson.lesson_id}`;
+              } else if (hasProgress) {
+                ctaUrl = `https://${slug}.iiskills.cloud/learn`;
+              }
+
+              const ctaLabel = hasProgress ? "Continue My Session" : "Start Course";
+
+              const completionPct =
+                appProgress && appProgress.total > 0
+                  ? Math.round((appProgress.passed / appProgress.total) * 100)
+                  : null;
+
+              return (
+                <div key={slug} className="bg-white rounded-xl shadow p-5 flex flex-col">
+                  <div className="flex items-center gap-3 mb-3">
+                    <span className="text-3xl">{getCourseEmoji(slug)}</span>
+                    <div className="flex-1 min-w-0">
+                      <p className="font-bold text-gray-800 truncate">{getCourseName(slug)}</p>
+                      <span className="inline-block mt-0.5 bg-purple-100 text-purple-700 text-xs font-bold px-2 py-0.5 rounded-full">
+                        Enrolled
+                      </span>
+                    </div>
+                  </div>
+
+                  {completionPct !== null && (
+                    <div className="mb-3">
+                      <div className="flex justify-between text-xs text-gray-500 mb-1">
+                        <span>Progress</span>
+                        <span>{completionPct}%</span>
+                      </div>
+                      <div className="w-full bg-gray-100 rounded-full h-1.5">
+                        <div
+                          className="bg-blue-600 h-1.5 rounded-full transition-all"
+                          style={{ width: `${completionPct}%` }}
+                        />
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="flex flex-col gap-2 mt-auto">
+                    <a
+                      href={ctaUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full text-center bg-blue-600 text-white text-sm font-semibold px-4 py-2 rounded-lg hover:bg-blue-700 transition"
+                    >
+                      {ctaLabel}
+                    </a>
+                    <a
+                      href={courseHome}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full text-center border border-gray-300 text-gray-700 text-sm font-medium px-4 py-2 rounded-lg hover:bg-gray-50 transition"
+                    >
+                      Go to Course Home
+                    </a>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </section>
+    </div>
+  );
+}
+
+// ── My Accomplishments section (used inside AchievementsTab) ─────────────────
+
+function AccomplishmentsSection({ accessToken }) {
+  const [analysis, setAnalysis] = useState(undefined); // undefined = loading, null = no activity
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (!accessToken) {
+      setLoading(false);
+      return;
+    }
+    fetch("/api/accomplishments", {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data) => {
+        setAnalysis(data?.analysis ?? null);
+      })
+      .catch(() => setAnalysis(null))
+      .finally(() => setLoading(false));
+  }, [accessToken]);
+
+  if (loading) {
+    return (
+      <div className="bg-white rounded-xl shadow p-6">
+        <h3 className="text-base font-bold text-gray-900 mb-3">✨ My Accomplishments</h3>
+        <div className="flex items-center gap-2 text-gray-400 text-sm">
+          <div className="w-4 h-4 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
+          Generating your learning summary…
+        </div>
+      </div>
+    );
+  }
+
+  if (!analysis) {
+    return (
+      <div className="bg-white rounded-xl shadow p-6">
+        <h3 className="text-base font-bold text-gray-900 mb-3">✨ My Accomplishments</h3>
+        <p className="text-gray-500 text-sm">
+          No activity recorded yet. Start a lesson to see your personalized learning summary here.
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-200 rounded-xl shadow p-6">
+      <h3 className="text-base font-bold text-gray-900 mb-3">✨ My Accomplishments</h3>
+      <p className="text-gray-800 text-sm leading-relaxed whitespace-pre-wrap">{analysis}</p>
+      <p className="text-xs text-gray-400 mt-3">
+        AI-generated summary based on your activity data.
+      </p>
+    </div>
+  );
+}
+
 // ── Main Dashboard Page ───────────────────────────────────────────────────────
 
 /**
@@ -1192,8 +1434,9 @@ function AchievementsTab({ dashboardData }) {
  *
  * Features:
  * - Redirects unauthenticated users to /sign-in
+ * - "My Courses" tab: free courses (always) + paid courses with CTAs
  * - "My Profile" tab: profile editing with field-locking rules
- * - "Achievements" tab: badges, certificates, credits, honour student
+ * - "Achievements" tab: badges, certificates, credits, honour student, AI accomplishments
  * - "Course Messages" tab: per-course threaded messaging with coordinators
  * - "Tickets" tab: support/billing ticketing with monthly creation limits
  */
@@ -1354,6 +1597,7 @@ export default function Dashboard() {
               {/* Tabs */}
               <div className="flex flex-wrap gap-2 mb-6">
                 {[
+                  { id: "my-courses", label: "📚 My Courses" },
                   { id: "my-profile", label: "👤 My Profile" },
                   { id: "achievements", label: "🏅 Achievements" },
                   { id: "course-messages", label: "💬 Course Messages" },
@@ -1374,6 +1618,9 @@ export default function Dashboard() {
               </div>
 
               {/* Tab content */}
+              {activeTab === "my-courses" && dashboardData && (
+                <MyCourseTab dashboardData={dashboardData} />
+              )}
               {activeTab === "my-profile" && dashboardData && (
                 <ProfileTab
                   dashboardData={dashboardData}
@@ -1385,7 +1632,7 @@ export default function Dashboard() {
                 />
               )}
               {activeTab === "achievements" && dashboardData && (
-                <AchievementsTab dashboardData={dashboardData} />
+                <AchievementsTab dashboardData={dashboardData} accessToken={accessToken} />
               )}
               {activeTab === "course-messages" && accessToken && (
                 <CourseMessagesTab accessToken={accessToken} />
