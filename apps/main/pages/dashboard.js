@@ -1324,16 +1324,15 @@ export default function Dashboard() {
                 <div className="bg-amber-50 border border-amber-300 rounded-xl p-5 mb-6 flex items-start gap-4">
                   <span className="text-2xl">🎉</span>
                   <div className="flex-1">
-                    <p className="font-semibold text-amber-900 mb-1">Complete your account setup</p>
+                    <p className="font-semibold text-amber-900 mb-1">Complete your profile</p>
                     <p className="text-sm text-amber-800 mb-3">
-                      Set a password and personalise your profile to get the most out of your
-                      iiskills subscription.
+                      Personalise your profile to get the most out of your iiskills subscription.
                     </p>
                     <a
-                      href="/complete-registration"
+                      href="/profile"
                       className="inline-block bg-amber-500 hover:bg-amber-600 text-white text-sm font-semibold px-4 py-2 rounded-lg transition"
                     >
-                      Complete setup →
+                      Complete Profile →
                     </a>
                   </div>
                 </div>

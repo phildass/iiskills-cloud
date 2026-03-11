@@ -43,10 +43,8 @@ export default function PaymentSuccess() {
   const appUrl = appConfig?.url || "https://iiskills.cloud/apps-dashboard";
   const appLabel = appConfig?.label || "your course";
 
-  // Build the complete-registration URL
-  const completeRegUrl = course
-    ? `/complete-registration?course=${encodeURIComponent(course)}`
-    : "/complete-registration";
+  // Route profile completion to the profile edit page
+  const completeRegUrl = "/profile";
 
   useEffect(() => {
     let mounted = true;
@@ -131,19 +129,19 @@ export default function PaymentSuccess() {
               <li>Your account has been upgraded to paid access.</li>
               <li>A confirmation notification will be sent shortly.</li>
               {registrationCompleted === false && (
-                <li>Complete your registration to set your password.</li>
+                <li>Complete your profile to personalise your iiskills experience.</li>
               )}
               {registrationCompleted === true && <li>You can start learning immediately.</li>}
             </ul>
           </div>
 
-          {/* Primary CTA: complete registration OR go to course */}
+          {/* Primary CTA: complete profile OR go to course */}
           {registrationCompleted === false && (
             <Link
               href={completeRegUrl}
               className="block w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white py-3 px-6 rounded-xl font-bold text-center hover:from-purple-700 hover:to-blue-700 transition-all shadow-lg mb-3"
             >
-              Complete Registration →
+              Complete Profile →
             </Link>
           )}
 

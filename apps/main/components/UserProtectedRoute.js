@@ -120,12 +120,12 @@ export default function UserProtectedRoute({ children }) {
           setIsAuthenticated(true);
         } else {
           const currentPath = router.asPath;
-          router.push(`/register?redirect=${encodeURIComponent(currentPath)}`);
+          router.push(`/sign-in?next=${encodeURIComponent(currentPath)}`);
         }
       } catch (error) {
         console.error("Error checking authentication:", error);
         const currentPath = router.asPath;
-        router.push(`/register?redirect=${encodeURIComponent(currentPath)}`);
+        router.push(`/sign-in?next=${encodeURIComponent(currentPath)}`);
       } finally {
         setIsLoading(false);
       }

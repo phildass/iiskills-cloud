@@ -8,9 +8,9 @@ import { getCanonicalLinks } from "./canonicalNavLinks";
  *
  * Tracks authentication and paid-user state client-side:
  *   - Unauthenticated: shows Login / Register buttons only.
- *   - Authenticated but not paid: shows user name + Logout; no Profile link.
+ *   - Authenticated but not paid: shows user name + Profile link + Logout.
  *   - Authenticated and paid + registration incomplete:
- *       - shows "Complete Registration →" as PRIMARY CTA
+ *       - shows "Complete Profile →" as PRIMARY CTA
  *       - demotes irrelevant links (payments + course/app entry links) via Header logic
  *   - Authenticated and paid + registration complete: shows user name + "PAID" badge + Profile link + Logout.
  *
@@ -144,8 +144,8 @@ export default function SiteHeader({ appId = "main", isFreeApp = false }) {
       ]
     : baseNavLinks;
 
-  // Prefer main app domain for a central complete-registration flow
-  const completeRegistrationHref = `${mainAppUrl}/complete-registration`;
+  // Prefer main app domain for a central profile flow
+  const completeProfileHref = isSubApp ? `${mainAppUrl}/profile` : "/profile";
 
   return (
     <Header
@@ -157,9 +157,7 @@ export default function SiteHeader({ appId = "main", isFreeApp = false }) {
       isPaid={isPaid}
       registrationIncomplete={registrationIncomplete}
       primaryCta={
-        registrationIncomplete
-          ? { label: "Complete Registration →", href: completeRegistrationHref }
-          : null
+        registrationIncomplete ? { label: "Complete Profile →", href: completeProfileHref } : null
       }
       onLogout={handleLogout}
       loginUrl={loginUrl}
