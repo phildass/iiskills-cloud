@@ -201,11 +201,9 @@ export default function Header({
                       {primaryCta.label}
                     </Link>
                   ) : (
-                    isPaid && (
-                      <Link href={profileUrl} className="hover:text-primary transition font-medium">
-                        Profile
-                      </Link>
-                    )
+                    <Link href={profileUrl} className="hover:text-primary transition font-medium">
+                      Profile
+                    </Link>
                   )}
 
                   <button
@@ -316,14 +314,12 @@ export default function Header({
                       {primaryCta.label}
                     </Link>
                   ) : (
-                    isPaid && (
-                      <Link
-                        href={profileUrl}
-                        className="block hover:text-primary transition font-medium px-4 py-2"
-                      >
-                        Profile
-                      </Link>
-                    )
+                    <Link
+                      href={profileUrl}
+                      className="block hover:text-primary transition font-medium px-4 py-2"
+                    >
+                      Profile
+                    </Link>
                   )}
 
                   <button
