@@ -13,7 +13,7 @@ export default function App({ Component, pageProps }) {
       </Head>
 
       <SiteHeader appId="learn-ai" isFreeApp={false} />
-      <AppSecondaryNavbar appId="learn-ai" appName="Learn AI" isFree={false} />
+      <AppSecondaryNavbar appId="learn-ai" appName="AI" isFree={false} />
       <Component {...pageProps} />
       <Footer />
     </>

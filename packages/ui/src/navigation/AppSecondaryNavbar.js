@@ -32,7 +32,9 @@ const PAID_APP_IDS = ["learn-ai", "learn-developer", "learn-pr", "learn-manageme
  *   @param {string} appId    - App identifier (e.g. "learn-physics")
  *   @param {string} appName  - Display name   (e.g. "Physics")
  *   @param {boolean} isFree  - Whether the app is free (overrides PAID_APP_IDS lookup)
- *   @param {string} [firstLessonPath="/modules/1/lesson/1"] - Path to the first lesson/test
+ *   @param {string} [firstLessonPath="/modules/1/lesson/1"] - Path for "Continue My Lessons".
+ *     Defaults to the standard module/lesson structure used by most learn-* apps.
+ *     Override for apps that use a different structure (e.g. learn-apt uses "/tests/numerical").
  */
 export default function AppSecondaryNavbar({
   appId,
@@ -136,7 +138,7 @@ export default function AppSecondaryNavbar({
   return (
     <>
       <nav
-        className="bg-white border-b border-gray-200 shadow-sm sticky top-[60px] z-30"
+        className="bg-white border-b border-gray-200 shadow-sm sticky top-[76px] z-30"
         aria-label={`${shortName} secondary navigation`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
