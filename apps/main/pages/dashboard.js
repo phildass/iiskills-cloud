@@ -637,6 +637,554 @@ function TicketsTab({ accessToken, userEmail, userName, userPhone }) {
   );
 }
 
+// ── Education options ─────────────────────────────────────────────────────────
+const EDUCATION_OPTIONS = ["", "SSLC", "Graduate", "Post Graduate", "Phd", "Other"];
+
+// ── Profile Tab Component ─────────────────────────────────────────────────────
+
+function ProfileTab({ dashboardData, accessToken, onProfileUpdated }) {
+  const { profile, email, isGoogleUser } = dashboardData;
+  const isSubmitted = !!profile?.profile_submitted_at;
+  const nameChangesLeft = isSubmitted ? Math.max(0, 1 - (profile?.name_change_count || 0)) : null;
+
+  const [editing, setEditing] = useState(!isSubmitted);
+  const [saving, setSaving] = useState(false);
+  const [saveError, setSaveError] = useState("");
+  const [saveWarning, setSaveWarning] = useState("");
+
+  const [form, setForm] = useState({
+    first_name: profile?.first_name || "",
+    last_name: profile?.last_name || "",
+    phone: profile?.phone || "",
+    location: profile?.location || "",
+    gender: profile?.gender || "",
+    date_of_birth: profile?.date_of_birth || "",
+    education: profile?.education || "",
+    education_self: profile?.education_self || "",
+    education_father: profile?.education_father || "",
+    education_mother: profile?.education_mother || "",
+  });
+
+  const canEditName = !isSubmitted || nameChangesLeft > 0;
+  const isFieldLocked = (field) => {
+    if (!isSubmitted) return false;
+    const alwaysEditable = [
+      "location",
+      "education",
+      "education_self",
+      "education_father",
+      "education_mother",
+    ];
+    if (alwaysEditable.includes(field)) return false;
+    if (["first_name", "last_name"].includes(field)) return !canEditName;
+    return true;
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSave = async (e) => {
+    e.preventDefault();
+    setSaveError("");
+    setSaveWarning("");
+    setSaving(true);
+
+    // Build payload — only include non-locked or changed fields
+    const payload = {};
+    Object.keys(form).forEach((key) => {
+      if (!isFieldLocked(key)) payload[key] = form[key];
+    });
+
+    try {
+      const res = await fetch("/api/profile/update", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setSaveError(data.error || "Failed to save profile");
+        return;
+      }
+      if (data.warnings) {
+        setSaveWarning(`Note: ${data.warnings.lockedFields?.join(", ")} could not be changed.`);
+      }
+      onProfileUpdated(data.profile);
+      setEditing(false);
+    } catch {
+      setSaveError("Network error. Please try again.");
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const inputClass = (field) =>
+    `border rounded-lg px-3 py-2 text-sm w-full focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+      isFieldLocked(field) ? "bg-gray-100 text-gray-500 cursor-not-allowed" : "bg-white"
+    }`;
+
+  const labelClass = "block text-xs font-medium text-gray-600 mb-1";
+
+  return (
+    <div className="bg-white rounded-xl shadow p-6">
+      <div className="flex items-center justify-between mb-5">
+        <h2 className="text-lg font-bold text-gray-900">My Profile</h2>
+        <div className="flex items-center gap-3">
+          {isGoogleUser && (
+            <span className="inline-flex items-center gap-1 text-xs bg-blue-50 border border-blue-200 text-blue-700 px-2 py-1 rounded-full font-medium">
+              <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+                  fill="#4285F4"
+                />
+                <path
+                  d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+                  fill="#34A853"
+                />
+                <path
+                  d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"
+                  fill="#FBBC05"
+                />
+                <path
+                  d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+                  fill="#EA4335"
+                />
+              </svg>
+              Google Account
+            </span>
+          )}
+          {!editing && (
+            <button
+              onClick={() => setEditing(true)}
+              className="text-sm text-blue-600 hover:underline font-medium"
+            >
+              Edit
+            </button>
+          )}
+        </div>
+      </div>
+
+      {/* Profile incomplete prompt */}
+      {!isSubmitted && (
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-5 text-sm text-blue-800">
+          <strong>Complete your profile</strong> — Please fill in your name, phone number, and email
+          to get the most out of your iiskills experience.
+        </div>
+      )}
+
+      {isSubmitted && (
+        <div className="text-xs text-gray-500 mb-4">
+          Profile submitted on {new Date(profile.profile_submitted_at).toLocaleDateString("en-IN")}.
+          {isSubmitted && nameChangesLeft > 0 && (
+            <span className="ml-2 text-amber-600">
+              You can change your name {nameChangesLeft} more time.
+            </span>
+          )}
+          {isSubmitted && nameChangesLeft === 0 && (
+            <span className="ml-2 text-gray-400">Name cannot be changed further.</span>
+          )}
+        </div>
+      )}
+
+      {/* Email (read-only, always) */}
+      <div className="mb-3">
+        <label className={labelClass}>Email</label>
+        <input
+          type="email"
+          value={email || ""}
+          readOnly
+          className="border rounded-lg px-3 py-2 text-sm w-full bg-gray-100 text-gray-500 cursor-not-allowed"
+        />
+      </div>
+
+      {editing ? (
+        <form onSubmit={handleSave} className="space-y-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label className={labelClass}>
+                First Name{" "}
+                {!isFieldLocked("first_name") ? (
+                  <span className="text-red-500">*</span>
+                ) : (
+                  <span className="text-gray-400 text-xs">(locked)</span>
+                )}
+              </label>
+              <input
+                type="text"
+                name="first_name"
+                value={form.first_name}
+                onChange={handleChange}
+                readOnly={isFieldLocked("first_name")}
+                required={!isFieldLocked("first_name")}
+                className={inputClass("first_name")}
+              />
+            </div>
+            <div>
+              <label className={labelClass}>
+                Last Name{" "}
+                {isFieldLocked("last_name") && (
+                  <span className="text-gray-400 text-xs">(locked)</span>
+                )}
+              </label>
+              <input
+                type="text"
+                name="last_name"
+                value={form.last_name}
+                onChange={handleChange}
+                readOnly={isFieldLocked("last_name")}
+                className={inputClass("last_name")}
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label className={labelClass}>
+                Phone{" "}
+                {!isFieldLocked("phone") ? (
+                  <span className="text-red-500">*</span>
+                ) : (
+                  <span className="text-gray-400 text-xs">(locked)</span>
+                )}
+              </label>
+              <input
+                type="tel"
+                name="phone"
+                value={form.phone}
+                onChange={handleChange}
+                readOnly={isFieldLocked("phone")}
+                required={!isFieldLocked("phone")}
+                className={inputClass("phone")}
+              />
+            </div>
+            <div>
+              <label className={labelClass}>Location (always editable)</label>
+              <input
+                type="text"
+                name="location"
+                value={form.location}
+                onChange={handleChange}
+                className={inputClass("location")}
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label className={labelClass}>
+                Gender{" "}
+                {isFieldLocked("gender") && <span className="text-gray-400 text-xs">(locked)</span>}
+              </label>
+              <select
+                name="gender"
+                value={form.gender}
+                onChange={handleChange}
+                disabled={isFieldLocked("gender")}
+                className={inputClass("gender")}
+              >
+                <option value="">Select</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div>
+              <label className={labelClass}>
+                Date of Birth{" "}
+                {isFieldLocked("date_of_birth") && (
+                  <span className="text-gray-400 text-xs">(locked)</span>
+                )}
+              </label>
+              <input
+                type="date"
+                name="date_of_birth"
+                value={form.date_of_birth}
+                onChange={handleChange}
+                readOnly={isFieldLocked("date_of_birth")}
+                className={inputClass("date_of_birth")}
+              />
+            </div>
+          </div>
+
+          {/* Education fields (always editable) */}
+          <div className="border-t pt-4">
+            <p className="text-xs font-semibold text-gray-500 uppercase mb-3">
+              Education (always editable)
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div>
+                <label className={labelClass}>Your Education</label>
+                <select
+                  name="education_self"
+                  value={form.education_self}
+                  onChange={handleChange}
+                  className={inputClass("education_self")}
+                >
+                  {EDUCATION_OPTIONS.map((opt) => (
+                    <option key={opt} value={opt}>
+                      {opt || "Select"}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label className={labelClass}>Father&apos;s Education</label>
+                <select
+                  name="education_father"
+                  value={form.education_father}
+                  onChange={handleChange}
+                  className={inputClass("education_father")}
+                >
+                  {EDUCATION_OPTIONS.map((opt) => (
+                    <option key={opt} value={opt}>
+                      {opt || "Select"}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label className={labelClass}>Mother&apos;s Education</label>
+                <select
+                  name="education_mother"
+                  value={form.education_mother}
+                  onChange={handleChange}
+                  className={inputClass("education_mother")}
+                >
+                  {EDUCATION_OPTIONS.map((opt) => (
+                    <option key={opt} value={opt}>
+                      {opt || "Select"}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+          </div>
+
+          {saveError && (
+            <div className="text-sm text-red-600 bg-red-50 rounded-lg px-4 py-2">{saveError}</div>
+          )}
+          {saveWarning && (
+            <div className="text-sm text-amber-700 bg-amber-50 rounded-lg px-4 py-2">
+              {saveWarning}
+            </div>
+          )}
+
+          <div className="flex gap-3 pt-2">
+            <button
+              type="submit"
+              disabled={saving}
+              className="bg-blue-600 text-white px-6 py-2.5 rounded-lg text-sm font-semibold hover:bg-blue-700 disabled:opacity-50 transition"
+            >
+              {saving ? "Saving…" : isSubmitted ? "Save Changes" : "Submit Profile"}
+            </button>
+            {isSubmitted && (
+              <button
+                type="button"
+                onClick={() => {
+                  setEditing(false);
+                  setSaveError("");
+                  setSaveWarning("");
+                }}
+                className="border border-gray-300 text-gray-700 px-5 py-2.5 rounded-lg text-sm hover:bg-gray-50 transition"
+              >
+                Cancel
+              </button>
+            )}
+          </div>
+        </form>
+      ) : (
+        <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 text-sm">
+          {[
+            ["Name", [profile?.first_name, profile?.last_name].filter(Boolean).join(" ") || "—"],
+            ["Phone", profile?.phone || "—"],
+            ["Location", profile?.location || "—"],
+            ["Gender", profile?.gender || "—"],
+            ["Date of Birth", profile?.date_of_birth || "—"],
+            ["Your Education", profile?.education_self || profile?.education || "—"],
+            ["Father's Education", profile?.education_father || "—"],
+            ["Mother's Education", profile?.education_mother || "—"],
+          ].map(([label, value]) => (
+            <div key={label}>
+              <dt className="text-gray-500 text-xs font-medium">{label}</dt>
+              <dd className="text-gray-800 font-medium mt-0.5">{value}</dd>
+            </div>
+          ))}
+        </dl>
+      )}
+    </div>
+  );
+}
+
+// ── Progress & Achievements Tab ──────────────────────────────────────────────
+
+function AchievementsTab({ dashboardData }) {
+  const {
+    badges,
+    badgeCount,
+    honourStudent,
+    certificates,
+    certificateCount,
+    purchases,
+    purchasesTotal,
+    entitlements,
+    progress,
+  } = dashboardData;
+
+  const formatCurrency = (paise) => {
+    if (!paise) return "₹0";
+    return `₹${(paise / 100).toLocaleString("en-IN")}`;
+  };
+
+  return (
+    <div className="space-y-6">
+      {/* Honour Student Badge */}
+      {honourStudent && (
+        <div className="bg-gradient-to-r from-yellow-400 via-yellow-300 to-amber-400 rounded-xl p-6 text-center shadow-lg">
+          <div className="text-5xl mb-2">🏆</div>
+          <h3 className="text-xl font-bold text-yellow-900">Honour Student</h3>
+          <p className="text-yellow-800 text-sm mt-1">
+            Congratulations! You have earned {badgeCount} badges.
+          </p>
+        </div>
+      )}
+
+      {/* Stats row */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        {[
+          { label: "Badges Earned", value: badgeCount, icon: "🎖️" },
+          { label: "Certificates", value: certificateCount, icon: "📜" },
+          { label: "Lessons Passed", value: progress?.totalLessonsPassed ?? 0, icon: "✅" },
+          { label: "Amount Paid", value: formatCurrency(purchasesTotal), icon: "💳" },
+        ].map(({ label, value, icon }) => (
+          <div key={label} className="bg-white rounded-xl shadow p-4 text-center">
+            <div className="text-3xl mb-1">{icon}</div>
+            <div className="text-2xl font-bold text-gray-900">{value}</div>
+            <div className="text-xs text-gray-500 mt-0.5">{label}</div>
+          </div>
+        ))}
+      </div>
+
+      {/* Badges list */}
+      <div className="bg-white rounded-xl shadow p-6">
+        <h3 className="text-base font-bold text-gray-900 mb-4">🎖️ Badges Earned</h3>
+        {badges.length === 0 ? (
+          <p className="text-gray-500 text-sm">
+            No badges yet. Pass a quiz to earn your first badge!
+          </p>
+        ) : (
+          <div className="space-y-2">
+            {badges.map((badge) => (
+              <div
+                key={badge.id}
+                className="flex items-center justify-between py-2 border-b border-gray-100 last:border-0 text-sm"
+              >
+                <div>
+                  <span className="font-medium text-gray-800">{badge.app_id}</span>
+                  <span className="text-gray-500 ml-2">
+                    Module {badge.module_id} · Lesson {badge.lesson_id}
+                  </span>
+                </div>
+                <div className="flex items-center gap-3">
+                  {badge.score != null && (
+                    <span className="text-gray-600">Score: {badge.score}</span>
+                  )}
+                  <span className="text-xs text-gray-400">
+                    {new Date(badge.earned_at).toLocaleDateString("en-IN")}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* Certificates list */}
+      <div className="bg-white rounded-xl shadow p-6">
+        <h3 className="text-base font-bold text-gray-900 mb-4">📜 Certificates</h3>
+        {certificates.length === 0 ? (
+          <p className="text-gray-500 text-sm">
+            No certificates yet. Complete a course to earn your certificate.
+          </p>
+        ) : (
+          <div className="space-y-3">
+            {certificates.map((cert) => (
+              <div
+                key={cert.id}
+                className="flex items-center justify-between py-2 border-b border-gray-100 last:border-0"
+              >
+                <div>
+                  <div className="font-medium text-gray-800 text-sm">
+                    {cert.course_name || cert.app_id}
+                  </div>
+                  {cert.certificate_no && (
+                    <div className="text-xs text-gray-500">No: {cert.certificate_no}</div>
+                  )}
+                </div>
+                <div className="text-xs text-gray-400">
+                  {new Date(cert.issued_at).toLocaleDateString("en-IN")}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* Entitlements */}
+      {entitlements.length > 0 && (
+        <div className="bg-white rounded-xl shadow p-6">
+          <h3 className="text-base font-bold text-gray-900 mb-4">🎓 Active Enrollments</h3>
+          <div className="space-y-2">
+            {entitlements.map((ent) => (
+              <div key={ent.id} className="flex items-center justify-between text-sm py-1">
+                <span className="font-medium text-gray-800">{ent.app_id}</span>
+                <span className="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-medium">
+                  Active
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Payments list */}
+      <div className="bg-white rounded-xl shadow p-6">
+        <h3 className="text-base font-bold text-gray-900 mb-4">💳 Payments</h3>
+        {purchases.length === 0 ? (
+          <p className="text-gray-500 text-sm">No payment records found.</p>
+        ) : (
+          <div className="space-y-2">
+            {purchases.map((p) => (
+              <div
+                key={p.id}
+                className="flex items-center justify-between py-2 border-b border-gray-100 last:border-0 text-sm"
+              >
+                <div>
+                  <span className="font-medium text-gray-800">{p.course_slug}</span>
+                  <span className="ml-2 text-xs text-gray-500">
+                    {p.paid_at ? new Date(p.paid_at).toLocaleDateString("en-IN") : "—"}
+                  </span>
+                </div>
+                <span className="font-semibold text-gray-800">
+                  {formatCurrency(p.amount_paise)}
+                </span>
+              </div>
+            ))}
+            <div className="flex justify-between pt-2 text-sm font-bold text-gray-900">
+              <span>Total</span>
+              <span>{formatCurrency(purchasesTotal)}</span>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
 // ── Main Dashboard Page ───────────────────────────────────────────────────────
 
 /**
@@ -644,6 +1192,8 @@ function TicketsTab({ accessToken, userEmail, userName, userPhone }) {
  *
  * Features:
  * - Redirects unauthenticated users to /sign-in
+ * - "My Profile" tab: profile editing with field-locking rules
+ * - "Achievements" tab: badges, certificates, credits, honour student
  * - "Course Messages" tab: per-course threaded messaging with coordinators
  * - "Tickets" tab: support/billing ticketing with monthly creation limits
  */
@@ -651,9 +1201,10 @@ export default function Dashboard() {
   const router = useRouter();
   const [user, setUser] = useState(null);
   const [profile, setProfile] = useState(null);
+  const [dashboardData, setDashboardData] = useState(null);
   const [accessToken, setAccessToken] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState("course-messages");
+  const [activeTab, setActiveTab] = useState("my-profile");
 
   const loadDashboardData = async () => {
     try {
@@ -674,11 +1225,13 @@ export default function Dashboard() {
 
       if (session?.access_token) {
         setAccessToken(session.access_token);
-        const res = await fetch("/api/profile", {
+        // Use /api/dashboard which works for ALL authenticated users (not paid-only)
+        const res = await fetch("/api/dashboard", {
           headers: { Authorization: `Bearer ${session.access_token}` },
         });
         if (res.ok) {
           const data = await res.json();
+          setDashboardData(data);
           setProfile(data.profile || null);
         }
       }
@@ -697,6 +1250,7 @@ export default function Dashboard() {
   const displayName =
     profile?.full_name ||
     [profile?.first_name, profile?.last_name].filter(Boolean).join(" ") ||
+    dashboardData?.email ||
     user?.email;
 
   const userName = [profile?.first_name, profile?.last_name].filter(Boolean).join(" ");
@@ -727,12 +1281,32 @@ export default function Dashboard() {
               )}
             </div>
             <div className="flex items-center gap-3">
-              <a href="/profile" className="text-sm text-blue-600 hover:underline">
-                Edit Profile
-              </a>
               {profile?.is_paid_user && (
                 <span className="inline-flex items-center gap-1 bg-gradient-to-r from-purple-600 to-blue-600 text-white text-xs font-bold px-2.5 py-1 rounded-full">
                   ⭐ Paid
+                </span>
+              )}
+              {dashboardData?.isGoogleUser && (
+                <span className="inline-flex items-center gap-1 text-xs bg-blue-50 border border-blue-200 text-blue-700 px-2 py-1 rounded-full font-medium">
+                  <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none">
+                    <path
+                      d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+                      fill="#4285F4"
+                    />
+                    <path
+                      d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+                      fill="#34A853"
+                    />
+                    <path
+                      d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"
+                      fill="#FBBC05"
+                    />
+                    <path
+                      d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+                      fill="#EA4335"
+                    />
+                  </svg>
+                  Google
                 </span>
               )}
             </div>
@@ -765,31 +1339,55 @@ export default function Dashboard() {
                 </div>
               )}
 
+              {/* Honour Student badge (top level, always visible) */}
+              {dashboardData?.honourStudent && (
+                <div className="bg-gradient-to-r from-yellow-400 via-yellow-300 to-amber-400 rounded-xl p-4 mb-6 flex items-center gap-4 shadow-lg">
+                  <span className="text-4xl">🏆</span>
+                  <div>
+                    <p className="font-bold text-yellow-900 text-lg">Honour Student</p>
+                    <p className="text-yellow-800 text-sm">
+                      You have earned {dashboardData.badgeCount} badges!
+                    </p>
+                  </div>
+                </div>
+              )}
+
               {/* Tabs */}
-              <div className="flex gap-2 mb-6">
-                <button
-                  onClick={() => setActiveTab("course-messages")}
-                  className={`px-5 py-2.5 rounded-lg text-sm font-semibold transition ${
-                    activeTab === "course-messages"
-                      ? "bg-blue-600 text-white shadow-sm"
-                      : "bg-white text-gray-700 border border-gray-300 hover:bg-gray-50"
-                  }`}
-                >
-                  💬 Course Messages
-                </button>
-                <button
-                  onClick={() => setActiveTab("tickets")}
-                  className={`px-5 py-2.5 rounded-lg text-sm font-semibold transition ${
-                    activeTab === "tickets"
-                      ? "bg-blue-600 text-white shadow-sm"
-                      : "bg-white text-gray-700 border border-gray-300 hover:bg-gray-50"
-                  }`}
-                >
-                  🎫 Tickets
-                </button>
+              <div className="flex flex-wrap gap-2 mb-6">
+                {[
+                  { id: "my-profile", label: "👤 My Profile" },
+                  { id: "achievements", label: "🏅 Achievements" },
+                  { id: "course-messages", label: "💬 Course Messages" },
+                  { id: "tickets", label: "🎫 Tickets" },
+                ].map(({ id, label }) => (
+                  <button
+                    key={id}
+                    onClick={() => setActiveTab(id)}
+                    className={`px-5 py-2.5 rounded-lg text-sm font-semibold transition ${
+                      activeTab === id
+                        ? "bg-blue-600 text-white shadow-sm"
+                        : "bg-white text-gray-700 border border-gray-300 hover:bg-gray-50"
+                    }`}
+                  >
+                    {label}
+                  </button>
+                ))}
               </div>
 
               {/* Tab content */}
+              {activeTab === "my-profile" && dashboardData && (
+                <ProfileTab
+                  dashboardData={dashboardData}
+                  accessToken={accessToken}
+                  onProfileUpdated={(updatedProfile) => {
+                    setProfile(updatedProfile);
+                    setDashboardData((prev) => ({ ...prev, profile: updatedProfile }));
+                  }}
+                />
+              )}
+              {activeTab === "achievements" && dashboardData && (
+                <AchievementsTab dashboardData={dashboardData} />
+              )}
               {activeTab === "course-messages" && accessToken && (
                 <CourseMessagesTab accessToken={accessToken} />
               )}

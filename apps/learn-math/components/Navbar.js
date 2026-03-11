@@ -1,5 +1,7 @@
 import Link from "next/link";
 
+const MAIN_APP_URL = process.env.NEXT_PUBLIC_MAIN_APP_URL || "https://iiskills.cloud";
+
 export default function Navbar() {
   return (
     <nav className="bg-white shadow-md">
@@ -24,6 +26,12 @@ export default function Navbar() {
             </Link>
             <Link href="/admin" className="text-gray-700 hover:text-primary transition-colors">
               Admin
+            </Link>
+            <Link
+              href={`${MAIN_APP_URL}/dashboard`}
+              className="text-blue-700 font-semibold hover:text-blue-900 transition-colors"
+            >
+              My Dashboard
             </Link>
           </div>
 
