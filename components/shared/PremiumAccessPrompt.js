@@ -8,8 +8,9 @@ import { getEffectivePricingBreakdown, formatINR, isBundleOfferActive } from "@i
  * Internal Payment Preview UI for paid apps
  * Shows after successful calibration qualifier
  *
- * Redirects to iiskills.cloud/payments/iiskills (auth-first Flow A) so that
- * the user is authenticated before reaching the aienter.in payment page.
+ * Redirects to iiskills.cloud/start-payment (entry gateway) so that the user
+ * always makes an explicit "Registered / New" choice before reaching the
+ * auth-first payment flow.
  *
  * Pricing is derived from the canonical @iiskills/ui/pricing module.
  */
@@ -26,7 +27,7 @@ export default function PremiumAccessPrompt({
 
   const handleUnlock = () => {
     const mainAppUrl = process.env.NEXT_PUBLIC_MAIN_APP_URL || "https://iiskills.cloud";
-    window.location.href = `${mainAppUrl}/payments/iiskills${appId ? `?course=${encodeURIComponent(appId)}` : ""}`;
+    window.location.href = `${mainAppUrl}/start-payment${appId ? `?course=${encodeURIComponent(appId)}` : ""}`;
   };
 
   return (

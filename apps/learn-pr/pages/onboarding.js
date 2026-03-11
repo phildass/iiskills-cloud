@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import Head from "next/head";
 
-const PAYMENT_URL = "https://iiskills.cloud/payments/iiskills";
+const PAYMENT_URL = "https://iiskills.cloud/start-payment";
 
 // PR-specific gatekeeper questions for Intermediate level (Basic PR concepts)
 const INTERMEDIATE_QUESTIONS = [

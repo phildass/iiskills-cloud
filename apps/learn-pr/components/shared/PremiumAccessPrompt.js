@@ -6,8 +6,9 @@ import { getEffectivePricingBreakdown, formatINR } from "@iiskills/ui/pricing";
  * Premium Access Prompt Component
  *
  * Post-sample conversion flow for paid apps
- * Shows pricing breakdown with GST and redirects to iiskills.cloud/payments/iiskills
- * (auth-first Flow A) so the user must be authenticated before reaching aienter.in.
+ * Shows pricing breakdown with GST and redirects to iiskills.cloud/start-payment
+ * (entry gateway) so the user always makes an explicit "Registered / New" choice
+ * before reaching the auth-first payment flow.
  *
  * Pricing is derived from the canonical @iiskills/ui/pricing module.
  */
@@ -21,7 +22,7 @@ export default function PremiumAccessPrompt({
   const pricing = getEffectivePricingBreakdown();
   const handleUnlock = () => {
     const mainAppUrl = process.env.NEXT_PUBLIC_MAIN_APP_URL || "https://iiskills.cloud";
-    window.location.href = `${mainAppUrl}/payments/iiskills${appId ? `?course=${encodeURIComponent(appId)}` : ""}`;
+    window.location.href = `${mainAppUrl}/start-payment${appId ? `?course=${encodeURIComponent(appId)}` : ""}`;
   };
 
   return (

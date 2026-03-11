@@ -12,12 +12,29 @@ The full payment flow is:
 User clicks "Pay Now" on <appname>.iiskills.cloud
       │
       ▼
+User is redirected to https://iiskills.cloud/start-payment?course=<appId>
+(Entry Gateway — ALWAYS the first stop for every payment attempt)
+      │
+      ▼
+User is asked: "Are you a Registered User?"
+  ┌── YES ────────────────────────────────────────────────────────────────────┐
+  │   Session check (Supabase):                                               │
+  │   • Active session → proceed to /payments/iiskills                        │
+  │   • No session     → redirect to /sign-in?next=/payments/iiskills         │
+  └───────────────────────────────────────────────────────────────────────────┘
+  ┌── NO ─────────────────────────────────────────────────────────────────────┐
+  │   Redirect to /register?next=/start-payment?course=<appId>               │
+  │   After registration, user returns to /start-payment and chooses YES.    │
+  └───────────────────────────────────────────────────────────────────────────┘
+      │
+      ▼
 User is redirected to https://iiskills.cloud/payments/iiskills?course=<appId>
 (already authenticated — Supabase session checked here)
       │
       ▼
 iiskills.cloud POST /api/payments/create-purchase
-Creates a purchases row (status='created') and returns purchaseId
+Creates a purchases row (status='created') and returns a FRESH purchaseId
+(a new purchaseId is created on every attempt — old links cannot be reused)
       │
       ▼
 iiskills.cloud POST /api/payments/generate-token
@@ -43,6 +60,11 @@ User is redirected to https://<appname>.iiskills.cloud/authorised
 > **Key principle**: iiskills.cloud does **not** talk to Razorpay directly. It trusts the
 > confirmation only after verifying a shared HMAC-SHA256 secret with aienter.in.
 
+> **Entry gateway**: Every "Pay Now" button on any app **must** link to
+> `/start-payment?course=<appId>`, never directly to `/payments/iiskills`.
+> This ensures the "Registered / New user" choice is always enforced and a
+> fresh `purchaseId` is generated for every attempt.
+
 > **Deprecated**: `/api/payments/ai-enter/callback` now returns HTTP 410 Gone.
 > All callbacks **must** use `/api/payments/confirm`.
 
@@ -65,6 +87,31 @@ Set these on **aienter.in**:
 | ------------------------------------- | ----------------------------------------------------------------------------- |
 | `AIENTER_CONFIRMATION_SIGNING_SECRET` | Same shared secret as iiskills; used to sign the x-aienter-signature header.  |
 | `IISKILLS_CONFIRM_URL`                | `https://iiskills.cloud/api/payments/confirm`                                 |
+
+---
+
+## Entry Gateway: `/start-payment`
+
+**Route**: `GET /start-payment?course=<appId>`
+
+All "Pay Now" buttons (in `EnrollmentLandingPage`, `PremiumAccessPrompt`,
+`TriLevelLandingPage`, and onboarding pages) link to this route.
+
+The page always presents an explicit choice:
+
+| Choice | Action |
+| ------ | ------ |
+| **Yes, I'm a Registered User** | Checks Supabase session. If active → `/payments/iiskills`. If none → `/sign-in?next=/payments/iiskills`. |
+| **No, I'm New Here** | Redirects to `/register?next=/start-payment?course=<appId>`. After registration the user returns here and chooses "Yes". |
+
+**Why this matters**: Razorpay / PhonePe may remember device/phone/app from
+earlier sessions and appear to skip steps.  Routing every payment attempt
+through `/start-payment` ensures:
+
+1. The user always makes an **explicit** "Registered vs New" decision.
+2. `/payments/iiskills` always creates a **fresh `purchaseId`** — old payment
+   links cannot be reused.
+3. Even authenticated users are one click away from using a different account.
 
 ---
 

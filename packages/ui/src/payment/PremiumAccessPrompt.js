@@ -23,7 +23,10 @@ export default function PremiumAccessPrompt({
 
   const handleUnlock = () => {
     const mainAppUrl = process.env.NEXT_PUBLIC_MAIN_APP_URL || "https://iiskills.cloud";
-    window.location.href = `${mainAppUrl}/payments/iiskills${appId ? `?course=${encodeURIComponent(appId)}` : ""}`;
+    // Route through /start-payment so users always make an explicit
+    // "Registered / New" choice before payment, and a fresh purchaseId is
+    // created for every attempt.
+    window.location.href = `${mainAppUrl}/start-payment${appId ? `?course=${encodeURIComponent(appId)}` : ""}`;
   };
 
   return (
