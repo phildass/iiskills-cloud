@@ -58,7 +58,7 @@ export default async function handler(req, res) {
               lesson_id: String(lesson_id),
               last_score: score,
               passed,
-              completed_at: passed ? now : undefined,
+              ...(passed && { completed_at: now }),
               last_seen_at: now,
               updated_at: now,
             },
