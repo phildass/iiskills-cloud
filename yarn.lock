@@ -1595,6 +1595,7 @@ __metadata:
   dependencies:
     "@iiskills/content-loader": "npm:*"
     "@iiskills/ui": "workspace:*"
+    "@supabase/ssr": "npm:^0.9.0"
     "@supabase/supabase-js": "npm:^2.89.0"
     autoprefixer: "npm:^10.4.14"
     eslint: "npm:^9.39.2"
@@ -7427,6 +7428,7 @@ __metadata:
   dependencies:
     "@iiskills/content-loader": "npm:*"
     "@iiskills/ui": "workspace:*"
+    "@supabase/ssr": "npm:^0.9.0"
     "@supabase/supabase-js": "npm:^2.89.0"
     autoprefixer: "npm:^10.4.14"
     eslint: "npm:^9.39.2"
@@ -7444,6 +7446,7 @@ __metadata:
   resolution: "learn-apt@workspace:apps/learn-apt"
   dependencies:
     "@iiskills/ui": "workspace:*"
+    "@supabase/ssr": "npm:^0.9.0"
     "@supabase/supabase-js": "npm:^2.89.0"
     autoprefixer: "npm:^10.4.14"
     eslint: "npm:^9.39.2"
@@ -7464,6 +7467,7 @@ __metadata:
   dependencies:
     "@iiskills/content-loader": "npm:*"
     "@iiskills/ui": "workspace:*"
+    "@supabase/ssr": "npm:^0.9.0"
     "@supabase/supabase-js": "npm:^2.89.0"
     autoprefixer: "npm:^10.4.14"
     eslint: "npm:^9.39.2"
@@ -7482,6 +7486,7 @@ __metadata:
   dependencies:
     "@iiskills/content-loader": "npm:*"
     "@iiskills/ui": "workspace:*"
+    "@supabase/ssr": "npm:^0.9.0"
     "@supabase/supabase-js": "npm:^2.89.0"
     autoprefixer: "npm:^10.4.14"
     eslint: "npm:^9.39.2"
@@ -7500,6 +7505,7 @@ __metadata:
   dependencies:
     "@iiskills/content-loader": "npm:*"
     "@iiskills/ui": "workspace:*"
+    "@supabase/ssr": "npm:^0.9.0"
     "@supabase/supabase-js": "npm:^2.89.0"
     autoprefixer: "npm:^10.4.14"
     eslint: "npm:^9.39.2"
@@ -7518,6 +7524,7 @@ __metadata:
   dependencies:
     "@iiskills/content-loader": "npm:*"
     "@iiskills/ui": "workspace:*"
+    "@supabase/ssr": "npm:^0.9.0"
     "@supabase/supabase-js": "npm:^2.89.0"
     autoprefixer: "npm:^10.4.14"
     eslint: "npm:^9.39.2"
@@ -7536,6 +7543,7 @@ __metadata:
   dependencies:
     "@iiskills/content-loader": "npm:*"
     "@iiskills/ui": "workspace:*"
+    "@supabase/ssr": "npm:^0.9.0"
     "@supabase/supabase-js": "npm:^2.89.0"
     autoprefixer: "npm:^10.4.14"
     eslint: "npm:^9.39.2"
@@ -7554,6 +7562,7 @@ __metadata:
   dependencies:
     "@iiskills/content-loader": "npm:*"
     "@iiskills/ui": "workspace:*"
+    "@supabase/ssr": "npm:^0.9.0"
     "@supabase/supabase-js": "npm:^2.89.0"
     autoprefixer: "npm:^10.4.14"
     eslint: "npm:^9.39.2"

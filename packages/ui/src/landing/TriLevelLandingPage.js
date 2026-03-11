@@ -17,7 +17,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
 import Hero from "./HeroManager";
-import { getCurrentUser } from "@/lib/supabaseClient";
+import { getCurrentUser, supabase } from "@/lib/supabaseClient";
 import UniversalInstallPrompt from "../pwa/UniversalInstallPrompt";
 
 const PAID_APP_IDS = ["learn-ai", "learn-developer", "learn-pr", "learn-management"];
@@ -80,9 +80,20 @@ export default function TriLevelLandingPage({
       setUser(currentUser);
 
       if (currentUser && isPaid) {
-        // Check entitlement
+        // Check entitlement — send Bearer token so the API can verify the session
         try {
-          const res = await fetch(`/api/access/check?appId=${appId}`);
+          let accessToken = null;
+          try {
+            const {
+              data: { session },
+            } = await supabase.auth.getSession();
+            accessToken = session?.access_token || null;
+          } catch {
+            // Session unavailable — proceed without token
+          }
+          const res = await fetch(`/api/access/check?appId=${appId}`, {
+            headers: accessToken ? { Authorization: `Bearer ${accessToken}` } : {},
+          });
           if (res.ok) {
             const data = await res.json();
             setEntitled(!!data.hasAccess);

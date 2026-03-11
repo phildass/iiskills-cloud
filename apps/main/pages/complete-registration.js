@@ -62,14 +62,15 @@ function getPasswordErrors(password) {
  *
  * Query params:
  *   - course: app-id of the purchased course (e.g. "learn-management")
+ *   - return_to: URL to redirect to after registration (overrides default course URL)
  *
  * Access control:
  *   - Must be authenticated. If not, redirected to /sign-in?next=...
- *   - If already completed, redirected to /apps-dashboard.
+ *   - If already completed, redirected to return_to or course app.
  */
 export default function CompleteRegistration() {
   const router = useRouter();
-  const { course } = router.query;
+  const { course, return_to: returnTo } = router.query;
 
   const [status, setStatus] = useState("loading"); // loading | ready | done
   const [user, setUser] = useState(null);
@@ -84,7 +85,8 @@ export default function CompleteRegistration() {
   const [username, setUsername] = useState("");
 
   const appConfig = PAID_APPS.find((a) => a.id === course);
-  const appUrl = appConfig?.url || "/apps-dashboard";
+  // Use return_to if provided; fall back to app URL or dashboard
+  const appUrl = returnTo || appConfig?.url || "/apps-dashboard";
   const appLabel = appConfig?.label || "your course";
 
   useEffect(() => {
@@ -195,8 +197,25 @@ export default function CompleteRegistration() {
         return;
       }
 
+      // Best-effort: link any pre-existing payment/entitlement to this user
+      try {
+        await fetch("/api/profile/link-payment", {
+          method: "POST",
+          headers: { Authorization: `Bearer ${session.access_token}` },
+        });
+      } catch (linkErr) {
+        // Non-critical — proceed to redirect even if linking fails
+        console.warn("[complete-registration] link-payment failed (non-fatal):", linkErr);
+      }
+
       setUsername(data.username || "");
       setStatus("done");
+
+      // Auto-redirect to course after a brief success display (3 seconds)
+      const REDIRECT_DELAY_MS = 3000;
+      setTimeout(() => {
+        window.location.href = appUrl;
+      }, REDIRECT_DELAY_MS);
     } catch (err) {
       console.error("[complete-registration] submit error:", err);
       setError("Network error. Please try again.");
@@ -268,7 +287,7 @@ export default function CompleteRegistration() {
 
             <p className="text-gray-600 mb-6 text-sm">
               Welcome to <span className="font-semibold">{appLabel}</span>! Your account is now
-              fully set up. Start learning right away.
+              fully set up. Redirecting you to your course in a moment…
             </p>
 
             <a

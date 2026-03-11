@@ -2,8 +2,8 @@
  * Supabase Client Configuration for Learn Apt
  *
  * This file initializes the Supabase client with cross-subdomain session support.
- * The session cookie is configured to work across *.iiskills.cloud subdomains,
- * allowing seamless authentication between apps.
+ * In the browser, createBrowserClient from @supabase/ssr is used so that the auth
+ * cookie set on .iiskills.cloud is readable from all *.iiskills.cloud subdomains.
  *
  * Setup Instructions:
  * 1. Use the same Supabase project as the main iiskills.cloud app
@@ -13,10 +13,11 @@
  */
 
 import { createClient } from "@supabase/supabase-js";
+import { createBrowserClient } from "@supabase/ssr";
+import { getCookieDomain } from "@utils/urlHelper";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-
 
 // Use POSITIVE validation: check if the values look like real credentials.
 // This avoids placeholder strings being compiled into the client bundle.
@@ -27,19 +28,16 @@ const _hasCredentials =
   (supabaseAnonKey.startsWith("eyJ") || supabaseAnonKey.startsWith("sb_"));
 
 // In production on the server, fail fast if credentials are missing.
-  // In production on the server, fail fast if credentials are missing.
-  if (!_hasCredentials && process.env.NODE_ENV === "production" && typeof window === "undefined") {
-    console.error(
-      "STARTUP ERROR: Missing or invalid NEXT_PUBLIC_SUPABASE_URL / NEXT_PUBLIC_SUPABASE_ANON_KEY. " +
-        "Set these in your environment before starting the server."
-    );
-    process.exit(1);
-  }
-
+// In production on the server, fail fast if credentials are missing.
+if (!_hasCredentials && process.env.NODE_ENV === "production" && typeof window === "undefined") {
+  console.error(
+    "STARTUP ERROR: Missing or invalid NEXT_PUBLIC_SUPABASE_URL / NEXT_PUBLIC_SUPABASE_ANON_KEY. " +
+      "Set these in your environment before starting the server."
+  );
+  process.exit(1);
+}
 
 // Create Supabase client — real when credentials are present, no-op stub for CI builds.
-
-
 
 // Guard: do not use placeholder fallbacks — they get bundled into production output.
 // In CI/build without credentials, a null-safe stub is returned; all auth calls return empty.
@@ -77,22 +75,26 @@ const _createNullClient = () => {
 };
 
 // Create Supabase client
+// - Browser: use createBrowserClient with cookie domain for cross-subdomain session sharing
+// - Server: use plain createClient without persistent session (for API routes)
 
 export const supabase = _hasCredentials
-  ? createClient(supabaseUrl, supabaseAnonKey, {
-      auth: {
-        autoRefreshToken: true,
-        persistSession: true,
-        detectSessionInUrl: true,
-      },
-    })
-
-
+  ? typeof window !== "undefined"
+    ? createBrowserClient(supabaseUrl, supabaseAnonKey, {
+        cookieOptions: {
+          domain: getCookieDomain(),
+          secure: window.location.protocol === "https:",
+          sameSite: "lax",
+        },
+      })
+    : createClient(supabaseUrl, supabaseAnonKey, {
+        auth: {
+          autoRefreshToken: false,
+          persistSession: false,
+          detectSessionInUrl: false,
+        },
+      })
   : _createNullClient();
-
-
-
-
 
 /**
  * Helper function to get the currently logged-in user
