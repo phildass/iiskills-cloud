@@ -208,13 +208,37 @@ export default function PaymentRecover() {
                 </ul>
               </div>
 
-              {/* Primary CTA */}
+              {/* Step 1 — Try again */}
               <a
                 href={continueUrl}
                 className="block w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-bold py-4 px-6 rounded-xl text-center transition-all shadow-lg mb-4 text-lg"
               >
-                Continue to Authorization Page →
+                Step 1 — Try Again: Continue to Authorization Page →
               </a>
+
+              {/* Step 2 — Raise a ticket */}
+              <div className="bg-blue-50 border-2 border-blue-400 rounded-xl p-4 mb-4 text-left">
+                <p className="text-blue-900 text-sm font-semibold mb-1">
+                  Step 2 — Still stuck? Raise a support ticket
+                </p>
+                <p className="text-blue-800 text-sm mb-3">
+                  No matter how hard we strive for perfection, machines occasionally decide to
+                  follow their own logic. Don&apos;t panic — head to your Dashboard and raise a
+                  ticket. We&apos;ll jump on it immediately, and certainly within 24 hours.
+                </p>
+                <p className="text-blue-800 text-sm mb-3">
+                  If your authorization is stuck in limbo, we&apos;ll grant you{" "}
+                  <strong>24 hours of free usage</strong> while we investigate. Once we&apos;ve
+                  sorted the technical gremlins, we&apos;ll renew or revoke access based on what we
+                  find. Either way, you keep moving forward.
+                </p>
+                <Link
+                  href="/dashboard"
+                  className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg transition-colors shadow text-sm"
+                >
+                  🎛️ Go to Dashboard →
+                </Link>
+              </div>
 
               <div className="space-y-2">
                 <Link href="/profile" className="block text-sm text-blue-600 hover:underline">
