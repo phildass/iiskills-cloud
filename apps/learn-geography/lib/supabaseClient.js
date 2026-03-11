@@ -5,10 +5,11 @@
  */
 
 import { createClient } from "@supabase/supabase-js";
+import { createBrowserClient } from "@supabase/ssr";
+import { getCookieDomain } from "@utils/urlHelper";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-
 
 // Use POSITIVE validation: check if the values look like real credentials.
 // This avoids placeholder strings being compiled into the client bundle.
@@ -28,8 +29,6 @@ if (!_hasCredentials && process.env.NODE_ENV === "production" && typeof window =
 }
 
 // Create Supabase client — real when credentials are present, no-op stub for CI builds.
-
-
 
 // Guard: do not use placeholder fallbacks — they get bundled into production output.
 
@@ -67,20 +66,22 @@ const _createNullClient = () => {
 // Create Supabase client
 
 export const supabase = _hasCredentials
-  ? createClient(supabaseUrl, supabaseAnonKey, {
-      auth: {
-        autoRefreshToken: true,
-        persistSession: true,
-        detectSessionInUrl: true,
-      },
-    })
-
-
+  ? typeof window !== "undefined"
+    ? createBrowserClient(supabaseUrl, supabaseAnonKey, {
+        cookieOptions: {
+          domain: getCookieDomain(),
+          secure: window.location.protocol === "https:",
+          sameSite: "lax",
+        },
+      })
+    : createClient(supabaseUrl, supabaseAnonKey, {
+        auth: {
+          autoRefreshToken: false,
+          persistSession: false,
+          detectSessionInUrl: false,
+        },
+      })
   : _createNullClient();
-
-
-
-
 
 /**
  * Helper function to get the currently logged-in user
@@ -108,7 +109,6 @@ export async function getCurrentUser() {
   }
   // END TEMPORARY AUTH DISABLE
 
-
   try {
     const {
       data: { session },
@@ -131,7 +131,6 @@ export async function getCurrentUser() {
  * Helper function to sign out the current user
  */
 export async function signOutUser() {
-
   try {
     const { error } = await supabase.auth.signOut();
 
@@ -161,7 +160,6 @@ export function getSiteUrl() {
  * Query wrapper
  */
 export async function queryData(table, filters = {}) {
-
   try {
     let query = supabase.from(table).select("*");
 
@@ -180,7 +178,6 @@ export async function queryData(table, filters = {}) {
  * Insert wrapper
  */
 export async function insertData(table, data) {
-
   try {
     const { data: result, error } = await supabase.from(table).insert(data).select().single();
     return { data: result, error };
