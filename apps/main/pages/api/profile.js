@@ -1,17 +1,27 @@
 /**
  * Profile API
  *
- * GET /api/profile
+ * GET   /api/profile  — Returns the authenticated user's profile record.
+ * PATCH /api/profile  — Updates editable fields of the authenticated user's profile.
  *
- * Returns the authenticated user's profile record from public.profiles,
- * including paid status (is_paid_user).
+ * Accessible to any authenticated user (paid or unpaid). Profile is not
+ * gated by payment status.
+ *
+ * Uses select('*') for schema safety — only returns columns that actually
+ * exist in the DB, so missing optional columns do not cause errors.
  *
  * Requires: Authorization: Bearer <supabase_access_token>
  *
- * Response:
- *   200 { profile: { id, first_name, last_name, ... , is_paid_user, paid_at } }
+ * Response (GET):
+ *   200 { profile: { ... } | null, email: string }
  *   401 { error: 'Unauthorized' }
- *   404 { error: 'Profile not found' }
+ *   500 { error: 'Failed to fetch profile' }
+ *
+ * Response (PATCH):
+ *   200 { success: true }
+ *   400 { error: 'No valid fields to update' }
+ *   401 { error: 'Unauthorized' }
+ *   500 { error: 'Failed to update profile' }
  */
 
 import { createClient } from "@supabase/supabase-js";
@@ -24,9 +34,27 @@ function getSupabaseServer() {
   return createClient(url, serviceKey);
 }
 
+// Fields that users are allowed to update via PATCH
+const EDITABLE_FIELDS = [
+  "first_name",
+  "last_name",
+  "full_name",
+  "gender",
+  "date_of_birth",
+  "age",
+  "education",
+  "qualification",
+  "location",
+  "state",
+  "district",
+  "country",
+  "specify_country",
+  "phone",
+];
+
 export default async function handler(req, res) {
-  if (req.method !== "GET") {
-    res.setHeader("Allow", ["GET"]);
+  if (req.method !== "GET" && req.method !== "PATCH") {
+    res.setHeader("Allow", ["GET", "PATCH"]);
     return res.status(405).json({ error: "Method Not Allowed" });
   }
 
@@ -49,15 +77,42 @@ export default async function handler(req, res) {
 
   const user = userData.user;
 
-  // Fetch profile from public.profiles
+  // ── PATCH: Update editable profile fields ──────────────────────────────────
+  if (req.method === "PATCH") {
+    const body = req.body || {};
+    const updates = {};
+    for (const field of EDITABLE_FIELDS) {
+      if (field in body) {
+        // Treat null, undefined, and empty string all as null (clear the field)
+        const val = body[field];
+        updates[field] = val == null || val === "" ? null : val;
+      }
+    }
+
+    if (Object.keys(updates).length === 0) {
+      return res.status(400).json({ error: "No valid fields to update" });
+    }
+
+    const { error: updateError } = await supabase
+      .from("profiles")
+      .update(updates)
+      .eq("id", user.id);
+
+    if (updateError) {
+      console.error("[api/profile] PATCH error:", updateError.message);
+      return res.status(500).json({ error: "Failed to update profile" });
+    }
+
+    return res.status(200).json({ success: true });
+  }
+
+  // ── GET: Fetch profile using select('*') for schema safety ─────────────────
+  // select('*') returns only columns that actually exist in the DB, so the
+  // query does not fail if optional columns (e.g. is_paid_user, registration_completed)
+  // have not been added by a migration yet.
   const { data: profile, error: profileError } = await supabase
     .from("profiles")
-    .select(
-      "id, first_name, last_name, full_name, gender, date_of_birth, age, education, " +
-        "qualification, location, state, district, country, specify_country, " +
-        "is_paid_user, paid_at, subscribed_to_newsletter, created_at, updated_at, " +
-        "registration_completed, username, phone"
-    )
+    .select("*")
     .eq("id", user.id)
     .maybeSingle();
 
@@ -66,12 +121,8 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: "Failed to fetch profile" });
   }
 
-  if (!profile) {
-    return res.status(404).json({ error: "Profile not found" });
-  }
-
-  // Also check entitlements table as fallback for paid status
-  if (!profile.is_paid_user) {
+  // Check entitlements table as fallback for paid status (sync only — no gating)
+  if (profile && !profile.is_paid_user) {
     const now = new Date().toISOString();
     const { data: entitlement } = await supabase
       .from("entitlements")
@@ -101,9 +152,8 @@ export default async function handler(req, res) {
     }
   }
 
-  if (!profile.is_paid_user) {
-    return res.status(403).json({ error: "Not a paid user" });
-  }
-
-  return res.status(200).json({ profile, email: user.email });
+  // Return profile (null for new users without a profile row yet).
+  // Profile access is not gated by payment status — any authenticated user
+  // can read and edit their profile.
+  return res.status(200).json({ profile: profile || null, email: user.email });
 }
