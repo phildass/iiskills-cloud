@@ -11,13 +11,16 @@ import Head from "next/head";
  * @param {string} appName   - The name of the app (e.g., "Learn AI")
  * @param {string} appId     - The app identifier (e.g., "learn-ai")
  * @param {string} homeUrl   - URL for the "Go Home" link (defaults to "/")
- * @param {string} dashboardUrl - URL for the dashboard link (defaults to main site dashboard)
+ * @param {string} dashboardUrl - URL for the dashboard link (defaults to env-aware main site dashboard)
  */
+
+const MAIN_URL = process.env.NEXT_PUBLIC_MAIN_APP_URL || "https://iiskills.cloud";
+
 export default function Shared500({
   appName = "iiskills",
   appId = "main",
   homeUrl = "/",
-  dashboardUrl = "https://iiskills.cloud/dashboard",
+  dashboardUrl = `${MAIN_URL}/dashboard`,
 }) {
   return (
     <>
@@ -109,7 +112,7 @@ export default function Shared500({
           <p className="text-gray-500 text-sm">
             If this keeps happening, please{" "}
             <Link
-              href="https://iiskills.cloud/contact"
+              href={`${MAIN_URL}/contact`}
               className="text-indigo-600 hover:underline font-semibold"
             >
               raise a support ticket
