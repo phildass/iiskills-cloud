@@ -209,7 +209,7 @@ export default function UniversalLandingPage({
         </section>
 
         {/* Hero Section with Full-Size Background */}
-        <Hero appId={appId} className="h-[70vh] md:h-[80vh] lg:h-[90vh] relative">
+        <Hero appId={appId} noOverlay={true} className="h-[70vh] md:h-[80vh] lg:h-[90vh] relative">
           <div className="text-center text-white space-y-3 max-w-4xl mx-auto">
             {/* Main Headline */}
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight drop-shadow-lg">

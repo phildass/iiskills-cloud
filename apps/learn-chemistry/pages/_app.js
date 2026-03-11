@@ -1,7 +1,7 @@
 import "../styles/globals.css";
 
 import Head from "next/head";
-import { SiteHeader } from "@iiskills/ui/navigation";
+import { SiteHeader, AppSecondaryNavbar } from "@iiskills/ui/navigation";
 import { Footer } from "@iiskills/ui/common";
 
 export default function App({ Component, pageProps }) {
@@ -13,6 +13,7 @@ export default function App({ Component, pageProps }) {
       </Head>
 
       <SiteHeader appId="learn-chemistry" isFreeApp={true} />
+      <AppSecondaryNavbar appId="learn-chemistry" appName="Chemistry" isFree={true} />
       <Component {...pageProps} />
       <Footer />
     </>

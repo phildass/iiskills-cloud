@@ -118,7 +118,7 @@ export default function PaidAppLandingPage({
         </section>
 
         {/* Hero Section */}
-        <Hero appId={appId} className="h-[70vh] md:h-[80vh] lg:h-[90vh]">
+        <Hero appId={appId} noOverlay={true} className="h-[70vh] md:h-[80vh] lg:h-[90vh]">
           {/* Headline/Subheadline only - positioned at bottom by Hero's flex items-end */}
           <div className="text-white">
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight mb-3">
