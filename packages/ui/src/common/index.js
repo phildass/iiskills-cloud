@@ -4,3 +4,4 @@ export { default as Footer } from "./Footer";
 export { default as Layout } from "./Layout";
 export { default as GoogleTranslate } from "./GoogleTranslate";
 export { default as Shared404 } from "./Shared404";
+export { default as Shared500 } from "./Shared500";
