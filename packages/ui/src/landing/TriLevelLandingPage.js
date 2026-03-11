@@ -166,6 +166,7 @@ export default function TriLevelLandingPage({
           appId={appId}
           appName={appName}
           heroImageSrc={heroImage}
+          noOverlay={true}
           className="h-[70vh] md:h-[80vh] lg:h-[90vh]"
         >
           <div className="text-white">
