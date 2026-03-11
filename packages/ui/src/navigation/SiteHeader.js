@@ -121,7 +121,7 @@ export default function SiteHeader({ appId = "main", isFreeApp = false }) {
 
   // Keep canonical links; Header will demote payment links when isPaid === true,
   // and will demote irrelevant links when registrationIncomplete === true.
-  const navLinks = getCanonicalLinks(appId, isFreeApp);
+  const baseNavLinks = getCanonicalLinks(appId, isFreeApp);
 
   // For non-main apps, auth pages live on the main site.
   const mainAppUrl = process.env.NEXT_PUBLIC_MAIN_APP_URL || "https://iiskills.cloud";
@@ -129,6 +129,20 @@ export default function SiteHeader({ appId = "main", isFreeApp = false }) {
   const loginUrl = isSubApp ? `${mainAppUrl}/login` : "/login";
   const registerUrl = isSubApp ? `${mainAppUrl}/register` : "/register";
   const profileUrl = isSubApp ? `${mainAppUrl}/profile` : "/profile";
+
+  // Append "My Dashboard" link when user is logged in
+  const dashboardUrl = isSubApp ? `${mainAppUrl}/dashboard` : "/dashboard";
+  const navLinks = user
+    ? [
+        ...baseNavLinks,
+        {
+          href: dashboardUrl,
+          label: "My Dashboard",
+          className: "hover:text-primary transition font-semibold text-blue-700",
+          mobileClassName: "block hover:text-primary transition py-2 font-semibold text-blue-700",
+        },
+      ]
+    : baseNavLinks;
 
   // Prefer main app domain for a central complete-registration flow
   const completeRegistrationHref = `${mainAppUrl}/complete-registration`;

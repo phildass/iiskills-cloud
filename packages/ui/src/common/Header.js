@@ -173,7 +173,12 @@ export default function Header({
               {user ? (
                 <>
                   <span className="text-sm font-medium text-gray-700">
-                    {user.user_metadata?.first_name || user.email?.split("@")[0] || "User"}
+                    {user.user_metadata?.full_name ||
+                      user.user_metadata?.first_name ||
+                      user.user_metadata?.name ||
+                      user.user_metadata?.username ||
+                      user.email?.split("@")[0] ||
+                      "User"}
                     {isPaid && (
                       <span className="ml-2 inline-block bg-gradient-to-r from-purple-600 to-blue-600 text-white text-xs font-bold px-2 py-0.5 rounded-full align-middle">
                         PAID
@@ -284,7 +289,12 @@ export default function Header({
                 <>
                   <div className="px-4 py-2 flex items-center gap-2">
                     <span className="text-sm font-medium text-gray-700">
-                      {user.user_metadata?.first_name || user.email?.split("@")[0] || "User"}
+                      {user.user_metadata?.full_name ||
+                        user.user_metadata?.first_name ||
+                        user.user_metadata?.name ||
+                        user.user_metadata?.username ||
+                        user.email?.split("@")[0] ||
+                        "User"}
                       {isPaid && (
                         <span className="ml-2 inline-block bg-gradient-to-r from-purple-600 to-blue-600 text-white text-xs font-bold px-2 py-0.5 rounded-full align-middle">
                           PAID

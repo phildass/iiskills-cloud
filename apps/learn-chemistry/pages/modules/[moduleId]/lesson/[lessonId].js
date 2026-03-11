@@ -148,6 +148,17 @@ export default function LessonPage({ lesson, moduleId, lessonId }) {
 
     if (passed) {
       try {
+        // Get access token for server-side progress tracking (best-effort)
+        let access_token;
+        try {
+          const { supabase } = await import("../../../../lib/supabaseClient");
+          const {
+            data: { session },
+          } = await supabase.auth.getSession();
+          access_token = session?.access_token;
+        } catch {
+          // Session unavailable — proceed without token
+        }
         await fetch("/api/assessments/submit", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -155,6 +166,7 @@ export default function LessonPage({ lesson, moduleId, lessonId }) {
             lesson_id: lessonId,
             module_id: moduleId,
             score: score,
+            ...(access_token && { access_token }),
           }),
         });
       } catch (error) {
