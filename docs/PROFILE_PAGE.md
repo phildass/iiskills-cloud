@@ -39,24 +39,18 @@ Apply the migration to add these columns:
 
 ## "Paid before register" flow
 
-A user may pay (via Razorpay → OTP gateway) **before** creating an iiskills account.
+A user may pay (via Razorpay) **before** creating an iiskills account.
 
 ### How linking works
 
-1. **OTP verification** (`POST /api/verify-otp`): after verifying the 6-digit OTP, the endpoint finds the registered user by email and:
+1. **Payment confirmation** (`POST /api/payments/confirm`): after a successful payment, the endpoint finds the registered user by email and:
    - Inserts an entitlement record
    - Sets `profiles.is_paid_user = true` (idempotent)
    - Sets `profiles.paid_at` (only on first grant, never overwritten)
 
-2. **OTP gateway success page** (`/otp-gateway`): If the user is **not** logged in, the success state now shows a prominent prompt:
+2. **Profile page visit** (`/profile`): When a user visits `/profile` with an active entitlement but `is_paid_user = false`, the page's API call automatically syncs the flag.
 
-   > "Payment received. Please register / login to access your Profile page and course dashboard."
-
-   Two buttons are displayed: **Register** and **Login**, both redirecting to `/profile` after authentication.
-
-3. **Profile page visit** (`/profile`): When a user visits `/profile` with an active entitlement but `is_paid_user = false`, the page's API call automatically syncs the flag.
-
-4. **Manual linking** (`POST /api/profile/link-payment`): An authenticated user can call this endpoint (with their Bearer token) to explicitly trigger payment linking. Useful for edge cases where automatic linking hasn't occurred.
+3. **Manual linking** (`POST /api/profile/link-payment`): An authenticated user can call this endpoint (with their Bearer token) to explicitly trigger payment linking. Useful for edge cases where automatic linking hasn't occurred.
 
 ---
 
