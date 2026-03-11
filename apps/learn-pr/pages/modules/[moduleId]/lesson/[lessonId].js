@@ -232,7 +232,7 @@ export default function LessonPage({ lesson, moduleId, lessonId }) {
               className="mb-6 rounded-lg border border-yellow-400 bg-yellow-50 px-4 py-3 text-yellow-800 text-sm"
             >
               ⚠️ <strong>You&apos;re in Skip mode.</strong> You can continue without quizzes, but
-              you won&apos;t earn badges for this course.
+              you won&apos;t earn badges or a certificate for this course.
             </div>
           )}
 
@@ -315,7 +315,7 @@ export default function LessonPage({ lesson, moduleId, lessonId }) {
                   Skip quizzes?
                 </h2>
                 <p className="text-gray-700 mb-6">
-                  You can continue to the next lesson, but you won&apos;t earn badges for this
+                  You can continue to the next lesson, but you won&apos;t earn badges or a certificate for this
                   course. <strong>This cannot be undone.</strong>
                 </p>
                 <div className="flex gap-3 justify-end">
