@@ -37,8 +37,9 @@ module.exports = {
       env: {
         NODE_ENV: "production",
         PORT: 3000,
-        ADMIN_SESSION_SIGNING_KEY:
-          "E18oge8sWUtc5SEyhE3mmMQUbWxFGVl/YoHM1OfoGyJS8UAfR4O4rAwPYTr5jYEc9BDfX0kjM2a6aMbkElqFPQ",
+        // ADMIN_SESSION_SIGNING_KEY and other secrets are loaded at runtime
+        // from /etc/iiskills.env via dotenv (see apps/main/next.config.js and
+        // apps/main/instrumentation.js). Do NOT hardcode secrets here.
       },
       instances: 1,
       autorestart: true,
