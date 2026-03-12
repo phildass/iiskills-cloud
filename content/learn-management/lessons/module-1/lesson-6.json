@@ -4,52 +4,57 @@
   "slug": "management-roles-responsibilities",
   "title": "Management Roles and Responsibilities",
   "isFree": false,
-  "content": "<h2>Module 1, Lesson 6: Management Roles and Responsibilities</h2>\n<h3>The Hook</h3>\n<p>This lesson covers <strong>Management Roles and Responsibilities</strong> as part of the Foundations of Management module in the Learn Management course. Mastery of this topic is essential for building a comprehensive understanding of the subject area.</p>\n<h3>The Concept</h3>\n<p>In <strong>Management Roles and Responsibilities</strong>, you will explore the foundational ideas, practical techniques, and real-world applications that make this area of study both relevant and actionable. Each concept has been carefully selected to build on prior knowledge and prepare you for more advanced topics.</p>\n<h3>The Illustration</h3>\n<p>Understanding Management Roles and Responsibilities means being able to apply these principles in professional contexts. You will encounter scenarios, case studies, and examples drawn from real industry practice, helping you translate theory into competence.</p>\n<h3>Summary</h3>\n<p>You have completed <strong>Management Roles and Responsibilities</strong> (Foundations of Management, Lesson 6). Proceed to the quiz to test your understanding, then continue to the next lesson to build further expertise.</p>",
+  "content": "<h2>Module 1, Lesson 6: Management Roles and Responsibilities</h2>\n\n<h3>The Hook</h3>\n<p>What does a manager actually do all day? The question sounds simple, but the reality is surprisingly complex. Henry Mintzberg, the Canadian management scholar, answered it definitively in 1973 by shadowing five CEOs for a week and recording every activity. His finding: management is not the ordered, reflective activity described in textbooks. It is fragmented, reactive, verbal, and relationship-intensive. Yet within this apparent chaos, Mintzberg identified 10 distinct managerial roles that remain the most widely used framework for understanding what management entails.</p>\n\n<h3>The Concept</h3>\n<h4>1. Mintzberg's Three Role Categories</h4>\n<p>Mintzberg grouped his 10 roles into three categories. <strong>Interpersonal roles</strong> arise from the manager's formal authority and involve interactions with people: Figurehead (ceremonial duties), Leader (motivating and directing staff), and Liaison (building external networks). <strong>Informational roles</strong> involve processing and sharing information: Monitor (scanning the environment), Disseminator (sharing information internally), and Spokesperson (representing the organisation externally). <strong>Decisional roles</strong> involve making choices: Entrepreneur (initiating change), Disturbance Handler (resolving crises), Resource Allocator (deciding who gets what), and Negotiator (reaching agreements).</p>\n\n<h4>2. Levels of Management and Their Focus</h4>\n<p>Management roles and responsibilities differ significantly across organisational levels. <strong>Top management</strong> (CEO, directors) focuses on strategy, external relationships, and long-term direction — primarily interpersonal and informational roles. <strong>Middle management</strong> (department heads, regional managers) translates strategy into operational plans, coordinates across functions, and develops people — a balance of all three role categories. <strong>First-line management</strong> (supervisors, team leaders) focuses on day-to-day operations, direct supervision, and technical problem-solving — heavily weighted towards decisional and interpersonal roles.</p>\n\n<h4>3. The Management Skill Mix</h4>\n<p>Robert Katz identified three categories of managerial skills. <strong>Technical skills</strong> — knowledge of the specific methods and techniques of the field — are most important at the supervisory level. <strong>Human skills</strong> — the ability to work with and through people — are critical at all levels but most salient in middle management. <strong>Conceptual skills</strong> — the ability to see the organisation as a whole, to think abstractly, and to solve complex problems — become increasingly important at higher levels. A common management failure occurs when technically brilliant individual contributors are promoted to management roles without developing human and conceptual skills.</p>\n\n<h4>4. Managerial Responsibilities: The Key Domains</h4>\n<p>Beyond Mintzberg's roles, managers carry distinct responsibilities across several domains. <strong>People responsibility</strong>: selecting, developing, motivating, and evaluating team members. <strong>Performance responsibility</strong>: setting targets, monitoring results, and intervening when performance falls short. <strong>Resource responsibility</strong>: allocating budgets, time, people, and equipment. <strong>Stakeholder responsibility</strong>: managing relationships with customers, suppliers, senior management, and peers. <strong>Development responsibility</strong>: improving the capability of both the team and the manager themselves. Neglecting any of these domains creates predictable problems.</p>\n\n<h4>5. Challenges of the Management Role</h4>\n<p>New managers frequently experience role conflict — the tension between being a peer and becoming a boss — and role ambiguity — uncertainty about what is expected. Research shows that the transition from individual contributor to manager is one of the most difficult career transitions precisely because it requires a fundamental shift in identity and behaviour: from doing to enabling; from individual achievement to collective results; from personal technical expertise to leveraging others' expertise. Effective managers develop the capacity to balance short-term operational demands with longer-term developmental responsibilities.</p>\n\n<h3>The Illustration</h3>\n<p>Managers wear many hats simultaneously: cheerleader, judge, strategist, problem-solver, communicator, and developer. Mintzberg's roles provide a vocabulary for this complexity. Katz's skill framework guides development priorities. Understanding that management is fundamentally about achieving results through people — not about personal technical performance — is the most important mindset shift a new manager must make.</p>",
   "quiz": [
     {
-      "question": "What are the four core functions of management?",
+      "question": "Which of Mintzberg's 10 managerial roles involves scanning the environment for information?",
       "options": [
-        "Planning, Organizing, Leading, and Controlling",
-        "Hiring, Firing, Promoting, and Demoting",
-        "Marketing, Sales, Finance, and Operations",
-        "Analyzing, Designing, Implementing, and Testing"
+        "Figurehead",
+        "Liaison",
+        "Monitor",
+        "Disseminator"
       ],
-      "correct_answer": 0
+      "correct_answer": 2
     },
     {
-      "question": "Which management theorist introduced Scientific Management?",
-      "options": ["Peter Drucker", "Frederick Taylor", "Henri Fayol", "Abraham Maslow"],
-      "correct_answer": 1
+      "question": "According to Robert Katz, which skill type becomes most important at senior management levels?",
+      "options": [
+        "Technical skills",
+        "Human skills",
+        "Conceptual skills",
+        "Analytical skills"
+      ],
+      "correct_answer": 2
     },
     {
-      "question": "What is the primary purpose of the controlling function in management?",
+      "question": "Mintzberg's 'Disturbance Handler' role falls into which role category?",
       "options": [
-        "Setting goals",
-        "Monitoring performance and taking corrective action",
-        "Allocating resources",
-        "Hiring employees"
+        "Interpersonal roles",
+        "Informational roles",
+        "Decisional roles",
+        "Strategic roles"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "What is 'role conflict' in the context of a new manager's challenges?",
+      "options": [
+        "Having too many direct reports",
+        "The tension between being a peer and becoming a boss",
+        "Conflict between departments",
+        "Disagreement over strategic direction"
       ],
       "correct_answer": 1
     },
     {
-      "question": "What does SMART stand for in goal-setting?",
+      "question": "At which management level is the focus most heavily on day-to-day operations and direct supervision?",
       "options": [
-        "Simple, Manageable, Achievable, Realistic, Timely",
-        "Specific, Measurable, Achievable, Relevant, Time-bound",
-        "Strategic, Meaningful, Actionable, Responsible, Trackable",
-        "Structured, Motivated, Agile, Results-driven, Targeted"
+        "Top management",
+        "Middle management",
+        "First-line management",
+        "Board level"
       ],
-      "correct_answer": 1
-    },
-    {
-      "question": "What is organisational behaviour?",
-      "options": [
-        "The study of how buildings are organized",
-        "The study of how individuals and groups act within organizations",
-        "The process of restructuring a company",
-        "A type of financial reporting"
-      ],
-      "correct_answer": 1
+      "correct_answer": 2
     }
   ]
 }

@@ -4,52 +4,57 @@
   "slug": "scientific-management-taylorism",
   "title": "Scientific Management and Taylorism",
   "isFree": false,
-  "content": "<h2>Module 1, Lesson 3: Scientific Management and Taylorism</h2>\n<h3>The Hook</h3>\n<p>This lesson covers <strong>Scientific Management and Taylorism</strong> as part of the Foundations of Management module in the Learn Management course. Mastery of this topic is essential for building a comprehensive understanding of the subject area.</p>\n<h3>The Concept</h3>\n<p>In <strong>Scientific Management and Taylorism</strong>, you will explore the foundational ideas, practical techniques, and real-world applications that make this area of study both relevant and actionable. Each concept has been carefully selected to build on prior knowledge and prepare you for more advanced topics.</p>\n<h3>The Illustration</h3>\n<p>Understanding Scientific Management and Taylorism means being able to apply these principles in professional contexts. You will encounter scenarios, case studies, and examples drawn from real industry practice, helping you translate theory into competence.</p>\n<h3>Summary</h3>\n<p>You have completed <strong>Scientific Management and Taylorism</strong> (Foundations of Management, Lesson 3). Proceed to the quiz to test your understanding, then continue to the next lesson to build further expertise.</p>",
+  "content": "<h2>Module 1, Lesson 3: Scientific Management and Taylorism</h2>\n\n<h3>The Hook</h3>\n<p>In 1898, Frederick Winslow Taylor watched workers at Bethlehem Steel loading pig iron onto rail cars. He observed that each worker loaded an average of 12.5 tons per day. Through systematic study, Taylor determined the optimal method and conditions under which a worker could load 47.5 tons daily — nearly four times as much. This experiment, and the thinking behind it, transformed industrial management and laid the foundations for how work has been designed ever since.</p>\n<p>Scientific Management — often called Taylorism — remains both celebrated and controversial. Its legacy is visible in every production line, call centre script, and standard operating procedure in existence today.</p>\n\n<h3>The Concept</h3>\n<h4>1. Core Principles of Scientific Management</h4>\n<p>Taylor articulated four core principles in <em>The Principles of Scientific Management</em> (1911). First, <strong>replace rule-of-thumb methods</strong> with scientifically determined best practices for every task. Second, <strong>scientifically select and train workers</strong> rather than letting them choose their own tasks and train themselves. Third, <strong>cooperate with workers</strong> to ensure tasks are performed according to prescribed methods. Fourth, <strong>divide work equally</strong> between managers and workers — managers plan and design work, workers execute it. This division was radical: previously, workers owned both the knowledge and the execution of their craft.</p>\n\n<h4>2. Time-and-Motion Studies</h4>\n<p>The methodological heart of Taylorism was the <strong>time-and-motion study</strong>: breaking a task into its smallest elements, timing each element precisely, eliminating wasted motions, and recombining the optimised elements into a standard method. Taylor's colleague Frank Gilbreth extended this by studying the motions of bricklayers, reducing the number of motions in laying a brick from 18 to 5 and tripling productivity. These studies gave birth to industrial engineering and the modern discipline of work design.</p>\n\n<h4>3. Differential Piece-Rate Pay</h4>\n<p>Taylor's incentive system linked pay directly to output. Workers who met or exceeded the scientifically determined standard received a higher rate per unit; those who fell short received a lower rate. This <strong>differential piece-rate</strong> system was intended to eliminate soldiering — the deliberate restriction of output by workers to protect jobs. By making higher pay contingent on meeting scientifically derived standards, Taylor sought to align the interests of workers and management: workers earned more, and management got higher productivity.</p>\n\n<h4>4. The Role of Management Under Taylorism</h4>\n<p>Scientific Management fundamentally redefined management's function. Rather than supervising through authority alone, managers became responsible for <strong>study, planning, and standardisation</strong>. Functional foremanship — Taylor's organisational idea — divided the supervisory role into eight specialist functions (gang boss, speed boss, inspector, repair boss, time clerk, route clerk, disciplinarian, and instruction card clerk). While this extreme specialisation was never widely adopted, it foreshadowed modern matrix and functional organisational structures.</p>\n\n<h4>5. Criticism and Enduring Legacy</h4>\n<p>Scientific Management was criticised sharply by labour unions for treating workers as machine components and enabling management to extract maximum effort while retaining all decision-making authority. Critics argued it was dehumanising and destroyed craft knowledge. The human relations movement arose in large part as a corrective response. Yet Taylorism's legacy is undeniable: the assembly line, standard operating procedures, work measurement, ergonomics, performance pay, and operations research all trace their lineage to Taylor's ideas. Many modern practices — from call centre scripts to Amazon's warehouse time-tracking — embody Taylorism's logic, raising enduring ethical questions about efficiency versus human dignity.</p>\n\n<h3>The Illustration</h3>\n<p>Scientific Management was the first systematic attempt to apply rational analysis to the design of work. Its strengths — precision, standardisation, measurable productivity — made mass production possible and raised living standards. Its weaknesses — depersonalisation, deskilling, adversarial labour relations — created the demand for the humanistic management approaches that followed. Every manager who measures KPIs, writes a standard operating procedure, or links pay to performance is working within a framework that Taylor built. Understanding its logic — and its limits — is essential for designing work that is both efficient and humane.</p>",
   "quiz": [
     {
-      "question": "What is the primary purpose of the controlling function in management?",
+      "question": "What was Frederick Taylor's primary method for finding the best way to perform a task?",
       "options": [
-        "Setting goals",
-        "Monitoring performance and taking corrective action",
-        "Allocating resources",
-        "Hiring employees"
+        "Employee surveys",
+        "Time-and-motion studies",
+        "Focus groups",
+        "Trial and error by workers"
       ],
       "correct_answer": 1
     },
     {
-      "question": "What does SMART stand for in goal-setting?",
+      "question": "What is 'soldiering' in the context of Scientific Management?",
       "options": [
-        "Simple, Manageable, Achievable, Realistic, Timely",
-        "Specific, Measurable, Achievable, Relevant, Time-bound",
-        "Strategic, Meaningful, Actionable, Responsible, Trackable",
-        "Structured, Motivated, Agile, Results-driven, Targeted"
+        "Military-style discipline in the workplace",
+        "Deliberate restriction of output by workers to protect jobs",
+        "Following management orders without question",
+        "Working overtime"
       ],
       "correct_answer": 1
     },
     {
-      "question": "What is organisational behaviour?",
+      "question": "Which of Taylor's principles fundamentally separated mental and manual work?",
       "options": [
-        "The study of how buildings are organized",
-        "The study of how individuals and groups act within organizations",
-        "The process of restructuring a company",
-        "A type of financial reporting"
+        "Scientifically select workers",
+        "Replace rule-of-thumb methods",
+        "Divide work equally between managers and workers",
+        "Cooperate with workers"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "Frank Gilbreth's contribution to Scientific Management focused on which type of study?",
+      "options": [
+        "Financial analysis",
+        "Motion studies to eliminate wasted movements",
+        "Psychological profiling of workers",
+        "Organisational hierarchy design"
       ],
       "correct_answer": 1
     },
     {
-      "question": "What are the four core functions of management?",
+      "question": "What was the main criticism of Scientific Management from labour unions?",
       "options": [
-        "Planning, Organizing, Leading, and Controlling",
-        "Hiring, Firing, Promoting, and Demoting",
-        "Marketing, Sales, Finance, and Operations",
-        "Analyzing, Designing, Implementing, and Testing"
+        "It reduced wages",
+        "It was too difficult to implement",
+        "It treated workers as machine components and destroyed craft knowledge",
+        "It reduced management authority"
       ],
-      "correct_answer": 0
-    },
-    {
-      "question": "Which management theorist introduced Scientific Management?",
-      "options": ["Peter Drucker", "Frederick Taylor", "Henri Fayol", "Abraham Maslow"],
-      "correct_answer": 1
+      "correct_answer": 2
     }
   ]
 }

@@ -4,51 +4,56 @@
   "slug": "emotional-intelligence-leadership",
   "title": "Emotional Intelligence in Leadership",
   "isFree": false,
-  "content": "<h2>Module 2, Lesson 7: Emotional Intelligence in Leadership</h2>\n<h3>The Hook</h3>\n<p>This lesson covers <strong>Emotional Intelligence in Leadership</strong> as part of the Leadership Principles module in the Learn Management course. Mastery of this topic is essential for building a comprehensive understanding of the subject area.</p>\n<h3>The Concept</h3>\n<p>In <strong>Emotional Intelligence in Leadership</strong>, you will explore the foundational ideas, practical techniques, and real-world applications that make this area of study both relevant and actionable. Each concept has been carefully selected to build on prior knowledge and prepare you for more advanced topics.</p>\n<h3>The Illustration</h3>\n<p>Understanding Emotional Intelligence in Leadership means being able to apply these principles in professional contexts. You will encounter scenarios, case studies, and examples drawn from real industry practice, helping you translate theory into competence.</p>\n<h3>Summary</h3>\n<p>You have completed <strong>Emotional Intelligence in Leadership</strong> (Leadership Principles, Lesson 7). Proceed to the quiz to test your understanding, then continue to the next lesson to build further expertise.</p>",
+  "content": "<h2>Module 2, Lesson 7: Emotional Intelligence in Leadership</h2>\n\n<h3>The Hook</h3>\n<p>It is a common experience: the technically brilliant professional who gets promoted to management and fails — not because of any deficit in knowledge, but because they cannot read a room, can't manage their own frustration, and alienate the very people they need to succeed. Conversely, there are leaders of apparently modest technical credentials who inspire extraordinary performance. Daniel Goleman's landmark 1995 book <em>Emotional Intelligence</em> and his subsequent research on leadership proposed the compelling explanation: in leadership roles, emotional intelligence — the ability to recognise, understand, and manage emotions in oneself and others — matters more than IQ.</p>\n\n<h3>The Concept</h3>\n<h4>1. What is Emotional Intelligence?</h4>\n<p>The concept of emotional intelligence (EI) was first formally defined by psychologists Peter Salovey and John Mayer (1990) as \"the ability to monitor one's own and others' feelings and emotions, to discriminate among them, and to use this information to guide one's thinking and actions.\" Daniel Goleman popularised the concept and applied it to leadership. It is important to distinguish EI from personality traits: EI is a set of abilities that can be measured and developed, not a fixed personality type. The debate between \"ability-based\" (Mayer, Salovey, Caruso) and \"mixed model\" (Goleman, Bar-On) frameworks concerns whether EI is purely cognitive or also includes personality dispositions.</p>\n\n<h4>2. Goleman's Five Components of EI</h4>\n<p>Goleman's leadership model identifies five components. <strong>Self-awareness</strong>: the ability to recognise and understand your own emotions, drives, and their effect on others. Self-aware leaders know their strengths, weaknesses, and values. <strong>Self-regulation</strong>: the ability to control disruptive emotions and impulses, think before acting, maintain trustworthiness. <strong>Motivation</strong>: a passion to work for reasons beyond money or status, with strong drive to achieve and optimism despite setbacks. <strong>Empathy</strong>: the ability to understand the emotional makeup of other people and treat them according to their emotional reactions. <strong>Social skill</strong>: proficiency in managing relationships, building networks, and finding common ground.</p>\n\n<h4>3. EI and Leadership Effectiveness</h4>\n<p>Goleman's research on senior executives found that EI was a stronger predictor of leadership effectiveness than IQ or technical skill, particularly at higher levels where everyone has sufficient cognitive ability and technical knowledge. Critically, in a sample of competencies separating star performers from average performers, approximately two-thirds of the distinguishing competencies were emotional intelligence-based. Meta-analyses show positive associations between EI and leadership emergence, leadership effectiveness, and follower satisfaction, though effect sizes are smaller than some popular accounts suggest. The relationship is strongest for the empathy and social skill components.</p>\n\n<h4>4. Emotional Intelligence in Specific Leadership Situations</h4>\n<p>EI manifests distinctly across leadership challenges. In <strong>giving feedback</strong>, self-regulation prevents emotional contagion (the feedback giver's anxiety becoming the receiver's), while empathy enables calibration of delivery to the individual. In <strong>managing conflict</strong>, self-awareness prevents leaders from escalating conflict through their own emotional reactivity, while social skill enables de-escalation and reframing. In <strong>change leadership</strong>, empathy allows the leader to acknowledge the losses that change involves, which research shows is essential for gaining commitment. In <strong>high-pressure situations</strong>, self-regulation maintains the \"performance under pressure\" that followers look for from leaders to calibrate their own responses.</p>\n\n<h4>5. Developing Emotional Intelligence</h4>\n<p>Unlike IQ, emotional intelligence is developable through deliberate practice. Evidence-based development approaches include: <strong>360-degree feedback</strong> (receiving structured feedback on emotional intelligence behaviours from multiple perspectives); <strong>mindfulness practice</strong> (building the metacognitive awareness that underlies self-awareness and self-regulation); <strong>coaching</strong> (working with a skilled coach to identify patterns, practice new responses, and build accountability); and <strong>structured reflection</strong> (systematically reviewing emotional responses to significant events and considering alternative interpretations and responses). Neuroscience research confirms that emotional regulation circuits in the prefrontal cortex can be strengthened through practice — EI development is not metaphorical but neurological.</p>\n\n<h3>The Illustration</h3>\n<p>Emotional intelligence does not replace cognitive ability or technical expertise — it amplifies them. The leader who is both analytically sharp and emotionally attuned consistently outperforms the leader who is only one of these. In leadership roles where outcomes are achieved through people, the ability to understand and manage emotions — one's own and others' — is not a soft skill. It is the hard-edged differentiator between adequate and exceptional leadership.</p>",
   "quiz": [
     {
-      "question": "What is transformational leadership?",
+      "question": "Which of Goleman's five EI components involves the ability to control disruptive emotions and think before acting?",
       "options": [
-        "Maintaining the status quo",
-        "Inspiring followers to exceed expectations for collective good",
-        "Managing by exception",
-        "Exchanging rewards for performance"
-      ],
-      "correct_answer": 1
-    },
-    {
-      "question": "What is emotional intelligence?",
-      "options": [
-        "IQ measurement",
-        "Ability to recognise and manage emotions in self and others",
-        "Technical skill",
-        "Financial acumen"
-      ],
-      "correct_answer": 1
-    },
-    {
-      "question": "What does servant leadership prioritise?",
-      "options": [
-        "Leader's own goals",
-        "Serving and empowering followers",
-        "Strict authority",
-        "Short-term profits"
-      ],
-      "correct_answer": 1
-    },
-    {
-      "question": "Which model adapts leadership style to follower readiness?",
-      "options": [
-        "Trait theory",
-        "Transformational theory",
-        "Situational Leadership",
-        "Autocratic model"
+        "Self-awareness",
+        "Empathy",
+        "Self-regulation",
+        "Social skill"
       ],
       "correct_answer": 2
     },
     {
-      "question": "Which leadership style involves team members in decision-making?",
-      "options": ["Autocratic", "Laissez-faire", "Democratic (participative)", "Transactional"],
+      "question": "Goleman's research on senior executives found that what proportion of competencies distinguishing star from average performers were EI-based?",
+      "options": [
+        "About one-quarter",
+        "About one-third",
+        "Approximately two-thirds",
+        "Almost all of them"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "Who originally formally defined emotional intelligence as a set of cognitive abilities in 1990?",
+      "options": [
+        "Daniel Goleman",
+        "Howard Gardner",
+        "Peter Salovey and John Mayer",
+        "Reuven Bar-On"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "Why is EI considered particularly important at senior leadership levels?",
+      "options": [
+        "Senior leaders have less need for technical knowledge",
+        "At senior levels everyone has sufficient cognitive ability and technical knowledge, so EI becomes the differentiator",
+        "Senior leaders interact with fewer people",
+        "Technical skill is irrelevant at the top"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "Which evidence-based approach to developing EI involves receiving structured feedback on emotional behaviours from multiple perspectives?",
+      "options": [
+        "Performance appraisals",
+        "Technical training",
+        "360-degree feedback",
+        "IQ testing"
+      ],
       "correct_answer": 2
     }
   ]

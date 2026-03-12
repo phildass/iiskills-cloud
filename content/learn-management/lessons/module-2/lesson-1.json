@@ -4,50 +4,55 @@
   "slug": "introduction-to-leadership",
   "title": "Introduction to Leadership",
   "isFree": false,
-  "content": "<h2>Module 2, Lesson 1: Introduction to Leadership</h2>\n<h3>The Hook</h3>\n<p>This lesson covers <strong>Introduction to Leadership</strong> as part of the Leadership Principles module in the Learn Management course. Mastery of this topic is essential for building a comprehensive understanding of the subject area.</p>\n<h3>The Concept</h3>\n<p>In <strong>Introduction to Leadership</strong>, you will explore the foundational ideas, practical techniques, and real-world applications that make this area of study both relevant and actionable. Each concept has been carefully selected to build on prior knowledge and prepare you for more advanced topics.</p>\n<h3>The Illustration</h3>\n<p>Understanding Introduction to Leadership means being able to apply these principles in professional contexts. You will encounter scenarios, case studies, and examples drawn from real industry practice, helping you translate theory into competence.</p>\n<h3>Summary</h3>\n<p>You have completed <strong>Introduction to Leadership</strong> (Leadership Principles, Lesson 1). Proceed to the quiz to test your understanding, then continue to the next lesson to build further expertise.</p>",
+  "content": "<h2>Module 2, Lesson 1: Introduction to Leadership</h2>\n\n<h3>The Hook</h3>\n<p>What separates a manager from a leader? Management is the discipline of making things work; leadership is the discipline of making people want to make things work. Warren Bennis captured the distinction memorably: \"Managers do things right; leaders do the right things.\" Yet in practice, the best people in organisations must do both — exercising management when precision and control are needed, and leadership when direction, inspiration, and change are required.</p>\n<p>Leadership is one of the most studied topics in the social sciences. Thousands of studies, hundreds of frameworks, and decades of executive development programmes have sought to answer one fundamental question: what makes an effective leader? This lesson provides the conceptual foundation for Module 2's exploration of that question.</p>\n\n<h3>The Concept</h3>\n<h4>1. Defining Leadership</h4>\n<p>Leadership can be defined as the process of influencing others to achieve a common goal. Three elements are essential: <strong>influence</strong> (leadership operates through persuasion and inspiration, not just authority); <strong>others</strong> (leadership is inherently relational — it requires followers); and <strong>common goal</strong> (leadership is purposeful, oriented toward collective outcomes). This definition distinguishes leadership from coercion (which compels through threat), management (which coordinates through structure), and expertise (which influences through knowledge alone). A leader's power may be positional (derived from role authority) or personal (derived from expertise, character, and relationships).</p>\n\n<h4>2. Leadership vs. Management</h4>\n<p>John Kotter's framework distinguishes the two functions clearly. Management involves: planning and budgeting, organising and staffing, controlling and problem-solving — producing predictability and order. Leadership involves: setting direction (vision), aligning people (communication and coalition-building), and motivating and inspiring (energising people to overcome obstacles to change). Both are necessary. Organisations without good management produce chaos; organisations without good leadership produce stagnation. The challenge for most people in leadership roles is that management skills are often more easily taught, measured, and rewarded — creating a systematic underinvestment in leadership development.</p>\n\n<h4>3. Sources of Leadership Power</h4>\n<p>French and Raven (1959) identified five bases of social power. <strong>Legitimate power</strong> derives from formal position. <strong>Reward power</strong> derives from ability to provide incentives. <strong>Coercive power</strong> derives from ability to punish. <strong>Expert power</strong> derives from knowledge and skill. <strong>Referent power</strong> derives from personal admiration and respect. Research consistently shows that expert and referent power produce the highest levels of follower motivation, creativity, and commitment. Legitimate, reward, and coercive power, while necessary, tend to produce compliance rather than commitment — and can backfire when followers question their legitimacy.</p>\n\n<h4>4. The Evolution of Leadership Theory</h4>\n<p>Leadership theory has evolved through several generations. <strong>Trait theory</strong> (1900s–1940s) sought innate leadership characteristics. <strong>Behavioural theory</strong> (1940s–1960s) examined what leaders do. <strong>Situational/contingency theory</strong> (1960s–1980s) recognised that effective leadership depends on context. <strong>Transformational theory</strong> (1980s–present) focused on inspiring followers to transcend self-interest. <strong>Authentic leadership</strong> theory emphasises leading from values and self-awareness. Each generation added complexity and nuance, moving from the simplistic \"great man\" theory to the sophisticated, multi-dimensional models used today.</p>\n\n<h4>5. The Leader-Follower Relationship</h4>\n<p>Modern leadership theory increasingly recognises that leadership is co-created in the relationship between leader and follower. <strong>Leader-Member Exchange (LMX) theory</strong> demonstrates that leaders develop differentiated relationships with different team members: high-quality LMX relationships (characterised by trust, respect, and mutual obligation) produce significantly better performance, commitment, and career outcomes than low-quality relationships. This insight has practical implications: effective leaders deliberately invest in building high-quality relationships across their entire team, not just with a favoured inner circle.</p>\n\n<h3>The Illustration</h3>\n<p>Leadership is a discipline that can be studied, practised, and developed. Understanding its definition, its relationship to management, the sources of leader power, the evolution of theory, and the dynamics of leader-follower relationships provides the conceptual foundation for the detailed models explored in subsequent lessons. The best leaders continuously develop their self-awareness, adapt their style, and invest in the relationships through which all leadership ultimately operates.</p>",
   "quiz": [
     {
-      "question": "Which leadership style involves team members in decision-making?",
-      "options": ["Autocratic", "Laissez-faire", "Democratic (participative)", "Transactional"],
+      "question": "How did John Kotter distinguish leadership from management?",
+      "options": [
+        "Leadership produces order; management produces change",
+        "Management involves planning and controlling for predictability; leadership sets direction and motivates for change",
+        "They are interchangeable terms",
+        "Leadership is only relevant at senior levels"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "According to French and Raven, which source of power produces the highest follower commitment?",
+      "options": [
+        "Legitimate power",
+        "Coercive power",
+        "Expert and referent power",
+        "Reward power"
+      ],
       "correct_answer": 2
     },
     {
-      "question": "What is transformational leadership?",
+      "question": "What does Leader-Member Exchange (LMX) theory focus on?",
       "options": [
-        "Maintaining the status quo",
-        "Inspiring followers to exceed expectations for collective good",
-        "Managing by exception",
-        "Exchanging rewards for performance"
+        "The traits of effective leaders",
+        "The differentiated quality of relationships between leaders and individual team members",
+        "How leaders adapt style to follower maturity",
+        "The impact of leadership on organisational strategy"
       ],
       "correct_answer": 1
     },
     {
-      "question": "What is emotional intelligence?",
+      "question": "Which of the following best defines leadership?",
       "options": [
-        "IQ measurement",
-        "Ability to recognise and manage emotions in self and others",
-        "Technical skill",
-        "Financial acumen"
+        "The process of controlling people through authority",
+        "The process of influencing others to achieve a common goal",
+        "The administration of rules and procedures",
+        "The management of financial resources"
       ],
       "correct_answer": 1
     },
     {
-      "question": "What does servant leadership prioritise?",
-      "options": [
-        "Leader's own goals",
-        "Serving and empowering followers",
-        "Strict authority",
-        "Short-term profits"
-      ],
-      "correct_answer": 1
-    },
-    {
-      "question": "Which model adapts leadership style to follower readiness?",
+      "question": "Which generation of leadership theory first recognised that effective leadership depends on the situation?",
       "options": [
         "Trait theory",
         "Transformational theory",
-        "Situational Leadership",
-        "Autocratic model"
+        "Situational/contingency theory",
+        "Behavioural theory"
       ],
       "correct_answer": 2
     }

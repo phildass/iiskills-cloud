@@ -4,52 +4,57 @@
   "slug": "servant-leadership",
   "title": "Servant Leadership",
   "isFree": false,
-  "content": "<h2>Module 2, Lesson 6: Servant Leadership</h2>\n<h3>The Hook</h3>\n<p>This lesson covers <strong>Servant Leadership</strong> as part of the Leadership Principles module in the Learn Management course. Mastery of this topic is essential for building a comprehensive understanding of the subject area.</p>\n<h3>The Concept</h3>\n<p>In <strong>Servant Leadership</strong>, you will explore the foundational ideas, practical techniques, and real-world applications that make this area of study both relevant and actionable. Each concept has been carefully selected to build on prior knowledge and prepare you for more advanced topics.</p>\n<h3>The Illustration</h3>\n<p>Understanding Servant Leadership means being able to apply these principles in professional contexts. You will encounter scenarios, case studies, and examples drawn from real industry practice, helping you translate theory into competence.</p>\n<h3>Summary</h3>\n<p>You have completed <strong>Servant Leadership</strong> (Leadership Principles, Lesson 6). Proceed to the quiz to test your understanding, then continue to the next lesson to build further expertise.</p>",
+  "content": "<h2>Module 2, Lesson 6: Servant Leadership</h2>\n\n<h3>The Hook</h3>\n<p>In most traditional organisations, the pyramid of authority points upward: employees serve their managers, who serve their directors, who serve the CEO. Robert Greenleaf, in his seminal 1970 essay \"The Servant as Leader,\" proposed inverting this pyramid entirely. The leader's primary purpose, Greenleaf argued, is not to be served but to serve: to remove obstacles, develop people, and create the conditions for others to do their best work. This counterintuitive philosophy — servant leadership — has since become one of the most influential ideas in modern leadership theory and is practised at companies ranging from Southwest Airlines to Starbucks.</p>\n\n<h3>The Concept</h3>\n<h4>1. Greenleaf's Core Concept</h4>\n<p>Robert Greenleaf's defining question for servant leadership is: \"Do those served grow as persons? Do they, while being served, become healthier, wiser, freer, more autonomous, more likely themselves to become servants?\" Greenleaf distinguished between leaders who are servants first — who begin with the natural desire to serve and then consciously choose to lead — and leaders who are leaders first — who seek power or material reward and then use service instrumentally. This distinction captures the essence of the model: servant leadership is a genuine orientation of character, not a management technique.</p>\n\n<h4>2. Ten Characteristics of Servant Leaders</h4>\n<p>Larry Spears identified ten characteristics from Greenleaf's writings: <strong>Listening</strong> (deeply receptive to others); <strong>Empathy</strong> (accepting and recognising people for their unique spirits); <strong>Healing</strong> (helping people and organisations become whole); <strong>Awareness</strong> (self-awareness and broad awareness of their impact); <strong>Persuasion</strong> (relying on influence rather than positional authority); <strong>Conceptualisation</strong> (the ability to think beyond day-to-day realities); <strong>Foresight</strong> (learning from the past, understanding the present, foreseeing likely consequences); <strong>Stewardship</strong> (holding institutions in trust for the greater good); <strong>Commitment to growth</strong> (nurturing the personal and professional growth of each person); and <strong>Building community</strong> (creating genuine community at work).</p>\n\n<h4>3. Servant Leadership and Organisational Outcomes</h4>\n<p>Research evidence on servant leadership has grown substantially since the 2000s. Meta-analyses show positive relationships between servant leadership and: follower job satisfaction, organisational commitment, and work engagement; team performance and organisational citizenship behaviour (going beyond formal job requirements); customer satisfaction; and reduced employee turnover. The mechanisms appear to be trust and psychological safety — servant leaders create environments where followers feel valued, psychologically safe, and motivated to give discretionary effort. Studies also show that servant leadership moderates the impact of organisational politics: in highly political environments, servant leadership buffers followers' stress and cynicism.</p>\n\n<h4>4. Servant Leadership in Practice</h4>\n<p>Practically, servant leadership manifests in specific behaviours: <strong>asking questions before giving answers</strong> (understanding what is needed rather than imposing solutions); <strong>removing obstacles</strong> (actively identifying and eliminating barriers to team performance); <strong>developing people</strong> (investing time and resources in growth, not just task completion); <strong>sharing credit and accepting blame</strong> (attributing success to the team and taking responsibility for failures); <strong>making the mission bigger than the manager</strong> (consistently directing attention to the purpose of the work, not the manager's status). Southwest Airlines' legendary culture — flight attendants and pilots are treated as the most important people in the organisation — illustrates servant leadership at scale.</p>\n\n<h4>5. Servant Leadership vs. Transformational Leadership</h4>\n<p>Servant and transformational leadership share common ground — both value follower development and inspirational purpose — but differ in emphasis. Transformational leadership is primarily focused on the <em>organisation's</em> goals and uses follower motivation to achieve them. Servant leadership is primarily focused on <em>follower</em> wellbeing and development, trusting that this will produce organisational success. Critics of servant leadership argue it can be unclear about accountability and may struggle in competitive or crisis situations where decisive authority is required. Proponents argue that the two approaches are complementary: servant leaders are also often transformational, but their service orientation grounds their leadership in humility rather than ego.</p>\n\n<h3>The Illustration</h3>\n<p>Servant leadership challenges the fundamental power assumption of traditional management: that the leader's role is to direct and the follower's role is to comply. By placing follower growth, wellbeing, and empowerment at the centre of leadership, servant leadership creates the conditions for trust, engagement, and extraordinary discretionary effort. Its requirement — a genuine, character-level commitment to others' growth over personal aggrandisement — makes it demanding to develop but deeply rewarding in practice.</p>",
   "quiz": [
     {
-      "question": "Which leadership style involves team members in decision-making?",
-      "options": ["Autocratic", "Laissez-faire", "Democratic (participative)", "Transactional"],
+      "question": "What is Robert Greenleaf's defining test of servant leadership?",
+      "options": [
+        "Whether the leader achieves financial targets",
+        "Whether those served grow as persons — healthier, wiser, freer, more autonomous",
+        "Whether the leader is liked by their team",
+        "Whether the organisation beats its competitors"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "Which of Larry Spears' ten servant leadership characteristics refers to holding institutions in trust for the greater good?",
+      "options": [
+        "Foresight",
+        "Conceptualisation",
+        "Stewardship",
+        "Healing"
+      ],
       "correct_answer": 2
     },
     {
-      "question": "What is transformational leadership?",
+      "question": "How does servant leadership primarily differ from transformational leadership in focus?",
       "options": [
-        "Maintaining the status quo",
-        "Inspiring followers to exceed expectations for collective good",
-        "Managing by exception",
-        "Exchanging rewards for performance"
+        "Servant leadership focuses primarily on the organisation's goals; transformational on follower wellbeing",
+        "Servant leadership focuses primarily on follower wellbeing; transformational on achieving the organisation's goals",
+        "They are identical in focus and practice",
+        "Servant leadership is only applicable to non-profit organisations"
       ],
       "correct_answer": 1
     },
     {
-      "question": "What is emotional intelligence?",
+      "question": "Research shows servant leadership is particularly effective at reducing what in politically charged organisations?",
       "options": [
-        "IQ measurement",
-        "Ability to recognise and manage emotions in self and others",
-        "Technical skill",
-        "Financial acumen"
-      ],
-      "correct_answer": 1
-    },
-    {
-      "question": "What does servant leadership prioritise?",
-      "options": [
-        "Leader's own goals",
-        "Serving and empowering followers",
-        "Strict authority",
-        "Short-term profits"
-      ],
-      "correct_answer": 1
-    },
-    {
-      "question": "Which model adapts leadership style to follower readiness?",
-      "options": [
-        "Trait theory",
-        "Transformational theory",
-        "Situational Leadership",
-        "Autocratic model"
+        "Financial costs",
+        "Staff working hours",
+        "Followers' stress and cynicism",
+        "External competition"
       ],
       "correct_answer": 2
+    },
+    {
+      "question": "Greenleaf distinguished between two types of leaders. What is the key distinguishing factor?",
+      "options": [
+        "Their education level",
+        "Whether they start with the natural desire to serve versus starting with the desire for power",
+        "Their industry experience",
+        "Whether they use transactional or transformational style"
+      ],
+      "correct_answer": 1
     }
   ]
 }

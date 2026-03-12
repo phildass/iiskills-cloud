@@ -4,52 +4,57 @@
   "slug": "situational-leadership-model",
   "title": "Situational Leadership Model",
   "isFree": false,
-  "content": "<h2>Module 2, Lesson 4: Situational Leadership Model</h2>\n<h3>The Hook</h3>\n<p>This lesson covers <strong>Situational Leadership Model</strong> as part of the Leadership Principles module in the Learn Management course. Mastery of this topic is essential for building a comprehensive understanding of the subject area.</p>\n<h3>The Concept</h3>\n<p>In <strong>Situational Leadership Model</strong>, you will explore the foundational ideas, practical techniques, and real-world applications that make this area of study both relevant and actionable. Each concept has been carefully selected to build on prior knowledge and prepare you for more advanced topics.</p>\n<h3>The Illustration</h3>\n<p>Understanding Situational Leadership Model means being able to apply these principles in professional contexts. You will encounter scenarios, case studies, and examples drawn from real industry practice, helping you translate theory into competence.</p>\n<h3>Summary</h3>\n<p>You have completed <strong>Situational Leadership Model</strong> (Leadership Principles, Lesson 4). Proceed to the quiz to test your understanding, then continue to the next lesson to build further expertise.</p>",
+  "content": "<h2>Module 2, Lesson 4: Situational Leadership Model</h2>\n\n<h3>The Hook</h3>\n<p>A leadership approach that works brilliantly with one person on one task fails completely with another person on a different task. The experienced surgeon who confidently leads a high-stakes operation may be helpless as a new volunteer at a community fundraiser. The charismatic visionary who rallies an organisation around a new strategy may lose the room completely when the conversation turns to quarterly budget planning. The core insight of situational leadership theory is that effective leaders are not defined by a fixed style — they are defined by their ability to adapt their style to the demands of the situation.</p>\n\n<h3>The Concept</h3>\n<h4>1. The Origins of Situational Thinking</h4>\n<p>Fiedler's Contingency Model (1967) was the first major situational theory, arguing that leadership effectiveness depends on the match between the leader's fixed style and the favourability of the situation (defined by leader-member relations, task structure, and position power). Fiedler's controversial conclusion — that it is easier to change the situation than to change the leader — undermined practical development applications. More influential for practitioners was the work of Paul Hersey and Kenneth Blanchard, whose <strong>Situational Leadership Theory</strong> (1969, later refined as the <strong>Situational Leadership® II model</strong>) provided a flexible, actionable framework that became one of the most widely used leadership development tools globally.</p>\n\n<h4>2. The Two Axes: Task and Relationship Behaviour</h4>\n<p>Situational Leadership builds on the Ohio State behavioural framework. <strong>Directive behaviour</strong> (task orientation) involves telling people what to do, how to do it, when to do it, and where to do it — setting goals, establishing timelines, and providing close supervision. <strong>Supportive behaviour</strong> (relationship orientation) involves listening, facilitating, encouraging, praising, and involving followers in problem-solving and decision-making. Both dimensions are rated high or low, producing four leadership styles: S1 (Directing — high directive, low supportive), S2 (Coaching — high directive, high supportive), S3 (Supporting — low directive, high supportive), S4 (Delegating — low directive, low supportive).</p>\n\n<h4>3. Development Level: The Key Situational Variable</h4>\n<p>The critical variable in Situational Leadership II is the follower's <strong>Development Level</strong> for a specific task, defined by the combination of competence (knowledge, skills, and experience) and commitment (motivation and confidence). Four development levels: <strong>D1</strong> — Enthusiastic Beginner (low competence, high commitment — new to the task but keen); <strong>D2</strong> — Disillusioned Learner (some competence, low commitment — has hit the difficulty curve); <strong>D3</strong> — Capable but Cautious Performer (high competence, variable commitment — capable but lacks confidence or motivation); <strong>D4</strong> — Self-Reliant Achiever (high competence, high commitment — fully capable and motivated). Crucially, development level is task-specific: the same person may be D4 in their area of expertise and D1 in a new responsibility.</p>\n\n<h4>4. Matching Style to Development Level</h4>\n<p>The prescriptive heart of Situational Leadership is matching leadership style to development level: <strong>D1 → S1 (Directing)</strong>: give clear instructions and close supervision; the beginner needs to know exactly what to do. <strong>D2 → S2 (Coaching)</strong>: maintain direction but increase dialogue and encouragement; the disillusioned learner needs both structure and support. <strong>D3 → S3 (Supporting)</strong>: reduce task direction but maintain relationship focus; the capable but cautious performer needs encouragement and involvement in decisions. <strong>D4 → S4 (Delegating)</strong>: give responsibility and autonomy; the self-reliant achiever is stifled by over-management. Mismatches in either direction cause problems: over-managing a D4 employee creates frustration; under-managing a D1 employee creates failure.</p>\n\n<h4>5. Practical Application and Limitations</h4>\n<p>Situational Leadership's practical power lies in shifting the diagnostic question from \"what is my leadership style?\" to \"what does this person need, for this task, right now?\" This requires managers to accurately diagnose development level (a skill itself), flex their style deliberately (many managers have a dominant style they default to), and hold developmental conversations that surface the follower's competence and commitment. The model's limitations include: it can oversimplify complex interactions; accurate diagnosis is difficult; and the D3 category (capability without commitment) has been challenged conceptually. Nevertheless, it remains a valuable diagnostic and communication framework.</p>\n\n<h3>The Illustration</h3>\n<p>Situational Leadership teaches the most important meta-skill of management: flexibility. The rigidly directive manager stifles capable performers. The uniformly supportive manager creates dependency in those who need guidance. Effective managers read the developmental needs of each team member for each task and adapt accordingly — being simultaneously more directive with one person and more delegating with another. This diagnostic agility, built on accurate observation and honest conversation, is the hallmark of situational mastery.</p>",
   "quiz": [
     {
-      "question": "What does servant leadership prioritise?",
+      "question": "In Situational Leadership II, what two dimensions define a follower's Development Level?",
       "options": [
-        "Leader's own goals",
-        "Serving and empowering followers",
-        "Strict authority",
-        "Short-term profits"
+        "Age and experience",
+        "Competence and commitment",
+        "Intelligence and personality",
+        "Task complexity and time pressure"
       ],
       "correct_answer": 1
     },
     {
-      "question": "Which model adapts leadership style to follower readiness?",
+      "question": "Which leadership style (S2) is appropriate for a D2 follower (some competence, low commitment)?",
       "options": [
-        "Trait theory",
-        "Transformational theory",
-        "Situational Leadership",
-        "Autocratic model"
+        "Directing",
+        "Coaching",
+        "Supporting",
+        "Delegating"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What is the appropriate leadership style for a D4 follower (high competence, high commitment)?",
+      "options": [
+        "S1 Directing",
+        "S2 Coaching",
+        "S3 Supporting",
+        "S4 Delegating"
+      ],
+      "correct_answer": 3
+    },
+    {
+      "question": "Why is Development Level considered task-specific in Situational Leadership?",
+      "options": [
+        "Because all tasks require the same level of competence",
+        "Because the same person may be highly competent in one task and a complete beginner in another",
+        "Because development level never changes",
+        "Because task difficulty is the only relevant factor"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "What was the key limitation of Fiedler's Contingency Model that made Situational Leadership more practical?",
+      "options": [
+        "Fiedler ignored task behaviour",
+        "Fiedler argued it was easier to change the leader's style than the situation",
+        "Fiedler argued it was easier to change the situation than the leader's fixed style, undermining development applications",
+        "Fiedler focused only on senior management"
       ],
       "correct_answer": 2
-    },
-    {
-      "question": "Which leadership style involves team members in decision-making?",
-      "options": ["Autocratic", "Laissez-faire", "Democratic (participative)", "Transactional"],
-      "correct_answer": 2
-    },
-    {
-      "question": "What is transformational leadership?",
-      "options": [
-        "Maintaining the status quo",
-        "Inspiring followers to exceed expectations for collective good",
-        "Managing by exception",
-        "Exchanging rewards for performance"
-      ],
-      "correct_answer": 1
-    },
-    {
-      "question": "What is emotional intelligence?",
-      "options": [
-        "IQ measurement",
-        "Ability to recognise and manage emotions in self and others",
-        "Technical skill",
-        "Financial acumen"
-      ],
-      "correct_answer": 1
     }
   ]
 }
