@@ -211,8 +211,7 @@ describe("payments/confirm: idempotency", () => {
   test("duplicate razorpay_payment_id on purchases is detected by pg unique constraint (error 23505)", () => {
     const pgUniqueError = {
       code: "23505",
-      message:
-        'duplicate key value violates unique constraint "purchases_razorpay_payment_id_key"',
+      message: 'duplicate key value violates unique constraint "purchases_razorpay_payment_id_key"',
     };
     const isDuplicate =
       pgUniqueError.code === "23505" ||
@@ -459,7 +458,8 @@ describe("payments/confirm: entitlements unique constraint", () => {
   test("duplicate entitlement (23505) is treated as idempotent — not an error", () => {
     const entError = {
       code: "23505",
-      message: 'duplicate key value violates unique constraint "idx_entitlements_user_course_slug_unique"',
+      message:
+        'duplicate key value violates unique constraint "idx_entitlements_user_course_slug_unique"',
     };
     const isDuplicate =
       entError.code === "23505" ||
@@ -471,7 +471,8 @@ describe("payments/confirm: entitlements unique constraint", () => {
   test("unique constraint on purchases.razorpay_payment_id prevents duplicate payment grants", () => {
     const pgUniqueError = {
       code: "23505",
-      message: 'duplicate key value violates unique constraint "idx_purchases_razorpay_payment_id_unique"',
+      message:
+        'duplicate key value violates unique constraint "idx_purchases_razorpay_payment_id_unique"',
     };
     const isDuplicate =
       pgUniqueError.code === "23505" ||

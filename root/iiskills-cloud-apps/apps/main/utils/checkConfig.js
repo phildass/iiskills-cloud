@@ -4,9 +4,9 @@
  * @param {string[]} requiredVars - List of required env var names.
  */
 function checkConfig(requiredVars) {
-  const missing = requiredVars.filter(v => !process.env[v]);
+  const missing = requiredVars.filter((v) => !process.env[v]);
   if (missing.length > 0) {
-    throw new Error(`Missing environment variables: ${missing.join(', ')}`);
+    throw new Error(`Missing environment variables: ${missing.join(", ")}`);
   }
 }
 module.exports = checkConfig;

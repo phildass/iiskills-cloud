@@ -6,24 +6,24 @@ This document describes the complete deployment procedure for the `iiskills-clou
 
 ## Quick Reference
 
-| Command | Purpose |
-|---------|---------|
-| `./deploy-all.sh` | Full production deploy (clone → build → verify → start) |
-| `yarn verify:build-no-placeholders` | Check `apps/main` bundle for placeholder strings |
-| `yarn verify:build-env:main` | Alias for the above |
-| `curl localhost:3000` | Smoke-test the main app |
-| `pm2 status` | View all running services |
+| Command                             | Purpose                                                 |
+| ----------------------------------- | ------------------------------------------------------- |
+| `./deploy-all.sh`                   | Full production deploy (clone → build → verify → start) |
+| `yarn verify:build-no-placeholders` | Check `apps/main` bundle for placeholder strings        |
+| `yarn verify:build-env:main`        | Alias for the above                                     |
+| `curl localhost:3000`               | Smoke-test the main app                                 |
+| `pm2 status`                        | View all running services                               |
 
 ---
 
 ## Prerequisites
 
-| Item | Details |
-|------|---------|
-| Node.js | 20 LTS |
-| Yarn | 4.x via Corepack (`corepack enable`) |
-| PM2 | `npm i -g pm2` |
-| Nginx | Proxying `127.0.0.1:3000 → iiskills.cloud` |
+| Item    | Details                                    |
+| ------- | ------------------------------------------ |
+| Node.js | 20 LTS                                     |
+| Yarn    | 4.x via Corepack (`corepack enable`)       |
+| PM2     | `npm i -g pm2`                             |
+| Nginx   | Proxying `127.0.0.1:3000 → iiskills.cloud` |
 
 ---
 
@@ -85,7 +85,7 @@ cd /root/iiskills-cloud-apps   # or wherever deploy-all.sh lives
 `deploy-all.sh` performs these steps automatically:
 
 1. Sources `/etc/iiskills.env` for credentials
-2. Stops existing PM2 processes (only iiskills-*)
+2. Stops existing PM2 processes (only iiskills-\*)
 3. Backs up the previous checkout and fresh-clones from GitHub
 4. Installs dependencies (`yarn install`)
 5. Runs the OTP policy guard (CI test)
@@ -102,18 +102,21 @@ If any verification step fails, the script exits **without** starting PM2 proces
 ## Step 3 — Verify
 
 ### Smoke test the main app:
+
 ```bash
 curl -s -o /dev/null -w "%{http_code}" http://localhost:3000
 # Expected: 200
 ```
 
 ### Check BUILD_ID exists:
+
 ```bash
 ls -la /root/iiskills-cloud-apps/apps/main/.next/BUILD_ID
 # Should show a file with recent timestamp
 ```
 
 ### Verify no placeholder strings in compiled bundle:
+
 ```bash
 cd /root/iiskills-cloud-apps
 node scripts/verify-build-env.js --app=apps/main
@@ -121,6 +124,7 @@ node scripts/verify-build-env.js --app=apps/main
 ```
 
 ### Manual grep check:
+
 ```bash
 grep -r "your-anon-key-here\|your-project-url-here\|placeholder.supabase.co" \
   /root/iiskills-cloud-apps/apps/main/.next/static
@@ -128,6 +132,7 @@ grep -r "your-anon-key-here\|your-project-url-here\|placeholder.supabase.co" \
 ```
 
 ### Check PM2 status:
+
 ```bash
 pm2 status
 # All iiskills-* processes should be "online"
@@ -144,6 +149,7 @@ The app has entered mock mode, meaning Supabase credentials were not set at
 were not available when `yarn turbo run build` ran.
 
 **Fix:**
+
 1. Ensure `/etc/iiskills.env` contains real `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY`
 2. Delete the old build: `rm -rf /root/iiskills-cloud-apps/apps/main/.next`
 3. Rebuild: `yarn turbo run build --filter=main`
@@ -175,7 +181,7 @@ remnants before deploying.
 ## Module Format Notes
 
 - `lib/supabaseClient.js` uses **ESM** (`import`/`export`). All consumers (apps/main
-  through `@iiskills/ui`, learn-* apps) use the same file via webpack/Turbopack bundling.
+  through `@iiskills/ui`, learn-\* apps) use the same file via webpack/Turbopack bundling.
 - The `require()` call inside `lib/supabaseClient.js` (for `localContentProvider.js`)
   is guarded by `NEXT_PUBLIC_USE_LOCAL_CONTENT === "true"` and
   `typeof window === "undefined"`. Webpack replaces the env var at build time, so for
@@ -192,10 +198,10 @@ Located at: `deploy-all.sh` (root of repo, deployed to `/root/iiskills-cloud-app
 
 Environment variables that control the deploy:
 
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `IISKILLS_MAX_OLD_SPACE_SIZE_MB` | auto (½ RAM, 1024–4096 MB) | Node.js heap limit |
-| `IISKILLS_TURBO_CONCURRENCY` | 2 | Turbo build parallelism |
+| Variable                         | Default                    | Description             |
+| -------------------------------- | -------------------------- | ----------------------- |
+| `IISKILLS_MAX_OLD_SPACE_SIZE_MB` | auto (½ RAM, 1024–4096 MB) | Node.js heap limit      |
+| `IISKILLS_TURBO_CONCURRENCY`     | 2                          | Turbo build parallelism |
 
 All deploy output is logged to `/var/log/iiskills/deploy-<timestamp>.log` (or
 `/tmp/iiskills-deploy-<timestamp>.log` if the log dir is not writable).

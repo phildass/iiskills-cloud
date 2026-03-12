@@ -29,6 +29,7 @@
  *   400 { error: '...', lockedFields?: [...] }
  *   401 { error: 'Unauthorized' }
  *   404 { error: 'Profile not found' }
+ *   500 { error: 'Failed to fetch profile' | 'Failed to update profile', details: string }
  */
 
 import { createClient } from "@supabase/supabase-js";
@@ -105,8 +106,14 @@ export default async function handler(req, res) {
     .maybeSingle();
 
   if (fetchError) {
-    console.error("[api/profile/update] fetch error:", fetchError.message);
-    return res.status(500).json({ error: "Failed to fetch profile" });
+    console.error("[api/profile/update] fetch error:", {
+      message: fetchError.message,
+      code: fetchError.code,
+      details: fetchError.details,
+      hint: fetchError.hint,
+      userId,
+    });
+    return res.status(500).json({ error: "Failed to fetch profile", details: fetchError.message });
   }
 
   if (!current) {
@@ -181,8 +188,16 @@ export default async function handler(req, res) {
     .maybeSingle();
 
   if (updateError) {
-    console.error("[api/profile/update] update error:", updateError.message);
-    return res.status(500).json({ error: "Failed to update profile" });
+    console.error("[api/profile/update] update error:", {
+      message: updateError.message,
+      code: updateError.code,
+      details: updateError.details,
+      hint: updateError.hint,
+      userId,
+    });
+    return res
+      .status(500)
+      .json({ error: "Failed to update profile", details: updateError.message });
   }
 
   const response = { profile: updatedProfile };

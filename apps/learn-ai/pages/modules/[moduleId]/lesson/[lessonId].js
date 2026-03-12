@@ -326,8 +326,8 @@ export default function LessonPage({ lesson, moduleId, lessonId }) {
                   Skip quizzes?
                 </h2>
                 <p className="text-gray-700 mb-6">
-                  You can continue to the next lesson, but you won&apos;t earn badges or a certificate for this
-                  course. <strong>This cannot be undone.</strong>
+                  You can continue to the next lesson, but you won&apos;t earn badges or a
+                  certificate for this course. <strong>This cannot be undone.</strong>
                 </p>
                 <div className="flex gap-3 justify-end">
                   <button onClick={() => setShowSkipDialog(false)} className="btn-secondary">

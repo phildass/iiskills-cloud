@@ -117,9 +117,7 @@ console.log("");
 
 if (foundAny) {
   console.error(`${RED}${BOLD}VERIFICATION FAILED${RESET}`);
-  console.error(
-    "A placeholder credential string was embedded in the compiled client bundle."
-  );
+  console.error("A placeholder credential string was embedded in the compiled client bundle.");
   console.error("This means the real NEXT_PUBLIC_SUPABASE_* env vars were NOT set at build time.");
   console.error("");
   console.error("To fix:");

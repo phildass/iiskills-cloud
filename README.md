@@ -103,11 +103,11 @@ All Next.js apps import `config/security-headers.js` and apply the following hea
 
 `apps/main/middleware.js` implements in-process sliding-window rate limiting for sensitive routes:
 
-| Route group                                     | Limit (default) | Window |
-| ----------------------------------------------- | --------------- | ------ |
-| `/api/auth/*`                                   | 10 req          | 1 min  |
+| Route group                  | Limit (default) | Window |
+| ---------------------------- | --------------- | ------ |
+| `/api/auth/*`                | 10 req          | 1 min  |
 | `/api/pay`, `/api/payment/*` | 5 req           | 1 min  |
-| `/admin/*`                                      | 30 req          | 1 min  |
+| `/admin/*`                   | 30 req          | 1 min  |
 
 Override defaults via environment variables:
 

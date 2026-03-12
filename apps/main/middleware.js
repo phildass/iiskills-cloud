@@ -132,7 +132,6 @@ function isPublicPath(pathname) {
 export function middleware(request) {
   const { pathname } = request.nextUrl;
 
-
   // Always pass through public / static assets without any rate-limiting or
   // auth gating so that browser-level PWA manifest, icons, and crawlers are
   // never blocked by this middleware.
@@ -141,7 +140,6 @@ export function middleware(request) {
   // Always allow manifest.json through — PWA manifests must be publicly
   // accessible without any rate-limiting or auth checks.
   if (pathname === "/manifest.json") return NextResponse.next();
-
 
   const routeGroup = getRouteGroup(pathname);
 

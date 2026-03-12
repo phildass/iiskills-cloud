@@ -4,8 +4,8 @@ import { APPS } from "@lib/appRegistry";
 import { getCurrentPricing } from "@iiskills/ui/pricing";
 
 // Utilities for config and error handling
-const checkConfig = require('../../../utils/checkConfig');
-const sendError = require('../../../utils/sendError');
+const checkConfig = require("../../../utils/checkConfig");
+const sendError = require("../../../utils/sendError");
 
 // Deduplication window: reuse an existing 'created' purchase within this window
 // to prevent double-click / double-tab duplicate rows.
@@ -31,7 +31,7 @@ const PURCHASE_DEDUP_WINDOW_MS = 10 * 60 * 1000; // 10 minutes
 export default async function handler(req, res) {
   try {
     // Add all required env vars for the handler to function!
-    checkConfig(['PAYMENT_SECRET']); // Add more as needed
+    checkConfig(["PAYMENT_SECRET"]); // Add more as needed
 
     if (req.method !== "POST") {
       return res.status(405).json({ error: "Method not allowed" });
