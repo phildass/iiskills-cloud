@@ -11,7 +11,7 @@
  *
  * TEST MODE (TEST_ADMIN_MODE=true):
  * - Passphrase checked against ADMIN_PANEL_SECRET → ADMIN_SECRET → "iiskills123"
- * - No Supabase / DB interaction required
+ * - No file reads required
  * - set-passphrase endpoint is disabled
  */
 
@@ -157,17 +157,19 @@ export function isSuperadmin(email) {
 /**
  * Extract the actor identity from a request.
  *
+ * All admin access is password-based; there is no Supabase user identity associated
+ * with admin sessions.
+ *
+ * The `req` parameter is accepted for API compatibility (callers pass it in) but is
+ * no longer used since Bearer-token resolution was removed.
+ *
  * Returns:
  *   { actorUserId: null, actorEmail: null, actorType: 'password_admin' }
  *
- * Admin access is password-based only. There is no per-user identity associated
- * with an admin session. The `req` parameter is accepted for backward compatibility
- * but is not used.
- *
- * @returns {Promise<{ actorUserId: null, actorEmail: null, actorType: string }>}
+ * @param {import('http').IncomingMessage} _req - Unused; kept for API compatibility.
+ * @returns {Promise<{ actorUserId: string|null, actorEmail: string|null, actorType: string }>}
  */
-// eslint-disable-next-line no-unused-vars
-export async function getActorInfo(req) {
+export async function getActorInfo(_req) {
   return { actorUserId: null, actorEmail: null, actorType: "password_admin" };
 }
 
@@ -179,7 +181,7 @@ export async function getActorInfo(req) {
  * @param {string} event.action - Action enum (grant_entitlement, revoke_entitlement, etc.)
  * @param {string|null} event.actorUserId
  * @param {string|null} event.actorEmail
- * @param {string} event.actorType - 'supabase_admin' | 'emergency_admin'
+ * @param {string} event.actorType - 'password_admin'
  * @param {string|null} [event.targetUserId]
  * @param {string|null} [event.targetEmailOrPhone]
  * @param {string|null} [event.appId]
