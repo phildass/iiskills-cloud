@@ -73,6 +73,11 @@ export function getCanonicalLinks(appId = "main", isFreeApp = false) {
       href: mainHref("/terms"),
       label: "Terms and Conditions",
       className: "hover:text-primary transition",
+    },
+    {
+      href: mainHref("/help"),
+      label: "Help",
+      className: "hover:text-primary transition",
     }
   );
 
