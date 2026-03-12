@@ -55,18 +55,24 @@ export default async function handler(req, res) {
   const userId = user.id;
 
   // ── Profile ────────────────────────────────────────────────────────────────
-  const { data: profile } = await supabase
+  // Use select('*') for schema safety so missing optional columns do not cause
+  // "column does not exist" errors. The explicit column list was replaced to
+  // avoid silent breakage when migrations add new columns to the schema.
+  const { data: profile, error: profileError } = await supabase
     .from("profiles")
-    .select(
-      "id, first_name, last_name, full_name, gender, date_of_birth, age, " +
-        "education, qualification, location, state, district, country, specify_country, " +
-        "is_paid_user, paid_at, subscribed_to_newsletter, created_at, updated_at, " +
-        "registration_completed, username, phone, " +
-        "profile_submitted_at, name_change_count, " +
-        "education_self, education_father, education_mother"
-    )
+    .select("*")
     .eq("id", userId)
     .maybeSingle();
+
+  if (profileError) {
+    console.error("[api/dashboard] profile fetch error:", {
+      message: profileError.message,
+      code: profileError.code,
+      details: profileError.details,
+      hint: profileError.hint,
+      userId,
+    });
+  }
 
   // ── Google provider detection ──────────────────────────────────────────────
   const identities = user.identities || [];

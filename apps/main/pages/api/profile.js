@@ -34,6 +34,32 @@ function getSupabaseServer() {
   return createClient(url, serviceKey);
 }
 
+/**
+ * Normalise a phone string to E.164 format, e.g. "+919876543210".
+ * Returns null for blank / unparseable input.
+ * Defaults to India (+91) country code when no leading "+" is present.
+ */
+function normalizePhone(raw) {
+  if (!raw || typeof raw !== "string") return null;
+  const trimmed = raw.trim();
+  if (!trimmed) return null;
+
+  const hasLeadingPlus = trimmed.startsWith("+");
+  const digits = trimmed.replace(/\D/g, "");
+  if (!digits) return null;
+
+  if (hasLeadingPlus) return "+" + digits;
+  if (digits.length === 10) return "+91" + digits;
+  if (digits.length === 12 && digits.startsWith("91")) return "+" + digits;
+  return "+91" + digits;
+}
+
+/** Returns true if the string is a valid E.164 phone number. */
+function isValidE164(e164) {
+  if (!e164) return false;
+  return /^\+[1-9]\d{6,14}$/.test(e164);
+}
+
 // Fields that users are allowed to update via PATCH
 const EDITABLE_FIELDS = [
   "first_name",
@@ -87,6 +113,22 @@ export default async function handler(req, res) {
         const val = body[field];
         updates[field] = val == null || val === "" ? null : val;
       }
+    }
+
+    // ── Phone normalization ────────────────────────────────────────────────
+    // The profiles table enforces an E.164 check constraint on the phone column.
+    // Normalise any supplied phone number so plain 10-digit Indian numbers
+    // (e.g. "9876543210") are automatically converted to "+919876543210".
+    // Return a helpful 400 if the value cannot be normalised to a valid E.164
+    // number (rather than letting the DB constraint fire a cryptic 500).
+    if ("phone" in updates && updates.phone !== null) {
+      const normalised = normalizePhone(updates.phone);
+      if (!isValidE164(normalised)) {
+        return res.status(400).json({
+          error: "Invalid phone number. Please use E.164 format, e.g. +919876543210.",
+        });
+      }
+      updates.phone = normalised;
     }
 
     if (Object.keys(updates).length === 0) {

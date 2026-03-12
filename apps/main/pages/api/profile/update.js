@@ -114,11 +114,51 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: "Failed to fetch profile", details: fetchError.message });
   }
 
+  // If the profile row is missing (e.g. handle_new_user trigger failed), create it now.
+  // This is a recovery path: the row should have been created on signup, but can be
+  // absent if the trigger was temporarily broken by a migration bug.
+  let profileRow = current;
   if (!current) {
-    return res.status(404).json({ error: "Profile not found" });
+    console.warn("[api/profile/update] profile row missing for userId:", userId, "— creating now");
+    const { error: insertError } = await supabase
+      .from("profiles")
+      .insert({ id: userId, is_admin: false, subscribed_to_newsletter: true });
+
+    if (insertError && insertError.code !== "23505") {
+      // 23505 = unique violation (row created concurrently) — treat as success
+      console.error("[api/profile/update] profile insert error:", {
+        message: insertError.message,
+        code: insertError.code,
+        details: insertError.details,
+        userId,
+      });
+      return res
+        .status(500)
+        .json({ error: "Failed to create profile", details: insertError.message });
+    }
+
+    // Re-fetch the newly inserted row so all default values are present
+    const { data: refetched, error: refetchError } = await supabase
+      .from("profiles")
+      .select("*")
+      .eq("id", userId)
+      .maybeSingle();
+
+    if (refetchError) {
+      console.error("[api/profile/update] re-fetch after insert error:", {
+        message: refetchError.message,
+        code: refetchError.code,
+        userId,
+      });
+      return res
+        .status(500)
+        .json({ error: "Failed to fetch profile", details: refetchError.message });
+    }
+
+    profileRow = refetched || { id: userId, profile_submitted_at: null, name_change_count: 0 };
   }
 
-  const isFirstSubmission = !current.profile_submitted_at;
+  const isFirstSubmission = !profileRow.profile_submitted_at;
 
   // Build the update object from request body
   const body = req.body || {};
@@ -140,7 +180,7 @@ export default async function handler(req, res) {
       updates[field] = newValue;
     } else if (NAME_FIELDS.includes(field)) {
       // Name can change once after first submission
-      if ((current.name_change_count || 0) < 1) {
+      if ((profileRow.name_change_count || 0) < 1) {
         updates[field] = newValue;
       } else {
         lockedFields.push(field);
@@ -160,7 +200,7 @@ export default async function handler(req, res) {
 
   // If name fields were updated and this is after first submission, increment counter
   if (!isFirstSubmission && NAME_FIELDS.some((f) => f in updates)) {
-    updates.name_change_count = (current.name_change_count || 0) + 1;
+    updates.name_change_count = (profileRow.name_change_count || 0) + 1;
   }
 
   // Mark first submission
