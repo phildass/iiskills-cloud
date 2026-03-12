@@ -5,39 +5,22 @@
  * Calls POST /api/admin/bootstrap-or-login which handles both
  * first-time setup (bootstrap passphrase) and regular login (bcrypt hash).
  *
- * On first access (no passphrase configured), shows a notice.
- * Once a passphrase is set (via the bootstrap flow), shows a passphrase form.
- *
  * On success redirects to /admin (or /admin/setup if needs_setup=true).
  *
  * No Supabase user accounts are involved in admin authentication.
  */
 
 import Head from "next/head";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/router";
 
 export default function AdminLogin() {
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState(true);
-  const [configured, setConfigured] = useState(false);
   const [passphrase, setPassphrase] = useState("");
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
   const redirect = router.query.redirect || "/admin";
-
-  useEffect(() => {
-    fetch("/api/admin/status")
-      .then((r) => r.json())
-      .then((data) => {
-        setConfigured(!!data.configured);
-        setIsLoading(false);
-      })
-      .catch(() => {
-        setIsLoading(false);
-      });
-  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -71,14 +54,6 @@ export default function AdminLogin() {
     }
   };
 
-  if (isLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600" />
-      </div>
-    );
-  }
-
   return (
     <>
       <Head>
@@ -89,22 +64,12 @@ export default function AdminLogin() {
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="bg-white rounded-xl shadow-lg p-8 w-full max-w-sm">
           <div className="text-center mb-6">
-            <div className="text-4xl mb-3">🔐</div>
             <h1 className="text-2xl font-bold text-gray-800">Admin Login</h1>
-            {!configured && (
-              <p className="text-sm text-amber-700 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2 mt-3">
-                No passphrase is set yet. Use the default bootstrap passphrase to log in and then set
-                a new one.
-              </p>
-            )}
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label
-                htmlFor="passphrase"
-                className="block text-sm font-medium text-gray-700 mb-1"
-              >
+              <label htmlFor="passphrase" className="block text-sm font-medium text-gray-700 mb-1">
                 Passphrase
               </label>
               <input
@@ -115,7 +80,6 @@ export default function AdminLogin() {
                 required
                 autoFocus
                 autoComplete="current-password"
-                placeholder="Enter admin passphrase"
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
