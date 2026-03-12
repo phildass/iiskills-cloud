@@ -5,11 +5,10 @@
  * Calls POST /api/admin/bootstrap-or-login which handles both
  * first-time setup (bootstrap passphrase) and regular login (bcrypt hash).
  *
- * On first access without a stored passphrase hash, the well-known bootstrap
- * passphrase is accepted and the admin is immediately redirected to
- * /admin/setup to set a strong permanent password (min 8 characters).
- * The bootstrap passphrase MUST be replaced before the panel is used in
- * production.
+ * On first access (no passphrase configured), shows a notice.
+ * Once a passphrase is set (via the bootstrap flow), shows a passphrase form.
+ *
+ * On success redirects to /admin (or /admin/setup if needs_setup=true).
  *
  * No Supabase user accounts are involved in admin authentication.
  */
@@ -20,22 +19,30 @@ import { useRouter } from "next/router";
 
 export default function AdminLogin() {
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(true);
+  const [configured, setConfigured] = useState(false);
   const [passphrase, setPassphrase] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [configured, setConfigured] = useState(null); // null = loading, true/false = resolved
+  const [error, setError] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+
+  const redirect = router.query.redirect || "/admin";
 
   useEffect(() => {
     fetch("/api/admin/status")
       .then((r) => r.json())
-      .then((data) => setConfigured(!!data.configured))
-      .catch(() => setConfigured(true)); // assume configured on error
+      .then((data) => {
+        setConfigured(!!data.configured);
+        setIsLoading(false);
+      })
+      .catch(() => {
+        setIsLoading(false);
+      });
   }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
-    setError(null);
+    setError("");
+    setSubmitting(true);
 
     try {
       const res = await fetch("/api/admin/bootstrap-or-login", {
@@ -47,44 +54,57 @@ export default function AdminLogin() {
 
       const data = await res.json();
 
-      if (res.ok) {
+      if (res.ok && data.ok) {
         if (data.needs_setup) {
           router.replace("/admin/setup");
         } else {
-          const redirect = router.query.redirect || "/admin";
           router.replace(redirect);
         }
-      } else {
-        setError(data.error || "Invalid passphrase");
+        return;
       }
+
+      setError(data.error || "Invalid passphrase");
     } catch {
       setError("Network error — please try again");
     } finally {
-      setLoading(false);
+      setSubmitting(false);
     }
   };
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600" />
+      </div>
+    );
+  }
 
   return (
     <>
       <Head>
-        <title>Admin Login — iiskills</title>
+        <title>Admin Login — iiskills.cloud</title>
         <meta name="robots" content="noindex, nofollow" />
       </Head>
-      <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-        <div className="bg-white rounded-2xl shadow-xl p-8 w-full max-w-sm">
+
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="bg-white rounded-xl shadow-lg p-8 w-full max-w-sm">
           <div className="text-center mb-6">
-            <div className="text-4xl mb-2">🔐</div>
-            <h1 className="text-xl font-bold text-gray-800">Admin Login</h1>
-            <p className="text-sm text-gray-500 mt-1">
-              {configured === false
-                ? "No password set yet — use the bootstrap passphrase to continue"
-                : "Enter the admin passphrase"}
-            </p>
+            <div className="text-4xl mb-3">🔐</div>
+            <h1 className="text-2xl font-bold text-gray-800">Admin Login</h1>
+            {!configured && (
+              <p className="text-sm text-amber-700 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2 mt-3">
+                No passphrase is set yet. Use the default bootstrap passphrase to log in and then set
+                a new one.
+              </p>
+            )}
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label htmlFor="passphrase" className="block text-sm font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="passphrase"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
                 Passphrase
               </label>
               <input
@@ -93,25 +113,25 @@ export default function AdminLogin() {
                 value={passphrase}
                 onChange={(e) => setPassphrase(e.target.value)}
                 required
-                autoComplete="current-password"
                 autoFocus
-                placeholder="Enter passphrase"
-                className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                autoComplete="current-password"
+                placeholder="Enter admin passphrase"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
 
             {error && (
-              <div className="bg-red-50 border border-red-200 text-red-700 rounded-lg px-4 py-3 text-sm">
+              <div className="bg-red-50 border border-red-200 text-red-700 text-sm px-4 py-2 rounded-lg">
                 {error}
               </div>
             )}
 
             <button
               type="submit"
-              disabled={loading || !passphrase}
-              className="w-full bg-blue-600 text-white font-semibold py-2 rounded-lg hover:bg-blue-700 disabled:opacity-60 transition"
+              disabled={submitting}
+              className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg font-semibold hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {loading ? "Logging in…" : "Login"}
+              {submitting ? "Logging in…" : "Log In"}
             </button>
           </form>
         </div>

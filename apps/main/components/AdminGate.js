@@ -14,6 +14,7 @@
  *   - If health returns 200 → allow access immediately.
  *   - If health returns 401 → redirect to /admin/login.
  *   - If health returns needs_setup → redirect to /admin/setup.
+ *   - Unexpected status (5xx etc.) → redirect to login for safety.
  *
  * For superadmin-only pages pass `requireSuperadmin: true`. The hook will
  * additionally call /api/admin/admins?self=1 which returns 403 when the

@@ -9,8 +9,6 @@
 
 process.env.ADMIN_SESSION_SIGNING_KEY = "test-signing-key-minimum-32-chars-padding";
 process.env.ADMIN_PANEL_SECRET = "test-panel-secret";
-process.env.NEXT_PUBLIC_SUPABASE_URL = "https://test.supabase.co";
-process.env.SUPABASE_SERVICE_ROLE_KEY = "test-service-role-key";
 
 const jwt = require("jsonwebtoken");
 const { serialize } = require("cookie");
