@@ -18,4 +18,4 @@ export {
   revokeAppAccess,
   getAccessStats,
   updatePaymentBundleInfo,
-} from "../packages/access-control";
+} from "../../access-control";

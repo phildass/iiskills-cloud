@@ -41,7 +41,7 @@ import { isFreeAccessEnabled } from "../freeAccess";
  */
 async function resolveIsFreeApp(appId) {
   try {
-    const { isFreeApp } = await import("../../packages/access-control/accessControl.js");
+    const { isFreeApp } = await import("../../../access-control/accessControl.js");
     return isFreeApp(appId);
   } catch {
     // If the access-control package is unavailable, default to open access
