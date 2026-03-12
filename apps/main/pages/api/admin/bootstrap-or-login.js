@@ -17,6 +17,10 @@
  *   accept it as an emergency override (needs_setup=false).
  *
  * Cookie: HttpOnly admin_session signed with ADMIN_SESSION_SIGNING_KEY (12 h).
+ *
+ * Diagnostic logging: each code path emits a [adminLogin] console message so
+ * operators can see exactly why a login succeeded or failed in PM2/server logs
+ * without any sensitive values being disclosed.
  */
 
 import crypto from "crypto";
@@ -58,7 +62,18 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: "passphrase is required" });
   }
 
-  if (!process.env.ADMIN_SESSION_SIGNING_KEY && !process.env.ADMIN_JWT_SECRET) {
+  const signingKeyConfigured = !!(
+    process.env.ADMIN_SESSION_SIGNING_KEY || process.env.ADMIN_JWT_SECRET
+  );
+  console.log(
+    `[adminLogin] Login attempt — ADMIN_SESSION_SIGNING_KEY configured: ${signingKeyConfigured}`
+  );
+
+  if (!signingKeyConfigured) {
+    console.error(
+      "[adminLogin] ADMIN_SESSION_SIGNING_KEY (or ADMIN_JWT_SECRET) is not set. " +
+        "Ensure it is present in /etc/iiskills.env and restart the server."
+    );
     return res.status(500).json({
       error: "ADMIN_SESSION_SIGNING_KEY is not configured on the server",
     });
@@ -66,11 +81,13 @@ export default async function handler(req, res) {
 
   // -- TEST MODE --
   if (isTestAdminMode()) {
+    console.log("[adminLogin] Running in TEST_ADMIN_MODE");
     const expected = getTestPassphrase();
     const a = Buffer.from(passphrase);
     const b = Buffer.from(expected);
     const match = a.length === b.length && crypto.timingSafeEqual(a, b);
     if (!match) {
+      console.warn("[adminLogin] TEST_ADMIN_MODE: passphrase mismatch");
       return res.status(401).json({ error: "Invalid passphrase" });
     }
     const token = createAdminToken(false);
@@ -86,21 +103,30 @@ export default async function handler(req, res) {
     const a = Buffer.from(passphrase);
     const b = Buffer.from(masterSecret);
     if (a.length === b.length && crypto.timingSafeEqual(a, b)) {
+      console.log("[adminLogin] Login succeeded via ADMIN_PANEL_SECRET override");
       const token = createAdminToken(false);
       setAdminSessionCookie(res, token);
       return res.status(200).json({ ok: true, needs_setup: false });
     }
+    console.log("[adminLogin] ADMIN_PANEL_SECRET is set but did not match — trying hash file");
   }
 
   // Check local file for a stored passphrase hash
+  const dataFile = getAdminDataFile();
+  const isCustomDataFile = !!process.env.ADMIN_DATA_FILE;
   const storedHash = getAdminPassphraseHash();
+  console.log(
+    `[adminLogin] Hash file: ${isCustomDataFile ? "(custom path)" : "(default path)"} — hash present: ${!!storedHash}`
+  );
 
   if (storedHash) {
     // Normal login: verify passphrase against bcrypt hash
     const valid = await bcrypt.compare(passphrase, storedHash);
     if (!valid) {
+      console.warn("[adminLogin] Bcrypt comparison failed — passphrase does not match stored hash");
       return res.status(401).json({ error: "Invalid passphrase" });
     }
+    console.log("[adminLogin] Login succeeded via bcrypt hash");
     const token = createAdminToken(false);
     setAdminSessionCookie(res, token);
     return res.status(200).json({ ok: true, needs_setup: false });
@@ -108,8 +134,14 @@ export default async function handler(req, res) {
 
   // No hash stored yet: only the bootstrap passphrase is accepted
   if (passphrase !== BOOTSTRAP_PASSPHRASE) {
+    console.warn(
+      "[adminLogin] No hash stored and bootstrap passphrase did not match. " +
+        "Recovery: delete the admin data file to re-enable the bootstrap passphrase, " +
+        "or set ADMIN_PANEL_SECRET in /etc/iiskills.env and restart."
+    );
     return res.status(401).json({ error: "Invalid passphrase" });
   }
+  console.log("[adminLogin] Login succeeded via bootstrap passphrase — redirecting to setup");
   const token = createAdminToken(true); // needs_setup = true
   setAdminSessionCookie(res, token);
   return res.status(200).json({ ok: true, needs_setup: true });

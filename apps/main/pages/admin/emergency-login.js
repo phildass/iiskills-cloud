@@ -1,12 +1,19 @@
 /**
  * /admin/emergency-login
  *
- * Emergency admin login using the ADMIN_PANEL_SECRET passphrase.
+ * Emergency admin login using the ADMIN_PANEL_SECRET env-var passphrase.
  * Sets the admin_session cookie and redirects to /admin.
  *
- * Use this when:
- * - You are a superadmin but haven't set profiles.is_admin = true
- * - You need admin access without a Supabase account
+ * Use this when the regular passphrase (bcrypt hash in the admin data file)
+ * is unknown or inaccessible and ADMIN_PANEL_SECRET has been set in the
+ * server environment (/etc/iiskills.env) as an emergency override.
+ *
+ * Steps to recover access:
+ * 1. Set ADMIN_PANEL_SECRET=<strong-secret> in /etc/iiskills.env on the server.
+ * 2. Restart the server (pm2 restart iiskills-main).
+ * 3. Visit /admin/emergency-login and enter that secret.
+ * 4. Once logged in, go to /admin/setup to set a new permanent passphrase.
+ * 5. Remove ADMIN_PANEL_SECRET from /etc/iiskills.env after setup is complete.
  */
 
 import Head from "next/head";

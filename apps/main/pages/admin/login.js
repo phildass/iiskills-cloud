@@ -98,6 +98,14 @@ export default function AdminLogin() {
               {submitting ? "Logging in…" : "Log In"}
             </button>
           </form>
+
+          <p className="text-xs text-gray-400 text-center mt-6">
+            Can&apos;t access your passphrase?{" "}
+            <a href="/admin/emergency-login" className="underline hover:text-gray-600">
+              Use the recovery login
+            </a>
+            .
+          </p>
         </div>
       </div>
     </>
