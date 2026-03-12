@@ -94,11 +94,8 @@ export default function EmergencyLogin() {
           </form>
 
           <p className="text-xs text-gray-400 text-center mt-6">
-            For Supabase-authenticated admins, use{" "}
-            <a href="/login?redirect=/admin" className="underline hover:text-gray-600">
-              regular login
-            </a>
-            .
+            Use the <a href="/admin/login" className="underline hover:text-gray-600">standard admin login</a> for
+            passphrase-based access.
           </p>
         </div>
       </div>

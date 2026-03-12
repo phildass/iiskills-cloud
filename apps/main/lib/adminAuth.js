@@ -1,17 +1,10 @@
 /**
  * Admin Authentication Utilities (Server-Side Only)
  *
- * Provides two admin access paths:
+ * Admin access is password-based only — no Supabase user account required.
  *
- * 1. Supreme admin (passphrase/cookie):
- *    - No dependency on Supabase user accounts
- *    - Access gate: ADMIN_PANEL_SECRET via x-admin-secret header or signed cookie
- *    - Optional IP allowlist: ADMIN_IP_ALLOWLIST (comma-separated)
- *
- * 2. Supabase admin:
- *    - User authenticated via Supabase (Bearer token in Authorization header)
- *    - AND user.email is in ADMIN_ALLOWLIST_EMAILS env var
- *    - OR public.profiles.is_admin = true
+ * Access gate: passphrase via x-admin-secret header or signed admin_session cookie.
+ * Optional IP allowlist: ADMIN_IP_ALLOWLIST (comma-separated).
  *
  * Cookie: admin_session (HttpOnly; Secure; SameSite=Lax) signed with ADMIN_SESSION_SIGNING_KEY
  * Session expiry: 12 hours
@@ -165,36 +158,16 @@ export function isSuperadmin(email) {
  * Extract the actor identity from a request.
  *
  * Returns:
- *   { actorUserId: string|null, actorEmail: string|null, actorType: 'supabase_admin'|'emergency_admin' }
+ *   { actorUserId: null, actorEmail: null, actorType: 'password_admin' }
  *
- * Supabase Bearer token is resolved against the auth service; emergency admin (cookie/secret)
- * has no associated user identity.
+ * Admin access is password-based only. There is no per-user identity associated
+ * with an admin session.
  *
  * @param {import('http').IncomingMessage} req
- * @returns {Promise<{ actorUserId: string|null, actorEmail: string|null, actorType: string }>}
+ * @returns {Promise<{ actorUserId: null, actorEmail: null, actorType: string }>}
  */
-export async function getActorInfo(req) {
-  // Check if this is a Supabase Bearer token request
-  const authHeader = req.headers.authorization;
-  if (authHeader && authHeader.startsWith("Bearer ")) {
-    try {
-      const bearerToken = authHeader.slice(7);
-      const serviceClient = createServiceRoleClient();
-      const {
-        data: { user },
-      } = await serviceClient.auth.getUser(bearerToken);
-      if (user) {
-        return {
-          actorUserId: user.id,
-          actorEmail: user.email || null,
-          actorType: "supabase_admin",
-        };
-      }
-    } catch {
-      // fall through to emergency admin
-    }
-  }
-  return { actorUserId: null, actorEmail: null, actorType: "emergency_admin" };
+export async function getActorInfo() {
+  return { actorUserId: null, actorEmail: null, actorType: "password_admin" };
 }
 
 /**
@@ -284,87 +257,21 @@ export function validateAdminRequest(req) {
 }
 
 /**
- * Check whether a Supabase access token belongs to an admin user.
+ * Async version of validateAdminRequest (password/cookie path only).
  *
- * A user is considered admin when:
- *   - their email is in ADMIN_ALLOWLIST_EMAILS env var, OR
- *   - public.profiles.is_admin = true
- *
- * @param {string} token - Supabase JWT access token
- * @returns {Promise<{ valid: boolean }>}
- */
-async function checkSupabaseBearerToken(token) {
-  try {
-    const serviceClient = createServiceRoleClient();
-
-    const {
-      data: { user },
-      error,
-    } = await serviceClient.auth.getUser(token);
-
-    if (error || !user) return { valid: false };
-
-    // Check email allowlist (server-side only)
-    const allowlistEmails = getAdminAllowlistEmails();
-    if (user.email && allowlistEmails.includes(user.email.toLowerCase())) {
-      return { valid: true };
-    }
-
-    // Check profiles.is_admin via service role (bypasses RLS)
-    const { data: profile } = await serviceClient
-      .from("profiles")
-      .select("is_admin")
-      .eq("id", user.id)
-      .single();
-
-    if (profile?.is_admin === true) {
-      return { valid: true };
-    }
-
-    return { valid: false };
-  } catch {
-    return { valid: false };
-  }
-}
-
-/**
- * Async version of validateAdminRequest that also accepts Supabase Bearer tokens.
+ * Supabase Bearer tokens are no longer accepted for admin authentication.
+ * All admin access requires the admin password (cookie or x-admin-secret header).
  *
  * Checks (in order):
  * 1. ADMIN_AUTH_DISABLED bypass
  * 2. Optional IP allowlist (ADMIN_IP_ALLOWLIST) — status 403 when blocked
  * 3. x-admin-secret header matching ADMIN_PANEL_SECRET
  * 4. Signed admin_session cookie
- * 5. Supabase Bearer token — email in ADMIN_ALLOWLIST_EMAILS OR profiles.is_admin = true
  *
  * @returns {Promise<{ valid: boolean, reason?: string, status?: number }>}
  */
 export async function validateAdminRequestAsync(req) {
-  if (isAdminAuthDisabled()) {
-    return { valid: true };
-  }
-
-  // Try synchronous (supreme-admin) checks first — this also handles the IP allowlist
-  const syncResult = validateAdminRequest(req);
-  if (syncResult.valid) return syncResult;
-
-  // If the IP allowlist blocked the request, propagate the 403 immediately.
-  // Do NOT attempt the Bearer-token fallback for IP-blocked requests.
-  if (syncResult.status === 403) {
-    return syncResult;
-  }
-
-  // Accept Supabase Bearer token as a fallback
-  const authHeader = req.headers.authorization;
-  if (authHeader && authHeader.startsWith("Bearer ")) {
-    const bearerToken = authHeader.slice(7);
-    const supabaseResult = await checkSupabaseBearerToken(bearerToken);
-    if (supabaseResult.valid) {
-      return { valid: true };
-    }
-  }
-
-  return { valid: false, reason: "Unauthorized", status: 401 };
+  return validateAdminRequest(req);
 }
 
 /**

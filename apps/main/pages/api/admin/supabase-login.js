@@ -1,113 +1,16 @@
 /**
- * POST /api/admin/supabase-login
+ * POST /api/admin/supabase-login — REMOVED
  *
- * Verifies a Supabase access token and issues an admin_session cookie when
- * the user qualifies as admin (ADMIN_ALLOWLIST_EMAILS OR profiles.is_admin = true).
+ * This endpoint previously bridged Supabase-authenticated users into the admin
+ * session flow. Admin authentication is now password-based only.
  *
- * Also auto-fulfills pending admin_invites: if the user has a pending invite,
- * sets profiles.is_admin = true and marks the invite as fulfilled.
- *
- * This endpoint bridges Supabase-authenticated admins into the existing
- * supreme-admin cookie flow so that all /api/admin/* endpoints (which use
- * the synchronous validateAdminRequest check) transparently accept both
- * auth paths without any changes to those individual handlers.
- *
- * Body: { access_token: string }
- * Responses:
- *   200 — admin_session cookie set
- *   400 — missing or invalid body
- *   403 — valid Supabase token but user is not an admin
- *   500 — server misconfiguration
+ * Use POST /api/admin/bootstrap-or-login with a { passphrase } body instead.
  */
 
-import {
-  createAdminToken,
-  createServiceRoleClient,
-  getAdminAllowlistEmails,
-  setAdminSessionCookie,
-} from "../../../lib/adminAuth";
-import sendError from "../../../utils/sendError";
-import checkConfig from "../../../utils/checkConfig";
-
-export default async function handler(req, res) {
-  if (req.method !== "POST") {
-    res.setHeader("Allow", ["POST"]);
-    return res.status(405).json({ error: "Method Not Allowed" });
-  }
-
-  const { access_token } = req.body || {};
-  if (!access_token || typeof access_token !== "string") {
-    return res.status(400).json({ error: "access_token is required" });
-  }
-
-  let serviceClient;
-  try {
-    checkConfig(["NEXT_PUBLIC_SUPABASE_URL", "SUPABASE_SERVICE_ROLE_KEY"]);
-    serviceClient = createServiceRoleClient();
-  } catch {
-    sendError(res, 500, "Server misconfiguration", "Required environment variables are missing");
-    return;
-  }
-
-  // Verify the Supabase access token
-  const {
-    data: { user },
-    error: authError,
-  } = await serviceClient.auth.getUser(access_token);
-
-  if (authError || !user) {
-    return res.status(401).json({ error: "Invalid or expired access token" });
-  }
-
-  // Check email allowlist (superadmin path)
-  const allowlistEmails = getAdminAllowlistEmails();
-  if (user.email && allowlistEmails.includes(user.email.toLowerCase())) {
-    const token = createAdminToken(false);
-    setAdminSessionCookie(res, token);
-    return res.status(200).json({ ok: true });
-  }
-
-  // Check profiles.is_admin via service role (bypasses RLS)
-  const { data: profile } = await serviceClient
-    .from("profiles")
-    .select("is_admin")
-    .eq("id", user.id)
-    .single();
-
-  if (profile?.is_admin === true) {
-    const token = createAdminToken(false);
-    setAdminSessionCookie(res, token);
-    return res.status(200).json({ ok: true });
-  }
-
-  // Check for a pending admin invite for this email
-  if (user.email) {
-    const { data: invite } = await serviceClient
-      .from("admin_invites")
-      .select("id")
-      .eq("email", user.email.toLowerCase())
-      .eq("status", "pending")
-      .single();
-
-    if (invite) {
-      // Fulfill the invite: set profiles.is_admin = true
-      await serviceClient.from("profiles").update({ is_admin: true }).eq("id", user.id);
-
-      // Mark the invite as fulfilled
-      await serviceClient
-        .from("admin_invites")
-        .update({
-          status: "fulfilled",
-          fulfilled_at: new Date().toISOString(),
-          fulfilled_user_id: user.id,
-        })
-        .eq("id", invite.id);
-
-      const token = createAdminToken(false);
-      setAdminSessionCookie(res, token);
-      return res.status(200).json({ ok: true, inviteFulfilled: true });
-    }
-  }
-
-  return res.status(403).json({ error: "Not authorized as admin" });
+export default function handler(req, res) {
+  res.setHeader("Allow", []);
+  return res.status(410).json({
+    error:
+      "This endpoint has been removed. Admin login is now password-based only. Use POST /api/admin/bootstrap-or-login.",
+  });
 }
