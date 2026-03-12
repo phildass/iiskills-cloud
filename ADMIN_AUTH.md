@@ -125,3 +125,75 @@ is no longer used for general admin authentication.
   emergency override to prevent timing attacks.
 - The data file (`/var/lib/iiskills/admin.json`) is written with mode `0o600`
   (owner read/write only).
+
+---
+
+## Troubleshooting — "Invalid passphrase" on Every Attempt
+
+If every passphrase you try is rejected, work through these steps in order:
+
+### 1. Check PM2 / server logs immediately after a failed login attempt
+
+```bash
+pm2 logs iiskills-main --lines 30
+```
+
+Each login attempt now emits `[adminLogin]` log lines. Look for messages like:
+
+| Log message | Meaning |
+|---|---|
+| `ADMIN_SESSION_SIGNING_KEY configured: false` | The signing key is missing — env vars are not loaded. See step 2. |
+| `ADMIN_PANEL_SECRET is set but did not match` | ADMIN_PANEL_SECRET is loaded but you are not entering its exact value. |
+| `Hash file: … — hash present: false` | No stored hash. Only the bootstrap passphrase `iiskills123` or `ADMIN_PANEL_SECRET` will work. |
+| `Bcrypt comparison failed` | A hash IS stored but the passphrase you entered does not match it. Use the ADMIN_PANEL_SECRET recovery path (step 3). |
+
+### 2. Ensure environment variables are loaded at runtime
+
+```bash
+# Check the env file exists and contains the required keys
+grep -E "ADMIN_SESSION_SIGNING_KEY|ADMIN_PANEL_SECRET" /etc/iiskills.env
+
+# If missing, add them then restart
+pm2 restart iiskills-main
+```
+
+> **Why this can fail:** `instrumentation.js` loads `/etc/iiskills.env` when Next.js
+> starts. If the file doesn't exist or the keys are absent, `ADMIN_SESSION_SIGNING_KEY`
+> will be undefined and every login returns HTTP 500 (check logs).
+
+### 3. Recover access using ADMIN_PANEL_SECRET
+
+1. Add or update `ADMIN_PANEL_SECRET=<strong-secret>` in `/etc/iiskills.env`.
+2. Restart: `pm2 restart iiskills-main`.
+3. Navigate to `/admin/emergency-login` and enter the same `<strong-secret>` value.
+4. Once logged in, go to `/admin/setup` and set a new permanent passphrase.
+5. Remove `ADMIN_PANEL_SECRET` from `/etc/iiskills.env` and restart once more.
+
+### 4. Reset to bootstrap (nuclear option)
+
+If you cannot use `ADMIN_PANEL_SECRET`, delete the admin data file to restore first-run
+mode and allow the bootstrap passphrase (see `apps/main/pages/api/admin/bootstrap-or-login.js`
+for the constant):
+
+```bash
+rm /var/lib/iiskills/admin.json
+pm2 restart iiskills-main
+```
+
+Then log in with the bootstrap passphrase at `/admin/login`. You will be redirected to
+`/admin/setup` to set a new permanent passphrase immediately.
+
+> ⚠️ **Important:** The bootstrap passphrase is a well-known default. Do not leave the
+> server in bootstrap state for longer than needed to complete the `/admin/setup` flow.
+
+### 5. Verify the fix is actually deployed
+
+```bash
+# Confirm the server is running the latest build
+pm2 show iiskills-main | grep "cwd\|version"
+# Check the build ID
+cat /var/www/iiskills-cloud/apps/main/.next/BUILD_ID
+```
+
+If the BUILD_ID hasn't changed after a deployment, the old code is still running.
+Run a fresh build and restart PM2.
