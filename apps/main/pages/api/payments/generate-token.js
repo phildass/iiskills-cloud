@@ -4,8 +4,18 @@ import { getPaymentReturnToUrl } from "@lib/appRegistry";
 import { createSupabasePagesServerClient } from "../../../lib/supabase/serverPagesClient";
 import { createServiceRoleClient } from "../../../lib/adminAuth";
 import { normalizePhone, isValidE164 } from "./save-profile";
+import checkConfig from "../../../utils/checkConfig";
+import sendError from "../../../utils/sendError";
 
 export default async function handler(req, res) {
+  try {
+    checkConfig(["PAYMENT_TOKEN_SECRET"]);
+  } catch (err) {
+    console.error("[payments/generate-token] Missing required env:", err.message);
+    sendError(res, 500, "Server misconfiguration", "Required environment variables are missing");
+    return;
+  }
+
   if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
 
   const supabase = createSupabasePagesServerClient(req, res);
@@ -132,7 +142,6 @@ export default async function handler(req, res) {
   }
 
   const secret = process.env.PAYMENT_TOKEN_SECRET;
-  if (!secret) return res.status(500).json({ error: "Server misconfiguration" });
 
   const payload = {
     user_id: user.id,

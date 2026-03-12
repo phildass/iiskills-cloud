@@ -3,6 +3,8 @@ import { createClient } from "@supabase/supabase-js";
 import jwt from "jsonwebtoken";
 import { sendThankYouEmail } from "@lib/paymentEmail";
 import { APPS } from "@lib/appRegistry";
+import checkConfig from "../../../utils/checkConfig";
+import sendError from "../../../utils/sendError";
 
 /**
  * Centralized Payment Confirmation Endpoint  (Option A — token-based flow)
@@ -63,6 +65,14 @@ function readRawBody(req) {
 }
 
 export default async function handler(req, res) {
+  try {
+    checkConfig(["AIENTER_CONFIRMATION_SIGNING_SECRET", "PAYMENT_TOKEN_SECRET"]);
+  } catch (err) {
+    console.error("[payments/confirm] Missing required env:", err.message);
+    sendError(res, 500, "Server misconfiguration", "Required environment variables are missing");
+    return;
+  }
+
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
   }
@@ -78,10 +88,6 @@ export default async function handler(req, res) {
 
   // ── 2. Verify HMAC-SHA256 signature ───────────────────────────────────────
   const secret = process.env.AIENTER_CONFIRMATION_SIGNING_SECRET;
-  if (!secret) {
-    console.error("[payments/confirm] AIENTER_CONFIRMATION_SIGNING_SECRET is not configured");
-    return res.status(500).json({ error: "Server misconfiguration" });
-  }
 
   const receivedSig = req.headers["x-aienter-signature"];
   if (!receivedSig) {
@@ -170,10 +176,6 @@ export default async function handler(req, res) {
 
   // ── 6. Verify user_token (Option A — required) ────────────────────────────
   const tokenSecret = process.env.PAYMENT_TOKEN_SECRET;
-  if (!tokenSecret) {
-    console.error("[payments/confirm] PAYMENT_TOKEN_SECRET not set");
-    return res.status(500).json({ error: "Server misconfiguration" });
-  }
 
   let tokenPayload;
   try {

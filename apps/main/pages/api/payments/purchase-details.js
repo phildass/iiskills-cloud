@@ -1,5 +1,7 @@
 import { createSupabasePagesServerClient } from "../../../lib/supabase/serverPagesClient";
 import { createServiceRoleClient } from "../../../lib/adminAuth";
+import sendError from "../../../utils/sendError";
+import checkConfig from "../../../utils/checkConfig";
 
 /**
  * Purchase Details Endpoint
@@ -41,10 +43,12 @@ export default async function handler(req, res) {
   // ── 2. Look up the purchase ────────────────────────────────────────────────
   let adminClient;
   try {
+    checkConfig(["NEXT_PUBLIC_SUPABASE_URL", "SUPABASE_SERVICE_ROLE_KEY"]);
     adminClient = createServiceRoleClient();
   } catch (err) {
     console.error("[purchase-details] Service role client unavailable:", err?.message);
-    return res.status(500).json({ error: "Server misconfiguration" });
+    sendError(res, 500, "Server misconfiguration", "Required environment variables are missing");
+    return;
   }
 
   const { data: purchase, error: fetchError } = await adminClient
