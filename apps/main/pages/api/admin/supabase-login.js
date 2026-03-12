@@ -26,6 +26,8 @@ import {
   getAdminAllowlistEmails,
   setAdminSessionCookie,
 } from "../../../lib/adminAuth";
+import sendError from "../../../utils/sendError";
+import checkConfig from "../../../utils/checkConfig";
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
@@ -40,9 +42,11 @@ export default async function handler(req, res) {
 
   let serviceClient;
   try {
+    checkConfig(["NEXT_PUBLIC_SUPABASE_URL", "SUPABASE_SERVICE_ROLE_KEY"]);
     serviceClient = createServiceRoleClient();
   } catch {
-    return res.status(500).json({ error: "Server misconfiguration" });
+    sendError(res, 500, "Server misconfiguration", "Required environment variables are missing");
+    return;
   }
 
   // Verify the Supabase access token

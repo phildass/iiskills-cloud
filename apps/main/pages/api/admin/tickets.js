@@ -4,6 +4,8 @@ import {
   getActorInfo,
   writeAuditEvent,
 } from "../../../lib/adminAuth";
+import sendError from "../../../utils/sendError";
+import checkConfig from "../../../utils/checkConfig";
 
 /**
  * GET /api/admin/tickets
@@ -22,9 +24,11 @@ export default async function handler(req, res) {
 
   let supabase;
   try {
+    checkConfig(["NEXT_PUBLIC_SUPABASE_URL", "SUPABASE_SERVICE_ROLE_KEY"]);
     supabase = createServiceRoleClient();
   } catch {
-    return res.status(500).json({ error: "Server misconfiguration" });
+    sendError(res, 500, "Server misconfiguration", "Required environment variables are missing");
+    return;
   }
 
   if (req.method === "GET") {

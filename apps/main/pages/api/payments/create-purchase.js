@@ -4,8 +4,8 @@ import { APPS } from "@lib/appRegistry";
 import { getCurrentPricing } from "@iiskills/ui/pricing";
 
 // Utilities for config and error handling
-const checkConfig = require('../../utils/checkConfig');
-const sendError = require('../../utils/sendError');
+const checkConfig = require('../../../utils/checkConfig');
+const sendError = require('../../../utils/sendError');
 
 // Deduplication window: reuse an existing 'created' purchase within this window
 // to prevent double-click / double-tab duplicate rows.

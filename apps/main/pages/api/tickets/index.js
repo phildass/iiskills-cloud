@@ -1,4 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
+import sendError from "../../../utils/sendError";
 
 const VALID_ISSUE_TYPES = [
   "payment_auth_not_made",
@@ -35,7 +36,8 @@ export default async function handler(req, res) {
 
   const supabaseAnon = getSupabaseAnon();
   if (!supabaseAnon) {
-    return res.status(500).json({ error: "Server misconfiguration" });
+    sendError(res, 500, "Server misconfiguration", "Required environment variables are missing");
+    return;
   }
 
   const {
@@ -49,7 +51,8 @@ export default async function handler(req, res) {
 
   const supabase = getSupabaseAdmin();
   if (!supabase) {
-    return res.status(500).json({ error: "Server misconfiguration" });
+    sendError(res, 500, "Server misconfiguration", "Required environment variables are missing");
+    return;
   }
 
   // ── GET: return user's tickets ───────────────────────────────────────────────
