@@ -130,19 +130,11 @@ export default function SiteHeader({ appId = "main", isFreeApp = false }) {
   const registerUrl = isSubApp ? `${mainAppUrl}/register` : "/register";
   const profileUrl = isSubApp ? `${mainAppUrl}/profile` : "/profile";
 
-  // Append "My Dashboard" link when user is logged in
+  // Dashboard URL – passed to Header for the personal info secondary strip
   const dashboardUrl = isSubApp ? `${mainAppUrl}/dashboard` : "/dashboard";
-  const navLinks = user
-    ? [
-        ...baseNavLinks,
-        {
-          href: dashboardUrl,
-          label: "My Dashboard",
-          className: "hover:text-primary transition font-semibold text-blue-700",
-          mobileClassName: "block hover:text-primary transition py-2 font-semibold text-blue-700",
-        },
-      ]
-    : baseNavLinks;
+
+  // Use base nav links directly; "My Dashboard" is shown in the personal info strip
+  const navLinks = baseNavLinks;
 
   // Prefer main app domain for a central profile flow
   const completeProfileHref = isSubApp ? `${mainAppUrl}/profile` : "/profile";
@@ -163,6 +155,7 @@ export default function SiteHeader({ appId = "main", isFreeApp = false }) {
       loginUrl={loginUrl}
       registerUrl={registerUrl}
       profileUrl={profileUrl}
+      dashboardUrl={dashboardUrl}
     />
   );
 }
