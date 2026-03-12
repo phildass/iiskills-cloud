@@ -1,21 +1,20 @@
 /**
- * Admin Management API (superadmin only)
+ * Admin Management API
  *
  * GET  /api/admin/admins          — list all admin users (profiles.is_admin=true)
- * GET  /api/admin/admins?self=1   — check if the caller is a superadmin (used by useAdminProtectedPage)
+ * GET  /api/admin/admins?self=1   — confirm the caller has a valid admin session
  * POST /api/admin/admins          — create admin (set is_admin=true or create an invite)
  * DELETE /api/admin/admins        — revoke admin (set is_admin=false)
  *
- * All mutating actions require SUPERADMIN (email in ADMIN_ALLOWLIST_EMAILS).
- * Regular admins (profiles.is_admin=true) can only read the list.
+ * All operations require a valid admin session (password-based cookie).
+ * Admin authentication is no longer Supabase-user-based.
  *
- * Authentication: admin (cookie or Bearer token via validateAdminRequestAsync)
+ * Authentication: admin_session cookie or x-admin-secret header
  */
 
 import {
   validateAdminRequestAsync,
   createServiceRoleClient,
-  isSuperadmin,
   getActorInfo,
   writeAuditEvent,
 } from "../../../lib/adminAuth";
@@ -41,12 +40,10 @@ export default async function handler(req, res) {
 
   // ── GET — list admins or self-check ─────────────────────────────────────────
   if (req.method === "GET") {
-    // ?self=1 is used by useAdminProtectedPage to check superadmin status
+    // ?self=1 is used by useAdminProtectedPage to confirm admin session is valid.
+    // Any authenticated admin session is considered a superadmin in the
+    // password-based auth model.
     if (req.query.self === "1") {
-      const superadmin = isSuperadmin(actor.actorEmail);
-      if (!superadmin) {
-        return res.status(403).json({ error: "Not a superadmin" });
-      }
       return res.status(200).json({ superadmin: true });
     }
 
@@ -73,12 +70,6 @@ export default async function handler(req, res) {
       admins: adminsResult.data || [],
       pendingInvites: invitesResult.data || [],
     });
-  }
-
-  // Mutating operations require superadmin
-  const callerIsSuperadmin = isSuperadmin(actor.actorEmail);
-  if (!callerIsSuperadmin) {
-    return res.status(403).json({ error: "Superadmin privileges required" });
   }
 
   // ── POST — create admin ──────────────────────────────────────────────────────

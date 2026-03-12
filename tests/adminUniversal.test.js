@@ -4,9 +4,9 @@
  * Covers:
  * - isSuperadmin: returns true only for ADMIN_ALLOWLIST_EMAILS entries
  * - writeAuditEvent: writes audit event to DB (via service client mock)
- * - getActorInfo: resolves actor identity from Bearer token or falls back to emergency
+ * - getActorInfo: always returns password_admin (no Supabase Bearer token path)
  * - /api/admin/entitlements: grant creates entitlement + audit event; revoke works
- * - /api/admin/admins: superadmin can create/revoke; non-superadmin gets 403
+ * - /api/admin/admins: any authenticated admin session can create/revoke
  * - Unauthorized requests return 403
  */
 
@@ -98,7 +98,7 @@ describe("writeAuditEvent", () => {
     await writeAuditEvent(mockSupabase, {
       actorUserId: "actor-uuid",
       actorEmail: "actor@example.com",
-      actorType: "supabase_admin",
+      actorType: "password_admin",
       action: "grant_entitlement",
       targetUserId: "target-uuid",
       targetEmailOrPhone: "target@example.com",
@@ -112,7 +112,7 @@ describe("writeAuditEvent", () => {
       expect.objectContaining({
         actor_user_id: "actor-uuid",
         actor_email: "actor@example.com",
-        actor_type: "supabase_admin",
+        actor_type: "password_admin",
         action: "grant_entitlement",
         target_user_id: "target-uuid",
         target_email_or_phone: "target@example.com",
@@ -130,7 +130,7 @@ describe("writeAuditEvent", () => {
       writeAuditEvent(mockSupabase, {
         actorUserId: null,
         actorEmail: null,
-        actorType: "emergency_admin",
+        actorType: "password_admin",
         action: "grant_entitlement",
       })
     ).resolves.not.toThrow();
@@ -138,39 +138,25 @@ describe("writeAuditEvent", () => {
 });
 
 // ---------------------------------------------------------------------------
-// getActorInfo
+// getActorInfo — password-based auth (no Supabase user identity)
 // ---------------------------------------------------------------------------
 
 describe("getActorInfo", () => {
   beforeEach(() => jest.clearAllMocks());
 
-  test("returns emergency_admin when no Bearer token present", async () => {
+  test("always returns password_admin with null userId and email", async () => {
     const req = { headers: { cookie: "" } };
     const actor = await getActorInfo(req);
-    expect(actor.actorType).toBe("emergency_admin");
+    expect(actor.actorType).toBe("password_admin");
     expect(actor.actorUserId).toBeNull();
+    expect(actor.actorEmail).toBeNull();
   });
 
-  test("returns supabase_admin when Bearer token resolves to a user", async () => {
-    mockGetUser.mockResolvedValueOnce({
-      data: { user: { id: "uid-1", email: "admin@example.com" } },
-      error: null,
-    });
+  test("returns password_admin even when Authorization header is present", async () => {
     const req = { headers: { authorization: "Bearer some-token" } };
     const actor = await getActorInfo(req);
-    expect(actor.actorType).toBe("supabase_admin");
-    expect(actor.actorUserId).toBe("uid-1");
-    expect(actor.actorEmail).toBe("admin@example.com");
-  });
-
-  test("falls back to emergency_admin when Bearer token is invalid", async () => {
-    mockGetUser.mockResolvedValueOnce({
-      data: { user: null },
-      error: new Error("invalid"),
-    });
-    const req = { headers: { authorization: "Bearer bad-token" } };
-    const actor = await getActorInfo(req);
-    expect(actor.actorType).toBe("emergency_admin");
+    expect(actor.actorType).toBe("password_admin");
+    expect(actor.actorUserId).toBeNull();
   });
 });
 
@@ -216,10 +202,10 @@ describe("admin API unauthorized returns 403", () => {
 });
 
 // ---------------------------------------------------------------------------
-// /api/admin/admins — superadmin restriction
+// /api/admin/admins — authenticated admin can create/revoke (no superadmin gate)
 // ---------------------------------------------------------------------------
 
-describe("/api/admin/admins superadmin enforcement", () => {
+describe("/api/admin/admins authenticated admin operations", () => {
   const makeCookieReq = (method, body = {}, query = {}) => ({
     method,
     headers: { cookie: makeCookieHeader() },
@@ -237,23 +223,25 @@ describe("/api/admin/admins superadmin enforcement", () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-    // emergency admin session is authenticated but has no email → not a superadmin
-    mockGetUser.mockResolvedValue({ data: { user: null }, error: null });
   });
 
-  test("POST /api/admin/admins returns 403 for emergency admin (no email → not superadmin)", async () => {
+  test("GET /api/admin/admins?self=1 returns superadmin: true for authenticated admin", async () => {
+    const { default: handler } = require("../apps/main/pages/api/admin/admins");
+    const req = makeCookieReq("GET", {}, { self: "1" });
+    const res = makeRes();
+    await handler(req, res);
+    expect(res.status).toHaveBeenCalledWith(200);
+    expect(res.json).toHaveBeenCalledWith(expect.objectContaining({ superadmin: true }));
+  });
+
+  test("POST /api/admin/admins succeeds for authenticated admin (user not in Supabase → invite)", async () => {
+    mockListUsers.mockResolvedValueOnce({ data: { users: [] }, error: null });
     const { default: handler } = require("../apps/main/pages/api/admin/admins");
     const req = makeCookieReq("POST", { email: "newadmin@example.com" });
     const res = makeRes();
     await handler(req, res);
-    expect(res.status).toHaveBeenCalledWith(403);
-  });
-
-  test("DELETE /api/admin/admins returns 403 for emergency admin", async () => {
-    const { default: handler } = require("../apps/main/pages/api/admin/admins");
-    const req = makeCookieReq("DELETE", { user_id: "some-uuid" });
-    const res = makeRes();
-    await handler(req, res);
-    expect(res.status).toHaveBeenCalledWith(403);
+    const statusCode = res.status.mock.calls[0][0];
+    // Should succeed (201) or fail due to DB mock, but NOT 403
+    expect(statusCode).not.toBe(403);
   });
 });

@@ -11,12 +11,8 @@
  * Behaviour:
  * - When NEXT_PUBLIC_DISABLE_ADMIN_GATE=true, always allows access (local dev only).
  * - Otherwise, calls GET /api/admin/health to validate the admin_session cookie.
- *   - If health returns 200 → allow access immediately (no Supabase call needed).
- *   - If health returns 401 AND a Supabase session exists in the browser:
- *       1. Call POST /api/admin/supabase-login with { access_token }.
- *       2. If that returns 200, retry /api/admin/health and allow access.
- *       3. If it returns 403, set denied=true (show AccessDenied UI).
- *   - If health returns 401 and there is no Supabase session → redirect to /admin/login.
+ *   - If health returns 200 → allow access immediately.
+ *   - If health returns 401 → redirect to /admin/login.
  *   - If health returns needs_setup → redirect to /admin/setup.
  *
  * For superadmin-only pages pass `requireSuperadmin: true`. The hook will
@@ -28,7 +24,6 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { supabase } from "../lib/supabaseClient";
 
 // Admin gate is disabled when NEXT_PUBLIC_DISABLE_ADMIN_GATE=true (local dev only).
 // In production, leave NEXT_PUBLIC_DISABLE_ADMIN_GATE unset (or set to 'false').
@@ -48,60 +43,18 @@ export function useAdminGate({ requireSuperadmin = false } = {}) {
 
     async function checkSession() {
       try {
-        // Step 1: validate existing admin_session cookie via health check.
+        // Validate existing admin_session cookie via health check.
         const healthRes = await fetch("/api/admin/health");
         if (cancelled) return;
 
         if (healthRes.status === 401) {
-          // Step 2: No valid admin_session cookie — try the Supabase bridge.
-          const {
-            data: { session },
-          } = await supabase.auth.getSession();
+          // No valid admin_session cookie — send to password login.
+          router.replace(`/admin/login?redirect=${encodeURIComponent(router.asPath)}`);
+          return;
+        }
 
-          if (cancelled) return;
-
-          if (!session?.access_token) {
-            // No Supabase session either — send to login.
-            router.replace(`/admin/login?redirect=${encodeURIComponent(router.asPath)}`);
-            return;
-          }
-
-          // Step 3: Mint an admin_session cookie via the Supabase bridge.
-          const loginRes = await fetch("/api/admin/supabase-login", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ access_token: session.access_token }),
-          });
-
-          if (cancelled) return;
-
-          if (loginRes.status === 403 || loginRes.status === 401) {
-            setDenied(true);
-            return;
-          }
-
-          if (!loginRes.ok) {
-            console.error("[AdminGate] supabase-login error:", loginRes.status);
-            setDenied(true);
-            return;
-          }
-
-          // Step 4: Retry health now that the cookie is set.
-          const retryRes = await fetch("/api/admin/health");
-          if (cancelled) return;
-
-          if (!retryRes.ok) {
-            setDenied(true);
-            return;
-          }
-
-          const retryData = await retryRes.json().catch(() => ({}));
-          if (retryData.needs_setup) {
-            router.replace("/admin/setup");
-            return;
-          }
-        } else if (healthRes.ok) {
-          // Health check passed with existing cookie — check needs_setup.
+        if (healthRes.ok) {
+          // Health check passed — check needs_setup.
           const data = await healthRes.json().catch(() => ({}));
           if (data.needs_setup) {
             router.replace("/admin/setup");
