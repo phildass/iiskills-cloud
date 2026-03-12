@@ -4,50 +4,55 @@
   "slug": "human-relations-movement",
   "title": "Human Relations Movement",
   "isFree": false,
-  "content": "<h2>Module 1, Lesson 4: Human Relations Movement</h2>\n<h3>The Hook</h3>\n<p>This lesson covers <strong>Human Relations Movement</strong> as part of the Foundations of Management module in the Learn Management course. Mastery of this topic is essential for building a comprehensive understanding of the subject area.</p>\n<h3>The Concept</h3>\n<p>In <strong>Human Relations Movement</strong>, you will explore the foundational ideas, practical techniques, and real-world applications that make this area of study both relevant and actionable. Each concept has been carefully selected to build on prior knowledge and prepare you for more advanced topics.</p>\n<h3>The Illustration</h3>\n<p>Understanding Human Relations Movement means being able to apply these principles in professional contexts. You will encounter scenarios, case studies, and examples drawn from real industry practice, helping you translate theory into competence.</p>\n<h3>Summary</h3>\n<p>You have completed <strong>Human Relations Movement</strong> (Foundations of Management, Lesson 4). Proceed to the quiz to test your understanding, then continue to the next lesson to build further expertise.</p>",
+  "content": "<h2>Module 1, Lesson 4: Human Relations Movement</h2>\n\n<h3>The Hook</h3>\n<p>In the early 1920s, engineers at the Western Electric Hawthorne plant near Chicago set out to discover how lighting levels affected worker productivity. They changed the lighting. Productivity went up. They reduced lighting. Productivity went up again. Puzzled, they brought in a team of Harvard researchers led by Elton Mayo. What they discovered would change management forever: workers are not simply rational economic machines — they are social beings whose performance is profoundly shaped by how they are treated, whether they feel valued, and who they work with.</p>\n<p>The Human Relations Movement emerged from this insight and became the foundation for modern people management, motivation theory, and organisational psychology.</p>\n\n<h3>The Concept</h3>\n<h4>1. The Hawthorne Studies</h4>\n<p>The Hawthorne Studies (1924–1932) conducted at Western Electric produced three landmark findings. The <strong>Relay Assembly Test Room</strong> experiments showed that small groups of women given special attention and autonomy outperformed larger groups regardless of physical working conditions. The <strong>Bank Wiring Observation Room</strong> revealed that informal group norms powerfully constrained output — workers who exceeded the informal quota were called \"rate-busters\" and socially sanctioned. The interview programme showed that workers had complex emotional needs and benefited greatly from simply being listened to. The collective finding — that social and psychological factors outweigh physical conditions in determining productivity — became known as the <strong>Hawthorne Effect</strong>.</p>\n\n<h4>2. Elton Mayo and Social Man</h4>\n<p>Elton Mayo concluded that the classical image of the \"economic man\" — motivated solely by pay and working conditions — was inadequate. He proposed the concept of <strong>social man</strong>: a worker motivated primarily by social belonging, recognition, and meaningful relationships at work. Mayo argued that management must attend to informal groups, team morale, and workers' emotional needs. His work challenged the Taylorist assumption that management's task was purely technical optimisation, placing human relationships at the centre of management practice.</p>\n\n<h4>3. Abraham Maslow's Hierarchy of Needs</h4>\n<p>Abraham Maslow's <strong>Hierarchy of Needs</strong> (1943) proposed that human motivation follows a pyramid of five levels: physiological needs (food, shelter), safety needs (job security, physical safety), social needs (belonging, friendship), esteem needs (recognition, status), and self-actualisation (realising one's full potential). Maslow argued that lower-level needs must be substantially satisfied before higher-level needs become motivating. For managers, this model provided a framework for understanding why pay alone is insufficient: once basic needs are met, workers are motivated by recognition, relationships, and growth opportunities.</p>\n\n<h4>4. Douglas McGregor: Theory X and Theory Y</h4>\n<p>Douglas McGregor's <em>The Human Side of Enterprise</em> (1960) articulated two contrasting managerial assumptions. <strong>Theory X</strong> holds that workers are inherently lazy, dislike work, avoid responsibility, and must be coerced, controlled, and threatened to perform. <strong>Theory Y</strong> holds that workers are self-motivated, creative, seek responsibility, and can exercise self-direction when committed to objectives. McGregor argued that most organisations operated on Theory X assumptions while most workers were capable of Theory Y behaviour — and that Theory X management created the very passivity it assumed. Managers who adopted Theory Y assumptions fostered engagement, creativity, and initiative.</p>\n\n<h4>5. Legacy and Modern Application</h4>\n<p>The Human Relations Movement directly spawned the fields of organisational behaviour, industrial psychology, and human resource management. Its legacy includes: employee surveys, team-based work design, employee assistance programmes, open-door policies, and management development programmes. Contemporary practices such as psychological safety (Amy Edmondson), employee experience design, and servant leadership all build on Mayo's foundational insight. The movement's limitation was that it sometimes underestimated the role of economic incentives and structural factors — but its core claim, that how people are treated at work profoundly affects their performance, is now empirically unassailable.</p>\n\n<h3>The Illustration</h3>\n<p>The Human Relations Movement taught management that people are not components to be optimised, but human beings to be engaged. From Hawthorne's accidental discovery to Maslow's pyramid to McGregor's theoretical challenge, each contribution refined the understanding that the social and psychological dimensions of work are as important as its technical design. Every manager who asks \"how is my team feeling?\" or creates a culture of recognition is drawing on this tradition.</p>",
   "quiz": [
     {
-      "question": "What does SMART stand for in goal-setting?",
+      "question": "What was the primary unexpected finding of the Hawthorne Studies?",
       "options": [
-        "Simple, Manageable, Achievable, Realistic, Timely",
-        "Specific, Measurable, Achievable, Relevant, Time-bound",
-        "Strategic, Meaningful, Actionable, Responsible, Trackable",
-        "Structured, Motivated, Agile, Results-driven, Targeted"
+        "Better lighting consistently increases productivity",
+        "Social and psychological factors significantly influence worker productivity",
+        "Pay is the only driver of performance",
+        "Smaller factories are more efficient"
       ],
       "correct_answer": 1
     },
     {
-      "question": "What is organisational behaviour?",
+      "question": "What did the Bank Wiring Observation Room study reveal about informal group norms?",
       "options": [
-        "The study of how buildings are organized",
-        "The study of how individuals and groups act within organizations",
-        "The process of restructuring a company",
-        "A type of financial reporting"
+        "Workers maximised individual output",
+        "Informal norms constrained output — workers who exceeded quotas were sanctioned by peers",
+        "Workers ignored group pressure",
+        "Formal rules always overrode informal norms"
       ],
       "correct_answer": 1
     },
     {
-      "question": "What are the four core functions of management?",
+      "question": "In Maslow's Hierarchy of Needs, which level sits at the top of the pyramid?",
       "options": [
-        "Planning, Organizing, Leading, and Controlling",
-        "Hiring, Firing, Promoting, and Demoting",
-        "Marketing, Sales, Finance, and Operations",
-        "Analyzing, Designing, Implementing, and Testing"
+        "Esteem needs",
+        "Safety needs",
+        "Social needs",
+        "Self-actualisation"
       ],
-      "correct_answer": 0
+      "correct_answer": 3
     },
     {
-      "question": "Which management theorist introduced Scientific Management?",
-      "options": ["Peter Drucker", "Frederick Taylor", "Henri Fayol", "Abraham Maslow"],
-      "correct_answer": 1
-    },
-    {
-      "question": "What is the primary purpose of the controlling function in management?",
+      "question": "What does Theory Y assume about workers, according to McGregor?",
       "options": [
-        "Setting goals",
-        "Monitoring performance and taking corrective action",
-        "Allocating resources",
-        "Hiring employees"
+        "Workers are lazy and need close supervision",
+        "Workers are inherently dishonest",
+        "Workers are self-motivated, seek responsibility, and can exercise self-direction",
+        "Workers are motivated solely by financial rewards"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "Elton Mayo's concept of 'social man' argued that workers are primarily motivated by what?",
+      "options": [
+        "Individual financial gain",
+        "Social belonging, recognition, and meaningful workplace relationships",
+        "Fear of punishment",
+        "Technical mastery"
       ],
       "correct_answer": 1
     }

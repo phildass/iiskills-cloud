@@ -12,6 +12,7 @@
  *   <GeographyMedia moduleId={moduleId} lessonId={lessonId} />
  */
 
+import Image from "next/image";
 import { getLessonMedia } from "../data/geographyMedia";
 
 export default function GeographyMedia({ moduleId, lessonId }) {

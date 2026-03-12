@@ -4,52 +4,57 @@
   "slug": "communication-in-organizations",
   "title": "Communication in Organizations",
   "isFree": false,
-  "content": "<h2>Module 1, Lesson 8: Communication in Organizations</h2>\n<h3>The Hook</h3>\n<p>This lesson covers <strong>Communication in Organizations</strong> as part of the Foundations of Management module in the Learn Management course. Mastery of this topic is essential for building a comprehensive understanding of the subject area.</p>\n<h3>The Concept</h3>\n<p>In <strong>Communication in Organizations</strong>, you will explore the foundational ideas, practical techniques, and real-world applications that make this area of study both relevant and actionable. Each concept has been carefully selected to build on prior knowledge and prepare you for more advanced topics.</p>\n<h3>The Illustration</h3>\n<p>Understanding Communication in Organizations means being able to apply these principles in professional contexts. You will encounter scenarios, case studies, and examples drawn from real industry practice, helping you translate theory into competence.</p>\n<h3>Summary</h3>\n<p>You have completed <strong>Communication in Organizations</strong> (Foundations of Management, Lesson 8). Proceed to the quiz to test your understanding, then continue to the next lesson to build further expertise.</p>",
+  "content": "<h2>Module 1, Lesson 8: Communication in Organizations</h2>\n\n<h3>The Hook</h3>\n<p>Studies consistently show that managers spend between 70% and 90% of their working time communicating — in meetings, emails, phone calls, presentations, and informal conversations. Communication is not just a tool managers use; it is the medium through which management happens. Strategy is only effective when communicated; culture is only lived when reinforced through daily communication; decisions are only implemented when clearly conveyed. Yet communication failures remain one of the most common causes of project failure, employee disengagement, and organisational dysfunction.</p>\n\n<h3>The Concept</h3>\n<h4>1. The Communication Process Model</h4>\n<p>The basic communication model involves a <strong>sender</strong> encoding a message, transmitting it through a <strong>channel</strong>, and a <strong>receiver</strong> decoding it. <strong>Feedback</strong> completes the loop. <strong>Noise</strong> — anything that distorts or interrupts the message — can occur at any point: semantic noise (different interpretations of words), physical noise (poor acoustics, bad connection), psychological noise (stress, preconceptions), or cultural noise (different values and norms). Effective communication is not simply transmitting accurate information — it is ensuring the receiver understands and can act on the intended meaning.</p>\n\n<h4>2. Formal and Informal Communication Channels</h4>\n<p>Organisational communication flows through two parallel systems. <strong>Formal channels</strong> follow the organisational hierarchy: downward communication (directives, policies, feedback from management), upward communication (reports, complaints, suggestions from employees), and horizontal communication (coordination between peers and departments). <strong>Informal channels</strong> — the \"grapevine\" — operate outside formal structures and can carry information faster than formal channels, though with lower accuracy. Research shows that the grapevine carries significant emotional content and is particularly active during periods of change or uncertainty. Effective managers monitor informal communication and use it strategically.</p>\n\n<h4>3. Verbal, Non-Verbal, and Written Communication</h4>\n<p>Communication occurs across multiple modalities. <strong>Verbal communication</strong> — spoken words — carries denotative meaning but is amplified or contradicted by <strong>non-verbal communication</strong>: body language, facial expression, tone of voice, posture, and eye contact. Research by Albert Mehrabian (often misquoted) showed that in emotionally loaded conversations about feelings and attitudes, non-verbal signals carry disproportionate weight. <strong>Written communication</strong> — email, reports, proposals, instant messages — provides a record and enables asynchronous communication, but lacks the richness of face-to-face interaction and is prone to misinterpretation. Choosing the right modality for the message — using video for sensitive conversations, email for detailed information, meetings for collaborative problem-solving — is a core management skill.</p>\n\n<h4>4. Barriers to Effective Communication</h4>\n<p>Common barriers include: <strong>filtering</strong> (the tendency to pass only information the sender thinks the receiver wants to hear, distorting upward communication); <strong>selective perception</strong> (interpreting messages through the lens of one's own expectations); <strong>information overload</strong> (too much information leading to incomplete processing); <strong>emotional state</strong> (stress or strong emotion reducing receptivity); <strong>language and jargon</strong> (technical terms that exclude or confuse); and <strong>cultural differences</strong> (different norms around directness, formality, and hierarchy). Recognising these barriers helps managers design communication strategies that overcome them.</p>\n\n<h4>5. Active Listening and Communication Climate</h4>\n<p><strong>Active listening</strong> — fully concentrating, understanding, responding, and remembering what is being said — is consistently identified as the most underdeveloped communication skill in managers. It involves not just hearing words but attending to emotion, context, and what is unsaid. Techniques include paraphrasing, asking clarifying questions, and suspending judgement. Beyond individual skill, managers shape the overall <strong>communication climate</strong>: a defensive climate (where criticism is common, status differences are emphasised, and control is maintained) inhibits open communication; a supportive climate (characterised by empathy, equality, and problem orientation) encourages it. The manager's communication behaviour is the single most powerful determinant of team communication climate.</p>\n\n<h3>The Illustration</h3>\n<p>Communication is the connective tissue of organisations. Managers who communicate clearly, listen actively, choose appropriate channels, and create psychologically safe communication climates consistently outperform those who do not. The return on investment from developing communication skills — at both individual and organisational levels — is among the highest available to any manager.</p>",
   "quiz": [
     {
-      "question": "What is the primary purpose of the controlling function in management?",
+      "question": "What is 'filtering' as a barrier to organisational communication?",
       "options": [
-        "Setting goals",
-        "Monitoring performance and taking corrective action",
-        "Allocating resources",
-        "Hiring employees"
+        "Using too much technical jargon",
+        "Passing only information the sender thinks the receiver wants to hear",
+        "Sending too many emails",
+        "Choosing the wrong communication channel"
       ],
       "correct_answer": 1
     },
     {
-      "question": "What does SMART stand for in goal-setting?",
+      "question": "Which direction of formal communication carries directives and policies from management to employees?",
       "options": [
-        "Simple, Manageable, Achievable, Realistic, Timely",
-        "Specific, Measurable, Achievable, Relevant, Time-bound",
-        "Strategic, Meaningful, Actionable, Responsible, Trackable",
-        "Structured, Motivated, Agile, Results-driven, Targeted"
+        "Upward communication",
+        "Horizontal communication",
+        "Downward communication",
+        "Diagonal communication"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "What is the 'grapevine' in organisational communication?",
+      "options": [
+        "A formal reporting structure",
+        "An informal communication network that operates outside official channels",
+        "A type of email system",
+        "A management dashboard"
       ],
       "correct_answer": 1
     },
     {
-      "question": "What is organisational behaviour?",
+      "question": "Active listening involves which of the following?",
       "options": [
-        "The study of how buildings are organized",
-        "The study of how individuals and groups act within organizations",
-        "The process of restructuring a company",
-        "A type of financial reporting"
+        "Preparing your response while the other person speaks",
+        "Fully concentrating, understanding, responding, and remembering",
+        "Quickly summarising and moving on",
+        "Focusing only on factual content"
       ],
       "correct_answer": 1
     },
     {
-      "question": "What are the four core functions of management?",
+      "question": "A 'supportive communication climate' is characterised by what?",
       "options": [
-        "Planning, Organizing, Leading, and Controlling",
-        "Hiring, Firing, Promoting, and Demoting",
-        "Marketing, Sales, Finance, and Operations",
-        "Analyzing, Designing, Implementing, and Testing"
+        "Strict hierarchy and control",
+        "Frequent criticism and status emphasis",
+        "Empathy, equality, and problem orientation",
+        "Limited information sharing"
       ],
-      "correct_answer": 0
-    },
-    {
-      "question": "Which management theorist introduced Scientific Management?",
-      "options": ["Peter Drucker", "Frederick Taylor", "Henri Fayol", "Abraham Maslow"],
-      "correct_answer": 1
+      "correct_answer": 2
     }
   ]
 }

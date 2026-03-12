@@ -4,52 +4,57 @@
   "slug": "decision-making-in-management",
   "title": "Decision-Making in Management",
   "isFree": false,
-  "content": "<h2>Module 1, Lesson 7: Decision-Making in Management</h2>\n<h3>The Hook</h3>\n<p>This lesson covers <strong>Decision-Making in Management</strong> as part of the Foundations of Management module in the Learn Management course. Mastery of this topic is essential for building a comprehensive understanding of the subject area.</p>\n<h3>The Concept</h3>\n<p>In <strong>Decision-Making in Management</strong>, you will explore the foundational ideas, practical techniques, and real-world applications that make this area of study both relevant and actionable. Each concept has been carefully selected to build on prior knowledge and prepare you for more advanced topics.</p>\n<h3>The Illustration</h3>\n<p>Understanding Decision-Making in Management means being able to apply these principles in professional contexts. You will encounter scenarios, case studies, and examples drawn from real industry practice, helping you translate theory into competence.</p>\n<h3>Summary</h3>\n<p>You have completed <strong>Decision-Making in Management</strong> (Foundations of Management, Lesson 7). Proceed to the quiz to test your understanding, then continue to the next lesson to build further expertise.</p>",
+  "content": "<h2>Module 1, Lesson 7: Decision-Making in Management</h2>\n\n<h3>The Hook</h3>\n<p>Every day, managers make hundreds of decisions: whom to hire, which project to prioritise, how to respond to a customer complaint, whether to escalate a problem or resolve it themselves. Decision-making is arguably the most fundamental managerial act, and yet research consistently shows that even experienced managers are subject to systematic biases that distort their judgement. Understanding the decision-making process — and the cognitive traps that undermine it — is essential for making better choices under pressure.</p>\n\n<h3>The Concept</h3>\n<h4>1. Types of Decisions</h4>\n<p>Management decisions vary along two key dimensions: structure and impact. <strong>Programmed (structured) decisions</strong> are routine, repetitive, and governed by established rules or procedures — approving a standard expense claim, for example. <strong>Non-programmed (unstructured) decisions</strong> are novel, complex, and require judgement — entering a new market, responding to a crisis. Decisions also vary by <strong>strategic impact</strong>: operational decisions affect day-to-day activities; tactical decisions affect medium-term plans; strategic decisions affect the organisation's long-term direction. Senior managers handle more non-programmed, strategic decisions; front-line managers handle more programmed, operational ones.</p>\n\n<h4>2. The Rational Decision-Making Model</h4>\n<p>The classical <strong>rational model</strong> describes decision-making as a sequence of steps: (1) identify and define the problem; (2) establish decision criteria; (3) weight the criteria by importance; (4) generate all possible alternatives; (5) evaluate each alternative against all criteria; (6) select the optimal alternative. This model assumes complete information, unlimited cognitive capacity, and consistent preferences. While it provides a useful normative framework, Herbert Simon showed in the 1950s that it rarely describes actual decision-making — hence his concept of <strong>bounded rationality</strong>: people make decisions with limited information, limited cognitive capacity, and time constraints, seeking a satisfactory rather than optimal solution (satisficing).</p>\n\n<h4>3. Decision-Making Under Uncertainty</h4>\n<p>Real decisions are almost always made under conditions of uncertainty. Decision trees help managers map possible outcomes and assign probabilities to branches, calculating expected values. The <strong>Vroom-Yetton-Jago model</strong> provides a framework for deciding how much participation to involve in a decision, ranging from fully autocratic (manager decides alone) to fully participative (group consensus). The appropriate level of participation depends on the quality of information available, the importance of team commitment to the decision, and time constraints. More information and higher need for commitment favour more participative approaches.</p>\n\n<h4>4. Cognitive Biases in Decision-Making</h4>\n<p>Daniel Kahneman's research identified two systems of thinking: fast, intuitive System 1 (useful for routine decisions) and slow, deliberate System 2 (necessary for complex ones). Common biases that distort management decisions include: <strong>confirmation bias</strong> (seeking information that confirms existing beliefs), <strong>anchoring</strong> (over-relying on the first piece of information encountered), <strong>overconfidence bias</strong> (overestimating one's own accuracy), <strong>escalation of commitment</strong> (continuing to invest in a failing course of action to avoid admitting past error), and <strong>groupthink</strong> (the suppression of dissent within cohesive groups). Recognising these biases is the first step to mitigating them.</p>\n\n<h4>5. Improving Decision Quality</h4>\n<p>Managers can improve decision quality through several practices: <strong>pre-mortem analysis</strong> (imagining the decision has failed and working backwards to identify why); <strong>devil's advocacy</strong> (designating someone to argue against the preferred option); <strong>structured debate</strong> (dialectical inquiry that explicitly considers opposing viewpoints); and <strong>decision journals</strong> (recording the reasoning behind decisions and reviewing outcomes later). In high-stakes decisions, frameworks like RAPID (Recommend, Agree, Perform, Input, Decide) clarify who has decision authority. Building diverse teams reduces collective blind spots.</p>\n\n<h3>The Illustration</h3>\n<p>Decision-making is where management theory meets reality. The rational model provides structure; bounded rationality acknowledges human limitation; bias research reveals the traps; and practical tools help navigate them. The best managers are not those who never make mistakes — they are those who build processes that catch biases, invite challenge, and learn systematically from outcomes.</p>",
   "quiz": [
     {
-      "question": "Which management theorist introduced Scientific Management?",
-      "options": ["Peter Drucker", "Frederick Taylor", "Henri Fayol", "Abraham Maslow"],
-      "correct_answer": 1
-    },
-    {
-      "question": "What is the primary purpose of the controlling function in management?",
+      "question": "What is Herbert Simon's concept of 'satisficing' in decision-making?",
       "options": [
-        "Setting goals",
-        "Monitoring performance and taking corrective action",
-        "Allocating resources",
-        "Hiring employees"
+        "Finding the perfect optimal solution",
+        "Seeking a satisfactory solution given limited information and cognitive capacity",
+        "Delegating all decisions to subordinates",
+        "Making decisions by committee"
       ],
       "correct_answer": 1
     },
     {
-      "question": "What does SMART stand for in goal-setting?",
+      "question": "Which cognitive bias involves continuing to invest in a failing course of action to avoid admitting past error?",
       "options": [
-        "Simple, Manageable, Achievable, Realistic, Timely",
-        "Specific, Measurable, Achievable, Relevant, Time-bound",
-        "Strategic, Meaningful, Actionable, Responsible, Trackable",
-        "Structured, Motivated, Agile, Results-driven, Targeted"
+        "Confirmation bias",
+        "Anchoring",
+        "Escalation of commitment",
+        "Overconfidence bias"
+      ],
+      "correct_answer": 2
+    },
+    {
+      "question": "The Vroom-Yetton-Jago model helps managers decide what?",
+      "options": [
+        "How to allocate budgets",
+        "How much participation to involve in a decision",
+        "Which KPIs to measure",
+        "How to structure an organisation"
       ],
       "correct_answer": 1
     },
     {
-      "question": "What is organisational behaviour?",
+      "question": "What is a 'pre-mortem analysis' in decision-making?",
       "options": [
-        "The study of how buildings are organized",
-        "The study of how individuals and groups act within organizations",
-        "The process of restructuring a company",
-        "A type of financial reporting"
+        "Reviewing a decision after it has been implemented",
+        "Imagining that the decision has failed and working backwards to identify why",
+        "A financial risk assessment",
+        "A stakeholder consultation process"
       ],
       "correct_answer": 1
     },
     {
-      "question": "What are the four core functions of management?",
+      "question": "Non-programmed decisions differ from programmed decisions in that they are:",
       "options": [
-        "Planning, Organizing, Leading, and Controlling",
-        "Hiring, Firing, Promoting, and Demoting",
-        "Marketing, Sales, Finance, and Operations",
-        "Analyzing, Designing, Implementing, and Testing"
+        "Routine and governed by established rules",
+        "Novel, complex, and require managerial judgement",
+        "Made only by senior managers",
+        "Always made by committee"
       ],
-      "correct_answer": 0
+      "correct_answer": 1
     }
   ]
 }

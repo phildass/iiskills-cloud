@@ -4,52 +4,57 @@
   "slug": "modern-management-approaches",
   "title": "Modern Management Approaches",
   "isFree": false,
-  "content": "<h2>Module 1, Lesson 5: Modern Management Approaches</h2>\n<h3>The Hook</h3>\n<p>This lesson covers <strong>Modern Management Approaches</strong> as part of the Foundations of Management module in the Learn Management course. Mastery of this topic is essential for building a comprehensive understanding of the subject area.</p>\n<h3>The Concept</h3>\n<p>In <strong>Modern Management Approaches</strong>, you will explore the foundational ideas, practical techniques, and real-world applications that make this area of study both relevant and actionable. Each concept has been carefully selected to build on prior knowledge and prepare you for more advanced topics.</p>\n<h3>The Illustration</h3>\n<p>Understanding Modern Management Approaches means being able to apply these principles in professional contexts. You will encounter scenarios, case studies, and examples drawn from real industry practice, helping you translate theory into competence.</p>\n<h3>Summary</h3>\n<p>You have completed <strong>Modern Management Approaches</strong> (Foundations of Management, Lesson 5). Proceed to the quiz to test your understanding, then continue to the next lesson to build further expertise.</p>",
+  "content": "<h2>Module 1, Lesson 5: Modern Management Approaches</h2>\n\n<h3>The Hook</h3>\n<p>The world that Frederick Taylor and Henri Fayol sought to manage — characterised by stable markets, predictable technologies, and clearly defined tasks — has largely disappeared. Today's organisations operate in a VUCA environment: volatile, uncertain, complex, and ambiguous. Globalisation, digital disruption, remote work, and the knowledge economy have rendered many classical assumptions obsolete. Modern management approaches have responded by becoming more adaptive, participative, and systems-oriented.</p>\n<p>This lesson surveys the most influential modern management frameworks that equip managers for 21st-century challenges.</p>\n\n<h3>The Concept</h3>\n<h4>1. Systems Thinking</h4>\n<p>Systems thinking, drawing on the work of Peter Senge's <em>The Fifth Discipline</em> (1990), views an organisation as an interconnected system rather than a collection of independent parts. A change in one area ripples throughout the entire system. Senge identified five disciplines: personal mastery, mental models, shared vision, team learning, and systems thinking itself. The concept of <strong>feedback loops</strong> — where an outcome feeds back to influence its own cause — is central. Reinforcing loops amplify change; balancing loops resist it. Systems thinking helps managers avoid common pitfalls: fixing problems in isolation only to see them resurface elsewhere (the \"whack-a-mole\" syndrome).</p>\n\n<h4>2. Management by Objectives (MBO)</h4>\n<p>Peter Drucker's <strong>Management by Objectives</strong> (1954) proposed that managers and employees jointly set specific, measurable goals aligned to organisational strategy. Progress is regularly reviewed, and rewards are linked to results. MBO shifted the focus from activity to outcomes and from top-down direction to collaborative goal-setting. Its modern descendants include <strong>OKRs (Objectives and Key Results)</strong>, popularised by Intel and Google, which add the concept of ambitious \"stretch goals\" and full transparency of goals across the organisation.</p>\n\n<h4>3. Total Quality Management (TQM)</h4>\n<p>Pioneered by W. Edwards Deming and Joseph Juran, and successfully implemented in post-war Japan, <strong>Total Quality Management</strong> is a philosophy of continuous improvement involving every employee. TQM's core principles include: customer focus, continuous improvement (kaizen), fact-based decision making, and involvement of all employees. Deming's 14 Points challenged managers to eliminate fear, break down departmental barriers, and invest in training. TQM gave birth to quality standards such as ISO 9001 and directly influenced lean and Six Sigma methodologies.</p>\n\n<h4>4. Agile Management</h4>\n<p>Originating in software development through the 2001 <strong>Agile Manifesto</strong>, agile management emphasises iterative work cycles (sprints), customer collaboration, rapid adaptation to change, and self-organising teams. Agile has expanded far beyond software into marketing, HR, and strategy through frameworks like Scrum, Kanban, and SAFe. Core agile values — individuals and interactions over processes and tools; working deliverables over comprehensive documentation; responding to change over following a plan — directly challenge classical management assumptions about control and planning.</p>\n\n<h4>5. Knowledge Management and the Learning Organisation</h4>\n<p>As the economy shifted from physical production to knowledge work, managing intellectual capital became critical. <strong>Knowledge Management</strong> involves creating, capturing, sharing, and applying organisational knowledge to improve performance. Nonaka and Takeuchi's SECI model describes how knowledge moves between tacit (personal, experiential) and explicit (codifiable, shareable) forms through socialisation, externalisation, combination, and internalisation. Senge's <strong>Learning Organisation</strong> extends this: an organisation that continuously transforms itself through learning, experimentation, and reflection. In practice, this means creating communities of practice, after-action reviews, and cultures that treat failure as information.</p>\n\n<h3>The Illustration</h3>\n<p>Modern management approaches share a common thread: they respond to complexity with adaptability, and to knowledge work with participation. Systems thinking prevents tunnel-vision fixes. MBO and OKRs align effort to outcomes. TQM embeds quality in culture. Agile enables rapid response. Knowledge management sustains organisational learning. No single approach is sufficient; effective modern managers synthesise these frameworks according to their context, drawing on each as the situation demands.</p>",
   "quiz": [
     {
-      "question": "What is organisational behaviour?",
+      "question": "Which concept, central to systems thinking, describes how an output feeds back to influence its own cause?",
       "options": [
-        "The study of how buildings are organized",
-        "The study of how individuals and groups act within organizations",
-        "The process of restructuring a company",
-        "A type of financial reporting"
+        "Span of control",
+        "Feedback loops",
+        "Division of labour",
+        "Chain of command"
       ],
       "correct_answer": 1
     },
     {
-      "question": "What are the four core functions of management?",
+      "question": "OKRs (Objectives and Key Results) are the modern descendant of which management approach?",
       "options": [
-        "Planning, Organizing, Leading, and Controlling",
-        "Hiring, Firing, Promoting, and Demoting",
-        "Marketing, Sales, Finance, and Operations",
-        "Analyzing, Designing, Implementing, and Testing"
+        "Total Quality Management",
+        "Agile Management",
+        "Management by Objectives (MBO)",
+        "Scientific Management"
       ],
-      "correct_answer": 0
+      "correct_answer": 2
     },
     {
-      "question": "Which management theorist introduced Scientific Management?",
-      "options": ["Peter Drucker", "Frederick Taylor", "Henri Fayol", "Abraham Maslow"],
-      "correct_answer": 1
-    },
-    {
-      "question": "What is the primary purpose of the controlling function in management?",
+      "question": "Which of the following is a core principle of Total Quality Management?",
       "options": [
-        "Setting goals",
-        "Monitoring performance and taking corrective action",
-        "Allocating resources",
-        "Hiring employees"
+        "Centralised decision-making",
+        "Continuous improvement involving all employees",
+        "Short-term profit maximisation",
+        "Strict hierarchy"
       ],
       "correct_answer": 1
     },
     {
-      "question": "What does SMART stand for in goal-setting?",
+      "question": "The Agile Manifesto was originally developed in which field?",
       "options": [
-        "Simple, Manageable, Achievable, Realistic, Timely",
-        "Specific, Measurable, Achievable, Relevant, Time-bound",
-        "Strategic, Meaningful, Actionable, Responsible, Trackable",
-        "Structured, Motivated, Agile, Results-driven, Targeted"
+        "Manufacturing",
+        "Healthcare",
+        "Software development",
+        "Financial services"
       ],
-      "correct_answer": 1
+      "correct_answer": 2
+    },
+    {
+      "question": "In Nonaka and Takeuchi's SECI model, which process converts tacit knowledge to explicit knowledge?",
+      "options": [
+        "Socialisation",
+        "Internalisation",
+        "Combination",
+        "Externalisation"
+      ],
+      "correct_answer": 3
     }
   ]
 }

@@ -4,50 +4,55 @@
   "slug": "behavioural-leadership-styles",
   "title": "Behavioural Leadership Styles",
   "isFree": false,
-  "content": "<h2>Module 2, Lesson 3: Behavioural Leadership Styles</h2>\n<h3>The Hook</h3>\n<p>This lesson covers <strong>Behavioural Leadership Styles</strong> as part of the Leadership Principles module in the Learn Management course. Mastery of this topic is essential for building a comprehensive understanding of the subject area.</p>\n<h3>The Concept</h3>\n<p>In <strong>Behavioural Leadership Styles</strong>, you will explore the foundational ideas, practical techniques, and real-world applications that make this area of study both relevant and actionable. Each concept has been carefully selected to build on prior knowledge and prepare you for more advanced topics.</p>\n<h3>The Illustration</h3>\n<p>Understanding Behavioural Leadership Styles means being able to apply these principles in professional contexts. You will encounter scenarios, case studies, and examples drawn from real industry practice, helping you translate theory into competence.</p>\n<h3>Summary</h3>\n<p>You have completed <strong>Behavioural Leadership Styles</strong> (Leadership Principles, Lesson 3). Proceed to the quiz to test your understanding, then continue to the next lesson to build further expertise.</p>",
+  "content": "<h2>Module 2, Lesson 3: Behavioural Leadership Styles</h2>\n\n<h3>The Hook</h3>\n<p>If trait theory asks \"what kind of person makes an effective leader?\", behavioural theory asks a more practically useful question: \"what do effective leaders actually do?\" Behavioural leadership research, which flourished in the 1940s–1960s through landmark studies at Ohio State University and the University of Michigan, shifted focus from who leaders are to how they behave. This shift was transformational for leadership development: if effectiveness depends on behaviour rather than fixed traits, then it can be taught and learned by anyone.</p>\n\n<h3>The Concept</h3>\n<h4>1. The Ohio State Studies</h4>\n<p>Researchers at Ohio State University in the late 1940s analysed thousands of descriptions of leader behaviour and identified two independent dimensions. <strong>Initiating structure</strong> (task orientation): the degree to which the leader defines roles, sets goals, establishes procedures, organises work, and emphasises performance. <strong>Consideration</strong> (relationship orientation): the degree to which the leader builds rapport, shows concern for followers' wellbeing, listens, and creates a trusting climate. The key insight was that these two dimensions are independent, not opposite ends of a single scale — a leader can be high on both, low on both, or high on one and low on the other. Early research suggested that high consideration produced higher follower satisfaction, while high initiating structure produced higher performance.</p>\n\n<h4>2. The Michigan Studies</h4>\n<p>Concurrent research at the University of Michigan, led by Rensis Likert, similarly identified two contrasting leadership orientations. <strong>Employee-centred</strong> leaders focused on human relationships and employee wellbeing. <strong>Production-centred</strong> leaders focused on technical aspects of work and task completion. The Michigan studies initially suggested that employee-centred leadership produced better outcomes. Rensis Likert's subsequent work identified four systems of management: exploitative-authoritative (System 1), benevolent-authoritative (System 2), consultative (System 3), and participative group (System 4). Likert argued that System 4 organisations, characterised by participative management and strong leader-follower trust, consistently outperformed others.</p>\n\n<h4>3. The Managerial Grid (Blake and Mouton)</h4>\n<p>Robert Blake and Jane Mouton's <strong>Managerial Grid</strong> (1964) synthesised the Ohio State findings into a powerful diagnostic tool. The grid plots a manager's orientation on two axes: <strong>concern for production</strong> (task) and <strong>concern for people</strong> (relationship), each rated 1–9. Five key styles emerge: Country Club Management (1,9 — high people, low task), Impoverished Management (1,1 — low on both), Task Management (9,1 — high task, low people), Middle-of-the-Road Management (5,5 — moderate on both), and <strong>Team Management (9,9 — high on both)</strong>. Blake and Mouton argued that the 9,9 Team Management style — combining high task and high people orientation — was universally optimal. While situational theorists later challenged this universality, the grid remains a powerful development tool.</p>\n\n<h4>4. Autocratic, Democratic, and Laissez-Faire Styles</h4>\n<p>Kurt Lewin's classic experimental studies (1939) with boys' clubs identified three distinct leadership styles. <strong>Autocratic</strong> leaders make decisions unilaterally, give directives, and maintain close control. They produce efficient short-term output but lower creativity and satisfaction, and performance drops sharply when the leader is absent. <strong>Democratic (participative)</strong> leaders involve followers in decision-making and share authority. They produce higher quality decisions, stronger commitment, and better morale, though at the cost of speed. <strong>Laissez-faire</strong> leaders provide minimal guidance and leave decisions to followers; effective only with highly competent, self-motivated individuals, but typically produces the lowest overall performance. Democratic leadership was found most effective in Lewin's studies for sustained performance and morale.</p>\n\n<h4>5. Implications and Limitations of Behavioural Theory</h4>\n<p>Behavioural theory's great contribution is making leadership development actionable: if effectiveness is about behaviour, leaders can observe their own patterns, receive feedback, and deliberately practice different styles. The Ohio State/Michigan findings directly inform 360-degree feedback instruments used globally. However, behavioural theory's limitation became apparent when research showed that no single combination of behaviours was universally optimal — the best style depended on the situation, the task, and the followers. This limitation gave birth to situational/contingency theories explored in the next lesson.</p>\n\n<h3>The Illustration</h3>\n<p>Behavioural leadership theory's enduring legacy is the insight that effective leadership can be learned. The two-dimensional model — task and relationship — remains the organising framework of virtually every leadership development programme in existence. Whether using 360-degree feedback, the Managerial Grid, or situational leadership frameworks, the question \"how much am I focusing on task versus people?\" is the most fundamental question a developing leader can ask themselves.</p>",
   "quiz": [
     {
-      "question": "What is emotional intelligence?",
+      "question": "What were the two independent dimensions of leadership behaviour identified by the Ohio State Studies?",
       "options": [
-        "IQ measurement",
-        "Ability to recognise and manage emotions in self and others",
-        "Technical skill",
-        "Financial acumen"
+        "Intelligence and charisma",
+        "Initiating structure (task) and Consideration (relationship)",
+        "Strategic thinking and operational focus",
+        "Autocratic style and democratic style"
       ],
       "correct_answer": 1
     },
     {
-      "question": "What does servant leadership prioritise?",
+      "question": "In Blake and Mouton's Managerial Grid, which style (9,9) combines high concern for both production and people?",
       "options": [
-        "Leader's own goals",
-        "Serving and empowering followers",
-        "Strict authority",
-        "Short-term profits"
+        "Country Club Management",
+        "Impoverished Management",
+        "Task Management",
+        "Team Management"
+      ],
+      "correct_answer": 3
+    },
+    {
+      "question": "What was the key finding of Kurt Lewin's study of autocratic, democratic, and laissez-faire leadership styles?",
+      "options": [
+        "Autocratic leadership always produces the best results",
+        "Democratic leadership produced the highest sustained performance and morale",
+        "Laissez-faire leadership is most effective with new employees",
+        "All three styles produced equal results"
       ],
       "correct_answer": 1
     },
     {
-      "question": "Which model adapts leadership style to follower readiness?",
+      "question": "According to Rensis Likert's Michigan research, which management system consistently outperformed others?",
       "options": [
-        "Trait theory",
-        "Transformational theory",
-        "Situational Leadership",
-        "Autocratic model"
+        "Exploitative-authoritative (System 1)",
+        "Benevolent-authoritative (System 2)",
+        "Consultative (System 3)",
+        "Participative group (System 4)"
       ],
-      "correct_answer": 2
+      "correct_answer": 3
     },
     {
-      "question": "Which leadership style involves team members in decision-making?",
-      "options": ["Autocratic", "Laissez-faire", "Democratic (participative)", "Transactional"],
-      "correct_answer": 2
-    },
-    {
-      "question": "What is transformational leadership?",
+      "question": "What is the main reason behavioural theory advanced leadership development beyond trait theory?",
       "options": [
-        "Maintaining the status quo",
-        "Inspiring followers to exceed expectations for collective good",
-        "Managing by exception",
-        "Exchanging rewards for performance"
+        "It proved that leaders are born, not made",
+        "It focused on observable behaviours that can be taught and learned",
+        "It identified the single best leadership style",
+        "It eliminated the need for situational analysis"
       ],
       "correct_answer": 1
     }
