@@ -5,7 +5,7 @@
  * real Razorpay credentials.
  */
 
-const { getCurrentPricing } = require("../utils/pricing");
+const { getCurrentPricing } = require("../packages/shared-utils/utils/pricing");
 
 // ─── Pricing sanity ───────────────────────────────────────────────────────────
 

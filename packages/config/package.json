@@ -1,0 +1,15 @@
+{
+  "name": "@iiskills/config",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Shared configuration presets for iiskills.cloud applications",
+  "main": "index.js",
+  "license": "MIT",
+  "author": "iiskills.cloud Development Team",
+  "exports": {
+    ".": "./index.js",
+    "./security-headers": "./security-headers.js",
+    "./courseDisplayOrder": "./courseDisplayOrder.js",
+    "./content-banlist": "./content-banlist.json"
+  }
+}

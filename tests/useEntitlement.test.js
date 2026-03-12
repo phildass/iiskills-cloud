@@ -17,7 +17,7 @@
 "use strict";
 
 // We import the real fetchEntitlement with injected deps for direct testing.
-const { fetchEntitlement } = require("../lib/hooks/useEntitlement");
+const { fetchEntitlement } = require("../packages/shared-utils/lib/hooks/useEntitlement");
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -137,14 +137,14 @@ describe("useEntitlement — free-access mode short-circuit", () => {
 
   it("isFreeAccessEnabled returns true when FREE_ACCESS=true", () => {
     process.env.FREE_ACCESS = "true";
-    const { isFreeAccessEnabled } = require("../lib/freeAccess");
+    const { isFreeAccessEnabled } = require("../packages/shared-utils/lib/freeAccess");
     expect(isFreeAccessEnabled()).toBe(true);
   });
 
   it("isFreeAccessEnabled returns false when neither flag is set", () => {
     delete process.env.FREE_ACCESS;
     delete process.env.NEXT_PUBLIC_FREE_ACCESS;
-    const { isFreeAccessEnabled } = require("../lib/freeAccess");
+    const { isFreeAccessEnabled } = require("../packages/shared-utils/lib/freeAccess");
     expect(isFreeAccessEnabled()).toBe(false);
   });
 });

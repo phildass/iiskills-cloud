@@ -17,7 +17,7 @@ import { useRouter } from "next/router";
 import { getCurrentUser, isAdmin } from "../lib/supabaseClient";
 import SecretPasswordPrompt, {
   hasSecretAdminAccess,
-} from "../../../components/SecretPasswordPrompt";
+} from "./SecretPasswordPrompt";
 
 export default function ProtectedRoute({ children, requireAdmin = true }) {
   const router = useRouter();

@@ -1,5 +1,5 @@
 const path = require("path");
-const { getHeadersConfig } = require("./config/security-headers");
+const { getHeadersConfig } = require("./packages/config/security-headers");
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {

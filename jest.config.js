@@ -9,9 +9,9 @@ module.exports = {
   testEnvironment: "node",
   testMatch: ["**/tests/**/*.test.js"],
   collectCoverageFrom: [
-    "lib/**/*.js",
-    "components/**/*.js",
-    "pages/api/**/*.js",
+    "packages/shared-utils/lib/**/*.js",
+    "packages/shared-components/**/*.js",
+    "apps/main/pages/api/**/*.js",
     "!**/node_modules/**",
     "!**/.next/**",
   ],

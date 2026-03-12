@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Head from "next/head";
 import { useState, useEffect } from "react";
-import Hero, { getHeroImagesForApp } from "../../../components/shared/HeroManager";
+import Hero, { getHeroImagesForApp } from "../../../packages/shared-components/HeroManager";
 import { getPricingDisplay } from "../utils/pricing";
 import { UniversalInstallPrompt } from "@iiskills/ui";
 

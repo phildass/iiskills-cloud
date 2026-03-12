@@ -4,22 +4,55 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": [".next/**", "!.next/cache/**"]
+      "outputs": [".next/**", "!.next/cache/**", "dist/**"],
+      "inputs": [
+        "src/**",
+        "pages/**",
+        "components/**",
+        "lib/**",
+        "utils/**",
+        "styles/**",
+        "public/**",
+        "package.json",
+        "next.config.js",
+        "tailwind.config.js",
+        "postcss.config.js",
+        "tsconfig.json",
+        "jsconfig.json"
+      ]
     },
     "@iiskills/content-sdk#build": {
       "dependsOn": ["^build"],
-      "outputs": ["dist/**"]
+      "outputs": ["dist/**"],
+      "inputs": ["src/**", "package.json", "tsconfig.json"]
     },
     "@iiskills/schema#build": {
       "dependsOn": [],
-      "outputs": ["dist/**"]
+      "outputs": ["dist/**"],
+      "inputs": ["src/**", "package.json", "tsconfig.json"]
+    },
+    "@iiskills/shared-utils#build": {
+      "dependsOn": [],
+      "outputs": ["dist/**"],
+      "inputs": ["lib/**", "utils/**", "package.json"]
+    },
+    "@iiskills/shared-components#build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**"],
+      "inputs": ["**/*.js", "**/*.jsx", "package.json"]
+    },
+    "@iiskills/config#build": {
+      "dependsOn": [],
+      "outputs": [],
+      "inputs": ["*.js", "*.json", "package.json"]
     },
     "dev": {
       "cache": false,
       "persistent": true
     },
     "lint": {
-      "outputs": []
+      "outputs": [],
+      "inputs": ["**/*.{js,jsx,ts,tsx,mjs}", "package.json"]
     },
     "start": {
       "cache": false,
@@ -27,3 +60,4 @@
     }
   }
 }
+

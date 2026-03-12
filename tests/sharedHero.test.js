@@ -4,7 +4,7 @@
  * Tests for hero image mapping using manifest system
  */
 
-import { getHeroImageForApp } from "../components/shared/SharedHero";
+import { getHeroImageForApp } from "../packages/shared-components/SharedHero";
 
 describe("SharedHero - Hero Image Mapping with Manifest", () => {
   describe("Manifest-based mappings", () => {

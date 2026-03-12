@@ -28,35 +28,35 @@ describe("freeAccess utility", () => {
     test("returns false when neither flag is set", () => {
       delete process.env.FREE_ACCESS;
       delete process.env.NEXT_PUBLIC_FREE_ACCESS;
-      const { isFreeAccessEnabled } = require("../lib/freeAccess");
+      const { isFreeAccessEnabled } = require("../packages/shared-utils/lib/freeAccess");
       expect(isFreeAccessEnabled()).toBe(false);
     });
 
     test("returns true when FREE_ACCESS=true (server flag)", () => {
       process.env.FREE_ACCESS = "true";
       delete process.env.NEXT_PUBLIC_FREE_ACCESS;
-      const { isFreeAccessEnabled } = require("../lib/freeAccess");
+      const { isFreeAccessEnabled } = require("../packages/shared-utils/lib/freeAccess");
       expect(isFreeAccessEnabled()).toBe(true);
     });
 
     test("returns true when NEXT_PUBLIC_FREE_ACCESS=true (client flag)", () => {
       delete process.env.FREE_ACCESS;
       process.env.NEXT_PUBLIC_FREE_ACCESS = "true";
-      const { isFreeAccessEnabled } = require("../lib/freeAccess");
+      const { isFreeAccessEnabled } = require("../packages/shared-utils/lib/freeAccess");
       expect(isFreeAccessEnabled()).toBe(true);
     });
 
     test('returns false when flags are "false" strings', () => {
       process.env.FREE_ACCESS = "false";
       process.env.NEXT_PUBLIC_FREE_ACCESS = "false";
-      const { isFreeAccessEnabled } = require("../lib/freeAccess");
+      const { isFreeAccessEnabled } = require("../packages/shared-utils/lib/freeAccess");
       expect(isFreeAccessEnabled()).toBe(false);
     });
 
     test("returns false when flags are set to other truthy strings", () => {
       process.env.FREE_ACCESS = "1";
       process.env.NEXT_PUBLIC_FREE_ACCESS = "yes";
-      const { isFreeAccessEnabled } = require("../lib/freeAccess");
+      const { isFreeAccessEnabled } = require("../packages/shared-utils/lib/freeAccess");
       expect(isFreeAccessEnabled()).toBe(false);
     });
   });
@@ -72,22 +72,22 @@ describe("freeAccess utility", () => {
       });
 
       test("returns true when isEntitled is false", () => {
-        const { hasContentAccess } = require("../lib/freeAccess");
+        const { hasContentAccess } = require("../packages/shared-utils/lib/freeAccess");
         expect(hasContentAccess(false)).toBe(true);
       });
 
       test("returns true when isEntitled is true", () => {
-        const { hasContentAccess } = require("../lib/freeAccess");
+        const { hasContentAccess } = require("../packages/shared-utils/lib/freeAccess");
         expect(hasContentAccess(true)).toBe(true);
       });
 
       test("returns true when isEntitled is undefined", () => {
-        const { hasContentAccess } = require("../lib/freeAccess");
+        const { hasContentAccess } = require("../packages/shared-utils/lib/freeAccess");
         expect(hasContentAccess(undefined)).toBe(true);
       });
 
       test("returns true when isEntitled is null", () => {
-        const { hasContentAccess } = require("../lib/freeAccess");
+        const { hasContentAccess } = require("../packages/shared-utils/lib/freeAccess");
         expect(hasContentAccess(null)).toBe(true);
       });
     });
@@ -99,22 +99,22 @@ describe("freeAccess utility", () => {
       });
 
       test("returns false when isEntitled is false", () => {
-        const { hasContentAccess } = require("../lib/freeAccess");
+        const { hasContentAccess } = require("../packages/shared-utils/lib/freeAccess");
         expect(hasContentAccess(false)).toBe(false);
       });
 
       test("returns true when isEntitled is true", () => {
-        const { hasContentAccess } = require("../lib/freeAccess");
+        const { hasContentAccess } = require("../packages/shared-utils/lib/freeAccess");
         expect(hasContentAccess(true)).toBe(true);
       });
 
       test("returns false when isEntitled is null (unauthenticated)", () => {
-        const { hasContentAccess } = require("../lib/freeAccess");
+        const { hasContentAccess } = require("../packages/shared-utils/lib/freeAccess");
         expect(hasContentAccess(null)).toBe(false);
       });
 
       test("returns false when isEntitled is undefined", () => {
-        const { hasContentAccess } = require("../lib/freeAccess");
+        const { hasContentAccess } = require("../packages/shared-utils/lib/freeAccess");
         expect(hasContentAccess(undefined)).toBe(false);
       });
     });

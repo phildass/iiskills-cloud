@@ -19,7 +19,7 @@ describe("contentFilter — checkContent()", () => {
 
   beforeAll(() => {
     // Load the shared content filter (uses CJS require)
-    checkContent = require("../lib/contentFilter").checkContent;
+    checkContent = require("../packages/shared-utils/lib/contentFilter").checkContent;
   });
 
   it("returns { flagged: false } for clean content", () => {

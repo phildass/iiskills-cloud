@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const path = require("path");
-const { getHeadersConfig } = require("../../config/security-headers");
+const { getHeadersConfig } = require("../../packages/config/security-headers");
 
 const nextConfig = {
   reactStrictMode: true,
@@ -12,10 +12,10 @@ const nextConfig = {
   turbopack: {
     resolveAlias: {
       "@": path.resolve(__dirname, "../.."),
-      "@lib": path.resolve(__dirname, "../../lib"),
-      "@utils": path.resolve(__dirname, "../../utils"),
-      "@config": path.resolve(__dirname, "../../config"),
-      "@shared": path.resolve(__dirname, "../../components/shared"),
+      "@lib": path.resolve(__dirname, "../../packages/shared-utils/lib"),
+      "@utils": path.resolve(__dirname, "../../packages/shared-utils/utils"),
+      "@config": path.resolve(__dirname, "../../packages/config"),
+      "@shared": path.resolve(__dirname, "../../packages/shared-components"),
     },
   },
 
@@ -24,10 +24,10 @@ const nextConfig = {
     config.resolve.alias = {
       ...config.resolve.alias,
       "@": path.resolve(__dirname, "../.."),
-      "@lib": path.resolve(__dirname, "../../lib"),
-      "@utils": path.resolve(__dirname, "../../utils"),
-      "@config": path.resolve(__dirname, "../../config"),
-      "@shared": path.resolve(__dirname, "../../components/shared"),
+      "@lib": path.resolve(__dirname, "../../packages/shared-utils/lib"),
+      "@utils": path.resolve(__dirname, "../../packages/shared-utils/utils"),
+      "@config": path.resolve(__dirname, "../../packages/config"),
+      "@shared": path.resolve(__dirname, "../../packages/shared-components"),
     };
     return config;
   },

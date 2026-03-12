@@ -11,7 +11,7 @@
  */
 
 import { createClient } from "@supabase/supabase-js";
-import { isFreeAccessEnabled } from "../../../../lib/freeAccess";
+import { isFreeAccessEnabled } from "../../../../packages/shared-utils/lib/freeAccess";
 
 function getSupabaseServer() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;

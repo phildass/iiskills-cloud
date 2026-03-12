@@ -11,7 +11,7 @@ import {
   MatchState,
   getAllMatches,
   deleteMatch,
-} from "../lib/match/matchService";
+} from "../packages/shared-utils/lib/match/matchService";
 
 describe("Super Over Match Service", () => {
   // Clear matches before each test

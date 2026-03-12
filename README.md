@@ -1,19 +1,45 @@
 # IISkills Cloud — Monorepo
 
-This is the rebuilt IISkills Cloud monorepo using **Yarn Classic (v1)** workspaces and **Next.js**.
+This is the IISkills Cloud monorepo following a **Strict Monorepo Pattern** using **Yarn 4** workspaces and **Turborepo**.
 
 ## Structure
 
 ```
 .
 ├── apps/
-│   ├── main/            # Production main site + admin at /admin (port 3000)
-│   └── learn-*/         # Learning apps (various ports)
+│   ├── main/                  # Production main site + admin at /admin (port 3000)
+│   └── learn-*/               # Learning apps (various ports)
 ├── packages/
-│   ├── ui/              # Universal navbar, layout (shared across all apps)
-│   ├── content/         # Git-based content source of truth
-│   └── core/            # Shared types & helpers
+│   ├── ui/                    # Shared React UI component library (@iiskills/ui)
+│   ├── shared-utils/          # Shared lib/ and utils/ helpers (@iiskills/shared-utils)
+│   │   ├── lib/               # Server & client utilities (auth, content, payments, etc.)
+│   │   └── utils/             # Client-side utility helpers (pricing, data, etc.)
+│   ├── shared-components/     # Shared React components for all apps (@iiskills/shared-components)
+│   ├── config/                # Shared configuration presets (@iiskills/config)
+│   │   ├── security-headers.js
+│   │   ├── courseDisplayOrder.js
+│   │   └── content-banlist.json
+│   ├── styles/                # Shared global CSS (@iiskills/styles)
+│   ├── content/               # Git-based content source of truth
+│   ├── content-loader/        # Content loading utilities
+│   ├── content-sdk/           # Content SDK
+│   ├── access-control/        # Access control utilities
+│   ├── schema/                # Shared schema definitions
+│   └── core/                  # Shared types & helpers
+├── scripts/                   # DevOps & CI scripts (never bundled)
+├── nginx/                     # Nginx configuration templates
+├── supabase/                  # Supabase migrations and schema
+└── docs/                      # Architecture and operational documentation
 ```
+
+### Root Boundary Enforcement
+
+The root of the repository contains **only**:
+- Configuration presets (`turbo.json`, `eslint.config.mjs`, `tailwind.config.js`, `postcss.config.js`)
+- Infrastructure scripts (`deploy-all.sh`, `scripts/`, `nginx/`, `supabase/`)
+- Workspace orchestration (`package.json`, `yarn.lock`, `turbo.json`)
+
+No application source code lives at the root. All shared logic lives in `packages/`.
 
 ## Dev Commands
 
@@ -52,11 +78,19 @@ Learn apps are served at their own subdomains (e.g. `https://learn-apt.iiskills.
 
 ## Packages
 
-| Package            | Description                                                   |
-| ------------------ | ------------------------------------------------------------- |
-| `packages/ui`      | Universal navbar (with Google Translate hook), Layout         |
-| `packages/content` | Git-based content: courses, modules, lessons as JSON/Markdown |
-| `packages/core`    | Shared types and utility helpers                              |
+| Package                        | Description                                                        |
+| ------------------------------ | ------------------------------------------------------------------ |
+| `packages/ui`                  | Shared React UI component library (navbar, layout, auth, payments) |
+| `packages/shared-utils`        | Shared lib/ and utils/ helpers (auth, content, payments, etc.)     |
+| `packages/shared-components`   | Shared React components used across all learn apps via `@shared`   |
+| `packages/config`              | Shared config presets: security headers, course order, banlist     |
+| `packages/styles`              | Shared global CSS baseline                                         |
+| `packages/content`             | Git-based content: courses, modules, lessons as JSON/Markdown      |
+| `packages/content-loader`      | Content loading utilities                                          |
+| `packages/content-sdk`         | Content SDK                                                        |
+| `packages/access-control`      | Access control utilities                                           |
+| `packages/schema`              | Shared schema definitions                                          |
+| `packages/core`                | Shared types and utility helpers                                   |
 
 ## Content Structure
 
@@ -84,7 +118,7 @@ rendered **once** in the always-visible part of the header (desktop and mobile).
 
 ### Security Headers
 
-All Next.js apps import `config/security-headers.js` and apply the following headers via
+All Next.js apps import `packages/config/security-headers.js` and apply the following headers via
 `next.config.js → headers()`:
 
 | Header                      | Value                                                                                         |

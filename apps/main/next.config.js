@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 require("dotenv").config({ path: "/etc/iiskills.env" });
 const path = require("path");
-const { getHeadersConfig } = require("../../config/security-headers");
+const { getHeadersConfig } = require("../../packages/config/security-headers");
 
 const nextConfig = {
   reactStrictMode: true,
@@ -13,12 +13,12 @@ const nextConfig = {
   // Turbopack configuration for module resolution
   turbopack: {
     resolveAlias: {
-      "@/lib": path.resolve(__dirname, "../../lib"),
-      "@/utils": path.resolve(__dirname, "../../utils"),
-      "@/config": path.resolve(__dirname, "../../config"),
-      "@lib": path.resolve(__dirname, "../../lib"),
-      "@utils": path.resolve(__dirname, "../../utils"),
-      "@config": path.resolve(__dirname, "../../config"),
+      "@/lib": path.resolve(__dirname, "../../packages/shared-utils/lib"),
+      "@/utils": path.resolve(__dirname, "../../packages/shared-utils/utils"),
+      "@/config": path.resolve(__dirname, "../../packages/config"),
+      "@lib": path.resolve(__dirname, "../../packages/shared-utils/lib"),
+      "@utils": path.resolve(__dirname, "../../packages/shared-utils/utils"),
+      "@config": path.resolve(__dirname, "../../packages/config"),
     },
   },
 
@@ -26,12 +26,12 @@ const nextConfig = {
   webpack: (config) => {
     config.resolve.alias = {
       ...config.resolve.alias,
-      "@/lib": path.resolve(__dirname, "../../lib"),
-      "@/utils": path.resolve(__dirname, "../../utils"),
-      "@/config": path.resolve(__dirname, "../../config"),
-      "@lib": path.resolve(__dirname, "../../lib"),
-      "@utils": path.resolve(__dirname, "../../utils"),
-      "@config": path.resolve(__dirname, "../../config"),
+      "@/lib": path.resolve(__dirname, "../../packages/shared-utils/lib"),
+      "@/utils": path.resolve(__dirname, "../../packages/shared-utils/utils"),
+      "@/config": path.resolve(__dirname, "../../packages/config"),
+      "@lib": path.resolve(__dirname, "../../packages/shared-utils/lib"),
+      "@utils": path.resolve(__dirname, "../../packages/shared-utils/utils"),
+      "@config": path.resolve(__dirname, "../../packages/config"),
     };
     return config;
   },

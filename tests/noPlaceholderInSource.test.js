@@ -64,6 +64,7 @@ function isExempt(relPath) {
     // Server-side-only validation modules that legitimately need to compare
     // against placeholder strings (they call process.exit and never run in browser)
     norm === "lib/validateRuntimeEnv.js" ||
+    norm === "packages/shared-utils/lib/validateRuntimeEnv.js" ||
     norm === "tests/noPlaceholderInSource.test.js" ||
     path.basename(norm).endsWith(".md")
   );
