@@ -74,8 +74,16 @@ describe("purchase-details: response shape", () => {
   });
 
   test("courseSlug matches the course_slug stored in the purchase", () => {
-    const purchase = { id: "purchase-uuid-abc", course_slug: "learn-management", status: "created" };
-    const response = { purchaseId: purchase.id, courseSlug: purchase.course_slug, status: purchase.status };
+    const purchase = {
+      id: "purchase-uuid-abc",
+      course_slug: "learn-management",
+      status: "created",
+    };
+    const response = {
+      purchaseId: purchase.id,
+      courseSlug: purchase.course_slug,
+      status: purchase.status,
+    };
     expect(response.courseSlug).toBe("learn-management");
   });
 });

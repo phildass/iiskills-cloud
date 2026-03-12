@@ -83,10 +83,10 @@ Set these on **iiskills.cloud** (apps/main `.env.local` / server environment):
 
 Set these on **aienter.in**:
 
-| Variable                              | Description                                                                   |
-| ------------------------------------- | ----------------------------------------------------------------------------- |
-| `AIENTER_CONFIRMATION_SIGNING_SECRET` | Same shared secret as iiskills; used to sign the x-aienter-signature header.  |
-| `IISKILLS_CONFIRM_URL`                | `https://iiskills.cloud/api/payments/confirm`                                 |
+| Variable                              | Description                                                                  |
+| ------------------------------------- | ---------------------------------------------------------------------------- |
+| `AIENTER_CONFIRMATION_SIGNING_SECRET` | Same shared secret as iiskills; used to sign the x-aienter-signature header. |
+| `IISKILLS_CONFIRM_URL`                | `https://iiskills.cloud/api/payments/confirm`                                |
 
 ---
 
@@ -99,13 +99,13 @@ All "Pay Now" buttons (in `EnrollmentLandingPage`, `PremiumAccessPrompt`,
 
 The page always presents an explicit choice:
 
-| Choice | Action |
-| ------ | ------ |
-| **Yes, I'm a Registered User** | Checks Supabase session. If active → `/payments/iiskills`. If none → `/sign-in?next=/payments/iiskills`. |
-| **No, I'm New Here** | Redirects to `/register?next=/start-payment?course=<appId>`. After registration the user returns here and chooses "Yes". |
+| Choice                         | Action                                                                                                                   |
+| ------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
+| **Yes, I'm a Registered User** | Checks Supabase session. If active → `/payments/iiskills`. If none → `/sign-in?next=/payments/iiskills`.                 |
+| **No, I'm New Here**           | Redirects to `/register?next=/start-payment?course=<appId>`. After registration the user returns here and chooses "Yes". |
 
 **Why this matters**: Razorpay / PhonePe may remember device/phone/app from
-earlier sessions and appear to skip steps.  Routing every payment attempt
+earlier sessions and appear to skip steps. Routing every payment attempt
 through `/start-payment` ensures:
 
 1. The user always makes an **explicit** "Registered vs New" decision.
@@ -124,6 +124,7 @@ Creates a `purchases` row **before** the user is redirected to aienter.in.
 **Authentication**: Supabase session (Bearer token in Authorization header)
 
 **Request body**:
+
 ```json
 {
   "courseSlug": "learn-ai",
@@ -133,6 +134,7 @@ Creates a `purchases` row **before** the user is redirected to aienter.in.
 ```
 
 **Response**:
+
 ```json
 { "purchaseId": "<uuid>" }
 ```
@@ -149,6 +151,7 @@ Generates a short-lived JWT carrying the user's identity.
 **Authentication**: Supabase session (Bearer token)
 
 **Request body**:
+
 ```json
 { "courseSlug": "learn-ai" }
 ```
@@ -173,48 +176,49 @@ Token is signed with `PAYMENT_TOKEN_SECRET` (HS256), expires in 10 minutes.
 
 Receives the server-to-server POST from aienter.in after a successful payment.
 
-| Property         | Value                                                    |
-| ---------------- | -------------------------------------------------------- |
-| **URL**          | `POST https://iiskills.cloud/api/payments/confirm`       |
-| **Content-Type** | `application/json`                                       |
-| **Auth**         | HMAC-SHA256 signature (see below)                        |
+| Property         | Value                                              |
+| ---------------- | -------------------------------------------------- |
+| **URL**          | `POST https://iiskills.cloud/api/payments/confirm` |
+| **Content-Type** | `application/json`                                 |
+| **Auth**         | HMAC-SHA256 signature (see below)                  |
 
 #### Request headers
 
-| Header                  | Required | Description                                                                           |
-| ----------------------- | -------- | ------------------------------------------------------------------------------------- |
-| `x-aienter-signature`   | **Yes**  | HMAC-SHA256 hex digest of the raw request body, keyed with `AIENTER_CONFIRMATION_SIGNING_SECRET` |
-| `x-aienter-timestamp`   | No       | Unix timestamp in seconds; rejected if skew > 5 minutes                              |
-| `Content-Type`          | **Yes**  | Must be `application/json`                                                            |
+| Header                | Required | Description                                                                                      |
+| --------------------- | -------- | ------------------------------------------------------------------------------------------------ |
+| `x-aienter-signature` | **Yes**  | HMAC-SHA256 hex digest of the raw request body, keyed with `AIENTER_CONFIRMATION_SIGNING_SECRET` |
+| `x-aienter-timestamp` | No       | Unix timestamp in seconds; rejected if skew > 5 minutes                                          |
+| `Content-Type`        | **Yes**  | Must be `application/json`                                                                       |
 
 #### Request body
 
-| Field                 | Type     | Required | Description                                                |
-| --------------------- | -------- | -------- | ---------------------------------------------------------- |
-| `purchaseId`          | `string` | **Yes**  | UUID from `/api/payments/create-purchase`                  |
-| `appId`               | `string` | **Yes**  | iiskills app identifier, e.g. `"learn-ai"`                 |
-| `user_token`          | `string` | **Yes**  | The JWT token from `/api/payments/generate-token`          |
-| `razorpayPaymentId`   | `string` | **Yes**  | Razorpay payment ID                                        |
-| `amountPaise`         | `number` | **Yes**  | Payment amount in paise                                    |
-| `courseSlug`          | `string` | No       | Course slug (falls back to token's course_slug or appId)   |
-| `razorpayOrderId`     | `string` | No       | Razorpay order ID                                          |
-| `paidAt`              | `string` | No       | ISO timestamp of payment                                   |
-| `customerPhone`       | `string` | No       | Payer's phone (informational only — not used for identity) |
-| `customerEmail`       | `string` | No       | Payer's email (used for confirmation email if present)     |
-| `currency`            | `string` | No       | Defaults to `"INR"`                                        |
+| Field               | Type     | Required | Description                                                |
+| ------------------- | -------- | -------- | ---------------------------------------------------------- |
+| `purchaseId`        | `string` | **Yes**  | UUID from `/api/payments/create-purchase`                  |
+| `appId`             | `string` | **Yes**  | iiskills app identifier, e.g. `"learn-ai"`                 |
+| `user_token`        | `string` | **Yes**  | The JWT token from `/api/payments/generate-token`          |
+| `razorpayPaymentId` | `string` | **Yes**  | Razorpay payment ID                                        |
+| `amountPaise`       | `number` | **Yes**  | Payment amount in paise                                    |
+| `courseSlug`        | `string` | No       | Course slug (falls back to token's course_slug or appId)   |
+| `razorpayOrderId`   | `string` | No       | Razorpay order ID                                          |
+| `paidAt`            | `string` | No       | ISO timestamp of payment                                   |
+| `customerPhone`     | `string` | No       | Payer's phone (informational only — not used for identity) |
+| `customerEmail`     | `string` | No       | Payer's email (used for confirmation email if present)     |
+| `currency`          | `string` | No       | Defaults to `"INR"`                                        |
 
 #### Response
 
-| Status | Meaning                                                              |
-| ------ | -------------------------------------------------------------------- |
-| `200`  | Payment confirmed (or already confirmed — idempotent)                |
-| `400`  | Missing/invalid required field                                       |
-| `401`  | Missing or invalid `x-aienter-signature`, or invalid `user_token`    |
-| `403`  | Purchase does not belong to the user identified by `user_token`      |
-| `405`  | Non-POST request                                                     |
-| `500`  | Server-side error (Supabase unavailable, etc.)                       |
+| Status | Meaning                                                           |
+| ------ | ----------------------------------------------------------------- |
+| `200`  | Payment confirmed (or already confirmed — idempotent)             |
+| `400`  | Missing/invalid required field                                    |
+| `401`  | Missing or invalid `x-aienter-signature`, or invalid `user_token` |
+| `403`  | Purchase does not belong to the user identified by `user_token`   |
+| `405`  | Non-POST request                                                  |
+| `500`  | Server-side error (Supabase unavailable, etc.)                    |
 
 Success response body:
+
 ```json
 {
   "success": true,
@@ -268,11 +272,11 @@ Entitlement inserts are also idempotent via the `(user_id, course_slug)` unique 
 
 ## DB Tables Used
 
-| Table          | Operation                                          |
-| -------------- | -------------------------------------------------- |
-| `purchases`    | INSERT (create-purchase), UPDATE (confirm)         |
-| `entitlements` | INSERT with course_slug (not app_id)               |
-| `profiles`     | UPDATE is_paid_user=true, paid_at (idempotent)     |
+| Table          | Operation                                      |
+| -------------- | ---------------------------------------------- |
+| `purchases`    | INSERT (create-purchase), UPDATE (confirm)     |
+| `entitlements` | INSERT with course_slug (not app_id)           |
+| `profiles`     | UPDATE is_paid_user=true, paid_at (idempotent) |
 
 > **Important**: `entitlements.course_slug` is used (not `app_id`). This matches
 > the schema column name in `public.entitlements`.
@@ -283,9 +287,9 @@ Entitlement inserts are also idempotent via the `(user_id, course_slug)` unique 
 
 Apply these migrations in order for a fresh or existing database:
 
-| File | Description |
-| ---- | ----------- |
-| `supabase/migrations/2026-03-09_purchases_table.sql` | Creates `public.purchases` table with `user_id` FK, unique partial index on `razorpay_payment_id` |
+| File                                                          | Description                                                                                                            |
+| ------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `supabase/migrations/2026-03-09_purchases_table.sql`          | Creates `public.purchases` table with `user_id` FK, unique partial index on `razorpay_payment_id`                      |
 | `supabase/migrations/2026-03-09_entitlements_add_columns.sql` | Adds `course_slug`, `purchase_id` columns to `public.entitlements`; adds unique constraint on `(user_id, course_slug)` |
 
 ---
@@ -375,4 +379,3 @@ Work through this checklist in order:
 This is expected behaviour. If the same `purchaseId` + `razorpayPaymentId` arrives again,
 the confirm endpoint returns `200` immediately without re-granting the entitlement.
 The user's access is already granted from the first call.
-

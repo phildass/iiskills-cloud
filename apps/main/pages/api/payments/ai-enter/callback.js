@@ -12,10 +12,7 @@
  * See docs/PAYMENT_INTEGRATION.md for the full specification.
  */
 export default function handler(req, res) {
-  res.setHeader(
-    "Link",
-    '<https://iiskills.cloud/api/payments/confirm>; rel="successor-version"'
-  );
+  res.setHeader("Link", '<https://iiskills.cloud/api/payments/confirm>; rel="successor-version"');
   return res.status(410).json({
     error: "This endpoint is deprecated. Use POST /api/payments/confirm instead.",
     successor: "https://iiskills.cloud/api/payments/confirm",

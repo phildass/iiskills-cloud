@@ -13,7 +13,12 @@ export default function App({ Component, pageProps }) {
       </Head>
 
       <SiteHeader appId="learn-apt" isFreeApp={true} />
-      <AppSecondaryNavbar appId="learn-apt" appName="Aptitude" isFree={true} firstLessonPath="/tests/numerical" />
+      <AppSecondaryNavbar
+        appId="learn-apt"
+        appName="Aptitude"
+        isFree={true}
+        firstLessonPath="/tests/numerical"
+      />
       <Component {...pageProps} />
       <Footer />
     </>

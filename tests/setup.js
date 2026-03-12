@@ -33,4 +33,3 @@ jest.mock("@sendgrid/mail", () => {
     send: jest.fn().mockResolvedValue([{ statusCode: 202 }]),
   };
 });
-

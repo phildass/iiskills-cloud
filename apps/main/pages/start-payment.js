@@ -110,9 +110,7 @@ export default function StartPayment() {
       // No session — send to /sign-in; after login the user is returned to
       // /payments/iiskills (not back to /start-payment) to complete payment.
       const signInNext = encodeURIComponent(paymentPath);
-      console.log(
-        `[start-payment] No active session. Redirecting to /sign-in?next=${paymentPath}`
-      );
+      console.log(`[start-payment] No active session. Redirecting to /sign-in?next=${paymentPath}`);
       router.push(`/sign-in?next=${signInNext}`);
     }
   }
@@ -171,8 +169,8 @@ export default function StartPayment() {
               <strong>Currently signed in as:</strong> {sessionEmail}
               <br />
               <span className="text-blue-600">
-                Click &quot;Yes&quot; below to proceed with this account, or sign out and
-                register a new account to use a different identity.
+                Click &quot;Yes&quot; below to proceed with this account, or sign out and register a
+                new account to use a different identity.
               </span>
             </div>
           )}

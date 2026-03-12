@@ -224,7 +224,7 @@ export default function Onboarding() {
                 <ol className="text-sm text-indigo-700 space-y-1 list-decimal list-inside mt-2">
                   <li>Click &quot;Proceed to Payment&quot; below</li>
                   <li>Complete payment at {PAYMENT_URL}</li>
-                  
+
                   <li>Sign in to access your course</li>
                 </ol>
               </div>
@@ -373,12 +373,12 @@ export default function Onboarding() {
                   🟢 <strong>Basic:</strong> No test required → Payment → Access
                 </p>
                 <p>
-                  🔵 <strong>Intermediate:</strong> 3-question test (one attempt) → Payment →
-                  Access at approved level
+                  🔵 <strong>Intermediate:</strong> 3-question test (one attempt) → Payment → Access
+                  at approved level
                 </p>
                 <p>
-                  🟣 <strong>Advanced:</strong> 3-question test (one attempt) → Payment →
-                  Access at approved level
+                  🟣 <strong>Advanced:</strong> 3-question test (one attempt) → Payment → Access at
+                  approved level
                 </p>
               </div>
             </div>

@@ -100,23 +100,23 @@ apps/learn-geography/
 
 1. **Introduction to AI** (Beginner) - Fundamentals and history
 1. **Types of AI** (Beginner) - Categories and classifications
-3. **Data Science Fundamentals** (Beginner) - Data foundation
-4. **Python for AI** (Beginner) - Programming basics
-5. **Supervised Learning** (Intermediate) - ML algorithms
-6. **Unsupervised Learning** (Intermediate) - Clustering & dimensionality
-7. **Neural Networks** (Intermediate) - Deep learning architectures
-8. **AI Monetization** (Advanced) - Earning strategies
-9. **AI Tools & Frameworks** (Advanced) - Popular platforms
-10. **Career Pathways in AI** (Advanced) - Professional development
+1. **Data Science Fundamentals** (Beginner) - Data foundation
+1. **Python for AI** (Beginner) - Programming basics
+1. **Supervised Learning** (Intermediate) - ML algorithms
+1. **Unsupervised Learning** (Intermediate) - Clustering & dimensionality
+1. **Neural Networks** (Intermediate) - Deep learning architectures
+1. **AI Monetization** (Advanced) - Earning strategies
+1. **AI Tools & Frameworks** (Advanced) - Popular platforms
+1. **Career Pathways in AI** (Advanced) - Professional development
 
 ### Learning Flow
 
 1. **Registration** - Pay Rs 99 for course access
 1. **Onboarding** - Choose learning path (3 options)
-3. **Lessons** - Study content (max 400 words each)
-4. **Quizzes** - Pass with 3/5 to unlock next lesson
-5. **Final Exam** - 20 questions, pass with 13+ correct
-6. **Certificate** - Automatically generated and emailed
+1. **Lessons** - Study content (max 400 words each)
+1. **Quizzes** - Pass with 3/5 to unlock next lesson
+1. **Final Exam** - 20 questions, pass with 13+ correct
+1. **Certificate** - Automatically generated and emailed
 
 ## 🔧 Configuration
 
@@ -216,9 +216,9 @@ Format as JSON array with fields: question, options, correct_answer, explanation
 
 1. User pays Rs 99 via external payment gateway
 1. Payment confirmed via `/api/payment/confirm`
-3. System generates unique access code (format: `XXXX-XXXX-XXXX`)
-4. Access code emailed to user via SendGrid
-5. User enters code to activate account
+1. System generates unique access code (format: `XXXX-XXXX-XXXX`)
+1. Access code emailed to user via SendGrid
+1. User enters code to activate account
 
 ### Admin Panel
 
@@ -387,8 +387,8 @@ If Supabase is unavailable:
 
 1. Follow existing code patterns
 1. Write descriptive commit messages
-3. Test all changes locally
-4. Update documentation as needed
+1. Test all changes locally
+1. Update documentation as needed
 
 ## 📄 License
 

@@ -42,7 +42,10 @@ let passwordHash;
     passwordHash = await bcrypt.hash(testPassword, 12);
     console.log("✓ Password hashed successfully");
     console.log("  Hash length:", passwordHash.length);
-    console.log("  Hash starts with $2b$ (bcrypt identifier):", passwordHash.startsWith("$2b$") ? "✓ PASS" : "✗ FAIL");
+    console.log(
+      "  Hash starts with $2b$ (bcrypt identifier):",
+      passwordHash.startsWith("$2b$") ? "✓ PASS" : "✗ FAIL"
+    );
 
     // Verify the hash
     const isValid = await bcrypt.compare(testPassword, passwordHash);
@@ -180,7 +183,10 @@ let passwordHash;
       path: "/",
     });
 
-    console.log("  Logout cookie (Max-Age=0):", logoutCookie.includes("Max-Age=0") ? "✓ PASS" : "✗ FAIL");
+    console.log(
+      "  Logout cookie (Max-Age=0):",
+      logoutCookie.includes("Max-Age=0") ? "✓ PASS" : "✗ FAIL"
+    );
   } catch (error) {
     console.log("✗ FAIL:", error.message);
   }
@@ -220,10 +226,18 @@ let passwordHash;
   // Test 7: Environment variable validation
   console.log("Test 7: Environment Variables");
   console.log("  ADMIN_JWT_SECRET set:", process.env.ADMIN_JWT_SECRET ? "✓ PASS" : "✗ FAIL");
-  console.log("  ADMIN_JWT_SECRET length >= 32:", 
-    process.env.ADMIN_JWT_SECRET?.length >= 32 ? "✓ PASS" : "⚠ WARN (should be 32+ chars)");
-  console.log("  NEXT_PUBLIC_SUPABASE_URL set:", process.env.NEXT_PUBLIC_SUPABASE_URL ? "✓ PASS" : "✗ FAIL");
-  console.log("  SUPABASE_SERVICE_ROLE_KEY set:", process.env.SUPABASE_SERVICE_ROLE_KEY ? "✓ PASS" : "✗ FAIL");
+  console.log(
+    "  ADMIN_JWT_SECRET length >= 32:",
+    process.env.ADMIN_JWT_SECRET?.length >= 32 ? "✓ PASS" : "⚠ WARN (should be 32+ chars)"
+  );
+  console.log(
+    "  NEXT_PUBLIC_SUPABASE_URL set:",
+    process.env.NEXT_PUBLIC_SUPABASE_URL ? "✓ PASS" : "✗ FAIL"
+  );
+  console.log(
+    "  SUPABASE_SERVICE_ROLE_KEY set:",
+    process.env.SUPABASE_SERVICE_ROLE_KEY ? "✓ PASS" : "✗ FAIL"
+  );
   console.log("");
 
   // Summary

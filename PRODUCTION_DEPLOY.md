@@ -7,12 +7,12 @@ This document describes the **repeatable, safe deployment procedure** for the
 
 ## Prerequisites
 
-| Item | Details |
-|------|---------|
-| Node.js | 18 or 20 LTS |
-| Yarn | 4.x (managed via Corepack) |
-| PM2 | latest (`npm i -g pm2`) |
-| Nginx | Configured to proxy `127.0.0.1:3000 → iiskills.cloud` |
+| Item    | Details                                               |
+| ------- | ----------------------------------------------------- |
+| Node.js | 18 or 20 LTS                                          |
+| Yarn    | 4.x (managed via Corepack)                            |
+| PM2     | latest (`npm i -g pm2`)                               |
+| Nginx   | Configured to proxy `127.0.0.1:3000 → iiskills.cloud` |
 
 ---
 
@@ -33,7 +33,7 @@ NEXT_PUBLIC_COOKIE_DOMAIN=.iiskills.cloud
 ```
 
 > **Critical:** `NEXT_PUBLIC_*` variables are **inlined at build time**.
-> They must be set in the environment *before* running `yarn build`.
+> They must be set in the environment _before_ running `yarn build`.
 > Setting them only at runtime has no effect on the compiled bundle.
 
 ### Verify no placeholders are present:
@@ -99,6 +99,7 @@ and `your-project-url-here`. If either is found, the build is bad — the real
 env vars were not set at build time. Fix, rebuild, and verify again.
 
 **Expected output on success:**
+
 ```
 ✓ OK: "your-anon-key-here" not found in bundle
 ✓ OK: "your-project-url-here" not found in bundle
@@ -143,6 +144,7 @@ curl -sf https://iiskills.cloud/ | head -5
 ```
 
 If `curl` returns a 502, check `pm2 logs iiskills-main` for errors such as:
+
 - `production-start-no-build-id` → BUILD_ID missing, rebuild required
 - `APPLICATION STARTUP ABORTED` → Supabase env vars missing/invalid in PM2 env
 - `EACCES` or `EADDRINUSE` → Port conflict
@@ -158,6 +160,7 @@ credentials were invalid at build time. The bundle contains a placeholder rather
 than real credentials.
 
 **Fix:**
+
 1. Set real values in `apps/main/.env.production`
 2. Run `yarn verify:build-env:main` to confirm before build
 3. Rebuild: `rm -rf apps/main/.next && yarn build`
@@ -187,12 +190,12 @@ pm2 restart iiskills-main
 
 ## Env Variable Precedence (Next.js)
 
-| File | Loaded | Committed to git |
-|------|--------|-----------------|
-| `.env.local` | Dev + production server | ❌ (in .gitignore) |
-| `apps/main/.env.production` | Production builds only | ❌ (in .gitignore) |
-| `apps/main/.env.local.example` | Never loaded — docs only | ✅ (example only) |
-| PM2 `env_production` block | Runtime only (not build-time) | Avoid secrets |
+| File                           | Loaded                        | Committed to git   |
+| ------------------------------ | ----------------------------- | ------------------ |
+| `.env.local`                   | Dev + production server       | ❌ (in .gitignore) |
+| `apps/main/.env.production`    | Production builds only        | ❌ (in .gitignore) |
+| `apps/main/.env.local.example` | Never loaded — docs only      | ✅ (example only)  |
+| PM2 `env_production` block     | Runtime only (not build-time) | Avoid secrets      |
 
 > **Important:** `NEXT_PUBLIC_*` variables must be present in the **build
 > environment**, not just the PM2 runtime environment. If you set them only in

@@ -37,7 +37,8 @@ module.exports = {
       env: {
         NODE_ENV: "production",
         PORT: 3000,
-        ADMIN_SESSION_SIGNING_KEY: "E18oge8sWUtc5SEyhE3mmMQUbWxFGVl/YoHM1OfoGyJS8UAfR4O4rAwPYTr5jYEc9BDfX0kjM2a6aMbkElqFPQ",
+        ADMIN_SESSION_SIGNING_KEY:
+          "E18oge8sWUtc5SEyhE3mmMQUbWxFGVl/YoHM1OfoGyJS8UAfR4O4rAwPYTr5jYEc9BDfX0kjM2a6aMbkElqFPQ",
       },
       instances: 1,
       autorestart: true,

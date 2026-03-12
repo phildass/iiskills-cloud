@@ -15,13 +15,13 @@
  * Response (GET):
  *   200 { profile: { ... } | null, email: string }
  *   401 { error: 'Unauthorized' }
- *   500 { error: 'Failed to fetch profile' }
+ *   500 { error: 'Failed to fetch profile', details: string }
  *
  * Response (PATCH):
  *   200 { success: true }
  *   400 { error: 'No valid fields to update' }
  *   401 { error: 'Unauthorized' }
- *   500 { error: 'Failed to update profile' }
+ *   500 { error: 'Failed to update profile', details: string }
  */
 
 import { createClient } from "@supabase/supabase-js";
@@ -99,8 +99,16 @@ export default async function handler(req, res) {
       .eq("id", user.id);
 
     if (updateError) {
-      console.error("[api/profile] PATCH error:", updateError.message);
-      return res.status(500).json({ error: "Failed to update profile" });
+      console.error("[api/profile] PATCH error:", {
+        message: updateError.message,
+        code: updateError.code,
+        details: updateError.details,
+        hint: updateError.hint,
+        userId: user.id,
+      });
+      return res
+        .status(500)
+        .json({ error: "Failed to update profile", details: updateError.message });
     }
 
     return res.status(200).json({ success: true });
@@ -117,8 +125,16 @@ export default async function handler(req, res) {
     .maybeSingle();
 
   if (profileError) {
-    console.error("[api/profile] DB error:", profileError.message);
-    return res.status(500).json({ error: "Failed to fetch profile" });
+    console.error("[api/profile] DB error:", {
+      message: profileError.message,
+      code: profileError.code,
+      details: profileError.details,
+      hint: profileError.hint,
+      userId: user.id,
+    });
+    return res
+      .status(500)
+      .json({ error: "Failed to fetch profile", details: profileError.message });
   }
 
   // Check entitlements table as fallback for paid status (sync only — no gating)

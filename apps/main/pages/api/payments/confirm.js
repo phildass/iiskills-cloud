@@ -160,9 +160,7 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: "razorpayPaymentId is required" });
   }
   if (!user_token) {
-    return res
-      .status(400)
-      .json({ error: "user_token is required for payment confirmation." });
+    return res.status(400).json({ error: "user_token is required for payment confirmation." });
   }
   if (amountPaise === undefined || amountPaise === null) {
     return res.status(400).json({ error: "amountPaise is required" });
@@ -233,9 +231,7 @@ export default async function handler(req, res) {
         existingPurchase.iiskills_ack_at &&
         existingPurchase.razorpay_payment_id === razorpayPaymentId
       ) {
-        console.log(
-          `[payments/confirm] Purchase ${purchaseId} already acknowledged (idempotent)`
-        );
+        console.log(`[payments/confirm] Purchase ${purchaseId} already acknowledged (idempotent)`);
         return res.status(200).json({
           success: true,
           purchaseId,
@@ -299,9 +295,7 @@ export default async function handler(req, res) {
         );
       }
     } else {
-      console.log(
-        `[payments/confirm] Entitlement granted: user=${user_id} course=${courseAppId}`
-      );
+      console.log(`[payments/confirm] Entitlement granted: user=${user_id} course=${courseAppId}`);
 
       // Mark user as paid (idempotent)
       await supabase
