@@ -144,33 +144,19 @@ describe("writeAuditEvent", () => {
 describe("getActorInfo", () => {
   beforeEach(() => jest.clearAllMocks());
 
-  test("returns emergency_admin when no Bearer token present", async () => {
+  test("returns password_admin type (no Supabase lookup)", async () => {
     const req = { headers: { cookie: "" } };
     const actor = await getActorInfo(req);
-    expect(actor.actorType).toBe("emergency_admin");
+    expect(actor.actorType).toBe("password_admin");
     expect(actor.actorUserId).toBeNull();
+    expect(actor.actorEmail).toBeNull();
   });
 
-  test("returns supabase_admin when Bearer token resolves to a user", async () => {
-    mockGetUser.mockResolvedValueOnce({
-      data: { user: { id: "uid-1", email: "admin@example.com" } },
-      error: null,
-    });
+  test("returns password_admin even when Authorization header is present", async () => {
     const req = { headers: { authorization: "Bearer some-token" } };
     const actor = await getActorInfo(req);
-    expect(actor.actorType).toBe("supabase_admin");
-    expect(actor.actorUserId).toBe("uid-1");
-    expect(actor.actorEmail).toBe("admin@example.com");
-  });
-
-  test("falls back to emergency_admin when Bearer token is invalid", async () => {
-    mockGetUser.mockResolvedValueOnce({
-      data: { user: null },
-      error: new Error("invalid"),
-    });
-    const req = { headers: { authorization: "Bearer bad-token" } };
-    const actor = await getActorInfo(req);
-    expect(actor.actorType).toBe("emergency_admin");
+    expect(actor.actorType).toBe("password_admin");
+    expect(actor.actorUserId).toBeNull();
   });
 });
 
