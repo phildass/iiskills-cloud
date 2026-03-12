@@ -124,7 +124,7 @@ The admin panel (`/admin/*`) uses **password-based authentication only** — no 
 
 #### How it works
 
-1. **First access** — If no admin passphrase hash is stored, the bootstrap passphrase `iiskills123` is accepted. The session cookie is issued with `needs_setup=true`, which forces a redirect to `/admin/setup` where the owner must set a strong permanent passphrase (min 8 characters). The hash is stored securely with bcrypt at `/var/lib/iiskills/admin.json` (or the path in `ADMIN_DATA_FILE`).
+1. **First access** — If no admin passphrase hash is stored, the bootstrap passphrase `iiskills123` is accepted. **Change this immediately.** The session cookie is issued with `needs_setup=true`, which forces a redirect to `/admin/setup` where the owner must set a strong permanent passphrase (min 8 characters). The hash is stored securely with bcrypt at `/var/lib/iiskills/admin.json` (or the path in `ADMIN_DATA_FILE`).
 2. **Regular login** — Visit `/admin/login`, enter your passphrase. The server verifies it against the stored bcrypt hash and issues a signed `admin_session` cookie (12-hour expiry).
 3. **Emergency override** — If `ADMIN_PANEL_SECRET` is set as an env var, it bypasses the file-based hash and grants access directly (useful after a reset). Unset this var once the hash is re-established.
 4. **Session** — `admin_session` is `HttpOnly; Secure; SameSite=Lax`, signed with `ADMIN_SESSION_SIGNING_KEY`.
@@ -150,8 +150,10 @@ ADMIN_DATA_FILE=/custom/path/admin.json              # default: /var/lib/iiskill
 
 ```bash
 # 1. On first deploy, visit /admin/login and enter the bootstrap passphrase: iiskills123
+#    WARNING: This passphrase is publicly known — you MUST change it immediately.
 # 2. You will be redirected to /admin/setup — set a strong permanent passphrase here.
-# 3. The hash is saved to /var/lib/iiskills/admin.json (mode 600, root-owned).
+# 3. The hash is saved to /var/lib/iiskills/admin.json (mode 600, owned by the app process user).
+#    Ensure the directory /var/lib/iiskills/ is writable by the user running the Node.js process.
 ```
 
 #### Password reset (server owner access required)

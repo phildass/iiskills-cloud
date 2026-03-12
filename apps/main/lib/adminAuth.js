@@ -161,12 +161,13 @@ export function isSuperadmin(email) {
  *   { actorUserId: null, actorEmail: null, actorType: 'password_admin' }
  *
  * Admin access is password-based only. There is no per-user identity associated
- * with an admin session.
+ * with an admin session. The `req` parameter is accepted for backward compatibility
+ * but is not used.
  *
- * @param {import('http').IncomingMessage} req
  * @returns {Promise<{ actorUserId: null, actorEmail: null, actorType: string }>}
  */
-export async function getActorInfo() {
+// eslint-disable-next-line no-unused-vars
+export async function getActorInfo(req) {
   return { actorUserId: null, actorEmail: null, actorType: "password_admin" };
 }
 

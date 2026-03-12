@@ -5,9 +5,11 @@
  * Calls POST /api/admin/bootstrap-or-login which handles both
  * first-time setup (bootstrap passphrase) and regular login (bcrypt hash).
  *
- * On first access without a stored passphrase hash, the bootstrap passphrase
- * "iiskills123" is accepted and the admin is redirected to /admin/setup to
- * set a strong permanent password.
+ * On first access without a stored passphrase hash, the well-known bootstrap
+ * passphrase is accepted and the admin is immediately redirected to
+ * /admin/setup to set a strong permanent password (min 8 characters).
+ * The bootstrap passphrase MUST be replaced before the panel is used in
+ * production.
  *
  * No Supabase user accounts are involved in admin authentication.
  */
