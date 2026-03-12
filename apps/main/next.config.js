@@ -1,4 +1,5 @@
 /** @type {import('next').NextConfig} */
+require("dotenv").config({ path: "/etc/iiskills.env" });
 const path = require("path");
 const { getHeadersConfig } = require("../../config/security-headers");
 

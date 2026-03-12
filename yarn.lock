@@ -1618,6 +1618,7 @@ __metadata:
     bcrypt: "npm:^6.0.0"
     cookie: "npm:^1.1.1"
     crypto: "npm:^1.0.1"
+    dotenv: "npm:^17.3.1"
     eslint: "npm:^9.39.2"
     formidable: "npm:^3.5.4"
     framer-motion: "npm:^12.33.0"
@@ -4771,6 +4772,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"dotenv@npm:^17.3.1":
+  version: 17.3.1
+  resolution: "dotenv@npm:17.3.1"
+  checksum: 10c0/c78e0c2d5a549c751e544cc60e2b95e7cb67e0c551f42e094d161c6b297aa44b630a3c2dcacf5569e529a6c2a6b84e2ab9be8d37b299d425df5a18b81ce4a35f
+  languageName: node
+  linkType: hard
+
 "dunder-proto@npm:^1.0.0, dunder-proto@npm:^1.0.1":
   version: 1.0.1
   resolution: "dunder-proto@npm:1.0.1"
@@ -6235,6 +6243,7 @@ __metadata:
     autoprefixer: "npm:^10.4.14"
     babel-jest: "npm:^30.2.0"
     danger: "npm:^13.0.5"
+    dotenv: "npm:^17.3.1"
     eslint: "npm:^9.39.2"
     eslint-config-next: "npm:^16.1.1"
     eslint-config-prettier: "npm:^10.1.8"
