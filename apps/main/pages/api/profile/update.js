@@ -93,15 +93,13 @@ export default async function handler(req, res) {
 
   const userId = userData.user.id;
 
-  // Fetch current profile to check lock state
+  // Fetch current profile to check lock state.
+  // Use select('*') for schema safety — if optional columns (e.g. profile_submitted_at,
+  // name_change_count) have not been added by a migration yet, they will simply be absent
+  // from the result rather than causing a "column does not exist" error.
   const { data: current, error: fetchError } = await supabase
     .from("profiles")
-    .select(
-      "id, first_name, last_name, full_name, phone, gender, date_of_birth, age, " +
-        "education, qualification, location, state, district, country, specify_country, " +
-        "profile_submitted_at, name_change_count, " +
-        "education_self, education_father, education_mother, subscribed_to_newsletter"
-    )
+    .select("*")
     .eq("id", userId)
     .maybeSingle();
 
@@ -178,13 +176,7 @@ export default async function handler(req, res) {
     .from("profiles")
     .update(updates)
     .eq("id", userId)
-    .select(
-      "id, first_name, last_name, full_name, phone, gender, date_of_birth, age, " +
-        "education, qualification, location, state, district, country, specify_country, " +
-        "profile_submitted_at, name_change_count, " +
-        "education_self, education_father, education_mother, subscribed_to_newsletter, " +
-        "is_paid_user, paid_at, registration_completed, username, created_at, updated_at"
-    )
+    .select("*")
     .maybeSingle();
 
   if (updateError) {

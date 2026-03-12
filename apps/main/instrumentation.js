@@ -17,7 +17,11 @@
  */
 
 export async function register() {
-  if (process.env.NEXT_RUNTIME === "nodejs") {
+  // Load env vars in Node.js runtime (standard API routes and server startup).
+  // Also handle the case where NEXT_RUNTIME is not set (Pages Router, some
+  // server-start contexts). Skip only for Edge runtime where Node.js built-ins
+  // like "fs" are unavailable.
+  if (process.env.NEXT_RUNTIME !== "edge") {
     const { config } = await import("dotenv");
     config({ path: "/etc/iiskills.env" });
   }
