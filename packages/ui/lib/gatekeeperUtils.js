@@ -1,6 +1,6 @@
 /**
  * Gatekeeper Utils Wrapper
- * Re-exports from root lib directory for @/lib imports in packages/ui
+ * Re-exports from shared-utils lib for @/lib imports in packages/ui
  */
 
-export * from "../../../lib/gatekeeperUtils";
+export * from "../../shared-utils/lib/gatekeeperUtils";
