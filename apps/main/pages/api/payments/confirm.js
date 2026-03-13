@@ -46,10 +46,10 @@ const ENTITLEMENT_DURATION_MS = 365 * 24 * 60 * 60 * 1000;
 const MAX_TIMESTAMP_SKEW_SECONDS = 300; // 5 minutes
 
 function getSupabaseAdmin() {
-  const url = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_KEY;
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL;
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
   if (!url || !key) return null;
-  return createClient(url, key);
+  return createClient(url, key, { auth: { autoRefreshToken: false, persistSession: false } });
 }
 
 /**
