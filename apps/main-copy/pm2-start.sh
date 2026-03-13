@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-cd /root/iiskills-cloud-apps/apps/main
+cd /root/iiskills-cloud-apps/apps/main-copy
 
 # DO NOT "source" .env.local (it's not guaranteed to be bash-compatible).
 # Next.js will load .env.local automatically when started from this directory.
