@@ -27,7 +27,32 @@ import {
   setAdminSessionCookie,
   isTestAdminMode,
   getTestPassphrase,
+  createServiceRoleClient,
+  writeAuditEvent,
 } from "../../../lib/adminAuth";
+
+/** Attempt to write a failed-login audit event without blocking the response. */
+async function logFailedLogin(reason, req) {
+  try {
+    const supabase = createServiceRoleClient();
+    const ip =
+      req.headers["x-real-ip"] ||
+      req.headers["x-forwarded-for"]?.split(",")[0]?.trim() ||
+      req.socket?.remoteAddress ||
+      "unknown";
+    await writeAuditEvent(supabase, {
+      actorUserId: null,
+      actorEmail: null,
+      actorType: "unknown",
+      action: "admin_login_failed",
+      targetUserId: null,
+      targetEmailOrPhone: null,
+      metadata: { reason, ip },
+    });
+  } catch {
+    // Audit failure must never surface to the caller — already logged by writeAuditEvent
+  }
+}
 
 function getAdminDataFile() {
   return process.env.ADMIN_DATA_FILE || "/var/lib/iiskills/admin.json";
@@ -91,6 +116,7 @@ export default async function handler(req, res) {
     const match = a.length === b.length && crypto.timingSafeEqual(a, b);
     if (!match) {
       console.warn("[adminLogin] TEST_ADMIN_MODE: passphrase mismatch");
+      logFailedLogin("passphrase_mismatch_test_mode", req);
       return res.status(401).json({ error: "Invalid passphrase" });
     }
     const token = createAdminToken(false);
@@ -127,6 +153,7 @@ export default async function handler(req, res) {
     const valid = await bcrypt.compare(passphrase, storedHash);
     if (!valid) {
       console.warn("[adminLogin] Bcrypt comparison failed — passphrase does not match stored hash");
+      logFailedLogin("passphrase_mismatch_bcrypt", req);
       return res.status(401).json({ error: "Invalid passphrase" });
     }
     console.log("[adminLogin] Login succeeded via bcrypt hash");
@@ -138,6 +165,7 @@ export default async function handler(req, res) {
   // No hash stored. If ADMIN_PANEL_SECRET was set it already failed the match above → unauthorized.
   if (masterSecret) {
     console.warn("[adminLogin] ADMIN_PANEL_SECRET did not match and no hash is stored");
+    logFailedLogin("passphrase_mismatch_master_secret", req);
     return res.status(401).json({ error: "Invalid passphrase" });
   }
 
