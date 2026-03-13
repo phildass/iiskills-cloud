@@ -12,17 +12,17 @@ Supabase-based authentication.
 | Env var                     | Value                | Effect                                          |
 | --------------------------- | -------------------- | ----------------------------------------------- |
 | `TEST_ADMIN_MODE`           | `true`               | Enable test mode (no DB required)               |
-| `TEST_ADMIN_MODE`           | `false` or unset     | Production mode (Supabase auth)                 |
-| `ADMIN_PANEL_SECRET`        | your passphrase      | Override the default test passphrase            |
+| `TEST_ADMIN_MODE`           | `false` or unset     | Production mode                                 |
+| `ADMIN_PANEL_SECRET`        | your passphrase      | **Required** — the admin passphrase             |
 | `ADMIN_SECRET`              | your passphrase      | Alias for `ADMIN_PANEL_SECRET` (lower priority) |
 | `ADMIN_SESSION_SIGNING_KEY` | a long random secret | Signs the session cookie (required)             |
 
 When `TEST_ADMIN_MODE=true`:
 
 1. The admin passphrase is read **only** from env vars — no database write or read.
-   - Primary: `ADMIN_PANEL_SECRET`
+   - Primary: `ADMIN_PANEL_SECRET` (**required**)
    - Fallback alias: `ADMIN_SECRET`
-   - Default (if neither is set): `iiskills123`
+   - If neither is set: login returns 503 (admin login not configured)
 2. The `/admin/setup` page is disabled and redirects to `/admin` with an
    informational message.
 3. No Supabase keys (`NEXT_PUBLIC_SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`) are
@@ -37,14 +37,13 @@ When `TEST_ADMIN_MODE=true`:
 
 ```bash
 export TEST_ADMIN_MODE="true"
-export ADMIN_PANEL_SECRET="iiskills123"
+export ADMIN_PANEL_SECRET="$(openssl rand -hex 20)"
 export ADMIN_SESSION_SIGNING_KEY="$(openssl rand -hex 32)"
 pm2 restart iiskills-main --update-env
 ```
 
-> **Note:** Replace `iiskills123` with a stronger passphrase for any shared
-> environment. The signing key must be kept secret; generate a new one with
-> `openssl rand -hex 32`.
+> **Note:** `ADMIN_PANEL_SECRET` is required — generate a strong passphrase with
+> `openssl rand -hex 20`. The signing key must also be kept secret.
 
 ### Verify the env vars were applied
 
@@ -116,9 +115,7 @@ pm2 restart iiskills-main --update-env \
 
 With `TEST_ADMIN_MODE=false` (the default):
 
-- `iiskills123` is **not** accepted unless it has been explicitly stored as the
-  admin passphrase hash in Supabase.
-- The `/admin/setup` flow is re-enabled so a real passphrase can be written to the
-  database.
+- `ADMIN_PANEL_SECRET` or a stored bcrypt hash is required; login is blocked (503) if neither is configured.
+- The `/admin/setup` flow is re-enabled so a real passphrase can be written to the file.
 - Supabase keys (`NEXT_PUBLIC_SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`) must be
   present.

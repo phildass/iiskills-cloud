@@ -3,7 +3,7 @@
  *
  * Supports three access modes:
  * 1. Local Dev (NEXT_PUBLIC_DISABLE_AUTH=true): Full access to everyone
- * 2. Online with Secret Password: Access via secret password 'iiskills123'
+ * 2. Online with Secret Password: Access via NEXT_PUBLIC_ADMIN_SECRET_PASSWORD (must be explicitly set)
  * 3. Online with Auth: Standard authentication and admin role check
  *
  * The secret password feature provides a backdoor for demo/testing purposes.

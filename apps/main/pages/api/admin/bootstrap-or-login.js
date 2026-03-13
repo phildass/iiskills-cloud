@@ -1,20 +1,16 @@
 /**
  * POST /api/admin/bootstrap-or-login
  *
- * Handles both the first-run bootstrap login and regular passphrase login.
+ * Handles admin passphrase login.
  *
  * TEST_ADMIN_MODE=true (env-only, no file writes):
- * - Accepts ADMIN_PANEL_SECRET env var as passphrase; falls back to "iiskills123".
+ * - Accepts ADMIN_PANEL_SECRET env var as passphrase. ADMIN_PANEL_SECRET is required.
  * - Never touches the local data file; always returns needs_setup=false.
  *
  * TEST_ADMIN_MODE=false / unset (production path):
- * - If no admin passphrase is stored in the local file AND no ADMIN_PANEL_SECRET is set:
- *   accept ONLY the bootstrap passphrase "iiskills123", then return needs_setup=true
- *   so the UI forces the admin to set a real passphrase.
- * - If a passphrase hash is stored in the local file:
- *   verify against bcrypt hash; if correct, return needs_setup=false.
- * - If ADMIN_PANEL_SECRET env var is set:
- *   accept it as an emergency override (needs_setup=false).
+ * - If ADMIN_PANEL_SECRET env var is set: accept it as an emergency override (needs_setup=false).
+ * - If a passphrase hash is stored in the local file: verify against bcrypt hash.
+ * - If neither ADMIN_PANEL_SECRET nor a stored hash is present: reject all logins (503).
  *
  * Cookie: HttpOnly admin_session signed with ADMIN_SESSION_SIGNING_KEY (12 h).
  *
@@ -32,8 +28,6 @@ import {
   isTestAdminMode,
   getTestPassphrase,
 } from "../../../lib/adminAuth";
-
-const BOOTSTRAP_PASSPHRASE = "iiskills123";
 
 function getAdminDataFile() {
   return process.env.ADMIN_DATA_FILE || "/var/lib/iiskills/admin.json";
@@ -83,6 +77,15 @@ export default async function handler(req, res) {
   if (isTestAdminMode()) {
     console.log("[adminLogin] Running in TEST_ADMIN_MODE");
     const expected = getTestPassphrase();
+    if (!expected) {
+      console.error(
+        "[adminLogin] TEST_ADMIN_MODE requires ADMIN_PANEL_SECRET to be set. " +
+          "Set ADMIN_PANEL_SECRET in /etc/iiskills.env and restart the server."
+      );
+      return res.status(503).json({
+        error: "ADMIN_PANEL_SECRET must be configured for TEST_ADMIN_MODE",
+      });
+    }
     const a = Buffer.from(passphrase);
     const b = Buffer.from(expected);
     const match = a.length === b.length && crypto.timingSafeEqual(a, b);
@@ -132,17 +135,20 @@ export default async function handler(req, res) {
     return res.status(200).json({ ok: true, needs_setup: false });
   }
 
-  // No hash stored yet: only the bootstrap passphrase is accepted
-  if (passphrase !== BOOTSTRAP_PASSPHRASE) {
-    console.warn(
-      "[adminLogin] No hash stored and bootstrap passphrase did not match. " +
-        "Recovery: delete the admin data file to re-enable the bootstrap passphrase, " +
-        "or set ADMIN_PANEL_SECRET in /etc/iiskills.env and restart."
-    );
+  // No hash stored. If ADMIN_PANEL_SECRET was set it already failed the match above → unauthorized.
+  if (masterSecret) {
+    console.warn("[adminLogin] ADMIN_PANEL_SECRET did not match and no hash is stored");
     return res.status(401).json({ error: "Invalid passphrase" });
   }
-  console.log("[adminLogin] Login succeeded via bootstrap passphrase — redirecting to setup");
-  const token = createAdminToken(true); // needs_setup = true
-  setAdminSessionCookie(res, token);
-  return res.status(200).json({ ok: true, needs_setup: true });
+
+  // No hash and no ADMIN_PANEL_SECRET at all: admin login is not configured
+  console.error(
+    "[adminLogin] No passphrase configured: no stored bcrypt hash and ADMIN_PANEL_SECRET is not set. " +
+      "Set ADMIN_PANEL_SECRET in /etc/iiskills.env, or configure a passphrase via /admin/setup, " +
+      "then restart the server."
+  );
+  return res.status(503).json({
+    error:
+      "Admin login is not configured. Set ADMIN_PANEL_SECRET or configure a passphrase via /admin/setup.",
+  });
 }
