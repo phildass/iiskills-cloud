@@ -15,7 +15,7 @@
  *
  * Required env vars:
  *   NEXT_PUBLIC_SUPABASE_URL
- *   SUPABASE_SERVICE_ROLE_KEY  (or NEXT_PUBLIC_SUPABASE_ANON_KEY as fallback)
+ *   SUPABASE_SERVICE_ROLE_KEY  (service role key — anon key is NOT sufficient)
  *
  * Request:
  *   POST /api/complete-registration
@@ -93,12 +93,9 @@ export function generateUsername(base) {
 
 function getSupabaseAdmin() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL;
-  const key =
-    process.env.SUPABASE_SERVICE_ROLE_KEY ||
-    process.env.SUPABASE_KEY ||
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
   if (!url || !key) return null;
-  return createClient(url, key);
+  return createClient(url, key, { auth: { autoRefreshToken: false, persistSession: false } });
 }
 
 // ─── Handler ──────────────────────────────────────────────────────────────────

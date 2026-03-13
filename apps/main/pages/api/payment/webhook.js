@@ -3,7 +3,12 @@ import { createClient } from "@supabase/supabase-js";
 import { sendThankYouEmail } from "@lib/paymentEmail";
 import { APPS } from "@lib/appRegistry";
 
-const supabase = createClient(process.env.SUPABASE_URL || "", process.env.SUPABASE_KEY || "");
+function getSupabaseAdmin() {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL;
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!url || !key) return null;
+  return createClient(url, key, { auth: { autoRefreshToken: false, persistSession: false } });
+}
 
 /**
  * Payment Webhook Handler
@@ -96,6 +101,11 @@ export default async function handler(req, res) {
     }
 
     // Store payment record in database (idempotent — UNIQUE constraint on payment_id)
+    const supabase = getSupabaseAdmin();
+    if (!supabase) {
+      console.error("[webhook] Supabase service role client not configured");
+      return res.status(503).json({ error: "Payment service not configured" });
+    }
     const { error: paymentError } = await supabase.from("payments").insert([
       {
         payment_id: paymentId,
