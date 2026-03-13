@@ -8,6 +8,7 @@ import { getCurrentUser } from "../../../lib/supabaseClient";
 
 const APP_KEY = "learn-developer";
 const APP_DISPLAY = "Learn Developer";
+const NO_BADGES_KEY = "learn-developer-noBadges";
 
 // Per-module final test question bank — 20 real questions per module
 const FINAL_TEST_QUESTIONS = {
@@ -247,6 +248,17 @@ export default function ModuleFinalTestPage() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [passed, setPassed] = useState(false);
+  const [showSkipDialog, setShowSkipDialog] = useState(false);
+  const [noBadges, setNoBadges] = useState(false);
+
+  // Load noBadges flag from localStorage on mount
+  useEffect(() => {
+    try {
+      setNoBadges(localStorage.getItem(NO_BADGES_KEY) === "true");
+    } catch {
+      // localStorage unavailable (SSR or private mode)
+    }
+  }, []);
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -272,6 +284,26 @@ export default function ModuleFinalTestPage() {
     }
   };
 
+  const goToNextModule = () => {
+    const nextModuleId = parseInt(moduleId) + 1;
+    if (nextModuleId <= 10) {
+      router.push(`/modules/${nextModuleId}/lesson/1`);
+    } else {
+      router.push("/curriculum");
+    }
+  };
+
+  const confirmSkip = () => {
+    try {
+      localStorage.setItem(NO_BADGES_KEY, "true");
+    } catch {
+      // localStorage unavailable
+    }
+    setNoBadges(true);
+    setShowSkipDialog(false);
+    goToNextModule();
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -289,6 +321,17 @@ export default function ModuleFinalTestPage() {
       </Head>
       <main className="min-h-screen bg-gray-50 py-12">
         <div className="container mx-auto px-4 max-w-4xl">
+          {/* Skip-mode banner */}
+          {noBadges && (
+            <div
+              role="alert"
+              className="mb-6 rounded-lg border border-yellow-400 bg-yellow-50 px-4 py-3 text-yellow-800 text-sm"
+            >
+              ⚠️ <strong>You&apos;re in Skip mode.</strong> You can continue without quizzes, but
+              you won&apos;t earn badges or a certificate for this course.
+            </div>
+          )}
+
           <div className="mb-6">
             <button
               onClick={() => router.push(`/modules/${moduleId}/lesson/1`)}
@@ -321,6 +364,28 @@ export default function ModuleFinalTestPage() {
             onComplete={handleComplete}
           />
 
+          {/* Skip quiz button — shown below test when not yet passed */}
+          {!passed && !noBadges && (
+            <div className="mt-4 text-center">
+              <button
+                onClick={() => setShowSkipDialog(true)}
+                className="text-sm text-gray-500 underline hover:text-gray-700"
+              >
+                Skip quiz and continue
+              </button>
+            </div>
+          )}
+
+          {/* Skip mode: Continue without taking the test */}
+          {noBadges && !passed && (
+            <div className="card bg-yellow-50 border-2 border-yellow-400 mt-6">
+              <p className="text-gray-700 mb-4">Continue to the next module.</p>
+              <button onClick={goToNextModule} className="btn-primary">
+                Continue to Next Module
+              </button>
+            </div>
+          )}
+
           {passed && (
             <div className="card bg-green-50 border-2 border-green-500 mt-6">
               <h3 className="text-xl font-semibold text-green-800 mb-4">
@@ -329,6 +394,33 @@ export default function ModuleFinalTestPage() {
               <button onClick={() => router.push("/curriculum")} className="btn-primary">
                 Continue to Curriculum
               </button>
+            </div>
+          )}
+
+          {/* Skip confirmation dialog */}
+          {showSkipDialog && (
+            <div
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="skip-dialog-title"
+              className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+            >
+              <div className="bg-white rounded-xl shadow-xl max-w-sm w-full mx-4 p-6">
+                <h2 id="skip-dialog-title" className="text-xl font-semibold mb-3">
+                  Skip quizzes?
+                </h2>
+                <p className="text-gray-700 mb-6">
+                  You can continue to the next module, but you won&apos;t earn badges or a certificate for this course. <strong>This cannot be undone.</strong>
+                </p>
+                <div className="flex gap-3 justify-end">
+                  <button onClick={() => setShowSkipDialog(false)} className="btn-secondary">
+                    Cancel
+                  </button>
+                  <button onClick={confirmSkip} className="btn-primary">
+                    Skip
+                  </button>
+                </div>
+              </div>
             </div>
           )}
         </div>
