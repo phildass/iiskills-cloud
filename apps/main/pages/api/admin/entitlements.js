@@ -93,6 +93,7 @@ export default async function handler(req, res) {
       .insert({
         user_id,
         app_id,
+        course_slug: app_id,
         status: "active",
         source: "admin",
         payment_reference: payment_reference || null,
