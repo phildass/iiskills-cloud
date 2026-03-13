@@ -114,6 +114,12 @@ export default function AdminNav() {
             >
               Admins
             </Link>
+            <Link
+              href="/admin/refund-requests"
+              className="text-yellow-900 hover:text-yellow-700 font-medium"
+            >
+              Refunds
+            </Link>
             <Link href="/admin/audit" className="text-yellow-900 hover:text-yellow-700 font-medium">
               Audit Log
             </Link>
