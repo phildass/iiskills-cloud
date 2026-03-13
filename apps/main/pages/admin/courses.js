@@ -7,6 +7,7 @@ import Footer from "../../components/Footer";
 import { SUBDOMAIN_OPTIONS } from "../../lib/siteConfig";
 import { getCoursePreviewUrl } from "../../lib/navigation";
 import { useAdminProtectedPage, AccessDenied } from "../../components/AdminProtectedPage";
+import { getPaidApps } from "../../../../packages/access-control";
 
 export default function AdminCourses() {
   const { ready, denied } = useAdminProtectedPage();
@@ -62,6 +63,9 @@ export default function AdminCourses() {
 
       let allCourses = data.contents || [];
 
+      // Paid app IDs for is_free fallback when not explicitly set in data
+      const paidAppIds = new Set(getPaidApps());
+
       // Transform to match expected structure and add source info
       allCourses = allCourses.map((item) => ({
         id: item.id,
@@ -73,7 +77,10 @@ export default function AdminCourses() {
         category: item.data.category,
         subdomain: item.sourceApp || item.data.subdomain || "unknown",
         price: item.data.price || 0,
-        is_free: item.data.is_free !== false,
+        is_free:
+          item.data.is_free !== undefined
+            ? item.data.is_free !== false
+            : !paidAppIds.has(item.sourceApp),
         status: item.data.status || "published",
         source: item.source,
         sourceApp: item.sourceApp,

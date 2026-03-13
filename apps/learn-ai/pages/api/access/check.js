@@ -11,7 +11,8 @@
  * Checks:
  *   1. Active entitlement row in public.entitlements for the user + appId
  *      (includes ai-developer-bundle which grants access to learn-ai and learn-developer).
- *   2. Fallback: profiles.is_paid_user flag.
+ *   2. Admin bypass: profiles.is_admin = true grants full access to all content.
+ *   3. Fallback: profiles.is_paid_user flag.
  */
 
 import { createClient } from "@supabase/supabase-js";
@@ -70,12 +71,17 @@ export default async function handler(req, res) {
     return res.status(200).json({ hasAccess: true });
   }
 
-  // Fallback: check profiles.is_paid_user
+  // Check profile for admin override or paid user status
   const { data: profile } = await supabase
     .from("profiles")
-    .select("is_paid_user")
+    .select("is_admin, is_paid_user")
     .eq("id", user.id)
     .maybeSingle();
+
+  // Admins have unrestricted access to all content
+  if (profile?.is_admin === true) {
+    return res.status(200).json({ hasAccess: true });
+  }
 
   return res.status(200).json({ hasAccess: !!profile?.is_paid_user });
 }

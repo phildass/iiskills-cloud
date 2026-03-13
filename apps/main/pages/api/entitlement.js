@@ -58,18 +58,34 @@ export default async function handler(req, res) {
     return res.status(200).json({ authenticated: false, entitled: false, expiresAt: null });
   }
 
-  // Check entitlements table for active entitlement
+  // Run admin check and entitlement check in parallel to minimise DB round trips.
+  // If the user is an admin, return full access immediately without checking entitlements.
   const now = new Date().toISOString();
-  const { data: entitlement, error } = await supabase
-    .from("entitlements")
-    .select("id, status, expires_at")
-    .eq("user_id", user.id)
-    .in("app_id", [appId, "ai-developer-bundle"])
-    .eq("status", "active")
-    .or(`expires_at.is.null,expires_at.gt.${now}`)
-    .order("purchased_at", { ascending: false })
-    .limit(1)
-    .maybeSingle();
+  const [profileResult, entitlementResult] = await Promise.all([
+    supabase.from("profiles").select("is_admin").eq("id", user.id).maybeSingle(),
+    supabase
+      .from("entitlements")
+      .select("id, status, expires_at")
+      .eq("user_id", user.id)
+      .in("app_id", [appId, "ai-developer-bundle"])
+      .eq("status", "active")
+      .or(`expires_at.is.null,expires_at.gt.${now}`)
+      .order("purchased_at", { ascending: false })
+      .limit(1)
+      .maybeSingle(),
+  ]);
+
+  // Admin bypass: admins have unrestricted access to all content
+  if (profileResult.data?.is_admin === true) {
+    return res.status(200).json({
+      authenticated: true,
+      entitled: true,
+      expiresAt: null,
+      adminAccess: true,
+    });
+  }
+
+  const { data: entitlement, error } = entitlementResult;
 
   if (error) {
     console.error("[entitlement API] DB error:", error.message);
