@@ -52,7 +52,7 @@ module.exports = {
     },
     {
       name: "iiskills-main-copy",
-      cwd: path.join(__dirname, "apps/main"),
+      cwd: path.join(__dirname, "apps/main-copy"),
       script: "npx",
       args: "next start",
       interpreter: "none",
@@ -65,6 +65,7 @@ module.exports = {
         // IS_TEST_SITE — read at runtime by the Edge Middleware to block all
         //   non-GET/HEAD API requests with HTTP 423.
         // Both must be set so the UI and API layers are both protected.
+        // These are also set in apps/main-copy/.env so they are always active.
         NEXT_PUBLIC_IS_TEST_SITE: "true",
         IS_TEST_SITE: "true",
       },

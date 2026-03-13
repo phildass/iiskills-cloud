@@ -1613,6 +1613,37 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@iiskills/main-copy@workspace:apps/main-copy":
+  version: 0.0.0-use.local
+  resolution: "@iiskills/main-copy@workspace:apps/main-copy"
+  dependencies:
+    "@iiskills/ui": "workspace:*"
+    "@sendgrid/mail": "npm:^8.1.6"
+    "@supabase/supabase-js": "npm:^2.97.0"
+    autoprefixer: "npm:^10.4.14"
+    bcrypt: "npm:^6.0.0"
+    cookie: "npm:^1.1.1"
+    crypto: "npm:^1.0.1"
+    dotenv: "npm:^17.3.1"
+    eslint: "npm:^9.39.2"
+    formidable: "npm:^3.5.4"
+    framer-motion: "npm:^12.33.0"
+    html2canvas: "npm:^1.4.1"
+    jsonwebtoken: "npm:^9.0.3"
+    jspdf: "npm:^4.0.0"
+    next: "npm:^16.1.1"
+    postcss: "npm:latest"
+    qrcode: "npm:^1.5.4"
+    razorpay: "npm:^2.9.6"
+    react: "npm:latest"
+    react-dom: "npm:latest"
+    react-force-graph-2d: "npm:^1.29.1"
+    react-is: "npm:latest"
+    recharts: "npm:^3.7.0"
+    tailwindcss: "npm:^3.4.1"
+  languageName: unknown
+  linkType: soft
+
 "@iiskills/main@workspace:apps/main":
   version: 0.0.0-use.local
   resolution: "@iiskills/main@workspace:apps/main"

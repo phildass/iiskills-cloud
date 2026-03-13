@@ -33,6 +33,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "dev:main": "cd apps/main && npm run dev",
+    "dev:main-copy": "yarn workspace @iiskills/main-copy dev",
     "dev:web": "yarn workspace @iiskills/web dev",
     "dev:admin": "yarn workspace @iiskills/admin dev",
     "dev:learn-ai": "yarn workspace @iiskills/learn-ai dev",
