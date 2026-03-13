@@ -49,6 +49,7 @@ cp "${SCRIPT_DIR}/snippets/iiskills-basic-auth.conf" \
 echo "[5/7] Deploying vhost configs to /etc/nginx/sites-available/..."
 SITES=(
     iiskills.cloud
+    sample.iiskills.cloud
     learn-ai.iiskills.cloud
     learn-apt.iiskills.cloud
     learn-chemistry.iiskills.cloud
@@ -87,6 +88,10 @@ for domain in iiskills.cloud learn-ai.iiskills.cloud learn-developer.iiskills.cl
     echo -n "  https://${domain}/        → "
     curl -sk -o /dev/null -w "%{http_code}\n" "https://${domain}/"        || true
 done
+echo ""
+echo "── sample.iiskills.cloud verification (expect 200 — publicly accessible) ─"
+echo -n "  https://sample.iiskills.cloud/ → "
+curl -sk -o /dev/null -w "%{http_code}\n" "https://sample.iiskills.cloud/" || true
 echo ""
 echo "── Additional domain verification ───────────────────────────────────────"
 for domain in iiskills.cloud learn-ai.iiskills.cloud learn-developer.iiskills.cloud; do

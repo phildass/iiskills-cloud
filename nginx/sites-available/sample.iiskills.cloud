@@ -1,0 +1,64 @@
+# NGINX configuration for sample.iiskills.cloud
+# Demo/test site — publicly accessible (no Basic Auth) since this is a
+# read-only demo deployment. The app itself blocks all mutations via
+# IS_TEST_SITE=true (Edge Middleware returns HTTP 423 for non-GET/HEAD requests)
+# and displays a prominent "TEST SITE ONLY" banner on every page.
+# Reverse proxy to localhost:3030
+
+server {
+    listen 80;
+    server_name sample.iiskills.cloud;
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443 ssl http2;
+    server_name sample.iiskills.cloud;
+
+    ssl_certificate     /etc/ssl/iiskills/fullchain.pem;
+    ssl_certificate_key /etc/ssl/iiskills/privkey.pem;
+
+    add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;
+    add_header X-Frame-Options "SAMEORIGIN" always;
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header X-XSS-Protection "1; mode=block" always;
+
+    access_log /var/log/nginx/sample.iiskills.cloud.access.log;
+    error_log  /var/log/nginx/sample.iiskills.cloud.error.log;
+
+    # Public assets — must be accessible without any auth gating
+    location = /manifest.json {
+        proxy_pass http://localhost:3030;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    location /_next/static/ {
+        proxy_pass http://localhost:3030;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+        expires 1y;
+        add_header Cache-Control "public, immutable";
+    }
+
+    # All routes — publicly accessible (no Basic Auth) for demo/test site
+    location / {
+        proxy_pass http://localhost:3030;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_cache_bypass $http_upgrade;
+
+        proxy_connect_timeout 60s;
+        proxy_send_timeout 60s;
+        proxy_read_timeout 60s;
+    }
+}

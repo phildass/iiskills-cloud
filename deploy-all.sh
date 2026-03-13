@@ -97,6 +97,7 @@ BRANCH="main"
 # ---------------------------------------------------------------------------
 IISKILLS_PROCS=(
   "iiskills-main"
+  "iiskills-main-copy"
   "iiskills-learn-apt"
   "iiskills-learn-chemistry"
   "iiskills-learn-developer"
@@ -201,6 +202,14 @@ else
   exit 1
 fi
 
+echo "==> Post-build validation: apps/main-copy BUILD_ID"
+if [ ! -f "$BUILD_DIR/apps/main-copy/.next/BUILD_ID" ]; then
+  echo "ERROR: apps/main-copy/.next/BUILD_ID not found — build failed or was skipped."
+  echo "  Fix: inspect the build log above, then re-run deploy-all.sh."
+  exit 1
+fi
+echo "  main-copy BUILD_ID: $(cat "$BUILD_DIR/apps/main-copy/.next/BUILD_ID")"
+
 # ---------------------------------------------------------------------------
 # All validations passed — safe to stop PM2 and promote the new build.
 # ---------------------------------------------------------------------------
@@ -262,6 +271,19 @@ fi
 echo "==> Start MAIN on :3000 from apps/main"
 cd "$REPO_DIR/apps/main"
 PORT=3000 pm2 start "npx next start -p 3000" --name iiskills-main
+
+# ---------------------------------------------------------------------------
+# Start MAIN-COPY (sample.iiskills.cloud) on :3030
+# NEXT_PUBLIC_IS_TEST_SITE and IS_TEST_SITE are baked into the client bundle
+# at build time via apps/main-copy/.env.production. We start via the
+# ecosystem.config.js entry so that the env vars (PORT, IS_TEST_SITE,
+# NEXT_PUBLIC_IS_TEST_SITE) are persisted in the PM2 process list and
+# survive server reboots / pm2 resurrect.
+# ---------------------------------------------------------------------------
+echo "==> Start MAIN-COPY (sample.iiskills.cloud) on :3030 from apps/main-copy"
+cd "$REPO_DIR"
+pm2 start ecosystem.config.js --only iiskills-main-copy
+echo "  Started iiskills-main-copy on :3030 (sample.iiskills.cloud)"
 
 echo "==> Start learn apps if present (ports hardcoded to match your current nginx/pm2 layout)"
 declare -A PORTS=(
