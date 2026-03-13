@@ -11,6 +11,7 @@
  *   - Certificates count + list
  *   - honourStudent (badges > 10)
  *   - Progress summary
+ *   - Refund requests (user's own)
  *
  * Requires: Authorization: Bearer <supabase_access_token>
  *
@@ -22,8 +23,7 @@ import { createClient } from "@supabase/supabase-js";
 
 function getSupabaseServer() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const serviceKey =
-    process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
   if (!url || !serviceKey) return null;
   return createClient(url, serviceKey);
 }
@@ -143,6 +143,17 @@ export default async function handler(req, res) {
     return acc;
   }, {});
 
+  // ── Refund requests ───────────────────────────────────────────────────────
+  const { data: refundRequests } = await supabase
+    .from("refund_requests")
+    .select(
+      "id, purchase_id, course_slug, amount_paise, reason, status, admin_note, created_at, updated_at"
+    )
+    .eq("user_id", userId)
+    .order("created_at", { ascending: false });
+
+  const refundRequestList = refundRequests || [];
+
   // ── Paid course slugs ──────────────────────────────────────────────────────
   // Primary: purchases with status='paid', de-duplicated by course_slug
   const purchaseList = purchases || [];
@@ -180,6 +191,7 @@ export default async function handler(req, res) {
     certificateCount: certList.length,
     paidCourseSlugs,
     lastLessonByApp,
+    refundRequests: refundRequestList,
     progress: {
       totalLessonsCompleted,
       totalLessonsPassed,

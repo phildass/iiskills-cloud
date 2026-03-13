@@ -263,6 +263,15 @@ export default function AdminDashboard() {
             <h3 className="font-bold text-lg text-gray-800 mb-2">Tickets</h3>
             <p className="text-sm text-gray-600">Manage support tickets</p>
           </Link>
+
+          <Link
+            href="/admin/refund-requests"
+            className="bg-white border-2 border-red-200 rounded-lg shadow-md p-6 hover:border-red-400 hover:shadow-lg transition text-center group"
+          >
+            <div className="text-4xl mb-3 group-hover:scale-110 transition-transform">💸</div>
+            <h3 className="font-bold text-lg text-gray-800 mb-2">Refund Requests</h3>
+            <p className="text-sm text-gray-600">Review and manage refund requests</p>
+          </Link>
         </div>
 
         {/* Multi-Site Management */}

@@ -1022,6 +1022,11 @@ function ProfileTab({ dashboardData, accessToken, onProfileUpdated }) {
 
 // ── Progress & Achievements Tab ──────────────────────────────────────────────
 
+function formatCurrency(paise) {
+  if (!paise) return "₹0";
+  return `₹${(paise / 100).toLocaleString("en-IN")}`;
+}
+
 function AchievementsTab({ dashboardData, accessToken }) {
   const {
     badges,
@@ -1034,11 +1039,6 @@ function AchievementsTab({ dashboardData, accessToken }) {
     entitlements,
     progress,
   } = dashboardData;
-
-  const formatCurrency = (paise) => {
-    if (!paise) return "₹0";
-    return `₹${(paise / 100).toLocaleString("en-IN")}`;
-  };
 
   return (
     <div className="space-y-6">
@@ -1427,6 +1427,292 @@ function AccomplishmentsSection({ accessToken }) {
   );
 }
 
+// ── Credits Tab ───────────────────────────────────────────────────────────────
+
+function CreditsTab({ dashboardData, accessToken }) {
+  const purchases = dashboardData?.purchases || [];
+  const purchasesTotal = dashboardData?.purchasesTotal || 0;
+  const existingRefundRequests = dashboardData?.refundRequests || [];
+
+  const [showRefundModal, setShowRefundModal] = useState(false);
+  const [selectedPurchase, setSelectedPurchase] = useState(null);
+  const [refundReason, setRefundReason] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [refundRequests, setRefundRequests] = useState(existingRefundRequests);
+
+  function openRefundModal(purchase) {
+    setSelectedPurchase(purchase);
+    setRefundReason("");
+    setSubmitError("");
+    setSubmitSuccess(false);
+    setShowRefundModal(true);
+  }
+
+  function closeRefundModal() {
+    setShowRefundModal(false);
+    setSelectedPurchase(null);
+    setRefundReason("");
+    setSubmitError("");
+  }
+
+  async function submitRefundRequest(e) {
+    e.preventDefault();
+    if (!selectedPurchase || !refundReason.trim()) return;
+    setSubmitting(true);
+    setSubmitError("");
+    try {
+      const res = await fetch("/api/refund-requests", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify({
+          purchase_id: selectedPurchase.id,
+          course_slug: selectedPurchase.course_slug,
+          amount_paise: selectedPurchase.amount_paise,
+          reason: refundReason.trim(),
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setSubmitError(data.error || "Failed to submit refund request");
+        return;
+      }
+      setSubmitSuccess(true);
+      setRefundRequests((prev) => [data.refundRequest, ...prev]);
+    } catch {
+      setSubmitError("Network error. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
+  function getRefundStatusForPurchase(purchaseId) {
+    return refundRequests.find((r) => r.purchase_id === purchaseId);
+  }
+
+  const REFUND_STATUS_STYLES = {
+    pending: "bg-amber-100 text-amber-800",
+    approved: "bg-green-100 text-green-800",
+    rejected: "bg-red-100 text-red-800",
+  };
+  const REFUND_STATUS_LABELS = {
+    pending: "Refund Pending",
+    approved: "Refund Approved",
+    rejected: "Refund Rejected",
+  };
+
+  return (
+    <div className="space-y-6">
+      {/* Summary card */}
+      <div className="bg-gradient-to-br from-blue-600 to-indigo-600 rounded-xl shadow p-6 text-white">
+        <h2 className="text-lg font-bold mb-1">💳 Credits &amp; Payments</h2>
+        <p className="text-blue-100 text-sm mb-4">Summary of all your payments and transactions.</p>
+        <div className="flex items-end gap-2">
+          <span className="text-4xl font-bold">{formatCurrency(purchasesTotal)}</span>
+          <span className="text-blue-200 text-sm mb-1">total paid</span>
+        </div>
+        {purchases.length > 0 && (
+          <p className="text-blue-200 text-xs mt-2">
+            {purchases.length} transaction{purchases.length !== 1 ? "s" : ""}
+          </p>
+        )}
+      </div>
+
+      {/* Payments list */}
+      <div className="bg-white rounded-xl shadow p-6">
+        <h3 className="text-base font-bold text-gray-900 mb-4">📋 Payment History</h3>
+        {purchases.length === 0 ? (
+          <div className="text-center py-6 text-gray-500">
+            <p className="text-3xl mb-2">💳</p>
+            <p className="text-sm">No payment records found.</p>
+            <p className="text-xs mt-1">Enrol in a paid course to see your transactions here.</p>
+          </div>
+        ) : (
+          <div className="space-y-3">
+            {purchases.map((p) => {
+              const existing = getRefundStatusForPurchase(p.id);
+              return (
+                <div
+                  key={p.id}
+                  className="flex items-start justify-between py-3 border-b border-gray-100 last:border-0 gap-4"
+                >
+                  <div className="flex-1 min-w-0">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="font-semibold text-gray-800 text-sm">{p.course_slug}</span>
+                      {existing && (
+                        <span
+                          className={`text-xs font-bold px-2 py-0.5 rounded-full ${REFUND_STATUS_STYLES[existing.status]}`}
+                        >
+                          {REFUND_STATUS_LABELS[existing.status]}
+                        </span>
+                      )}
+                    </div>
+                    <div className="text-xs text-gray-400 mt-0.5">
+                      {p.paid_at ? formatDate(p.paid_at) : "—"}
+                      {p.currency && ` · ${p.currency}`}
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3 shrink-0">
+                    <span className="font-bold text-gray-800 text-sm">
+                      {formatCurrency(p.amount_paise)}
+                    </span>
+                    {!existing && (
+                      <button
+                        onClick={() => openRefundModal(p)}
+                        className="text-xs text-red-600 hover:text-red-800 underline whitespace-nowrap"
+                      >
+                        Request Refund
+                      </button>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+            <div className="flex justify-between pt-2 text-sm font-bold text-gray-900 border-t border-gray-200">
+              <span>Total Paid</span>
+              <span>{formatCurrency(purchasesTotal)}</span>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Refund Requests history */}
+      {refundRequests.length > 0 && (
+        <div className="bg-white rounded-xl shadow p-6">
+          <h3 className="text-base font-bold text-gray-900 mb-4">🔄 Refund Requests</h3>
+          <div className="space-y-3">
+            {refundRequests.map((r) => (
+              <div key={r.id} className="py-3 border-b border-gray-100 last:border-0">
+                <div className="flex items-start justify-between gap-4">
+                  <div className="flex-1 min-w-0">
+                    <div className="flex flex-wrap items-center gap-2 mb-1">
+                      <span className="font-semibold text-gray-800 text-sm">{r.course_slug}</span>
+                      <span
+                        className={`text-xs font-bold px-2 py-0.5 rounded-full ${REFUND_STATUS_STYLES[r.status]}`}
+                      >
+                        {REFUND_STATUS_LABELS[r.status]}
+                      </span>
+                    </div>
+                    <p className="text-xs text-gray-500">{r.reason}</p>
+                    {r.admin_note && (
+                      <p className="text-xs text-blue-600 mt-1">Admin: {r.admin_note}</p>
+                    )}
+                    <p className="text-xs text-gray-400 mt-0.5">
+                      Submitted {formatDate(r.created_at)}
+                    </p>
+                  </div>
+                  <span className="font-bold text-gray-700 text-sm shrink-0">
+                    {formatCurrency(r.amount_paise)}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Refund Request Modal */}
+      {showRefundModal && selectedPurchase && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
+          <div className="bg-white rounded-2xl shadow-xl w-full max-w-md p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-bold text-gray-900">💸 Request Refund</h3>
+              <button
+                onClick={closeRefundModal}
+                className="text-gray-400 hover:text-gray-600 text-2xl leading-none"
+                aria-label="Close"
+              >
+                ×
+              </button>
+            </div>
+
+            <div className="bg-gray-50 rounded-lg p-3 mb-4 text-sm">
+              <div className="flex justify-between">
+                <span className="text-gray-600">Course</span>
+                <span className="font-semibold text-gray-800">{selectedPurchase.course_slug}</span>
+              </div>
+              <div className="flex justify-between mt-1">
+                <span className="text-gray-600">Amount</span>
+                <span className="font-semibold text-gray-800">
+                  {formatCurrency(selectedPurchase.amount_paise)}
+                </span>
+              </div>
+              <div className="flex justify-between mt-1">
+                <span className="text-gray-600">Date</span>
+                <span className="text-gray-600">
+                  {selectedPurchase.paid_at ? formatDate(selectedPurchase.paid_at) : "—"}
+                </span>
+              </div>
+            </div>
+
+            {submitSuccess ? (
+              <div className="text-center py-4">
+                <p className="text-3xl mb-2">✅</p>
+                <p className="font-semibold text-green-700 mb-1">Refund request submitted!</p>
+                <p className="text-sm text-gray-500">
+                  Our team will review your request and get back to you.
+                </p>
+                <button
+                  onClick={closeRefundModal}
+                  className="mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg text-sm font-semibold hover:bg-blue-700"
+                >
+                  Close
+                </button>
+              </div>
+            ) : (
+              <form onSubmit={submitRefundRequest} className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Reason for refund <span className="text-red-500">*</span>
+                  </label>
+                  <textarea
+                    rows={4}
+                    required
+                    minLength={5}
+                    maxLength={1000}
+                    value={refundReason}
+                    onChange={(e) => setRefundReason(e.target.value)}
+                    placeholder="Please describe why you are requesting a refund..."
+                    className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
+                  />
+                  <p className="text-xs text-gray-400 mt-1">{refundReason.length}/1000</p>
+                </div>
+
+                {submitError && (
+                  <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
+                    {submitError}
+                  </div>
+                )}
+
+                <div className="flex gap-3">
+                  <button
+                    type="button"
+                    onClick={closeRefundModal}
+                    className="flex-1 px-4 py-2 border border-gray-300 rounded-lg text-sm font-semibold text-gray-700 hover:bg-gray-50"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={submitting || refundReason.trim().length < 5}
+                    className="flex-1 px-4 py-2 bg-red-600 text-white rounded-lg text-sm font-semibold hover:bg-red-700 disabled:opacity-50 transition"
+                  >
+                    {submitting ? "Submitting…" : "Submit Request"}
+                  </button>
+                </div>
+              </form>
+            )}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 // ── Main Dashboard Page ───────────────────────────────────────────────────────
 
 /**
@@ -1600,6 +1886,7 @@ export default function Dashboard() {
                   { id: "my-courses", label: "📚 My Courses" },
                   { id: "my-profile", label: "👤 My Profile" },
                   { id: "achievements", label: "🏅 Achievements" },
+                  { id: "credits", label: "💳 Credits" },
                   { id: "course-messages", label: "💬 Course Messages" },
                   { id: "tickets", label: "🎫 Tickets" },
                 ].map(({ id, label }) => (
@@ -1633,6 +1920,9 @@ export default function Dashboard() {
               )}
               {activeTab === "achievements" && dashboardData && (
                 <AchievementsTab dashboardData={dashboardData} accessToken={accessToken} />
+              )}
+              {activeTab === "credits" && dashboardData && accessToken && (
+                <CreditsTab dashboardData={dashboardData} accessToken={accessToken} />
               )}
               {activeTab === "course-messages" && accessToken && (
                 <CourseMessagesTab accessToken={accessToken} />
