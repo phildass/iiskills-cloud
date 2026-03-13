@@ -205,3 +205,89 @@ Environment variables that control the deploy:
 
 All deploy output is logged to `/var/log/iiskills/deploy-<timestamp>.log` (or
 `/tmp/iiskills-deploy-<timestamp>.log` if the log dir is not writable).
+
+---
+
+## Monorepo Architecture
+
+This repository is a **Yarn 4 workspaces** monorepo orchestrated by **Turborepo**.
+
+### Workspace Layout
+
+```
+apps/               # Deployable Next.js applications
+  main/             # Production main site (port 3000)
+  learn-ai/         # AI learning app
+  learn-apt/        # APT learning app (free)
+  learn-chemistry/  # Chemistry app (free)
+  learn-developer/  # Developer learning app (paid)
+  learn-geography/  # Geography app (free)
+  learn-management/ # Management learning app (paid)
+  learn-math/       # Math learning app (free)
+  learn-physics/    # Physics learning app (free)
+  learn-pr/         # PR learning app (paid)
+
+packages/           # Shared, reusable workspace packages
+  access-control/   # @iiskills/access-control — entitlement and payment guards
+  config/           # @iiskills/config — shared security headers, course display order
+  content/          # @iiskills/content — Git-based course/lesson content
+  content-loader/   # @iiskills/content-loader — static filesystem content loader (server-only)
+  content-sdk/      # @iiskills/content-sdk — content discovery and management SDK (TypeScript)
+  core/             # @iiskills/core — schema-driven UI library (TypeScript)
+  schema/           # @iiskills/schema — unified content type definitions (TypeScript)
+  shared-components/ # @iiskills/shared-components — cross-app React components
+  shared-utils/     # @iiskills/shared-utils — shared lib/utils helpers
+  styles/           # @iiskills/styles — global Tailwind CSS base styles
+  ui/               # @iiskills/ui — primary shared UI component library
+
+scripts/            # DevOps and developer tooling (not deployed)
+nginx/              # Nginx virtual-host configs and templates
+supabase/           # Database migrations, schema, and seed files
+docs/               # Developer documentation
+```
+
+### Strict Boundary Rules
+
+1. **No source code in the root.** The root contains only config presets
+   (ESLint, Prettier, Tailwind, Turbo, PostCSS), workspace orchestration
+   (`package.json`, `yarn.lock`), and infrastructure scripts.
+
+2. **Shared logic lives in `/packages`.** React components go in
+   `@iiskills/ui` or `@iiskills/shared-components`. Utility functions go
+   in `@iiskills/shared-utils`. Styles go in `@iiskills/styles`.
+
+3. **Apps import from packages, never from each other.** Cross-app imports
+   are forbidden. Use the workspace package instead.
+
+4. **Configs extend base presets.** Each app's `tailwind.config.js` extends
+   the root config; each app's `next.config.js` imports security headers
+   from `@iiskills/config`.
+
+### Adding a New App
+
+Use the scaffold generator:
+
+```bash
+node scripts/create-app.js learn-<topic> --type=<free|paid>
+```
+
+This creates the full app skeleton under `apps/learn-<topic>/` with the
+correct structure, config files, and component usage patterns.
+
+### Developer Convenience Scripts
+
+Each app can be started individually:
+
+| Script                      | App started           |
+| --------------------------- | --------------------- |
+| `yarn dev:main`             | apps/main (port 3000) |
+| `yarn dev:learn-ai`         | apps/learn-ai         |
+| `yarn dev:learn-apt`        | apps/learn-apt        |
+| `yarn dev:learn-chemistry`  | apps/learn-chemistry  |
+| `yarn dev:learn-developer`  | apps/learn-developer  |
+| `yarn dev:learn-geography`  | apps/learn-geography  |
+| `yarn dev:learn-management` | apps/learn-management |
+| `yarn dev:learn-math`       | apps/learn-math       |
+| `yarn dev:learn-physics`    | apps/learn-physics    |
+| `yarn dev:learn-pr`         | apps/learn-pr         |
+

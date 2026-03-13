@@ -21,8 +21,33 @@
         "jsconfig.json"
       ]
     },
+    "@iiskills/ui#build": {
+      "dependsOn": [],
+      "outputs": [],
+      "inputs": ["src/**", "package.json"]
+    },
+    "@iiskills/styles#build": {
+      "dependsOn": [],
+      "outputs": [],
+      "inputs": ["globals.css", "package.json"]
+    },
+    "@iiskills/access-control#build": {
+      "dependsOn": [],
+      "outputs": [],
+      "inputs": ["*.js", "src/**", "package.json", "tsconfig.json"]
+    },
+    "@iiskills/content-loader#build": {
+      "dependsOn": [],
+      "outputs": [],
+      "inputs": ["src/**", "package.json"]
+    },
+    "@iiskills/content#build": {
+      "dependsOn": [],
+      "outputs": [],
+      "inputs": ["src/**", "courses/**", "package.json"]
+    },
     "@iiskills/content-sdk#build": {
-      "dependsOn": ["^build"],
+      "dependsOn": ["@iiskills/schema#build"],
       "outputs": ["dist/**"],
       "inputs": ["src/**", "package.json", "tsconfig.json"]
     },
@@ -37,7 +62,7 @@
       "inputs": ["lib/**", "utils/**", "package.json"]
     },
     "@iiskills/shared-components#build": {
-      "dependsOn": ["^build"],
+      "dependsOn": ["@iiskills/ui#build"],
       "outputs": ["dist/**"],
       "inputs": ["**/*.js", "**/*.jsx", "package.json"]
     },
@@ -45,6 +70,10 @@
       "dependsOn": [],
       "outputs": [],
       "inputs": ["*.js", "*.json", "package.json"]
+    },
+    "test": {
+      "outputs": ["coverage/**"],
+      "inputs": ["**/*.{js,jsx,ts,tsx}", "!**/*.config.{js,ts}", "package.json"]
     },
     "dev": {
       "cache": false,
@@ -60,4 +89,3 @@
     }
   }
 }
-

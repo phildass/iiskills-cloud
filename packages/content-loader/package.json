@@ -4,6 +4,9 @@
   "description": "Static-first filesystem content loader for iiskills learning apps",
   "main": "src/index.js",
   "private": true,
+  "exports": {
+    ".": "./src/index.js"
+  },
   "scripts": {
     "validate": "node src/validate.js"
   }
