@@ -5,12 +5,180 @@ import Footer from "../../components/Footer";
 import { supabase } from "../../lib/supabaseClient";
 import { useAdminProtectedPage, AccessDenied } from "../../components/AdminProtectedPage";
 
+// Fields that the admin can manually override for a user
+const OVERRIDE_FIELDS = [
+  { key: "first_name", label: "First Name" },
+  { key: "last_name", label: "Last Name" },
+  { key: "phone", label: "Phone" },
+  { key: "gender", label: "Gender" },
+  { key: "date_of_birth", label: "Date of Birth" },
+  { key: "qualification", label: "Qualification" },
+  { key: "state", label: "State" },
+  { key: "district", label: "District" },
+  { key: "country", label: "Country" },
+  { key: "specify_country", label: "Specify Country" },
+  { key: "location", label: "Location" },
+  { key: "education", label: "Education" },
+  { key: "education_self", label: "Your Education" },
+  { key: "education_father", label: "Father's Education" },
+  { key: "education_mother", label: "Mother's Education" },
+];
+
+/**
+ * ProfileOverrideModal — allows an admin to override locked profile fields for a user.
+ */
+function ProfileOverrideModal({ user, onClose, onSuccess, getAuthHeaders }) {
+  const [form, setForm] = useState(() => {
+    const initial = {};
+    for (const { key } of OVERRIDE_FIELDS) {
+      initial[key] = user[key] ?? "";
+    }
+    return initial;
+  });
+  const [reason, setReason] = useState("");
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+
+    // Only send fields that actually changed
+    const changed = {};
+    for (const { key } of OVERRIDE_FIELDS) {
+      const current = user[key] ?? "";
+      if (form[key] !== current) {
+        changed[key] = form[key];
+      }
+    }
+
+    if (Object.keys(changed).length === 0) {
+      setError("No fields have been changed.");
+      return;
+    }
+
+    if (!reason.trim()) {
+      setError("Please provide a reason for the override (required for audit log).");
+      return;
+    }
+
+    try {
+      setSaving(true);
+      const headers = await getAuthHeaders();
+      const res = await fetch("/api/admin/profile-override", {
+        method: "POST",
+        headers,
+        body: JSON.stringify({ userId: user.id, fields: changed, reason: reason.trim() }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setError(data.error || "Failed to update profile");
+        return;
+      }
+      onSuccess(data.profile);
+    } catch {
+      setError("Network error — please try again");
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+      <div className="bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+        <div className="flex items-center justify-between p-6 border-b">
+          <div>
+            <h2 className="text-lg font-bold text-gray-900">Override Profile Fields</h2>
+            <p className="text-sm text-gray-500 mt-0.5">
+              User:{" "}
+              {user.full_name ||
+                `${user.first_name || ""} ${user.last_name || ""}`.trim() ||
+                user.id}
+            </p>
+          </div>
+          <button
+            onClick={onClose}
+            className="text-gray-400 hover:text-gray-600 text-xl font-bold leading-none"
+          >
+            ×
+          </button>
+        </div>
+
+        <form onSubmit={handleSubmit} className="p-6 space-y-4">
+          <div className="bg-amber-50 border border-amber-200 rounded-lg px-4 py-3 text-sm text-amber-800">
+            <strong>Admin override:</strong> Changes bypass the normal field-locking rules and are
+            permanently recorded in the audit log. Only make corrections on behalf of the user.
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {OVERRIDE_FIELDS.map(({ key, label }) => (
+              <div key={key}>
+                <label className="block text-xs font-medium text-gray-600 mb-1">{label}</label>
+                <input
+                  type="text"
+                  name={key}
+                  value={form[key]}
+                  onChange={handleChange}
+                  className="border rounded-lg px-3 py-2 text-sm w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+            ))}
+          </div>
+
+          <div>
+            <label className="block text-xs font-medium text-gray-600 mb-1">
+              Reason for override <span className="text-red-500">*</span>
+            </label>
+            <textarea
+              value={reason}
+              onChange={(e) => setReason(e.target.value)}
+              rows={2}
+              maxLength={500}
+              placeholder="e.g. User reported data entry mistake in first submission"
+              className="border rounded-lg px-3 py-2 text-sm w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+
+          {error && (
+            <div className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg px-4 py-2">
+              {error}
+            </div>
+          )}
+
+          <div className="flex gap-3 pt-2">
+            <button
+              type="submit"
+              disabled={saving}
+              className="bg-blue-600 text-white px-6 py-2 rounded-lg text-sm font-semibold hover:bg-blue-700 disabled:opacity-50 transition"
+            >
+              {saving ? "Saving…" : "Save Override"}
+            </button>
+            <button
+              type="button"
+              onClick={onClose}
+              className="border border-gray-300 text-gray-700 px-5 py-2 rounded-lg text-sm hover:bg-gray-50 transition"
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+}
+
 export default function AdminUsers() {
   const { ready, denied } = useAdminProtectedPage();
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterAdmin, setFilterAdmin] = useState("all");
+  const [overrideTarget, setOverrideTarget] = useState(null);
 
   useEffect(() => {
     if (ready) fetchUsers();
@@ -69,6 +237,12 @@ export default function AdminUsers() {
       console.error("Error updating admin status:", error);
       alert(`Error: ${error.message}`);
     }
+  };
+
+  const handleOverrideSuccess = (updatedProfile) => {
+    setUsers((prev) => prev.map((u) => (u.id === updatedProfile.id ? updatedProfile : u)));
+    setOverrideTarget(null);
+    alert("Profile override saved and recorded in audit log.");
   };
 
   if (denied) return <AccessDenied />;
@@ -204,7 +378,7 @@ export default function AdminUsers() {
                       <td className="px-6 py-4 text-sm text-gray-700">
                         {new Date(user.created_at).toLocaleDateString()}
                       </td>
-                      <td className="px-6 py-4 text-sm space-x-2">
+                      <td className="px-6 py-4 text-sm space-x-2 whitespace-nowrap">
                         <button
                           onClick={() => toggleAdminStatus(user.id, user.is_admin)}
                           className={`${
@@ -215,6 +389,14 @@ export default function AdminUsers() {
                         >
                           {user.is_admin ? "Remove Admin" : "Make Admin"}
                         </button>
+                        {user.profile_submitted_at && (
+                          <button
+                            onClick={() => setOverrideTarget(user)}
+                            className="text-purple-600 hover:text-purple-800 font-medium"
+                          >
+                            Edit Profile
+                          </button>
+                        )}
                       </td>
                     </tr>
                   ))}
@@ -245,7 +427,17 @@ export default function AdminUsers() {
         </div>
       </main>
 
+      {overrideTarget && (
+        <ProfileOverrideModal
+          user={overrideTarget}
+          onClose={() => setOverrideTarget(null)}
+          onSuccess={handleOverrideSuccess}
+          getAuthHeaders={getAuthHeaders}
+        />
+      )}
+
       <Footer />
     </>
   );
 }
+

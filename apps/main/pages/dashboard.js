@@ -708,11 +708,21 @@ function ProfileTab({ dashboardData, accessToken, onProfileUpdated }) {
       });
       const data = await res.json();
       if (!res.ok) {
-        setSaveError(data.error || "Failed to save profile");
+        // Build a precise, actionable error message
+        let msg = data.error || "Failed to save profile";
+        if (data.lockedFields && data.lockedFields.length > 0) {
+          msg = `These fields cannot be changed after profile submission: ${data.lockedFields.join(", ")}. Contact support if a correction is needed.`;
+        } else if (data.details) {
+          msg = `${msg} — ${data.details}`;
+        }
+        setSaveError(msg);
         return;
       }
       if (data.warnings) {
-        setSaveWarning(`Note: ${data.warnings.lockedFields?.join(", ")} could not be changed.`);
+        const locked = data.warnings.lockedFields?.join(", ");
+        setSaveWarning(
+          `Note: ${locked} could not be changed after submission. Contact support if a correction is needed.`
+        );
       }
       onProfileUpdated(data.profile);
       setEditing(false);
