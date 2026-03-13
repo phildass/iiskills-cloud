@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { getCurrentUser } from "../../lib/supabaseClient";
+import AptitudeAnalysis from "../../components/AptitudeAnalysis";
 
 // Sample questions for short test (less than 10)
 const SHORT_TEST_QUESTIONS = [
@@ -62,6 +63,7 @@ export default function ShortTest() {
   const [testCompleted, setTestCompleted] = useState(false);
   const [score, setScore] = useState(0);
   const [timeLeft, setTimeLeft] = useState(600);
+  const [testStartTime, setTestStartTime] = useState(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -89,6 +91,12 @@ export default function ShortTest() {
   }, [timeLeft, testStarted, testCompleted]);
 
   const handleStartTest = () => {
+    try {
+      localStorage.setItem("apt_last_test", "/test/short");
+    } catch {
+      // localStorage unavailable — continue without tracking
+    }
+    setTestStartTime(Date.now());
     setTestStarted(true);
   };
 
@@ -148,6 +156,7 @@ export default function ShortTest() {
 
   const currentQ = SHORT_TEST_QUESTIONS[currentQuestion];
   const progress = ((currentQuestion + 1) / SHORT_TEST_QUESTIONS.length) * 100;
+  const timeTaken = testStartTime ? Math.round((Date.now() - testStartTime) / 1000) : 0;
 
   return (
     <>
@@ -219,6 +228,13 @@ export default function ShortTest() {
                   </div>
                 </div>
               </div>
+              <AptitudeAnalysis
+                score={score}
+                total={SHORT_TEST_QUESTIONS.length}
+                timeTaken={timeTaken}
+                testName="General Purpose – Short"
+                className="mb-8"
+              />
               <div className="grid grid-cols-2 gap-4">
                 <Link
                   href="/"

@@ -5,44 +5,74 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { getCurrentUser } from "../../lib/supabaseClient";
+import AptitudeAnalysis from "../../components/AptitudeAnalysis";
 
-// Generate 120 questions for elaborate test
+// Seeded deterministic shuffle to randomize option positions.
+// Using a simple LCG so the same question always shuffles the same way (reproducible).
+function seededShuffle(arr, seed) {
+  const result = [...arr];
+  let s = seed;
+  for (let i = result.length - 1; i > 0; i--) {
+    s = (s * 1664525 + 1013904223) & 0xffffffff;
+    const j = Math.abs(s) % (i + 1);
+    [result[i], result[j]] = [result[j], result[i]];
+  }
+  return result;
+}
+
+// Generate 120 questions for elaborate test with shuffled option positions so the
+// correct answer is NOT always at index 0 (prevents perfect scores via random clicking).
 function generateElaborateQuestions() {
   const questions = [];
   const questionTypes = [
     {
       type: "math",
-      template: (n) => ({
-        question: `What is ${n} × ${n + 2}?`,
-        options: [`${n * (n + 2)}`, `${n * (n + 1)}`, `${n * n}`, `${(n + 1) * (n + 2)}`],
-        correctAnswer: 0,
-      }),
+      template: (n) => {
+        const correct = `${n * (n + 2)}`;
+        const opts = [correct, `${n * (n + 1)}`, `${n * n}`, `${(n + 1) * (n + 2)}`];
+        return { question: `What is ${n} × ${n + 2}?`, _correct: correct, _opts: opts };
+      },
     },
     {
       type: "pattern",
-      template: (n) => ({
-        question: `What comes next: ${n}, ${n + 2}, ${n + 4}, ${n + 6}, ?`,
-        options: [`${n + 8}`, `${n + 7}`, `${n + 10}`, `${n + 6}`],
-        correctAnswer: 0,
-      }),
+      template: (n) => {
+        const correct = `${n + 8}`;
+        const opts = [correct, `${n + 7}`, `${n + 10}`, `${n + 6}`];
+        return {
+          question: `What comes next: ${n}, ${n + 2}, ${n + 4}, ${n + 6}, ?`,
+          _correct: correct,
+          _opts: opts,
+        };
+      },
     },
     {
       type: "logic",
-      template: (n) => ({
-        question: `If A is ${n} and B is ${n + 5}, what is A + B?`,
-        options: [`${n * 2 + 5}`, `${n + 5}`, `${n * 2}`, `${n + 10}`],
-        correctAnswer: 0,
-      }),
+      template: (n) => {
+        const correct = `${n * 2 + 5}`;
+        const opts = [correct, `${n + 5}`, `${n * 2}`, `${n + 10}`];
+        return {
+          question: `If A is ${n} and B is ${n + 5}, what is A + B?`,
+          _correct: correct,
+          _opts: opts,
+        };
+      },
     },
   ];
 
   for (let i = 0; i < 120; i++) {
     const typeIndex = i % questionTypes.length;
     const num = (i % 10) + 1;
-    const template = questionTypes[typeIndex].template(num);
+    const { question, _correct, _opts } = questionTypes[typeIndex].template(num);
+
+    // Shuffle options using a seed derived from question index so it is deterministic.
+    const shuffled = seededShuffle(_opts, i * 31 + 7);
+    const correctAnswer = shuffled.indexOf(_correct);
+
     questions.push({
       id: i + 1,
-      ...template,
+      question,
+      options: shuffled,
+      correctAnswer,
       category: questionTypes[typeIndex].type,
     });
   }
@@ -61,6 +91,7 @@ export default function ElaborateTest() {
   const [testCompleted, setTestCompleted] = useState(false);
   const [score, setScore] = useState(0);
   const [timeLeft, setTimeLeft] = useState(5400); // 90 minutes
+  const [testStartTime, setTestStartTime] = useState(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -85,7 +116,15 @@ export default function ElaborateTest() {
     }
   }, [timeLeft, testStarted, testCompleted]);
 
-  const handleStartTest = () => setTestStarted(true);
+  const handleStartTest = () => {
+    try {
+      localStorage.setItem("apt_last_test", "/test/elaborate");
+    } catch {
+      // localStorage unavailable — continue without tracking
+    }
+    setTestStartTime(Date.now());
+    setTestStarted(true);
+  };
 
   const handleAnswerSelect = (questionId, answerIndex) => {
     setAnswers({ ...answers, [questionId]: answerIndex });
@@ -137,6 +176,26 @@ export default function ElaborateTest() {
 
   const currentQ = ELABORATE_TEST_QUESTIONS[currentQuestion];
   const progress = ((currentQuestion + 1) / ELABORATE_TEST_QUESTIONS.length) * 100;
+  const timeTaken = testStartTime ? Math.round((Date.now() - testStartTime) / 1000) : 0;
+
+  // Build per-category scores for the AI analysis
+  const categoryScores = (() => {
+    const counts = {};
+    const correct = {};
+    ELABORATE_TEST_QUESTIONS.forEach((q) => {
+      counts[q.category] = (counts[q.category] || 0) + 1;
+      if (answers[q.id] === q.correctAnswer) {
+        correct[q.category] = (correct[q.category] || 0) + 1;
+      }
+    });
+    const result = {};
+    Object.keys(counts).forEach((cat) => {
+      result[cat.charAt(0).toUpperCase() + cat.slice(1)] = Math.round(
+        ((correct[cat] || 0) / counts[cat]) * 100
+      );
+    });
+    return result;
+  })();
 
   return (
     <>
@@ -234,6 +293,14 @@ export default function ElaborateTest() {
                   </span>
                 </div>
               </div>
+              <AptitudeAnalysis
+                score={score}
+                total={ELABORATE_TEST_QUESTIONS.length}
+                timeTaken={timeTaken}
+                testName="General Purpose – Elaborate"
+                domainScores={categoryScores}
+                className="mb-8"
+              />
               <div className="grid grid-cols-2 gap-4">
                 <Link
                   href="/"

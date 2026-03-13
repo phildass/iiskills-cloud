@@ -17,7 +17,9 @@ export default function App({ Component, pageProps }) {
         appId="learn-apt"
         appName="Aptitude"
         isFree={true}
-        firstLessonPath="/tests/numerical"
+        firstLessonPath="/my-test"
+        showCurriculum={false}
+        continueButtonLabel="Take me to my test"
       />
       <Component {...pageProps} />
       <Footer />

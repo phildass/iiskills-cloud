@@ -28,6 +28,7 @@ import {
   SuperpowerReveal,
   CareerAptitudeInsights,
 } from "../../components/BrainPrint";
+import AptitudeAnalysis from "../../components/AptitudeAnalysis";
 
 export default function QuickFireTest() {
   const [user, setUser] = useState(null);
@@ -44,6 +45,7 @@ export default function QuickFireTest() {
   const [leaderboardOpen, setLeaderboardOpen] = useState(false);
   const [showSuperpower, setShowSuperpower] = useState(false);
   const [domainScores, setDomainScores] = useState({});
+  const [testStartTime, setTestStartTime] = useState(null);
   const router = useRouter();
 
   // Mock leaderboard data
@@ -94,6 +96,12 @@ export default function QuickFireTest() {
   }, [answers]);
 
   const handleStartTest = () => {
+    try {
+      localStorage.setItem("apt_last_test", "/test/quick-fire");
+    } catch {
+      // localStorage unavailable — continue without tracking
+    }
+    setTestStartTime(Date.now());
     setTestStarted(true);
   };
 
@@ -320,6 +328,15 @@ export default function QuickFireTest() {
 
               {/* Career Aptitude Insights */}
               <CareerAptitudeInsights domainScores={domainScores} />
+
+              {/* AI Performance Analysis */}
+              <AptitudeAnalysis
+                score={Object.values(domainScores).reduce((sum, s) => sum + (s >= 70 ? 1 : 0), 0)}
+                total={Object.keys(domainScores).length || 1}
+                timeTaken={300 - timeLeft}
+                testName="Quick-Fire"
+                domainScores={domainScores}
+              />
 
               {/* Action Buttons */}
               <div className="flex flex-col sm:flex-row gap-4 justify-center">

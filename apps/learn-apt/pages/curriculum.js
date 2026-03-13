@@ -83,28 +83,28 @@ const DIFFICULTY_COLORS = {
   Mixed: "bg-yellow-100 text-yellow-800",
 };
 
-export default function Curriculum() {
+export default function TestOverview() {
   return (
     <>
       <Head>
-        <title>Aptitude Curriculum - iiskills Aptitude</title>
+        <title>Test Overview - iiskills Aptitude</title>
         <meta
           name="description"
-          content="Complete Aptitude course curriculum: 5 cognitive domains, 8 tests, Brain-Print generator and career mapping."
+          content="All available aptitude tests: 5 cognitive domains, 8 tests, Brain-Print generator and career mapping."
         />
       </Head>
 
       <main className="min-h-screen bg-yellow-50 py-12">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto mb-10">
-            <h1 className="text-4xl font-bold mb-4">Aptitude Curriculum</h1>
+            <h1 className="text-4xl font-bold mb-4">Test Overview</h1>
             <p className="text-gray-600 text-lg mb-8">
               Scientific diagnostic engine across 5 cognitive domains — 8 tests, a unique
               Brain-Print, and real-time career mapping. 100% free.
             </p>
 
             <div className="bg-white rounded-2xl shadow p-6 mb-8">
-              <h2 className="text-xl font-semibold mb-4">Course Overview</h2>
+              <h2 className="text-xl font-semibold mb-4">What&apos;s Available</h2>
               <ul className="space-y-2 text-gray-700">
                 <li className="flex items-center gap-2">
                   <span>🧠</span>

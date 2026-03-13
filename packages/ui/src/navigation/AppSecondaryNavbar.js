@@ -14,10 +14,10 @@ const PAID_APP_IDS = ["learn-ai", "learn-developer", "learn-pr", "learn-manageme
  * Items (left to right):
  *   1. "{appName} Home"  — link to the app root "/"
  *   2. FREE / PAID badge — non-clickable label
- *   3. "Curriculum"      — link to "/curriculum"
- *   4. "Continue My Lessons" — smart button (see behaviour below)
+ *   3. "Curriculum"      — link to "/curriculum" (hidden when showCurriculum=false)
+ *   4. Continue button   — smart button (see behaviour below)
  *
- * "Continue My Lessons" behaviour:
+ * Continue button behaviour:
  *   A. Logged-in + entitled (or free app):
  *        → Navigate to last visited lesson (/modules/{m}/lesson/{l}) or
  *          Module 1 Lesson 1 if no progress recorded.
@@ -32,15 +32,22 @@ const PAID_APP_IDS = ["learn-ai", "learn-developer", "learn-pr", "learn-manageme
  *   @param {string} appId    - App identifier (e.g. "learn-physics")
  *   @param {string} appName  - Display name   (e.g. "Physics")
  *   @param {boolean} isFree  - Whether the app is free (overrides PAID_APP_IDS lookup)
- *   @param {string} [firstLessonPath="/modules/1/lesson/1"] - Path for "Continue My Lessons".
+ *   @param {string} [firstLessonPath="/modules/1/lesson/1"] - Path for the continue button.
  *     Defaults to the standard module/lesson structure used by most learn-* apps.
  *     Override for apps that use a different structure (e.g. learn-apt uses "/tests/numerical").
+ *   @param {boolean} [showCurriculum=true] - Whether to show the Curriculum link.
+ *     Set to false for apps that do not have a curriculum (e.g. learn-apt).
+ *   @param {string} [continueButtonLabel="Continue My Lessons"] - Label for the continue button.
+ *     Override for apps that don't use lesson-based navigation (e.g. learn-apt uses
+ *     "Take me to my test").
  */
 export default function AppSecondaryNavbar({
   appId,
   appName,
   isFree,
   firstLessonPath = "/modules/1/lesson/1",
+  showCurriculum = true,
+  continueButtonLabel = "Continue My Lessons",
 }) {
   const isPaid = isFree !== undefined ? !isFree : PAID_APP_IDS.includes(appId);
 
@@ -164,24 +171,28 @@ export default function AppSecondaryNavbar({
               </span>
             )}
 
+            {showCurriculum && (
+              <>
+                <span className="text-gray-300 hidden sm:inline">|</span>
+
+                {/* Curriculum */}
+                <Link
+                  href="/curriculum"
+                  className="text-gray-700 hover:text-primary transition-colors whitespace-nowrap"
+                >
+                  Curriculum
+                </Link>
+              </>
+            )}
+
             <span className="text-gray-300 hidden sm:inline">|</span>
 
-            {/* Curriculum */}
-            <Link
-              href="/curriculum"
-              className="text-gray-700 hover:text-primary transition-colors whitespace-nowrap"
-            >
-              Curriculum
-            </Link>
-
-            <span className="text-gray-300 hidden sm:inline">|</span>
-
-            {/* Continue My Lessons */}
+            {/* Continue button */}
             <button
               onClick={handleContinueLessons}
               className="inline-flex items-center gap-1.5 bg-primary text-white text-xs font-semibold px-3 py-1.5 rounded-full hover:bg-primary/90 transition-colors whitespace-nowrap"
             >
-              ▶ Continue My Lessons
+              ▶ {continueButtonLabel}
             </button>
           </div>
         </div>

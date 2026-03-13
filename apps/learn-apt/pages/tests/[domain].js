@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { getCurrentUser } from "../../lib/supabaseClient";
 import { QUESTION_BANK, COGNITIVE_DOMAINS } from "../../lib/questionBank";
+import AptitudeAnalysis from "../../components/AptitudeAnalysis";
 
 const DOMAIN_MAP = {
   numerical: {
@@ -62,6 +63,7 @@ export default function DomainTest() {
   const [testCompleted, setTestCompleted] = useState(false);
   const [score, setScore] = useState(0);
   const [timeLeft, setTimeLeft] = useState(900); // 15 minutes
+  const [testStartTime, setTestStartTime] = useState(null);
 
   useEffect(() => {
     const checkUser = async () => {
@@ -109,7 +111,15 @@ export default function DomainTest() {
 
   const questions = QUESTION_BANK[domainConfig.key] || [];
 
-  const handleStartTest = () => setTestStarted(true);
+  const handleStartTest = () => {
+    try {
+      localStorage.setItem("apt_last_test", `/tests/${domain}`);
+    } catch {
+      // localStorage unavailable — continue without tracking
+    }
+    setTestStartTime(Date.now());
+    setTestStarted(true);
+  };
 
   const handleAnswerSelect = (questionId, answerIndex) => {
     const updated = { ...answers, [questionId]: answerIndex };
@@ -147,6 +157,7 @@ export default function DomainTest() {
 
   const currentQ = questions[currentQuestion];
   const progress = questions.length > 0 ? ((currentQuestion + 1) / questions.length) * 100 : 0;
+  const timeTaken = testStartTime ? Math.round((Date.now() - testStartTime) / 1000) : 0;
 
   return (
     <>
@@ -235,6 +246,14 @@ export default function DomainTest() {
                   </div>
                 </div>
               </div>
+              <AptitudeAnalysis
+                score={score}
+                total={questions.length}
+                timeTaken={timeTaken}
+                testName={domainConfig.title}
+                domainScores={{ [domainConfig.title]: Math.round((score / questions.length) * 100) }}
+                className="mb-8"
+              />
               <div className="grid grid-cols-2 gap-4">
                 <Link
                   href="/"
