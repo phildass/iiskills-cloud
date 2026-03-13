@@ -15,10 +15,10 @@ export {
   getBundleInfo as getBundleForApp,
   isBundleApp as isAppInBundle,
   APPS,
-} from "../packages/access-control";
+} from "../../access-control";
 
 // Legacy function mappings for backward compatibility
-import { BUNDLES, getBundleInfo, getAppsToUnlock, getAppConfig } from "../packages/access-control";
+import { BUNDLES, getBundleInfo, getAppsToUnlock, getAppConfig } from "../../access-control";
 
 /**
  * @deprecated Use getAppsToUnlock from @iiskills/access-control instead

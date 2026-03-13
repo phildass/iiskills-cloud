@@ -120,7 +120,7 @@ describe("Daily Strike - Scoring", () => {
 });
 
 describe("Daily Strike - Content Moderation", () => {
-  const banlistPath = require("path").join(process.cwd(), "config/content-banlist.json");
+  const banlistPath = require("path").join(process.cwd(), "packages/config/content-banlist.json");
   let banlist;
 
   beforeAll(() => {

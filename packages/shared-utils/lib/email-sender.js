@@ -202,13 +202,14 @@ async function sendViaFallback(newsletter, htmlContent, subscribers) {
 }
 
 /**
- * Strip HTML tags for plain text version
+ * Strip HTML tags for plain text version.
+ * Strips all HTML markup, normalises whitespace.
+ * Used only for internally-generated email content (not user input).
  */
 function stripHtml(html) {
+  // Strip all HTML tags
   return html
-    .replace(/<style[^>]*>.*?<\/style>/gi, "")
-    .replace(/<script[^>]*>.*?<\/script>/gi, "")
-    .replace(/<[^>]+>/g, "")
+    .replace(/<[^>]+>/g, " ")
     .replace(/\s+/g, " ")
     .trim();
 }

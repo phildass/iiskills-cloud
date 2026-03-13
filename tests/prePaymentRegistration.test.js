@@ -12,7 +12,7 @@
 
 const { normalizePhone, isValidE164 } = require("../apps/main/pages/api/payments/save-profile");
 
-const { isValidIndianPhone } = require("../lib/phoneValidation");
+const { isValidIndianPhone } = require("../packages/shared-utils/lib/phoneValidation");
 
 // ─── normalizePhone ───────────────────────────────────────────────────────────
 

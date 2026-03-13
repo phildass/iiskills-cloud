@@ -28,7 +28,7 @@ const {
   lessonSchema,
   validateContent,
   getSchema,
-} = require("../lib/contentSchema.js");
+} = require("../packages/shared-utils/lib/contentSchema.js");
 
 // Parse command line arguments
 const args = process.argv.slice(2);

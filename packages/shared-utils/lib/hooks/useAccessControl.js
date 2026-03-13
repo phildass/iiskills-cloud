@@ -29,7 +29,7 @@ import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/router";
 import { getCurrentUser } from "../supabaseClient";
 import { APPS } from "../appRegistry";
-import { isFreeApp } from "../../packages/access-control";
+import { isFreeApp } from "../../../access-control";
 
 /**
  * Check if current environment allows open access (for development)

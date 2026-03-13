@@ -7,7 +7,7 @@ import { getCurrentUser, isAdmin } from "../lib/supabaseClient";
 import {
   sortCoursesByDisplayOrder,
   getCourseAvailabilityText,
-} from "../../../config/courseDisplayOrder";
+} from "../../../packages/config/courseDisplayOrder";
 
 // List of courses hidden from public view (visible only to admins)
 const HIDDEN_COURSE_NAMES = [

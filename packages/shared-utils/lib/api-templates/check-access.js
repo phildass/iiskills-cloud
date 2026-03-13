@@ -19,7 +19,7 @@
  */
 
 import { createClient } from "@supabase/supabase-js";
-import { hasAppAccess, getUserApps } from "../../../../../packages/access-control";
+import { hasAppAccess, getUserApps } from "../../../../access-control";
 
 // Initialize Supabase client
 function getSupabaseClient() {

@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Image from "next/image";
-import Hero from "../../../components/shared/HeroManager";
+import Hero from "../../../packages/shared-components/HeroManager";
 
 export default function Solutions() {
   return (

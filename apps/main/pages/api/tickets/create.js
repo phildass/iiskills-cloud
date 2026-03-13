@@ -30,7 +30,7 @@
 import { createClient } from "@supabase/supabase-js";
 import formidable from "formidable";
 import fs from "fs";
-import { checkContent, MODERATION_STRIKE_LIMIT } from "../../../../../lib/contentFilter";
+import { checkContent, MODERATION_STRIKE_LIMIT } from "../../../../../packages/shared-utils/lib/contentFilter";
 
 export const config = {
   api: {

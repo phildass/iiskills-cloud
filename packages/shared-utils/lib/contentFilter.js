@@ -20,7 +20,7 @@ let _banlist = null;
 function loadBanlist() {
   if (_banlist) return _banlist;
   try {
-    const banlistPath = path.join(process.cwd(), "config", "content-banlist.json");
+    const banlistPath = path.join(__dirname, "../../config/content-banlist.json");
     const raw = fs.readFileSync(banlistPath, "utf8");
     _banlist = JSON.parse(raw);
   } catch (err) {
