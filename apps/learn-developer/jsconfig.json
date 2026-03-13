@@ -3,11 +3,11 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["../../*"],
-      "@shared/*": ["../../components/shared/*"],
-      "@components/*": ["../../components/*"],
-      "@lib/*": ["../../lib/*"],
-      "@utils/*": ["../../utils/*"],
-      "@config/*": ["../../config/*"]
+      "@shared/*": ["../../packages/shared-components/*"],
+      "@components/*": ["components/*"],
+      "@lib/*": ["../../packages/shared-utils/lib/*"],
+      "@utils/*": ["../../packages/shared-utils/utils/*"],
+      "@config/*": ["../../packages/config/*"]
     }
   },
   "exclude": ["node_modules", ".next", "dist", "build"]

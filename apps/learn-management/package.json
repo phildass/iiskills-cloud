@@ -14,7 +14,7 @@
     "@iiskills/content-loader": "*",
     "@iiskills/ui": "workspace:*",
     "@supabase/ssr": "^0.9.0",
-    "@supabase/supabase-js": "^2.89.0",
+    "@supabase/supabase-js": "^2.97.0",
     "next": "^16.1.1",
     "razorpay": "^2.9.6",
     "react": "^19.2.3",

@@ -2,12 +2,12 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/lib/*": ["./lib/*"],
-      "@lib/*": ["./lib/*"],
-      "@/utils/*": ["../../utils/*"],
-      "@utils/*": ["../../utils/*"],
-      "@/config/*": ["../../config/*"],
-      "@config/*": ["../../config/*"]
+      "@/lib/*": ["../shared-utils/lib/*"],
+      "@lib/*": ["../shared-utils/lib/*"],
+      "@/utils/*": ["../shared-utils/utils/*"],
+      "@utils/*": ["../shared-utils/utils/*"],
+      "@/config/*": ["../config/*"],
+      "@config/*": ["../config/*"]
     }
   },
   "exclude": ["node_modules", "dist"]

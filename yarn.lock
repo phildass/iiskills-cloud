@@ -1549,7 +1549,7 @@ __metadata:
   dependencies:
     typescript: "npm:^5.9.3"
   peerDependencies:
-    "@supabase/supabase-js": ^2.0.0
+    "@supabase/supabase-js": ^2.97.0
   languageName: unknown
   linkType: soft
 
@@ -1602,7 +1602,7 @@ __metadata:
     "@iiskills/content-loader": "npm:*"
     "@iiskills/ui": "workspace:*"
     "@supabase/ssr": "npm:^0.9.0"
-    "@supabase/supabase-js": "npm:^2.89.0"
+    "@supabase/supabase-js": "npm:^2.97.0"
     autoprefixer: "npm:^10.4.14"
     eslint: "npm:^9.39.2"
     next: "npm:^16.1.1"
@@ -1619,7 +1619,7 @@ __metadata:
   dependencies:
     "@iiskills/ui": "workspace:*"
     "@sendgrid/mail": "npm:^8.1.6"
-    "@supabase/supabase-js": "npm:^2.89.0"
+    "@supabase/supabase-js": "npm:^2.97.0"
     autoprefixer: "npm:^10.4.14"
     bcrypt: "npm:^6.0.0"
     cookie: "npm:^1.1.1"
@@ -1668,7 +1668,7 @@ __metadata:
   dependencies:
     "@sendgrid/mail": "npm:^8.1.6"
     "@supabase/ssr": "npm:^0.9.0"
-    "@supabase/supabase-js": "npm:^2.95.3"
+    "@supabase/supabase-js": "npm:^2.97.0"
     dotenv: "npm:^17.3.1"
     openai: "npm:^4.73.0"
     qrcode: "npm:^1.5.4"
@@ -1690,7 +1690,7 @@ __metadata:
   resolution: "@iiskills/ui@workspace:packages/ui"
   dependencies:
     "@supabase/auth-helpers-nextjs": "npm:^0.8.0"
-    "@supabase/supabase-js": "npm:^2.38.4"
+    "@supabase/supabase-js": "npm:^2.97.0"
     framer-motion: "npm:>=10.0.0"
   peerDependencies:
     next: ">=13.0.0"
@@ -2715,42 +2715,42 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@supabase/auth-js@npm:2.95.3":
-  version: 2.95.3
-  resolution: "@supabase/auth-js@npm:2.95.3"
+"@supabase/auth-js@npm:2.99.1":
+  version: 2.99.1
+  resolution: "@supabase/auth-js@npm:2.99.1"
   dependencies:
     tslib: "npm:2.8.1"
-  checksum: 10c0/37d083db5202be2ca84a0ed69650aa060f318cd82db908ab8a083db521ecdb79b03d90d1978d26d0011d52e3b959cebc9465a4ebc3b1559dde0ece1a0b7cc950
+  checksum: 10c0/53cec2bcee9872ad94b9acf071eac940d830df4f63b99b45304e9a6fb1ea881c1d6cfba06048cc345e4f08b9773693aedeaf13427f388d1188a8cdc025f33b20
   languageName: node
   linkType: hard
 
-"@supabase/functions-js@npm:2.95.3":
-  version: 2.95.3
-  resolution: "@supabase/functions-js@npm:2.95.3"
+"@supabase/functions-js@npm:2.99.1":
+  version: 2.99.1
+  resolution: "@supabase/functions-js@npm:2.99.1"
   dependencies:
     tslib: "npm:2.8.1"
-  checksum: 10c0/ba7a1dc121b33f385f329011346a8a366a66cffb4fd37af8c92ce4f7536b549f718927b2ba5300f13b48e5128cdcc9df3e5c46d1c7e6c3916758c57147df49a8
+  checksum: 10c0/00d228291998ccd5e31bb68ea40ed3b46b5b1cf332f55a5ba1fc0ab81ffd5965df6368b29f61180ee5ccdc14935458ee559fca70fddede98107e50145fd4763c
   languageName: node
   linkType: hard
 
-"@supabase/postgrest-js@npm:2.95.3":
-  version: 2.95.3
-  resolution: "@supabase/postgrest-js@npm:2.95.3"
+"@supabase/postgrest-js@npm:2.99.1":
+  version: 2.99.1
+  resolution: "@supabase/postgrest-js@npm:2.99.1"
   dependencies:
     tslib: "npm:2.8.1"
-  checksum: 10c0/2171f8fc054393e5b07e88017022424e0b13afed30f523ac64fb34fb71b20ab23fba7451fe2280b32a407fd03de0618d26ee97d5f89cd48b76d46ead1f849d41
+  checksum: 10c0/7e826f90ba0f1cb4072df58f8b5360a5e44e137298d04e1bb7c9b2eb7fa64bff5098a0c1b27e33368a4f3818f492cb32b8ea37767ee056401313fecdadb52631
   languageName: node
   linkType: hard
 
-"@supabase/realtime-js@npm:2.95.3":
-  version: 2.95.3
-  resolution: "@supabase/realtime-js@npm:2.95.3"
+"@supabase/realtime-js@npm:2.99.1":
+  version: 2.99.1
+  resolution: "@supabase/realtime-js@npm:2.99.1"
   dependencies:
     "@types/phoenix": "npm:^1.6.6"
     "@types/ws": "npm:^8.18.1"
     tslib: "npm:2.8.1"
     ws: "npm:^8.18.2"
-  checksum: 10c0/66aa6d8af06fac1321f1e4d959a16b3f02e536931264bf6c1884f5d11b30946de3ae828c7c71ce55a6637ece7932fc880c1200abe27827487fdd0b64cebf6c1d
+  checksum: 10c0/9149560e1c5d602e3e11f31b6defd16c2c6ca22519d0670e99ec2cec737a5d203b37d2eaba160559708b32343b0ed33a329262d1820ce5f5deab5b563ce5d6ff
   languageName: node
   linkType: hard
 
@@ -2765,26 +2765,26 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@supabase/storage-js@npm:2.95.3":
-  version: 2.95.3
-  resolution: "@supabase/storage-js@npm:2.95.3"
+"@supabase/storage-js@npm:2.99.1":
+  version: 2.99.1
+  resolution: "@supabase/storage-js@npm:2.99.1"
   dependencies:
     iceberg-js: "npm:^0.8.1"
     tslib: "npm:2.8.1"
-  checksum: 10c0/5393e95cd7c1b7de0b05881638479f23525b4e47f2d5efadcc25f340764c0abb6365cad7846818b55cb257d44077724d9be14808657c949a6fd58b3b63cd03ab
+  checksum: 10c0/5ff753219448fc804af1c2b187f584e48f900d7a05933cadce4731fdfb266862126c67e69d06ea6973dd1098da186c5587a6c4e9732c7dc69e2a2fa38d279612
   languageName: node
   linkType: hard
 
-"@supabase/supabase-js@npm:^2.38.4, @supabase/supabase-js@npm:^2.89.0, @supabase/supabase-js@npm:^2.95.3":
-  version: 2.95.3
-  resolution: "@supabase/supabase-js@npm:2.95.3"
+"@supabase/supabase-js@npm:^2.97.0":
+  version: 2.99.1
+  resolution: "@supabase/supabase-js@npm:2.99.1"
   dependencies:
-    "@supabase/auth-js": "npm:2.95.3"
-    "@supabase/functions-js": "npm:2.95.3"
-    "@supabase/postgrest-js": "npm:2.95.3"
-    "@supabase/realtime-js": "npm:2.95.3"
-    "@supabase/storage-js": "npm:2.95.3"
-  checksum: 10c0/46373e1c1d20a09161044879e34f7224c62e05fd803fe80124adcb9c0fe2c08319f4459473c4837783136eb3cb248b0606d6e92bc4a4e6519acecbc22c8c8c6b
+    "@supabase/auth-js": "npm:2.99.1"
+    "@supabase/functions-js": "npm:2.99.1"
+    "@supabase/postgrest-js": "npm:2.99.1"
+    "@supabase/realtime-js": "npm:2.99.1"
+    "@supabase/storage-js": "npm:2.99.1"
+  checksum: 10c0/3a28a0f328df299b6953ade9e7c3cbfa95f7e17c2bcd4b6cfef417f3b84840c772186e5c1ca29aa89dccc950c34fd9db90d7b16e4b321eb1ee05c4f1372265ef
   languageName: node
   linkType: hard
 
@@ -6276,7 +6276,7 @@ __metadata:
     "@sendgrid/mail": "npm:^8.1.6"
     "@supabase/auth-helpers-nextjs": "npm:^0.15.0"
     "@supabase/ssr": "npm:^0.9.0"
-    "@supabase/supabase-js": "npm:^2.95.3"
+    "@supabase/supabase-js": "npm:^2.97.0"
     "@typescript-eslint/eslint-plugin": "npm:^8.52.0"
     "@typescript-eslint/parser": "npm:^8.52.0"
     autoprefixer: "npm:^10.4.14"
@@ -7477,7 +7477,7 @@ __metadata:
     "@iiskills/content-loader": "npm:*"
     "@iiskills/ui": "workspace:*"
     "@supabase/ssr": "npm:^0.9.0"
-    "@supabase/supabase-js": "npm:^2.89.0"
+    "@supabase/supabase-js": "npm:^2.97.0"
     autoprefixer: "npm:^10.4.14"
     eslint: "npm:^9.39.2"
     next: "npm:^16.1.1"
@@ -7495,7 +7495,7 @@ __metadata:
   dependencies:
     "@iiskills/ui": "workspace:*"
     "@supabase/ssr": "npm:^0.9.0"
-    "@supabase/supabase-js": "npm:^2.89.0"
+    "@supabase/supabase-js": "npm:^2.97.0"
     autoprefixer: "npm:^10.4.14"
     eslint: "npm:^9.39.2"
     framer-motion: "npm:^12.33.0"
@@ -7516,7 +7516,7 @@ __metadata:
     "@iiskills/content-loader": "npm:*"
     "@iiskills/ui": "workspace:*"
     "@supabase/ssr": "npm:^0.9.0"
-    "@supabase/supabase-js": "npm:^2.89.0"
+    "@supabase/supabase-js": "npm:^2.97.0"
     autoprefixer: "npm:^10.4.14"
     eslint: "npm:^9.39.2"
     next: "npm:^16.1.1"
@@ -7535,7 +7535,7 @@ __metadata:
     "@iiskills/content-loader": "npm:*"
     "@iiskills/ui": "workspace:*"
     "@supabase/ssr": "npm:^0.9.0"
-    "@supabase/supabase-js": "npm:^2.89.0"
+    "@supabase/supabase-js": "npm:^2.97.0"
     autoprefixer: "npm:^10.4.14"
     eslint: "npm:^9.39.2"
     next: "npm:^16.1.1"
@@ -7554,7 +7554,7 @@ __metadata:
     "@iiskills/content-loader": "npm:*"
     "@iiskills/ui": "workspace:*"
     "@supabase/ssr": "npm:^0.9.0"
-    "@supabase/supabase-js": "npm:^2.89.0"
+    "@supabase/supabase-js": "npm:^2.97.0"
     autoprefixer: "npm:^10.4.14"
     eslint: "npm:^9.39.2"
     next: "npm:^16.1.1"
@@ -7573,7 +7573,7 @@ __metadata:
     "@iiskills/content-loader": "npm:*"
     "@iiskills/ui": "workspace:*"
     "@supabase/ssr": "npm:^0.9.0"
-    "@supabase/supabase-js": "npm:^2.89.0"
+    "@supabase/supabase-js": "npm:^2.97.0"
     autoprefixer: "npm:^10.4.14"
     eslint: "npm:^9.39.2"
     next: "npm:^16.1.1"
@@ -7592,7 +7592,7 @@ __metadata:
     "@iiskills/content-loader": "npm:*"
     "@iiskills/ui": "workspace:*"
     "@supabase/ssr": "npm:^0.9.0"
-    "@supabase/supabase-js": "npm:^2.89.0"
+    "@supabase/supabase-js": "npm:^2.97.0"
     autoprefixer: "npm:^10.4.14"
     eslint: "npm:^9.39.2"
     next: "npm:^16.1.1"
@@ -7611,7 +7611,7 @@ __metadata:
     "@iiskills/content-loader": "npm:*"
     "@iiskills/ui": "workspace:*"
     "@supabase/ssr": "npm:^0.9.0"
-    "@supabase/supabase-js": "npm:^2.89.0"
+    "@supabase/supabase-js": "npm:^2.97.0"
     autoprefixer: "npm:^10.4.14"
     eslint: "npm:^9.39.2"
     next: "npm:^16.1.1"

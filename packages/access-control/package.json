@@ -38,7 +38,7 @@
   "author": "AI Cloud Enterprises",
   "license": "MIT",
   "peerDependencies": {
-    "@supabase/supabase-js": "^2.0.0"
+    "@supabase/supabase-js": "^2.97.0"
   },
   "devDependencies": {
     "typescript": "^5.9.3"
