@@ -1,6 +1,6 @@
 /**
  * App Registry Wrapper
- * Re-exports from root lib directory for @/lib and @lib imports in packages/ui
+ * Re-exports from shared-utils lib for @/lib and @lib imports in packages/ui
  */
 
-export * from "../../../lib/appRegistry";
+export * from "../../shared-utils/lib/appRegistry";
