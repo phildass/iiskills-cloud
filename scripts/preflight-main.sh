@@ -112,12 +112,12 @@ if [ "${EFFECTIVE_TEST_MODE}" = "true" ]; then
     fail "ADMIN_SESSION_SIGNING_KEY is required in TEST_ADMIN_MODE (sign admin JWT)"
   fi
 
-  # ADMIN_PANEL_SECRET is optional in test mode (fallback: iiskills123) — warn if default
+  # ADMIN_PANEL_SECRET is required in test mode — no default passphrase fallback
   SECRET_VALUE="$(resolve_env ADMIN_PANEL_SECRET)"
-  if [ -z "$SECRET_VALUE" ] || [ "$SECRET_VALUE" = "iiskills123" ] || [ "$SECRET_VALUE" = "change-me-to-a-strong-random-secret" ]; then
-    warn "ADMIN_PANEL_SECRET not set or is default 'iiskills123' — OK only in test, NOT for production"
+  if [ -z "$SECRET_VALUE" ] || [ "$SECRET_VALUE" = "change-me-to-a-strong-random-secret" ]; then
+    warn "ADMIN_PANEL_SECRET not set — required for TEST_ADMIN_MODE (admin login will return 503)"
   else
-    pass "ADMIN_PANEL_SECRET is set (non-default)"
+    pass "ADMIN_PANEL_SECRET is set"
   fi
 
 else
@@ -126,11 +126,11 @@ else
   # In production, forbid default passphrase
   SECRET_VALUE="$(resolve_env ADMIN_PANEL_SECRET)"
   if [ -z "$SECRET_VALUE" ]; then
-    fail "ADMIN_PANEL_SECRET is not configured (required in production)"
-  elif [ "$SECRET_VALUE" = "iiskills123" ] || [ "$SECRET_VALUE" = "change-me-to-a-strong-random-secret" ]; then
-    fail "ADMIN_PANEL_SECRET is the default 'iiskills123' — MUST be changed for production"
+    fail "ADMIN_PANEL_SECRET is not configured (required — admin login will be blocked without it)"
+  elif [ "$SECRET_VALUE" = "change-me-to-a-strong-random-secret" ]; then
+    fail "ADMIN_PANEL_SECRET is still the placeholder value — MUST be changed for production"
   else
-    pass "ADMIN_PANEL_SECRET is set (non-default)"
+    pass "ADMIN_PANEL_SECRET is set"
   fi
 
   # ADMIN_SESSION_SIGNING_KEY required

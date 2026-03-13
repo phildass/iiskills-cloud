@@ -12,21 +12,15 @@
  *
  * ⚠️ SECURITY WARNING: This is a backdoor for demo/testing purposes.
  * Remove or disable for production deployments!
+ * NEXT_PUBLIC_ADMIN_SECRET_PASSWORD must be explicitly set — no default is used.
  */
 
 import { useState } from "react";
 
-// Get secret password from localStorage (if changed) or use default
-// In production, this should be removed or the password should be stored securely in a database
+// Get secret password from environment variable only — no hardcoded default.
+// If NEXT_PUBLIC_ADMIN_SECRET_PASSWORD is not set, the prompt will always reject.
 const getSecretPassword = () => {
-  if (typeof window !== "undefined") {
-    return (
-      localStorage.getItem("iiskills_admin_password") ||
-      process.env.NEXT_PUBLIC_ADMIN_SECRET_PASSWORD ||
-      "iiskills123"
-    );
-  }
-  return process.env.NEXT_PUBLIC_ADMIN_SECRET_PASSWORD || "iiskills123";
+  return process.env.NEXT_PUBLIC_ADMIN_SECRET_PASSWORD || null;
 };
 
 const ADMIN_FLAG_KEY = "iiskills_secret_admin";
@@ -45,7 +39,7 @@ export default function SecretPasswordPrompt({ onSuccess }) {
     setTimeout(() => {
       const SECRET_PASSWORD = getSecretPassword();
 
-      if (password === SECRET_PASSWORD) {
+      if (SECRET_PASSWORD && password === SECRET_PASSWORD) {
         // Store admin flag in localStorage for session persistence
         // NOTE: This is not secure - client-side flags can be manipulated
         // This feature is only for testing/demo environments

@@ -166,8 +166,7 @@ pm2 restart iiskills-main --update-env
    ```env
    TEST_ADMIN_MODE=true
    ADMIN_SESSION_SIGNING_KEY=<random-32+-chars>
-   # ADMIN_PANEL_SECRET is optional in test mode; defaults to iiskills123
-   # ADMIN_PANEL_SECRET=iiskills123
+   ADMIN_PANEL_SECRET=<strong-passphrase>
    ```
 
 2. Reload env vars and restart:
@@ -176,8 +175,7 @@ pm2 restart iiskills-main --update-env
    pm2 restart iiskills-main --update-env
    ```
 
-3. Log in at `https://iiskills.cloud/admin/login` using the passphrase
-   (`iiskills123` if `ADMIN_PANEL_SECRET` is not set).
+3. Log in at `https://iiskills.cloud/admin/login` using the `ADMIN_PANEL_SECRET` passphrase.
 
 ### Disable test mode (go to production)
 

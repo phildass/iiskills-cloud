@@ -4,9 +4,10 @@
  * Covers every decision branch in the handler:
  * - Missing signing key → 500
  * - TEST_ADMIN_MODE: correct passphrase → 200, wrong passphrase → 401
+ * - TEST_ADMIN_MODE: no ADMIN_PANEL_SECRET → 503
  * - Production / ADMIN_PANEL_SECRET override: match → 200
  * - Production / bcrypt hash: correct → 200, wrong → 401
- * - Production / bootstrap (no hash): correct → 200 + needs_setup, wrong → 401
+ * - Production / no hash and no ADMIN_PANEL_SECRET → 503
  * - Missing passphrase in body → 400
  */
 
@@ -176,14 +177,15 @@ describe("TEST_ADMIN_MODE=true", () => {
     expect(setAdminSessionCookie).toHaveBeenCalledTimes(1);
   });
 
-  test("falls back to iiskills123 when ADMIN_PANEL_SECRET is unset", async () => {
+  test("returns 503 when ADMIN_PANEL_SECRET is unset", async () => {
     delete process.env.ADMIN_PANEL_SECRET;
     const handler = loadHandler();
-    const req = makeReq({ passphrase: "iiskills123" });
+    const req = makeReq({ passphrase: "anything" });
     const res = makeRes();
     await handler(req, res);
-    expect(res.statusCode).toBe(200);
-    expect(res.body.needs_setup).toBe(false);
+    expect(res.statusCode).toBe(503);
+    expect(res.body.error).toMatch(/ADMIN_PANEL_SECRET/i);
+    expect(setAdminSessionCookie).not.toHaveBeenCalled();
   });
 
   test("rejects wrong passphrase in TEST_ADMIN_MODE", async () => {
@@ -193,6 +195,17 @@ describe("TEST_ADMIN_MODE=true", () => {
     await handler(req, res);
     expect(res.statusCode).toBe(401);
     expect(res.body.error).toBe("Invalid passphrase");
+  });
+
+  test("rejects bootstrap passphrase iiskills123 in TEST_ADMIN_MODE", async () => {
+    delete process.env.ADMIN_PANEL_SECRET;
+    // Even if someone guesses iiskills123, it must be rejected (503 not a match)
+    const handler = loadHandler();
+    const req = makeReq({ passphrase: "iiskills123" });
+    const res = makeRes();
+    await handler(req, res);
+    expect(res.statusCode).toBe(503);
+    expect(setAdminSessionCookie).not.toHaveBeenCalled();
   });
 });
 
@@ -280,67 +293,58 @@ describe("Production mode — bcrypt hash file", () => {
     expect(res.statusCode).toBe(200);
   });
 
-  test("falls through to bootstrap when file exists but has no hash key", async () => {
-    // File exists but no admin_passphrase_hash field
+  test("returns 503 when file exists but has no hash key and no ADMIN_PANEL_SECRET", async () => {
+    // File exists but no admin_passphrase_hash field, and no ADMIN_PANEL_SECRET
     fs.readFileSync.mockReturnValue(JSON.stringify({ some_other_key: "value" }));
-    // Without hash, bootstrap passphrase should work
     const handler = loadHandler();
     const req = makeReq({ passphrase: "iiskills123" });
     const res = makeRes();
     await handler(req, res);
-    expect(res.statusCode).toBe(200);
-    expect(res.body.needs_setup).toBe(true);
+    // No hash found, no ADMIN_PANEL_SECRET → login is blocked
+    expect(res.statusCode).toBe(503);
+    expect(res.body.error).toMatch(/not configured/i);
+    expect(setAdminSessionCookie).not.toHaveBeenCalled();
   });
 });
 
 // ---------------------------------------------------------------------------
-// Production mode — bootstrap (no hash, no ADMIN_PANEL_SECRET)
+// Production mode — no hash file and no ADMIN_PANEL_SECRET (login blocked)
 // ---------------------------------------------------------------------------
 
-describe("Production mode — bootstrap passphrase (no hash file)", () => {
+describe("Production mode — no hash file and no ADMIN_PANEL_SECRET", () => {
   beforeEach(() => {
     delete process.env.ADMIN_PANEL_SECRET;
     // fs already mocks ENOENT in outer beforeEach
   });
 
-  test("accepts bootstrap passphrase and returns needs_setup=true", async () => {
+  test("returns 503 when no hash and no ADMIN_PANEL_SECRET", async () => {
+    const handler = loadHandler();
+    const req = makeReq({ passphrase: "anything" });
+    const res = makeRes();
+    await handler(req, res);
+    expect(res.statusCode).toBe(503);
+    expect(res.body.error).toMatch(/not configured/i);
+    expect(setAdminSessionCookie).not.toHaveBeenCalled();
+  });
+
+  test("rejects bootstrap passphrase iiskills123 with 503", async () => {
     const handler = loadHandler();
     const req = makeReq({ passphrase: "iiskills123" });
     const res = makeRes();
     await handler(req, res);
-    expect(res.statusCode).toBe(200);
-    expect(res.body.ok).toBe(true);
-    expect(res.body.needs_setup).toBe(true);
-    expect(setAdminSessionCookie).toHaveBeenCalledTimes(1);
-  });
-
-  test("rejects any passphrase other than bootstrap passphrase", async () => {
-    const handler = loadHandler();
-    const req = makeReq({ passphrase: "someOtherPassphrase" });
-    const res = makeRes();
-    await handler(req, res);
-    expect(res.statusCode).toBe(401);
-    expect(res.body.error).toBe("Invalid passphrase");
+    expect(res.statusCode).toBe(503);
     expect(setAdminSessionCookie).not.toHaveBeenCalled();
   });
 
-  test("rejects bootstrap passphrase with wrong casing", async () => {
-    const handler = loadHandler();
-    const req = makeReq({ passphrase: "IISKILLS123" });
-    const res = makeRes();
-    await handler(req, res);
-    expect(res.statusCode).toBe(401);
-  });
-
-  test("handles corrupted admin.json (invalid JSON) by falling back to bootstrap", async () => {
+  test("handles corrupted admin.json (invalid JSON) by returning 503", async () => {
     fs.readFileSync.mockReturnValue("not-valid-json{{{");
     const handler = loadHandler();
     const req = makeReq({ passphrase: "iiskills123" });
     const res = makeRes();
     await handler(req, res);
-    // JSON.parse throws → getAdminPassphraseHash returns null → bootstrap path
-    expect(res.statusCode).toBe(200);
-    expect(res.body.needs_setup).toBe(true);
+    // JSON.parse throws → getAdminPassphraseHash returns null → no hash, no ADMIN_PANEL_SECRET → 503
+    expect(res.statusCode).toBe(503);
+    expect(setAdminSessionCookie).not.toHaveBeenCalled();
   });
 });
 
@@ -348,14 +352,16 @@ describe("Production mode — bootstrap passphrase (no hash file)", () => {
 // Production mode — ADMIN_PANEL_SECRET set + bootstrap passphrase fallthrough
 // ---------------------------------------------------------------------------
 
-test("bootstrap passphrase still works when ADMIN_PANEL_SECRET is set but does not match", async () => {
+test("rejects iiskills123 even when ADMIN_PANEL_SECRET is set but does not match", async () => {
   process.env.ADMIN_PANEL_SECRET = "different-emergency-secret";
   // No admin.json → ENOENT is already mocked
+  // ADMIN_PANEL_SECRET != "iiskills123", and no hash → bcrypt path skipped; iiskills123 must be rejected
   const handler = loadHandler();
   const req = makeReq({ passphrase: "iiskills123" });
   const res = makeRes();
   await handler(req, res);
-  // ADMIN_PANEL_SECRET != "iiskills123", no hash, bootstrap passes
-  expect(res.statusCode).toBe(200);
-  expect(res.body.needs_setup).toBe(true);
+  // ADMIN_PANEL_SECRET didn't match, no hash → bcrypt rejects (false), no bootstrap fallback
+  expect(res.statusCode).toBe(401);
+  expect(res.body.error).toBe("Invalid passphrase");
+  expect(setAdminSessionCookie).not.toHaveBeenCalled();
 });

@@ -158,8 +158,8 @@ The admin panel (`/admin/*`) uses **password-based authentication only** — no 
 
 #### How it works
 
-1. **First access** — If no admin passphrase hash is stored, the bootstrap passphrase `iiskills123` is accepted. **Change this immediately.** The session cookie is issued with `needs_setup=true`, which forces a redirect to `/admin/setup` where the owner must set a strong permanent passphrase (min 8 characters). The hash is stored securely with bcrypt at `/var/lib/iiskills/admin.json` (or the path in `ADMIN_DATA_FILE`).
-2. **Regular login** — Visit `/admin/login`, enter your passphrase. The server verifies it against the stored bcrypt hash and issues a signed `admin_session` cookie (12-hour expiry).
+1. **First access** — Set `ADMIN_PANEL_SECRET` in `/etc/iiskills.env` before the first login. Admin login is blocked (503) if no passphrase is configured — there is no default or bootstrap passphrase.
+2. **Regular login** — Visit `/admin/login`, enter your passphrase. The server verifies it against the stored bcrypt hash (or `ADMIN_PANEL_SECRET`) and issues a signed `admin_session` cookie (12-hour expiry).
 3. **Emergency override** — If `ADMIN_PANEL_SECRET` is set as an env var, it bypasses the file-based hash and grants access directly (useful after a reset). Unset this var once the hash is re-established.
 4. **Session** — `admin_session` is `HttpOnly; Secure; SameSite=Lax`, signed with `ADMIN_SESSION_SIGNING_KEY`.
 5. **Optional IP allowlist** — Set `ADMIN_IP_ALLOWLIST=1.2.3.4,5.6.7.8` to restrict access to specific IPs.
@@ -168,12 +168,12 @@ Required environment variables for admin auth (production):
 
 ```
 ADMIN_SESSION_SIGNING_KEY=<32+-char-random-string>   # openssl rand -base64 64
+ADMIN_PANEL_SECRET=<strong-passphrase>               # required to log in initially
 ```
 
 Optional:
 
 ```
-ADMIN_PANEL_SECRET=<emergency-override-passphrase>   # only needed for emergency access
 ADMIN_IP_ALLOWLIST=1.2.3.4,5.6.7.8                  # optional IP restriction
 ADMIN_DATA_FILE=/custom/path/admin.json              # default: /var/lib/iiskills/admin.json
 ```
@@ -183,24 +183,23 @@ ADMIN_DATA_FILE=/custom/path/admin.json              # default: /var/lib/iiskill
 #### Password setup workflow
 
 ```bash
-# 1. On first deploy, visit /admin/login and enter the bootstrap passphrase: iiskills123
-#    WARNING: This passphrase is publicly known — you MUST change it immediately.
-# 2. You will be redirected to /admin/setup — set a strong permanent passphrase here.
-# 3. The hash is saved to /var/lib/iiskills/admin.json (mode 600, owned by the app process user).
+# 1. Before first deploy, set ADMIN_PANEL_SECRET in /etc/iiskills.env:
+#    ADMIN_PANEL_SECRET=<strong-unique-passphrase>
+# 2. Restart the server: pm2 restart iiskills-main
+# 3. Visit /admin/login and enter your ADMIN_PANEL_SECRET passphrase.
+# 4. (Optional) Visit /admin/setup to store a permanent bcrypt hash.
+#    Once saved, you can remove ADMIN_PANEL_SECRET from /etc/iiskills.env and restart.
+# 5. The hash is saved to /var/lib/iiskills/admin.json (mode 600, owned by the app process user).
 #    Ensure the directory /var/lib/iiskills/ is writable by the user running the Node.js process.
 ```
 
 #### Password reset (server owner access required)
 
 ```bash
-# Option A: Delete the hash file and re-run setup
-sudo rm /var/lib/iiskills/admin.json
-# Then visit /admin/login, enter iiskills123, and set a new passphrase.
-
-# Option B: Set ADMIN_PANEL_SECRET as an emergency override
-# In your PM2 ecosystem or shell environment:
-export ADMIN_PANEL_SECRET="temporary-recovery-passphrase"
-pm2 restart iiskills-main
+# Option A: Set ADMIN_PANEL_SECRET as an emergency override, then set a new permanent hash
+# In /etc/iiskills.env:
+ADMIN_PANEL_SECRET="temporary-recovery-passphrase"
+# Restart: pm2 restart iiskills-main
 # Log in at /admin/login with the temporary passphrase.
 # Then visit /admin/setup to set a new permanent passphrase.
 # Afterwards, REMOVE ADMIN_PANEL_SECRET from the environment and restart.

@@ -10,19 +10,19 @@ session cookie (`admin_session`).
 
 ## First Access — Initial Setup (No Passphrase Set)
 
-On a fresh installation no passphrase is stored. The system uses a built-in bootstrap
-passphrase (`iiskills123`) for the very first login.
+On a fresh installation no passphrase is stored. Admin login is **blocked** until a passphrase is
+explicitly configured. There is no default or bootstrap passphrase.
 
-1. Visit `/admin/login`.
-2. Enter the default bootstrap passphrase `iiskills123`.
-3. You will be redirected to `/admin/setup` to set a strong, permanent passphrase.
-4. Choose a passphrase of **at least 8 characters** and save it.
-5. The passphrase is hashed with **bcrypt (12 rounds)** and stored in
-   `/var/lib/iiskills/admin.json` (override with the `ADMIN_DATA_FILE` env var).
-6. You are immediately logged in and redirected to `/admin`.
+To enable admin login for the first time:
 
-> **Important:** After setup, the bootstrap passphrase is no longer accepted.
-> Only the new passphrase (stored as a bcrypt hash) grants access.
+1. Set `ADMIN_PANEL_SECRET=<strong-passphrase>` in `/etc/iiskills.env`.
+2. Restart the server: `pm2 restart iiskills-main`.
+3. Visit `/admin/login` and enter the same passphrase.
+4. (Optional) Go to `/admin/setup` to store a permanent bcrypt hash. Once a hash is stored
+   you can remove `ADMIN_PANEL_SECRET` from the env file and restart.
+
+> **Important:** A strong, unique passphrase must be configured before the admin panel
+> can be accessed. Choose a passphrase of **at least 16 characters** using a password manager.
 
 ---
 
@@ -62,7 +62,7 @@ passphrase (`iiskills123`) for the very first login.
 | `ADMIN_IP_ALLOWLIST`        | No       | Comma-separated list of IPv4/IPv6 addresses allowed to access `/admin`. Example: `203.0.113.1,2001:db8::1`. All IPs are allowed when unset. CIDR notation is not supported — use exact addresses. |
 | `ADMIN_ALLOWLIST_EMAILS`    | No       | Comma-separated email addresses that have **superadmin** privileges (can create/revoke admin accounts). Not used for general admin authentication. Example: `phil@example.com,ops@example.com`. |
 | `ADMIN_AUTH_DISABLED`       | No       | Set to `true` to bypass all admin auth (local dev only — **never in production**). |
-| `TEST_ADMIN_MODE`           | No       | Set to `true` in CI/test environments. Passphrase is read from `ADMIN_PANEL_SECRET` → `ADMIN_SECRET` → `"iiskills123"`. No file reads. |
+| `TEST_ADMIN_MODE`           | No       | Set to `true` in CI/test environments. `ADMIN_PANEL_SECRET` (or `ADMIN_SECRET`) is **required** when this is enabled. No file reads. |
 
 ---
 
@@ -71,16 +71,10 @@ passphrase (`iiskills123`) for the very first login.
 There is no self-service password reset. To reset the passphrase:
 
 1. **SSH into the server.**
-2. Delete or edit the admin data file:
-   ```bash
-   rm /var/lib/iiskills/admin.json
-   # OR set a new hash directly (using bcrypt CLI or a one-time script)
-   ```
-3. Alternatively, set `ADMIN_PANEL_SECRET=<new-emergency-passphrase>` in the PM2
-   environment and restart the server. This acts as an override that bypasses the
-   file-based hash.
-4. Log in with the bootstrap passphrase (`iiskills123`) or the `ADMIN_PANEL_SECRET`
-   override, and set a new permanent passphrase via `/admin/setup`.
+2. Set `ADMIN_PANEL_SECRET=<new-emergency-passphrase>` in `/etc/iiskills.env` and restart.
+3. Log in at `/admin/login` with the new `ADMIN_PANEL_SECRET` value.
+4. Go to `/admin/setup` to store a new permanent bcrypt hash.
+5. Once the hash is saved, remove `ADMIN_PANEL_SECRET` from `/etc/iiskills.env` and restart.
 
 ---
 
@@ -144,8 +138,9 @@ Each login attempt now emits `[adminLogin]` log lines. Look for messages like:
 |---|---|
 | `ADMIN_SESSION_SIGNING_KEY configured: false` | The signing key is missing — env vars are not loaded. See step 2. |
 | `ADMIN_PANEL_SECRET is set but did not match` | ADMIN_PANEL_SECRET is loaded but you are not entering its exact value. |
-| `Hash file: … — hash present: false` | No stored hash. Only the bootstrap passphrase `iiskills123` or `ADMIN_PANEL_SECRET` will work. |
+| `Hash file: … — hash present: false` | No stored hash. Only `ADMIN_PANEL_SECRET` will work. |
 | `Bcrypt comparison failed` | A hash IS stored but the passphrase you entered does not match it. Use the ADMIN_PANEL_SECRET recovery path (step 3). |
+| `Admin login is not configured` | Neither a hash nor `ADMIN_PANEL_SECRET` is set — the admin panel is locked. Set `ADMIN_PANEL_SECRET` and restart. |
 
 ### 2. Ensure environment variables are loaded at runtime
 
@@ -169,22 +164,19 @@ pm2 restart iiskills-main
 4. Once logged in, go to `/admin/setup` and set a new permanent passphrase.
 5. Remove `ADMIN_PANEL_SECRET` from `/etc/iiskills.env` and restart once more.
 
-### 4. Reset to bootstrap (nuclear option)
+### 4. Reset access (nuclear option)
 
-If you cannot use `ADMIN_PANEL_SECRET`, delete the admin data file to restore first-run
-mode and allow the bootstrap passphrase (see `apps/main/pages/api/admin/bootstrap-or-login.js`
-for the constant):
+If you cannot use `ADMIN_PANEL_SECRET`, delete the admin data file and set a new
+`ADMIN_PANEL_SECRET` before restarting:
 
 ```bash
 rm /var/lib/iiskills/admin.json
+# Add or update ADMIN_PANEL_SECRET in /etc/iiskills.env
 pm2 restart iiskills-main
 ```
 
-Then log in with the bootstrap passphrase at `/admin/login`. You will be redirected to
-`/admin/setup` to set a new permanent passphrase immediately.
-
-> ⚠️ **Important:** The bootstrap passphrase is a well-known default. Do not leave the
-> server in bootstrap state for longer than needed to complete the `/admin/setup` flow.
+Then log in with `ADMIN_PANEL_SECRET` at `/admin/login` and set a new permanent passphrase
+via `/admin/setup`.
 
 ### 5. Verify the fix is actually deployed
 

@@ -35,8 +35,14 @@ export default function AdminSettings() {
       return;
     }
 
-    // Check current password (default is 'iiskills123')
-    const storedPassword = localStorage.getItem("iiskills_admin_password") || "iiskills123";
+    // Check current password against localStorage only (no hardcoded default)
+    const storedPassword = localStorage.getItem("iiskills_admin_password");
+    if (!storedPassword) {
+      setPasswordError(
+        "No password is stored locally. Use /admin/login to authenticate via the server-side admin passphrase."
+      );
+      return;
+    }
     if (currentPassword !== storedPassword) {
       setPasswordError("Current password is incorrect");
       return;
@@ -89,8 +95,9 @@ export default function AdminSettings() {
           <div className="bg-white rounded-lg shadow p-6 border-l-4 border-red-500">
             <h2 className="text-xl font-bold text-red-600 mb-4">🔐 Admin Password Management</h2>
             <p className="text-sm text-gray-600 mb-4">
-              Change your admin password. Default password is{" "}
-              <code className="bg-gray-100 px-2 py-1 rounded">iiskills123</code>
+              Change your admin password for the demo/staging secret password prompt.
+              This does not affect server-side admin authentication at{" "}
+              <code className="bg-gray-100 px-2 py-1 rounded">/admin/login</code>.
             </p>
 
             <form onSubmit={handlePasswordChange} className="space-y-4">

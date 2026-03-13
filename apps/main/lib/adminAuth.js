@@ -10,7 +10,7 @@
  * Session expiry: 12 hours
  *
  * TEST MODE (TEST_ADMIN_MODE=true):
- * - Passphrase checked against ADMIN_PANEL_SECRET → ADMIN_SECRET → "iiskills123"
+ * - Passphrase checked against ADMIN_PANEL_SECRET (required) or ADMIN_SECRET (alias)
  * - No file reads required
  * - set-passphrase endpoint is disabled
  */
@@ -43,10 +43,11 @@ export function isAdminAuthDisabled() {
 
 /**
  * Returns the effective admin passphrase for test mode (server-side only).
- * Priority: ADMIN_PANEL_SECRET → ADMIN_SECRET → "iiskills123"
+ * Priority: ADMIN_PANEL_SECRET → ADMIN_SECRET
+ * Returns null if neither is set; the caller must reject the login attempt.
  */
 export function getTestPassphrase() {
-  return process.env.ADMIN_PANEL_SECRET || process.env.ADMIN_SECRET || "iiskills123";
+  return process.env.ADMIN_PANEL_SECRET || process.env.ADMIN_SECRET || null;
 }
 
 function getSigningKey() {
