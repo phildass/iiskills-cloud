@@ -129,12 +129,29 @@ function performanceLevel(pct) {
   };
 }
 
+// ─── Time-per-question thresholds (seconds) ──────────────────────────────────
+const EXCELLENT_PACE_THRESHOLD = 30; // ≤30s/question = excellent pace
+const REASONABLE_PACE_THRESHOLD = 60; // ≤60s/question = reasonable pace
+const TARGET_PACE = 45; // target for improvement
+
 function buildTimeNote(timeTaken, total) {
   if (!timeTaken || timeTaken <= 0) return "";
   const perQ = Math.round(timeTaken / total);
-  if (perQ <= 30) return "Your pace was excellent — you answered each question in about " + perQ + " seconds on average.";
-  if (perQ <= 60) return "Time management was reasonable at roughly " + perQ + " seconds per question; aim for under 45 seconds as you improve.";
-  return "You spent around " + perQ + " seconds per question — working on speed will help you complete full tests comfortably within time limits.";
+  if (perQ <= EXCELLENT_PACE_THRESHOLD)
+    return "Your pace was excellent — you answered each question in about " + perQ + " seconds on average.";
+  if (perQ <= REASONABLE_PACE_THRESHOLD)
+    return (
+      "Time management was reasonable at roughly " +
+      perQ +
+      " seconds per question; aim for under " +
+      TARGET_PACE +
+      " seconds as you improve."
+    );
+  return (
+    "You spent around " +
+    perQ +
+    " seconds per question — working on speed will help you complete full tests comfortably within time limits."
+  );
 }
 
 function buildDomainNote(domainScores, testName) {

@@ -8,7 +8,9 @@ import { getCurrentUser } from "../../lib/supabaseClient";
 import AptitudeAnalysis from "../../components/AptitudeAnalysis";
 
 // Seeded deterministic shuffle to randomize option positions.
-// Using a simple LCG so the same question always shuffles the same way (reproducible).
+// Uses a standard LCG (Linear Congruential Generator) with Numerical Recipes
+// constants (multiplier=1664525, increment=1013904223) so the same question
+// always shuffles the same way (reproducible across page loads).
 function seededShuffle(arr, seed) {
   const result = [...arr];
   let s = seed;

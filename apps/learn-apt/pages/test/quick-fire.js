@@ -330,9 +330,14 @@ export default function QuickFireTest() {
               <CareerAptitudeInsights domainScores={domainScores} />
 
               {/* AI Performance Analysis */}
+              {/* Quick-fire has 3 questions per domain (15 total across 5 domains).
+                  Convert domain percentages back to a rough correct count for the analysis. */}
               <AptitudeAnalysis
-                score={Object.values(domainScores).reduce((sum, s) => sum + (s >= 70 ? 1 : 0), 0)}
-                total={Object.keys(domainScores).length || 1}
+                score={Object.values(domainScores).reduce(
+                  (sum, pct) => sum + Math.round((pct / 100) * 3),
+                  0
+                )}
+                total={QUICK_FIRE_QUESTIONS.length}
                 timeTaken={300 - timeLeft}
                 testName="Quick-Fire"
                 domainScores={domainScores}
