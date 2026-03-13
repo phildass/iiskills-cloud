@@ -34,6 +34,7 @@ nginx/
 │   └── iiskills-basic-auth.conf            ← Basic Auth include snippet
 └── sites-available/
     ├── iiskills.cloud                       ← main site  (port 3000)
+    ├── sample.iiskills.cloud               ← demo/test copy (port 3030, no auth)
     ├── learn-ai.iiskills.cloud             ← learn-ai   (port 3024)
     ├── learn-apt.iiskills.cloud            ← learn-apt  (port 3002)
     ├── learn-chemistry.iiskills.cloud      ← learn-chemistry (port 3005)
@@ -47,10 +48,11 @@ nginx/
 
 ## Site/port mapping
 
-| Config file                       | Backend port | Notes           |
-| --------------------------------- | :----------: | --------------- |
-| `iiskills.cloud`                  |     3000     | main site + www |
-| `learn-ai.iiskills.cloud`         |     3024     |                 |
+| Config file                       | Backend port | Notes                                   |
+| --------------------------------- | :----------: | --------------------------------------- |
+| `iiskills.cloud`                  |     3000     | main site + www                         |
+| `sample.iiskills.cloud`           |     3030     | read-only demo (no Basic Auth required) |
+| `learn-ai.iiskills.cloud`         |     3024     |                                         |
 | `learn-apt.iiskills.cloud`        |     3002     |                 |
 | `learn-chemistry.iiskills.cloud`  |     3005     |                 |
 | `learn-developer.iiskills.cloud`  |     3007     |                 |
