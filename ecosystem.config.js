@@ -50,8 +50,34 @@ module.exports = {
       log_file: path.join(__dirname, "logs", "main-combined.log"),
       time: true,
     },
-    // apps/admin and apps/web have been removed.
-    // admin is served under /admin routes in apps/main.
+    {
+      name: "iiskills-main-copy",
+      cwd: path.join(__dirname, "apps/main"),
+      script: "npx",
+      args: "next start",
+      interpreter: "none",
+      env: {
+        NODE_ENV: "production",
+        PORT: 3030,
+        // Enable Test Site mode for this demo/copy deployment.
+        // NEXT_PUBLIC_IS_TEST_SITE — baked into the client bundle at build time,
+        //   controls the UI banner, click interceptor, and footer branding.
+        // IS_TEST_SITE — read at runtime by the Edge Middleware to block all
+        //   non-GET/HEAD API requests with HTTP 423.
+        // Both must be set so the UI and API layers are both protected.
+        NEXT_PUBLIC_IS_TEST_SITE: "true",
+        IS_TEST_SITE: "true",
+      },
+      instances: 1,
+      autorestart: true,
+      watch: false,
+      max_memory_restart: "1G",
+      error_file: path.join(__dirname, "logs", "main-copy-error.log"),
+      out_file: path.join(__dirname, "logs", "main-copy-out.log"),
+      log_file: path.join(__dirname, "logs", "main-copy-combined.log"),
+      time: true,
+    },
+
     {
       name: "iiskills-learn-ai",
       cwd: path.join(__dirname, "apps/learn-ai"),
