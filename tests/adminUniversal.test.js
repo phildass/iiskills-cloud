@@ -202,6 +202,100 @@ describe("admin API unauthorized returns 403", () => {
 });
 
 // ---------------------------------------------------------------------------
+// POST /api/admin/entitlements — grant entitlement must include course_slug
+// ---------------------------------------------------------------------------
+
+describe("POST /api/admin/entitlements — grant includes course_slug", () => {
+  const makeCookieReq = (body = {}) => ({
+    method: "POST",
+    headers: { cookie: makeCookieHeader() },
+    socket: { remoteAddress: "127.0.0.1" },
+    query: {},
+    body,
+  });
+  const makeRes = () => {
+    const res = {};
+    res.status = jest.fn(() => res);
+    res.json = jest.fn(() => res);
+    res.setHeader = jest.fn(() => res);
+    return res;
+  };
+
+  beforeEach(() => jest.clearAllMocks());
+
+  test("inserts course_slug equal to app_id for learn-ai", async () => {
+    // First insert (entitlements) returns a chainable with .select().single()
+    const mockSingle = jest.fn().mockResolvedValue({ data: { id: "ent-uuid" }, error: null });
+    const mockSelectAfterInsert = jest.fn(() => ({ single: mockSingle }));
+    mockInsert.mockReturnValueOnce({ select: mockSelectAfterInsert });
+
+    // Subsequent calls: profiles select, profiles update, audit insert
+    mockSelectChain.mockReturnValue({
+      eq: jest.fn().mockReturnValue({
+        single: jest.fn().mockResolvedValue({ data: null, error: null }),
+      }),
+      order: jest.fn().mockResolvedValue({ data: [], error: null }),
+    });
+    mockUpdate.mockReturnValue({
+      eq: jest.fn().mockReturnValue({
+        is: jest.fn().mockResolvedValue({ data: null, error: null }),
+      }),
+    });
+
+    const { default: handler } = require("../apps/main/pages/api/admin/entitlements");
+    const req = makeCookieReq({
+      user_id: "user-uuid-123",
+      app_id: "learn-ai",
+      payment_reference: "pay_test123",
+    });
+    const res = makeRes();
+    await handler(req, res);
+
+    // The first insert call must include course_slug: app_id
+    expect(mockInsert).toHaveBeenCalledWith(
+      expect.objectContaining({
+        user_id: "user-uuid-123",
+        app_id: "learn-ai",
+        course_slug: "learn-ai",
+      })
+    );
+    expect(res.status).toHaveBeenCalledWith(201);
+  });
+
+  test("inserts course_slug for ai-developer-bundle", async () => {
+    const mockSingle = jest.fn().mockResolvedValue({ data: { id: "ent-uuid-2" }, error: null });
+    const mockSelectAfterInsert = jest.fn(() => ({ single: mockSingle }));
+    mockInsert.mockReturnValueOnce({ select: mockSelectAfterInsert });
+
+    mockSelectChain.mockReturnValue({
+      eq: jest.fn().mockReturnValue({
+        single: jest.fn().mockResolvedValue({ data: null, error: null }),
+      }),
+    });
+    mockUpdate.mockReturnValue({
+      eq: jest.fn().mockReturnValue({
+        is: jest.fn().mockResolvedValue({ data: null, error: null }),
+      }),
+    });
+
+    const { default: handler } = require("../apps/main/pages/api/admin/entitlements");
+    const req = makeCookieReq({
+      user_id: "user-uuid-456",
+      app_id: "ai-developer-bundle",
+    });
+    const res = makeRes();
+    await handler(req, res);
+
+    expect(mockInsert).toHaveBeenCalledWith(
+      expect.objectContaining({
+        app_id: "ai-developer-bundle",
+        course_slug: "ai-developer-bundle",
+      })
+    );
+  });
+});
+
+// ---------------------------------------------------------------------------
 // /api/admin/admins — authenticated admin can create/revoke (no superadmin gate)
 // ---------------------------------------------------------------------------
 
