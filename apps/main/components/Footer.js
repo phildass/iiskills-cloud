@@ -1,10 +1,21 @@
+import { IS_TEST_SITE } from "../lib/testSiteConfig";
+
 export default function Footer() {
   return (
     <footer className="bg-gradient-to-r from-charcoal to-gray-800 text-white py-12">
       <div className="max-w-6xl mx-auto px-4">
+        {/* Test Site branding — shown only in test/demo deployments */}
+        {IS_TEST_SITE && (
+          <div className="mb-6 bg-red-700 text-white text-center py-2 px-4 rounded-lg text-sm font-bold">
+            ⚠️ TEST SITE ONLY — Read-only demo. No real actions are performed.
+          </div>
+        )}
+
         {/* Brand Section */}
         <div className="text-center mb-8">
-          <h3 className="text-3xl font-bold mb-2">iiskills Learning Suite</h3>
+          <h3 className="text-3xl font-bold mb-2">
+            iiskills Learning Suite{IS_TEST_SITE ? " — Test Site" : ""}
+          </h3>
           <p className="text-xl text-gray-300 italic">
             "Master Professional Skills - Learn, Grow, Excel"
           </p>

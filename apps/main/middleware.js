@@ -22,6 +22,7 @@
  */
 
 import { NextResponse } from "next/server";
+import { IS_TEST_SITE_SERVER, TEST_SITE_ERROR } from "./lib/testSiteConfig";
 
 // ---------------------------------------------------------------------------
 // In-process sliding-window store
@@ -141,6 +142,19 @@ export function middleware(request) {
   // accessible without any rate-limiting or auth checks.
   if (pathname === "/manifest.json") return NextResponse.next();
 
+  // ── Test Site guard ───────────────────────────────────────────────────────
+  // When IS_TEST_SITE=true, block all non-GET/HEAD API requests so that no
+  // real mutations can be performed on the demo/test deployment.
+  if (IS_TEST_SITE_SERVER && pathname.startsWith("/api/")) {
+    const method = request.method.toUpperCase();
+    if (method !== "GET" && method !== "HEAD") {
+      return new NextResponse(JSON.stringify({ error: TEST_SITE_ERROR }), {
+        status: 423,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+  }
+
   const routeGroup = getRouteGroup(pathname);
 
   if (!routeGroup) return NextResponse.next();
@@ -182,10 +196,7 @@ export function middleware(request) {
 
 export const config = {
   matcher: [
-    "/api/auth/:path*",
-    "/api/pay",
-    "/api/payment/:path*",
-    "/api/paymentMembershipHandler",
+    "/api/:path*",
     "/admin/:path*",
     "/profile",
   ],
