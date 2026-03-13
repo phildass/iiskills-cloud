@@ -4,6 +4,9 @@
   "description": "Core Schema-Driven UI library for iiskills-cloud apps",
   "main": "index.ts",
   "types": "index.ts",
+  "exports": {
+    ".": "./index.ts"
+  },
   "scripts": {
     "lint": "eslint .",
     "type-check": "tsc --noEmit"

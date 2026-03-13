@@ -2,6 +2,10 @@
   "name": "@iiskills/content",
   "version": "1.0.0",
   "main": "src/index.js",
+  "private": true,
+  "exports": {
+    ".": "./src/index.js"
+  },
   "dependencies": {
     "gray-matter": "^4.0.3"
   }
