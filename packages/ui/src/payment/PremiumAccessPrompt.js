@@ -19,7 +19,7 @@ export default function PremiumAccessPrompt({
   onCancel,
 }) {
   const pricing = getEffectivePricingBreakdown();
-  const bundleActive = showAIDevBundle && new Date() <= new Date("2026-03-31T23:59:59");
+  const bundleActive = showAIDevBundle && new Date() <= new Date("2026-04-20T23:59:59");
 
   const handleUnlock = () => {
     const mainAppUrl = process.env.NEXT_PUBLIC_MAIN_APP_URL || "https://iiskills.cloud";
@@ -61,7 +61,7 @@ export default function PremiumAccessPrompt({
                 NO EXTRA COST
               </p>
               <p className="text-yellow-900 font-semibold text-sm">
-                ⏰ Exclusive offer — valid until <strong>31 March 2026 only</strong>. Don't miss
+                ⏰ Exclusive offer — valid from <strong>March 21, 2026 to April 20, 2026</strong>. Don't miss
                 out!
               </p>
             </div>
@@ -71,6 +71,14 @@ export default function PremiumAccessPrompt({
         {/* Fee Structure */}
         <div className="bg-gray-50 p-6 rounded-xl mb-6">
           <h3 className="text-lg font-semibold mb-4 text-gray-900">Fee Structure</h3>
+          {pricing.phase === "intro" && (
+            <div className="mb-4 bg-orange-50 border-2 border-orange-400 rounded-lg p-3 text-center">
+              <p className="text-orange-800 font-bold text-sm">
+                🎉 Inaugural Offer: {formatINR(pricing.base)} (+ {(pricing.gstRate * 100).toFixed(0)}% GST ={" "}
+                {formatINR(pricing.total)}) valid from March 21 to April 20, 2026
+              </p>
+            </div>
+          )}
           <div className="space-y-2 mb-4">
             <div className="flex justify-between items-center text-gray-700">
               <span>Professional Access:</span>
@@ -88,7 +96,7 @@ export default function PremiumAccessPrompt({
             {bundleActive && (
               <div className="text-center pt-2">
                 <span className="text-sm text-purple-600 font-semibold">
-                  ✓ Includes AI-Dev bundle — 2 courses for the price of 1 (till 31 Mar 2026)
+                  ✓ Includes AI-Dev bundle — 2 courses for the price of 1 (from March 21 to April 20, 2026)
                 </span>
               </div>
             )}

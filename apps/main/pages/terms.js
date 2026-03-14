@@ -77,11 +77,11 @@ export default function Terms() {
             </p>
             {pricing.isIntroductory && (
               <div className="bg-green-50 border-l-4 border-green-500 p-4 mb-3 rounded">
-                <p className="text-green-800 font-semibold mb-2">Introductory Pricing</p>
+                <p className="text-green-800 font-semibold mb-2">Inaugural Offer Pricing</p>
                 <p className="text-green-700 text-sm">
-                  Introductory fee valid till March 31, 2026. New fees will be effective from April
-                  01, 2026. Current price: {pricing.totalPrice} per course. Regular price from April
-                  01, 2026: Rs 352.82 per course (Rs 299 + Rs 53.82 GST).
+                  Inaugural Offer: {pricing.basePrice} (+ {pricing.gstRate} GST ={" "}
+                  {pricing.totalPrice}) valid from March 21, 2026 to April 20, 2026. Standard price Rs 352.82 per
+                  course (Rs 299 + Rs 53.82 GST) effective from April 21, 2026.
                 </p>
               </div>
             )}

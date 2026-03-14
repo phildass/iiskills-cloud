@@ -111,6 +111,18 @@ export default function Home() {
           </div>
         </Hero>
 
+        {/* Inaugural Offer Banner */}
+        {pricing.isIntroductory && (
+          <section className="bg-gradient-to-r from-orange-500 to-amber-500 text-white py-3 px-4">
+            <div className="max-w-7xl mx-auto text-center">
+              <p className="text-sm sm:text-base font-bold">
+                🎉 Inaugural Offer: {pricing.basePrice} (+ {pricing.gstRate} GST ={" "}
+                {pricing.totalPrice}) valid from March 21, 2026 to April 20, 2026 — Enroll now!
+              </p>
+            </div>
+          </section>
+        )}
+
         {/* CTA Buttons Below Hero */}
         <section className="py-8 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -377,7 +389,7 @@ export default function Home() {
                 </a>
                 <p className="text-white font-semibold text-lg">
                   Only {pricing.totalPrice} per course
-                  {pricing.isIntroductory ? " • Limited Time Offer!" : ""}
+                  {pricing.isIntroductory ? " • Inaugural Offer!" : ""}
                 </p>
               </div>
             </div>
@@ -418,7 +430,7 @@ export default function Home() {
                   We believe in democratizing education by making it affordable (
                   {pricing.totalPrice} per course
                   {pricing.isIntroductory
-                    ? `, introductory offer until ${pricing.introEndDate}`
+                    ? `, inaugural offer valid from March 21, 2026 to April 20, 2026`
                     : ""}
                   ), accessible online, and focused on immediately applicable skills.
                 </p>
