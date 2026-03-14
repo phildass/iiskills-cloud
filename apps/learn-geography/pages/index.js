@@ -48,6 +48,13 @@ export default function Home() {
           description:
             "Analyze political boundaries, international relations, conflicts, and the forces shaping our modern world",
         },
+        {
+          emoji: "🏴",
+          title: "Learn About Countries",
+          description:
+            "Explore individual countries — their geography, culture, economy, famous landmarks and fascinating facts",
+          link: "/learn-about-countries",
+        },
       ]}
       isFree={true}
       heroGradient="from-teal-600 to-primary"
