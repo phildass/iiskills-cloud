@@ -1237,6 +1237,7 @@ const PAID_COURSE_NAMES = {
   "learn-developer": "Learn Developer",
   "learn-management": "Learn Management",
   "learn-pr": "Learn PR",
+  "ai-developer-bundle": "AI + Developer Bundle",
 };
 
 function getCourseName(slug) {
@@ -1249,14 +1250,43 @@ function getCourseEmoji(slug) {
     "learn-developer": "💻",
     "learn-management": "📊",
     "learn-pr": "📣",
+    "ai-developer-bundle": "🎁",
   };
   return map[slug] || "📚";
+}
+
+/** Returns display info for an entitlement's status */
+function getEntitlementStatusInfo(entitlement) {
+  const now = new Date();
+  const isExpiredByDate = entitlement.expires_at && new Date(entitlement.expires_at) <= now;
+
+  if (entitlement.status === "revoked") {
+    return { label: "Revoked", colorClass: "bg-red-100 text-red-700" };
+  }
+  if (entitlement.status === "expired" || isExpiredByDate) {
+    return { label: "Expired", colorClass: "bg-orange-100 text-orange-700" };
+  }
+  if (entitlement.status === "active") {
+    return { label: "Active", colorClass: "bg-green-100 text-green-700" };
+  }
+  return { label: entitlement.status, colorClass: "bg-gray-100 text-gray-600" };
+}
+
+/** Returns whether an entitlement currently grants course access */
+function isEntitlementAccessible(entitlement) {
+  if (entitlement.status !== "active") return false;
+  if (entitlement.expires_at && new Date(entitlement.expires_at) <= new Date()) return false;
+  return true;
 }
 
 function MyCourseTab({ dashboardData }) {
   const paidCourseSlugs = dashboardData?.paidCourseSlugs || [];
   const lastLessonByApp = dashboardData?.lastLessonByApp || {};
   const progressByApp = dashboardData?.progress?.byApp || {};
+  const allEntitlements = dashboardData?.entitlements || [];
+
+  // Separate entitlements into active-accessible and inactive (expired/revoked)
+  const inactiveEntitlements = allEntitlements.filter((e) => !isEntitlementAccessible(e));
 
   return (
     <div className="space-y-8">
@@ -1290,7 +1320,7 @@ function MyCourseTab({ dashboardData }) {
       {/* ── My Paid Courses ─────────────────────────────────────────────── */}
       <section>
         <h2 className="text-lg font-bold text-gray-900 mb-1">🔒 My Paid Courses</h2>
-        <p className="text-sm text-gray-500 mb-4">Courses you have access to.</p>
+        <p className="text-sm text-gray-500 mb-4">Courses you currently have active access to.</p>
         {paidCourseSlugs.length === 0 ? (
           <div className="bg-white rounded-xl shadow p-8 text-center text-gray-500">
             <p className="text-3xl mb-3">🎓</p>
@@ -1377,6 +1407,82 @@ function MyCourseTab({ dashboardData }) {
           </div>
         )}
       </section>
+
+      {/* ── Entitlement History ─────────────────────────────────────────── */}
+      {allEntitlements.length > 0 && (
+        <section>
+          <h2 className="text-lg font-bold text-gray-900 mb-1">🎟️ Entitlement History</h2>
+          <p className="text-sm text-gray-500 mb-4">
+            Complete record of all courses and bundles you have been entitled to.
+          </p>
+          <div className="bg-white rounded-xl shadow overflow-hidden">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-gray-100 bg-gray-50">
+                  <th className="text-left px-4 py-3 font-semibold text-gray-700">
+                    Course / Bundle
+                  </th>
+                  <th className="text-left px-4 py-3 font-semibold text-gray-700">Status</th>
+                  <th className="text-left px-4 py-3 font-semibold text-gray-700 hidden sm:table-cell">
+                    Purchased
+                  </th>
+                  <th className="text-left px-4 py-3 font-semibold text-gray-700 hidden sm:table-cell">
+                    Expires
+                  </th>
+                  <th className="text-left px-4 py-3 font-semibold text-gray-700 hidden md:table-cell">
+                    Source
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-50">
+                {allEntitlements.map((ent) => {
+                  const statusInfo = getEntitlementStatusInfo(ent);
+                  const isBundle = ent.app_id === "ai-developer-bundle";
+                  return (
+                    <tr key={ent.id} className="hover:bg-gray-50 transition">
+                      <td className="px-4 py-3">
+                        <div className="flex items-center gap-2">
+                          <span className="text-xl">{getCourseEmoji(ent.app_id)}</span>
+                          <div>
+                            <p className="font-medium text-gray-800">{getCourseName(ent.app_id)}</p>
+                            {isBundle && (
+                              <p className="text-xs text-gray-500">
+                                Includes: Learn AI + Learn Developer
+                              </p>
+                            )}
+                          </div>
+                        </div>
+                      </td>
+                      <td className="px-4 py-3">
+                        <span
+                          className={`inline-block text-xs font-bold px-2 py-0.5 rounded-full ${statusInfo.colorClass}`}
+                        >
+                          {statusInfo.label}
+                        </span>
+                      </td>
+                      <td className="px-4 py-3 text-gray-600 hidden sm:table-cell">
+                        {ent.purchased_at ? formatDate(ent.purchased_at) : "—"}
+                      </td>
+                      <td className="px-4 py-3 text-gray-600 hidden sm:table-cell">
+                        {ent.expires_at ? formatDate(ent.expires_at) : "Never"}
+                      </td>
+                      <td className="px-4 py-3 text-gray-500 capitalize hidden md:table-cell">
+                        {ent.source || "—"}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+          {inactiveEntitlements.length > 0 && (
+            <p className="text-xs text-gray-400 mt-2">
+              ℹ️ Expired or revoked entitlements are shown for your records. Contact support to
+              renew access.
+            </p>
+          )}
+        </section>
+      )}
     </div>
   );
 }
