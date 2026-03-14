@@ -18,6 +18,12 @@ export default function Navbar() {
             <Link href="/curriculum" className="text-gray-700 hover:text-primary transition-colors">
               Curriculum
             </Link>
+            <Link
+              href="/learn-about-countries"
+              className="text-gray-700 hover:text-primary transition-colors"
+            >
+              Countries
+            </Link>
             <Link href="/jobs" className="text-gray-700 hover:text-primary transition-colors">
               Jobs
             </Link>
