@@ -100,8 +100,8 @@ export default function LearnAboutCountriesIndex() {
                     alt={`Flag of ${country.name}`}
                     loading="lazy"
                     width={80}
-                    height={53}
                     className="rounded mb-3 shadow-sm"
+                    style={{ width: 80, height: "auto", maxHeight: 56, objectFit: "contain" }}
                   />
                   <span className="text-3xl mb-1">{country.emoji}</span>
                   <h2 className="text-base font-semibold text-gray-800 group-hover:text-teal-700 leading-snug">

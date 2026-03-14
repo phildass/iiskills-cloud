@@ -207,6 +207,7 @@ export default function CountryDetailPage({ meta, details }) {
               style={{ border: 0, display: "block" }}
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
+              sandbox="allow-scripts allow-same-origin"
             />
             <p className="text-xs text-gray-400 px-3 py-1.5 bg-gray-50">
               🗺️ {details.mapAlt} — © OpenStreetMap contributors

@@ -187,8 +187,8 @@ Cities such as Bengaluru (Bangalore) are globally recognised technology hubs.`,
       "https://www.openstreetmap.org/export/embed.html?bbox=72%2C17%2C136%2C54&layer=mapnik",
     mapAlt: "OpenStreetMap showing China",
 
-    overview: `China (officially the People's Republic of China) is the world's most populous nation (1.4 billion)
-and the third-largest country by total area (9.6 million km²). Situated in East Asia, it stretches
+    overview: `China (officially the People's Republic of China) is the world's second-most-populous nation (1.4 billion,
+after India overtook it in 2023) and the third-largest country by total area (9.6 million km²). Situated in East Asia, it stretches
 from the Himalayas in the south-west to the Pacific coast in the east. China is one of the world's
 oldest continuous civilisations and the world's second-largest economy. It is a major global trading
 partner and a permanent member of the UN Security Council.`,
