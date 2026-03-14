@@ -3,7 +3,7 @@
  * Run with: node utils/__tests__/pricing.manual.test.js
  *
  * NOTE: This file re-exports from @iiskills/ui/pricing (canonical module).
- * Cutoff: March 31, 2026 (intro) → April 01, 2026 (standard).
+ * Cutoff: April 20, 2026 (inaugural offer) → April 21, 2026 (standard).
  */
 
 const pricing = require("../pricing");
@@ -20,9 +20,9 @@ console.log("GST Amount:", pricing.formatPrice(currentPricing.gstAmount));
 console.log("Total Price:", pricing.formatPrice(currentPricing.totalPrice));
 console.log("");
 
-// Test 2: Introductory period pricing (on last day)
-console.log("Test 2: Introductory Period (March 31, 2026)");
-const introPricing = pricing.getCurrentPricing(new Date("2026-03-31"));
+// Test 2: Inaugural offer period pricing (on last day)
+console.log("Test 2: Inaugural Offer Period (April 20, 2026)");
+const introPricing = pricing.getCurrentPricing(new Date("2026-04-20"));
 console.log("Is Introductory:", introPricing.isIntroductory);
 console.log("Base Price:", pricing.formatPrice(introPricing.basePrice));
 console.log("GST Amount:", pricing.formatPrice(introPricing.gstAmount));
@@ -31,18 +31,18 @@ console.log("Expected: Rs 116.82 total");
 console.log("Match:", introPricing.totalPrice === 116.82 ? "✓ PASS" : "✗ FAIL");
 console.log("");
 
-// Test 3: Last moment of introductory period
-console.log("Test 3: Last Day of Intro (March 31, 2026, 23:59:59)");
-const lastDayPricing = pricing.getCurrentPricing(new Date("2026-03-31T23:59:59"));
+// Test 3: Last moment of inaugural offer
+console.log("Test 3: Last Day of Inaugural Offer (April 20, 2026, 23:59:59)");
+const lastDayPricing = pricing.getCurrentPricing(new Date("2026-04-20T23:59:59"));
 console.log("Is Introductory:", lastDayPricing.isIntroductory);
 console.log("Total Price:", pricing.formatPrice(lastDayPricing.totalPrice));
 console.log("Expected: Rs 116.82 total");
 console.log("Match:", lastDayPricing.totalPrice === 116.82 ? "✓ PASS" : "✗ FAIL");
 console.log("");
 
-// Test 4: Regular pricing period (April 01, 2026)
-console.log("Test 4: Regular Period (April 01, 2026)");
-const regularPricing = pricing.getCurrentPricing(new Date("2026-04-01"));
+// Test 4: Standard pricing period (April 21, 2026)
+console.log("Test 4: Standard Period (April 21, 2026)");
+const regularPricing = pricing.getCurrentPricing(new Date("2026-04-21"));
 console.log("Is Introductory:", regularPricing.isIntroductory);
 console.log("Base Price:", pricing.formatPrice(regularPricing.basePrice));
 console.log("GST Amount:", pricing.formatPrice(regularPricing.gstAmount));
@@ -61,24 +61,24 @@ console.log("GST Rate:", display.gstRate);
 console.log("Intro End Date:", display.introEndDate);
 console.log("");
 
-// Test 6: Intro offer notice
-console.log("Test 6: Introductory Offer Notice");
+// Test 6: Inaugural offer notice
+console.log("Test 6: Inaugural Offer Notice");
 const introNotice = pricing.getIntroOfferNotice(new Date("2026-03-01"));
 if (introNotice) {
   console.log("Notice:", introNotice);
   console.log("Contains Rs 116.82:", introNotice.includes("Rs 116.82") ? "✓ PASS" : "✗ FAIL");
   console.log("Contains Rs 352.82:", introNotice.includes("Rs 352.82") ? "✓ PASS" : "✗ FAIL");
-  console.log("Contains March 31:", introNotice.includes("March 31") ? "✓ PASS" : "✗ FAIL");
-  console.log("Contains April 01:", introNotice.includes("April 01") ? "✓ PASS" : "✗ FAIL");
+  console.log("Contains April 20:", introNotice.includes("April 20") ? "✓ PASS" : "✗ FAIL");
+  console.log("Contains April 21:", introNotice.includes("April 21") ? "✓ PASS" : "✗ FAIL");
 } else {
-  console.log("No notice (regular pricing period active)");
+  console.log("No notice (standard pricing period active)");
 }
 console.log("");
 
 // Test 7: GST calculation accuracy
 console.log("Test 7: GST Calculation Accuracy");
-const testIntro = pricing.getCurrentPricing(new Date("2026-03-31"));
-const testRegular = pricing.getCurrentPricing(new Date("2026-04-01"));
+const testIntro = pricing.getCurrentPricing(new Date("2026-04-20"));
+const testRegular = pricing.getCurrentPricing(new Date("2026-04-21"));
 const introGSTCalc = testIntro.basePrice * 0.18;
 const regularGSTCalc = testRegular.basePrice * 0.18;
 console.log("Intro GST calculated:", introGSTCalc.toFixed(2));

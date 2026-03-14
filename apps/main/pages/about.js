@@ -39,7 +39,7 @@ export default function About() {
             <p className="leading-relaxed">
               We believe in democratizing education by making it affordable ({pricing.totalPrice}{" "}
               per course
-              {pricing.isIntroductory ? ", introductory offer until " + pricing.introEndDate : ""}),
+              {pricing.isIntroductory ? ", inaugural offer valid till April 20, 2026" : ""}),
               accessible online, and focused on immediately applicable skills.
             </p>
           </div>

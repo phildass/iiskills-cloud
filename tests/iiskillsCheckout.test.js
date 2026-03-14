@@ -11,7 +11,7 @@ const { getCurrentPricing } = require("../packages/shared-utils/utils/pricing");
 
 describe("iiskills checkout: pricing", () => {
   test("introductory total is ₹116.82 (₹99 + 18% GST) during intro period", () => {
-    // Use a date well within the introductory period
+    // Use a date well within the inaugural offer period
     const introDate = new Date("2026-01-15");
     const pricing = getCurrentPricing(introDate);
     expect(pricing.basePrice).toBe(99);
@@ -20,7 +20,7 @@ describe("iiskills checkout: pricing", () => {
   });
 
   test("regular total is ₹352.82 after intro period", () => {
-    const afterIntro = new Date("2026-04-01");
+    const afterIntro = new Date("2026-04-21");
     const pricing = getCurrentPricing(afterIntro);
     expect(pricing.basePrice).toBe(299);
     expect(pricing.totalPrice).toBe(352.82);
@@ -38,8 +38,8 @@ describe("iiskills checkout: pricing", () => {
     // Regression guard: these fields must be numbers so formatINR never receives undefined
     const dates = [
       new Date("2026-01-01"),
-      new Date("2026-03-31"),
-      new Date("2026-04-01"),
+      new Date("2026-04-20"),
+      new Date("2026-04-21"),
       new Date("2027-01-01"),
     ];
     dates.forEach((date) => {

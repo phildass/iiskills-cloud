@@ -4,12 +4,12 @@
  * Single source of truth – import from @iiskills/ui/pricing.
  *
  * Pricing rules:
- *  - Until 2026-03-31 (inclusive, local date):
+ *  - Until 2026-04-20 (inclusive, local date):
  *      Base: Rs 99 · GST 18% (Rs 17.82) · Total: Rs 116.82
- *      Display: "Effective till March 31, 2026"
- *  - From 2026-04-01 onward:
+ *      Display: "Inaugural Offer valid till April 20, 2026"
+ *  - From 2026-04-21 onward:
  *      Base: Rs 299 · GST 18% (Rs 53.82) · Total: Rs 352.82
- *      Display: "New prices effective from April 01, 2026"
+ *      Display: "Standard pricing effective from April 21, 2026"
  */
 
 // ─── Constants ────────────────────────────────────────────────────────────────
@@ -20,10 +20,10 @@ export const OLD_PRICE = 99;
 export const NEW_PRICE = 299;
 
 /**
- * Last calendar date (local) on which introductory pricing applies.
+ * Last calendar date (local) on which inaugural offer pricing applies.
  * Comparison is done as "YYYY-MM-DD" strings to be timezone-safe.
  */
-export const CUTOFF_DATE = "2026-03-31";
+export const CUTOFF_DATE = "2026-04-20";
 
 // Pre-calculated for accuracy (avoids floating-point drift)
 const OLD_GST = 17.82;
@@ -104,7 +104,7 @@ export function getEffectivePricingBreakdown(date = new Date()) {
     total: intro ? OLD_TOTAL : NEW_TOTAL,
     gstRate: GST_RATE,
     phase: intro ? "intro" : "standard",
-    messages: ["Effective till March 31, 2026", "New prices effective from April 01, 2026"],
+    messages: ["Inaugural Offer valid till April 20, 2026", "Standard pricing effective from April 21, 2026"],
   };
 }
 
@@ -150,7 +150,7 @@ export function getPricingDisplay(date = new Date()) {
 export function getIntroOfferNotice(date = new Date()) {
   const p = getCurrentPricing(date);
   if (!p.isIntroductory) return null;
-  return `🎉 Introductory fee Rs ${OLD_TOTAL.toFixed(2)} effective till March 31, 2026. New prices Rs ${NEW_TOTAL.toFixed(2)} effective from April 01, 2026. Enroll now!`;
+  return `🎉 Inaugural Offer: Rs ${OLD_TOTAL.toFixed(2)} (Rs 99 + 18% GST) valid till April 20, 2026. Standard price Rs ${NEW_TOTAL.toFixed(2)} effective from April 21, 2026. Enroll now!`;
 }
 
 export default {
@@ -176,8 +176,8 @@ export default {
   REGULAR_TOTAL_PRICE: NEW_TOTAL,
 };
 
-// AI + Developer bundle offer: Buy one, get one free — valid until March 31, 2026
-const BUNDLE_OFFER_END_DATE_STR = "2026-03-31";
+// AI + Developer bundle offer: Buy one, get one free — valid until April 20, 2026
+const BUNDLE_OFFER_END_DATE_STR = "2026-04-20";
 const BUNDLE_APPS = ["learn-ai", "learn-developer"];
 
 /**
@@ -196,7 +196,7 @@ export function isBundleOfferActive(currentDate = new Date()) {
  */
 export function getBundleOfferNotice() {
   if (!isBundleOfferActive()) return null;
-  return "🎁 LIMITED OFFER: Buy Learn AI OR Learn Developer — get BOTH for the price of ONE! Offer valid until 31 March 2026.";
+  return "🎁 LIMITED OFFER: Buy Learn AI OR Learn Developer — get BOTH for the price of ONE! Offer valid until April 20, 2026.";
 }
 
 export { BUNDLE_APPS };

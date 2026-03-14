@@ -1675,7 +1675,7 @@ export default function Courses() {
         <title>Courses - iiskills.cloud</title>
         <meta
           name="description"
-          content="Courses available now: 9 | Five Free | Four Paid. Introductory price of Rs 99 (plus GST Rs 17.82) effective till March 31, 2026. Professional and personal development courses."
+          content="Courses available now: 9 | Five Free | Four Paid. Inaugural Offer: Rs 99 (plus GST Rs 17.82) valid till April 20, 2026. Professional and personal development courses."
         />
       </Head>
 
@@ -1688,20 +1688,20 @@ export default function Courses() {
             Courses available now: 9 | Five Free | Four Paid
           </p>
           <p className="text-sm text-orange-600 font-semibold mb-4">
-            Introductory price of Rs 99 (plus GST Rs 17.82) effective till March 31, 2026. Total Rs
+            Inaugural Offer: Rs 99 (plus GST Rs 17.82) valid till April 20, 2026. Total Rs
             116.82
           </p>
           <p className="text-sm text-gray-700 font-semibold mb-4">
-            New prices Rs 299 + GST of Rs 53.82 (Total Rs 352.82) will be effective from April 01,
+            Standard price Rs 299 + GST of Rs 53.82 (Total Rs 352.82) effective from April 21,
             2026
           </p>
           <div className="mt-4 text-lg font-semibold text-accent">
             Paid courses: {pricing.totalPrice} per course
-            {pricing.isIntroductory ? " (Introductory Offer)" : ""}
+            {pricing.isIntroductory ? " (Inaugural Offer)" : ""}
           </div>
         </div>
 
-        {/* Introductory Offer Banner */}
+        {/* Inaugural Offer Banner */}
         {introNotice && (
           <div className="bg-gradient-to-r from-indigo-400 to-purple-400 text-white rounded-lg shadow-lg p-6 mb-8 text-center">
             <p className="text-lg font-bold">{introNotice}</p>
@@ -1804,7 +1804,7 @@ export default function Courses() {
                           </p>
                           {pricing.isIntroductory && (
                             <p className="text-xs text-blue-700 mt-1">
-                              Introductory offer until {pricing.introEndDate}
+                              Inaugural offer valid till April 20, 2026
                             </p>
                           )}
                         </div>
