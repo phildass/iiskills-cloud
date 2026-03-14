@@ -87,13 +87,14 @@ export default async function handler(req, res) {
     .order("paid_at", { ascending: false });
 
   // ── Entitlements ──────────────────────────────────────────────────────────
-  const now = new Date().toISOString();
+  // Fetch ALL entitlements for the user — active, expired, and revoked — so
+  // the dashboard can display a complete, accurate history. Access control
+  // (paidCourseSlugs) is derived separately from only active + non-expired rows.
   const { data: entitlements } = await supabase
     .from("entitlements")
-    .select("id, app_id, status, purchased_at, expires_at")
+    .select("id, app_id, status, purchased_at, expires_at, source, course_slug")
     .eq("user_id", userId)
-    .eq("status", "active")
-    .or(`expires_at.is.null,expires_at.gt.${now}`);
+    .order("purchased_at", { ascending: false });
 
   // ── Badges ─────────────────────────────────────────────────────────────────
   const { data: badges } = await supabase
@@ -159,9 +160,13 @@ export default async function handler(req, res) {
   const purchaseList = purchases || [];
   const paidSlugsFromPurchases = [...new Set(purchaseList.map((p) => p.course_slug))];
 
-  // Fallback: active entitlements not already covered by purchases
+  // Fallback: only active, non-expired entitlements grant course access
   const entitlementList = entitlements || [];
-  const paidSlugsFromEntitlements = entitlementList
+  const nowIso = new Date().toISOString();
+  const activeEntitlements = entitlementList.filter(
+    (e) => e.status === "active" && (!e.expires_at || e.expires_at > nowIso)
+  );
+  const paidSlugsFromEntitlements = activeEntitlements
     .flatMap((e) => {
       if (e.app_id === "ai-developer-bundle") return ["learn-ai", "learn-developer"];
       return [e.app_id];

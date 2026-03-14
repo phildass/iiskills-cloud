@@ -184,3 +184,139 @@ describe("authorization boundary logic", () => {
     expect(userOwnsCourseMessage(USER_A, USER_B)).toBe(false);
   });
 });
+
+// ── Entitlement display logic ─────────────────────────────────────────────────
+
+describe("entitlement display logic", () => {
+  const now = new Date();
+  const pastDate = new Date(now.getTime() - 24 * 60 * 60 * 1000).toISOString(); // yesterday
+  const futureDate = new Date(now.getTime() + 365 * 24 * 60 * 60 * 1000).toISOString(); // 1 year ahead
+
+  function getEntitlementStatusInfo(entitlement) {
+    const isExpiredByDate =
+      entitlement.expires_at && new Date(entitlement.expires_at) <= new Date();
+    if (entitlement.status === "revoked") {
+      return { label: "Revoked", colorClass: "bg-red-100 text-red-700" };
+    }
+    if (entitlement.status === "expired" || isExpiredByDate) {
+      return { label: "Expired", colorClass: "bg-orange-100 text-orange-700" };
+    }
+    if (entitlement.status === "active") {
+      return { label: "Active", colorClass: "bg-green-100 text-green-700" };
+    }
+    return { label: entitlement.status, colorClass: "bg-gray-100 text-gray-600" };
+  }
+
+  function isEntitlementAccessible(entitlement) {
+    if (entitlement.status !== "active") return false;
+    if (entitlement.expires_at && new Date(entitlement.expires_at) <= new Date()) return false;
+    return true;
+  }
+
+  function derivePaidCourseSlugs(purchaseSlugs, entitlements) {
+    const nowIso = new Date().toISOString();
+    const activeEntitlements = entitlements.filter(
+      (e) => e.status === "active" && (!e.expires_at || e.expires_at > nowIso)
+    );
+    const paidSlugsFromEntitlements = activeEntitlements
+      .flatMap((e) => {
+        if (e.app_id === "ai-developer-bundle") return ["learn-ai", "learn-developer"];
+        return [e.app_id];
+      })
+      .filter((slug) => !purchaseSlugs.includes(slug));
+    return [...new Set([...purchaseSlugs, ...paidSlugsFromEntitlements])];
+  }
+
+  describe("getEntitlementStatusInfo()", () => {
+    it("returns Active for active, non-expired entitlement", () => {
+      const ent = { status: "active", expires_at: futureDate };
+      expect(getEntitlementStatusInfo(ent).label).toBe("Active");
+    });
+
+    it("returns Expired for entitlement with status=expired", () => {
+      const ent = { status: "expired", expires_at: futureDate };
+      expect(getEntitlementStatusInfo(ent).label).toBe("Expired");
+    });
+
+    it("returns Expired for active entitlement past expiry date", () => {
+      const ent = { status: "active", expires_at: pastDate };
+      expect(getEntitlementStatusInfo(ent).label).toBe("Expired");
+    });
+
+    it("returns Revoked for revoked entitlement", () => {
+      const ent = { status: "revoked", expires_at: futureDate };
+      expect(getEntitlementStatusInfo(ent).label).toBe("Revoked");
+    });
+
+    it("returns Active for entitlement with no expiry (perpetual)", () => {
+      const ent = { status: "active", expires_at: null };
+      expect(getEntitlementStatusInfo(ent).label).toBe("Active");
+    });
+  });
+
+  describe("isEntitlementAccessible()", () => {
+    it("grants access for active, non-expired entitlement", () => {
+      expect(isEntitlementAccessible({ status: "active", expires_at: futureDate })).toBe(true);
+    });
+
+    it("grants access for active entitlement with no expiry", () => {
+      expect(isEntitlementAccessible({ status: "active", expires_at: null })).toBe(true);
+    });
+
+    it("denies access for active but expired entitlement", () => {
+      expect(isEntitlementAccessible({ status: "active", expires_at: pastDate })).toBe(false);
+    });
+
+    it("denies access for revoked entitlement", () => {
+      expect(isEntitlementAccessible({ status: "revoked", expires_at: futureDate })).toBe(false);
+    });
+
+    it("denies access for status=expired entitlement", () => {
+      expect(isEntitlementAccessible({ status: "expired", expires_at: futureDate })).toBe(false);
+    });
+  });
+
+  describe("derivePaidCourseSlugs() — only active entitlements grant access", () => {
+    it("includes slugs from active entitlements", () => {
+      const entitlements = [{ app_id: "learn-ai", status: "active", expires_at: futureDate }];
+      expect(derivePaidCourseSlugs([], entitlements)).toContain("learn-ai");
+    });
+
+    it("excludes slugs from expired entitlements", () => {
+      const entitlements = [{ app_id: "learn-ai", status: "active", expires_at: pastDate }];
+      expect(derivePaidCourseSlugs([], entitlements)).not.toContain("learn-ai");
+    });
+
+    it("excludes slugs from revoked entitlements", () => {
+      const entitlements = [{ app_id: "learn-ai", status: "revoked", expires_at: futureDate }];
+      expect(derivePaidCourseSlugs([], entitlements)).not.toContain("learn-ai");
+    });
+
+    it("expands ai-developer-bundle into both learn-ai and learn-developer", () => {
+      const entitlements = [
+        { app_id: "ai-developer-bundle", status: "active", expires_at: futureDate },
+      ];
+      const slugs = derivePaidCourseSlugs([], entitlements);
+      expect(slugs).toContain("learn-ai");
+      expect(slugs).toContain("learn-developer");
+      expect(slugs).not.toContain("ai-developer-bundle");
+    });
+
+    it("does not duplicate slugs already covered by purchases", () => {
+      const entitlements = [{ app_id: "learn-ai", status: "active", expires_at: futureDate }];
+      const slugs = derivePaidCourseSlugs(["learn-ai"], entitlements);
+      expect(slugs.filter((s) => s === "learn-ai")).toHaveLength(1);
+    });
+
+    it("combines purchases and active entitlements without duplicates", () => {
+      const entitlements = [
+        { app_id: "learn-ai", status: "active", expires_at: futureDate },
+        { app_id: "learn-management", status: "revoked", expires_at: futureDate },
+      ];
+      const slugs = derivePaidCourseSlugs(["learn-developer"], entitlements);
+      expect(slugs).toContain("learn-developer");
+      expect(slugs).toContain("learn-ai");
+      expect(slugs).not.toContain("learn-management");
+    });
+  });
+});
