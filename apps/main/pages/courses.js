@@ -1675,7 +1675,7 @@ export default function Courses() {
         <title>Courses - iiskills.cloud</title>
         <meta
           name="description"
-          content="Courses available now: 9 | Five Free | Four Paid. Inaugural Offer: Rs 99 (plus GST Rs 17.82) valid till April 20, 2026. Professional and personal development courses."
+          content="Courses available now: 9 | Five Free | Four Paid. Inaugural Offer: Rs 99 (plus GST Rs 17.82) valid from March 21 to April 20, 2026. Professional and personal development courses."
         />
       </Head>
 
@@ -1688,7 +1688,7 @@ export default function Courses() {
             Courses available now: 9 | Five Free | Four Paid
           </p>
           <p className="text-sm text-orange-600 font-semibold mb-4">
-            Inaugural Offer: Rs 99 (plus GST Rs 17.82) valid till April 20, 2026. Total Rs
+            Inaugural Offer: Rs 99 (plus GST Rs 17.82) valid from March 21 to April 20, 2026. Total Rs
             116.82
           </p>
           <p className="text-sm text-gray-700 font-semibold mb-4">
@@ -1804,7 +1804,7 @@ export default function Courses() {
                           </p>
                           {pricing.isIntroductory && (
                             <p className="text-xs text-blue-700 mt-1">
-                              Inaugural offer valid till April 20, 2026
+                              Inaugural offer valid from March 21 to April 20, 2026
                             </p>
                           )}
                         </div>

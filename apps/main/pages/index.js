@@ -117,7 +117,7 @@ export default function Home() {
             <div className="max-w-7xl mx-auto text-center">
               <p className="text-sm sm:text-base font-bold">
                 🎉 Inaugural Offer: {pricing.basePrice} (+ {pricing.gstRate} GST ={" "}
-                {pricing.totalPrice}) valid till April 20, 2026 — Enroll now!
+                {pricing.totalPrice}) valid from March 21, 2026 to April 20, 2026 — Enroll now!
               </p>
             </div>
           </section>
@@ -430,7 +430,7 @@ export default function Home() {
                   We believe in democratizing education by making it affordable (
                   {pricing.totalPrice} per course
                   {pricing.isIntroductory
-                    ? `, inaugural offer valid till April 20, 2026`
+                    ? `, inaugural offer valid from March 21, 2026 to April 20, 2026`
                     : ""}
                   ), accessible online, and focused on immediately applicable skills.
                 </p>

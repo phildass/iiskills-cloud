@@ -8,7 +8,7 @@ import { getPricingDisplay, getBundleOfferNotice, isBundleOfferActive } from "..
  * Shown after sample test completion for paid apps.
  * Contains course details, fee structure (from centralized pricing), and CTA to Razorpay.
  *
- * Bundle: Learn AI + Learn Developer — Buy one, get one free (till April 20, 2026).
+ * Bundle: Learn AI + Learn Developer — Buy one, get one free (from March 21 to April 20, 2026).
  */
 
 const CHECK_ICON = (
@@ -83,7 +83,7 @@ export default function EnrollmentLandingPage({
                 extra cost!
               </p>
               <p className="text-yellow-900 text-sm font-semibold mt-1">
-                ⏰ Exclusive offer — valid until <strong>April 20, 2026 only</strong>. Don't miss
+                ⏰ Exclusive offer — valid from <strong>March 21, 2026 to April 20, 2026</strong>. Don't miss
                 out!
               </p>
             </div>
@@ -122,7 +122,7 @@ export default function EnrollmentLandingPage({
               <div className="mb-4 bg-orange-50 border-2 border-orange-400 rounded-lg p-3 text-center">
                 <p className="text-orange-800 font-bold text-sm">
                   🎉 Inaugural Offer: {pricing.basePrice} (+ {pricing.gstRate} GST ={" "}
-                  {pricing.totalPrice}) valid till April 20, 2026
+                  {pricing.totalPrice}) valid from March 21 to April 20, 2026
                 </p>
               </div>
             )}
@@ -143,7 +143,7 @@ export default function EnrollmentLandingPage({
               </div>
               {bundleActive && (
                 <p className="text-sm text-purple-700 font-semibold mt-2 text-center">
-                  ✓ AI-Dev bundle: 2 courses for the price of 1 (till April 20, 2026)
+                  ✓ AI-Dev bundle: 2 courses for the price of 1 (from March 21 to April 20, 2026)
                 </p>
               )}
             </div>
@@ -163,7 +163,7 @@ export default function EnrollmentLandingPage({
                 "All lessons, quizzes, and module tests",
                 "Professional certification upon completion",
                 "1-year access to all course materials and updates",
-                bundleActive ? `Bonus: ${partnerApp} included FREE (till April 20, 2026)` : null,
+                bundleActive ? `Bonus: ${partnerApp} included FREE (from March 21 to April 20, 2026)` : null,
               ]
                 .filter(Boolean)
                 .map((item, i) => (

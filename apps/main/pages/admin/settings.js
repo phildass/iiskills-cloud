@@ -243,7 +243,7 @@ export default function AdminSettings() {
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between py-2 border-b border-gray-200">
                     <span className="text-gray-700">
-                      Inaugural Offer Period (Until April 20, 2026):
+                      Inaugural Offer Period (From March 21, 2026 to April 20, 2026):
                     </span>
                     <span className="font-bold">Rs 116.82</span>
                   </div>

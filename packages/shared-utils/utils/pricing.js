@@ -2,14 +2,14 @@
  * Centralized pricing logic for iiskills.cloud
  *
  * Pricing structure:
- * - Inaugural Offer: Rs 99 + GST (17.82) = 116.82 (until April 20, 2026 inclusive)
+ * - Inaugural Offer: Rs 99 + GST (17.82) = 116.82 (from March 21, 2026 to April 20, 2026 inclusive)
  * - Regular price: Rs 299 + GST (53.82) = 352.82 (from April 21, 2026 onwards)
  *
  * NOTE: This module is used by root-level utilities and tests.
  * For React components, import from @iiskills/ui/pricing instead.
  */
 
-// Inaugural offer pricing (until end of April 20, 2026)
+// Inaugural offer pricing (from March 21, 2026 to April 20, 2026)
 const INTRO_BASE_PRICE = 99;
 const INTRO_GST_RATE = 0.18; // 18%
 const INTRO_GST_AMOUNT = 17.82; // Pre-calculated for accuracy
@@ -21,7 +21,7 @@ const REGULAR_BASE_PRICE = 299;
 const REGULAR_GST_AMOUNT = 53.82; // Pre-calculated for accuracy
 const REGULAR_TOTAL_PRICE = 352.82;
 
-// AI + Developer bundle offer: Buy one, get one free — valid until April 20, 2026
+// AI + Developer bundle offer: Buy one, get one free — valid from March 21, 2026 to April 20, 2026
 const BUNDLE_OFFER_END_DATE = new Date("2026-04-20T23:59:59");
 const BUNDLE_APPS = ["learn-ai", "learn-developer"];
 
@@ -88,7 +88,7 @@ export function getIntroOfferNotice() {
     return null;
   }
 
-  return `🎉 Inaugural Offer: Rs ${INTRO_TOTAL_PRICE.toFixed(2)} (Rs 99 + 18% GST) valid till April 20, 2026. Standard price Rs ${REGULAR_TOTAL_PRICE.toFixed(2)} effective from April 21, 2026. Enroll now!`;
+  return `🎉 Inaugural Offer: Rs ${INTRO_TOTAL_PRICE.toFixed(2)} (Rs 99 + 18% GST) valid from March 21, 2026 to April 20, 2026. Standard price Rs ${REGULAR_TOTAL_PRICE.toFixed(2)} effective from April 21, 2026. Enroll now!`;
 }
 
 /**
@@ -108,7 +108,7 @@ export function getBundleOfferNotice() {
   if (!isBundleOfferActive()) {
     return null;
   }
-  return "🎁 LIMITED OFFER: Buy Learn AI OR Learn Developer — get BOTH for the price of ONE! Offer valid until April 20, 2026.";
+  return "🎁 LIMITED OFFER: Buy Learn AI OR Learn Developer — get BOTH for the price of ONE! Offer valid from March 21, 2026 to April 20, 2026.";
 }
 
 export default {
