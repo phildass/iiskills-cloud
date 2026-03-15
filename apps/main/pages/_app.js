@@ -1,6 +1,6 @@
 import "../styles/globals.css";
 import Head from "next/head";
-import { SiteHeader } from "@iiskills/ui/navigation";
+import { SiteHeader, AppSecondaryNavbar } from "@iiskills/ui/navigation";
 import Footer from "../components/Footer";
 import ErrorBoundary from "../components/ErrorBoundary";
 import { AIAssistant } from "@iiskills/ui/ai";
@@ -90,6 +90,15 @@ export default function App({ Component, pageProps }) {
         <TestSiteBanner />
 
         <SiteHeader />
+        <AppSecondaryNavbar
+          appId="main"
+          appName="iiskills.cloud"
+          showBadge={false}
+          showCurriculum={true}
+          curriculumPath="/courses"
+          continueButtonLabel="Browse Courses"
+          firstLessonPath="/courses"
+        />
         <div className="pb-20">
           <Component {...pageProps} />
         </div>

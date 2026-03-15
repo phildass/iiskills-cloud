@@ -26,7 +26,7 @@ export function getCanonicalLinks(appId = "main", isFreeApp = false) {
   const mainHref = (path) => (isSubApp ? `${mainUrl}${path}` : path);
 
   const baseLinks = [
-    { href: "/", label: "Home", className: "hover:text-primary transition" },
+    { href: mainHref("/"), label: "Home", className: "hover:text-primary transition" },
     { href: mainHref("/courses"), label: "Courses", className: "hover:text-primary transition" },
     {
       href: mainHref("/certification"),

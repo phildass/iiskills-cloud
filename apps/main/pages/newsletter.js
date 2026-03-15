@@ -82,13 +82,56 @@ export default function NewsletterPage() {
             {/* Last Updated Banner */}
             <div className="bg-gradient-to-r from-blue-100 to-purple-100 rounded-lg p-4 mb-6 text-center border-2 border-blue-300">
               <p className="text-sm font-semibold text-blue-900">
-                📅 Last Updated: <span className="text-purple-700">February 6, 2026</span>
+                📅 Last Updated: <span className="text-purple-700">March 2026</span>
               </p>
               <p className="text-xs text-gray-700 mt-1">
-                Platform Status: 11 Active Learning Apps • Open Access for Testing
+                Platform Status: 11 Active Learning Apps • Universal Navigation Updated
               </p>
             </div>
 
+            {/* Issue #2 - March 2026 */}
+            <div className="bg-gradient-to-r from-teal-50 to-blue-50 rounded-lg p-6 border-2 border-teal-200 mb-4">
+              <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+                <div className="flex-1">
+                  <h3 className="text-xl font-bold text-primary mb-2">📧 Issue #2 - March 2026</h3>
+                  <p className="text-gray-700 mb-2">
+                    March 2026 updates: platform-wide navigation improvements, new &quot;Learn About
+                    Countries&quot; section in the Geography app, consistent cross-app linking, and
+                    newsletter sign-up now available inline on this page.
+                  </p>
+                  <p className="text-sm text-gray-600 mb-3">
+                    <strong>Highlights:</strong> Universal nav bar with correct &quot;Home&quot;
+                    routing, app menu bar on all pages, Geography cross-app links, navigation
+                    consistency across all 11 learning apps
+                  </p>
+                  <div className="bg-teal-50 border-l-4 border-teal-500 p-3 rounded">
+                    <p className="text-sm text-teal-900 font-semibold">
+                      🗺️ New: Explore countries worldwide in our Geography app — flags, facts,
+                      landmarks, and more!
+                    </p>
+                  </div>
+                </div>
+                <div className="flex flex-col gap-2 min-w-[200px]">
+                  <a
+                    href="/newsletters/issue-2-march-2026.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-primary hover:bg-blue-700 text-white font-bold px-6 py-3 rounded-lg transition text-center shadow-md"
+                  >
+                    📄 View PDF
+                  </a>
+                  <a
+                    href="/newsletters/issue-2-march-2026.pdf"
+                    download="The-Skilling-Newsletter-Issue-2.pdf"
+                    className="bg-green-600 hover:bg-green-700 text-white font-bold px-6 py-3 rounded-lg transition text-center shadow-md"
+                  >
+                    ⬇️ Download PDF
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* Issue #1 - February 2026 */}
             <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-6 border-2 border-blue-200">
               <div className="flex flex-col md:flex-row items-center justify-between gap-4">
                 <div className="flex-1">
