@@ -30,6 +30,7 @@ export default function Header({
   onLogout = null,
   showAuthButtons = true,
   isPaid = false,
+  isAdmin = false,
 
   // Optional props
   registrationIncomplete = false,
@@ -88,7 +89,9 @@ export default function Header({
     }
 
     // 2) Paid users: payment links should be demoted (not relevant anymore)
-    if (isPaid) {
+    // Note: isAdmin users are also set as isPaid (see SiteHeader.js), so checking
+    // isAdmin here is explicit insurance in case that coupling changes in the future.
+    if (isPaid || isAdmin) {
       if (isPaymentLink) return true;
       return false;
     }
@@ -107,7 +110,7 @@ export default function Header({
         mobileClassName: `${link.mobileClassName || "block hover:text-primary transition"} opacity-70 hover:opacity-100`,
       };
     });
-  }, [customLinks, isPaid, registrationIncomplete]);
+  }, [customLinks, isPaid, isAdmin, registrationIncomplete]);
 
   const showCompleteRegistrationCta =
     !!user && registrationIncomplete && primaryCta?.href && primaryCta?.label;
@@ -266,8 +269,16 @@ export default function Header({
               </span>
             )}
 
-            {/* PAID badge */}
-            {isPaid && (
+            {/* ADMIN badge */}
+            {isAdmin && (
+              <span className="inline-block bg-red-600 text-white text-xs font-bold px-2 py-0.5 rounded-full uppercase tracking-wide">
+                ADMIN
+              </span>
+            )}
+
+            {/* PAID badge — only shown for non-admin paid users.
+                Admin users are set as isPaid in SiteHeader.js, but show ADMIN badge instead. */}
+            {isPaid && !isAdmin && (
               <span className="inline-block bg-gradient-to-r from-purple-600 to-blue-600 text-white text-xs font-bold px-2 py-0.5 rounded-full">
                 PAID
               </span>
@@ -361,7 +372,13 @@ export default function Header({
                         </span>
                       )}
 
-                      {isPaid && (
+                      {isAdmin && (
+                        <span className="inline-block bg-red-600 text-white text-xs font-bold px-2 py-0.5 rounded-full uppercase tracking-wide">
+                          ADMIN
+                        </span>
+                      )}
+
+                      {isPaid && !isAdmin && (
                         <span className="inline-block bg-gradient-to-r from-purple-600 to-blue-600 text-white text-xs font-bold px-2 py-0.5 rounded-full">
                           PAID
                         </span>
