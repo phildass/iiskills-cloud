@@ -233,12 +233,14 @@ export default function TriLevelLandingPage({
 
               {isPaid ? (
                 <>
-                  <a
-                    href={`${process.env.NEXT_PUBLIC_MAIN_APP_URL || "https://iiskills.cloud"}/start-payment?course=${encodeURIComponent(appId)}`}
-                    className="inline-block bg-yellow-400 text-yellow-900 px-8 py-4 rounded-lg font-bold shadow-lg hover:bg-yellow-300 transition-all duration-200 text-base sm:text-lg"
-                  >
-                    💳 Pay Now
-                  </a>
+                  {!entitled && (
+                    <a
+                      href={`${process.env.NEXT_PUBLIC_MAIN_APP_URL || "https://iiskills.cloud"}/start-payment?course=${encodeURIComponent(appId)}`}
+                      className="inline-block bg-yellow-400 text-yellow-900 px-8 py-4 rounded-lg font-bold shadow-lg hover:bg-yellow-300 transition-all duration-200 text-base sm:text-lg"
+                    >
+                      💳 Pay Now
+                    </a>
+                  )}
                   {entitled && (
                     <Link
                       href="/curriculum"

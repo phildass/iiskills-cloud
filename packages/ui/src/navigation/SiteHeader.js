@@ -20,6 +20,7 @@ import { getCanonicalLinks } from "./canonicalNavLinks";
 export default function SiteHeader({ appId = "main", isFreeApp = false }) {
   const [user, setUser] = useState(null);
   const [isPaid, setIsPaid] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
   const [registrationCompleted, setRegistrationCompleted] = useState(true);
 
   useEffect(() => {
@@ -35,6 +36,7 @@ export default function SiteHeader({ appId = "main", isFreeApp = false }) {
         if (!currentUser) {
           if (mounted) {
             setIsPaid(false);
+            setIsAdmin(false);
             setRegistrationCompleted(true);
           }
           return;
@@ -48,6 +50,7 @@ export default function SiteHeader({ appId = "main", isFreeApp = false }) {
         if (!url || !key) {
           if (mounted) {
             setIsPaid(false);
+            setIsAdmin(false);
             setRegistrationCompleted(true);
           }
           return;
@@ -57,11 +60,21 @@ export default function SiteHeader({ appId = "main", isFreeApp = false }) {
 
         const { data: profile } = await sb
           .from("profiles")
-          .select("is_paid_user, registration_completed")
+          .select("is_paid_user, registration_completed, is_admin")
           .eq("id", currentUser.id)
           .maybeSingle();
 
         if (!mounted) return;
+
+        // Admins have unrestricted access to all content — skip entitlement checks entirely.
+        // Backend APIs (/api/entitlement, /api/access/check) each independently apply the
+        // same bypass, so no entitlement query is needed here.
+        if (profile?.is_admin === true) {
+          setIsAdmin(true);
+          setIsPaid(true);
+          setRegistrationCompleted(true);
+          return;
+        }
 
         // Check paid status via profiles flag first
         if (profile?.is_paid_user) {
@@ -108,6 +121,7 @@ export default function SiteHeader({ appId = "main", isFreeApp = false }) {
       await signOutUser();
       setUser(null);
       setIsPaid(false);
+      setIsAdmin(false);
       setRegistrationCompleted(true);
       if (typeof window !== "undefined") {
         window.location.href = "/";
@@ -147,6 +161,7 @@ export default function SiteHeader({ appId = "main", isFreeApp = false }) {
       showAuthButtons={true} // UNIVERSAL NAV: Register and Login links visible to ALL users
       user={user}
       isPaid={isPaid}
+      isAdmin={isAdmin}
       registrationIncomplete={registrationIncomplete}
       primaryCta={
         registrationIncomplete ? { label: "Complete Profile →", href: completeProfileHref } : null
