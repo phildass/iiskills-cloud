@@ -221,7 +221,39 @@ describe("api/complete-registration.js — service role enforcement", () => {
 });
 
 // ---------------------------------------------------------------------------
-// 6. Cross-cutting: checkConfig guards on payment endpoints
+// 6. apps/main/pages/api/entitlement.js
+// ---------------------------------------------------------------------------
+
+describe("api/entitlement.js — service role enforcement", () => {
+  let src;
+  beforeAll(() => {
+    src = readSource("entitlement.js");
+  });
+
+  test("uses SUPABASE_SERVICE_ROLE_KEY for the server DB client", () => {
+    expect(src).toContain("SUPABASE_SERVICE_ROLE_KEY");
+  });
+
+  test("does NOT fall back to NEXT_PUBLIC_SUPABASE_ANON_KEY in client creation", () => {
+    expect(hasNoAnonKeyFallback(src)).toBe(true);
+  });
+
+  test("does NOT use the ambiguous SUPABASE_KEY variable", () => {
+    expect(checkNoAmbiguousSUPABASE_KEY(src)).toBe(true);
+  });
+
+  test("getSupabaseServer returns null when service role key is absent", () => {
+    const factoryMatch = src.match(/function getSupabaseServer\(\)[^}]+\}/s);
+    expect(factoryMatch).not.toBeNull();
+    const factory = factoryMatch[0];
+    expect(factory).toContain("return null");
+    expect(factory).not.toContain("ANON_KEY");
+    expect(factory).not.toContain("SUPABASE_KEY");
+  });
+});
+
+// ---------------------------------------------------------------------------
+// 7. Cross-cutting: checkConfig guards on payment endpoints
 // ---------------------------------------------------------------------------
 
 describe("payment endpoints — checkConfig guard", () => {
