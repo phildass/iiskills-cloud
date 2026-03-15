@@ -352,6 +352,112 @@ describe("Production mode — no hash file and no ADMIN_PANEL_SECRET", () => {
 // Production mode — ADMIN_PANEL_SECRET set + bootstrap passphrase fallthrough
 // ---------------------------------------------------------------------------
 
+// ---------------------------------------------------------------------------
+// Alias env vars: ADMIN_PASSWORD and ADMIN_EMERGENCY_PASSPHRASE
+// ---------------------------------------------------------------------------
+
+describe("Production mode — ADMIN_PASSWORD alias", () => {
+  beforeEach(() => {
+    delete process.env.ADMIN_PANEL_SECRET;
+    process.env.ADMIN_PASSWORD = "password-alias-secret";
+  });
+  afterEach(() => {
+    delete process.env.ADMIN_PASSWORD;
+  });
+
+  test("accepts correct passphrase via ADMIN_PASSWORD", async () => {
+    const handler = loadHandler();
+    const req = makeReq({ passphrase: "password-alias-secret" });
+    const res = makeRes();
+    await handler(req, res);
+    expect(res.statusCode).toBe(200);
+    expect(res.body.ok).toBe(true);
+    expect(setAdminSessionCookie).toHaveBeenCalledTimes(1);
+  });
+
+  test("rejects wrong passphrase when only ADMIN_PASSWORD is set", async () => {
+    const handler = loadHandler();
+    const req = makeReq({ passphrase: "wrong-passphrase" });
+    const res = makeRes();
+    await handler(req, res);
+    expect(res.statusCode).toBe(401);
+    expect(setAdminSessionCookie).not.toHaveBeenCalled();
+  });
+});
+
+describe("Production mode — ADMIN_EMERGENCY_PASSPHRASE alias", () => {
+  beforeEach(() => {
+    delete process.env.ADMIN_PANEL_SECRET;
+    process.env.ADMIN_EMERGENCY_PASSPHRASE = "emergency-alias-secret";
+  });
+  afterEach(() => {
+    delete process.env.ADMIN_EMERGENCY_PASSPHRASE;
+  });
+
+  test("accepts correct passphrase via ADMIN_EMERGENCY_PASSPHRASE", async () => {
+    const handler = loadHandler();
+    const req = makeReq({ passphrase: "emergency-alias-secret" });
+    const res = makeRes();
+    await handler(req, res);
+    expect(res.statusCode).toBe(200);
+    expect(res.body.ok).toBe(true);
+    expect(setAdminSessionCookie).toHaveBeenCalledTimes(1);
+  });
+
+  test("rejects wrong passphrase when only ADMIN_EMERGENCY_PASSPHRASE is set", async () => {
+    const handler = loadHandler();
+    const req = makeReq({ passphrase: "wrong-passphrase" });
+    const res = makeRes();
+    await handler(req, res);
+    expect(res.statusCode).toBe(401);
+    expect(setAdminSessionCookie).not.toHaveBeenCalled();
+  });
+});
+
+describe("TEST_ADMIN_MODE — ADMIN_PASSWORD alias", () => {
+  beforeEach(() => {
+    process.env.TEST_ADMIN_MODE = "true";
+    delete process.env.ADMIN_PANEL_SECRET;
+    process.env.ADMIN_PASSWORD = "test-password-alias";
+  });
+  afterEach(() => {
+    delete process.env.ADMIN_PASSWORD;
+    delete process.env.TEST_ADMIN_MODE;
+  });
+
+  test("accepts ADMIN_PASSWORD as passphrase in TEST_ADMIN_MODE", async () => {
+    const handler = loadHandler();
+    const req = makeReq({ passphrase: "test-password-alias" });
+    const res = makeRes();
+    await handler(req, res);
+    expect(res.statusCode).toBe(200);
+    expect(res.body.ok).toBe(true);
+    expect(setAdminSessionCookie).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe("TEST_ADMIN_MODE — ADMIN_EMERGENCY_PASSPHRASE alias", () => {
+  beforeEach(() => {
+    process.env.TEST_ADMIN_MODE = "true";
+    delete process.env.ADMIN_PANEL_SECRET;
+    process.env.ADMIN_EMERGENCY_PASSPHRASE = "test-emergency-alias";
+  });
+  afterEach(() => {
+    delete process.env.ADMIN_EMERGENCY_PASSPHRASE;
+    delete process.env.TEST_ADMIN_MODE;
+  });
+
+  test("accepts ADMIN_EMERGENCY_PASSPHRASE as passphrase in TEST_ADMIN_MODE", async () => {
+    const handler = loadHandler();
+    const req = makeReq({ passphrase: "test-emergency-alias" });
+    const res = makeRes();
+    await handler(req, res);
+    expect(res.statusCode).toBe(200);
+    expect(res.body.ok).toBe(true);
+    expect(setAdminSessionCookie).toHaveBeenCalledTimes(1);
+  });
+});
+
 test("rejects iiskills123 even when ADMIN_PANEL_SECRET is set but does not match", async () => {
   process.env.ADMIN_PANEL_SECRET = "different-emergency-secret";
   // No admin.json → ENOENT is already mocked

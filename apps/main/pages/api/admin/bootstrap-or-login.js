@@ -104,11 +104,12 @@ export default async function handler(req, res) {
     const expected = getTestPassphrase();
     if (!expected) {
       console.error(
-        "[adminLogin] TEST_ADMIN_MODE requires ADMIN_PANEL_SECRET to be set. " +
-          "Set ADMIN_PANEL_SECRET in /etc/iiskills.env and restart the server."
+        "[adminLogin] TEST_ADMIN_MODE requires a passphrase to be set. " +
+          "Set ADMIN_PANEL_SECRET (or ADMIN_EMERGENCY_PASSPHRASE / ADMIN_PASSWORD) in /etc/iiskills.env and restart the server."
       );
       return res.status(503).json({
-        error: "ADMIN_PANEL_SECRET must be configured for TEST_ADMIN_MODE",
+        error:
+          "A passphrase (ADMIN_PANEL_SECRET, ADMIN_EMERGENCY_PASSPHRASE, or ADMIN_PASSWORD) must be configured for TEST_ADMIN_MODE",
       });
     }
     const a = Buffer.from(passphrase);
@@ -126,8 +127,11 @@ export default async function handler(req, res) {
 
   // -- PRODUCTION MODE --
 
-  // Emergency override: ADMIN_PANEL_SECRET env var
-  const masterSecret = process.env.ADMIN_PANEL_SECRET;
+  // Emergency override: ADMIN_PANEL_SECRET / ADMIN_EMERGENCY_PASSPHRASE / ADMIN_PASSWORD env vars
+  const masterSecret =
+    process.env.ADMIN_PANEL_SECRET ||
+    process.env.ADMIN_EMERGENCY_PASSPHRASE ||
+    process.env.ADMIN_PASSWORD;
   if (masterSecret) {
     const a = Buffer.from(passphrase);
     const b = Buffer.from(masterSecret);
@@ -169,14 +173,14 @@ export default async function handler(req, res) {
     return res.status(401).json({ error: "Invalid passphrase" });
   }
 
-  // No hash and no ADMIN_PANEL_SECRET at all: admin login is not configured
+  // No hash and no passphrase env var at all: admin login is not configured
   console.error(
-    "[adminLogin] No passphrase configured: no stored bcrypt hash and ADMIN_PANEL_SECRET is not set. " +
-      "Set ADMIN_PANEL_SECRET in /etc/iiskills.env, or configure a passphrase via /admin/setup, " +
-      "then restart the server."
+    "[adminLogin] No passphrase configured: no stored bcrypt hash and no passphrase env var is set. " +
+      "Set ADMIN_PANEL_SECRET (or ADMIN_EMERGENCY_PASSPHRASE / ADMIN_PASSWORD) in /etc/iiskills.env, " +
+      "or configure a passphrase via /admin/setup, then restart the server."
   );
   return res.status(503).json({
     error:
-      "Admin login is not configured. Set ADMIN_PANEL_SECRET or configure a passphrase via /admin/setup.",
+      "Admin login is not configured. Set ADMIN_PANEL_SECRET, ADMIN_EMERGENCY_PASSPHRASE, or ADMIN_PASSWORD, or configure a passphrase via /admin/setup.",
   });
 }

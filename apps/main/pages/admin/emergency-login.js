@@ -5,15 +5,19 @@
  * Sets the admin_session cookie and redirects to /admin.
  *
  * Use this when the regular passphrase (bcrypt hash in the admin data file)
- * is unknown or inaccessible and ADMIN_PANEL_SECRET has been set in the
- * server environment (/etc/iiskills.env) as an emergency override.
+ * is unknown or inaccessible and a passphrase has been set in the server
+ * environment (/etc/iiskills.env) as an emergency override.
+ *
+ * Accepted env vars (any one is sufficient):
+ *   ADMIN_PANEL_SECRET, ADMIN_EMERGENCY_PASSPHRASE, ADMIN_PASSWORD
  *
  * Steps to recover access:
- * 1. Set ADMIN_PANEL_SECRET=<strong-secret> in /etc/iiskills.env on the server.
+ * 1. Set ADMIN_PANEL_SECRET=<strong-secret> (or ADMIN_EMERGENCY_PASSPHRASE / ADMIN_PASSWORD)
+ *    in /etc/iiskills.env on the server.
  * 2. Restart the server (pm2 restart iiskills-main).
  * 3. Visit /admin/emergency-login and enter that secret.
  * 4. Once logged in, go to /admin/setup to set a new permanent passphrase.
- * 5. Remove ADMIN_PANEL_SECRET from /etc/iiskills.env after setup is complete.
+ * 5. Remove the override env var from /etc/iiskills.env after setup is complete.
  */
 
 import Head from "next/head";
@@ -80,7 +84,7 @@ export default function EmergencyLogin() {
                 onChange={(e) => setSecret(e.target.value)}
                 required
                 autoComplete="current-password"
-                placeholder="Enter ADMIN_PANEL_SECRET"
+                placeholder="Enter admin password"
                 className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400"
               />
             </div>
