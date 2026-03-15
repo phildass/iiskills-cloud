@@ -43,11 +43,17 @@ export function isAdminAuthDisabled() {
 
 /**
  * Returns the effective admin passphrase for test mode (server-side only).
- * Priority: ADMIN_PANEL_SECRET → ADMIN_SECRET
- * Returns null if neither is set; the caller must reject the login attempt.
+ * Priority: ADMIN_PANEL_SECRET → ADMIN_EMERGENCY_PASSPHRASE → ADMIN_PASSWORD → ADMIN_SECRET
+ * Returns null if none is set; the caller must reject the login attempt.
  */
 export function getTestPassphrase() {
-  return process.env.ADMIN_PANEL_SECRET || process.env.ADMIN_SECRET || null;
+  return (
+    process.env.ADMIN_PANEL_SECRET ||
+    process.env.ADMIN_EMERGENCY_PASSPHRASE ||
+    process.env.ADMIN_PASSWORD ||
+    process.env.ADMIN_SECRET ||
+    null
+  );
 }
 
 function getSigningKey() {

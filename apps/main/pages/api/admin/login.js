@@ -1,8 +1,11 @@
 /**
  * Admin Login / Logout API
  *
- * POST /api/admin/login  — validate ADMIN_PANEL_SECRET and set admin_session cookie
+ * POST /api/admin/login  — validate ADMIN_PANEL_SECRET (or its aliases) and set admin_session cookie
  * DELETE /api/admin/login — clear admin_session cookie (logout)
+ *
+ * Accepted env vars (checked in order):
+ *   ADMIN_PANEL_SECRET, ADMIN_EMERGENCY_PASSPHRASE, ADMIN_PASSWORD
  *
  * The cookie is HttpOnly; Secure; SameSite=Lax and signed with ADMIN_SESSION_SIGNING_KEY.
  * It expires after 12 hours.
@@ -21,7 +24,10 @@ export default function handler(req, res) {
   if (req.method === "POST") {
     const { secret } = req.body || {};
 
-    const expectedSecret = process.env.ADMIN_PANEL_SECRET;
+    const expectedSecret =
+      process.env.ADMIN_PANEL_SECRET ||
+      process.env.ADMIN_EMERGENCY_PASSPHRASE ||
+      process.env.ADMIN_PASSWORD;
     if (!expectedSecret) {
       return res.status(500).json({ error: "ADMIN_PANEL_SECRET is not configured on the server" });
     }
