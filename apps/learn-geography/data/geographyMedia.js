@@ -177,13 +177,13 @@ const geographyMedia = {
   // Module 10 – Exam Preparation
   10: {
     mapUrl:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/World_map_-_low_resolution.svg/1280px-World_map_-_low_resolution.svg.png",
-    mapAlt: "World map for exam revision",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/World_map_2004_CIA_factbook_large_2m.jpg/1280px-World_map_2004_CIA_factbook_large_2m.jpg",
+    mapAlt: "CIA World Factbook political world map with country labels for exam revision",
     photos: [
       {
-        url: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/India_relief_location_map.jpg/480px-India_relief_location_map.jpg",
-        alt: "Relief map of India",
-        caption: "India relief map – a common exam reference",
+        url: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/India_states_and_union_territories_map.svg/480px-India_states_and_union_territories_map.svg.png",
+        alt: "Labelled map of India's states and Union Territories",
+        caption: "India administrative map – states and Union Territories for exam reference",
       },
     ],
   },
@@ -199,20 +199,20 @@ const lessonMedia = {
   // Module 1, Lesson 1 – Introduction to Geography
   "1_1": {
     mapUrl:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/World_map_-_low_resolution.svg/1280px-World_map_-_low_resolution.svg.png",
-    mapAlt: "Blank political world map showing all continents and countries",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Blue_Marble_2002.png/1280px-Blue_Marble_2002.png",
+    mapAlt: "NASA Blue Marble – true-colour satellite composite of Earth",
     photos: [
       {
-        url: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/The_Earth_seen_from_Apollo_17.jpg/480px-The_Earth_seen_from_Apollo_17.jpg",
-        alt: "The Blue Marble – Earth photographed from Apollo 17",
-        caption: "Earth from space (Apollo 17) — the starting point of all geography",
+        url: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Eratosthenes_world_map.jpg/480px-Eratosthenes_world_map.jpg",
+        alt: "Reconstruction of Eratosthenes' world map (c. 194 BC)",
+        caption: "Eratosthenes' world map — geography has over 2,000 years of history",
         // Insert after the introductory section (after 3rd paragraph)
         insertAfterSection: "introduction",
       },
       {
-        url: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/24701-nature-natural-beauty.jpg/480px-24701-nature-natural-beauty.jpg",
-        alt: "Mountain landscape with river valley",
-        caption: "Landforms shaped by erosion and tectonic forces",
+        url: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Compass_rose_pale.svg/480px-Compass_rose_pale.svg.png",
+        alt: "Compass rose showing cardinal and intercardinal directions",
+        caption: "The compass rose — a foundational tool for geographic orientation",
         insertAfterSection: "landforms",
       },
       {
@@ -252,8 +252,8 @@ const lessonMedia = {
   // Module 1, Lesson 3 – Climate Systems
   "1_3": {
     mapUrl:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Whole_world_-_land_and_oceans.jpg/1280px-Whole_world_-_land_and_oceans.jpg",
-    mapAlt: "World map showing continents and oceans",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Atmospheric_circulation.png/1280px-Atmospheric_circulation.png",
+    mapAlt: "Diagram of global atmospheric circulation cells (Hadley, Ferrel, Polar)",
     photos: [
       {
         url: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Itcz_new.jpg/480px-Itcz_new.jpg",
@@ -278,8 +278,8 @@ const lessonMedia = {
   // Module 1, Lesson 4 – Human Settlement and Urbanisation
   "1_4": {
     mapUrl:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Earthlights_dmsp.jpg/1280px-Earthlights_dmsp.jpg",
-    mapAlt: "Earth at night from space showing city lights and settlement patterns",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/World_cities_1M.png/1280px-World_cities_1M.png",
+    mapAlt: "World map showing cities with population over one million",
     photos: [
       {
         url: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/VancouverBC_from_air_2004.jpg/480px-VancouverBC_from_air_2004.jpg",
@@ -288,15 +288,15 @@ const lessonMedia = {
         insertAfterSection: "introduction",
       },
       {
-        url: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Dharavi_Mumbai_India.jpg/480px-Dharavi_Mumbai_India.jpg",
-        alt: "Aerial view of Dharavi informal settlement in Mumbai",
+        url: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Favela_Morumbi.jpg/480px-Favela_Morumbi.jpg",
+        alt: "Aerial view of a favela informal settlement in São Paulo, Brazil",
         caption: "Informal settlements house over 1 billion people globally",
         insertAfterSection: "settlements",
       },
       {
-        url: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/New_York_City_at_night_HDR_desat.jpg/480px-New_York_City_at_night_HDR_desat.jpg",
-        alt: "New York City skyline at night",
-        caption: "World cities concentrate capital, culture and commerce",
+        url: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Tokyo_2007_4.jpg/480px-Tokyo_2007_4.jpg",
+        alt: "Tokyo city skyline with Mount Fuji in the background",
+        caption: "Tokyo — the world's largest metropolitan area",
         insertAfterSection: "cities",
       },
     ],

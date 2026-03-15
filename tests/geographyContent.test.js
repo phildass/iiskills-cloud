@@ -222,4 +222,25 @@ describe("learn-geography content integrity", () => {
       expect(missing.map((e) => e.usedBy)).toHaveLength(0);
     });
   });
+
+  describe("geographyMedia.js — no duplicate image URLs", () => {
+    const mediaPath = path.resolve(__dirname, "../apps/learn-geography/data/geographyMedia.js");
+
+    it("geographyMedia.js exists", () => {
+      expect(fs.existsSync(mediaPath)).toBe(true);
+    });
+
+    it("no duplicate Wikimedia image URLs across modules and lesson overrides", () => {
+      const content = fs.readFileSync(mediaPath, "utf-8");
+      const urlRegex = /https:\/\/upload\.wikimedia\.org\/[^\s"']+/g;
+      const urls = content.match(urlRegex) || [];
+      const seen = new Set();
+      const duplicates = [];
+      for (const url of urls) {
+        if (seen.has(url)) duplicates.push(url);
+        else seen.add(url);
+      }
+      expect(duplicates).toHaveLength(0);
+    });
+  });
 });
