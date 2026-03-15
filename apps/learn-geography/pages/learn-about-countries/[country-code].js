@@ -1,6 +1,5 @@
 import Head from "next/head";
 import Link from "next/link";
-import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import { ALL_COUNTRIES, COUNTRY_DETAILS } from "../../data/countriesData";
 
@@ -106,7 +105,6 @@ export default function CountryDetailPage({ meta, details }) {
         <Head>
           <title>{meta.name} — Learn About Countries | iiskills Geography</title>
         </Head>
-        <Navbar />
         <main className="min-h-screen bg-gray-50">
           <div className="max-w-3xl mx-auto px-4 py-16">
             <Link
@@ -137,8 +135,6 @@ export default function CountryDetailPage({ meta, details }) {
           content={`Learn about ${details.name}: geography, culture, economy, key facts and famous landmarks.`}
         />
       </Head>
-
-      <Navbar />
 
       <main className="min-h-screen bg-gray-50">
         {/* Hero banner */}
