@@ -22,10 +22,10 @@ export default function Curriculum() {
   return (
     <>
       <Head>
-        <title>Full Curriculum - Learn Pr</title>
+        <title>Full Curriculum - Learn PR</title>
         <meta
           name="description"
-          content="Complete Pr curriculum: 3 courses × 10 modules × 10 lessons = 300 lessons total"
+          content="Complete PR curriculum: 3 courses × 10 modules × 10 lessons = 300 lessons total"
         />
       </Head>
 
@@ -33,7 +33,7 @@ export default function Curriculum() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto mb-12">
             <div className="flex items-center justify-between mb-6">
-              <h1 className="text-4xl font-bold">Complete Pr Curriculum</h1>
+              <h1 className="text-4xl font-bold">Complete PR Curriculum</h1>
               <Link href="/courses" className="text-primary font-semibold hover:underline text-sm">
                 ← View Courses
               </Link>

@@ -31,9 +31,9 @@ export default function AdminNav() {
   // Fetch admin label on mount
   useEffect(() => {
     fetch("/api/admin/me", { credentials: "same-origin" })
-      .then((r) => r.ok ? r.json() : null)
+      .then((r) => (r.ok && r.status === 200 ? r.json() : Promise.resolve(null)))
       .then((data) => { if (data?.ok && data.label) setAdminLabel(data.label); })
-      .catch(() => {/* ignore */});
+      .catch(() => {/* ignore — nav label is non-critical */});
   }, []);
 
   // Fetch unseen ticket count on mount and every 30s
