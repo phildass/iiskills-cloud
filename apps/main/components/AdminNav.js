@@ -4,27 +4,37 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import { getMainSiteUrl, isOnSubdomain } from "../utils/urlHelper";
-import { signOutUser } from "../lib/supabaseClient";
 import { LEARNING_SITES } from "../lib/siteConfig";
 import { getSiteUrl } from "../lib/navigation";
 
 /**
  * Admin Navigation Bar
  *
- * Navigation bar for admin pages with Supabase authentication.
- * Shows admin section links, a "New Tickets" badge, and logout functionality.
+ * Navigation bar for admin pages with password-based admin authentication.
+ * Shows admin section links, admin username, a "New Tickets" badge, and logout.
  */
 export default function AdminNav() {
   const router = useRouter();
   const [showSiteDropdown, setShowSiteDropdown] = useState(false);
   const [newTicketCount, setNewTicketCount] = useState(null);
+  const [adminLabel, setAdminLabel] = useState("Administrator");
 
   const handleLogout = async () => {
-    const { success } = await signOutUser();
-    if (success) {
-      router.push("/");
+    try {
+      await fetch("/api/admin/logout", { method: "POST", credentials: "same-origin" });
+    } catch {
+      // Proceed even if the request fails
     }
+    router.push("/admin/login");
   };
+
+  // Fetch admin label on mount
+  useEffect(() => {
+    fetch("/api/admin/me", { credentials: "same-origin" })
+      .then((r) => r.ok ? r.json() : null)
+      .then((data) => { if (data?.ok && data.label) setAdminLabel(data.label); })
+      .catch(() => {/* ignore */});
+  }, []);
 
   // Fetch unseen ticket count on mount and every 30s
   useEffect(() => {
@@ -60,6 +70,9 @@ export default function AdminNav() {
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         <div className="flex items-center space-x-4">
           <span className="font-bold text-yellow-800">🔒 ADMIN MODE</span>
+          <span className="text-xs text-yellow-700 bg-yellow-200 px-2 py-0.5 rounded font-medium">
+            👤 {adminLabel}
+          </span>
           <nav className="space-x-4 text-sm">
             <Link href="/admin" className="text-yellow-900 hover:text-yellow-700 font-medium">
               Dashboard

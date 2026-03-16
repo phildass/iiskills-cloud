@@ -15,6 +15,9 @@ export default function Navbar() {
             <Link href="/" className="text-gray-700 hover:text-primary transition-colors">
               Home
             </Link>
+            <Link href="/courses" className="text-gray-700 hover:text-primary transition-colors">
+              Courses
+            </Link>
             <Link href="/curriculum" className="text-gray-700 hover:text-primary transition-colors">
               Curriculum
             </Link>
@@ -34,13 +37,6 @@ export default function Navbar() {
               My Dashboard
             </Link>
           </div>
-
-          {/* OPEN ACCESS: Registration link removed - all content is publicly accessible */}
-          {/* <div className="flex items-center space-x-4">
-            <Link href="/register" className="btn-primary">
-              Get Started
-            </Link>
-          </div> */}
         </div>
       </div>
     </nav>
