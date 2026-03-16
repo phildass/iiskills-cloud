@@ -291,7 +291,49 @@ function buildFallbackLesson(moduleId, lessonId) {
   };
 }
 
-export async function getStaticProps({ params 
+export async function getStaticProps({ params }) {
+  const { moduleId, lessonId } = params;
+  const contentRoot = path.resolve(process.cwd(), "../../content");
+  const loader = createLoader(contentRoot);
+
+  // 1. Try filesystem content (packages/content/learn-geography/)
+  const fsLesson = loader.getLesson("learn-geography", moduleId, lessonId);
+  if (fsLesson) {
+    return { props: { lesson: fsLesson, moduleId, lessonId } };
+  }
+
+  // 2. Try seed.json lesson data
+  try {
+    const seedPath = path.resolve(process.cwd(), "data", "seed.json");
+    const seed = JSON.parse(fs.readFileSync(seedPath, "utf8"));
+    const lessonId_ = `${moduleId}-${lessonId}`;
+    const seedLesson = seed.lessons.find((l) => l.id === lessonId_);
+    const seedQuiz = seed.quizzes.find((q) => q.lesson_id === lessonId_);
+    if (seedLesson) {
+      return {
+        props: {
+          lesson: {
+            moduleId: Number(moduleId),
+            lessonId: Number(lessonId),
+            title: seedLesson.title,
+            isFree: seedLesson.is_free,
+            content: seedLesson.content,
+            quiz: seedQuiz ? seedQuiz.questions : [],
+          },
+          moduleId,
+          lessonId,
+        },
+      };
+    }
+  } catch (_) {
+    // seed.json unavailable — fall through to buildFallbackLesson
+  }
+
+  // 3. Inline fallback
+  const lesson = buildFallbackLesson(moduleId, lessonId);
+
+  return { props: { lesson, moduleId, lessonId } };
+}
 
 // ---------------------------------------------------------------------------
 // Page component — receives pre-rendered lesson data as props.

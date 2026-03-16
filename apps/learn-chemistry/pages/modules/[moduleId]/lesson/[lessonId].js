@@ -130,7 +130,7 @@ export async function getStaticProps({ params }) {
   const lesson = buildFallbackLesson(moduleId, lessonId);
 
   return { props: { lesson, moduleId, lessonId } };
-
+}
 
 // ---------------------------------------------------------------------------
 // Page component — receives pre-rendered lesson data as props.
