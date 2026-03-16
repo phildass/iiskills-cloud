@@ -6,7 +6,7 @@
  * Access gate: passphrase via x-admin-secret header or signed admin_session cookie.
  * Optional IP allowlist: ADMIN_IP_ALLOWLIST (comma-separated).
  *
- * Cookie: admin_session (HttpOnly; Secure; SameSite=Lax) signed with ADMIN_SESSION_SIGNING_KEY
+ * Cookie: admin_session (HttpOnly; Secure; SameSite=Strict) signed with ADMIN_SESSION_SIGNING_KEY
  * Session expiry: 12 hours
  *
  * TEST MODE (TEST_ADMIN_MODE=true):
@@ -106,7 +106,7 @@ export function setAdminSessionCookie(res, token) {
     serialize(ADMIN_COOKIE_NAME, token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: "lax",
+      sameSite: "strict",
       maxAge: SESSION_EXPIRY_SECONDS,
       path: "/",
     })
@@ -120,7 +120,7 @@ export function clearAdminSessionCookie(res) {
     serialize(ADMIN_COOKIE_NAME, "", {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: "lax",
+      sameSite: "strict",
       maxAge: 0,
       path: "/",
     })
