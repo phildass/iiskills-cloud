@@ -37,6 +37,10 @@ const PAID_APP_IDS = ["learn-ai", "learn-developer", "learn-pr", "learn-manageme
  *     Override for apps that use a different structure (e.g. learn-apt uses "/tests/numerical").
  *   @param {boolean} [showCurriculum=true] - Whether to show the Curriculum link.
  *     Set to false for apps that do not have a curriculum (e.g. learn-apt).
+ *   @param {string} [curriculumPath="/curriculum"] - Path for the Curriculum link.
+ *     Override for apps/sites that use a different path (e.g. main site uses "/courses").
+ *   @param {boolean} [showBadge=true] - Whether to show the FREE/PAID badge.
+ *     Set to false for contexts where the badge is not meaningful (e.g. main site).
  *   @param {string} [continueButtonLabel="Continue My Lessons"] - Label for the continue button.
  *     Override for apps that don't use lesson-based navigation (e.g. learn-apt uses
  *     "Take me to my test").
@@ -47,6 +51,8 @@ export default function AppSecondaryNavbar({
   isFree,
   firstLessonPath = "/modules/1/lesson/1",
   showCurriculum = true,
+  curriculumPath = "/curriculum",
+  showBadge = true,
   continueButtonLabel = "Continue My Lessons",
 }) {
   const isPaid = isFree !== undefined ? !isFree : PAID_APP_IDS.includes(appId);
@@ -161,15 +167,16 @@ export default function AppSecondaryNavbar({
             <span className="text-gray-300 hidden sm:inline">|</span>
 
             {/* FREE / PAID badge */}
-            {isPaid ? (
-              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-yellow-100 text-yellow-800 whitespace-nowrap select-none">
-                💳 PAID
-              </span>
-            ) : (
-              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-green-100 text-green-800 whitespace-nowrap select-none">
-                🆓 FREE
-              </span>
-            )}
+            {showBadge &&
+              (isPaid ? (
+                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-yellow-100 text-yellow-800 whitespace-nowrap select-none">
+                  💳 PAID
+                </span>
+              ) : (
+                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-green-100 text-green-800 whitespace-nowrap select-none">
+                  🆓 FREE
+                </span>
+              ))}
 
             {showCurriculum && (
               <>
@@ -177,7 +184,7 @@ export default function AppSecondaryNavbar({
 
                 {/* Curriculum */}
                 <Link
-                  href="/curriculum"
+                  href={curriculumPath}
                   className="text-gray-700 hover:text-primary transition-colors whitespace-nowrap"
                 >
                   Curriculum

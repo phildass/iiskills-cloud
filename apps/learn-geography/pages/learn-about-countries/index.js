@@ -1,7 +1,6 @@
 import Head from "next/head";
 import Link from "next/link";
 import { useState } from "react";
-import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import { ALL_COUNTRIES } from "../../data/countriesData";
 
@@ -26,8 +25,6 @@ export default function LearnAboutCountriesIndex() {
           content="Explore countries around the world: overview, interesting facts, key data and landmarks for each nation."
         />
       </Head>
-
-      <Navbar />
 
       <main className="min-h-screen bg-gray-50">
         {/* Hero */}
