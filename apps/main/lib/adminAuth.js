@@ -63,26 +63,39 @@ function getSigningKey() {
 }
 
 /**
+ * Returns the display label for the admin (from ADMIN_USERNAME env var, defaulting to "Administrator").
+ */
+export function getAdminLabel() {
+  return process.env.ADMIN_USERNAME || "Administrator";
+}
+
+/**
  * Create a signed admin session JWT.
  * @param {boolean} needsSetup - true if the admin must set a passphrase before proceeding
  */
 export function createAdminToken(needsSetup = false) {
-  return jwt.sign({ admin: true, needs_setup: needsSetup }, getSigningKey(), {
-    expiresIn: SESSION_EXPIRY_SECONDS,
-  });
+  return jwt.sign(
+    { admin: true, needs_setup: needsSetup, label: getAdminLabel() },
+    getSigningKey(),
+    { expiresIn: SESSION_EXPIRY_SECONDS }
+  );
 }
 
 /**
  * Verify a signed admin session JWT.
- * @returns {{ valid: boolean, needsSetup: boolean }}
+ * @returns {{ valid: boolean, needsSetup: boolean, label: string }}
  */
 export function verifyAdminToken(token) {
   try {
     const decoded = jwt.verify(token, getSigningKey());
-    if (decoded.admin !== true) return { valid: false, needsSetup: false };
-    return { valid: true, needsSetup: !!decoded.needs_setup };
+    if (decoded.admin !== true) return { valid: false, needsSetup: false, label: null };
+    return {
+      valid: true,
+      needsSetup: !!decoded.needs_setup,
+      label: decoded.label || getAdminLabel(),
+    };
   } catch {
-    return { valid: false, needsSetup: false };
+    return { valid: false, needsSetup: false, label: null };
   }
 }
 

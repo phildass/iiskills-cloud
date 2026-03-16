@@ -59,6 +59,7 @@
     "verify-production": "./verify-production-config.sh",
     "validate-content": "node scripts/validate-content.js",
     "validate-content:verbose": "node scripts/validate-content.js --verbose",
+    "normalize-courses": "node scripts/normalize-courses.js",
     "check-orphans": "node scripts/check-orphans.js",
     "check-orphans:json": "node scripts/check-orphans.js --json",
     "generate:registry": "node scripts/generate-app-registry.js",

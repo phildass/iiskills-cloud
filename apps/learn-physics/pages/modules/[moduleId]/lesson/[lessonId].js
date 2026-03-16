@@ -10,7 +10,7 @@ import { moduleTopics } from "../../../../lib/curriculumGenerator";
 
 export async function getStaticPaths() {
   const paths = [];
-  for (let moduleId = 1; moduleId <= 10; moduleId++) {
+  for (let moduleId = 1; moduleId <= 30; moduleId++) {
     for (let lessonId = 1; lessonId <= 10; lessonId++) {
       paths.push({
         params: { moduleId: String(moduleId), lessonId: String(lessonId) },
