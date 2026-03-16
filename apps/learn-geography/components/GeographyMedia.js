@@ -6,14 +6,57 @@
  * otherwise it falls back to module-level media.
  *
  * Images are rendered inline between content sections rather than as a
- * separate top panel.
+ * separate top panel. If an image fails to load, a clickable "View Image"
+ * link is shown instead, opening the URL in a new tab.
  *
  * Usage:
  *   <GeographyMedia moduleId={moduleId} lessonId={lessonId} />
  */
 
+import { useState } from "react";
 import Image from "next/image";
 import { getLessonMedia } from "../data/geographyMedia";
+
+/**
+ * Renders a single media image with a fallback "View Image" link on error.
+ */
+function MediaImage({ src, alt, width, height, className, style }) {
+  const [failed, setFailed] = useState(false);
+
+  if (failed) {
+    return (
+      <a
+        href={src}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={className}
+        style={{
+          display: "inline-block",
+          padding: "0.375rem 0.75rem",
+          color: "#2563eb",
+          textDecoration: "underline",
+          fontSize: "0.9375rem",
+          ...style,
+        }}
+      >
+        View Image
+      </a>
+    );
+  }
+
+  return (
+    <Image
+      src={src}
+      alt={alt}
+      width={width}
+      height={height}
+      className={className}
+      style={style}
+      unoptimized
+      onError={() => setFailed(true)}
+    />
+  );
+}
 
 export default function GeographyMedia({ moduleId, lessonId }) {
   const media = getLessonMedia(moduleId, lessonId);
@@ -24,14 +67,13 @@ export default function GeographyMedia({ moduleId, lessonId }) {
       {/* Map */}
       <figure className="geography-media-figure">
         <div className="geography-media-img-wrap">
-          <Image
+          <MediaImage
             src={media.mapUrl}
             alt={media.mapAlt}
             width={640}
             height={360}
             className="geography-media-img"
             style={{ objectFit: "cover", borderRadius: "8px" }}
-            unoptimized
           />
         </div>
         <figcaption className="geography-media-caption">🗺️ {media.mapAlt}</figcaption>
@@ -43,14 +85,13 @@ export default function GeographyMedia({ moduleId, lessonId }) {
           {media.photos.map((photo, i) => (
             <figure key={i} className="geography-media-figure">
               <div className="geography-media-img-wrap">
-                <Image
+                <MediaImage
                   src={photo.url}
                   alt={photo.alt}
                   width={640}
                   height={360}
                   className="geography-media-img"
                   style={{ objectFit: "cover", borderRadius: "8px" }}
-                  unoptimized
                 />
               </div>
               {photo.caption && (

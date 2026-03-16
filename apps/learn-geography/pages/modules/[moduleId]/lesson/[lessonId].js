@@ -315,7 +315,7 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 import QuizComponent from "../../../../components/QuizComponent";
 import { getCurrentUser } from "../../../../lib/supabaseClient";
-import { LessonContent } from "@iiskills/ui/content";
+import { LessonContent, FallbackImage } from "@iiskills/ui/content";
 import { getLessonMedia } from "../../../../data/geographyMedia";
 
 const NO_BADGES_KEY = "learn-geography-noBadges";
@@ -335,8 +335,7 @@ function InlineMediaFigure({ photo }) {
         background: "#f1f8f1",
       }}
     >
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
+      <FallbackImage
         src={photo.url}
         alt={photo.alt}
         loading="lazy"
@@ -391,8 +390,7 @@ function LessonContentWithInlineMedia({ html, moduleId, lessonId }) {
             background: "#f1f8f1",
           }}
         >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <FallbackImage
             src={media.mapUrl}
             alt={media.mapAlt}
             loading="lazy"
