@@ -1,4 +1,5 @@
 import path from "path";
+import fs from "fs";
 import { createLoader } from "@iiskills/content-loader";
 import { moduleTopics } from "../../../../lib/curriculumGenerator";
 
@@ -290,20 +291,7 @@ function buildFallbackLesson(moduleId, lessonId) {
   };
 }
 
-export async function getStaticProps({ params }) {
-  const { moduleId, lessonId } = params;
-  const contentRoot = path.resolve(process.cwd(), "../../content");
-  const loader = createLoader(contentRoot);
-
-  // Try filesystem content first; fall back to inline generation.
-  // When loading from filesystem, enrich with lesson-specific quiz bank if available.
-  const fsLesson = loader.getLesson("learn-geography", moduleId, lessonId);
-  const lesson = fsLesson
-    ? { ...fsLesson, quiz: fsLesson.quiz ?? getQuizForLesson(moduleId, lessonId) }
-    : buildFallbackLesson(moduleId, lessonId);
-
-  return { props: { lesson, moduleId, lessonId } };
-}
+export async function getStaticProps({ params 
 
 // ---------------------------------------------------------------------------
 // Page component — receives pre-rendered lesson data as props.
@@ -485,7 +473,7 @@ export default function LessonPage({ lesson, moduleId, lessonId }) {
       router.push(`/modules/${moduleId}/lesson/${nextLessonId}`);
     } else {
       const nextModuleId = parseInt(moduleId) + 1;
-      if (nextModuleId <= 10) {
+      if (nextModuleId <= 30) {
         router.push(`/modules/${moduleId}/final-test`);
       } else {
         router.push("/curriculum");

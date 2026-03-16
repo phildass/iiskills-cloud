@@ -1,96 +1,434 @@
 /**
- * Curriculum Generator - Geography
+ * Curriculum Generator — Geography Mastery
  *
- * Defines the 3-course structure: Basic (modules 1-10), Intermediate (11-20), Advanced (21-30).
- * Each course has 10 modules × 10 lessons = 100 lessons (300 lessons total).
+ * Exports module and course metadata used by the lesson pages and curriculum page.
+ * Structure: 3 courses × 10 modules × 10 lessons = 300 lessons per app.
  */
 
+export const courses = [
+  {
+    "id": 1,
+    "slug": "basic",
+    "title": "Basic Course",
+    "subtitle": "Geographic Foundations",
+    "description": "Explore the fundamental concepts of physical and world geography.",
+    "difficulty": "Beginner",
+    "order": 1,
+    "module_ids": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "module_count": 10,
+    "lesson_count": 100
+  },
+  {
+    "id": 2,
+    "slug": "intermediate",
+    "title": "Intermediate Course",
+    "subtitle": "World & Human Geography",
+    "description": "Understand how humans interact with and shape geographic space.",
+    "difficulty": "Intermediate",
+    "order": 2,
+    "module_ids": [
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "module_count": 10,
+    "lesson_count": 100
+  },
+  {
+    "id": 3,
+    "slug": "advanced",
+    "title": "Advanced Course",
+    "subtitle": "Applied & Contemporary Geography",
+    "description": "Apply geographic analysis to real-world environmental and geopolitical challenges.",
+    "difficulty": "Advanced",
+    "order": 3,
+    "module_ids": [
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30
+    ],
+    "module_count": 10,
+    "lesson_count": 100
+  }
+];
+
 export const moduleTopics = [
-  // ── Basic Course (Modules 1–10) ────────────────────────────────────────────
-  { id: 1,  title: "Physical Geography",           description: "Landforms, climate, and natural features",                            order: 1,  course: "Basic",        difficulty: "Beginner" },
-  { id: 2,  title: "World Continents",             description: "Exploring the seven continents",                                      order: 2,  course: "Basic",        difficulty: "Beginner" },
-  { id: 3,  title: "Oceans and Seas",              description: "Marine geography and ocean systems",                                  order: 3,  course: "Basic",        difficulty: "Beginner" },
-  { id: 4,  title: "World Rivers & Lakes",         description: "Major rivers, lakes, and water bodies across the globe",              order: 4,  course: "Basic",        difficulty: "Beginner" },
-  { id: 5,  title: "Mountains & Plateaus",         description: "Major mountain ranges, plateaus, and their formation",                order: 5,  course: "Basic",        difficulty: "Beginner" },
-  { id: 6,  title: "Deserts & Forests",            description: "Major deserts, rainforests, and biome distribution",                  order: 6,  course: "Basic",        difficulty: "Beginner" },
-  { id: 7,  title: "Countries & Capitals",         description: "Nations of the world, their capitals, and key facts",                 order: 7,  course: "Basic",        difficulty: "Beginner" },
-  { id: 8,  title: "Map Reading Skills",           description: "Scale, symbols, coordinates, latitude, and longitude",                order: 8,  course: "Basic",        difficulty: "Beginner" },
-  { id: 9,  title: "Natural Disasters",            description: "Earthquakes, volcanoes, tsunamis, and cyclones",                      order: 9,  course: "Basic",        difficulty: "Beginner" },
-  { id: 10, title: "World Cultures",               description: "Diversity of languages, religions, and cultural traditions",          order: 10, course: "Basic",        difficulty: "Beginner" },
-
-  // ── Intermediate Course (Modules 11–20) ────────────────────────────────────
-  { id: 11, title: "Climate Zones",                description: "Understanding global climate patterns and classification",             order: 1,  course: "Intermediate", difficulty: "Intermediate" },
-  { id: 12, title: "Human Geography",             description: "Population, culture, and urbanisation",                               order: 2,  course: "Intermediate", difficulty: "Intermediate" },
-  { id: 13, title: "Economic Geography",          description: "Resources, trade, and economic development",                           order: 3,  course: "Intermediate", difficulty: "Intermediate" },
-  { id: 14, title: "Agriculture & Food",          description: "Global farming systems, food security, and land use",                  order: 4,  course: "Intermediate", difficulty: "Intermediate" },
-  { id: 15, title: "Urbanisation",                description: "City growth, megacities, and urban planning challenges",               order: 5,  course: "Intermediate", difficulty: "Intermediate" },
-  { id: 16, title: "Transport & Trade",           description: "Global transport networks and international trade routes",             order: 6,  course: "Intermediate", difficulty: "Intermediate" },
-  { id: 17, title: "Energy Resources",            description: "Fossil fuels, renewables, and global energy consumption",             order: 7,  course: "Intermediate", difficulty: "Intermediate" },
-  { id: 18, title: "Water Resources",             description: "Freshwater availability, river management, and water conflicts",      order: 8,  course: "Intermediate", difficulty: "Intermediate" },
-  { id: 19, title: "Political Geography",         description: "Nations, borders, boundaries, and sovereignty",                       order: 9,  course: "Intermediate", difficulty: "Intermediate" },
-  { id: 20, title: "Tourism Geography",           description: "Global tourism trends, heritage sites, and ecotourism",               order: 10, course: "Intermediate", difficulty: "Intermediate" },
-
-  // ── Advanced Course (Modules 21–30) ────────────────────────────────────────
-  { id: 21, title: "Environmental Issues",         description: "Climate change, deforestation, and sustainability",                   order: 1,  course: "Advanced",     difficulty: "Advanced" },
-  { id: 22, title: "Geopolitics",                  description: "Political boundaries, alliances, and global power dynamics",         order: 2,  course: "Advanced",     difficulty: "Advanced" },
-  { id: 23, title: "Geographic Information Systems",description: "GIS technology, mapping, and spatial data analysis",               order: 3,  course: "Advanced",     difficulty: "Advanced" },
-  { id: 24, title: "Glaciology",                   description: "Glaciers, ice sheets, permafrost, and cryosphere dynamics",         order: 4,  course: "Advanced",     difficulty: "Advanced" },
-  { id: 25, title: "Oceanography",                 description: "Ocean circulation, currents, marine ecosystems, and tides",         order: 5,  course: "Advanced",     difficulty: "Advanced" },
-  { id: 26, title: "Demography",                   description: "Population dynamics, migration, ageing, and fertility trends",      order: 6,  course: "Advanced",     difficulty: "Advanced" },
-  { id: 27, title: "Biogeography",                 description: "Species distribution, ecosystems, biomes, and conservation",       order: 7,  course: "Advanced",     difficulty: "Advanced" },
-  { id: 28, title: "Remote Sensing",               description: "Satellite imagery, drones, and geographic data collection",        order: 8,  course: "Advanced",     difficulty: "Advanced" },
-  { id: 29, title: "Climate Modelling",            description: "Climate simulations, prediction models, and scenario analysis",     order: 9,  course: "Advanced",     difficulty: "Advanced" },
-  { id: 30, title: "Urban Sustainability",         description: "Smart cities, green infrastructure, and resilient urban futures",   order: 10, course: "Advanced",     difficulty: "Advanced" },
+  {
+    "id": 1,
+    "course_id": 1,
+    "course_title": "Basic Course",
+    "title": "Introduction to Geography",
+    "description": "What geography is, its branches, and key geographical tools",
+    "difficulty": "Beginner",
+    "order": 1,
+    "lesson_count": 10
+  },
+  {
+    "id": 2,
+    "course_id": 1,
+    "course_title": "Basic Course",
+    "title": "Maps & Cartography",
+    "description": "Map types, scales, projections, coordinates, and GPS",
+    "difficulty": "Beginner",
+    "order": 2,
+    "lesson_count": 10
+  },
+  {
+    "id": 3,
+    "course_id": 1,
+    "course_title": "Basic Course",
+    "title": "Physical Landforms",
+    "description": "Mountains, valleys, plains, rivers, and tectonic processes",
+    "difficulty": "Beginner",
+    "order": 3,
+    "lesson_count": 10
+  },
+  {
+    "id": 4,
+    "course_id": 1,
+    "course_title": "Basic Course",
+    "title": "Weather & Atmosphere",
+    "description": "Atmospheric layers, weather systems, and precipitation",
+    "difficulty": "Beginner",
+    "order": 4,
+    "lesson_count": 10
+  },
+  {
+    "id": 5,
+    "course_id": 1,
+    "course_title": "Basic Course",
+    "title": "World Oceans & Seas",
+    "description": "Ocean currents, tides, marine geography, and ocean floors",
+    "difficulty": "Beginner",
+    "order": 5,
+    "lesson_count": 10
+  },
+  {
+    "id": 6,
+    "course_id": 1,
+    "course_title": "Basic Course",
+    "title": "Soil & Vegetation",
+    "description": "Soil types, biomes, ecosystems, and biodiversity",
+    "difficulty": "Beginner",
+    "order": 6,
+    "lesson_count": 10
+  },
+  {
+    "id": 7,
+    "course_id": 1,
+    "course_title": "Basic Course",
+    "title": "World Continents Overview",
+    "description": "Physical and cultural features of all seven continents",
+    "difficulty": "Beginner",
+    "order": 7,
+    "lesson_count": 10
+  },
+  {
+    "id": 8,
+    "course_id": 1,
+    "course_title": "Basic Course",
+    "title": "Natural Resources",
+    "description": "Types, distribution, extraction, and sustainable use",
+    "difficulty": "Beginner",
+    "order": 8,
+    "lesson_count": 10
+  },
+  {
+    "id": 9,
+    "course_id": 1,
+    "course_title": "Basic Course",
+    "title": "Population Geography",
+    "description": "Demographics, population distribution, and migration patterns",
+    "difficulty": "Beginner",
+    "order": 9,
+    "lesson_count": 10
+  },
+  {
+    "id": 10,
+    "course_id": 1,
+    "course_title": "Basic Course",
+    "title": "Geographic Information Tools",
+    "description": "Satellite imagery, GIS basics, and geographic data sources",
+    "difficulty": "Beginner",
+    "order": 10,
+    "lesson_count": 10
+  },
+  {
+    "id": 11,
+    "course_id": 2,
+    "course_title": "Intermediate Course",
+    "title": "Climate Zones & Biomes",
+    "description": "Koppen classification, tropical, arid, temperate, and polar zones",
+    "difficulty": "Intermediate",
+    "order": 1,
+    "lesson_count": 10
+  },
+  {
+    "id": 12,
+    "course_id": 2,
+    "course_title": "Intermediate Course",
+    "title": "Human Geography",
+    "description": "Population dynamics, settlement patterns, and human activities",
+    "difficulty": "Intermediate",
+    "order": 2,
+    "lesson_count": 10
+  },
+  {
+    "id": 13,
+    "course_id": 2,
+    "course_title": "Intermediate Course",
+    "title": "Cultural Geography",
+    "description": "Languages, religions, cultural landscapes, and spatial identity",
+    "difficulty": "Intermediate",
+    "order": 3,
+    "lesson_count": 10
+  },
+  {
+    "id": 14,
+    "course_id": 2,
+    "course_title": "Intermediate Course",
+    "title": "Economic Geography",
+    "description": "Industrial location, global trade, development indicators",
+    "difficulty": "Intermediate",
+    "order": 4,
+    "lesson_count": 10
+  },
+  {
+    "id": 15,
+    "course_id": 2,
+    "course_title": "Intermediate Course",
+    "title": "Urban Geography",
+    "description": "Cities, urbanization, land use models, and urban issues",
+    "difficulty": "Intermediate",
+    "order": 5,
+    "lesson_count": 10
+  },
+  {
+    "id": 16,
+    "course_id": 2,
+    "course_title": "Intermediate Course",
+    "title": "Rural Geography",
+    "description": "Agricultural systems, land reform, and rural change",
+    "difficulty": "Intermediate",
+    "order": 6,
+    "lesson_count": 10
+  },
+  {
+    "id": 17,
+    "course_id": 2,
+    "course_title": "Intermediate Course",
+    "title": "Transport & Connectivity",
+    "description": "Transport networks, globalization, and logistics geography",
+    "difficulty": "Intermediate",
+    "order": 7,
+    "lesson_count": 10
+  },
+  {
+    "id": 18,
+    "course_id": 2,
+    "course_title": "Intermediate Course",
+    "title": "Political Geography",
+    "description": "Borders, states, sovereignty, and territorial disputes",
+    "difficulty": "Intermediate",
+    "order": 8,
+    "lesson_count": 10
+  },
+  {
+    "id": 19,
+    "course_id": 2,
+    "course_title": "Intermediate Course",
+    "title": "Trade & Globalization",
+    "description": "Global trade flows, economic blocs, and supply chains",
+    "difficulty": "Intermediate",
+    "order": 9,
+    "lesson_count": 10
+  },
+  {
+    "id": 20,
+    "course_id": 2,
+    "course_title": "Intermediate Course",
+    "title": "Water Resources",
+    "description": "Freshwater, river basins, water scarcity, and management",
+    "difficulty": "Intermediate",
+    "order": 10,
+    "lesson_count": 10
+  },
+  {
+    "id": 21,
+    "course_id": 3,
+    "course_title": "Advanced Course",
+    "title": "Environmental Issues",
+    "description": "Deforestation, land degradation, biodiversity loss, and solutions",
+    "difficulty": "Advanced",
+    "order": 1,
+    "lesson_count": 10
+  },
+  {
+    "id": 22,
+    "course_id": 3,
+    "course_title": "Advanced Course",
+    "title": "Climate Change Geography",
+    "description": "Causes, impacts, vulnerability mapping, and adaptation strategies",
+    "difficulty": "Advanced",
+    "order": 2,
+    "lesson_count": 10
+  },
+  {
+    "id": 23,
+    "course_id": 3,
+    "course_title": "Advanced Course",
+    "title": "Geopolitics",
+    "description": "Power, territory, foreign policy, and global governance",
+    "difficulty": "Advanced",
+    "order": 3,
+    "lesson_count": 10
+  },
+  {
+    "id": 24,
+    "course_id": 3,
+    "course_title": "Advanced Course",
+    "title": "GIS & Remote Sensing",
+    "description": "Spatial analysis, satellite data, and geographic modelling",
+    "difficulty": "Advanced",
+    "order": 4,
+    "lesson_count": 10
+  },
+  {
+    "id": 25,
+    "course_id": 3,
+    "course_title": "Advanced Course",
+    "title": "Disaster Geography",
+    "description": "Natural hazards, vulnerability, disaster risk reduction",
+    "difficulty": "Advanced",
+    "order": 5,
+    "lesson_count": 10
+  },
+  {
+    "id": 26,
+    "course_id": 3,
+    "course_title": "Advanced Course",
+    "title": "Sustainable Development",
+    "description": "SDGs, sustainability frameworks, and geography of development",
+    "difficulty": "Advanced",
+    "order": 6,
+    "lesson_count": 10
+  },
+  {
+    "id": 27,
+    "course_id": 3,
+    "course_title": "Advanced Course",
+    "title": "Coastal Geography",
+    "description": "Coastal processes, erosion, sea-level rise, and coastal management",
+    "difficulty": "Advanced",
+    "order": 7,
+    "lesson_count": 10
+  },
+  {
+    "id": 28,
+    "course_id": 3,
+    "course_title": "Advanced Course",
+    "title": "Mountain & Arctic Geography",
+    "description": "Alpine systems, permafrost, glaciers, and cold environments",
+    "difficulty": "Advanced",
+    "order": 8,
+    "lesson_count": 10
+  },
+  {
+    "id": 29,
+    "course_id": 3,
+    "course_title": "Advanced Course",
+    "title": "Geography of Health",
+    "description": "Disease distribution, health inequalities, and spatial epidemiology",
+    "difficulty": "Advanced",
+    "order": 9,
+    "lesson_count": 10
+  },
+  {
+    "id": 30,
+    "course_id": 3,
+    "course_title": "Advanced Course",
+    "title": "Advanced Geographic Research",
+    "description": "Research design, fieldwork, GIS analysis, and academic writing",
+    "difficulty": "Advanced",
+    "order": 10,
+    "lesson_count": 10
+  }
 ];
 
 /**
- * The 3-course structure: Basic → Intermediate → Advanced.
- * Each course spans 10 modules and 100 lessons (10 lessons per module).
+ * Get all modules
  */
-export const COURSES = [
-  {
-    id: "basic",
-    title: "Basic Geography",
-    level: "Basic",
-    description: "Explore the physical world: continents, oceans, mountains, countries, and natural wonders.",
-    moduleRange: [1, 10],
-    moduleCount: 10,
-    lessonCount: 100,
-    color: "green",
-    emoji: "🟢",
-    startModuleId: 1,
-  },
-  {
-    id: "intermediate",
-    title: "Intermediate Geography",
-    level: "Intermediate",
-    description: "Understand climate zones, human geography, economic systems, and resource management.",
-    moduleRange: [11, 20],
-    moduleCount: 10,
-    lessonCount: 100,
-    color: "blue",
-    emoji: "🔵",
-    startModuleId: 11,
-  },
-  {
-    id: "advanced",
-    title: "Advanced Geography",
-    level: "Advanced",
-    description: "Analyse environmental issues, geopolitics, GIS technology, and urban sustainability.",
-    moduleRange: [21, 30],
-    moduleCount: 10,
-    lessonCount: 100,
-    color: "purple",
-    emoji: "🟣",
-    startModuleId: 21,
-  },
-];
+export function getAllModules() {
+  return moduleTopics;
+}
 
-/** Generate lesson metadata for a module */
+/**
+ * Get all courses
+ */
+export function getCourses() {
+  return courses;
+}
+
+/**
+ * Get a course by slug
+ */
+export function getCourseBySlug(slug) {
+  return courses.find((c) => c.slug === slug);
+}
+
+/**
+ * Get modules belonging to a specific course (by course id)
+ */
+export function getModulesByCourse(courseId) {
+  return moduleTopics.filter((m) => m.course_id === courseId);
+}
+
+/**
+ * Get module by ID
+ */
+export function getModuleById(id) {
+  return moduleTopics.find((m) => m.id === Number(id));
+}
+
+/**
+ * Get modules by difficulty level
+ */
+export function getModulesByLevel(level) {
+  return moduleTopics.filter((m) => m.difficulty === level);
+}
+
+/**
+ * Generate lesson metadata for a module
+ */
 export function generateLessonMetadata(moduleId, lessonNumber) {
   return {
-    id: (moduleId - 1) * 10 + lessonNumber,
-    module_id: moduleId,
+    id: (Number(moduleId) - 1) * 10 + lessonNumber,
+    module_id: Number(moduleId),
     title: `Lesson ${lessonNumber}`,
     order: lessonNumber,
     duration_minutes: 15,
@@ -98,7 +436,9 @@ export function generateLessonMetadata(moduleId, lessonNumber) {
   };
 }
 
-/** Generate quiz questions template */
+/**
+ * Generate quiz questions template
+ */
 export function generateQuizTemplate() {
   return Array(5)
     .fill(null)
@@ -109,33 +449,3 @@ export function generateQuizTemplate() {
       explanation: "Explanation here",
     }));
 }
-
-/** Get module by ID */
-export function getModuleById(id) {
-  return moduleTopics.find((m) => m.id === id);
-}
-
-/** Get all 30 modules */
-export function getAllModules() {
-  return moduleTopics;
-}
-
-/** Get modules for a specific course level ("Basic" | "Intermediate" | "Advanced") */
-export function getModulesByCourse(courseLevel) {
-  return moduleTopics.filter((m) => m.course === courseLevel);
-}
-
-/** Get modules by difficulty (backward-compatible) */
-export function getModulesByLevel(level) {
-  return moduleTopics.filter((m) => m.difficulty === level);
-}
-
-/** Get content organized by course level */
-export function getContentByLevel() {
-  return {
-    Basic: getModulesByCourse("Basic"),
-    Intermediate: getModulesByCourse("Intermediate"),
-    Advanced: getModulesByCourse("Advanced"),
-  };
-}
-

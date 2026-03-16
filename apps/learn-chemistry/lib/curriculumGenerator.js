@@ -1,96 +1,434 @@
 /**
- * Curriculum Generator - Chemistry
+ * Curriculum Generator — Chemistry Mastery
  *
- * Defines the 3-course structure: Basic (modules 1-10), Intermediate (11-20), Advanced (21-30).
- * Each course has 10 modules × 10 lessons = 100 lessons (300 lessons total).
+ * Exports module and course metadata used by the lesson pages and curriculum page.
+ * Structure: 3 courses × 10 modules × 10 lessons = 300 lessons per app.
  */
 
+export const courses = [
+  {
+    "id": 1,
+    "slug": "basic",
+    "title": "Basic Course",
+    "subtitle": "Chemistry Foundations",
+    "description": "Build a solid grounding in fundamental chemistry concepts and lab skills.",
+    "difficulty": "Beginner",
+    "order": 1,
+    "module_ids": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "module_count": 10,
+    "lesson_count": 100
+  },
+  {
+    "id": 2,
+    "slug": "intermediate",
+    "title": "Intermediate Course",
+    "subtitle": "Core Chemistry",
+    "description": "Explore chemical kinetics, thermodynamics, and organic chemistry foundations.",
+    "difficulty": "Intermediate",
+    "order": 2,
+    "module_ids": [
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "module_count": 10,
+    "lesson_count": 100
+  },
+  {
+    "id": 3,
+    "slug": "advanced",
+    "title": "Advanced Course",
+    "subtitle": "Advanced Chemistry",
+    "description": "Tackle advanced topics in organic synthesis, biochemistry, and quantum chemistry.",
+    "difficulty": "Advanced",
+    "order": 3,
+    "module_ids": [
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30
+    ],
+    "module_count": 10,
+    "lesson_count": 100
+  }
+];
+
 export const moduleTopics = [
-  // ── Basic Course (Modules 1–10) ────────────────────────────────────────────
-  { id: 1,  title: "Introduction to Chemistry",   description: "Matter, elements, and the periodic table",                           order: 1,  course: "Basic",        difficulty: "Beginner" },
-  { id: 2,  title: "Atomic Structure",            description: "Atoms, electrons, and atomic models",                                order: 2,  course: "Basic",        difficulty: "Beginner" },
-  { id: 3,  title: "Chemical Bonding",            description: "Ionic, covalent, and metallic bonds",                               order: 3,  course: "Basic",        difficulty: "Beginner" },
-  { id: 4,  title: "States of Matter",            description: "Solids, liquids, gases, and phase changes",                         order: 4,  course: "Basic",        difficulty: "Beginner" },
-  { id: 5,  title: "The Periodic Table",          description: "Periodic trends, groups, and element properties",                   order: 5,  course: "Basic",        difficulty: "Beginner" },
-  { id: 6,  title: "Chemical Formulas",           description: "Writing and balancing chemical formulas",                           order: 6,  course: "Basic",        difficulty: "Beginner" },
-  { id: 7,  title: "Mixtures & Solutions",        description: "Types of mixtures, solubility, and concentration",                  order: 7,  course: "Basic",        difficulty: "Beginner" },
-  { id: 8,  title: "Acids, Bases & Salts",        description: "pH scale, neutralisation, and salt formation",                      order: 8,  course: "Basic",        difficulty: "Beginner" },
-  { id: 9,  title: "Metals & Non-Metals",         description: "Properties, reactions, and uses of metals and non-metals",          order: 9,  course: "Basic",        difficulty: "Beginner" },
-  { id: 10, title: "Chemistry in Daily Life",     description: "Soaps, polymers, medicines, and environmental chemistry",           order: 10, course: "Basic",        difficulty: "Beginner" },
-
-  // ── Intermediate Course (Modules 11–20) ────────────────────────────────────
-  { id: 11, title: "Chemical Reactions",          description: "Types of reactions and balancing equations",                        order: 1,  course: "Intermediate", difficulty: "Intermediate" },
-  { id: 12, title: "Stoichiometry",               description: "Mole concept and quantitative relationships in reactions",          order: 2,  course: "Intermediate", difficulty: "Intermediate" },
-  { id: 13, title: "Thermochemistry",             description: "Energy changes, enthalpy, and Hess's law",                         order: 3,  course: "Intermediate", difficulty: "Intermediate" },
-  { id: 14, title: "Chemical Equilibrium",        description: "Reversible reactions, Le Chatelier's principle",                    order: 4,  course: "Intermediate", difficulty: "Intermediate" },
-  { id: 15, title: "Redox Reactions",             description: "Oxidation, reduction, and electrochemical cells",                   order: 5,  course: "Intermediate", difficulty: "Intermediate" },
-  { id: 16, title: "Chemical Kinetics",           description: "Reaction rates, activation energy, and catalysts",                  order: 6,  course: "Intermediate", difficulty: "Intermediate" },
-  { id: 17, title: "Gaseous State",               description: "Gas laws, ideal gas equation, and kinetic theory",                  order: 7,  course: "Intermediate", difficulty: "Intermediate" },
-  { id: 18, title: "Atomic Spectra",              description: "Quantum numbers, orbitals, and electron configurations",            order: 8,  course: "Intermediate", difficulty: "Intermediate" },
-  { id: 19, title: "Coordination Compounds",      description: "Ligands, complexes, and naming conventions",                        order: 9,  course: "Intermediate", difficulty: "Intermediate" },
-  { id: 20, title: "Environmental Chemistry",     description: "Pollutants, green chemistry, and sustainability",                   order: 10, course: "Intermediate", difficulty: "Intermediate" },
-
-  // ── Advanced Course (Modules 21–30) ────────────────────────────────────────
-  { id: 21, title: "Organic Chemistry I",         description: "Carbon chemistry, functional groups, and nomenclature",             order: 1,  course: "Advanced",     difficulty: "Advanced" },
-  { id: 22, title: "Organic Chemistry II",        description: "Reaction mechanisms, stereochemistry, and synthesis",               order: 2,  course: "Advanced",     difficulty: "Advanced" },
-  { id: 23, title: "Electrochemistry",            description: "Galvanic cells, electrolysis, and the Nernst equation",            order: 3,  course: "Advanced",     difficulty: "Advanced" },
-  { id: 24, title: "Nuclear Chemistry",           description: "Radioactivity, nuclear reactions, and half-life",                   order: 4,  course: "Advanced",     difficulty: "Advanced" },
-  { id: 25, title: "Quantum Chemistry",           description: "Wave functions, Schrödinger equation, and molecular orbitals",     order: 5,  course: "Advanced",     difficulty: "Advanced" },
-  { id: 26, title: "Solid State Chemistry",       description: "Crystal structures, defects, and semiconductor materials",          order: 6,  course: "Advanced",     difficulty: "Advanced" },
-  { id: 27, title: "Surface Chemistry",           description: "Adsorption, colloids, emulsions, and catalysis",                   order: 7,  course: "Advanced",     difficulty: "Advanced" },
-  { id: 28, title: "Polymer Chemistry",           description: "Monomers, polymerisation, and properties of polymers",             order: 8,  course: "Advanced",     difficulty: "Advanced" },
-  { id: 29, title: "Spectroscopy",                description: "IR, NMR, and mass spectrometry for structure elucidation",         order: 9,  course: "Advanced",     difficulty: "Advanced" },
-  { id: 30, title: "Computational Chemistry",     description: "Molecular modelling, simulations, and cheminformatics",            order: 10, course: "Advanced",     difficulty: "Advanced" },
+  {
+    "id": 1,
+    "course_id": 1,
+    "course_title": "Basic Course",
+    "title": "Introduction to Chemistry",
+    "description": "Matter, properties, changes, and the scientific method",
+    "difficulty": "Beginner",
+    "order": 1,
+    "lesson_count": 10
+  },
+  {
+    "id": 2,
+    "course_id": 1,
+    "course_title": "Basic Course",
+    "title": "Atomic Structure",
+    "description": "Protons, neutrons, electrons, orbitals, and quantum numbers",
+    "difficulty": "Beginner",
+    "order": 2,
+    "lesson_count": 10
+  },
+  {
+    "id": 3,
+    "course_id": 1,
+    "course_title": "Basic Course",
+    "title": "The Periodic Table",
+    "description": "Trends, groups, periods, and element properties",
+    "difficulty": "Beginner",
+    "order": 3,
+    "lesson_count": 10
+  },
+  {
+    "id": 4,
+    "course_id": 1,
+    "course_title": "Basic Course",
+    "title": "Chemical Bonding",
+    "description": "Ionic, covalent, metallic bonds, and molecular geometry",
+    "difficulty": "Beginner",
+    "order": 4,
+    "lesson_count": 10
+  },
+  {
+    "id": 5,
+    "course_id": 1,
+    "course_title": "Basic Course",
+    "title": "States of Matter",
+    "description": "Solids, liquids, gases, plasma, and phase transitions",
+    "difficulty": "Beginner",
+    "order": 5,
+    "lesson_count": 10
+  },
+  {
+    "id": 6,
+    "course_id": 1,
+    "course_title": "Basic Course",
+    "title": "Solutions & Mixtures",
+    "description": "Solubility, concentration, molarity, and colligative properties",
+    "difficulty": "Beginner",
+    "order": 6,
+    "lesson_count": 10
+  },
+  {
+    "id": 7,
+    "course_id": 1,
+    "course_title": "Basic Course",
+    "title": "Acids & Bases",
+    "description": "pH, pOH, acid-base theories, buffers, and titrations",
+    "difficulty": "Beginner",
+    "order": 7,
+    "lesson_count": 10
+  },
+  {
+    "id": 8,
+    "course_id": 1,
+    "course_title": "Basic Course",
+    "title": "Basic Chemical Reactions",
+    "description": "Reaction types, balancing equations, and net ionic equations",
+    "difficulty": "Beginner",
+    "order": 8,
+    "lesson_count": 10
+  },
+  {
+    "id": 9,
+    "course_id": 1,
+    "course_title": "Basic Course",
+    "title": "The Mole Concept",
+    "description": "Avogadros number, molar mass, and stoichiometric relationships",
+    "difficulty": "Beginner",
+    "order": 9,
+    "lesson_count": 10
+  },
+  {
+    "id": 10,
+    "course_id": 1,
+    "course_title": "Basic Course",
+    "title": "Laboratory Safety & Techniques",
+    "description": "Safety rules, glassware, measurements, and lab procedures",
+    "difficulty": "Beginner",
+    "order": 10,
+    "lesson_count": 10
+  },
+  {
+    "id": 11,
+    "course_id": 2,
+    "course_title": "Intermediate Course",
+    "title": "Stoichiometry",
+    "description": "Mole ratios, limiting reagents, percent yield, and combustion analysis",
+    "difficulty": "Intermediate",
+    "order": 1,
+    "lesson_count": 10
+  },
+  {
+    "id": 12,
+    "course_id": 2,
+    "course_title": "Intermediate Course",
+    "title": "Chemical Equilibrium",
+    "description": "Le Chateliers principle, Kc, Kp, and equilibrium calculations",
+    "difficulty": "Intermediate",
+    "order": 2,
+    "lesson_count": 10
+  },
+  {
+    "id": 13,
+    "course_id": 2,
+    "course_title": "Intermediate Course",
+    "title": "Chemical Kinetics",
+    "description": "Reaction rates, rate laws, activation energy, and mechanisms",
+    "difficulty": "Intermediate",
+    "order": 3,
+    "lesson_count": 10
+  },
+  {
+    "id": 14,
+    "course_id": 2,
+    "course_title": "Intermediate Course",
+    "title": "Thermochemistry",
+    "description": "Enthalpy, Hesss law, calorimetry, and standard enthalpies",
+    "difficulty": "Intermediate",
+    "order": 4,
+    "lesson_count": 10
+  },
+  {
+    "id": 15,
+    "course_id": 2,
+    "course_title": "Intermediate Course",
+    "title": "Electrochemistry",
+    "description": "Redox reactions, galvanic cells, electrolysis, and Nernst equation",
+    "difficulty": "Intermediate",
+    "order": 5,
+    "lesson_count": 10
+  },
+  {
+    "id": 16,
+    "course_id": 2,
+    "course_title": "Intermediate Course",
+    "title": "Nuclear Chemistry",
+    "description": "Radioactivity, half-life, nuclear reactions, and applications",
+    "difficulty": "Intermediate",
+    "order": 6,
+    "lesson_count": 10
+  },
+  {
+    "id": 17,
+    "course_id": 2,
+    "course_title": "Intermediate Course",
+    "title": "Organic Chemistry Basics",
+    "description": "Hydrocarbons, IUPAC nomenclature, and structural formulas",
+    "difficulty": "Intermediate",
+    "order": 7,
+    "lesson_count": 10
+  },
+  {
+    "id": 18,
+    "course_id": 2,
+    "course_title": "Intermediate Course",
+    "title": "Functional Groups",
+    "description": "Alcohols, ethers, aldehydes, ketones, acids, and amines",
+    "difficulty": "Intermediate",
+    "order": 8,
+    "lesson_count": 10
+  },
+  {
+    "id": 19,
+    "course_id": 2,
+    "course_title": "Intermediate Course",
+    "title": "Spectroscopy",
+    "description": "IR, NMR, mass spectrometry, and UV-Vis analysis",
+    "difficulty": "Intermediate",
+    "order": 9,
+    "lesson_count": 10
+  },
+  {
+    "id": 20,
+    "course_id": 2,
+    "course_title": "Intermediate Course",
+    "title": "Environmental Chemistry",
+    "description": "Pollution, green chemistry, and atmospheric chemistry",
+    "difficulty": "Intermediate",
+    "order": 10,
+    "lesson_count": 10
+  },
+  {
+    "id": 21,
+    "course_id": 3,
+    "course_title": "Advanced Course",
+    "title": "Advanced Organic Chemistry",
+    "description": "Stereochemistry, reaction mechanisms, and synthesis planning",
+    "difficulty": "Advanced",
+    "order": 1,
+    "lesson_count": 10
+  },
+  {
+    "id": 22,
+    "course_id": 3,
+    "course_title": "Advanced Course",
+    "title": "Biochemistry",
+    "description": "Proteins, enzymes, carbohydrates, lipids, and nucleic acids",
+    "difficulty": "Advanced",
+    "order": 2,
+    "lesson_count": 10
+  },
+  {
+    "id": 23,
+    "course_id": 3,
+    "course_title": "Advanced Course",
+    "title": "Physical Chemistry",
+    "description": "Thermodynamics, quantum mechanics, and statistical mechanics",
+    "difficulty": "Advanced",
+    "order": 3,
+    "lesson_count": 10
+  },
+  {
+    "id": 24,
+    "course_id": 3,
+    "course_title": "Advanced Course",
+    "title": "Quantum Chemistry",
+    "description": "Schrodinger equation, molecular orbital theory, and DFT",
+    "difficulty": "Advanced",
+    "order": 4,
+    "lesson_count": 10
+  },
+  {
+    "id": 25,
+    "course_id": 3,
+    "course_title": "Advanced Course",
+    "title": "Coordination Chemistry",
+    "description": "Ligands, crystal field theory, and transition metal complexes",
+    "difficulty": "Advanced",
+    "order": 5,
+    "lesson_count": 10
+  },
+  {
+    "id": 26,
+    "course_id": 3,
+    "course_title": "Advanced Course",
+    "title": "Polymer Chemistry",
+    "description": "Polymerization mechanisms, macromolecules, and materials",
+    "difficulty": "Advanced",
+    "order": 6,
+    "lesson_count": 10
+  },
+  {
+    "id": 27,
+    "course_id": 3,
+    "course_title": "Advanced Course",
+    "title": "Green Chemistry",
+    "description": "12 principles, sustainable synthesis, and waste minimization",
+    "difficulty": "Advanced",
+    "order": 7,
+    "lesson_count": 10
+  },
+  {
+    "id": 28,
+    "course_id": 3,
+    "course_title": "Advanced Course",
+    "title": "Industrial Chemistry",
+    "description": "Chemical engineering, industrial processes, and scale-up",
+    "difficulty": "Advanced",
+    "order": 8,
+    "lesson_count": 10
+  },
+  {
+    "id": 29,
+    "course_id": 3,
+    "course_title": "Advanced Course",
+    "title": "Computational Chemistry",
+    "description": "Molecular modeling, simulation, and cheminformatics",
+    "difficulty": "Advanced",
+    "order": 9,
+    "lesson_count": 10
+  },
+  {
+    "id": 30,
+    "course_id": 3,
+    "course_title": "Advanced Course",
+    "title": "Research Methods in Chemistry",
+    "description": "Literature review, experimental design, and scientific reporting",
+    "difficulty": "Advanced",
+    "order": 10,
+    "lesson_count": 10
+  }
 ];
 
 /**
- * The 3-course structure: Basic → Intermediate → Advanced.
- * Each course spans 10 modules and 100 lessons (10 lessons per module).
+ * Get all modules
  */
-export const COURSES = [
-  {
-    id: "basic",
-    title: "Basic Chemistry",
-    level: "Basic",
-    description: "Build a solid foundation in chemistry covering atomic structure, bonding, states of matter, and everyday applications.",
-    moduleRange: [1, 10],
-    moduleCount: 10,
-    lessonCount: 100,
-    color: "green",
-    emoji: "🟢",
-    startModuleId: 1,
-  },
-  {
-    id: "intermediate",
-    title: "Intermediate Chemistry",
-    level: "Intermediate",
-    description: "Advance into chemical reactions, stoichiometry, thermochemistry, kinetics, and equilibrium.",
-    moduleRange: [11, 20],
-    moduleCount: 10,
-    lessonCount: 100,
-    color: "blue",
-    emoji: "🔵",
-    startModuleId: 11,
-  },
-  {
-    id: "advanced",
-    title: "Advanced Chemistry",
-    level: "Advanced",
-    description: "Master organic chemistry, electrochemistry, quantum chemistry, and modern analytical techniques.",
-    moduleRange: [21, 30],
-    moduleCount: 10,
-    lessonCount: 100,
-    color: "purple",
-    emoji: "🟣",
-    startModuleId: 21,
-  },
-];
+export function getAllModules() {
+  return moduleTopics;
+}
 
-/** Generate lesson metadata for a module */
+/**
+ * Get all courses
+ */
+export function getCourses() {
+  return courses;
+}
+
+/**
+ * Get a course by slug
+ */
+export function getCourseBySlug(slug) {
+  return courses.find((c) => c.slug === slug);
+}
+
+/**
+ * Get modules belonging to a specific course (by course id)
+ */
+export function getModulesByCourse(courseId) {
+  return moduleTopics.filter((m) => m.course_id === courseId);
+}
+
+/**
+ * Get module by ID
+ */
+export function getModuleById(id) {
+  return moduleTopics.find((m) => m.id === Number(id));
+}
+
+/**
+ * Get modules by difficulty level
+ */
+export function getModulesByLevel(level) {
+  return moduleTopics.filter((m) => m.difficulty === level);
+}
+
+/**
+ * Generate lesson metadata for a module
+ */
 export function generateLessonMetadata(moduleId, lessonNumber) {
   return {
-    id: (moduleId - 1) * 10 + lessonNumber,
-    module_id: moduleId,
+    id: (Number(moduleId) - 1) * 10 + lessonNumber,
+    module_id: Number(moduleId),
     title: `Lesson ${lessonNumber}`,
     order: lessonNumber,
     duration_minutes: 15,
@@ -98,7 +436,9 @@ export function generateLessonMetadata(moduleId, lessonNumber) {
   };
 }
 
-/** Generate quiz questions template */
+/**
+ * Generate quiz questions template
+ */
 export function generateQuizTemplate() {
   return Array(5)
     .fill(null)
@@ -109,33 +449,3 @@ export function generateQuizTemplate() {
       explanation: "Explanation here",
     }));
 }
-
-/** Get module by ID */
-export function getModuleById(id) {
-  return moduleTopics.find((m) => m.id === id);
-}
-
-/** Get all 30 modules */
-export function getAllModules() {
-  return moduleTopics;
-}
-
-/** Get modules for a specific course level ("Basic" | "Intermediate" | "Advanced") */
-export function getModulesByCourse(courseLevel) {
-  return moduleTopics.filter((m) => m.course === courseLevel);
-}
-
-/** Get modules by difficulty (backward-compatible) */
-export function getModulesByLevel(level) {
-  return moduleTopics.filter((m) => m.difficulty === level);
-}
-
-/** Get content organized by course level */
-export function getContentByLevel() {
-  return {
-    Basic: getModulesByCourse("Basic"),
-    Intermediate: getModulesByCourse("Intermediate"),
-    Advanced: getModulesByCourse("Advanced"),
-  };
-}
-
