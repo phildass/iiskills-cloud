@@ -67,6 +67,37 @@ describe("validatePassword — strength rules", () => {
   });
 });
 
+// ─── Password blacklist ───────────────────────────────────────────────────────
+
+describe("validatePassword — common password blacklist", () => {
+  test("rejects 'Password123!' even though it meets all complexity rules", () => {
+    // "Password123!" satisfies length, upper, lower, digit, special
+    // but is on the common-password blacklist (case-insensitive)
+    const errors = validatePassword("Password123!");
+    expect(errors.some((e) => e.toLowerCase().includes("common"))).toBe(true);
+  });
+
+  test("blacklist check is case-insensitive", () => {
+    // "Welcome123!" satisfies all complexity rules; its lowercase "welcome123!"
+    // is on the blacklist, proving the comparison is case-insensitive
+    const errors = validatePassword("Welcome123!");
+    expect(errors.some((e) => e.toLowerCase().includes("common"))).toBe(true);
+  });
+
+  test("does not fire blacklist error when other rules already fail", () => {
+    // "password" is blacklisted but also fails complexity — should get
+    // complexity errors, not the blacklist error
+    const errors = validatePassword("password");
+    expect(errors.some((e) => e.includes("10 characters"))).toBe(true);
+    expect(errors.some((e) => e.toLowerCase().includes("common"))).toBe(false);
+  });
+
+  test("accepts a strong unique password that is NOT in the blacklist", () => {
+    const errors = validatePassword("Zr9$mKpLq2!");
+    expect(errors).toHaveLength(0);
+  });
+});
+
 // ─── Username generation ──────────────────────────────────────────────────────
 
 describe("generateUsername — format and uniqueness seeding", () => {
