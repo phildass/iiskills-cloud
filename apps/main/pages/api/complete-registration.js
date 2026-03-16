@@ -34,8 +34,64 @@ import { createClient } from "@supabase/supabase-js";
 // ─── Password validation ──────────────────────────────────────────────────────
 
 /**
+ * Common / easily-guessed passwords that must be rejected regardless of
+ * complexity score.  Stored lower-case; comparison is case-insensitive.
+ */
+const COMMON_PASSWORDS = new Set([
+  "password",
+  "password1",
+  "password12",
+  "password123",
+  "password1234",
+  "password12345",
+  "password123456",
+  "123456789",
+  "1234567890",
+  "12345678901",
+  "qwerty123",
+  "qwerty1234",
+  "iloveyou1",
+  "sunshine1",
+  "princess1",
+  "welcome1",
+  "letmein1",
+  "dragon123",
+  "master123",
+  "passw0rd",
+  "p@ssword",
+  "p@ssw0rd",
+  "abc123456",
+  "admin1234",
+  "test1234!",
+  "pass1234!",
+  "user1234!",
+  // These pass all complexity rules but are still dangerously common
+  "password123!",
+  "password1234!",
+  "password12345!",
+  "password123456!",
+  "welcome123!",
+  "welcome1234!",
+  "letmein123!",
+  "qwerty1234!",
+  "iloveyou12!",
+  "admin12345!",
+  "dragon1234!",
+  "master1234!",
+  "sunshine12!",
+  "princess12!",
+  "superman12!",
+  "batman1234!",
+  "football12!",
+  "baseball12!",
+  "monkey1234!",
+  "shadow1234!",
+]);
+
+/**
  * Validate password strength.
  * Rules: min 10 chars, at least one uppercase, lowercase, digit, special char.
+ * Also rejects known commonly-used passwords.
  * @param {string} password
  * @returns {string[]} Array of error messages (empty = valid)
  */
@@ -58,6 +114,9 @@ export function validatePassword(password) {
   }
   if (!/[^A-Za-z0-9]/.test(password)) {
     errors.push("Password must contain at least one special character (e.g. @, #, $, !)");
+  }
+  if (errors.length === 0 && COMMON_PASSWORDS.has(password.toLowerCase())) {
+    errors.push("This password is too common. Please choose a more unique password.");
   }
   return errors;
 }

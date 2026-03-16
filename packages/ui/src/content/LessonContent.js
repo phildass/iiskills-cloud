@@ -10,6 +10,9 @@
  * automatically replaced with a clickable "View Image" link that opens
  * the image URL in a new tab.
  *
+ * Copy protection is enabled when NEXT_PUBLIC_ENABLE_COPY_PROTECTION=true.
+ * The CSS module also applies user-select:none on the container as a baseline.
+ *
  * Requires apps to set: transpilePackages: ['@iiskills/ui'] in next.config.js
  */
 
@@ -53,11 +56,35 @@ export default function LessonContent({ html, children, className }) {
     return () => cleanups.forEach((fn) => fn());
   }, [html]);
 
+  // Block context-menu and copy events on the container when copy protection is enabled
+  useEffect(() => {
+    if (process.env.NEXT_PUBLIC_ENABLE_COPY_PROTECTION !== "true") return;
+    const container = containerRef.current;
+    if (!container) return;
+
+    const block = (e) => e.preventDefault();
+    container.addEventListener("contextmenu", block);
+    container.addEventListener("copy", block);
+    container.addEventListener("cut", block);
+    container.addEventListener("dragstart", block);
+
+    return () => {
+      container.removeEventListener("contextmenu", block);
+      container.removeEventListener("copy", block);
+      container.removeEventListener("cut", block);
+      container.removeEventListener("dragstart", block);
+    };
+  }, []);
+
   if (html) {
     return (
       <div ref={containerRef} className={cls} dangerouslySetInnerHTML={{ __html: html }} />
     );
   }
 
-  return <div className={cls}>{children}</div>;
+  return (
+    <div ref={containerRef} className={cls}>
+      {children}
+    </div>
+  );
 }

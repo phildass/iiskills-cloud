@@ -12,6 +12,11 @@
   font-size: 1.0625rem;
   line-height: 1.75;
   color: #1e293b;
+  /* Prevent casual copy-paste of lesson content */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 /* ── Headings ─────────────────────────────────────────── */
