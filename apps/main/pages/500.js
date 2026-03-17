@@ -90,10 +90,10 @@ export default function Custom500() {
           {/* Footer note */}
           <p className="text-gray-500 text-sm">
             If this keeps happening, please{" "}
-            <Link href="/contact" className="text-primary hover:underline font-semibold">
+            <Link href="/dashboard" className="text-primary hover:underline font-semibold">
               raise a support ticket
             </Link>{" "}
-            and we&apos;ll get back to you within 24 hours.
+            via your dashboard and we&apos;ll get back to you within 24 hours.
           </p>
         </div>
       </main>

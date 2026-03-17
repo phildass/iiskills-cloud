@@ -60,11 +60,16 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Contact Info */}
+          {/* Support */}
           <div>
-            <h3 className="font-bold text-lg text-primary mb-3">Contact</h3>
-            <p className="text-sm text-gray-600 mb-2">Email: info@iiskills.cloud</p>
-            <p className="text-sm text-gray-600">Location: Indiranagar, Bengaluru</p>
+            <h3 className="font-bold text-lg text-primary mb-3">Support</h3>
+            <p className="text-sm text-gray-600 mb-2">
+              For any queries or assistance, please raise a ticket via your{" "}
+              <a href="/dashboard" className="text-primary hover:underline">
+                Dashboard
+              </a>
+              .
+            </p>
           </div>
         </div>
 
