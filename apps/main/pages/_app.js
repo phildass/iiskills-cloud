@@ -9,6 +9,7 @@ import TestSiteBanner from "../components/TestSiteBanner";
 import TestSiteModal from "../components/TestSiteModal";
 import { UserProgressProvider } from "../contexts/UserProgressContext";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import { IS_TEST_SITE } from "../lib/testSiteConfig";
 
 /**
@@ -44,6 +45,8 @@ function isAllowedNavigation(href) {
 
 export default function App({ Component, pageProps }) {
   const [showTestModal, setShowTestModal] = useState(false);
+  const router = useRouter();
+  const isHomePage = router.pathname === "/";
 
   useEffect(() => {
     if (!IS_TEST_SITE) return;
@@ -90,15 +93,17 @@ export default function App({ Component, pageProps }) {
         <TestSiteBanner />
 
         <SiteHeader />
-        <AppSecondaryNavbar
-          appId="main"
-          appName="iiskills.cloud"
-          showBadge={false}
-          showCurriculum={true}
-          curriculumPath="/courses"
-          continueButtonLabel="Browse Courses"
-          firstLessonPath="/courses"
-        />
+        {!isHomePage && (
+          <AppSecondaryNavbar
+            appId="main"
+            appName="iiskills.cloud"
+            showBadge={false}
+            showCurriculum={true}
+            curriculumPath="/courses"
+            continueButtonLabel="Browse Courses"
+            firstLessonPath="/courses"
+          />
+        )}
         <div className="pb-20">
           <Component {...pageProps} />
         </div>
