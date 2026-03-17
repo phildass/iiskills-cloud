@@ -40,11 +40,8 @@ const faqs = [
   },
   {
     q: "How do I contact support?",
-<<<<<<< copilot/remove-support-email-and-contact-info
     a: "You can raise a support ticket directly from your Dashboard. Log in and navigate to the Support section of your dashboard to submit a ticket. We aim to respond within 24 business hours.",
-=======
     a: "Raise a ticket on your dashboard and we will revert if your request is valid. No queries will be entertained if they are not legit.",
->>>>>>> main
   },
   {
     q: "Are the free courses really free?",
@@ -52,11 +49,8 @@ const faqs = [
   },
   {
     q: "How do I cancel a subscription or request a refund?",
-<<<<<<< copilot/remove-support-email-and-contact-info
     a: "Please raise a support ticket via your Dashboard within 7 days of purchase with your order details. Refunds are processed as per our Terms and Conditions.",
-=======
     a: "To cancel a subscription or request a refund, please raise a ticket in your dashboard. We will check whether your refund is valid and if it is, you will be refunded within 7 working days. No email requests.",
->>>>>>> main
   },
 ];
 
