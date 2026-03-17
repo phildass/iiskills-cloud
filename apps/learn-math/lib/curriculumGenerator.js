@@ -77,6 +77,42 @@ export const courses = [
   }
 ];
 
+export const COURSES = [
+  {
+    id: "basic",
+    title: "Basic Mathematics",
+    level: "Basic",
+    description: "Master core mathematical concepts from arithmetic to introductory algebra.",
+    moduleRange: [1, 10],
+    moduleCount: 10,
+    lessonCount: 100,
+    emoji: "🟢",
+    startModuleId: 1,
+  },
+  {
+    id: "intermediate",
+    title: "Intermediate Mathematics",
+    level: "Intermediate",
+    description: "Develop deeper mathematical fluency with calculus, probability, and linear algebra.",
+    moduleRange: [11, 20],
+    moduleCount: 10,
+    lessonCount: 100,
+    emoji: "🔵",
+    startModuleId: 11,
+  },
+  {
+    id: "advanced",
+    title: "Advanced Mathematics",
+    level: "Advanced",
+    description: "Explore the frontiers of pure and applied mathematics.",
+    moduleRange: [21, 30],
+    moduleCount: 10,
+    lessonCount: 100,
+    emoji: "🟣",
+    startModuleId: 21,
+  },
+];
+
 export const moduleTopics = [
   {
     "id": 1,

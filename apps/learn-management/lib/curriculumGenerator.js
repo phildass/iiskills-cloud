@@ -77,6 +77,42 @@ export const courses = [
   }
 ];
 
+export const COURSES = [
+  {
+    id: "basic",
+    title: "Basic Management",
+    level: "Basic",
+    description: "Build the essential skills every effective manager needs.",
+    moduleRange: [1, 10],
+    moduleCount: 10,
+    lessonCount: 100,
+    emoji: "🟢",
+    startModuleId: 1,
+  },
+  {
+    id: "intermediate",
+    title: "Intermediate Management",
+    level: "Intermediate",
+    description: "Drive performance across teams, finances, and strategic operations.",
+    moduleRange: [11, 20],
+    moduleCount: 10,
+    lessonCount: 100,
+    emoji: "🔵",
+    startModuleId: 11,
+  },
+  {
+    id: "advanced",
+    title: "Advanced Management",
+    level: "Advanced",
+    description: "Lead at the executive level with strategic vision and organizational impact.",
+    moduleRange: [21, 30],
+    moduleCount: 10,
+    lessonCount: 100,
+    emoji: "🟣",
+    startModuleId: 21,
+  },
+];
+
 export const moduleTopics = [
   {
     "id": 1,

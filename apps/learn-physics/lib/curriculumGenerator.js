@@ -77,6 +77,42 @@ export const courses = [
   }
 ];
 
+export const COURSES = [
+  {
+    id: "basic",
+    title: "Basic Physics",
+    level: "Basic",
+    description: "Master the foundational laws of motion, energy, and waves.",
+    moduleRange: [1, 10],
+    moduleCount: 10,
+    lessonCount: 100,
+    emoji: "🟢",
+    startModuleId: 1,
+  },
+  {
+    id: "intermediate",
+    title: "Intermediate Physics",
+    level: "Intermediate",
+    description: "Explore thermal physics, electricity, magnetism, and the foundations of modern physics.",
+    moduleRange: [11, 20],
+    moduleCount: 10,
+    lessonCount: 100,
+    emoji: "🔵",
+    startModuleId: 11,
+  },
+  {
+    id: "advanced",
+    title: "Advanced Physics",
+    level: "Advanced",
+    description: "Explore quantum mechanics, nuclear physics, astrophysics, and cutting-edge theory.",
+    moduleRange: [21, 30],
+    moduleCount: 10,
+    lessonCount: 100,
+    emoji: "🟣",
+    startModuleId: 21,
+  },
+];
+
 export const moduleTopics = [
   {
     "id": 1,
