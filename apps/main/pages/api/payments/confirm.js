@@ -28,7 +28,7 @@ import sendError from "../../../utils/sendError";
  * On success (Option A — user_token required):
  * - Verifies the short-lived JWT issued by /api/payments/generate-token
  * - Updates the purchases row (status='paid', razorpay fields, iiskills_ack_at)
- * - Grants an entitlement into public.entitlements (course_slug, not app_id)
+ * - Grants an entitlement into public.entitlements (both app_id and course_slug set to courseAppId)
  * - Marks profiles.is_paid_user=true and paid_at (idempotent)
  * - Sends a confirmation notification email
  */
@@ -274,7 +274,8 @@ export default async function handler(req, res) {
     const { error: entErr } = await supabase.from("entitlements").insert([
       {
         user_id,
-        course_slug: courseAppId, // uses course_slug (not app_id)
+        app_id: courseAppId, // required NOT NULL column — mirrors course_slug
+        course_slug: courseAppId, // also stored in course_slug for idempotency index
         status: "active",
         source: "razorpay",
         purchase_id: purchaseId, // links back to the purchase row
