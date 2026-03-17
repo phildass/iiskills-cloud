@@ -34,12 +34,16 @@ function getSupabaseClient() {
 /**
  * Grant app access to a user
  *
+ * When grantedVia is 'payment' or 'bundle', the record is automatically marked as
+ * a certified paid entitlement (is_certified_paid_user=true, entitlement_type='annual_paid')
+ * and expires_at defaults to one year from the current date.
+ *
  * @param {Object} params - Access grant parameters
  * @param {string} params.userId - User UUID
  * @param {string} params.appId - App identifier
  * @param {string} params.grantedVia - How access was granted: 'payment', 'bundle', 'otp', 'admin', or 'free'
  * @param {string|null} params.paymentId - Payment UUID (if granted via payment)
- * @param {Date|null} params.expiresAt - Expiration date (null for permanent)
+ * @param {string|null} params.expiresAt - Expiration ISO timestamp (null for permanent; defaults to 1 year for paid grants)
  * @returns {Promise<Object>} Access record
  */
 export async function grantAppAccess({
@@ -51,6 +55,16 @@ export async function grantAppAccess({
 }) {
   const supabase = getSupabaseClient();
 
+  const isPaidGrant = grantedVia === "payment" || grantedVia === "bundle";
+
+  // For paid grants, default expires_at to one year from now if not specified
+  let resolvedExpiresAt = expiresAt;
+  if (isPaidGrant && !resolvedExpiresAt) {
+    const oneYearFromNow = new Date();
+    oneYearFromNow.setFullYear(oneYearFromNow.getFullYear() + 1);
+    resolvedExpiresAt = oneYearFromNow.toISOString();
+  }
+
   const { data, error } = await supabase
     .from("user_app_access")
     .upsert(
@@ -59,8 +73,10 @@ export async function grantAppAccess({
         app_id: appId,
         granted_via: grantedVia,
         payment_id: paymentId,
-        expires_at: expiresAt,
+        expires_at: resolvedExpiresAt,
         is_active: true,
+        is_certified_paid_user: isPaidGrant,
+        entitlement_type: isPaidGrant ? "annual_paid" : null,
         access_granted_at: new Date().toISOString(),
       },
       {
@@ -84,21 +100,33 @@ export async function grantAppAccess({
  * Grant access to all apps in a bundle
  *
  * When a user purchases one app in a bundle, they get all apps.
- * This function:
- * 1. Identifies all apps in the bundle
- * 2. Grants access to each app
- * 3. Marks bundle apps with 'bundle' granted_via
- * 4. Logs the bundle unlock for audit trail
+ * All granted records are marked as annual paid entitlements and expire one year
+ * from the purchase date.
  *
  * @param {Object} params - Bundle access grant parameters
  * @param {string} params.userId - User UUID
  * @param {string} params.purchasedAppId - The app that was purchased
  * @param {string} params.paymentId - Payment UUID
+ * @param {string|null} params.purchaseDate - ISO timestamp of purchase (defaults to now)
  * @returns {Promise<Object>} Result with access records and bundle info
  */
-export async function grantBundleAccess({ userId, purchasedAppId, paymentId }) {
+export async function grantBundleAccess({ userId, purchasedAppId, paymentId, purchaseDate = null }) {
   const appsToUnlock = getAppsToUnlock(purchasedAppId);
   const accessRecords = [];
+
+  // Calculate expiry: one year from purchase date
+  // Validate purchaseDate is a parseable date string; fall back to now if invalid
+  let baseDate = new Date();
+  if (purchaseDate) {
+    const parsed = new Date(purchaseDate);
+    if (!isNaN(parsed.getTime())) {
+      baseDate = parsed;
+    } else {
+      console.warn(`grantBundleAccess: invalid purchaseDate "${purchaseDate}", defaulting to now`);
+    }
+  }
+  const expiresAt = new Date(baseDate);
+  expiresAt.setFullYear(expiresAt.getFullYear() + 1);
 
   console.log(`🎁 Granting bundle access for ${purchasedAppId}:`, appsToUnlock);
 
@@ -109,7 +137,7 @@ export async function grantBundleAccess({ userId, purchasedAppId, paymentId }) {
       appId,
       grantedVia,
       paymentId,
-      expiresAt: null, // Permanent access
+      expiresAt: expiresAt.toISOString(),
     });
     accessRecords.push(access);
   }
