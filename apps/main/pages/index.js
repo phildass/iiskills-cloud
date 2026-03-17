@@ -187,10 +187,9 @@ export default function Home() {
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-10">
               {freeCourses.map((course, index) => (
-                <a
+                <div
                   key={course.name}
-                  href={course.url}
-                  className="group bg-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border-2 border-green-200 hover:border-green-500 relative overflow-hidden flex flex-col"
+                  className="bg-white rounded-2xl shadow-xl border-2 border-green-200 relative overflow-hidden flex flex-col"
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
                   {/* Image Banner */}
@@ -199,7 +198,7 @@ export default function Home() {
                       src={course.image}
                       alt={`${course.tagline} – ${course.name}`}
                       fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                      className="object-cover"
                       sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     />
                     {/* Free Badge */}
@@ -208,34 +207,14 @@ export default function Home() {
                         ✨ FREE
                       </span>
                     </div>
-                    {/* Dark overlay on hover */}
-                    <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
                   </div>
 
                   {/* Card Content */}
                   <div className="p-6 flex flex-col flex-1">
-                    <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-green-600 transition-colors">
-                      {course.name}
-                    </h3>
-                    <p className="text-gray-500 text-sm mb-4 flex-1">{course.tagline}</p>
-                    <div className="inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white font-bold px-5 py-2.5 rounded-lg transition-colors text-sm self-start">
-                      Start Now
-                      <svg
-                        className="w-4 h-4 transform group-hover:translate-x-1 transition-transform"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M13 7l5 5m0 0l-5 5m5-5H6"
-                        />
-                      </svg>
-                    </div>
+                    <h3 className="text-xl font-bold text-gray-900 mb-2">{course.name}</h3>
+                    <p className="text-gray-500 text-sm flex-1">{course.tagline}</p>
                   </div>
-                </a>
+                </div>
               ))}
             </div>
 
@@ -298,10 +277,9 @@ export default function Home() {
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
               {paidCourses.map((course, index) => (
-                <a
+                <div
                   key={course.name}
-                  href={course.url}
-                  className="group bg-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border-2 border-amber-200 hover:border-amber-500 relative overflow-hidden flex flex-col"
+                  className="bg-white rounded-2xl shadow-xl border-2 border-amber-200 relative overflow-hidden flex flex-col"
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
                   {/* Image Banner */}
@@ -310,7 +288,7 @@ export default function Home() {
                       src={course.image}
                       alt={`${course.tagline} – ${course.name}`}
                       fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                      className="object-cover"
                       sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
                     />
                     {/* PRO Badge */}
@@ -322,18 +300,15 @@ export default function Home() {
                         PRO
                       </div>
                     </div>
-                    <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
                   </div>
 
                   {/* Card Content */}
                   <div className="p-5 flex flex-col flex-1">
-                    <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-amber-600 transition-colors">
-                      {course.name}
-                    </h3>
+                    <h3 className="text-lg font-bold text-gray-900 mb-2">{course.name}</h3>
                     <p className="text-gray-500 text-sm mb-4 flex-1">{course.tagline}</p>
 
                     {/* Feature Highlights */}
-                    <div className="space-y-1 mb-4 text-xs text-gray-600">
+                    <div className="space-y-1 text-xs text-gray-600">
                       <div className="flex items-center gap-1.5">
                         <svg
                           className="w-3.5 h-3.5 text-green-500 flex-shrink-0"
@@ -363,12 +338,8 @@ export default function Home() {
                         <span>Lifetime access</span>
                       </div>
                     </div>
-
-                    <div className="bg-gradient-to-r from-amber-500 to-orange-500 text-white px-4 py-2 rounded-lg font-bold text-sm text-center group-hover:from-amber-600 group-hover:to-orange-600 transition-all shadow">
-                      Enroll Now →
-                    </div>
                   </div>
-                </a>
+                </div>
               ))}
             </div>
 
