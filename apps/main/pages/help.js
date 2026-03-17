@@ -40,15 +40,15 @@ const faqs = [
   },
   {
     q: "How do I contact support?",
-    a: "You can reach us via the Contact page or email us at support@iiskills.cloud. We aim to respond within 24 business hours.",
+    a: "Raise a ticket on your dashboard and we will revert if your request is valid. No queries will be entertained if they are not legit.",
   },
   {
     q: "Are the free courses really free?",
-    a: "Yes! Our free learning apps (Mathematics, Chemistry, Geography, Physics, and Aptitude) are completely free to access — no payment or registration required.",
+    a: "Yes! Our free learning apps (Mathematics, Chemistry, Geography, Physics, and Aptitude) are completely free to access. Note: Registration is required.",
   },
   {
     q: "How do I cancel a subscription or request a refund?",
-    a: "Please contact us at support@iiskills.cloud within 7 days of purchase with your order details. Refunds are processed as per our Terms and Conditions.",
+    a: "To cancel a subscription or request a refund, please raise a ticket in your dashboard. We will check whether your refund is valid and if it is, you will be refunded within 7 working days. No email requests.",
   },
 ];
 
