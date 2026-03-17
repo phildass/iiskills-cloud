@@ -51,6 +51,22 @@ The **AI-Developer Bundle** links `learn-ai` and `learn-developer`:
 - Users pay once, get two apps
 - Bundle status is tracked in database
 
+### Certified Paid User Status
+
+When a user pays for an app or bundle, they receive **certified paid user** status for 1 year:
+
+- `is_certified_paid_user = true` on the `user_app_access` record
+- `entitlement_type = 'annual_paid'` — describes the type of access
+- `expires_at = 1 year from payment date` — auto-set for payment/bundle grants
+
+This status:
+- Is displayed as **"Paid User"** badge on the user dashboard header
+- Shows **"Paid (Annual)"** on course cards and in the entitlement history table
+- Shows the expiry date on each paid course card
+- Is displayed in the Active Enrollments section of the Achievements tab
+
+Admin-granted, OTP, or free access does **not** set these fields.
+
 ## API Reference
 
 ### Access Control Functions
@@ -127,6 +143,13 @@ const hasAccess = await hasAppAccess("user-uuid", "learn-ai");
 
 Grant access to all apps in a bundle after payment.
 
+For payment and bundle grants, `grantBundleAccess` (which calls `grantAppAccess` internally)
+automatically sets the following fields on each `user_app_access` record:
+
+- `is_certified_paid_user = true` — marks user as a certified paid user for this app
+- `entitlement_type = 'annual_paid'` — indicates 1-year paid access
+- `expires_at = 1 year from now` — unless an explicit `expiresAt` is provided
+
 ```javascript
 import { grantBundleAccess } from "@iiskills/access-control";
 
@@ -138,7 +161,7 @@ const result = await grantBundleAccess({
 
 // Returns:
 // {
-//   accessRecords: [...],
+//   accessRecords: [...],     // Each record has is_certified_paid_user=true, entitlement_type='annual_paid'
 //   bundledApps: ['learn-ai', 'learn-developer'],
 //   purchasedApp: 'learn-ai',
 //   unlockedApps: ['learn-developer']

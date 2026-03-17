@@ -96,6 +96,18 @@ export default async function handler(req, res) {
     .eq("user_id", userId)
     .order("purchased_at", { ascending: false });
 
+  // ── User App Access (certified paid user records) ──────────────────────────
+  // Fetch user_app_access records that are certified paid (annual entitlements)
+  // for display on the dashboard with expiry info and "Paid User" badge.
+  const { data: appAccessRecords } = await supabase
+    .from("user_app_access")
+    .select(
+      "id, app_id, is_active, is_certified_paid_user, entitlement_type, expires_at, granted_via, access_granted_at"
+    )
+    .eq("user_id", userId)
+    .eq("is_certified_paid_user", true)
+    .order("access_granted_at", { ascending: false });
+
   // ── Badges ─────────────────────────────────────────────────────────────────
   const { data: badges } = await supabase
     .from("user_badges")
@@ -202,6 +214,7 @@ export default async function handler(req, res) {
     purchases: purchaseList,
     purchasesTotal: purchaseList.reduce((sum, p) => sum + (p.amount_paise || 0), 0),
     entitlements: entitlementList,
+    appAccess: appAccessRecords || [],
     badges: badgeList,
     badgeCount,
     honourStudent,
