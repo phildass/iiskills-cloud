@@ -77,6 +77,42 @@ export const courses = [
   }
 ];
 
+export const COURSES = [
+  {
+    id: "basic",
+    title: "Basic Web Developer",
+    level: "Basic",
+    description: "Master the fundamentals of web development from HTML to JavaScript.",
+    moduleRange: [1, 10],
+    moduleCount: 10,
+    lessonCount: 100,
+    emoji: "🟢",
+    startModuleId: 1,
+  },
+  {
+    id: "intermediate",
+    title: "Intermediate Web Developer",
+    level: "Intermediate",
+    description: "Build dynamic applications with modern frontend and backend technologies.",
+    moduleRange: [11, 20],
+    moduleCount: 10,
+    lessonCount: 100,
+    emoji: "🔵",
+    startModuleId: 11,
+  },
+  {
+    id: "advanced",
+    title: "Advanced Web Developer",
+    level: "Advanced",
+    description: "Deploy production-grade full-stack applications with cloud and DevOps skills.",
+    moduleRange: [21, 30],
+    moduleCount: 10,
+    lessonCount: 100,
+    emoji: "🟣",
+    startModuleId: 21,
+  },
+];
+
 export const moduleTopics = [
   {
     "id": 1,
