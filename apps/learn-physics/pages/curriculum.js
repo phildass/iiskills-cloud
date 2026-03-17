@@ -1,113 +1,150 @@
+"use client";
+
+import { useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
-import { moduleTopics, COURSES } from "../lib/curriculumGenerator";
+import { getCourses, getModulesByCourse } from "../lib/curriculumGenerator";
 
-const DIFFICULTY_COLORS = {
-  Beginner: "bg-green-100 text-green-800",
-  Intermediate: "bg-blue-100 text-blue-800",
-  Advanced: "bg-purple-100 text-purple-800",
+const COURSE_COLORS = {
+  Beginner: {
+    tab: "bg-green-600 text-white",
+    tabInactive: "bg-white text-green-700 border border-green-300 hover:bg-green-50",
+    badge: "bg-green-100 text-green-800",
+    header: "bg-green-50 border-l-4 border-green-500",
+  },
+  Intermediate: {
+    tab: "bg-blue-600 text-white",
+    tabInactive: "bg-white text-blue-700 border border-blue-300 hover:bg-blue-50",
+    badge: "bg-blue-100 text-blue-800",
+    header: "bg-blue-50 border-l-4 border-blue-500",
+  },
+  Advanced: {
+    tab: "bg-purple-600 text-white",
+    tabInactive: "bg-white text-purple-700 border border-purple-300 hover:bg-purple-50",
+    badge: "bg-purple-100 text-purple-800",
+    header: "bg-purple-50 border-l-4 border-purple-500",
+  },
 };
 
 export default function Curriculum() {
-  const modulesByCourse = {
-    Basic: moduleTopics.filter((m) => m.course === "Basic"),
-    Intermediate: moduleTopics.filter((m) => m.course === "Intermediate"),
-    Advanced: moduleTopics.filter((m) => m.course === "Advanced"),
-  };
+  const courses = getCourses();
+  const [activeCourse, setActiveCourse] = useState(courses[0]?.id ?? 1);
+
+  const selectedCourse = courses.find((c) => c.id === activeCourse) ?? courses[0];
+  const modules = selectedCourse ? getModulesByCourse(selectedCourse.id) : [];
+  const colors = COURSE_COLORS[selectedCourse?.difficulty] ?? COURSE_COLORS.Beginner;
 
   return (
     <>
       <Head>
-        <title>Physics Curriculum - iiskills Physics</title>
+        <title>Physics Mastery Curriculum - Learn Physics</title>
         <meta
           name="description"
-          content="Complete Physics curriculum: 3 courses × 10 modules × 10 lessons = 300 lessons covering classical mechanics to quantum physics"
+          content="Physics Mastery: 3 courses (Basic, Intermediate, Advanced), each with 10 modules and 10 lessons."
         />
       </Head>
 
       <main className="min-h-screen bg-gray-50 py-12">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto mb-12">
-            <div className="flex items-center justify-between mb-4">
-              <h1 className="text-4xl font-bold">Physics Course Curriculum</h1>
-              <Link href="/courses" className="text-primary font-semibold hover:underline text-sm">
-                ← View Courses
-              </Link>
-            </div>
-            <p className="text-gray-600 text-lg mb-8">
-              Three structured courses from classical mechanics to advanced quantum physics — 30 modules, 10 lessons each.
-            </p>
 
-            <div className="bg-white rounded-2xl shadow p-6 mb-8">
-              <h2 className="text-xl font-semibold mb-4">Course Overview</h2>
-              <ul className="space-y-2 text-gray-700">
-                <li className="flex items-center gap-2">
-                  <span>🎓</span>
-                  <span><strong>3 Courses</strong> — Basic, Intermediate, Advanced</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <span>📚</span>
-                  <span><strong>30 Modules</strong> — 10 modules per course</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <span>📖</span>
-                  <span><strong>300 Lessons</strong> with quizzes</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <span>⏱️</span>
-                  <span><strong>Self-Paced</strong> — typically 9 months for all 3 courses</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <span>🎓</span>
-                  <span><strong>Certification Exam</strong> upon completion</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <span>🆓</span>
-                  <span><strong>Completely Free</strong> — no payment required</span>
-                </li>
-              </ul>
-            </div>
+          {/* Header */}
+          <div className="max-w-4xl mx-auto mb-10">
+            <h1 className="text-4xl font-bold mb-3">Physics Mastery Curriculum</h1>
+            <p className="text-gray-600 text-lg">
+              3 courses &bull; 30 modules &bull; 300 lessons &bull; quiz after every lesson
+            </p>
           </div>
 
-          {COURSES.map((course) => (
-            <div key={course.id} className="max-w-4xl mx-auto mb-16">
-              <div className="flex items-center gap-3 mb-4">
-                <span className="text-2xl">{course.emoji}</span>
-                <h2 className="text-2xl font-bold">{course.title}</h2>
-                <span className="text-sm text-gray-500 ml-auto">
-                  Modules {course.moduleRange[0]}–{course.moduleRange[1]}
-                </span>
+          {/* Course summary cards */}
+          <div className="max-w-5xl mx-auto mb-10 grid md:grid-cols-3 gap-6">
+            {courses.map((course) => {
+              const cc = COURSE_COLORS[course.difficulty] ?? COURSE_COLORS.Beginner;
+              return (
+                <button
+                  key={course.id}
+                  onClick={() => setActiveCourse(course.id)}
+                  className={`rounded-xl p-5 text-left shadow transition-all duration-200 ${
+                    activeCourse === course.id
+                      ? cc.tab + " shadow-lg scale-105"
+                      : "bg-white border border-gray-200 hover:shadow-md"
+                  }`}
+                >
+                  <div className="font-bold text-lg mb-1">{course.title}</div>
+                  <div className={`text-sm mb-2 ${activeCourse === course.id ? "text-white/80" : "text-gray-500"}`}>
+                    {course.subtitle}
+                  </div>
+                  <div className={`text-xs ${activeCourse === course.id ? "text-white/70" : "text-gray-400"}`}>
+                    {course.module_count} modules &bull; {course.lesson_count} lessons
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Selected course detail */}
+          {selectedCourse && (
+            <div className="max-w-5xl mx-auto">
+              <div className={`rounded-xl p-6 mb-8 ${colors.header}`}>
+                <div className="flex items-center gap-3 mb-2">
+                  <span className={`px-3 py-1 rounded-full text-sm font-semibold ${colors.badge}`}>
+                    {selectedCourse.difficulty}
+                  </span>
+                  <h2 className="text-2xl font-bold">{selectedCourse.title}: {selectedCourse.subtitle}</h2>
+                </div>
+                <p className="text-gray-700">{selectedCourse.description}</p>
               </div>
-              <p className="text-gray-600 mb-6">{course.description}</p>
-              <div className="grid sm:grid-cols-2 gap-4">
-                {(modulesByCourse[course.level] || []).map((module) => (
-                  <div
-                    key={module.id}
-                    className="bg-white rounded-xl shadow p-5 hover:shadow-md transition-shadow"
-                  >
-                    <div className="flex items-start justify-between mb-2">
-                      <span className="text-sm font-bold text-gray-400">Module {module.id}</span>
-                      <span
-                        className={`text-xs font-semibold px-2 py-0.5 rounded-full ${DIFFICULTY_COLORS[module.difficulty] || "bg-gray-100 text-gray-600"}`}
-                      >
-                        {module.difficulty}
+
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {modules.map((module) => (
+                  <div key={module.id} className="bg-white rounded-xl shadow hover:shadow-lg transition-shadow p-5 flex flex-col">
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="text-2xl">
+                        {module.difficulty === "Beginner" ? "🌱" : module.difficulty === "Intermediate" ? "🚀" : "⭐"}
+                      </span>
+                      <span className={`px-2 py-1 rounded-full text-xs font-semibold ${colors.badge}`}>
+                        Module {module.order}
                       </span>
                     </div>
-                    <h3 className="text-lg font-bold text-gray-900 mb-1">{module.title}</h3>
-                    <p className="text-gray-600 text-sm mb-4">{module.description}</p>
+                    <h3 className="text-base font-bold mb-2 flex-1">{module.title}</h3>
+                    <p className="text-gray-500 text-sm mb-4">{module.description}</p>
+                    <div className="flex items-center justify-between text-xs text-gray-400 mb-4">
+                      <span>📖 10 lessons</span>
+                      <span>⏱️ ~2.5 hrs</span>
+                    </div>
                     <Link
                       href={`/modules/${module.id}/lesson/1`}
-                      className="inline-flex items-center gap-1 text-primary font-semibold text-sm hover:underline"
+                      className={`block text-center text-sm font-semibold py-2 px-4 rounded-lg transition-colors ${colors.tab} hover:opacity-90`}
                     >
-                      Start Module {module.id} →
+                      Start Module
                     </Link>
                   </div>
                 ))}
               </div>
             </div>
-          ))}
+          )}
+
+          {/* Certification info */}
+          <div className="max-w-4xl mx-auto mt-16 bg-white rounded-xl shadow p-8">
+            <h2 className="text-2xl font-semibold mb-4">Certification Criteria</h2>
+            <div className="space-y-4 text-gray-700">
+              <div className="flex items-start gap-3">
+                <span className="text-2xl">❌</span>
+                <div><strong className="text-red-700">Below 30%:</strong> Review lessons and retry. No certificate awarded.</div>
+              </div>
+              <div className="flex items-start gap-3">
+                <span className="text-2xl">✅</span>
+                <div><strong className="text-green-700">30% – 70%:</strong> Pass! Certificate of Completion awarded.</div>
+              </div>
+              <div className="flex items-start gap-3">
+                <span className="text-2xl">🏆</span>
+                <div><strong className="text-purple-700">Above 90%:</strong> Honors! Certificate of Excellence awarded.</div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </main>
+
     </>
   );
 }

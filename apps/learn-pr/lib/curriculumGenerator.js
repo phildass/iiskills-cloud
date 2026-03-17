@@ -1,324 +1,434 @@
 /**
- * Curriculum Generator
+ * Curriculum Generator — Public Relations Professional
  *
- * Utilities for generating course structure metadata.
+ * Exports module and course metadata used by the lesson pages and curriculum page.
+ * Structure: 3 courses × 10 modules × 10 lessons = 300 lessons per app.
  */
 
+export const courses = [
+  {
+    "id": 1,
+    "slug": "basic",
+    "title": "Basic Course",
+    "subtitle": "PR Fundamentals",
+    "description": "Learn the core principles and skills of public relations.",
+    "difficulty": "Beginner",
+    "order": 1,
+    "module_ids": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "module_count": 10,
+    "lesson_count": 100
+  },
+  {
+    "id": 2,
+    "slug": "intermediate",
+    "title": "Intermediate Course",
+    "subtitle": "Modern PR Practice",
+    "description": "Deploy advanced PR tools including social media, crisis comms, and campaigns.",
+    "difficulty": "Intermediate",
+    "order": 2,
+    "module_ids": [
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "module_count": 10,
+    "lesson_count": 100
+  },
+  {
+    "id": 3,
+    "slug": "advanced",
+    "title": "Advanced Course",
+    "subtitle": "Strategic Communications",
+    "description": "Lead high-stakes communications at the executive and global level.",
+    "difficulty": "Advanced",
+    "order": 3,
+    "module_ids": [
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30
+    ],
+    "module_count": 10,
+    "lesson_count": 100
+  }
+];
+
 export const moduleTopics = [
-  // ── Basic Course (modules 1–10) ──────────────────────────────────────────
   {
-    id: 1,
-    title: "Introduction to Public Relations",
-    description: "Understanding the fundamentals of PR and its role in modern organizations",
-    order: 1,
-    course: "Basic",
-    difficulty: "Beginner",
+    "id": 1,
+    "course_id": 1,
+    "course_title": "Basic Course",
+    "title": "Introduction to Public Relations",
+    "description": "What PR is, its history, and its role in organizations",
+    "difficulty": "Beginner",
+    "order": 1,
+    "lesson_count": 10
   },
   {
-    id: 2,
-    title: "Media Relations",
-    description: "Building and maintaining effective relationships with journalists and media",
-    order: 2,
-    course: "Basic",
-    difficulty: "Beginner",
+    "id": 2,
+    "course_id": 1,
+    "course_title": "Basic Course",
+    "title": "Media Relations",
+    "description": "Building journalist relationships, media lists, and pitching",
+    "difficulty": "Beginner",
+    "order": 2,
+    "lesson_count": 10
   },
   {
-    id: 3,
-    title: "Writing Press Releases",
-    description: "Crafting compelling press releases that capture media attention",
-    order: 3,
-    course: "Basic",
-    difficulty: "Beginner",
+    "id": 3,
+    "course_id": 1,
+    "course_title": "Basic Course",
+    "title": "Press Release Writing",
+    "description": "Structure, tone, newsworthiness, and distribution",
+    "difficulty": "Beginner",
+    "order": 3,
+    "lesson_count": 10
   },
   {
-    id: 4,
-    title: "Brand Management",
-    description: "Building and protecting a strong organizational brand identity",
-    order: 4,
-    course: "Basic",
-    difficulty: "Beginner",
+    "id": 4,
+    "course_id": 1,
+    "course_title": "Basic Course",
+    "title": "Brand Building & Identity",
+    "description": "Brand narrative, voice, visual identity, and positioning",
+    "difficulty": "Beginner",
+    "order": 4,
+    "lesson_count": 10
   },
   {
-    id: 5,
-    title: "PR Writing & Storytelling",
-    description:
-      "Developing compelling narratives and writing across PR formats including pitches, bios, and feature stories",
-    order: 5,
-    course: "Basic",
-    difficulty: "Beginner",
+    "id": 5,
+    "course_id": 1,
+    "course_title": "Basic Course",
+    "title": "Communications Planning",
+    "description": "Objectives, audience, key messages, and timelines",
+    "difficulty": "Beginner",
+    "order": 5,
+    "lesson_count": 10
   },
   {
-    id: 6,
-    title: "Event PR & Publicity",
-    description: "Planning and promoting events to maximize media coverage and audience engagement",
-    order: 6,
-    course: "Basic",
-    difficulty: "Beginner",
+    "id": 6,
+    "course_id": 1,
+    "course_title": "Basic Course",
+    "title": "Storytelling for PR",
+    "description": "Narrative frameworks, emotional appeal, and human interest",
+    "difficulty": "Beginner",
+    "order": 6,
+    "lesson_count": 10
   },
   {
-    id: 7,
-    title: "Internal Communications",
-    description:
-      "Keeping employees informed, engaged, and aligned through effective internal messaging",
-    order: 7,
-    course: "Basic",
-    difficulty: "Beginner",
+    "id": 7,
+    "course_id": 1,
+    "course_title": "Basic Course",
+    "title": "Pitching to Media",
+    "description": "Hooks, angles, follow-ups, and building editorial interest",
+    "difficulty": "Beginner",
+    "order": 7,
+    "lesson_count": 10
   },
   {
-    id: 8,
-    title: "Corporate Social Responsibility",
-    description:
-      "Communicating CSR initiatives and building trust through purpose-driven organizational messaging",
-    order: 8,
-    course: "Basic",
-    difficulty: "Beginner",
+    "id": 8,
+    "course_id": 1,
+    "course_title": "Basic Course",
+    "title": "Internal Communications",
+    "description": "Employee engagement, intranet content, and change comms",
+    "difficulty": "Beginner",
+    "order": 8,
+    "lesson_count": 10
   },
   {
-    id: 9,
-    title: "PR Ethics & Professionalism",
-    description:
-      "Navigating ethical dilemmas, industry standards, and professional responsibilities in PR",
-    order: 9,
-    course: "Basic",
-    difficulty: "Beginner",
+    "id": 9,
+    "course_id": 1,
+    "course_title": "Basic Course",
+    "title": "PR Writing Styles",
+    "description": "Tone of voice, clarity, AP style, and audience adaptation",
+    "difficulty": "Beginner",
+    "order": 9,
+    "lesson_count": 10
   },
   {
-    id: 10,
-    title: "PR Basics for Small Business",
-    description:
-      "Cost-effective PR strategies for startups and small businesses building visibility from scratch",
-    order: 10,
-    course: "Basic",
-    difficulty: "Beginner",
-  },
-
-  // ── Intermediate Course (modules 11–20) ──────────────────────────────────
-  {
-    id: 11,
-    title: "Crisis Communication",
-    description: "Managing communications during organizational crises and emergencies",
-    order: 11,
-    course: "Intermediate",
-    difficulty: "Intermediate",
+    "id": 10,
+    "course_id": 1,
+    "course_title": "Basic Course",
+    "title": "Event PR & Launch Communications",
+    "description": "Product launches, press events, and media coverage",
+    "difficulty": "Beginner",
+    "order": 10,
+    "lesson_count": 10
   },
   {
-    id: 12,
-    title: "Social Media PR",
-    description: "Leveraging social media platforms for effective public relations",
-    order: 12,
-    course: "Intermediate",
-    difficulty: "Intermediate",
+    "id": 11,
+    "course_id": 2,
+    "course_title": "Intermediate Course",
+    "title": "Crisis Communications",
+    "description": "Response frameworks, dark sites, spokesperson training",
+    "difficulty": "Intermediate",
+    "order": 1,
+    "lesson_count": 10
   },
   {
-    id: 13,
-    title: "Stakeholder Management",
-    description: "Identifying and engaging key stakeholders to build lasting relationships",
-    order: 13,
-    course: "Intermediate",
-    difficulty: "Intermediate",
+    "id": 12,
+    "course_id": 2,
+    "course_title": "Intermediate Course",
+    "title": "Social Media PR",
+    "description": "Platform strategy, community management, and social listening",
+    "difficulty": "Intermediate",
+    "order": 2,
+    "lesson_count": 10
   },
   {
-    id: 14,
-    title: "Content Marketing for PR",
-    description:
-      "Integrating content strategy with PR to attract coverage and build organic brand authority",
-    order: 14,
-    course: "Intermediate",
-    difficulty: "Intermediate",
+    "id": 13,
+    "course_id": 2,
+    "course_title": "Intermediate Course",
+    "title": "Influencer Relations",
+    "description": "Identifying, vetting, briefing, and measuring influencer partnerships",
+    "difficulty": "Intermediate",
+    "order": 3,
+    "lesson_count": 10
   },
   {
-    id: 15,
-    title: "Influencer Relations",
-    description:
-      "Identifying, engaging, and managing influencer partnerships to amplify brand stories",
-    order: 15,
-    course: "Intermediate",
-    difficulty: "Intermediate",
+    "id": 14,
+    "course_id": 2,
+    "course_title": "Intermediate Course",
+    "title": "Content Marketing for PR",
+    "description": "Thought leadership, blog strategy, and earned media amplification",
+    "difficulty": "Intermediate",
+    "order": 4,
+    "lesson_count": 10
   },
   {
-    id: 16,
-    title: "PR Research & Insights",
-    description:
-      "Using audience research, media monitoring, and competitive analysis to inform PR strategy",
-    order: 16,
-    course: "Intermediate",
-    difficulty: "Intermediate",
+    "id": 15,
+    "course_id": 2,
+    "course_title": "Intermediate Course",
+    "title": "Digital PR Tools & Analytics",
+    "description": "Monitoring tools, coverage tracking, and PR metrics",
+    "difficulty": "Intermediate",
+    "order": 5,
+    "lesson_count": 10
   },
   {
-    id: 17,
-    title: "Community Relations",
-    description:
-      "Building goodwill and lasting partnerships with local communities and interest groups",
-    order: 17,
-    course: "Intermediate",
-    difficulty: "Intermediate",
+    "id": 16,
+    "course_id": 2,
+    "course_title": "Intermediate Course",
+    "title": "Stakeholder Engagement",
+    "description": "Mapping stakeholders, engagement strategies, and relationship management",
+    "difficulty": "Intermediate",
+    "order": 6,
+    "lesson_count": 10
   },
   {
-    id: 18,
-    title: "Government & Public Affairs",
-    description:
-      "Engaging with policy-makers, regulators, and government bodies to shape favorable conditions",
-    order: 18,
-    course: "Intermediate",
-    difficulty: "Intermediate",
+    "id": 17,
+    "course_id": 2,
+    "course_title": "Intermediate Course",
+    "title": "PR Campaign Planning",
+    "description": "Research, objectives, tactics, budget, and evaluation",
+    "difficulty": "Intermediate",
+    "order": 7,
+    "lesson_count": 10
   },
   {
-    id: 19,
-    title: "Integrated Communications",
-    description:
-      "Aligning PR with marketing, advertising, and social media for a unified brand voice",
-    order: 19,
-    course: "Intermediate",
-    difficulty: "Intermediate",
+    "id": 18,
+    "course_id": 2,
+    "course_title": "Intermediate Course",
+    "title": "Measurement & Evaluation in PR",
+    "description": "Barcelona Principles, AVE debate, and outcome measurement",
+    "difficulty": "Intermediate",
+    "order": 8,
+    "lesson_count": 10
   },
   {
-    id: 20,
-    title: "Reputation Management",
-    description:
-      "Proactively building and protecting organizational reputation across all channels",
-    order: 20,
-    course: "Intermediate",
-    difficulty: "Intermediate",
-  },
-
-  // ── Advanced Course (modules 21–30) ──────────────────────────────────────
-  {
-    id: 21,
-    title: "PR Campaign Strategy",
-    description: "Planning and executing strategic PR campaigns from concept to completion",
-    order: 21,
-    course: "Advanced",
-    difficulty: "Advanced",
+    "id": 19,
+    "course_id": 2,
+    "course_title": "Intermediate Course",
+    "title": "Corporate Social Responsibility",
+    "description": "CSR strategy, purpose-led PR, and ESG communications",
+    "difficulty": "Intermediate",
+    "order": 9,
+    "lesson_count": 10
   },
   {
-    id: 22,
-    title: "Digital PR & SEO",
-    description: "Integrating digital strategies and SEO into modern PR practice",
-    order: 22,
-    course: "Advanced",
-    difficulty: "Advanced",
+    "id": 20,
+    "course_id": 2,
+    "course_title": "Intermediate Course",
+    "title": "Multicultural & Inclusive PR",
+    "description": "Diversity in communications, inclusive messaging, and cultural sensitivity",
+    "difficulty": "Intermediate",
+    "order": 10,
+    "lesson_count": 10
   },
   {
-    id: 23,
-    title: "PR Measurement & Analytics",
-    description: "Measuring PR impact and demonstrating value through data and analytics",
-    order: 23,
-    course: "Advanced",
-    difficulty: "Advanced",
+    "id": 21,
+    "course_id": 3,
+    "course_title": "Advanced Course",
+    "title": "C-Suite Communications",
+    "description": "CEO profile building, executive visibility, and thought leadership",
+    "difficulty": "Advanced",
+    "order": 1,
+    "lesson_count": 10
   },
   {
-    id: 24,
-    title: "Global PR & Cross-Cultural Communication",
-    description:
-      "Running international PR campaigns that resonate across languages, cultures, and markets",
-    order: 24,
-    course: "Advanced",
-    difficulty: "Advanced",
+    "id": 22,
+    "course_id": 3,
+    "course_title": "Advanced Course",
+    "title": "Investor Relations",
+    "description": "Financial communications, analyst briefings, and IR strategy",
+    "difficulty": "Advanced",
+    "order": 2,
+    "lesson_count": 10
   },
   {
-    id: 25,
-    title: "PR Technology & AI Tools",
-    description:
-      "Leveraging AI-powered tools, media databases, and automation to scale PR operations",
-    order: 25,
-    course: "Advanced",
-    difficulty: "Advanced",
+    "id": 23,
+    "course_id": 3,
+    "course_title": "Advanced Course",
+    "title": "Reputation Management",
+    "description": "Reputation audits, trust building, and long-term brand protection",
+    "difficulty": "Advanced",
+    "order": 3,
+    "lesson_count": 10
   },
   {
-    id: 26,
-    title: "Executive Communication Coaching",
-    description:
-      "Preparing executives for media interviews, keynotes, and high-stakes public appearances",
-    order: 26,
-    course: "Advanced",
-    difficulty: "Advanced",
+    "id": 24,
+    "course_id": 3,
+    "course_title": "Advanced Course",
+    "title": "Government & Public Affairs",
+    "description": "Lobbying, policy engagement, regulatory communications",
+    "difficulty": "Advanced",
+    "order": 4,
+    "lesson_count": 10
   },
   {
-    id: 27,
-    title: "Corporate Communications Leadership",
-    description:
-      "Leading a corporate communications function — team structure, budgeting, and board reporting",
-    order: 27,
-    course: "Advanced",
-    difficulty: "Advanced",
+    "id": 25,
+    "course_id": 3,
+    "course_title": "Advanced Course",
+    "title": "International PR",
+    "description": "Global campaigns, cultural adaptation, and international media",
+    "difficulty": "Advanced",
+    "order": 5,
+    "lesson_count": 10
   },
   {
-    id: 28,
-    title: "PR Agency Management",
-    description:
-      "Running a PR agency or consultancy — client management, pitching, and business development",
-    order: 28,
-    course: "Advanced",
-    difficulty: "Advanced",
+    "id": 26,
+    "course_id": 3,
+    "course_title": "Advanced Course",
+    "title": "PR in the Digital Age",
+    "description": "SEO for PR, digital newsrooms, and AI-assisted communications",
+    "difficulty": "Advanced",
+    "order": 6,
+    "lesson_count": 10
   },
   {
-    id: 29,
-    title: "Thought Leadership & Personal Branding",
-    description: "Establishing executives and organizations as credible voices in their industry",
-    order: 29,
-    course: "Advanced",
-    difficulty: "Advanced",
+    "id": 27,
+    "course_id": 3,
+    "course_title": "Advanced Course",
+    "title": "Data-Driven PR",
+    "description": "Audience insights, sentiment analysis, and predictive PR",
+    "difficulty": "Advanced",
+    "order": 7,
+    "lesson_count": 10
   },
   {
-    id: 30,
-    title: "PR Capstone Project",
-    description:
-      "Designing and presenting a comprehensive PR campaign strategy for a real-world brief",
-    order: 30,
-    course: "Advanced",
-    difficulty: "Advanced",
+    "id": 28,
+    "course_id": 3,
+    "course_title": "Advanced Course",
+    "title": "Integrated Communications",
+    "description": "PR, marketing, and advertising alignment and integration",
+    "difficulty": "Advanced",
+    "order": 8,
+    "lesson_count": 10
   },
+  {
+    "id": 29,
+    "course_id": 3,
+    "course_title": "Advanced Course",
+    "title": "PR Leadership & Agency Management",
+    "description": "Client management, team leadership, and growing a PR practice",
+    "difficulty": "Advanced",
+    "order": 9,
+    "lesson_count": 10
+  },
+  {
+    "id": 30,
+    "course_id": 3,
+    "course_title": "Advanced Course",
+    "title": "Future of PR",
+    "description": "AI, automation, emerging media, and the evolving PR landscape",
+    "difficulty": "Advanced",
+    "order": 10,
+    "lesson_count": 10
+  }
 ];
 
-export const COURSES = [
-  {
-    id: "basic",
-    title: "Basic PR",
-    level: "Basic",
-    description:
-      "Learn PR fundamentals — media relations, press releases, brand management, and ethical practice",
-    moduleRange: [1, 10],
-    moduleCount: 10,
-    lessonCount: 100,
-    color: "green",
-    emoji: "🟢",
-    startModuleId: 1,
-  },
-  {
-    id: "intermediate",
-    title: "Intermediate PR",
-    level: "Intermediate",
-    description:
-      "Master crisis communication, stakeholder management, influencer relations, and integrated campaigns",
-    moduleRange: [11, 20],
-    moduleCount: 10,
-    lessonCount: 100,
-    color: "blue",
-    emoji: "🔵",
-    startModuleId: 11,
-  },
-  {
-    id: "advanced",
-    title: "Advanced PR",
-    level: "Advanced",
-    description:
-      "Lead strategic PR campaigns, global communications, and agency or corporate PR functions",
-    moduleRange: [21, 30],
-    moduleCount: 10,
-    lessonCount: 100,
-    color: "purple",
-    emoji: "🟣",
-    startModuleId: 21,
-  },
-];
+/**
+ * Get all modules
+ */
+export function getAllModules() {
+  return moduleTopics;
+}
+
+/**
+ * Get all courses
+ */
+export function getCourses() {
+  return courses;
+}
+
+/**
+ * Get a course by slug
+ */
+export function getCourseBySlug(slug) {
+  return courses.find((c) => c.slug === slug);
+}
+
+/**
+ * Get modules belonging to a specific course (by course id)
+ */
+export function getModulesByCourse(courseId) {
+  return moduleTopics.filter((m) => m.course_id === courseId);
+}
+
+/**
+ * Get module by ID
+ */
+export function getModuleById(id) {
+  return moduleTopics.find((m) => m.id === Number(id));
+}
+
+/**
+ * Get modules by difficulty level
+ */
+export function getModulesByLevel(level) {
+  return moduleTopics.filter((m) => m.difficulty === level);
+}
 
 /**
  * Generate lesson metadata for a module
  */
 export function generateLessonMetadata(moduleId, lessonNumber) {
   return {
-    id: (moduleId - 1) * 10 + lessonNumber,
-    module_id: moduleId,
+    id: (Number(moduleId) - 1) * 10 + lessonNumber,
+    module_id: Number(moduleId),
     title: `Lesson ${lessonNumber}`,
     order: lessonNumber,
     duration_minutes: 15,
@@ -338,36 +448,4 @@ export function generateQuizTemplate() {
       correct_answer: 0,
       explanation: "Explanation here",
     }));
-}
-
-/**
- * Get module by ID
- */
-export function getModuleById(id) {
-  return moduleTopics.find((m) => m.id === id);
-}
-
-/**
- * Get all modules
- */
-export function getAllModules() {
-  return moduleTopics;
-}
-
-/**
- * Get modules filtered by course level (Basic / Intermediate / Advanced)
- */
-export function getModulesByCourse(courseLevel) {
-  return moduleTopics.filter((m) => m.course === courseLevel);
-}
-
-/**
- * Get all modules grouped by course level
- */
-export function getContentByLevel() {
-  return {
-    Basic: getModulesByCourse("Basic"),
-    Intermediate: getModulesByCourse("Intermediate"),
-    Advanced: getModulesByCourse("Advanced"),
-  };
 }
