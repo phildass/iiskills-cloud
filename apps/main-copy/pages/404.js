@@ -79,10 +79,10 @@ export default function Custom404() {
                 ℹ️ About Us
               </Link>
               <Link
-                href="/contact"
+                href="/dashboard"
                 className="bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 px-6 rounded-lg transition shadow-md hover:shadow-lg"
               >
-                📧 Contact
+                🎛️ Dashboard
               </Link>
             </div>
           </div>
@@ -106,10 +106,10 @@ export default function Custom404() {
           {/* Additional Info */}
           <p className="text-gray-500 text-sm">
             If you believe this is an error, please{" "}
-            <Link href="/contact" className="text-primary hover:underline font-semibold">
-              contact us
-            </Link>
-            .
+            <Link href="/dashboard" className="text-primary hover:underline font-semibold">
+              raise a support ticket
+            </Link>{" "}
+            via your dashboard.
           </p>
         </div>
       </main>

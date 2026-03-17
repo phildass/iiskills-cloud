@@ -106,12 +106,12 @@ export default function Shared404({
           <p className="text-gray-500 text-sm">
             If you believe this is an error, please{" "}
             <Link
-              href="https://iiskills.cloud/contact"
+              href="https://iiskills.cloud/dashboard"
               className="text-primary hover:underline font-semibold"
             >
-              contact us
-            </Link>
-            .
+              raise a support ticket
+            </Link>{" "}
+            via your dashboard.
           </p>
         </div>
       </main>

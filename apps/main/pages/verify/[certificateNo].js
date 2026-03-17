@@ -145,10 +145,11 @@ export default function VerifyCertificate() {
               </p>
               <p className="text-sm text-gray-500">
                 Please check the certificate number and try again. If you believe this is an error,
-                please contact us at{" "}
-                <a href="mailto:info@iiskills.cloud" className="text-primary hover:underline">
-                  info@iiskills.cloud
+                please raise a support ticket via your{" "}
+                <a href="/dashboard" className="text-primary hover:underline">
+                  Dashboard
                 </a>
+                .
               </p>
             </div>
           </div>

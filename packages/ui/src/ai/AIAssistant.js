@@ -221,7 +221,7 @@ export default function AIAssistant() {
       lowerQuestion.includes("email")
     ) {
       setConsecutiveFailures(0);
-      return "For support, you can reach us at info@iiskills.cloud. We're here to help with any questions about courses, registration, payments, or technical issues. You can also check the About page for more contact information.";
+      return "For support, please raise a ticket directly from your Dashboard. Log in and navigate to the Support section to submit your query. We aim to respond within 24 business hours.";
     }
 
     // Privacy and Terms

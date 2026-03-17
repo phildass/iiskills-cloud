@@ -40,7 +40,7 @@ const faqs = [
   },
   {
     q: "How do I contact support?",
-    a: "You can reach us via the Contact page or email us at support@iiskills.cloud. We aim to respond within 24 business hours.",
+    a: "You can raise a support ticket directly from your Dashboard. Log in and navigate to the Support section of your dashboard to submit a ticket. We aim to respond within 24 business hours.",
   },
   {
     q: "Are the free courses really free?",
@@ -48,7 +48,7 @@ const faqs = [
   },
   {
     q: "How do I cancel a subscription or request a refund?",
-    a: "Please contact us at support@iiskills.cloud within 7 days of purchase with your order details. Refunds are processed as per our Terms and Conditions.",
+    a: "Please raise a support ticket via your Dashboard within 7 days of purchase with your order details. Refunds are processed as per our Terms and Conditions.",
   },
 ];
 
@@ -82,10 +82,10 @@ export default function Help() {
         <div className="mt-12 bg-blue-50 border border-blue-200 rounded-lg p-6 text-center">
           <p className="text-gray-700 mb-4">Still have questions? We&apos;re here to help.</p>
           <Link
-            href="/contact"
+            href="/dashboard"
             className="inline-block bg-primary text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition font-bold"
           >
-            Contact Us
+            Raise a Support Ticket
           </Link>
         </div>
       </main>
