@@ -60,14 +60,20 @@ export default async function handler(req, res) {
   // Run admin check and entitlement check in parallel to minimise DB round trips.
   // If the user is an admin, return full access immediately without checking entitlements.
   const now = new Date().toISOString();
+
+  // Check entitlements by BOTH app_id (admin/bundle grants) AND course_slug (Razorpay payment
+  // grants written by /api/payments/confirm). This ensures either grant path is recognised.
+  const bundleId = "ai-developer-bundle";
   const [profileResult, entitlementResult] = await Promise.all([
     supabase.from("profiles").select("is_admin").eq("id", user.id).maybeSingle(),
     supabase
       .from("entitlements")
       .select("id, status, expires_at")
       .eq("user_id", user.id)
-      .in("app_id", [appId, "ai-developer-bundle"])
       .eq("status", "active")
+      .or(
+        `app_id.in.(${appId},${bundleId}),course_slug.in.(${appId},${bundleId})`
+      )
       .or(`expires_at.is.null,expires_at.gt.${now}`)
       .order("purchased_at", { ascending: false })
       .limit(1)
@@ -88,31 +94,38 @@ export default async function handler(req, res) {
 
   if (error) {
     console.error("[entitlement API] DB error:", error.message);
-    // Fall back to checking user_app_access table (legacy)
-    const { data: legacyAccess } = await supabase
-      .from("user_app_access")
-      .select("id, expires_at")
-      .eq("user_id", user.id)
-      .eq("app_id", appId)
-      .eq("is_active", true)
-      .or(`expires_at.is.null,expires_at.gt.${now}`)
-      .limit(1)
-      .maybeSingle();
-
-    if (legacyAccess) {
-      return res.status(200).json({
-        authenticated: true,
-        entitled: true,
-        expiresAt: legacyAccess.expires_at || null,
-      });
-    }
-
-    return res.status(200).json({ authenticated: true, entitled: false, expiresAt: null });
   }
 
-  return res.status(200).json({
-    authenticated: true,
-    entitled: !!entitlement,
-    expiresAt: entitlement?.expires_at || null,
-  });
+  // Entitlement found in the entitlements table — user has access.
+  if (entitlement) {
+    return res.status(200).json({
+      authenticated: true,
+      entitled: true,
+      expiresAt: entitlement.expires_at || null,
+    });
+  }
+
+  // Fallback: check user_app_access table.
+  // This covers grants made via grantAppAccess() / dbAccessManager (e.g. admin dashboard
+  // grants, bundle grants via the access-control package) which write to user_app_access
+  // rather than the entitlements table.
+  const { data: appAccess } = await supabase
+    .from("user_app_access")
+    .select("id, expires_at")
+    .eq("user_id", user.id)
+    .eq("app_id", appId)
+    .eq("is_active", true)
+    .or(`expires_at.is.null,expires_at.gt.${now}`)
+    .limit(1)
+    .maybeSingle();
+
+  if (appAccess) {
+    return res.status(200).json({
+      authenticated: true,
+      entitled: true,
+      expiresAt: appAccess.expires_at || null,
+    });
+  }
+
+  return res.status(200).json({ authenticated: true, entitled: false, expiresAt: null });
 }

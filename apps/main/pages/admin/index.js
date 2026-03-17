@@ -10,77 +10,49 @@ import { useAdminProtectedPage, AccessDenied } from "../../components/AdminProte
 export default function AdminDashboard() {
   const { ready, denied } = useAdminProtectedPage();
   const [stats, setStats] = useState({
+    totalSites: 0,
     totalCourses: 0,
     totalUsers: 0,
     totalModules: 0,
     totalLessons: 0,
   });
-  const [siteCounts, setSiteCounts] = useState({});
+  // siteStats maps subdomain → { modules, lessons } from the filesystem scan
+  const [siteStats, setSiteStats] = useState({});
   const [openTickets, setOpenTickets] = useState(0);
 
   useEffect(() => {
     if (ready) {
-      fetchStats();
-      fetchSiteCounts();
+      fetchContentStats();
       fetchOpenTickets();
     }
   }, [ready]);
 
-  const fetchStats = async () => {
+  /**
+   * Fetch content statistics from the centralized content-stats API.
+   * Counts are derived from the `content/` directory of the repository
+   * (real filesystem scan), not from Supabase tables.
+   */
+  const fetchContentStats = async () => {
     try {
-      // Fetch aggregated content from all sources
-      const [coursesRes, modulesRes, lessonsRes] = await Promise.all([
-        fetch("/api/admin/content?type=courses").catch(() => ({ ok: false })),
-        fetch("/api/admin/content?type=modules").catch(() => ({ ok: false })),
-        fetch("/api/admin/content?type=lessons").catch(() => ({ ok: false })),
-      ]);
-
-      let courseCount = 0;
-      let moduleCount = 0;
-      let lessonCount = 0;
-
-      if (coursesRes.ok) {
-        const data = await coursesRes.json();
-        courseCount = data.contents?.length || 0;
-      }
-
-      if (modulesRes.ok) {
-        const data = await modulesRes.json();
-        moduleCount = data.contents?.length || 0;
-      }
-
-      if (lessonsRes.ok) {
-        const data = await lessonsRes.json();
-        lessonCount = data.contents?.length || 0;
-      }
-
-      setStats({
-        totalCourses: courseCount,
-        totalUsers: 0, // Users count not fetched here (requires service role endpoint)
-        totalModules: moduleCount,
-        totalLessons: lessonCount,
-      });
-    } catch (error) {
-      console.error("Error fetching stats:", error);
-    }
-  };
-
-  const fetchSiteCounts = async () => {
-    try {
-      // Fetch aggregated courses to get counts per site
-      const response = await fetch("/api/admin/content?type=courses");
-      const data = await response.json();
-
-      if (response.ok && data.contents) {
-        const counts = {};
-        data.contents.forEach((course) => {
-          const subdomain = course.sourceApp || course.subdomain || "main";
-          counts[subdomain] = (counts[subdomain] || 0) + 1;
+      const response = await fetch("/api/admin/content-stats").catch(() => ({ ok: false }));
+      if (response.ok) {
+        const data = await response.json();
+        setStats({
+          totalSites: data.totalSites || 0,
+          totalCourses: data.totalCourses || 0,
+          totalUsers: 0, // Users count requires a separate service-role endpoint
+          totalModules: data.totalModules || 0,
+          totalLessons: data.totalLessons || 0,
         });
-        setSiteCounts(counts);
+        // Build per-site lookup for the site cards
+        const siteLookup = {};
+        (data.bySite || []).forEach(({ site, modules, lessons }) => {
+          siteLookup[site] = { modules, lessons };
+        });
+        setSiteStats(siteLookup);
       }
     } catch (error) {
-      console.error("Error fetching site counts:", error);
+      console.error("Error fetching content stats:", error);
     }
   };
 
@@ -119,8 +91,19 @@ export default function AdminDashboard() {
           Manage all iiskills.cloud sites and content from one central location
         </p>
 
-        {/* Statistics Cards */}
+        {/* Statistics Cards — counts are sourced from the repository filesystem */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+          <div className="bg-gradient-to-br from-teal-500 to-teal-600 rounded-lg shadow-lg p-6 text-white">
+            <div className="flex justify-between items-start">
+              <div>
+                <h3 className="text-sm font-semibold opacity-90 mb-1">Sites</h3>
+                <p className="text-4xl font-bold">{stats.totalSites}</p>
+              </div>
+              <div className="text-4xl opacity-80" aria-hidden="true">🌐</div>
+            </div>
+            <p className="text-xs opacity-75 mt-3">Active learn-* apps</p>
+          </div>
+
           <div className="bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg shadow-lg p-6 text-white">
             <div className="flex justify-between items-start">
               <div>
@@ -130,17 +113,6 @@ export default function AdminDashboard() {
               <div className="text-4xl opacity-80">📚</div>
             </div>
             <p className="text-xs opacity-75 mt-3">Across all sites</p>
-          </div>
-
-          <div className="bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg shadow-lg p-6 text-white">
-            <div className="flex justify-between items-start">
-              <div>
-                <h3 className="text-sm font-semibold opacity-90 mb-1">Total Users</h3>
-                <p className="text-4xl font-bold">{stats.totalUsers}</p>
-              </div>
-              <div className="text-4xl opacity-80">👥</div>
-            </div>
-            <p className="text-xs opacity-75 mt-3">Registered accounts</p>
           </div>
 
           <div className="bg-gradient-to-br from-green-500 to-green-600 rounded-lg shadow-lg p-6 text-white">
@@ -283,8 +255,7 @@ export default function AdminDashboard() {
           </p>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
             {ALL_SITES.map((site) => {
-              const courseCount = siteCounts[site.subdomain] || 0;
-              const isOnline = true; // Could be implemented with a health check
+              const siteStat = siteStats[site.subdomain] || { modules: 0, lessons: 0 };
 
               return (
                 <div
@@ -293,22 +264,20 @@ export default function AdminDashboard() {
                 >
                   <div className="flex justify-between items-start mb-3">
                     <h4 className="font-bold text-lg text-gray-800">{site.name}</h4>
-                    <span
-                      className={`text-xs px-2 py-1 rounded-full font-semibold ${
-                        isOnline ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
-                      }`}
-                    >
-                      {isOnline ? "Online" : "Offline"}
+                    <span className="text-xs px-2 py-1 rounded-full font-semibold bg-green-100 text-green-800">
+                      Online
                     </span>
                   </div>
                   <p className="text-xs text-gray-500 mb-4">{site.subdomain}</p>
 
                   <div className="mb-4 space-y-1">
                     <div className="flex items-center text-sm text-gray-600">
-                      <span className="mr-2">📚</span>
-                      <span>
-                        {courseCount} {courseCount === 1 ? "Course" : "Courses"}
-                      </span>
+                      <span className="mr-2">📋</span>
+                      <span>{siteStat.modules} Modules</span>
+                    </div>
+                    <div className="flex items-center text-sm text-gray-600">
+                      <span className="mr-2">📖</span>
+                      <span>{siteStat.lessons} Lessons</span>
                     </div>
                   </div>
 
