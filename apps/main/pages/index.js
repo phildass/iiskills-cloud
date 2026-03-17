@@ -186,11 +186,10 @@ export default function Home() {
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-10">
-              {freeCourses.map((course, index) => (
+              {freeCourses.map((course) => (
                 <div
                   key={course.name}
                   className="bg-white rounded-2xl shadow-xl border-2 border-green-200 relative overflow-hidden flex flex-col"
-                  style={{ animationDelay: `${index * 100}ms` }}
                 >
                   {/* Image Banner */}
                   <div className="relative h-48 w-full overflow-hidden rounded-t-2xl">
@@ -276,11 +275,10 @@ export default function Home() {
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-              {paidCourses.map((course, index) => (
+              {paidCourses.map((course) => (
                 <div
                   key={course.name}
                   className="bg-white rounded-2xl shadow-xl border-2 border-amber-200 relative overflow-hidden flex flex-col"
-                  style={{ animationDelay: `${index * 100}ms` }}
                 >
                   {/* Image Banner */}
                   <div className="relative h-44 w-full overflow-hidden rounded-t-2xl">
