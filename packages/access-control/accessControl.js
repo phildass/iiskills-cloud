@@ -171,7 +171,14 @@ export function userHasAccess(user, appId) {
     return false;
   }
 
-  // Check 3: Look for active access record
+  // Check 3: Admin users have unrestricted access to all content.
+  // The is_admin flag is stored in the profiles table and checked centrally here
+  // so individual app logic never needs to implement its own admin bypass.
+  if (user.is_admin === true) {
+    return true;
+  }
+
+  // Check 4: Look for active access record
   if (!user.app_access || !Array.isArray(user.app_access)) {
     return false;
   }
