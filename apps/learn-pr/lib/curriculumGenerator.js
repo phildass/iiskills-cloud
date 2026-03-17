@@ -77,6 +77,42 @@ export const courses = [
   }
 ];
 
+export const COURSES = [
+  {
+    id: "basic",
+    title: "Basic PR",
+    level: "Basic",
+    description: "Learn the core principles and skills of public relations.",
+    moduleRange: [1, 10],
+    moduleCount: 10,
+    lessonCount: 100,
+    emoji: "🟢",
+    startModuleId: 1,
+  },
+  {
+    id: "intermediate",
+    title: "Intermediate PR",
+    level: "Intermediate",
+    description: "Deploy advanced PR tools including social media, crisis comms, and campaigns.",
+    moduleRange: [11, 20],
+    moduleCount: 10,
+    lessonCount: 100,
+    emoji: "🔵",
+    startModuleId: 11,
+  },
+  {
+    id: "advanced",
+    title: "Advanced PR",
+    level: "Advanced",
+    description: "Lead high-stakes communications at the executive and global level.",
+    moduleRange: [21, 30],
+    moduleCount: 10,
+    lessonCount: 100,
+    emoji: "🟣",
+    startModuleId: 21,
+  },
+];
+
 export const moduleTopics = [
   {
     "id": 1,
