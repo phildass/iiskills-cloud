@@ -434,3 +434,80 @@ describe("entitlement display logic", () => {
     });
   });
 });
+
+// ── Admin bypass: dashboard API paidCourseSlugs logic ────────────────────────
+
+describe("dashboard API admin bypass — paidCourseSlugs", () => {
+  const ALL_PAID_APP_IDS = ["learn-ai", "learn-developer", "learn-management", "learn-pr"];
+
+  /**
+   * Mirrors the paidCourseSlugs derivation logic from apps/main/pages/api/dashboard.js.
+   * When isAdmin is true, all paid apps are returned regardless of purchases/entitlements.
+   */
+  function derivePaidCourseSlugsWithAdminBypass({ isAdmin, purchases, entitlements }) {
+    if (isAdmin) {
+      return [...ALL_PAID_APP_IDS];
+    }
+    const nowIso = new Date().toISOString();
+    const purchaseSlugs = [...new Set((purchases || []).map((p) => p.course_slug))];
+    const activeEntitlements = (entitlements || []).filter(
+      (e) => e.status === "active" && (!e.expires_at || e.expires_at > nowIso)
+    );
+    const fromEntitlements = activeEntitlements
+      .flatMap((e) =>
+        e.app_id === "ai-developer-bundle" ? ["learn-ai", "learn-developer"] : [e.app_id]
+      )
+      .filter((slug) => !purchaseSlugs.includes(slug));
+    return [...new Set([...purchaseSlugs, ...fromEntitlements])];
+  }
+
+  it("admin with no purchases gets all paid courses", () => {
+    const slugs = derivePaidCourseSlugsWithAdminBypass({
+      isAdmin: true,
+      purchases: [],
+      entitlements: [],
+    });
+    expect(slugs).toEqual(ALL_PAID_APP_IDS);
+  });
+
+  it("admin with some purchases still gets all paid courses", () => {
+    const slugs = derivePaidCourseSlugsWithAdminBypass({
+      isAdmin: true,
+      purchases: [{ course_slug: "learn-ai" }],
+      entitlements: [],
+    });
+    expect(slugs).toContain("learn-developer");
+    expect(slugs).toContain("learn-management");
+    expect(slugs).toContain("learn-pr");
+    expect(slugs).toHaveLength(ALL_PAID_APP_IDS.length);
+  });
+
+  it("non-admin with no purchases or entitlements gets no paid courses", () => {
+    const slugs = derivePaidCourseSlugsWithAdminBypass({
+      isAdmin: false,
+      purchases: [],
+      entitlements: [],
+    });
+    expect(slugs).toHaveLength(0);
+  });
+
+  it("non-admin with active entitlement gets only their entitled course", () => {
+    const futureDate = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString();
+    const slugs = derivePaidCourseSlugsWithAdminBypass({
+      isAdmin: false,
+      purchases: [],
+      entitlements: [{ app_id: "learn-management", status: "active", expires_at: futureDate }],
+    });
+    expect(slugs).toEqual(["learn-management"]);
+  });
+
+  it("admin flag overrides expired/revoked entitlements — admin always gets all courses", () => {
+    const pastDate = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
+    const slugs = derivePaidCourseSlugsWithAdminBypass({
+      isAdmin: true,
+      purchases: [],
+      entitlements: [{ app_id: "learn-ai", status: "revoked", expires_at: pastDate }],
+    });
+    expect(slugs).toEqual(ALL_PAID_APP_IDS);
+  });
+});

@@ -114,6 +114,16 @@ export default function AppLauncher({
     return userAccess[appId]?.hasAccess || false;
   };
 
+  // Check if user has certified (paid) access to a paid app
+  const isCertifiedPaid = (appId) => {
+    return userAccess?.[appId]?.isCertifiedPaid === true;
+  };
+
+  // Get expiry date for an app's access record (null if perpetual)
+  const getExpiresAt = (appId) => {
+    return userAccess?.[appId]?.expiresAt || null;
+  };
+
   // Get app icon/emoji
   const getAppIcon = (appId) => {
     const icons = {
@@ -154,8 +164,15 @@ export default function AppLauncher({
     const isInstalled = installedApps.has(app.id);
     const hasUserAccess = hasAccess(app.id);
     const isFree = app.type === APP_TYPE.FREE;
+    const certifiedPaid = isCertifiedPaid(app.id);
+    const expiresAt = getExpiresAt(app.id);
     const colors = getAppColor(app.id, isFree);
     const appUrl = getAppUrl(app.id);
+
+    // Format expiry date for display
+    const expiryDisplay = expiresAt
+      ? new Date(expiresAt).toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" })
+      : null;
 
     return (
       <div
@@ -171,6 +188,11 @@ export default function AppLauncher({
           {isInstalled && (
             <span className="bg-gray-800 text-white text-xs px-3 py-1 rounded-full font-semibold">
               ✓ Installed
+            </span>
+          )}
+          {!isFree && certifiedPaid && (
+            <span className="bg-emerald-600 text-white text-xs px-3 py-1 rounded-full font-semibold">
+              ✅ Paid
             </span>
           )}
           {!isFree && !hasUserAccess && (
@@ -215,6 +237,13 @@ export default function AppLauncher({
         </div>
 
         {/* Access Info for Paid Apps */}
+        {!isFree && certifiedPaid && expiryDisplay && (
+          <div className="mt-4 pt-4 border-t border-gray-200">
+            <p className="text-xs text-emerald-700 text-center font-medium">
+              Annual access · Expires {expiryDisplay}
+            </p>
+          </div>
+        )}
         {!isFree && !hasUserAccess && (
           <div className="mt-4 pt-4 border-t border-gray-200">
             <p className="text-xs text-gray-600 text-center">

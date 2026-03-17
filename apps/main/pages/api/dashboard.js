@@ -168,24 +168,36 @@ export default async function handler(req, res) {
   const refundRequestList = refundRequests || [];
 
   // ── Paid course slugs ──────────────────────────────────────────────────────
-  // Primary: purchases with status='paid', de-duplicated by course_slug
+  // All paid apps available in the system.
+  const ALL_PAID_APP_IDS = ["learn-ai", "learn-developer", "learn-management", "learn-pr"];
+
+  // Admin bypass: admins have access to all paid courses immediately.
+  const isAdmin = profile?.is_admin === true;
+
   const purchaseList = purchases || [];
-  const paidSlugsFromPurchases = [...new Set(purchaseList.map((p) => p.course_slug))];
-
-  // Fallback: only active, non-expired entitlements grant course access
   const entitlementList = entitlements || [];
-  const nowIso = new Date().toISOString();
-  const activeEntitlements = entitlementList.filter(
-    (e) => e.status === "active" && (!e.expires_at || e.expires_at > nowIso)
-  );
-  const paidSlugsFromEntitlements = activeEntitlements
-    .flatMap((e) => {
-      if (e.app_id === "ai-developer-bundle") return ["learn-ai", "learn-developer"];
-      return [e.app_id];
-    })
-    .filter((slug) => !paidSlugsFromPurchases.includes(slug));
 
-  const paidCourseSlugs = [...new Set([...paidSlugsFromPurchases, ...paidSlugsFromEntitlements])];
+  let paidCourseSlugs;
+  if (isAdmin) {
+    paidCourseSlugs = [...ALL_PAID_APP_IDS];
+  } else {
+    // Primary: purchases with status='paid', de-duplicated by course_slug
+    const paidSlugsFromPurchases = [...new Set(purchaseList.map((p) => p.course_slug))];
+
+    // Fallback: only active, non-expired entitlements grant course access
+    const nowIso = new Date().toISOString();
+    const activeEntitlements = entitlementList.filter(
+      (e) => e.status === "active" && (!e.expires_at || e.expires_at > nowIso)
+    );
+    const paidSlugsFromEntitlements = activeEntitlements
+      .flatMap((e) => {
+        if (e.app_id === "ai-developer-bundle") return ["learn-ai", "learn-developer"];
+        return [e.app_id];
+      })
+      .filter((slug) => !paidSlugsFromPurchases.includes(slug));
+
+    paidCourseSlugs = [...new Set([...paidSlugsFromPurchases, ...paidSlugsFromEntitlements])];
+  }
 
   // ── Last lesson per paid course (for deep-link CTA) ───────────────────────
   const lastLessonByApp = Object.fromEntries(
@@ -198,6 +210,7 @@ export default async function handler(req, res) {
     profile: profile || null,
     email: user.email,
     isGoogleUser,
+    isAdmin,
     purchases: purchaseList,
     purchasesTotal: purchaseList.reduce((sum, p) => sum + (p.amount_paise || 0), 0),
     entitlements: entitlementList,
