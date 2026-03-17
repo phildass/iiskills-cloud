@@ -121,6 +121,10 @@ export interface UserAppAccess {
   granted_by_admin_id?: string | null;
   /** Additional notes */
   notes?: string | null;
+  /** True when access was granted via a real payment (is_certified_paid_user) */
+  is_certified_paid_user?: boolean;
+  /** Entitlement type, e.g. 'annual_paid'. Null for admin/free grants */
+  entitlement_type?: string | null;
 }
 
 /**
@@ -201,7 +205,7 @@ export interface GrantAppAccessParams {
   paymentId?: string;
   /** Admin user ID if granted by admin */
   grantedByAdminId?: string;
-  /** When access expires (null for lifetime) */
+  /** When access expires (null for lifetime; defaults to 1 year for payment/bundle grants) */
   expiresAt?: string | null;
   /** Additional notes */
   notes?: string | null;
@@ -217,7 +221,9 @@ export interface GrantBundleAccessParams {
   purchasedAppId: AppId;
   /** Payment ID */
   paymentId: string;
-  /** When access expires (null for lifetime) */
+  /** ISO timestamp of purchase date (defaults to now); used to calculate expiry */
+  purchaseDate?: string | null;
+  /** When access expires (null for lifetime; defaults to 1 year from purchaseDate) */
   expiresAt?: string | null;
 }
 

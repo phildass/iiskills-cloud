@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Head from "next/head";
 import { getCurrentUser } from "../lib/supabaseClient";
-import { userHasAccess } from "../../../packages/access-control/accessControl";
+import { isFreeApp } from "../../../packages/access-control/accessControl";
 import { APPS } from "../../../packages/access-control/appConfig";
 import AppLauncher from "../components/shared/AppLauncher";
 
@@ -10,7 +10,7 @@ import AppLauncher from "../components/shared/AppLauncher";
  *
  * Central hub showing all iiskills apps with:
  * - App launcher with install capabilities
- * - User's access status for each app
+ * - User's access status for each app (including "Paid" badge with expiry for certified paid users)
  * - Quick navigation to all apps
  * - Install promotion for PWA apps
  */
@@ -29,17 +29,40 @@ export default function AppsDashboard() {
       setUser(currentUser);
 
       if (currentUser) {
-        // Load access status for all apps
+        // Build initial access status: free apps are always accessible
         const accessStatus = {};
         for (const appId of Object.keys(APPS)) {
-          try {
-            const hasAccess = await userHasAccess(currentUser.id, appId);
-            accessStatus[appId] = { hasAccess };
-          } catch (error) {
-            console.error(`Error checking access for ${appId}:`, error);
-            accessStatus[appId] = { hasAccess: false };
-          }
+          accessStatus[appId] = { hasAccess: isFreeApp(appId), isCertifiedPaid: false, expiresAt: null };
         }
+
+        // Fetch user_app_access records to determine paid/certified status
+        try {
+          const { supabase } = await import("../lib/supabaseClient");
+          const now = new Date().toISOString();
+          const { data: accessRecords } = await supabase
+            .from("user_app_access")
+            .select("app_id, is_active, is_certified_paid_user, entitlement_type, expires_at")
+            .eq("user_id", currentUser.id)
+            .eq("is_active", true);
+
+          if (accessRecords) {
+            for (const record of accessRecords) {
+              // Skip expired records
+              if (record.expires_at && record.expires_at <= now) continue;
+              const appId = record.app_id;
+              if (accessStatus[appId] !== undefined) {
+                accessStatus[appId] = {
+                  hasAccess: true,
+                  isCertifiedPaid: record.is_certified_paid_user === true,
+                  expiresAt: record.expires_at || null,
+                };
+              }
+            }
+          }
+        } catch (err) {
+          console.error("Error fetching user app access records:", err);
+        }
+
         setUserAccess(accessStatus);
       }
     } catch (error) {
