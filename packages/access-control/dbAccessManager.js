@@ -31,15 +31,23 @@ function getSupabaseClient() {
   return createClient(supabaseUrl, supabaseServiceKey);
 }
 
+// Duration for annual paid entitlements: 1 year in milliseconds
+const ANNUAL_ENTITLEMENT_MS = 365 * 24 * 60 * 60 * 1000;
+
 /**
  * Grant app access to a user
+ *
+ * For payment and bundle grants, automatically sets:
+ *   - is_certified_paid_user = true
+ *   - entitlement_type = 'annual_paid'
+ *   - expires_at = 1 year from now (if not explicitly provided)
  *
  * @param {Object} params - Access grant parameters
  * @param {string} params.userId - User UUID
  * @param {string} params.appId - App identifier
  * @param {string} params.grantedVia - How access was granted: 'payment', 'bundle', 'otp', 'admin', or 'free'
  * @param {string|null} params.paymentId - Payment UUID (if granted via payment)
- * @param {Date|null} params.expiresAt - Expiration date (null for permanent)
+ * @param {Date|null} params.expiresAt - Expiration date (null = use default annual for paid, permanent for non-paid)
  * @returns {Promise<Object>} Access record
  */
 export async function grantAppAccess({
@@ -51,6 +59,19 @@ export async function grantAppAccess({
 }) {
   const supabase = getSupabaseClient();
 
+  // Determine certified paid status and entitlement type based on grant source
+  const isPaidGrant = grantedVia === "payment" || grantedVia === "bundle";
+  const isCertifiedPaidUser = isPaidGrant;
+  const entitlementType = isPaidGrant ? "annual_paid" : null;
+
+  // For paid grants without an explicit expiry, default to 1 year from now
+  const resolvedExpiresAt =
+    expiresAt !== null
+      ? expiresAt
+      : isPaidGrant
+        ? new Date(Date.now() + ANNUAL_ENTITLEMENT_MS).toISOString()
+        : null;
+
   const { data, error } = await supabase
     .from("user_app_access")
     .upsert(
@@ -59,8 +80,10 @@ export async function grantAppAccess({
         app_id: appId,
         granted_via: grantedVia,
         payment_id: paymentId,
-        expires_at: expiresAt,
+        expires_at: resolvedExpiresAt,
         is_active: true,
+        is_certified_paid_user: isCertifiedPaidUser,
+        entitlement_type: entitlementType,
         access_granted_at: new Date().toISOString(),
       },
       {
@@ -109,7 +132,7 @@ export async function grantBundleAccess({ userId, purchasedAppId, paymentId }) {
       appId,
       grantedVia,
       paymentId,
-      expiresAt: null, // Permanent access
+      // expiresAt is omitted — grantAppAccess sets annual expiry for payment/bundle grants
     });
     accessRecords.push(access);
   }

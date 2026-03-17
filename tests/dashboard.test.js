@@ -202,6 +202,9 @@ describe("entitlement display logic", () => {
       return { label: "Expired", colorClass: "bg-orange-100 text-orange-700" };
     }
     if (entitlement.status === "active") {
+      if (entitlement.entitlement_type === "annual_paid") {
+        return { label: "Paid (Annual)", colorClass: "bg-blue-100 text-blue-700" };
+      }
       return { label: "Active", colorClass: "bg-green-100 text-green-700" };
     }
     return { label: entitlement.status, colorClass: "bg-gray-100 text-gray-600" };
@@ -251,6 +254,22 @@ describe("entitlement display logic", () => {
     it("returns Active for entitlement with no expiry (perpetual)", () => {
       const ent = { status: "active", expires_at: null };
       expect(getEntitlementStatusInfo(ent).label).toBe("Active");
+    });
+
+    it("returns Paid (Annual) for active annual_paid entitlement", () => {
+      const ent = { status: "active", expires_at: futureDate, entitlement_type: "annual_paid" };
+      expect(getEntitlementStatusInfo(ent).label).toBe("Paid (Annual)");
+      expect(getEntitlementStatusInfo(ent).colorClass).toBe("bg-blue-100 text-blue-700");
+    });
+
+    it("returns Expired (not Paid (Annual)) for expired annual_paid entitlement", () => {
+      const ent = { status: "active", expires_at: pastDate, entitlement_type: "annual_paid" };
+      expect(getEntitlementStatusInfo(ent).label).toBe("Expired");
+    });
+
+    it("returns Revoked (not Paid (Annual)) for revoked annual_paid entitlement", () => {
+      const ent = { status: "revoked", expires_at: futureDate, entitlement_type: "annual_paid" };
+      expect(getEntitlementStatusInfo(ent).label).toBe("Revoked");
     });
   });
 
@@ -317,6 +336,101 @@ describe("entitlement display logic", () => {
       expect(slugs).toContain("learn-developer");
       expect(slugs).toContain("learn-ai");
       expect(slugs).not.toContain("learn-management");
+    });
+  });
+
+  // ── Certified paid access lookup logic ─────────────────────────────────────
+
+  function buildCertifiedAccessByAppId(appAccess) {
+    const now = new Date();
+    const result = {};
+    for (const record of appAccess) {
+      if (record.is_certified_paid_user && record.is_active) {
+        const expiresAt = record.expires_at ? new Date(record.expires_at) : null;
+        const isValid = !expiresAt || expiresAt > now;
+        if (isValid) {
+          result[record.app_id] = record;
+        }
+      }
+    }
+    return result;
+  }
+
+  describe("certified paid access lookup", () => {
+    it("includes active, non-expired certified paid records", () => {
+      const appAccess = [
+        {
+          id: "1",
+          app_id: "learn-ai",
+          is_certified_paid_user: true,
+          is_active: true,
+          entitlement_type: "annual_paid",
+          expires_at: futureDate,
+        },
+      ];
+      const lookup = buildCertifiedAccessByAppId(appAccess);
+      expect(lookup["learn-ai"]).toBeDefined();
+      expect(lookup["learn-ai"].entitlement_type).toBe("annual_paid");
+    });
+
+    it("excludes expired certified paid records", () => {
+      const appAccess = [
+        {
+          id: "2",
+          app_id: "learn-developer",
+          is_certified_paid_user: true,
+          is_active: true,
+          entitlement_type: "annual_paid",
+          expires_at: pastDate,
+        },
+      ];
+      const lookup = buildCertifiedAccessByAppId(appAccess);
+      expect(lookup["learn-developer"]).toBeUndefined();
+    });
+
+    it("excludes inactive records", () => {
+      const appAccess = [
+        {
+          id: "3",
+          app_id: "learn-management",
+          is_certified_paid_user: true,
+          is_active: false,
+          entitlement_type: "annual_paid",
+          expires_at: futureDate,
+        },
+      ];
+      const lookup = buildCertifiedAccessByAppId(appAccess);
+      expect(lookup["learn-management"]).toBeUndefined();
+    });
+
+    it("excludes non-certified records", () => {
+      const appAccess = [
+        {
+          id: "4",
+          app_id: "learn-pr",
+          is_certified_paid_user: false,
+          is_active: true,
+          entitlement_type: null,
+          expires_at: futureDate,
+        },
+      ];
+      const lookup = buildCertifiedAccessByAppId(appAccess);
+      expect(lookup["learn-pr"]).toBeUndefined();
+    });
+
+    it("includes certified paid records with no expiry (perpetual)", () => {
+      const appAccess = [
+        {
+          id: "5",
+          app_id: "learn-ai",
+          is_certified_paid_user: true,
+          is_active: true,
+          entitlement_type: "annual_paid",
+          expires_at: null,
+        },
+      ];
+      const lookup = buildCertifiedAccessByAppId(appAccess);
+      expect(lookup["learn-ai"]).toBeDefined();
     });
   });
 });

@@ -121,6 +121,10 @@ export interface UserAppAccess {
   granted_by_admin_id?: string | null;
   /** Additional notes */
   notes?: string | null;
+  /** Whether user is a certified paid user for this app */
+  is_certified_paid_user?: boolean;
+  /** Type of entitlement: 'annual_paid' for paid grants, null for others */
+  entitlement_type?: "annual_paid" | null;
 }
 
 /**
@@ -201,7 +205,12 @@ export interface GrantAppAccessParams {
   paymentId?: string;
   /** Admin user ID if granted by admin */
   grantedByAdminId?: string;
-  /** When access expires (null for lifetime) */
+  /**
+   * When access expires.
+   * - For 'payment' and 'bundle' grants, omit (or pass null) to use the default 1-year annual expiry.
+   * - Pass an explicit ISO timestamp to override.
+   * - For admin/otp/free grants, null means permanent access.
+   */
   expiresAt?: string | null;
   /** Additional notes */
   notes?: string | null;

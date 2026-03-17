@@ -1047,8 +1047,12 @@ function AchievementsTab({ dashboardData, accessToken }) {
     purchases,
     purchasesTotal,
     entitlements,
+    appAccess,
     progress,
   } = dashboardData;
+
+  // Use the shared helper to get active certified paid access records as an array
+  const certifiedPaidAccess = Object.values(buildCertifiedAccessMap(appAccess));
 
   return (
     <div className="space-y-6">
@@ -1148,18 +1152,49 @@ function AchievementsTab({ dashboardData, accessToken }) {
       </div>
 
       {/* Entitlements */}
-      {entitlements.length > 0 && (
+      {(entitlements?.length > 0 || certifiedPaidAccess.length > 0) && (
         <div className="bg-white rounded-xl shadow p-6">
           <h3 className="text-base font-bold text-gray-900 mb-4">🎓 Active Enrollments</h3>
           <div className="space-y-2">
-            {entitlements.map((ent) => (
-              <div key={ent.id} className="flex items-center justify-between text-sm py-1">
-                <span className="font-medium text-gray-800">{ent.app_id}</span>
-                <span className="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-medium">
-                  Active
-                </span>
-              </div>
-            ))}
+            {certifiedPaidAccess.length > 0
+              ? certifiedPaidAccess.map((record) => (
+                  <div
+                    key={record.id}
+                    className="flex items-center justify-between text-sm py-2 border-b border-gray-100 last:border-0"
+                  >
+                    <div>
+                      <span className="font-medium text-gray-800">{record.app_id}</span>
+                      <div className="flex flex-wrap gap-1 mt-0.5">
+                        <span className="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full font-bold">
+                          Paid User
+                        </span>
+                        {record.entitlement_type === "annual_paid" && (
+                          <span className="text-xs bg-purple-100 text-purple-700 px-2 py-0.5 rounded-full font-medium">
+                            Annual
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                    {record.expires_at && (
+                      <span className="text-xs text-gray-500 ml-2 shrink-0">
+                        Expires{" "}
+                        {new Date(record.expires_at).toLocaleDateString("en-IN", {
+                          day: "2-digit",
+                          month: "short",
+                          year: "numeric",
+                        })}
+                      </span>
+                    )}
+                  </div>
+                ))
+              : (entitlements || []).map((ent) => (
+                  <div key={ent.id} className="flex items-center justify-between text-sm py-1">
+                    <span className="font-medium text-gray-800">{ent.app_id}</span>
+                    <span className="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-medium">
+                      Active
+                    </span>
+                  </div>
+                ))}
           </div>
         </div>
       )}
@@ -1255,6 +1290,27 @@ function getCourseEmoji(slug) {
   return map[slug] || "📚";
 }
 
+/**
+ * Build a lookup map of certified paid app access records keyed by app_id.
+ * Only includes records that are active, certified paid, and not yet expired.
+ *
+ * @param {Array} appAccess - Array of user_app_access records from the dashboard API
+ * @returns {Object} Map of app_id -> access record
+ */
+function buildCertifiedAccessMap(appAccess) {
+  const now = new Date();
+  const map = {};
+  for (const record of appAccess || []) {
+    if (record.is_certified_paid_user && record.is_active) {
+      const expiresAt = record.expires_at ? new Date(record.expires_at) : null;
+      if (!expiresAt || expiresAt > now) {
+        map[record.app_id] = record;
+      }
+    }
+  }
+  return map;
+}
+
 /** Returns display info for an entitlement's status */
 function getEntitlementStatusInfo(entitlement) {
   const now = new Date();
@@ -1267,6 +1323,9 @@ function getEntitlementStatusInfo(entitlement) {
     return { label: "Expired", colorClass: "bg-orange-100 text-orange-700" };
   }
   if (entitlement.status === "active") {
+    if (entitlement.entitlement_type === "annual_paid") {
+      return { label: "Paid (Annual)", colorClass: "bg-blue-100 text-blue-700" };
+    }
     return { label: "Active", colorClass: "bg-green-100 text-green-700" };
   }
   return { label: entitlement.status, colorClass: "bg-gray-100 text-gray-600" };
@@ -1284,6 +1343,9 @@ function MyCourseTab({ dashboardData }) {
   const lastLessonByApp = dashboardData?.lastLessonByApp || {};
   const progressByApp = dashboardData?.progress?.byApp || {};
   const allEntitlements = dashboardData?.entitlements || [];
+
+  // Build a lookup of certified paid app access records by app_id
+  const certifiedAccessByAppId = buildCertifiedAccessMap(dashboardData?.appAccess);
 
   // Separate entitlements into active-accessible and inactive (expired/revoked)
   const inactiveEntitlements = allEntitlements.filter((e) => !isEntitlementAccessible(e));
@@ -1340,6 +1402,7 @@ function MyCourseTab({ dashboardData }) {
               const lastLesson = lastLessonByApp[slug];
               const appProgress = progressByApp[slug];
               const hasProgress = !!lastLesson || (appProgress && appProgress.total > 0);
+              const certifiedAccess = certifiedAccessByAppId[slug];
 
               // Deep-link to last lesson when progress exists, otherwise /learn
               let ctaUrl = courseHome;
@@ -1362,11 +1425,31 @@ function MyCourseTab({ dashboardData }) {
                     <span className="text-3xl">{getCourseEmoji(slug)}</span>
                     <div className="flex-1 min-w-0">
                       <p className="font-bold text-gray-800 truncate">{getCourseName(slug)}</p>
-                      <span className="inline-block mt-0.5 bg-purple-100 text-purple-700 text-xs font-bold px-2 py-0.5 rounded-full">
-                        Enrolled
-                      </span>
+                      <div className="flex flex-wrap items-center gap-1 mt-0.5">
+                        <span className="inline-block bg-purple-100 text-purple-700 text-xs font-bold px-2 py-0.5 rounded-full">
+                          Enrolled
+                        </span>
+                        {certifiedAccess?.entitlement_type === "annual_paid" && (
+                          <span className="inline-block bg-blue-100 text-blue-700 text-xs font-bold px-2 py-0.5 rounded-full">
+                            Paid (Annual)
+                          </span>
+                        )}
+                      </div>
                     </div>
                   </div>
+
+                  {certifiedAccess?.expires_at && (
+                    <p className="text-xs text-gray-500 mb-3">
+                      Access valid until{" "}
+                      <span className="font-medium text-gray-700">
+                        {new Date(certifiedAccess.expires_at).toLocaleDateString("en-IN", {
+                          day: "2-digit",
+                          month: "short",
+                          year: "numeric",
+                        })}
+                      </span>
+                    </p>
+                  )}
 
                   {completionPct !== null && (
                     <div className="mb-3">
@@ -1928,7 +2011,7 @@ export default function Dashboard() {
             <div className="flex items-center gap-3">
               {profile?.is_paid_user && (
                 <span className="inline-flex items-center gap-1 bg-gradient-to-r from-purple-600 to-blue-600 text-white text-xs font-bold px-2.5 py-1 rounded-full">
-                  ⭐ Paid
+                  ⭐ Paid User
                 </span>
               )}
               {dashboardData?.isGoogleUser && (
