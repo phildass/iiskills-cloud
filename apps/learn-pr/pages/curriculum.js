@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Head from "next/head";
+import Link from "next/link";
 import ModuleCard from "../components/ModuleCard";
 import Footer from "../components/Footer";
 import { getCourses, getModulesByCourse } from "../lib/curriculumGenerator";
