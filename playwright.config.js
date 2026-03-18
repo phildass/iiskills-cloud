@@ -111,12 +111,16 @@ module.exports = defineConfig({
     },
   ],
 
-  // Run your local dev server before starting the tests (optional)
-  // Uncomment if you want tests to start the dev server automatically
-  // webServer: process.env.CI ? undefined : {
-  //   command: 'yarn dev',
-  //   url: 'http://localhost:3000',
-  //   reuseExistingServer: !process.env.CI,
-  //   timeout: 120 * 1000,
-  // },
+  // Run local dev server before tests in non-CI environments.
+  // In CI the e2e workflow builds and starts the server explicitly.
+  // reuseExistingServer: !CI means CI always starts fresh; local reuses running server.
+  webServer: {
+    command: "yarn dev:main",
+    url: "http://localhost:3000",
+    reuseExistingServer: !process.env.CI,
+    // 120 seconds — sufficient for Next.js cold start in CI
+    timeout: 120000,
+    stdout: "pipe",
+    stderr: "pipe",
+  },
 });

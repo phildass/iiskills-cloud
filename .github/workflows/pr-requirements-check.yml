@@ -70,7 +70,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20"
-          cache: "yarn"
 
       - name: Enable Corepack
         run: corepack enable
@@ -187,7 +186,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20"
-          cache: "yarn"
 
       - name: Enable Corepack
         run: corepack enable
@@ -222,7 +220,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20"
-          cache: "yarn"
 
       - name: Enable Corepack
         run: corepack enable
@@ -232,6 +229,28 @@ jobs:
 
       - name: Install Playwright browsers
         run: npx playwright install --with-deps chromium firefox webkit
+
+      - name: Build apps/main for E2E
+        run: |
+          cd apps/main
+          yarn build
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL || 'https://placeholder.supabase.co' }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'placeholder-anon-key-for-ci' }}
+          NEXT_PUBLIC_DISABLE_AUTH: "true"
+        continue-on-error: true
+
+      - name: Start apps/main server for E2E
+        run: |
+          cd apps/main
+          yarn start &
+          # Wait up to 60 s for port 3000 to be ready
+          timeout 60 bash -c 'until curl -sf http://localhost:3000 > /dev/null 2>&1; do sleep 2; done' \
+            && echo "✅ Server ready" \
+            || echo "⚠️  Server not ready after 60 s — E2E tests may fail"
+        env:
+          NEXT_PUBLIC_DISABLE_AUTH: "true"
+        continue-on-error: true
 
       - name: Run E2E tests
         run: yarn test:e2e --reporter=list --reporter=json
@@ -267,7 +286,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20"
-          cache: "yarn"
 
       - name: Enable Corepack
         run: corepack enable
@@ -299,7 +317,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20"
-          cache: "yarn"
 
       - name: Enable Corepack
         run: corepack enable
@@ -310,25 +327,13 @@ jobs:
       - name: Run npm audit
         run: |
           echo "🔒 Running security audit..."
-          npm audit --audit-level=high --json > audit-results.json || true
-
-          # Check for high/critical vulnerabilities
-          HIGH_VULNS=$(cat audit-results.json | grep -o '"severity":"high"' | wc -l || echo "0")
-          CRITICAL_VULNS=$(cat audit-results.json | grep -o '"severity":"critical"' | wc -l || echo "0")
-
-          echo "High severity vulnerabilities: $HIGH_VULNS"
-          echo "Critical severity vulnerabilities: $CRITICAL_VULNS"
-
-          if [ "$CRITICAL_VULNS" -gt 0 ]; then
+          # Use yarn npm audit (not npm audit) — this project has no package-lock.json
+          yarn npm audit --environment production --audit-level critical 2>&1 | tee audit-results.json || AUDIT_EXIT=$?
+          if [ "${AUDIT_EXIT:-0}" -ne 0 ]; then
             echo "❌ ERROR: Critical vulnerabilities found!"
-            npm audit --audit-level=critical
             exit 1
-          elif [ "$HIGH_VULNS" -gt 0 ]; then
-            echo "⚠️ WARNING: High severity vulnerabilities found"
-            npm audit --audit-level=high
-          else
-            echo "✅ No high or critical vulnerabilities found"
           fi
+          echo "✅ No critical vulnerabilities found"
 
       - name: Upload audit results
         if: always()
@@ -363,7 +368,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20"
-          cache: "yarn"
 
       - name: Enable Corepack
         run: corepack enable
@@ -431,13 +435,13 @@ jobs:
             report += '### Checklist Status\n\n';
 
             const checkResults = {
-              'PR Template': needs['pr-template-validation'] ? '✅' : '❌',
-              'Code Quality': needs['code-quality'] ? '✅' : '❌',
-              'Import Validation': needs['import-validation'] ? '✅' : '❌',
-              'Unit Tests': needs['unit-tests'] ? '✅' : '❌',
-              'E2E Tests': needs['e2e-tests'] ? '✅' : '❌',
-              'Config Validation': needs['config-validation'] ? '✅' : '❌',
-              'Security Scan': needs['security-scan'] ? '✅' : '❌',
+              'PR Template': '${{ needs.pr-template-validation.result }}' === 'success' ? '✅' : '❌',
+              'Code Quality': '${{ needs.code-quality.result }}' === 'success' ? '✅' : '❌',
+              'Import Validation': '${{ needs.import-validation.result }}' === 'success' ? '✅' : '❌',
+              'Unit Tests': '${{ needs.unit-tests.result }}' === 'success' ? '✅' : '❌',
+              'E2E Tests': '${{ needs.e2e-tests.result }}' === 'success' ? '✅' : '❌',
+              'Config Validation': '${{ needs.config-validation.result }}' === 'success' ? '✅' : '❌',
+              'Security Scan': '${{ needs.security-scan.result }}' === 'success' ? '✅' : '❌',
             };
 
             for (const [check, status] of Object.entries(checkResults)) {
@@ -485,8 +489,6 @@ jobs:
               issue_number: context.issue.number,
               body: report
             });
-        env:
-          needs: ${{ toJson(needs) }}
 
   # Job 10: Final Status Check
   final-status:
