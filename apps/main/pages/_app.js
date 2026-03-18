@@ -7,6 +7,7 @@ import { AIAssistant } from "@iiskills/ui/ai";
 import TestingModeBanner from "../components/TestingModeBanner";
 import TestSiteBanner from "../components/TestSiteBanner";
 import TestSiteModal from "../components/TestSiteModal";
+import StickyOfferBanner from "../components/StickyOfferBanner";
 import { UserProgressProvider } from "../contexts/UserProgressContext";
 import { AdminWrapper } from "@iiskills/ui/components/AdminProvider";
 import { useEffect, useState } from "react";
@@ -113,6 +114,9 @@ export default function App({ Component, pageProps }) {
 
           {/* AI Assistant - always visible */}
           <AIAssistant />
+
+          {/* Sticky Inaugural Offer Banner - fixed at bottom during intro period */}
+          <StickyOfferBanner />
 
           {/* Testing Mode Banner - shows when feature flags are enabled */}
           <TestingModeBanner />
