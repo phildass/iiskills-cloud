@@ -25,15 +25,15 @@ jobs:
         with:
           fetch-depth: 0 # Fetch full history for better diff analysis
 
+      - name: Enable Corepack
+        run: corepack enable
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "20"
           # Note: do NOT use cache: "yarn" here — corepack must be enabled first
           # to avoid yarn v1 vs v4 version mismatch errors in setup-node's cache detection
-
-      - name: Enable Corepack
-        run: corepack enable
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
