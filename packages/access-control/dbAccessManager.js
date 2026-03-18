@@ -165,19 +165,115 @@ export async function grantBundleAccess({
 }
 
 /**
- * Check if user has access to an app (database query)
+ * verifyEntitlement — Certified Paid User override (High-Value Logic)
  *
- * Returns true for:
- * - Free apps
- * - Apps with active access record in database
- * - Non-expired access
+ * Single source of truth for premium content access.  If the user holds a
+ * certified-paid record that is active and not yet expired, they receive an
+ * immediate 365-day global unlock for ALL lessons in that course — no
+ * individual lesson or module gate can override this.
+ *
+ * This resolves the "Lesson 2 Paywall" bug where per-lesson checks could fire
+ * even for users who had already paid.
+ *
+ * @param {string} userId   - User UUID
+ * @param {string} courseId - App / course identifier (e.g. "learn-developer")
+ * @returns {Promise<{ entitled: boolean, accessLevel?: string, reason?: string, expiresAt?: string|null }>}
+ */
+export async function verifyEntitlement(userId, courseId) {
+  if (!userId || !courseId) {
+    return { entitled: false, reason: "MISSING_PARAMS" };
+  }
+
+  const supabase = getSupabaseClient();
+
+  // HIGH-VALUE LOGIC: Certified Paid Users get immediate 365-day global unlock
+  const { data: access, error } = await supabase
+    .from("user_app_access")
+    .select("is_certified_paid_user, expires_at, is_active")
+    .eq("user_id", userId)
+    .eq("app_id", courseId) // The schema column is app_id; courseId maps directly to it
+    .eq("is_active", true)
+    .maybeSingle();
+
+  if (error && error.code !== "PGRST116") {
+    console.error(`[verifyEntitlement] DB error for courseId=${courseId}:`, error);
+    return { entitled: false, reason: "DB_ERROR" };
+  }
+
+  const isCertified =
+    access?.is_certified_paid_user === true &&
+    access?.is_active === true &&
+    (access?.expires_at == null || new Date(access.expires_at) > new Date());
+
+  if (isCertified) {
+    return {
+      entitled: true,
+      accessLevel: "CERTIFIED_PAID_ANNUAL",
+      expiresAt: access.expires_at || null,
+    };
+  }
+
+  // Fallback: free sample lessons only — caller decides whether to show paywall
+  return { entitled: false, reason: "PAYMENT_REQUIRED" };
+}
+
+
+/**
+ * A Certified Paid User has `is_certified_paid_user = true` AND
+ * either no expiry or an expiry in the future. This flag is set
+ * automatically by `grantAppAccess()` for every payment/bundle grant
+ * and is the **single source of truth** for premium content access.
+ * When this returns `certified: true`, ALL lessons in the app must be
+ * unlocked — no individual lesson gating applies.
+ *
+ * @param {string} userId - User UUID
+ * @param {string} appId  - App identifier (e.g. "learn-ai")
+ * @returns {Promise<{ certified: boolean, expiresAt: string|null }>}
+ */
+export async function isCertifiedPaidUser(userId, appId) {
+  if (!userId || !appId) return { certified: false, expiresAt: null };
+
+  const supabase = getSupabaseClient();
+  const now = new Date().toISOString();
+
+  const { data, error } = await supabase
+    .from("user_app_access")
+    .select("id, expires_at")
+    .eq("user_id", userId)
+    .eq("app_id", appId)
+    .eq("is_active", true)
+    .eq("is_certified_paid_user", true)
+    .or(`expires_at.is.null,expires_at.gt.${now}`)
+    .limit(1)
+    .maybeSingle();
+
+  if (error && error.code !== "PGRST116") {
+    console.error(`[isCertifiedPaidUser] DB error for ${appId}:`, error);
+    return { certified: false, expiresAt: null };
+  }
+
+  if (data) {
+    return { certified: true, expiresAt: data.expires_at || null };
+  }
+
+  return { certified: false, expiresAt: null };
+}
+
+/**
+ * Check if user has access to an app (database query).
+ *
+ * Priority:
+ *   1. Free apps → always true.
+ *   2. Certified paid user (`is_certified_paid_user = true` + unexpired) → true.
+ *      This is the SSOT for paid access — overrides all individual lesson gates.
+ *   3. Any active, unexpired `user_app_access` row → true.
  *
  * @param {string|null} userId - User UUID (null for unauthenticated)
  * @param {string} appId - App identifier
  * @returns {Promise<boolean>} True if user has access
  */
 export async function hasAppAccess(userId, appId) {
-  // Check if app is free
+  // Free apps are always accessible
   if (isFreeApp(appId)) {
     return true;
   }
@@ -187,36 +283,36 @@ export async function hasAppAccess(userId, appId) {
     return false;
   }
 
+  // ── Priority 2: Certified paid user check (SSOT) ─────────────────────────
+  // If is_certified_paid_user = true and not expired, grant access immediately.
+  // This resolves the "Paywall on Lesson 2" bug by making Supabase the absolute
+  // authority — no per-lesson gating can override a valid paid entitlement.
+  const { certified } = await isCertifiedPaidUser(userId, appId);
+  if (certified) {
+    return true;
+  }
+
+  // ── Priority 3: Any active access record ──────────────────────────────────
   const supabase = getSupabaseClient();
+  const now = new Date().toISOString();
 
   const { data, error } = await supabase
     .from("user_app_access")
-    .select("*")
+    .select("id, expires_at")
     .eq("user_id", userId)
     .eq("app_id", appId)
     .eq("is_active", true)
+    .or(`expires_at.is.null,expires_at.gt.${now}`)
+    .limit(1)
     .maybeSingle();
 
   if (error && error.code !== "PGRST116") {
-    // PGRST116 = no rows returned
     console.error(`Error checking app access for ${appId}:`, error);
     return false;
   }
 
-  // No access record found
   if (!data) {
     return false;
-  }
-
-  // Check if access is expired
-  if (data.expires_at) {
-    const now = new Date();
-    const expiresAt = new Date(data.expires_at);
-    if (now > expiresAt) {
-      // Access expired - revoke it
-      await revokeAppAccess(userId, appId, "expired");
-      return false;
-    }
   }
 
   return true;

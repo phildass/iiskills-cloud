@@ -32,10 +32,34 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20"
+
           cache: "yarn"
+
+          # Note: do NOT use cache: "yarn" here — corepack must be enabled first
+          # to avoid yarn v1 vs v4 version mismatch errors in setup-node's cache detection
+
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
+
+      - name: Capture QA screenshots
+        run: |
+          # Attempt screenshots against a running server if available.
+          # In CI without a running server this is a no-op (placeholder files created).
+          chmod +x ./capture-qa-screenshots.sh
+          BASE_URL="${BASE_URL:-http://localhost:3000}" ./capture-qa-screenshots.sh || true
+        env:
+          OUT_DIR: qa-screenshots
+        continue-on-error: true
+
+      - name: Upload QA screenshots as artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qa-screenshots
+          path: qa-screenshots/
+          retention-days: 14
+        continue-on-error: true
 
       - name: Run Danger
         run: yarn danger ci --dangerfile .github/dangerfile.js

@@ -93,7 +93,7 @@ export default async function handler(req, res) {
   // Check entitlements by BOTH app_id (admin/bundle grants) AND course_slug (Razorpay
   // payment grants written by /api/payments/confirm). Either path grants access.
   const bundleId = "ai-developer-bundle";
-  const [profileResult, entitlementResult] = await Promise.all([
+  const [profileResult, entitlementResult, certifiedPaidResult] = await Promise.all([
     // Select both is_admin (legacy) and role (new) so either representation works.
     supabase.from("profiles").select("is_admin, role").eq("id", user.id).maybeSingle(),
     supabase
@@ -104,6 +104,20 @@ export default async function handler(req, res) {
       .or(`app_id.in.(${appId},${bundleId}),course_slug.in.(${appId},${bundleId})`)
       .or(`expires_at.is.null,expires_at.gt.${now}`)
       .order("purchased_at", { ascending: false })
+      .limit(1)
+      .maybeSingle(),
+    // ── Priority 1.5: Certified paid user (SSOT) ──────────────────────────
+    // If is_certified_paid_user = true + not expired, ALL lessons are unlocked.
+    // This is the single source of truth for premium access and overrides all
+    // per-lesson gating, resolving the "Paywall on Lesson 2" bug.
+    supabase
+      .from("user_app_access")
+      .select("id, expires_at")
+      .eq("user_id", user.id)
+      .eq("app_id", appId)
+      .eq("is_active", true)
+      .eq("is_certified_paid_user", true)
+      .or(`expires_at.is.null,expires_at.gt.${now}`)
       .limit(1)
       .maybeSingle(),
   ]);
@@ -119,6 +133,22 @@ export default async function handler(req, res) {
       entitled: true,
       expiresAt: null,
       adminAccess: true,
+      fromCache: false,
+    });
+  }
+
+  // ── Priority 1.5: Certified paid user (SSOT) ──────────────────────────────
+  // is_certified_paid_user = true + not expired → ALL lessons unlocked.
+  // This is set by grantAppAccess() for every payment/bundle grant and is the
+  // absolute authority for premium access. No per-lesson gating can override it.
+  const { data: certifiedAccess } = certifiedPaidResult;
+  if (certifiedAccess) {
+    await setEntitlementInCache(user.id, appId, true);
+    return res.status(200).json({
+      authenticated: true,
+      entitled: true,
+      expiresAt: certifiedAccess.expires_at || null,
+      certifiedPaidUser: true,
       fromCache: false,
     });
   }
