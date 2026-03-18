@@ -30,8 +30,7 @@ const PURCHASE_DEDUP_WINDOW_MS = 10 * 60 * 1000; // 10 minutes
  */
 export default async function handler(req, res) {
   try {
-    // Add all required env vars for the handler to function!
-    checkConfig(["PAYMENT_SECRET"]); // Add more as needed
+    checkConfig(["NEXT_PUBLIC_SUPABASE_URL", "SUPABASE_SERVICE_ROLE_KEY"]);
 
     if (req.method !== "POST") {
       return res.status(405).json({ error: "Method not allowed" });
@@ -149,13 +148,6 @@ export default async function handler(req, res) {
       );
       return res.status(200).json({ purchaseId: existingPurchase.id });
     }
-    console.error("[create-purchase] amount debug:", {
-      amountPaiseRaw,
-      amountPaise,
-      currency,
-      pricing,
-      canonicalAmountPaise,
-    });
     const { data: purchase, error: insertError } = await adminClient
       .from("purchases")
       .insert([

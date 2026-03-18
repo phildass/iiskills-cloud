@@ -338,7 +338,61 @@ Reject (403) if neither is present.
 
 ---
 
+## Paid User Access Rule
+
+> **Rule**: Any user with an active, non-expired entitlement for a course **must never** be
+> shown a paywall or payment prompt for any lesson in that course.
+
+After a successful payment the confirm endpoint:
+
+1. Inserts a row in `public.entitlements` with `status='active'` and `app_id = course_slug = <courseAppId>`.
+2. Sets `profiles.is_paid_user = true`.
+
+The `GET /api/entitlement?appId=<appId>` endpoint enforces this rule:
+
+- Checks `entitlements` by **both** `app_id` and `course_slug` (covering Razorpay + admin grant paths).
+- Checks `user_app_access` as a secondary fallback (covers bundle + dbAccessManager grants).
+- Admin users always receive `entitled: true` regardless of entitlement rows.
+- Free-access mode (`FREE_ACCESS=true`) returns `entitled: true` for all requests.
+
+All paid learn apps (`learn-ai`, `learn-developer`, `learn-management`, `learn-pr`) consume this
+endpoint via the `useEntitlement` hook in `packages/shared-utils/lib/hooks/useEntitlement.js`.
+The paywall (`EnrollmentLandingPage`) is only shown when `entitled === false` is explicitly
+returned — `null` (check skipped for free lessons) never triggers the paywall.
+
+---
+
+## New Deployment Checklist
+
+Before going live, verify every item:
+
+| # | Check                                                             | How to verify                                                              |
+|---|-------------------------------------------------------------------|----------------------------------------------------------------------------|
+| 1 | `NEXT_PUBLIC_SUPABASE_URL` is set and points to the Supabase project  | `echo $NEXT_PUBLIC_SUPABASE_URL` on the server                             |
+| 2 | `SUPABASE_SERVICE_ROLE_KEY` is set (server-side only)             | `echo $SUPABASE_SERVICE_ROLE_KEY` on the server                            |
+| 3 | `PAYMENT_TOKEN_SECRET` is a long random string                    | `openssl rand -hex 32` to generate; check `/etc/iiskills.env`              |
+| 4 | `AIENTER_CONFIRMATION_SIGNING_SECRET` matches value on aienter.in | Must be identical on both sides; rotate both atomically if changed         |
+| 5 | `IISKILLS_CONFIRM_URL` on aienter.in = `https://iiskills.cloud/api/payments/confirm` | Check aienter.in env config  |
+| 6 | Payment flow: new user can register, pay, and immediately access lessons | End-to-end smoke test                                                 |
+| 7 | Paid user sees NO paywall on lesson 2, 3, … of an entitled course | Log in as paid user and navigate to non-free lessons                       |
+| 8 | `/api/payments/create-purchase` returns `{ purchaseId }`, not a 500 | Check server logs after clicking "Pay Now"                               |
+| 9 | `POST /api/payments/confirm` returns `200 success`               | Check aienter.in callback logs after test payment                          |
+
+---
+
 ## Troubleshooting
+
+### "Server misconfiguration" on create-purchase
+
+If `/api/payments/create-purchase` returns HTTP 500 with `"Server misconfiguration"`, the
+most likely cause is a missing Supabase environment variable. Verify:
+
+- `NEXT_PUBLIC_SUPABASE_URL` is set and is a valid Supabase project URL.
+- `SUPABASE_SERVICE_ROLE_KEY` is set and is the **service role** key (not the anon key).
+
+Both values live in `/etc/iiskills.env` (loaded via `apps/main/next.config.js`).
+
+---
 
 ### "Paid but no entitlement"
 

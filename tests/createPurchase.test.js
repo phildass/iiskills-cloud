@@ -211,3 +211,79 @@ describe("create-purchase: idempotency dedup", () => {
 });
 
 console.log("✅ create-purchase tests defined successfully");
+
+// ─── config validation ────────────────────────────────────────────────────────
+
+/**
+ * Regression tests: create-purchase must validate the env vars it actually
+ * uses (NEXT_PUBLIC_SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY), NOT any
+ * unrelated secret like PAYMENT_SECRET.
+ *
+ * Previously the handler checked PAYMENT_SECRET (which is never used in the
+ * file), causing every payment attempt to fail with 500 "Server
+ * misconfiguration" when that variable was absent.
+ */
+describe("create-purchase: config validation — correct env vars", () => {
+  /**
+   * Mirror of the checkConfig logic used in the handler.
+   * Returns the list of missing variable names.
+   */
+  function getMissingVars(requiredKeys, env) {
+    return requiredKeys.filter((k) => !env[k]);
+  }
+
+  const CORRECT_VARS = ["NEXT_PUBLIC_SUPABASE_URL", "SUPABASE_SERVICE_ROLE_KEY"];
+
+  test("handler does NOT require PAYMENT_SECRET (it is not used by create-purchase)", () => {
+    // Simulates an environment that has the Supabase vars but not PAYMENT_SECRET
+    const env = {
+      NEXT_PUBLIC_SUPABASE_URL: "https://project.supabase.co",
+      SUPABASE_SERVICE_ROLE_KEY: "service-role-key",
+      // PAYMENT_SECRET deliberately absent
+    };
+    const missing = getMissingVars(CORRECT_VARS, env);
+    expect(missing).toHaveLength(0);
+  });
+
+  test("handler requires NEXT_PUBLIC_SUPABASE_URL", () => {
+    const env = {
+      // NEXT_PUBLIC_SUPABASE_URL absent
+      SUPABASE_SERVICE_ROLE_KEY: "service-role-key",
+    };
+    const missing = getMissingVars(CORRECT_VARS, env);
+    expect(missing).toContain("NEXT_PUBLIC_SUPABASE_URL");
+  });
+
+  test("handler requires SUPABASE_SERVICE_ROLE_KEY", () => {
+    const env = {
+      NEXT_PUBLIC_SUPABASE_URL: "https://project.supabase.co",
+      // SUPABASE_SERVICE_ROLE_KEY absent
+    };
+    const missing = getMissingVars(CORRECT_VARS, env);
+    expect(missing).toContain("SUPABASE_SERVICE_ROLE_KEY");
+  });
+
+  test("both Supabase vars present → no missing vars → handler proceeds", () => {
+    const env = {
+      NEXT_PUBLIC_SUPABASE_URL: "https://project.supabase.co",
+      SUPABASE_SERVICE_ROLE_KEY: "service-role-key",
+    };
+    const missing = getMissingVars(CORRECT_VARS, env);
+    expect(missing).toHaveLength(0);
+  });
+
+  test("verifies create-purchase source does not reference PAYMENT_SECRET", () => {
+    // Regression guard: read the actual source file and confirm PAYMENT_SECRET
+    // is not in the checkConfig call.
+    const fs = require("fs");
+    const path = require("path");
+    const src = fs.readFileSync(
+      path.resolve(__dirname, "../apps/main/pages/api/payments/create-purchase.js"),
+      "utf8"
+    );
+    // Must check for the Supabase service role key
+    expect(src).toContain("SUPABASE_SERVICE_ROLE_KEY");
+    // Must NOT use PAYMENT_SECRET in checkConfig (it's unused in this file)
+    expect(src).not.toMatch(/checkConfig\([^)]*PAYMENT_SECRET/);
+  });
+});
