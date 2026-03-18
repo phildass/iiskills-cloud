@@ -95,8 +95,8 @@ export default function AdminSettings() {
           <div className="bg-white rounded-lg shadow p-6 border-l-4 border-red-500">
             <h2 className="text-xl font-bold text-red-600 mb-4">🔐 Admin Password Management</h2>
             <p className="text-sm text-gray-600 mb-4">
-              Change your admin password for the demo/staging secret password prompt.
-              This does not affect server-side admin authentication at{" "}
+              Change your admin password for the demo/staging secret password prompt. This does not
+              affect server-side admin authentication at{" "}
               <code className="bg-gray-100 px-2 py-1 rounded">/admin/login</code>.
             </p>
 

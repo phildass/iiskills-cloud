@@ -18,22 +18,12 @@
     },
     {
       "question": "Which leadership style (S2) is appropriate for a D2 follower (some competence, low commitment)?",
-      "options": [
-        "Directing",
-        "Coaching",
-        "Supporting",
-        "Delegating"
-      ],
+      "options": ["Directing", "Coaching", "Supporting", "Delegating"],
       "correct_answer": 1
     },
     {
       "question": "What is the appropriate leadership style for a D4 follower (high competence, high commitment)?",
-      "options": [
-        "S1 Directing",
-        "S2 Coaching",
-        "S3 Supporting",
-        "S4 Delegating"
-      ],
+      "options": ["S1 Directing", "S2 Coaching", "S3 Supporting", "S4 Delegating"],
       "correct_answer": 3
     },
     {

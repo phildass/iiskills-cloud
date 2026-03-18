@@ -17,6 +17,7 @@ import { useRouter } from "next/router";
 import { getCurrentUser } from "../lib/supabaseClient";
 import SecretPasswordPrompt, {
   hasSecretAdminAccess,
+  createSecretAdminUser,
 } from "./SecretPasswordPrompt";
 
 export default function PaidUserProtectedRoute({ children }) {

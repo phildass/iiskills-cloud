@@ -106,7 +106,7 @@ const { danger, warn, fail, message, markdown } = require("danger");
 
     for (const line of addedLines) {
       // Check for relative imports going up multiple levels to components
-      if (line.includes("import") && line.match(/from\s+['"]\.\.[\/\\]\.\.[\/\\]components/)) {
+      if (line.includes("import") && line.match(/from\s+['"]\.\.[/\\]\.\.[/\\]components/)) {
         localImportViolations.push({ file, line: line.trim() });
       }
     }

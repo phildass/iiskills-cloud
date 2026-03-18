@@ -269,13 +269,15 @@ export function enableProtections({
 export function useProtection(options = {}) {
   if (typeof window === "undefined") return;
 
-  const React = require("react");
+  const React = require("react"); // eslint-disable-line no-undef
   const { useEffect, useRef } = React;
 
   // Store stringified options to detect changes without causing unnecessary re-renders
+  // eslint-disable-next-line react-hooks/rules-of-hooks -- this hook is client-only by design (SSR guard above)
   const optionsRef = useRef(JSON.stringify(options));
   const currentOptionsStr = JSON.stringify(options);
 
+  // eslint-disable-next-line react-hooks/rules-of-hooks -- this hook is client-only by design (SSR guard above)
   useEffect(() => {
     // Only re-enable protections if options actually changed
     if (optionsRef.current !== currentOptionsStr) {

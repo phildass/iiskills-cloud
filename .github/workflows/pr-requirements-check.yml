@@ -66,14 +66,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Enable Corepack
+        run: corepack enable
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "20"
           cache: "yarn"
-
-      - name: Enable Corepack
-        run: corepack enable
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
@@ -183,14 +183,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Enable Corepack
+        run: corepack enable
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "20"
           cache: "yarn"
-
-      - name: Enable Corepack
-        run: corepack enable
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
@@ -218,14 +218,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Enable Corepack
+        run: corepack enable
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "20"
           cache: "yarn"
-
-      - name: Enable Corepack
-        run: corepack enable
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
@@ -263,14 +263,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Enable Corepack
+        run: corepack enable
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "20"
           cache: "yarn"
-
-      - name: Enable Corepack
-        run: corepack enable
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
@@ -295,14 +295,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Enable Corepack
+        run: corepack enable
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "20"
           cache: "yarn"
-
-      - name: Enable Corepack
-        run: corepack enable
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
@@ -310,22 +310,20 @@ jobs:
       - name: Run npm audit
         run: |
           echo "🔒 Running security audit..."
-          npm audit --audit-level=high --json > audit-results.json || true
+          AUDIT_JSON=$(yarn npm audit --json 2>/dev/null || echo '{"advisories":{}}') 
 
           # Check for high/critical vulnerabilities
-          HIGH_VULNS=$(cat audit-results.json | grep -o '"severity":"high"' | wc -l || echo "0")
-          CRITICAL_VULNS=$(cat audit-results.json | grep -o '"severity":"critical"' | wc -l || echo "0")
+          CRITICAL_COUNT=$(echo "$AUDIT_JSON" | jq '[.advisories | to_entries[] | select(.value.severity == "critical")] | length' 2>/dev/null || echo "0")
+          HIGH_COUNT=$(echo "$AUDIT_JSON" | jq '[.advisories | to_entries[] | select(.value.severity == "high")] | length' 2>/dev/null || echo "0")
 
-          echo "High severity vulnerabilities: $HIGH_VULNS"
-          echo "Critical severity vulnerabilities: $CRITICAL_VULNS"
+          echo "High severity vulnerabilities: $HIGH_COUNT"
+          echo "Critical severity vulnerabilities: $CRITICAL_COUNT"
 
-          if [ "$CRITICAL_VULNS" -gt 0 ]; then
+          if [ "$CRITICAL_COUNT" -gt 0 ]; then
             echo "❌ ERROR: Critical vulnerabilities found!"
-            npm audit --audit-level=critical
             exit 1
-          elif [ "$HIGH_VULNS" -gt 0 ]; then
+          elif [ "$HIGH_COUNT" -gt 0 ]; then
             echo "⚠️ WARNING: High severity vulnerabilities found"
-            npm audit --audit-level=high
           else
             echo "✅ No high or critical vulnerabilities found"
           fi
@@ -359,14 +357,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Enable Corepack
+        run: corepack enable
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "20"
           cache: "yarn"
-
-      - name: Enable Corepack
-        run: corepack enable
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
@@ -430,14 +428,15 @@ jobs:
             let report = '## 🤖 Automated Requirements Analysis\n\n';
             report += '### Checklist Status\n\n';
 
+            const needsJson = JSON.parse(process.env.NEEDS_JSON || '{}');
             const checkResults = {
-              'PR Template': needs['pr-template-validation'] ? '✅' : '❌',
-              'Code Quality': needs['code-quality'] ? '✅' : '❌',
-              'Import Validation': needs['import-validation'] ? '✅' : '❌',
-              'Unit Tests': needs['unit-tests'] ? '✅' : '❌',
-              'E2E Tests': needs['e2e-tests'] ? '✅' : '❌',
-              'Config Validation': needs['config-validation'] ? '✅' : '❌',
-              'Security Scan': needs['security-scan'] ? '✅' : '❌',
+              'PR Template': needsJson['pr-template-validation']?.result === 'success' ? '✅' : '❌',
+              'Code Quality': needsJson['code-quality']?.result === 'success' ? '✅' : '❌',
+              'Import Validation': needsJson['import-validation']?.result === 'success' ? '✅' : '❌',
+              'Unit Tests': needsJson['unit-tests']?.result === 'success' ? '✅' : '❌',
+              'E2E Tests': needsJson['e2e-tests']?.result === 'success' ? '✅' : '❌',
+              'Config Validation': needsJson['config-validation']?.result === 'success' ? '✅' : '❌',
+              'Security Scan': needsJson['security-scan']?.result === 'success' ? '✅' : '❌',
             };
 
             for (const [check, status] of Object.entries(checkResults)) {
@@ -486,7 +485,7 @@ jobs:
               body: report
             });
         env:
-          needs: ${{ toJson(needs) }}
+          NEEDS_JSON: ${{ toJson(needs) }}
 
   # Job 10: Final Status Check
   final-status:

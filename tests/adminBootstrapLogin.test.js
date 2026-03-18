@@ -231,9 +231,7 @@ describe("Production mode — ADMIN_PANEL_SECRET override", () => {
 
   test("falls through to bcrypt when ADMIN_PANEL_SECRET does not match", async () => {
     // Provide a stored hash; bcrypt resolves to true for the correct passphrase
-    fs.readFileSync.mockReturnValue(
-      JSON.stringify({ admin_passphrase_hash: "$2b$12$fakehash" })
-    );
+    fs.readFileSync.mockReturnValue(JSON.stringify({ admin_passphrase_hash: "$2b$12$fakehash" }));
     bcrypt.compare.mockResolvedValue(true);
 
     const handler = loadHandler();

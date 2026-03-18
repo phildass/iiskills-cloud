@@ -8,12 +8,7 @@
   "quiz": [
     {
       "question": "Which concept, central to systems thinking, describes how an output feeds back to influence its own cause?",
-      "options": [
-        "Span of control",
-        "Feedback loops",
-        "Division of labour",
-        "Chain of command"
-      ],
+      "options": ["Span of control", "Feedback loops", "Division of labour", "Chain of command"],
       "correct_answer": 1
     },
     {
@@ -38,22 +33,12 @@
     },
     {
       "question": "The Agile Manifesto was originally developed in which field?",
-      "options": [
-        "Manufacturing",
-        "Healthcare",
-        "Software development",
-        "Financial services"
-      ],
+      "options": ["Manufacturing", "Healthcare", "Software development", "Financial services"],
       "correct_answer": 2
     },
     {
       "question": "In Nonaka and Takeuchi's SECI model, which process converts tacit knowledge to explicit knowledge?",
-      "options": [
-        "Socialisation",
-        "Internalisation",
-        "Combination",
-        "Externalisation"
-      ],
+      "options": ["Socialisation", "Internalisation", "Combination", "Externalisation"],
       "correct_answer": 3
     }
   ]

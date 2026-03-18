@@ -21,27 +21,6 @@ export {
 import { BUNDLES, getBundleInfo, getAppsToUnlock, getAppConfig } from "../../access-control";
 
 /**
- * @deprecated Use getAppsToUnlock from @iiskills/access-control instead
- */
-export function getAppsInBundle(appId) {
-  return getAppsToUnlock(appId);
-}
-
-/**
- * @deprecated Use getBundleInfo from @iiskills/access-control instead
- */
-export function getBundleForApp(appId) {
-  return getBundleInfo(appId);
-}
-
-/**
- * @deprecated Use getBundleInfo from @iiskills/access-control instead
- */
-export function isAppInBundle(appId) {
-  return getBundleInfo(appId) !== null;
-}
-
-/**
  * Get price for an app (including bundle price if applicable)
  *
  * @param {string} appId - App identifier

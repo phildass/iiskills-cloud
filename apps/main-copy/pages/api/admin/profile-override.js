@@ -114,7 +114,9 @@ export default async function handler(req, res) {
 
   if (fetchError) {
     console.error("[api/admin/profile-override] fetch error:", fetchError.message);
-    return res.status(500).json({ error: "Failed to fetch user profile", details: fetchError.message });
+    return res
+      .status(500)
+      .json({ error: "Failed to fetch user profile", details: fetchError.message });
   }
 
   if (!currentProfile) {
@@ -137,7 +139,9 @@ export default async function handler(req, res) {
 
   if (updateError) {
     console.error("[api/admin/profile-override] update error:", updateError.message);
-    return res.status(500).json({ error: "Failed to update profile", details: updateError.message });
+    return res
+      .status(500)
+      .json({ error: "Failed to update profile", details: updateError.message });
   }
 
   // Write a detailed audit event

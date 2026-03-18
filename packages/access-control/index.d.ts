@@ -131,7 +131,6 @@ export interface UserAppAccess {
   is_certified_paid_user?: boolean;
   /** Entitlement type, e.g. 'annual_paid'. Null for admin/free grants */
   entitlement_type?: string | null;
-
 }
 
 /**

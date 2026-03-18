@@ -62,8 +62,8 @@ export default function PremiumAccessPrompt({
                 NO EXTRA COST
               </p>
               <p className="text-yellow-900 font-semibold text-sm">
-                ⏰ Exclusive offer — valid from <strong>March 21, 2026 to April 20, 2026</strong>. Don't miss
-                out!
+                ⏰ Exclusive offer — valid from <strong>March 21, 2026 to April 20, 2026</strong>.
+                Don't miss out!
               </p>
             </div>
           </div>
@@ -89,7 +89,8 @@ export default function PremiumAccessPrompt({
             {bundleActive && (
               <div className="text-center pt-2">
                 <span className="text-sm text-purple-600 font-semibold">
-                  ✓ Includes AI-Dev bundle — 2 courses for the price of 1 (from March 21 to April 20, 2026)
+                  ✓ Includes AI-Dev bundle — 2 courses for the price of 1 (from March 21 to April
+                  20, 2026)
                 </span>
               </div>
             )}

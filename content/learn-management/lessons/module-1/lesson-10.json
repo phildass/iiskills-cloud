@@ -8,12 +8,7 @@
   "quiz": [
     {
       "question": "What does the 'O' in the GROW coaching model stand for?",
-      "options": [
-        "Outcomes",
-        "Options",
-        "Objectives",
-        "Opportunities"
-      ],
+      "options": ["Outcomes", "Options", "Objectives", "Opportunities"],
       "correct_answer": 1
     },
     {

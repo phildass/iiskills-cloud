@@ -64,6 +64,20 @@ export default [
         FormData: "readonly",
         URL: "readonly",
         URLSearchParams: "readonly",
+        requestAnimationFrame: "readonly",
+        cancelAnimationFrame: "readonly",
+        MutationObserver: "readonly",
+        ResizeObserver: "readonly",
+        IntersectionObserver: "readonly",
+        Event: "readonly",
+        CustomEvent: "readonly",
+        AbortController: "readonly",
+        AbortSignal: "readonly",
+        Blob: "readonly",
+        File: "readonly",
+        FileReader: "readonly",
+        XMLHttpRequest: "readonly",
+        Image: "readonly",
       },
     },
     settings: {
@@ -75,12 +89,44 @@ export default [
       semi: ["error", "always"],
       quotes: ["error", "double", { avoidEscape: true }],
       "no-unused-vars": "warn",
-      "no-use-before-define": ["error", { functions: false, classes: true, variables: true }],
+      // Allow variable-declared functions (e.g. const fn = () => {}) to be
+      // used before their definition — common pattern in React components
+      // where callbacks are defined after the JSX/effects that reference them.
+      "no-use-before-define": ["error", { functions: false, classes: true, variables: false }],
       "react/prop-types": "off",
       "react/react-in-jsx-scope": "off",
       "react-hooks/rules-of-hooks": "error",
       "react-hooks/exhaustive-deps": "warn",
       "prettier/prettier": "error",
+    },
+  },
+  // Jest globals for test files — add `jest` object; other globals
+  // (describe, it, expect, etc.) are declared via /* global */ comments
+  // within each individual test file.
+  {
+    files: [
+      "tests/**/*.test.js",
+      "**/*.test.js",
+      "**/*.spec.js",
+      "tests/setup.js",
+      "tests/__mocks__/**/*.js",
+    ],
+    languageOptions: {
+      globals: {
+        jest: "readonly",
+        describe: "readonly",
+        it: "readonly",
+        test: "readonly",
+        expect: "readonly",
+        beforeAll: "readonly",
+        afterAll: "readonly",
+        beforeEach: "readonly",
+        afterEach: "readonly",
+      },
+    },
+    rules: {
+      // Allow redeclaring jest globals that may also be declared via /* global */ comments
+      "no-redeclare": "off",
     },
   },
 ];

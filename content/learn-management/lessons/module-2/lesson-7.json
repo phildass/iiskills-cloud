@@ -8,12 +8,7 @@
   "quiz": [
     {
       "question": "Which of Goleman's five EI components involves the ability to control disruptive emotions and think before acting?",
-      "options": [
-        "Self-awareness",
-        "Empathy",
-        "Self-regulation",
-        "Social skill"
-      ],
+      "options": ["Self-awareness", "Empathy", "Self-regulation", "Social skill"],
       "correct_answer": 2
     },
     {

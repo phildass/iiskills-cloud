@@ -1688,12 +1688,11 @@ export default function Courses() {
             Courses available now: 9 | Five Free | Four Paid
           </p>
           <p className="text-sm text-orange-600 font-semibold mb-4">
-            Inaugural Offer: Rs 99 (plus GST Rs 17.82) valid from March 21 to April 20, 2026. Total Rs
-            116.82
+            Inaugural Offer: Rs 99 (plus GST Rs 17.82) valid from March 21 to April 20, 2026. Total
+            Rs 116.82
           </p>
           <p className="text-sm text-gray-700 font-semibold mb-4">
-            Standard price Rs 299 + GST of Rs 53.82 (Total Rs 352.82) effective from April 21,
-            2026
+            Standard price Rs 299 + GST of Rs 53.82 (Total Rs 352.82) effective from April 21, 2026
           </p>
           <div className="mt-4 text-lg font-semibold text-accent">
             Paid courses: {pricing.totalPrice} per course

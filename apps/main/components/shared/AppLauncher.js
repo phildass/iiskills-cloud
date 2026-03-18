@@ -171,7 +171,11 @@ export default function AppLauncher({
 
     // Format expiry date for display
     const expiryDisplay = expiresAt
-      ? new Date(expiresAt).toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" })
+      ? new Date(expiresAt).toLocaleDateString(undefined, {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+        })
       : null;
 
     return (

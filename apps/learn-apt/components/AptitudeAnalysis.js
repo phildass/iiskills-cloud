@@ -138,7 +138,11 @@ function buildTimeNote(timeTaken, total) {
   if (!timeTaken || timeTaken <= 0) return "";
   const perQ = Math.round(timeTaken / total);
   if (perQ <= EXCELLENT_PACE_THRESHOLD)
-    return "Your pace was excellent — you answered each question in about " + perQ + " seconds on average.";
+    return (
+      "Your pace was excellent — you answered each question in about " +
+      perQ +
+      " seconds on average."
+    );
   if (perQ <= REASONABLE_PACE_THRESHOLD)
     return (
       "Time management was reasonable at roughly " +
@@ -189,7 +193,7 @@ function buildSuggestion(pct, domainScores, testName) {
     return `Actionable next step: revisit ${weakAreas.slice(0, 2).join(" and ")} fundamentals, then retake this test to track your progress.`;
   }
   if (pct < 70) {
-    return `Actionable next step: practice timed mock tests daily to boost both accuracy and speed toward the 70%+ benchmark.`;
+    return "Actionable next step: practice timed mock tests daily to boost both accuracy and speed toward the 70%+ benchmark.";
   }
-  return `Actionable next step: challenge yourself with harder difficulty levels and aim to maintain this accuracy under tighter time constraints.`;
+  return "Actionable next step: challenge yourself with harder difficulty levels and aim to maintain this accuracy under tighter time constraints.";
 }

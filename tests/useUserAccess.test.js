@@ -87,9 +87,9 @@ describe("canAccessCourse — pure function", () => {
   });
 
   it("NONE cannot access any paid app", () => {
-    expect(
-      canAccessCourse("learn-ai", { accessLevel: ACCESS_LEVEL.NONE, appId: "learn-ai" })
-    ).toBe(false);
+    expect(canAccessCourse("learn-ai", { accessLevel: ACCESS_LEVEL.NONE, appId: "learn-ai" })).toBe(
+      false
+    );
     expect(
       canAccessCourse("learn-management", {
         accessLevel: ACCESS_LEVEL.NONE,
@@ -99,9 +99,7 @@ describe("canAccessCourse — pure function", () => {
   });
 
   it("null accessLevel (loading) cannot access paid content", () => {
-    expect(
-      canAccessCourse("learn-ai", { accessLevel: null, appId: "learn-ai" })
-    ).toBe(false);
+    expect(canAccessCourse("learn-ai", { accessLevel: null, appId: "learn-ai" })).toBe(false);
   });
 
   it("is the same exported function — identical across all four paid apps", () => {

@@ -91,7 +91,7 @@ export default function LearnAboutCountriesIndex() {
                   className="bg-white rounded-2xl shadow hover:shadow-md border border-gray-100 hover:border-teal-200 p-5 flex flex-col items-center text-center transition-all group"
                 >
                   {/* Flag */}
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  {/* Using <img> instead of next/image for dynamic external URLs */}
                   <img
                     src={`https://flagcdn.com/w80/${country.code}.png`}
                     alt={`Flag of ${country.name}`}

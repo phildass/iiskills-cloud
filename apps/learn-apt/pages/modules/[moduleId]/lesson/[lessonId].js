@@ -44,7 +44,8 @@ function buildFallbackLesson(moduleId, lessonId) {
         correct_answer: 1,
       },
       {
-        question: "If A can do a job in 10 days and B in 15 days, how many days do they take together?",
+        question:
+          "If A can do a job in 10 days and B in 15 days, how many days do they take together?",
         options: ["5 days", "6 days", "8 days", "12 days"],
         correct_answer: 1,
       },
@@ -145,9 +146,15 @@ function QuizComponent({ questions, onComplete }) {
   if (showResults) {
     const passed = score >= 3;
     return (
-      <div className={`card border-2 ${passed ? "bg-green-50 border-green-500" : "bg-red-50 border-red-500"}`}>
-        <h3 className="text-xl font-semibold mb-2">{passed ? "🎉 Quiz Passed!" : "❌ Quiz Not Passed"}</h3>
-        <p className="text-gray-700">You scored {score} out of {questions.length}</p>
+      <div
+        className={`card border-2 ${passed ? "bg-green-50 border-green-500" : "bg-red-50 border-red-500"}`}
+      >
+        <h3 className="text-xl font-semibold mb-2">
+          {passed ? "🎉 Quiz Passed!" : "❌ Quiz Not Passed"}
+        </h3>
+        <p className="text-gray-700">
+          You scored {score} out of {questions.length}
+        </p>
       </div>
     );
   }
@@ -155,11 +162,17 @@ function QuizComponent({ questions, onComplete }) {
   const q = questions[currentQuestion];
   return (
     <div className="card">
-      <p className="text-sm text-gray-500 mb-2">Question {currentQuestion + 1} of {questions.length}</p>
+      <p className="text-sm text-gray-500 mb-2">
+        Question {currentQuestion + 1} of {questions.length}
+      </p>
       <h3 className="text-lg font-semibold mb-4">{q.question}</h3>
       <div className="space-y-3">
         {q.options.map((option, i) => (
-          <button key={i} onClick={() => handleAnswer(i)} className="w-full text-left p-3 rounded-lg border border-gray-300 hover:bg-blue-50 hover:border-blue-400 transition-colors">
+          <button
+            key={i}
+            onClick={() => handleAnswer(i)}
+            className="w-full text-left p-3 rounded-lg border border-gray-300 hover:bg-blue-50 hover:border-blue-400 transition-colors"
+          >
             {option}
           </button>
         ))}
@@ -172,15 +185,23 @@ export default function LessonPage({ lesson, moduleId, lessonId }) {
   const router = useRouter();
   const [quizCompleted, setQuizCompleted] = useState(false);
   const [noBadges, setNoBadges] = useState(false);
-  const [showSkipDialog, setShowSkipDialog] = useState(false); // eslint-disable-line no-unused-vars
+  const [showSkipDialog, setShowSkipDialog] = useState(false);
 
   useEffect(() => {
-    try { setNoBadges(localStorage.getItem(NO_BADGES_KEY) === "true"); } catch { /* */ }
+    try {
+      setNoBadges(localStorage.getItem(NO_BADGES_KEY) === "true");
+    } catch {
+      /* */
+    }
   }, []);
 
-  useEffect(() => { setQuizCompleted(false); }, [moduleId, lessonId]);
+  useEffect(() => {
+    setQuizCompleted(false);
+  }, [moduleId, lessonId]);
 
-  useEffect(() => { getCurrentUser(); }, []);
+  useEffect(() => {
+    getCurrentUser();
+  }, []);
 
   const handleQuizComplete = async (passed, score) => {
     setQuizCompleted(passed);
@@ -191,7 +212,9 @@ export default function LessonPage({ lesson, moduleId, lessonId }) {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ lesson_id: lessonId, module_id: moduleId, score }),
         });
-      } catch { /* */ }
+      } catch {
+        /* */
+      }
     }
   };
 
@@ -210,7 +233,11 @@ export default function LessonPage({ lesson, moduleId, lessonId }) {
   };
 
   const confirmSkip = () => {
-    try { localStorage.setItem(NO_BADGES_KEY, "true"); } catch { /* */ }
+    try {
+      localStorage.setItem(NO_BADGES_KEY, "true");
+    } catch {
+      /* */
+    }
     setNoBadges(true);
     setShowSkipDialog(false);
     goToNextLesson();
@@ -220,19 +247,34 @@ export default function LessonPage({ lesson, moduleId, lessonId }) {
     <>
       <Head>
         <title>{lesson.title} - Learn Aptitude</title>
-        <meta name="description" content={`Learn Aptitude — Module ${moduleId}, Lesson ${lessonId}`} />
+        <meta
+          name="description"
+          content={`Learn Aptitude — Module ${moduleId}, Lesson ${lessonId}`}
+        />
       </Head>
       <main className="min-h-screen bg-gray-50 py-12">
         <div className="container mx-auto px-4 max-w-4xl">
           {noBadges && (
-            <div role="alert" className="mb-6 rounded-lg border border-yellow-400 bg-yellow-50 px-4 py-3 text-yellow-800 text-sm">
-              ⚠️ <strong>You&apos;re in Skip mode.</strong> You can continue without quizzes, but you won&apos;t earn badges.
+            <div
+              role="alert"
+              className="mb-6 rounded-lg border border-yellow-400 bg-yellow-50 px-4 py-3 text-yellow-800 text-sm"
+            >
+              ⚠️ <strong>You&apos;re in Skip mode.</strong> You can continue without quizzes, but
+              you won&apos;t earn badges.
             </div>
           )}
           <div className="mb-6">
-            <button onClick={() => router.push("/curriculum")} className="text-blue-600 hover:text-blue-800 flex items-center">
+            <button
+              onClick={() => router.push("/curriculum")}
+              className="text-blue-600 hover:text-blue-800 flex items-center"
+            >
               <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M15 19l-7-7 7-7"
+                />
               </svg>
               Back to Curriculum
             </button>
@@ -246,32 +288,53 @@ export default function LessonPage({ lesson, moduleId, lessonId }) {
           </div>
           {lesson.quiz && !quizCompleted && (
             <>
-              <QuizComponent key={`${moduleId}-${lessonId}`} questions={lesson.quiz} onComplete={handleQuizComplete} />
+              <QuizComponent
+                key={`${moduleId}-${lessonId}`}
+                questions={lesson.quiz}
+                onComplete={handleQuizComplete}
+              />
             </>
           )}
           {(quizCompleted || noBadges) && (
-            <div className={`card border-2 ${quizCompleted && !noBadges ? "bg-green-50 border-green-500" : "bg-yellow-50 border-yellow-400"}`}>
+            <div
+              className={`card border-2 ${quizCompleted && !noBadges ? "bg-green-50 border-green-500" : "bg-yellow-50 border-yellow-400"}`}
+            >
               {quizCompleted && !noBadges ? (
                 <>
                   <h3 className="text-xl font-semibold text-green-800 mb-4">🎉 Quiz Passed!</h3>
-                  <p className="text-gray-700 mb-4">Great work! You&apos;ve completed this lesson.</p>
+                  <p className="text-gray-700 mb-4">
+                    Great work! You&apos;ve completed this lesson.
+                  </p>
                 </>
               ) : (
                 <p className="text-gray-700 mb-4">Continue to the next lesson.</p>
               )}
-              <button onClick={goToNextLesson} className="btn-primary">Continue to Next Lesson</button>
+              <button onClick={goToNextLesson} className="btn-primary">
+                Continue to Next Lesson
+              </button>
             </div>
           )}
           {showSkipDialog && (
-            <div role="dialog" aria-modal="true" aria-labelledby="skip-dialog-title" className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+            <div
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="skip-dialog-title"
+              className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+            >
               <div className="bg-white rounded-xl shadow-xl max-w-sm w-full mx-4 p-6">
-                <h2 id="skip-dialog-title" className="text-xl font-semibold mb-3">Continue?</h2>
+                <h2 id="skip-dialog-title" className="text-xl font-semibold mb-3">
+                  Continue?
+                </h2>
                 <p className="text-gray-700 mb-6">
                   Are you sure you want to continue without completing the quiz?
                 </p>
                 <div className="flex gap-3 justify-end">
-                  <button onClick={() => setShowSkipDialog(false)} className="btn-secondary">Cancel</button>
-                  <button onClick={confirmSkip} className="btn-primary">Continue</button>
+                  <button onClick={() => setShowSkipDialog(false)} className="btn-secondary">
+                    Cancel
+                  </button>
+                  <button onClick={confirmSkip} className="btn-primary">
+                    Continue
+                  </button>
                 </div>
               </div>
             </div>

@@ -8,7 +8,11 @@ import ModuleCard from "../components/ModuleCard";
 import { getAllModules, COURSES } from "../lib/curriculumGenerator";
 
 export default function Curriculum() {
-  const [modulesByCourse, setModulesByCourse] = useState({ Basic: [], Intermediate: [], Advanced: [] });
+  const [modulesByCourse, setModulesByCourse] = useState({
+    Basic: [],
+    Intermediate: [],
+    Advanced: [],
+  });
 
   useEffect(() => {
     const all = getAllModules();
@@ -43,27 +47,41 @@ export default function Curriculum() {
               <ul className="space-y-3 text-gray-700">
                 <li className="flex items-start">
                   <span className="font-semibold mr-2">🎓</span>
-                  <span><strong>3 Courses</strong> — Basic, Intermediate, and Advanced</span>
+                  <span>
+                    <strong>3 Courses</strong> — Basic, Intermediate, and Advanced
+                  </span>
                 </li>
                 <li className="flex items-start">
                   <span className="font-semibold mr-2">��</span>
-                  <span><strong>30 Modules</strong> — 10 modules per course</span>
+                  <span>
+                    <strong>30 Modules</strong> — 10 modules per course
+                  </span>
                 </li>
                 <li className="flex items-start">
                   <span className="font-semibold mr-2">📖</span>
-                  <span><strong>300 Lessons</strong> — 10 lessons per module</span>
+                  <span>
+                    <strong>300 Lessons</strong> — 10 lessons per module
+                  </span>
                 </li>
                 <li className="flex items-start">
                   <span className="font-semibold mr-2">⏱️</span>
-                  <span><strong>Self-Paced Learning</strong> - Complete at your own speed</span>
+                  <span>
+                    <strong>Self-Paced Learning</strong> - Complete at your own speed
+                  </span>
                 </li>
                 <li className="flex items-start">
                   <span className="font-semibold mr-2">✅</span>
-                  <span><strong>Quiz After Each Lesson</strong> - Pass with 3/5 to unlock the next lesson</span>
+                  <span>
+                    <strong>Quiz After Each Lesson</strong> - Pass with 3/5 to unlock the next
+                    lesson
+                  </span>
                 </li>
                 <li className="flex items-start">
                   <span className="font-semibold mr-2">🎓</span>
-                  <span><strong>Final Certification Exam</strong> - 20 questions, pass with 13+ correct answers</span>
+                  <span>
+                    <strong>Final Certification Exam</strong> - 20 questions, pass with 13+ correct
+                    answers
+                  </span>
                 </li>
               </ul>
             </div>

@@ -80,8 +80,8 @@ export default function Terms() {
                 <p className="text-green-800 font-semibold mb-2">Inaugural Offer Pricing</p>
                 <p className="text-green-700 text-sm">
                   Inaugural Offer: {pricing.basePrice} (+ {pricing.gstRate} GST ={" "}
-                  {pricing.totalPrice}) valid from March 21, 2026 to April 20, 2026. Standard price Rs 352.82 per
-                  course (Rs 299 + Rs 53.82 GST) effective from April 21, 2026.
+                  {pricing.totalPrice}) valid from March 21, 2026 to April 20, 2026. Standard price
+                  Rs 352.82 per course (Rs 299 + Rs 53.82 GST) effective from April 21, 2026.
                 </p>
               </div>
             )}

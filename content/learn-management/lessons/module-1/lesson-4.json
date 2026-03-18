@@ -28,12 +28,7 @@
     },
     {
       "question": "In Maslow's Hierarchy of Needs, which level sits at the top of the pyramid?",
-      "options": [
-        "Esteem needs",
-        "Safety needs",
-        "Social needs",
-        "Self-actualisation"
-      ],
+      "options": ["Esteem needs", "Safety needs", "Social needs", "Self-actualisation"],
       "correct_answer": 3
     },
     {

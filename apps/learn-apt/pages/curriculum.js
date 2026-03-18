@@ -46,7 +46,6 @@ export default function Curriculum() {
 
       <main className="min-h-screen bg-gray-50 py-12">
         <div className="container mx-auto px-4">
-
           {/* Header */}
           <div className="max-w-4xl mx-auto mb-10">
             <h1 className="text-4xl font-bold mb-3">Aptitude & Reasoning Mastery Curriculum</h1>
@@ -70,10 +69,14 @@ export default function Curriculum() {
                   }`}
                 >
                   <div className="font-bold text-lg mb-1">{course.title}</div>
-                  <div className={`text-sm mb-2 ${activeCourse === course.id ? "text-white/80" : "text-gray-500"}`}>
+                  <div
+                    className={`text-sm mb-2 ${activeCourse === course.id ? "text-white/80" : "text-gray-500"}`}
+                  >
                     {course.subtitle}
                   </div>
-                  <div className={`text-xs ${activeCourse === course.id ? "text-white/70" : "text-gray-400"}`}>
+                  <div
+                    className={`text-xs ${activeCourse === course.id ? "text-white/70" : "text-gray-400"}`}
+                  >
                     {course.module_count} modules &bull; {course.lesson_count} lessons
                   </div>
                 </button>
@@ -89,19 +92,30 @@ export default function Curriculum() {
                   <span className={`px-3 py-1 rounded-full text-sm font-semibold ${colors.badge}`}>
                     {selectedCourse.difficulty}
                   </span>
-                  <h2 className="text-2xl font-bold">{selectedCourse.title}: {selectedCourse.subtitle}</h2>
+                  <h2 className="text-2xl font-bold">
+                    {selectedCourse.title}: {selectedCourse.subtitle}
+                  </h2>
                 </div>
                 <p className="text-gray-700">{selectedCourse.description}</p>
               </div>
 
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {modules.map((module) => (
-                  <div key={module.id} className="bg-white rounded-xl shadow hover:shadow-lg transition-shadow p-5 flex flex-col">
+                  <div
+                    key={module.id}
+                    className="bg-white rounded-xl shadow hover:shadow-lg transition-shadow p-5 flex flex-col"
+                  >
                     <div className="flex items-center justify-between mb-3">
                       <span className="text-2xl">
-                        {module.difficulty === "Beginner" ? "🌱" : module.difficulty === "Intermediate" ? "🚀" : "⭐"}
+                        {module.difficulty === "Beginner"
+                          ? "🌱"
+                          : module.difficulty === "Intermediate"
+                            ? "🚀"
+                            : "⭐"}
                       </span>
-                      <span className={`px-2 py-1 rounded-full text-xs font-semibold ${colors.badge}`}>
+                      <span
+                        className={`px-2 py-1 rounded-full text-xs font-semibold ${colors.badge}`}
+                      >
                         Module {module.order}
                       </span>
                     </div>
@@ -129,22 +143,29 @@ export default function Curriculum() {
             <div className="space-y-4 text-gray-700">
               <div className="flex items-start gap-3">
                 <span className="text-2xl">❌</span>
-                <div><strong className="text-red-700">Below 30%:</strong> Review lessons and retry. No certificate awarded.</div>
+                <div>
+                  <strong className="text-red-700">Below 30%:</strong> Review lessons and retry. No
+                  certificate awarded.
+                </div>
               </div>
               <div className="flex items-start gap-3">
                 <span className="text-2xl">✅</span>
-                <div><strong className="text-green-700">30% – 70%:</strong> Pass! Certificate of Completion awarded.</div>
+                <div>
+                  <strong className="text-green-700">30% – 70%:</strong> Pass! Certificate of
+                  Completion awarded.
+                </div>
               </div>
               <div className="flex items-start gap-3">
                 <span className="text-2xl">🏆</span>
-                <div><strong className="text-purple-700">Above 90%:</strong> Honors! Certificate of Excellence awarded.</div>
+                <div>
+                  <strong className="text-purple-700">Above 90%:</strong> Honors! Certificate of
+                  Excellence awarded.
+                </div>
               </div>
             </div>
           </div>
-
         </div>
       </main>
-
     </>
   );
 }

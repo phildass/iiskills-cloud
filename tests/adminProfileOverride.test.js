@@ -53,9 +53,18 @@ const {
 
 function makeRes() {
   const res = { statusCode: null, body: null, headers: {} };
-  res.status = (code) => { res.statusCode = code; return res; };
-  res.json = (data) => { res.body = data; return res; };
-  res.setHeader = (name, value) => { res.headers[name] = value; return res; };
+  res.status = (code) => {
+    res.statusCode = code;
+    return res;
+  };
+  res.json = (data) => {
+    res.body = data;
+    return res;
+  };
+  res.setHeader = (name, value) => {
+    res.headers[name] = value;
+    return res;
+  };
   return res;
 }
 
@@ -68,7 +77,12 @@ function loadHandler() {
 }
 
 /** Build a mock Supabase service-role client */
-function makeSupabase({ profile = null, fetchError = null, updateError = null, updatedProfile = null } = {}) {
+function makeSupabase({
+  profile = null,
+  fetchError = null,
+  updateError = null,
+  updatedProfile = null,
+} = {}) {
   const chain = {
     select: jest.fn().mockReturnThis(),
     eq: jest.fn().mockReturnThis(),
@@ -79,7 +93,9 @@ function makeSupabase({ profile = null, fetchError = null, updateError = null, u
   const updateChain = {
     eq: jest.fn().mockReturnThis(),
     select: jest.fn().mockReturnThis(),
-    maybeSingle: jest.fn().mockResolvedValue({ data: updatedProfile || profile, error: updateError }),
+    maybeSingle: jest
+      .fn()
+      .mockResolvedValue({ data: updatedProfile || profile, error: updateError }),
   };
   chain.update.mockReturnValue(updateChain);
 
@@ -117,7 +133,11 @@ test("returns 405 for non-POST requests", async () => {
 // ---------------------------------------------------------------------------
 
 test("returns 403 when admin session is invalid", async () => {
-  validateAdminRequestAsync.mockResolvedValue({ valid: false, reason: "Unauthorized", status: 401 });
+  validateAdminRequestAsync.mockResolvedValue({
+    valid: false,
+    reason: "Unauthorized",
+    status: 401,
+  });
   const handler = loadHandler();
   const req = { method: "POST", body: {}, headers: {} };
   const res = makeRes();

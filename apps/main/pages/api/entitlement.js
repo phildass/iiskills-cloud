@@ -165,6 +165,7 @@ export default async function handler(req, res) {
 
   // ── No access found — cache the negative result ───────────────────────────
   await setEntitlementInCache(user.id, appId, false);
-  return res.status(200).json({ authenticated: true, entitled: false, expiresAt: null, fromCache: false });
+  return res
+    .status(200)
+    .json({ authenticated: true, entitled: false, expiresAt: null, fromCache: false });
 }
-

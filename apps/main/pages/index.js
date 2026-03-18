@@ -399,7 +399,7 @@ export default function Home() {
                   We believe in democratizing education by making it affordable (
                   {pricing.totalPrice} per course
                   {pricing.isIntroductory
-                    ? `, inaugural offer valid from March 21, 2026 to April 20, 2026`
+                    ? ", inaugural offer valid from March 21, 2026 to April 20, 2026"
                     : ""}
                   ), accessible online, and focused on immediately applicable skills.
                 </p>

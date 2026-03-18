@@ -3,9 +3,24 @@ import Link from "next/link";
 import { COURSES } from "../lib/curriculumGenerator";
 
 const LEVEL_STYLES = {
-  Basic:        { bg: "bg-green-50",  border: "border-green-200",  badge: "bg-green-100 text-green-800",  btn: "bg-green-600 hover:bg-green-700" },
-  Intermediate: { bg: "bg-blue-50",   border: "border-blue-200",   badge: "bg-blue-100 text-blue-800",    btn: "bg-blue-600 hover:bg-blue-700"   },
-  Advanced:     { bg: "bg-purple-50", border: "border-purple-200", badge: "bg-purple-100 text-purple-800", btn: "bg-purple-600 hover:bg-purple-700" },
+  Basic: {
+    bg: "bg-green-50",
+    border: "border-green-200",
+    badge: "bg-green-100 text-green-800",
+    btn: "bg-green-600 hover:bg-green-700",
+  },
+  Intermediate: {
+    bg: "bg-blue-50",
+    border: "border-blue-200",
+    badge: "bg-blue-100 text-blue-800",
+    btn: "bg-blue-600 hover:bg-blue-700",
+  },
+  Advanced: {
+    bg: "bg-purple-50",
+    border: "border-purple-200",
+    badge: "bg-purple-100 text-purple-800",
+    btn: "bg-purple-600 hover:bg-purple-700",
+  },
 };
 
 export default function Courses() {
@@ -53,15 +68,21 @@ export default function Courses() {
                   <div className="space-y-2 mb-6 text-sm text-gray-700">
                     <div className="flex items-center gap-2">
                       <span>📚</span>
-                      <span><strong>{course.moduleCount}</strong> modules</span>
+                      <span>
+                        <strong>{course.moduleCount}</strong> modules
+                      </span>
                     </div>
                     <div className="flex items-center gap-2">
                       <span>📖</span>
-                      <span><strong>{course.lessonCount}</strong> lessons</span>
+                      <span>
+                        <strong>{course.lessonCount}</strong> lessons
+                      </span>
                     </div>
                     <div className="flex items-center gap-2">
                       <span>🎯</span>
-                      <span>Modules {course.moduleRange[0]}–{course.moduleRange[1]}</span>
+                      <span>
+                        Modules {course.moduleRange[0]}–{course.moduleRange[1]}
+                      </span>
                     </div>
                   </div>
 
@@ -77,13 +98,8 @@ export default function Courses() {
           </div>
 
           <div className="mt-12 text-center">
-            <p className="text-gray-500 text-sm mb-4">
-              Want to see all modules at once?
-            </p>
-            <Link
-              href="/curriculum"
-              className="text-primary font-semibold hover:underline"
-            >
+            <p className="text-gray-500 text-sm mb-4">Want to see all modules at once?</p>
+            <Link href="/curriculum" className="text-primary font-semibold hover:underline">
               View full curriculum →
             </Link>
           </div>

@@ -6,13 +6,13 @@ This document describes the complete deployment procedure for the `iiskills-clou
 
 ## Quick Reference
 
-| Command                             | Purpose                                                 |
-| ----------------------------------- | ------------------------------------------------------- |
+| Command                             | Purpose                                                |
+| ----------------------------------- | ------------------------------------------------------ |
 | `./deploy-all.sh`                   | Full production deploy (pull → build → verify → start) |
-| `yarn verify:build-no-placeholders` | Check `apps/main` bundle for placeholder strings        |
-| `yarn verify:build-env:main`        | Alias for the above                                     |
-| `curl localhost:3000`               | Smoke-test the main app                                 |
-| `pm2 status`                        | View all running services                               |
+| `yarn verify:build-no-placeholders` | Check `apps/main` bundle for placeholder strings       |
+| `yarn verify:build-env:main`        | Alias for the above                                    |
+| `curl localhost:3000`               | Smoke-test the main app                                |
+| `pm2 status`                        | View all running services                              |
 
 ---
 
@@ -292,4 +292,3 @@ Each app can be started individually:
 | `yarn dev:learn-math`       | apps/learn-math       |
 | `yarn dev:learn-physics`    | apps/learn-physics    |
 | `yarn dev:learn-pr`         | apps/learn-pr         |
-

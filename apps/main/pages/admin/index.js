@@ -99,7 +99,9 @@ export default function AdminDashboard() {
                 <h3 className="text-sm font-semibold opacity-90 mb-1">Sites</h3>
                 <p className="text-4xl font-bold">{stats.totalSites}</p>
               </div>
-              <div className="text-4xl opacity-80" aria-hidden="true">🌐</div>
+              <div className="text-4xl opacity-80" aria-hidden="true">
+                🌐
+              </div>
             </div>
             <p className="text-xs opacity-75 mt-3">Active learn-* apps</p>
           </div>

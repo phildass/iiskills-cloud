@@ -8,12 +8,7 @@
   "quiz": [
     {
       "question": "Which theorist is best known for introducing Scientific Management?",
-      "options": [
-        "Henri Fayol",
-        "Elton Mayo",
-        "Frederick Winslow Taylor",
-        "Max Weber"
-      ],
+      "options": ["Henri Fayol", "Elton Mayo", "Frederick Winslow Taylor", "Max Weber"],
       "correct_answer": 2
     },
     {

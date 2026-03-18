@@ -29,14 +29,13 @@
  *
  * Usage in subdomains:
  * import { UniversalHeader } from "@iiskills/ui/navigation"
- */
- * 
+ *
  * Example - Including in _app.js for site-wide usage:
  * ```jsx
  * import UniversalHeader from '../components/UniversalHeader'
  * import Navbar from '../components/Navbar'
  * import Footer from '../components/Footer'
- * 
+ *
  * export default function App({ Component, pageProps }) {
  *   return (
  *     <>
@@ -50,7 +49,7 @@
  * ```
  */
 
-import Image from 'next/image'
+import Image from "next/image";
 
 export default function UniversalHeader() {
   return (
@@ -96,5 +95,5 @@ export default function UniversalHeader() {
         </div>
       </div>
     </header>
-  )
+  );
 }
