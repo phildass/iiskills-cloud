@@ -101,9 +101,10 @@ export function getHeroImageForApp(appName) {
       break;
     case "learn-companion":
       return null;
-    default:
+    default: {
       const hash = appName.split("").reduce((acc, char) => acc + char.charCodeAt(0), 0);
       legacyImage = SHARED_HERO_POOL[hash % SHARED_HERO_POOL.length];
+    }
   }
 
   return { src: `/images/${legacyImage}`, isRemote: false, credit: null };

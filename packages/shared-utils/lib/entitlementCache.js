@@ -105,7 +105,10 @@ async function _getRedis() {
     });
 
     client.on("error", (err) => {
-      console.warn("[entitlementCache] Redis error — falling back to in-process cache:", err.message);
+      console.warn(
+        "[entitlementCache] Redis error — falling back to in-process cache:",
+        err.message
+      );
       // Allow a fresh connection attempt on the next request.
       _redis = null;
       _redisAttempted = false;
@@ -167,7 +170,12 @@ export async function getEntitlementFromCache(userId, appId) {
  * @param {number}  [ttlSeconds]   - Override TTL (default: 300 s).
  * @returns {Promise<void>}
  */
-export async function setEntitlementInCache(userId, appId, value, ttlSeconds = DEFAULT_TTL_SECONDS) {
+export async function setEntitlementInCache(
+  userId,
+  appId,
+  value,
+  ttlSeconds = DEFAULT_TTL_SECONDS
+) {
   const key = _key(userId, appId);
   try {
     const redis = await _getRedis();

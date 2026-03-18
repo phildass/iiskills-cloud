@@ -251,7 +251,9 @@ export default function DomainTest() {
                 total={questions.length}
                 timeTaken={timeTaken}
                 testName={domainConfig.title}
-                domainScores={{ [domainConfig.title]: Math.round((score / questions.length) * 100) }}
+                domainScores={{
+                  [domainConfig.title]: Math.round((score / questions.length) * 100),
+                }}
                 className="mb-8"
               />
               <div className="grid grid-cols-2 gap-4">

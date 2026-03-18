@@ -40,29 +40,29 @@ To enable admin login for the first time:
 
 ## Session Cookie
 
-| Property     | Value                  |
-|--------------|------------------------|
-| Name         | `admin_session`        |
-| Algorithm    | HS256 JWT              |
-| Signing key  | `ADMIN_SESSION_SIGNING_KEY` env var |
-| Expiry       | 12 hours               |
-| HttpOnly     | ✅                     |
-| Secure       | ✅ (production only)   |
-| SameSite     | Lax                    |
+| Property    | Value                               |
+| ----------- | ----------------------------------- |
+| Name        | `admin_session`                     |
+| Algorithm   | HS256 JWT                           |
+| Signing key | `ADMIN_SESSION_SIGNING_KEY` env var |
+| Expiry      | 12 hours                            |
+| HttpOnly    | ✅                                  |
+| Secure      | ✅ (production only)                |
+| SameSite    | Lax                                 |
 
 ---
 
 ## Environment Variables
 
-| Variable                    | Required | Description                                                     |
-|-----------------------------|----------|-----------------------------------------------------------------|
-| `ADMIN_SESSION_SIGNING_KEY` | **Yes**  | Secret key used to sign the admin JWT cookie (min. 32 chars recommended). |
-| `ADMIN_DATA_FILE`           | No       | Path to the JSON file storing the bcrypt passphrase hash. Default: `/var/lib/iiskills/admin.json`. |
-| `ADMIN_PANEL_SECRET`        | No       | Emergency override passphrase (plain text). If set, overrides the stored hash. Useful for recovery. |
+| Variable                    | Required | Description                                                                                                                                                                                       |
+| --------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ADMIN_SESSION_SIGNING_KEY` | **Yes**  | Secret key used to sign the admin JWT cookie (min. 32 chars recommended).                                                                                                                         |
+| `ADMIN_DATA_FILE`           | No       | Path to the JSON file storing the bcrypt passphrase hash. Default: `/var/lib/iiskills/admin.json`.                                                                                                |
+| `ADMIN_PANEL_SECRET`        | No       | Emergency override passphrase (plain text). If set, overrides the stored hash. Useful for recovery.                                                                                               |
 | `ADMIN_IP_ALLOWLIST`        | No       | Comma-separated list of IPv4/IPv6 addresses allowed to access `/admin`. Example: `203.0.113.1,2001:db8::1`. All IPs are allowed when unset. CIDR notation is not supported — use exact addresses. |
-| `ADMIN_ALLOWLIST_EMAILS`    | No       | Comma-separated email addresses that have **superadmin** privileges (can create/revoke admin accounts). Not used for general admin authentication. Example: `phil@example.com,ops@example.com`. |
-| `ADMIN_AUTH_DISABLED`       | No       | Set to `true` to bypass all admin auth (local dev only — **never in production**). |
-| `TEST_ADMIN_MODE`           | No       | Set to `true` in CI/test environments. `ADMIN_PANEL_SECRET` (or `ADMIN_SECRET`) is **required** when this is enabled. No file reads. |
+| `ADMIN_ALLOWLIST_EMAILS`    | No       | Comma-separated email addresses that have **superadmin** privileges (can create/revoke admin accounts). Not used for general admin authentication. Example: `phil@example.com,ops@example.com`.   |
+| `ADMIN_AUTH_DISABLED`       | No       | Set to `true` to bypass all admin auth (local dev only — **never in production**).                                                                                                                |
+| `TEST_ADMIN_MODE`           | No       | Set to `true` in CI/test environments. `ADMIN_PANEL_SECRET` (or `ADMIN_SECRET`) is **required** when this is enabled. No file reads.                                                              |
 
 ---
 
@@ -81,6 +81,7 @@ There is no self-service password reset. To reset the passphrase:
 ## Migration Notes — Removing Supabase Admin Checks
 
 The previous admin system supported two access paths:
+
 1. Passphrase / signed cookie (unchanged)
 2. Supabase Bearer token (user email in `ADMIN_ALLOWLIST_EMAILS` or `profiles.is_admin = true`)
 
@@ -134,13 +135,13 @@ pm2 logs iiskills-main --lines 30
 
 Each login attempt now emits `[adminLogin]` log lines. Look for messages like:
 
-| Log message | Meaning |
-|---|---|
-| `ADMIN_SESSION_SIGNING_KEY configured: false` | The signing key is missing — env vars are not loaded. See step 2. |
-| `ADMIN_PANEL_SECRET is set but did not match` | ADMIN_PANEL_SECRET is loaded but you are not entering its exact value. |
-| `Hash file: … — hash present: false` | No stored hash. Only `ADMIN_PANEL_SECRET` will work. |
-| `Bcrypt comparison failed` | A hash IS stored but the passphrase you entered does not match it. Use the ADMIN_PANEL_SECRET recovery path (step 3). |
-| `Admin login is not configured` | Neither a hash nor `ADMIN_PANEL_SECRET` is set — the admin panel is locked. Set `ADMIN_PANEL_SECRET` and restart. |
+| Log message                                   | Meaning                                                                                                               |
+| --------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| `ADMIN_SESSION_SIGNING_KEY configured: false` | The signing key is missing — env vars are not loaded. See step 2.                                                     |
+| `ADMIN_PANEL_SECRET is set but did not match` | ADMIN_PANEL_SECRET is loaded but you are not entering its exact value.                                                |
+| `Hash file: … — hash present: false`          | No stored hash. Only `ADMIN_PANEL_SECRET` will work.                                                                  |
+| `Bcrypt comparison failed`                    | A hash IS stored but the passphrase you entered does not match it. Use the ADMIN_PANEL_SECRET recovery path (step 3). |
+| `Admin login is not configured`               | Neither a hash nor `ADMIN_PANEL_SECRET` is set — the admin panel is locked. Set `ADMIN_PANEL_SECRET` and restart.     |
 
 ### 2. Ensure environment variables are loaded at runtime
 

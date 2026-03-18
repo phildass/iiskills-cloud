@@ -18,12 +18,7 @@
     },
     {
       "question": "Which of Larry Spears' ten servant leadership characteristics refers to holding institutions in trust for the greater good?",
-      "options": [
-        "Foresight",
-        "Conceptualisation",
-        "Stewardship",
-        "Healing"
-      ],
+      "options": ["Foresight", "Conceptualisation", "Stewardship", "Healing"],
       "correct_answer": 2
     },
     {

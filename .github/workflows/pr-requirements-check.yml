@@ -74,6 +74,9 @@ jobs:
         with:
           node-version: "20"
 
+          cache: "yarn"
+
+
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
@@ -190,6 +193,9 @@ jobs:
         with:
           node-version: "20"
 
+          cache: "yarn"
+
+
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
@@ -223,6 +229,9 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20"
+
+          cache: "yarn"
+
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
@@ -290,6 +299,9 @@ jobs:
         with:
           node-version: "20"
 
+          cache: "yarn"
+
+
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
@@ -321,17 +333,39 @@ jobs:
         with:
           node-version: "20"
 
+          cache: "yarn"
+
+
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
       - name: Run npm audit
         run: |
           echo "🔒 Running security audit..."
+
+          AUDIT_JSON=$(yarn npm audit --json 2>/dev/null || echo '{"advisories":{}}') 
+
+          # Check for high/critical vulnerabilities
+          CRITICAL_COUNT=$(echo "$AUDIT_JSON" | jq '[.advisories | to_entries[] | select(.value.severity == "critical")] | length' 2>/dev/null || echo "0")
+          HIGH_COUNT=$(echo "$AUDIT_JSON" | jq '[.advisories | to_entries[] | select(.value.severity == "high")] | length' 2>/dev/null || echo "0")
+
+          echo "High severity vulnerabilities: $HIGH_COUNT"
+          echo "Critical severity vulnerabilities: $CRITICAL_COUNT"
+
+          if [ "$CRITICAL_COUNT" -gt 0 ]; then
+            echo "❌ ERROR: Critical vulnerabilities found!"
+            exit 1
+          elif [ "$HIGH_COUNT" -gt 0 ]; then
+            echo "⚠️ WARNING: High severity vulnerabilities found"
+          else
+            echo "✅ No high or critical vulnerabilities found"
+
           # Use yarn npm audit (not npm audit) — this project has no package-lock.json
           yarn npm audit --environment production --audit-level critical 2>&1 | tee audit-results.json || AUDIT_EXIT=$?
           if [ "${AUDIT_EXIT:-0}" -ne 0 ]; then
             echo "❌ ERROR: Critical vulnerabilities found!"
             exit 1
+
           fi
           echo "✅ No critical vulnerabilities found"
 
@@ -371,6 +405,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20"
+          cache: "yarn"
+
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
@@ -434,7 +470,17 @@ jobs:
             let report = '## 🤖 Automated Requirements Analysis\n\n';
             report += '### Checklist Status\n\n';
 
+            const needsJson = JSON.parse(process.env.NEEDS_JSON || '{}');
             const checkResults = {
+
+              'PR Template': needsJson['pr-template-validation']?.result === 'success' ? '✅' : '❌',
+              'Code Quality': needsJson['code-quality']?.result === 'success' ? '✅' : '❌',
+              'Import Validation': needsJson['import-validation']?.result === 'success' ? '✅' : '❌',
+              'Unit Tests': needsJson['unit-tests']?.result === 'success' ? '✅' : '❌',
+              'E2E Tests': needsJson['e2e-tests']?.result === 'success' ? '✅' : '❌',
+              'Config Validation': needsJson['config-validation']?.result === 'success' ? '✅' : '❌',
+              'Security Scan': needsJson['security-scan']?.result === 'success' ? '✅' : '❌',
+
               'PR Template': '${{ needs.pr-template-validation.result }}' === 'success' ? '✅' : '❌',
               'Code Quality': '${{ needs.code-quality.result }}' === 'success' ? '✅' : '❌',
               'Import Validation': '${{ needs.import-validation.result }}' === 'success' ? '✅' : '❌',
@@ -442,6 +488,7 @@ jobs:
               'E2E Tests': '${{ needs.e2e-tests.result }}' === 'success' ? '✅' : '❌',
               'Config Validation': '${{ needs.config-validation.result }}' === 'success' ? '✅' : '❌',
               'Security Scan': '${{ needs.security-scan.result }}' === 'success' ? '✅' : '❌',
+
             };
 
             for (const [check, status] of Object.entries(checkResults)) {
@@ -489,6 +536,10 @@ jobs:
               issue_number: context.issue.number,
               body: report
             });
+
+        env:
+          NEEDS_JSON: ${{ toJson(needs) }}
+
 
   # Job 10: Final Status Check
   final-status:

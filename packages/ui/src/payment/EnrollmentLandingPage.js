@@ -83,8 +83,8 @@ export default function EnrollmentLandingPage({
                 extra cost!
               </p>
               <p className="text-yellow-900 text-sm font-semibold mt-1">
-                ⏰ Exclusive offer — valid from <strong>March 21, 2026 to April 20, 2026</strong>. Don't miss
-                out!
+                ⏰ Exclusive offer — valid from <strong>March 21, 2026 to April 20, 2026</strong>.
+                Don't miss out!
               </p>
             </div>
           )}
@@ -163,7 +163,9 @@ export default function EnrollmentLandingPage({
                 "All lessons, quizzes, and module tests",
                 "Professional certification upon completion",
                 "1-year access to all course materials and updates",
-                bundleActive ? `Bonus: ${partnerApp} included FREE (from March 21 to April 20, 2026)` : null,
+                bundleActive
+                  ? `Bonus: ${partnerApp} included FREE (from March 21 to April 20, 2026)`
+                  : null,
               ]
                 .filter(Boolean)
                 .map((item, i) => (

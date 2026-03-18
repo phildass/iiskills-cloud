@@ -119,10 +119,9 @@ export async function fetchEntitlementResponse(appId, _deps) {
       ? `${window.location.protocol}//iiskills.cloud`
       : "https://iiskills.cloud";
 
-  const res = await fetchImpl(
-    `${apiBase}/api/entitlement?appId=${encodeURIComponent(appId)}`,
-    { headers }
-  );
+  const res = await fetchImpl(`${apiBase}/api/entitlement?appId=${encodeURIComponent(appId)}`, {
+    headers,
+  });
 
   if (!res.ok) return { authenticated: false, entitled: false };
   return res.json();
@@ -163,7 +162,7 @@ export function canAccessCourse(courseId, { accessLevel, appId }) {
   //    (checked synchronously; resolveIsFreeApp is async and only used in the hook)
   try {
     // Best-effort synchronous check using the bundled registry.
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    // eslint-disable-next-line no-undef -- require() is valid in Node.js/Webpack contexts
     const acModule = require("../../../access-control/accessControl.js");
     if (typeof acModule.isFreeApp === "function" && acModule.isFreeApp(courseId)) return true;
   } catch {
@@ -276,10 +275,7 @@ export function useUserAccess(appId, options = {}) {
    *   true  → user has access (Admin, Paid, or Free)
    *   false → user has no access (None)
    */
-  const entitled =
-    accessLevel === null
-      ? null
-      : accessLevel !== ACCESS_LEVEL.NONE;
+  const entitled = accessLevel === null ? null : accessLevel !== ACCESS_LEVEL.NONE;
 
   const isAdmin = accessLevel === ACCESS_LEVEL.ADMIN;
   const isPaidUser = accessLevel === ACCESS_LEVEL.PAID_USER || isAdmin;

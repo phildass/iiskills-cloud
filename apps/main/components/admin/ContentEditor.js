@@ -173,7 +173,7 @@ export default function ContentEditor({ app, content, onSave, onCancel }) {
           </select>
         );
 
-      case "array":
+      case "array": {
         const arrayValue = formData[field.name] || [];
         return (
           <div className="space-y-2">
@@ -204,6 +204,7 @@ export default function ContentEditor({ app, content, onSave, onCancel }) {
             </button>
           </div>
         );
+      }
 
       case "nested":
         return (

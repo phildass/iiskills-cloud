@@ -366,17 +366,17 @@ returned — `null` (check skipped for free lessons) never triggers the paywall.
 
 Before going live, verify every item:
 
-| # | Check                                                             | How to verify                                                              |
-|---|-------------------------------------------------------------------|----------------------------------------------------------------------------|
-| 1 | `NEXT_PUBLIC_SUPABASE_URL` is set and points to the Supabase project  | `echo $NEXT_PUBLIC_SUPABASE_URL` on the server                             |
-| 2 | `SUPABASE_SERVICE_ROLE_KEY` is set (server-side only)             | `echo $SUPABASE_SERVICE_ROLE_KEY` on the server                            |
-| 3 | `PAYMENT_TOKEN_SECRET` is a long random string                    | `openssl rand -hex 32` to generate; check `/etc/iiskills.env`              |
-| 4 | `AIENTER_CONFIRMATION_SIGNING_SECRET` matches value on aienter.in | Must be identical on both sides; rotate both atomically if changed         |
-| 5 | `IISKILLS_CONFIRM_URL` on aienter.in = `https://iiskills.cloud/api/payments/confirm` | Check aienter.in env config  |
-| 6 | Payment flow: new user can register, pay, and immediately access lessons | End-to-end smoke test                                                 |
-| 7 | Paid user sees NO paywall on lesson 2, 3, … of an entitled course | Log in as paid user and navigate to non-free lessons                       |
-| 8 | `/api/payments/create-purchase` returns `{ purchaseId }`, not a 500 | Check server logs after clicking "Pay Now"                               |
-| 9 | `POST /api/payments/confirm` returns `200 success`               | Check aienter.in callback logs after test payment                          |
+| #   | Check                                                                                | How to verify                                                      |
+| --- | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------ |
+| 1   | `NEXT_PUBLIC_SUPABASE_URL` is set and points to the Supabase project                 | `echo $NEXT_PUBLIC_SUPABASE_URL` on the server                     |
+| 2   | `SUPABASE_SERVICE_ROLE_KEY` is set (server-side only)                                | `echo $SUPABASE_SERVICE_ROLE_KEY` on the server                    |
+| 3   | `PAYMENT_TOKEN_SECRET` is a long random string                                       | `openssl rand -hex 32` to generate; check `/etc/iiskills.env`      |
+| 4   | `AIENTER_CONFIRMATION_SIGNING_SECRET` matches value on aienter.in                    | Must be identical on both sides; rotate both atomically if changed |
+| 5   | `IISKILLS_CONFIRM_URL` on aienter.in = `https://iiskills.cloud/api/payments/confirm` | Check aienter.in env config                                        |
+| 6   | Payment flow: new user can register, pay, and immediately access lessons             | End-to-end smoke test                                              |
+| 7   | Paid user sees NO paywall on lesson 2, 3, … of an entitled course                    | Log in as paid user and navigate to non-free lessons               |
+| 8   | `/api/payments/create-purchase` returns `{ purchaseId }`, not a 500                  | Check server logs after clicking "Pay Now"                         |
+| 9   | `POST /api/payments/confirm` returns `200 success`                                   | Check aienter.in callback logs after test payment                  |
 
 ---
 

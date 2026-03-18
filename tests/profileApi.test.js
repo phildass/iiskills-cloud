@@ -342,30 +342,14 @@ describe("api/profile PATCH — phone normalisation", () => {
   });
 
   test("api/profile.js contains normalizePhone function", () => {
-    const profileApiPath = path.join(
-      __dirname,
-      "..",
-      "apps",
-      "main",
-      "pages",
-      "api",
-      "profile.js"
-    );
+    const profileApiPath = path.join(__dirname, "..", "apps", "main", "pages", "api", "profile.js");
     const profileApiSrc = fs.readFileSync(profileApiPath, "utf8");
     expect(profileApiSrc).toContain("function normalizePhone");
     expect(profileApiSrc).toContain("isValidE164");
   });
 
   test("api/profile.js applies normalisePhone before DB update", () => {
-    const profileApiPath = path.join(
-      __dirname,
-      "..",
-      "apps",
-      "main",
-      "pages",
-      "api",
-      "profile.js"
-    );
+    const profileApiPath = path.join(__dirname, "..", "apps", "main", "pages", "api", "profile.js");
     const profileApiSrc = fs.readFileSync(profileApiPath, "utf8");
     // Confirm the PATCH handler calls normalizePhone for the phone field
     expect(profileApiSrc).toContain("normalizePhone(updates.phone)");

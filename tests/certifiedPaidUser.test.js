@@ -200,7 +200,12 @@ describe("buildUserAccessFromRecords — dashboard display logic", () => {
 
   it("marks non-certified records as isCertifiedPaid=false", () => {
     const records = [
-      { app_id: "learn-management", is_active: true, is_certified_paid_user: false, expires_at: futureDate },
+      {
+        app_id: "learn-management",
+        is_active: true,
+        is_certified_paid_user: false,
+        expires_at: futureDate,
+      },
     ];
     const access = buildUserAccessFromRecords(records);
     expect(access["learn-management"].isCertifiedPaid).toBe(false);
@@ -227,8 +232,18 @@ describe("buildUserAccessFromRecords — dashboard display logic", () => {
   it("handles multiple apps in a single pass", () => {
     const records = [
       { app_id: "learn-ai", is_active: true, is_certified_paid_user: true, expires_at: futureDate },
-      { app_id: "learn-developer", is_active: true, is_certified_paid_user: true, expires_at: futureDate },
-      { app_id: "learn-management", is_active: true, is_certified_paid_user: false, expires_at: null },
+      {
+        app_id: "learn-developer",
+        is_active: true,
+        is_certified_paid_user: true,
+        expires_at: futureDate,
+      },
+      {
+        app_id: "learn-management",
+        is_active: true,
+        is_certified_paid_user: false,
+        expires_at: null,
+      },
       { app_id: "learn-pr", is_active: true, is_certified_paid_user: true, expires_at: pastDate }, // expired
     ];
     const access = buildUserAccessFromRecords(records);

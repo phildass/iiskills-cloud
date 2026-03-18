@@ -60,6 +60,7 @@ When a user pays for an app or bundle, they receive **certified paid user** stat
 - `expires_at = 1 year from payment date` — auto-set for payment/bundle grants
 
 This status:
+
 - Is displayed as **"Paid User"** badge on the user dashboard header
 - Shows **"Paid (Annual)"** on course cards and in the entitlement history table
 - Shows the expiry date on each paid course card

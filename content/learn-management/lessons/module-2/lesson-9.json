@@ -8,12 +8,7 @@
   "quiz": [
     {
       "question": "According to McKinsey's Diversity Wins report (2020), companies in the top quartile for ethnic diversity were how much more likely to outperform peers on profitability?",
-      "options": [
-        "12% more likely",
-        "25% more likely",
-        "36% more likely",
-        "50% more likely"
-      ],
+      "options": ["12% more likely", "25% more likely", "36% more likely", "50% more likely"],
       "correct_answer": 2
     },
     {

@@ -15,7 +15,10 @@
  */
 
 import { createClient } from "@supabase/supabase-js";
-import { checkContent, MODERATION_STRIKE_LIMIT } from "../../../../../packages/shared-utils/lib/contentFilter";
+import {
+  checkContent,
+  MODERATION_STRIKE_LIMIT,
+} from "../../../../../packages/shared-utils/lib/contentFilter";
 
 function getSupabaseAdmin() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL;

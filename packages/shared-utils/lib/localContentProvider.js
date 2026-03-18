@@ -301,12 +301,13 @@ export function createLocalContentClient() {
                 if (itemValue == null || value == null) return false;
                 return itemValue <= value;
               case "like":
-              case "ilike":
+              case "ilike": {
                 // Escape special regex characters before replacing % with .*
                 const escapedValue = String(value).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
                 const pattern = escapedValue.replace(/%/g, ".*");
                 const regex = new RegExp(pattern, op === "ilike" ? "i" : "");
                 return regex.test(String(itemValue || ""));
+              }
               case "is":
                 return itemValue === value;
               case "in":

@@ -107,7 +107,10 @@ export function getEffectivePricingBreakdown(date = new Date()) {
     total: intro ? OLD_TOTAL : NEW_TOTAL,
     gstRate: GST_RATE,
     phase: intro ? "intro" : "standard",
-    messages: ["Inaugural Offer valid from March 21, 2026 to April 20, 2026", "Standard pricing effective from April 21, 2026"],
+    messages: [
+      "Inaugural Offer valid from March 21, 2026 to April 20, 2026",
+      "Standard pricing effective from April 21, 2026",
+    ],
   };
 }
 

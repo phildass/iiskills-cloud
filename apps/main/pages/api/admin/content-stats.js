@@ -146,14 +146,17 @@ export default function handler(req, res) {
   }
 
   const contentRoot = getContentRoot();
-  const { sites, totalModules: actualModules, totalLessons: actualLessons } =
-    scanContentDirectory(contentRoot);
+  const {
+    sites,
+    totalModules: actualModules,
+    totalLessons: actualLessons,
+  } = scanContentDirectory(contentRoot);
 
   // Configured (theoretical) totals — reflect the planned platform structure.
   const totalSites = sites.length;
-  const totalCourses = totalSites * COURSES_PER_SITE;          // 8 × 3 = 24
-  const totalModules = totalCourses * MODULES_PER_COURSE;      // 24 × 10 = 240
-  const totalLessons = totalModules * LESSONS_PER_MODULE;      // 240 × 10 = 2400
+  const totalCourses = totalSites * COURSES_PER_SITE; // 8 × 3 = 24
+  const totalModules = totalCourses * MODULES_PER_COURSE; // 24 × 10 = 240
+  const totalLessons = totalModules * LESSONS_PER_MODULE; // 240 × 10 = 2400
 
   return res.status(200).json({
     /**

@@ -20,16 +20,14 @@
  * Whether the current deployment is a "Test Site Only" instance.
  * Reads NEXT_PUBLIC_IS_TEST_SITE for client + server contexts.
  */
-export const IS_TEST_SITE =
-  process.env.NEXT_PUBLIC_IS_TEST_SITE === "true";
+export const IS_TEST_SITE = process.env.NEXT_PUBLIC_IS_TEST_SITE === "true";
 
 /**
  * Server-side check (also reads IS_TEST_SITE without the NEXT_PUBLIC prefix).
  * Useful in middleware and API routes running outside the browser bundle.
  */
 export const IS_TEST_SITE_SERVER =
-  process.env.IS_TEST_SITE === "true" ||
-  process.env.NEXT_PUBLIC_IS_TEST_SITE === "true";
+  process.env.IS_TEST_SITE === "true" || process.env.NEXT_PUBLIC_IS_TEST_SITE === "true";
 
 /** Standard error response body returned by all blocked API endpoints. */
 export const TEST_SITE_ERROR = "Test Site Only \u2014 No actions allowed";

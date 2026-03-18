@@ -32,7 +32,11 @@ export default function AppsDashboard() {
         // Build initial access status: free apps are always accessible
         const accessStatus = {};
         for (const appId of Object.keys(APPS)) {
-          accessStatus[appId] = { hasAccess: isFreeApp(appId), isCertifiedPaid: false, expiresAt: null };
+          accessStatus[appId] = {
+            hasAccess: isFreeApp(appId),
+            isCertifiedPaid: false,
+            expiresAt: null,
+          };
         }
 
         // Fetch user_app_access records to determine paid/certified status

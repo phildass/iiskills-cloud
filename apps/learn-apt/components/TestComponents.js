@@ -276,7 +276,7 @@ export function DomainTag({ domain, color }) {
 }
 
 // Question Navigation Dots
-export function QuestionNavigation({ total, current, answers, questions }) {
+export function QuestionNavigation({ total, current, answers, questions, onNavigate }) {
   return (
     <div className="flex flex-wrap gap-2 justify-center">
       {Array.from({ length: total }, (_, i) => {

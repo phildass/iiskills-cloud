@@ -8,7 +8,12 @@
  */
 
 import { parse } from "cookie";
-import { verifyAdminToken, ADMIN_COOKIE_NAME, isAdminAuthDisabled, getAdminLabel } from "../../../lib/adminAuth";
+import {
+  verifyAdminToken,
+  ADMIN_COOKIE_NAME,
+  isAdminAuthDisabled,
+  getAdminLabel,
+} from "../../../lib/adminAuth";
 
 export default function handler(req, res) {
   if (req.method !== "GET") {

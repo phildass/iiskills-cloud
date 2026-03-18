@@ -47,9 +47,18 @@ function makeReq(method, body = {}) {
 
 function makeRes() {
   const res = { statusCode: null, body: null, headers: {} };
-  res.status = (code) => { res.statusCode = code; return res; };
-  res.json = (data) => { res.body = data; return res; };
-  res.setHeader = (name, value) => { res.headers[name] = value; return res; };
+  res.status = (code) => {
+    res.statusCode = code;
+    return res;
+  };
+  res.json = (data) => {
+    res.body = data;
+    return res;
+  };
+  res.setHeader = (name, value) => {
+    res.headers[name] = value;
+    return res;
+  };
   return res;
 }
 

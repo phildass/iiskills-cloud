@@ -117,7 +117,12 @@ export async function grantAppAccess({
  * @param {string|null} params.purchaseDate - ISO timestamp of purchase (defaults to now)
  * @returns {Promise<Object>} Result with access records and bundle info
  */
-export async function grantBundleAccess({ userId, purchasedAppId, paymentId, purchaseDate = null }) {
+export async function grantBundleAccess({
+  userId,
+  purchasedAppId,
+  paymentId,
+  purchaseDate = null,
+}) {
   const appsToUnlock = getAppsToUnlock(purchasedAppId);
   const accessRecords = [];
 

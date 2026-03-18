@@ -53,14 +53,14 @@ nginx/
 | `iiskills.cloud`                  |     3000     | main site + www                         |
 | `sample.iiskills.cloud`           |     3030     | read-only demo (no Basic Auth required) |
 | `learn-ai.iiskills.cloud`         |     3024     |                                         |
-| `learn-apt.iiskills.cloud`        |     3002     |                 |
-| `learn-chemistry.iiskills.cloud`  |     3005     |                 |
-| `learn-developer.iiskills.cloud`  |     3007     |                 |
-| `learn-geography.iiskills.cloud`  |     3011     |                 |
-| `learn-management.iiskills.cloud` |     3016     |                 |
-| `learn-math.iiskills.cloud`       |     3017     |                 |
-| `learn-physics.iiskills.cloud`    |     3020     |                 |
-| `learn-pr.iiskills.cloud`         |     3021     |                 |
+| `learn-apt.iiskills.cloud`        |     3002     |                                         |
+| `learn-chemistry.iiskills.cloud`  |     3005     |                                         |
+| `learn-developer.iiskills.cloud`  |     3007     |                                         |
+| `learn-geography.iiskills.cloud`  |     3011     |                                         |
+| `learn-management.iiskills.cloud` |     3016     |                                         |
+| `learn-math.iiskills.cloud`       |     3017     |                                         |
+| `learn-physics.iiskills.cloud`    |     3020     |                                         |
+| `learn-pr.iiskills.cloud`         |     3021     |                                         |
 
 ## TLS certificates
 

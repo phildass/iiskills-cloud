@@ -142,7 +142,7 @@ export default function CountryDetailPage({ meta, details }) {
           <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center gap-8">
             {/* Flag */}
             <div className="flex-shrink-0">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
+              {/* Using <img> instead of next/image for dynamic external URLs */}
               <img
                 src={details.flagUrl}
                 alt={details.flagAlt}

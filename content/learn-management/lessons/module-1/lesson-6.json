@@ -8,22 +8,12 @@
   "quiz": [
     {
       "question": "Which of Mintzberg's 10 managerial roles involves scanning the environment for information?",
-      "options": [
-        "Figurehead",
-        "Liaison",
-        "Monitor",
-        "Disseminator"
-      ],
+      "options": ["Figurehead", "Liaison", "Monitor", "Disseminator"],
       "correct_answer": 2
     },
     {
       "question": "According to Robert Katz, which skill type becomes most important at senior management levels?",
-      "options": [
-        "Technical skills",
-        "Human skills",
-        "Conceptual skills",
-        "Analytical skills"
-      ],
+      "options": ["Technical skills", "Human skills", "Conceptual skills", "Analytical skills"],
       "correct_answer": 2
     },
     {
@@ -48,12 +38,7 @@
     },
     {
       "question": "At which management level is the focus most heavily on day-to-day operations and direct supervision?",
-      "options": [
-        "Top management",
-        "Middle management",
-        "First-line management",
-        "Board level"
-      ],
+      "options": ["Top management", "Middle management", "First-line management", "Board level"],
       "correct_answer": 2
     }
   ]

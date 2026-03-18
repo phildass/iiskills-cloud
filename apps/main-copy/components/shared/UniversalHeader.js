@@ -53,9 +53,8 @@
  *   )
  * }
  */
- */
 
-import Image from 'next/image'
+import Image from "next/image";
 
 export default function UniversalHeader() {
   return (
@@ -101,5 +100,5 @@ export default function UniversalHeader() {
         </div>
       </div>
     </header>
-  )
+  );
 }

@@ -33,14 +33,14 @@ const STANDARD = {
 };
 
 const APPS = [
-  { id: "learn-math",       label: "Mathematics",   type: "free" },
-  { id: "learn-chemistry",  label: "Chemistry",     type: "free" },
-  { id: "learn-geography",  label: "Geography",     type: "free" },
-  { id: "learn-physics",    label: "Physics",       type: "free" },
-  { id: "learn-ai",         label: "AI",            type: "paid" },
-  { id: "learn-developer",  label: "Developer",     type: "paid" },
-  { id: "learn-management", label: "Management",    type: "paid" },
-  { id: "learn-pr",         label: "PR",            type: "paid" },
+  { id: "learn-math", label: "Mathematics", type: "free" },
+  { id: "learn-chemistry", label: "Chemistry", type: "free" },
+  { id: "learn-geography", label: "Geography", type: "free" },
+  { id: "learn-physics", label: "Physics", type: "free" },
+  { id: "learn-ai", label: "AI", type: "paid" },
+  { id: "learn-developer", label: "Developer", type: "paid" },
+  { id: "learn-management", label: "Management", type: "paid" },
+  { id: "learn-pr", label: "PR", type: "paid" },
 ];
 
 function checkApp(app) {
@@ -54,7 +54,7 @@ function checkApp(app) {
   };
 
   if (!fs.existsSync(generatorPath)) {
-    result.issues.push(`MISSING: lib/curriculumGenerator.js`);
+    result.issues.push("MISSING: lib/curriculumGenerator.js");
     result.passed = false;
     return result;
   }
@@ -73,13 +73,13 @@ function checkApp(app) {
 
   // Check COURSES export
   if (!source.includes("export const COURSES")) {
-    result.issues.push(`Missing: export const COURSES`);
+    result.issues.push("Missing: export const COURSES");
     result.passed = false;
   }
 
   // Check getModulesByCourse function
   if (!source.includes("getModulesByCourse")) {
-    result.issues.push(`Missing: getModulesByCourse function`);
+    result.issues.push("Missing: getModulesByCourse function");
     result.passed = false;
   }
 
@@ -97,23 +97,32 @@ function checkApp(app) {
 
   // Check lesson pages getStaticPaths covers 30 modules
   const lessonPagePath = path.join(
-    REPO_ROOT, "apps", app.id, "pages", "modules", "[moduleId]", "lesson", "[lessonId].js"
+    REPO_ROOT,
+    "apps",
+    app.id,
+    "pages",
+    "modules",
+    "[moduleId]",
+    "lesson",
+    "[lessonId].js"
   );
   if (fs.existsSync(lessonPagePath)) {
     const lessonSource = fs.readFileSync(lessonPagePath, "utf8");
     if (!lessonSource.includes("moduleId <= 30")) {
-      result.issues.push(`Lesson page getStaticPaths: does not cover all 30 modules (missing moduleId <= 30)`);
+      result.issues.push(
+        "Lesson page getStaticPaths: does not cover all 30 modules (missing moduleId <= 30)"
+      );
       result.passed = false;
     }
   } else {
-    result.issues.push(`MISSING: pages/modules/[moduleId]/lesson/[lessonId].js`);
+    result.issues.push("MISSING: pages/modules/[moduleId]/lesson/[lessonId].js");
     result.passed = false;
   }
 
   // Check courses.js page exists
   const coursesPagePath = path.join(REPO_ROOT, "apps", app.id, "pages", "courses.js");
   if (!fs.existsSync(coursesPagePath)) {
-    result.issues.push(`MISSING: pages/courses.js`);
+    result.issues.push("MISSING: pages/courses.js");
     result.passed = false;
   }
 
@@ -151,7 +160,9 @@ function main() {
   console.log("╔══════════════════════════════════════════════════════════════╗");
   console.log("║          Course Structure Normalization Audit                ║");
   console.log("╠══════════════════════════════════════════════════════════════╣");
-  console.log(`║  Standard: ${STANDARD.COURSES} courses × ${STANDARD.MODULES_PER_COURSE} modules × ${STANDARD.LESSONS_PER_MODULE} lessons = ${STANDARD.LESSONS_TOTAL} lessons/app   ║`);
+  console.log(
+    `║  Standard: ${STANDARD.COURSES} courses × ${STANDARD.MODULES_PER_COURSE} modules × ${STANDARD.LESSONS_PER_MODULE} lessons = ${STANDARD.LESSONS_TOTAL} lessons/app   ║`
+  );
   console.log("╚══════════════════════════════════════════════════════════════╝");
   console.log();
 
@@ -180,7 +191,9 @@ function main() {
     console.log();
     console.log("Source of discrepancy:");
     console.log("  - lib/curriculumGenerator.js defines the module metadata");
-    console.log("  - pages/modules/[moduleId]/lesson/[lessonId].js uses getStaticPaths to serve lessons");
+    console.log(
+      "  - pages/modules/[moduleId]/lesson/[lessonId].js uses getStaticPaths to serve lessons"
+    );
     console.log("  - content/<appId>/lessons/ holds the JSON lesson content (modules 1-10 only)");
     console.log("  - Modules 11-30 use auto-generated fallback content (no JSON files required)");
     process.exit(1);

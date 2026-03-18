@@ -80,7 +80,7 @@ function getSubjectName(appId) {
  * @returns {boolean} True if the app has gatekeeper questions
  */
 function hasGatekeeperQuestions(appId) {
-  return APP_TO_SUBJECT_MAP.hasOwnProperty(appId);
+  return Object.prototype.hasOwnProperty.call(APP_TO_SUBJECT_MAP, appId);
 }
 
 // Export for CommonJS (Node.js)

@@ -287,7 +287,7 @@ ${!isFree ? "- `PremiumAccessPrompt` - Payment prompt\n" : ""}- \`SharedNavbar\`
 
 ## Badge Colors
 
-- ${isFree ? "**FREE** apps use **GREEN** badge (\`bg-green-500\`)" : "**PAID** apps use **BLUE** badge (\`bg-blue-600\`)"}
+- ${isFree ? "**FREE** apps use **GREEN** badge (`bg-green-500`)" : "**PAID** apps use **BLUE** badge (`bg-blue-600`)"}
 
 ## Development Guidelines
 

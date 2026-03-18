@@ -36,7 +36,7 @@ export default function FallbackImage({ src, alt, style, className, loading, ...
   }
 
   return (
-    /* eslint-disable-next-line @next/next/no-img-element */
+    // Using native <img> instead of next/image for flexible fallback behavior
     <img
       src={src}
       alt={alt}

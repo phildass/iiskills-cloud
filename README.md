@@ -35,6 +35,7 @@ This is the IISkills Cloud monorepo following a **Strict Monorepo Pattern** usin
 ### Root Boundary Enforcement
 
 The root of the repository contains **only**:
+
 - Configuration presets (`turbo.json`, `eslint.config.mjs`, `tailwind.config.js`, `postcss.config.js`)
 - Infrastructure scripts (`deploy-all.sh`, `scripts/`, `nginx/`, `supabase/`)
 - Workspace orchestration (`package.json`, `yarn.lock`, `turbo.json`)
@@ -78,19 +79,19 @@ Learn apps are served at their own subdomains (e.g. `https://learn-apt.iiskills.
 
 ## Packages
 
-| Package                        | Description                                                        |
-| ------------------------------ | ------------------------------------------------------------------ |
-| `packages/ui`                  | Shared React UI component library (navbar, layout, auth, payments) |
-| `packages/shared-utils`        | Shared lib/ and utils/ helpers (auth, content, payments, etc.)     |
-| `packages/shared-components`   | Shared React components used across all learn apps via `@shared`   |
-| `packages/config`              | Shared config presets: security headers, course order, banlist     |
-| `packages/styles`              | Shared global CSS baseline                                         |
-| `packages/content`             | Git-based content: courses, modules, lessons as JSON/Markdown      |
-| `packages/content-loader`      | Content loading utilities                                          |
-| `packages/content-sdk`         | Content SDK                                                        |
-| `packages/access-control`      | Access control utilities                                           |
-| `packages/schema`              | Shared schema definitions                                          |
-| `packages/core`                | Shared types and utility helpers                                   |
+| Package                      | Description                                                        |
+| ---------------------------- | ------------------------------------------------------------------ |
+| `packages/ui`                | Shared React UI component library (navbar, layout, auth, payments) |
+| `packages/shared-utils`      | Shared lib/ and utils/ helpers (auth, content, payments, etc.)     |
+| `packages/shared-components` | Shared React components used across all learn apps via `@shared`   |
+| `packages/config`            | Shared config presets: security headers, course order, banlist     |
+| `packages/styles`            | Shared global CSS baseline                                         |
+| `packages/content`           | Git-based content: courses, modules, lessons as JSON/Markdown      |
+| `packages/content-loader`    | Content loading utilities                                          |
+| `packages/content-sdk`       | Content SDK                                                        |
+| `packages/access-control`    | Access control utilities                                           |
+| `packages/schema`            | Shared schema definitions                                          |
+| `packages/core`              | Shared types and utility helpers                                   |
 
 ## Content Structure
 

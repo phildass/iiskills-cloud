@@ -157,9 +157,7 @@ export default function LessonContent({ html, children, className }) {
   }
 
   if (html) {
-    return (
-      <div ref={containerRef} className={cls} dangerouslySetInnerHTML={{ __html: html }} />
-    );
+    return <div ref={containerRef} className={cls} dangerouslySetInnerHTML={{ __html: html }} />;
   }
 
   return (

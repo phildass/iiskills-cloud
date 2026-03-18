@@ -37,11 +37,10 @@ function readSource(relPath) {
 
 function hasNoAnonKeyFallback(src) {
   // True when NEXT_PUBLIC_SUPABASE_ANON_KEY is absent OR only appears in comments
-  const anonKeyLines = src.split("\n").filter((line) => line.includes("NEXT_PUBLIC_SUPABASE_ANON_KEY"));
-  return (
-    anonKeyLines.length === 0 ||
-    anonKeyLines.every((line) => /^\s*(\/\/|\*)/.test(line))
-  );
+  const anonKeyLines = src
+    .split("\n")
+    .filter((line) => line.includes("NEXT_PUBLIC_SUPABASE_ANON_KEY"));
+  return anonKeyLines.length === 0 || anonKeyLines.every((line) => /^\s*(\/\/|\*)/.test(line));
 }
 
 function checkNoAmbiguousSUPABASE_KEY(src) {
