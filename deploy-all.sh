@@ -339,6 +339,19 @@ fi
 echo "==> Prune old backups/build dirs (retention enforcement)"
 /usr/local/bin/prune-iiskills-backups.sh || true
 
+echo "==> Syncing content stats to Supabase (8×3×10×10 = 2,400 lessons)"
+# Runs sync-content-stats.js which upserts the canonical architecture totals
+# (24 courses, 240 modules, 2,400 lessons) into the content_stats table so
+# the admin dashboard always reflects the correct 8-site totals.
+# Non-fatal: if credentials are absent (CI sandbox) this logs a warning and
+# continues so the rest of the deployment is not blocked.
+if node "$REPO_DIR/scripts/sync-content-stats.js"; then
+  echo "  Content stats synced successfully."
+else
+  echo "WARNING: sync-content-stats.js exited non-zero — dashboard stats may be stale."
+  echo "  Re-run manually: node scripts/sync-content-stats.js"
+fi
+
 echo "================================================================"
 echo "==> Deployment complete. Run 'pm2 status' to verify."
 echo "==> Log file: ${LOGFILE}"

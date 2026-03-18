@@ -64,6 +64,7 @@
     "check-orphans:json": "node scripts/check-orphans.js --json",
     "generate:registry": "node scripts/generate-app-registry.js",
     "seed:ai-content": "node scripts/seed_data.js",
+    "sync-content-stats": "node scripts/sync-content-stats.js",
     "ci:build:workspace": "bash scripts/workspace-install-build.sh",
     "danger": "danger ci"
   },

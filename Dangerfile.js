@@ -7,8 +7,7 @@ const { danger, warn, fail, message } = require("danger");
 // ─── PR Size ──────────────────────────────────────────────────────────────────
 
 const bigPRThreshold = 600;
-const totalChanges =
-  danger.github.pr.additions + danger.github.pr.deletions;
+const totalChanges = danger.github.pr.additions + danger.github.pr.deletions;
 
 if (totalChanges > bigPRThreshold) {
   warn(
@@ -19,16 +18,12 @@ if (totalChanges > bigPRThreshold) {
 // ─── PR Description ───────────────────────────────────────────────────────────
 
 if (!danger.github.pr.body || danger.github.pr.body.length < 50) {
-  fail(
-    "PR description is too short. Please describe what changed and why using the PR template."
-  );
+  fail("PR description is too short. Please describe what changed and why using the PR template.");
 }
 
 // ─── Issue Linkage ────────────────────────────────────────────────────────────
 
-const hasIssueLink = /(closes|fixes|resolves|related to)\s+#\d+/i.test(
-  danger.github.pr.body || ""
-);
+const hasIssueLink = /(closes|fixes|resolves|related to)\s+#\d+/i.test(danger.github.pr.body || "");
 if (!hasIssueLink) {
   warn(
     'No issue linkage found. Consider adding "Closes #NNN" or "Related to #NNN" to the PR description.'
@@ -37,10 +32,7 @@ if (!hasIssueLink) {
 
 // ─── Modified Files ───────────────────────────────────────────────────────────
 
-const modifiedFiles = [
-  ...danger.git.modified_files,
-  ...danger.git.created_files,
-];
+const modifiedFiles = [...danger.git.modified_files, ...danger.git.created_files];
 
 // Warn if package.json changed without yarn.lock
 const packageJsonChanged = modifiedFiles.some((f) => f.endsWith("package.json"));
@@ -89,13 +81,9 @@ if (securityFiles.length > 0) {
 
 // ─── Changelog ────────────────────────────────────────────────────────────────
 
-const changelogChanged = modifiedFiles.some(
-  (f) => f.toUpperCase().includes("CHANGELOG")
-);
+const changelogChanged = modifiedFiles.some((f) => f.toUpperCase().includes("CHANGELOG"));
 if (!changelogChanged && totalChanges > 100) {
-  warn(
-    "No CHANGELOG update found for a large PR. Consider documenting changes in CHANGELOG.md."
-  );
+  warn("No CHANGELOG update found for a large PR. Consider documenting changes in CHANGELOG.md.");
 }
 
 message("✅ Danger.js analysis complete.");
