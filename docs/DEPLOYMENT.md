@@ -86,7 +86,7 @@ cd /root/iiskills-cloud-apps   # or wherever deploy-all.sh lives
 
 1. Runs `corepack enable` to ensure Yarn 4 is active
 2. Sources `/etc/iiskills.env` for credentials
-3. If `/root/iiskills-cloud-apps/.git` exists: stashes any uncommitted changes, runs `git pull origin main` to update in place (local commits on `main` that have already been pushed to origin are preserved; uncommitted changes are auto-stashed and restored after the pull). On a fresh server, performs a one-time `git clone` instead.
+3. If `/root/iiskills-cloud-apps/.git` exists: stashes any uncommitted changes, runs `git pull --rebase origin main` to update in place (server-side commits are rebased on top of upstream changes, keeping history linear; uncommitted changes are auto-stashed and restored after the rebase). On a fresh server, performs a one-time `git clone` instead.
 4. Installs dependencies (`yarn install`)
 5. Runs the OTP policy guard (CI test)
 6. Builds all packages (`yarn turbo run build`)
