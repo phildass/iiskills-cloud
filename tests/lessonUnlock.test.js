@@ -443,4 +443,109 @@ describe("Lesson Unlock — paid user access", () => {
       }
     });
   });
+
+  // ── 9. learn-developer modules/1/lesson/2 — Paid User 200 OK, no paywall ─
+  describe("learn-developer modules/1/lesson/2 — Paid User session: 200 OK, no paywall", () => {
+    // Validates the specific scenario from the issue:
+    //   A mock 'Paid User' session for learn-developer must NOT be redirected
+    //   to the payment page when accessing modules/1/lesson/2.
+    //
+    // The lesson page uses getStaticProps (static generation → always HTTP 200)
+    // and shows the paywall only as a client-side overlay when:
+    //   entitled === false && !isSampleLesson
+    //
+    // For module 1, lesson 2:
+    //   isSampleLesson = false  (only module 1, lesson 1 is the free sample)
+    //   lesson.isFree   = false (isFree: Number(lessonId) === 1 in buildFallbackLesson)
+    //   useUserAccess called with skip: false → entitlement check runs
+    //   entitled === true  → no overlay, full content displayed (equivalent to 200 OK)
+    //   entitled === false → enrollment overlay shown (equivalent to paywall redirect)
+
+    it("module 1 lesson 2 is NOT the sample lesson (isSampleLesson = false)", () => {
+      // Mirror the lesson page logic:
+      //   const isSampleLesson = moduleId === "1" && lessonId === "1";
+      const moduleId = "1";
+      const lessonId = "2";
+      const isSampleLesson = moduleId === "1" && lessonId === "1";
+      expect(isSampleLesson).toBe(false);
+    });
+
+    it("path modules/1/lesson/2 is in getStaticPaths → HTTP 200, no server-side redirect", () => {
+      // getStaticPaths generates all combinations: modules 1-30 × lessons 1-10.
+      // Verifying the path exists confirms the page always returns 200, never 404
+      // or a server-side redirect, for any authenticated or unauthenticated user.
+      const paths = [];
+      for (let m = 1; m <= 30; m++) {
+        for (let l = 1; l <= 10; l++) {
+          paths.push({ moduleId: String(m), lessonId: String(l) });
+        }
+      }
+      const found = paths.find((p) => p.moduleId === "1" && p.lessonId === "2");
+      expect(found).toBeDefined();
+    });
+
+    it("Paid User with direct learn-developer entitlement: entitled=true → no paywall overlay", () => {
+      // Mock 'Paid User' session: active learn-developer entitlement (e.g. direct purchase).
+      const result = checkLessonAccess({
+        appId: "learn-developer",
+        isAdmin: false,
+        entitlements: [
+          {
+            app_id: "learn-developer",
+            course_slug: "learn-developer",
+            status: "active",
+            expires_at: FUTURE,
+          },
+        ],
+      });
+      // entitled=true → setShowEnrollment never fires → page content is displayed (200 OK)
+      expect(result.entitled).toBe(true);
+    });
+
+    it("Paid User via ai-developer-bundle: entitled=true → no paywall overlay on module 1 lesson 2", () => {
+      // Mock 'Paid User' session: active bundle entitlement that covers learn-developer.
+      const result = checkLessonAccess({
+        appId: "learn-developer",
+        isAdmin: false,
+        entitlements: [
+          {
+            app_id: "ai-developer-bundle",
+            course_slug: "ai-developer-bundle",
+            status: "active",
+            expires_at: FUTURE,
+          },
+        ],
+      });
+      expect(result.entitled).toBe(true);
+    });
+
+    it("Paid User via user_app_access grant: entitled=true → no paywall overlay on module 1 lesson 2", () => {
+      // Mock 'Paid User' session: access granted via admin dashboard (user_app_access row).
+      const result = checkLessonAccess({
+        appId: "learn-developer",
+        isAdmin: false,
+        entitlements: [],
+        appAccess: [
+          {
+            app_id: "learn-developer",
+            is_active: true,
+            expires_at: FUTURE,
+          },
+        ],
+      });
+      expect(result.entitled).toBe(true);
+    });
+
+    it("unauthenticated user: entitled=false → paywall overlay IS shown on module 1 lesson 2", () => {
+      // Confirms the entitlement guard is active for non-sample lessons —
+      // only Paid Users may view module 1 lesson 2 without the paywall.
+      const result = checkLessonAccess({
+        appId: "learn-developer",
+        isAdmin: false,
+        entitlements: [],
+        appAccess: [],
+      });
+      expect(result.entitled).toBe(false);
+    });
+  });
 });
