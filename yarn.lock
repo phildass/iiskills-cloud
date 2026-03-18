@@ -6344,6 +6344,7 @@ __metadata:
     eslint-plugin-react-hooks: "npm:^7.0.1"
     framer-motion: "npm:^12.33.0"
     html2canvas: "npm:^1.4.1"
+    ioredis: "npm:^5.10.0"
     jest: "npm:^30.2.0"
     jspdf: "npm:^4.0.0"
     next: "npm:^16.1.1"
