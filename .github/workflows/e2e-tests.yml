@@ -35,7 +35,6 @@ jobs:
           # Note: do NOT use cache: "yarn" — corepack must be enabled first
           # to avoid yarn v1 vs v4 version mismatch errors in setup-node's cache detection
 
-
       - name: Install dependencies
         run: yarn install --immutable
 
@@ -126,7 +125,6 @@ jobs:
           cache: "yarn"
 
           # Note: do NOT use cache: "yarn" — corepack must be enabled first
-
 
       - name: Install dependencies
         run: yarn install --immutable
@@ -219,7 +217,6 @@ jobs:
           cache: "yarn"
 
           # Note: do NOT use cache: "yarn" — corepack must be enabled first
-
 
       - name: Install dependencies
         run: yarn install --immutable

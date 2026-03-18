@@ -38,7 +38,6 @@ jobs:
           # Note: do NOT use cache: "yarn" here — corepack must be enabled first
           # to avoid yarn v1 vs v4 version mismatch errors in setup-node's cache detection
 
-
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
