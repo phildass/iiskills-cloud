@@ -85,10 +85,6 @@ else
 fi
 
 REPO_DIR="/root/iiskills-cloud-apps"
-# Build into a staging directory so PM2 processes are NOT stopped until the
-# build is fully verified. If the build fails, existing PM2 processes keep
-# running and callers see the old version instead of a 502.
-BUILD_DIR="${REPO_DIR}-build-${DEPLOY_TS}"
 REPO_URL="https://github.com/phildass/iiskills-cloud.git"
 BRANCH="main"
 
@@ -110,6 +106,17 @@ IISKILLS_PROCS=(
 )
 
 # ---------------------------------------------------------------------------
+# Enable corepack early so Yarn 4 is available for both the version check
+# and the subsequent yarn install.
+# ---------------------------------------------------------------------------
+echo "==> Enabling corepack (Yarn 4 version manager)"
+if corepack enable; then
+  echo "  corepack enabled successfully"
+else
+  echo "WARNING: corepack enable failed — Yarn 4 may not be available via corepack"
+fi
+
+# ---------------------------------------------------------------------------
 # Verify required tools are available
 # ---------------------------------------------------------------------------
 for cmd in node yarn pm2 git; do
@@ -121,17 +128,38 @@ node -v
 yarn --version
 
 # ---------------------------------------------------------------------------
-# Clone into the BUILD directory (NOT the live REPO_DIR).
-# Existing PM2 processes continue running the old build while we compile.
+# Update or initialise the working directory.
+# If REPO_DIR already contains a git checkout, pull the latest commits so
+# that any local fixes committed to the branch are preserved.  Uncommitted
+# changes are automatically stashed before the pull and restored afterwards.
+# On a fresh server where REPO_DIR does not yet exist, a one-time clone is
+# performed instead.
 # ---------------------------------------------------------------------------
-echo "==> Fresh clone to build staging directory: $BUILD_DIR"
-git clone "$REPO_URL" "$BUILD_DIR"
-cd "$BUILD_DIR"
-git checkout "$BRANCH"
-git pull
+if [ -d "$REPO_DIR/.git" ]; then
+  echo "==> Updating existing checkout via git pull: $REPO_DIR"
+  cd "$REPO_DIR"
+  # Stash any uncommitted changes so the pull cannot fail on dirty-tree conflicts.
+  _stashed=0
+  if ! git diff --quiet || ! git diff --cached --quiet; then
+    echo "  Uncommitted changes detected — stashing before pull"
+    git stash push -m "deploy-all.sh auto-stash $(date +%Y%m%d-%H%M%S)"
+    _stashed=1
+  fi
+  git fetch origin
+  git checkout "$BRANCH"
+  git pull origin "$BRANCH"
+  if [ "$_stashed" -eq 1 ]; then
+    echo "  Restoring stashed changes..."
+    git stash pop || echo "WARNING: git stash pop failed — resolve conflicts manually in $REPO_DIR"
+  fi
+else
+  echo "==> First-time clone to: $REPO_DIR"
+  git clone "$REPO_URL" "$REPO_DIR"
+  cd "$REPO_DIR"
+  git checkout "$BRANCH"
+fi
 
 echo "==> Install dependencies (monorepo)"
-corepack enable || true
 yarn install
 
 # ---------------------------------------------------------------------------
@@ -182,15 +210,15 @@ yarn turbo run build --concurrency="${_turbo_concurrency}"
 # If any check fails, the script aborts here and existing processes stay up.
 # ---------------------------------------------------------------------------
 echo "==> Post-build validation: apps/main BUILD_ID"
-if [ ! -f "$BUILD_DIR/apps/main/.next/BUILD_ID" ]; then
+if [ ! -f "$REPO_DIR/apps/main/.next/BUILD_ID" ]; then
   echo "ERROR: apps/main/.next/BUILD_ID not found — build failed or was skipped."
   echo "  Fix: inspect the build log above, then re-run deploy-all.sh."
   exit 1
 fi
-echo "  BUILD_ID: $(cat "$BUILD_DIR/apps/main/.next/BUILD_ID")"
+echo "  BUILD_ID: $(cat "$REPO_DIR/apps/main/.next/BUILD_ID")"
 
 echo "==> Post-build validation: no placeholder Supabase strings in apps/main bundle"
-if node "$BUILD_DIR/scripts/verify-build-env.js" --app="$BUILD_DIR/apps/main"; then
+if node "$REPO_DIR/scripts/verify-build-env.js" --app="$REPO_DIR/apps/main"; then
   echo "  Placeholder check: PASSED"
 else
   echo "ERROR: Placeholder credential strings found in apps/main compiled bundle."
@@ -203,15 +231,23 @@ else
 fi
 
 echo "==> Post-build validation: apps/main-copy BUILD_ID"
-if [ ! -f "$BUILD_DIR/apps/main-copy/.next/BUILD_ID" ]; then
+if [ ! -f "$REPO_DIR/apps/main-copy/.next/BUILD_ID" ]; then
   echo "ERROR: apps/main-copy/.next/BUILD_ID not found — build failed or was skipped."
   echo "  Fix: inspect the build log above, then re-run deploy-all.sh."
   exit 1
 fi
-echo "  main-copy BUILD_ID: $(cat "$BUILD_DIR/apps/main-copy/.next/BUILD_ID")"
+echo "  main-copy BUILD_ID: $(cat "$REPO_DIR/apps/main-copy/.next/BUILD_ID")"
+
+echo "==> Post-build validation: apps/learn-developer BUILD_ID"
+if [ ! -f "$REPO_DIR/apps/learn-developer/.next/BUILD_ID" ]; then
+  echo "ERROR: apps/learn-developer/.next/BUILD_ID not found — build failed or was skipped."
+  echo "  Fix: inspect the build log above, then re-run deploy-all.sh."
+  exit 1
+fi
+echo "  learn-developer BUILD_ID: $(cat "$REPO_DIR/apps/learn-developer/.next/BUILD_ID")"
 
 # ---------------------------------------------------------------------------
-# All validations passed — safe to stop PM2 and promote the new build.
+# All validations passed — safe to stop PM2 and restart from REPO_DIR.
 # ---------------------------------------------------------------------------
 echo "==> Build validated. Stopping existing IISkills PM2 processes."
 # Only manage our own processes. Never run `pm2 delete all`.
@@ -220,50 +256,7 @@ for p in "${IISKILLS_PROCS[@]}"; do
   pm2 delete "$p" >/dev/null 2>&1 || true
 done
 
-echo "==> Backup previous checkout (if exists)"
-if [ -d "$REPO_DIR" ]; then
-  # IMPORTANT: prevent multi-GB backups by removing build artifacts and dependencies
-  # from the OLD checkout before archiving it.
-  echo "  Shrinking previous checkout before backup (remove node_modules/.next/dist caches)..."
-  rm -rf \
-    "$REPO_DIR"/**/node_modules \
-    "$REPO_DIR"/**/.next \
-    "$REPO_DIR"/**/dist \
-    "$REPO_DIR"/**/.turbo \
-    "$REPO_DIR"/**/.cache \
-    2>/dev/null || true
-
-  ts="$(date +%Y%m%d-%H%M%S)"
-  mv "$REPO_DIR" "${REPO_DIR}.BAK.${ts}"
-fi
-
-echo "==> Promote build staging directory to production: $BUILD_DIR → $REPO_DIR"
-mv "$BUILD_DIR" "$REPO_DIR"
 cd "$REPO_DIR"
-
-# ---------------------------------------------------------------------------
-# Post-build verification — must pass before any PM2 process is started.
-# Checks:
-#   1) apps/main/.next/BUILD_ID exists (confirms Next.js build completed)
-#   2) No placeholder Supabase credential strings in the compiled client bundle
-#      (guards against NEXT_PUBLIC_* env vars not being set at build time)
-# ---------------------------------------------------------------------------
-echo "==> Post-build verification"
-if [ ! -d "$REPO_DIR/apps/main" ]; then
-  echo "ERROR: apps/main directory not found after promotion. Aborting."; exit 1
-fi
-echo "  ✓ apps/main/.next/BUILD_ID found: $(cat "$REPO_DIR/apps/main/.next/BUILD_ID")"
-
-echo "  Checking for placeholder credentials in apps/main client bundle..."
-cd "$REPO_DIR"
-if node scripts/verify-build-env.js --app=apps/main; then
-  echo "  ✓ No placeholder strings found in apps/main bundle"
-else
-  echo "ERROR: Placeholder Supabase credential string(s) found in apps/main compiled bundle."
-  echo "       Real NEXT_PUBLIC_SUPABASE_* env vars were not set at build time."
-  echo "       Set them in /etc/iiskills.env or apps/main/.env.production and redeploy."
-  exit 1
-fi
 
 # ---------------------------------------------------------------------------
 # Start MAIN on :3000

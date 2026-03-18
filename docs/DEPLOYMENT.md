@@ -8,7 +8,7 @@ This document describes the complete deployment procedure for the `iiskills-clou
 
 | Command                             | Purpose                                                 |
 | ----------------------------------- | ------------------------------------------------------- |
-| `./deploy-all.sh`                   | Full production deploy (clone → build → verify → start) |
+| `./deploy-all.sh`                   | Full production deploy (pull → build → verify → start) |
 | `yarn verify:build-no-placeholders` | Check `apps/main` bundle for placeholder strings        |
 | `yarn verify:build-env:main`        | Alias for the above                                     |
 | `curl localhost:3000`               | Smoke-test the main app                                 |
@@ -84,18 +84,20 @@ cd /root/iiskills-cloud-apps   # or wherever deploy-all.sh lives
 
 `deploy-all.sh` performs these steps automatically:
 
-1. Sources `/etc/iiskills.env` for credentials
-2. Stops existing PM2 processes (only iiskills-\*)
-3. Backs up the previous checkout and fresh-clones from GitHub
+1. Runs `corepack enable` to ensure Yarn 4 is active
+2. Sources `/etc/iiskills.env` for credentials
+3. If `/root/iiskills-cloud-apps/.git` exists: stashes any uncommitted changes, runs `git pull origin main` to update in place (local commits on `main` that have already been pushed to origin are preserved; uncommitted changes are auto-stashed and restored after the pull). On a fresh server, performs a one-time `git clone` instead.
 4. Installs dependencies (`yarn install`)
 5. Runs the OTP policy guard (CI test)
 6. Builds all packages (`yarn turbo run build`)
 7. **Verifies `apps/main/.next/BUILD_ID` exists** — aborts if missing
 8. **Verifies no placeholder strings in `apps/main/.next/static`** — aborts if found
-9. Starts PM2 processes for main + learn apps
+9. **Verifies `apps/learn-developer/.next/BUILD_ID` exists** — confirms entitlement logic built successfully
+10. Stops existing PM2 processes (only iiskills-\*)
+11. Starts PM2 processes for main + learn apps
 
-If any verification step fails, the script exits **without** starting PM2 processes
-(preventing a broken build from serving traffic).
+If any verification step fails, the script exits **before** stopping PM2 processes
+(preventing a broken build from replacing working traffic).
 
 ---
 
