@@ -245,7 +245,9 @@ jobs:
           cd apps/main
           yarn start &
           # Wait up to 60 s for port 3000 to be ready
-          timeout 60 bash -c 'until curl -sf http://localhost:3000 > /dev/null 2>&1; do sleep 2; done' || true
+          timeout 60 bash -c 'until curl -sf http://localhost:3000 > /dev/null 2>&1; do sleep 2; done' \
+            && echo "✅ Server ready" \
+            || echo "⚠️  Server not ready after 60 s — E2E tests may fail"
         env:
           NEXT_PUBLIC_DISABLE_AUTH: "true"
         continue-on-error: true

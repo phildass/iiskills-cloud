@@ -52,14 +52,20 @@ jobs:
           PORT=3000 npx next start -p 3000 &
           echo $! > /tmp/next-server.pid
           # Wait for server to be ready (up to 60 seconds)
+          SERVER_READY=false
           for i in $(seq 1 30); do
             if curl -sf http://localhost:3000 >/dev/null 2>&1; then
               echo "✅ Server is ready"
+              SERVER_READY=true
               break
             fi
             echo "Waiting for server... attempt $i/30"
             sleep 2
           done
+          if [ "$SERVER_READY" = "false" ]; then
+            echo "❌ Server failed to start within 60 seconds"
+            exit 1
+          fi
         env:
           NODE_ENV: production
           NEXT_PUBLIC_DISABLE_AUTH: "true"
@@ -133,14 +139,20 @@ jobs:
           cd apps/main
           PORT=3000 npx next start -p 3000 &
           echo $! > /tmp/next-server.pid
+          SERVER_READY=false
           for i in $(seq 1 30); do
             if curl -sf http://localhost:3000 >/dev/null 2>&1; then
               echo "✅ Server is ready"
+              SERVER_READY=true
               break
             fi
             echo "Waiting for server... attempt $i/30"
             sleep 2
           done
+          if [ "$SERVER_READY" = "false" ]; then
+            echo "❌ Server failed to start within 60 seconds"
+            exit 1
+          fi
         env:
           NODE_ENV: production
           NEXT_PUBLIC_DISABLE_AUTH: "true"
@@ -216,14 +228,20 @@ jobs:
           cd apps/main
           PORT=3000 npx next start -p 3000 &
           echo $! > /tmp/next-server.pid
+          SERVER_READY=false
           for i in $(seq 1 30); do
             if curl -sf http://localhost:3000 >/dev/null 2>&1; then
               echo "✅ Server is ready"
+              SERVER_READY=true
               break
             fi
             echo "Waiting for server... attempt $i/30"
             sleep 2
           done
+          if [ "$SERVER_READY" = "false" ]; then
+            echo "❌ Server failed to start within 60 seconds"
+            exit 1
+          fi
         env:
           NODE_ENV: production
           NEXT_PUBLIC_DISABLE_AUTH: "true"

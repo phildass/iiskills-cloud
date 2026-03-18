@@ -49,9 +49,8 @@ jobs:
         id: audit-all
         run: |
           echo "## Dependency Security Audit" >> $GITHUB_STEP_SUMMARY
-          # yarn npm audit uses yarn.lock (no package-lock.json needed)
-          yarn npm audit --environment production --audit-level moderate 2>&1 >> $GITHUB_STEP_SUMMARY || true
-          yarn npm audit --environment production --audit-level moderate 2>&1 || echo "audit_failed=true" >> $GITHUB_OUTPUT
+          # Run once, tee to both the step summary and stdout; || true so continue-on-error takes effect
+          yarn npm audit --environment production --audit-level moderate 2>&1 | tee -a $GITHUB_STEP_SUMMARY || true
         continue-on-error: true
 
       - name: Generate JSON report
