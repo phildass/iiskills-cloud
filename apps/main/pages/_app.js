@@ -8,6 +8,7 @@ import TestingModeBanner from "../components/TestingModeBanner";
 import TestSiteBanner from "../components/TestSiteBanner";
 import TestSiteModal from "../components/TestSiteModal";
 import { UserProgressProvider } from "../contexts/UserProgressContext";
+import { AdminWrapper } from "@iiskills/ui/components/AdminProvider";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { IS_TEST_SITE } from "../lib/testSiteConfig";
@@ -82,42 +83,44 @@ export default function App({ Component, pageProps }) {
   }, []);
 
   return (
-    <ErrorBoundary>
-      <UserProgressProvider>
-        <Head>
-          <link rel="icon" href="/images/favicon-iiskills.svg" />
-          <link rel="apple-touch-icon" href="/images/favicon-iiskills.svg" />
-        </Head>
+    <AdminWrapper>
+      <ErrorBoundary>
+        <UserProgressProvider>
+          <Head>
+            <link rel="icon" href="/images/favicon-iiskills.svg" />
+            <link rel="apple-touch-icon" href="/images/favicon-iiskills.svg" />
+          </Head>
 
-        {/* Test Site banner renders ABOVE the sticky nav */}
-        <TestSiteBanner />
+          {/* Test Site banner renders ABOVE the sticky nav */}
+          <TestSiteBanner />
 
-        <SiteHeader />
-        {!isHomePage && (
-          <AppSecondaryNavbar
-            appId="main"
-            appName="iiskills.cloud"
-            showBadge={false}
-            showCurriculum={true}
-            curriculumPath="/courses"
-            continueButtonLabel="Browse Courses"
-            firstLessonPath="/courses"
-          />
-        )}
-        <div className="pb-20">
-          <Component {...pageProps} />
-        </div>
-        <Footer />
+          <SiteHeader />
+          {!isHomePage && (
+            <AppSecondaryNavbar
+              appId="main"
+              appName="iiskills.cloud"
+              showBadge={false}
+              showCurriculum={true}
+              curriculumPath="/courses"
+              continueButtonLabel="Browse Courses"
+              firstLessonPath="/courses"
+            />
+          )}
+          <div className="pb-20">
+            <Component {...pageProps} />
+          </div>
+          <Footer />
 
-        {/* AI Assistant - always visible */}
-        <AIAssistant />
+          {/* AI Assistant - always visible */}
+          <AIAssistant />
 
-        {/* Testing Mode Banner - shows when feature flags are enabled */}
-        <TestingModeBanner />
+          {/* Testing Mode Banner - shows when feature flags are enabled */}
+          <TestingModeBanner />
 
-        {/* Test Site modal - shown when visitor tries to perform any action */}
-        {showTestModal && <TestSiteModal onClose={() => setShowTestModal(false)} />}
-      </UserProgressProvider>
-    </ErrorBoundary>
+          {/* Test Site modal - shown when visitor tries to perform any action */}
+          {showTestModal && <TestSiteModal onClose={() => setShowTestModal(false)} />}
+        </UserProgressProvider>
+      </ErrorBoundary>
+    </AdminWrapper>
   );
 }

@@ -157,6 +157,14 @@ if [ -d "$REPO_DIR/.git" ]; then
     echo "  Restoring stashed changes..."
     git stash pop || echo "WARNING: git stash pop failed — resolve conflicts manually in $REPO_DIR"
   fi
+
+  # Archive a pull-completion marker to the production-deploys audit trail
+  _PDEPLOYS_DIR="/var/log/iiskills/production-deploys"
+  mkdir -p "$_PDEPLOYS_DIR" 2>/dev/null || true
+  if [ -w "$_PDEPLOYS_DIR" ]; then
+    echo "$(date -u '+%Y-%m-%dT%H:%M:%SZ') git pull --rebase completed successfully on branch=${BRANCH} dir=${REPO_DIR}" \
+      >> "$_PDEPLOYS_DIR/pull-history.log"
+  fi
 else
   echo "==> First-time clone to: $REPO_DIR"
   git clone "$REPO_URL" "$REPO_DIR"
@@ -314,6 +322,19 @@ done
 
 echo "==> Save PM2 process list"
 pm2 save
+
+# Archive the full build log to the production-deploys audit directory.
+# This creates a permanent, timestamped record for every successful deployment.
+# If a certified paid user reports an issue, ops can correlate the build log
+# to the exact deploy that changed their entitlement.
+_PDEPLOYS_DIR="/var/log/iiskills/production-deploys"
+mkdir -p "$_PDEPLOYS_DIR" 2>/dev/null || true
+if [ -w "$_PDEPLOYS_DIR" ] && [ -f "$LOGFILE" ]; then
+  cp "$LOGFILE" "$_PDEPLOYS_DIR/deploy-${DEPLOY_TS}.log" 2>/dev/null || true
+  echo "==> Build log archived to: $_PDEPLOYS_DIR/deploy-${DEPLOY_TS}.log"
+  # Keep only the 30 most recent deploy logs to avoid unbounded disk growth
+  ls -t "$_PDEPLOYS_DIR"/deploy-*.log 2>/dev/null | tail -n +31 | xargs rm -f 2>/dev/null || true
+fi
 
 echo "==> Prune old backups/build dirs (retention enforcement)"
 /usr/local/bin/prune-iiskills-backups.sh || true

@@ -66,26 +66,12 @@ jobs:
 
       - name: Check critical vulnerabilities
         run: |
-          # Check for critical vulnerabilities only (high vulns are warnings)
-          REPORT=$(yarn npm audit --environment production --json 2>/dev/null || echo "{}")
-          CRITICAL_COUNT=$(echo "$REPORT" | python3 -c "
-          import json, sys
-          try:
-              data = json.load(sys.stdin)
-              # yarn npm audit JSON has 'metadata.vulnerabilities' or 'advisories'
-              vulns = data.get('metadata', {}).get('vulnerabilities', {})
-              print(vulns.get('critical', 0))
-          except:
-              print(0)
-          ")
-
-          echo "Critical vulnerabilities: $CRITICAL_COUNT"
-
-          if [ "${CRITICAL_COUNT:-0}" -gt 0 ]; then
-            echo "::error::Found $CRITICAL_COUNT critical vulnerabilities in dependencies"
-            exit 1
-          fi
-          echo "✅ No critical vulnerabilities found"
+          # Strict gate: yarn npm audit --audit-level critical exits non-zero when
+          # any critical vulnerability is found. This is the production readiness gate:
+          # a paid platform MUST NOT deploy with known critical security holes.
+          echo "Running strict critical-vulnerability gate..."
+          yarn npm audit --environment production --audit-level critical
+          echo "✅ No critical vulnerabilities found — build is safe to deploy"
 
       - name: Comment on PR
         if: github.event_name == 'pull_request' && always()

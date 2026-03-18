@@ -35,6 +35,7 @@
     "./translation": "./src/translation/index.js",
     "./ai": "./src/ai/index.js",
     "./pwa": "./src/pwa/index.js",
-    "./pricing": "./src/pricing/pricing.js"
+    "./pricing": "./src/pricing/pricing.js",
+    "./components/AdminProvider": "./src/components/AdminProvider.js"
   }
 }

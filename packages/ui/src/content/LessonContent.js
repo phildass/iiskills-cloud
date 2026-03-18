@@ -19,6 +19,80 @@
 import { useRef, useEffect } from "react";
 import styles from "./lesson-content.module.css";
 
+/**
+ * ModuleInProduction
+ *
+ * Branded placeholder rendered when a lesson slot exists in the platform
+ * architecture (up to 2,400 slots) but the content file has not yet been
+ * authored.  Prevents 404 pages and paywall confusion for paid users.
+ *
+ * Usage: pass as the children of LessonContent, or render directly.
+ */
+export function ModuleInProduction({ moduleTitle, lessonNumber }) {
+  return (
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        minHeight: "320px",
+        padding: "48px 24px",
+        textAlign: "center",
+        background: "linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%)",
+        borderRadius: "16px",
+        border: "1.5px solid #bae6fd",
+        margin: "32px 0",
+      }}
+    >
+      <div style={{ fontSize: "48px", marginBottom: "16px" }}>🚀</div>
+      <h2
+        style={{
+          fontSize: "1.375rem",
+          fontWeight: 700,
+          color: "#0c4a6e",
+          marginBottom: "12px",
+        }}
+      >
+        {moduleTitle || "Advanced Module"}
+      </h2>
+      <p
+        style={{
+          fontSize: "1rem",
+          color: "#0369a1",
+          maxWidth: "480px",
+          lineHeight: 1.6,
+          marginBottom: "8px",
+        }}
+      >
+        This advanced module is currently being optimized for high-quality
+        delivery. Check back soon!
+      </p>
+      {lessonNumber && (
+        <p style={{ fontSize: "0.875rem", color: "#7dd3fc", marginTop: "4px" }}>
+          Lesson {lessonNumber}
+        </p>
+      )}
+      <div
+        style={{
+          marginTop: "24px",
+          display: "inline-flex",
+          alignItems: "center",
+          gap: "6px",
+          background: "#0ea5e9",
+          color: "#fff",
+          borderRadius: "9999px",
+          padding: "6px 16px",
+          fontSize: "0.8125rem",
+          fontWeight: 600,
+        }}
+      >
+        <span>✦</span> iiskills.cloud — Premium Content Coming
+      </div>
+    </div>
+  );
+}
+
 export default function LessonContent({ html, children, className }) {
   const cls = [styles.container, className].filter(Boolean).join(" ");
   const containerRef = useRef(null);
@@ -75,6 +149,12 @@ export default function LessonContent({ html, children, className }) {
       container.removeEventListener("dragstart", block);
     };
   }, []);
+
+  // Graceful content fallback: if neither html nor children are provided, render
+  // the branded "Module In Production" placeholder instead of an empty/404 page.
+  if (!html && !children) {
+    return <ModuleInProduction />;
+  }
 
   if (html) {
     return (
