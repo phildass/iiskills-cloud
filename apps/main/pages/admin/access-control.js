@@ -7,6 +7,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import Head from "next/head";
 import { createClient } from "@supabase/supabase-js";
 import {
   getAccessStats,
@@ -18,6 +19,7 @@ import {
   getPaidApps,
 } from "../../../../packages/access-control";
 import { useAdminProtectedPage, AccessDenied } from "../../components/AdminProtectedPage";
+import AdminNav from "../../components/AdminNav";
 
 // Initialize Supabase client (client-side only)
 function getSupabaseClient() {
@@ -139,6 +141,12 @@ export default function AccessControlDashboard() {
   }
 
   return (
+    <>
+      <Head>
+        <title>Access Control Dashboard - Admin - iiskills.cloud</title>
+        <meta name="robots" content="noindex, nofollow" />
+      </Head>
+      <AdminNav />
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
@@ -389,5 +397,6 @@ export default function AccessControlDashboard() {
         </div>
       </div>
     </div>
+    </>
   );
 }

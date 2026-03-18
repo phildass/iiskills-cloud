@@ -66,7 +66,7 @@ export default function AdminNav() {
   const onAdminSubdomain = isOnSubdomain("admin");
 
   return (
-    <div className="bg-yellow-100 border-b-4 border-yellow-500 py-2 px-6">
+    <div className="sticky top-0 z-50 bg-yellow-100 border-b-4 border-yellow-500 py-2 px-6">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         <div className="flex items-center space-x-4">
           <span className="font-bold text-yellow-800">🔒 ADMIN MODE</span>

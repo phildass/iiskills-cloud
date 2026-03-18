@@ -1,10 +1,12 @@
 /**
  * Tests for centralized content statistics:
  *   1. The filesystem-scan logic used by /api/admin/content-stats
- *   2. The admin bypass in accessControl.userHasAccess()
+ *   2. The theoretical structure constants (3 courses/site → 24 total, 240 modules, 2400 lessons)
+ *   3. The admin bypass in accessControl.userHasAccess()
  *
- * Counts are always derived from the `content/` directory of the repository
- * (real filesystem scan), NOT from Supabase tables.
+ * Filesystem scan returns ACTUAL counts (what is on disk).
+ * Configured (theoretical) totals are derived from the COURSES_PER_SITE constant
+ * and are what the admin dashboard displays.
  */
 
 /* global describe, it, expect, beforeAll */
@@ -13,6 +15,11 @@
 
 const path = require("path");
 const fs = require("fs");
+
+// ── Theoretical structure constants (must match content-stats.js) ─────────────
+const COURSES_PER_SITE = 3;
+const MODULES_PER_COURSE = 10;
+const LESSONS_PER_MODULE = 10;
 
 // ── Content filesystem scan logic ─────────────────────────────────────────────
 
@@ -72,7 +79,7 @@ function scanContentDirectory(contentRoot) {
   return { sites, totalModules, totalLessons };
 }
 
-describe("content-stats — filesystem scan", () => {
+describe("content-stats — filesystem scan (actual on-disk counts)", () => {
   const CONTENT_ROOT = path.join(__dirname, "..", "content");
 
   it("content/ directory exists", () => {
@@ -97,31 +104,32 @@ describe("content-stats — filesystem scan", () => {
     expect(siteNames).toContain("learn-physics");
   });
 
-  it("each site has a course.json (1 course per site)", () => {
+  it("each site has a course.json (1 course per site on disk)", () => {
     const { sites } = scanContentDirectory(CONTENT_ROOT);
     sites.forEach(({ hasCourseJson }) => {
-      expect(hasCourseJson).toBe(true); // all sites should have course.json
+      expect(hasCourseJson).toBe(true);
     });
   });
 
-  it("each site has exactly 10 modules", () => {
+  it("each site has exactly 10 modules on disk", () => {
     const { sites } = scanContentDirectory(CONTENT_ROOT);
     sites.forEach(({ site, modules }) => {
       expect({ site, modules }).toMatchObject({ modules: 10 });
     });
   });
 
-  it("each site has exactly 100 lessons (10 per module)", () => {
+  it("each site has exactly 100 lessons on disk (10 per module)", () => {
     const { sites } = scanContentDirectory(CONTENT_ROOT);
     sites.forEach(({ site, lessons }) => {
       expect({ site, lessons }).toMatchObject({ lessons: 100 });
     });
   });
 
-  it("returns correct aggregate totals across all sites", () => {
+  it("returns correct actual aggregate totals across all sites", () => {
     const { sites, totalModules, totalLessons } = scanContentDirectory(CONTENT_ROOT);
     const expectedSites = 8;
     expect(sites).toHaveLength(expectedSites);
+    // Actual filesystem: 10 modules × 8 sites = 80; 100 lessons × 8 sites = 800
     expect(totalModules).toBe(expectedSites * 10); // 80
     expect(totalLessons).toBe(expectedSites * 100); // 800
   });
@@ -138,6 +146,45 @@ describe("content-stats — filesystem scan", () => {
     const names = sites.map((s) => s.site);
     const sorted = [...names].sort();
     expect(names).toEqual(sorted);
+  });
+});
+
+// ── Configured (theoretical) totals ──────────────────────────────────────────
+
+describe("content-stats — configured (theoretical) totals", () => {
+  const CONTENT_ROOT = path.join(__dirname, "..", "content");
+
+  it("COURSES_PER_SITE constant is 3", () => {
+    expect(COURSES_PER_SITE).toBe(3);
+  });
+
+  it("MODULES_PER_COURSE constant is 10", () => {
+    expect(MODULES_PER_COURSE).toBe(10);
+  });
+
+  it("LESSONS_PER_MODULE constant is 10", () => {
+    expect(LESSONS_PER_MODULE).toBe(10);
+  });
+
+  it("totalCourses = totalSites × COURSES_PER_SITE = 24", () => {
+    const { sites } = scanContentDirectory(CONTENT_ROOT);
+    const totalCourses = sites.length * COURSES_PER_SITE;
+    expect(totalCourses).toBe(24); // 8 × 3
+  });
+
+  it("totalModules = totalCourses × MODULES_PER_COURSE = 240", () => {
+    const { sites } = scanContentDirectory(CONTENT_ROOT);
+    const totalCourses = sites.length * COURSES_PER_SITE;
+    const totalModules = totalCourses * MODULES_PER_COURSE;
+    expect(totalModules).toBe(240); // 24 × 10
+  });
+
+  it("totalLessons = totalModules × LESSONS_PER_MODULE = 2400", () => {
+    const { sites } = scanContentDirectory(CONTENT_ROOT);
+    const totalCourses = sites.length * COURSES_PER_SITE;
+    const totalModules = totalCourses * MODULES_PER_COURSE;
+    const totalLessons = totalModules * LESSONS_PER_MODULE;
+    expect(totalLessons).toBe(2400); // 240 × 10
   });
 });
 

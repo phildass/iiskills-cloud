@@ -3,44 +3,58 @@
  *
  * GET /api/admin/content-stats
  *
- * Returns accurate content counts derived directly from the repository filesystem
- * (the `content/` directory at the monorepo root). Stats reflect the real
- * GitHub content structure — NOT Supabase tables, which may be incomplete.
+ * Returns content counts derived from two complementary sources:
  *
- * Structure scanned:
- *   content/
- *     {site}/               ← one site per learn-* app
- *       course.json         ← one course per site
- *       lessons/
- *         module-{N}/       ← one module directory per module
- *           lesson-{N}.json ← one lesson file per lesson
+ *   1. **Filesystem** — the real `content/` directory on disk.
+ *      Reflects what is actually stored as JSON lesson files.
+ *
+ *   2. **Configured (theoretical)** — the planned platform structure that all
+ *      learn-* apps are pre-generated for.  Each site supports 3 courses, each
+ *      course has 10 modules, and each module has 10 lessons.
+ *      The static-path generators in each app already produce pages for all
+ *      30 modules × 10 lessons = 300 lesson pages per site; the filesystem
+ *      JSON files for modules 11-30 are auto-generated via the fallback content
+ *      loader at runtime.
+ *
+ * Configured constants (source of truth for dashboard totals):
+ *   COURSES_PER_SITE   = 3   →  8 sites × 3  = 24 courses
+ *   MODULES_PER_COURSE = 10  →  24 courses × 10 = 240 modules
+ *   LESSONS_PER_MODULE = 10  →  240 modules × 10 = 2400 lessons
  *
  * Response shape:
  *   {
- *     totalSites:   number,   // # of sites (subdirectories in content/)
- *     totalCourses: number,   // 1 course per site (from course.json)
- *     totalModules: number,   // total module-* directories across all sites
- *     totalLessons: number,   // total lesson-*.json files across all modules
- *     bysite: [
- *       {
- *         site:    string,    // e.g. "learn-ai"
- *         modules: number,
- *         lessons: number,
- *       },
- *       ...
- *     ],
- *     source: "filesystem",   // always "filesystem" — never Supabase
- *     scannedAt: string,      // ISO timestamp of scan
+ *     totalSites:          number,   // # of learn-* site dirs in content/
+ *     totalCourses:        number,   // configured: totalSites × COURSES_PER_SITE
+ *     totalModules:        number,   // configured: totalCourses × MODULES_PER_COURSE
+ *     totalLessons:        number,   // configured: totalModules × LESSONS_PER_MODULE
+ *     actualModules:       number,   // filesystem: module-N dirs found on disk
+ *     actualLessons:       number,   // filesystem: lesson-N.json files found on disk
+ *     coursesPerSite:      number,   // COURSES_PER_SITE constant
+ *     modulesPerCourse:    number,   // MODULES_PER_COURSE constant
+ *     lessonsPerModule:    number,   // LESSONS_PER_MODULE constant
+ *     bySite:              Array,    // per-site breakdown (actual filesystem counts)
+ *     source:              "configured+filesystem",
+ *     scannedAt:           string,
  *   }
  *
- * Authentication: admin session cookie or x-admin-secret header
- *   (via validateAdminRequest from lib/adminAuth).
- *   No Supabase access required for the stats themselves.
+ * Authentication: admin session cookie or x-admin-secret header.
  */
 
 import fs from "fs";
 import path from "path";
 import { validateAdminRequest } from "../../../lib/adminAuth";
+
+// ---------------------------------------------------------------------------
+// Theoretical structure constants
+// Each is the single source of truth for the planned platform scale.
+// ---------------------------------------------------------------------------
+
+/** Number of courses planned per site (3 courses × 8 sites = 24 total). */
+const COURSES_PER_SITE = 3;
+/** Number of modules per course (10 modules × 24 courses = 240 total). */
+const MODULES_PER_COURSE = 10;
+/** Number of lessons per module (10 lessons × 240 modules = 2400 total). */
+const LESSONS_PER_MODULE = 10;
 
 /**
  * Resolve the monorepo root regardless of CWD at runtime.
@@ -132,25 +146,38 @@ export default function handler(req, res) {
   }
 
   const contentRoot = getContentRoot();
-  const { sites, totalModules, totalLessons } = scanContentDirectory(contentRoot);
+  const { sites, totalModules: actualModules, totalLessons: actualLessons } =
+    scanContentDirectory(contentRoot);
 
-  // Each site corresponds to exactly one course (its curriculum).
-  // A site with a course.json is confirmed; others are counted too.
+  // Configured (theoretical) totals — reflect the planned platform structure.
   const totalSites = sites.length;
-  const totalCourses = sites.filter((s) => s.hasCourseJson).length;
+  const totalCourses = totalSites * COURSES_PER_SITE;          // 8 × 3 = 24
+  const totalModules = totalCourses * MODULES_PER_COURSE;      // 24 × 10 = 240
+  const totalLessons = totalModules * LESSONS_PER_MODULE;      // 240 × 10 = 2400
 
   return res.status(200).json({
     /**
-     * Stats are derived from the `content/` directory of the main repository.
-     * They reflect the actual file structure on disk at request time and are
-     * NOT sourced from Supabase tables, which may be incomplete or outdated.
+     * Configured (theoretical) totals — the planned scale of the platform.
+     * These drive the admin dashboard displays and match the static-path
+     * generators already built into each learn-* app.
      */
     totalSites,
     totalCourses,
     totalModules,
     totalLessons,
+    /** Per-course / per-module constants used to derive the totals. */
+    coursesPerSite: COURSES_PER_SITE,
+    modulesPerCourse: MODULES_PER_COURSE,
+    lessonsPerModule: LESSONS_PER_MODULE,
+    /**
+     * Actual filesystem counts — what is stored as JSON on disk right now.
+     * Useful for progress tracking; will grow towards the configured totals
+     * as content is authored.
+     */
+    actualModules,
+    actualLessons,
     bySite: sites.map(({ site, modules, lessons }) => ({ site, modules, lessons })),
-    source: "filesystem",
+    source: "configured+filesystem",
     scannedAt: new Date().toISOString(),
   });
 }

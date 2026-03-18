@@ -1,4 +1,5 @@
 import Head from "next/head";
+import AdminNav from "../../components/AdminNav";
 import UniversalAdminDashboard from "../../components/UniversalAdminDashboard";
 import { useAdminProtectedPage, AccessDenied } from "../../components/AdminProtectedPage";
 
@@ -23,6 +24,7 @@ export default function AdminPage() {
         <title>Universal Admin Dashboard - iiskills.cloud</title>
         <meta name="robots" content="noindex, nofollow" />
       </Head>
+      <AdminNav />
       <UniversalAdminDashboard />
     </>
   );

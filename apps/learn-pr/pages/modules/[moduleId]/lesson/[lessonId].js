@@ -151,7 +151,7 @@ import EnrollmentLandingPage from "@shared/EnrollmentLandingPage";
 import { getCurrentUser } from "../../../../lib/supabaseClient";
 import { LessonContent } from "@iiskills/ui/content";
 import { isFreeAccessEnabled } from "@lib/freeAccess";
-import { useEntitlement } from "@lib/hooks/useEntitlement";
+import { useUserAccess } from "@lib/hooks/useUserAccess";
 
 const FREE_ACCESS = isFreeAccessEnabled();
 const NO_BADGES_KEY = "learn-pr-noBadges";
@@ -164,11 +164,12 @@ export default function LessonPage({ lesson, moduleId, lessonId }) {
   const [noBadges, setNoBadges] = useState(false);
   const [showSkipDialog, setShowSkipDialog] = useState(false);
 
-  // Universal entitlement check — skipped for free/sample lessons.
+  // Universal access check — follows Admin > Paid_User > Free_User priority.
+  // We check even the sample lesson (module 1, lesson 1) so we can suppress the
+  // enrollment prompt for users who are already entitled.
   const isSampleLesson = moduleId === "1" && lessonId === "1";
-  const { entitled } = useEntitlement({
-    appId: "learn-pr",
-    skip: FREE_ACCESS || lesson.isFree || isSampleLesson,
+  const { entitled } = useUserAccess("learn-pr", {
+    skip: FREE_ACCESS || lesson.isFree,
   });
 
   // Load noBadges flag from localStorage on mount
@@ -194,16 +195,17 @@ export default function LessonPage({ lesson, moduleId, lessonId }) {
   }, []);
 
   // Show enrollment overlay when entitlement check determines no access.
+  // Never block the sample lesson (module 1, lesson 1) — it is always open.
   useEffect(() => {
-    if (entitled === false) setShowEnrollment(true);
-  }, [entitled]);
+    if (entitled === false && !isSampleLesson) setShowEnrollment(true);
+  }, [entitled, isSampleLesson]);
 
   const handleQuizComplete = async (passed, score) => {
     setQuizCompleted(passed);
 
     // Show Premium Access Prompt after completing sample lesson (Module 1, Lesson 1)
-    // Suppressed in free-access mode.
-    if (passed && moduleId === "1" && lessonId === "1" && !FREE_ACCESS) {
+    // Only shown to non-entitled users. Suppressed for already-paid users and in free-access mode.
+    if (passed && moduleId === "1" && lessonId === "1" && !FREE_ACCESS && entitled === false) {
       setShowEnrollment(true);
     }
 
