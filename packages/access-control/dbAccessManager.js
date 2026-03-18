@@ -213,7 +213,7 @@ export async function verifyEntitlement(userId, courseId) {
 }
 
 
- *
+/**
  * A Certified Paid User has `is_certified_paid_user = true` AND
  * either no expiry or an expiry in the future. This flag is set
  * automatically by `grantAppAccess()` for every payment/bundle grant

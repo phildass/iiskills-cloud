@@ -118,7 +118,8 @@ module.exports = defineConfig({
     command: "yarn dev:main",
     url: "http://localhost:3000",
     reuseExistingServer: !process.env.CI,
-    timeout: 120 * 1000,
+    // 120 seconds — sufficient for Next.js cold start in CI
+    timeout: 120000,
     stdout: "pipe",
     stderr: "pipe",
   },
