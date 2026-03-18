@@ -4,14 +4,28 @@
  * GET /api/entitlement?appId=learn-ai
  *
  * Returns:
- *   { authenticated: bool, entitled: bool, expiresAt: string|null }
+ *   { authenticated: bool, entitled: bool, expiresAt: string|null, adminAccess?: bool }
  *
  * Access: authenticated users only (reads their own entitlement row).
- * Checks the `entitlements` table for an active, non-expired record.
+ *
+ * Priority hierarchy (Admin > Paid_User > Free_User):
+ *   1. Admin bypass — profile.is_admin === true OR profile.role === 'admin'
+ *      → returns { entitled: true, adminAccess: true } immediately.
+ *   2. Active entitlement row in public.entitlements (includes bundle grants).
+ *   3. Active row in public.user_app_access (admin-dashboard / dbAccessManager grants).
+ *
+ * Caching:
+ *   Results are stored in the entitlement cache (Redis when configured, in-process
+ *   Map otherwise) for DEFAULT_TTL_SECONDS.  The cache is invalidated by
+ *   /api/payments/confirm immediately after a user is upgraded to "Paid".
  */
 
 import { createClient } from "@supabase/supabase-js";
 import { isFreeAccessEnabled } from "../../../../packages/shared-utils/lib/freeAccess";
+import {
+  getEntitlementFromCache,
+  setEntitlementInCache,
+} from "../../../../packages/shared-utils/lib/entitlementCache";
 
 function getSupabaseServer() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -43,7 +57,7 @@ export default async function handler(req, res) {
     return res.status(200).json({ authenticated: false, entitled: false, expiresAt: null });
   }
 
-  // Get authenticated user from Authorization header or cookie
+  // Get authenticated user from Authorization header
   const authHeader = req.headers.authorization;
   let user = null;
 
@@ -57,58 +71,78 @@ export default async function handler(req, res) {
     return res.status(200).json({ authenticated: false, entitled: false, expiresAt: null });
   }
 
-  // Run admin check and entitlement check in parallel to minimise DB round trips.
-  // If the user is an admin, return full access immediately without checking entitlements.
+  // ── Cache read ─────────────────────────────────────────────────────────────
+  // Check the entitlement cache before hitting the database.  Admin results are
+  // also cached (as `true`) so subsequent requests for an admin don't re-query.
+  const cached = await getEntitlementFromCache(user.id, appId);
+  if (cached !== null) {
+    return res.status(200).json({
+      authenticated: true,
+      entitled: cached,
+      expiresAt: null,
+      fromCache: true,
+    });
+  }
+
+  // ── Database checks ────────────────────────────────────────────────────────
+  // Run admin-profile check and entitlement check in parallel to minimise
+  // DB round trips.
+
   const now = new Date().toISOString();
 
-  // Check entitlements by BOTH app_id (admin/bundle grants) AND course_slug (Razorpay payment
-  // grants written by /api/payments/confirm). This ensures either grant path is recognised.
+  // Check entitlements by BOTH app_id (admin/bundle grants) AND course_slug (Razorpay
+  // payment grants written by /api/payments/confirm). Either path grants access.
   const bundleId = "ai-developer-bundle";
   const [profileResult, entitlementResult] = await Promise.all([
-    supabase.from("profiles").select("is_admin").eq("id", user.id).maybeSingle(),
+    // Select both is_admin (legacy) and role (new) so either representation works.
+    supabase.from("profiles").select("is_admin, role").eq("id", user.id).maybeSingle(),
     supabase
       .from("entitlements")
       .select("id, status, expires_at")
       .eq("user_id", user.id)
       .eq("status", "active")
-      .or(
-        `app_id.in.(${appId},${bundleId}),course_slug.in.(${appId},${bundleId})`
-      )
+      .or(`app_id.in.(${appId},${bundleId}),course_slug.in.(${appId},${bundleId})`)
       .or(`expires_at.is.null,expires_at.gt.${now}`)
       .order("purchased_at", { ascending: false })
       .limit(1)
       .maybeSingle(),
   ]);
 
-  // Admin bypass: admins have unrestricted access to all content
-  if (profileResult.data?.is_admin === true) {
+  // ── Priority 1: Admin bypass ───────────────────────────────────────────────
+  // Triggered by is_admin = true (legacy) OR role = 'admin' (new field).
+  // Admin status is cached so the DB is not queried on every admin page load.
+  const profile = profileResult.data;
+  if (profile?.is_admin === true || profile?.role === "admin") {
+    await setEntitlementInCache(user.id, appId, true);
     return res.status(200).json({
       authenticated: true,
       entitled: true,
       expiresAt: null,
       adminAccess: true,
+      fromCache: false,
     });
   }
 
+  // ── Priority 2: Active entitlement row ────────────────────────────────────
   const { data: entitlement, error } = entitlementResult;
 
   if (error) {
     console.error("[entitlement API] DB error:", error.message);
   }
 
-  // Entitlement found in the entitlements table — user has access.
   if (entitlement) {
+    await setEntitlementInCache(user.id, appId, true);
     return res.status(200).json({
       authenticated: true,
       entitled: true,
       expiresAt: entitlement.expires_at || null,
+      fromCache: false,
     });
   }
 
-  // Fallback: check user_app_access table.
-  // This covers grants made via grantAppAccess() / dbAccessManager (e.g. admin dashboard
-  // grants, bundle grants via the access-control package) which write to user_app_access
-  // rather than the entitlements table.
+  // ── Priority 3: user_app_access fallback ──────────────────────────────────
+  // Covers grants via grantAppAccess() / dbAccessManager (admin-dashboard grants,
+  // bundle grants) which write to user_app_access rather than entitlements.
   const { data: appAccess } = await supabase
     .from("user_app_access")
     .select("id, expires_at")
@@ -120,12 +154,17 @@ export default async function handler(req, res) {
     .maybeSingle();
 
   if (appAccess) {
+    await setEntitlementInCache(user.id, appId, true);
     return res.status(200).json({
       authenticated: true,
       entitled: true,
       expiresAt: appAccess.expires_at || null,
+      fromCache: false,
     });
   }
 
-  return res.status(200).json({ authenticated: true, entitled: false, expiresAt: null });
+  // ── No access found — cache the negative result ───────────────────────────
+  await setEntitlementInCache(user.id, appId, false);
+  return res.status(200).json({ authenticated: true, entitled: false, expiresAt: null, fromCache: false });
 }
+

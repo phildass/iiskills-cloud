@@ -172,9 +172,11 @@ export function userHasAccess(user, appId) {
   }
 
   // Check 3: Admin users have unrestricted access to all content.
-  // The is_admin flag is stored in the profiles table and checked centrally here
-  // so individual app logic never needs to implement its own admin bypass.
-  if (user.is_admin === true) {
+  // Supports both the legacy `is_admin` boolean flag and the newer `role`
+  // string field (role === 'admin') so either representation grants access.
+  // Checked centrally here — individual apps must never implement their own
+  // admin bypass; they must rely on this function instead.
+  if (user.is_admin === true || user.role === "admin") {
     return true;
   }
 

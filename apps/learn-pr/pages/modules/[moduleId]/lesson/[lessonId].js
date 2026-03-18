@@ -151,7 +151,7 @@ import EnrollmentLandingPage from "@shared/EnrollmentLandingPage";
 import { getCurrentUser } from "../../../../lib/supabaseClient";
 import { LessonContent } from "@iiskills/ui/content";
 import { isFreeAccessEnabled } from "@lib/freeAccess";
-import { useEntitlement } from "@lib/hooks/useEntitlement";
+import { useUserAccess } from "@lib/hooks/useUserAccess";
 
 const FREE_ACCESS = isFreeAccessEnabled();
 const NO_BADGES_KEY = "learn-pr-noBadges";
@@ -164,12 +164,11 @@ export default function LessonPage({ lesson, moduleId, lessonId }) {
   const [noBadges, setNoBadges] = useState(false);
   const [showSkipDialog, setShowSkipDialog] = useState(false);
 
-  // Universal entitlement check — skipped for free lessons and in free-access mode.
-  // We check even the sample lesson (module 1, lesson 1) so we can avoid showing
-  // the enrollment prompt to already-entitled users after they pass the sample quiz.
+  // Universal access check — follows Admin > Paid_User > Free_User priority.
+  // We check even the sample lesson (module 1, lesson 1) so we can suppress the
+  // enrollment prompt for users who are already entitled.
   const isSampleLesson = moduleId === "1" && lessonId === "1";
-  const { entitled } = useEntitlement({
-    appId: "learn-pr",
+  const { entitled } = useUserAccess("learn-pr", {
     skip: FREE_ACCESS || lesson.isFree,
   });
 

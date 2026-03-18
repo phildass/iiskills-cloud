@@ -5,6 +5,7 @@ import { sendThankYouEmail } from "@lib/paymentEmail";
 import { APPS } from "@lib/appRegistry";
 import checkConfig from "../../../utils/checkConfig";
 import sendError from "../../../utils/sendError";
+import { invalidateEntitlementCache } from "../../../../packages/shared-utils/lib/entitlementCache";
 
 /**
  * Centralized Payment Confirmation Endpoint  (Option A — token-based flow)
@@ -44,6 +45,9 @@ export const config = {
 const ENTITLEMENT_DURATION_MS = 365 * 24 * 60 * 60 * 1000;
 
 const MAX_TIMESTAMP_SKEW_SECONDS = 300; // 5 minutes
+
+/** Bundle ID that grants access to both learn-ai and learn-developer. */
+const AI_DEVELOPER_BUNDLE_ID = "ai-developer-bundle";
 
 function getSupabaseAdmin() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL;
@@ -297,6 +301,18 @@ export default async function handler(req, res) {
       }
     } else {
       console.log(`[payments/confirm] Entitlement granted: user=${user_id} course=${courseAppId}`);
+
+      // ── Invalidate entitlement cache immediately ──────────────────────────
+      // This ensures the NEXT call to /api/entitlement reads fresh data from the
+      // database instead of a stale cached "not entitled" result.  Both the
+      // specific course and the bundle ID are invalidated so all grant paths
+      // are covered.
+      await Promise.all([
+        invalidateEntitlementCache(user_id, courseAppId),
+        invalidateEntitlementCache(user_id, AI_DEVELOPER_BUNDLE_ID),
+      ]).catch((err) =>
+        console.warn("[payments/confirm] Cache invalidation warning:", err.message)
+      );
 
       // Mark user as paid (idempotent)
       await supabase
