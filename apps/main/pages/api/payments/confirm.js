@@ -5,7 +5,7 @@ import { sendThankYouEmail } from "@lib/paymentEmail";
 import { APPS } from "@lib/appRegistry";
 import checkConfig from "../../../utils/checkConfig";
 import sendError from "../../../utils/sendError";
-import { invalidateEntitlementCache } from "../../../../packages/shared-utils/lib/entitlementCache";
+import { invalidateEntitlementCache } from "../../../../../packages/shared-utils/lib/entitlementCache";
 
 /**
  * Centralized Payment Confirmation Endpoint  (Option A — token-based flow)
