@@ -163,11 +163,13 @@ export default function LessonPage({ lesson, moduleId, lessonId }) {
   const [noBadges, setNoBadges] = useState(false);
   const [showSkipDialog, setShowSkipDialog] = useState(false);
 
-  // Universal entitlement check — skipped for free/sample lessons.
+  // Universal entitlement check — skipped for free lessons and in free-access mode.
+  // We check even the sample lesson (module 1, lesson 1) so we can avoid showing
+  // the enrollment prompt to already-entitled users after they pass the sample quiz.
   const isSampleLesson = moduleId === "1" && lessonId === "1";
   const { entitled } = useEntitlement({
     appId: "learn-management",
-    skip: FREE_ACCESS || lesson.isFree || isSampleLesson,
+    skip: FREE_ACCESS || lesson.isFree,
   });
 
   // Load noBadges flag from localStorage on mount
@@ -193,16 +195,17 @@ export default function LessonPage({ lesson, moduleId, lessonId }) {
   }, []);
 
   // Show enrollment overlay when entitlement check determines no access.
+  // Never block the sample lesson (module 1, lesson 1) — it is always open.
   useEffect(() => {
-    if (entitled === false) setShowEnrollment(true);
-  }, [entitled]);
+    if (entitled === false && !isSampleLesson) setShowEnrollment(true);
+  }, [entitled, isSampleLesson]);
 
   const handleQuizComplete = async (passed, score) => {
     setQuizCompleted(passed);
 
     // Show Premium Access Prompt after completing sample lesson (Module 1, Lesson 1)
-    // Suppressed in free-access mode.
-    if (passed && moduleId === "1" && lessonId === "1" && !FREE_ACCESS) {
+    // Only shown to non-entitled users. Suppressed for already-paid users and in free-access mode.
+    if (passed && moduleId === "1" && lessonId === "1" && !FREE_ACCESS && entitled === false) {
       setShowEnrollment(true);
     }
 
