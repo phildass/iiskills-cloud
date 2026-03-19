@@ -4,7 +4,6 @@ import Head from "next/head";
 import { useState, useEffect } from "react";
 import Hero, { getHeroImagesForApp } from "../../../packages/shared-components/HeroManager";
 import { getPricingDisplay } from "../utils/pricing";
-import { UniversalInstallPrompt } from "@iiskills/ui";
 
 export default function Home() {
   const [randomImage1, setRandomImage1] = useState("");
@@ -135,16 +134,7 @@ export default function Home() {
               </Link>
             </div>
 
-            {/* Install App Prompt */}
-            <div className="mt-6 flex justify-center">
-              <UniversalInstallPrompt
-                currentAppId="main"
-                currentAppName="iiskills.cloud"
-                variant="button"
-                size="lg"
-                showMotherAppPromo={false}
-              />
-            </div>
+
           </div>
         </section>
 

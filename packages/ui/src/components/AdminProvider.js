@@ -129,11 +129,13 @@ export function AdminModeBanner() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          gap: "12px",
+          flexWrap: "wrap",
+          gap: "8px",
           fontSize: "13px",
           fontWeight: 700,
           color: "#000",
           boxShadow: "0 2px 8px rgba(0,0,0,0.25)",
+          overflowX: "hidden",
         }}
       >
         <span>⚠️ HIGH-VALUE ADMIN MODE: UNRESTRICTED ACCESS ACTIVE</span>

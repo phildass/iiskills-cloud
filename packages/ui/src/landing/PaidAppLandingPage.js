@@ -23,7 +23,6 @@ import PremiumAccessPrompt from "../payment/PremiumAccessPrompt";
 import { getEffectivePricingBreakdown, formatINR } from "../pricing/pricing";
 
 import LevelSelector from "../content/LevelSelector";
-import UniversalInstallPrompt from "../pwa/UniversalInstallPrompt";
 
 /**
  * Generate standardized app context label
@@ -165,16 +164,7 @@ export default function PaidAppLandingPage({
               </div>
             )}
 
-            {/* Install App Prompt */}
-            <div className="mt-4 flex justify-center">
-              <UniversalInstallPrompt
-                currentAppId={appId}
-                currentAppName={appName}
-                variant="button"
-                size="md"
-                showMotherAppPromo={true}
-              />
-            </div>
+
           </div>
         </section>
 

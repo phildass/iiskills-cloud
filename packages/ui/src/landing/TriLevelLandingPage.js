@@ -18,7 +18,6 @@ import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
 import Hero from "./HeroManager";
 import { getCurrentUser, supabase } from "@/lib/supabaseClient";
-import UniversalInstallPrompt from "../pwa/UniversalInstallPrompt";
 
 const PAID_APP_IDS = ["learn-ai", "learn-developer", "learn-pr", "learn-management"];
 
@@ -260,16 +259,7 @@ export default function TriLevelLandingPage({
               )}
             </div>
 
-            {/* Install App Prompt */}
-            <div className="mt-2 flex justify-center">
-              <UniversalInstallPrompt
-                currentAppId={appId}
-                currentAppName={appName}
-                variant="button"
-                size="md"
-                showMotherAppPromo={true}
-              />
-            </div>
+
           </div>
         </section>
 
