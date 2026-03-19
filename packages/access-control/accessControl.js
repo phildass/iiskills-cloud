@@ -438,7 +438,9 @@ export function hasAccess(user) {
   if (user.email === "philipda@gmail.com" || user.email === "pda.kenya@gmail.com" || user.is_admin)
     return true;
   return false;
+}
 
+/**
  * Infallible access check — Edge Middleware safe (no DB calls).
  *
  * "Master Key" priority order:
@@ -468,7 +470,6 @@ export function checkUserAccess(user, app_id) {
   if (hasAccess) return { allowed: true, reason: "PAID_ACCESS" };
 
   return { allowed: false, redirectTo: "/enrol" };
-
 }
 
 // Export all constants
