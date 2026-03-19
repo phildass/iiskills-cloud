@@ -57,6 +57,8 @@ export {
   requiresPayment,
   userHasAccess,
   checkAccess,
+  checkUserAccess,
+  PRODUCT_OWNER_EMAILS,
   getBundleInfo,
   getAppsToUnlock,
   getAccessStatus,

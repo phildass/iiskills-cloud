@@ -120,6 +120,7 @@ if (useLocalContent) {
           domain: getCookieDomain(),
           secure: window.location.protocol === "https:",
           sameSite: "lax",
+          path: "/",
         },
       },
     });
@@ -136,6 +137,7 @@ if (useLocalContent) {
         domain: getCookieDomain(),
         secure: window.location.protocol === "https:",
         sameSite: "lax",
+        path: "/",
       },
     });
   } else {
