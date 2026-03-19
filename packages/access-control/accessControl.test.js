@@ -150,6 +150,14 @@ describe("Access Control - Core Functions", () => {
       expect(appsDev).toHaveLength(2);
     });
 
+    test("returns all bundle apps when called with bundle ID directly", () => {
+      // Covers the case where purchasedAppId is the bundle ID itself (e.g. 'ai-developer-bundle')
+      const appsBundle = getAppsToUnlock("ai-developer-bundle");
+      expect(appsBundle).toContain("learn-ai");
+      expect(appsBundle).toContain("learn-developer");
+      expect(appsBundle).toHaveLength(2);
+    });
+
     test("returns single app for non-bundled apps", () => {
       expect(getAppsToUnlock("learn-management")).toEqual(["learn-management"]);
       expect(getAppsToUnlock("learn-pr")).toEqual(["learn-pr"]);

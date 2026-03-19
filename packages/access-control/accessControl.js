@@ -124,6 +124,15 @@ export function getBundleInfo(appId) {
  * // Returns: ['learn-management'] (not in a bundle)
  */
 export function getAppsToUnlock(appId) {
+  // Allow a bundle ID to be passed directly (e.g. 'ai-developer-bundle' →
+  // ['learn-ai', 'learn-developer']).  This covers the payment flow where the
+  // purchased item is identified by its bundle ID rather than an individual app ID.
+  const directBundle = getBundleConfig(appId);
+  if (directBundle) {
+    return [...directBundle.apps];
+  }
+
+  // Standard case: app belongs to a bundle
   const bundle = getBundleInfo(appId);
   if (bundle) {
     return [...bundle.apps];
