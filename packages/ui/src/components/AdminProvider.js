@@ -23,6 +23,11 @@ const AdminModeContext = createContext({ isAdminMode: false, adminLabel: "" });
 
 const _SESSION_KEY = "__iiskills_admin";
 const _LABEL_KEY = "__iiskills_admin_label";
+const _LOCAL_KEY = "__iiskills_admin_local";
+const _LOCAL_LABEL_KEY = "__iiskills_admin_local_label";
+const _LOCAL_EXPIRY_KEY = "__iiskills_admin_local_expiry";
+// Admin mode from the URL param expires after 8 hours (ms) to avoid indefinite localStorage persistence.
+const _LOCAL_TTL_MS = 8 * 60 * 60 * 1000;
 
 /**
  * useAdminMode
@@ -38,7 +43,11 @@ export function useAdminMode() {
  * AdminModeProvider
  *
  * Mount once at the root of your app (e.g., _app.js).
- * Checks sessionStorage for a cached result, then verifies with /api/admin/me.
+ * Checks sessionStorage/localStorage for a cached result, then verifies with
+ * /api/admin/me.  Also recognises the ?admin_access=true URL parameter that is
+ * appended to preview links by apps/main/pages/admin/courses.js so the admin
+ * banner is shown immediately on sub-app domains (where the admin session cookie
+ * is not available).
  *
  * @param {{ children: React.ReactNode, adminApiBase?: string }} props
  *   adminApiBase — prefix for API calls; defaults to "" (relative, for apps/main).
@@ -49,15 +58,49 @@ export function AdminModeProvider({ children, adminApiBase = "" }) {
   const [adminLabel, setAdminLabel] = useState("");
 
   useEffect(() => {
-    // Optimistic hydration from sessionStorage — avoids banner flash on navigation
-    if (typeof window !== "undefined") {
+    if (typeof window === "undefined") return;
+
+    // Check for ?admin_access=true URL parameter (appended by admin preview links).
+    // Note: this flag is cosmetic — it only shows the yellow banner. All actual admin
+    // API calls still require the real admin session cookie, which is not affected here.
+    const params = new URLSearchParams(window.location.search);
+    const hasAdminAccessParam = params.get("admin_access") === "true";
+
+    // Helper: check whether the localStorage admin flag is still within its TTL.
+    const isLocalAdminValid = () => {
+      if (localStorage.getItem(_LOCAL_KEY) !== "1") return false;
+      const expiry = parseInt(localStorage.getItem(_LOCAL_EXPIRY_KEY) || "0", 10);
+      return Date.now() < expiry;
+    };
+
+    if (hasAdminAccessParam) {
+      // Immediately activate banner and persist so it survives lesson-to-lesson navigation.
+      // Store an expiry timestamp so the flag does not persist indefinitely.
+      setIsAdminMode(true);
+      localStorage.setItem(_LOCAL_KEY, "1");
+      localStorage.setItem(_LOCAL_EXPIRY_KEY, String(Date.now() + _LOCAL_TTL_MS));
+    } else {
+      // Restore from localStorage — persists across page navigations on the same subdomain
+      // (e.g., Lesson 1 → Lesson 2 → Lesson 3), but only within the TTL window.
+      if (isLocalAdminValid()) {
+        setIsAdminMode(true);
+        setAdminLabel(localStorage.getItem(_LOCAL_LABEL_KEY) || "");
+      } else if (localStorage.getItem(_LOCAL_KEY) === "1") {
+        // Expired — clean up stale localStorage entries.
+        localStorage.removeItem(_LOCAL_KEY);
+        localStorage.removeItem(_LOCAL_LABEL_KEY);
+        localStorage.removeItem(_LOCAL_EXPIRY_KEY);
+      }
+      // Optimistic hydration from sessionStorage — avoids banner flash on same-origin navigation.
       if (sessionStorage.getItem(_SESSION_KEY) === "1") {
         setIsAdminMode(true);
         setAdminLabel(sessionStorage.getItem(_LABEL_KEY) || "");
       }
     }
 
-    // Server verification — fast because the admin session cookie is in the request
+    // Server verification — fast because the admin session cookie is in the request.
+    // On sub-app domains the cookie won't be present, so the fetch may return non-ok;
+    // in that case we preserve the admin state if it was set via the URL param or localStorage.
     const controller = typeof AbortController !== "undefined" ? new AbortController() : null;
     const timeoutId = setTimeout(() => controller?.abort(), 3000);
 
@@ -70,17 +113,26 @@ export function AdminModeProvider({ children, adminApiBase = "" }) {
         clearTimeout(timeoutId);
         const active = Boolean(data?.ok);
         const label = data?.label || "";
-        setIsAdminMode(active);
-        setAdminLabel(label);
-        if (typeof window !== "undefined") {
-          if (active) {
-            sessionStorage.setItem(_SESSION_KEY, "1");
-            sessionStorage.setItem(_LABEL_KEY, label);
-          } else {
-            sessionStorage.removeItem(_SESSION_KEY);
-            sessionStorage.removeItem(_LABEL_KEY);
-          }
+        if (active) {
+          // Full server-verified admin session: update state and both storage layers.
+          setIsAdminMode(true);
+          setAdminLabel(label);
+          sessionStorage.setItem(_SESSION_KEY, "1");
+          sessionStorage.setItem(_LABEL_KEY, label);
+          localStorage.setItem(_LOCAL_KEY, "1");
+          localStorage.setItem(_LOCAL_LABEL_KEY, label);
+          localStorage.setItem(_LOCAL_EXPIRY_KEY, String(Date.now() + _LOCAL_TTL_MS));
+        } else if (!hasAdminAccessParam && !isLocalAdminValid()) {
+          // API says not-admin AND there is no active admin_access token (URL param or
+          // valid localStorage entry) — clear admin mode entirely.
+          setIsAdminMode(false);
+          setAdminLabel("");
+          sessionStorage.removeItem(_SESSION_KEY);
+          sessionStorage.removeItem(_LABEL_KEY);
         }
+        // If the API returned non-ok but hasAdminAccessParam is true or isLocalAdminValid()
+        // is true, we leave admin mode active (expected on cross-subdomain navigation where
+        // the session cookie is absent).
       })
       .catch(() => clearTimeout(timeoutId));
 

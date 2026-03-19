@@ -336,7 +336,7 @@ export default function AdminCourses() {
                         Edit
                       </button>
                       <a
-                        href={getCoursePreviewUrl(course.subdomain || "main", course.slug)}
+                        href={`${getCoursePreviewUrl(course.subdomain || "main", course.slug)}?admin_access=true`}
                         className="text-green-600 hover:text-green-800 font-medium"
                       >
                         Preview
