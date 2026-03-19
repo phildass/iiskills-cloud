@@ -123,8 +123,8 @@ export function AdminModeBanner() {
           left: 0,
           right: 0,
           zIndex: 9999,
-          background: "#eab308",           /* yellow-500 */
-          borderBottom: "2px solid #ca8a04", /* yellow-600 */
+          background: "#eab308" /* yellow-500 */,
+          borderBottom: "2px solid #ca8a04" /* yellow-600 */,
           padding: "4px 16px",
           display: "flex",
           alignItems: "center",
@@ -138,17 +138,21 @@ export function AdminModeBanner() {
       >
         <span>⚠️ HIGH-VALUE ADMIN MODE: UNRESTRICTED ACCESS ACTIVE</span>
         {adminLabel && (
-          <span style={{ fontWeight: 400, fontSize: "12px", opacity: 0.8 }}>
-            ({adminLabel})
-          </span>
+          <span style={{ fontWeight: 400, fontSize: "12px", opacity: 0.8 }}>({adminLabel})</span>
         )}
-        <a href="/admin"          style={{ color: "#000", textDecoration: "underline", fontSize: "12px" }}>
+        <a href="/admin" style={{ color: "#000", textDecoration: "underline", fontSize: "12px" }}>
           Dashboard
         </a>
-        <a href="/admin/users"    style={{ color: "#000", textDecoration: "underline", fontSize: "12px" }}>
+        <a
+          href="/admin/users"
+          style={{ color: "#000", textDecoration: "underline", fontSize: "12px" }}
+        >
           Users
         </a>
-        <a href="/admin/entitlements" style={{ color: "#000", textDecoration: "underline", fontSize: "12px" }}>
+        <a
+          href="/admin/entitlements"
+          style={{ color: "#000", textDecoration: "underline", fontSize: "12px" }}
+        >
           Entitlements
         </a>
       </div>
@@ -178,12 +182,12 @@ export function AdminModeBanner() {
 export function AdminWrapper({ children, isAdmin: _ssrHint, adminApiBase = "" }) {
   return (
     <AdminModeProvider adminApiBase={adminApiBase}>
-      <_AdminWrapperInner>{children}</_AdminWrapperInner>
+      <AdminWrapperInner>{children}</AdminWrapperInner>
     </AdminModeProvider>
   );
 }
 
-function _AdminWrapperInner({ children }) {
+function AdminWrapperInner({ children }) {
   const { isAdminMode } = useAdminMode();
 
   return (

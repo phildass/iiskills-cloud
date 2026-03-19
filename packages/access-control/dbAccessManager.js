@@ -217,7 +217,6 @@ export async function verifyEntitlement(userId, courseId) {
   return { entitled: false, reason: "PAYMENT_REQUIRED" };
 }
 
-
 /**
  * A Certified Paid User has `is_certified_paid_user = true` AND
  * either no expiry or an expiry in the future. This flag is set
@@ -264,9 +263,13 @@ export async function isCertifiedPaidUser(userId, appId) {
  *
  * Priority:
  *   1. Free apps → always true.
- *   2. Certified paid user (`is_certified_paid_user = true` + unexpired) → true.
+ *   2. Admin users (`is_admin = true` in profiles) → always true.
+ *      This is the highest-priority override — admin users bypass all paywall
+ *      checks so that the ⚠️ HIGH-VALUE ADMIN MODE banner works correctly when
+ *      clicking "Preview" on any course.
+ *   3. Certified paid user (`is_certified_paid_user = true` + unexpired) → true.
  *      This is the SSOT for paid access — overrides all individual lesson gates.
- *   3. Any active, unexpired `user_app_access` row → true.
+ *   4. Any active, unexpired `user_app_access` row → true.
  *
  * @param {string|null} userId - User UUID (null for unauthenticated)
  * @param {string} appId - App identifier
@@ -283,7 +286,21 @@ export async function hasAppAccess(userId, appId) {
     return false;
   }
 
-  // ── Priority 2: Certified paid user check (SSOT) ─────────────────────────
+  // ── Priority 2: Admin override (FIRST check after auth) ───────────────────
+  // Admin users bypass all entitlement checks — this must be the very first
+  // DB-level check so that the HIGH-VALUE ADMIN MODE banner actually grants
+  // access when an admin clicks "Preview" on any paid course.
+  const supabase = getSupabaseClient();
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("is_admin")
+    .eq("id", userId)
+    .maybeSingle();
+  if (profile?.is_admin === true) {
+    return true;
+  }
+
+  // ── Priority 3: Certified paid user check (SSOT) ─────────────────────────
   // If is_certified_paid_user = true and not expired, grant access immediately.
   // This resolves the "Paywall on Lesson 2" bug by making Supabase the absolute
   // authority — no per-lesson gating can override a valid paid entitlement.
@@ -292,8 +309,7 @@ export async function hasAppAccess(userId, appId) {
     return true;
   }
 
-  // ── Priority 3: Any active access record ──────────────────────────────────
-  const supabase = getSupabaseClient();
+  // ── Priority 4: Any active access record ──────────────────────────────────
   const now = new Date().toISOString();
 
   const { data, error } = await supabase

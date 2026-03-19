@@ -76,7 +76,6 @@ jobs:
 
           cache: "yarn"
 
-
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
@@ -195,7 +194,6 @@ jobs:
 
           cache: "yarn"
 
-
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
@@ -231,7 +229,6 @@ jobs:
           node-version: "20"
 
           cache: "yarn"
-
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
@@ -301,7 +298,6 @@ jobs:
 
           cache: "yarn"
 
-
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
@@ -334,7 +330,6 @@ jobs:
           node-version: "20"
 
           cache: "yarn"
-
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
@@ -406,7 +401,6 @@ jobs:
         with:
           node-version: "20"
           cache: "yarn"
-
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
@@ -539,7 +533,6 @@ jobs:
 
         env:
           NEEDS_JSON: ${{ toJson(needs) }}
-
 
   # Job 10: Final Status Check
   final-status:

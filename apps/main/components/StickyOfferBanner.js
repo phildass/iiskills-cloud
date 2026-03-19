@@ -52,8 +52,8 @@ export default function StickyOfferBanner() {
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
         <p className="text-sm sm:text-base font-bold flex-1 text-center">
-          🎉 Inaugural Offer: {pricing.basePrice} (+ {pricing.gstRate} GST ={" "}
-          {pricing.totalPrice}) valid from March 21, 2026 to April 20, 2026 —{" "}
+          🎉 Inaugural Offer: {pricing.basePrice} (+ {pricing.gstRate} GST = {pricing.totalPrice})
+          valid from March 21, 2026 to April 20, 2026 —{" "}
           <Link
             href="/register"
             className="underline underline-offset-2 hover:no-underline font-extrabold"

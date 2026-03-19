@@ -65,8 +65,8 @@ export function ModuleInProduction({ moduleTitle, lessonNumber }) {
           marginBottom: "8px",
         }}
       >
-        This advanced module is currently being optimized for high-quality
-        delivery. Check back soon!
+        This advanced module is currently being optimized for high-quality delivery. Check back
+        soon!
       </p>
       {lessonNumber && (
         <p style={{ fontSize: "0.875rem", color: "#7dd3fc", marginTop: "4px" }}>

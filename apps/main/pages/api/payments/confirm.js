@@ -6,6 +6,7 @@ import { APPS } from "@lib/appRegistry";
 import checkConfig from "../../../utils/checkConfig";
 import sendError from "../../../utils/sendError";
 import { invalidateEntitlementCache } from "../../../../../packages/shared-utils/lib/entitlementCache";
+import { grantBundleAccess } from "../../../../../packages/access-control";
 
 /**
  * Centralized Payment Confirmation Endpoint  (Option A — token-based flow)
@@ -312,6 +313,23 @@ export default async function handler(req, res) {
         invalidateEntitlementCache(user_id, AI_DEVELOPER_BUNDLE_ID),
       ]).catch((err) =>
         console.warn("[payments/confirm] Cache invalidation warning:", err.message)
+      );
+
+      // ── Grant user_app_access with is_certified_paid_user=true ──────────────
+      // This sets the certified-paid flag in user_app_access, which is the
+      // SSOT that hasAppAccess() reads to bypass per-lesson paywall checks.
+      // grantBundleAccess handles all apps in the bundle — for standalone paid
+      // apps it behaves identically to grantAppAccess (unlocks only that app).
+      await grantBundleAccess({
+        userId: user_id,
+        purchasedAppId: courseAppId,
+        paymentId: purchaseId,
+        purchaseDate: paidAt || new Date().toISOString(),
+      }).catch((err) =>
+        console.warn(
+          "[payments/confirm] Non-fatal: grantBundleAccess failed (entitlement already created):",
+          err.message
+        )
       );
 
       // Mark user as paid (idempotent)

@@ -25,6 +25,14 @@
 // Common components (most frequently used)
 export { Header, Footer, Layout, GoogleTranslate } from "./common";
 
+// Admin mode provider + banner (used in all paid-app _app.js wrappers)
+export {
+  AdminWrapper,
+  AdminModeProvider,
+  AdminModeBanner,
+  useAdminMode,
+} from "./components/AdminProvider";
+
 // Re-export category modules for convenience
 // (Apps can also import directly from categories)
 export * from "./authentication";

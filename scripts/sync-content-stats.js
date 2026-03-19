@@ -47,16 +47,16 @@ const { createClient } = require("@supabase/supabase-js");
 // ─── Architecture constants ────────────────────────────────────────────────────
 
 const SITE_ARCH = {
-  sites: 8,     // learn-ai, learn-apt, learn-chemistry, learn-developer,
-                // learn-geography, learn-management, learn-math, learn-physics
-  courses: 3,   // 3 courses per site
-  modules: 10,  // 10 modules per course
-  lessons: 10,  // 10 lessons per module
+  sites: 8, // learn-ai, learn-apt, learn-chemistry, learn-developer,
+  // learn-geography, learn-management, learn-math, learn-physics
+  courses: 3, // 3 courses per site
+  modules: 10, // 10 modules per course
+  lessons: 10, // 10 lessons per module
 };
 
 const TOTALS = {
-  total_courses: SITE_ARCH.sites * SITE_ARCH.courses,          //  24
-  total_modules: SITE_ARCH.sites * SITE_ARCH.courses * SITE_ARCH.modules,  // 240
+  total_courses: SITE_ARCH.sites * SITE_ARCH.courses, //  24
+  total_modules: SITE_ARCH.sites * SITE_ARCH.courses * SITE_ARCH.modules, // 240
   total_lessons: SITE_ARCH.sites * SITE_ARCH.courses * SITE_ARCH.modules * SITE_ARCH.lessons, // 2400
 };
 
@@ -77,8 +77,12 @@ async function syncHighValueStats() {
   console.log("📐  Architecture:");
   console.log(`    Sites:   ${SITE_ARCH.sites}`);
   console.log(`    Courses: ${TOTALS.total_courses}  (${SITE_ARCH.sites} × ${SITE_ARCH.courses})`);
-  console.log(`    Modules: ${TOTALS.total_modules}  (${TOTALS.total_courses} × ${SITE_ARCH.modules})`);
-  console.log(`    Lessons: ${TOTALS.total_lessons}  (${TOTALS.total_modules} × ${SITE_ARCH.lessons})`);
+  console.log(
+    `    Modules: ${TOTALS.total_modules}  (${TOTALS.total_courses} × ${SITE_ARCH.modules})`
+  );
+  console.log(
+    `    Lessons: ${TOTALS.total_lessons}  (${TOTALS.total_modules} × ${SITE_ARCH.lessons})`
+  );
   console.log();
 
   if (isDryRun) {
@@ -102,23 +106,21 @@ async function syncHighValueStats() {
     last_verified: new Date().toISOString(),
   };
 
-  const { error } = await supabase
-    .from("content_stats")
-    .upsert(row, { onConflict: "id" });
+  const { error } = await supabase.from("content_stats").upsert(row, { onConflict: "id" });
 
   if (error) {
     console.error("❌  Upsert failed:", error.message);
     if (error.code === "42P01") {
       console.error(
         "    Table 'content_stats' does not exist. Run the migration first:\n" +
-        "    supabase/migrations/2026-03-18_content_stats_table.sql"
+          "    supabase/migrations/2026-03-18_content_stats_table.sql"
       );
     }
     process.exit(1);
   }
 
   console.log("✅  High-Value Stats Synced to Supabase:");
-  console.log(`    24 Courses · 240 Modules · 2,400 Lessons — Live.`);
+  console.log("    24 Courses · 240 Modules · 2,400 Lessons — Live.");
 }
 
 syncHighValueStats().catch((err) => {
