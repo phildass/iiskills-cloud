@@ -8,7 +8,7 @@
  */
 
 import { createClient } from "@supabase/supabase-js";
-import { isFreeApp, getAppsToUnlock, getAccessStatus } from "./accessControl.js";
+import { isFreeApp, getBundleInfo, getAppsToUnlock, getAccessStatus } from "./accessControl.js";
 
 /**
  * Initialize Supabase client for server-side operations
@@ -235,11 +235,18 @@ export async function isCertifiedPaidUser(userId, appId) {
   const supabase = getSupabaseClient();
   const now = new Date().toISOString();
 
+  // Include the bundle ID so a bundle-level grant (e.g. app_id = 'ai-developer-bundle')
+  // also satisfies the certified-paid check for member apps (learn-ai, learn-developer).
+  // This covers both philipda@gmail.com (direct app grant) and pda.kenya@gmail.com
+  // (bundle-level grant) — both must receive `certified: true` for bundle apps.
+  const bundle = getBundleInfo(appId);
+  const appAndBundleIds = bundle ? [appId, bundle.id] : [appId];
+
   const { data, error } = await supabase
     .from("user_app_access")
     .select("id, expires_at")
     .eq("user_id", userId)
-    .eq("app_id", appId)
+    .in("app_id", appAndBundleIds)
     .eq("is_active", true)
     .eq("is_certified_paid_user", true)
     .or(`expires_at.is.null,expires_at.gt.${now}`)
@@ -310,13 +317,18 @@ export async function hasAppAccess(userId, appId) {
   }
 
   // ── Priority 4: Any active access record ──────────────────────────────────
+  // Also check the bundle ID so a bundle-level grant in user_app_access
+  // (e.g. app_id = 'ai-developer-bundle') grants access to all apps in the bundle.
+  // Covers pda.kenya@gmail.com whose grant is stored under the bundle ID.
   const now = new Date().toISOString();
+  const bundle = getBundleInfo(appId);
+  const appAndBundleIds = bundle ? [appId, bundle.id] : [appId];
 
   const { data, error } = await supabase
     .from("user_app_access")
     .select("id, expires_at")
     .eq("user_id", userId)
-    .eq("app_id", appId)
+    .in("app_id", appAndBundleIds)
     .eq("is_active", true)
     .or(`expires_at.is.null,expires_at.gt.${now}`)
     .limit(1)

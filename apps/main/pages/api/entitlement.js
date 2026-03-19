@@ -26,6 +26,7 @@ import {
   getEntitlementFromCache,
   setEntitlementInCache,
 } from "../../../../packages/shared-utils/lib/entitlementCache";
+import { getBundleConfig } from "../../../../packages/access-control/appConfig.js";
 
 function getSupabaseServer() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -93,6 +94,13 @@ export default async function handler(req, res) {
   // Check entitlements by BOTH app_id (admin/bundle grants) AND course_slug (Razorpay
   // payment grants written by /api/payments/confirm). Either path grants access.
   const bundleId = "ai-developer-bundle";
+  // For apps that belong to the AI Developer bundle, also check user_app_access rows
+  // stored under the bundle ID. This handles bundle-level grants where app_id is
+  // 'ai-developer-bundle' rather than the individual app ID.
+  // Derive bundle membership from the central config to avoid a hardcoded list.
+  const aiBundleApps = getBundleConfig(bundleId)?.apps ?? [];
+  const bundleAppIds = aiBundleApps.includes(appId) ? [appId, bundleId] : [appId];
+
   const [profileResult, entitlementResult, certifiedPaidResult] = await Promise.all([
     // Select both is_admin (legacy) and role (new) so either representation works.
     supabase.from("profiles").select("is_admin, role").eq("id", user.id).maybeSingle(),
@@ -110,11 +118,13 @@ export default async function handler(req, res) {
     // If is_certified_paid_user = true + not expired, ALL lessons are unlocked.
     // This is the single source of truth for premium access and overrides all
     // per-lesson gating, resolving the "Paywall on Lesson 2" bug.
+    // Also checks bundle-level rows (e.g. app_id = 'ai-developer-bundle') for
+    // bundle members so both philipda@gmail.com and pda.kenya@gmail.com are covered.
     supabase
       .from("user_app_access")
       .select("id, expires_at")
       .eq("user_id", user.id)
-      .eq("app_id", appId)
+      .in("app_id", bundleAppIds)
       .eq("is_active", true)
       .eq("is_certified_paid_user", true)
       .or(`expires_at.is.null,expires_at.gt.${now}`)
@@ -173,11 +183,13 @@ export default async function handler(req, res) {
   // ── Priority 3: user_app_access fallback ──────────────────────────────────
   // Covers grants via grantAppAccess() / dbAccessManager (admin-dashboard grants,
   // bundle grants) which write to user_app_access rather than entitlements.
+  // Also checks bundle-level rows (e.g. app_id = 'ai-developer-bundle') so that
+  // users with a bundle-level grant get access to all apps in the bundle.
   const { data: appAccess } = await supabase
     .from("user_app_access")
     .select("id, expires_at")
     .eq("user_id", user.id)
-    .eq("app_id", appId)
+    .in("app_id", bundleAppIds)
     .eq("is_active", true)
     .or(`expires_at.is.null,expires_at.gt.${now}`)
     .limit(1)

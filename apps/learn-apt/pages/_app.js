@@ -3,26 +3,32 @@ import "../styles/globals.css";
 import Head from "next/head";
 import { SiteHeader, AppSecondaryNavbar } from "@iiskills/ui/navigation";
 import { Footer } from "@iiskills/ui/common";
+import { AdminModeProvider, AdminModeBanner } from "@iiskills/ui";
+
+const ADMIN_API_BASE = process.env.NEXT_PUBLIC_MAIN_APP_URL || "";
 
 export default function App({ Component, pageProps }) {
   return (
-    <>
-      <Head>
-        <link rel="icon" href="/images/favicon-iiskills.svg" />
-        <link rel="apple-touch-icon" href="/images/iiskills-logo.png" />
-      </Head>
+    <AdminModeProvider adminApiBase={ADMIN_API_BASE}>
+      <>
+        <Head>
+          <link rel="icon" href="/images/favicon-iiskills.svg" />
+          <link rel="apple-touch-icon" href="/images/iiskills-logo.png" />
+        </Head>
 
-      <SiteHeader appId="learn-apt" isFreeApp={true} />
-      <AppSecondaryNavbar
-        appId="learn-apt"
-        appName="Aptitude"
-        isFree={true}
-        firstLessonPath="/my-test"
-        showCurriculum={false}
-        continueButtonLabel="Take me to my test"
-      />
-      <Component {...pageProps} />
-      <Footer />
-    </>
+        <AdminModeBanner />
+        <SiteHeader appId="learn-apt" isFreeApp={true} />
+        <AppSecondaryNavbar
+          appId="learn-apt"
+          appName="Aptitude"
+          isFree={true}
+          firstLessonPath="/my-test"
+          showCurriculum={false}
+          continueButtonLabel="Take me to my test"
+        />
+        <Component {...pageProps} />
+        <Footer />
+      </>
+    </AdminModeProvider>
   );
 }
