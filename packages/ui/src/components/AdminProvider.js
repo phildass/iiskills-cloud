@@ -22,7 +22,7 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 const AdminModeContext = createContext({
   isAdminMode: false,
   adminLabel: "",
-  authState: { isAuthorized: false, isAdmin: false, loading: true },
+  authState: { isAuthorized: false, isAdmin: null, loading: true },
 });
 
 const _SESSION_KEY = "__iiskills_admin";
@@ -65,7 +65,7 @@ export function AdminModeProvider({ children, adminApiBase = "" }) {
   // on the very first render — before any async work — to prevent redirect flashes.
   const [authState, setAuthState] = useState({
     isAuthorized: false,
-    isAdmin: false,
+    isAdmin: null,
     loading: true,
   });
 
