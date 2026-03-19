@@ -58,6 +58,8 @@ export {
   userHasAccess,
   hasAccess,
   checkAccess,
+  checkUserAccess,
+  PRODUCT_OWNER_EMAILS,
   getBundleInfo,
   getAppsToUnlock,
   getAccessStatus,
