@@ -233,11 +233,15 @@ export function checkAccess(user, appId) {
   // Admin users and designated override accounts always get unrestricted access.
   // This check fires BEFORE all other logic — including is_paid checks — so
   // admins are never redirected to the payment page.
-  // NOTE: pda.kenya@gmail.com is a designated product-owner override account,
-  // explicitly specified as a hardcoded bypass per the product requirements.
-  // To change or remove this override, update both this function and the
-  // matching check in packages/shared-utils/lib/hooks/useUserAccess.js.
-  if (user && (user.is_admin || user.email === "pda.kenya@gmail.com")) return { granted: true };
+  // NOTE: philipda@gmail.com and pda.kenya@gmail.com are designated product-owner
+  // override accounts, explicitly specified as hardcoded bypasses per the product
+  // requirements. To change or remove these overrides, update both this function
+  // and hasAccess() in accessControl.js / src/index.ts.
+  if (
+    user &&
+    (user.is_admin || user.email === "philipda@gmail.com" || user.email === "pda.kenya@gmail.com")
+  )
+    return { granted: true };
 
   // ── Priority 2: Free apps ─────────────────────────────────────────────────
   if (isFreeApp(appId)) return { granted: true };
@@ -375,6 +379,39 @@ export function getBundleAccessMessage(appId, purchasedAppId) {
   }
 
   return `🎉 Congratulations! You unlocked ${currentApp.name} by purchasing ${purchasedApp.name}. Enjoy your ${bundle.name}!`;
+}
+
+/**
+ * Determine whether a user should be granted unconditional access.
+ *
+ * The Infallible Rule — this is the very first check that must be applied
+ * before ANY other access logic in every sub-app middleware and hook:
+ *   • `philipda@gmail.com`  — primary product-owner override
+ *   • `pda.kenya@gmail.com` — secondary product-owner override
+ *   • `is_admin === true`   — any profile/JWT-flagged administrator
+ *
+ * If this function returns `true`, the caller MUST skip all payment redirects
+ * and access gates without further evaluation.
+ *
+ * @param {{ email?: string|null, is_admin?: boolean|null }} user - Partial user
+ *   object.  Only `email` and `is_admin` are inspected; all other fields are
+ *   ignored so callers may pass raw JWT payloads.
+ * @returns {boolean} `true` when the user has unconditional admin access.
+ *
+ * @example
+ * import { hasAccess } from '@iiskills/access-control';
+ *
+ * // In Next.js Edge Middleware:
+ * const user = parseUserFromCookies(request);
+ * if (user && hasAccess(user)) {
+ *   // Admin bypass — do not redirect to /payment
+ * }
+ */
+export function hasAccess(user) {
+  if (!user) return false;
+  if (user.email === "philipda@gmail.com" || user.email === "pda.kenya@gmail.com" || user.is_admin)
+    return true;
+  return false;
 }
 
 // Export all constants

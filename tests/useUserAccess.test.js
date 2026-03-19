@@ -256,7 +256,10 @@ describe("useUserAccess — admin_access URL parameter bypass", () => {
       canAccessCourse("learn-developer", { accessLevel: ACCESS_LEVEL.ADMIN, appId: "learn-ai" })
     ).toBe(true);
     expect(
-      canAccessCourse("learn-management", { accessLevel: ACCESS_LEVEL.ADMIN, appId: "learn-management" })
+      canAccessCourse("learn-management", {
+        accessLevel: ACCESS_LEVEL.ADMIN,
+        appId: "learn-management",
+      })
     ).toBe(true);
     expect(
       canAccessCourse("learn-pr", { accessLevel: ACCESS_LEVEL.ADMIN, appId: "learn-pr" })
@@ -299,7 +302,10 @@ describe("checkAccess — Global Admin Bypass", () => {
 
   it("regular unauthenticated user is denied access to paid apps", () => {
     expect(checkAccess(null, "learn-ai")).toEqual({ granted: false, reason: "unauthenticated" });
-    expect(checkAccess(undefined, "learn-ai")).toEqual({ granted: false, reason: "unauthenticated" });
+    expect(checkAccess(undefined, "learn-ai")).toEqual({
+      granted: false,
+      reason: "unauthenticated",
+    });
   });
 
   it("authenticated but non-entitled user is denied access to paid apps", () => {

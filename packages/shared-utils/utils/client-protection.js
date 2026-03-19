@@ -269,7 +269,7 @@ export function enableProtections({
 export function useProtection(options = {}) {
   if (typeof window === "undefined") return;
 
-  const React = require("react"); // eslint-disable-line no-undef
+  const React = require("react");
   const { useEffect, useRef } = React;
 
   // Store stringified options to detect changes without causing unnecessary re-renders

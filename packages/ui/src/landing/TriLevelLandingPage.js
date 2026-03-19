@@ -258,8 +258,6 @@ export default function TriLevelLandingPage({
                 </Link>
               )}
             </div>
-
-
           </div>
         </section>
 

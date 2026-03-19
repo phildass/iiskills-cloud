@@ -105,7 +105,6 @@ if (useLocalContent) {
   // We rely on webpack/Turbopack dead-code elimination: NEXT_PUBLIC_USE_LOCAL_CONTENT is replaced
   // at build time, so this entire branch is typically tree-shaken out of production bundles.
   if (typeof window === "undefined") {
-    // eslint-disable-next-line no-undef -- require() is valid in Node.js/Webpack contexts
     const { createLocalContentClient } = require("./localContentProvider.js");
     supabaseClient = createLocalContentClient();
   } else {
@@ -120,6 +119,7 @@ if (useLocalContent) {
           domain: getCookieDomain(),
           secure: window.location.protocol === "https:",
           sameSite: "lax",
+          path: "/",
         },
       },
     });
@@ -136,6 +136,7 @@ if (useLocalContent) {
         domain: getCookieDomain(),
         secure: window.location.protocol === "https:",
         sameSite: "lax",
+        path: "/",
       },
     });
   } else {

@@ -72,6 +72,7 @@ export const supabase = _hasCredentials
           domain: getCookieDomain(),
           secure: window.location.protocol === "https:",
           sameSite: "lax",
+          path: "/",
         },
       })
     : createClient(supabaseUrl, supabaseAnonKey, {

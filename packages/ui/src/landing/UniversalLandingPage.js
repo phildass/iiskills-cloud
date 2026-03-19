@@ -301,8 +301,6 @@ export default function UniversalLandingPage({
                 </Link>
               </div>
             )}
-
-
           </div>
         </section>
 

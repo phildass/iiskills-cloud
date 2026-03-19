@@ -309,6 +309,30 @@ export function requiresPayment(appId: string): boolean;
 export function userHasAccess(user: User | null, appId: string): boolean;
 
 /**
+ * Determine whether a user should be granted unconditional access.
+ *
+ * The Infallible Rule — applied as the very first check in every middleware
+ * and access gate:
+ *   • email === 'philipda@gmail.com'  — primary product-owner override
+ *   • email === 'pda.kenya@gmail.com' — secondary product-owner override
+ *   • is_admin === true               — any flagged administrator
+ *
+ * @param user - Partial user object with at least `email` and/or `is_admin`.
+ * @returns `true` when the user has unconditional admin access.
+ *
+ * @example
+ * ```typescript
+ * import { hasAccess } from '@iiskills/access-control';
+ *
+ * const user = parseUserFromCookies(request);
+ * if (user && hasAccess(user)) {
+ *   // Skip payment redirect — admin bypass
+ * }
+ * ```
+ */
+export function hasAccess(user: { email?: string | null; is_admin?: boolean | null }): boolean;
+
+/**
  * Get bundle information for an app
  *
  * @param appId - App identifier

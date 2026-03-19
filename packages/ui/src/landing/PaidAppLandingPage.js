@@ -163,8 +163,6 @@ export default function PaidAppLandingPage({
                 </p>
               </div>
             )}
-
-
           </div>
         </section>
 
