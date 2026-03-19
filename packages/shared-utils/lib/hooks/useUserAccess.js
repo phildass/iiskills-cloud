@@ -162,7 +162,7 @@ export function canAccessCourse(courseId, { accessLevel, appId }) {
   //    (checked synchronously; resolveIsFreeApp is async and only used in the hook)
   try {
     // Best-effort synchronous check using the bundled registry.
-    // eslint-disable-next-line no-undef -- require() is valid in Node.js/Webpack contexts
+
     const acModule = require("../../../access-control/accessControl.js");
     if (typeof acModule.isFreeApp === "function" && acModule.isFreeApp(courseId)) return true;
   } catch {

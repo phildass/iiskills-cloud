@@ -63,7 +63,11 @@ export function AdminModeProvider({ children, adminApiBase = "" }) {
   // authState tracks authorization derived from the URL param and/or the server
   // session.  Initialised synchronously so that consumers can read isAdmin/isAuthorized
   // on the very first render — before any async work — to prevent redirect flashes.
-  const [authState, setAuthState] = useState({ isAuthorized: false, isAdmin: false, loading: true });
+  const [authState, setAuthState] = useState({
+    isAuthorized: false,
+    isAdmin: false,
+    loading: true,
+  });
 
   useEffect(() => {
     if (typeof window === "undefined") return;

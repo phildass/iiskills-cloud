@@ -109,10 +109,7 @@ export default function Footer() {
           <div className="mt-3 text-center">
             <span className="text-xs text-gray-500">
               📱 No app download required —{" "}
-              <a
-                href="/"
-                className="text-primary hover:underline"
-              >
+              <a href="/" className="text-primary hover:underline">
                 open in your mobile browser
               </a>{" "}
               for the full experience.

@@ -133,7 +133,7 @@ export default function AuditLog() {
         .join(",")
     );
     const csv = [header.join(","), ...rows].join("\n");
-    // eslint-disable-next-line no-undef
+
     const blob = new Blob([csv], { type: "text/csv" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");

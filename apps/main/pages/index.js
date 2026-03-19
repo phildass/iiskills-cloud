@@ -133,8 +133,6 @@ export default function Home() {
                 📱 Browse All Apps
               </Link>
             </div>
-
-
           </div>
         </section>
 

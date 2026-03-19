@@ -192,7 +192,14 @@ export function userHasAccess(user, appId) {
     return false;
   }
 
-  // Check 3: Admin users have unrestricted access to all content.
+  // Check 3: Owner override — these two accounts always have unconditional access.
+  // This fires BEFORE any subscription or payment-record look-ups so neither DB
+  // table (entitlements / user_app_access) is ever queried for the owner.
+  if (user.email === "philipda@gmail.com" || user.email === "pda.kenya@gmail.com") {
+    return true;
+  }
+
+  // Check 4: Admin users have unrestricted access to all content.
   // Supports both the legacy `is_admin` boolean flag and the newer `role`
   // string field (role === 'admin') so either representation grants access.
   // Checked centrally here — individual apps must never implement their own
@@ -201,7 +208,7 @@ export function userHasAccess(user, appId) {
     return true;
   }
 
-  // Check 4: Look for active access record
+  // Check 5: Look for active subscription/payment access record
   if (!user.app_access || !Array.isArray(user.app_access)) {
     return false;
   }
@@ -214,7 +221,7 @@ export function userHasAccess(user, appId) {
     return false;
   }
 
-  // Check 4: Verify not expired
+  // Check 5a: Verify not expired
   if (accessRecord.expires_at) {
     const now = new Date();
     const expiresAt = new Date(accessRecord.expires_at);
@@ -245,9 +252,20 @@ export function checkAccess(user, appId) {
   // Admin users and designated override accounts always get unrestricted access.
   // This check fires BEFORE all other logic — including is_paid checks — so
   // admins are never redirected to the payment page.
+
+  // NOTE: philipda@gmail.com and pda.kenya@gmail.com are designated product-owner
+  // override accounts, explicitly specified as hardcoded bypasses per the product
+  // requirements. To change or remove these overrides, update both this function
+  // and hasAccess() in accessControl.js / src/index.ts.
+  if (
+    user &&
+    (user.is_admin || user.email === "philipda@gmail.com" || user.email === "pda.kenya@gmail.com")
+  )
+
   // Authorised emails are defined in PRODUCT_OWNER_EMAILS (same file).
   // To change or remove these overrides, also update useUserAccess.js.
   if (user && (user.is_admin || PRODUCT_OWNER_EMAILS.includes(user.email)))
+
     return { granted: true };
 
   // ── Priority 2: Free apps ─────────────────────────────────────────────────
@@ -389,6 +407,38 @@ export function getBundleAccessMessage(appId, purchasedAppId) {
 }
 
 /**
+
+ * Determine whether a user should be granted unconditional access.
+ *
+ * The Infallible Rule — this is the very first check that must be applied
+ * before ANY other access logic in every sub-app middleware and hook:
+ *   • `philipda@gmail.com`  — primary product-owner override
+ *   • `pda.kenya@gmail.com` — secondary product-owner override
+ *   • `is_admin === true`   — any profile/JWT-flagged administrator
+ *
+ * If this function returns `true`, the caller MUST skip all payment redirects
+ * and access gates without further evaluation.
+ *
+ * @param {{ email?: string|null, is_admin?: boolean|null }} user - Partial user
+ *   object.  Only `email` and `is_admin` are inspected; all other fields are
+ *   ignored so callers may pass raw JWT payloads.
+ * @returns {boolean} `true` when the user has unconditional admin access.
+ *
+ * @example
+ * import { hasAccess } from '@iiskills/access-control';
+ *
+ * // In Next.js Edge Middleware:
+ * const user = parseUserFromCookies(request);
+ * if (user && hasAccess(user)) {
+ *   // Admin bypass — do not redirect to /payment
+ * }
+ */
+export function hasAccess(user) {
+  if (!user) return false;
+  if (user.email === "philipda@gmail.com" || user.email === "pda.kenya@gmail.com" || user.is_admin)
+    return true;
+  return false;
+
  * Infallible access check — Edge Middleware safe (no DB calls).
  *
  * "Master Key" priority order:
@@ -418,6 +468,7 @@ export function checkUserAccess(user, app_id) {
   if (hasAccess) return { allowed: true, reason: "PAID_ACCESS" };
 
   return { allowed: false, redirectTo: "/enrol" };
+
 }
 
 // Export all constants

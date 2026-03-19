@@ -56,6 +56,7 @@ export {
   isBundleApp,
   requiresPayment,
   userHasAccess,
+  hasAccess,
   checkAccess,
   checkUserAccess,
   PRODUCT_OWNER_EMAILS,
