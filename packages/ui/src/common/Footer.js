@@ -105,6 +105,19 @@ export default function Footer() {
               🌐 Use the language selector in the navigation bar above to translate this page.
             </span>
           </div>
+          {/* Mobile Access */}
+          <div className="mt-3 text-center">
+            <span className="text-xs text-gray-500">
+              📱 No app download required —{" "}
+              <a
+                href="/"
+                className="text-primary hover:underline"
+              >
+                open in your mobile browser
+              </a>{" "}
+              for the full experience.
+            </span>
+          </div>
         </div>
       </div>
     </footer>

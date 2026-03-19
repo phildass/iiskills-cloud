@@ -26,7 +26,6 @@ import CalibrationGatekeeper from "../content/CalibrationGatekeeper";
 import PremiumAccessPrompt from "../payment/PremiumAccessPrompt";
 
 import LevelSelector from "../content/LevelSelector";
-import UniversalInstallPrompt from "../pwa/UniversalInstallPrompt";
 
 /**
  * Generate standardized app context label
@@ -303,16 +302,7 @@ export default function UniversalLandingPage({
               </div>
             )}
 
-            {/* Install App Prompt */}
-            <div className="mt-4 flex justify-center">
-              <UniversalInstallPrompt
-                currentAppId={appId}
-                currentAppName={appName}
-                variant="button"
-                size="md"
-                showMotherAppPromo={appId !== "main"}
-              />
-            </div>
+
           </div>
         </section>
 

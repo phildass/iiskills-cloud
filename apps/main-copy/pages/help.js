@@ -36,7 +36,7 @@ const faqs = [
   },
   {
     q: "Can I access the courses on my mobile phone?",
-    a: "Yes. iiskills.cloud is fully responsive and works on all modern smartphones, tablets, and desktop browsers — no app download required.",
+    a: "No app download required. Access iiskills.cloud directly via your mobile browser for the full experience. Our platform is fully responsive and works seamlessly on all modern smartphones, tablets, and desktop browsers.",
   },
   {
     q: "How do I contact support?",
