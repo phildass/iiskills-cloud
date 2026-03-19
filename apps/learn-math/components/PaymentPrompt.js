@@ -1,7 +1,7 @@
 import { getEffectivePricingBreakdown, formatINR } from "@iiskills/ui/pricing";
 
 export default function PaymentPrompt({ onProceed, onCancel, user }) {
-  if (process.env.NODE_ENV === "production" && (user?.is_admin === true || user?.role === "admin")) {
+  if (!user || user.is_admin || user.role === "admin") {
     return null;
   }
 

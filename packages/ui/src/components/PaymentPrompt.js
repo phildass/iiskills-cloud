@@ -1,4 +1,4 @@
-import { getEffectivePricingBreakdown, formatINR } from "@iiskills/ui/pricing";
+import { getEffectivePricingBreakdown, formatINR } from "../pricing/pricing";
 
 export default function PaymentPrompt({ onProceed, onCancel, user }) {
   if (!user || user.is_admin || user.role === "admin") {
