@@ -337,8 +337,6 @@ export default function AdminCourses() {
                       </button>
                       <a
                         href={getCoursePreviewUrl(course.subdomain || "main", course.slug)}
-                        target="_blank"
-                        rel="noopener noreferrer"
                         className="text-green-600 hover:text-green-800 font-medium"
                       >
                         Preview
