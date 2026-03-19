@@ -215,6 +215,43 @@ export function userHasAccess(user, appId) {
 }
 
 /**
+ * Universal access check — returns a result object rather than a plain boolean.
+ *
+ * Priority hierarchy (mirrors userHasAccess but returns structured result):
+ *  1. Admin bypass — user.is_admin === true OR user.email is a designated admin address.
+ *     These users always receive { granted: true } as the very first check.
+ *  2. Free app — accessible to everyone.
+ *  3. Authenticated paid/entitled user — active access record exists.
+ *  4. No access.
+ *
+ * @param {Object|null} user  - User profile object.
+ * @param {string}      appId - App identifier (e.g. 'learn-ai').
+ * @returns {{ granted: boolean, reason?: string }}
+ */
+export function checkAccess(user, appId) {
+  // ── Priority 1: Admin bypass ──────────────────────────────────────────────
+  // Admin users and designated override accounts always get unrestricted access.
+  // This check fires BEFORE all other logic — including is_paid checks — so
+  // admins are never redirected to the payment page.
+  // NOTE: pda.kenya@gmail.com is a designated product-owner override account,
+  // explicitly specified as a hardcoded bypass per the product requirements.
+  // To change or remove this override, update both this function and the
+  // matching check in packages/shared-utils/lib/hooks/useUserAccess.js.
+  if (user && (user.is_admin || user.email === "pda.kenya@gmail.com")) return { granted: true };
+
+  // ── Priority 2: Free apps ─────────────────────────────────────────────────
+  if (isFreeApp(appId)) return { granted: true };
+
+  // ── Priority 3: Authenticated paid user ──────────────────────────────────
+  if (!user || !user.id) return { granted: false, reason: "unauthenticated" };
+
+  if (userHasAccess(user, appId)) return { granted: true };
+
+  // ── No access ─────────────────────────────────────────────────────────────
+  return { granted: false, reason: "not_entitled" };
+}
+
+/**
  * Get access status for a user across all apps
  *
  * Returns comprehensive access information including:

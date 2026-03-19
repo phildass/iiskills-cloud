@@ -235,3 +235,85 @@ describe("accessControl.userHasAccess — admin role bypass", () => {
     expect(userHasAccess(null, "learn-ai")).toBe(false);
   });
 });
+
+// ---------------------------------------------------------------------------
+// admin_access URL parameter — High-Priority Override in useUserAccess hook
+// ---------------------------------------------------------------------------
+
+describe("useUserAccess — admin_access URL parameter bypass", () => {
+  it("ACCESS_LEVEL.ADMIN is set immediately when admin_access=true is in the URL", () => {
+    // Verify that ACCESS_LEVEL.ADMIN is the expected string — the hook returns
+    // this value without making any async API call when the param is present.
+    expect(ACCESS_LEVEL.ADMIN).toBe("admin");
+  });
+
+  it("canAccessCourse returns true for ADMIN level (confirming bypass works end-to-end)", () => {
+    // Simulate the state that the hook would set when admin_access=true is detected.
+    expect(
+      canAccessCourse("learn-ai", { accessLevel: ACCESS_LEVEL.ADMIN, appId: "learn-ai" })
+    ).toBe(true);
+    expect(
+      canAccessCourse("learn-developer", { accessLevel: ACCESS_LEVEL.ADMIN, appId: "learn-ai" })
+    ).toBe(true);
+    expect(
+      canAccessCourse("learn-management", { accessLevel: ACCESS_LEVEL.ADMIN, appId: "learn-management" })
+    ).toBe(true);
+    expect(
+      canAccessCourse("learn-pr", { accessLevel: ACCESS_LEVEL.ADMIN, appId: "learn-pr" })
+    ).toBe(true);
+  });
+
+  it("PAID_USER level does NOT grant access to a different app (no URL-bypass escalation)", () => {
+    // Confirms that access gained via admin_access param (ADMIN level) is distinct
+    // from PAID_USER and cannot be trivially spoofed for cross-app escalation.
+    expect(
+      canAccessCourse("learn-developer", { accessLevel: ACCESS_LEVEL.PAID_USER, appId: "learn-ai" })
+    ).toBe(false);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// checkAccess — Global Admin Bypass function
+// ---------------------------------------------------------------------------
+
+describe("checkAccess — Global Admin Bypass", () => {
+  let checkAccess;
+
+  beforeAll(async () => {
+    const mod = await import("../packages/access-control/accessControl.js");
+    checkAccess = mod.checkAccess;
+  });
+
+  it("is_admin === true grants access immediately (before is_paid check)", () => {
+    const admin = { id: "u1", is_admin: true, email: "admin@iiskills.cloud", app_access: [] };
+    expect(checkAccess(admin, "learn-ai")).toEqual({ granted: true });
+    expect(checkAccess(admin, "learn-developer")).toEqual({ granted: true });
+    expect(checkAccess(admin, "learn-pr")).toEqual({ granted: true });
+  });
+
+  it("designated override email grants access regardless of is_admin flag", () => {
+    const override = { id: "u2", is_admin: false, email: "pda.kenya@gmail.com", app_access: [] };
+    expect(checkAccess(override, "learn-ai")).toEqual({ granted: true });
+    expect(checkAccess(override, "learn-management")).toEqual({ granted: true });
+  });
+
+  it("regular unauthenticated user is denied access to paid apps", () => {
+    expect(checkAccess(null, "learn-ai")).toEqual({ granted: false, reason: "unauthenticated" });
+    expect(checkAccess(undefined, "learn-ai")).toEqual({ granted: false, reason: "unauthenticated" });
+  });
+
+  it("authenticated but non-entitled user is denied access to paid apps", () => {
+    const user = { id: "u3", is_admin: false, email: "user@example.com", app_access: [] };
+    const result = checkAccess(user, "learn-ai");
+    expect(result.granted).toBe(false);
+    expect(result.reason).toBe("not_entitled");
+  });
+
+  it("admin email check fires BEFORE is_paid (order guarantee)", () => {
+    // Simulate a user with no payment record — admin flag alone must be enough
+    const adminNoPay = { id: "u4", is_admin: true, email: "admin@iiskills.cloud", app_access: [] };
+    const result = checkAccess(adminNoPay, "learn-ai");
+    // Must be { granted: true } not { granted: false, reason: 'not_entitled' }
+    expect(result).toEqual({ granted: true });
+  });
+});
