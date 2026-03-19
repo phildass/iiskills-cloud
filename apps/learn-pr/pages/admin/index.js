@@ -6,6 +6,9 @@ import Link from "next/link";
 import Head from "next/head";
 import Footer from "../../components/Footer";
 import { getCurrentUser } from "../../lib/supabaseClient";
+import { userHasAccess } from "@iiskills/access-control";
+
+const APP_ID = "learn-pr";
 
 export default function AdminPanel() {
   const router = useRouter();
@@ -16,26 +19,16 @@ export default function AdminPanel() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    checkAuth();
-  }, []);
-
-  const checkAuth = async () => {
-    if (process.env.NEXT_PUBLIC_DISABLE_AUTH === "true") {
-      setUser({ email: "admin@example.com" });
+    (async () => {
+      const currentUser = await getCurrentUser();
+      if (!currentUser || !userHasAccess(currentUser, APP_ID)) {
+        router.push("/register");
+        return;
+      }
+      setUser(currentUser);
       loadData();
-      return;
-    }
-
-    const currentUser = await getCurrentUser();
-    if (!currentUser) {
-      router.push("/register");
-      return;
-    }
-
-    // In production, check if user is admin
-    setUser(currentUser);
-    loadData();
-  };
+    })();
+  }, []);
 
   const loadData = async () => {
     try {
