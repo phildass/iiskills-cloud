@@ -72,6 +72,22 @@ export default async function handler(req, res) {
     return res.status(200).json({ authenticated: false, entitled: false, expiresAt: null });
   }
 
+  // ── Priority 0: Owner email bypass ────────────────────────────────────────
+  // For these two product-owner accounts, return true immediately without
+  // querying subscriptions, entitlements, or any payment records.
+  // This is a global override that fires before the cache and before the DB.
+  if (user.email === "philipda@gmail.com" || user.email === "pda.kenya@gmail.com") {
+    await setEntitlementInCache(user.id, appId, true);
+    return res.status(200).json({
+      authenticated: true,
+      entitled: true,
+      expiresAt: null,
+      adminAccess: true,
+      ownerOverride: true,
+      fromCache: false,
+    });
+  }
+
   // ── Cache read ─────────────────────────────────────────────────────────────
   // Check the entitlement cache before hitting the database.  Admin results are
   // also cached (as `true`) so subsequent requests for an admin don't re-query.

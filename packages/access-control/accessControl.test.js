@@ -228,6 +228,36 @@ describe("Access Control - Core Functions", () => {
       const user = { id: "user-123" };
       expect(userHasAccess(user, "learn-ai")).toBe(false);
     });
+
+    test("owner philipda@gmail.com bypasses all subscription checks", () => {
+      // No app_access records — a normal user would be denied, but the owner
+      // must be granted immediately without any payment/subscription look-up.
+      const owner = { id: "owner-uid", email: "philipda@gmail.com" };
+      expect(userHasAccess(owner, "learn-ai")).toBe(true);
+      expect(userHasAccess(owner, "learn-management")).toBe(true);
+      expect(userHasAccess(owner, "learn-pr")).toBe(true);
+      expect(userHasAccess(owner, "learn-developer")).toBe(true);
+    });
+
+    test("owner pda.kenya@gmail.com bypasses all subscription checks", () => {
+      // No app_access records — must still be granted immediately.
+      const owner = { id: "owner-uid-2", email: "pda.kenya@gmail.com" };
+      expect(userHasAccess(owner, "learn-ai")).toBe(true);
+      expect(userHasAccess(owner, "learn-management")).toBe(true);
+      expect(userHasAccess(owner, "learn-pr")).toBe(true);
+      expect(userHasAccess(owner, "learn-developer")).toBe(true);
+    });
+
+    test("owner bypass ignores expired/inactive app_access records", () => {
+      // Even with an expired record, the owner email fires first.
+      const pastDate = new Date("2020-01-01").toISOString();
+      const owner = {
+        id: "owner-uid",
+        email: "philipda@gmail.com",
+        app_access: [{ app_id: "learn-ai", is_active: false, expires_at: pastDate }],
+      };
+      expect(userHasAccess(owner, "learn-ai")).toBe(true);
+    });
   });
 
   describe("getAccessStatus()", () => {

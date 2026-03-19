@@ -180,7 +180,14 @@ export function userHasAccess(user, appId) {
     return false;
   }
 
-  // Check 3: Admin users have unrestricted access to all content.
+  // Check 3: Owner override — these two accounts always have unconditional access.
+  // This fires BEFORE any subscription or payment-record look-ups so neither DB
+  // table (entitlements / user_app_access) is ever queried for the owner.
+  if (user.email === "philipda@gmail.com" || user.email === "pda.kenya@gmail.com") {
+    return true;
+  }
+
+  // Check 4: Admin users have unrestricted access to all content.
   // Supports both the legacy `is_admin` boolean flag and the newer `role`
   // string field (role === 'admin') so either representation grants access.
   // Checked centrally here — individual apps must never implement their own
@@ -189,7 +196,7 @@ export function userHasAccess(user, appId) {
     return true;
   }
 
-  // Check 4: Look for active access record
+  // Check 5: Look for active subscription/payment access record
   if (!user.app_access || !Array.isArray(user.app_access)) {
     return false;
   }
@@ -202,7 +209,7 @@ export function userHasAccess(user, appId) {
     return false;
   }
 
-  // Check 4: Verify not expired
+  // Check 5a: Verify not expired
   if (accessRecord.expires_at) {
     const now = new Date();
     const expiresAt = new Date(accessRecord.expires_at);
