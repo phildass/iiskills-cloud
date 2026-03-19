@@ -19,7 +19,11 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 
 // ─── Context ──────────────────────────────────────────────────────────────────
 
-const AdminModeContext = createContext({ isAdminMode: false, adminLabel: "" });
+const AdminModeContext = createContext({
+  isAdminMode: false,
+  adminLabel: "",
+  authState: { isAuthorized: false, isAdmin: false, loading: true },
+});
 
 const _SESSION_KEY = "__iiskills_admin";
 const _LABEL_KEY = "__iiskills_admin_label";
@@ -56,15 +60,27 @@ export function useAdminMode() {
 export function AdminModeProvider({ children, adminApiBase = "" }) {
   const [isAdminMode, setIsAdminMode] = useState(false);
   const [adminLabel, setAdminLabel] = useState("");
+  // authState tracks authorization derived from the URL param and/or the server
+  // session.  Initialised synchronously so that consumers can read isAdmin/isAuthorized
+  // on the very first render — before any async work — to prevent redirect flashes.
+  const [authState, setAuthState] = useState({ isAuthorized: false, isAdmin: false, loading: true });
 
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    // Check for ?admin_access=true URL parameter (appended by admin preview links).
-    // Note: this flag is cosmetic — it only shows the yellow banner. All actual admin
-    // API calls still require the real admin session cookie, which is not affected here.
-    const params = new URLSearchParams(window.location.search);
-    const hasAdminAccessParam = params.get("admin_access") === "true";
+    // ── High-Priority Override ─────────────────────────────────────────────
+    // Evaluate admin_access URL parameter BEFORE any redirect logic can fire.
+    // Appended by admin preview links (apps/main/pages/admin/courses.js).
+    const searchParams = new URLSearchParams(window.location.search);
+    const hasAdminFlag = searchParams.get("admin_access") === "true";
+
+    if (hasAdminFlag) {
+      // Force the state to 'authorized' BEFORE the redirect logic can fire
+      setAuthState({ isAuthorized: true, isAdmin: true, loading: false });
+    }
+
+    // Alias for the rest of the effect (legacy name kept for clarity).
+    const hasAdminAccessParam = hasAdminFlag;
 
     // Helper: check whether the localStorage admin flag is still within its TTL.
     const isLocalAdminValid = () => {
@@ -117,6 +133,7 @@ export function AdminModeProvider({ children, adminApiBase = "" }) {
           // Full server-verified admin session: update state and both storage layers.
           setIsAdminMode(true);
           setAdminLabel(label);
+          setAuthState({ isAuthorized: true, isAdmin: true, loading: false });
           sessionStorage.setItem(_SESSION_KEY, "1");
           sessionStorage.setItem(_LABEL_KEY, label);
           localStorage.setItem(_LOCAL_KEY, "1");
@@ -127,8 +144,12 @@ export function AdminModeProvider({ children, adminApiBase = "" }) {
           // valid localStorage entry) — clear admin mode entirely.
           setIsAdminMode(false);
           setAdminLabel("");
+          setAuthState({ isAuthorized: false, isAdmin: false, loading: false });
           sessionStorage.removeItem(_SESSION_KEY);
           sessionStorage.removeItem(_LABEL_KEY);
+        } else {
+          // URL param or localStorage validates admin — mark loading complete.
+          setAuthState((prev) => (prev.loading ? { ...prev, loading: false } : prev));
         }
         // If the API returned non-ok but hasAdminAccessParam is true or isLocalAdminValid()
         // is true, we leave admin mode active (expected on cross-subdomain navigation where
@@ -143,7 +164,7 @@ export function AdminModeProvider({ children, adminApiBase = "" }) {
   }, [adminApiBase]);
 
   return (
-    <AdminModeContext.Provider value={{ isAdminMode, adminLabel }}>
+    <AdminModeContext.Provider value={{ isAdminMode, adminLabel, authState }}>
       {children}
     </AdminModeContext.Provider>
   );
@@ -236,17 +257,26 @@ export function AdminModeBanner() {
 export function AdminWrapper({ children, isAdmin: _ssrHint, adminApiBase = "" }) {
   return (
     <AdminModeProvider adminApiBase={adminApiBase}>
+      {/* Banner rendered at provider level so it is always visible, even when
+          AdminWrapperInner does the early admin-access pass-through. */}
+      <AdminModeBanner />
       <AdminWrapperInner>{children}</AdminWrapperInner>
     </AdminModeProvider>
   );
 }
 
 function AdminWrapperInner({ children }) {
-  const { isAdminMode } = useAdminMode();
+  const { isAdminMode, authState } = useAdminMode();
+
+  // High-Priority Override: when admin_access URL param confirms admin status,
+  // pass through children immediately — before any redirect logic can fire —
+  // to prevent the payment/enrollment page from flashing over the lesson.
+  if (authState?.isAdmin && authState?.isAuthorized && !authState?.loading) {
+    return <>{children}</>;
+  }
 
   return (
     <div className="min-h-screen relative">
-      <AdminModeBanner />
       <main className={isAdminMode ? "pt-10" : ""}>{children}</main>
     </div>
   );

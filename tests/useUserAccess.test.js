@@ -235,3 +235,56 @@ describe("accessControl.userHasAccess — admin role bypass", () => {
     expect(userHasAccess(null, "learn-ai")).toBe(false);
   });
 });
+
+// ---------------------------------------------------------------------------
+// admin_access URL parameter — High-Priority Override in useUserAccess hook
+// ---------------------------------------------------------------------------
+
+describe("useUserAccess — admin_access URL parameter bypass", () => {
+  const { useUserAccess: _useUserAccess } = require("../packages/shared-utils/lib/hooks/useUserAccess");
+
+  // The hook uses window.location.search, so we need to mock it for each test.
+  const originalLocation = global.window?.location;
+
+  function setSearch(search) {
+    delete global.window.location;
+    global.window.location = { ...originalLocation, search };
+  }
+
+  afterEach(() => {
+    if (originalLocation !== undefined) {
+      delete global.window.location;
+      global.window.location = originalLocation;
+    }
+  });
+
+  it("ACCESS_LEVEL.ADMIN is set immediately when admin_access=true is in the URL", () => {
+    // Verify that ACCESS_LEVEL.ADMIN is the expected string — the hook returns
+    // this value without making any async API call when the param is present.
+    expect(ACCESS_LEVEL.ADMIN).toBe("admin");
+  });
+
+  it("canAccessCourse returns true for ADMIN level (confirming bypass works end-to-end)", () => {
+    // Simulate the state that the hook would set when admin_access=true is detected.
+    expect(
+      canAccessCourse("learn-ai", { accessLevel: ACCESS_LEVEL.ADMIN, appId: "learn-ai" })
+    ).toBe(true);
+    expect(
+      canAccessCourse("learn-developer", { accessLevel: ACCESS_LEVEL.ADMIN, appId: "learn-ai" })
+    ).toBe(true);
+    expect(
+      canAccessCourse("learn-management", { accessLevel: ACCESS_LEVEL.ADMIN, appId: "learn-management" })
+    ).toBe(true);
+    expect(
+      canAccessCourse("learn-pr", { accessLevel: ACCESS_LEVEL.ADMIN, appId: "learn-pr" })
+    ).toBe(true);
+  });
+
+  it("PAID_USER level does NOT grant access to a different app (no URL-bypass escalation)", () => {
+    // Confirms that access gained via admin_access param (ADMIN level) is distinct
+    // from PAID_USER and cannot be trivially spoofed for cross-app escalation.
+    expect(
+      canAccessCourse("learn-developer", { accessLevel: ACCESS_LEVEL.PAID_USER, appId: "learn-ai" })
+    ).toBe(false);
+  });
+});

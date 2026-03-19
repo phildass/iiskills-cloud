@@ -219,6 +219,20 @@ export function useUserAccess(appId, options = {}) {
       return;
     }
 
+    // ── High-Priority Override: admin_access URL parameter ─────────────────
+    // When ?admin_access=true is present in the URL (appended by admin preview
+    // links in apps/main/pages/admin/courses.js), grant ADMIN-level access
+    // immediately — BEFORE any async entitlement API call — so the enrollment
+    // overlay never flashes over the lesson for admin previews.
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get("admin_access") === "true") {
+        setAccessLevel(ACCESS_LEVEL.ADMIN);
+        setLoading(false);
+        return;
+      }
+    }
+
     let cancelled = false;
     setLoading(true);
 
