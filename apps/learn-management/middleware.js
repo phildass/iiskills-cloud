@@ -37,16 +37,7 @@ const APP_ID = "learn-management";
 const MAIN_APP_URL = process.env.NEXT_PUBLIC_MAIN_APP_URL || "https://iiskills.cloud";
 
 
-  // Admin preview URL param — pass through immediately.
-  if (searchParams.get("admin_access") === "true") {
-    const response = NextResponse.next();
-    response.headers.set("x-admin-access", "1");
-    return response;
-  }
 
-  // Infallible admin bypass via session cookie.
-  const user = parseUserFromCookies(request);
-  if (user && hasAccess(user)) {
 
 export async function middleware(request) {
   const { pathname, searchParams } = request.nextUrl;
