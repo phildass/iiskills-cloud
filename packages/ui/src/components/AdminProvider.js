@@ -149,7 +149,7 @@ export function AdminModeProvider({ children, adminApiBase = "" }) {
           sessionStorage.removeItem(_LABEL_KEY);
         } else {
           // URL param or localStorage validates admin — mark loading complete.
-          setAuthState((prev) => (prev.loading ? { ...prev, loading: false } : prev));
+          setAuthState((prev) => ({ ...prev, loading: false }));
         }
         // If the API returned non-ok but hasAdminAccessParam is true or isLocalAdminValid()
         // is true, we leave admin mode active (expected on cross-subdomain navigation where
@@ -266,7 +266,7 @@ export function AdminWrapper({ children, isAdmin: _ssrHint, adminApiBase = "" })
 }
 
 function AdminWrapperInner({ children }) {
-  const { isAdminMode, authState } = useAdminMode();
+  const { authState } = useAdminMode();
 
   // High-Priority Override: when admin_access URL param confirms admin status,
   // pass through children immediately — before any redirect logic can fire —
@@ -275,11 +275,9 @@ function AdminWrapperInner({ children }) {
     return <>{children}</>;
   }
 
-  return (
-    <div className="min-h-screen relative">
-      <main className={isAdminMode ? "pt-10" : ""}>{children}</main>
-    </div>
-  );
+  // Default: render children directly.  Layout is the responsibility of each
+  // app's own page components, not the shared wrapper.
+  return <>{children}</>;
 }
 
 export default AdminWrapper;

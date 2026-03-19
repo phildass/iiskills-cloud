@@ -95,6 +95,19 @@ export function useAccessControl(appId, options = {}) {
         return;
       }
 
+      // Check 2.5: admin_access URL parameter — High-Priority Override
+      // When ?admin_access=true is present in the URL (appended by admin preview
+      // links), grant access immediately and skip the /payment redirect entirely.
+      if (typeof window !== "undefined") {
+        const params = new URLSearchParams(window.location.search);
+        if (params.get("admin_access") === "true") {
+          console.log(`🔑 admin_access URL param detected — granting access to ${appId}`);
+          setHasAccess(true);
+          setLoading(false);
+          return;
+        }
+      }
+
       // Check 3: PAID apps require authentication
       const currentUser = await getCurrentUser();
       setUser(currentUser);

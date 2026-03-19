@@ -56,6 +56,7 @@ export {
   isBundleApp,
   requiresPayment,
   userHasAccess,
+  checkAccess,
   getBundleInfo,
   getAppsToUnlock,
   getAccessStatus,

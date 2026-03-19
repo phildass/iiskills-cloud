@@ -1,6 +1,13 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { createServerClient } from "@supabase/ssr";
 
+// Inject .iiskills.cloud domain on all auth cookies so sessions are shared
+// across every sub-app subdomain (e.g. learn-ai.iiskills.cloud).
+// Falls back to undefined on localhost so development cookies work normally.
+const COOKIE_DOMAIN =
+  process.env.NEXT_PUBLIC_COOKIE_DOMAIN ||
+  (process.env.NODE_ENV === "production" ? ".iiskills.cloud" : undefined);
+
 function parseCookieHeader(header: string): { name: string; value: string }[] {
   if (!header) return [];
   return header.split(";").map((pair) => {
@@ -28,12 +35,15 @@ export function createSupabasePagesServerClient(req: NextApiRequest, res: NextAp
       },
       setAll(cookies) {
         const setCookies = cookies.map(({ name, value, options }) => {
+          // Inject cross-subdomain domain so the session cookie is visible on
+          // all *.iiskills.cloud subdomains once set by apps/main API routes.
+          const domain = options?.domain ?? COOKIE_DOMAIN;
           const parts = [`${encodeURIComponent(name)}=${encodeURIComponent(value)}`];
 
           if (options?.maxAge != null) parts.push(`Max-Age=${options.maxAge}`);
           if (options?.expires) parts.push(`Expires=${options.expires.toUTCString()}`);
           if (options?.path) parts.push(`Path=${options.path}`);
-          if (options?.domain) parts.push(`Domain=${options.domain}`);
+          if (domain) parts.push(`Domain=${domain}`);
           if (options?.sameSite) parts.push(`SameSite=${options.sameSite}`);
           if (options?.secure) parts.push("Secure");
           if (options?.httpOnly) parts.push("HttpOnly");

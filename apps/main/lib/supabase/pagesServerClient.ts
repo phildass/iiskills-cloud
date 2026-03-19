@@ -1,6 +1,13 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { createServerClient, type CookieOptionsWithName } from "@supabase/ssr";
 
+// Inject .iiskills.cloud domain on all auth cookies so sessions are shared
+// across every sub-app subdomain (e.g. learn-ai.iiskills.cloud).
+// Falls back to undefined on localhost so development cookies work normally.
+const COOKIE_DOMAIN =
+  process.env.NEXT_PUBLIC_COOKIE_DOMAIN ||
+  (process.env.NODE_ENV === "production" ? ".iiskills.cloud" : undefined);
+
 // Creates a Supabase client for Pages Router API routes (pages/api/*)
 // that reads/writes auth cookies via the API req/res.
 export function createSupabasePagesServerClient(req: NextApiRequest, res: NextApiResponse) {
@@ -20,9 +27,14 @@ export function createSupabasePagesServerClient(req: NextApiRequest, res: NextAp
         return req.cookies?.[name];
       },
       set(name: string, value: string, options: CookieOptionsWithName) {
+        // Inject cross-subdomain domain so the session cookie is visible on
+        // all *.iiskills.cloud subdomains once set by apps/main API routes.
+        const merged = COOKIE_DOMAIN
+          ? { ...options, domain: options.domain ?? COOKIE_DOMAIN }
+          : options;
         // Next API routes can set cookies via Set-Cookie header.
         // Multiple cookies must be appended, not overwritten.
-        const cookie = serializeCookie(name, value, options);
+        const cookie = serializeCookie(name, value, merged);
         const existing = res.getHeader("Set-Cookie");
         if (!existing) {
           res.setHeader("Set-Cookie", cookie);
@@ -33,7 +45,10 @@ export function createSupabasePagesServerClient(req: NextApiRequest, res: NextAp
         }
       },
       remove(name: string, options: CookieOptionsWithName) {
-        const cookie = serializeCookie(name, "", { ...options, maxAge: 0 });
+        const merged = COOKIE_DOMAIN
+          ? { ...options, domain: options.domain ?? COOKIE_DOMAIN }
+          : options;
+        const cookie = serializeCookie(name, "", { ...merged, maxAge: 0 });
         const existing = res.getHeader("Set-Cookie");
         if (!existing) {
           res.setHeader("Set-Cookie", cookie);
