@@ -18,6 +18,18 @@ import {
 } from "./appConfig.js";
 
 /**
+ * Designated product-owner email addresses that receive unconditional access to
+ * all paid apps, regardless of payment or entitlement records.
+ *
+ * Referenced by both checkAccess() and checkUserAccess() so the bypass set
+ * is always in sync.  Update this list — and inform the team — before adding
+ * or removing any email.
+ *
+ * @type {readonly string[]}
+ */
+export const PRODUCT_OWNER_EMAILS = Object.freeze(["philipda@gmail.com", "pda.kenya@gmail.com"]);
+
+/**
  * Check if an app is free
  *
  * Free apps never require payment or authentication.
@@ -233,11 +245,10 @@ export function checkAccess(user, appId) {
   // Admin users and designated override accounts always get unrestricted access.
   // This check fires BEFORE all other logic — including is_paid checks — so
   // admins are never redirected to the payment page.
-  // NOTE: pda.kenya@gmail.com is a designated product-owner override account,
-  // explicitly specified as a hardcoded bypass per the product requirements.
-  // To change or remove this override, update both this function and the
-  // matching check in packages/shared-utils/lib/hooks/useUserAccess.js.
-  if (user && (user.is_admin || user.email === "pda.kenya@gmail.com")) return { granted: true };
+  // Authorised emails are defined in PRODUCT_OWNER_EMAILS (same file).
+  // To change or remove these overrides, also update useUserAccess.js.
+  if (user && (user.is_admin || PRODUCT_OWNER_EMAILS.includes(user.email)))
+    return { granted: true };
 
   // ── Priority 2: Free apps ─────────────────────────────────────────────────
   if (isFreeApp(appId)) return { granted: true };
@@ -375,6 +386,38 @@ export function getBundleAccessMessage(appId, purchasedAppId) {
   }
 
   return `🎉 Congratulations! You unlocked ${currentApp.name} by purchasing ${purchasedApp.name}. Enjoy your ${bundle.name}!`;
+}
+
+/**
+ * Infallible access check — Edge Middleware safe (no DB calls).
+ *
+ * "Master Key" priority order:
+ *  1. Free app          → always allowed.
+ *  2. Admin bypass      → `user.is_admin === true` OR `user.email === 'philipda@gmail.com'`.
+ *  3. Paid entitlement  → active record in user.app_entitlements for app_id.
+ *  4. Denied            → redirect to '/enrol'.
+ *
+ * @param {Object|null} user
+ * @param {boolean}  [user.is_admin]
+ * @param {string}   [user.email]
+ * @param {Array}    [user.app_entitlements]  - [{ app_id, is_active }]
+ * @param {string} app_id
+ * @returns {{ allowed: true, reason: string } | { allowed: false, redirectTo: string }}
+ */
+export function checkUserAccess(user, app_id) {
+  // Free apps are always accessible
+  if (isFreeApp(app_id)) return { allowed: true, reason: "FREE_APP" };
+
+  // Master Key: admin / product-owner bypass (uses shared PRODUCT_OWNER_EMAILS constant)
+  if (user?.is_admin || PRODUCT_OWNER_EMAILS.includes(user?.email)) {
+    return { allowed: true, reason: "ADMIN_BYPASS" };
+  }
+
+  // Paid entitlement check (uses app_entitlements from Supabase JWT app_metadata)
+  const hasAccess = (user?.app_entitlements ?? []).some((e) => e.app_id === app_id && e.is_active);
+  if (hasAccess) return { allowed: true, reason: "PAID_ACCESS" };
+
+  return { allowed: false, redirectTo: "/enrol" };
 }
 
 // Export all constants
