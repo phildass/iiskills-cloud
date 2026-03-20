@@ -313,10 +313,27 @@ export function useUserAccess(appId, options = {}) {
   const isPaidUser = accessLevel === ACCESS_LEVEL.PAID_USER || isAdmin;
   const isFreeUser = accessLevel === ACCESS_LEVEL.FREE_USER;
 
+  /**
+   * `true` when the user may access the app (any non-None access level).
+   * `false` when explicitly denied.  `null` while the check is in progress.
+   * Alias for `entitled` — provided for clarity at call sites that check
+   * access without caring about the specific level (e.g. `if (!hasAccess)`).
+   */
+  const hasAccess = entitled;
+
+  /**
+   * `true` when the PaymentModal should be shown to the user.
+   * Always `false` when the admin bypass cookie is active — the modal must
+   * never render for authorised testers / product owners.
+   */
+  const showPaymentModal = !hasBypassOnMount && entitled === false;
+
   return {
     accessLevel,
     loading,
     entitled,
+    hasAccess,
+    showPaymentModal,
     isAdmin,
     isPaidUser,
     isFreeUser,

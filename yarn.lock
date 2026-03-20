@@ -1695,6 +1695,16 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@iiskills/shared-ui@workspace:packages/shared-ui":
+  version: 0.0.0-use.local
+  resolution: "@iiskills/shared-ui@workspace:packages/shared-ui"
+  dependencies:
+    "@iiskills/access-control": "workspace:*"
+  peerDependencies:
+    react: ">=18"
+  languageName: unknown
+  linkType: soft
+
 "@iiskills/shared-utils@workspace:packages/shared-utils":
   version: 0.0.0-use.local
   resolution: "@iiskills/shared-utils@workspace:packages/shared-utils"

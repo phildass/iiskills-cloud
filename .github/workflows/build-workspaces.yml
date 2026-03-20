@@ -65,6 +65,9 @@ jobs:
       matrix: ${{ fromJson(needs.prepare-matrix.outputs.matrix) }}
     env:
       NODE_OPTIONS: "--max-old-space-size=4096"
+      # Prevent Supabase credential guards from aborting production-mode builds
+      # in CI, where real credentials are intentionally not present.
+      SKIP_SUPABASE_CHECK: "true"
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
