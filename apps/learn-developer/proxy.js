@@ -13,11 +13,7 @@
  * pages is handled client-side by the useUserAccess hook.
  */
 import { NextResponse } from "next/server";
-import {
-  hasAccess,
-  hasBypassCookie,
-  parseUserFromCookies,
-} from "@iiskills/access-control";
+import { hasAccess, hasBypassCookie, parseUserFromCookies } from "@iiskills/access-control";
 
 export function proxy(request) {
   const { searchParams } = request.nextUrl;

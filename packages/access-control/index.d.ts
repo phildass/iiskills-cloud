@@ -604,11 +604,15 @@ export function hasBypassCookieFromString(cookieStr: string): boolean;
 /**
  * Check if a Next.js Edge Middleware `NextRequest` contains `iiskills_admin_bypass=true`.
  */
-export function hasBypassCookie(request: { cookies: { get(name: string): { value: string } | undefined } }): boolean;
+export function hasBypassCookie(request: {
+  cookies: { get(name: string): { value: string } | undefined };
+}): boolean;
 
 /**
  * Parse the Supabase JWT stored in the auth cookie of a Next.js Edge Middleware
  * request and return a minimal user object (`{ email, is_admin }`) for use with
  * `hasAccess`.  Returns `null` if no valid session cookie is found.
  */
-export function parseUserFromCookies(request: { cookies: { getAll(): Array<{ name: string; value: string }> } }): { email: string | null; is_admin: boolean } | null;
+export function parseUserFromCookies(request: {
+  cookies: { getAll(): Array<{ name: string; value: string }> };
+}): { email: string | null; is_admin: boolean } | null;

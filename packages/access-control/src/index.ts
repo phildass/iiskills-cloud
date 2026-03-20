@@ -24,10 +24,9 @@
  * All sub-apps (learn-ai, learn-pr, learn-developer, …) must link here
  * instead of using a relative `/dashboard` path that does not exist in those apps.
  */
-export const DASHBOARD_URL =
-  process.env.NEXT_PUBLIC_MAIN_APP_URL
-    ? `${process.env.NEXT_PUBLIC_MAIN_APP_URL}/dashboard`
-    : "https://iiskills.cloud/dashboard";
+export const DASHBOARD_URL = process.env.NEXT_PUBLIC_MAIN_APP_URL
+  ? `${process.env.NEXT_PUBLIC_MAIN_APP_URL}/dashboard`
+  : "https://iiskills.cloud/dashboard";
 
 /**
  * Minimal user shape understood by `hasAccess`.
@@ -78,9 +77,9 @@ export function hasAccess(user: AccessUser | null | undefined): boolean {
  * @param request - The `NextRequest` object from Edge Middleware.
  * @returns Partial user object or null.
  */
-export function parseUserFromCookies(
-  request: { cookies: Iterable<[string, string]> }
-): AccessUser | null {
+export function parseUserFromCookies(request: {
+  cookies: Iterable<[string, string]>;
+}): AccessUser | null {
   let accessToken: string | null = null;
 
   for (const [name, value] of request.cookies as Iterable<[string, string]>) {
@@ -109,8 +108,7 @@ export function parseUserFromCookies(
     };
     return {
       email: payload.email ?? null,
-      is_admin:
-        payload.app_metadata?.is_admin === true || payload.user_metadata?.is_admin === true,
+      is_admin: payload.app_metadata?.is_admin === true || payload.user_metadata?.is_admin === true,
     };
   } catch {
     return null;
