@@ -107,6 +107,57 @@ export function parseUserFromCookies(
   }
 }
 
+/** Cookie container accepted by `hasBypassCookie` — either an iterable of
+ *  `[name, value]` pairs or a Next.js `RequestCookies` object with `.get()`. */
+type CookieContainer =
+  | Iterable<[string, string]>
+  | { get?: (name: string) => { value: string } | undefined };
+
+/**
+ * Check whether the incoming request carries the `iiskills_admin_bypass=true`
+ * cookie — a lightweight override that grants admin-level access without
+ * requiring a Supabase session.
+ *
+ * This is intentionally separate from `hasAccess` / `parseUserFromCookies` so
+ * that middleware can gate on it before attempting JWT decoding.
+ *
+ * @param request - Any object exposing a `cookies` property iterable as
+ *   `[name, value]` pairs (Next.js `NextRequest` satisfies this).
+ * @returns `true` when the bypass cookie is present and set to `"true"`.
+ */
+export function hasBypassCookie(request: { cookies: CookieContainer }): boolean {
+  const cookies = request.cookies as CookieContainer;
+
+  // Next.js RequestCookies object exposes a `.get()` method.
+  if (typeof (cookies as { get?: unknown }).get === "function") {
+    const entry = (cookies as { get: (name: string) => { value: string } | undefined }).get(
+      "iiskills_admin_bypass"
+    );
+    return entry?.value === "true";
+  }
+
+  // Fallback: iterate [name, value] pairs (used in tests / plain objects).
+  for (const [name, value] of cookies as Iterable<[string, string]>) {
+    if (name === "iiskills_admin_bypass") return value === "true";
+  }
+  return false;
+}
+
+/**
+ * Check whether the raw `document.cookie` string (or any semicolon-delimited
+ * cookie header string) contains `iiskills_admin_bypass=true`.
+ *
+ * Use this on the client side (React hooks, browser code) where there is no
+ * `NextRequest` object available.
+ *
+ * @param cookieStr - The raw cookie string, e.g. `document.cookie`.
+ * @returns `true` when the bypass cookie is present and set to `"true"`.
+ */
+export function hasBypassCookieFromString(cookieStr: string): boolean {
+  return cookieStr.split(";").some((c) => c.trim() === "iiskills_admin_bypass=true");
+}
+
+/**
  * @iiskills/access-control - Edge-safe TypeScript entry
  *
  * Exports the `checkUserAccess` infallible access function and shared types.

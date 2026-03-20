@@ -4,7 +4,15 @@ set -euo pipefail
 # ---------------------------------------------------------------------------
 # IISkills deploy-all.sh
 # ---------------------------------------------------------------------------
-# Usage: ./deploy-all.sh
+# Usage: ./deploy-all.sh [--force-clean]
+#
+#   --force-clean   Wipe any poisoned local stashes and hard-reset the working
+#                   tree to origin/main before building.  Use this when a
+#                   previous interrupted deploy left behind stash entries that
+#                   conflict with a clean pull.  Specifically runs:
+#                     git stash clear
+#                     git reset --hard origin/main
+#                   WARNING: this discards ALL uncommitted local changes.
 #
 # All output is tee'd to /var/log/iiskills/deploy-<timestamp>.log so that
 # post-failure forensics (OOM kills, resource exhaustion) are preserved.
@@ -14,6 +22,17 @@ set -euo pipefail
 #                                     from /proc/meminfo, clamped to 1024–4096 MB)
 #   IISKILLS_TURBO_CONCURRENCY      — override turbo --concurrency (default: 2)
 # ---------------------------------------------------------------------------
+
+# ---------------------------------------------------------------------------
+# Argument parsing
+# ---------------------------------------------------------------------------
+FORCE_CLEAN=false
+for _arg in "$@"; do
+  case "$_arg" in
+    --force-clean) FORCE_CLEAN=true ;;
+    *) echo "WARNING: Unknown argument '$_arg' — ignoring." ;;
+  esac
+done
 
 DEPLOY_TS="$(date +%Y-%m-%d-%H%M)"
 LOG_DIR="/var/log/iiskills"
@@ -143,19 +162,32 @@ yarn --version
 if [ -d "$REPO_DIR/.git" ]; then
   echo "==> Updating existing checkout via git pull --rebase: $REPO_DIR"
   cd "$REPO_DIR"
-  # Stash any uncommitted changes so the rebase cannot fail on dirty-tree conflicts.
-  _stashed=0
-  if ! git diff --quiet || ! git diff --cached --quiet; then
-    echo "  Uncommitted changes detected — stashing before pull --rebase"
-    git stash push -m "deploy-all.sh auto-stash $(date +%Y%m%d-%H%M%S)"
-    _stashed=1
-  fi
-  git fetch origin
-  git checkout "$BRANCH"
-  git pull --rebase origin "$BRANCH"
-  if [ "$_stashed" -eq 1 ]; then
-    echo "  Restoring stashed changes..."
-    git stash pop || echo "WARNING: git stash pop failed — resolve conflicts manually in $REPO_DIR"
+
+  # --force-clean: wipe all stashes and hard-reset to remove any poisoned
+  # state left by a previous failed deploy before attempting the rebase.
+  if [ "$FORCE_CLEAN" = "true" ]; then
+    echo "  --force-clean: clearing all stash entries..."
+    git stash clear
+    echo "  --force-clean: fetching origin and hard-resetting to origin/${BRANCH}..."
+    git fetch origin
+    git checkout "$BRANCH"
+    git reset --hard "origin/${BRANCH}"
+    echo "  --force-clean: working tree is now clean and in sync with origin/${BRANCH}"
+  else
+    # Stash any uncommitted changes so the rebase cannot fail on dirty-tree conflicts.
+    _stashed=0
+    if ! git diff --quiet || ! git diff --cached --quiet; then
+      echo "  Uncommitted changes detected — stashing before pull --rebase"
+      git stash push -m "deploy-all.sh auto-stash $(date +%Y%m%d-%H%M%S)"
+      _stashed=1
+    fi
+    git fetch origin
+    git checkout "$BRANCH"
+    git pull --rebase origin "$BRANCH"
+    if [ "$_stashed" -eq 1 ]; then
+      echo "  Restoring stashed changes..."
+      git stash pop || echo "WARNING: git stash pop failed — resolve conflicts manually in $REPO_DIR"
+    fi
   fi
 
   # Archive a pull-completion marker to the production-deploys audit trail
@@ -174,6 +206,35 @@ fi
 
 echo "==> Install dependencies (monorepo)"
 yarn install
+
+# ---------------------------------------------------------------------------
+# Link /etc/iiskills.env → .env.production in every app directory.
+#
+# Next.js reads .env.production at build time for NEXT_PUBLIC_* variables.
+# On the VPS, credentials live in /etc/iiskills.env; symlinking avoids
+# duplicating secrets and ensures every app picks up the same values.
+# The link is created as a symlink so that future edits to /etc/iiskills.env
+# are automatically reflected without re-running this step.
+# ---------------------------------------------------------------------------
+if [ -f /etc/iiskills.env ]; then
+  echo "==> Linking /etc/iiskills.env → .env.production in all app directories"
+  for _app_dir in "$REPO_DIR"/apps/*/; do
+    _env_target="${_app_dir}.env.production"
+    if [ -e "$_env_target" ] && [ ! -L "$_env_target" ]; then
+      # Regular file (not a symlink) — back it up before replacing.
+      echo "  WARNING: ${_env_target} is a plain file, not a symlink — backing up to ${_env_target}.bak"
+      mv "$_env_target" "${_env_target}.bak"
+    else
+      # Safe to remove: either a stale symlink or nothing.
+      rm -f "$_env_target"
+    fi
+    ln -sf /etc/iiskills.env "$_env_target"
+    echo "  linked: ${_env_target}"
+  done
+else
+  echo "WARNING: /etc/iiskills.env not found — skipping .env.production symlinks."
+  echo "         Build may fail or use stale/missing env vars."
+fi
 
 # ---------------------------------------------------------------------------
 # OTP policy guard — fail fast if any OTP remnants are present
