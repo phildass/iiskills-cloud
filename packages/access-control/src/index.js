@@ -85,3 +85,41 @@ export function parseUserFromCookies(request) {
     return null;
   }
 }
+
+/**
+ * Check whether the incoming request carries the `iiskills_admin_bypass=true`
+ * cookie — a lightweight override that grants admin-level access without
+ * requiring a Supabase session.
+ *
+ * @param {{ cookies: Iterable<[string, string]> | { get?: function } }} request
+ * @returns {boolean}
+ */
+export function hasBypassCookie(request) {
+  const cookies = request.cookies;
+
+  // Next.js RequestCookies object exposes a `.get()` method.
+  if (typeof cookies.get === "function") {
+    const entry = cookies.get("iiskills_admin_bypass");
+    return entry?.value === "true";
+  }
+
+  // Fallback: iterate [name, value] pairs.
+  for (const [name, value] of cookies) {
+    if (name === "iiskills_admin_bypass") return value === "true";
+  }
+  return false;
+}
+
+/**
+ * Check whether the raw `document.cookie` string (or any semicolon-delimited
+ * cookie header string) contains `iiskills_admin_bypass=true`.
+ *
+ * Use this on the client side (React hooks, browser code) where there is no
+ * `NextRequest` object available.
+ *
+ * @param {string} cookieStr - The raw cookie string, e.g. `document.cookie`.
+ * @returns {boolean}
+ */
+export function hasBypassCookieFromString(cookieStr) {
+  return cookieStr.split(";").some((c) => c.trim() === "iiskills_admin_bypass=true");
+}

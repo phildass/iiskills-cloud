@@ -43,6 +43,7 @@
 
 import { useState, useEffect } from "react";
 import { isFreeAccessEnabled } from "../freeAccess";
+import { hasBypassCookieFromString } from "../../../access-control/src/index.js";
 
 // ---------------------------------------------------------------------------
 // Access level constants
@@ -227,6 +228,19 @@ export function useUserAccess(appId, options = {}) {
     if (typeof window !== "undefined") {
       const params = new URLSearchParams(window.location.search);
       if (params.get("admin_access") === "true") {
+        setAccessLevel(ACCESS_LEVEL.ADMIN);
+        setLoading(false);
+        return;
+      }
+
+      // ── High-Priority Override: iiskills_admin_bypass cookie ───────────────
+      // When the `iiskills_admin_bypass=true` cookie is present the session is
+      // treated as admin — preventing the PaymentModal from ever rendering on
+      // learn-ai and learn-developer for authorised testers / product owners.
+      if (
+        typeof document !== "undefined" &&
+        hasBypassCookieFromString(document.cookie)
+      ) {
         setAccessLevel(ACCESS_LEVEL.ADMIN);
         setLoading(false);
         return;
