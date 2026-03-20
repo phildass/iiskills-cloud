@@ -98,3 +98,6 @@ export {
   validatePaymentBody,
   guardPaymentEndpoint,
 } from "./paymentGuard.js";
+
+// Edge-compatible utilities and constants (from src/index.js)
+export { hasBypassCookieFromString, hasBypassCookie, DASHBOARD_URL } from "./src/index.js";

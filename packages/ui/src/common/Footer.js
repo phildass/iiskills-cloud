@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { DASHBOARD_URL } from "@iiskills/access-control/src";
+import { DASHBOARD_URL } from "@iiskills/access-control";
 
 /**
  * Shared Footer Component

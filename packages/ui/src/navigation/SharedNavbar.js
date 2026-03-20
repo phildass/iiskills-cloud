@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import GoogleTranslate from "../common/GoogleTranslate";
-import { DASHBOARD_URL } from "@iiskills/access-control/src";
+import { DASHBOARD_URL } from "@iiskills/access-control";
 
 /**
  * Shared Navigation Bar Component
