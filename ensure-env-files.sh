@@ -115,6 +115,28 @@ if [ -d "apps/main" ]; then
 fi
 echo ""
 
+# Check main-copy app (mirrors apps/main for CI)
+echo "Checking main-copy app..."
+if [ -d "apps/main-copy" ]; then
+  if ! check_env_vars "apps/main-copy/.env.local" "main-copy/.env.local"; then
+    if [ ! -f "apps/main-copy/.env.local" ]; then
+      echo "   Creating main-copy/.env.local from template..."
+      if [ -f "apps/main-copy/.env.local.example" ]; then
+        create_env_file "apps/main-copy" "apps/main-copy/.env.local.example"
+      elif [ -f "apps/main/.env.local.example" ]; then
+        create_env_file "apps/main-copy" "apps/main/.env.local.example"
+      else
+        create_env_file "apps/main-copy" ".env.local.example"
+      fi
+      MISSING_COUNT=$((MISSING_COUNT + 1))
+    else
+      INCOMPLETE_COUNT=$((INCOMPLETE_COUNT + 1))
+    fi
+  fi
+  CHECKED_COUNT=$((CHECKED_COUNT + 1))
+fi
+echo ""
+
 # Check all learning modules
 echo "Checking learning modules..."
 for dir in apps/learn-*/; do

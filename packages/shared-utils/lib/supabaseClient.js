@@ -85,12 +85,19 @@ if (isMissingCredentials) {
   ].join("\n");
 
   console.warn(errorMessage);
-  // In production on the server, fail fast rather than silently degrading
-  if (process.env.NODE_ENV === "production" && typeof window === "undefined") {
+  // In production on the server, fail fast rather than silently degrading.
+  // Exception: during `next build` (NEXT_PHASE=phase-production-build) page-data
+  // workers run with NODE_ENV=production but credentials are not available —
+  // allow the build to complete and only hard-exit at server startup time.
+  if (
+    process.env.NODE_ENV === "production" &&
+    typeof window === "undefined" &&
+    process.env.NEXT_PHASE !== "phase-production-build"
+  ) {
     console.error("APPLICATION STARTUP ABORTED: Missing Supabase credentials in production.");
     process.exit(1);
   }
-  // In development / CI, fall through to mock client so builds succeed in degraded mode
+  // In development / CI / build phase, fall through to mock client so builds succeed in degraded mode
 }
 
 // Create a single Supabase client instance for the app
