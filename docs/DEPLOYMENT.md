@@ -99,6 +99,28 @@ cd /root/iiskills-cloud-apps   # or wherever deploy-all.sh lives
 If any verification step fails, the script exits **before** stopping PM2 processes
 (preventing a broken build from replacing working traffic).
 
+### Nuclear clean redeploy (`--force-clean`)
+
+If the VPS is serving stale/old compiled code (e.g. old `useUserAccess.js` logic,
+unexpected "ENROL NOW" modals for admins, or 404s on pages that exist in source),
+run the nuclear option:
+
+```bash
+cd /root/iiskills-cloud-apps && ./deploy-all.sh --force-clean
+```
+
+`--force-clean` extends the normal deploy with these additional steps **before**
+`yarn install` and the build:
+
+1. `git stash clear` — removes any poisoned stash entries that could re-inject old code
+2. `git fetch origin && git reset --hard origin/main` — forces local tree to exactly match remote
+3. Deletes every `.next` directory in the repo — purges all stale compiled bundles
+4. Deletes every `node_modules` directory in the repo — guarantees a 100% fresh install
+
+> **Warning:** `--force-clean` discards all uncommitted local changes and ALL
+> cached builds. The subsequent `yarn install` + build will take significantly
+> longer than a normal deploy.
+
 ---
 
 ## Step 3 — Verify
