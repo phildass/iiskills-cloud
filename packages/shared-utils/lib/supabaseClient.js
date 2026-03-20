@@ -381,6 +381,20 @@ export async function signOutUser() {
       return { success: false, error: error.message };
     }
 
+    // Clear the client-readable admin bypass cookie so the admin bar
+    // ("zombie admin") does not linger on the page after logout.
+    if (typeof document !== "undefined") {
+      const expired = "expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/; SameSite=Lax";
+      document.cookie = `iiskills_admin_bypass=; ${expired}`;
+      // Also clear for the root domain in production (.iiskills.cloud covers all subdomains).
+      if (
+        typeof window !== "undefined" &&
+        window.location.hostname.endsWith(".iiskills.cloud")
+      ) {
+        document.cookie = `iiskills_admin_bypass=; ${expired}; domain=.iiskills.cloud`;
+      }
+    }
+
     return { success: true };
   } catch (error) {
     console.error("Error in signOutUser:", error);

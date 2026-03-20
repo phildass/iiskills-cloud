@@ -96,16 +96,25 @@ export function setAdminSessionCookie(res, token) {
 
 /** Clear the admin_session cookie (logout) */
 export function clearAdminSessionCookie(res) {
-  res.setHeader(
-    "Set-Cookie",
+  // Clear both the HttpOnly admin session cookie and the client-readable
+  // iiskills_admin_bypass cookie so the "admin bar" disappears immediately
+  // after logout and does not persist as a "zombie" on the login page.
+  res.setHeader("Set-Cookie", [
     serialize(ADMIN_COOKIE_NAME, "", {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
       maxAge: 0,
       path: "/",
-    })
-  );
+    }),
+    serialize("iiskills_admin_bypass", "", {
+      httpOnly: false,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      maxAge: 0,
+      path: "/",
+    }),
+  ]);
 }
 
 /** Extract the real client IP from request headers */
