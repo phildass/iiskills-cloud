@@ -6,13 +6,17 @@ set -euo pipefail
 # ---------------------------------------------------------------------------
 # Usage: ./deploy-all.sh [--force-clean]
 #
-#   --force-clean   Wipe any poisoned local stashes and hard-reset the working
-#                   tree to origin/main before building.  Use this when a
-#                   previous interrupted deploy left behind stash entries that
-#                   conflict with a clean pull.  Specifically runs:
-#                     git stash clear
-#                     git reset --hard origin/main
-#                   WARNING: this discards ALL uncommitted local changes.
+#   --force-clean   "Nuclear" clean deploy — wipes ALL local state before
+#                   rebuilding.  Use this when the VPS is serving stale/old
+#                   compiled code and a normal redeploy does not fix it.
+#                   Specifically runs (in order):
+#                     git stash clear              ← removes poisoned stash entries
+#                     git reset --hard origin/main ← forces local tree to match remote
+#                     rm -rf <all .next dirs>      ← purges every compiled build cache
+#                     rm -rf <all node_modules>    ← forces a 100% fresh install
+#                   WARNING: this discards ALL uncommitted local changes and
+#                   ALL cached builds.  Subsequent yarn install + build will
+#                   take significantly longer than a normal deploy.
 #
 # All output is tee'd to /var/log/iiskills/deploy-<timestamp>.log so that
 # post-failure forensics (OOM kills, resource exhaustion) are preserved.
@@ -173,6 +177,20 @@ if [ -d "$REPO_DIR/.git" ]; then
     git checkout "$BRANCH"
     git reset --hard "origin/${BRANCH}"
     echo "  --force-clean: working tree is now clean and in sync with origin/${BRANCH}"
+
+    # Purge all node_modules directories to guarantee a 100% fresh install.
+    # This resolves 404s caused by stale or partially-upgraded package builds.
+    echo "  --force-clean: purging all node_modules directories..."
+    find "$REPO_DIR" -name "node_modules" -type d -prune -exec rm -rf {} +
+    echo "  --force-clean: all node_modules purged."
+
+    # Purge all compiled build caches so Next.js always rebuilds from source.
+    # This eliminates stale .next directories that can serve old middleware.js
+    # or useUserAccess.js logic even after a correct git reset.
+    # (node_modules has already been removed above, so no exclusion is needed.)
+    echo "  --force-clean: purging all .next build caches..."
+    find "$REPO_DIR" -name ".next" -type d -prune -exec rm -rf {} +
+    echo "  --force-clean: all .next caches purged."
   else
     # Stash any uncommitted changes so the rebase cannot fail on dirty-tree conflicts.
     _stashed=0
