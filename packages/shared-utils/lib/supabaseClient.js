@@ -387,10 +387,7 @@ export async function signOutUser() {
       const expired = "expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/; SameSite=Lax";
       document.cookie = `iiskills_admin_bypass=; ${expired}`;
       // Also clear for the root domain in production (.iiskills.cloud covers all subdomains).
-      if (
-        typeof window !== "undefined" &&
-        window.location.hostname.endsWith(".iiskills.cloud")
-      ) {
+      if (typeof window !== "undefined" && window.location.hostname.endsWith(".iiskills.cloud")) {
         document.cookie = `iiskills_admin_bypass=; ${expired}; domain=.iiskills.cloud`;
       }
     }

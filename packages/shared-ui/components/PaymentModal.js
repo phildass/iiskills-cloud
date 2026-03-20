@@ -64,8 +64,7 @@ export default function PaymentModal({ isOpen, onClose, onProceed, children }) {
 
         if (!cancelled && profile) {
           const name =
-            profile.full_name ||
-            [profile.first_name, profile.last_name].filter(Boolean).join(" ");
+            profile.full_name || [profile.first_name, profile.last_name].filter(Boolean).join(" ");
           if (name) setFullName(name);
 
           if (profile.phone) {
