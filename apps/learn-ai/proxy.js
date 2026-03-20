@@ -19,7 +19,7 @@ import {
   parseUserFromCookies,
 } from "@iiskills/access-control";
 
-export function middleware(request) {
+export function proxy(request) {
   const { searchParams } = request.nextUrl;
 
   // Admin preview URL param — pass through immediately.

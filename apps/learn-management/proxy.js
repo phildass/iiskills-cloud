@@ -38,7 +38,7 @@ const MAIN_APP_URL = process.env.NEXT_PUBLIC_MAIN_APP_URL || "https://iiskills.c
 
 
 
-export async function middleware(request) {
+export async function proxy(request) {
   const { pathname, searchParams } = request.nextUrl;
 
   // ── 1. Admin preview pass-through ─────────────────────────────────────────
