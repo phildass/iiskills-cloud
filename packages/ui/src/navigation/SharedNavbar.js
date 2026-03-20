@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import GoogleTranslate from "../common/GoogleTranslate";
+import { DASHBOARD_URL } from "@iiskills/access-control/src";
 
 /**
  * Shared Navigation Bar Component
@@ -27,7 +28,7 @@ export default function SharedNavbar({
   showAuthButtons = true,
   customLinks = [],
   isPaid = false,
-  dashboardUrl = "/dashboard",
+  dashboardUrl = DASHBOARD_URL,
 }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const router = useRouter();

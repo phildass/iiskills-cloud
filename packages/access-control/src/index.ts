@@ -20,6 +20,16 @@
  */
 
 /**
+ * Canonical URL for the centralised user dashboard on the main site.
+ * All sub-apps (learn-ai, learn-pr, learn-developer, …) must link here
+ * instead of using a relative `/dashboard` path that does not exist in those apps.
+ */
+export const DASHBOARD_URL =
+  process.env.NEXT_PUBLIC_MAIN_APP_URL
+    ? `${process.env.NEXT_PUBLIC_MAIN_APP_URL}/dashboard`
+    : "https://iiskills.cloud/dashboard";
+
+/**
  * Minimal user shape understood by `hasAccess`.
  * Fields are intentionally optional so callers can pass partial JWT payloads.
  *

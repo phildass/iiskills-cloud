@@ -202,8 +202,15 @@ export function canAccessCourse(courseId, { accessLevel, appId }) {
 export function useUserAccess(appId, options = {}) {
   const { skip = false } = options;
 
-  const [accessLevel, setAccessLevel] = useState(null); // null = loading or skipped
-  const [loading, setLoading] = useState(!skip);
+  // Evaluate the bypass cookie once synchronously so both state initialisers
+  // share the same result and the very first render already has
+  // accessLevel=ADMIN / loading=false when the cookie is present — preventing
+  // any chance of the PaymentModal flashing before the useEffect runs.
+  const hasBypassOnMount =
+    typeof document !== "undefined" && hasBypassCookieFromString(document.cookie);
+
+  const [accessLevel, setAccessLevel] = useState(hasBypassOnMount ? ACCESS_LEVEL.ADMIN : null);
+  const [loading, setLoading] = useState(!skip && !hasBypassOnMount);
 
   useEffect(() => {
     // ── Skipped ────────────────────────────────────────────────────────────
@@ -237,10 +244,7 @@ export function useUserAccess(appId, options = {}) {
       // When the `iiskills_admin_bypass=true` cookie is present the session is
       // treated as admin — preventing the PaymentModal from ever rendering on
       // learn-ai and learn-developer for authorised testers / product owners.
-      if (
-        typeof document !== "undefined" &&
-        hasBypassCookieFromString(document.cookie)
-      ) {
+      if (typeof document !== "undefined" && hasBypassCookieFromString(document.cookie)) {
         setAccessLevel(ACCESS_LEVEL.ADMIN);
         setLoading(false);
         return;
