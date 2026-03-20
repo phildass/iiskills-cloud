@@ -1,0 +1,13 @@
+{
+  "name": "@iiskills/shared-ui",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Shared UI components for iiskills-cloud",
+  "main": "components/index.js",
+  "dependencies": {
+    "@iiskills/access-control": "workspace:*"
+  },
+  "peerDependencies": {
+    "react": ">=18"
+  }
+}

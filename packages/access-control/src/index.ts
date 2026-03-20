@@ -24,9 +24,7 @@
  * All sub-apps (learn-ai, learn-pr, learn-developer, …) must link here
  * instead of using a relative `/dashboard` path that does not exist in those apps.
  */
-export const DASHBOARD_URL = process.env.NEXT_PUBLIC_MAIN_APP_URL
-  ? `${process.env.NEXT_PUBLIC_MAIN_APP_URL}/dashboard`
-  : "https://iiskills.cloud/dashboard";
+export const DASHBOARD_URL = "https://iiskills.cloud/dashboard";
 
 /**
  * Minimal user shape understood by `hasAccess`.

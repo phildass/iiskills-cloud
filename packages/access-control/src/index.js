@@ -131,6 +131,4 @@ export function hasBypassCookieFromString(cookieStr) {
  *
  * @type {string}
  */
-export const DASHBOARD_URL = process.env.NEXT_PUBLIC_MAIN_APP_URL
-  ? `${process.env.NEXT_PUBLIC_MAIN_APP_URL}/dashboard`
-  : "https://iiskills.cloud/dashboard";
+export const DASHBOARD_URL = "https://iiskills.cloud/dashboard";
