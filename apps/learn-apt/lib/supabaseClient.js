@@ -28,8 +28,15 @@ const _hasCredentials =
   (supabaseAnonKey.startsWith("eyJ") || supabaseAnonKey.startsWith("sb_"));
 
 // In production on the server, fail fast if credentials are missing.
-// In production on the server, fail fast if credentials are missing.
-if (!_hasCredentials && process.env.NODE_ENV === "production" && typeof window === "undefined") {
+// Skip during `next build` (NEXT_PHASE=phase-production-build) and CI builds
+// (SKIP_SUPABASE_CHECK=true) where real credentials are intentionally absent.
+if (
+  !_hasCredentials &&
+  process.env.NODE_ENV === "production" &&
+  typeof window === "undefined" &&
+  process.env.NEXT_PHASE !== "phase-production-build" &&
+  process.env.SKIP_SUPABASE_CHECK !== "true"
+) {
   console.error(
     "STARTUP ERROR: Missing or invalid NEXT_PUBLIC_SUPABASE_URL / NEXT_PUBLIC_SUPABASE_ANON_KEY. " +
       "Set these in your environment before starting the server."

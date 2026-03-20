@@ -84,15 +84,16 @@ if (isMissingCredentials) {
     "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
   ].join("\n");
 
-  console.warn(errorMessage);
   // In production on the server, fail fast rather than silently degrading.
   // Exception: during `next build` (NEXT_PHASE=phase-production-build) page-data
   // workers run with NODE_ENV=production but credentials are not available —
   // allow the build to complete and only hard-exit at server startup time.
+  // Also skip when SKIP_SUPABASE_CHECK=true (CI builds with dummy credentials).
   if (
     process.env.NODE_ENV === "production" &&
     typeof window === "undefined" &&
-    process.env.NEXT_PHASE !== "phase-production-build"
+    process.env.NEXT_PHASE !== "phase-production-build" &&
+    process.env.SKIP_SUPABASE_CHECK !== "true"
   ) {
     console.error("APPLICATION STARTUP ABORTED: Missing Supabase credentials in production.");
     process.exit(1);
