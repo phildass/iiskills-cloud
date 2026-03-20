@@ -354,13 +354,13 @@ jobs:
             echo "⚠️ WARNING: High severity vulnerabilities found"
           else
             echo "✅ No high or critical vulnerabilities found"
+          fi
 
           # Use yarn npm audit (not npm audit) — this project has no package-lock.json
           yarn npm audit --environment production --audit-level critical 2>&1 | tee audit-results.json || AUDIT_EXIT=$?
           if [ "${AUDIT_EXIT:-0}" -ne 0 ]; then
             echo "❌ ERROR: Critical vulnerabilities found!"
             exit 1
-
           fi
           echo "✅ No critical vulnerabilities found"
 

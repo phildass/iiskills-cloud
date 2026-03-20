@@ -123,3 +123,14 @@ export function hasBypassCookie(request) {
 export function hasBypassCookieFromString(cookieStr) {
   return cookieStr.split(";").some((c) => c.trim() === "iiskills_admin_bypass=true");
 }
+
+/**
+ * Canonical URL for the centralised user dashboard on the main site.
+ * All sub-apps (learn-ai, learn-pr, learn-developer, …) must link here
+ * instead of using a relative `/dashboard` path that does not exist in those apps.
+ *
+ * @type {string}
+ */
+export const DASHBOARD_URL = process.env.NEXT_PUBLIC_MAIN_APP_URL
+  ? `${process.env.NEXT_PUBLIC_MAIN_APP_URL}/dashboard`
+  : "https://iiskills.cloud/dashboard";

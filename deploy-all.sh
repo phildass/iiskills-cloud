@@ -18,6 +18,10 @@ set -euo pipefail
 #                   ALL cached builds.  Subsequent yarn install + build will
 #                   take significantly longer than a normal deploy.
 #
+# Cache-only wipe (without full redeploy) — run on the VPS to force the new
+# routing table to be loaded after pushing URL/routing changes:
+#   find /var/www/iiskills-cloud -name ".next" -type d -prune -exec rm -rf {} +
+#
 # All output is tee'd to /var/log/iiskills/deploy-<timestamp>.log so that
 # post-failure forensics (OOM kills, resource exhaustion) are preserved.
 #

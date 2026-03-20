@@ -130,7 +130,7 @@ function isPublicPath(pathname) {
 // ---------------------------------------------------------------------------
 // Middleware entry-point
 // ---------------------------------------------------------------------------
-export function middleware(request) {
+export function proxy(request) {
   const { pathname } = request.nextUrl;
 
   // Always pass through public / static assets without any rate-limiting or

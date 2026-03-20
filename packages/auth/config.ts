@@ -24,8 +24,7 @@ const isProduction =
  * Resolves to `.iiskills.cloud` in production; undefined on localhost.
  */
 export const cookieDomain: string | undefined =
-  process.env.NEXT_PUBLIC_COOKIE_DOMAIN ||
-  (isProduction ? ".iiskills.cloud" : undefined);
+  process.env.NEXT_PUBLIC_COOKIE_DOMAIN || (isProduction ? ".iiskills.cloud" : undefined);
 
 /**
  * Shared Supabase cookie options.

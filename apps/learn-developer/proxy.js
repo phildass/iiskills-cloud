@@ -1,5 +1,5 @@
 /**
- * Next.js Edge Middleware — learn-geography
+ * Next.js Edge Middleware — learn-developer
  *
  * Admin bypass (infallible rule): reads the Supabase auth cookie, decodes the
  * JWT to extract the user's email and is_admin flag, then calls hasAccess().
@@ -13,13 +13,20 @@
  * pages is handled client-side by the useUserAccess hook.
  */
 import { NextResponse } from "next/server";
-import { hasAccess, parseUserFromCookies } from "@iiskills/access-control/src";
+import { hasAccess, hasBypassCookie, parseUserFromCookies } from "@iiskills/access-control";
 
-export function middleware(request) {
+export function proxy(request) {
   const { searchParams } = request.nextUrl;
 
   // Admin preview URL param — pass through immediately.
   if (searchParams.get("admin_access") === "true") {
+    const response = NextResponse.next();
+    response.headers.set("x-admin-access", "1");
+    return response;
+  }
+
+  // Lightweight cookie bypass — no JWT decoding required.
+  if (hasBypassCookie(request)) {
     const response = NextResponse.next();
     response.headers.set("x-admin-access", "1");
     return response;

@@ -1,5 +1,17 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { createServerClient, type CookieOptionsWithName } from "@supabase/ssr";
+import { createServerClient } from "@supabase/ssr";
+
+// Minimal subset of cookie options we actually use in this file.
+// Avoids depending on @supabase/ssr's exported TS types (which can vary by version).
+type CookieOptionsWithName = {
+  domain?: string;
+  path?: string;
+  expires?: Date;
+  httpOnly?: boolean;
+  secure?: boolean;
+  sameSite?: "lax" | "strict" | "none" | string;
+  maxAge?: number;
+};
 
 // Creates a Supabase client for Pages Router API routes (pages/api/*)
 // that reads/writes auth cookies via the API req/res.
@@ -47,13 +59,8 @@ export function createSupabasePagesServerClient(req: NextApiRequest, res: NextAp
   });
 }
 
-// Minimal cookie serializer to avoid adding a dependency.
-// Supports fields used by @supabase/ssr CookieOptionsWithName.
-function serializeCookie(
-  name: string,
-  value: string,
-  options: CookieOptionsWithName & { maxAge?: number }
-) {
+// Minimal cookie serializer that matches the local CookieOptionsWithName type.
+function serializeCookie(name: string, value: string, options: CookieOptionsWithName) {
   const enc = encodeURIComponent;
   let str = `${name}=${enc(value)}`;
 

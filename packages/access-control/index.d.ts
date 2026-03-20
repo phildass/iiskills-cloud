@@ -581,3 +581,38 @@ export function validatePaymentBody(body: any): { valid: boolean; missing: strin
  * @returns true if guard was triggered (response sent), false to proceed
  */
 export function guardPaymentEndpoint(appId: string, req: any, res: any): boolean;
+
+// ============================================================================
+// Edge-compatible Utilities
+// ============================================================================
+
+/**
+ * Canonical URL for the centralised user dashboard on the main site.
+ * All sub-apps must link to this URL instead of a relative `/dashboard` path.
+ *
+ * Respects the NEXT_PUBLIC_MAIN_APP_URL environment variable; defaults to
+ * `https://iiskills.cloud/dashboard`.
+ */
+export const DASHBOARD_URL: string;
+
+/**
+ * Check if the raw document.cookie string contains `iiskills_admin_bypass=true`.
+ * Use on the client side (React hooks, browser code).
+ */
+export function hasBypassCookieFromString(cookieStr: string): boolean;
+
+/**
+ * Check if a Next.js Edge Middleware `NextRequest` contains `iiskills_admin_bypass=true`.
+ */
+export function hasBypassCookie(request: {
+  cookies: { get(name: string): { value: string } | undefined };
+}): boolean;
+
+/**
+ * Parse the Supabase JWT stored in the auth cookie of a Next.js Edge Middleware
+ * request and return a minimal user object (`{ email, is_admin }`) for use with
+ * `hasAccess`.  Returns `null` if no valid session cookie is found.
+ */
+export function parseUserFromCookies(request: {
+  cookies: { getAll(): Array<{ name: string; value: string }> };
+}): { email: string | null; is_admin: boolean } | null;

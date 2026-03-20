@@ -13,9 +13,9 @@
  * pages is handled client-side by the useUserAccess hook.
  */
 import { NextResponse } from "next/server";
-import { hasAccess, parseUserFromCookies } from "@iiskills/access-control/src";
+import { hasAccess, parseUserFromCookies } from "@iiskills/access-control";
 
-export function middleware(request) {
+export function proxy(request) {
   const { searchParams } = request.nextUrl;
 
   // Admin preview URL param — pass through immediately.

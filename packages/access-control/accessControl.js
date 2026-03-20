@@ -261,12 +261,10 @@ export function checkAccess(user, appId) {
     user &&
     (user.is_admin || user.email === "philipda@gmail.com" || user.email === "pda.kenya@gmail.com")
   )
-
-  // Authorised emails are defined in PRODUCT_OWNER_EMAILS (same file).
-  // To change or remove these overrides, also update useUserAccess.js.
-  if (user && (user.is_admin || PRODUCT_OWNER_EMAILS.includes(user.email)))
-
-    return { granted: true };
+    if (user && (user.is_admin || PRODUCT_OWNER_EMAILS.includes(user.email)))
+      // Authorised emails are defined in PRODUCT_OWNER_EMAILS (same file).
+      // To change or remove these overrides, also update useUserAccess.js.
+      return { granted: true };
 
   // ── Priority 2: Free apps ─────────────────────────────────────────────────
   if (isFreeApp(appId)) return { granted: true };

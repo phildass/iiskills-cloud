@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { DASHBOARD_URL } from "@iiskills/access-control";
 
 /**
  * Shared Footer Component
@@ -65,7 +66,7 @@ export default function Footer() {
             <h3 className="font-bold text-lg text-primary mb-3">Support</h3>
             <p className="text-sm text-gray-600 mb-2">
               For any queries or assistance, please raise a ticket via your{" "}
-              <a href="/dashboard" className="text-primary hover:underline">
+              <a href={DASHBOARD_URL} className="text-primary hover:underline">
                 Dashboard
               </a>
               .
