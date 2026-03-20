@@ -111,13 +111,14 @@ module.exports = defineConfig({
     },
   ],
 
-  // Run local dev server before tests in non-CI environments.
-  // In CI the e2e workflow builds and starts the server explicitly.
-  // reuseExistingServer: !CI means CI always starts fresh; local reuses running server.
+  // Run local dev server before starting tests.
+  // reuseExistingServer: true — Playwright reuses a server that is already
+  // listening on the URL (e.g. started manually in CI via `yarn start`).
+  // If nothing is running yet, Playwright launches `command` automatically.
   webServer: {
     command: "yarn dev:main",
     url: "http://localhost:3000",
-    reuseExistingServer: !process.env.CI,
+    reuseExistingServer: true,
     // 120 seconds — sufficient for Next.js cold start in CI
     timeout: 120000,
     stdout: "pipe",
