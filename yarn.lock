@@ -1543,7 +1543,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@iiskills/access-control@workspace:packages/access-control":
+"@iiskills/access-control@workspace:*, @iiskills/access-control@workspace:packages/access-control":
   version: 0.0.0-use.local
   resolution: "@iiskills/access-control@workspace:packages/access-control"
   dependencies:
@@ -1559,7 +1559,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@iiskills/content-loader@npm:*, @iiskills/content-loader@workspace:packages/content-loader":
+"@iiskills/content-loader@npm:*, @iiskills/content-loader@workspace:*, @iiskills/content-loader@workspace:packages/content-loader":
   version: 0.0.0-use.local
   resolution: "@iiskills/content-loader@workspace:packages/content-loader"
   languageName: unknown
@@ -1721,6 +1721,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@iiskills/ui@workspace:packages/ui"
   dependencies:
+    "@iiskills/access-control": "workspace:*"
     "@supabase/auth-helpers-nextjs": "npm:^0.8.0"
     "@supabase/supabase-js": "npm:^2.97.0"
     framer-motion: "npm:>=10.0.0"
@@ -7564,6 +7565,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "learn-apt@workspace:apps/learn-apt"
   dependencies:
+    "@iiskills/content-loader": "workspace:*"
     "@iiskills/ui": "workspace:*"
     "@supabase/ssr": "npm:^0.9.0"
     "@supabase/supabase-js": "npm:^2.97.0"

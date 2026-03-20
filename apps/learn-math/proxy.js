@@ -1,5 +1,5 @@
 /**
- * Next.js Edge Middleware — learn-chemistry
+ * Next.js Edge Middleware — learn-math
  *
  * Admin bypass (infallible rule): reads the Supabase auth cookie, decodes the
  * JWT to extract the user's email and is_admin flag, then calls hasAccess().
@@ -13,7 +13,7 @@
  * pages is handled client-side by the useUserAccess hook.
  */
 import { NextResponse } from "next/server";
-import { hasAccess, parseUserFromCookies } from "@iiskills/access-control/src";
+import { hasAccess, parseUserFromCookies } from "@iiskills/access-control";
 
 export function middleware(request) {
   const { searchParams } = request.nextUrl;

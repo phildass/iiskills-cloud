@@ -17,7 +17,7 @@ import {
   hasAccess,
   hasBypassCookie,
   parseUserFromCookies,
-} from "@iiskills/access-control/src";
+} from "@iiskills/access-control";
 
 export function middleware(request) {
   const { searchParams } = request.nextUrl;

@@ -24,10 +24,9 @@
  */
 import { NextResponse } from "next/server";
 
-import { hasAccess, parseUserFromCookies } from "@iiskills/access-control/src";
+import { hasAccess, parseUserFromCookies, checkUserAccess } from "@iiskills/access-control";
 
 import { createServerClient } from "@supabase/ssr";
-import { checkUserAccess } from "@iiskills/access-control";
 
 /** App identifier for this sub-app. */
 const APP_ID = "learn-management";
