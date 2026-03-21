@@ -125,7 +125,9 @@ export function AdminModeProvider({ children, adminApiBase = "" }) {
 
         // Subscribe BEFORE calling getSession() to avoid missing a SIGNED_OUT
         // event that fires between the two calls.
-        const { data: { subscription } } = supabase.auth.onAuthStateChange((event) => {
+        const {
+          data: { subscription },
+        } = supabase.auth.onAuthStateChange((event) => {
           if (!isMounted) return;
           if (event === "SIGNED_OUT") {
             // Wipe admin state instantly — do not wait for an API round-trip.
@@ -137,7 +139,9 @@ export function AdminModeProvider({ children, adminApiBase = "" }) {
         });
         authSubscription = subscription;
 
-        const { data: { session } } = await supabase.auth.getSession();
+        const {
+          data: { session },
+        } = await supabase.auth.getSession();
         hasSession = !!session;
       } catch {
         // Supabase unavailable (CI / mock) — skip session check.
