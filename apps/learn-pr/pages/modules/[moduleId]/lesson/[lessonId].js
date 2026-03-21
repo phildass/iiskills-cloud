@@ -168,7 +168,7 @@ export default function LessonPage({ lesson, moduleId, lessonId }) {
   // We check even the sample lesson (module 1, lesson 1) so we can suppress the
   // enrollment prompt for users who are already entitled.
   const isSampleLesson = moduleId === "1" && lessonId === "1";
-  const { entitled } = useUserAccess("learn-pr", {
+  const { entitled, hasAccess, loading } = useUserAccess("learn-pr", {
     skip: FREE_ACCESS || lesson.isFree,
   });
 
@@ -379,8 +379,8 @@ export default function LessonPage({ lesson, moduleId, lessonId }) {
         </div>
       </main>
 
-      {/* Enrollment Landing — shown after sample lesson quiz completion */}
-      {showEnrollment && (
+      {/* Enrollment Landing — shown after sample lesson quiz completion, only for non-entitled users */}
+      {showEnrollment && hasAccess === false && !loading && (
         <EnrollmentLandingPage
           appId="learn-pr"
           appName="Learn PR"

@@ -299,6 +299,18 @@ describe("useUserAccess — Hard Admin Override (session user is_admin)", () => 
     ).toBe(true);
   });
 
+  it("returns true for a product-owner email (philipda@gmail.com)", () => {
+    expect(_isAdminFromSessionUser({ email: "philipda@gmail.com", app_metadata: {} })).toBe(true);
+  });
+
+  it("returns true for a product-owner email (pda.kenya@gmail.com)", () => {
+    expect(_isAdminFromSessionUser({ email: "pda.kenya@gmail.com", user_metadata: {} })).toBe(true);
+  });
+
+  it("returns false for a non-owner email with no is_admin flag", () => {
+    expect(_isAdminFromSessionUser({ email: "regular@example.com", app_metadata: {}, user_metadata: {} })).toBe(false);
+  });
+
   it("returns false for a regular user with no is_admin field", () => {
     expect(_isAdminFromSessionUser({ app_metadata: { provider: "email" }, user_metadata: { name: "User" } })).toBe(false);
   });
