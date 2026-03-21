@@ -46,6 +46,20 @@ import { isFreeAccessEnabled } from "../freeAccess";
 import { hasBypassCookieFromString } from "../../../access-control/src/index.js";
 
 // ---------------------------------------------------------------------------
+// Storage key for cross-navigation admin access cache
+// ---------------------------------------------------------------------------
+
+/**
+ * sessionStorage key used to cache a confirmed adminAccess=true result from
+ * the entitlement API so that subsequent lesson-page navigations in the same
+ * tab restore ADMIN access immediately — without a loader flash — for users
+ * with is_admin=true who do not have the bypass cookie.
+ *
+ * Cleared on SIGNED_OUT to prevent stale state leaking between users.
+ */
+const _UA_ADMIN_SESSION_KEY = "__iiskills_ua_admin";
+
+// ---------------------------------------------------------------------------
 // Access level constants
 // ---------------------------------------------------------------------------
 
@@ -209,9 +223,75 @@ export function useUserAccess(appId, options = {}) {
   const hasBypassOnMount =
     typeof document !== "undefined" && hasBypassCookieFromString(document.cookie);
 
-  const [accessLevel, setAccessLevel] = useState(hasBypassOnMount ? ACCESS_LEVEL.ADMIN : null);
-  const [loading, setLoading] = useState(!skip && !hasBypassOnMount);
+  // Check sessionStorage for a previously confirmed adminAccess=true result so
+  // that is_admin users get instant ADMIN status on subsequent page navigations
+  // (without re-fetching the entitlement API on every lesson page).
+  // We only use this cache when the bypass cookie is absent to avoid duplication.
+  const hasCachedAdminOnMount =
+    !hasBypassOnMount &&
+    typeof sessionStorage !== "undefined" &&
+    sessionStorage.getItem(_UA_ADMIN_SESSION_KEY) === "1";
 
+  const [accessLevel, setAccessLevel] = useState(
+    hasBypassOnMount || hasCachedAdminOnMount ? ACCESS_LEVEL.ADMIN : null
+  );
+  const [loading, setLoading] = useState(!skip && !hasBypassOnMount && !hasCachedAdminOnMount);
+
+  // Version counter incremented on auth state transitions so the main access
+  // check effect re-runs with a fresh Supabase session.
+  const [authVersion, setAuthVersion] = useState(0);
+
+  // ── Auth state subscription ────────────────────────────────────────────────
+  // Subscribes once per component instance.  On SIGNED_OUT we immediately
+  // revoke all access (no API round-trip needed).  On SIGNED_IN we reset to a
+  // loading state and trigger a fresh access check via authVersion.
+  useEffect(() => {
+    if (skip) return;
+
+    let isMounted = true;
+    let authSub = null;
+
+    (async () => {
+      try {
+        const { supabase } = await import("../supabaseClient");
+        const {
+          data: { subscription },
+        } = supabase.auth.onAuthStateChange((event) => {
+          if (!isMounted) return;
+          if (event === "SIGNED_OUT") {
+            // Immediately revoke access and purge the admin cache.
+            setAccessLevel(ACCESS_LEVEL.NONE);
+            setLoading(false);
+            try {
+              sessionStorage.removeItem(_UA_ADMIN_SESSION_KEY);
+            } catch {
+              // sessionStorage unavailable — ignore
+            }
+            // Bump authVersion so the main access-check effect re-runs, which
+            // causes its `cancelled` cleanup flag to fire (cancelling any pending
+            // async fetch) and then re-evaluates with no session.
+            setAuthVersion((v) => v + 1);
+          } else if (event === "SIGNED_IN") {
+            // Reset to loading so the main effect re-runs with the new session.
+            setAccessLevel(null);
+            setLoading(true);
+            setAuthVersion((v) => v + 1);
+          }
+        });
+        authSub = subscription;
+      } catch {
+        // Supabase unavailable (CI / mock) — no subscription needed.
+      }
+    })();
+
+    return () => {
+      isMounted = false;
+      authSub?.unsubscribe();
+    };
+  }, [skip]);
+
+  // ── Main access check ─────────────────────────────────────────────────────
+  // Re-runs whenever appId, skip, or authVersion changes (auth transitions).
   useEffect(() => {
     // ── Skipped ────────────────────────────────────────────────────────────
     if (skip) {
@@ -271,11 +351,22 @@ export function useUserAccess(appId, options = {}) {
 
         if (!cancelled) {
           if (!data.authenticated) {
-            // Unauthenticated — no access
+            // Unauthenticated — no access.  Also clear stale admin cache.
             setAccessLevel(ACCESS_LEVEL.NONE);
+            try {
+              sessionStorage.removeItem(_UA_ADMIN_SESSION_KEY);
+            } catch {
+              // sessionStorage unavailable — ignore
+            }
           } else if (data.adminAccess === true) {
-            // Admin bypass: is_admin = true OR role = 'admin' on profile
+            // Admin bypass: is_admin = true OR role = 'admin' on profile.
+            // Cache result so subsequent navigations restore ADMIN instantly.
             setAccessLevel(ACCESS_LEVEL.ADMIN);
+            try {
+              sessionStorage.setItem(_UA_ADMIN_SESSION_KEY, "1");
+            } catch {
+              // sessionStorage unavailable — ignore
+            }
           } else if (data.entitled === true) {
             // Active entitlement (payment or admin grant)
             setAccessLevel(ACCESS_LEVEL.PAID_USER);
@@ -297,7 +388,7 @@ export function useUserAccess(appId, options = {}) {
     return () => {
       cancelled = true;
     };
-  }, [appId, skip]);
+  }, [appId, skip, authVersion]);
 
   // ── Derived values ────────────────────────────────────────────────────────
 
@@ -323,10 +414,13 @@ export function useUserAccess(appId, options = {}) {
 
   /**
    * `true` when the PaymentModal should be shown to the user.
-   * Always `false` when the admin bypass cookie is active — the modal must
-   * never render for authorised testers / product owners.
+   * `false` in any of these cases (which are mutually exclusive):
+   *   - hasBypassOnMount: admin bypass cookie is present (product owners / testers)
+   *   - hasCachedAdminOnMount: sessionStorage cache confirms a prior adminAccess=true
+   *     (only set when bypass cookie is absent, so the two conditions never overlap)
+   * Either condition independently prevents the modal from rendering.
    */
-  const showPaymentModal = !hasBypassOnMount && entitled === false;
+  const showPaymentModal = !hasBypassOnMount && !hasCachedAdminOnMount && entitled === false;
 
   return {
     accessLevel,
