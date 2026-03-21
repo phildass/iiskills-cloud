@@ -392,6 +392,19 @@ export async function signOutUser() {
       }
     }
 
+    // Purge all admin-related storage entries to prevent stale UI state from
+    // persisting between different users on the same machine.
+    if (typeof localStorage !== "undefined") {
+      localStorage.removeItem("__iiskills_admin_local");
+      localStorage.removeItem("__iiskills_admin_local_label");
+      localStorage.removeItem("__iiskills_admin_local_expiry");
+    }
+    if (typeof sessionStorage !== "undefined") {
+      sessionStorage.removeItem("__iiskills_admin");
+      sessionStorage.removeItem("__iiskills_admin_label");
+      sessionStorage.removeItem("__iiskills_ua_admin");
+    }
+
     return { success: true };
   } catch (error) {
     console.error("Error in signOutUser:", error);

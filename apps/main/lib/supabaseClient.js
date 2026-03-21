@@ -87,6 +87,22 @@ export async function signOutUser() {
       return { success: false, error: error.message };
     }
 
+    // Purge all admin-related storage entries so stale UI state (admin bar,
+    // entitlement cache) cannot persist between different users on the same
+    // machine.  The onAuthStateChange SIGNED_OUT listener in AdminProvider and
+    // useUserAccess will also run, but explicit clearing here is belt-and-
+    // suspenders for code paths that call signOutUser without those listeners.
+    if (typeof localStorage !== "undefined") {
+      localStorage.removeItem("__iiskills_admin_local");
+      localStorage.removeItem("__iiskills_admin_local_label");
+      localStorage.removeItem("__iiskills_admin_local_expiry");
+    }
+    if (typeof sessionStorage !== "undefined") {
+      sessionStorage.removeItem("__iiskills_admin");
+      sessionStorage.removeItem("__iiskills_admin_label");
+      sessionStorage.removeItem("__iiskills_ua_admin");
+    }
+
     return { success: true };
   } catch (error) {
     console.error("Error in signOutUser:", error);

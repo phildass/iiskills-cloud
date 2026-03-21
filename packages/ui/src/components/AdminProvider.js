@@ -34,6 +34,22 @@ const _LOCAL_EXPIRY_KEY = "__iiskills_admin_local_expiry";
 const _LOCAL_TTL_MS = 8 * 60 * 60 * 1000;
 
 /**
+ * Purge all admin-mode storage entries.
+ * Called on logout (SIGNED_OUT) and when no Supabase session is found on mount.
+ */
+function _clearAdminStorage() {
+  try {
+    localStorage.removeItem(_LOCAL_KEY);
+    localStorage.removeItem(_LOCAL_LABEL_KEY);
+    localStorage.removeItem(_LOCAL_EXPIRY_KEY);
+    sessionStorage.removeItem(_SESSION_KEY);
+    sessionStorage.removeItem(_LABEL_KEY);
+  } catch {
+    // Storage may be unavailable in certain contexts (e.g. private browsing).
+  }
+}
+
+/**
  * useAdminMode
  * Returns { isAdminMode: boolean, adminLabel: string } from the nearest provider.
  */
@@ -72,19 +88,10 @@ export function AdminModeProvider({ children, adminApiBase = "" }) {
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    // ── High-Priority Override ─────────────────────────────────────────────
-    // Evaluate admin_access URL parameter BEFORE any redirect logic can fire.
-    // Appended by admin preview links (apps/main/pages/admin/courses.js).
-    const searchParams = new URLSearchParams(window.location.search);
-    const hasAdminFlag = searchParams.get("admin_access") === "true";
-
-    if (hasAdminFlag) {
-      // Force the state to 'authorized' BEFORE the redirect logic can fire
-      setAuthState({ isAuthorized: true, isAdmin: true, loading: false });
-    }
-
-    // Alias for the rest of the effect (legacy name kept for clarity).
-    const hasAdminAccessParam = hasAdminFlag;
+    let isMounted = true;
+    let authSubscription = null;
+    let fetchController = null;
+    let fetchTimeoutId = null;
 
     // Helper: check whether the localStorage admin flag is still within its TTL.
     const isLocalAdminValid = () => {
@@ -93,77 +100,124 @@ export function AdminModeProvider({ children, adminApiBase = "" }) {
       return Date.now() < expiry;
     };
 
-    if (hasAdminAccessParam) {
+    // ── High-Priority Override ─────────────────────────────────────────────
+    // Evaluate admin_access URL parameter synchronously BEFORE any async work.
+    // Appended by admin preview links (apps/main/pages/admin/courses.js).
+    const searchParams = new URLSearchParams(window.location.search);
+    const hasAdminFlag = searchParams.get("admin_access") === "true";
+    const hasAdminAccessParam = hasAdminFlag;
+
+    if (hasAdminFlag) {
+      // Force the state to 'authorized' BEFORE the redirect logic can fire
+      setAuthState({ isAuthorized: true, isAdmin: true, loading: false });
       // Immediately activate banner and persist so it survives lesson-to-lesson navigation.
-      // Store an expiry timestamp so the flag does not persist indefinitely.
       setIsAdminMode(true);
       localStorage.setItem(_LOCAL_KEY, "1");
       localStorage.setItem(_LOCAL_EXPIRY_KEY, String(Date.now() + _LOCAL_TTL_MS));
-    } else {
-      // Restore from localStorage — persists across page navigations on the same subdomain
-      // (e.g., Lesson 1 → Lesson 2 → Lesson 3), but only within the TTL window.
-      if (isLocalAdminValid()) {
-        setIsAdminMode(true);
-        setAdminLabel(localStorage.getItem(_LOCAL_LABEL_KEY) || "");
-      } else if (localStorage.getItem(_LOCAL_KEY) === "1") {
-        // Expired — clean up stale localStorage entries.
-        localStorage.removeItem(_LOCAL_KEY);
-        localStorage.removeItem(_LOCAL_LABEL_KEY);
-        localStorage.removeItem(_LOCAL_EXPIRY_KEY);
-      }
-      // Optimistic hydration from sessionStorage — avoids banner flash on same-origin navigation.
-      if (sessionStorage.getItem(_SESSION_KEY) === "1") {
-        setIsAdminMode(true);
-        setAdminLabel(sessionStorage.getItem(_LABEL_KEY) || "");
-      }
     }
 
-    // Server verification — fast because the admin session cookie is in the request.
-    // On sub-app domains the cookie won't be present, so the fetch may return non-ok;
-    // in that case we preserve the admin state if it was set via the URL param or localStorage.
-    const controller = typeof AbortController !== "undefined" ? new AbortController() : null;
-    const timeoutId = setTimeout(() => controller?.abort(), 3000);
+    // ── Async: subscribe to Supabase auth, gate storage restoration ────────
+    (async () => {
+      let hasSession = false;
 
-    fetch(`${adminApiBase}/api/admin/me`, {
-      credentials: "same-origin",
-      signal: controller?.signal,
-    })
-      .then((r) => (r.ok ? r.json() : null))
-      .then((data) => {
-        clearTimeout(timeoutId);
-        const active = Boolean(data?.ok);
-        const label = data?.label || "";
-        if (active) {
-          // Full server-verified admin session: update state and both storage layers.
+      try {
+        const { supabase } = await import("@lib/supabaseClient");
+
+        // Subscribe BEFORE calling getSession() to avoid missing a SIGNED_OUT
+        // event that fires between the two calls.
+        const {
+          data: { subscription },
+        } = supabase.auth.onAuthStateChange((event) => {
+          if (!isMounted) return;
+          if (event === "SIGNED_OUT") {
+            // Wipe admin state instantly — do not wait for an API round-trip.
+            setIsAdminMode(false);
+            setAdminLabel("");
+            setAuthState({ isAuthorized: false, isAdmin: false, loading: false });
+            _clearAdminStorage();
+          }
+        });
+        authSubscription = subscription;
+
+        const {
+          data: { session },
+        } = await supabase.auth.getSession();
+        hasSession = !!session;
+      } catch {
+        // Supabase unavailable (CI / mock) — skip session check.
+      }
+
+      if (!isMounted) return;
+
+      // ── Restore from storage — only when a Supabase session is active ────
+      // This prevents stale localStorage entries from showing the banner to
+      // logged-out users.
+      if (!hasAdminAccessParam) {
+        if (hasSession && isLocalAdminValid()) {
           setIsAdminMode(true);
-          setAdminLabel(label);
-          setAuthState({ isAuthorized: true, isAdmin: true, loading: false });
-          sessionStorage.setItem(_SESSION_KEY, "1");
-          sessionStorage.setItem(_LABEL_KEY, label);
-          localStorage.setItem(_LOCAL_KEY, "1");
-          localStorage.setItem(_LOCAL_LABEL_KEY, label);
-          localStorage.setItem(_LOCAL_EXPIRY_KEY, String(Date.now() + _LOCAL_TTL_MS));
-        } else if (!hasAdminAccessParam && !isLocalAdminValid()) {
-          // API says not-admin AND there is no active admin_access token (URL param or
-          // valid localStorage entry) — clear admin mode entirely.
-          setIsAdminMode(false);
-          setAdminLabel("");
-          setAuthState({ isAuthorized: false, isAdmin: false, loading: false });
-          sessionStorage.removeItem(_SESSION_KEY);
-          sessionStorage.removeItem(_LABEL_KEY);
-        } else {
-          // URL param or localStorage validates admin — mark loading complete.
-          setAuthState((prev) => ({ ...prev, loading: false }));
+          setAdminLabel(localStorage.getItem(_LOCAL_LABEL_KEY) || "");
+        } else if (!hasSession) {
+          // No active Supabase session — purge stale admin storage.
+          _clearAdminStorage();
+        } else if (localStorage.getItem(_LOCAL_KEY) === "1") {
+          // Session exists but TTL has expired — clean up.
+          _clearAdminStorage();
         }
-        // If the API returned non-ok but hasAdminAccessParam is true or isLocalAdminValid()
-        // is true, we leave admin mode active (expected on cross-subdomain navigation where
-        // the session cookie is absent).
+        // Optimistic sessionStorage hydration — only when session is active.
+        if (hasSession && sessionStorage.getItem(_SESSION_KEY) === "1") {
+          setIsAdminMode(true);
+          setAdminLabel(sessionStorage.getItem(_LABEL_KEY) || "");
+        }
+      }
+
+      // ── Server verification ───────────────────────────────────────────────
+      // Fast when the admin session cookie is present (apps/main).
+      // On sub-app domains the cookie is absent; in that case we preserve
+      // admin state only if it was set via the URL param or valid localStorage.
+      fetchController = typeof AbortController !== "undefined" ? new AbortController() : null;
+      fetchTimeoutId = setTimeout(() => fetchController?.abort(), 3000);
+
+      fetch(`${adminApiBase}/api/admin/me`, {
+        credentials: "same-origin",
+        signal: fetchController?.signal,
       })
-      .catch(() => clearTimeout(timeoutId));
+        .then((r) => (r.ok ? r.json() : null))
+        .then((data) => {
+          if (!isMounted) return;
+          clearTimeout(fetchTimeoutId);
+          const active = Boolean(data?.ok);
+          const label = data?.label || "";
+          if (active) {
+            // Full server-verified admin session: update state and both storage layers.
+            setIsAdminMode(true);
+            setAdminLabel(label);
+            setAuthState({ isAuthorized: true, isAdmin: true, loading: false });
+            sessionStorage.setItem(_SESSION_KEY, "1");
+            sessionStorage.setItem(_LABEL_KEY, label);
+            localStorage.setItem(_LOCAL_KEY, "1");
+            localStorage.setItem(_LOCAL_LABEL_KEY, label);
+            localStorage.setItem(_LOCAL_EXPIRY_KEY, String(Date.now() + _LOCAL_TTL_MS));
+          } else if (!hasAdminAccessParam && !isLocalAdminValid()) {
+            // API says not-admin AND there is no active admin_access token (URL param or
+            // valid localStorage entry) — clear admin mode entirely.
+            setIsAdminMode(false);
+            setAdminLabel("");
+            setAuthState({ isAuthorized: false, isAdmin: false, loading: false });
+            sessionStorage.removeItem(_SESSION_KEY);
+            sessionStorage.removeItem(_LABEL_KEY);
+          } else {
+            // URL param or localStorage validates admin — mark loading complete.
+            setAuthState((prev) => ({ ...prev, loading: false }));
+          }
+        })
+        .catch(() => clearTimeout(fetchTimeoutId));
+    })();
 
     return () => {
-      clearTimeout(timeoutId);
-      controller?.abort();
+      isMounted = false;
+      authSubscription?.unsubscribe();
+      clearTimeout(fetchTimeoutId);
+      fetchController?.abort();
     };
   }, [adminApiBase]);
 
