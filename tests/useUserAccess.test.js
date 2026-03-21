@@ -16,6 +16,7 @@ const {
   ACCESS_LEVEL,
   canAccessCourse,
   fetchEntitlementResponse,
+  _isAdminFromSessionUser,
 } = require("../packages/shared-utils/lib/hooks/useUserAccess");
 
 // ---------------------------------------------------------------------------
@@ -272,6 +273,70 @@ describe("useUserAccess — admin_access URL parameter bypass", () => {
     expect(
       canAccessCourse("learn-developer", { accessLevel: ACCESS_LEVEL.PAID_USER, appId: "learn-ai" })
     ).toBe(false);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Hard Admin Override — app_metadata / user_metadata is_admin detection
+// ---------------------------------------------------------------------------
+
+describe("useUserAccess — Hard Admin Override (session user is_admin)", () => {
+  // _isAdminFromSessionUser is the pure helper used inside the hook's async
+  // useEffect to detect admin status from the local Supabase session JWT.
+  // It fires BEFORE fetchEntitlementResponse so no network/DB call is needed.
+
+  it("returns true when app_metadata.is_admin === true", () => {
+    expect(_isAdminFromSessionUser({ app_metadata: { is_admin: true } })).toBe(true);
+  });
+
+  it("returns true when user_metadata.is_admin === true", () => {
+    expect(_isAdminFromSessionUser({ user_metadata: { is_admin: true } })).toBe(true);
+  });
+
+  it("returns true when both app_metadata and user_metadata have is_admin === true", () => {
+    expect(
+      _isAdminFromSessionUser({ app_metadata: { is_admin: true }, user_metadata: { is_admin: true } })
+    ).toBe(true);
+  });
+
+  it("returns false for a regular user with no is_admin field", () => {
+    expect(_isAdminFromSessionUser({ app_metadata: { provider: "email" }, user_metadata: { name: "User" } })).toBe(false);
+  });
+
+  it("returns false when is_admin is explicitly false", () => {
+    expect(_isAdminFromSessionUser({ app_metadata: { is_admin: false } })).toBe(false);
+    expect(_isAdminFromSessionUser({ user_metadata: { is_admin: false } })).toBe(false);
+  });
+
+  it("returns false for null user (unauthenticated)", () => {
+    expect(_isAdminFromSessionUser(null)).toBe(false);
+    expect(_isAdminFromSessionUser(undefined)).toBe(false);
+  });
+
+  it("canAccessCourse returns true for all courses when Hard Admin Override fires", () => {
+    // Simulates the resolved state after the Hard Admin Override sets
+    // accessLevel = ACCESS_LEVEL.ADMIN.
+    const ctx = { accessLevel: ACCESS_LEVEL.ADMIN, appId: "learn-ai" };
+    expect(canAccessCourse("learn-ai", ctx)).toBe(true);
+    expect(canAccessCourse("learn-developer", ctx)).toBe(true);
+    expect(canAccessCourse("learn-management", ctx)).toBe(true);
+    expect(canAccessCourse("learn-pr", ctx)).toBe(true);
+    expect(canAccessCourse("some-unknown-course", ctx)).toBe(true);
+  });
+
+  it("fetchEntitlementResponse returns adminAccess:true for admin users (API fallback path)", async () => {
+    // When the JWT does NOT yet contain app_metadata.is_admin (e.g. freshly
+    // promoted user whose session hasn't refreshed), the hook falls through to
+    // fetchEntitlementResponse.  Confirm that path still works correctly.
+    const result = await fetchEntitlementResponse("learn-ai", {
+      getSession: makeGetSession("admin-token"),
+      fetchImpl: makeFetch({
+        ok: true,
+        body: { authenticated: true, entitled: true, adminAccess: true },
+      }),
+    });
+    expect(result.adminAccess).toBe(true);
+    expect(result.entitled).toBe(true);
   });
 });
 

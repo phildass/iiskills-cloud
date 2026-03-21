@@ -192,6 +192,27 @@ export function canAccessCourse(courseId, { accessLevel, appId }) {
 }
 
 // ---------------------------------------------------------------------------
+// Pure helper: Hard Admin Override — detect is_admin from Supabase session user
+// ---------------------------------------------------------------------------
+
+/**
+ * Returns `true` when the Supabase session user has `is_admin: true` on either
+ * `app_metadata` or `user_metadata`.
+ *
+ * This is the client-side Hard Admin Override check used by `useUserAccess`.
+ * When it returns `true` the hook grants `ACCESS_LEVEL.ADMIN` immediately
+ * without making any API call or consulting the entitlement cache.
+ *
+ * Exported for unit testing.  Not intended for direct use outside this module.
+ *
+ * @param {{ app_metadata?: object, user_metadata?: object } | null | undefined} user
+ * @returns {boolean}
+ */
+export function _isAdminFromSessionUser(user) {
+  return user?.app_metadata?.is_admin === true || user?.user_metadata?.is_admin === true;
+}
+
+// ---------------------------------------------------------------------------
 // React hook
 // ---------------------------------------------------------------------------
 
@@ -344,6 +365,32 @@ export function useUserAccess(appId, options = {}) {
             setLoading(false);
           }
           return;
+        }
+
+        // ── Hard Admin Override: is_admin on Supabase session user ───────────
+        // Read the Supabase session from the client's local cache (no network
+        // call — just a localStorage read).  If the user has is_admin: true on
+        // their app_metadata or user_metadata (set server-side via
+        // supabase.auth.admin.updateUserById when the user was promoted), grant
+        // ADMIN-level access immediately — bypassing all DB entitlement checks
+        // and local-storage caches.
+        {
+          const { supabase: _sc } = await import("../supabaseClient");
+          const {
+            data: { session: _sess },
+          } = await _sc.auth.getSession();
+          if (_isAdminFromSessionUser(_sess?.user)) {
+            if (!cancelled) {
+              setAccessLevel(ACCESS_LEVEL.ADMIN);
+              try {
+                sessionStorage.setItem(_UA_ADMIN_SESSION_KEY, "1");
+              } catch {
+                // sessionStorage unavailable — ignore
+              }
+              setLoading(false);
+            }
+            return;
+          }
         }
 
         // ── Fetch entitlement from main API ───────────────────────────────
