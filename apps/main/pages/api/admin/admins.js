@@ -106,6 +106,13 @@ export default async function handler(req, res) {
         console.error("[admin/admins POST] update profile:", updateError);
         return res.status(500).json({ error: "Failed to update user profile" });
       }
+
+      // Sync is_admin into the Supabase auth JWT (app_metadata) so the
+      // Hard Admin Override in useUserAccess can detect it from the local
+      // session cache without an extra DB call.
+      await supabase.auth.admin
+        .updateUserById(existingUser.id, { app_metadata: { is_admin: true } })
+        .catch((e) => console.error("[admin/admins POST] updateUserById:", e));
     } else {
       // User doesn't exist — create an invite record
       const { error: inviteError } = await supabase.from("admin_invites").upsert(
@@ -168,6 +175,12 @@ export default async function handler(req, res) {
         console.error("[admin/admins DELETE] update profile:", updateError);
         return res.status(500).json({ error: "Failed to revoke admin" });
       }
+
+      // Sync revocation into the Supabase auth JWT so the Hard Admin Override
+      // can no longer fire for this user on subsequent page loads.
+      await supabase.auth.admin
+        .updateUserById(user_id, { app_metadata: { is_admin: false } })
+        .catch((e) => console.error("[admin/admins DELETE] updateUserById:", e));
 
       // Also look up their email for the audit log
       try {

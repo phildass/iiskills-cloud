@@ -89,6 +89,12 @@ export default async function handler(req, res) {
       return res.status(500).json({ error: error.message });
     }
 
+    // Sync is_admin into the Supabase auth JWT (app_metadata) so the Hard
+    // Admin Override in useUserAccess detects it from the local session cache.
+    await supabase.auth.admin
+      .updateUserById(userId, { app_metadata: { is_admin: isAdmin } })
+      .catch((e) => console.error("[admin/users PATCH] updateUserById:", e));
+
     // Audit log
     await writeAuditEvent(supabase, {
       actorUserId: actor.actorUserId,
