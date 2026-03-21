@@ -1935,11 +1935,16 @@ export default function Dashboard() {
   const [activeTab, setActiveTab] = useState("my-profile");
 
   const loadDashboardData = async () => {
+    // Track whether we are navigating away so the finally block does not
+    // clear the loading state and briefly expose the empty dashboard UI
+    // before the redirect completes.
+    let redirecting = false;
     try {
       const { supabase } = await import("../lib/supabaseClient");
       const currentUser = await getCurrentUser();
 
       if (!currentUser) {
+        redirecting = true;
         const next = encodeURIComponent("/dashboard");
         router.replace(`/sign-in?next=${next}`);
         return;
@@ -1966,7 +1971,10 @@ export default function Dashboard() {
     } catch (err) {
       console.error("[dashboard] load error:", err);
     } finally {
-      setIsLoading(false);
+      // Only clear the loading spinner when we are NOT redirecting.
+      // Clearing it while a redirect is in-flight causes a brief flash of
+      // the dashboard UI (with null user/data) before the browser navigates.
+      if (!redirecting) setIsLoading(false);
     }
   };
 
