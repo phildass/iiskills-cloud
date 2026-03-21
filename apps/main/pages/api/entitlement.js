@@ -88,10 +88,37 @@ export default async function handler(req, res) {
     });
   }
 
-  // ── Cache read ─────────────────────────────────────────────────────────────
-  // Check the entitlement cache before hitting the database.  Admin results are
-  // also cached (as `true`) so subsequent requests for an admin don't re-query.
-  const cached = await getEntitlementFromCache(user.id, appId);
+  // ── Cache + admin profile check in parallel ──────────────────────────────
+  // The admin profile query runs in parallel with the cache read so there is no
+  // added latency.  Critically, the admin check evaluates BEFORE the cached
+  // result is used: a stale entitled:false cache entry (written before a user
+  // was promoted to admin) must never block an admin user.
+  const [cached, profileResult] = await Promise.all([
+    getEntitlementFromCache(user.id, appId),
+    // Select both is_admin (legacy) and role (new) so either representation works.
+    supabase.from("profiles").select("is_admin, role").eq("id", user.id).maybeSingle(),
+  ]);
+
+  // ── Priority 1: Admin bypass ───────────────────────────────────────────────
+  // Triggered by is_admin = true (legacy) OR role = 'admin' (new field).
+  // This check fires BEFORE the cached result is evaluated so that a stale
+  // entitled:false entry can never block a user whose admin status was updated
+  // after the negative entry was written.
+  const profile = profileResult.data;
+  if (profile?.is_admin === true || profile?.role === "admin") {
+    await setEntitlementInCache(user.id, appId, true);
+    return res.status(200).json({
+      authenticated: true,
+      entitled: true,
+      expiresAt: null,
+      adminAccess: true,
+      fromCache: false,
+    });
+  }
+
+  // ── Cache read (non-admin users only) ─────────────────────────────────────
+  // At this point the user is confirmed non-admin, so a cached false result is
+  // safe to return without further DB queries.
   if (cached !== null) {
     return res.status(200).json({
       authenticated: true,
@@ -101,9 +128,8 @@ export default async function handler(req, res) {
     });
   }
 
-  // ── Database checks ────────────────────────────────────────────────────────
-  // Run admin-profile check and entitlement check in parallel to minimise
-  // DB round trips.
+  // ── Remaining database checks ──────────────────────────────────────────────
+  // Cache miss for a non-admin user — run entitlement and certified-paid checks.
 
   const now = new Date().toISOString();
 
@@ -117,9 +143,7 @@ export default async function handler(req, res) {
   const aiBundleApps = getBundleConfig(bundleId)?.apps ?? [];
   const bundleAppIds = aiBundleApps.includes(appId) ? [appId, bundleId] : [appId];
 
-  const [profileResult, entitlementResult, certifiedPaidResult] = await Promise.all([
-    // Select both is_admin (legacy) and role (new) so either representation works.
-    supabase.from("profiles").select("is_admin, role").eq("id", user.id).maybeSingle(),
+  const [entitlementResult, certifiedPaidResult] = await Promise.all([
     supabase
       .from("entitlements")
       .select("id, status, expires_at")
@@ -147,21 +171,6 @@ export default async function handler(req, res) {
       .limit(1)
       .maybeSingle(),
   ]);
-
-  // ── Priority 1: Admin bypass ───────────────────────────────────────────────
-  // Triggered by is_admin = true (legacy) OR role = 'admin' (new field).
-  // Admin status is cached so the DB is not queried on every admin page load.
-  const profile = profileResult.data;
-  if (profile?.is_admin === true || profile?.role === "admin") {
-    await setEntitlementInCache(user.id, appId, true);
-    return res.status(200).json({
-      authenticated: true,
-      entitled: true,
-      expiresAt: null,
-      adminAccess: true,
-      fromCache: false,
-    });
-  }
 
   // ── Priority 1.5: Certified paid user (SSOT) ──────────────────────────────
   // is_certified_paid_user = true + not expired → ALL lessons unlocked.
