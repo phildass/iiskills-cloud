@@ -18,6 +18,10 @@ import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
 import Hero from "./HeroManager";
 import { getCurrentUser, supabase } from "@/lib/supabaseClient";
+import { hasBypassCookieFromString } from "@iiskills/access-control";
+
+// sessionStorage key shared with useUserAccess to cache confirmed admin status
+const _ADMIN_SESSION_KEY = "__iiskills_ua_admin";
 
 const PAID_APP_IDS = ["learn-ai", "learn-developer", "learn-pr", "learn-management"];
 
@@ -63,10 +67,20 @@ export default function TriLevelLandingPage({
   sampleLessonId = 1,
   showAIDevBundle = false,
 }) {
+  // Detect admin status synchronously on first render — mirrors useUserAccess —
+  // so the paywall is never shown during the API round-trip or on transient failure.
+  const _hasBypassOnMount =
+    typeof document !== "undefined" && hasBypassCookieFromString(document.cookie);
+  const _hasCachedAdminOnMount =
+    !_hasBypassOnMount &&
+    typeof sessionStorage !== "undefined" &&
+    sessionStorage.getItem(_ADMIN_SESSION_KEY) === "1";
+  const _adminOnMount = _hasBypassOnMount || _hasCachedAdminOnMount;
+
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [entitled, setEntitled] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [loading, setLoading] = useState(!_adminOnMount);
+  const [entitled, setEntitled] = useState(_adminOnMount);
+  const [isAdmin, setIsAdmin] = useState(_adminOnMount);
   const [confirmLevel, setConfirmLevel] = useState(null); // level obj being confirmed
   const [certWarningChecked, setCertWarningChecked] = useState(false);
   const [savingIneligibility, setSavingIneligibility] = useState(false);
@@ -101,7 +115,24 @@ export default function TriLevelLandingPage({
           if (res.ok) {
             const data = await res.json();
             setEntitled(!!data.hasAccess);
-            setIsAdmin(!!data.isAdmin);
+            if (data.isAdmin) {
+              setIsAdmin(true);
+              // Cache admin status so subsequent navigations skip the API call
+              try {
+                sessionStorage.setItem(_ADMIN_SESSION_KEY, "1");
+              } catch {
+                // sessionStorage unavailable — ignore
+              }
+            } else {
+              // API confirms user is not an admin — clear any stale cache and
+              // revoke the optimistic admin state set at mount.
+              setIsAdmin(false);
+              try {
+                sessionStorage.removeItem(_ADMIN_SESSION_KEY);
+              } catch {
+                // sessionStorage unavailable — ignore
+              }
+            }
           }
         } catch {
           // Silently fail - entitlement check is best-effort
