@@ -363,6 +363,20 @@ export function useUserAccess(appId, options = {}) {
     setLoading(true);
 
     (async () => {
+      // Hoist the Supabase session so both the main happy-path (JWT admin check)
+      // and the error-handling catch block can reuse the same value without
+      // performing a second dynamic import or getSession() call.
+      let _supabaseSession = null;
+      try {
+        const { supabase: _sc } = await import("../supabaseClient");
+        const {
+          data: { session },
+        } = await _sc.auth.getSession();
+        _supabaseSession = session;
+      } catch {
+        // Supabase unavailable (CI/mock env) — proceed without session.
+      }
+
       try {
         // ── Free app (no payment ever required) ──────────────────────────
         const isFree = await _resolveIsFreeApp(appId);
@@ -381,23 +395,21 @@ export function useUserAccess(appId, options = {}) {
         // supabase.auth.admin.updateUserById when the user was promoted), grant
         // ADMIN-level access immediately — bypassing all DB entitlement checks
         // and local-storage caches.
-        {
-          const { supabase: _sc } = await import("../supabaseClient");
-          const {
-            data: { session: _sess },
-          } = await _sc.auth.getSession();
-          if (_isAdminFromSessionUser(_sess?.user)) {
-            if (!cancelled) {
-              setAccessLevel(ACCESS_LEVEL.ADMIN);
-              try {
-                sessionStorage.setItem(_UA_ADMIN_SESSION_KEY, "1");
-              } catch {
-                // sessionStorage unavailable — ignore
-              }
-              setLoading(false);
+        if (_isAdminFromSessionUser(_supabaseSession?.user)) {
+          if (!cancelled) {
+            console.info(
+              "[useUserAccess] Hard admin override via JWT metadata for",
+              appId
+            );
+            setAccessLevel(ACCESS_LEVEL.ADMIN);
+            try {
+              sessionStorage.setItem(_UA_ADMIN_SESSION_KEY, "1");
+            } catch {
+              // sessionStorage unavailable — ignore
             }
-            return;
+            setLoading(false);
           }
+          return;
         }
 
         // ── Fetch entitlement from main API ───────────────────────────────
@@ -415,6 +427,7 @@ export function useUserAccess(appId, options = {}) {
           } else if (data.adminAccess === true) {
             // Admin bypass: is_admin = true OR role = 'admin' on profile.
             // Cache result so subsequent navigations restore ADMIN instantly.
+            console.info("[useUserAccess] Admin bypass granted via entitlement API for", appId);
             setAccessLevel(ACCESS_LEVEL.ADMIN);
             try {
               sessionStorage.setItem(_UA_ADMIN_SESSION_KEY, "1");
@@ -431,7 +444,87 @@ export function useUserAccess(appId, options = {}) {
           setLoading(false);
         }
       } catch (err) {
-        console.error("[useUserAccess] access check failed for", appId, err);
+        // ── Entitlement API unreachable ──────────────────────────────────────
+        // The main-app entitlement API (iiskills.cloud/api/entitlement) may be
+        // temporarily unreachable — e.g. if the browser's CSP was cached with
+        // an older policy that did not include the cross-subdomain allowlist, or
+        // a transient network error occurred.
+        //
+        // Recovery strategy (priority order):
+        //  1. Restore admin status from sessionStorage cache if present.
+        //     This was written by a previous successful entitlement API call in
+        //     the same browser session, so it is trustworthy.
+        //  2. Try the sub-app's own /api/access/check endpoint (same origin —
+        //     no CORS/CSP issues).  This checks profiles.is_admin from the DB
+        //     directly and returns { hasAccess, isAdmin }.
+        //  3. Fall back to ACCESS_LEVEL.NONE as a last resort.
+
+        console.error(
+          "[useUserAccess] Entitlement API unreachable for",
+          appId,
+          "— trying local fallback.",
+          err
+        );
+
+        if (cancelled) return;
+
+        // 1. Cached admin confirmation from a prior call in this browser tab.
+        const cachedAdmin =
+          typeof sessionStorage !== "undefined" &&
+          sessionStorage.getItem(_UA_ADMIN_SESSION_KEY) === "1";
+        if (cachedAdmin) {
+          console.info(
+            "[useUserAccess] Admin bypass restored from sessionStorage cache for",
+            appId
+          );
+          setAccessLevel(ACCESS_LEVEL.ADMIN);
+          setLoading(false);
+          return;
+        }
+
+        // 2. Local /api/access/check (same-origin, no CORS/CSP risk).
+        //    Available on all four paid sub-apps (learn-ai, learn-developer,
+        //    learn-management, learn-pr); skipped if the fetch itself fails.
+        //    Reuses the _supabaseSession hoisted above — no second import needed.
+        try {
+          if (_supabaseSession?.access_token) {
+            const localRes = await fetch(
+              `/api/access/check?appId=${encodeURIComponent(appId)}`,
+              { headers: { Authorization: `Bearer ${_supabaseSession.access_token}` } }
+            );
+            if (localRes.ok) {
+              const localData = await localRes.json();
+              if (!cancelled) {
+                if (localData.isAdmin === true) {
+                  console.info(
+                    "[useUserAccess] Admin bypass confirmed via local /api/access/check for",
+                    appId
+                  );
+                  setAccessLevel(ACCESS_LEVEL.ADMIN);
+                  try {
+                    sessionStorage.setItem(_UA_ADMIN_SESSION_KEY, "1");
+                  } catch {
+                    // sessionStorage unavailable — ignore
+                  }
+                } else if (localData.hasAccess === true) {
+                  setAccessLevel(ACCESS_LEVEL.PAID_USER);
+                } else {
+                  setAccessLevel(ACCESS_LEVEL.NONE);
+                }
+                setLoading(false);
+              }
+              return;
+            }
+          }
+        } catch (localErr) {
+          console.warn(
+            "[useUserAccess] Local /api/access/check also failed for",
+            appId,
+            localErr
+          );
+        }
+
+        // 3. Last resort: deny access so the UI remains honest.
         if (!cancelled) {
           setAccessLevel(ACCESS_LEVEL.NONE);
           setLoading(false);

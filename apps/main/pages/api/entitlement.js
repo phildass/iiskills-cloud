@@ -35,9 +35,46 @@ function getSupabaseServer() {
   return createClient(url, serviceKey);
 }
 
+/**
+ * Emit CORS headers so *.iiskills.cloud sub-apps can call this API cross-subdomain.
+ *
+ * Without these headers the browser enforces the same-origin policy and the
+ * request from (e.g.) learn-developer.iiskills.cloud → iiskills.cloud/api/entitlement
+ * is rejected before it reaches our handler — causing useUserAccess to catch a
+ * network error and fall back to ACCESS_LEVEL.NONE, showing the paywall to
+ * every user, including admins.
+ *
+ * We restrict the allowed origin to *.iiskills.cloud to avoid opening the API
+ * to arbitrary third-party domains.
+ */
+function setCorsHeaders(req, res) {
+  const origin = req.headers.origin || "";
+  const allowed =
+    origin === "https://iiskills.cloud" ||
+    // Require subdomain starts AND ends with alphanumeric to block patterns like
+    // https://-.iiskills.cloud or https://-evil.iiskills.cloud
+    /^https:\/\/[a-z0-9]([a-z0-9-]*[a-z0-9])?\.iiskills\.cloud$/.test(origin) ||
+    // Allow localhost in development so integration tests work without a browser
+    /^http:\/\/localhost(:\d+)?$/.test(origin);
+
+  if (allowed) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+    res.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS");
+    res.setHeader("Access-Control-Allow-Headers", "Authorization, Content-Type");
+    res.setHeader("Access-Control-Allow-Credentials", "true");
+    res.setHeader("Vary", "Origin");
+  }
+}
+
 export default async function handler(req, res) {
+  // Apply CORS before anything else so the preflight OPTIONS request succeeds.
+  setCorsHeaders(req, res);
+  if (req.method === "OPTIONS") {
+    return res.status(204).end();
+  }
+
   if (req.method !== "GET") {
-    res.setHeader("Allow", ["GET"]);
+    res.setHeader("Allow", ["GET", "OPTIONS"]);
     return res.status(405).json({ error: "Method Not Allowed" });
   }
 
