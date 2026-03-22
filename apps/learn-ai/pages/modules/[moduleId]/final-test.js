@@ -1,5 +1,24 @@
 "use client";
 
+// ---------------------------------------------------------------------------
+// Static generation — pre-render all 30 module final-test pages at build time.
+// Without getStaticPaths a dynamic route like /modules/[moduleId]/final-test
+// may return a 404 in some Next.js 13+ configurations.  Explicitly generating
+// all 30 paths guarantees the pages are always available — including for admins.
+// ---------------------------------------------------------------------------
+
+export async function getStaticPaths() {
+  const paths = [];
+  for (let moduleId = 1; moduleId <= 30; moduleId++) {
+    paths.push({ params: { moduleId: String(moduleId) } });
+  }
+  return { paths, fallback: false };
+}
+
+export async function getStaticProps() {
+  return { props: {} };
+}
+
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
