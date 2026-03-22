@@ -397,10 +397,7 @@ export function useUserAccess(appId, options = {}) {
         // and local-storage caches.
         if (_isAdminFromSessionUser(_supabaseSession?.user)) {
           if (!cancelled) {
-            console.info(
-              "[useUserAccess] Hard admin override via JWT metadata for",
-              appId
-            );
+            console.info("[useUserAccess] Hard admin override via JWT metadata for", appId);
             setAccessLevel(ACCESS_LEVEL.ADMIN);
             try {
               sessionStorage.setItem(_UA_ADMIN_SESSION_KEY, "1");
@@ -488,10 +485,9 @@ export function useUserAccess(appId, options = {}) {
         //    Reuses the _supabaseSession hoisted above — no second import needed.
         try {
           if (_supabaseSession?.access_token) {
-            const localRes = await fetch(
-              `/api/access/check?appId=${encodeURIComponent(appId)}`,
-              { headers: { Authorization: `Bearer ${_supabaseSession.access_token}` } }
-            );
+            const localRes = await fetch(`/api/access/check?appId=${encodeURIComponent(appId)}`, {
+              headers: { Authorization: `Bearer ${_supabaseSession.access_token}` },
+            });
             if (localRes.ok) {
               const localData = await localRes.json();
               if (!cancelled) {
@@ -517,11 +513,7 @@ export function useUserAccess(appId, options = {}) {
             }
           }
         } catch (localErr) {
-          console.warn(
-            "[useUserAccess] Local /api/access/check also failed for",
-            appId,
-            localErr
-          );
+          console.warn("[useUserAccess] Local /api/access/check also failed for", appId, localErr);
         }
 
         // 3. Last resort: deny access so the UI remains honest.

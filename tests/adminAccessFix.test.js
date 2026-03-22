@@ -117,12 +117,9 @@ describe("Fix 2 — CORS headers on /api/entitlement", () => {
     expect(simulateCors(IISKILLS_ORIGIN)).toBe(IISKILLS_ORIGIN);
   });
 
-  it.each(SUB_APP_ORIGINS)(
-    "allows requests from sub-app origin %s",
-    (origin) => {
-      expect(simulateCors(origin)).toBe(origin);
-    }
-  );
+  it.each(SUB_APP_ORIGINS)("allows requests from sub-app origin %s", (origin) => {
+    expect(simulateCors(origin)).toBe(origin);
+  });
 
   it("allows localhost in development", () => {
     expect(simulateCors("http://localhost:3000")).toBe("http://localhost:3000");
@@ -262,11 +259,14 @@ describe("Fix 3 — useUserAccess resilient error-handling (priority fallback lo
       sessionStorageAdmin: false,
       localCheckResponse: { isAdmin: true, hasAccess: true },
     },
-  ])("admin never receives NONE on API failure: $desc", ({ sessionStorageAdmin, localCheckResponse }) => {
-    const result = simulateFallback({ sessionStorageAdmin, localCheckResponse });
-    expect(result.accessLevel).not.toBe("none");
-    expect(result.accessLevel).toBe("admin");
-  });
+  ])(
+    "admin never receives NONE on API failure: $desc",
+    ({ sessionStorageAdmin, localCheckResponse }) => {
+      const result = simulateFallback({ sessionStorageAdmin, localCheckResponse });
+      expect(result.accessLevel).not.toBe("none");
+      expect(result.accessLevel).toBe("admin");
+    }
+  );
 
   it("non-admin without valid fallback receives NONE (paywall — correct behaviour)", () => {
     const result = simulateFallback({
@@ -281,10 +281,7 @@ describe("Fix 3 — useUserAccess resilient error-handling (priority fallback lo
   it("useUserAccess.js contains the local /api/access/check fallback", () => {
     const fs = require("fs");
     const src = fs.readFileSync(
-      require("path").join(
-        __dirname,
-        "../packages/shared-utils/lib/hooks/useUserAccess.js"
-      ),
+      require("path").join(__dirname, "../packages/shared-utils/lib/hooks/useUserAccess.js"),
       "utf8"
     );
     expect(src).toContain("/api/access/check");
@@ -312,10 +309,7 @@ describe("Fix 4 — final-test pages export getStaticPaths covering modules 1–
   function extractStaticPaths(appName) {
     const fs = require("fs");
     const src = fs.readFileSync(
-      path.join(
-        __dirname,
-        `../apps/${appName}/pages/modules/[moduleId]/final-test.js`
-      ),
+      path.join(__dirname, `../apps/${appName}/pages/modules/[moduleId]/final-test.js`),
       "utf8"
     );
     return src;
@@ -471,44 +465,38 @@ describe("End-to-end: admin paywall bypass — all paid apps, all lessons", () =
   }
 
   // Admin with JWT flag — must never see paywall
-  it.each(PAID_APPS)(
-    "%s: JWT-admin never sees paywall on any module/lesson combination",
-    (app) => {
-      for (const m of MODULES) {
-        for (const l of LESSONS) {
-          const lessonIsFree = l === 1; // first lesson of each module is free
-          const result = wouldShowPaywall({
-            isAdmin: true,
-            entitlementResult: null,
-            moduleId: String(m),
-            lessonId: String(l),
-            lessonIsFree,
-          });
-          expect(result).toBe(false);
-        }
+  it.each(PAID_APPS)("%s: JWT-admin never sees paywall on any module/lesson combination", (app) => {
+    for (const m of MODULES) {
+      for (const l of LESSONS) {
+        const lessonIsFree = l === 1; // first lesson of each module is free
+        const result = wouldShowPaywall({
+          isAdmin: true,
+          entitlementResult: null,
+          moduleId: String(m),
+          lessonId: String(l),
+          lessonIsFree,
+        });
+        expect(result).toBe(false);
       }
     }
-  );
+  });
 
   // Admin confirmed via entitlement API
-  it.each(PAID_APPS)(
-    "%s: API-admin (is_admin in profiles) never sees paywall",
-    (app) => {
-      for (const m of MODULES) {
-        for (const l of LESSONS) {
-          const lessonIsFree = l === 1;
-          const result = wouldShowPaywall({
-            isAdmin: false,
-            entitlementResult: { entitled: true, adminAccess: true },
-            moduleId: String(m),
-            lessonId: String(l),
-            lessonIsFree,
-          });
-          expect(result).toBe(false);
-        }
+  it.each(PAID_APPS)("%s: API-admin (is_admin in profiles) never sees paywall", (app) => {
+    for (const m of MODULES) {
+      for (const l of LESSONS) {
+        const lessonIsFree = l === 1;
+        const result = wouldShowPaywall({
+          isAdmin: false,
+          entitlementResult: { entitled: true, adminAccess: true },
+          moduleId: String(m),
+          lessonId: String(l),
+          lessonIsFree,
+        });
+        expect(result).toBe(false);
       }
     }
-  );
+  });
 
   // Admin with cached session — API unreachable
   it.each(PAID_APPS)(
@@ -532,26 +520,23 @@ describe("End-to-end: admin paywall bypass — all paid apps, all lessons", () =
   );
 
   // Admin confirmed by local /api/access/check — API unreachable
-  it.each(PAID_APPS)(
-    "%s: local-check admin never sees paywall even when main API fails",
-    (app) => {
-      for (const m of MODULES) {
-        for (const l of LESSONS) {
-          const lessonIsFree = l === 1;
-          const result = wouldShowPaywall({
-            isAdmin: false,
-            entitlementResult: null, // API failed
-            sessionStorageAdmin: false,
-            localCheckAdmin: true,
-            moduleId: String(m),
-            lessonId: String(l),
-            lessonIsFree,
-          });
-          expect(result).toBe(false);
-        }
+  it.each(PAID_APPS)("%s: local-check admin never sees paywall even when main API fails", (app) => {
+    for (const m of MODULES) {
+      for (const l of LESSONS) {
+        const lessonIsFree = l === 1;
+        const result = wouldShowPaywall({
+          isAdmin: false,
+          entitlementResult: null, // API failed
+          sessionStorageAdmin: false,
+          localCheckAdmin: true,
+          moduleId: String(m),
+          lessonId: String(l),
+          lessonIsFree,
+        });
+        expect(result).toBe(false);
       }
     }
-  );
+  });
 
   // Non-admin without entitlement MUST see paywall on paid lessons
   it("non-admin without entitlement sees paywall on non-sample paid lessons (correct)", () => {
