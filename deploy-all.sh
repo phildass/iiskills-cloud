@@ -133,6 +133,25 @@ done
 
 pm2 save
 
+# ---------------------------------------------------------------------------
+# Nginx Hardening — inject proxy buffer directives to prevent Protocol Errors
+# on large Admin response headers (only patched if not already present).
+# ---------------------------------------------------------------------------
+NGINX_CONF="/etc/nginx/nginx.conf"
+if [ -f "$NGINX_CONF" ]; then
+  if ! grep -q "proxy_busy_buffers_size" "$NGINX_CONF"; then
+    echo "==> Hardening Nginx: injecting proxy buffer settings into $NGINX_CONF"
+    # Insert the three directives immediately after the opening 'http {' line
+    # Pattern handles optional leading whitespace and spacing around the brace
+    sed -i '/^\s*http\s*{/a\\tproxy_buffer_size 128k;\n\tproxy_buffers 4 256k;\n\tproxy_busy_buffers_size 256k;' "$NGINX_CONF"
+    echo "  ✓ proxy_buffer_size 128k"
+    echo "  ✓ proxy_buffers 4 256k"
+    echo "  ✓ proxy_busy_buffers_size 256k"
+  else
+    echo "==> Nginx proxy buffer settings already present — skipping patch."
+  fi
+fi
+
 echo "==> Reloading Nginx"
 nginx -s reload 2>/dev/null || systemctl reload nginx 2>/dev/null || true
 
@@ -167,7 +186,7 @@ done < <(node -e "
     const mem = Math.round((p.monit && p.monit.memory || 0) / 1024 / 1024);
     console.log(p.name + '\t' + mem);
   });
-" PM2_JSON="$PM2_JSON" 2>&1)
+" PM2_JSON="$PM2_JSON" 2>/dev/null)
 
 echo ""
 echo "================================================================"
