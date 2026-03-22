@@ -294,14 +294,12 @@ describe("start-payment: admin redirect destination", () => {
   });
 
   test("admin redirect never goes to /payments/iiskills or aienter.in", () => {
-    ["learn-ai", "learn-developer", "learn-management", "learn-pr", undefined].forEach(
-      (course) => {
-        const redirect = buildAdminRedirect(course);
-        expect(redirect).not.toContain("/payments/iiskills");
-        expect(redirect).not.toContain("aienter.in");
-        expect(redirect).not.toContain("/start-payment");
-      }
-    );
+    ["learn-ai", "learn-developer", "learn-management", "learn-pr", undefined].forEach((course) => {
+      const redirect = buildAdminRedirect(course);
+      expect(redirect).not.toContain("/payments/iiskills");
+      expect(redirect).not.toContain("aienter.in");
+      expect(redirect).not.toContain("/start-payment");
+    });
   });
 
   test("admin bypass logging includes user email and course", () => {

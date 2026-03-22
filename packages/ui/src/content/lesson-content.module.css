@@ -149,7 +149,9 @@
   text-decoration: underline;
   text-underline-offset: 3px;
   text-decoration-color: #bfdbfe;
-  transition: color 0.15s, text-decoration-color 0.15s;
+  transition:
+    color 0.15s,
+    text-decoration-color 0.15s;
 }
 .container a:hover {
   color: #1d4ed8;
