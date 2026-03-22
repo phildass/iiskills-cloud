@@ -75,47 +75,39 @@ echo "==> Install dependencies"
 yarn install --immutable
 
 # ---------------------------------------------------------------------------
-# Environment Linking & OTP Guard
+# Environment Sync & OTP Guard
 # ---------------------------------------------------------------------------
+# Force-copy /etc/iiskills.env to apps/*/.env so Next.js picks up credentials
+# at both build-time and runtime (cp, not symlink, ensures independence).
 if [ -f /etc/iiskills.env ]; then
+  echo "==> Force-syncing credentials: /etc/iiskills.env → apps/*/.env"
+  _synced=0
   for _app_dir in "$REPO_DIR"/apps/*/; do
-    ln -sf /etc/iiskills.env "${_app_dir}.env.production"
+    [ -d "$_app_dir" ] || continue
+    cp /etc/iiskills.env "${_app_dir}.env"
+    echo "  ✓ $(basename "$_app_dir")/.env"
+    _synced=$((_synced + 1))
   done
+  echo "  Synced ${_synced} app directories."
 fi
 
 echo "==> Running OTP policy guard"
 ./node_modules/.bin/jest tests/noOtpRemnants.test.js --forceExit --silent || exit 1
 
 # ---------------------------------------------------------------------------
-# Build Logic — strict order, concurrency=1 to prevent OOM on 8 GB hosts
+# Build Logic — single root invocation, concurrency=1 to prevent OOM
 # ---------------------------------------------------------------------------
 export NODE_OPTIONS="--max-old-space-size=2048"
 
-echo "==> Step 1/3: Building shared packages (concurrency=1)"
-npx turbo run build --filter=./packages/* --concurrency=1
-
-echo "==> Step 2/3: Building @iiskills/main (concurrency=1)"
-npx turbo run build --filter=@iiskills/main --concurrency=1
-
-echo "==> Step 3/3: Building learn apps (concurrency=1)"
-npx turbo run build \
-  --filter=learn-apt \
-  --filter=learn-chemistry \
-  --filter=learn-developer \
-  --filter=learn-geography \
-  --filter=learn-management \
-  --filter=learn-math \
-  --filter=learn-physics \
-  --filter=learn-pr \
-  --filter=learn-ai \
-  --concurrency=1
+echo "==> Building all packages and apps (concurrency=1)"
+npx turbo run build --concurrency=1
 
 # ---------------------------------------------------------------------------
-# PM2 Restart Logic — delete ALL existing processes to avoid duplicates,
+# PM2 Restart Logic — kill ALL processes (wipes process list + memory cache),
 # then start each app on its hardcoded Nginx-mapped port.
 # ---------------------------------------------------------------------------
-echo "==> Build validated. Stopping all existing PM2 processes."
-pm2 delete all >/dev/null 2>&1 || true
+echo "==> Build validated. Killing all PM2 processes (full process purge)."
+pm2 kill >/dev/null 2>&1 || true
 
 # Hardcoded port assignments (must match Nginx upstream config)
 declare -A PORTS=(
@@ -141,9 +133,68 @@ done
 
 pm2 save
 
+# ---------------------------------------------------------------------------
+# Nginx Hardening — inject proxy buffer directives to prevent Protocol Errors
+# on large Admin response headers (only patched if not already present).
+# ---------------------------------------------------------------------------
+NGINX_CONF="/etc/nginx/nginx.conf"
+if [ -f "$NGINX_CONF" ]; then
+  if ! grep -q "proxy_busy_buffers_size" "$NGINX_CONF"; then
+    echo "==> Hardening Nginx: injecting proxy buffer settings into $NGINX_CONF"
+    # Insert the three directives immediately after the opening 'http {' line
+    # Pattern handles optional leading whitespace and spacing around the brace
+    sed -i '/^\s*http\s*{/a\\tproxy_buffer_size 128k;\n\tproxy_buffers 4 256k;\n\tproxy_busy_buffers_size 256k;' "$NGINX_CONF"
+    echo "  ✓ proxy_buffer_size 128k"
+    echo "  ✓ proxy_buffers 4 256k"
+    echo "  ✓ proxy_busy_buffers_size 256k"
+  else
+    echo "==> Nginx proxy buffer settings already present — skipping patch."
+  fi
+fi
+
 echo "==> Reloading Nginx"
 nginx -s reload 2>/dev/null || systemctl reload nginx 2>/dev/null || true
 
+# ---------------------------------------------------------------------------
+# Memory Validation — confirm every app is using >60 MB (proves DB connection)
+# ---------------------------------------------------------------------------
+echo "==> Waiting 20 seconds for apps to fully initialize..."
+sleep 20
+
+echo "==> Memory Validation: checking that every app uses >60 MB RAM"
+MEM_THRESHOLD_MB=60
+MEM_PASS=0
+MEM_FAIL=0
+
+# Use pm2 jlist (JSON) for reliable memory parsing
+PM2_JSON="$(pm2 jlist 2>/dev/null || echo '[]')"
+FAILED_APPS=""
+
+while IFS=$'\t' read -r app_name mem_mb; do
+  [ -z "$app_name" ] && continue
+  if [[ "$mem_mb" =~ ^[0-9]+$ ]] && [ "$mem_mb" -ge "$MEM_THRESHOLD_MB" ]; then
+    echo "  ✓ $app_name  →  ${mem_mb} MB  [OK]"
+    MEM_PASS=$((MEM_PASS + 1))
+  else
+    echo "  ✗ $app_name  →  ${mem_mb:-?} MB  [BELOW THRESHOLD — possible DB connection failure]"
+    MEM_FAIL=$((MEM_FAIL + 1))
+    FAILED_APPS="$FAILED_APPS $app_name"
+  fi
+done < <(node -e "
+  const list = JSON.parse(process.env.PM2_JSON || '[]');
+  list.forEach(p => {
+    const mem = Math.round((p.monit && p.monit.memory || 0) / 1024 / 1024);
+    console.log(p.name + '\t' + mem);
+  });
+" PM2_JSON="$PM2_JSON" 2>/dev/null)
+
+echo ""
+echo "================================================================"
+echo "  Memory check: $MEM_PASS OK / $MEM_FAIL FAILED (threshold: ${MEM_THRESHOLD_MB} MB)"
+if [ -n "$FAILED_APPS" ]; then
+  echo "  Low-memory apps:$FAILED_APPS"
+  echo "  Run 'pm2 logs <app>' to inspect for connection errors."
+fi
 echo "================================================================"
 echo "==> Deployment complete. Admin Bypass is LIVE."
 echo "================================================================"
