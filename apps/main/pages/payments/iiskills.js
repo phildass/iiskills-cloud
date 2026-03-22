@@ -2,14 +2,42 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import Link from "next/link";
-import { getPaymentReturnToUrl } from "@lib/appRegistry";
+import { getPaymentReturnToUrl, getAppUrl } from "@lib/appRegistry";
 
 import { isValidIndianPhone } from "@lib/phoneValidation";
 
 const AIENTER_PAYMENT_URL = "https://aienter.in/payments/iiskills";
 
+// Product-owner emails that always receive unconditional admin access.
+// Keep in sync with PRODUCT_OWNER_EMAILS in packages/access-control/accessControl.js.
+const ADMIN_EMAILS = ["philipda@gmail.com", "pda.kenya@gmail.com"];
+
+/**
+ * Returns true when the Supabase session user has admin status:
+ *   • app_metadata.is_admin === true  (set via Admin API promotion)
+ *   • user_metadata.is_admin === true (legacy JWT location)
+ *   • email is in ADMIN_EMAILS        (product-owner unconditional bypass)
+ *
+ * @param {{ app_metadata?: object, user_metadata?: object, email?: string } | null} user
+ * @returns {boolean}
+ */
+function isAdminUser(user) {
+  if (!user) return false;
+  return (
+    user.app_metadata?.is_admin === true ||
+    user.user_metadata?.is_admin === true ||
+    (typeof user.email === "string" && ADMIN_EMAILS.includes(user.email))
+  );
+}
+
 /**
  * /payments/iiskills — Redirect to centralized payment portal (Option A)
+ *
+ * Admin bypass:
+ *   If the session user has is_admin=true (or is a product-owner email), the
+ *   payment flow is skipped entirely.  No purchase record is created, no JWT
+ *   is generated, and no network call is made to aienter.in.  The admin is
+ *   redirected directly to the course app with a clear console log message.
  *
  * Flow:
  * 1. User must be authenticated on iiskills.cloud (Supabase session).
@@ -36,6 +64,7 @@ export default function IiskillsCheckout() {
   /**
    * step:
    *   'loading'      — initial auth + profile check in progress
+   *   'admin'        — admin user detected, redirecting to course (no payment needed)
    *   'registration' — profile incomplete, show inline form
    *   'paying'       — profile complete, token being generated / redirect pending
    *   'error'        — unrecoverable error
@@ -97,7 +126,32 @@ export default function IiskillsCheckout() {
 
       setSession(currentSession);
 
-      // ── 2. Check profile completeness ─────────────────────────────────────
+      // ── 2. Admin bypass — skip payment entirely ────────────────────────────
+      // If the session user has admin status, they already have unconditional
+      // access to all courses.  Do NOT create a purchase record, do NOT generate
+      // a payment token, and do NOT redirect to the payment gateway.
+      // Redirect to the course app (or main dashboard) directly.
+      if (isAdminUser(currentSession.user)) {
+        console.log(
+          `[payments/iiskills] Admin user detected (${currentSession.user.email}). ` +
+            `Bypassing payment for course=${course || "none"}.`
+        );
+        setStep("admin");
+        const adminRedirectUrl = course ? getAppUrl(course, "/curriculum") : "/dashboard";
+        // Brief delay so the admin message is visible before navigating.
+        setTimeout(() => {
+          if (!cancelled) {
+            if (adminRedirectUrl && adminRedirectUrl.startsWith("http")) {
+              window.location.href = adminRedirectUrl;
+            } else {
+              router.replace(adminRedirectUrl || "/dashboard");
+            }
+          }
+        }, 1200);
+        return;
+      }
+
+      // ── 3. Check profile completeness ─────────────────────────────────────
       let profileComplete = false;
       try {
         const { supabase } = await import("../../lib/supabaseClient");
@@ -370,7 +424,9 @@ export default function IiskillsCheckout() {
   return (
     <>
       <Head>
-        <title>Redirecting to Payment — iiskills.cloud</title>
+        <title>
+          {step === "admin" ? "Admin Access — iiskills.cloud" : "Redirecting to Payment — iiskills.cloud"}
+        </title>
       </Head>
       <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 flex items-center justify-center p-4">
         <div className="text-center">
@@ -383,6 +439,15 @@ export default function IiskillsCheckout() {
               >
                 Try again
               </Link>
+            </div>
+          ) : step === "admin" ? (
+            <div className="bg-white rounded-2xl shadow-lg max-w-sm w-full p-8">
+              <div className="text-4xl mb-4">🛡️</div>
+              <h2 className="text-xl font-bold text-gray-900 mb-2">Admin Access</h2>
+              <p className="text-gray-600 text-sm mb-4">
+                You have admin access. No payment is needed — redirecting you to the course…
+              </p>
+              <div className="inline-block w-6 h-6 border-2 border-blue-600 border-t-transparent rounded-full animate-spin" />
             </div>
           ) : (
             <>

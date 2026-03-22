@@ -47,6 +47,27 @@ export default async function handler(req, res) {
       return res.status(401).json({ error: "Invalid or expired session" });
     }
 
+    // ── 1a. Admin bypass guard (defense-in-depth) ──────────────────────────────
+    // Admins have unconditional access to all courses and must never have
+    // purchase records created on their behalf.  The frontend already redirects
+    // admins away from the payment flow, but this server-side check ensures
+    // correctness even if the client-side guard is bypassed.
+    const userIsAdmin =
+      user.app_metadata?.is_admin === true ||
+      user.user_metadata?.is_admin === true ||
+      user.email === "philipda@gmail.com" ||
+      user.email === "pda.kenya@gmail.com";
+
+    if (userIsAdmin) {
+      console.log(
+        `[create-purchase] Admin user (${user.email}) attempted to create a purchase — bypassed.`
+      );
+      return res.status(403).json({
+        error: "Admins have free access to all courses. No purchase needed.",
+        code: "admin_access",
+      });
+    }
+
     const { courseSlug, amountPaise: amountPaiseRaw, currency = "INR" } = req.body || {};
     if (!courseSlug) {
       return res.status(400).json({ error: "courseSlug is required" });

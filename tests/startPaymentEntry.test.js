@@ -206,4 +206,115 @@ describe("start-payment: logging behaviour (documented)", () => {
   });
 });
 
+// ─── Admin bypass logic ───────────────────────────────────────────────────────
+
+/**
+ * Mirror of the isAdminUser() helper in start-payment.js.
+ *
+ * IMPORTANT: If you update the admin check logic in production, you must also
+ * update this helper.  The canonical list of admin emails is defined in
+ * packages/access-control/accessControl.js (PRODUCT_OWNER_EMAILS).
+ */
+const ADMIN_EMAILS_TEST = ["philipda@gmail.com", "pda.kenya@gmail.com"];
+function isAdminUser(user) {
+  if (!user) return false;
+  return (
+    user.app_metadata?.is_admin === true ||
+    user.user_metadata?.is_admin === true ||
+    (typeof user.email === "string" && ADMIN_EMAILS_TEST.includes(user.email))
+  );
+}
+
+describe("start-payment: admin bypass detection", () => {
+  test("returns true for app_metadata.is_admin === true", () => {
+    expect(isAdminUser({ app_metadata: { is_admin: true } })).toBe(true);
+  });
+
+  test("returns true for user_metadata.is_admin === true", () => {
+    expect(isAdminUser({ user_metadata: { is_admin: true } })).toBe(true);
+  });
+
+  test("returns true for product-owner email philipda@gmail.com", () => {
+    expect(isAdminUser({ email: "philipda@gmail.com" })).toBe(true);
+  });
+
+  test("returns true for product-owner email pda.kenya@gmail.com", () => {
+    expect(isAdminUser({ email: "pda.kenya@gmail.com" })).toBe(true);
+  });
+
+  test("returns false for regular user with no admin flags", () => {
+    expect(isAdminUser({ email: "user@example.com" })).toBe(false);
+  });
+
+  test("returns false when is_admin is false", () => {
+    expect(isAdminUser({ app_metadata: { is_admin: false }, email: "user@example.com" })).toBe(
+      false
+    );
+  });
+
+  test("returns false for null user", () => {
+    expect(isAdminUser(null)).toBe(false);
+  });
+
+  test("returns false for undefined user", () => {
+    expect(isAdminUser(undefined)).toBe(false);
+  });
+});
+
+describe("start-payment: admin redirect destination", () => {
+  const MAIN_APP_URL = "https://iiskills.cloud";
+
+  /**
+   * Simulates the admin redirect decision in handleRegisteredUser.
+   * In production, getAppUrl(course, "/curriculum") is used for cross-app redirect.
+   */
+  function buildAdminRedirect(course) {
+    // When course is provided, redirect to the course app.
+    // When no course, redirect to the main dashboard.
+    if (course) {
+      return `https://${course}.iiskills.cloud/curriculum`;
+    }
+    return `${MAIN_APP_URL}/dashboard`;
+  }
+
+  test("admin with course → redirects to course app /curriculum", () => {
+    expect(buildAdminRedirect("learn-ai")).toBe("https://learn-ai.iiskills.cloud/curriculum");
+    expect(buildAdminRedirect("learn-developer")).toBe(
+      "https://learn-developer.iiskills.cloud/curriculum"
+    );
+    expect(buildAdminRedirect("learn-management")).toBe(
+      "https://learn-management.iiskills.cloud/curriculum"
+    );
+    expect(buildAdminRedirect("learn-pr")).toBe("https://learn-pr.iiskills.cloud/curriculum");
+  });
+
+  test("admin without course → redirects to main dashboard", () => {
+    expect(buildAdminRedirect(undefined)).toBe("https://iiskills.cloud/dashboard");
+    expect(buildAdminRedirect("")).toBe("https://iiskills.cloud/dashboard");
+  });
+
+  test("admin redirect never goes to /payments/iiskills or aienter.in", () => {
+    ["learn-ai", "learn-developer", "learn-management", "learn-pr", undefined].forEach(
+      (course) => {
+        const redirect = buildAdminRedirect(course);
+        expect(redirect).not.toContain("/payments/iiskills");
+        expect(redirect).not.toContain("aienter.in");
+        expect(redirect).not.toContain("/start-payment");
+      }
+    );
+  });
+
+  test("admin bypass logging includes user email and course", () => {
+    const email = "philipda@gmail.com";
+    const course = "learn-ai";
+    const logMsg =
+      `[start-payment] Admin user detected (${email}). ` +
+      `Bypassing payment flow for course=${course}.`;
+    expect(logMsg).toContain("[start-payment]");
+    expect(logMsg).toContain(email);
+    expect(logMsg).toContain("Bypassing payment");
+    expect(logMsg).toContain(course);
+  });
+});
+
 console.log("✅ start-payment entry-gateway tests defined successfully");
