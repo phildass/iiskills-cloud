@@ -48,6 +48,20 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
+      - name: Create CI environment stub
+        run: |
+          # Apps use .env.production symlinks → /etc/iiskills.env (set up by deploy script on server).
+          # In CI that target doesn't exist, causing Next.js to throw ENOENT on stat().
+          # Create a minimal stub so the symlinks resolve during the CI build.
+          printf 'NEXT_PUBLIC_SUPABASE_URL=%s\nNEXT_PUBLIC_SUPABASE_ANON_KEY=%s\nNEXT_PUBLIC_DISABLE_AUTH=true\n' \
+            "${NEXT_PUBLIC_SUPABASE_URL:-}" "${NEXT_PUBLIC_SUPABASE_ANON_KEY:-}" > /tmp/iiskills-ci.env
+          chmod 600 /tmp/iiskills-ci.env
+          sudo cp /tmp/iiskills-ci.env /etc/iiskills.env
+          rm -f /tmp/iiskills-ci.env
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+
       - name: Build ${{ matrix.app }}
         run: |
           cd ${{ matrix.app }}
