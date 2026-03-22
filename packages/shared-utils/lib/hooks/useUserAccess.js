@@ -44,6 +44,7 @@
 import { useState, useEffect } from "react";
 import { isFreeAccessEnabled } from "../freeAccess";
 import { hasBypassCookieFromString } from "../../../access-control/src/index.js";
+import { PRODUCT_OWNER_EMAILS } from "../../../access-control/accessControl.js";
 
 // ---------------------------------------------------------------------------
 // Storage key for cross-navigation admin access cache
@@ -196,8 +197,10 @@ export function canAccessCourse(courseId, { accessLevel, appId }) {
 // ---------------------------------------------------------------------------
 
 /**
- * Returns `true` when the Supabase session user has `is_admin: true` on either
- * `app_metadata` or `user_metadata`.
+ * Returns `true` when the Supabase session user has admin status via any of:
+ *   1. `app_metadata.is_admin === true` (server-set via Admin API promotion)
+ *   2. `user_metadata.is_admin === true` (legacy / alternative JWT location)
+ *   3. `email` is in `PRODUCT_OWNER_EMAILS` (product-owner accounts always bypass)
  *
  * This is the client-side Hard Admin Override check used by `useUserAccess`.
  * When it returns `true` the hook grants `ACCESS_LEVEL.ADMIN` immediately
@@ -205,11 +208,15 @@ export function canAccessCourse(courseId, { accessLevel, appId }) {
  *
  * Exported for unit testing.  Not intended for direct use outside this module.
  *
- * @param {{ app_metadata?: object, user_metadata?: object } | null | undefined} user
+ * @param {{ app_metadata?: object, user_metadata?: object, email?: string } | null | undefined} user
  * @returns {boolean}
  */
 export function _isAdminFromSessionUser(user) {
-  return user?.app_metadata?.is_admin === true || user?.user_metadata?.is_admin === true;
+  return (
+    user?.app_metadata?.is_admin === true ||
+    user?.user_metadata?.is_admin === true ||
+    (typeof user?.email === "string" && PRODUCT_OWNER_EMAILS.includes(user.email))
+  );
 }
 
 // ---------------------------------------------------------------------------
