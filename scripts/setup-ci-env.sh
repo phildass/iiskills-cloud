@@ -38,5 +38,29 @@ for env_file in .env.local apps/*/.env.local; do
   fi
 done
 
+# Fix broken .env.production symlinks
+#
+# On production servers deploy-all.sh creates:
+#   apps/*/.env.production -> /etc/iiskills.env
+# That target file does not exist in CI, so Next.js throws ENOENT on stat().
+# Replace any broken symlink (or missing file) with a dummy plain file so
+# the build succeeds.  Real credentials come from .env.local above.
+echo ""
+echo "🔧 Checking .env.production files..."
+for app_dir in apps/*/; do
+  env_prod="${app_dir}.env.production"
+  # -L: is a symlink   ! -e: target doesn't exist (broken symlink)
+  if [ -L "$env_prod" ] && [ ! -e "$env_prod" ]; then
+    rm -f "$env_prod"
+    printf 'NEXT_PUBLIC_SUPABASE_URL=%s\nNEXT_PUBLIC_SUPABASE_ANON_KEY=%s\nNEXT_PUBLIC_DISABLE_AUTH=true\n' \
+      "$DUMMY_SUPABASE_URL" "$DUMMY_SUPABASE_KEY" > "$env_prod"
+    echo "✓ Replaced broken symlink with CI stub: $env_prod"
+  elif [ ! -f "$env_prod" ] && [ ! -L "$env_prod" ]; then
+    printf 'NEXT_PUBLIC_SUPABASE_URL=%s\nNEXT_PUBLIC_SUPABASE_ANON_KEY=%s\nNEXT_PUBLIC_DISABLE_AUTH=true\n' \
+      "$DUMMY_SUPABASE_URL" "$DUMMY_SUPABASE_KEY" > "$env_prod"
+    echo "✓ Created CI stub: $env_prod"
+  fi
+done
+
 echo ""
 echo "✅ CI environment files updated successfully!"
