@@ -41,14 +41,6 @@ REPO_DIR="/root/iiskills-cloud-apps"
 REPO_URL="https://github.com/phildass/iiskills-cloud.git"
 BRANCH="main"
 
-IISKILLS_PROCS=(
-  "iiskills-main" "iiskills-main-copy" "iiskills-learn-apt"
-  "iiskills-learn-chemistry" "iiskills-learn-developer"
-  "iiskills-learn-geography" "iiskills-learn-management"
-  "iiskills-learn-math" "iiskills-learn-physics"
-  "iiskills-learn-pr" "iiskills-learn-ai"
-)
-
 echo "==> Enabling corepack and verifying tools"
 corepack enable || true
 for cmd in node yarn pm2 git; do
@@ -95,26 +87,48 @@ echo "==> Running OTP policy guard"
 ./node_modules/.bin/jest tests/noOtpRemnants.test.js --forceExit --silent || exit 1
 
 # ---------------------------------------------------------------------------
-# Build Logic (Memory & Concurrency Clamped)
+# Build Logic — strict order, concurrency=1 to prevent OOM on 8 GB hosts
 # ---------------------------------------------------------------------------
-_turbo_concurrency="${IISKILLS_TURBO_CONCURRENCY:-2}"
-export NODE_OPTIONS="--max-old-space-size=2048" # Clamped to prevent OOM
-echo "==> Starting build with concurrency=$_turbo_concurrency"
-yarn turbo run build --concurrency="${_turbo_concurrency}"
+export NODE_OPTIONS="--max-old-space-size=2048"
+
+echo "==> Step 1/3: Building shared packages (concurrency=1)"
+npx turbo run build --filter=./packages/* --concurrency=1
+
+echo "==> Step 2/3: Building @iiskills/main (concurrency=1)"
+npx turbo run build --filter=@iiskills/main --concurrency=1
+
+echo "==> Step 3/3: Building learn apps (concurrency=1)"
+npx turbo run build \
+  --filter=learn-apt \
+  --filter=learn-chemistry \
+  --filter=learn-developer \
+  --filter=learn-geography \
+  --filter=learn-management \
+  --filter=learn-math \
+  --filter=learn-physics \
+  --filter=learn-pr \
+  --filter=learn-ai \
+  --concurrency=1
 
 # ---------------------------------------------------------------------------
-# PM2 Restart Logic
+# PM2 Restart Logic — delete ALL existing processes to avoid duplicates,
+# then start each app on its hardcoded Nginx-mapped port.
 # ---------------------------------------------------------------------------
-echo "==> Build validated. Restarting PM2 processes."
-for p in "${IISKILLS_PROCS[@]}"; do
-  pm2 delete "$p" >/dev/null 2>&1 || true
-done
+echo "==> Build validated. Stopping all existing PM2 processes."
+pm2 delete all >/dev/null 2>&1 || true
 
-# Start Apps
+# Hardcoded port assignments (must match Nginx upstream config)
 declare -A PORTS=(
-  ["main"]=3000 ["main-copy"]=3030 ["learn-apt"]=3002 ["learn-chemistry"]=3005 
-  ["learn-developer"]=3007 ["learn-geography"]=3011 ["learn-management"]=3016 
-  ["learn-math"]=3017 ["learn-physics"]=3020 ["learn-pr"]=3021 ["learn-ai"]=3024
+  ["main"]=3000
+  ["learn-apt"]=3002
+  ["learn-chemistry"]=3005
+  ["learn-developer"]=3007
+  ["learn-geography"]=3011
+  ["learn-management"]=3016
+  ["learn-math"]=3017
+  ["learn-physics"]=3020
+  ["learn-pr"]=3021
+  ["learn-ai"]=3024
 )
 
 for app in "${!PORTS[@]}"; do
@@ -126,6 +140,10 @@ for app in "${!PORTS[@]}"; do
 done
 
 pm2 save
+
+echo "==> Reloading Nginx"
+nginx -s reload 2>/dev/null || systemctl reload nginx 2>/dev/null || true
+
 echo "================================================================"
-echo "==> Deployment complete. Admin Bypass is now LIVE."
+echo "==> Deployment complete. Admin Bypass is LIVE."
 echo "================================================================"
