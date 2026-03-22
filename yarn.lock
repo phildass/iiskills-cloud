@@ -1595,24 +1595,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@iiskills/learn-physics@workspace:apps/learn-physics":
-  version: 0.0.0-use.local
-  resolution: "@iiskills/learn-physics@workspace:apps/learn-physics"
-  dependencies:
-    "@iiskills/content-loader": "npm:*"
-    "@iiskills/ui": "workspace:*"
-    "@supabase/ssr": "npm:^0.9.0"
-    "@supabase/supabase-js": "npm:^2.97.0"
-    autoprefixer: "npm:^10.4.14"
-    eslint: "npm:^9.39.2"
-    next: "npm:^16.1.1"
-    postcss: "npm:^8.4.31"
-    react: "npm:^19.2.3"
-    react-dom: "npm:^19.2.3"
-    tailwindcss: "npm:^3.4.18"
-  languageName: unknown
-  linkType: soft
-
 "@iiskills/main-copy@workspace:apps/main-copy":
   version: 0.0.0-use.local
   resolution: "@iiskills/main-copy@workspace:apps/main-copy"
@@ -7683,6 +7665,24 @@ __metadata:
     next: "npm:^16.1.1"
     postcss: "npm:^8.4.31"
     razorpay: "npm:^2.9.6"
+    react: "npm:^19.2.3"
+    react-dom: "npm:^19.2.3"
+    tailwindcss: "npm:^3.4.18"
+  languageName: unknown
+  linkType: soft
+
+"learn-physics@workspace:apps/learn-physics":
+  version: 0.0.0-use.local
+  resolution: "learn-physics@workspace:apps/learn-physics"
+  dependencies:
+    "@iiskills/content-loader": "npm:*"
+    "@iiskills/ui": "workspace:*"
+    "@supabase/ssr": "npm:^0.9.0"
+    "@supabase/supabase-js": "npm:^2.97.0"
+    autoprefixer: "npm:^10.4.14"
+    eslint: "npm:^9.39.2"
+    next: "npm:^16.1.1"
+    postcss: "npm:^8.4.31"
     react: "npm:^19.2.3"
     react-dom: "npm:^19.2.3"
     tailwindcss: "npm:^3.4.18"

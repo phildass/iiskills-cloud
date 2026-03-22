@@ -43,7 +43,7 @@
     "dev:learn-geography": "yarn workspace @iiskills/learn-geography dev",
     "dev:learn-management": "yarn workspace @iiskills/learn-management dev",
     "dev:learn-math": "yarn workspace @iiskills/learn-math dev",
-    "dev:learn-physics": "yarn workspace @iiskills/learn-physics dev",
+    "dev:learn-physics": "yarn workspace learn-physics dev",
     "dev:learn-pr": "yarn workspace @iiskills/learn-pr dev",
     "create-app": "node scripts/create-app.js",
     "generate-pm2-config": "node generate-ecosystem.js",
