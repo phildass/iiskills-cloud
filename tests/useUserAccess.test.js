@@ -295,7 +295,10 @@ describe("useUserAccess — Hard Admin Override (session user is_admin)", () => 
 
   it("returns true when both app_metadata and user_metadata have is_admin === true", () => {
     expect(
-      _isAdminFromSessionUser({ app_metadata: { is_admin: true }, user_metadata: { is_admin: true } })
+      _isAdminFromSessionUser({
+        app_metadata: { is_admin: true },
+        user_metadata: { is_admin: true },
+      })
     ).toBe(true);
   });
 
@@ -308,11 +311,18 @@ describe("useUserAccess — Hard Admin Override (session user is_admin)", () => 
   });
 
   it("returns false for a non-owner email with no is_admin flag", () => {
-    expect(_isAdminFromSessionUser({ email: "regular@example.com", app_metadata: {}, user_metadata: {} })).toBe(false);
+    expect(
+      _isAdminFromSessionUser({ email: "regular@example.com", app_metadata: {}, user_metadata: {} })
+    ).toBe(false);
   });
 
   it("returns false for a regular user with no is_admin field", () => {
-    expect(_isAdminFromSessionUser({ app_metadata: { provider: "email" }, user_metadata: { name: "User" } })).toBe(false);
+    expect(
+      _isAdminFromSessionUser({
+        app_metadata: { provider: "email" },
+        user_metadata: { name: "User" },
+      })
+    ).toBe(false);
   });
 
   it("returns false when is_admin is explicitly false", () => {
