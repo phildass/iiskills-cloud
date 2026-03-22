@@ -66,12 +66,17 @@ export default function TriLevelLandingPage({
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [entitled, setEntitled] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
   const [confirmLevel, setConfirmLevel] = useState(null); // level obj being confirmed
   const [certWarningChecked, setCertWarningChecked] = useState(false);
   const [savingIneligibility, setSavingIneligibility] = useState(false);
   const confirmRef = useRef(null);
 
   const isPaid = isFree === false || (!isFree && PAID_APP_IDS.includes(appId));
+
+  // Admins must never see the enrollment/paywall CTA, even when the entitlement
+  // check has not yet resolved or fails due to a transient 500 error.
+  const shouldShowModal = !entitled && !isFree && !isAdmin;
 
   useEffect(() => {
     const init = async () => {
@@ -96,6 +101,7 @@ export default function TriLevelLandingPage({
           if (res.ok) {
             const data = await res.json();
             setEntitled(!!data.hasAccess);
+            setIsAdmin(!!data.isAdmin);
           }
         } catch {
           // Silently fail - entitlement check is best-effort
@@ -232,7 +238,7 @@ export default function TriLevelLandingPage({
 
               {isPaid ? (
                 <>
-                  {!entitled && (
+                  {shouldShowModal && (
                     <a
                       href={`${process.env.NEXT_PUBLIC_MAIN_APP_URL || "https://iiskills.cloud"}/start-payment?course=${encodeURIComponent(appId)}`}
                       className="inline-block bg-yellow-400 text-yellow-900 px-8 py-4 rounded-lg font-bold shadow-lg hover:bg-yellow-300 transition-all duration-200 text-base sm:text-lg"
@@ -240,7 +246,7 @@ export default function TriLevelLandingPage({
                       💳 Pay Now
                     </a>
                   )}
-                  {entitled && (
+                  {!shouldShowModal && (
                     <Link
                       href="/curriculum"
                       className="inline-block bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-bold hover:bg-white hover:text-indigo-600 transition-all duration-200 text-base sm:text-lg"

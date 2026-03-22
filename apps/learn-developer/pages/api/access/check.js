@@ -3,7 +3,7 @@
  *
  * GET /api/access/check?appId=<appId>
  *
- * Returns { hasAccess: bool }
+ * Returns { hasAccess: bool, isAdmin?: bool }
  * Used by TriLevelLandingPage to determine whether to show the payment CTA.
  *
  * Requires: Authorization: Bearer <supabase_access_token>
@@ -79,7 +79,7 @@ export default async function handler(req, res) {
 
   // Admins have unrestricted access to all content
   if (profile?.is_admin === true) {
-    return res.status(200).json({ hasAccess: true });
+    return res.status(200).json({ hasAccess: true, isAdmin: true });
   }
 
   return res.status(200).json({ hasAccess: !!profile?.is_paid_user });
