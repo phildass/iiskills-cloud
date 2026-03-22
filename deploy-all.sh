@@ -99,6 +99,10 @@ echo "==> Running OTP policy guard"
 # ---------------------------------------------------------------------------
 export NODE_OPTIONS="--max-old-space-size=2048"
 
+# Clear Turbo disk cache before building to prevent 'fast but broken' stale-cache issues
+echo "==> Clearing Turbo build cache (ensures fresh build)"
+rm -rf node_modules/.cache/turbo 2>/dev/null || true
+
 echo "==> Building all packages and apps (concurrency=1)"
 npx turbo run build --concurrency=1
 
@@ -152,8 +156,11 @@ if [ -f "$NGINX_CONF" ]; then
   fi
 fi
 
-echo "==> Reloading Nginx"
-nginx -s reload 2>/dev/null || systemctl reload nginx 2>/dev/null || true
+echo "==> Restarting Nginx (full restart to activate proxy buffer settings)"
+if ! systemctl restart nginx 2>/dev/null; then
+  echo "  WARNING: systemctl restart failed; falling back to nginx reload (proxy buffer settings will still apply on config re-read)"
+  nginx -s reload 2>/dev/null || true
+fi
 
 # ---------------------------------------------------------------------------
 # Memory Validation — confirm every app is using >60 MB (proves DB connection)
@@ -194,6 +201,36 @@ echo "  Memory check: $MEM_PASS OK / $MEM_FAIL FAILED (threshold: ${MEM_THRESHOL
 if [ -n "$FAILED_APPS" ]; then
   echo "  Low-memory apps:$FAILED_APPS"
   echo "  Run 'pm2 logs <app>' to inspect for connection errors."
+fi
+echo "================================================================"
+echo ""
+echo "================================================================"
+echo "==> HTTP Hard Validation: checking every app returns HTTP 200"
+echo "================================================================"
+HTTP_PASS=0
+HTTP_FAIL=0
+FAILED_HTTP_APPS=""
+
+for app in "${!PORTS[@]}"; do
+  port="${PORTS[$app]}"
+  http_code="$(curl -s -o /dev/null -w "%{http_code}" --max-time 30 "http://localhost:${port}/" 2>/dev/null || echo "000")"
+  if [ "$http_code" = "200" ] || [ "$http_code" = "301" ] || [ "$http_code" = "302" ]; then
+    echo "  ✓ iiskills-$app  (port $port)  →  HTTP $http_code  [OK]"
+    HTTP_PASS=$((HTTP_PASS + 1))
+  else
+    echo "  ✗ iiskills-$app  (port $port)  →  HTTP ${http_code:-???}  [FAILED -- app may not be ready]"
+    HTTP_FAIL=$((HTTP_FAIL + 1))
+    FAILED_HTTP_APPS="$FAILED_HTTP_APPS iiskills-$app"
+  fi
+done
+
+echo ""
+echo "================================================================"
+echo "  HTTP check: $HTTP_PASS OK / $HTTP_FAIL FAILED"
+if [ -n "$FAILED_HTTP_APPS" ]; then
+  echo "  Non-200 apps:$FAILED_HTTP_APPS"
+  echo "  Run 'pm2 logs <app>' to inspect startup errors."
+  echo "  Deployment will continue — investigate failed apps manually."
 fi
 echo "================================================================"
 echo "==> Deployment complete. Admin Bypass is LIVE."
