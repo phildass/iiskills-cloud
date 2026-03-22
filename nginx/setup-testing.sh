@@ -39,11 +39,13 @@ mkdir -p /var/www/iiskills-testing
 cp "${SCRIPT_DIR}/static/testing.html" /var/www/iiskills-testing/testing.html
 chmod 644 /var/www/iiskills-testing/testing.html
 
-# ── 4. Deploy nginx auth snippet ──────────────────────────────────────────────
-echo "[4/7] Deploying nginx auth snippet..."
+# ── 4. Deploy nginx snippets ──────────────────────────────────────────────────
+echo "[4/7] Deploying nginx snippets..."
 mkdir -p /etc/nginx/snippets
 cp "${SCRIPT_DIR}/snippets/iiskills-basic-auth.conf" \
    /etc/nginx/snippets/iiskills-basic-auth.conf
+cp "${SCRIPT_DIR}/snippets/proxy-buffers.conf" \
+   /etc/nginx/snippets/proxy-buffers.conf
 
 # ── 5. Deploy vhost configs to sites-available ────────────────────────────────
 echo "[5/7] Deploying vhost configs to /etc/nginx/sites-available/..."
