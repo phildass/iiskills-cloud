@@ -156,12 +156,13 @@ export default function TriLevelLandingPage({
       window.location.href = "/modules/1/lesson/1";
       return;
     }
-    // Intermediate or Advanced: show certificate warning dialog (paid apps only)
-    if (isPaid) {
+    // Intermediate or Advanced: show certificate warning dialog (paid, non-admin only)
+    // Admins bypass all enrollment / certificate-eligibility gating entirely.
+    if (isPaid && !isAdmin) {
       setConfirmLevel(level);
       setCertWarningChecked(false);
     } else {
-      // Free apps: navigate directly without warning
+      // Free apps or admins: navigate directly without warning
       window.location.href = `/curriculum?level=${level.id}`;
     }
   };
