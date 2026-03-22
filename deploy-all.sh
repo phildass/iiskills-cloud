@@ -99,23 +99,31 @@ echo "==> Running OTP policy guard"
 # ---------------------------------------------------------------------------
 export NODE_OPTIONS="--max-old-space-size=2048"
 
-# Clear Turbo disk cache before building to prevent 'fast but broken' stale-cache issues
-echo "==> Clearing Turbo build cache (ensures fresh build)"
+# Clear ALL Turbo disk caches before building to prevent 'fast but broken' stale-cache issues
+echo "==> Clearing Turbo build caches (ensures fresh build)"
+rm -rf .turbo 2>/dev/null || true
 rm -rf node_modules/.cache/turbo 2>/dev/null || true
 
-echo "==> Building all packages and apps (concurrency=1)"
-npx turbo run build --concurrency=1
+echo "==> Building all packages and apps (--no-cache, concurrency=1)"
+npx turbo run build --no-cache --concurrency=1
 
 # ---------------------------------------------------------------------------
 # PM2 Restart Logic — kill ALL processes (wipes process list + memory cache),
-# then start each app on its hardcoded Nginx-mapped port.
+# then start all apps via ecosystem.config.js with updated env vars.
 # ---------------------------------------------------------------------------
 echo "==> Build validated. Killing all PM2 processes (full process purge)."
 pm2 kill >/dev/null 2>&1 || true
 
-# Hardcoded port assignments (must match Nginx upstream config)
+cd "$REPO_DIR"
+echo "==> Starting all apps via ecosystem.config.js --update-env"
+pm2 start ecosystem.config.js --update-env
+
+pm2 save
+
+# Port assignments for HTTP verification (must match ecosystem.config.js and Nginx upstream)
 declare -A PORTS=(
   ["main"]=3000
+  ["main-copy"]=3030
   ["learn-apt"]=3002
   ["learn-chemistry"]=3005
   ["learn-developer"]=3007
@@ -126,16 +134,6 @@ declare -A PORTS=(
   ["learn-pr"]=3021
   ["learn-ai"]=3024
 )
-
-for app in "${!PORTS[@]}"; do
-  port="${PORTS[$app]}"
-  dir="$REPO_DIR/apps/$app"
-  [ -d "$dir" ] || continue
-  cd "$dir"
-  PORT=$port pm2 start "npx next start -p $port" --name "iiskills-$app"
-done
-
-pm2 save
 
 # ---------------------------------------------------------------------------
 # Nginx Hardening — inject proxy buffer directives to prevent Protocol Errors
