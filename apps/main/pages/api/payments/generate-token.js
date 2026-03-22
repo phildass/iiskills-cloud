@@ -27,6 +27,27 @@ export default async function handler(req, res) {
 
   if (userError || !user) return res.status(401).json({ error: "Invalid or expired session" });
 
+  // ── Admin bypass guard (defense-in-depth) ─────────────────────────────────
+  // Admins have unconditional access to all courses.  Payment tokens should
+  // never be issued for admin accounts.  The frontend already redirects admins
+  // before reaching this endpoint, but this guard ensures correctness even if
+  // the client-side check is bypassed.
+  const userIsAdmin =
+    user.app_metadata?.is_admin === true ||
+    user.user_metadata?.is_admin === true ||
+    user.email === "philipda@gmail.com" ||
+    user.email === "pda.kenya@gmail.com";
+
+  if (userIsAdmin) {
+    console.log(
+      `[generate-token] Admin user (${user.email}) attempted to generate a payment token — bypassed.`
+    );
+    return res.status(403).json({
+      error: "Admins have free access to all courses. No payment token needed.",
+      code: "admin_access",
+    });
+  }
+
   const { courseSlug, first_name, last_name, phone } = req.body || {};
   if (!courseSlug) return res.status(400).json({ error: "courseSlug is required" });
 

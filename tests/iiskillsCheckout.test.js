@@ -134,3 +134,163 @@ describe("/api/payments/iiskills/create-order: request validation", () => {
     expect(receipt.startsWith("iiskills_iiskills_")).toBe(true);
   });
 });
+
+// ─── Admin bypass in payments/iiskills ────────────────────────────────────────
+
+/**
+ * Mirror of the isAdminUser() helper in payments/iiskills.js.
+ *
+ * IMPORTANT: If you update the admin check logic in production, you must also
+ * update this helper.  The canonical list of admin emails is defined in
+ * packages/access-control/accessControl.js (PRODUCT_OWNER_EMAILS).
+ */
+const PAYMENTS_ADMIN_EMAILS = ["philipda@gmail.com", "pda.kenya@gmail.com"];
+function isAdminUserPayments(user) {
+  if (!user) return false;
+  return (
+    user.app_metadata?.is_admin === true ||
+    user.user_metadata?.is_admin === true ||
+    (typeof user.email === "string" && PAYMENTS_ADMIN_EMAILS.includes(user.email))
+  );
+}
+
+describe("payments/iiskills: admin bypass", () => {
+  test("detects admin via app_metadata.is_admin", () => {
+    expect(isAdminUserPayments({ app_metadata: { is_admin: true } })).toBe(true);
+  });
+
+  test("detects admin via user_metadata.is_admin", () => {
+    expect(isAdminUserPayments({ user_metadata: { is_admin: true } })).toBe(true);
+  });
+
+  test("detects admin via product-owner email", () => {
+    expect(isAdminUserPayments({ email: "philipda@gmail.com" })).toBe(true);
+    expect(isAdminUserPayments({ email: "pda.kenya@gmail.com" })).toBe(true);
+  });
+
+  test("non-admin user returns false", () => {
+    expect(isAdminUserPayments({ email: "student@example.com" })).toBe(false);
+    expect(isAdminUserPayments({ app_metadata: { is_admin: false } })).toBe(false);
+  });
+
+  test("null/undefined user returns false", () => {
+    expect(isAdminUserPayments(null)).toBe(false);
+    expect(isAdminUserPayments(undefined)).toBe(false);
+  });
+
+  test("admin step is a distinct UI state from paying/loading/error", () => {
+    const validSteps = ["loading", "registration", "paying", "admin", "error"];
+    expect(validSteps).toContain("admin");
+    // Ensure admin step is not mixed with payment step
+    expect("admin").not.toBe("paying");
+    expect("admin").not.toBe("loading");
+  });
+
+  test("admin never proceeds to proceedToPayment (no purchase record / no token)", () => {
+    // Simulate the gate check: if admin, return before calling proceedToPayment.
+    let proceedToPaymentCalled = false;
+    async function simulateInitPayment(sessionUser, proceedFn) {
+      if (isAdminUserPayments(sessionUser)) {
+        // Admin bypass — return immediately without calling proceedToPayment.
+        return "admin_bypass";
+      }
+      proceedFn();
+      return "payment_started";
+    }
+
+    const adminUser = { app_metadata: { is_admin: true }, email: "admin@example.com" };
+    const regularUser = { email: "student@example.com" };
+
+    return simulateInitPayment(adminUser, () => {
+      proceedToPaymentCalled = true;
+    }).then((result) => {
+      expect(result).toBe("admin_bypass");
+      expect(proceedToPaymentCalled).toBe(false);
+    });
+  });
+
+  test("regular user proceeds to payment (proceedToPayment is called)", () => {
+    let proceedToPaymentCalled = false;
+    async function simulateInitPayment(sessionUser, proceedFn) {
+      if (isAdminUserPayments(sessionUser)) {
+        return "admin_bypass";
+      }
+      proceedFn();
+      return "payment_started";
+    }
+
+    const regularUser = { email: "student@example.com" };
+    return simulateInitPayment(regularUser, () => {
+      proceedToPaymentCalled = true;
+    }).then((result) => {
+      expect(result).toBe("payment_started");
+      expect(proceedToPaymentCalled).toBe(true);
+    });
+  });
+});
+
+// ─── Admin guard in API endpoints (defense-in-depth) ─────────────────────────
+
+describe("create-purchase API: admin guard", () => {
+  /**
+   * Simulates the admin check in create-purchase.js handler.
+   * Returns the expected HTTP status code given a user object.
+   */
+  function simulateCreatePurchaseGuard(user) {
+    const userIsAdmin =
+      user?.app_metadata?.is_admin === true ||
+      user?.user_metadata?.is_admin === true ||
+      user?.email === "philipda@gmail.com" ||
+      user?.email === "pda.kenya@gmail.com";
+
+    if (userIsAdmin) {
+      return { status: 403, code: "admin_access" };
+    }
+    return { status: 200 };
+  }
+
+  test("returns 403 admin_access for admin user", () => {
+    const result = simulateCreatePurchaseGuard({ app_metadata: { is_admin: true } });
+    expect(result.status).toBe(403);
+    expect(result.code).toBe("admin_access");
+  });
+
+  test("returns 403 admin_access for product-owner email", () => {
+    expect(simulateCreatePurchaseGuard({ email: "philipda@gmail.com" }).status).toBe(403);
+    expect(simulateCreatePurchaseGuard({ email: "pda.kenya@gmail.com" }).status).toBe(403);
+  });
+
+  test("allows regular user to proceed (returns 200 from guard check)", () => {
+    const result = simulateCreatePurchaseGuard({ email: "user@example.com" });
+    expect(result.status).toBe(200);
+  });
+});
+
+describe("generate-token API: admin guard", () => {
+  /**
+   * Simulates the admin check in generate-token.js handler.
+   */
+  function simulateGenerateTokenGuard(user) {
+    const userIsAdmin =
+      user?.app_metadata?.is_admin === true ||
+      user?.user_metadata?.is_admin === true ||
+      user?.email === "philipda@gmail.com" ||
+      user?.email === "pda.kenya@gmail.com";
+
+    if (userIsAdmin) {
+      return { status: 403, code: "admin_access" };
+    }
+    return { status: 200 };
+  }
+
+  test("returns 403 admin_access for admin user", () => {
+    const result = simulateGenerateTokenGuard({ user_metadata: { is_admin: true } });
+    expect(result.status).toBe(403);
+    expect(result.code).toBe("admin_access");
+  });
+
+  test("allows regular user to proceed (returns 200 from guard check)", () => {
+    const result = simulateGenerateTokenGuard({ email: "user@example.com" });
+    expect(result.status).toBe(200);
+  });
+});

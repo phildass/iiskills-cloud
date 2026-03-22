@@ -1,6 +1,29 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
+import { getAppUrl } from "@lib/appRegistry";
+
+// Product-owner emails that always receive unconditional admin access.
+// Keep in sync with PRODUCT_OWNER_EMAILS in packages/access-control/accessControl.js.
+const ADMIN_EMAILS = ["philipda@gmail.com", "pda.kenya@gmail.com"];
+
+/**
+ * Returns true when the Supabase session user has admin status:
+ *   • app_metadata.is_admin === true  (set via Admin API promotion)
+ *   • user_metadata.is_admin === true (legacy JWT location)
+ *   • email is in ADMIN_EMAILS        (product-owner unconditional bypass)
+ *
+ * @param {{ app_metadata?: object, user_metadata?: object, email?: string } | null} user
+ * @returns {boolean}
+ */
+function isAdminUser(user) {
+  if (!user) return false;
+  return (
+    user.app_metadata?.is_admin === true ||
+    user.user_metadata?.is_admin === true ||
+    (typeof user.email === "string" && ADMIN_EMAILS.includes(user.email))
+  );
+}
 
 /**
  * /start-payment — Payment Entry Gateway
@@ -13,9 +36,15 @@ import Head from "next/head";
  * purchaseId being generated downstream (in /payments/iiskills), so old links
  * cannot be reused.
  *
+ * Admin bypass:
+ *   Admin users (is_admin flag on JWT, or product-owner email) are detected
+ *   immediately from the Supabase session and redirected directly to the
+ *   course app — no purchase record is created, no payment gateway is visited.
+ *
  * Flow:
  *   "Yes, I'm a Registered User"
  *     → Checks for an active Supabase session.
+ *       • If admin session: redirects directly to the course app (no payment).
  *       • If a session exists: proceeds directly to /payments/iiskills.
  *       • If no session:       redirects to /sign-in?next=/payments/iiskills.
  *     In either case /payments/iiskills always creates a NEW purchaseId and
@@ -75,6 +104,9 @@ export default function StartPayment() {
    *   2. Create a brand-new purchaseId for this attempt.
    *   3. Generate a fresh signed JWT.
    *   4. Redirect to aienter.in.
+   *
+   * Admin bypass: if the session user has is_admin=true (or is a product-owner
+   * email), skip the payment flow entirely and redirect to the course app.
    */
   async function handleRegisteredUser() {
     setChecking(true);
@@ -88,14 +120,34 @@ export default function StartPayment() {
     // authenticate explicitly rather than arriving at the payment page as a
     // "ghost" session from a prior login.
     let hasSession = false;
+    let sessionUser = null;
     try {
       const { supabase } = await import("../lib/supabaseClient");
       const { data } = await supabase.auth.getSession();
       hasSession = Boolean(data?.session);
+      sessionUser = data?.session?.user ?? null;
     } catch {
       // Treat Supabase errors as no session — /payments/iiskills will handle
       // the redirect to /sign-in gracefully.
       hasSession = false;
+    }
+
+    if (hasSession && sessionUser && isAdminUser(sessionUser)) {
+      // ── Admin bypass ────────────────────────────────────────────────────────
+      // Admin users already have unconditional access to all courses.  Skip
+      // the purchase and payment gateway entirely and redirect directly to the
+      // course app (or the main dashboard when no course is specified).
+      console.log(
+        `[start-payment] Admin user detected (${sessionUser.email}). ` +
+          `Bypassing payment flow for course=${course || "none"}.`
+      );
+      const adminRedirectUrl = course ? getAppUrl(course, "/curriculum") : "/dashboard";
+      if (adminRedirectUrl && adminRedirectUrl.startsWith("http")) {
+        window.location.href = adminRedirectUrl;
+      } else {
+        router.replace(adminRedirectUrl || "/dashboard");
+      }
+      return;
     }
 
     if (hasSession) {
