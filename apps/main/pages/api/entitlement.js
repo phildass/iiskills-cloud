@@ -83,6 +83,12 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: "appId query parameter is required" });
   }
 
+  // Validate appId to prevent PostgREST filter injection via the .or() query string.
+  // App IDs in this project follow the pattern: lowercase letters, digits, and hyphens.
+  if (!/^[a-z0-9-]+$/.test(appId)) {
+    return res.status(400).json({ error: "Invalid appId" });
+  }
+
   // Free-access mode: treat all paid content as accessible.
   if (isFreeAccessEnabled()) {
     return res
@@ -114,6 +120,7 @@ export default async function handler(req, res) {
   // querying subscriptions, entitlements, or any payment records.
   // This is a global override that fires before the cache and before the DB.
   if (user.email === "philipda@gmail.com" || user.email === "pda.kenya@gmail.com") {
+    console.info("[entitlement] P0 owner-email bypass for user", user.id, "app", appId);
     await setEntitlementInCache(user.id, appId, true);
     return res.status(200).json({
       authenticated: true,
@@ -142,7 +149,20 @@ export default async function handler(req, res) {
   // entitled:false entry can never block a user whose admin status was updated
   // after the negative entry was written.
   const profile = profileResult.data;
+  console.info(
+    "[entitlement] profile check for user",
+    user.id,
+    "app",
+    appId,
+    "| is_admin:",
+    profile?.is_admin,
+    "| role:",
+    profile?.role,
+    "| cached:",
+    cached
+  );
   if (profile?.is_admin === true || profile?.role === "admin") {
+    console.info("[entitlement] P1 admin bypass for user", user.id, "app", appId);
     await setEntitlementInCache(user.id, appId, true);
     return res.status(200).json({
       authenticated: true,
