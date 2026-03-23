@@ -79,6 +79,64 @@ if (securityFiles.length > 0) {
   );
 }
 
+// ─── Admin / Paywall Predicate Enforcement ────────────────────────────────────
+//
+// All admin status checks MUST go through isUnrestrictedAdmin() or
+// isAdminFromJwtUser() from @iiskills/access-control.  Direct checks on
+// is_admin, role, or hardcoded email lists outside the shared package are a
+// sign of logic drift and will be caught here.
+
+const SHARED_ACCESS_CONTROL_PATHS = [
+  "packages/access-control/",
+  "packages/shared-utils/lib/hooks/useUserAccess.js",
+];
+
+const isSharedPackage = (f) => SHARED_ACCESS_CONTROL_PATHS.some((p) => f.startsWith(p));
+
+// Patterns that indicate a direct admin check outside the shared package
+const FORBIDDEN_ADMIN_PATTERNS = [
+  /\bis_admin\s*===?\s*(true|false)/,
+  /role\s*===?\s*['"]admin['"]/,
+  /\.is_admin\b/,
+  /app_metadata\??\.\s*is_admin/,
+  /user_metadata\??\.\s*is_admin/,
+];
+
+const FORBIDDEN_EMAIL_PATTERN = /['"](?:philipda@gmail\.com|pda\.kenya@gmail\.com)['"]/;
+
+const violatingFiles = [];
+
+for (const filePath of modifiedFiles) {
+  // Skip the shared packages — that's where these patterns are ALLOWED to live.
+  if (isSharedPackage(filePath)) continue;
+  // Skip non-JS/TS files and test files
+  if (!/\.(js|ts|tsx|jsx)$/.test(filePath)) continue;
+  if (filePath.includes(".test.") || filePath.includes(".spec.")) continue;
+
+  const fileContent = danger.github.utils.fileContents(filePath);
+  if (!fileContent) continue;
+
+  const hasDirectAdminCheck = FORBIDDEN_ADMIN_PATTERNS.some((re) => re.test(fileContent));
+  const hasHardcodedEmail = FORBIDDEN_EMAIL_PATTERN.test(fileContent);
+
+  if (hasDirectAdminCheck || hasHardcodedEmail) {
+    violatingFiles.push(filePath);
+  }
+}
+
+if (violatingFiles.length > 0) {
+  const fileList = violatingFiles.map((f) => `  - \`${f}\``).join("\n");
+  fail(
+    "🚨 **Direct admin/paywall check detected outside the shared access-control package.**\n\n" +
+      'The following file(s) contain direct `is_admin`, `role === "admin"`, or ' +
+      `hardcoded product-owner email checks:\n\n${fileList}\n\n` +
+      "All admin status checks MUST delegate to:\n" +
+      "  • `isUnrestrictedAdmin(user)` — for normalised profile/DB users\n" +
+      "  • `isAdminFromJwtUser(jwtUser)` — for raw Supabase JWT session users\n\n" +
+      "Import from `@iiskills/access-control`. See CONTRIBUTING.md for the full policy."
+  );
+}
+
 // ─── Changelog ────────────────────────────────────────────────────────────────
 
 const changelogChanged = modifiedFiles.some((f) => f.toUpperCase().includes("CHANGELOG"));

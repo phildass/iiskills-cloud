@@ -2,28 +2,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import { getAppUrl } from "@lib/appRegistry";
-
-// Product-owner emails that always receive unconditional admin access.
-// Keep in sync with PRODUCT_OWNER_EMAILS in packages/access-control/accessControl.js.
-const ADMIN_EMAILS = ["philipda@gmail.com", "pda.kenya@gmail.com"];
-
-/**
- * Returns true when the Supabase session user has admin status:
- *   • app_metadata.is_admin === true  (set via Admin API promotion)
- *   • user_metadata.is_admin === true (legacy JWT location)
- *   • email is in ADMIN_EMAILS        (product-owner unconditional bypass)
- *
- * @param {{ app_metadata?: object, user_metadata?: object, email?: string } | null} user
- * @returns {boolean}
- */
-function isAdminUser(user) {
-  if (!user) return false;
-  return (
-    user.app_metadata?.is_admin === true ||
-    user.user_metadata?.is_admin === true ||
-    (typeof user.email === "string" && ADMIN_EMAILS.includes(user.email))
-  );
-}
+import { isAdminFromJwtUser } from "@iiskills/access-control";
 
 /**
  * /start-payment — Payment Entry Gateway
@@ -132,7 +111,7 @@ export default function StartPayment() {
       hasSession = false;
     }
 
-    if (hasSession && sessionUser && isAdminUser(sessionUser)) {
+    if (hasSession && sessionUser && isAdminFromJwtUser(sessionUser)) {
       // ── Admin bypass ────────────────────────────────────────────────────────
       // Admin users already have unconditional access to all courses.  Skip
       // the purchase and payment gateway entirely and redirect directly to the

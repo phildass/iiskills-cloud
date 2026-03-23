@@ -340,6 +340,39 @@ export function userHasAccess(user: User | null, appId: string): boolean;
 export function hasAccess(user: { email?: string | null; is_admin?: boolean | null; role?: string | null; unrestricted?: boolean | null }): boolean;
 
 /**
+ * Admin check for raw Supabase JWT session users.
+ *
+ * Normalises the nested `app_metadata.is_admin` / `user_metadata.is_admin`
+ * paths found in raw Supabase JWT session objects into the flat shape expected
+ * by `isUnrestrictedAdmin`, then delegates to it.  Also applies the
+ * `PRODUCT_OWNER_EMAILS` bypass.
+ *
+ * Use this in Next.js pages and API routes where `supabase.auth.getUser()`
+ * (or `getSession().user`) is the source of truth.  Do NOT use this in Edge
+ * Middleware; use `hasAccess(parseUserFromCookies(req))` there instead.
+ *
+ * @param jwtUser - Raw Supabase JWT user object (or null/undefined).
+ * @returns `true` when the JWT user has unconditional admin access.
+ *
+ * @example
+ * ```typescript
+ * import { isAdminFromJwtUser } from '@iiskills/access-control';
+ *
+ * // In a Next.js API route:
+ * const { data: { user } } = await supabase.auth.getUser();
+ * if (isAdminFromJwtUser(user)) {
+ *   return res.status(403).json({ code: 'admin_access' });
+ * }
+ * ```
+ */
+export function isAdminFromJwtUser(jwtUser: {
+  app_metadata?: { is_admin?: boolean | null; role?: string | null } | null;
+  user_metadata?: { is_admin?: boolean | null } | null;
+  role?: string | null;
+  email?: string | null;
+} | null | undefined): boolean;
+
+/**
  * Centralised admin-bypass predicate — the single source of truth for
  * "HIGH-VALUE ADMIN MODE: UNRESTRICTED ACCESS ACTIVE".
  *

@@ -58,6 +58,7 @@ export {
   userHasAccess,
   hasAccess,
   isUnrestrictedAdmin,
+  isAdminFromJwtUser,
   checkAccess,
   checkUserAccess,
   PRODUCT_OWNER_EMAILS,
