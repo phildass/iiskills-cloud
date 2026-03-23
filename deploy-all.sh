@@ -214,11 +214,13 @@ for APP_ID in "${!PAID_APP_ENTITLEMENT_URLS[@]}"; do
   fi
 
   ENTITLED=$(node -e "
+    const fs = require('fs');
     try {
-      const r = require('/tmp/ent-response.json');
-      process.stdout.write(String(r.entitled || r.adminAccess || r.freeAccess || false));
-    } catch(e) { process.stdout.write('parse_error'); }
-  " 2>/dev/null || echo "parse_error")
+      const raw = fs.readFileSync('/tmp/ent-response.json', 'utf8');
+      const r = JSON.parse(raw);
+      process.stdout.write(String(!!(r.entitled || r.adminAccess || r.freeAccess)));
+    } catch (e) { process.stdout.write('parse_error'); }
+  " 2>/dev/null)
 
   if [[ "$ENTITLED" == "true" ]]; then
     echo "    ✓ ${APP_ID}: entitled=true"

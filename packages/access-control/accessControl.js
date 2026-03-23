@@ -513,7 +513,7 @@ export function isAdminFromJwtUser(jwtUser) {
     email: jwtUser.email,
   };
   // Product-owner emails always bypass, regardless of admin flag state.
-  if (PRODUCT_OWNER_EMAILS.includes(normalizedUser.email)) return true;
+  if (normalizedUser.email && PRODUCT_OWNER_EMAILS.includes(normalizedUser.email)) return true;
   return isUnrestrictedAdmin(normalizedUser);
 }
 

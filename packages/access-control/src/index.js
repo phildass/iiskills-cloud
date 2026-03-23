@@ -109,7 +109,7 @@ export function isAdminFromJwtUser(jwtUser) {
     role: jwtUser.app_metadata?.role || jwtUser.role,
     email: jwtUser.email,
   };
-  if (PRODUCT_OWNER_EMAILS.includes(normalizedUser.email)) return true;
+  if (normalizedUser.email && PRODUCT_OWNER_EMAILS.includes(normalizedUser.email)) return true;
   return isUnrestrictedAdmin(normalizedUser);
 }
 
