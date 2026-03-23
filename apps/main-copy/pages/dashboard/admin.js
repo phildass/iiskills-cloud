@@ -16,24 +16,31 @@ export default function AdminDashboard() {
   }, []);
 
   const checkAdminAuth = async () => {
-    const user = await getCurrentUser();
+    try {
+      const user = await getCurrentUser();
 
-    if (!user) {
-      // Not logged in at all, redirect to login
+      if (!user) {
+        // Not logged in at all, redirect to login
+        router.push("/login?redirect=/dashboard/admin");
+        return;
+      }
+
+      const hasAdminAccess = await isAdmin(user);
+      if (!hasAdminAccess) {
+        // Logged in but not admin, redirect to regular dashboard with error
+        router.push("/dashboard?error=admin_access_denied");
+        return;
+      }
+
+      // User is authenticated and has admin role
+      setIsAuthenticated(true);
+      setIsLoading(false);
+    } catch (err) {
+      // Unexpected error during auth check — redirect to login so the user
+      // is not stuck on a blank page indefinitely.
+      console.error("[admin dashboard] auth check error:", err);
       router.push("/login?redirect=/dashboard/admin");
-      return;
     }
-
-    const hasAdminAccess = await isAdmin(user);
-    if (!hasAdminAccess) {
-      // Logged in but not admin, redirect to regular dashboard with error
-      router.push("/dashboard?error=admin_access_denied");
-      return;
-    }
-
-    // User is authenticated and has admin role
-    setIsAuthenticated(true);
-    setIsLoading(false);
   };
 
   if (isLoading) {

@@ -257,14 +257,9 @@ export function checkAccess(user, appId) {
   // override accounts, explicitly specified as hardcoded bypasses per the product
   // requirements. To change or remove these overrides, update both this function
   // and hasAccess() in accessControl.js / src/index.ts.
-  if (
-    user &&
-    (user.is_admin || user.email === "philipda@gmail.com" || user.email === "pda.kenya@gmail.com")
-  )
-    if (user && (user.is_admin || PRODUCT_OWNER_EMAILS.includes(user.email)))
-      // Authorised emails are defined in PRODUCT_OWNER_EMAILS (same file).
-      // To change or remove these overrides, also update useUserAccess.js.
-      return { granted: true };
+  // Authorised emails are defined in PRODUCT_OWNER_EMAILS (same file).
+  if (user && (user.is_admin || PRODUCT_OWNER_EMAILS.includes(user.email)))
+    return { granted: true };
 
   // ── Priority 2: Free apps ─────────────────────────────────────────────────
   if (isFreeApp(appId)) return { granted: true };

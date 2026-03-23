@@ -395,7 +395,21 @@ export function useUserAccess(appId, options = {}) {
         // supabase.auth.admin.updateUserById when the user was promoted), grant
         // ADMIN-level access immediately — bypassing all DB entitlement checks
         // and local-storage caches.
-        if (_isAdminFromSessionUser(_supabaseSession?.user)) {
+        const sessionUser = _supabaseSession?.user ?? null;
+        console.info(
+          "[useUserAccess] paywall-gate check",
+          appId,
+          "| user.id:",
+          sessionUser?.id ?? "unauthenticated",
+          "| app_metadata.is_admin:",
+          sessionUser?.app_metadata?.is_admin,
+          "| user_metadata.is_admin:",
+          sessionUser?.user_metadata?.is_admin,
+          "| email:",
+          sessionUser?.email ?? "—"
+        );
+
+        if (_isAdminFromSessionUser(sessionUser)) {
           if (!cancelled) {
             console.info("[useUserAccess] Hard admin override via JWT metadata for", appId);
             setAccessLevel(ACCESS_LEVEL.ADMIN);
@@ -411,6 +425,18 @@ export function useUserAccess(appId, options = {}) {
 
         // ── Fetch entitlement from main API ───────────────────────────────
         const data = await fetchEntitlementResponse(appId);
+        console.info(
+          "[useUserAccess] entitlement API response for",
+          appId,
+          "| authenticated:",
+          data.authenticated,
+          "| entitled:",
+          data.entitled,
+          "| adminAccess:",
+          data.adminAccess,
+          "| fromCache:",
+          data.fromCache
+        );
 
         if (!cancelled) {
           if (!data.authenticated) {
@@ -436,6 +462,13 @@ export function useUserAccess(appId, options = {}) {
             setAccessLevel(ACCESS_LEVEL.PAID_USER);
           } else {
             // Authenticated but not entitled
+            console.warn(
+              "[useUserAccess] access DENIED for",
+              appId,
+              "| user.id:",
+              sessionUser?.id ?? "unknown",
+              "| entitlement API returned entitled:false"
+            );
             setAccessLevel(ACCESS_LEVEL.NONE);
           }
           setLoading(false);

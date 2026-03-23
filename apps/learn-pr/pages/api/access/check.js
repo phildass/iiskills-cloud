@@ -54,6 +54,33 @@ export default async function handler(req, res) {
 
   const user = userData.user;
 
+  // ── Admin bypass: check profile BEFORE entitlement rows ──────────────────
+  // Admins do not need a payment/entitlement row — their profile flag is the
+  // source of truth.  Checking admin status first avoids an unnecessary DB
+  // round-trip to the entitlements table and matches the priority order used
+  // by the main entitlement API (apps/main/pages/api/entitlement.js).
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("is_admin, is_paid_user, role")
+    .eq("id", user.id)
+    .maybeSingle();
+
+  console.info(
+    "[access/check] gate for user",
+    user.id,
+    "app",
+    appId,
+    "| is_admin:",
+    profile?.is_admin,
+    "| role:",
+    profile?.role
+  );
+
+  if (profile?.is_admin === true || profile?.role === "admin") {
+    console.info("[access/check] admin bypass granted for user", user.id, "app", appId);
+    return res.status(200).json({ hasAccess: true, isAdmin: true });
+  }
+
   // Check active entitlement (includes bundle access)
   const now = new Date().toISOString();
   const { data: entitlement } = await supabase
@@ -68,18 +95,6 @@ export default async function handler(req, res) {
 
   if (entitlement) {
     return res.status(200).json({ hasAccess: true });
-  }
-
-  // Check profile for admin override or paid user status
-  const { data: profile } = await supabase
-    .from("profiles")
-    .select("is_admin, is_paid_user")
-    .eq("id", user.id)
-    .maybeSingle();
-
-  // Admins have unrestricted access to all content
-  if (profile?.is_admin === true) {
-    return res.status(200).json({ hasAccess: true, isAdmin: true });
   }
 
   return res.status(200).json({ hasAccess: !!profile?.is_paid_user });
