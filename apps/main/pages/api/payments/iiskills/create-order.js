@@ -10,7 +10,7 @@
  * ─────────────────────────────────────────────────────────────────────────────
  */
 export default function handler(req, res) {
-  return res.status(410).json({
+  return res.status(503).json({
     error: "payment_system_disabled",
     message:
       "The payment system is temporarily unavailable. This endpoint is also deprecated.",

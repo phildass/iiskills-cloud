@@ -33,7 +33,7 @@ export function normalizePhone(raw) {
 
 export function isValidE164(e164) {
   if (!e164) return false;
-  return /^\+[1-9]\d{6,14}$/.test(e164);
+  return /^\+[1-9]\d{7,14}$/.test(e164);
 }
 
 export default async function handler(req, res) {
