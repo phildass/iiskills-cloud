@@ -50,5 +50,8 @@ yarn install --immutable
 if [ -f /etc/iiskills.env ]; then
   echo "==> [4/8] Copying env to all /apps/*/.env"
   for _app_dir in "$REPO_DIR"/apps/*/; do
-    [ -d "$_app_dir" ] && cp /etc/iiskills](#)
-
+    [ -d "$_app_dir" ] && cp /etc/iiskills.env "${_app_dir}.env"
+  done
+fi
+
+# You may continue with further steps (build, restart services etc.) as per your operational needs.
