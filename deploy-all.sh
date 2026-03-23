@@ -30,9 +30,5 @@ for _arg in "$@"; do
   case "$_arg" in
     --force-clean) FORCE_CLEAN=true ;;
     *) echo "WARNING: Unknown argument '$_arg' — ignoring." ;;
-  esac
-done
-
-if [ "$FORCE_CLEAN" = "true" ]; then
-  echo "==> [C](#)*
+*
 
