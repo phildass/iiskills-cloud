@@ -1,20 +1,23 @@
 /**
+ * /api/payments/ai-enter/callback — PAYMENT_STUB
+ *
+ * ── PAYMENT_STUB ─────────────────────────────────────────────────────────────
  * DEPRECATED — ai-enter Payment Callback (Legacy Endpoint)
+ * The payment system has been intentionally DISABLED.
  *
- * This endpoint is no longer active.
+ * This endpoint was previously the callback from aienter.in after payment.
+ * It was superseded by /api/payments/confirm.  Both are now disabled.
  *
- * The canonical callback endpoint is:
- *   POST https://iiskills.cloud/api/payments/confirm
- *
- * Please update your aienter.in configuration to point to /api/payments/confirm
- * using the x-aienter-signature header and AIENTER_CONFIRMATION_SIGNING_SECRET.
- *
- * See docs/PAYMENT_INTEGRATION.md for the full specification.
+ * When payments are re-introduced, the full callback flow must be rebuilt
+ * from scratch. See git history for the original implementation.
+ * ─────────────────────────────────────────────────────────────────────────────
  */
 export default function handler(req, res) {
   res.setHeader("Link", '<https://iiskills.cloud/api/payments/confirm>; rel="successor-version"');
   return res.status(410).json({
-    error: "This endpoint is deprecated. Use POST /api/payments/confirm instead.",
+    error: "payment_system_disabled",
+    message:
+      "The payment system is temporarily unavailable. This endpoint is also deprecated; use /api/payments/confirm.",
     successor: "https://iiskills.cloud/api/payments/confirm",
   });
 }

@@ -71,6 +71,7 @@ export default function Home() {
       showAIDevBundle={true}
       sampleModuleId={1}
       sampleLessonId={1}
+      isFree={true} // PAYMENT_STUB: was false — all apps are currently free
     />
   );
 }

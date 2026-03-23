@@ -147,7 +147,10 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import QuizComponent from "../../../../components/QuizComponent";
-import EnrollmentLandingPage from "@shared/EnrollmentLandingPage";
+// PAYMENT_STUB: EnrollmentLandingPage import preserved as a reintroduction marker.
+// When payments are re-enabled this component must be re-evaluated and re-tested
+// before being rendered again.  DO NOT simply uncomment — rebuild from scratch.
+// import EnrollmentLandingPage from "@shared/EnrollmentLandingPage";
 import { getCurrentUser } from "../../../../lib/supabaseClient";
 import { LessonContent } from "@iiskills/ui/content";
 import { isFreeAccessEnabled } from "@lib/freeAccess";
@@ -160,13 +163,16 @@ export default function LessonPage({ lesson, moduleId, lessonId }) {
   const router = useRouter();
   const [user, setUser] = useState(null);
   const [quizCompleted, setQuizCompleted] = useState(false);
-  const [showEnrollment, setShowEnrollment] = useState(false);
+  // PAYMENT_STUB: showEnrollment state preserved as a reintroduction marker.
+  // const [showEnrollment, setShowEnrollment] = useState(false);
   const [noBadges, setNoBadges] = useState(false);
   const [showSkipDialog, setShowSkipDialog] = useState(false);
 
-  // Universal access check — follows Admin > Paid_User > Free_User priority.
-  // We check even the sample lesson (module 1, lesson 1) so we can suppress the
-  // enrollment prompt for users who are already entitled.
+  // PAYMENT_STUB: useUserAccess is called for admin detection only.
+  // Paywall gating (entitled === false → setShowEnrollment) is disabled.
+  // All lessons are freely accessible regardless of entitlement status.
+  // When payments are re-introduced this access check must be re-implemented
+  // from scratch — do NOT simply restore the old entitled===false trigger.
   const isSampleLesson = moduleId === "1" && lessonId === "1";
   const { entitled, hasAccess, loading } = useUserAccess("learn-pr", {
     skip: FREE_ACCESS || lesson.isFree,
@@ -194,20 +200,20 @@ export default function LessonPage({ lesson, moduleId, lessonId }) {
     });
   }, []);
 
-  // Show enrollment overlay when entitlement check determines no access.
-  // Never block the sample lesson (module 1, lesson 1) — it is always open.
-  useEffect(() => {
-    if (entitled === false && !isSampleLesson) setShowEnrollment(true);
-  }, [entitled, isSampleLesson]);
+  // PAYMENT_STUB: Paywall trigger disabled — all content is freely accessible.
+  // When payments are re-introduced, replace with a fresh entitlement check.
+  // useEffect(() => {
+  //   if (entitled === false && !isSampleLesson) setShowEnrollment(true);
+  // }, [entitled, isSampleLesson]);
 
   const handleQuizComplete = async (passed, score) => {
     setQuizCompleted(passed);
 
-    // Show Premium Access Prompt after completing sample lesson (Module 1, Lesson 1)
-    // Only shown to non-entitled users. Suppressed for already-paid users and in free-access mode.
-    if (passed && moduleId === "1" && lessonId === "1" && !FREE_ACCESS && entitled === false) {
-      setShowEnrollment(true);
-    }
+    // PAYMENT_STUB: Upsell prompt after sample lesson is disabled.
+    // When payments are re-introduced, rebuild this trigger from scratch.
+    // if (passed && moduleId === "1" && lessonId === "1" && !FREE_ACCESS && entitled === false) {
+    //   setShowEnrollment(true);
+    // }
 
     if (passed) {
       try {
@@ -379,7 +385,9 @@ export default function LessonPage({ lesson, moduleId, lessonId }) {
         </div>
       </main>
 
-      {/* Enrollment Landing — shown after sample lesson quiz completion, only for non-entitled users */}
+      {/* PAYMENT_STUB: EnrollmentLandingPage disabled — all content is freely accessible.
+          When payments are re-introduced, this component must be rebuilt from scratch,
+          re-tested, and approved before being re-enabled here.
       {showEnrollment && hasAccess === false && !loading && (
         <EnrollmentLandingPage
           appId="learn-pr"
@@ -389,6 +397,7 @@ export default function LessonPage({ lesson, moduleId, lessonId }) {
           onClose={() => setShowEnrollment(false)}
         />
       )}
+      */}
     </>
   );
 }

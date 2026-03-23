@@ -53,6 +53,7 @@ export default function Home() {
       heroImage="/images/hero-1250-5326.jpg"
       sampleModuleId={1}
       sampleLessonId={1}
+      isFree={true} // PAYMENT_STUB: was false — all apps are currently free
     />
   );
 }

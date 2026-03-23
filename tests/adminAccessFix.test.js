@@ -359,7 +359,7 @@ describe("Fix 4 — final-test pages export getStaticPaths covering modules 1–
 // Cross-cutting: /api/access/check admin bypass — all four paid apps
 // ─────────────────────────────────────────────────────────────────────────────
 
-describe("Cross-cutting — /api/access/check admin bypass present in all paid apps", () => {
+describe("Cross-cutting — /api/access/check present in all formerly-paid apps (PAYMENT_STUB)", () => {
   const PAID_APPS = ["learn-ai", "learn-developer", "learn-management", "learn-pr"];
   const path = require("path");
   const fs = require("fs");
@@ -369,17 +369,20 @@ describe("Cross-cutting — /api/access/check admin bypass present in all paid a
     expect(fs.existsSync(p)).toBe(true);
   });
 
-  it.each(PAID_APPS)("%s /api/access/check includes is_admin bypass", (app) => {
+  // PAYMENT_STUB: Original test verified is_admin bypass logic in source.
+  // Now verifies the stub returns hasAccess:true for everyone.
+  it.each(PAID_APPS)("%s /api/access/check is a PAYMENT_STUB returning hasAccess:true", (app) => {
     const p = path.join(__dirname, `../apps/${app}/pages/api/access/check.js`);
     const src = fs.readFileSync(p, "utf8");
-    expect(src).toContain("is_admin");
-    // Must return isAdmin: true when profile.is_admin === true
-    expect(src).toContain("isAdmin: true");
+    // PAYMENT_STUB: was expect(src).toContain("is_admin") — now stub always returns true
+    expect(src).toContain("PAYMENT_STUB");
+    expect(src).toContain("hasAccess: true");
   });
 
   // Functional test: simulate the admin-bypass branch of /api/access/check
-  it("access-check admin-bypass logic: returns { hasAccess: true, isAdmin: true }", () => {
-    // Mirror the check in apps/*/pages/api/access/check.js
+  // PAYMENT_STUB: preserved as a reintroduction marker for when entitlement logic is rebuilt.
+  it("PAYMENT_STUB: access-check logic preserved for reference (admin-bypass pattern)", () => {
+    // Mirror the original check in apps/*/pages/api/access/check.js (pre-stub)
     function resolveLocalAccess({ entitlement, profile }) {
       if (entitlement) return { hasAccess: true };
       if (profile?.is_admin === true) return { hasAccess: true, isAdmin: true };

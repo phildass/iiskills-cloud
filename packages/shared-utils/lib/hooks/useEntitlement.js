@@ -5,6 +5,20 @@
  * entitlement for a given app/lesson.  Centralises the duplicated
  * `checkEntitlement` logic that previously lived inside each paid lesson page.
  *
+ * ── PAYMENT_STUB ──────────────────────────────────────────────────────────
+ * The payment / paywall system has been intentionally disabled.  All apps are
+ * currently treated as FREE (see packages/access-control/appConfig.js).
+ *
+ * The hook still resolves correctly — because all previously-paid apps are
+ * now configured as free, `resolveIsFreeApp()` returns true and the hook
+ * returns `{ entitled: true, loading: false }` without a network call.
+ *
+ * When payments are re-introduced, DO NOT merely re-add the PAID type to
+ * appConfig.js.  The full payment integration (Razorpay / alternative,
+ * entitlement granting, cache invalidation, security audit) must be rebuilt
+ * from scratch and pass security + UAT review before going live.
+ * ─────────────────────────────────────────────────────────────────────────
+ *
  * Rules:
  *  1. If `skip` is true  → returns `{ entitled: null, loading: false }` immediately.
  *  2. If free-access mode is enabled → entitled = true (no network call).

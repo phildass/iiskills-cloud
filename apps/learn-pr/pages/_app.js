@@ -16,8 +16,8 @@ export default function App({ Component, pageProps }) {
           <link rel="apple-touch-icon" href="/images/iiskills-logo.png" />
         </Head>
 
-        <SiteHeader appId="learn-pr" isFreeApp={false} />
-        <AppSecondaryNavbar appId="learn-pr" appName="PR" isFree={false} />
+        <SiteHeader appId="learn-pr" isFreeApp={true} />
+        <AppSecondaryNavbar appId="learn-pr" appName="PR" isFree={true} />
         <Component {...pageProps} />
         <Footer />
       </>

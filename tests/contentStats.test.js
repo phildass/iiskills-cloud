@@ -199,7 +199,7 @@ describe("accessControl — admin bypass in userHasAccess()", () => {
     userHasAccess = mod.userHasAccess;
   });
 
-  it("admin user (is_admin=true) gains access to all paid apps without app_access records", () => {
+  it("admin user (is_admin=true) gains access to all formerly-paid apps (now free)", () => {
     const adminUser = { id: "admin-uuid", is_admin: true, app_access: [] };
     expect(userHasAccess(adminUser, "learn-ai")).toBe(true);
     expect(userHasAccess(adminUser, "learn-developer")).toBe(true);
@@ -213,14 +213,18 @@ describe("accessControl — admin bypass in userHasAccess()", () => {
     expect(userHasAccess(adminUser, "learn-chemistry")).toBe(true);
   });
 
-  it("non-admin user (is_admin=false) still requires app_access for paid apps", () => {
+  // PAYMENT_STUB: These apps are now FREE — all users have access regardless of app_access.
+  // When payments are re-introduced, restore these tests to expect false for non-entitled users.
+  it("non-admin user (is_admin=false) gets access to formerly-paid apps (PAYMENT_STUB: now free)", () => {
     const regularUser = { id: "user-uuid", is_admin: false, app_access: [] };
-    expect(userHasAccess(regularUser, "learn-ai")).toBe(false);
+    // PAYMENT_STUB: was expect(false) — all apps are currently free
+    expect(userHasAccess(regularUser, "learn-ai")).toBe(true);
   });
 
-  it("admin user with no is_admin field does not get bypass", () => {
+  it("user with no is_admin field gets access to formerly-paid apps (PAYMENT_STUB: now free)", () => {
     const regularUser = { id: "user-uuid", app_access: [] };
-    expect(userHasAccess(regularUser, "learn-ai")).toBe(false);
+    // PAYMENT_STUB: was expect(false) — all apps are currently free
+    expect(userHasAccess(regularUser, "learn-ai")).toBe(true);
   });
 
   it("admin bypass works even when app_access array is missing", () => {
@@ -228,8 +232,9 @@ describe("accessControl — admin bypass in userHasAccess()", () => {
     expect(userHasAccess(adminUser, "learn-ai")).toBe(true);
   });
 
-  it("is_admin=true on null user does not cause errors", () => {
-    // Null user cannot have is_admin — should be denied for paid apps
-    expect(userHasAccess(null, "learn-ai")).toBe(false);
+  it("null user (unauthenticated) — PAYMENT_STUB: free apps allow null user access", () => {
+    // PAYMENT_STUB: was expect(false) for paid apps — now all apps are free.
+    // NOTE: isFreeApp returns true for learn-ai, so null user gets free access.
+    expect(userHasAccess(null, "learn-ai")).toBe(true);
   });
 });

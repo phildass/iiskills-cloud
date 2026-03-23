@@ -8,6 +8,22 @@
  *
  * Access: authenticated users only (reads their own entitlement row).
  *
+ * ── PAYMENT_STUB ─────────────────────────────────────────────────────────────
+ * The payment system has been intentionally DISABLED.  All previously-paid apps
+ * are now configured as FREE (see packages/access-control/appConfig.js).
+ *
+ * As a result, isFreeApp() now returns true for all previously-paid apps, so
+ * the useUserAccess / useEntitlement hooks short-circuit and never call this
+ * API for those apps.  This endpoint is retained for:
+ *   - Free apps that already called it
+ *   - Admin-related entitlement lookups
+ *   - Future re-implementation reference
+ *
+ * When payments are re-introduced, the entitlement granting pipeline
+ * (confirm API → entitlements table → cache invalidation) must be rebuilt
+ * from scratch with full security review.
+ * ─────────────────────────────────────────────────────────────────────────────
+ *
  * Priority hierarchy (Admin > Paid_User > Free_User):
  *   1. Admin bypass — profile.is_admin === true OR profile.role === 'admin'
  *      → returns { entitled: true, adminAccess: true } immediately.
