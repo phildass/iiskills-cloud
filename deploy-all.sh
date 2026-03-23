@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# ---------------------------------------------------------------------------
-# IISkills deploy-all.sh (Full PUSH + Build + PM2 Restart)
-# ---------------------------------------------------------------------------
 DEPLOY_TS="$(date +%Y-%m-%d-%H%M)"
 LOG_DIR="/var/log/iiskills"
 LOGFILE="${LOG_DIR}/deploy-${DEPLOY_TS}.log"
@@ -35,5 +32,36 @@ done
 
 if [ "$FORCE_CLEAN" = "true" ]; then
   echo "==> [CLEAN] Nuclear wipe: cleaning git, all modules, all .next"
-  git clean -fd*
-
+  git clean -fdx
+  find . -name "node_modules" -type d -prune -exec rm -rf {} +
+  find . -name ".next" -type d -prune -exec rm -rf {} +
+else
+  echo "==> [2/8] Cleaning all .next build caches (ensure fresh UI)"
+  find . -name ".next" -type d -prune -exec rm -rf {} +
+fi
+
+echo "==> [3/8] Installing dependencies (no network mutations)"
+yarn install --immutable
+
+# Sync env to apps
+if [ -f /etc/iiskills.env ]; then
+  echo "==> [4/8] Copying env to all /apps/*/.env"
+  for _app_dir in "$REPO_DIR"/apps/*/; do
+    [ -d "$_app_dir" ] && cp /etc/iiskills.env "${_app_dir}.env"
+  done
+fi
+
+echo "==> [5/8] Building all apps (monorepo build)"
+yarn build
+
+echo "==> [6/8] Restarting all services using PM2 ecosystem"
+if [ -f ecosystem.config.js ]; then
+  pm2 reload ecosystem.config.js --env production || pm2 start ecosystem.config.js --env production
+else
+  echo "WARNING: PM2 ecosystem.config.js not found in $REPO_DIR, skipping PM2 restart."
+fi
+
+echo "==> [7/8] Checking PM2 status"
+pm2 ls || true
+
+echo "==> [8/8] Deployment completed successfully!"
