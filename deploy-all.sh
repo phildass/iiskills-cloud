@@ -13,7 +13,7 @@ _on_exit() {
   [ "$code" -eq 0 ] && return 0
   echo "==> DEPLOY FAILED — exit code $code. Check $LOGFILE for diagnostics."
 }
-trap '_on_exit' EXIT
+trap _on_exit EXIT
 
 REPO_DIR="/root/iiskills-cloud-apps"
 BRANCH="main"
@@ -36,50 +36,5 @@ if [ "$FORCE_CLEAN" = "true" ]; then
   find . -name "node_modules" -type d -prune -exec rm -rf {} +
   find . -name ".next" -type d -prune -exec rm -rf {} +
 else
-  echo "==> [2/10] Cleaning all .next build caches (ensure fresh UI)"
-  find . -name ".next" -type d -prune -exec rm -rf {} +
-fi
-
-echo "==> [3/10] Stopping and deleting existing IISkills PM2 processes"
-IISKILLS_NAMES=(
-  "learn-ai"
-  "learn-management"
-  "learn-pr"
-  "learn-math"
-  "learn-physics"
-  "learn-chemistry"
-  "learn-geography"
-  "learn-apt"
-  "learn-developer"
-  "main"
-)
-
-for NAME in "${IISKILLS_NAMES[@]}"; do
-  pm2 delete "$NAME" 2>/dev/null || true
-done
-
-echo "==> [4/10] Installing dependencies (no network mutations)"
-yarn install --immutable
-
-# Sync env to apps
-if [ -f /etc/iiskills.env ]; then
-  echo "==> [5/10] Copying env to all /apps/*/.env"
-  for _app_dir in "$REPO_DIR"/apps/*/; do
-    [ -d "$_app_dir" ] && cp /etc/iiskills.env "${_app_dir}.env"
-  done
-fi
-
-echo "==> [6/10] Building all apps (monorepo build)"
-yarn build
-
-echo "==> [7/10] Restarting all services using PM2 ecosystem"
-if [ -f ecosystem.config.js ]; then
-  pm2 start ecosystem.config.js --env production
-else
-  echo "WARNING: PM2 ecosystem.config.js not found in $REPO_DIR, skipping PM2 restart."
-fi
-
-echo "==> [8/10] Checking PM2 status"
-pm2 ls || true
-
-echo "==> [9/10] Deployment completed successfully!"
+  echo "*
+
