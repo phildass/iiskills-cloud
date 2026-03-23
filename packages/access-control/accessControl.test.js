@@ -23,6 +23,7 @@ import {
   getAccessStatus,
   hasAccessViaBundle,
   getBundleAccessMessage,
+  isUnrestrictedAdmin,
   APPS,
   APP_TYPE,
   BUNDLES,
@@ -490,5 +491,70 @@ describe("Access Control - Edge Cases", () => {
     const appsAI = getAppsToUnlock("learn-ai");
     const appsDev = getAppsToUnlock("learn-developer");
     expect(appsAI).toEqual(appsDev);
+  });
+});
+
+// ============================================================================
+// isUnrestrictedAdmin — centralised admin-bypass predicate
+// ============================================================================
+
+describe("isUnrestrictedAdmin()", () => {
+  test("returns false for null/undefined", () => {
+    expect(isUnrestrictedAdmin(null)).toBe(false);
+    expect(isUnrestrictedAdmin(undefined)).toBe(false);
+  });
+
+  test("returns false for a regular (non-admin) user", () => {
+    expect(isUnrestrictedAdmin({ id: "u1", role: "user" })).toBe(false);
+    expect(isUnrestrictedAdmin({ id: "u1", role: "guest" })).toBe(false);
+    expect(isUnrestrictedAdmin({ id: "u1" })).toBe(false);
+  });
+
+  test("returns true for is_admin === true (legacy flag)", () => {
+    expect(isUnrestrictedAdmin({ is_admin: true })).toBe(true);
+  });
+
+  test("returns true for role === 'admin' (role-based model)", () => {
+    expect(isUnrestrictedAdmin({ role: "admin" })).toBe(true);
+  });
+
+  test("returns true when both is_admin and role === 'admin' are set", () => {
+    expect(isUnrestrictedAdmin({ is_admin: true, role: "admin" })).toBe(true);
+  });
+
+  test("defaults unrestricted to true when field is absent (backward-compatible)", () => {
+    // Existing admin accounts without the unrestricted field must still bypass.
+    expect(isUnrestrictedAdmin({ is_admin: true })).toBe(true);
+    expect(isUnrestrictedAdmin({ role: "admin" })).toBe(true);
+  });
+
+  test("returns true when unrestricted is explicitly true", () => {
+    expect(isUnrestrictedAdmin({ is_admin: true, unrestricted: true })).toBe(true);
+    expect(isUnrestrictedAdmin({ role: "admin", unrestricted: true })).toBe(true);
+  });
+
+  test("returns false when unrestricted is explicitly false (restricted admin)", () => {
+    expect(isUnrestrictedAdmin({ is_admin: true, unrestricted: false })).toBe(false);
+    expect(isUnrestrictedAdmin({ role: "admin", unrestricted: false })).toBe(false);
+  });
+
+  test("non-admin with unrestricted: true is not an unrestricted admin", () => {
+    // unrestricted alone does not grant admin bypass — admin status is required.
+    expect(isUnrestrictedAdmin({ role: "user", unrestricted: true })).toBe(false);
+    expect(isUnrestrictedAdmin({ unrestricted: true })).toBe(false);
+  });
+
+  test("is_admin: false is treated as non-admin", () => {
+    expect(isUnrestrictedAdmin({ is_admin: false })).toBe(false);
+    expect(isUnrestrictedAdmin({ is_admin: false, unrestricted: true })).toBe(false);
+  });
+
+  test("userHasAccess delegates admin check to isUnrestrictedAdmin", () => {
+    // Admin via is_admin flag — must bypass subscription check.
+    expect(userHasAccess({ id: "a1", is_admin: true }, "learn-ai")).toBe(true);
+    // Admin via role field — must bypass subscription check.
+    expect(userHasAccess({ id: "a2", role: "admin" }, "learn-ai")).toBe(true);
+    // Restricted admin (unrestricted: false) — must NOT bypass.
+    expect(userHasAccess({ id: "a3", is_admin: true, unrestricted: false }, "learn-ai")).toBe(false);
   });
 });
