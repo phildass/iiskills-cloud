@@ -1,40 +1,35 @@
-#!/usr/bin/env bash
-set -euo pipefail
+# ... (your earlier script as above up to cleaning or yarn install)
 
-DEPLOY_TS="$(date +%Y-%m-%d-%H%M)"
-LOG_DIR="/var/log/iiskills"
-LOGFILE="${LOG_DIR}/deploy-${DEPLOY_TS}.log"
+echo "==> [2/10] Installing dependencies"
+yarn install --immutable
 
-mkdir -p "$LOG_DIR" 2>/dev/null || true
-exec > >(tee -a "$LOGFILE") 2>&1
+# List of all app directories to build IN ORDER (main first, then each learning app)
+APPS=(
+  "main"
+  "learn-apt"
+  "learn-chemistry"
+  "learn-developer"
+  "learn-geography"
+  "learn-management"
+  "learn-math"
+  "learn-physics"
+  "learn-pr"
+  "learn-ai"
+)
 
-_on_exit() {
-  local code=$?
-  [ "$code" -eq 0 ] && return 0
-  echo "==> DEPLOY FAILED — exit code $code. Check $LOGFILE for diagnostics."
-}
-trap _on_exit EXIT
-
-REPO_DIR="/root/iiskills-cloud-apps"
-BRANCH="main"
-
-cd "$REPO_DIR"
-echo "==> [1/10] Pushing any local changes to origin/$BRANCH"
-git push origin "$BRANCH" || echo "No local changes to push or remote ahead – continuing."
-
-FORCE_CLEAN=false
-for _arg in "$@"; do
-  case "$_arg" in
-    --force-clean) FORCE_CLEAN=true ;;
-    *) echo "WARNING: Unknown argument '$_arg' — ignoring." ;;
-  esac
+echo "==> [3/10] Building apps one at a time (serial build)"
+for APP in "${APPS[@]}"; do
+  echo "------ BUILD: apps/$APP ------"
+  (cd "apps/$APP" && yarn build)
+  echo "------ DONE:  apps/$APP ------"
 done
 
-if [ "$FORCE_CLEAN" = "true" ]; then
-  echo "==> [CLEAN] Nuclear wipe: cleaning git, all modules, all .next"
-  git clean -fdx
-  find . -name "node_modules" -type d -prune -exec rm -rf {} +
-  find . -name ".next" -type d -prune -exec rm -rf {} +
-else
-  echo "*
-
+echo "==> [4/10] Build completed for all apps, proceeding to PM2 restart"
+
+# You may have: (edit as needed)
+pm2 stop iiskills-main iiskills-learn-apt iiskills-learn-chemistry iiskills-learn-developer iiskills-learn-geography iiskills-learn-management iiskills-learn-math iiskills-learn-physics iiskills-learn-pr iiskills-learn-ai
+pm2 delete iiskills-main-copy || true
+pm2 start ecosystem.config.js
+pm2 save
+
+echo "==> [5/10] Deployment complete."
