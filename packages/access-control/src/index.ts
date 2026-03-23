@@ -111,6 +111,40 @@ export function hasAccess(user: AccessUser | null | undefined): boolean {
   return isUnrestrictedAdmin(user);
 }
 
+/** Product-owner emails — kept in sync with PRODUCT_OWNER_EMAILS in accessControl.js. */
+const PRODUCT_OWNER_EMAILS = Object.freeze(["philipda@gmail.com", "pda.kenya@gmail.com"]);
+
+/**
+ * Admin check for raw Supabase JWT session users.
+ *
+ * Supabase auth session objects carry the `is_admin` flag nested inside
+ * `app_metadata` and/or `user_metadata`, rather than at the top level.  This
+ * helper normalises those nested paths into the flat shape expected by
+ * `isUnrestrictedAdmin` and also applies the `PRODUCT_OWNER_EMAILS` bypass.
+ *
+ * Use this in Next.js pages and API routes where you have a raw `session.user`
+ * (the result of `supabase.auth.getUser()`).
+ *
+ * @param jwtUser - Raw Supabase JWT user object (or null/undefined).
+ * @returns `true` when the JWT user has unconditional admin access.
+ */
+export function isAdminFromJwtUser(jwtUser: {
+  app_metadata?: { is_admin?: boolean | null; role?: string | null } | null;
+  user_metadata?: { is_admin?: boolean | null } | null;
+  role?: string | null;
+  email?: string | null;
+} | null | undefined): boolean {
+  if (!jwtUser) return false;
+  const normalizedUser: AccessUser = {
+    is_admin:
+      jwtUser.app_metadata?.is_admin === true || jwtUser.user_metadata?.is_admin === true,
+    role: jwtUser.app_metadata?.role ?? jwtUser.role,
+    email: jwtUser.email,
+  };
+  if (jwtUser.email && PRODUCT_OWNER_EMAILS.includes(jwtUser.email)) return true;
+  return isUnrestrictedAdmin(normalizedUser);
+}
+
 /**
  * Parse the Supabase JWT stored in the auth cookie of a Next.js Edge Middleware
  * request and return a minimal user object for use with `hasAccess`.

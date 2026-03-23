@@ -476,6 +476,48 @@ export function hasAccess(user) {
 }
 
 /**
+ * Admin check for raw Supabase JWT session users.
+ *
+ * Supabase auth session objects carry the `is_admin` flag nested inside
+ * `app_metadata` and/or `user_metadata`, rather than at the top level.  This
+ * helper normalises those nested paths into the flat shape expected by
+ * `isUnrestrictedAdmin` and also applies the `PRODUCT_OWNER_EMAILS` bypass.
+ *
+ * Use this function whenever you have a raw `session.user` (or the result of
+ * `supabase.auth.getUser()`) and need to decide whether the user has admin
+ * access — for example in Next.js page components and API routes that receive
+ * the Supabase JWT directly.
+ *
+ * Do NOT call this from Edge Middleware; use `hasAccess(parseUserFromCookies(req))`
+ * there instead, because the cookie-parsed user is already normalised.
+ *
+ * @param {{ app_metadata?: { is_admin?: boolean, role?: string }, user_metadata?: { is_admin?: boolean }, email?: string } | null | undefined} jwtUser
+ * @returns {boolean}
+ *
+ * @example
+ * import { isAdminFromJwtUser } from '@iiskills/access-control';
+ *
+ * // In a Next.js API route:
+ * const { data: { user } } = await supabase.auth.getUser();
+ * if (isAdminFromJwtUser(user)) {
+ *   return res.status(403).json({ code: 'admin_access' });
+ * }
+ */
+export function isAdminFromJwtUser(jwtUser) {
+  if (!jwtUser) return false;
+  // Normalise the nested Supabase JWT structure to the flat shape expected by
+  // isUnrestrictedAdmin(), then delegate entirely to the central predicate.
+  const normalizedUser = {
+    is_admin: jwtUser.app_metadata?.is_admin === true || jwtUser.user_metadata?.is_admin === true,
+    role: jwtUser.app_metadata?.role || jwtUser.role,
+    email: jwtUser.email,
+  };
+  // Product-owner emails always bypass, regardless of admin flag state.
+  if (PRODUCT_OWNER_EMAILS.includes(normalizedUser.email)) return true;
+  return isUnrestrictedAdmin(normalizedUser);
+}
+
+/**
  * Infallible access check — Edge Middleware safe (no DB calls).
  *
  * "Master Key" priority order:

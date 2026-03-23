@@ -5,30 +5,9 @@ import Link from "next/link";
 import { getPaymentReturnToUrl, getAppUrl } from "@lib/appRegistry";
 
 import { isValidIndianPhone } from "@lib/phoneValidation";
+import { isAdminFromJwtUser } from "@iiskills/access-control";
 
 const AIENTER_PAYMENT_URL = "https://aienter.in/payments/iiskills";
-
-// Product-owner emails that always receive unconditional admin access.
-// Keep in sync with PRODUCT_OWNER_EMAILS in packages/access-control/accessControl.js.
-const ADMIN_EMAILS = ["philipda@gmail.com", "pda.kenya@gmail.com"];
-
-/**
- * Returns true when the Supabase session user has admin status:
- *   • app_metadata.is_admin === true  (set via Admin API promotion)
- *   • user_metadata.is_admin === true (legacy JWT location)
- *   • email is in ADMIN_EMAILS        (product-owner unconditional bypass)
- *
- * @param {{ app_metadata?: object, user_metadata?: object, email?: string } | null} user
- * @returns {boolean}
- */
-function isAdminUser(user) {
-  if (!user) return false;
-  return (
-    user.app_metadata?.is_admin === true ||
-    user.user_metadata?.is_admin === true ||
-    (typeof user.email === "string" && ADMIN_EMAILS.includes(user.email))
-  );
-}
 
 /**
  * /payments/iiskills — Redirect to centralized payment portal (Option A)
@@ -131,7 +110,7 @@ export default function IiskillsCheckout() {
       // access to all courses.  Do NOT create a purchase record, do NOT generate
       // a payment token, and do NOT redirect to the payment gateway.
       // Redirect to the course app (or main dashboard) directly.
-      if (isAdminUser(currentSession.user)) {
+      if (isAdminFromJwtUser(currentSession.user)) {
         console.log(
           `[payments/iiskills] Admin user detected (${currentSession.user.email}). ` +
             `Bypassing payment for course=${course || "none"}.`

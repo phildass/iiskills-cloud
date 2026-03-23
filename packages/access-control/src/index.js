@@ -88,6 +88,31 @@ export function hasAccess(user) {
   return isUnrestrictedAdmin(user);
 }
 
+// Product-owner emails — kept in sync with PRODUCT_OWNER_EMAILS in accessControl.js.
+const PRODUCT_OWNER_EMAILS = Object.freeze(["philipda@gmail.com", "pda.kenya@gmail.com"]);
+
+/**
+ * Admin check for raw Supabase JWT session users.
+ *
+ * Supabase auth session objects carry the `is_admin` flag nested inside
+ * `app_metadata` and/or `user_metadata`, rather than at the top level.  This
+ * helper normalises those nested paths into the flat shape expected by
+ * `isUnrestrictedAdmin` and also applies the `PRODUCT_OWNER_EMAILS` bypass.
+ *
+ * @param {Object|null|undefined} jwtUser
+ * @returns {boolean}
+ */
+export function isAdminFromJwtUser(jwtUser) {
+  if (!jwtUser) return false;
+  const normalizedUser = {
+    is_admin: jwtUser.app_metadata?.is_admin === true || jwtUser.user_metadata?.is_admin === true,
+    role: jwtUser.app_metadata?.role || jwtUser.role,
+    email: jwtUser.email,
+  };
+  if (PRODUCT_OWNER_EMAILS.includes(normalizedUser.email)) return true;
+  return isUnrestrictedAdmin(normalizedUser);
+}
+
 /**
  * Parse the Supabase JWT stored in the auth cookie of a Next.js Edge Middleware
  * request and return a minimal user object for use with `hasAccess`.

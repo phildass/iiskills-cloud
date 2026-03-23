@@ -2,6 +2,7 @@ import { createSupabasePagesServerClient } from "../../../lib/supabase/serverPag
 import { createServiceRoleClient } from "../../../lib/adminAuth";
 import { APPS } from "@lib/appRegistry";
 import { getCurrentPricing } from "@iiskills/ui/pricing";
+import { isAdminFromJwtUser } from "@iiskills/access-control";
 
 // Utilities for config and error handling
 const checkConfig = require("../../../utils/checkConfig");
@@ -52,13 +53,7 @@ export default async function handler(req, res) {
     // purchase records created on their behalf.  The frontend already redirects
     // admins away from the payment flow, but this server-side check ensures
     // correctness even if the client-side guard is bypassed.
-    const userIsAdmin =
-      user.app_metadata?.is_admin === true ||
-      user.user_metadata?.is_admin === true ||
-      user.email === "philipda@gmail.com" ||
-      user.email === "pda.kenya@gmail.com";
-
-    if (userIsAdmin) {
+    if (isAdminFromJwtUser(user)) {
       console.log(
         `[create-purchase] Admin user (${user.email}) attempted to create a purchase — bypassed.`
       );

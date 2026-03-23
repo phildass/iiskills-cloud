@@ -6,6 +6,7 @@ import { createServiceRoleClient } from "../../../lib/adminAuth";
 import { normalizePhone, isValidE164 } from "./save-profile";
 import checkConfig from "../../../utils/checkConfig";
 import sendError from "../../../utils/sendError";
+import { isAdminFromJwtUser } from "@iiskills/access-control";
 
 export default async function handler(req, res) {
   try {
@@ -32,13 +33,7 @@ export default async function handler(req, res) {
   // never be issued for admin accounts.  The frontend already redirects admins
   // before reaching this endpoint, but this guard ensures correctness even if
   // the client-side check is bypassed.
-  const userIsAdmin =
-    user.app_metadata?.is_admin === true ||
-    user.user_metadata?.is_admin === true ||
-    user.email === "philipda@gmail.com" ||
-    user.email === "pda.kenya@gmail.com";
-
-  if (userIsAdmin) {
+  if (isAdminFromJwtUser(user)) {
     console.log(
       `[generate-token] Admin user (${user.email}) attempted to generate a payment token — bypassed.`
     );
