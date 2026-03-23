@@ -118,28 +118,31 @@ describe("api/profile/update.js — service role enforcement", () => {
 
 // ---------------------------------------------------------------------------
 // 3. apps/main/pages/api/payments/confirm.js
+// PAYMENT_STUB: This endpoint is disabled. Tests updated to verify stub behavior.
 // ---------------------------------------------------------------------------
 
-describe("api/payments/confirm.js — service role enforcement", () => {
+describe("api/payments/confirm.js — PAYMENT_STUB (disabled)", () => {
   let src;
   beforeAll(() => {
     src = readSource("payments/confirm.js");
   });
 
-  test("uses SUPABASE_SERVICE_ROLE_KEY for the admin DB client", () => {
-    expect(src).toContain("SUPABASE_SERVICE_ROLE_KEY");
+  // PAYMENT_STUB: Original tests checked for SUPABASE_SERVICE_ROLE_KEY, getSupabaseAdmin, etc.
+  // Those checks are no longer valid since the endpoint is disabled.
+  // New tests verify the stub is properly in place.
+
+  test("PAYMENT_STUB: file contains PAYMENT_STUB marker", () => {
+    expect(src).toContain("PAYMENT_STUB");
+  });
+
+  test("PAYMENT_STUB: returns 503 for all requests", () => {
+    expect(src).toContain("503");
+    expect(src).toContain("payment_system_disabled");
   });
 
   test("does NOT use the ambiguous SUPABASE_KEY variable as DB client key", () => {
+    // Still valid — stubs must not introduce key leakage
     expect(checkNoAmbiguousSUPABASE_KEY(src)).toBe(true);
-  });
-
-  test("getSupabaseAdmin returns null when service role key is absent", () => {
-    const factoryMatch = src.match(/function getSupabaseAdmin\(\)[^}]+\}/s);
-    expect(factoryMatch).not.toBeNull();
-    const factory = factoryMatch[0];
-    expect(factory).toContain("return null");
-    expect(factory).not.toContain("SUPABASE_KEY");
   });
 });
 
@@ -147,10 +150,27 @@ describe("api/payments/confirm.js — service role enforcement", () => {
 // 4. apps/main/pages/api/payment/webhook.js
 // ---------------------------------------------------------------------------
 
-describe("api/payment/webhook.js — service role enforcement", () => {
+// ---------------------------------------------------------------------------
+// 4. apps/main/pages/api/payment/webhook.js
+// PAYMENT_STUB: This endpoint is disabled. Tests updated to verify stub behavior.
+// ---------------------------------------------------------------------------
+
+describe("api/payment/webhook.js — PAYMENT_STUB (disabled)", () => {
   let src;
   beforeAll(() => {
     src = readSource("payment/webhook.js");
+  });
+
+  // PAYMENT_STUB: Original tests checked for service role key usage, etc.
+  // New tests verify the stub is properly in place.
+
+  test("PAYMENT_STUB: file contains PAYMENT_STUB marker", () => {
+    expect(src).toContain("PAYMENT_STUB");
+  });
+
+  test("PAYMENT_STUB: returns 503 for all requests", () => {
+    expect(src).toContain("503");
+    expect(src).toContain("payment_system_disabled");
   });
 
   test("does NOT have a module-level supabase client using SUPABASE_KEY", () => {
@@ -158,27 +178,8 @@ describe("api/payment/webhook.js — service role enforcement", () => {
     expect(src).not.toMatch(/const supabase\s*=\s*createClient\s*\(/);
   });
 
-  test("uses SUPABASE_SERVICE_ROLE_KEY for the admin DB client", () => {
-    expect(src).toContain("SUPABASE_SERVICE_ROLE_KEY");
-  });
-
   test("does NOT use the ambiguous SUPABASE_KEY variable", () => {
     expect(checkNoAmbiguousSUPABASE_KEY(src)).toBe(true);
-  });
-
-  test("getSupabaseAdmin returns null when service role key is absent", () => {
-    const factoryMatch = src.match(/function getSupabaseAdmin\(\)[^}]+\}/s);
-    expect(factoryMatch).not.toBeNull();
-    const factory = factoryMatch[0];
-    expect(factory).toContain("return null");
-    expect(factory).not.toContain("SUPABASE_KEY");
-  });
-
-  test("returns 503 when service role client is unavailable", () => {
-    // When supabase is null, the handler must NOT silently skip the insert.
-    // It should return a 503 error response.
-    expect(src).toContain("Payment service not configured");
-    expect(src).toContain("503");
   });
 });
 
@@ -253,25 +254,32 @@ describe("api/entitlement.js — service role enforcement", () => {
 
 // ---------------------------------------------------------------------------
 // 7. Cross-cutting: checkConfig guards on payment endpoints
+// PAYMENT_STUB: Payment endpoints are disabled. Tests updated to verify stub behavior.
 // ---------------------------------------------------------------------------
 
-describe("payment endpoints — checkConfig guard", () => {
-  test("payments/confirm.js calls checkConfig before processing", () => {
+describe("payment endpoints — PAYMENT_STUB (disabled)", () => {
+  // PAYMENT_STUB: Original tests verified checkConfig guards and env var checks.
+  // Since payment endpoints are now stubs, we verify stub markers are present.
+
+  test("PAYMENT_STUB: payments/confirm.js is a stub returning 503", () => {
     const src = readSource("payments/confirm.js");
-    expect(src).toContain("checkConfig");
-    expect(src).toContain("AIENTER_CONFIRMATION_SIGNING_SECRET");
-    expect(src).toContain("PAYMENT_TOKEN_SECRET");
+    expect(src).toContain("PAYMENT_STUB");
+    expect(src).toContain("503");
+    expect(src).toContain("payment_system_disabled");
   });
 
-  test("payments/generate-token.js calls checkConfig before processing", () => {
+  test("PAYMENT_STUB: payments/generate-token.js is a stub returning 503", () => {
     const src = readSource("payments/generate-token.js");
-    expect(src).toContain("checkConfig");
-    expect(src).toContain("PAYMENT_TOKEN_SECRET");
+    expect(src).toContain("PAYMENT_STUB");
+    expect(src).toContain("503");
+    expect(src).toContain("payment_system_disabled");
   });
 
-  test('payments/confirm.js returns "Server misconfiguration" on missing env', () => {
-    const src = readSource("payments/confirm.js");
-    expect(src).toContain("Server misconfiguration");
+  test("PAYMENT_STUB: payments/create-purchase.js is a stub returning 503", () => {
+    const src = readSource("payments/create-purchase.js");
+    expect(src).toContain("PAYMENT_STUB");
+    expect(src).toContain("503");
+    expect(src).toContain("payment_system_disabled");
   });
 });
 

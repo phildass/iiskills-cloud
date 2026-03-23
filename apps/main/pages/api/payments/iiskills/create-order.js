@@ -1,13 +1,18 @@
 /**
- * POST /api/payments/iiskills/create-order
+ * /api/payments/iiskills/create-order — PAYMENT_STUB
  *
- * This endpoint is disabled. Razorpay order creation is now handled
- * exclusively by aienter.in. Users are redirected to
- * https://aienter.in/payments/iiskills for all payment processing.
+ * ── PAYMENT_STUB ─────────────────────────────────────────────────────────────
+ * The payment system has been intentionally DISABLED.
+ * This endpoint is also deprecated (Razorpay order creation moved to aienter.in).
+ *
+ * When payments are re-introduced, the full payment flow must be rebuilt
+ * from scratch. See git history for the original implementation.
+ * ─────────────────────────────────────────────────────────────────────────────
  */
 export default function handler(req, res) {
   return res.status(410).json({
-    error:
-      "This endpoint is no longer available. Payments are processed at https://aienter.in/payments/iiskills",
+    error: "payment_system_disabled",
+    message:
+      "The payment system is temporarily unavailable. This endpoint is also deprecated.",
   });
 }

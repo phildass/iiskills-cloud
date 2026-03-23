@@ -272,17 +272,19 @@ describe("create-purchase: config validation — correct env vars", () => {
     expect(missing).toHaveLength(0);
   });
 
-  test("verifies create-purchase source does not reference PAYMENT_SECRET", () => {
-    // Regression guard: read the actual source file and confirm PAYMENT_SECRET
-    // is not in the checkConfig call.
+  // PAYMENT_STUB: Original test verified source code for SUPABASE_SERVICE_ROLE_KEY.
+  // Since the endpoint is now a stub, we verify the stub marker is present instead.
+  test("PAYMENT_STUB: create-purchase source is a payment stub returning 503", () => {
     const fs = require("fs");
     const path = require("path");
     const src = fs.readFileSync(
       path.resolve(__dirname, "../apps/main/pages/api/payments/create-purchase.js"),
       "utf8"
     );
-    // Must check for the Supabase service role key
-    expect(src).toContain("SUPABASE_SERVICE_ROLE_KEY");
+    // PAYMENT_STUB: was expect(src).toContain("SUPABASE_SERVICE_ROLE_KEY")
+    expect(src).toContain("PAYMENT_STUB");
+    expect(src).toContain("503");
+    expect(src).toContain("payment_system_disabled");
     // Must NOT use PAYMENT_SECRET in checkConfig (it's unused in this file)
     expect(src).not.toMatch(/checkConfig\([^)]*PAYMENT_SECRET/);
   });

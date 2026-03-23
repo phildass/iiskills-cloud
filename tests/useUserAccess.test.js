@@ -78,29 +78,35 @@ describe("canAccessCourse — pure function", () => {
     ).toBe(true);
   });
 
-  it("Paid_User cannot access a different paid app", () => {
+  // PAYMENT_STUB: Previously-paid apps are now FREE. canAccessCourse now returns true
+  // for all users of formerly-paid apps. When payments are re-introduced, restore
+  // these tests to verify cross-app access restrictions.
+  it("PAYMENT_STUB: Paid_User accessing a formerly-paid app now gets access (all free)", () => {
+    // PAYMENT_STUB: was expect(false) — learn-developer is now a free app
     expect(
       canAccessCourse("learn-developer", {
         accessLevel: ACCESS_LEVEL.PAID_USER,
         appId: "learn-ai",
       })
-    ).toBe(false);
+    ).toBe(true);
   });
 
-  it("NONE cannot access any paid app", () => {
+  it("PAYMENT_STUB: NONE level can access formerly-paid apps (now free)", () => {
+    // PAYMENT_STUB: was expect(false) — all formerly-paid apps are now free
     expect(canAccessCourse("learn-ai", { accessLevel: ACCESS_LEVEL.NONE, appId: "learn-ai" })).toBe(
-      false
+      true
     );
     expect(
       canAccessCourse("learn-management", {
         accessLevel: ACCESS_LEVEL.NONE,
         appId: "learn-management",
       })
-    ).toBe(false);
+    ).toBe(true);
   });
 
-  it("null accessLevel (loading) cannot access paid content", () => {
-    expect(canAccessCourse("learn-ai", { accessLevel: null, appId: "learn-ai" })).toBe(false);
+  it("PAYMENT_STUB: null accessLevel (loading) can access formerly-paid apps (now free)", () => {
+    // PAYMENT_STUB: was expect(false) — learn-ai is now a free app
+    expect(canAccessCourse("learn-ai", { accessLevel: null, appId: "learn-ai" })).toBe(true);
   });
 
   it("is the same exported function — identical across all four paid apps", () => {
@@ -227,13 +233,18 @@ describe("accessControl.userHasAccess — admin role bypass", () => {
     expect(userHasAccess(both, "learn-pr")).toBe(true);
   });
 
-  it("regular user with role !== 'admin' does NOT get bypass", () => {
+  // PAYMENT_STUB: Previously-paid apps are now FREE, so all users get access.
+  // These tests now verify that the free-app logic doesn't break the admin bypass concept.
+  // When payments are re-introduced, restore these tests to expect false for non-admins.
+  it("PAYMENT_STUB: regular user with role !== 'admin' gets access (formerly-paid apps now free)", () => {
     const regular = { id: "u4", role: "user", app_access: [] };
-    expect(userHasAccess(regular, "learn-ai")).toBe(false);
+    // PAYMENT_STUB: was expect(false) — learn-ai is now a free app
+    expect(userHasAccess(regular, "learn-ai")).toBe(true);
   });
 
-  it("null user cannot gain access even with a spoofed role", () => {
-    expect(userHasAccess(null, "learn-ai")).toBe(false);
+  it("PAYMENT_STUB: null user gets free-app access (learn-ai is now free)", () => {
+    // PAYMENT_STUB: was expect(false) — learn-ai is now a free app
+    expect(userHasAccess(null, "learn-ai")).toBe(true);
   });
 });
 
@@ -267,12 +278,13 @@ describe("useUserAccess — admin_access URL parameter bypass", () => {
     ).toBe(true);
   });
 
-  it("PAID_USER level does NOT grant access to a different app (no URL-bypass escalation)", () => {
-    // Confirms that access gained via admin_access param (ADMIN level) is distinct
-    // from PAID_USER and cannot be trivially spoofed for cross-app escalation.
+  // PAYMENT_STUB: learn-developer is now a free app — all users get access regardless of
+  // their PAID_USER status. When payments are re-introduced, restore expect(false).
+  it("PAYMENT_STUB: formerly-paid app (learn-developer) is now free, PAID_USER gets access", () => {
+    // PAYMENT_STUB: was expect(false) — learn-developer is now a free app
     expect(
       canAccessCourse("learn-developer", { accessLevel: ACCESS_LEVEL.PAID_USER, appId: "learn-ai" })
-    ).toBe(false);
+    ).toBe(true);
   });
 });
 
@@ -387,19 +399,21 @@ describe("checkAccess — Global Admin Bypass", () => {
     expect(checkAccess(override, "learn-management")).toEqual({ granted: true });
   });
 
-  it("regular unauthenticated user is denied access to paid apps", () => {
-    expect(checkAccess(null, "learn-ai")).toEqual({ granted: false, reason: "unauthenticated" });
-    expect(checkAccess(undefined, "learn-ai")).toEqual({
-      granted: false,
-      reason: "unauthenticated",
-    });
+  // PAYMENT_STUB: Previously-paid apps are now FREE — checkAccess returns {granted:true}
+  // for all users (not just null/undefined). When payments are re-introduced, restore
+  // these tests to verify unauthenticated/non-entitled users are blocked.
+  it("PAYMENT_STUB: unauthenticated user gets free-app access to formerly-paid apps", () => {
+    // PAYMENT_STUB: was expect({ granted: false, reason: 'unauthenticated' })
+    expect(checkAccess(null, "learn-ai")).toEqual({ granted: true });
+    expect(checkAccess(undefined, "learn-ai")).toEqual({ granted: true });
   });
 
-  it("authenticated but non-entitled user is denied access to paid apps", () => {
+  it("PAYMENT_STUB: non-entitled user gets free-app access to formerly-paid apps", () => {
+    // PAYMENT_STUB: was expect(result.granted === false, reason === 'not_entitled')
     const user = { id: "u3", is_admin: false, email: "user@example.com", app_access: [] };
     const result = checkAccess(user, "learn-ai");
-    expect(result.granted).toBe(false);
-    expect(result.reason).toBe("not_entitled");
+    // PAYMENT_STUB: all formerly-paid apps are now free
+    expect(result.granted).toBe(true);
   });
 
   it("admin email check fires BEFORE is_paid (order guarantee)", () => {

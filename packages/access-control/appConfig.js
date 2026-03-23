@@ -50,13 +50,32 @@ export const BUNDLES = {
  * - bundleId: Bundle this app belongs to (null if not in a bundle)
  * - price: Default pricing if not in a bundle
  */
+// ── PAYMENT_STUB ─────────────────────────────────────────────────────────────
+// Payment / paywall system has been intentionally DISABLED.
+// All previously-paid apps are temporarily marked as FREE.
+//
+// DO NOT re-enable payments by simply changing the type back to APP_TYPE.PAID.
+// When payments are re-introduced this entire section MUST be rebuilt from
+// scratch with fresh security review, user acceptance testing, and stakeholder
+// sign-off before going live.  The old payment logic is preserved (commented)
+// in the lesson pages and payment API routes as reintroduction markers.
+//
+// Reintroduction checklist (non-exhaustive):
+//   1. Re-evaluate pricing and bundle structure
+//   2. Rebuild payment gateway integration (Razorpay / alternative)
+//   3. Re-implement entitlement granting and cache invalidation
+//   4. Full security audit of payment API routes
+//   5. User acceptance testing on staging before production deploy
+//   6. Legal / tax compliance review
+// ─────────────────────────────────────────────────────────────────────────────
 export const APPS = {
   "learn-ai": {
     id: "learn-ai",
     name: "Learn-AI",
-    type: APP_TYPE.PAID,
-    bundleId: "ai-developer-bundle",
-    price: null, // Use bundle price
+    // PAYMENT_STUB: was APP_TYPE.PAID — see reintroduction checklist above
+    type: APP_TYPE.FREE,
+    bundleId: null, // PAYMENT_STUB: was "ai-developer-bundle"
+    price: null,
   },
   "learn-apt": {
     id: "learn-apt",
@@ -75,9 +94,10 @@ export const APPS = {
   "learn-developer": {
     id: "learn-developer",
     name: "Learn-Developer",
-    type: APP_TYPE.PAID,
-    bundleId: "ai-developer-bundle",
-    price: null, // Use bundle price
+    // PAYMENT_STUB: was APP_TYPE.PAID — see reintroduction checklist above
+    type: APP_TYPE.FREE,
+    bundleId: null, // PAYMENT_STUB: was "ai-developer-bundle"
+    price: null,
   },
   "learn-geography": {
     id: "learn-geography",
@@ -89,12 +109,11 @@ export const APPS = {
   "learn-management": {
     id: "learn-management",
     name: "Learn-Management",
-    type: APP_TYPE.PAID,
+    // PAYMENT_STUB: was APP_TYPE.PAID — see reintroduction checklist above
+    type: APP_TYPE.FREE,
     bundleId: null,
-    price: {
-      introductory: 11682,
-      regular: 35282,
-    },
+    // PAYMENT_STUB: was { introductory: 11682, regular: 35282 }
+    price: null,
   },
   "learn-math": {
     id: "learn-math",
@@ -113,12 +132,11 @@ export const APPS = {
   "learn-pr": {
     id: "learn-pr",
     name: "Learn-PR",
-    type: APP_TYPE.PAID,
+    // PAYMENT_STUB: was APP_TYPE.PAID — see reintroduction checklist above
+    type: APP_TYPE.FREE,
     bundleId: null,
-    price: {
-      introductory: 11682,
-      regular: 35282,
-    },
+    // PAYMENT_STUB: was { introductory: 11682, regular: 35282 }
+    price: null,
   },
 };
 
