@@ -38,6 +38,56 @@ export const DASHBOARD_URL = "https://iiskills.cloud/dashboard";
 export interface AccessUser {
   email?: string | null;
   is_admin?: boolean | null;
+  /** Role-based admin status. `"admin"` is treated equivalently to `is_admin === true`. */
+  role?: string | null;
+  /**
+   * When `false`, the admin bypass is suppressed even if `is_admin`/`role` are set.
+   * Omitting the field (or setting it to `true`) leaves the bypass active.
+   * Defaults to `true` (unrestricted) for backward compatibility.
+   */
+  unrestricted?: boolean | null;
+}
+
+/**
+ * Centralised admin-bypass predicate — the single source of truth for
+ * "HIGH-VALUE ADMIN MODE: UNRESTRICTED ACCESS ACTIVE".
+ *
+ * Returns `true` when ALL of the following hold:
+ *   1. `user` is not null/undefined.
+ *   2. The user carries admin status via `is_admin === true` (Supabase JWT) OR
+ *      `role === "admin"` (role-based model).
+ *   3. The user has NOT been explicitly restricted (`unrestricted !== false`).
+ *      When `unrestricted` is absent the user is treated as unrestricted
+ *      (backward-compatible with pre-existing admin accounts).
+ *
+ * All access-gate functions call this function first so bypass logic is never
+ * duplicated.
+ *
+ * @param user - Partial user object. Passing null/undefined safely returns false.
+ * @returns `true` when the user is an unrestricted admin.
+ *
+ * @example
+ * // React access guard — frontend
+ * function RequireAccess({ children }: { children: React.ReactNode }) {
+ *   const { user } = useAuth();
+ *   if (isUnrestrictedAdmin(user)) return <>{children}</>; // admin bypass
+ *   if (!user?.entitlements?.includes(appId)) return <PaywallPrompt />;
+ *   return <>{children}</>;
+ * }
+ *
+ * // API/middleware authorize — backend
+ * function authorize(req: Request, res: Response, next: NextFunction) {
+ *   const user = req.user;
+ *   if (isUnrestrictedAdmin(user)) return next(); // admin bypass
+ *   if (!userHasEntitlement(user, req.appId)) return res.status(403).end();
+ *   return next();
+ * }
+ */
+export function isUnrestrictedAdmin(user: AccessUser | null | undefined): boolean {
+  if (!user) return false;
+  const isAdmin = user.is_admin === true || user.role === "admin";
+  if (!isAdmin) return false;
+  return user.unrestricted !== false;
 }
 
 /**
@@ -46,7 +96,7 @@ export interface AccessUser {
  * The Infallible Rule — the very first check before ANY other logic:
  *   • `philipda@gmail.com`  — primary product-owner override
  *   • `pda.kenya@gmail.com` — secondary product-owner override
- *   • `is_admin === true`   — any profile/JWT-flagged administrator
+ *   • `is_admin === true` / `role === "admin"` — unrestricted administrator
  *
  * If this function returns `true` the caller MUST skip all payment redirects
  * and access gates.  No other check is needed.
@@ -57,9 +107,8 @@ export interface AccessUser {
  */
 export function hasAccess(user: AccessUser | null | undefined): boolean {
   if (!user) return false;
-  if (user.email === "philipda@gmail.com" || user.email === "pda.kenya@gmail.com" || user.is_admin)
-    return true;
-  return false;
+  if (user.email === "philipda@gmail.com" || user.email === "pda.kenya@gmail.com") return true;
+  return isUnrestrictedAdmin(user);
 }
 
 /**
@@ -190,6 +239,13 @@ export interface AccessUser {
   is_admin?: boolean;
   /** User's email address, used for the product-owner bypass. */
   email?: string;
+  /** Role-based admin status. `"admin"` is equivalent to `is_admin === true`. */
+  role?: string;
+  /**
+   * When `false`, suppresses the admin bypass even if `is_admin`/`role` are set.
+   * Omitting the field (or setting it to `true`) leaves the bypass active.
+   */
+  unrestricted?: boolean;
   /** Active entitlement records embedded in the JWT app_metadata. */
   app_entitlements?: AppEntitlement[];
 }
@@ -229,9 +285,9 @@ export function checkUserAccess(user: AccessUser | null | undefined, app_id: str
   if (isFreeApp(app_id)) return { allowed: true, reason: "FREE_APP" };
 
   // Priority 2 - admin / product-owner master key
-  // Uses the PRODUCT_OWNER_EMAILS constant so both checkAccess and
-  // checkUserAccess always bypass the same set of accounts.
-  if (user?.is_admin || (user?.email != null && PRODUCT_OWNER_EMAILS.includes(user.email))) {
+  // Delegates to hasAccess() — the single source of truth — which combines
+  // product-owner email overrides and isUnrestrictedAdmin() in one call.
+  if (user != null && hasAccess(user)) {
     return { allowed: true, reason: "ADMIN_BYPASS" };
   }
 
@@ -250,6 +306,7 @@ export {
   isBundleApp,
   requiresPayment,
   userHasAccess,
+  isUnrestrictedAdmin,
   checkAccess,
   getBundleInfo,
   getAppsToUnlock,

@@ -93,8 +93,15 @@ export interface User {
   email: string;
   /** User name */
   name?: string;
-  /** Whether user is admin */
+  /** Whether user is admin (legacy Supabase JWT flag) */
   is_admin?: boolean;
+  /** Role-based admin status. `"admin"` is equivalent to `is_admin === true`. */
+  role?: "admin" | "user" | "guest" | string;
+  /**
+   * When `false`, suppresses the admin bypass even if `is_admin`/`role` are set.
+   * Omitting the field (or `true`) leaves the bypass active (default).
+   */
+  unrestricted?: boolean;
   /** Apps the user has access to */
   apps?: AppId[];
 }
@@ -330,7 +337,51 @@ export function userHasAccess(user: User | null, appId: string): boolean;
  * }
  * ```
  */
-export function hasAccess(user: { email?: string | null; is_admin?: boolean | null }): boolean;
+export function hasAccess(user: { email?: string | null; is_admin?: boolean | null; role?: string | null; unrestricted?: boolean | null }): boolean;
+
+/**
+ * Centralised admin-bypass predicate — the single source of truth for
+ * "HIGH-VALUE ADMIN MODE: UNRESTRICTED ACCESS ACTIVE".
+ *
+ * Returns `true` when ALL of the following hold:
+ *   1. `user` is not null/undefined.
+ *   2. The user carries admin status via `is_admin === true` (Supabase JWT) OR
+ *      `role === "admin"` (role-based model).
+ *   3. The user has NOT been explicitly restricted (`unrestricted !== false`).
+ *      When `unrestricted` is absent the user is treated as unrestricted
+ *      (backward-compatible with pre-existing admin accounts).
+ *
+ * Every access-gate function calls this first so bypass logic is never duplicated.
+ *
+ * @param user - Partial user object. Passing null/undefined safely returns false.
+ * @returns `true` when the user is an unrestricted admin.
+ *
+ * @example
+ * ```typescript
+ * import { isUnrestrictedAdmin } from '@iiskills/access-control';
+ *
+ * // React access guard — frontend
+ * function RequireAccess({ children }: { children: React.ReactNode }) {
+ *   const { user } = useAuth();
+ *   if (isUnrestrictedAdmin(user)) return <>{children}</>; // admin bypass
+ *   if (!user?.entitlements?.includes(appId)) return <PaywallPrompt />;
+ *   return <>{children}</>;
+ * }
+ *
+ * // API middleware — backend
+ * function authorize(req: Request, res: Response, next: NextFunction): void {
+ *   const user = req.user;
+ *   if (isUnrestrictedAdmin(user)) return next(); // admin bypass
+ *   if (!userHasEntitlement(user, req.appId)) return res.status(403).end();
+ *   return next();
+ * }
+ * ```
+ */
+export function isUnrestrictedAdmin(user: {
+  is_admin?: boolean | null;
+  role?: string | null;
+  unrestricted?: boolean | null;
+} | null | undefined): boolean;
 
 /**
  * Get bundle information for an app

@@ -30,6 +30,56 @@ import {
 export const PRODUCT_OWNER_EMAILS = Object.freeze(["philipda@gmail.com", "pda.kenya@gmail.com"]);
 
 /**
+ * Centralised admin-bypass predicate — the single source of truth for
+ * "HIGH-VALUE ADMIN MODE: UNRESTRICTED ACCESS ACTIVE".
+ *
+ * Returns `true` when ALL of the following are satisfied:
+ *   1. `user` is not null/undefined.
+ *   2. The user carries admin status via `is_admin === true` (Supabase JWT /
+ *      legacy profile flag) OR `role === "admin"` (newer role-based model).
+ *   3. The user has NOT been explicitly restricted (`unrestricted !== false`).
+ *      When the `unrestricted` field is absent the user is treated as
+ *      unrestricted — preserving backward-compatibility with existing admin
+ *      accounts that pre-date the field.
+ *
+ * All access-gate functions in this module (`hasAccess`, `checkAccess`,
+ * `checkUserAccess`, `userHasAccess`) call this function first so the bypass
+ * logic is **never** duplicated across the codebase.
+ *
+ * @param {{ is_admin?: boolean|null, role?: string|null, unrestricted?: boolean|null }|null|undefined} user
+ * @returns {boolean}
+ *
+ * @example
+ * import { isUnrestrictedAdmin } from '@iiskills/access-control';
+ *
+ * // React access guard — frontend
+ * function RequireAccess({ children }) {
+ *   const { user } = useAuth();
+ *   if (isUnrestrictedAdmin(user)) return children; // admin bypass
+ *   if (!user?.entitlements?.includes(appId)) return <PaywallPrompt />;
+ *   return children;
+ * }
+ *
+ * // API middleware — backend
+ * function authorize(req, res, next) {
+ *   const user = req.user;
+ *   if (isUnrestrictedAdmin(user)) return next(); // admin bypass
+ *   if (!userHasEntitlement(user, req.appId)) return res.status(403).end();
+ *   return next();
+ * }
+ */
+export function isUnrestrictedAdmin(user) {
+  if (!user) return false;
+  // Support both the Supabase JWT `is_admin` boolean flag and the newer `role`
+  // string field so callers do not have to normalise before calling.
+  const isAdmin = user.is_admin === true || user.role === "admin";
+  if (!isAdmin) return false;
+  // `unrestricted` defaults to true when not set (backward-compatible).
+  // An admin can be explicitly restricted by setting unrestricted: false.
+  return user.unrestricted !== false;
+}
+
+/**
  * Check if an app is free
  *
  * Free apps never require payment or authentication.
@@ -200,11 +250,9 @@ export function userHasAccess(user, appId) {
   }
 
   // Check 4: Admin users have unrestricted access to all content.
-  // Supports both the legacy `is_admin` boolean flag and the newer `role`
-  // string field (role === 'admin') so either representation grants access.
-  // Checked centrally here — individual apps must never implement their own
-  // admin bypass; they must rely on this function instead.
-  if (user.is_admin === true || user.role === "admin") {
+  // Delegates to isUnrestrictedAdmin() — the single source of truth — so the
+  // bypass logic is never duplicated across access-control functions.
+  if (isUnrestrictedAdmin(user)) {
     return true;
   }
 
@@ -249,17 +297,10 @@ export function userHasAccess(user, appId) {
  */
 export function checkAccess(user, appId) {
   // ── Priority 1: Admin bypass ──────────────────────────────────────────────
-  // Admin users and designated override accounts always get unrestricted access.
-  // This check fires BEFORE all other logic — including is_paid checks — so
-  // admins are never redirected to the payment page.
-
-  // NOTE: philipda@gmail.com and pda.kenya@gmail.com are designated product-owner
-  // override accounts, explicitly specified as hardcoded bypasses per the product
-  // requirements. To change or remove these overrides, update both this function
-  // and hasAccess() in accessControl.js / src/index.ts.
-  // Authorised emails are defined in PRODUCT_OWNER_EMAILS (same file).
-  if (user && (user.is_admin || PRODUCT_OWNER_EMAILS.includes(user.email)))
-    return { granted: true };
+  // Delegates to hasAccess() — the single source of truth — which combines
+  // product-owner email overrides and isUnrestrictedAdmin() in one call.
+  // Admins are never redirected to the payment page.
+  if (hasAccess(user)) return { granted: true };
 
   // ── Priority 2: Free apps ─────────────────────────────────────────────────
   if (isFreeApp(appId)) return { granted: true };
@@ -428,9 +469,10 @@ export function getBundleAccessMessage(appId, purchasedAppId) {
  */
 export function hasAccess(user) {
   if (!user) return false;
-  if (user.email === "philipda@gmail.com" || user.email === "pda.kenya@gmail.com" || user.is_admin)
-    return true;
-  return false;
+  // Product-owner email override (unconditional regardless of admin flag).
+  if (user.email === "philipda@gmail.com" || user.email === "pda.kenya@gmail.com") return true;
+  // Delegate admin check to the central isUnrestrictedAdmin predicate.
+  return isUnrestrictedAdmin(user);
 }
 
 /**
@@ -453,8 +495,9 @@ export function checkUserAccess(user, app_id) {
   // Free apps are always accessible
   if (isFreeApp(app_id)) return { allowed: true, reason: "FREE_APP" };
 
-  // Master Key: admin / product-owner bypass (uses shared PRODUCT_OWNER_EMAILS constant)
-  if (user?.is_admin || PRODUCT_OWNER_EMAILS.includes(user?.email)) {
+  // Master Key: delegates to hasAccess() — the single source of truth — which
+  // combines product-owner email overrides and isUnrestrictedAdmin() in one call.
+  if (user != null && hasAccess(user)) {
     return { allowed: true, reason: "ADMIN_BYPASS" };
   }
 

@@ -57,6 +57,7 @@ export {
   requiresPayment,
   userHasAccess,
   hasAccess,
+  isUnrestrictedAdmin,
   checkAccess,
   checkUserAccess,
   PRODUCT_OWNER_EMAILS,

@@ -19,12 +19,57 @@
  */
 
 /**
+ * Centralised admin-bypass predicate — the single source of truth for
+ * "HIGH-VALUE ADMIN MODE: UNRESTRICTED ACCESS ACTIVE".
+ *
+ * Returns `true` when ALL of the following hold:
+ *   1. `user` is not null/undefined.
+ *   2. The user carries admin status via `is_admin === true` (Supabase JWT) OR
+ *      `role === "admin"` (role-based model).
+ *   3. The user has NOT been explicitly restricted (`unrestricted !== false`).
+ *      When `unrestricted` is absent the user is treated as unrestricted
+ *      (backward-compatible with pre-existing admin accounts).
+ *
+ * All access-gate helpers in this module call this function first so bypass
+ * logic is never duplicated.
+ *
+ * @param {Object|null|undefined} user - Partial user object.
+ * @param {boolean|null} [user.is_admin] - Legacy Supabase admin flag.
+ * @param {string|null} [user.role] - Role string; `"admin"` grants bypass.
+ * @param {boolean|null} [user.unrestricted] - When `false`, suppresses bypass.
+ * @returns {boolean}
+ *
+ * @example
+ * // React access guard — frontend
+ * function RequireAccess({ children }) {
+ *   const { user } = useAuth();
+ *   if (isUnrestrictedAdmin(user)) return children; // admin bypass
+ *   if (!user?.entitlements?.includes(appId)) return <PaywallPrompt />;
+ *   return children;
+ * }
+ *
+ * // API middleware — backend
+ * function authorize(req, res, next) {
+ *   const user = req.user;
+ *   if (isUnrestrictedAdmin(user)) return next(); // admin bypass
+ *   if (!userHasEntitlement(user, req.appId)) return res.status(403).end();
+ *   return next();
+ * }
+ */
+export function isUnrestrictedAdmin(user) {
+  if (!user) return false;
+  const isAdmin = user.is_admin === true || user.role === "admin";
+  if (!isAdmin) return false;
+  return user.unrestricted !== false;
+}
+
+/**
  * Determine whether a user should be granted unconditional access.
  *
  * The Infallible Rule — the very first check before ANY other logic:
  *   • `philipda@gmail.com`  — primary product-owner override
  *   • `pda.kenya@gmail.com` — secondary product-owner override
- *   • `is_admin === true`   — any profile/JWT-flagged administrator
+ *   • `is_admin === true` / `role === "admin"` — unrestricted administrator
  *
  * If this function returns `true` the caller MUST skip all payment redirects
  * and access gates.  No other check is needed.
@@ -33,13 +78,14 @@
  *   Passing null/undefined safely returns false.
  * @param {string|null} [user.email] - User email address.
  * @param {boolean|null} [user.is_admin] - Whether user is an administrator.
+ * @param {string|null} [user.role] - Role string; `"admin"` grants bypass.
+ * @param {boolean|null} [user.unrestricted] - When `false`, suppresses bypass.
  * @returns {boolean} `true` when the user has unconditional admin access.
  */
 export function hasAccess(user) {
   if (!user) return false;
-  if (user.email === "philipda@gmail.com" || user.email === "pda.kenya@gmail.com" || user.is_admin)
-    return true;
-  return false;
+  if (user.email === "philipda@gmail.com" || user.email === "pda.kenya@gmail.com") return true;
+  return isUnrestrictedAdmin(user);
 }
 
 /**
