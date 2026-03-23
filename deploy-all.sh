@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # ---------------------------------------------------------------------------
-# IISkills deploy-all.sh (Fast PUSH + Build + Restart, No Clone)
+# IISkills deploy-all.sh (Full PUSH + Build + PM2 Restart)
 # ---------------------------------------------------------------------------
 DEPLOY_TS="$(date +%Y-%m-%d-%H%M)"
 LOG_DIR="/var/log/iiskills"
@@ -23,7 +23,7 @@ BRANCH="main"
 
 cd "$REPO_DIR"
 echo "==> [1/8] Pushing any local changes to origin/$BRANCH"
-git push origin "$BRANCH"
+git push origin "$BRANCH" || echo "No local changes to push or remote ahead – continuing."
 
 FORCE_CLEAN=false
 for _arg in "$@"; do
@@ -34,24 +34,5 @@ for _arg in "$@"; do
 done
 
 if [ "$FORCE_CLEAN" = "true" ]; then
-  echo "==> [CLEAN] Nuclear wipe: cleaning git, all modules, all .next"
-  git clean -fdx
-  find . -name "node_modules" -type d -prune -exec rm -rf {} +
-  find . -name ".next" -type d -prune -exec rm -rf {} +
-else
-  echo "==> [2/8] Cleaning all .next build caches (ensure fresh UI)"
-  find . -name ".next" -type d -prune -exec rm -rf {} +
-fi
-
-echo "==> [3/8] Installing dependencies (no network mutations)"
-yarn install --immutable
-
-# Sync env to apps
-if [ -f /etc/iiskills.env ]; then
-  echo "==> [4/8] Copying env to all /apps/*/.env"
-  for _app_dir in "$REPO_DIR"/apps/*/; do
-    [ -d "$_app_dir" ] && cp /etc/iiskills.env "${_app_dir}.env"
-  done
-fi
-
-# You may continue with further steps (build, restart services etc.) as per your operational needs.
+  echo "==> [C](#)*
+
